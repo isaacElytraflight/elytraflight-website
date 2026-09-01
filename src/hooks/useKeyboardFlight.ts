@@ -23,7 +23,7 @@ export function useKeyboardFlight() {
 
     const updateInput = () => {
       setInput({
-        forward: (pressed.has('KeyW') ? 1 : 0) + (pressed.has('KeyS') ? -1 : 0),
+        forward: (pressed.has('KeyW') ? -1 : 0) + (pressed.has('KeyS') ? 1 : 0),
         right: (pressed.has('KeyD') ? 1 : 0) + (pressed.has('KeyA') ? -1 : 0),
         up:
           (pressed.has('Space') ? 1 : 0) +
