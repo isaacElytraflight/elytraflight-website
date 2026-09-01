@@ -3,7 +3,7 @@ services:
     name: elytraflight-website
     runtime: static
     buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
+    staticPublishPath: ./build
     routes:
       - type: rewrite
         source: /*

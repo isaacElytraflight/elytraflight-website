@@ -46,4 +46,15 @@ The site builds to static files and deploys to Render via [`render.yaml`](render
 npm run build
 ```
 
-Render serves the `dist/` folder. Push to `main` on GitHub to trigger auto-deploy.
+Render serves the `build/` folder. Push to `main` on GitHub to trigger auto-deploy.
+
+### Render dashboard settings
+
+If deploy fails with "Empty build command" or "Publish directory does not exist", set these on your **Static Site** in the Render dashboard:
+
+| Setting | Value |
+|---|---|
+| **Build Command** | `npm run build` |
+| **Publish Directory** | `build` |
+
+Use `build` without a leading slash. The `render.yaml` in this repo is only applied if the service is created from a Blueprint; manually created services need the values above.
