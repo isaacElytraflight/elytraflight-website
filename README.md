@@ -34,6 +34,8 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173).
 
+Static sub-pages (e.g. [`/CS180Proj0`](http://localhost:5173/CS180Proj0/)) live in `public/` as standalone HTML and are copied to the build output as-is.
+
 ## Editing Content
 
 Island positions and copy live in [`src/data/sections.ts`](src/data/sections.ts). Update text, links, and project cards there without touching 3D code.
