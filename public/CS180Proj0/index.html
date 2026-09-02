@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/profile.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CS180 Project 0 — Elytraflight</title>
     <style>
@@ -212,6 +213,15 @@
         border-bottom: 1px solid rgba(110, 181, 255, 0.35);
       }
 
+      .sheet-profile {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 0.75rem;
+        border: 2px solid rgba(110, 181, 255, 0.5);
+      }
+
       .sheet-header h1 {
         font-size: 1.6rem;
         font-weight: 700;
@@ -231,6 +241,14 @@
         color: #2d5a8a;
         margin: 1.25rem 0 0.65rem;
         text-align: center;
+      }
+
+      .sheet > p,
+      .lamp-section > p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #334155;
+        margin: 0.75rem 0;
       }
 
       .photo-table {
@@ -355,8 +373,9 @@
     <main class="page">
       <article class="sheet">
         <header class="sheet-header">
-          <h1>CS 180 — Project 0</h1>
-          <p>Focal length &amp; perspective study</p>
+          <img class="sheet-profile" src="/profile.png" alt="Elytraflight profile" width="72" height="72" />
+          <h1>CS 180 — Project 0 - Isaac Jones</h1>
+          <p>"Becoming Friends with Your Camera"</p>
         </header>
 
         <h2 class="section-title">Portrait — focal length comparison</h2>
@@ -365,29 +384,32 @@
             <td>
               <figure>
                 <img src="/CS180Proj0/0.6x.jpg" alt="Portrait at 0.6x focal length" width="400" height="533" />
-                <figcaption>0.6×</figcaption>
+                <figcaption>0.6× (16 mm) at ~5 cm</figcaption>
               </figure>
             </td>
             <td>
               <figure>
                 <img src="/CS180Proj0/1x.jpg" alt="Portrait at 1x focal length" width="400" height="533" />
-                <figcaption>1×</figcaption>
+                <figcaption>1× (24 mm) at ~7 cm</figcaption>
               </figure>
             </td>
             <td>
               <figure>
                 <img src="/CS180Proj0/2x.jpg" alt="Portrait at 2x focal length" width="400" height="533" />
-                <figcaption>2×</figcaption>
+                <figcaption>2× (48 mm) at ~15 cm</figcaption>
               </figure>
             </td>
             <td>
               <figure>
                 <img src="/CS180Proj0/3.5x.jpg" alt="Portrait at 3.5x focal length" width="400" height="533" />
-                <figcaption>3.5×</figcaption>
+                <figcaption>3.5× (85 mm) at ~25 cm</figcaption>
               </figure>
             </td>
           </tr>
         </table>
+
+        <p>It's pretty interesting to see how the focal length affects the perspective of the image. It seems like this is the case because of how the rays of light intersect the camera.</p>
+        <p>For instance, look at my ears--when the phone camera is right in my face (0.6x), my ears disappear, because they are occluded by the front of my head. Conversely, moving backward "flattens" everything out more, as the rays of light are closer to parallel regardless of outward distance from the center of my face.</p>
 
         <h2 class="section-title">Facade — distance comparison</h2>
         <table class="photo-table facade-table">
@@ -407,13 +429,17 @@
           </tr>
         </table>
 
+        <p>Similar to the face example, this shows how details in the facade of the new CS building show up more when closer in. This is because smaller changes in shape result in large changes in "angle" relative to the focal point once we project onto the 2D screen for the wide close-up shot, whereas for the long-distance shot, small details in the facade are projected more or less flatly onto the screen.</p>
+
         <section class="lamp-section">
           <figure>
             <img src="/CS180Proj0/lamp.gif" alt="Lamp focal length animation" width="280" height="498" />
             <figcaption>
-              Lamp sequence — stepping through 0.6×, 1×, 2×, and 3.5× focal lengths
+              Lamp sequence (dolly zoom)
             </figcaption>
           </figure>
+
+          <p>Here's a study of dolly zoom on a lamp post near Berkeley's Strawberry Creek. You can see the trees in the background get "larger" relative to the lamp in the foreground.</p>
         </section>
       </article>
     </main>

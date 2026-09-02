@@ -8,7 +8,10 @@ export function Hud() {
   return (
     <div className="hud">
       <header className="hud-header">
-        <h1 className="hud-title">Elytraflight</h1>
+        <div className="hud-brand">
+          <img src="/profile.png" alt="" className="hud-profile" />
+          <h1 className="hud-title">Elytraflight</h1>
+        </div>
         {activeSection && (
           <span className="hud-island">Near: {activeSection.title}</span>
         )}
