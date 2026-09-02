@@ -5,9 +5,10 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: ./build
     routes:
-      - type: rewrite
+      - type: redirect
         source: /CS180Proj0
-        destination: /CS180Proj0/index.html
+        destination: /CS180Proj0/
+        status: 301
       - type: rewrite
         source: /*
         destination: /index.html
