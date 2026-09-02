@@ -190,26 +190,123 @@
         position: relative;
         z-index: 1;
         min-height: 100vh;
-        padding: 3rem 2rem;
+        padding: 2rem 1rem 3rem;
         display: flex;
         justify-content: center;
         align-items: flex-start;
       }
 
       .sheet {
-        width: min(100%, 8.5in);
-        min-height: 11in;
-        background: rgba(255, 255, 255, 0.82);
-        border: 1px solid rgba(255, 255, 255, 0.9);
+        width: min(100%, 11in);
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        box-shadow: 0 12px 40px rgba(80, 120, 180, 0.14);
+        padding: 1.5rem 1.25rem 2rem;
+      }
+
+      .sheet-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(110, 181, 255, 0.35);
+      }
+
+      .sheet-header h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #1a3a5c;
+        letter-spacing: 0.02em;
+      }
+
+      .sheet-header p {
+        margin-top: 0.35rem;
+        font-size: 0.95rem;
+        color: #4a6a8a;
+      }
+
+      .section-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #2d5a8a;
+        margin: 1.25rem 0 0.65rem;
+        text-align: center;
+      }
+
+      .photo-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0.5rem;
+        table-layout: fixed;
+      }
+
+      .photo-table td {
+        vertical-align: top;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
         border-radius: 12px;
-        box-shadow: 0 12px 40px rgba(80, 120, 180, 0.12);
-        padding: 1.25in 1in;
+        padding: 0.5rem;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      }
+
+      .photo-table figure {
+        margin: 0;
+      }
+
+      .photo-table img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.9);
+      }
+
+      .photo-table figcaption {
+        margin-top: 0.45rem;
+        text-align: center;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #3a628f;
+        letter-spacing: 0.03em;
+      }
+
+      .lamp-section {
+        margin-top: 1.75rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid rgba(110, 181, 255, 0.35);
+        text-align: center;
+      }
+
+      .lamp-section figure {
+        display: inline-block;
+        max-width: 320px;
+        margin: 0 auto;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 14px;
+        padding: 0.65rem;
+        box-shadow: 0 6px 20px rgba(100, 150, 210, 0.12);
+      }
+
+      .lamp-section img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .lamp-section figcaption {
+        margin-top: 0.6rem;
+        font-size: 0.88rem;
+        font-style: italic;
+        color: #4a6a8a;
+        line-height: 1.4;
       }
 
       @media print {
         @page {
           size: letter;
-          margin: 0;
+          margin: 0.4in;
         }
 
         body {
@@ -227,12 +324,20 @@
 
         .sheet {
           width: 100%;
-          min-height: 10in;
           border: none;
           border-radius: 0;
           box-shadow: none;
-          background: rgba(255, 255, 255, 0.9);
-          padding: 0.75in;
+          background: rgba(255, 255, 255, 0.92);
+          padding: 0;
+        }
+
+        .photo-table {
+          border-spacing: 0.35rem;
+          page-break-inside: avoid;
+        }
+
+        .lamp-section {
+          page-break-inside: avoid;
         }
       }
     </style>
@@ -248,7 +353,69 @@
     </div>
 
     <main class="page">
-      <article class="sheet"></article>
+      <article class="sheet">
+        <header class="sheet-header">
+          <h1>CS 180 — Project 0</h1>
+          <p>Focal length &amp; perspective study</p>
+        </header>
+
+        <h2 class="section-title">Portrait — focal length comparison</h2>
+        <table class="photo-table zoom-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="0.6x.jpg" alt="Portrait at 0.6x focal length" width="400" height="533" />
+                <figcaption>0.6×</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="1x.jpg" alt="Portrait at 1x focal length" width="400" height="533" />
+                <figcaption>1×</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="2x.jpg" alt="Portrait at 2x focal length" width="400" height="533" />
+                <figcaption>2×</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="3.5x.jpg" alt="Portrait at 3.5x focal length" width="400" height="533" />
+                <figcaption>3.5×</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+
+        <h2 class="section-title">Facade — distance comparison</h2>
+        <table class="photo-table facade-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="close_up_facade.jpg" alt="Close-up facade" width="600" height="800" />
+                <figcaption>Close-up facade</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="distanced_facade.jpg" alt="Distanced facade" width="600" height="800" />
+                <figcaption>Distanced facade</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+
+        <section class="lamp-section">
+          <figure>
+            <img src="lamp.gif" alt="Lamp focal length animation" width="280" height="498" />
+            <figcaption>
+              Lamp sequence — stepping through 0.6×, 1×, 2×, and 3.5× focal lengths
+            </figcaption>
+          </figure>
+        </section>
+      </article>
     </main>
   </body>
 </html>
