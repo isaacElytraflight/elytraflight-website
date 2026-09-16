@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/profile.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CS180 Project 1 — Elytraflight</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+      }
+
+      body {
+        font-family: Georgia, 'Times New Roman', serif;
+        color: #1a3a5c;
+        background: linear-gradient(180deg, #7ec0ff 0%, #b8dcff 42%, #ffe8c8 100%);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .sky {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        z-index: 0;
+        background: linear-gradient(180deg, #6eb5ff 0%, #9fd0ff 38%, #ffd9a8 100%);
+      }
+
+      .cloud {
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+        filter: drop-shadow(0 8px 18px rgba(120, 160, 210, 0.18));
+      }
+
+      .cloud::before,
+      .cloud::after {
+        content: '';
+        position: absolute;
+        background: inherit;
+        border-radius: 50%;
+      }
+
+      .cloud-1 {
+        width: 120px;
+        height: 48px;
+        top: 12%;
+        left: 8%;
+        border-radius: 40px;
+      }
+
+      .cloud-1::before {
+        width: 56px;
+        height: 56px;
+        top: -28px;
+        left: 18px;
+      }
+
+      .cloud-1::after {
+        width: 72px;
+        height: 72px;
+        top: -36px;
+        right: 16px;
+      }
+
+      .cloud-2 {
+        width: 160px;
+        height: 56px;
+        top: 22%;
+        right: 10%;
+        border-radius: 48px;
+        opacity: 0.95;
+      }
+
+      .cloud-2::before {
+        width: 70px;
+        height: 70px;
+        top: -34px;
+        left: 24px;
+      }
+
+      .cloud-2::after {
+        width: 88px;
+        height: 88px;
+        top: -42px;
+        right: 20px;
+      }
+
+      .cloud-3 {
+        width: 200px;
+        height: 64px;
+        bottom: 28%;
+        left: 14%;
+        border-radius: 56px;
+        opacity: 0.92;
+      }
+
+      .cloud-3::before {
+        width: 84px;
+        height: 84px;
+        top: -40px;
+        left: 30px;
+      }
+
+      .cloud-3::after {
+        width: 104px;
+        height: 104px;
+        top: -50px;
+        right: 28px;
+      }
+
+      .cloud-4 {
+        width: 140px;
+        height: 52px;
+        bottom: 18%;
+        right: 16%;
+        border-radius: 44px;
+      }
+
+      .cloud-4::before {
+        width: 62px;
+        height: 62px;
+        top: -30px;
+        left: 20px;
+      }
+
+      .cloud-4::after {
+        width: 78px;
+        height: 78px;
+        top: -36px;
+        right: 18px;
+      }
+
+      .cloud-5 {
+        width: 110px;
+        height: 44px;
+        top: 48%;
+        left: 42%;
+        border-radius: 36px;
+        opacity: 0.88;
+      }
+
+      .cloud-5::before {
+        width: 50px;
+        height: 50px;
+        top: -24px;
+        left: 14px;
+      }
+
+      .cloud-5::after {
+        width: 64px;
+        height: 64px;
+        top: -30px;
+        right: 12px;
+      }
+
+      .cloud-6 {
+        width: 180px;
+        height: 60px;
+        top: 8%;
+        left: 48%;
+        border-radius: 50px;
+        opacity: 0.9;
+      }
+
+      .cloud-6::before {
+        width: 76px;
+        height: 76px;
+        top: -36px;
+        left: 28px;
+      }
+
+      .cloud-6::after {
+        width: 92px;
+        height: 92px;
+        top: -44px;
+        right: 24px;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        padding: 2rem 1rem 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      .sheet {
+        width: min(100%, 11in);
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        box-shadow: 0 12px 40px rgba(80, 120, 180, 0.14);
+        padding: 1.5rem 1.25rem 2rem;
+      }
+
+      .sheet-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(110, 181, 255, 0.35);
+      }
+
+      .sheet-profile {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 0.75rem;
+        border: 2px solid rgba(110, 181, 255, 0.5);
+      }
+
+      .sheet-header h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #1a3a5c;
+        letter-spacing: 0.02em;
+      }
+
+      .sheet-header p {
+        margin-top: 0.35rem;
+        font-size: 0.95rem;
+        color: #4a6a8a;
+      }
+
+      .section-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #2d5a8a;
+        margin: 1.25rem 0 0.65rem;
+        text-align: center;
+      }
+
+      .sheet > p,
+      .lamp-section > p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #334155;
+        margin: 0.75rem 0;
+      }
+
+      .photo-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0.5rem;
+        table-layout: fixed;
+      }
+
+      .photo-table td {
+        vertical-align: top;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 12px;
+        padding: 0.5rem;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      }
+
+      .photo-table figure {
+        margin: 0;
+      }
+
+      .photo-table img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.9);
+      }
+
+      .photo-table figcaption {
+        margin-top: 0.45rem;
+        text-align: center;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #3a628f;
+        letter-spacing: 0.03em;
+      }
+
+      .lamp-section {
+        margin-top: 1.75rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid rgba(110, 181, 255, 0.35);
+        text-align: center;
+      }
+
+      .lamp-section figure {
+        display: inline-block;
+        max-width: 320px;
+        margin: 0 auto;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 14px;
+        padding: 0.65rem;
+        box-shadow: 0 6px 20px rgba(100, 150, 210, 0.12);
+      }
+
+      .lamp-section img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .lamp-section figcaption {
+        margin-top: 0.6rem;
+        font-size: 0.88rem;
+        font-style: italic;
+        color: #4a6a8a;
+        line-height: 1.4;
+      }
+
+      @media print {
+        @page {
+          size: letter;
+          margin: 0.4in;
+        }
+
+        body {
+          background: #b8dcff;
+        }
+
+        .sky {
+          position: absolute;
+        }
+
+        .page {
+          min-height: auto;
+          padding: 0;
+        }
+
+        .sheet {
+          width: 100%;
+          border: none;
+          border-radius: 0;
+          box-shadow: none;
+          background: rgba(255, 255, 255, 0.92);
+          padding: 0;
+        }
+
+        .photo-table {
+          border-spacing: 0.35rem;
+          page-break-inside: avoid;
+        }
+
+        .lamp-section {
+          page-break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sky" aria-hidden="true">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+      <div class="cloud cloud-4"></div>
+      <div class="cloud cloud-5"></div>
+      <div class="cloud cloud-6"></div>
+    </div>
+
+    <main class="page">
+      <article class="sheet">
+        <header class="sheet-header">
+          <img class="sheet-profile" src="/profile.png" alt="Elytraflight profile" width="72" height="72" />
+          <h1>CS 180 — Project 1 - Isaac Jones</h1>
+          <p><!-- Project subtitle --></p>
+        </header>
+
+        <!-- Add sections below using .section-title, .photo-table, and .lamp-section -->
+      </article>
+    </main>
+  </body>
+</html>

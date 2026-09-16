@@ -34,7 +34,7 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173).
 
-Static sub-pages (e.g. [`/CS180Proj0`](http://localhost:5173/CS180Proj0/)) live in `public/` as standalone HTML and are copied to the build output as-is.
+Static sub-pages (e.g. [`/CS180Proj0`](http://localhost:5173/CS180Proj0/), [`/CS180Proj1`](http://localhost:5173/CS180Proj1/)) live in `public/` as standalone HTML and are copied to the build output as-is.
 
 ## Editing Content
 
