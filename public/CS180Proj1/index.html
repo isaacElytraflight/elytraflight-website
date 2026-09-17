@@ -239,16 +239,63 @@
         font-size: 1rem;
         font-weight: 600;
         color: #2d5a8a;
-        margin: 1.25rem 0 0.65rem;
+        margin: 1.75rem 0 0.65rem;
         text-align: center;
       }
 
       .sheet > p,
-      .lamp-section > p {
+      .demo-section > p,
+      .carousel-section > p {
         font-size: 0.95rem;
         line-height: 1.6;
         color: #334155;
         margin: 0.75rem 0;
+      }
+
+      .algo-list {
+        margin: 0.5rem 0 1rem 1.25rem;
+        padding: 0;
+        font-size: 0.95rem;
+        line-height: 1.55;
+        color: #334155;
+      }
+
+      .algo-list li {
+        margin: 0.45rem 0;
+      }
+
+      .demo-section {
+        margin-top: 0.5rem;
+        text-align: center;
+      }
+
+      .demo-section figure,
+      .media-frame {
+        display: inline-block;
+        max-width: min(100%, 420px);
+        margin: 0.75rem auto 0;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 14px;
+        padding: 0.65rem;
+        box-shadow: 0 6px 20px rgba(100, 150, 210, 0.12);
+      }
+
+      .demo-section img,
+      .media-frame img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .demo-section figcaption,
+      .media-frame figcaption {
+        margin-top: 0.6rem;
+        font-size: 0.88rem;
+        font-style: italic;
+        color: #4a6a8a;
+        line-height: 1.4;
       }
 
       .photo-table {
@@ -256,6 +303,7 @@
         border-collapse: separate;
         border-spacing: 0.5rem;
         table-layout: fixed;
+        margin-top: 0.5rem;
       }
 
       .photo-table td {
@@ -288,37 +336,119 @@
         letter-spacing: 0.03em;
       }
 
-      .lamp-section {
-        margin-top: 1.75rem;
-        padding-top: 1.25rem;
-        border-top: 1px solid rgba(110, 181, 255, 0.35);
+      .placeholder-gif {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 220px;
+        background: rgba(255, 255, 255, 0.55);
+        border: 1px dashed rgba(110, 181, 255, 0.65);
+        border-radius: 10px;
+        color: #4a6a8a;
+        font-size: 0.9rem;
+        font-style: italic;
+        padding: 1rem;
         text-align: center;
       }
 
-      .lamp-section figure {
-        display: inline-block;
-        max-width: 320px;
-        margin: 0 auto;
+      .carousel-section {
+        margin-top: 0.5rem;
+      }
+
+      .carousel {
+        position: relative;
+        margin: 0.85rem auto 0;
+        max-width: 560px;
         background: rgba(240, 248, 255, 0.75);
         border: 1px solid rgba(158, 200, 255, 0.45);
         border-radius: 14px;
-        padding: 0.65rem;
+        padding: 0.85rem 2.75rem 1rem;
         box-shadow: 0 6px 20px rgba(100, 150, 210, 0.12);
+        text-align: center;
       }
 
-      .lamp-section img {
+      .carousel-image-wrap {
+        cursor: pointer;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.5);
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+      }
+
+      .carousel-image-wrap img {
         display: block;
         width: 100%;
         height: auto;
-        border-radius: 10px;
+        max-height: 640px;
+        object-fit: contain;
+        background: rgba(255, 255, 255, 0.65);
       }
 
-      .lamp-section figcaption {
-        margin-top: 0.6rem;
+      .carousel-meta {
+        margin-top: 0.7rem;
         font-size: 0.88rem;
+        color: #3a628f;
+        line-height: 1.45;
+      }
+
+      .carousel-meta strong {
+        color: #1a3a5c;
+      }
+
+      .carousel-hint {
+        margin-top: 0.25rem;
+        font-size: 0.8rem;
         font-style: italic;
-        color: #4a6a8a;
-        line-height: 1.4;
+        color: #6a849e;
+      }
+
+      .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 2.25rem;
+        height: 2.25rem;
+        border: 1px solid rgba(158, 200, 255, 0.7);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.92);
+        color: #1a3a5c;
+        font-size: 1.15rem;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(80, 120, 180, 0.12);
+      }
+
+      .carousel-btn:hover {
+        background: #fff;
+      }
+
+      .carousel-btn.prev {
+        left: 0.4rem;
+      }
+
+      .carousel-btn.next {
+        right: 0.4rem;
+      }
+
+      .code-box {
+        margin: 0.85rem 0 0.5rem;
+        background: rgba(26, 58, 92, 0.92);
+        color: #e8f2ff;
+        border-radius: 12px;
+        border: 1px solid rgba(158, 200, 255, 0.35);
+        padding: 0.85rem 1rem;
+        overflow-x: hidden;
+        font-family: Consolas, 'Courier New', monospace;
+        font-size: 0.78rem;
+        line-height: 1.45;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
       }
 
       @media print {
@@ -349,13 +479,8 @@
           padding: 0;
         }
 
-        .photo-table {
-          border-spacing: 0.35rem;
-          page-break-inside: avoid;
-        }
-
-        .lamp-section {
-          page-break-inside: avoid;
+        .carousel-btn {
+          display: none;
         }
       }
     </style>
@@ -375,11 +500,352 @@
         <header class="sheet-header">
           <img class="sheet-profile" src="/profile.png" alt="Elytraflight profile" width="72" height="72" />
           <h1>CS 180 — Project 1 - Isaac Jones</h1>
-          <p><!-- Project subtitle --></p>
+          <p>Images of the Russian Empire: Colorizing the Prokudin-Gorskii photo collection</p>
         </header>
 
-        <!-- Add sections below using .section-title, .photo-table, and .lamp-section -->
+        <p>
+          Long before the first true color photograph, a man named Sergei Mikhailovich Prokudin-Gorskii
+          was thinking far ahead of his time. In the early 1900's, not long after the first
+          <em>black and white</em> photographs were being taken, Gorskii toured around Tsarist Russia,
+          taking pictures of everything he found relevant. The catch was that, instead of regular black
+          and white photos, he used three separate color filters: one for red, one for green, and one
+          for blue. This resulted in a stack of images, each of which were still black and white; but,
+          Gorskii reasoned, eventually scientists would be able to overlay the images and display his
+          photos in their original, vibrant color.
+        </p>
+        <p>
+          Gorskii was right. And that's exactly what this project is all about--taking photos that are
+          over a century old and bringing them back to life, with the help of computational photography
+          techniques.
+        </p>
+
+        <h2 class="section-title">From strip to color — process demo</h2>
+        <section class="demo-section">
+          <p>
+            Below is a walkthrough of the pipeline on <em>self_portrait</em>: take the stacked plate,
+            split the B/G/R channels, colorize each, then stack them into a single RGB image.
+          </p>
+          <figure class="media-frame" style="max-width: min(100%, 420px)">
+            <img
+              id="process-demo-gif"
+              src="/CS180Proj1/process_self_portrait.gif"
+              alt="Process demo: strip to colorized self portrait"
+              width="420"
+              height="560"
+            />
+            <figcaption>Process demo using <code>self_portrait</code></figcaption>
+          </figure>
+        </section>
+
+        <h2 class="section-title">The naive approach</h2>
+        <section class="demo-section">
+          <p>
+            The naive approach simply goes through every single possible pixel alignment option within
+            a boundary until it finds the best one. By default, I chose +/- 15 pixels. This works well
+            on small jpg images, but was way too slow for the large binary TIF images.
+          </p>
+          <figure class="media-frame" style="max-width: min(100%, 360px)">
+            <img
+              id="naive-demo-gif"
+              src="/CS180Proj1/naive_search.gif"
+              alt="Naive search: cathedral red channel aligning to blue by brute force"
+              width="356"
+              height="380"
+            />
+            <figcaption>
+              Brute-force displacement search on <code>cathedral</code> — red aligning to blue
+            </figcaption>
+          </figure>
+        </section>
+
+        <h2 class="section-title">Naive results — click to toggle original / colorized</h2>
+        <section class="carousel-section">
+          <p>
+            Scroll through the three images colorized with the naive search. Click the image to switch
+            between the uncolorized glass-plate strip and the colorized output.
+          </p>
+          <div class="carousel" id="naive-carousel" data-carousel="naive" aria-label="Naive colorization carousel">
+            <button type="button" class="carousel-btn prev" aria-label="Previous image">‹</button>
+            <div class="carousel-image-wrap" tabindex="0" role="button" aria-label="Toggle original and colorized">
+              <img alt="" />
+            </div>
+            <button type="button" class="carousel-btn next" aria-label="Next image">›</button>
+            <div class="carousel-meta">
+              <div class="carousel-title"></div>
+              <div class="carousel-mode"></div>
+              <div class="carousel-hint">Click image to toggle · use arrows to browse</div>
+            </div>
+          </div>
+        </section>
+
+        <h2 class="section-title">Measuring similarity with NCC</h2>
+        <p>
+          So then, we must ask the question: "How do we determine if two images overlap well, so that
+          the brute force algorithm knows how to identify a match?" There are several ways of doing
+          this, but I implemented a form of NCC (Normalized Cross-Correlation) comparison. The idea is
+          that we normalize the two images we want to compare, so that their average is "0". We then
+          stretch them out into one, massive 1D vector. What this lets us do is take the
+          <strong>dot product</strong> of the two vectors, to get a score for how aligned the image
+          vectors are! If the image vectors are off by a certain offset, their pixel values will not
+          line up, and likely cancel each other out; whereas an aligned image has a very high dot
+          product, as each peak in one image amplifies the identical peak in the other image, etc.
+        </p>
+        <p>
+          This is how NCC works. In my specific version, I divide by the dot product of img2 with
+          itself; this is to yield a metric I call "cosine similarity" in my code. It's called this
+          because the cosine of the angle between two vectors in N dimensions is their dot product
+          divided by the product of the magnitude of both vectors. I got a bit confused while coding,
+          because dividing the magnitude of img2 squared is NOT technically cosine similarity--rather,
+          it's the multiplier for img1 if we wanted to project it onto the span of img2! That's okay
+          for this situation, though, because as long as im1 and im2 are just shifted versions of each
+          other, they have the same Euclidean magnitude, meaning it is functionally equal to cosine
+          similarity. It's also important to note that, since im1 is shifting and im2 is notably
+          <strong>not</strong> shifting, dividing by the square magntidue of im2 has
+          <strong>no</strong> effect on the final result compared to comparing the dot product
+          directly, as true NCC does; I just did it this way so I can keep the NCC score between 0 and
+          1 for easy readability during the debugging process. It also means that smaller or bigger
+          images stay on the same scale!
+        </p>
+        <p>Here is the scoring function I used:</p>
+        <pre class="code-box" contenteditable="true" spellcheck="false">def cosineScore(im1, im2):
+    # Effectively NCC, with img2 size normalization (easier to debug).
+    img1 = im1[:].copy()
+    img2 = im2[:].copy()
+    img1 = img1.reshape(-1)
+    img2 = img2.reshape(-1)
+    img1 -= np.mean(img1)
+    img2 -= np.mean(img2)
+    img1 /= np.std(img1)
+    img2 /= np.std(img2)
+    return np.dot(img1, img2) / np.dot(img2, img2)</pre>
+
+        <h2 class="section-title">Image pyramids</h2>
+        <section class="demo-section">
+          <p>
+            Now, we get to the much more difficult part, image pyramid alignment. The essential idea is
+            shown in the GIF below: make image alignment O(log(size)) rather than O(size) by aligning
+            successively scaled-down versions of the image.
+          </p>
+          <p>The way I implemented this is as follows:</p>
+          <p><strong>def align:</strong></p>
+          <ol class="algo-list">
+            <li>If the image is smaller than 200 pixels, use the naive brute force approach.</li>
+            <li>
+              Otherwise, recursively call align on a version of the image that is shrunk down by a
+              particular "cut Rate" on both axes. I choose 2 for the cut rate.
+            </li>
+            <li>
+              Take the "x" and "y" values that the smaller version of myself outputted as the shift; then
+              multiply those "x" and "y" values by the cut Rate, shift the image over by that rough
+              value. At this point, the image should again be roughly "centered" about (0, 0) again, at
+              least on a smaller scale.
+            </li>
+            <li>Call bruteforce align for fine alignment on this roughly-aligned version of the image.</li>
+            <li>
+              Add up the rough and fine adjustments, shift the picture accordingly, and return the final
+              "x" and "y" along with the image, in case it's needed up stream for a larger version of
+              myself
+            </li>
+          </ol>
+          <figure class="media-frame" style="max-width: min(100%, 560px)">
+            <img
+              id="pyramid-demo-gif"
+              src="/CS180Proj1/pyramid_self_portrait.gif"
+              alt="Image pyramid alignment demo on self portrait"
+              width="560"
+              height="420"
+            />
+            <figcaption>Multiscale alignment with an image pyramid</figcaption>
+          </figure>
+        </section>
+
+        <h2 class="section-title">Strong results — click to toggle original / colorized</h2>
+        <section class="carousel-section">
+          <p>
+            These seventeen images were aligned with the pyramid method. Click any frame to compare the
+            original strip with the colorized result.
+          </p>
+          <div class="carousel" id="strong-carousel" data-carousel="strong" aria-label="Strong colorization carousel">
+            <button type="button" class="carousel-btn prev" aria-label="Previous image">‹</button>
+            <div class="carousel-image-wrap" tabindex="0" role="button" aria-label="Toggle original and colorized">
+              <img alt="" />
+            </div>
+            <button type="button" class="carousel-btn next" aria-label="Next image">›</button>
+            <div class="carousel-meta">
+              <div class="carousel-title"></div>
+              <div class="carousel-mode"></div>
+              <div class="carousel-hint">Click image to toggle · use arrows to browse</div>
+            </div>
+          </div>
+        </section>
+
+        <h2 class="section-title">Bells and Whistles</h2>
+        <section class="carousel-section">
+          <p>
+            One bell and whistle I wanted to implement was automatic white balancing. It's not super
+            sophisticated, but I went off of the principle that, in a balanced picture, the average
+            value for the red channel, the green channel, and the blue channel, should be roughly
+            identical. So I found the mean of each, and normalized each color channel to the overall
+            mean value of the entire picture.
+          </p>
+          <pre class="code-box" contenteditable="true" spellcheck="false">means = np.mean(im_out, (0, 1))
+OVERALL = np.mean(means)
+
+multipliers = OVERALL/means
+
+im_out[:, :]*=multipliers
+means = np.mean(im_out, (0, 1))
+#print(means)
+im_out = np.clip(im_out, 0, 1)</pre>
+          <h3 class="section-title" style="margin-top: 1.5rem">Self portrait — before / after white balance</h3>
+          <table class="photo-table">
+            <tr>
+              <td>
+                <figure>
+                  <img
+                    src="/CS180Proj1/out/self_portrait_before_wb.png"
+                    alt="Self portrait before white balance"
+                    width="600"
+                    height="512"
+                  />
+                  <figcaption>Before white balance</figcaption>
+                </figure>
+              </td>
+              <td>
+                <figure>
+                  <img
+                    src="/CS180Proj1/out/self_portrait_after_wb.png"
+                    alt="Self portrait after white balance"
+                    width="600"
+                    height="512"
+                  />
+                  <figcaption>After white balance</figcaption>
+                </figure>
+              </td>
+            </tr>
+          </table>
+          <p>
+            The effect is subtle, but we can see on the right that the whole picture is a bit
+            green-tinted. In the right image, however, the brownish rocks are more brown, as they are
+            supposed to be!
+          </p>
+        </section>
+
+        <h2 class="section-title">AI Usage Acknowledgment</h2>
+        <section class="carousel-section">
+          <p>
+            All code pertaining to the project deliverables was written entirely by me, in Visual Studio
+            Code rather than my main IDE, Cursor--painstakingly over the course of several hours, with
+            zero help from AI. I wrote the naive and pyramid image colorizers myself.
+          </p>
+          <p>
+            Also written by me is all of the paragraphs of explanation in this project website, in my
+            own voice, also not AI assisted.
+          </p>
+          <p><strong>What was AI:</strong></p>
+          <p>
+            Operating within the AI rules of the course, I used AI to compile the HTML for this website,
+            supplying it with the finished deliverable images and original shots. I then talked back and
+            forth with the AI to beautify the website, and make it interesting, by adding image
+            carousels, specialized gifs, etc.
+          </p>
+          <p>One example of a prompt I used is as follows:</p>
+          <pre class="code-box" contenteditable="false" spellcheck="false">Can you make the GIF now for the process demo with self_portrait? You can use parts of my code in "colorize_isaac_jones.py" to capture intermediate steps of self_portrait and use a python library to make the animation.
+
+It should show the grayscale stacked image, being split up into 3, colored with the right color channel, and then show the red and the green ones moving over top of the blue channel to show the final picture.</pre>
+        </section>
       </article>
     </main>
+
+    <script>
+      const BASE = '/CS180Proj1';
+
+      const naiveSlides = [
+        {
+          title: 'Cathedral',
+          original: `${BASE}/uncolorized/cathedral.jpg`,
+          colorized: `${BASE}/out/naive_cathedral.png`,
+        },
+        {
+          title: 'Monastery',
+          original: `${BASE}/uncolorized/monastery.jpg`,
+          colorized: `${BASE}/out/naive_monastery.png`,
+        },
+        {
+          title: 'Tobolsk',
+          original: `${BASE}/uncolorized/tobolsk.jpg`,
+          colorized: `${BASE}/out/naive_tobolsk.png`,
+        },
+      ];
+
+      const strongSlides = [
+        { title: 'Cathedral', original: `${BASE}/uncolorized/cathedral.jpg`, colorized: `${BASE}/out/strong_cathedral.png` },
+        { title: 'Church', original: `${BASE}/uncolorized/church.png`, colorized: `${BASE}/out/strong_church.png` },
+        { title: 'Emir', original: `${BASE}/uncolorized/emir.png`, colorized: `${BASE}/out/strong_emir.png` },
+        { title: 'Facade', original: `${BASE}/uncolorized/facade.png`, colorized: `${BASE}/out/strong_facade.png` },
+        { title: 'Harvesters', original: `${BASE}/uncolorized/harvesters.png`, colorized: `${BASE}/out/strong_harvesters.png` },
+        { title: 'Icon', original: `${BASE}/uncolorized/icon.png`, colorized: `${BASE}/out/strong_icon.png` },
+        { title: 'Ilemselga', original: `${BASE}/uncolorized/ilemselga.png`, colorized: `${BASE}/out/strong_ilemselga.png` },
+        { title: 'Kivach', original: `${BASE}/uncolorized/kivach.png`, colorized: `${BASE}/out/strong_kivach.png` },
+        { title: 'Melons', original: `${BASE}/uncolorized/melons.png`, colorized: `${BASE}/out/strong_melons.png` },
+        { title: 'Monastery', original: `${BASE}/uncolorized/monastery.jpg`, colorized: `${BASE}/out/strong_monastery.png` },
+        { title: 'Religious painting', original: `${BASE}/uncolorized/religous_painting.png`, colorized: `${BASE}/out/strong_religious_painting.png` },
+        { title: 'Self portrait', original: `${BASE}/uncolorized/self_portrait.png`, colorized: `${BASE}/out/strong_self_portrait.png` },
+        { title: 'Siren', original: `${BASE}/uncolorized/siren.png`, colorized: `${BASE}/out/strong_siren.png` },
+        { title: 'Three generations', original: `${BASE}/uncolorized/three_generations.png`, colorized: `${BASE}/out/strong_three_generations.png` },
+        { title: 'Tobolsk', original: `${BASE}/uncolorized/tobolsk.jpg`, colorized: `${BASE}/out/strong_tobolsk.png` },
+        { title: 'Uralie', original: `${BASE}/uncolorized/uralie.png`, colorized: `${BASE}/out/strong_uralie.png` },
+        { title: 'Wharf', original: `${BASE}/uncolorized/wharf.png`, colorized: `${BASE}/out/strong_wharf.png` },
+      ];
+
+      function createCarousel(root, slides) {
+        let index = 0;
+        let showingColorized = true;
+
+        const img = root.querySelector('img');
+        const titleEl = root.querySelector('.carousel-title');
+        const modeEl = root.querySelector('.carousel-mode');
+        const wrap = root.querySelector('.carousel-image-wrap');
+
+        function render() {
+          const slide = slides[index];
+          const src = showingColorized ? slide.colorized : slide.original;
+          img.src = src;
+          img.alt = `${slide.title} — ${showingColorized ? 'colorized' : 'original'}`;
+          titleEl.innerHTML = `<strong>${slide.title}</strong> (${index + 1} / ${slides.length})`;
+          modeEl.textContent = showingColorized ? 'Showing: colorized' : 'Showing: original strip';
+        }
+
+        root.querySelector('.prev').addEventListener('click', () => {
+          index = (index - 1 + slides.length) % slides.length;
+          showingColorized = true;
+          render();
+        });
+
+        root.querySelector('.next').addEventListener('click', () => {
+          index = (index + 1) % slides.length;
+          showingColorized = true;
+          render();
+        });
+
+        wrap.addEventListener('click', () => {
+          showingColorized = !showingColorized;
+          render();
+        });
+
+        wrap.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            showingColorized = !showingColorized;
+            render();
+          }
+        });
+
+        render();
+      }
+
+      createCarousel(document.getElementById('naive-carousel'), naiveSlides);
+      createCarousel(document.getElementById('strong-carousel'), strongSlides);
+    </script>
   </body>
 </html>
