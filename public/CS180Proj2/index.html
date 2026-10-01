@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/profile.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CS180 Project 2 — Elytraflight</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+      }
+
+      body {
+        font-family: Georgia, 'Times New Roman', serif;
+        color: #1a3a5c;
+        background: linear-gradient(180deg, #7ec0ff 0%, #b8dcff 42%, #ffe8c8 100%);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .sky {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        z-index: 0;
+        background: linear-gradient(180deg, #6eb5ff 0%, #9fd0ff 38%, #ffd9a8 100%);
+      }
+
+      .cloud {
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+        filter: drop-shadow(0 8px 18px rgba(120, 160, 210, 0.18));
+      }
+
+      .cloud::before,
+      .cloud::after {
+        content: '';
+        position: absolute;
+        background: inherit;
+        border-radius: 50%;
+      }
+
+      .cloud-1 {
+        width: 120px;
+        height: 48px;
+        top: 12%;
+        left: 8%;
+        border-radius: 40px;
+      }
+
+      .cloud-1::before {
+        width: 56px;
+        height: 56px;
+        top: -28px;
+        left: 18px;
+      }
+
+      .cloud-1::after {
+        width: 72px;
+        height: 72px;
+        top: -36px;
+        right: 16px;
+      }
+
+      .cloud-2 {
+        width: 160px;
+        height: 56px;
+        top: 22%;
+        right: 10%;
+        border-radius: 48px;
+        opacity: 0.95;
+      }
+
+      .cloud-2::before {
+        width: 70px;
+        height: 70px;
+        top: -34px;
+        left: 24px;
+      }
+
+      .cloud-2::after {
+        width: 88px;
+        height: 88px;
+        top: -42px;
+        right: 20px;
+      }
+
+      .cloud-3 {
+        width: 200px;
+        height: 64px;
+        bottom: 28%;
+        left: 14%;
+        border-radius: 56px;
+        opacity: 0.92;
+      }
+
+      .cloud-3::before {
+        width: 84px;
+        height: 84px;
+        top: -40px;
+        left: 30px;
+      }
+
+      .cloud-3::after {
+        width: 104px;
+        height: 104px;
+        top: -50px;
+        right: 28px;
+      }
+
+      .cloud-4 {
+        width: 140px;
+        height: 52px;
+        bottom: 18%;
+        right: 16%;
+        border-radius: 44px;
+      }
+
+      .cloud-4::before {
+        width: 62px;
+        height: 62px;
+        top: -30px;
+        left: 20px;
+      }
+
+      .cloud-4::after {
+        width: 78px;
+        height: 78px;
+        top: -36px;
+        right: 18px;
+      }
+
+      .cloud-5 {
+        width: 110px;
+        height: 44px;
+        top: 48%;
+        left: 42%;
+        border-radius: 36px;
+        opacity: 0.88;
+      }
+
+      .cloud-5::before {
+        width: 50px;
+        height: 50px;
+        top: -24px;
+        left: 14px;
+      }
+
+      .cloud-5::after {
+        width: 64px;
+        height: 64px;
+        top: -30px;
+        right: 12px;
+      }
+
+      .cloud-6 {
+        width: 180px;
+        height: 60px;
+        top: 8%;
+        left: 48%;
+        border-radius: 50px;
+        opacity: 0.9;
+      }
+
+      .cloud-6::before {
+        width: 76px;
+        height: 76px;
+        top: -36px;
+        left: 28px;
+      }
+
+      .cloud-6::after {
+        width: 92px;
+        height: 92px;
+        top: -44px;
+        right: 24px;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        padding: 2rem 1rem 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      .sheet {
+        width: min(100%, 11in);
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        box-shadow: 0 12px 40px rgba(80, 120, 180, 0.14);
+        padding: 1.5rem 1.25rem 2rem;
+      }
+
+      .sheet-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(110, 181, 255, 0.35);
+      }
+
+      .sheet-profile {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 0.75rem;
+        border: 2px solid rgba(110, 181, 255, 0.5);
+      }
+
+      .sheet-header h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #1a3a5c;
+        letter-spacing: 0.02em;
+      }
+
+      .sheet-header p {
+        margin-top: 0.35rem;
+        font-size: 0.95rem;
+        color: #4a6a8a;
+      }
+
+      .section-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #2d5a8a;
+        margin: 1.75rem 0 0.65rem;
+        text-align: center;
+      }
+
+      h3.section-title {
+        font-size: 0.92rem;
+        margin-top: 1.45rem;
+        margin-bottom: 0.45rem;
+      }
+
+      .sheet > p,
+      .demo-section > p,
+      .carousel-section > p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #334155;
+        margin: 0.75rem 0;
+      }
+
+      .algo-list {
+        margin: 0.5rem 0 1rem 1.25rem;
+        padding: 0;
+        font-size: 0.95rem;
+        line-height: 1.55;
+        color: #334155;
+      }
+
+      .algo-list li {
+        margin: 0.45rem 0;
+      }
+
+      .demo-section {
+        margin-top: 0.5rem;
+        text-align: center;
+      }
+
+      .demo-section figure,
+      .media-frame {
+        display: inline-block;
+        max-width: min(100%, 420px);
+        margin: 0.75rem auto 0;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 14px;
+        padding: 0.65rem;
+        box-shadow: 0 6px 20px rgba(100, 150, 210, 0.12);
+      }
+
+      .demo-section img,
+      .media-frame img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .demo-section figcaption,
+      .media-frame figcaption {
+        margin-top: 0.6rem;
+        font-size: 0.88rem;
+        font-style: italic;
+        color: #4a6a8a;
+        line-height: 1.4;
+      }
+
+      .photo-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0.5rem;
+        table-layout: fixed;
+        margin-top: 0.5rem;
+      }
+
+      .photo-table td {
+        vertical-align: top;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 12px;
+        padding: 0.5rem;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      }
+
+      .photo-table figure {
+        margin: 0;
+      }
+
+      .photo-table img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.65);
+      }
+
+      .photo-table figcaption {
+        margin-top: 0.45rem;
+        text-align: center;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #3a628f;
+        letter-spacing: 0.03em;
+      }
+
+      .hybrid-pair {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.15rem;
+        margin: 0.35rem 0 1.35rem;
+      }
+
+      .hybrid-pair figure {
+        margin: 0;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 12px;
+        padding: 0.5rem;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      }
+
+      .hybrid-pair img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      .hybrid-pair figcaption {
+        margin-top: 0.4rem;
+        text-align: center;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #3a628f;
+      }
+
+      .hybrid-close {
+        width: calc(min(70%, 420px) + 1rem + 2px);
+      }
+
+      .kernel-table {
+        width: min(100%, 440px);
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .kernel-table img {
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+
+      .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        margin-top: 0.65rem;
+      }
+
+      .stack-grid figure {
+        margin: 0;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 12px;
+        padding: 0.45rem;
+      }
+
+      .stack-grid img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .stack-grid figcaption {
+        margin-top: 0.4rem;
+        text-align: center;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #3a628f;
+      }
+
+      .carousel-section {
+        margin-top: 0.5rem;
+      }
+
+      .carousel {
+        position: relative;
+        margin: 0.85rem auto 0;
+        max-width: 560px;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 14px;
+        padding: 0.85rem 2.75rem 1rem;
+        box-shadow: 0 6px 20px rgba(100, 150, 210, 0.12);
+        text-align: center;
+      }
+
+      .carousel-image-wrap {
+        cursor: pointer;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.5);
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+      }
+
+      .carousel-image-wrap img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 640px;
+        object-fit: contain;
+        background: rgba(255, 255, 255, 0.65);
+      }
+
+      .carousel-meta {
+        margin-top: 0.7rem;
+        font-size: 0.88rem;
+        color: #3a628f;
+        line-height: 1.45;
+      }
+
+      .carousel-meta strong {
+        color: #1a3a5c;
+      }
+
+      .carousel-hint {
+        margin-top: 0.25rem;
+        font-size: 0.8rem;
+        font-style: italic;
+        color: #6a849e;
+      }
+
+      .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 2.25rem;
+        height: 2.25rem;
+        border: 1px solid rgba(158, 200, 255, 0.7);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.92);
+        color: #1a3a5c;
+        font-size: 1.15rem;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(80, 120, 180, 0.12);
+      }
+
+      .carousel-btn:hover {
+        background: #fff;
+      }
+
+      .carousel-btn.prev {
+        left: 0.4rem;
+      }
+
+      .carousel-btn.next {
+        right: 0.4rem;
+      }
+
+      .code-box {
+        margin: 0.85rem 0 0.5rem;
+        background: rgba(26, 58, 92, 0.92);
+        color: #e8f2ff;
+        border-radius: 12px;
+        border: 1px solid rgba(158, 200, 255, 0.35);
+        padding: 0.85rem 1rem;
+        overflow-x: hidden;
+        font-family: Consolas, 'Courier New', monospace;
+        font-size: 0.78rem;
+        line-height: 1.45;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      @media (max-width: 720px) {
+        .stack-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media print {
+        @page {
+          size: letter;
+          margin: 0.4in;
+        }
+
+        body {
+          background: #b8dcff;
+        }
+
+        .sky {
+          position: absolute;
+        }
+
+        .page {
+          min-height: auto;
+          padding: 0;
+        }
+
+        .sheet {
+          width: 100%;
+          border: none;
+          border-radius: 0;
+          box-shadow: none;
+          background: rgba(255, 255, 255, 0.92);
+          padding: 0;
+        }
+
+        .carousel-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sky" aria-hidden="true">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+      <div class="cloud cloud-4"></div>
+      <div class="cloud cloud-5"></div>
+      <div class="cloud cloud-6"></div>
+    </div>
+
+    <main class="page">
+      <article class="sheet">
+        <header class="sheet-header">
+          <img class="sheet-profile" src="/profile.png" alt="Elytraflight profile" width="72" height="72" />
+          <h1>CS 180 — Project 2 - Isaac Jones</h1>
+          <p>Fun with Filters and Frequencies</p>
+        </header>
+
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part24/EuclidFinal.png" alt="Euclid Avenue, January into May" />
+                <figcaption>Euclid Avenue, January into May</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part24/ShalaxyFinal.png" alt="A shell in a galaxy" />
+                <figcaption>A shell in a galaxy</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+
+        <p>
+          In this project, I learned a lot about convolution-based image filters, Gaussians, and fun computational photography tricks you can do by thinking of images in frequency space, rather than just raw pixel space!
+        </p>
+
+        <h2 class="section-title">Part 1.1 — Convolutions from scratch</h2>
+        <p>
+          The first task was to implement convolution two different ways! The first way is with 4 for loops. This is a good way of visualizing how the math behind convolution actually works, but it is extremely slow, because it doesn't take advantage of OpenCV's paralellization or linear algebra speedups:
+        </p>
+        <pre class="code-box" contenteditable="true" spellcheck="false">def convolve4ForLoops(img, filter):
+
+    imgShape = img.shape
+    filterShape = filter.shape
+    I, J = imgShape[0], imgShape[1]
+    K, L = filterShape[0], filterShape[1]
+
+    newImg = np.zeros((I+K-1, J+L-1))
+    newImgShape = newImg.shape
+    #4 for-loop image convolution
+
+    def getImgVal(a, b):
+        if a &gt;= 0 and a &lt; I and b &gt;= 0 and b &lt; J:
+            return img[a][b]
+        else:
+            return 0
+
+    for i in tqdm(range(I+K-1)):
+        for j in range(J+L-1):
+            value = 0
+            #pixel value at (i, j) is sum(sum(cross correlation of flipped, shifted filter))
+            for k in range(K):
+                for l in range(L):
+                    #img: (i-k, j-l)
+                    img_value = getImgVal(i-k, j-l)
+                    value += img_value * filter[k][l]
+
+            newImg[i][j] = value
+    return newImg</pre>
+        <p>
+          We see a few interesting things from this implementation. First, that I'm implementing "full" padding--that is, every single pixel in the image gets covered equally, by padding with [filter size-1] zeros on each side. I made a helper function called getImgVal to help with padding, since I didn't want to bother with padding the original image.
+        </p>
+        <p>
+          Also, we can see that the final result has the size [filter size + image size -1] on both axes.
+        </p>
+        <p>
+          Finally, we see how the internal system works: query the image at the outer loop's i, j values, shifted backwards by k and l; whereas the filter value is shifted forwards by k and l. This matches how convolution flips the filter:
+        </p>
+        <p style="text-align: center"><em>(f ∗ g)[n] = Σ<sub>k</sub> f[k] g[n − k]</em></p>
+        <p>
+          Next, we see the two-for-loop version. For this, I took a relevant slice of the image, flipped the filter, and just did an in-place cross correlation with numpy:
+        </p>
+        <pre class="code-box" contenteditable="true" spellcheck="false">def convolve2ForLoops(img, filter):
+    imgShape = img.shape
+    filterShape = filter.shape
+    I, J = imgShape[0], imgShape[1]
+    K, L = filterShape[0], filterShape[1]
+
+    newImg = np.zeros((I+K-1, J+L-1))
+
+    def getSlice(a, b):
+        slice = np.zeros_like(filter)
+        loweri = max(a, 0)
+        startSliceI = loweri-a
+        upperi = min(a+K, I)
+        endSliceI = upperi-a
+        lowerj = max(b, 0)
+        startSliceJ = lowerj-b
+        upperj = min(b+L, J)
+        endSliceJ = upperj-b
+
+        assert upperi-loweri == endSliceI-startSliceI
+        assert upperj-lowerj == endSliceJ-startSliceJ
+
+        slice[startSliceI:endSliceI, startSliceJ:endSliceJ] = img[loweri:upperi, lowerj:upperj]
+        return slice
+
+    flippedFilter = filter[::-1,::-1]
+
+    for i in tqdm(range(I+K-1)):
+        for j in range(J+L-1):
+            relevantSlice = getSlice(i-K+1, j-L+1)
+
+            assert relevantSlice.shape == flippedFilter.shape
+
+            correlation = np.sum(relevantSlice * flippedFilter)
+
+            newImg[i][j] = correlation
+
+    return newImg</pre>
+        <p>
+          On my face down below for a box filter, the 4-for-loop convolution was the slowest, at 13 seconds. The 2-for-loop convolution was next slowest at around 2 seconds; finally, scipy.signal.convolve2d was almost instantaneous.
+        </p>
+        <p>
+          I handled boundaries a slightly different way than in the 4-for-loop convolution. I made a helper function called getSlice that ensured that, if the slice required by the convolution involved numbers outside of the original image's range, then it would just fill them with zeros. This meant that I didn't have to worry about array index out of bounds. Either way, the padding is still full, and the overall size of the result image is still (I+K-1, J+L-1).
+        </p>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/me.jpg" alt="Original" />
+                <figcaption>Original</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_1_box_filter.jpg" alt="9×9 box filter" />
+                <figcaption>9×9 box filter</figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_1_dx.jpg" alt="Dx — vertical edges" />
+                <figcaption>D<sub>x</sub> — vertical edges</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_1_dy.jpg" alt="Dy — horizontal edges" />
+                <figcaption>D<sub>y</sub> — horizontal edges</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+
+        <h2 class="section-title">Part 1.2 — Finite difference operator</h2>
+        <p>
+          This section ended up being pretty straightforward, not much to comment on here. I heuristically chose a cutoff of 0.2 for the binarized image, since that eliminated most of the grass "edges" while keeping the camera and cameraman's edges intact.
+        </p>
+        <p>
+          For dx and dy where negative numbers are prevalent, I constrain the image from 0 to 1 by first subtracting everything by the minimum value, then dividing everything by the new maximum value:
+        </p>
+        <pre class="code-box" contenteditable="true" spellcheck="false">filtered -= np.min(filtered)
+filtered /= np.max(filtered)</pre>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/cameraman.png" alt="Cameraman" />
+                <figcaption>Cameraman</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_2_dx.jpg" alt="∂/∂x" />
+                <figcaption>∂/∂x</figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_2_dy.jpg" alt="∂/∂y" />
+                <figcaption>∂/∂y</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_2_full_gradient.jpg" alt="Gradient magnitude" />
+                <figcaption>Gradient magnitude</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_2_mask_gradient.jpg" alt="Edges, threshold 0.2" />
+                <figcaption>Edges, threshold 0.2</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+
+        <h2 class="section-title">Part 1.3 — Derivative of Gaussian</h2>
+        <p>
+          For Part 1.3, I first blurred the image with a gaussian, and then did the same treatment as before. It had an impressively helpful effect on edge detection! the binarized edge threshold needed to be set a bit lower, but it allowed for the noise to be replaced with solid, thick lines along edges. This makes sense, because smoothing the edges out with the gradient would mean that every edge that was originally a 1-pixel jump from dark to light (or vice versa) now takes place over a length of multiple pixels, hence a thicker edge outline.
+        </p>
+        <p>
+          It's also worth noting that composing the Gaussian and the derivative filters has exactly the same effect as applying them one at a time.
+        </p>
+
+        <h3 class="section-title">Blur, then take the derivative</h3>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_3_gaussian_dx.jpg" alt="∂/∂x after blur" />
+                <figcaption>∂/∂x after blur</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_3_gaussian_dy.jpg" alt="∂/∂y after blur" />
+                <figcaption>∂/∂y after blur</figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_3_gaussian_full_gradient.jpg" alt="Gradient magnitude" />
+                <figcaption>Gradient magnitude</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_3_gaussian_mask_gradient.jpg" alt="Edges, threshold 0.1" />
+                <figcaption>Edges, threshold 0.1</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+
+        <h3 class="section-title">One convolution with the DoG filter</h3>
+        <table class="photo-table kernel-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/Dx_gaussian.jpg" alt="Derivative of Gaussian in x" />
+                <figcaption>DoG<sub>x</sub></figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/Dy_gaussian.jpg" alt="Derivative of Gaussian in y" />
+                <figcaption>DoG<sub>y</sub></figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_3_dx.jpg" alt="Image ∗ DoGx" />
+                <figcaption>Image ∗ DoG<sub>x</sub></figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_3_dy.jpg" alt="Image ∗ DoGy" />
+                <figcaption>Image ∗ DoG<sub>y</sub></figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_3_full_gradient.jpg" alt="Gradient magnitude" />
+                <figcaption>Gradient magnitude</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part1/1_3_mask_gradient.jpg" alt="Edges, threshold 0.1" />
+                <figcaption>Edges, threshold 0.1</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+
+        <h2 class="section-title">Part 2.1 — Image sharpening</h2>
+        <p>
+          I found this to be one of the most fascinating parts of the project. To understand how the unsharp filter works, we need to briefly think in frequency space. Above, we showed that edges are typically where the highest frequencies reside. A typical image taken by a camera is a noisy mix of both low and high frequencies (contiguous objects and their borders). What the unsharp filter does is take these natural high frequencies in the form of edges and amplify them, to make the image look more sharp and crisp.
+        </p>
+        <p>
+          But, how do we find the high frequency data in an image? We can use the gradient like we did above, but another way is to just take the image and subtract out everything that is a <em>low</em> frequency. In other words, subtract the blurred image from itself. This yields the high frequency components. Then, we re-add the high frequency components to the original image with some modifier, and voila!
+        </p>
+        <p>
+          I used a multiplier of 3 for these images to exaggerate the effect of sharpening the image.
+        </p>
+        <p>
+          The other cool thing is that, since all of these filters are still linear operators, you can compose them into one kernel, where the original image is represented by a "unity" kernel (1 in the center of a bunch of zeros), and the blur is represented by a gaussian. This is similar to a Laplacian filter: Sharp peak in the middle surrounded by a negative Gaussian.
+        </p>
+        <p>
+          Here's how it works on some images:
+        </p>
+
+        <h3 class="section-title">Taj Mahal</h3>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/taj.jpg" alt="Original" />
+                <figcaption>Original</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/taj_blurred.png" alt="Blurred (low pass)" />
+                <figcaption>Blurred (low pass)</figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/taj_high_frequencies.png" alt="High frequencies" />
+                <figcaption>High frequencies</figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/taj_a_little_sharpened.png" alt="Taj Mahal sharpened with a 1x multiplier" />
+                <figcaption>Sharpened, 1×</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/taj_sharpened.png" alt="Taj Mahal sharpened with a 3x multiplier" />
+                <figcaption>Sharpened, 3×</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+
+        <h3 class="section-title">The boy band at SF</h3>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/boyband.jpg" alt="Original" />
+                <figcaption>Original</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/boyband_blurred.png" alt="Blurred" />
+                <figcaption>Blurred</figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/boyband_high_frequencies.png" alt="High frequencies" />
+                <figcaption>High frequencies</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/boyband_sharpened.png" alt="Sharpened" />
+                <figcaption>Sharpened</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+        <p>
+          As we can see, the images look signficantly sharper!
+        </p>
+
+        <h3 class="section-title">Blur a sharp photo, then try to get it back</h3>
+        <p>
+          Next, as an experiment, I try to blur the Taj Mahal image, and then use the unsharp filter to bring it back into focus. This does not work very well at all. The reason for this is that Gaussian filters are a very strict low pass filter, meaning once you apply a Gaussian, it kills almost all the higher frequencies. Nothing you can do fully restores these higher frequencies. Notably, this differs from a real-life blurry picture, where the higher frequencies are still present, but diminished.
+        </p>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/taj.jpg" alt="Original" />
+                <figcaption>Original</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/blurred_blurred.png" alt="Blurred again" />
+                <figcaption>Blurred again</figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/blurred_high_frequencies.png" alt="What high frequency is left" />
+                <figcaption>What high frequency is left</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part21/blurred_sharpened.png" alt="Sharpened — still soft" />
+                <figcaption>Sharpened — still soft</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+
+        <h2 class="section-title">Part 2.2 — Hybrid images</h2>
+        <p>
+          Next, some fun with hybrid images! I chose some fun ideas based around circles (Kirby and a Bowling ball) and Fibonacci (Spiral Galaxy and Shells). I'm pretty happy with the results overall!
+        </p>
+        <p>
+          Similar to the sharpening filter, the process involves sending one image through a high pass filter (obliterating almost all low frequency data), and sending another image through a low pass filter (obliterating almost all high frequency data). Upon recombining them, you get a hybrid image! It works because you tend to focus on high frequency data close up, and can only see low frequency data from far away.
+        </p>
+
+        <h3 class="section-title">Derek + Nutmeg</h3>
+        <div class="hybrid-pair">
+          <figure class="hybrid-close">
+            <img src="/CS180Proj2/part22/derekmeg_closeup.png" alt="Derek and Nutmeg, close-up" />
+            <figcaption>Close-up</figcaption>
+          </figure>
+          <figure class="hybrid-far">
+            <img src="/CS180Proj2/part22/derekmeg_far_away.png" alt="Derek and Nutmeg, far away" />
+            <figcaption>Far away</figcaption>
+          </figure>
+        </div>
+
+        <h3 class="section-title">Kirby + bowling ball</h3>
+        <div class="hybrid-pair">
+          <figure class="hybrid-close">
+            <img src="/CS180Proj2/part22/Kirbowling_ball_closeup.png" alt="Kirby and bowling ball, close-up" />
+            <figcaption>Close-up</figcaption>
+          </figure>
+          <figure class="hybrid-far">
+            <img src="/CS180Proj2/part22/Kirbowling_ball_far_away.png" alt="Kirby and bowling ball, far away" />
+            <figcaption>Far away</figcaption>
+          </figure>
+        </div>
+
+        <h3 class="section-title">Shell + galaxy</h3>
+        <div class="hybrid-pair">
+          <figure class="hybrid-close">
+            <img src="/CS180Proj2/part22/Shalaxy_closeup.png" alt="Shell and galaxy, close-up" />
+            <figcaption>Close-up</figcaption>
+          </figure>
+          <figure class="hybrid-far">
+            <img src="/CS180Proj2/part22/Shalaxy_far_away.png" alt="Shell and galaxy, far away" />
+            <figcaption>Far away</figcaption>
+          </figure>
+        </div>
+
+        <h3 class="section-title">Inputs for the three pairs</h3>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/DerekPicture.jpg" alt="Derek — low pass" />
+                <figcaption>Derek — low pass</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/nutmeg.jpg" alt="Nutmeg — high pass" />
+                <figcaption>Nutmeg — high pass</figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/Kirby.jpg" alt="Kirby — low pass" />
+                <figcaption>Kirby — low pass</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/bowling_ball.jpg" alt="Bowling ball — high pass" />
+                <figcaption>Bowling ball — high pass</figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/shell.jpg" alt="Shell" />
+                <figcaption>Shell</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/galaxy.jpg" alt="Galaxy" />
+                <figcaption>Galaxy</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+
+        <h3 class="section-title">Aligned Derek and Nutmeg</h3>
+        <p>
+          Below are the aligned versions of Derek and Nutmeg. Unlike the two pairs of images I selected, which were naturally centered, I needed to align Derek and Nutmeg using the supplied image aligment tool. This is what Derek and Nutmeg look like post-alignment. My final product also looks a bit squished for Derek, because I forced everything to be 300x300 px for simplicity sake.
+        </p>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/derekAligned.png" alt="Derek, aligned" />
+                <figcaption>Derek, aligned</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/nutmegAligned.png" alt="Nutmeg, aligned" />
+                <figcaption>Nutmeg, aligned</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+
+        <h3 class="section-title">Frequency analysis — galaxy and shell</h3>
+        <p>
+          Below is the frequency analysis for the galaxy and shell. If you look extra closely at the shell's FFT (top), you can actually see spiral shapes! Since the galaxy has so many high frequency stars speckled everywhere, it's harder to spot this effect. Anyway, we low-pass-filter the shell, killing almost all the higher-frequency data. A couple of lines still remain, on account of the size of the filter being limited (too much processing power to make the filter larger than 50 pixels).
+        </p>
+        <p>
+          It's harder to spot the effect of the high pass filter on the galaxy, but we can kind of spot it. The FFTs of the actual filters make this more clear.
+        </p>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/fft1.png" alt="Shell, log magnitude of the Fourier transform" />
+                <figcaption>Shell, log |FFT|</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/fft1filtered.png" alt="Shell after the low-pass filter" />
+                <figcaption>Shell after low-pass</figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/fft2.png" alt="Galaxy, log magnitude of the Fourier transform" />
+                <figcaption>Galaxy, log |FFT|</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/fft2filtered.png" alt="Galaxy after the high-pass filter" />
+                <figcaption>Galaxy after high-pass</figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <figure>
+                <img src="/CS180Proj2/part22/fftfinal.png" alt="Hybrid image, log magnitude of the Fourier transform" />
+                <figcaption>Hybrid, log |FFT|</figcaption>
+              </figure>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/lowpassfilter.png" alt="Low-pass response, σ = 3" />
+                <figcaption>Low-pass response, σ = 3</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part22/highpassfilter.png" alt="High-pass response, 1.5I − G" />
+                <figcaption>High-pass response, 1.5I − G</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+
+        <h2 class="section-title">Part 2.3 — Gaussian and Laplacian stacks</h2>
+        <p>
+          Now we finally reach the final part of this project. The idea for the Gaussian stack is fairly straightforward: continually blur the image more and more. One must take care, though: since we aren't downsampling like we would with a pyramid, we have to blur a lot more to get much of a difference between layers of the stack. I set the standard deviation of the gaussian filter to be exponential relative to the layer number, with some hyperparameter configs for how much blurring to start off with and how quickly to grow. If you don't set exponential SD, the blurriness only grows linearly, which is way too slow for this algorithm to work efficiently.
+        </p>
+        <p>
+          The Laplacian stack is very similar: just the differences between consecutive Gaussians, with the bottom of the Laplacian stack being the final Gaussian. That allows you to theoretically reconstruct losslessly the original image from the Laplacian pyramid. But what we want is to mix the two together, as seen in 2.4 Here's some images of my Gaussians and Laplacians.
+        </p>
+
+        <h3 class="section-title">Gaussian stack — apple</h3>
+        <div class="stack-grid" data-pattern="/CS180Proj2/part23/gaussianApple_{n}.png" data-count="9" data-prefix="Gaussian apple"></div>
+
+        <h3 class="section-title">Gaussian stack — orange</h3>
+        <div class="stack-grid" data-pattern="/CS180Proj2/part23/gaussianOrange_{n}.png" data-count="9" data-prefix="Gaussian orange"></div>
+
+        <h3 class="section-title">Laplacian stack — apple</h3>
+        <div class="stack-grid" data-pattern="/CS180Proj2/part23/apple_{n}.png" data-count="9" data-prefix="Laplacian apple"></div>
+
+        <h3 class="section-title">Laplacian stack — orange</h3>
+        <div class="stack-grid" data-pattern="/CS180Proj2/part23/orange_{n}.png" data-count="9" data-prefix="Laplacian orange"></div>
+        <p>
+          NOTE: On the last few blurs for each image, there starts to become a rectangular border around the edge of the image. This is due to how I handled convolution and my limited filter size. It didn't seem to adversely affect the end result in 2.4, though, so I'm happy.
+        </p>
+
+        <h2 class="section-title">Part 2.4 — Multiresolution blending</h2>
+        <p>
+          And now we have it! The oraple, in all of its glory. But how did I actually mix the Laplacians? I have a masking Gaussian stack, too. It's convenient, because this masking stack can be changed freely to edit how the two images blend into each other, how smoothly, etc. For the apple, I could have probably tuned the mask hyperparameters a bit better, but by the time I created my Euclid and Shalaxy images (see bottom), I had locked in the hyperparameters a lot better. Nonetheless, the below images show how the masking works and how I managed to combine the two Laplacian pyramids back together.
+        </p>
+
+        <h3 class="section-title">The oraple — vertical seam</h3>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part23/apple.jpeg" alt="Apple" />
+                <figcaption>Apple</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part23/orange.jpeg" alt="Orange" />
+                <figcaption>Orange</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+        <section class="demo-section">
+          <figure class="media-frame" style="max-width: min(100%, 420px)">
+            <img src="/CS180Proj2/part23/OrappleFinal.png" alt="Oraple — sum of the combined Laplacian levels" />
+            <figcaption>Oraple — sum of the combined Laplacian levels</figcaption>
+          </figure>
+        </section>
+
+        <h3 class="section-title">Gaussian stack of the mask</h3>
+        <div class="stack-grid" data-pattern="/CS180Proj2/part23/mask_{n}.png" data-count="9" data-prefix="Mask"></div>
+
+        <h3 class="section-title">Masked apple Laplacian</h3>
+        <div class="stack-grid" data-pattern="/CS180Proj2/part23/maskedApple_{n}.png" data-count="9" data-prefix="Masked apple"></div>
+
+        <h3 class="section-title">Masked orange Laplacian</h3>
+        <div class="stack-grid" data-pattern="/CS180Proj2/part23/maskedOrange_{n}.png" data-count="9" data-prefix="Masked orange"></div>
+
+        <h3 class="section-title">Combined Laplacian</h3>
+        <div class="stack-grid" data-pattern="/CS180Proj2/part23/combined_{n}.png" data-count="9" data-prefix="Combined"></div>
+
+        <h3 class="section-title">Euclid Avenue, January into May</h3>
+        <p>
+          This is one of my favorite pictures I created. I took two street view photographs of the exact same location on Euclid avenue, four months apart. I think it's an excellent metaphor for life and how time passes quickly before we even realize it.
+        </p>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part24/EuclidJan.png" alt="January" />
+                <figcaption>January</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part24/EuclidMay.png" alt="May" />
+                <figcaption>May</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+        <section class="demo-section">
+          <figure class="media-frame" style="max-width: min(100%, 480px)">
+            <img src="/CS180Proj2/part24/EuclidFinal.png" alt="January on the left, May on the right" />
+            <figcaption>January on the left, May on the right</figcaption>
+          </figure>
+        </section>
+
+        <h3 class="section-title">An irregular mask — shell in a galaxy</h3>
+        <p>
+          For this combined photo I used a circular mask! I drew inspiration from Fibonacci spirals again, and overlaid two different types of Fibonacci things on top of each other. I think it's a really beautiful expression of how much wonder and creativity exists in the universe, and how blessed we are to have a God who set all of these beautiful things in motion for us to experience.
+        </p>
+        <table class="photo-table">
+          <tr>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part24/shell.jpg" alt="Shell, inside the disk" />
+                <figcaption>Shell, inside the disk</figcaption>
+              </figure>
+            </td>
+            <td>
+              <figure>
+                <img src="/CS180Proj2/part24/galaxy.jpg" alt="Galaxy, outside the disk" />
+                <figcaption>Galaxy, outside the disk</figcaption>
+              </figure>
+            </td>
+          </tr>
+        </table>
+        <section class="demo-section">
+          <figure class="media-frame" style="max-width: min(100%, 480px)">
+            <img src="/CS180Proj2/part24/ShalaxyFinal.png" alt="Circular multiresolution blend" />
+            <figcaption>Circular multiresolution blend</figcaption>
+          </figure>
+        </section>
+
+        <h2 class="section-title">AI Usage Acknowledgment</h2>
+        <section class="carousel-section">
+          <p>
+            All code pertaining to the project deliverables was written entirely by me, in Visual Studio
+            Code rather than my main IDE, Cursor--painstakingly over the course of several hours, with
+            zero help from AI. I wrote all project-relevant code myself.
+          </p>
+          <p>
+            Also written by me is all of the paragraphs of explanation in this project website, in my
+            own voice, also not AI assisted.
+          </p>
+          <p><strong>What was AI:</strong></p>
+          <p>
+            Operating within the AI rules of the course, I used AI to compile the HTML for this website,
+            supplying it with the finished deliverable images and original shots. I then talked back and
+            forth with the AI to beautify the website, and make it interesting.
+          </p>
+        </section>
+      </article>
+    </main>
+
+    <script>
+      document.querySelectorAll('.stack-grid').forEach((grid) => {
+        const pattern = grid.dataset.pattern;
+        const count = Number(grid.dataset.count);
+        const prefix = grid.dataset.prefix || 'Level';
+        for (let n = 0; n < count; n += 1) {
+          const figure = document.createElement('figure');
+          const img = document.createElement('img');
+          img.src = pattern.replace('{n}', String(n));
+          img.alt = `${prefix} level ${n}`;
+          const caption = document.createElement('figcaption');
+          caption.textContent = `${prefix} ${n}`;
+          figure.append(img, caption);
+          grid.append(figure);
+        }
+      });
+    </script>
+  </body>
+</html>
