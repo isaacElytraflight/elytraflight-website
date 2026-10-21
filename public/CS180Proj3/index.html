@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/profile.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CS180 Project 3 — Elytraflight</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+      }
+
+      body {
+        font-family: Georgia, 'Times New Roman', serif;
+        color: #1a3a5c;
+        background: linear-gradient(180deg, #7ec0ff 0%, #b8dcff 42%, #ffe8c8 100%);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .sky {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        z-index: 0;
+        background: linear-gradient(180deg, #6eb5ff 0%, #9fd0ff 38%, #ffd9a8 100%);
+      }
+
+      .cloud {
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+        filter: drop-shadow(0 8px 18px rgba(120, 160, 210, 0.18));
+      }
+
+      .cloud::before,
+      .cloud::after {
+        content: '';
+        position: absolute;
+        background: inherit;
+        border-radius: 50%;
+      }
+
+      .cloud-1 {
+        width: 120px;
+        height: 48px;
+        top: 12%;
+        left: 8%;
+        border-radius: 40px;
+      }
+
+      .cloud-1::before {
+        width: 56px;
+        height: 56px;
+        top: -28px;
+        left: 18px;
+      }
+
+      .cloud-1::after {
+        width: 72px;
+        height: 72px;
+        top: -36px;
+        right: 16px;
+      }
+
+      .cloud-2 {
+        width: 160px;
+        height: 56px;
+        top: 22%;
+        right: 10%;
+        border-radius: 48px;
+        opacity: 0.95;
+      }
+
+      .cloud-2::before {
+        width: 70px;
+        height: 70px;
+        top: -34px;
+        left: 24px;
+      }
+
+      .cloud-2::after {
+        width: 88px;
+        height: 88px;
+        top: -42px;
+        right: 20px;
+      }
+
+      .cloud-3 {
+        width: 200px;
+        height: 64px;
+        bottom: 28%;
+        left: 14%;
+        border-radius: 56px;
+        opacity: 0.92;
+      }
+
+      .cloud-3::before {
+        width: 84px;
+        height: 84px;
+        top: -40px;
+        left: 30px;
+      }
+
+      .cloud-3::after {
+        width: 104px;
+        height: 104px;
+        top: -50px;
+        right: 28px;
+      }
+
+      .cloud-4 {
+        width: 140px;
+        height: 52px;
+        bottom: 18%;
+        right: 16%;
+        border-radius: 44px;
+      }
+
+      .cloud-4::before {
+        width: 62px;
+        height: 62px;
+        top: -30px;
+        left: 20px;
+      }
+
+      .cloud-4::after {
+        width: 78px;
+        height: 78px;
+        top: -36px;
+        right: 18px;
+      }
+
+      .cloud-5 {
+        width: 110px;
+        height: 44px;
+        top: 48%;
+        left: 42%;
+        border-radius: 36px;
+        opacity: 0.88;
+      }
+
+      .cloud-5::before {
+        width: 50px;
+        height: 50px;
+        top: -24px;
+        left: 14px;
+      }
+
+      .cloud-5::after {
+        width: 64px;
+        height: 64px;
+        top: -30px;
+        right: 12px;
+      }
+
+      .cloud-6 {
+        width: 180px;
+        height: 60px;
+        top: 8%;
+        left: 48%;
+        border-radius: 50px;
+        opacity: 0.9;
+      }
+
+      .cloud-6::before {
+        width: 76px;
+        height: 76px;
+        top: -36px;
+        left: 28px;
+      }
+
+      .cloud-6::after {
+        width: 92px;
+        height: 92px;
+        top: -44px;
+        right: 24px;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        padding: 2rem 1rem 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      .sheet {
+        width: min(100%, 11in);
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        box-shadow: 0 12px 40px rgba(80, 120, 180, 0.14);
+        padding: 1.5rem 1.25rem 2rem;
+      }
+
+      .sheet-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(110, 181, 255, 0.35);
+      }
+
+      .sheet-profile {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 0.75rem;
+        border: 2px solid rgba(110, 181, 255, 0.5);
+      }
+
+      .sheet-header h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #1a3a5c;
+        letter-spacing: 0.02em;
+      }
+
+      .sheet-header p {
+        margin-top: 0.35rem;
+        font-size: 0.95rem;
+        color: #4a6a8a;
+      }
+
+      .section-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #2d5a8a;
+        margin: 1.75rem 0 0.65rem;
+        text-align: center;
+      }
+
+      h3.section-title {
+        font-size: 0.92rem;
+        margin-top: 1.45rem;
+        margin-bottom: 0.45rem;
+      }
+
+      .sheet > p,
+      .demo-section > p,
+      .carousel-section > p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #334155;
+        margin: 0.75rem 0;
+      }
+
+      .algo-list {
+        margin: 0.5rem 0 1rem 1.25rem;
+        padding: 0;
+        font-size: 0.95rem;
+        line-height: 1.55;
+        color: #334155;
+      }
+
+      .algo-list li {
+        margin: 0.45rem 0;
+      }
+
+      .demo-section {
+        margin-top: 0.5rem;
+        text-align: center;
+      }
+
+      .demo-section figure,
+      .media-frame {
+        display: inline-block;
+        max-width: min(100%, 420px);
+        margin: 0.75rem auto 0;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 14px;
+        padding: 0.65rem;
+        box-shadow: 0 6px 20px rgba(100, 150, 210, 0.12);
+      }
+
+      .demo-section img,
+      .media-frame img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .demo-section figcaption,
+      .media-frame figcaption {
+        margin-top: 0.6rem;
+        font-size: 0.88rem;
+        font-style: italic;
+        color: #4a6a8a;
+        line-height: 1.4;
+      }
+
+      .photo-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0.5rem;
+        table-layout: fixed;
+        margin-top: 0.5rem;
+      }
+
+      .photo-table td {
+        vertical-align: top;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 12px;
+        padding: 0.5rem;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      }
+
+      .photo-table figure {
+        margin: 0;
+      }
+
+      .photo-table img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.65);
+      }
+
+      .photo-table figcaption {
+        margin-top: 0.45rem;
+        text-align: center;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #3a628f;
+        letter-spacing: 0.03em;
+      }
+
+      .hybrid-pair {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.15rem;
+        margin: 0.35rem 0 1.35rem;
+      }
+
+      .hybrid-pair figure {
+        margin: 0;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 12px;
+        padding: 0.5rem;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      }
+
+      .hybrid-pair img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      .hybrid-pair figcaption {
+        margin-top: 0.4rem;
+        text-align: center;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #3a628f;
+      }
+
+      .hybrid-close {
+        width: calc(min(70%, 420px) + 1rem + 2px);
+      }
+
+      .kernel-table {
+        width: min(100%, 440px);
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .kernel-table img {
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+
+      .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        margin-top: 0.65rem;
+      }
+
+      .stack-grid figure {
+        margin: 0;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 12px;
+        padding: 0.45rem;
+      }
+
+      .stack-grid img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .stack-grid figcaption {
+        margin-top: 0.4rem;
+        text-align: center;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #3a628f;
+      }
+
+      .carousel-section {
+        margin-top: 0.5rem;
+      }
+
+      .carousel {
+        position: relative;
+        margin: 0.85rem auto 0;
+        max-width: 560px;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 14px;
+        padding: 0.85rem 2.75rem 1rem;
+        box-shadow: 0 6px 20px rgba(100, 150, 210, 0.12);
+        text-align: center;
+      }
+
+      .carousel-image-wrap {
+        cursor: pointer;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.5);
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+      }
+
+      .carousel-image-wrap img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 640px;
+        object-fit: contain;
+        background: rgba(255, 255, 255, 0.65);
+      }
+
+      .carousel-meta {
+        margin-top: 0.7rem;
+        font-size: 0.88rem;
+        color: #3a628f;
+        line-height: 1.45;
+      }
+
+      .carousel-meta strong {
+        color: #1a3a5c;
+      }
+
+      .carousel-hint {
+        margin-top: 0.25rem;
+        font-size: 0.8rem;
+        font-style: italic;
+        color: #6a849e;
+      }
+
+      .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 2.25rem;
+        height: 2.25rem;
+        border: 1px solid rgba(158, 200, 255, 0.7);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.92);
+        color: #1a3a5c;
+        font-size: 1.15rem;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(80, 120, 180, 0.12);
+      }
+
+      .carousel-btn:hover {
+        background: #fff;
+      }
+
+      .carousel-btn.prev {
+        left: 0.4rem;
+      }
+
+      .carousel-btn.next {
+        right: 0.4rem;
+      }
+
+      .code-box {
+        margin: 0.85rem 0 0.5rem;
+        background: rgba(26, 58, 92, 0.92);
+        color: #e8f2ff;
+        border-radius: 12px;
+        border: 1px solid rgba(158, 200, 255, 0.35);
+        padding: 0.85rem 1rem;
+        overflow-x: hidden;
+        font-family: Consolas, 'Courier New', monospace;
+        font-size: 0.78rem;
+        line-height: 1.45;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .panel {
+        margin: 0.85rem auto 0.15rem;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 14px;
+        padding: 0.55rem;
+        box-shadow: 0 6px 20px rgba(100, 150, 210, 0.12);
+      }
+
+      .panel img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        background: #fff;
+      }
+
+      .panel figcaption {
+        margin-top: 0.45rem;
+        text-align: center;
+        font-size: 0.84rem;
+        font-weight: 600;
+        color: #3a628f;
+        line-height: 1.4;
+      }
+
+      .panel.loss {
+        max-width: 680px;
+      }
+
+      .sample-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.55rem;
+        margin-top: 0.85rem;
+      }
+
+      .sample-grid figure {
+        margin: 0;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 12px;
+        padding: 0.4rem;
+      }
+
+      .sample-grid img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .sample-grid figcaption {
+        margin-top: 0.35rem;
+        text-align: center;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #3a628f;
+      }
+
+      .hybrid-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 168px;
+        gap: 0.85rem;
+        align-items: end;
+        margin-top: 1rem;
+      }
+
+      .hybrid-row > .panel {
+        width: 100%;
+        min-width: 0;
+        margin-top: 0;
+      }
+
+      .hybrid-row .far img {
+        width: 96px;
+        margin: 0 auto;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.2fr);
+        gap: 0.55rem;
+        align-items: stretch;
+      }
+
+      .hero figure,
+      .hero-banner {
+        margin: 0;
+        background: rgba(240, 248, 255, 0.75);
+        border: 1px solid rgba(158, 200, 255, 0.45);
+        border-radius: 12px;
+        padding: 0.5rem;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      }
+
+      .hero img,
+      .hero-banner img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .hero figcaption,
+      .hero-banner figcaption {
+        margin-top: 0.4rem;
+        text-align: center;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #3a628f;
+        line-height: 1.35;
+      }
+
+      .hero-fight {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 92px;
+        gap: 0.45rem;
+        align-items: end;
+        height: 100%;
+      }
+
+      .hero-fight .near {
+        min-width: 0;
+      }
+
+      .hero-fight .far img {
+        width: 64px;
+        margin: 0 auto;
+      }
+
+      .hero-banner {
+        margin-top: 0.55rem;
+      }
+
+      @media (max-width: 720px) {
+        .stack-grid,
+        .sample-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .hybrid-row,
+        .hero,
+        .hero-fight {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media print {
+        @page {
+          size: letter;
+          margin: 0.4in;
+        }
+
+        body {
+          background: #b8dcff;
+        }
+
+        .sky {
+          position: absolute;
+        }
+
+        .page {
+          min-height: auto;
+          padding: 0;
+        }
+
+        .sheet {
+          width: 100%;
+          border: none;
+          border-radius: 0;
+          box-shadow: none;
+          background: rgba(255, 255, 255, 0.92);
+          padding: 0;
+        }
+
+        .carousel-btn {
+          display: none;
+        }
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="sky" aria-hidden="true">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+      <div class="cloud cloud-4"></div>
+      <div class="cloud cloud-5"></div>
+      <div class="cloud cloud-6"></div>
+    </div>
+
+    <main class="page">
+      <article class="sheet">
+        <header class="sheet-header">
+          <img class="sheet-profile" src="/profile.png" alt="Elytraflight profile" width="72" height="72" />
+          <h1>CS 180 — Project 3 - Isaac Jones</h1>
+          <p>Fun with Flow Models</p>
+        </header>
+
+        <div class="hero">
+          <figure class="hero-tree">
+            <img src="/CS180Proj3/parta/anagram_0.png" alt="An oil painting of a lightning storm" />
+            <figcaption>An oil painting of a lightning storm</figcaption>
+          </figure>
+          <div class="hero-fight">
+            <figure class="near">
+              <img src="/CS180Proj3/parta/hybrid_0.jpg" alt="Close view of people fighting" />
+              <figcaption>Close — people fighting</figcaption>
+            </figure>
+            <figure class="far">
+              <img src="/CS180Proj3/parta/hybrid_0.jpg" alt="Far view of the same image, a skull" />
+              <figcaption>Far — a skull</figcaption>
+            </figure>
+          </div>
+        </div>
+        <figure class="hero-banner">
+          <img src="/CS180Proj3/parta/wasteland_pair.jpg" alt="Post-apocalyptic wasteland at t = 0.25 and t = 0.50" />
+          <figcaption>post apocalyptic wasteland</figcaption>
+        </figure>
+
+        <p>
+          This project is probably my favorite college CS project ever (maybe besides the RISC V CPU
+          design in CS61C, or the World Builder in CS61B). I feel like the idea of flow matching to
+          generate new images from noise is such a crazy and fascinating concept; it's like learning to
+          write and perform arcane spells. It's one of those concepts to me that makes total sense in
+          theory, but feels like it has no business actually working in practice. And, yet, it does.
+        </p>
+        <p>
+          In this project we started with noising and denoising images, using a combination of classical
+          denoising techniques and pre-built flow matching models. This helped me gain an understanding
+          of the different types of problems flow matching can be used for. That was part A. For part B,
+          I actually trained my own classical denoiser, and more importantly, two different types of flow
+          matching model.
+        </p>
+        <p>
+          A flow matching model is a neural network that learns to approximate the "flow" from random
+          noise to the "manifold" of "desirable images". I put these in air quotes because they're a bit
+          mathematically hand-wavy, which is partly why it makes it so fun and interesting. Instead of
+          training the model on pairs of images and labels, we instead train the model to "de-noise"
+          data, predicting the change between the noise and the final image, based on some noisy version
+          of that image and usually conditioned on a label of that image as well as the current noise
+          level (time). This yields a vector field that helps us during inference "flow" from a
+          completely noisy image to a "desirable image" that is on the manifold of good images, but has
+          never been seen before (not in the training data).
+        </p>
+
+        <h2 class="section-title">Part A — Exploring the Power of Flow Models</h2>
+
+        <h2 class="section-title">1.1 — Constructing noisy training inputs</h2>
+        <p>
+          Here's an assortment of images with different amounts of noise. One notable difference is
+          that this is an interpolation between the final image and noise, rather than adding the noise
+          directly on top of the image. This is the same way flow matchers add noise.
+        </p>
+        <pre class="code-box">def interpolate(image, noise, t):
+    return (1-t)*noise + image*t</pre>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/training_inputs.jpg" alt="Original image and noisy versions at t = 0.25, 0.50, and 0.75" />
+        </figure>
+
+        <h2 class="section-title">1.2 — Classical denoising</h2>
+        <p>
+          Gaussian blur denoises the images, but it also blurs them. Clearly we can't just throw the
+          noise through a low pass filter and expect all our problems to go away.
+        </p>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/blur_0.25.jpg" alt="Noisy input and Gaussian blur at t = 0.25" />
+          <figcaption>t = 0.25</figcaption>
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/blur_0.5.jpg" alt="Noisy input and Gaussian blur at t = 0.50" />
+          <figcaption>t = 0.50</figcaption>
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/blur_0.75.jpg" alt="Noisy input and Gaussian blur at t = 0.75" />
+          <figcaption>t = 0.75</figcaption>
+        </figure>
+
+        <h2 class="section-title">1.3 — One-step denoising</h2>
+        <p>
+          In 1.3, I use one step of flow matching to denoise the image. In other words, rather than
+          following a curved vector field trajectory from the noise back to the original image, I take
+          one velocity approximation, and shoot directly back to the "denoised image" manifold. It
+          works surprisingly well, but the more noise there is to begin with, the more the final
+          version is blurred or lacks detail.
+        </p>
+        <pre class="code-box">def one_step_denoise(x, t, condition, predict_velocity):
+    return x + (1-t) * predict_velocity(x, t, condition)</pre>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/one_step_0.25.jpg" alt="Original, noisy input, and one-step estimate at t = 0.25" />
+          <figcaption>t = 0.25</figcaption>
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/one_step_0.5.jpg" alt="Original, noisy input, and one-step estimate at t = 0.50" />
+          <figcaption>t = 0.50</figcaption>
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/one_step_0.75.jpg" alt="Original, noisy input, and one-step estimate at t = 0.75" />
+          <figcaption>t = 0.75</figcaption>
+        </figure>
+
+        <h2 class="section-title">1.4 — Visualizing velocity</h2>
+        <p>
+          Here is a visualization of velocity, as well as the error between the prediction and ground
+          truth. Note that the velocity is noisy and grey-ish; that's because it's the difference
+          between the noise and the end result, so it shouldn't add too much extra energy to the noisy
+          version of the picture; it also has to cancel out the noise.
+        </p>
+        <p>
+          When we compare the ground truth velocity with predicted velocity, we see the same phenomena
+          we observed qualitatively in 1.3: with more noise in the image, the single-step flow denoiser
+          fails to hallucinate back in details, and stays mostly generic.
+        </p>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/velocity_original.jpg" alt="Original image" />
+          <figcaption>Original</figcaption>
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/velocity_0.25.jpg" alt="Noisy image, predicted update, ground-truth update, and error heatmap at t = 0.25" />
+          <figcaption>t = 0.25</figcaption>
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/velocity_0.50.jpg" alt="Noisy image, predicted update, ground-truth update, and error heatmap at t = 0.50" />
+          <figcaption>t = 0.50</figcaption>
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/velocity_0.75.jpg" alt="Noisy image, predicted update, ground-truth update, and error heatmap at t = 0.75" />
+          <figcaption>t = 0.75</figcaption>
+        </figure>
+
+        <h2 class="section-title">1.5 — Iterative denoising with Euler sampling</h2>
+        <p>
+          Here's an example of iterative denoising, where we take a bunch of very small steps and
+          continually recalculate velocity to more closely follow the curved vector field trajectory
+          between the noisy version and the original image. We see that it has a very beneficial
+          effect! Stuff in the one step denoise that was blurry has detail in the Euler version,
+          because it allows the model to "hallucinate" details back in that seem reasonable for the
+          context. And, of course, the gaussian blur looks horrible in comparison.
+        </p>
+        <pre class="code-box">@torch.inference_mode()
+def euler_sample(x_start, t_start, step_size, velocity):
+    t = t_start
+    x = x_start.clone()
+    samples = [(t, x.clone())]
+    counter = 0
+    while t &lt; 1:
+      h = min(1-t, step_size)
+      x+= h*velocity(x, t)
+
+      t+=h
+
+      if counter % 5 == 4:
+        samples.append((t, x.clone()))
+
+      counter+=1
+
+    samples.append((t, x.clone()))
+    return (x, samples)</pre>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/trajectory.jpg" alt="Euler updates from t = 0.50 to t = 1.00" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/comparison.jpg" alt="Original, Gaussian blur, one-step estimate, and Euler result" />
+        </figure>
+
+        <h2 class="section-title">1.6 — Generating images from noise</h2>
+        <p>
+          This is what happens when I use the flow match model to denoise complete "noise",
+          conditioned on the prompt "high quality photo". 4 of the 5 were portraits of people, but the
+          final one decided to make a rusted metal object. The seed I used was 106. It's interesting
+          to comment on how the type of training data we use affects the model; apparently "high
+          quality photos" are typically humans, which reflects how humans are kind of self-centered in
+          nature.
+        </p>
+        <div class="sample-grid">
+          <figure>
+            <img src="/CS180Proj3/parta/sample_0.jpg" alt="Sample 1, a high quality photo" />
+            <figcaption>1</figcaption>
+          </figure>
+          <figure>
+            <img src="/CS180Proj3/parta/sample_1.jpg" alt="Sample 2, a high quality photo" />
+            <figcaption>2</figcaption>
+          </figure>
+          <figure>
+            <img src="/CS180Proj3/parta/sample_2.jpg" alt="Sample 3, a high quality photo" />
+            <figcaption>3</figcaption>
+          </figure>
+          <figure>
+            <img src="/CS180Proj3/parta/sample_3.jpg" alt="Sample 4, a high quality photo" />
+            <figcaption>4</figcaption>
+          </figure>
+          <figure>
+            <img src="/CS180Proj3/parta/sample_4.jpg" alt="Sample 5, a high quality photo" />
+            <figcaption>5</figcaption>
+          </figure>
+        </div>
+
+        <h2 class="section-title">2.1 — Classifier-free guidance</h2>
+        <p>
+          Here's the same prompt, "a high quality photo", with classifier-free guidance. The photos are
+          much better. My friend remarked that example number 5 looks like he could be a professor in
+          the EECS department. We see that there is less diversity in the images, but the quality goes
+          up. This is typical for classifier-free guidance.
+        </p>
+        <pre class="code-box">def cfg_velocity(x, t, condition, w, predict_velocity, null_condition=''):
+    v_c = predict_velocity(x, t, condition)
+    return v_c + w*(v_c - predict_velocity(x, t, null_condition))</pre>
+        <div class="sample-grid">
+          <figure>
+            <img src="/CS180Proj3/parta/cfg_0.jpg" alt="CFG sample 1, a high quality photo" />
+            <figcaption>1</figcaption>
+          </figure>
+          <figure>
+            <img src="/CS180Proj3/parta/cfg_1.jpg" alt="CFG sample 2, a high quality photo" />
+            <figcaption>2</figcaption>
+          </figure>
+          <figure>
+            <img src="/CS180Proj3/parta/cfg_2.jpg" alt="CFG sample 3, a high quality photo" />
+            <figcaption>3</figcaption>
+          </figure>
+          <figure>
+            <img src="/CS180Proj3/parta/cfg_3.jpg" alt="CFG sample 4, a high quality photo" />
+            <figcaption>4</figcaption>
+          </figure>
+          <figure>
+            <img src="/CS180Proj3/parta/cfg_4.jpg" alt="CFG sample 5, a high quality photo" />
+            <figcaption>5</figcaption>
+          </figure>
+        </div>
+
+        <h2 class="section-title">3.1 — Image-to-image editing</h2>
+        <p>
+          This part was pretty fun! I took various images and then intentionally noised them and let the
+          flow matcher denoise them according to the prompt "a high quality photo". At t= 0.02 (98%
+          noise to start out with), the model usually goes off and does its own thing. I can't blame
+          it, I wouldn't be able to do any better. It does some creative things though, and especially
+          with my hand-drawn images, it gave some interesting results. It recognized my drawing of
+          mountains as mountains in the t=0.06 case, and it recognized that the lady's bosom needed
+          curvature in t=0.14. It's kind of interesting how at low t values for the hand-drawn
+          character becomes a human with its hands up, mimicking the bent arms in the drawing.
+        </p>
+        <h3 class="section-title">Campanile</h3>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/edit_campanile.jpg" alt="Campanile edits at seven starting times" />
+        </figure>
+        <h3 class="section-title">Berkeley overlook</h3>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/edit_my_image_1.jpg" alt="Berkeley overlook edits at seven starting times" />
+        </figure>
+        <h3 class="section-title">City at night</h3>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/edit_my_image_2.jpg" alt="City at night edits at seven starting times" />
+        </figure>
+        <h3 class="section-title">Web image</h3>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/edit_web_image.jpg" alt="Web image edits at seven starting times" />
+        </figure>
+        <h3 class="section-title">Hand-drawn landscape</h3>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/edit_drawing_1.jpg" alt="Hand-drawn landscape edits at seven starting times" />
+        </figure>
+        <h3 class="section-title">Hand-drawn figure</h3>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/edit_drawing_2.jpg" alt="Hand-drawn figure edits at seven starting times" />
+        </figure>
+
+        <h2 class="section-title">3.2 — Text-guided image editing</h2>
+        <p>
+          Here's an example of the same technique, but instead of the same prompt, using a different
+          text prompt. I thought the "post apocalyptic wasteland" prompt did a pretty good job
+          imagining what SF would look like in such a scenario.
+        </p>
+        <h3 class="section-title">Campanile — "compass needle"</h3>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/text_edit_campanile.jpg" alt="Campanile edited with the prompt compass needle" />
+        </figure>
+        <h3 class="section-title">Berkeley overlook — "Da Vinci nature painting"</h3>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/text_edit_my_image_1.jpg" alt="Berkeley overlook edited with the prompt Da Vinci nature painting" />
+        </figure>
+        <h3 class="section-title">City at night — "post apocalyptic wasteland"</h3>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/text_edit_my_image_2.jpg" alt="City at night edited with the prompt post apocalyptic wasteland" />
+        </figure>
+
+        <h2 class="section-title">3.3 — Visual anagrams</h2>
+        <p>
+          Here are some visual anagrams! These two pictures show different things when flipped upside
+          down. The bottom one is a pencil sketch, so it's a bit faint, but on the right you can show
+          how the "people" turn into leaves of the tree.
+        </p>
+        <p>
+          The way this works is by generating one flow velocity right side up, flipping it upside and
+          generating a different prompted flow velocity, and then flipping it back around and averaging
+          the two velocities. Honestly a genius idea.
+        </p>
+        <pre class="code-box">def visual_anagrams(noise, condition_a, condition_b, predict_velocity, w=7, step_size=0.02):
+    def v_func(x, t):
+      v1 = guided(x, t, condition_a, w)
+      v2 = rotate180(guided(rotate180(x), t, condition_b, w))
+      v = 0.5 * (v1 + v2)
+      return v
+
+    final = euler_sample(noise, 0, step_size, v_func)
+    return final[0]</pre>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/anagram_views_0.png" alt="Lightning storm upright, birch forest rotated 180 degrees" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/parta/anagram_views_1.png" alt="Happy couple upright, tree rotated 180 degrees" />
+        </figure>
+
+        <h2 class="section-title">3.4 — Hybrid images</h2>
+        <p>
+          I really enjoyed these hybrid images. They involve generating one flow velocity under a low
+          pass filter, and another velocity under a high pass filter, and then averaging them!
+        </p>
+        <pre class="code-box">def make_hybrids(noise, condition_a, condition_b, predict_velocity, w=7, step_size=0.02):
+    def v_func(x, t):
+      va = guided(x, t, condition_a, w)
+      vb = guided(x, t, condition_b, w)
+      v = lowpass(va) + vb - lowpass(vb)
+      return v
+
+    final = euler_sample(noise, 0, step_size, v_func)
+    return final[0]</pre>
+        <div class="hybrid-row">
+          <figure class="panel">
+            <img src="/CS180Proj3/parta/hybrid_0.jpg" alt="Hybrid image, close view of people fighting" />
+            <figcaption>Close — an oil painting of people fighting each other</figcaption>
+          </figure>
+          <figure class="panel far">
+            <img src="/CS180Proj3/parta/hybrid_0.jpg" alt="Same hybrid image, far view of a skull" />
+            <figcaption>Far — an oil painting of a skull</figcaption>
+          </figure>
+        </div>
+        <div class="hybrid-row">
+          <figure class="panel">
+            <img src="/CS180Proj3/parta/hybrid_1.jpg" alt="Hybrid image, close view of hundreds of happy people" />
+            <figcaption>Close — a Van Gogh painting of hundreds of happy people</figcaption>
+          </figure>
+          <figure class="panel far">
+            <img src="/CS180Proj3/parta/hybrid_1.jpg" alt="Same hybrid image, far view of a flower" />
+            <figcaption>Far — a Van Gogh painting of a flower</figcaption>
+          </figure>
+        </div>
+
+        <h2 class="section-title">Part B — Flow Matching from Scratch</h2>
+
+        <h2 class="section-title">1.2 — Noising process</h2>
+        <p>
+          In part B, we start experimenting with home-trained flow matching models. But before that, we
+          need a baseline to compare against. I once again implemented the noising of MNIST numbers,
+          like I did in part A. However, this time, instead of interpolating with total noise, the spec
+          told me to add multiplied noise directly on top of the existing image, so I did as I was told.
+          Here's several rows of numbers with increasing amounts of noise added in. Note how, even with
+          sigma = 1, you can still pick out the numbers very faintly, because it's not a linear
+          interpolation.
+        </p>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/examples.png" alt="MNIST digits at noise levels 0.0, 0.2, 0.4, 0.5, 0.6, 0.8, and 1.0" />
+        </figure>
+
+        <h2 class="section-title">1.2.1 — Training a denoiser</h2>
+        <p>
+          Next, I trained a UNet to denoise the images manually. As you can see, it works pretty well!
+          After only 5 epochs of training, it can denoise the existing numbers without any classifier or
+          knowledge of noise level.
+        </p>
+        <figure class="panel loss">
+          <img src="/CS180Proj3/partb/single_step_denoiser_loss.png" alt="Training loss for sigma 0.5" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/1_2_1_1.png" alt="Test-set denoising after epoch 1, sigma 0.5" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/1_2_1_5.png" alt="Test-set denoising after epoch 5, sigma 0.5" />
+        </figure>
+
+        <h2 class="section-title">1.2.2 — Out-of-distribution testing</h2>
+        <p>
+          Here's what happens when the denoiser is tested on numbers outside of its training data
+          (sigma 0.5). It works great for sigma ≤ 0.6. By 0.8, it starts to break down, though. This
+          shows the limits of non-flow-matching denoisers.
+        </p>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/1_2_2_0.png" alt="Denoising at sigma 0.0" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/1_2_2_2.png" alt="Denoising at sigma 0.2" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/1_2_2_4.png" alt="Denoising at sigma 0.4" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/1_2_2_5.png" alt="Denoising at sigma 0.5" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/1_2_2_6.png" alt="Denoising at sigma 0.6" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/1_2_2_8.png" alt="Denoising at sigma 0.8" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/1_2_2_10.png" alt="Denoising at sigma 1.0" />
+        </figure>
+
+        <h2 class="section-title">1.2.3 — Denoising pure noise</h2>
+        <p>
+          Here's an example of attempting to train a model on pure noise to detect digits. Obviously,
+          it's not going to work. Neural networks work by extracting meaning from a complex collection
+          of data. Pure noise is designed so that it has absolutely zero information. So, the best the
+          model can do is average over all the training data, resulting in almost the exact same blurry
+          blob for every test output.
+        </p>
+        <figure class="panel loss">
+          <img src="/CS180Proj3/partb/denoiser_starting_from_pure_noise_loss.png" alt="Training loss for denoising pure noise" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/1_2_3_1.png" alt="Pure-noise denoising after epoch 1" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/1_2_3_5.png" alt="Pure-noise denoising after epoch 5" />
+        </figure>
+
+        <h2 class="section-title">2.2 — Time-conditioned training</h2>
+        <p>
+          Now starts the fun part! I start training a UNet to do flow matching instead of direct
+          denoising. It struggles a bit at first, but after 10 epochs, it starts making things that
+          resemble digits, most of the time. The reason why it's struggling a bit, is that it's not
+          conditioned on the type of digit, it's only conditioned on time. It also isn't using
+          guidance, which puts it at a big disadvantage.
+        </p>
+        <figure class="panel loss">
+          <img src="/CS180Proj3/partb/flow_match_time_denoiser_loss.png" alt="Training loss for the time-conditioned UNet" />
+        </figure>
+
+        <h2 class="section-title">2.3 — Sampling from the time-conditioned UNet</h2>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/2_2_1.png" alt="Time-conditioned samples after epoch 1" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/2_2_5.png" alt="Time-conditioned samples after epoch 5" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/2_2_10.png" alt="Time-conditioned samples after epoch 10" />
+        </figure>
+
+        <h2 class="section-title">2.5 — Class-conditioned training</h2>
+        <p>
+          Here's the training graph and samples from training a UNet with digit classification as an
+          input alongside time. It works a lot better, especially with classifier-free guidance! I had
+          a bit of trouble implementing things like dropout, since I'd never heard of them before, but
+          the results made it worth it.
+        </p>
+        <figure class="panel loss">
+          <img src="/CS180Proj3/partb/flow_match_classifier_denoiser_loss.png" alt="Training loss for the class-conditioned UNet" />
+        </figure>
+
+        <h2 class="section-title">2.6 — Sampling from the class-conditioned UNet</h2>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/2_5_1.png" alt="Class-conditioned samples after epoch 1" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/2_5_5.png" alt="Class-conditioned samples after epoch 5" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/2_5_10.png" alt="Class-conditioned samples after epoch 10" />
+        </figure>
+
+        <h3 class="section-title">Without the learning-rate scheduler</h3>
+        <p>
+          This is an example of what happened when I re-trained the flow matcher with no learning rate
+          scheduler. I changed the learning rate to 1e-3 from 1e-2 to compensate, and ran for 15 epochs
+          instead of 10. It works just as well, I'd say!
+        </p>
+        <figure class="panel loss">
+          <img src="/CS180Proj3/partb/no_step_flow_match_classifier_denoiser_loss.png" alt="Training loss without the learning-rate scheduler" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/2_6_1.png" alt="Samples without the scheduler after epoch 1" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/2_6_5.png" alt="Samples without the scheduler after epoch 5" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/2_6_10.png" alt="Samples without the scheduler after epoch 10" />
+        </figure>
+        <figure class="panel">
+          <img src="/CS180Proj3/partb/2_6_15.png" alt="Samples without the scheduler after epoch 15" />
+        </figure>
+
+        <h2 class="section-title">AI Usage Acknowledgment</h2>
+        <section class="carousel-section">
+          <p>
+            All code pertaining to the project deliverables was written by me, in the Google Colab
+            documents submitted alongside my work. I made sure to do this to get the maximum learning
+            value out of the assignment.
+          </p>
+          <p>
+            Also written by me is all of the paragraphs of explanation in this project website, in my
+            own voice, also not AI assisted.
+          </p>
+          <p><strong>What was AI:</strong></p>
+          <p>
+            Operating within the AI rules of the course, I used AI to compile the HTML for this website,
+            supplying it with the finished deliverable images and original shots. I then talked back and
+            forth with the AI to beautify the website, and make it interesting. Also, out of the interest
+            of honesty, I will say I asked AI to help me debug when my code was throwing errors due to
+            weird Pytorch WTFs. But the actual structure, writing, and "thinking" I did myself, so I
+            believe I have gained the full learning value of this project.
+          </p>
+        </section>
+      </article>
+    </main>
+  </body>
+</html>
