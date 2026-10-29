@@ -12,7 +12,7 @@ function cs180StaticPages(): Plugin {
         const request = req as DevRequest
         const url = request.url ?? ''
         const path = url.split('?')[0] ?? ''
-        const match = path.match(/^\/CS180Proj(\d+)\/?$/i)
+        const match = path.match(/^\/CS180Proj(\d+[A-Za-z]?)\/?$/i)
         if (match) {
           const query = url.includes('?') ? url.slice(url.indexOf('?')) : ''
           request.url = `/CS180Proj${match[1]}/index.html${query}`

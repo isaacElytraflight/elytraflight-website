@@ -21,6 +21,10 @@ services:
         source: /CS180Proj3
         destination: /CS180Proj3/
         status: 301
+      - type: redirect
+        source: /CS180Proj4A
+        destination: /CS180Proj4A/
+        status: 301
       - type: rewrite
         source: /*
         destination: /index.html
