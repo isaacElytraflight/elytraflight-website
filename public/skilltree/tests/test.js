@@ -39,12 +39,26 @@ async function newPage(seed, opts = {}) {
   p.on('pageerror', e => errs.push('PAGEERR ' + e.message));
   if (opts.noStorage) await p.evaluateOnNewDocument(() => { Storage.prototype.setItem = function() { throw new DOMException('denied', 'SecurityError') } });
   
+  await p.setRequestInterception(true);
+  p.on('request', req => {
+    if (req.url().includes('supabase.min.js')) {
+      req.respond({
+        status: 200,
+        contentType: 'application/javascript',
+        body: `window.supabase = { createClient: () => window.__supabaseMock };`
+      });
+    } else {
+      req.continue();
+    }
+  });
+  
   await p.evaluateOnNewDocument(() => {
+    window.__oauthCalls = [];
     window.__supabaseMock = {
       auth: {
         getSession: async () => ({ data: { session: null } }),
         signInWithOtp: async () => ({ error: null }),
-        signInWithOAuth: async () => ({ error: null }),
+        signInWithOAuth: async (opts) => { window.__oauthCalls.push(opts); return { error: null }; },
         signOut: async () => ({}),
         onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
       },
@@ -53,7 +67,6 @@ async function newPage(seed, opts = {}) {
         upsert: async () => ({ error: null })
       })
     };
-    window.supabase = { createClient: () => window.__supabaseMock };
   });
   
   if (seed) {
@@ -353,6 +366,13 @@ async function test(name, fn) {
     p.on('console', m => { if (['error', 'warning'].includes(m.type())) errs.push(m.type() + ': ' + m.text()) });
     p.on('pageerror', e => errs.push('PAGEERR ' + e.message));
     
+    await p.setRequestInterception(true);
+    p.on('request', req => {
+      if (req.url().includes('supabase.min.js')) {
+        req.respond({ status: 200, contentType: 'application/javascript', body: `window.supabase={createClient:()=>window.__supabaseMock};` });
+      } else req.continue();
+    });
+    
     await p.evaluateOnNewDocument(() => {
       window.__supabaseMock = {
         auth: {
@@ -367,7 +387,6 @@ async function test(name, fn) {
           upsert: async () => ({ error: null })
         })
       };
-      window.supabase = { createClient: () => window.__supabaseMock };
     });
     
     await p.goto(noSlashUrl, { waitUntil: 'networkidle0', timeout: 30000 });
@@ -383,6 +402,61 @@ async function test(name, fn) {
     assert.strictEqual(title, 'Skillgrove');
     
     await p.screenshot({ path: path.join(SHOTS_DIR, '09_no_trailing_slash.png') });
+    await ctx.close();
+  });
+
+  await test('Google OAuth button renders and calls signInWithOAuth', async () => {
+    const ctx = await browser.createBrowserContext();
+    const p = await ctx.newPage();
+    await p.setViewport({ width: 1280, height: 800 });
+    p.on('console', m => { if (['error', 'warning'].includes(m.type())) errs.push(m.type() + ': ' + m.text()) });
+    p.on('pageerror', e => errs.push('PAGEERR ' + e.message));
+    
+    await p.setRequestInterception(true);
+    p.on('request', req => {
+      if (req.url().includes('supabase.min.js')) {
+        req.respond({ status: 200, contentType: 'application/javascript', body: `window.supabase={createClient:()=>window.__supabaseMock};` });
+      } else req.continue();
+    });
+    
+    await p.evaluateOnNewDocument(() => {
+      window.__oauthCalls = [];
+      window.__supabaseMock = {
+        auth: {
+          getSession: async () => ({ data: { session: null } }),
+          signInWithOtp: async () => ({ error: null }),
+          signInWithOAuth: async (opts) => { window.__oauthCalls.push(opts); return { error: null }; },
+          signOut: async () => ({}),
+          onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
+        },
+        from: () => ({
+          select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: null, error: null }) }) }),
+          upsert: async () => ({ error: null })
+        })
+      };
+    });
+    
+    await p.goto(BASE_URL, { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(500);
+    
+    await p.click('#btnSignIn');
+    await sleep(300);
+    
+    const googleBtnExists = await p.$('#btnGoogleSignIn');
+    assert(googleBtnExists, 'Google sign-in button should render when googleEnabled is true');
+    
+    const googleBtnText = await p.$eval('#btnGoogleSignIn', e => e.textContent.trim());
+    assert(/Google/i.test(googleBtnText), 'Button should mention Google');
+    
+    await p.click('#btnGoogleSignIn');
+    await sleep(200);
+    
+    const oauthCalls = await p.evaluate(() => window.__oauthCalls);
+    assert.strictEqual(oauthCalls.length, 1, 'signInWithOAuth should be called once');
+    assert.strictEqual(oauthCalls[0].provider, 'google', 'provider should be google');
+    assert(oauthCalls[0].options.redirectTo.endsWith('/skilltree/'), 'redirectTo should end with /skilltree/');
+    
+    await p.screenshot({ path: path.join(SHOTS_DIR, '10_google_oauth_modal.png') });
     await ctx.close();
   });
 
