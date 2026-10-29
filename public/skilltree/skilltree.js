@@ -3,6 +3,22 @@
 /* Skillgrove — EE 105 mastery-based skill tree
    Multi-file version: loads skills graph at startup, banks lazily on quiz open */
 
+/* ====================== base URL detection ====================== */
+const BASE_URL = (function() {
+  const scripts = document.getElementsByTagName('script');
+  for (let i = scripts.length - 1; i >= 0; i--) {
+    const src = scripts[i].src;
+    if (src && src.includes('skilltree.js')) {
+      return src.replace(/skilltree\.js.*$/, '');
+    }
+  }
+  const p = location.pathname;
+  if (p.indexOf('/skilltree') === 0) {
+    return location.origin + p.replace(/\/skilltree\/?.*/, '/skilltree/');
+  }
+  return '';
+})();
+
 /* ====================== data loading ====================== */
 let DATA = null;       // loaded from skills.*.json
 let bankCache = {};    // skill_id -> loaded bank questions
@@ -12,11 +28,11 @@ let loadError = null;
 
 async function loadManifest() {
   try {
-    const mRes = await fetch('manifest.json');
+    const mRes = await fetch(BASE_URL + 'manifest.json');
     if (!mRes.ok) throw new Error(`manifest.json: ${mRes.status}`);
     const manifest = await mRes.json();
     
-    const sRes = await fetch(manifest.skills.file);
+    const sRes = await fetch(BASE_URL + manifest.skills.file);
     if (!sRes.ok) throw new Error(`${manifest.skills.file}: ${sRes.status}`);
     DATA = await sRes.json();
     
@@ -36,7 +52,7 @@ async function fetchBank(skillId) {
   if (!meta) return null;
   
   try {
-    const res = await fetch(meta.file);
+    const res = await fetch(BASE_URL + meta.file);
     if (!res.ok) throw new Error(`${meta.file}: ${res.status}`);
     const data = await res.json();
     bankCache[skillId] = data.questions || [];
