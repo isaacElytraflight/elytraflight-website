@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Skillgrove — EE 105 Skill Tree</title>
+<script>
+(function() {
+  var p = location.pathname;
+  if (p.indexOf('/skilltree') === 0 && !p.match(/\/skilltree\/($|\?|#)/)) {
+    var base = p.replace(/\/skilltree\/?.*/, '/skilltree/');
+    document.write('<base href="' + base + '">');
+  }
+})();
+</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="skilltree.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>

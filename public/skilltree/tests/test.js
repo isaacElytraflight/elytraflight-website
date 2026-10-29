@@ -345,6 +345,47 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('non-trailing-slash URL loads correctly (base URL fix)', async () => {
+    const noSlashUrl = BASE_URL.replace(/\/$/, '');
+    const ctx = await browser.createBrowserContext();
+    const p = await ctx.newPage();
+    await p.setViewport({ width: 1280, height: 800 });
+    p.on('console', m => { if (['error', 'warning'].includes(m.type())) errs.push(m.type() + ': ' + m.text()) });
+    p.on('pageerror', e => errs.push('PAGEERR ' + e.message));
+    
+    await p.evaluateOnNewDocument(() => {
+      window.__supabaseMock = {
+        auth: {
+          getSession: async () => ({ data: { session: null } }),
+          signInWithOtp: async () => ({ error: null }),
+          signInWithOAuth: async () => ({ error: null }),
+          signOut: async () => ({}),
+          onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
+        },
+        from: () => ({
+          select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: null, error: null }) }) }),
+          upsert: async () => ({ error: null })
+        })
+      };
+      window.supabase = { createClient: () => window.__supabaseMock };
+    });
+    
+    await p.goto(noSlashUrl, { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(800);
+    
+    const loadingGone = await p.evaluate(() => !document.getElementById('loadingOverlay'));
+    assert(loadingGone, 'loading overlay should be removed after data loads');
+    
+    const tiles = await p.evaluate(() => document.querySelectorAll('#world .tile').length);
+    assert.strictEqual(tiles, 121, 'should render all 121 skill tiles');
+    
+    const title = await p.$eval('h1', e => e.textContent);
+    assert.strictEqual(title, 'Skillgrove');
+    
+    await p.screenshot({ path: path.join(SHOTS_DIR, '09_no_trailing_slash.png') });
+    await ctx.close();
+  });
+
   await browser.close();
 
   console.log('\n=== Test Results ===\n');
