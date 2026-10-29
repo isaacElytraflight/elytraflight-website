@@ -5,7 +5,7 @@ window.SKILLTREE_CONFIG = {
     anonKey: 'sb_publishable_yQrS56HMDZf7xzzjMKJE-w_l8OrLPeg'
   },
   auth: {
-    googleEnabled: false,
+    googleEnabled: true,
     redirectUrl: typeof window !== 'undefined'
       ? window.location.origin + '/skilltree/'
       : 'https://elytraflight.com/skilltree/'
