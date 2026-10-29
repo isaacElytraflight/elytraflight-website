@@ -1,9 +1,14 @@
 {
   "version": 1,
-  "generated": "2026-10-29T12:43:19.366412Z",
+  "generated": "2026-10-29T21:11:15.141822Z",
   "skills": {
     "file": "skills.87d798bc.json",
     "hash": "87d798bc"
+  },
+  "collections": {
+    "file": "collections.f7f7874e.json",
+    "hash": "f7f7874e",
+    "boxCount": 19
   },
   "banks": {
     "ac-power": {

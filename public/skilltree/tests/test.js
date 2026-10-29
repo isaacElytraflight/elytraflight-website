@@ -153,10 +153,14 @@ async function test(name, fn) {
       soon: document.querySelectorAll('#world .tile.soon').length,
       ready: [...document.querySelectorAll('#world .tile.ready')].map(t => t.dataset.id).sort(),
       blobs: document.querySelectorAll('.blob').length,
+      courseBlobs: document.querySelectorAll('.blob.course').length,
+      chapterBlobs: document.querySelectorAll('.blob.chapter').length,
       paths: document.querySelectorAll('#edges path').length,
       title: document.querySelector('h1').textContent
     }));
-    assert.deepStrictEqual([r.tree, r.grid, r.soon, r.blobs, r.paths], [121, 121, NSOON, 18, 180]);
+    assert.deepStrictEqual([r.tree, r.grid, r.soon, r.blobs, r.paths], [121, 121, NSOON, 19, 180]);
+    assert.strictEqual(r.courseBlobs, 1, 'should have 1 course blob');
+    assert.strictEqual(r.chapterBlobs, 18, 'should have 18 chapter blobs');
     assert.deepStrictEqual(r.ready, ROOTS);
     assert.strictEqual(r.title, 'Skillgrove');
     await p.screenshot({ path: path.join(SHOTS_DIR, '01_tree_home.png') });
@@ -541,6 +545,272 @@ async function test(name, fn) {
     lightsOn = await p.evaluate(() => window.__skillgrove.lights.mode());
     assert(!lightsOn, 'lights mode should turn off when zoomed back in');
     
+    await p._ctx.close();
+  });
+
+  await test('collections: EE105 course with 18 chapter boxes loads correctly', async () => {
+    const p = await newPage();
+    
+    const collections = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      if (!sg || !sg.collections) return null;
+      return {
+        boxCount: Object.keys(sg.collections.boxById()).length,
+        courseBox: sg.collections.boxById()['ee105-ucb'],
+        chapterBoxes: Object.values(sg.collections.boxById()).filter(b => b.kind === 'chapter'),
+        skillMappings: sg.collections.skillToBoxes()
+      };
+    });
+    
+    assert(collections, 'collections should be loaded');
+    assert.strictEqual(collections.boxCount, 19, 'should have 19 boxes (1 course + 18 chapters)');
+    
+    assert(collections.courseBox, 'EE105 course box should exist');
+    assert.strictEqual(collections.courseBox.kind, 'course');
+    assert.strictEqual(collections.courseBox.title, 'EE 105 (UC Berkeley)');
+    assert.strictEqual(collections.courseBox.children.length, 18, 'course should have 18 chapter children');
+    
+    assert.strictEqual(collections.chapterBoxes.length, 18, 'should have 18 chapter boxes');
+    
+    const bodeBoxes = collections.skillMappings['bode'];
+    assert(bodeBoxes, 'bode skill should be mapped to boxes');
+    assert(bodeBoxes.includes('ee105-ch2'), 'bode should be in chapter 2');
+    
+    await p._ctx.close();
+  });
+
+  await test('collections: getSkillColorIndex returns box color_index', async () => {
+    const p = await newPage();
+    
+    const colorTests = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      if (!sg || !sg.collections) return null;
+      
+      return {
+        bodeColor: sg.collections.getSkillColorIndex('bode'),
+        phasorsColor: sg.collections.getSkillColorIndex('phasors'),
+        ch2Box: sg.collections.boxById()['ee105-ch2'],
+        ltiColor: sg.collections.getSkillColorIndex('lti-def'),
+        ch1Box: sg.collections.boxById()['ee105-ch1']
+      };
+    });
+    
+    assert(colorTests, 'color tests should run');
+    assert.strictEqual(colorTests.bodeColor, 2, 'bode should get color_index 2 from chapter 2');
+    assert.strictEqual(colorTests.phasorsColor, 2, 'phasors should get color_index 2 from chapter 2');
+    assert.strictEqual(colorTests.ch2Box.color_index, 2, 'chapter 2 box should have color_index 2');
+    assert.strictEqual(colorTests.ltiColor, 1, 'lti-def should get color_index 1 from chapter 1');
+    assert.strictEqual(colorTests.ch1Box.color_index, 1, 'chapter 1 box should have color_index 1');
+    
+    await p._ctx.close();
+  });
+
+  await test('rebranded header shows Skillgrove name and STEM tagline', async () => {
+    const p = await newPage();
+    
+    const header = await p.evaluate(() => ({
+      h1: document.querySelector('h1').textContent,
+      sub: document.querySelector('.sub').textContent,
+      title: document.title,
+      metaDesc: document.querySelector('meta[name="description"]').content,
+      btnGroup: document.querySelector('#btnGroup .t').textContent
+    }));
+    
+    assert.strictEqual(header.h1, 'Skillgrove', 'h1 should say Skillgrove');
+    assert(/Master STEM skills/i.test(header.sub), 'subtitle should mention STEM skills');
+    assert(/one node at a time/i.test(header.sub), 'subtitle should have tagline');
+    assert(/Skillgrove/i.test(header.title), 'page title should mention Skillgrove');
+    assert(/STEM/i.test(header.metaDesc), 'meta description should mention STEM');
+    assert(/Group by course/i.test(header.btnGroup), 'group button should say "Group by course"');
+    
+    await p.screenshot({ path: path.join(SHOTS_DIR, '13_rebranded_header.png') });
+    await p._ctx.close();
+  });
+
+  await test('nested grouped view: course box contains chapter boxes', async () => {
+    const p = await newPage();
+    
+    await p.click('#btnGroup');
+    await sleep(700);
+    
+    const layout = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const grouped = sg.layout().grouped;
+      const courseBlob = grouped.blobs['ee105-ucb'];
+      const ch1Blob = grouped.blobs['ee105-ch1'];
+      const ch2Blob = grouped.blobs['ee105-ch2'];
+      return {
+        hasNested: grouped.useNested,
+        courseBlob: courseBlob ? { x: courseBlob.x, y: courseBlob.y, w: courseBlob.w, h: courseBlob.h, kind: courseBlob.kind } : null,
+        ch1Blob: ch1Blob ? { x: ch1Blob.x, y: ch1Blob.y, w: ch1Blob.w, h: ch1Blob.h } : null,
+        ch2Blob: ch2Blob ? { x: ch2Blob.x, y: ch2Blob.y, w: ch2Blob.w, h: ch2Blob.h } : null,
+        domCourseBlob: !!document.querySelector('.blob.course[data-box="ee105-ucb"]'),
+        domChapterBlobs: document.querySelectorAll('.blob.chapter').length
+      };
+    });
+    
+    assert(layout.hasNested, 'should use nested layout');
+    assert(layout.courseBlob, 'course blob should exist');
+    assert.strictEqual(layout.courseBlob.kind, 'course', 'course blob should have kind=course');
+    assert(layout.ch1Blob, 'chapter 1 blob should exist');
+    assert(layout.ch2Blob, 'chapter 2 blob should exist');
+    assert(layout.domCourseBlob, 'DOM should have course blob element');
+    assert.strictEqual(layout.domChapterBlobs, 18, 'DOM should have 18 chapter blobs');
+    
+    await p.screenshot({ path: path.join(SHOTS_DIR, '14_nested_grouped.png') });
+    await p._ctx.close();
+  });
+
+  await test('collapse/expand: chapter box can be collapsed and expanded', async () => {
+    const p = await newPage();
+    
+    await p.click('#btnGroup');
+    await sleep(700);
+    
+    const before = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const ch1Blob = sg.layout().grouped.blobs['ee105-ch1'];
+      return {
+        collapsed: sg.collections.collapsed().has('ee105-ch1'),
+        height: ch1Blob?.h || 0,
+        hasToggle: !!document.querySelector('.blob[data-box="ee105-ch1"] .toggle')
+      };
+    });
+    
+    assert(!before.collapsed, 'chapter should start expanded');
+    assert(before.height > 100, 'expanded chapter should have significant height');
+    assert(before.hasToggle, 'chapter should have toggle button');
+    
+    await p.evaluate(() => document.querySelector('.blob[data-box="ee105-ch1"] .toggle').click());
+    await sleep(300);
+    
+    const after = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const ch1Blob = sg.layout().grouped.blobs['ee105-ch1'];
+      return {
+        collapsed: sg.collections.collapsed().has('ee105-ch1'),
+        height: ch1Blob?.h || 0,
+        hasCollapsedClass: document.querySelector('.blob[data-box="ee105-ch1"]').classList.contains('collapsed')
+      };
+    });
+    
+    assert(after.collapsed, 'chapter should be collapsed after toggle');
+    assert(after.height < 100, 'collapsed chapter should have small height');
+    assert(after.hasCollapsedClass, 'DOM should have collapsed class');
+    
+    await p.evaluate(() => document.querySelector('.blob[data-box="ee105-ch1"] .toggle').click());
+    await sleep(300);
+    
+    const restored = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      return !sg.collections.collapsed().has('ee105-ch1');
+    });
+    assert(restored, 'chapter should be expanded after second toggle');
+    
+    await p.screenshot({ path: path.join(SHOTS_DIR, '15_collapse_expand.png') });
+    await p._ctx.close();
+  });
+
+  await test('box picker: filters skills by selected box', async () => {
+    const p = await newPage();
+    
+    const pickerExists = await p.$('#boxPicker');
+    assert(pickerExists, 'box picker should exist');
+    
+    const options = await p.$$eval('#boxPicker option', opts => opts.map(o => ({ value: o.value, text: o.textContent })));
+    assert(options.length > 1, 'picker should have multiple options');
+    assert.strictEqual(options[0].value, '', 'first option should be All skills');
+    assert(options.some(o => o.value === 'ee105-ucb'), 'picker should have EE105 course option');
+    assert(options.some(o => o.value === 'ee105-ch2'), 'picker should have chapter options');
+    
+    await p.select('#boxPicker', 'ee105-ch2');
+    await sleep(200);
+    
+    const filterResult = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const dimmedTiles = document.querySelectorAll('#world .tile.boxdim').length;
+      const visibleTiles = document.querySelectorAll('#world .tile:not(.boxdim)').length;
+      const ch2Skills = sg.collections.getBoxSkills('ee105-ch2');
+      return {
+        filterActive: sg.collections.filter() === 'ee105-ch2',
+        dimmedTiles,
+        visibleTiles,
+        ch2SkillCount: ch2Skills.length
+      };
+    });
+    
+    assert(filterResult.filterActive, 'filter should be active');
+    assert(filterResult.dimmedTiles > 0, 'some tiles should be dimmed');
+    assert.strictEqual(filterResult.visibleTiles, filterResult.ch2SkillCount, 'visible tiles should match ch2 skill count');
+    
+    await p.select('#boxPicker', '');
+    await sleep(200);
+    
+    const cleared = await p.evaluate(() => {
+      return document.querySelectorAll('#world .tile.boxdim').length === 0;
+    });
+    assert(cleared, 'clearing filter should remove all boxdim classes');
+    
+    await p.screenshot({ path: path.join(SHOTS_DIR, '16_box_picker.png') });
+    await p._ctx.close();
+  });
+
+  await test('multi-box skills: skill in multiple boxes handled correctly', async () => {
+    const p = await newPage();
+    
+    const multiBoxTest = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const ltiDef = sg.collections.skillToBoxes()['lti-def'];
+      const bode = sg.collections.skillToBoxes()['bode'];
+      
+      const inCh1 = sg.collections.skillInBox('lti-def', 'ee105-ch1');
+      const inCourse = sg.collections.skillInBox('lti-def', 'ee105-ucb');
+      const notInCh2 = !sg.collections.skillInBox('lti-def', 'ee105-ch2');
+      
+      return {
+        ltiDefBoxes: ltiDef,
+        bodeBoxes: bode,
+        inCh1,
+        inCourse,
+        notInCh2
+      };
+    });
+    
+    assert(Array.isArray(multiBoxTest.ltiDefBoxes), 'lti-def should have box array');
+    assert(multiBoxTest.ltiDefBoxes.includes('ee105-ch1'), 'lti-def should be in ch1');
+    assert(multiBoxTest.bodeBoxes.includes('ee105-ch2'), 'bode should be in ch2');
+    assert(multiBoxTest.inCh1, 'skillInBox should return true for direct membership');
+    assert(multiBoxTest.inCourse, 'skillInBox should return true for parent course');
+    assert(multiBoxTest.notInCh2, 'skillInBox should return false for wrong chapter');
+    
+    await p._ctx.close();
+  });
+
+  await test('lights mode works with nested boxes', async () => {
+    const p = await newPage(T({
+      'bode': { tier: 4, lastPracticed: now - DAY, history: [] },
+      'phasors': { tier: 4, lastPracticed: now - 2 * DAY, history: [] }
+    }));
+    
+    await p.click('#btnGroup');
+    await sleep(700);
+    
+    await p.evaluate(() => window.__skillgrove.lights.setScale(0.25));
+    await sleep(100);
+    
+    const lightsResult = await p.evaluate(() => ({
+      lightsOn: window.__skillgrove.lights.mode(),
+      worldHasClass: document.querySelector('#world').classList.contains('lights-view'),
+      lightModeCount: document.querySelectorAll('#world .tile.light-mode').length,
+      masteredHasShimmer: document.querySelector('.tile[data-id="bode"].t4 .light-dot') !== null
+    }));
+    
+    assert(lightsResult.lightsOn, 'lights mode should be on');
+    assert(lightsResult.worldHasClass, 'world should have lights-view class');
+    assert.strictEqual(lightsResult.lightModeCount, 121, 'all tiles should have light-mode');
+    assert(lightsResult.masteredHasShimmer, 'mastered tile should have light-dot');
+    
+    await p.screenshot({ path: path.join(SHOTS_DIR, '17_lights_nested.png') });
     await p._ctx.close();
   });
 

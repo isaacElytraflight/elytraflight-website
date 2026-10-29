@@ -4,11 +4,13 @@ Build script for Skillgrove multi-file app.
 
 Reads:
   - skilltree/ee105_skills_draft.json (skill graph)
+  - skilltree/collections.json (box/collection hierarchy)
   - skilltree/bank/*.json (question banks)
   - skilltree/explainers/*.json (skill explainers)
 
 Outputs to public/skilltree/:
   - skills.json (graph + metadata for simulator, loaded at startup)
+  - collections.<hash>.json (box hierarchy, loaded at startup)
   - banks/<skill-id>.<hash>.json (individual bank files, lazy loaded)
   - explainers/<skill-id>.<hash>.json (individual explainer files, lazy loaded)
   - manifest.json (content hashes for cache busting)
@@ -132,6 +134,34 @@ def main():
                 "sectionCount": len(explainer_data["sections"])
             }
     
+    # Process collections
+    collections_file = SRC / "collections.json"
+    collections_meta = None
+    if collections_file.exists():
+        collections_data = json.loads(collections_file.read_text(encoding="utf-8"))
+        
+        # Validate box references
+        box_ids = {b["id"] for b in collections_data["boxes"]}
+        for box in collections_data["boxes"]:
+            for child_id in box.get("children", []):
+                if child_id not in box_ids:
+                    print(f"Warning: box {box['id']} references unknown child {child_id}", file=sys.stderr)
+            for sid in box.get("skills", []):
+                if sid not in skill_ids:
+                    print(f"Warning: box {box['id']} references unknown skill {sid}", file=sys.stderr)
+        
+        collections_json = json.dumps(collections_data, ensure_ascii=False, separators=(",", ":"))
+        collections_bytes = collections_json.encode("utf-8")
+        collections_hash = sha256_short(collections_bytes)
+        collections_filename = f"collections.{collections_hash}.json"
+        (OUT / collections_filename).write_bytes(collections_bytes)
+        
+        collections_meta = {
+            "file": collections_filename,
+            "hash": collections_hash,
+            "boxCount": len(collections_data["boxes"])
+        }
+    
     skills_out = {
         "course": data.get("course", "EE 105"),
         "source": data.get("source", ""),
@@ -159,6 +189,7 @@ def main():
             "file": skills_filename,
             "hash": skills_hash,
         },
+        "collections": collections_meta,
         "banks": banks_meta,
         "explainers": explainers_meta,
     }
@@ -171,6 +202,8 @@ def main():
     total_explainer_size = sum((EXPLAINERS_OUT / f"{sid}.{m['hash']}.json").stat().st_size for sid, m in explainers_meta.items()) if explainers_meta else 0
     print(f"Built to {OUT}:")
     print(f"  - {skills_filename}: {len(skills_bytes):,} bytes ({len(skills)} skills, {len(playable_ids)} playable)")
+    if collections_meta:
+        print(f"  - {collections_filename}: {len(collections_bytes):,} bytes ({collections_meta['boxCount']} boxes)")
     print(f"  - {len(banks_meta)} bank files: {total_bank_size:,} bytes total")
     print(f"  - {len(explainers_meta)} explainer files: {total_explainer_size:,} bytes total")
     print(f"  - manifest.json")
