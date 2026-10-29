@@ -39,6 +39,23 @@ async function newPage(seed, opts = {}) {
   p.on('pageerror', e => errs.push('PAGEERR ' + e.message));
   if (opts.noStorage) await p.evaluateOnNewDocument(() => { Storage.prototype.setItem = function() { throw new DOMException('denied', 'SecurityError') } });
   
+  await p.evaluateOnNewDocument(() => {
+    window.__supabaseMock = {
+      auth: {
+        getSession: async () => ({ data: { session: null } }),
+        signInWithOtp: async () => ({ error: null }),
+        signInWithOAuth: async () => ({ error: null }),
+        signOut: async () => ({}),
+        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
+      },
+      from: () => ({
+        select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: null, error: null }) }) }),
+        upsert: async () => ({ error: null })
+      })
+    };
+    window.supabase = { createClient: () => window.__supabaseMock };
+  });
+  
   if (seed) {
     await p.goto(BASE_URL);
     await p.waitForSelector('body');

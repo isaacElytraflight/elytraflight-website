@@ -25,6 +25,7 @@
       <div class="sub"><b>EE 105</b> · Niknejad reader · <span id="playableNote"></span></div></div>
     </div>
     <div class="spacer"></div>
+    <div id="authUI" class="auth-ui"></div>
     <span id="saveInd" aria-live="polite">Saved ✓</span>
     <button class="btn hot" id="btnQueue">Mastery challenges <span class="badge" id="qCount">0</span></button>
     <button class="btn" id="btnPlan" title="Simulate how many learning sessions it takes to master everything that is playable">Learning plan <span class="badge pl" id="planCount">–</span></button>
@@ -50,7 +51,10 @@
 <div id="modalBack"><div class="modal" role="dialog" aria-modal="true" id="modal"></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 
+<script src="config.js"></script>
+<script src="supabase.min.js"></script>
 <script src="simcore.js"></script>
+<script src="auth.js"></script>
 <script src="skilltree.js"></script>
 </body>
 </html>

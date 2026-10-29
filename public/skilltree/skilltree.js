@@ -1376,8 +1376,13 @@ async function init() {
   
   window.__skillgrove = {
     version: 1, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode, timing: () => timing, plan: (scratch) => runPlan(!!scratch), ready: () => skills.filter(s => isReady(s.id)).map(s => s.id), playableIds: () => playable.map(s => s.id),
-    qa: { bankMeta: () => bankMeta, bankCache: () => bankCache, fetchBank, prepareQ, renderQuiz, setQuiz: q => { quiz = q }, closeQuizUI, openQuiz: () => quizEl.classList.add('open'), figureNode, katexErrors: () => window.__katexErrors }
+    qa: { bankMeta: () => bankMeta, bankCache: () => bankCache, fetchBank, prepareQ, renderQuiz, setQuiz: q => { quiz = q }, closeQuizUI, openQuiz: () => quizEl.classList.add('open'), figureNode, katexErrors: () => window.__katexErrors },
+    openModal, toast, reloadProgress: loadProgress, reloadTiming: loadTiming, refreshAll
   };
+  
+  if (window.SkillgroveAuth) {
+    window.SkillgroveAuth.init();
+  }
 }
 
 init();

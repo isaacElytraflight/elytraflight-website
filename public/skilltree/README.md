@@ -7,8 +7,11 @@ A mastery-based skill tree for Berkeley EE 105, served at `/skilltree/` on elytr
 ```
 public/skilltree/
 ├── index.html          # Main HTML (lightweight, loads external assets)
-├── skilltree.css       # All styles (~21 KB)
+├── skilltree.css       # All styles (~22 KB)
+├── config.js           # Supabase URL & public key, auth flags
+├── supabase.min.js     # Vendored supabase-js v2 (~218 KB)
 ├── simcore.js          # Learning plan simulator module (~4 KB)
+├── auth.js             # Auth & sync module (sign-in, merge, sync)
 ├── skilltree.js        # Main app with lazy bank loading (~60 KB)
 ├── manifest.json       # Content hashes for cache control
 ├── skills.<hash>.json  # Skill graph + metadata (~25 KB, loaded at startup)
@@ -96,38 +99,120 @@ The app is plain JavaScript with no build step. Edit the files directly:
 
 ### Testing
 
-Tests are in `/skilltree/app/tests/`. They use Puppeteer to test the full app.
+Tests are in `public/skilltree/tests/`. They include:
+
+- **Unit tests** for merge functions (`test-merge.js`)
+- **UI tests** using Puppeteer (`test.js`)
 
 ```bash
-cd skilltree/app/tests
+cd public/skilltree/tests
 npm install
-node test.js
-```
 
-For the multi-file version, tests need a local static server:
+# Unit tests (no server needed)
+node test-merge.js
 
-```bash
-# Start a server (from repo root)
+# UI tests (needs local server)
+# Start a server from repo root first:
 npx serve public -l 5000 &
 
-# Run tests pointing to the server
-cd skilltree/app/tests
+# Run UI tests pointing to the server:
 SKILLTREE_URL=http://localhost:5000/skilltree/ node test.js
 ```
+
+UI tests mock Supabase so no network calls are made.
 
 ## File Sizes
 
 | Resource | Size | When Loaded |
 |----------|------|-------------|
 | index.html | ~3 KB | Initial |
-| skilltree.css | ~21 KB | Initial |
+| skilltree.css | ~22 KB | Initial |
+| config.js | ~0.5 KB | Initial |
+| supabase.min.js | ~218 KB | Initial |
+| auth.js | ~10 KB | Initial |
 | KaTeX CSS (CDN) | ~24 KB | Initial |
 | KaTeX JS (CDN) | ~290 KB | Initial |
 | simcore.js | ~4 KB | Initial |
 | skilltree.js | ~60 KB | Initial |
 | skills.json | ~25 KB | Initial |
-| **Initial total** | **~430 KB** | |
+| **Initial total** | **~660 KB** | |
 | Each bank JSON | 15-50 KB | On quiz start |
+
+## Supabase Sync (Optional)
+
+Users can optionally sign in to sync progress across devices via Supabase.
+
+### Supabase Project Setup
+
+1. **Create the `progress` table** in your Supabase project:
+
+   ```sql
+   CREATE TABLE public.progress (
+     user_id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+     data JSONB NOT NULL DEFAULT '{}',
+     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+   );
+
+   ALTER TABLE public.progress ENABLE ROW LEVEL SECURITY;
+
+   CREATE POLICY "Users can read own progress"
+     ON public.progress FOR SELECT
+     USING (auth.uid() = user_id);
+
+   CREATE POLICY "Users can insert own progress"
+     ON public.progress FOR INSERT
+     WITH CHECK (auth.uid() = user_id);
+
+   CREATE POLICY "Users can update own progress"
+     ON public.progress FOR UPDATE
+     USING (auth.uid() = user_id);
+   ```
+
+2. **Configure Auth URLs** in Supabase Dashboard → Authentication → URL Configuration:
+
+   | Setting | Value |
+   |---------|-------|
+   | Site URL | `https://elytraflight.com` |
+   | Redirect URLs | `https://elytraflight.com/skilltree/` |
+
+   For local development, also add:
+   - `http://localhost:5173/skilltree/`
+   - `http://localhost:5000/skilltree/`
+
+3. **Enable Email Auth** (enabled by default):
+   - Dashboard → Authentication → Providers → Email
+   - Enable "Magic Link" sign-in
+
+4. **Enable Google OAuth (optional)**:
+   - Dashboard → Authentication → Providers → Google
+   - Configure OAuth credentials from Google Cloud Console
+   - Set `googleEnabled: true` in `config.js`
+
+### Configuration
+
+The app reads Supabase config from `config.js`:
+
+```javascript
+window.SKILLTREE_CONFIG = {
+  supabase: {
+    url: 'https://your-project.supabase.co',
+    anonKey: 'your-anon-key'
+  },
+  auth: {
+    googleEnabled: false,  // Set true to show Google sign-in button
+    redirectUrl: 'https://elytraflight.com/skilltree/'
+  }
+};
+```
+
+**Security**: Only the anon (public) key is used. Never commit secret keys.
+
+### How Sync Works
+
+- **localStorage stays primary** for offline-first experience
+- On sign-in, remote and local progress are merged (higher tier wins, history is union-deduped)
+- After each localStorage save, changes are synced to Supabase (debounced 2s)
+- Signed-out users work exactly as before (localStorage only)
 
 ## Deploy
 
