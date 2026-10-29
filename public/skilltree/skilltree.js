@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-/* Skillgrove — EE 105 mastery-based skill tree
+/* Skillgrove — mastery-based skill tree for undergraduate STEM courses
    Multi-file version: loads skills graph at startup, banks lazily on quiz open */
 
 /* ====================== base URL detection ====================== */
@@ -21,10 +21,13 @@ const BASE_URL = (function() {
 
 /* ====================== data loading ====================== */
 let DATA = null;       // loaded from skills.*.json
+let COLLECTIONS = null; // loaded from collections.*.json
 let bankCache = {};    // skill_id -> loaded bank questions
 let bankMeta = {};     // skill_id -> {file, hash, questionCount, rounds}
 let explainerCache = {};  // skill_id -> loaded explainer
 let explainerMeta = {};   // skill_id -> {file, hash, sectionCount}
+let boxById = {};      // box_id -> box object
+let skillToBoxes = {}; // skill_id -> [box_ids] (all boxes containing this skill)
 let dataReady = false;
 let loadError = null;
 
@@ -38,6 +41,14 @@ async function loadManifest() {
     if (!sRes.ok) throw new Error(`${manifest.skills.file}: ${sRes.status}`);
     DATA = await sRes.json();
     
+    if (manifest.collections) {
+      const cRes = await fetch(BASE_URL + manifest.collections.file);
+      if (cRes.ok) {
+        COLLECTIONS = await cRes.json();
+        initCollections();
+      }
+    }
+    
     bankMeta = DATA.banks || {};
     explainerMeta = DATA.explainers || {};
     dataReady = true;
@@ -47,6 +58,33 @@ async function loadManifest() {
     console.error('Skillgrove load error:', e);
     return false;
   }
+}
+
+function initCollections() {
+  if (!COLLECTIONS || !COLLECTIONS.boxes) return;
+  boxById = {};
+  skillToBoxes = {};
+  
+  for (const box of COLLECTIONS.boxes) {
+    boxById[box.id] = box;
+    for (const sid of (box.skills || [])) {
+      if (!skillToBoxes[sid]) skillToBoxes[sid] = [];
+      skillToBoxes[sid].push(box.id);
+    }
+  }
+}
+
+function getSkillBox(skillId) {
+  const boxIds = skillToBoxes[skillId];
+  if (!boxIds || boxIds.length === 0) return null;
+  return boxById[boxIds[0]];
+}
+
+function getSkillColorIndex(skillId) {
+  const box = getSkillBox(skillId);
+  if (box && box.color_index != null) return box.color_index;
+  const s = byId[skillId];
+  return s ? s.chapter : 1;
 }
 
 async function fetchBank(skillId) {
@@ -480,7 +518,8 @@ function tileTitle(s) { return `${s.name} · Ch ${s.chapter}` }
 
 function buildTile(s, st) {
   const shimmerDelay = (Math.random() * 4 + 1).toFixed(2) + 's';
-  const b = el('button', { class: 'tile' + (st ? ' st' : ''), 'data-id': s.id, style: colorVars(s.chapter) + `;--shimmer-delay:${shimmerDelay}`, type: 'button', title: tileTitle(s) },
+  const ci = getSkillColorIndex(s.id);
+  const b = el('button', { class: 'tile' + (st ? ' st' : ''), 'data-id': s.id, style: colorVars(ci) + `;--shimmer-delay:${shimmerDelay}`, type: 'button', title: tileTitle(s) },
     el('span', { class: 'fill' }), el('span', { class: 'nm name', text: s.name }),
     el('span', { class: 'meta sub' }, el('span', { class: 'pips' }, [0, 1, 2, 3].map(() => el('i'))), el('span', { class: 'tl' }), el('span', { class: 'tag' })),
     el('span', { class: 'star', 'aria-hidden': 'true', text: '★' }),
@@ -566,7 +605,7 @@ function showLayout(mode, animated) {
   sizeWorld(L);
   document.querySelectorAll('#world .blob').forEach(b => b.classList.toggle('on', mode === 'grouped'));
   const btn = $('btnGroup'); btn.setAttribute('aria-pressed', String(mode === 'grouped'));
-  btn.querySelector('.t').textContent = mode === 'grouped' ? 'Ungroup' : 'Group by chapter';
+  btn.querySelector('.t').textContent = mode === 'grouped' ? 'Ungroup' : 'Group by course';
   btn.title = mode === 'grouped' ? 'Back to one homogeneous prerequisite tree' : 'Sort the tree into chapter blocks';
   const finish = () => {
     ids.forEach(id => curPos[id] = { x: L.nodes[id].x, y: L.nodes[id].y });
@@ -1207,9 +1246,9 @@ function openHelp() {
     el('li', {}, 'Prerequisites are guidance, not locks. A new skill glows "ready" once all its prerequisites are at Level 2 or Mastered (prerequisites that are still coming soon are ignored). Lines show what leads to what; click a tile to highlight them.'),
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
     el('li', {}, el('b', { text: 'Learning plan ' }), 'simulates sessions (practice every ready skill, one mastery challenge per unmastered skill) to estimate how many sessions and how much time it takes to master everything playable. It learns how fast you are from your own timed quizzes.'),
-    el('li', {}, el('b', { text: 'Group by chapter ' }), 'regroups the one big prerequisite tree into chapter blocks, and Ungroup flows it back.'),
+    el('li', {}, el('b', { text: 'Group by course ' }), 'regroups the one big prerequisite tree into course and chapter blocks, and Ungroup flows it back.'),
     el('li', {}, 'Progress autosaves in this browser after every quiz. Use Export for a backup file you can Import later (or on another device).'),
-    el('li', {}, 'Content: EE 105 (Niknejad reader), draft. Only some skills have questions so far; the rest say "coming soon".'));
+    el('li', {}, 'Skills are organized into courses and chapters. Some skills have questions; the rest say "coming soon".'));
   openModal({ title: 'How Skillgrove works', body: ul, actions: [{ label: 'Got it', kind: 'primary' }] });
 }
 
@@ -1480,7 +1519,7 @@ async function init() {
   
   loadProgress();
   loadTiming();
-  $('playableNote').textContent = `${playable.length} of ${skills.length} skills playable`;
+  $('playableNote').textContent = `${playable.length} of ${skills.length} skills ready`;
   buildTree(); buildGrid(); legendBuild();
   
   try { const u = JSON.parse(localStorage.getItem(UIKEY) || 'null'); if (u && u.view === 'grid') filter.view = 'grid' } catch (e) { }
@@ -1507,6 +1546,7 @@ async function init() {
     qa: { bankMeta: () => bankMeta, bankCache: () => bankCache, fetchBank, prepareQ, renderQuiz, setQuiz: q => { quiz = q }, closeQuizUI, openQuiz: () => quizEl.classList.add('open'), figureNode, katexErrors: () => window.__katexErrors },
     explainers: { meta: () => explainerMeta, cache: () => explainerCache, fetch: fetchExplainer, has: hasExplainer, open: openExplainer },
     lights: { mode: () => lightsMode, threshold: LIGHTS_THRESHOLD, setScale: s => { view.s = s; applyView(); } },
+    collections: { data: () => COLLECTIONS, boxById: () => boxById, skillToBoxes: () => skillToBoxes, getSkillBox, getSkillColorIndex },
     openModal, toast, reloadProgress: loadProgress, reloadTiming: loadTiming, refreshAll
   };
   

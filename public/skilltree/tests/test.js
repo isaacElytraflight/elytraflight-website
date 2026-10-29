@@ -544,6 +544,85 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('collections: EE105 course with 18 chapter boxes loads correctly', async () => {
+    const p = await newPage();
+    
+    const collections = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      if (!sg || !sg.collections) return null;
+      return {
+        boxCount: Object.keys(sg.collections.boxById()).length,
+        courseBox: sg.collections.boxById()['ee105-ucb'],
+        chapterBoxes: Object.values(sg.collections.boxById()).filter(b => b.kind === 'chapter'),
+        skillMappings: sg.collections.skillToBoxes()
+      };
+    });
+    
+    assert(collections, 'collections should be loaded');
+    assert.strictEqual(collections.boxCount, 19, 'should have 19 boxes (1 course + 18 chapters)');
+    
+    assert(collections.courseBox, 'EE105 course box should exist');
+    assert.strictEqual(collections.courseBox.kind, 'course');
+    assert.strictEqual(collections.courseBox.title, 'EE 105 (UC Berkeley)');
+    assert.strictEqual(collections.courseBox.children.length, 18, 'course should have 18 chapter children');
+    
+    assert.strictEqual(collections.chapterBoxes.length, 18, 'should have 18 chapter boxes');
+    
+    const bodeBoxes = collections.skillMappings['bode'];
+    assert(bodeBoxes, 'bode skill should be mapped to boxes');
+    assert(bodeBoxes.includes('ee105-ch2'), 'bode should be in chapter 2');
+    
+    await p._ctx.close();
+  });
+
+  await test('collections: getSkillColorIndex returns box color_index', async () => {
+    const p = await newPage();
+    
+    const colorTests = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      if (!sg || !sg.collections) return null;
+      
+      return {
+        bodeColor: sg.collections.getSkillColorIndex('bode'),
+        phasorsColor: sg.collections.getSkillColorIndex('phasors'),
+        ch2Box: sg.collections.boxById()['ee105-ch2'],
+        ltiColor: sg.collections.getSkillColorIndex('lti-def'),
+        ch1Box: sg.collections.boxById()['ee105-ch1']
+      };
+    });
+    
+    assert(colorTests, 'color tests should run');
+    assert.strictEqual(colorTests.bodeColor, 2, 'bode should get color_index 2 from chapter 2');
+    assert.strictEqual(colorTests.phasorsColor, 2, 'phasors should get color_index 2 from chapter 2');
+    assert.strictEqual(colorTests.ch2Box.color_index, 2, 'chapter 2 box should have color_index 2');
+    assert.strictEqual(colorTests.ltiColor, 1, 'lti-def should get color_index 1 from chapter 1');
+    assert.strictEqual(colorTests.ch1Box.color_index, 1, 'chapter 1 box should have color_index 1');
+    
+    await p._ctx.close();
+  });
+
+  await test('rebranded header shows Skillgrove name and STEM tagline', async () => {
+    const p = await newPage();
+    
+    const header = await p.evaluate(() => ({
+      h1: document.querySelector('h1').textContent,
+      sub: document.querySelector('.sub').textContent,
+      title: document.title,
+      metaDesc: document.querySelector('meta[name="description"]').content,
+      btnGroup: document.querySelector('#btnGroup .t').textContent
+    }));
+    
+    assert.strictEqual(header.h1, 'Skillgrove', 'h1 should say Skillgrove');
+    assert(/Master STEM skills/i.test(header.sub), 'subtitle should mention STEM skills');
+    assert(/one node at a time/i.test(header.sub), 'subtitle should have tagline');
+    assert(/Skillgrove/i.test(header.title), 'page title should mention Skillgrove');
+    assert(/STEM/i.test(header.metaDesc), 'meta description should mention STEM');
+    assert(/Group by course/i.test(header.btnGroup), 'group button should say "Group by course"');
+    
+    await p.screenshot({ path: path.join(SHOTS_DIR, '13_rebranded_header.png') });
+    await p._ctx.close();
+  });
+
   await browser.close();
 
   console.log('\n=== Test Results ===\n');

@@ -1,24 +1,27 @@
-# Skillgrove — EE 105 Skill Tree
+# Skillgrove — Master STEM Skills
 
-A mastery-based skill tree for Berkeley EE 105, served at `/skilltree/` on elytraflight.com.
+A mastery-based skill tree for undergraduate STEM courses, served at `/skilltree/` on elytraflight.com.
+
+Skillgrove organizes skills into prerequisite trees where you climb from Unpracticed to Mastered through quizzes. Skills are grouped into courses and chapters via a flexible "collections" system that supports multiple courses, cross-university content sharing, and nested organization.
 
 ## Structure
 
 ```
 public/skilltree/
-├── index.html          # Main HTML (lightweight, loads external assets)
-├── skilltree.css       # All styles (~22 KB)
-├── config.js           # Supabase URL & public key, auth flags
-├── supabase.min.js     # Vendored supabase-js v2 (~218 KB)
-├── simcore.js          # Learning plan simulator module (~4 KB)
-├── auth.js             # Auth & sync module (sign-in, merge, sync)
-├── skilltree.js        # Main app with lazy bank loading (~60 KB)
-├── manifest.json       # Content hashes for cache control
-├── skills.<hash>.json  # Skill graph + metadata (~25 KB, loaded at startup)
-└── banks/              # Question banks, loaded lazily on quiz start
-    ├── bode.<hash>.json
-    ├── lti-def.<hash>.json
-    └── ... (55 banks, ~1.7 MB total, each 15-50 KB)
+├── index.html              # Main HTML (lightweight, loads external assets)
+├── skilltree.css           # All styles (~24 KB)
+├── config.js               # Supabase URL & public key, auth flags
+├── supabase.min.js         # Vendored supabase-js v2 (~218 KB)
+├── simcore.js              # Learning plan simulator module (~4 KB)
+├── auth.js                 # Auth & sync module (sign-in, merge, sync)
+├── skilltree.js            # Main app with lazy loading (~65 KB)
+├── manifest.json           # Content hashes for cache control
+├── skills.<hash>.json      # Skill graph + metadata (~30 KB, loaded at startup)
+├── collections.<hash>.json # Course/chapter hierarchy (loaded at startup)
+├── banks/                  # Question banks, loaded lazily on quiz start
+│   └── ... (55 banks, ~1.7 MB total)
+└── explainers/             # Skill explainers, loaded lazily
+    └── ... (55 explainers, ~350 KB total)
 ```
 
 ## How It Works
@@ -75,6 +78,61 @@ This regenerates:
 ### Adding Skills
 
 Edit `/skilltree/ee105_skills_draft.json` to add skills to the graph, then rebuild.
+
+## Collections (Courses & Chapters)
+
+Skills are organized into a hierarchy of "boxes" (courses, chapters, units) via `skilltree/collections.json`. A skill can belong to multiple boxes—useful for cross-listed courses or shared foundations.
+
+### collections.json Schema
+
+```json
+{
+  "version": 1,
+  "boxes": [
+    {
+      "id": "ee105-ucb",
+      "title": "EE 105 (UC Berkeley)",
+      "kind": "course",
+      "institution": "UC Berkeley",
+      "term_or_version": "Fall 2022 (Niknejad Reader)",
+      "children": ["ee105-ch1", "ee105-ch2"],
+      "skills": []
+    },
+    {
+      "id": "ee105-ch1",
+      "title": "Chapter 1: Linear Time-Invariant Systems",
+      "kind": "chapter",
+      "color_index": 1,
+      "children": [],
+      "skills": ["lti-def", "rc-lpf", "cx-exp"]
+    }
+  ]
+}
+```
+
+### Adding a New Course
+
+1. Create a course box with `kind: "course"` and list its chapter children
+2. Create chapter boxes with `kind: "chapter"` and list their skills
+3. Skills stay in `ee105_skills_draft.json`—boxes just reference them by ID
+4. A skill can appear in multiple boxes (e.g., "phasors" in both EE 105 and Physics 7B)
+5. Run `python3 tools/skilltree-content/build.py` to regenerate
+
+### Adding a Nested Box (Unit within Chapter)
+
+Boxes can nest arbitrarily. Create a box with the parent chapter's ID in its `children`, then list the unit's skills:
+
+```json
+{
+  "id": "ee105-ch1-lti",
+  "title": "LTI Fundamentals",
+  "kind": "unit",
+  "children": [],
+  "skills": ["lti-def", "sinusoid-resp"]
+}
+```
+
+Then add `"ee105-ch1-lti"` to the parent chapter's `children` array.
 
 ## localStorage Keys
 
