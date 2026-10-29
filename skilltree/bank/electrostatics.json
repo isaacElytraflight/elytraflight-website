@@ -1,0 +1,185 @@
+{
+  "skill_id": "electrostatics",
+  "version": 1,
+  "questions": [
+    {
+      "id": "electrostatics-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In one dimension, Poisson's equation is \\(\\dfrac{dE}{dx}=\\dfrac{\\rho}{\\varepsilon}\\). What does it imply about the electric field in a region with no charge?",
+      "options": [
+        "The field must be zero",
+        "The field grows linearly with \\(x\\)",
+        "The field is constant (it can be nonzero, but it doesn't change with \\(x\\))",
+        "The potential must be constant"
+      ],
+      "correct_index": 2,
+      "explanation": "With \\(\\rho=0\\), \\(dE/dx=0\\), so \\(E\\) is constant (reader Sec. 4.4.1). It can still be large: the insulator of a charged capacitor is charge-free but has a uniform field. A constant nonzero \\(E\\) means the potential changes linearly, not that it's constant.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Parallel-plate (MIM) capacitor</title><rect x=\"60\" y=\"30\" width=\"200\" height=\"12\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"60\" y=\"92\" width=\"200\" height=\"12\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"160\" y=\"72\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">insulator, ε</text><text x=\"160\" y=\"24\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">top plate (+Q)</text><text x=\"160\" y=\"120\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">bottom plate (−Q)</text><line x1=\"45\" y1=\"42\" x2=\"45\" y2=\"92\"/><polygon points=\"45,92 43.1,87.4 46.9,87.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"45\" y1=\"92\" x2=\"45\" y2=\"42\"/><polygon points=\"45,42 46.9,46.6 43.1,46.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"38\" y=\"71\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t_ox</text><line x1=\"90\" y1=\"46\" x2=\"90\" y2=\"88\"/><polygon points=\"90,88 88.1,83.4 91.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"130\" y1=\"46\" x2=\"130\" y2=\"88\"/><polygon points=\"130,88 128.1,83.4 131.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"170\" y1=\"46\" x2=\"170\" y2=\"88\"/><polygon points=\"170,88 168.1,83.4 171.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"210\" y1=\"46\" x2=\"210\" y2=\"88\"/><polygon points=\"210,88 208.1,83.4 211.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"240\" y1=\"46\" x2=\"240\" y2=\"88\"/><polygon points=\"240,88 238.1,83.4 241.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"24\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V</text></svg>",
+      "figure_alt": "Parallel-plate capacitor with uniform field arrows across the insulator."
+    },
+    {
+      "id": "electrostatics-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The potential \\(\\phi(x)\\) increases with \\(x\\). Which way does the electric field point?",
+      "options": [
+        "Toward \\(+x\\), along the increasing potential",
+        "Toward \\(-x\\), since \\(E=-d\\phi/dx<0\\): fields point from high to low potential",
+        "There is no field unless charge is present",
+        "Perpendicular to \\(x\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "Reader Eq. 4.11: \\(E=-\\dfrac{d\\phi}{dx}\\). A positive slope gives a negative field. A positive charge is pushed downhill in potential, while an electron 'floats' toward higher potential.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 110\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Potential increasing with x</title><line x1=\"30\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"90\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"280\" y=\"106\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">φ(x)</text><line x1=\"40\" y1=\"85\" x2=\"260\" y2=\"30\" stroke-width=\"2.2\"/><line x1=\"220\" y1=\"100\" x2=\"150\" y2=\"100\"/><polygon points=\"150,100 156.4,97.3 156.4,102.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"185\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E ?</text></svg>",
+      "figure_alt": "Plot of potential rising linearly with x."
+    },
+    {
+      "id": "electrostatics-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A uniform field exists across a 10 nm oxide with 1 V applied. What is the field, in MV/cm?",
+      "answer": 1.0,
+      "unit": "MV/cm",
+      "tolerance": 0.01,
+      "explanation": "Uniform field: \\(E=V/t=\\dfrac{1\\ \\mathrm{V}}{10^{-6}\\ \\mathrm{cm}}=10^6\\ \\mathrm{V/cm}=1\\ \\mathrm{MV/cm}\\) (10 nm \\(=10^{-6}\\) cm). For scale, SiO₂ breaks down around 10 MV/cm.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Parallel-plate (MIM) capacitor</title><rect x=\"60\" y=\"30\" width=\"200\" height=\"12\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"60\" y=\"92\" width=\"200\" height=\"12\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"160\" y=\"72\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">insulator, ε</text><text x=\"160\" y=\"24\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">top plate (+Q)</text><text x=\"160\" y=\"120\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">bottom plate (−Q)</text><line x1=\"45\" y1=\"42\" x2=\"45\" y2=\"92\"/><polygon points=\"45,92 43.1,87.4 46.9,87.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"45\" y1=\"92\" x2=\"45\" y2=\"42\"/><polygon points=\"45,42 46.9,46.6 43.1,46.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"38\" y=\"71\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">10 nm</text><line x1=\"90\" y1=\"46\" x2=\"90\" y2=\"88\"/><polygon points=\"90,88 88.1,83.4 91.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"130\" y1=\"46\" x2=\"130\" y2=\"88\"/><polygon points=\"130,88 128.1,83.4 131.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"170\" y1=\"46\" x2=\"170\" y2=\"88\"/><polygon points=\"170,88 168.1,83.4 171.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"210\" y1=\"46\" x2=\"210\" y2=\"88\"/><polygon points=\"210,88 208.1,83.4 211.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"240\" y1=\"46\" x2=\"240\" y2=\"88\"/><polygon points=\"240,88 238.1,83.4 241.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"24\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1 V</text></svg>",
+      "figure_alt": "Capacitor with a 10 nm insulator and 1 V across it."
+    },
+    {
+      "id": "electrostatics-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A slab of uniform charge \\(\\rho_0=qN\\) with \\(N=10^{16}\\ \\mathrm{cm^{-3}}\\) occupies \\(0<x<0.5\\ \\mu\\mathrm{m}\\) in silicon (\\(\\varepsilon_s=11.7\\varepsilon_0\\), \\(\\varepsilon_0=8.854\\times10^{-14}\\ \\mathrm{F/cm}\\)). With \\(E(0)=0\\), what is \\(E(x_1)\\) at \\(x_1=0.5\\ \\mu\\mathrm{m}\\), in kV/cm?",
+      "answer": 77.3227,
+      "unit": "kV/cm",
+      "tolerance": 0.02,
+      "explanation": "Integrate Poisson: \\(E(x_1)=\\dfrac{qN}{\\varepsilon_s}x_1\\) (reader Eq. 4.10).\n\\(=\\dfrac{1.602\\times10^{-19}\\times10^{16}\\times0.5\\times10^{-4}}{1.036\\times10^{-12}}=7.732\\times10^{4}\\ \\mathrm{V/cm}\\approx77.32\\ \\mathrm{kV/cm}\\).\nKeep everything in cm: \\(0.5\\ \\mu\\mathrm{m}=0.5\\times10^{-4}\\ \\mathrm{cm}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 160\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Charge density and field</title><line x1=\"40\" y1=\"55\" x2=\"300\" y2=\"55\"/><polygon points=\"300,55 293.6,57.7 293.6,52.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"55\" x2=\"40\" y2=\"10\"/><polygon points=\"40,10 42.7,16.4 37.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"71\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"44\" y=\"6\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">ρ(x)</text><polyline points=\"40,55 40,25 150,25 150,55\" fill=\"currentColor\" fill-opacity=\"0.15\"/><text x=\"150\" y=\"68\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x₁</text><text x=\"95\" y=\"20\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ρ₀ = qN</text><line x1=\"40\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"140\" x2=\"40\" y2=\"80\"/><polygon points=\"40,80 42.7,86.4 37.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"44\" y=\"76\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">E(x)</text><polyline points=\"40,140 150,95 290,95\" stroke-width=\"2.2\"/><text x=\"150\" y=\"153\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x₁</text></svg>",
+      "figure_alt": "Top: uniform charge density from 0 to x1. Bottom: field rising linearly from 0 to x1, then constant."
+    },
+    {
+      "id": "electrostatics-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "For the same slab (\\(N=10^{16}\\ \\mathrm{cm^{-3}}\\), \\(0<x<0.5\\ \\mu\\mathrm{m}\\), \\(E(0)=0\\)), what is the magnitude of the potential change from \\(x=0\\) to \\(x_1\\), in V?",
+      "answer": 1.93307,
+      "unit": "V",
+      "tolerance": 0.02,
+      "explanation": "\\(\\phi(x_1)-\\phi(0)=-\\int_0^{x_1}E\\,dx=-\\dfrac{qN}{\\varepsilon_s}\\dfrac{x_1^2}{2}\\) (the area under the linear field: a triangle).\n\\(|\\Delta\\phi|=\\dfrac{E(x_1)\\,x_1}{2}=\\dfrac{7.73\\times10^4\\times0.5\\times10^{-4}}{2}=1.933\\ \\mathrm{V}\\).\nCommon mistake: using \\(E(x_1)x_1\\) (rectangle), which doubles it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 160\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Charge density and field</title><line x1=\"40\" y1=\"55\" x2=\"300\" y2=\"55\"/><polygon points=\"300,55 293.6,57.7 293.6,52.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"55\" x2=\"40\" y2=\"10\"/><polygon points=\"40,10 42.7,16.4 37.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"71\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"44\" y=\"6\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">ρ(x)</text><polyline points=\"40,55 40,25 150,25 150,55\" fill=\"currentColor\" fill-opacity=\"0.15\"/><text x=\"150\" y=\"68\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x₁</text><text x=\"95\" y=\"20\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ρ₀ = qN</text><line x1=\"40\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"140\" x2=\"40\" y2=\"80\"/><polygon points=\"40,80 42.7,86.4 37.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"44\" y=\"76\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">E(x)</text><polyline points=\"40,140 150,95 290,95\" stroke-width=\"2.2\"/><text x=\"150\" y=\"153\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x₁</text></svg>",
+      "figure_alt": "Charge slab and its linearly rising field."
+    },
+    {
+      "id": "electrostatics-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "At a charge-free oxide/silicon interface, how do the fields on the two sides compare (\\(\\varepsilon_{ox}=3.9\\varepsilon_0\\), \\(\\varepsilon_s=11.7\\varepsilon_0\\))?",
+      "options": [
+        "\\(E_{ox}=3E_{si}\\), since \\(\\varepsilon_{ox}E_{ox}=\\varepsilon_sE_{si}\\)",
+        "\\(E_{ox}=E_{si}\\): fields are always continuous",
+        "\\(E_{ox}=E_{si}/3\\)",
+        "\\(E_{ox}=0\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "Gauss's law on a thin pillbox with no enclosed charge gives \\(\\varepsilon_1E_1=\\varepsilon_2E_2\\) (reader Eq. 4.18–4.19). So \\(E_{ox}/E_{si}=\\varepsilon_s/\\varepsilon_{ox}=11.7/3.9=3\\): the lower-permittivity material holds the larger field. The POTENTIAL is continuous; the field jumps.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Oxide / silicon interface</title><rect x=\"40\" y=\"20\" width=\"120\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"100\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂ (3.9ε₀)</text><rect x=\"160\" y=\"20\" width=\"140\" height=\"90\"/><text x=\"230\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Si (11.7ε₀)</text><line x1=\"60\" y1=\"65\" x2=\"140\" y2=\"65\"/><polygon points=\"140,65 133.6,67.7 133.6,62.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E_ox</text><line x1=\"180\" y1=\"65\" x2=\"220\" y2=\"65\"/><polygon points=\"220,65 213.6,67.7 213.6,62.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E_si</text></svg>",
+      "figure_alt": "Oxide region on the left and silicon on the right, with field arrows in each."
+    },
+    {
+      "id": "electrostatics-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Which quantity must be continuous across any interface, even one that carries a sheet of charge?",
+      "options": [
+        "The electric field \\(E\\)",
+        "Both \\(E\\) and \\(\\phi\\)",
+        "Neither",
+        "The potential \\(\\phi\\); the field may jump"
+      ],
+      "correct_index": 3,
+      "explanation": "A jump in \\(\\phi\\) would need an infinite field (infinite force), so \\(\\phi\\) is continuous (reader Sec. 4.4.4). The field jumps at a dielectric change (\\(\\varepsilon_1E_1=\\varepsilon_2E_2\\)) and at a sheet of charge (by \\(\\sigma/\\varepsilon\\)), giving kinks, not breaks, in \\(\\phi(x)\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Oxide / silicon interface</title><rect x=\"40\" y=\"20\" width=\"120\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"100\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂ (3.9ε₀)</text><rect x=\"160\" y=\"20\" width=\"140\" height=\"90\"/><text x=\"230\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Si (11.7ε₀)</text><line x1=\"60\" y1=\"65\" x2=\"140\" y2=\"65\"/><polygon points=\"140,65 133.6,67.7 133.6,62.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E_ox</text><line x1=\"180\" y1=\"65\" x2=\"220\" y2=\"65\"/><polygon points=\"220,65 213.6,67.7 213.6,62.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E_si</text></svg>",
+      "figure_alt": "Interface between oxide and silicon."
+    },
+    {
+      "id": "electrostatics-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A sheet of positive charge \\(\\sigma=q\\times10^{12}\\ \\mathrm{cm^{-2}}\\) lies at an oxide/silicon interface. The field in the oxide is zero. What is the field just inside the silicon, in kV/cm?",
+      "answer": 154.645,
+      "unit": "kV/cm",
+      "tolerance": 0.02,
+      "explanation": "Gauss's pillbox around the sheet: \\(\\varepsilon_sE_{si}-\\varepsilon_{ox}E_{ox}=\\sigma\\). With \\(E_{ox}=0\\): \\(E_{si}=\\dfrac{\\sigma}{\\varepsilon_s}=\\dfrac{1.602\\times10^{-7}\\ \\mathrm{C/cm^2}}{1.036\\times10^{-12}\\ \\mathrm{F/cm}}=154.6\\ \\mathrm{kV/cm}\\).\nUse \\(\\varepsilon_s\\), the permittivity on the side where the field is.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Sheet charge at the interface</title><rect x=\"40\" y=\"20\" width=\"120\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"100\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂ (3.9ε₀)</text><line x1=\"160\" y1=\"20\" x2=\"160\" y2=\"110\" stroke-width=\"4\"/><text x=\"168\" y=\"35\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"168\" y=\"55\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"168\" y=\"95\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"230\" y=\"100\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">sheet σ</text><rect x=\"160\" y=\"20\" width=\"140\" height=\"90\"/><text x=\"230\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Si (11.7ε₀)</text><line x1=\"60\" y1=\"65\" x2=\"140\" y2=\"65\"/><polygon points=\"140,65 133.6,67.7 133.6,62.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E_ox</text><line x1=\"180\" y1=\"65\" x2=\"220\" y2=\"65\"/><polygon points=\"220,65 213.6,67.7 213.6,62.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E_si</text></svg>",
+      "figure_alt": "Oxide/silicon interface with a sheet of charge."
+    },
+    {
+      "id": "electrostatics-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A region holds uniform NEGATIVE charge (\\(\\rho=-qN_A\\), like the P side of a depletion region). What is the shape of \\(\\phi(x)\\) there?",
+      "options": [
+        "A parabola curving downward",
+        "A straight line",
+        "A parabola curving upward (concave up), since \\(d^2\\phi/dx^2=-\\rho/\\varepsilon=+qN_A/\\varepsilon>0\\)",
+        "A constant"
+      ],
+      "correct_index": 2,
+      "explanation": "Reader Eq. 4.15: \\(\\dfrac{d^2\\phi}{dx^2}=-\\dfrac{\\rho}{\\varepsilon}\\). Negative charge gives positive curvature. The field \\(E=-d\\phi/dx\\) then decreases linearly (\\(dE/dx=\\rho/\\varepsilon<0\\)). Sign slips here cause most depletion-region mistakes.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 165\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Charge density and field</title><line x1=\"40\" y1=\"40\" x2=\"300\" y2=\"40\"/><text x=\"304\" y=\"44\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"44\" y=\"14\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ρ(x)</text><polyline points=\"40,40 40,66 150,66 150,40\" fill=\"currentColor\" fill-opacity=\"0.15\"/><text x=\"95\" y=\"80\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ρ = −qN_A</text><line x1=\"40\" y1=\"120\" x2=\"300\" y2=\"120\"/><text x=\"304\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"44\" y=\"94\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E(x)</text><polyline points=\"40,120 150,150 290,150\" stroke-width=\"2.2\"/><text x=\"150\" y=\"112\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E decreases (slope ρ/ε &lt; 0)</text></svg>",
+      "figure_alt": "Uniform charge slab and its field."
+    },
+    {
+      "id": "electrostatics-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of the depletion approximation. In a PN junction, the P side holds \\(\\rho=-qN_A\\) for \\(-x_p<x<0\\) with \\(N_A=10^{17}\\ \\mathrm{cm^{-3}}\\), \\(x_p=0.1\\ \\mu\\mathrm{m}\\), and the field is zero outside. What is the field magnitude at \\(x=0\\), in kV/cm?",
+      "answer": 154.645,
+      "unit": "kV/cm",
+      "tolerance": 0.02,
+      "explanation": "Integrating from \\(-x_p\\) where \\(E=0\\): \\(|E(0)|=\\dfrac{qN_Ax_p}{\\varepsilon_s}=\\dfrac{1.602\\times10^{-19}\\times10^{17}\\times10^{-5}}{1.036\\times10^{-12}}=154.6\\ \\mathrm{kV/cm}\\).\nHere the field peaks at the junction, a triangle shape that the depletion-approximation skill builds from both sides.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "Abrupt PN junction with negative depletion charge on the P side and positive on the N side.",
+      "preview": [
+        "depl-approx",
+        "rev-bias"
+      ]
+    },
+    {
+      "id": "electrostatics-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of MIM capacitors. The field in an SiO₂ capacitor dielectric is 1 MV/cm (\\(\\varepsilon_{ox}=3.9\\varepsilon_0=3.45\\times10^{-13}\\ \\mathrm{F/cm}\\)). By Gauss's law, what charge per area sits on each plate, in \\(\\mu\\mathrm{C/cm^2}\\)?",
+      "answer": 0.345306,
+      "unit": "µC/cm²",
+      "tolerance": 0.02,
+      "explanation": "Just inside the plate the field is \\(E\\) and zero in the metal, so \\(\\sigma=\\varepsilon_{ox}E=3.453\\times10^{-13}\\times10^6=0.3453\\ \\mu\\mathrm{C/cm^2}\\).\nCombine with \\(E=V/t\\) and you get \\(Q=\\dfrac{\\varepsilon A}{t}V\\): the capacitor formula is next.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Parallel-plate (MIM) capacitor</title><rect x=\"60\" y=\"30\" width=\"200\" height=\"12\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"60\" y=\"92\" width=\"200\" height=\"12\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"160\" y=\"72\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">insulator, ε</text><text x=\"160\" y=\"24\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">top plate (+Q)</text><text x=\"160\" y=\"120\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">bottom plate (−Q)</text><line x1=\"45\" y1=\"42\" x2=\"45\" y2=\"92\"/><polygon points=\"45,92 43.1,87.4 46.9,87.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"45\" y1=\"92\" x2=\"45\" y2=\"42\"/><polygon points=\"45,42 46.9,46.6 43.1,46.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"38\" y=\"71\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t_ox</text><line x1=\"90\" y1=\"46\" x2=\"90\" y2=\"88\"/><polygon points=\"90,88 88.1,83.4 91.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"130\" y1=\"46\" x2=\"130\" y2=\"88\"/><polygon points=\"130,88 128.1,83.4 131.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"170\" y1=\"46\" x2=\"170\" y2=\"88\"/><polygon points=\"170,88 168.1,83.4 171.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"210\" y1=\"46\" x2=\"210\" y2=\"88\"/><polygon points=\"210,88 208.1,83.4 211.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"240\" y1=\"46\" x2=\"240\" y2=\"88\"/><polygon points=\"240,88 238.1,83.4 241.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"24\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V</text></svg>",
+      "figure_alt": "Parallel-plate capacitor.",
+      "preview": [
+        "mim-cap"
+      ]
+    },
+    {
+      "id": "electrostatics-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of the MOS structure. A gate oxide sits on silicon with no interface charge. Where is the field larger, just above or just below the interface?",
+      "options": [
+        "In the silicon, 3× larger",
+        "In the oxide, about 3× larger, because \\(\\varepsilon_{ox}E_{ox}=\\varepsilon_sE_{si}\\)",
+        "They are equal",
+        "The oxide field is zero because it's an insulator"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(E_{ox}=\\dfrac{\\varepsilon_s}{\\varepsilon_{ox}}E_{si}=3E_{si}\\). Insulators carry field just fine. In the MOS capacitor, this boundary condition ties the oxide voltage drop to the charge in the silicon.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Oxide / silicon interface</title><rect x=\"40\" y=\"20\" width=\"120\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"100\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂ (3.9ε₀)</text><rect x=\"160\" y=\"20\" width=\"140\" height=\"90\"/><text x=\"230\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Si (11.7ε₀)</text><line x1=\"60\" y1=\"65\" x2=\"140\" y2=\"65\"/><polygon points=\"140,65 133.6,67.7 133.6,62.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E_ox</text><line x1=\"180\" y1=\"65\" x2=\"220\" y2=\"65\"/><polygon points=\"220,65 213.6,67.7 213.6,62.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E_si</text></svg>",
+      "figure_alt": "Oxide/silicon interface with fields on both sides.",
+      "preview": [
+        "mos-struct",
+        "mos-regions"
+      ]
+    }
+  ]
+}

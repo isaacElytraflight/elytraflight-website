@@ -1,0 +1,183 @@
+{
+  "skill_id": "junction-cap",
+  "version": 1,
+  "questions": [
+    {
+      "id": "junction-cap-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Increasing the reverse bias on a PN junction does what to its depletion capacitance \\(C_j\\)?",
+      "options": [
+        "Increases it",
+        "Decreases it, because the depletion region widens",
+        "Has no effect",
+        "Makes it negative"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(C_j=\\varepsilon_s/X_{dep}\\) (reader Eq. 5.63) and \\(X_{dep}\\propto\\sqrt{\\phi_{bi}-V_D}\\) grows with reverse bias. Wider 'plate' spacing means less capacitance: that's what makes a varactor.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Junction capacitance vs bias</title><line x1=\"20\" y1=\"120\" x2=\"310\" y2=\"120\"/><line x1=\"290\" y1=\"125\" x2=\"290\" y2=\"20\"/><text x=\"30\" y=\"135\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D = -4 V</text><text x=\"290\" y=\"135\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"286\" y=\"25\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C_j</text><polyline points=\"30,89 33.2,88.8 36.5,88.6 39.8,88.5 43,88.3 46.2,88.1 49.5,88 52.8,87.8 56,87.6 59.2,87.4 62.5,87.2 65.8,87 69,86.8 72.2,86.6 75.5,86.4 78.8,86.2 82,86 85.2,85.8 88.5,85.6 91.8,85.4 95,85.1 98.2,84.9 101.5,84.7 104.8,84.4 108,84.2 111.2,83.9 114.5,83.7 117.8,83.4 121,83.1 124.2,82.9 127.5,82.6 130.8,82.3 134,82 137.2,81.7 140.5,81.4 143.8,81.1 147,80.8 150.2,80.4 153.5,80.1 156.8,79.7 160,79.4 163.2,79 166.5,78.6 169.8,78.2 173,77.8 176.2,77.4 179.5,77 182.8,76.6 186,76.1 189.2,75.7 192.5,75.2 195.8,74.7 199,74.2 202.2,73.6 205.5,73.1 208.8,72.5 212,71.9 215.2,71.3 218.5,70.7 221.8,70 225,69.3 228.2,68.6 231.5,67.9 234.8,67.1 238,66.3 241.2,65.4 244.5,64.5 247.8,63.5 251,62.5 254.2,61.5 257.5,60.4 260.8,59.2 264,57.9 267.2,56.6 270.5,55.2 273.8,53.7 277,52 280.2,50.3 283.5,48.3 286.8,46.3 290,44\" stroke-width=\"2.2\"/><text x=\"296\" y=\"48\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">C_j0</text></svg>",
+      "figure_alt": "Junction capacitance decreasing with reverse bias."
+    },
+    {
+      "id": "junction-cap-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A junction has \\(C_{j0}=1\\ \\mathrm{pF}\\) and \\(\\phi_{bi}=0.8\\ \\mathrm{V}\\). What is \\(C_j\\) at \\(V_D=-2.4\\ \\mathrm{V}\\), in pF?",
+      "answer": 0.5,
+      "unit": "pF",
+      "tolerance": 0.01,
+      "explanation": "\\(C_j=\\dfrac{C_{j0}}{\\sqrt{1-V_D/\\phi_{bi}}}=\\dfrac{1}{\\sqrt{1+3}}=0.5\\ \\mathrm{pF}\\) (reader Eq. 5.60).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Junction capacitance vs bias</title><line x1=\"20\" y1=\"120\" x2=\"310\" y2=\"120\"/><line x1=\"290\" y1=\"125\" x2=\"290\" y2=\"20\"/><text x=\"30\" y=\"135\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D = -4 V</text><text x=\"290\" y=\"135\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"286\" y=\"25\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C_j</text><polyline points=\"30,89 33.2,88.8 36.5,88.6 39.8,88.5 43,88.3 46.2,88.1 49.5,88 52.8,87.8 56,87.6 59.2,87.4 62.5,87.2 65.8,87 69,86.8 72.2,86.6 75.5,86.4 78.8,86.2 82,86 85.2,85.8 88.5,85.6 91.8,85.4 95,85.1 98.2,84.9 101.5,84.7 104.8,84.4 108,84.2 111.2,83.9 114.5,83.7 117.8,83.4 121,83.1 124.2,82.9 127.5,82.6 130.8,82.3 134,82 137.2,81.7 140.5,81.4 143.8,81.1 147,80.8 150.2,80.4 153.5,80.1 156.8,79.7 160,79.4 163.2,79 166.5,78.6 169.8,78.2 173,77.8 176.2,77.4 179.5,77 182.8,76.6 186,76.1 189.2,75.7 192.5,75.2 195.8,74.7 199,74.2 202.2,73.6 205.5,73.1 208.8,72.5 212,71.9 215.2,71.3 218.5,70.7 221.8,70 225,69.3 228.2,68.6 231.5,67.9 234.8,67.1 238,66.3 241.2,65.4 244.5,64.5 247.8,63.5 251,62.5 254.2,61.5 257.5,60.4 260.8,59.2 264,57.9 267.2,56.6 270.5,55.2 273.8,53.7 277,52 280.2,50.3 283.5,48.3 286.8,46.3 290,44\" stroke-width=\"2.2\"/><text x=\"296\" y=\"48\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">C_j0</text><circle cx=\"134\" cy=\"82\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "Junction capacitance versus bias with a marker at -2.4 V."
+    },
+    {
+      "id": "junction-cap-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The reader interprets the depletion capacitance as \\(C_j=\\varepsilon_s/X_{dep}\\) per area. What does that mean physically?",
+      "options": [
+        "Small charge changes happen at the two EDGES of the depletion region, separated by \\(X_{dep}\\), as if metal plates sat there with silicon as the dielectric",
+        "The charge is stored uniformly throughout the N region",
+        "The P and N regions are insulators",
+        "The capacitance comes from free electrons crossing the junction"
+      ],
+      "correct_index": 0,
+      "explanation": "When \\(V_D\\) changes slightly, the depletion region grows or shrinks at its edges \\(-x_p\\) and \\(x_n\\); the incremental charges sit \\(X_{dep}\\) apart (reader Sec. 5.5.4). That's why the parallel-plate form works, with a bias-dependent spacing.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "PN junction with the depletion region between -xp and xn."
+    },
+    {
+      "id": "junction-cap-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "An abrupt junction has \\(N_A=10^{17}\\ \\mathrm{cm^{-3}}\\), \\(N_D=10^{16}\\ \\mathrm{cm^{-3}}\\), \\(\\phi_{bi}=0.775\\ \\mathrm{V}\\). Using \\(C_{j0}=\\sqrt{\\dfrac{q\\varepsilon_s}{2\\phi_{bi}}\\dfrac{N_AN_D}{N_A+N_D}}\\) (reader Eq. 5.61), what is \\(C_{j0}\\) in \\(\\mathrm{fF/\\mu m^2}\\)?",
+      "answer": 0.311984,
+      "unit": "fF/µm²",
+      "tolerance": 0.02,
+      "explanation": "\\(\\dfrac{N_AN_D}{N_A+N_D}=9.09\\times10^{15}\\ \\mathrm{cm^{-3}}\\). \\(q\\varepsilon_s=1.602\\times10^{-19}\\times1.036\\times10^{-12}=1.66\\times10^{-31}\\).\n\\(C_{j0}=\\sqrt{\\dfrac{1.66\\times10^{-31}\\times9.09\\times10^{15}}{1.55}}=3.12\\times10^{-8}\\ \\mathrm{F/cm^2}=0.312\\ \\mathrm{fF/\\mu m^2}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "Abrupt PN junction."
+    },
+    {
+      "id": "junction-cap-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "For the same junction, what is the zero-bias depletion width \\(X_{dep0}=\\varepsilon_s/C_{j0}\\), in µm?",
+      "answer": 0.332042,
+      "unit": "µm",
+      "tolerance": 0.02,
+      "explanation": "\\(X_{dep0}=\\dfrac{1.036\\times10^{-12}}{3.12\\times10^{-8}}=3.32\\times10^{-5}\\ \\mathrm{cm}=0.332\\ \\mu\\mathrm{m}\\) (reader Eq. 5.62). Most of it lies on the lightly doped N side.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "Abrupt PN junction."
+    },
+    {
+      "id": "junction-cap-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "In a one-sided junction with \\(N_A\\gg N_D\\), which doping mainly sets \\(C_{j0}\\)?",
+      "options": [
+        "The heavier doping \\(N_A\\)",
+        "Both equally: \\(C_{j0}\\propto N_A+N_D\\)",
+        "Neither: \\(C_{j0}\\) depends only on area",
+        "The lighter doping \\(N_D\\): \\(\\dfrac{N_AN_D}{N_A+N_D}\\approx N_D\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "The 'series' combination \\(\\dfrac{N_AN_D}{N_A+N_D}\\) is dominated by the smaller one, just as the depletion region extends mostly into the lightly doped side. So \\(C_{j0}\\approx\\sqrt{\\dfrac{q\\varepsilon_sN_D}{2\\phi_{bi}}}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "Abrupt PN junction."
+    },
+    {
+      "id": "junction-cap-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "With \\(\\phi_{bi}=0.8\\ \\mathrm{V}\\), the reverse bias is doubled from 1 V to 2 V. How does \\(C_j\\) change?",
+      "options": [
+        "It halves",
+        "It falls to \\(1/\\sqrt2=0.707\\) of its value",
+        "It falls by only about 20%, to \\(\\sqrt{1.8/2.8}=0.802\\) of its value",
+        "It doubles"
+      ],
+      "correct_index": 2,
+      "explanation": "\\(C_j\\propto(\\phi_{bi}-V_D)^{-1/2}\\), and \\(\\phi_{bi}-V_D\\) goes from 1.8 V to 2.8 V, not a factor of 2. Ratio \\(=\\sqrt{1.8/2.8}=0.802\\).\nGotcha: forgetting \\(\\phi_{bi}\\) gives the \\(1/\\sqrt2\\) answer.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Junction capacitance vs bias</title><line x1=\"20\" y1=\"120\" x2=\"310\" y2=\"120\"/><line x1=\"290\" y1=\"125\" x2=\"290\" y2=\"20\"/><text x=\"30\" y=\"135\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D = -4 V</text><text x=\"290\" y=\"135\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"286\" y=\"25\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C_j</text><polyline points=\"30,89 33.2,88.8 36.5,88.6 39.8,88.5 43,88.3 46.2,88.1 49.5,88 52.8,87.8 56,87.6 59.2,87.4 62.5,87.2 65.8,87 69,86.8 72.2,86.6 75.5,86.4 78.8,86.2 82,86 85.2,85.8 88.5,85.6 91.8,85.4 95,85.1 98.2,84.9 101.5,84.7 104.8,84.4 108,84.2 111.2,83.9 114.5,83.7 117.8,83.4 121,83.1 124.2,82.9 127.5,82.6 130.8,82.3 134,82 137.2,81.7 140.5,81.4 143.8,81.1 147,80.8 150.2,80.4 153.5,80.1 156.8,79.7 160,79.4 163.2,79 166.5,78.6 169.8,78.2 173,77.8 176.2,77.4 179.5,77 182.8,76.6 186,76.1 189.2,75.7 192.5,75.2 195.8,74.7 199,74.2 202.2,73.6 205.5,73.1 208.8,72.5 212,71.9 215.2,71.3 218.5,70.7 221.8,70 225,69.3 228.2,68.6 231.5,67.9 234.8,67.1 238,66.3 241.2,65.4 244.5,64.5 247.8,63.5 251,62.5 254.2,61.5 257.5,60.4 260.8,59.2 264,57.9 267.2,56.6 270.5,55.2 273.8,53.7 277,52 280.2,50.3 283.5,48.3 286.8,46.3 290,44\" stroke-width=\"2.2\"/><text x=\"296\" y=\"48\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">C_j0</text></svg>",
+      "figure_alt": "Junction capacitance versus bias."
+    },
+    {
+      "id": "junction-cap-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "With \\(\\phi_{bi}=0.8\\ \\mathrm{V}\\), what reverse-bias magnitude \\(V_R=-V_D\\) makes \\(C_j=C_{j0}/3\\), in V?",
+      "answer": 6.4,
+      "unit": "V",
+      "tolerance": 0.01,
+      "explanation": "\\(\\sqrt{1+V_R/\\phi_{bi}}=3\\Rightarrow1+V_R/0.8=9\\Rightarrow V_R=6.4\\ \\mathrm{V}\\).\nCutting \\(C\\) by 3 needs a 9× larger \\(\\phi_{bi}-V_D\\); varactor tuning ranges are limited by this square-root law. Common mistake: \\(V_R=2\\phi_{bi}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Junction capacitance vs bias</title><line x1=\"20\" y1=\"120\" x2=\"310\" y2=\"120\"/><line x1=\"290\" y1=\"125\" x2=\"290\" y2=\"20\"/><text x=\"30\" y=\"135\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D = -4 V</text><text x=\"290\" y=\"135\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"286\" y=\"25\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C_j</text><polyline points=\"30,89 33.2,88.8 36.5,88.6 39.8,88.5 43,88.3 46.2,88.1 49.5,88 52.8,87.8 56,87.6 59.2,87.4 62.5,87.2 65.8,87 69,86.8 72.2,86.6 75.5,86.4 78.8,86.2 82,86 85.2,85.8 88.5,85.6 91.8,85.4 95,85.1 98.2,84.9 101.5,84.7 104.8,84.4 108,84.2 111.2,83.9 114.5,83.7 117.8,83.4 121,83.1 124.2,82.9 127.5,82.6 130.8,82.3 134,82 137.2,81.7 140.5,81.4 143.8,81.1 147,80.8 150.2,80.4 153.5,80.1 156.8,79.7 160,79.4 163.2,79 166.5,78.6 169.8,78.2 173,77.8 176.2,77.4 179.5,77 182.8,76.6 186,76.1 189.2,75.7 192.5,75.2 195.8,74.7 199,74.2 202.2,73.6 205.5,73.1 208.8,72.5 212,71.9 215.2,71.3 218.5,70.7 221.8,70 225,69.3 228.2,68.6 231.5,67.9 234.8,67.1 238,66.3 241.2,65.4 244.5,64.5 247.8,63.5 251,62.5 254.2,61.5 257.5,60.4 260.8,59.2 264,57.9 267.2,56.6 270.5,55.2 273.8,53.7 277,52 280.2,50.3 283.5,48.3 286.8,46.3 290,44\" stroke-width=\"2.2\"/><text x=\"296\" y=\"48\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">C_j0</text></svg>",
+      "figure_alt": "Junction capacitance versus bias."
+    },
+    {
+      "id": "junction-cap-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "In the formula \\(C_j=\\varepsilon_s/X_{dep}\\), what distance is \\(X_{dep}\\)?",
+      "options": [
+        "Only \\(x_n\\), the N-side width",
+        "The total depletion width \\(x_p+x_n\\) at the bias point",
+        "Only \\(x_p\\), the P-side width",
+        "The distance between the two metal contacts"
+      ],
+      "correct_index": 1,
+      "explanation": "The incremental charges appear at both edges, \\(-x_p\\) and \\(x_n\\), so the effective plate spacing is \\(X_{dep}=x_p+x_n\\) (reader Eq. 5.54, 5.62). The contacts are far away in the neutral regions, which conduct.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "PN junction depletion region between -xp and xn."
+    },
+    {
+      "id": "junction-cap-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of MOSFET capacitances. A transistor's drain diffusion forms a \\(20\\ \\mu\\mathrm{m^2}\\) junction with the body, \\(C_{j0}=1\\ \\mathrm{fF/\\mu m^2}\\), \\(\\phi_{bi}=0.8\\ \\mathrm{V}\\), reverse-biased by 1.8 V. What is its capacitance, in fF?",
+      "answer": 11.094,
+      "unit": "fF",
+      "tolerance": 0.02,
+      "explanation": "\\(C=\\dfrac{20\\times1\\ \\mathrm{fF}}{\\sqrt{1+1.8/0.8}}=\\dfrac{20}{1.803}=11.09\\ \\mathrm{fF}\\).\nEvery MOSFET drain and source has such a junction; they show up as \\(C_{DB}\\) and \\(C_{SB}\\), which slow down circuits.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Junction capacitance vs bias</title><line x1=\"20\" y1=\"120\" x2=\"310\" y2=\"120\"/><line x1=\"290\" y1=\"125\" x2=\"290\" y2=\"20\"/><text x=\"30\" y=\"135\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D = -4 V</text><text x=\"290\" y=\"135\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"286\" y=\"25\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C_j</text><polyline points=\"30,89 33.2,88.8 36.5,88.6 39.8,88.5 43,88.3 46.2,88.1 49.5,88 52.8,87.8 56,87.6 59.2,87.4 62.5,87.2 65.8,87 69,86.8 72.2,86.6 75.5,86.4 78.8,86.2 82,86 85.2,85.8 88.5,85.6 91.8,85.4 95,85.1 98.2,84.9 101.5,84.7 104.8,84.4 108,84.2 111.2,83.9 114.5,83.7 117.8,83.4 121,83.1 124.2,82.9 127.5,82.6 130.8,82.3 134,82 137.2,81.7 140.5,81.4 143.8,81.1 147,80.8 150.2,80.4 153.5,80.1 156.8,79.7 160,79.4 163.2,79 166.5,78.6 169.8,78.2 173,77.8 176.2,77.4 179.5,77 182.8,76.6 186,76.1 189.2,75.7 192.5,75.2 195.8,74.7 199,74.2 202.2,73.6 205.5,73.1 208.8,72.5 212,71.9 215.2,71.3 218.5,70.7 221.8,70 225,69.3 228.2,68.6 231.5,67.9 234.8,67.1 238,66.3 241.2,65.4 244.5,64.5 247.8,63.5 251,62.5 254.2,61.5 257.5,60.4 260.8,59.2 264,57.9 267.2,56.6 270.5,55.2 273.8,53.7 277,52 280.2,50.3 283.5,48.3 286.8,46.3 290,44\" stroke-width=\"2.2\"/><text x=\"296\" y=\"48\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">C_j0</text><circle cx=\"173\" cy=\"77.8\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "Junction capacitance versus bias with a marker at -1.8 V.",
+      "preview": [
+        "mos-caps"
+      ]
+    },
+    {
+      "id": "junction-cap-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of the diode small-signal model. A reverse-biased diode (\\(C_{j0}=2\\ \\mathrm{pF}\\), \\(\\phi_{bi}=0.8\\ \\mathrm{V}\\), \\(V_R=3\\ \\mathrm{V}\\)) acts as just a capacitor. Driven through \\(1\\ \\mathrm{k\\Omega}\\), what is the RC corner frequency \\(1/(2\\pi RC_j)\\), in MHz?",
+      "answer": 173.435,
+      "unit": "MHz",
+      "tolerance": 0.02,
+      "explanation": "\\(C_j=\\dfrac{2}{\\sqrt{1+3.75}}=0.918\\ \\mathrm{pF}\\). \\(f_c=\\dfrac{1}{2\\pi\\times10^3\\times0.918\\times10^{-12}}=173.4\\ \\mathrm{MHz}\\).\nIn forward bias the diode model adds a conductance and a second capacitance; that's next.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 110\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Reverse-biased diode as a capacitor</title><line x1=\"30\" y1=\"25\" x2=\"30\" y2=\"43\"/><line x1=\"30\" y1=\"67\" x2=\"30\" y2=\"85\"/><circle cx=\"30\" cy=\"55\" r=\"12\"/><text x=\"30\" y=\"53\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"30\" y=\"65\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"13\" y=\"59\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vₛ</text><polyline points=\"30,25 60,25\"/><polyline points=\"60,25 72,25 75,19 80,31 85,19 90,31 95,19 100,31 108,25 120,25\"/><text x=\"90\" y=\"13\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">1 kΩ</text><polyline points=\"120,25 170,25\"/><line x1=\"170\" y1=\"25\" x2=\"170\" y2=\"50\"/><line x1=\"170\" y1=\"60\" x2=\"170\" y2=\"85\"/><line x1=\"161\" y1=\"50\" x2=\"179\" y2=\"50\"/><line x1=\"161\" y1=\"60\" x2=\"179\" y2=\"60\"/><text x=\"184\" y=\"59\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_j(V_R)</text><polyline points=\"30,85 170,85\"/><line x1=\"100\" y1=\"85\" x2=\"100\" y2=\"91\"/><line x1=\"91\" y1=\"91\" x2=\"109\" y2=\"91\"/><line x1=\"95\" y1=\"95\" x2=\"105\" y2=\"95\"/><line x1=\"98.5\" y1=\"99\" x2=\"101.5\" y2=\"99\"/></svg>",
+      "figure_alt": "Source driving a 1 kΩ resistor into a junction capacitance to ground.",
+      "preview": [
+        "diode-ss"
+      ]
+    },
+    {
+      "id": "junction-cap-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of MOSFET capacitances. Which change REDUCES the junction capacitance of a transistor's drain region?",
+      "options": [
+        "Making the junction area smaller (and/or increasing its reverse bias)",
+        "Making the area larger",
+        "Forward-biasing the junction",
+        "Increasing the doping of the lightly doped side"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(C=A\\cdot C_{j0}/\\sqrt{1-V_D/\\phi_{bi}}\\): smaller area and more reverse bias both help. Forward bias increases \\(C_j\\). Heavier doping on the light side shrinks \\(X_{dep}\\) and raises \\(C_{j0}\\propto\\sqrt{N}\\). Layout tricks such as sharing drains cut \\(C_{DB}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "PN junction.",
+      "preview": [
+        "mos-caps"
+      ]
+    }
+  ]
+}

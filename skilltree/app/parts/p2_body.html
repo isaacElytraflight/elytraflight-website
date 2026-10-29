@@ -1,0 +1,35 @@
+<body>
+<div id="warnbar" role="alert"></div>
+<header>
+  <div class="hrow">
+    <div class="brand">
+      <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#fff4d6"/><path d="M20 33V19" stroke="#2f9e6a" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="13" r="6" fill="#ff7a59"/><circle cx="12" cy="21" r="5" fill="#ffc93c"/><circle cx="28" cy="21" r="5" fill="#22b8e6"/><circle cx="20" cy="26" r="4.5" fill="#7c6cff"/></svg>
+      <div><h1>Skillgrove</h1>
+      <div class="sub"><b>EE 105</b> · Niknejad reader · <b>draft</b> — <span id="playableNote"></span></div></div>
+    </div>
+    <div class="spacer"></div>
+    <span id="saveInd" aria-live="polite">Saved ✓</span>
+    <button class="btn hot" id="btnQueue">Mastery challenges <span class="badge" id="qCount">0</span></button>
+    <button class="btn" id="btnPlan" title="Simulate how many learning sessions it takes to master everything that is playable">Learning plan <span class="badge pl" id="planCount">–</span></button>
+    <button class="btn" id="btnExport" title="Download your progress as a JSON backup">Export</button>
+    <button class="btn" id="btnImport" title="Load progress from a JSON backup">Import</button>
+    <button class="btn danger" id="btnReset">Reset</button>
+    <button class="btn" id="btnHelp" aria-label="How it works">?</button>
+    <input type="file" id="fileIn" accept=".json,application/json" class="sr" tabindex="-1" aria-label="Import progress file">
+  </div>
+  <div class="stats" id="stats"></div>
+</header>
+<div id="strip"><div id="banner"></div><button class="btn primary grp" id="btnGroup" type="button" aria-pressed="false"><span class="gi" aria-hidden="true">▦</span><span class="t">Group by chapter</span></button><div class="hctl" id="hctl"></div></div>
+<main>
+  <div id="treeView" aria-label="Skill tree"><div id="world"><svg id="edges" aria-hidden="true"></svg></div>
+    <details id="chLegend" aria-label="Chapter colors"></details>
+    <div class="zoomctl"><button id="zIn" aria-label="Zoom in">+</button><button id="zOut" aria-label="Zoom out">−</button><button id="zFit" aria-label="Show whole tree" title="Whole tree">⤢</button><button id="zHome" aria-label="Back to the start" title="Back to the foundations (bottom of the tree)">⌂</button></div>
+    <div class="hint">Foundations at the bottom, growing upward · drag or scroll to pan · Ctrl/⌘ + scroll or +/− to zoom · click a tile · arrows point from a prerequisite up to the skill it unlocks</div>
+  </div>
+  <div id="gridView" hidden></div>
+</main>
+<aside id="panel" aria-label="Skill details" aria-hidden="true"></aside>
+<div id="quiz" role="dialog" aria-modal="true" aria-label="Quiz"></div>
+<div id="modalBack"><div class="modal" role="dialog" aria-modal="true" id="modal"></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+

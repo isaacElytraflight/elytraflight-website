@@ -1,0 +1,175 @@
+{
+  "skill_id": "cx-exp",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cx-exp-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Euler's relation states that \\(e^{jx}\\) equals…",
+      "options": [
+        "\\(\\cos x-j\\cdot\\sin x\\)",
+        "\\(\\cos x+\\sin x\\)",
+        "\\(\\cos x+j\\cdot\\sin x\\)",
+        "\\(e^{x}\\cdot(\\cos x+j\\cdot\\sin x)\\)"
+      ],
+      "correct_index": 2,
+      "explanation": "Euler's relation (reader Eq. 1.29): \\(e^{jx}=\\cos x+j\\ \\sin x\\). The point \\(e^{jx}\\) sits on the unit circle at angle x.\n• \\(\\cos x-j\\ \\sin x\\) equals \\(e^{-jx}\\), the conjugate.\n• \\(\\cos x+\\sin x\\) is a real number; it leaves out the j that puts \\(\\sin\\) on the imaginary axis.\n• An extra factor \\(e^{x}\\) would only appear if the exponent had a real part.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Unit circle</title><line x1=\"14\" y1=\"110\" x2=\"230\" y2=\"110\"/><polygon points=\"230,110 223.6,112.7 223.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"210\" x2=\"120\" y2=\"10\"/><polygon points=\"120,10 122.7,16.4 117.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"126\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"126\" y=\"18\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"120\" y1=\"110\" x2=\"174\" y2=\"45.7\"/><polygon points=\"174,45.7 171.6,53.3 166.9,49.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"180.4\" y=\"42\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e^{jx}</text></svg>",
+      "figure_alt": "A unit-length arrow at angle x on the complex plane, ending on the unit circle."
+    },
+    {
+      "id": "cx-exp-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For real x, what is the magnitude \\(|e^{j\\omega t}|\\)?",
+      "options": [
+        "\\(\\omega t\\)",
+        "1 for every t",
+        "0",
+        "\\(e^{\\omega t}\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(|e^{jx}|=\\sqrt{\\cos^{2}x+\\sin^{2}x}=1\\) for any real x (reader Eq. 1.30). So \\(e^{j\\omega t}\\) just rotates counter-clockwise around the unit circle at \\(\\omega\\ \\mathrm{rad}/\\mathrm{s}\\); its length never changes."
+    },
+    {
+      "id": "cx-exp-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "An impedance is \\(Z=3+j4\\ \\Omega\\). What is its magnitude |Z|?",
+      "answer": 5.0,
+      "unit": "Ω",
+      "tolerance": 0.02,
+      "explanation": "\\(|Z|=\\sqrt{x^{2}+y^{2}}=\\sqrt{3^{2}+4^{2}}=\\sqrt{25}=5\\ \\Omega\\). Common mistake: adding the parts, \\(3+4=7\\ \\Omega\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Impedance on the complex plane</title><line x1=\"14\" y1=\"110\" x2=\"230\" y2=\"110\"/><polygon points=\"230,110 223.6,112.7 223.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"210\" x2=\"120\" y2=\"10\"/><polygon points=\"120,10 122.7,16.4 117.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"126\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"126\" y=\"18\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"120\" y1=\"110\" x2=\"165.8\" y2=\"48.9\"/><polygon points=\"165.8,48.9 163.9,56.7 158.9,52.9\" fill=\"currentColor\" stroke=\"none\"/><text x=\"171.8\" y=\"32.9\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Z = 3 + j4</text><line x1=\"120\" y1=\"110\" x2=\"165.8\" y2=\"110\" stroke-dasharray=\"4 3\"/><circle cx=\"165.8\" cy=\"110\" r=\"2.5\" fill=\"currentColor\"/><text x=\"175.8\" y=\"114\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">3</text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"48.9\" stroke-dasharray=\"4 3\"/><circle cx=\"120\" cy=\"48.9\" r=\"2.5\" fill=\"currentColor\"/><text x=\"120\" y=\"42.9\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">j4</text></svg>",
+      "figure_alt": "Arrow from the origin to 3 + j4 on the complex plane, with its real part 3 and imaginary part 4 marked."
+    },
+    {
+      "id": "cx-exp-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Find the phase angle of \\(z=-2+j2\\), in degrees (measured counter-clockwise from the positive real axis, between −180° and +180°).",
+      "answer": 135.0,
+      "unit": "degrees",
+      "tolerance": 0.02,
+      "explanation": "z lies in the second quadrant (negative real part, positive imaginary part).\n\\(\\tan^{-1}(y/x)=\\tan^{-1}(2/(-2))=\\tan^{-1}(-1)=-45^{\\circ}\\), but that calculator value points to the fourth quadrant. Add 180° to land in the correct quadrant: \\(-45^{\\circ}+180^{\\circ}=135^{\\circ}\\).\nCheck: \\(z=2\\sqrt{2}\\cdot e^{j135^{\\circ}}=2.828(\\cos 135^{\\circ}+j\\ \\sin 135^{\\circ})=-2+j2\\checkmark\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>z on the complex plane</title><line x1=\"14\" y1=\"110\" x2=\"230\" y2=\"110\"/><polygon points=\"230,110 223.6,112.7 223.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"210\" x2=\"120\" y2=\"10\"/><polygon points=\"120,10 122.7,16.4 117.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"126\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"126\" y=\"18\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"120\" y1=\"110\" x2=\"64\" y2=\"54\"/><polygon points=\"64,54 71.4,57 67,61.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"56.9\" y=\"50.9\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−2 + j2</text></svg>",
+      "figure_alt": "Arrow pointing into the second quadrant to the point minus 2 plus j2."
+    },
+    {
+      "id": "cx-exp-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Which expression correctly writes \\(\\cos(\\omega t)\\) using complex exponentials?",
+      "options": [
+        "\\((e^{j\\omega t}+e^{-j\\omega t})/2\\)",
+        "\\(e^{j\\omega t}+e^{-j\\omega t}\\)",
+        "\\((e^{j\\omega t}-e^{-j\\omega t})/(2j)\\)",
+        "\\((e^{j\\omega t}-e^{-j\\omega t})/2\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "From Euler: \\(e^{j\\omega t}=\\cos \\omega t+j\\ \\sin \\omega t\\) and \\(e^{-j\\omega t}=\\cos \\omega t-j\\ \\sin \\omega t\\). Adding, the sines cancel: \\(e^{j\\omega t}+e^{-j\\omega t}=2\\cos \\omega t\\), so \\(\\cos \\omega t=(e^{j\\omega t}+e^{-j\\omega t})/2\\) (reader Eq. 1.32).\n• Without the /2 you would have \\(2\\cos \\omega t\\).\n• \\((e^{j\\omega t}-e^{-j\\omega t})/(2j)\\) is \\(\\sin \\omega t\\ (Eq\\). 1.33).\n• \\((e^{j\\omega t}-e^{-j\\omega t})/2\\) equals \\(j\\ \\sin \\omega t\\), purely imaginary."
+    },
+    {
+      "id": "cx-exp-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Evaluate \\(\\mathrm{Re}\\{(2\\angle 30^{\\circ})(3\\angle 60^{\\circ})/(1.5\\angle-45^{\\circ})\\}\\), where each number is written as magnitude∠angle.",
+      "answer": -2.82843,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "explanation": "Multiply magnitudes and add angles in the numerator; divide magnitudes and subtract angles for the quotient.\nMagnitude: \\((2\\cdot 3)/1.5=4\\). Angle: \\(30^{\\circ}+60^{\\circ}-(-45^{\\circ})=135^{\\circ}\\).\nResult: \\(4\\angle 135^{\\circ}=4\\cos 135^{\\circ}+j\\cdot 4\\ \\sin 135^{\\circ}\\). Real part \\(=4\\cdot(-0.7071)=-2.828\\).\nCommon mistake: subtracting the −45° incorrectly \\((30^{\\circ}+60^{\\circ}-45^{\\circ}=45^{\\circ})\\), which would give +2.83.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>The three factors</title><line x1=\"14\" y1=\"110\" x2=\"230\" y2=\"110\"/><polygon points=\"230,110 223.6,112.7 223.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"210\" x2=\"120\" y2=\"10\"/><polygon points=\"120,10 122.7,16.4 117.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"126\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"126\" y=\"18\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"120\" y1=\"110\" x2=\"162.8\" y2=\"85.3\"/><polygon points=\"162.8,85.3 158,91.7 154.9,86.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"171.5\" y=\"84.3\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2∠30°</text><line x1=\"120\" y1=\"110\" x2=\"157.1\" y2=\"45.8\"/><polygon points=\"157.1,45.8 156.1,53.8 150.7,50.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"162.1\" y=\"41.2\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">3∠60°</text><line x1=\"120\" y1=\"110\" x2=\"146.2\" y2=\"136.2\"/><polygon points=\"146.2,136.2 138.8,133.2 143.2,128.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"153.3\" y=\"147.3\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1.5∠−45°</text></svg>",
+      "figure_alt": "Three arrows on the complex plane: 2 at 30 degrees, 3 at 60 degrees, and 1.5 at minus 45 degrees."
+    },
+    {
+      "id": "cx-exp-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Which of these complex exponentials has a real part equal to \\(\\sin(\\omega t)\\)?",
+      "options": [
+        "\\(e^{j(\\omega t+90^{\\circ})}\\)",
+        "\\(j\\cdot e^{j\\omega t}\\)",
+        "\\(e^{j\\omega t}\\)",
+        "\\(e^{j(\\omega t-90^{\\circ})}\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "\\(\\mathrm{Re}\\{e^{j(\\omega t-90^{\\circ})}\\}=\\cos(\\omega t-90^{\\circ})=\\sin(\\omega t)\\checkmark\\).\n• \\(\\mathrm{Re}\\{e^{j(\\omega t+90^{\\circ})}\\}=\\cos(\\omega t+90^{\\circ})=-\\sin(\\omega t)\\): wrong sign.\n• \\(j\\cdot e^{j\\omega t}=j\\ \\cos \\omega t-\\sin \\omega t\\), so \\(\\mathrm{Re}=-\\sin(\\omega t)\\): wrong sign again.\n• \\(\\mathrm{Re}\\{e^{j\\omega t}\\}=\\cos(\\omega t)\\), not \\(\\sin\\).\nRule: \\(\\sin(\\omega t)\\) is \\(\\cos(\\omega t)\\) delayed by 90°, i.e., the phase is −90°."
+    },
+    {
+      "id": "cx-exp-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A student computes the product of two real signals \\(x(t)=\\cos(\\omega t)\\) and \\(y(t)=\\cos(\\omega t+\\phi)\\) by multiplying their complex exponentials: '\\(x\\cdot y=\\mathrm{Re}\\{e^{j\\omega t}\\cdot e^{j(\\omega t+\\phi)}\\}=\\cos(2\\omega t+\\phi)\\)'. What is wrong?",
+      "options": [
+        "Nothing is wrong: the product of two cosines is \\(\\cos(2\\omega t+\\phi)\\)",
+        "The result should be \\(\\cos(\\phi)\\), with no time dependence at all",
+        "The Re{ } trick only works for linear operations; the true product is \\(\\tfrac{1}{2}\\cos \\phi+\\tfrac{1}{2}\\cos(2\\omega t+\\phi)\\), which includes a constant (DC) term",
+        "The result should be \\(\\tfrac{1}{2}\\cos(2\\omega t+\\phi)\\), because of the \\(\\tfrac{1}{2}\\) in Euler's formula"
+      ],
+      "correct_index": 2,
+      "explanation": "Taking the real part commutes with linear operations (scaling, adding, differentiating, integrating), but NOT with multiplication: \\(\\mathrm{Re}\\{ab\\}\\ne\\mathrm{Re}\\{a\\}\\cdot\\mathrm{Re}\\{b\\}\\).\nCorrect product: \\(\\cos(\\omega t)\\cos(\\omega t+\\phi)=\\tfrac{1}{2}[\\cos \\phi+\\cos(2\\omega t+\\phi)]\\). Check at \\(\\phi=0\\): \\(\\cos^{2}(\\omega t)=\\tfrac{1}{2}+\\tfrac{1}{2}\\cos(2\\omega t)\\checkmark\\), which has an average value of \\(\\tfrac{1}{2}\\).\n• \\(\\cos(2\\omega t+\\phi)\\) alone loses the constant term \\(\\tfrac{1}{2}\\cos \\phi\\).\n• \\(\\cos \\phi\\) alone loses the \\(2\\omega\\) term and the \\(\\tfrac{1}{2}\\) factors.\n• \\(\\tfrac{1}{2}\\cos(2\\omega t+\\phi)\\) also loses the constant term.\nThis is why power (a product of v and i) needs care, as you will see in AC power."
+    },
+    {
+      "id": "cx-exp-r3-q3",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A decaying oscillation is written as the complex exponential \\(v(t)=5\\cdot e^{(-0.5+j10)t}\\) volts, with t in seconds. What is |v(t)| at \\(t=2\\ \\mathrm{s}\\)?",
+      "answer": 1.8394,
+      "unit": "V",
+      "tolerance": 0.02,
+      "explanation": "Split the exponent: \\(e^{(-0.5+j10)t}=e^{-0.5t}\\cdot e^{j10t}\\). The factor \\(e^{j10t}\\) has magnitude 1, but \\(e^{-0.5t}\\) is a REAL exponential and does shrink.\n\\(|v(2)|=5\\cdot e^{-0.5\\cdot 2}\\cdot 1=5e^{-1}=1.839\\ \\mathrm{V}\\).\nCommon mistake: saying 'the magnitude of a complex exponential is always 1' and answering 5 V; that rule holds only for a purely imaginary exponent.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"Decaying oscillation\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"106.0\" x2=\"338.0\" y2=\"106.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,106.0 331.6,108.7 331.6,103.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t (s)</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v (V)</text><polyline points=\"56.0,29.6 58.8,44.8 61.6,79.9 64.5,121.9 67.3,155.9 70.1,171.1 72.9,163.2 75.7,136.3 78.6,100.7 81.4,69.0 84.2,51.7 87.0,53.8 89.8,73.6 92.7,103.2 95.5,132.1 98.3,150.4 101.1,152.5 103.9,138.8 106.8,114.6 109.6,89.0 112.4,70.6 115.2,65.4 118.0,74.2 120.9,93.3 123.7,115.7 126.5,133.4 129.3,140.8 132.1,135.9 135.0,121.2 137.8,102.1 140.6,85.5 143.4,76.8 146.2,78.5 149.1,89.5 151.9,105.4 154.7,120.6 157.5,130.0 160.3,130.6 163.2,122.9 166.0,109.8 168.8,96.2 171.6,86.8 174.4,84.4 177.3,89.5 180.1,99.9 182.9,111.8 185.7,121.0 188.5,124.6 191.4,121.6 194.2,113.6 197.0,103.4 199.8,94.7 202.6,90.3 205.5,91.6 208.3,97.6 211.1,106.2 213.9,114.2 216.7,118.9 219.6,119.0 222.4,114.7 225.2,107.6 228.0,100.4 230.8,95.6 233.7,94.5 236.5,97.4 239.3,103.1 242.1,109.4 244.9,114.2 247.8,115.9 250.6,114.2 253.4,109.7 256.2,104.3 259.0,99.8 261.9,97.6 264.7,98.4 267.5,101.8 270.3,106.4 273.1,110.6 276.0,113.0 278.8,112.9 281.6,110.4 284.4,106.6 287.2,102.8 290.1,100.3 292.9,99.9 295.7,101.6 298.5,104.6 301.3,108.0 304.2,110.5 307.0,111.3 309.8,110.3 312.6,107.8 315.4,104.9 318.3,102.6 321.1,101.5 323.9,102.0 326.7,103.9 329.5,106.3 332.4,108.5 335.2,109.8 338.0,109.6\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"215.8\" y=\"66.3\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re v(t)</text><polyline points=\"56.0,29.6 58.8,31.9 61.6,34.1 64.5,36.2 67.3,38.3 70.1,40.3 72.9,42.2 75.7,44.1 78.6,45.9 81.4,47.7 84.2,49.4 87.0,51.1 89.8,52.7 92.7,54.3 95.5,55.8 98.3,57.3 101.1,58.7 103.9,60.1 106.8,61.5 109.6,62.8 112.4,64.1 115.2,65.3 118.0,66.5 120.9,67.7 123.7,68.8 126.5,69.9 129.3,71.0 132.1,72.0 135.0,73.0 137.8,74.0 140.6,75.0 143.4,75.9 146.2,76.8 149.1,77.6 151.9,78.5 154.7,79.3 157.5,80.1 160.3,80.8 163.2,81.6 166.0,82.3 168.8,83.0 171.6,83.7 174.4,84.3 177.3,85.0 180.1,85.6 182.9,86.2 185.7,86.8 188.5,87.4 191.4,87.9 194.2,88.4 197.0,89.0 199.8,89.5 202.6,90.0 205.5,90.4 208.3,90.9 211.1,91.3 213.9,91.8 216.7,92.2 219.6,92.6 222.4,93.0 225.2,93.4 228.0,93.8 230.8,94.1 233.7,94.5 236.5,94.8 239.3,95.1 242.1,95.5 244.9,95.8 247.8,96.1 250.6,96.4 253.4,96.6 256.2,96.9 259.0,97.2 261.9,97.5 264.7,97.7 267.5,98.0 270.3,98.2 273.1,98.4 276.0,98.6 278.8,98.9 281.6,99.1 284.4,99.3 287.2,99.5 290.1,99.7 292.9,99.9 295.7,100.0 298.5,100.2 301.3,100.4 304.2,100.6 307.0,100.7 309.8,100.9 312.6,101.0 315.4,101.2 318.3,101.3 321.1,101.4 323.9,101.6 326.7,101.7 329.5,101.8 332.4,102.0 335.2,102.1 338.0,102.2\" fill=\"none\" stroke-width=\"2.0\" stroke-dasharray=\"5 4\" stroke-linejoin=\"round\"/><text x=\"112.4\" y=\"51.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">envelope</text><polyline points=\"56.0,182.4 58.8,180.1 61.6,177.9 64.5,175.8 67.3,173.7 70.1,171.7 72.9,169.8 75.7,167.9 78.6,166.1 81.4,164.3 84.2,162.6 87.0,160.9 89.8,159.3 92.7,157.7 95.5,156.2 98.3,154.7 101.1,153.3 103.9,151.9 106.8,150.5 109.6,149.2 112.4,147.9 115.2,146.7 118.0,145.5 120.9,144.3 123.7,143.2 126.5,142.1 129.3,141.0 132.1,140.0 135.0,139.0 137.8,138.0 140.6,137.0 143.4,136.1 146.2,135.2 149.1,134.4 151.9,133.5 154.7,132.7 157.5,131.9 160.3,131.2 163.2,130.4 166.0,129.7 168.8,129.0 171.6,128.3 174.4,127.7 177.3,127.0 180.1,126.4 182.9,125.8 185.7,125.2 188.5,124.6 191.4,124.1 194.2,123.6 197.0,123.0 199.8,122.5 202.6,122.0 205.5,121.6 208.3,121.1 211.1,120.7 213.9,120.2 216.7,119.8 219.6,119.4 222.4,119.0 225.2,118.6 228.0,118.2 230.8,117.9 233.7,117.5 236.5,117.2 239.3,116.9 242.1,116.5 244.9,116.2 247.8,115.9 250.6,115.6 253.4,115.4 256.2,115.1 259.0,114.8 261.9,114.5 264.7,114.3 267.5,114.0 270.3,113.8 273.1,113.6 276.0,113.4 278.8,113.1 281.6,112.9 284.4,112.7 287.2,112.5 290.1,112.3 292.9,112.1 295.7,112.0 298.5,111.8 301.3,111.6 304.2,111.4 307.0,111.3 309.8,111.1 312.6,111.0 315.4,110.8 318.3,110.7 321.1,110.6 323.9,110.4 326.7,110.3 329.5,110.2 332.4,110.0 335.2,109.9 338.0,109.8\" fill=\"none\" stroke-width=\"2.0\" stroke-dasharray=\"5 4\" stroke-linejoin=\"round\"/></svg>",
+      "figure_alt": "A cosine oscillation inside a dashed exponentially decaying envelope starting at 5 V."
+    },
+    {
+      "id": "cx-exp-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of sinusoidal steady state. A later skill says that for the input \\(2\\cos(\\omega t)=\\mathrm{Re}\\{2e^{j\\omega t}\\}\\), an LTI circuit with frequency response \\(H=0.6-j0.3\\) produces the output \\(\\mathrm{Re}\\{2H\\cdot e^{j\\omega t}\\}\\). Write this output as \\(A\\cdot\\cos(\\omega t+\\theta)\\).",
+      "options": [
+        "\\(1.342\\cos(\\omega t+26.57^{\\circ})\\)",
+        "\\(1.342\\cos(\\omega t-26.57^{\\circ})\\)",
+        "\\(1.8\\cos(\\omega t-26.57^{\\circ})\\)",
+        "\\(1.342\\cos(\\omega t-63.43^{\\circ})\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "Write H in polar form: \\(|H|=\\sqrt{0.6^{2}+0.3^{2}}=0.6708\\), and \\(\\angle H=\\tan^{-1}(-0.3/0.6)=-26.57^{\\circ}\\) (fourth quadrant, so negative).\nThen \\(2H\\cdot e^{j\\omega t}=2\\cdot 0.6708\\cdot e^{j(\\omega t-26.57^{\\circ})}\\), and the real part is \\(1.342\\cos(\\omega t-26.57^{\\circ})\\).\n• A + sign on the angle mistakes the sign of the imaginary part.\n• 1.8 comes from adding the real and imaginary parts \\((2\\cdot(0.6+0.3))\\), but magnitudes of complex numbers combine as \\(\\sqrt{a^{2}+b^{2}}\\).\n• −63.43° uses \\(\\tan^{-1}(0.6/0.3)\\), swapping real and imaginary parts.",
+      "preview": [
+        "sinusoid-resp",
+        "tf"
+      ],
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>H on the complex plane</title><line x1=\"14\" y1=\"110\" x2=\"230\" y2=\"110\"/><polygon points=\"230,110 223.6,112.7 223.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"210\" x2=\"120\" y2=\"10\"/><polygon points=\"120,10 122.7,16.4 117.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"126\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"126\" y=\"18\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"120\" y1=\"110\" x2=\"182.9\" y2=\"141.5\"/><polygon points=\"182.9,141.5 174.9,141 177.7,135.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"191.9\" y=\"163.9\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">H = 0.6 − j0.3</text></svg>",
+      "figure_alt": "Arrow to 0.6 minus j0.3, slightly below the positive real axis."
+    },
+    {
+      "id": "cx-exp-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of phasors. A later skill shows that a capacitor's phasor current is I \\(=j\\omega C\\cdot V\\). A 1 µF capacitor has voltage \\(v(t)=2\\cos(\\omega t)\\ \\mathrm{V}\\) with \\(\\omega=1000\\ \\mathrm{rad}/\\mathrm{s}\\). Using \\(j=e^{j90^{\\circ}}\\), find the current \\(i(t)\\) at the instant when \\(\\omega t=60^{\\circ}\\ (\\pi/3\\ \\mathrm{rad})\\).",
+      "answer": -1.73205,
+      "unit": "mA",
+      "tolerance": 0.02,
+      "explanation": "I \\(=j\\omega C\\cdot V=j\\cdot(1000)(1\\times 10^{-6})(2)=j\\cdot 0.002\\) A \\(=2\\ \\mathrm{mA}\\angle+90^{\\circ}\\), so \\(i(t)=2\\cos(\\omega t+90^{\\circ})\\ \\mathrm{mA}=-2\\ \\sin(\\omega t)\\ \\mathrm{mA}\\).\nAt \\(\\omega t=60^{\\circ}\\): \\(i=2\\cos(150^{\\circ})=2(-0.866)=-1.732\\ \\mathrm{mA}\\) (equivalently \\(-2\\ \\sin 60^{\\circ}\\)).\nMultiplying by j rotates by +90° (the current leads the voltage). Common mistake: using −90° (+1.73 mA), or forgetting that j is not just 'a factor' but a rotation.",
+      "preview": [
+        "phasors"
+      ]
+    },
+    {
+      "id": "cx-exp-r4-q3",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of poles and series RLC. A later skill shows that a series RLC circuit with \\(\\omega_{0}=1000\\ \\mathrm{rad}/\\mathrm{s}\\) and \\(Q=5\\) has a response containing \\(e^{st}\\) with \\(s=-\\omega_{0}/(2Q)+j\\omega_{0}\\sqrt{1-1/(4Q^{2})}=-100+j995\\ \\mathrm{s}^{-1}\\). Compared with its value at \\(t=0\\) (where \\(|e^{st}|=1\\)), what is \\(|e^{st}|\\) at \\(t=20\\ \\mathrm{ms}\\)?",
+      "answer": 0.135335,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "explanation": "Write \\(e^{st}=e^{-100t}\\cdot e^{j995t}\\). The second factor has magnitude 1 (it just rotates), so only the real part of s sets the decay: \\(|e^{st}|=e^{-100t}\\).\nAt \\(t=20\\ \\mathrm{ms}\\): \\(e^{-100\\times 0.02}=e^{-2}=0.1353\\).\nThe oscillation frequency \\(995\\ \\mathrm{rad}/\\mathrm{s}\\) does not change the magnitude. Common mistake: including 995 in the exponent, or saying the magnitude stays 1.",
+      "preview": [
+        "rlc",
+        "pole-zero"
+      ],
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Poles near the jω axis</title><line x1=\"20\" y1=\"96\" x2=\"248\" y2=\"96\"/><polygon points=\"248,96 241.6,98.7 241.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"196\" y1=\"182\" x2=\"196\" y2=\"10\"/><polygon points=\"196,10 198.7,16.4 193.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"112\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">σ</text><text x=\"202\" y=\"18\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">jω</text><line x1=\"181.3\" y1=\"93\" x2=\"181.3\" y2=\"99\"/><text x=\"181.3\" y=\"111\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">−100</text><line x1=\"175.3\" y1=\"23.7\" x2=\"187.3\" y2=\"35.7\" stroke-width=\"2.2\"/><line x1=\"175.3\" y1=\"35.7\" x2=\"187.3\" y2=\"23.7\" stroke-width=\"2.2\"/><line x1=\"175.3\" y1=\"156.3\" x2=\"187.3\" y2=\"168.3\" stroke-width=\"2.2\"/><line x1=\"175.3\" y1=\"168.3\" x2=\"187.3\" y2=\"156.3\" stroke-width=\"2.2\"/><text x=\"254\" y=\"196\" text-anchor=\"end\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">× pole   ○ zero</text></svg>",
+      "figure_alt": "Two complex-conjugate poles close to the imaginary axis at minus 100 plus or minus j995."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "skilltree-tests",
+  "version": "1.0.0",
+  "description": "Tests for Skillgrove multi-file app",
+  "main": "test.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "puppeteer-core": "^24.43.1"
+  }
+}

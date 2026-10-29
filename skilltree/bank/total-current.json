@@ -1,0 +1,176 @@
+{
+  "skill_id": "total-current",
+  "version": 1,
+  "questions": [
+    {
+      "id": "total-current-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Which expression gives the TOTAL electron current density when both a field and a concentration gradient are present?",
+      "options": [
+        "\\(J_n = q\\,n\\,\\mu_n E - qD_n\\frac{dn}{dx}\\)",
+        "\\(J_n = q\\,n\\,\\mu_n E\\) only, since diffusion carries no charge",
+        "\\(J_n = q\\,n\\,\\mu_n E + qD_n\\frac{dn}{dx}\\)",
+        "\\(J_n = qD_n\\frac{dn}{dx}\\) only, since fields only move holes"
+      ],
+      "correct_index": 2,
+      "explanation": "Drift plus diffusion (reader Eq. 3.57): \\(J_n = q\\mu_nnE + qD_n\\,dn/dx\\). The electron diffusion term has a PLUS sign because the flux \\(-D_n\\,dn/dx\\) is multiplied by charge \\(-q\\).\nFor holes, \\(J_p = q\\mu_ppE - qD_p\\,dp/dx\\). The minus-sign version is the hole form applied to electrons."
+    },
+    {
+      "id": "total-current-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Steady current flows through two materials joined at an interface (see figure): \\(\\sigma_1 = 10\\ \\mathrm{S/cm}\\) with field \\(E_1 = 5\\ \\mathrm{V/cm}\\), then \\(\\sigma_2 = 2\\ \\mathrm{S/cm}\\). What is the field \\(E_2\\)?",
+      "answer": 25.0,
+      "unit": "V/cm",
+      "tolerance": 0.02,
+      "explanation": "No charge piles up, so \\(J_1 = J_2\\): \\(\\sigma_1E_1 = \\sigma_2E_2\\) (reader Eq. 3.58–3.60).\n\\[E_2 = \\frac{\\sigma_1}{\\sigma_2}E_1 = \\frac{10}{2}\\times5 = 25\\ \\mathrm{V/cm}\\]\nThe field JUMPS at the interface, and it is larger in the poorer conductor.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 190\" role=\"img\" aria-label=\"Field steps up at an interface\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:320px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"150.0\" x2=\"298.0\" y2=\"150.0\" stroke-width=\"1.5\"/><polygon points=\"298.0,150.0 291.6,152.7 291.6,147.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"150.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"298.0\" y=\"180.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E(x)</text><line x1=\"111.0\" y1=\"147.0\" x2=\"111.0\" y2=\"153.0\" stroke-width=\"1.2\"/><text x=\"111.0\" y=\"166.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">σ₁</text><line x1=\"221.0\" y1=\"147.0\" x2=\"221.0\" y2=\"153.0\" stroke-width=\"1.2\"/><text x=\"221.0\" y=\"166.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">σ₂</text><polyline points=\"56.0,128.7 166.0,128.7 166.0,43.3 276.0,43.3\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"111.0\" y=\"115.9\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E₁</text><text x=\"221.0\" y=\"32.7\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E₂ = ?</text></svg>",
+      "figure_alt": "Step plot of field E(x): a low constant value E1 in material 1 (left), jumping at the interface to a higher constant value E2 in material 2 (right)."
+    },
+    {
+      "id": "total-current-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In an ordinary doped silicon resistor carrying current, which component dominates?",
+      "options": [
+        "Diffusion of majority carriers",
+        "Drift of the majority carriers; the carrier concentration is uniform, so diffusion is about zero",
+        "Drift of minority carriers",
+        "Drift and diffusion are always equal"
+      ],
+      "correct_index": 1,
+      "explanation": "In a uniformly doped bar \\(dn/dx \\approx 0\\), so \\(J \\approx q n\\mu_n E\\) with the majority carriers (reader Sec. 3.7.4: 'In resistors ... the second term is nearly zero').\nMinority carriers are \\(10^{10}\\)–\\(10^{12}\\) times fewer. Diffusion only matters where concentrations change, such as near junctions.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 150\" role=\"img\" aria-label=\"Doped resistor: drift current\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:380px;width:100%;height:auto\"><rect x=\"70.0\" y=\"46.0\" width=\"230.0\" height=\"50.0\" fill=\"currentColor\" fill-opacity=\"0.1\" stroke-width=\"1.5\"/><line x1=\"30.0\" y1=\"71.0\" x2=\"70.0\" y2=\"71.0\" stroke-width=\"1.5\"/><line x1=\"300.0\" y1=\"71.0\" x2=\"340.0\" y2=\"71.0\" stroke-width=\"1.5\"/><text x=\"40.0\" y=\"63.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"330.0\" y=\"63.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"185.0\" y=\"16.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V</text><line x1=\"110.0\" y1=\"58.0\" x2=\"260.0\" y2=\"58.0\" stroke-width=\"1.5\"/><polygon points=\"260.0,58.0 253.6,60.7 253.6,55.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"43.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"250.0\" y1=\"84.0\" x2=\"120.0\" y2=\"84.0\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"/><polygon points=\"120.0,84.0 126.4,81.3 126.4,86.7\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"79.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.8\" fill=\"currentColor\" stroke=\"none\">electrons</text><line x1=\"70.0\" y1=\"116.0\" x2=\"300.0\" y2=\"116.0\" stroke-width=\"1.5\"/><polygon points=\"300.0,116.0 295.4,117.9 295.4,114.1\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"300.0\" y1=\"116.0\" x2=\"70.0\" y2=\"116.0\" stroke-width=\"1.5\"/><polygon points=\"70.0,116.0 74.6,114.1 74.6,117.9\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"132.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text><text x=\"306.0\" y=\"116.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.8\" fill=\"currentColor\" stroke=\"none\">cross-section A</text></svg>",
+      "figure_alt": "Uniformly doped bar with an applied field; the carrier concentration is flat, so the current is drift."
+    },
+    {
+      "id": "total-current-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "At one point in silicon: \\(n = 10^{16}\\ \\mathrm{cm^{-3}}\\), \\(\\mu_n = 1000\\ \\mathrm{cm^2/(V\\cdot s)}\\), \\(D_n = 26\\ \\mathrm{cm^2/s}\\), field \\(E = -10\\ \\mathrm{V/cm}\\) (pointing toward \\(-x\\)), and \\(dn/dx = -10^{19}\\ \\mathrm{cm^{-4}}\\). What is the total electron current density, with sign?",
+      "answer": -57.672,
+      "unit": "A/cm²",
+      "tolerance": 0.02,
+      "explanation": "\\[J_{drift} = qn\\mu_nE = (1.602\\times10^{-19})(10^{16})(1000)(-10) = -16.02\\ \\mathrm{A/cm^2}\\]\n\\[J_{diff} = qD_n\\frac{dn}{dx} = (1.602\\times10^{-19})(26)(-10^{19}) = -41.65\\ \\mathrm{A/cm^2}\\]\n\\[J_n = -57.67\\ \\mathrm{A/cm^2}\\]\nBoth terms point toward \\(-x\\), so they add. Signs matter: track \\(E\\) and \\(dn/dx\\) separately.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"plot\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n(x)</text><polyline points=\"56.0,50.0 312.4,134.0\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"235.5\" y=\"50.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E points −x</text></svg>",
+      "figure_alt": "Electron concentration decreasing with x, with the field pointing toward −x."
+    },
+    {
+      "id": "total-current-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "In thermal equilibrium (no net current), at one point the electron concentration is \\(n = 10^{16}\\ \\mathrm{cm^{-3}}\\) and is INCREASING with \\(x\\) at \\(dn/dx = 10^{20}\\ \\mathrm{cm^{-4}}\\). With \\(kT/q = 26\\ \\mathrm{mV}\\), what is the electric field there, with sign?",
+      "answer": -260.0,
+      "unit": "V/cm",
+      "tolerance": 0.02,
+      "explanation": "Set \\(J_n = qn\\mu_nE + qD_n\\frac{dn}{dx} = 0\\) and use \\(D_n/\\mu_n = kT/q\\):\n\\[E = -\\frac{kT}{q}\\cdot\\frac{1}{n}\\frac{dn}{dx} = -0.026\\times\\frac{10^{20}}{10^{16}} = -260\\ \\mathrm{V/cm}\\]\nElectrons diffuse toward \\(-x\\) (current in \\(+x\\)). The field points toward \\(-x\\), so it pushes electrons toward \\(+x\\) (current in \\(-x\\)), and the two cancel.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"plot\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n(x)</text><polyline points=\"56.0,134.0 312.4,50.0\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"132.9\" y=\"50.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">J<tspan font-size=\"7\" dy=\"2.8\">n</tspan><tspan dy=\"-2.8\"></tspan> = 0</text></svg>",
+      "figure_alt": "Electron concentration increasing with x in equilibrium, where drift and diffusion cancel."
+    },
+    {
+      "id": "total-current-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A current density of \\(J = 20\\ \\mathrm{A/cm^2}\\) flows through two layers in series: layer 1 is 2 µm thick with \\(\\sigma_1 = 4\\ \\mathrm{S/cm}\\), and layer 2 is 1 µm thick with \\(\\sigma_2 = 0.5\\ \\mathrm{S/cm}\\). What is the total voltage across the stack, in mV?",
+      "answer": 5.0,
+      "unit": "mV",
+      "tolerance": 0.02,
+      "explanation": "Same \\(J\\) in both layers, so \\(E_i = J/\\sigma_i\\): \\(E_1 = 5\\ \\mathrm{V/cm}\\), \\(E_2 = 40\\ \\mathrm{V/cm}\\).\n\\[V = E_1L_1 + E_2L_2 = 5(2\\times10^{-4}) + 40(10^{-4}) = 1\\ \\mathrm{mV} + 4\\ \\mathrm{mV} = 5\\ \\mathrm{mV}\\]\nThe thinner but more resistive layer drops most of the voltage, just like series resistors.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 130\" role=\"img\" aria-label=\"Voltage source driving a resistor\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:300px;width:100%;height:auto\"><line x1=\"60.0\" y1=\"26.0\" x2=\"130.0\" y2=\"26.0\" stroke-width=\"1.5\"/><polyline points=\"130.0,26.0 145.0,17.0 155.0,35.0 165.0,17.0 175.0,35.0 185.0,17.0 195.0,35.0 210.0,26.0\" fill=\"none\" stroke-width=\"1.5\" stroke-linejoin=\"round\"/><line x1=\"210.0\" y1=\"26.0\" x2=\"250.0\" y2=\"26.0\" stroke-width=\"1.5\"/><line x1=\"250.0\" y1=\"26.0\" x2=\"250.0\" y2=\"104.0\" stroke-width=\"1.5\"/><line x1=\"250.0\" y1=\"104.0\" x2=\"60.0\" y2=\"104.0\" stroke-width=\"1.5\"/><line x1=\"60.0\" y1=\"26.0\" x2=\"60.0\" y2=\"50.0\" stroke-width=\"1.5\"/><line x1=\"60.0\" y1=\"80.0\" x2=\"60.0\" y2=\"104.0\" stroke-width=\"1.5\"/><circle cx=\"60.0\" cy=\"65.0\" r=\"15\" stroke-width=\"1.5\"/><text x=\"60.0\" y=\"64.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60.0\" y=\"76.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"38.0\" y=\"69.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V</text><text x=\"170.0\" y=\"12.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">layer 1 + layer 2</text><line x1=\"74.0\" y1=\"40.0\" x2=\"104.0\" y2=\"40.0\" stroke-width=\"1.5\"/><polygon points=\"104.0,40.0 99.4,41.9 99.4,38.1\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"89.0\" y=\"54.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">J</text></svg>",
+      "figure_alt": "Two layers in series carrying the same current density, drawn as a resistor across a voltage."
+    },
+    {
+      "id": "total-current-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Silicon has a non-uniform doping profile, and the sample is in thermal equilibrium with no connections. Which statement is correct?",
+      "options": [
+        "A built-in electric field exists, and for EACH carrier type drift exactly cancels diffusion: Jₙ = 0 and Jₚ = 0 separately",
+        "No field can exist, because no current flows",
+        "A field exists, but only the total J = Jₙ + Jₚ is zero; Jₙ and Jₚ can each be nonzero",
+        "Diffusion is impossible in equilibrium, so the carriers redistribute until they are uniform"
+      ],
+      "correct_index": 0,
+      "explanation": "With a doping gradient, the carriers follow the dopants, so concentration gradients exist and so does diffusion. Equilibrium needs zero current of each type separately (otherwise electrons or holes would keep piling up somewhere, and energy would be dissipated with nothing supplying it). So a field forms: \\(E = -\\frac{kT}{q}\\frac{1}{n}\\frac{dn}{dx}\\).\nGotcha: zero current does NOT mean zero field. The carriers can't become uniform, because the fixed ions would then leave huge net charge.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 190\" role=\"img\" aria-label=\"Equilibrium: flat Fermi level\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:300px;width:100%;height:auto\"><rect x=\"56.0\" y=\"10.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><rect x=\"56.0\" y=\"142.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><line x1=\"56.0\" y1=\"48.0\" x2=\"254.0\" y2=\"48.0\" stroke-width=\"2.4\"/><line x1=\"56.0\" y1=\"142.0\" x2=\"254.0\" y2=\"142.0\" stroke-width=\"2.4\"/><text x=\"50.0\" y=\"52.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">c</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"50.0\" y=\"146.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">v</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"175.0\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">conduction band</text><text x=\"175.0\" y=\"170.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">valence band</text><line x1=\"56.0\" y1=\"95.0\" x2=\"254.0\" y2=\"95.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 4\"/><text x=\"258.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">i</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"56.0\" y1=\"76.2\" x2=\"254.0\" y2=\"76.2\" stroke-width=\"2\"/><text x=\"258.0\" y=\"80.2\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">F</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"76.0\" y1=\"89.0\" x2=\"76.0\" y2=\"49.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,49.0 77.9,53.6 74.1,53.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"76.0\" y1=\"101.0\" x2=\"76.0\" y2=\"141.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,141.0 74.1,136.4 77.9,136.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"82.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">g</tspan><tspan dy=\"-3.1\"></tspan></text></svg>",
+      "figure_alt": "Band diagram with a single flat Fermi level, the signature of equilibrium."
+    },
+    {
+      "id": "total-current-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Electron concentration INCREASES with \\(x\\), and an electric field points toward \\(+x\\). Which way do the electron drift current and the electron diffusion current point?",
+      "options": [
+        "Drift toward \\(+x\\), diffusion toward \\(-x\\): they oppose",
+        "Drift toward \\(-x\\), diffusion toward \\(+x\\)",
+        "Both point toward \\(-x\\)",
+        "Both point toward \\(+x\\), so they add"
+      ],
+      "correct_index": 3,
+      "explanation": "Drift current always follows \\(E\\) for both carriers: \\(+x\\).\nDiffusion: electrons flow down the gradient toward \\(-x\\). Negative charge moving toward \\(-x\\) is current toward \\(+x\\) (\\(J = qD_n\\,dn/dx > 0\\)).\nGotcha: it's tempting to say drift and diffusion 'fight', but they only oppose each other when the field points the other way, as in equilibrium.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"plot\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n(x)</text><polyline points=\"56.0,148.0 312.4,50.0\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"145.7\" y=\"50.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E → +x</text></svg>",
+      "figure_alt": "Electron concentration increasing with x, with a field pointing toward +x."
+    },
+    {
+      "id": "total-current-r3-q3",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "In p-type silicon (\\(N_A = 10^{17}\\ \\mathrm{cm^{-3}}\\)), the minority electrons have \\(n = 10^{3}\\ \\mathrm{cm^{-3}}\\) and \\(\\mu_n = 1000\\ \\mathrm{cm^2/(V\\cdot s)}\\). The field is \\(E = 100\\ \\mathrm{V/cm}\\). Injected electrons make a gradient of \\(|dn/dx| = 10^{16}\\ \\mathrm{cm^{-4}}\\). What is the ratio \\(|J_{n,diff}|/|J_{n,drift}|\\)? Use \\(kT/q = 26\\ \\mathrm{mV}\\); scientific notation is fine.",
+      "answer": 2600000000.0,
+      "unit": "(ratio)",
+      "tolerance": 0.02,
+      "explanation": "\\[\\frac{|J_{diff}|}{|J_{drift}|} = \\frac{D_n|dn/dx|}{n\\mu_nE} = \\frac{26\\times10^{16}}{10^{3}\\times1000\\times100} = 2.6\\times10^{9}\\]\nGotcha: for minority carriers, drift is negligible because \\(n\\) is tiny, but diffusion depends on the GRADIENT, which can be large. Minority-carrier currents are diffusion currents. That's the key simplification behind the diode equation.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"plot\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n (minority)</text><polyline points=\"56.0,37.3 58.8,44.0 61.6,50.4 64.5,56.6 67.3,62.4 70.1,68.0 72.9,73.4 75.7,78.5 78.6,83.4 81.4,88.1 84.2,92.6 87.0,96.9 89.8,101.0 92.7,104.9 95.5,108.7 98.3,112.2 101.1,115.7 103.9,118.9 106.8,122.1 109.6,125.0 112.4,127.9 115.2,130.6 118.0,133.3 120.9,135.7 123.7,138.1 126.5,140.4 129.3,142.6 132.1,144.7 135.0,146.7 137.8,148.6 140.6,150.4 143.4,152.1 146.2,153.8 149.1,155.4 151.9,156.9 154.7,158.4 157.5,159.8 160.3,161.1 163.2,162.4 166.0,163.6 168.8,164.8 171.6,165.9 174.4,166.9 177.3,167.9 180.1,168.9 182.9,169.8 185.7,170.7 188.5,171.6 191.4,172.4 194.2,173.2 197.0,173.9 199.8,174.6 202.6,175.3 205.5,175.9 208.3,176.6 211.1,177.1 213.9,177.7 216.7,178.3 219.6,178.8 222.4,179.3 225.2,179.7 228.0,180.2 230.8,180.6 233.7,181.0 236.5,181.4 239.3,181.8 242.1,182.2 244.9,182.5 247.8,182.8 250.6,183.2 253.4,183.5 256.2,183.7 259.0,184.0 261.9,184.3 264.7,184.5 267.5,184.8 270.3,185.0 273.1,185.2 276.0,185.4 278.8,185.6 281.6,185.8 284.4,186.0 287.2,186.2 290.1,186.4 292.9,186.5 295.7,186.7 298.5,186.8 301.3,187.0 304.2,187.1 307.0,187.2 309.8,187.3 312.6,187.5 315.4,187.6 318.3,187.7 321.1,187.8 323.9,187.9 326.7,188.0 329.5,188.1 332.4,188.1 335.2,188.2 338.0,188.3\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/></svg>",
+      "figure_alt": "Injected minority electron concentration falling with distance, giving a steep gradient on a tiny background."
+    },
+    {
+      "id": "total-current-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of the PN junction's barrier: in equilibrium, \\(J_n = 0\\) gives \\(E = -\\frac{kT}{q}\\frac{1}{n}\\frac{dn}{dx}\\). Combine this with \\(E = -d\\varphi/dx\\) and integrate across a region where \\(n\\) changes from \\(10^{4}\\) to \\(10^{16}\\ \\mathrm{cm^{-3}}\\). What is the potential difference \\(\\varphi_{high\\,n} - \\varphi_{low\\,n}\\)? (\\(kT/q = 26\\ \\mathrm{mV}\\))",
+      "answer": 0.718407,
+      "unit": "V",
+      "tolerance": 0.02,
+      "explanation": "\\[\\frac{d\\varphi}{dx} = \\frac{kT}{q}\\frac{1}{n}\\frac{dn}{dx} = \\frac{kT}{q}\\frac{d\\ln n}{dx} \\Rightarrow \\Delta\\varphi = \\frac{kT}{q}\\ln\\frac{n_2}{n_1}\\]\n\\[\\Delta\\varphi = 0.026\\ln(10^{12}) = 0.026 \\times 27.63 \\approx 0.718\\ \\mathrm{V}\\]\nThe high-\\(n\\) side is about 0.72 V higher. That is the built-in potential of a junction between \\(10^{16}\\) n-type and \\(10^{16}\\) p-type silicon (where \\(n_p = 10^{4}\\)), which you'll meet next.",
+      "preview": [
+        "pn-overview"
+      ],
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"plot\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">φ(x)</text><polyline points=\"56.0,190.0 58.8,188.5 61.6,187.0 64.5,185.5 67.3,184.0 70.1,182.5 72.9,181.0 75.7,179.4 78.6,177.9 81.4,176.4 84.2,174.9 87.0,173.4 89.8,171.9 92.7,170.4 95.5,168.9 98.3,167.4 101.1,165.9 103.9,164.4 106.8,162.9 109.6,161.4 112.4,159.8 115.2,158.3 118.0,156.8 120.9,155.3 123.7,153.8 126.5,152.3 129.3,150.8 132.1,149.3 135.0,147.8 137.8,146.3 140.6,144.8 143.4,143.3 146.2,141.8 149.1,140.2 151.9,138.7 154.7,137.2 157.5,135.7 160.3,134.2 163.2,132.7 166.0,131.2 168.8,129.7 171.6,128.2 174.4,126.7 177.3,125.2 180.1,123.7 182.9,122.1 185.7,120.6 188.5,119.1 191.4,117.6 194.2,116.1 197.0,114.6 199.8,113.1 202.6,111.6 205.5,110.1 208.3,108.6 211.1,107.1 213.9,105.6 216.7,104.1 219.6,102.5 222.4,101.0 225.2,99.5 228.0,98.0 230.8,96.5 233.7,95.0 236.5,93.5 239.3,92.0 242.1,90.5 244.9,89.0 247.8,87.5 250.6,86.0 253.4,84.5 256.2,82.9 259.0,81.4 261.9,79.9 264.7,78.4 267.5,76.9 270.3,75.4 273.1,73.9 276.0,72.4 278.8,70.9 281.6,69.4 284.4,67.9 287.2,66.4 290.1,64.9 292.9,63.3 295.7,61.8 298.5,60.3 301.3,58.8 304.2,57.3 307.0,55.8 309.8,54.3 312.6,52.8 315.4,51.3 318.3,49.8 321.1,48.3 323.9,46.8 326.7,45.3 329.5,43.7 332.4,42.2 335.2,40.7 338.0,39.2\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"126.5\" y=\"43.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n: 10⁴ → 10¹⁶</text></svg>",
+      "figure_alt": "Potential rising across a region where the electron concentration rises from 10^4 to 10^16."
+    },
+    {
+      "id": "total-current-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of the continuity equation: in steady state (nothing changing in time), the electron current density \\(J_n\\) gets smaller along \\(x\\) through some region. What must be happening in that region?",
+      "options": [
+        "Electrons are piling up, so the charge density is growing",
+        "Nothing special; currents can vary freely in steady state",
+        "Electrons are recombining (disappearing) there; charge can't pile up, so a shrinking current means carriers are being removed",
+        "The electric field must be zero there"
+      ],
+      "correct_index": 2,
+      "explanation": "Count the carriers in a thin slice: more flowing in than out means either accumulation (not allowed in steady state) or loss. The loss is recombination.\nThe continuity equation writes this as \\(dJ_p/dx = -q\\cdot(\\text{net recombination rate})\\) for holes. In a diode it is how injected minority carriers die off over a diffusion length, with majority-carrier current taking over so the TOTAL current stays constant.",
+      "preview": [
+        "continuity"
+      ]
+    },
+    {
+      "id": "total-current-r4-q3",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of fields in a PN junction: in the junction's transition region, the electron gradient is \\(|dn/dx| = 10^{21}\\ \\mathrm{cm^{-4}}\\) at a point where \\(n = 10^{14}\\ \\mathrm{cm^{-3}}\\). Electron current is zero in equilibrium. What field magnitude is needed? (\\(kT/q = 26\\ \\mathrm{mV}\\))",
+      "answer": 260000.0,
+      "unit": "V/cm",
+      "tolerance": 0.02,
+      "explanation": "\\[|E| = \\frac{kT}{q}\\cdot\\frac{|dn/dx|}{n} = 0.026\\times\\frac{10^{21}}{10^{14}} = 2.6\\times10^{5}\\ \\mathrm{V/cm}\\]\nFields of tens to hundreds of kV/cm are normal inside junctions, because drift has to cancel a huge diffusion current (here about \\(4\\times10^{3}\\ \\mathrm{A/cm^2}\\) of diffusion alone). The depletion-approximation skill computes this field from the charge instead.",
+      "preview": [
+        "pn-overview",
+        "depl-approx"
+      ],
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 138\" role=\"img\" aria-label=\"PN junction charge density, electric field and potential\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"44.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"76.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"26.0\" x2=\"190.0\" y2=\"102.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><polyline points=\"44.0,62.0 125.0,62.0 190.0,94.0 255.0,62.0 336.0,62.0\" fill=\"none\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/><text x=\"8.0\" y=\"32.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">E(x)</text><text x=\"198.0\" y=\"96.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"2.8\">max</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"125.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-x<tspan font-size=\"7\" dy=\"2.8\">p</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"255.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">n</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"125.0\" y1=\"59.0\" x2=\"125.0\" y2=\"65.0\" stroke-width=\"1.2\"/><line x1=\"255.0\" y1=\"59.0\" x2=\"255.0\" y2=\"65.0\" stroke-width=\"1.2\"/><text x=\"48.0\" y=\"135.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"332.0\" y=\"135.0\" text-anchor=\"end\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">N side</text></svg>",
+      "figure_alt": "Electric field profile in a PN junction's transition region."
+    }
+  ]
+}

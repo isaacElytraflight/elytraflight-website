@@ -1,0 +1,183 @@
+{
+  "skill_id": "diode-ss",
+  "version": 1,
+  "questions": [
+    {
+      "id": "diode-ss-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The small-signal conductance of a forward-biased diode at bias current \\(I_D\\) is",
+      "options": [
+        "\\(g_d=\\dfrac{I_D}{V_t}=\\dfrac{qI_D}{kT}\\)",
+        "\\(g_d=\\dfrac{V_t}{I_D}\\)",
+        "\\(g_d=\\dfrac{I_D}{V_D}\\)",
+        "\\(g_d=\\dfrac{I_S}{V_t}\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(g_d=\\dfrac{dI_D}{dV_D}=\\dfrac{qI_D}{kT}\\) (reader Eq. 6.28): the slope of the exponential is proportional to the current itself. \\(I_D/V_D\\) is the large-signal ratio, a different (much smaller) number. \\(V_t/I_D\\) is \\(r_d\\), the reciprocal.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode small-signal model</title><polyline points=\"40,25 280,25\"/><polyline points=\"40,115 280,115\"/><circle cx=\"40\" cy=\"25\" r=\"3\"/><circle cx=\"40\" cy=\"115\" r=\"3\"/><text x=\"30\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_d</text><polyline points=\"100,25 100,52 94,55 106,60 94,65 106,70 94,75 106,80 100,88 100,115\"/><text x=\"112\" y=\"74\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">r_d = 1/g_d</text><circle cx=\"100\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"100\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"195\" y1=\"25\" x2=\"195\" y2=\"65\"/><line x1=\"195\" y1=\"75\" x2=\"195\" y2=\"115\"/><line x1=\"186\" y1=\"65\" x2=\"204\" y2=\"65\"/><line x1=\"186\" y1=\"75\" x2=\"204\" y2=\"75\"/><text x=\"209\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_j</text><circle cx=\"195\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"195\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"260\" y1=\"25\" x2=\"260\" y2=\"65\"/><line x1=\"260\" y1=\"75\" x2=\"260\" y2=\"115\"/><line x1=\"251\" y1=\"65\" x2=\"269\" y2=\"65\"/><line x1=\"251\" y1=\"75\" x2=\"269\" y2=\"75\"/><text x=\"274\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_diff</text><circle cx=\"260\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"260\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "Diode small-signal model: r_d in parallel with C_j and C_diff."
+    },
+    {
+      "id": "diode-ss-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "What is the small-signal resistance \\(r_d\\) of a diode biased at 0.5 mA (\\(V_t=25.9\\ \\mathrm{mV}\\)), in Ω?",
+      "answer": 51.8,
+      "unit": "Ω",
+      "tolerance": 0.01,
+      "explanation": "\\(r_d=\\dfrac{V_t}{I_D}=\\dfrac{25.9\\ \\mathrm{mV}}{0.5\\ \\mathrm{mA}}=51.8\\ \\Omega\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode small-signal model</title><polyline points=\"40,25 280,25\"/><polyline points=\"40,115 280,115\"/><circle cx=\"40\" cy=\"25\" r=\"3\"/><circle cx=\"40\" cy=\"115\" r=\"3\"/><text x=\"30\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_d</text><polyline points=\"100,25 100,52 94,55 106,60 94,65 106,70 94,75 106,80 100,88 100,115\"/><text x=\"112\" y=\"74\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">r_d = 1/g_d</text><circle cx=\"100\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"100\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"195\" y1=\"25\" x2=\"195\" y2=\"65\"/><line x1=\"195\" y1=\"75\" x2=\"195\" y2=\"115\"/><line x1=\"186\" y1=\"65\" x2=\"204\" y2=\"65\"/><line x1=\"186\" y1=\"75\" x2=\"204\" y2=\"75\"/><text x=\"209\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_j</text><circle cx=\"195\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"195\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"260\" y1=\"25\" x2=\"260\" y2=\"65\"/><line x1=\"260\" y1=\"75\" x2=\"260\" y2=\"115\"/><line x1=\"251\" y1=\"65\" x2=\"269\" y2=\"65\"/><line x1=\"251\" y1=\"75\" x2=\"269\" y2=\"75\"/><text x=\"274\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_diff</text><circle cx=\"260\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"260\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "Diode small-signal model."
+    },
+    {
+      "id": "diode-ss-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The diode small-signal model is valid when the signal voltage \\(v_d\\) satisfies",
+      "options": [
+        "\\(|v_d|\\ll0.7\\ \\mathrm{V}\\)",
+        "\\(|v_d|\\ll V_D\\)",
+        "Any amplitude, as long as the diode is forward-biased",
+        "\\(|v_d|\\ll V_t\\approx26\\ \\mathrm{mV}\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "Linearizing \\(e^{v_d/V_t}\\approx1+v_d/V_t\\) requires \\(v_d/V_t\\ll1\\) (reader Sec. 6.6). Even 10 mV gives a noticeable error. The relevant scale is \\(V_t\\), not the bias voltage.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve."
+    },
+    {
+      "id": "diode-ss-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A diode with transit time \\(\\tau_F=2\\ \\mathrm{ns}\\) is biased at 1 mA. What is its diffusion capacitance \\(C_{diff}=\\tau_F\\dfrac{I_D}{V_t}\\), in pF?",
+      "answer": 77.2201,
+      "unit": "pF",
+      "tolerance": 0.02,
+      "explanation": "\\(C_{diff}=\\tau_Fg_d=2\\times10^{-9}\\times\\dfrac{10^{-3}}{0.0259}=77.22\\ \\mathrm{pF}\\) (reader Eq. 6.33). It comes from stored minority charge \\(Q_s=I_D\\tau_F\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode small-signal model</title><polyline points=\"40,25 280,25\"/><polyline points=\"40,115 280,115\"/><circle cx=\"40\" cy=\"25\" r=\"3\"/><circle cx=\"40\" cy=\"115\" r=\"3\"/><text x=\"30\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_d</text><polyline points=\"100,25 100,52 94,55 106,60 94,65 106,70 94,75 106,80 100,88 100,115\"/><text x=\"112\" y=\"74\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">r_d = 1/g_d</text><circle cx=\"100\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"100\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"195\" y1=\"25\" x2=\"195\" y2=\"65\"/><line x1=\"195\" y1=\"75\" x2=\"195\" y2=\"115\"/><line x1=\"186\" y1=\"65\" x2=\"204\" y2=\"65\"/><line x1=\"186\" y1=\"75\" x2=\"204\" y2=\"75\"/><text x=\"209\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_j</text><circle cx=\"195\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"195\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"260\" y1=\"25\" x2=\"260\" y2=\"65\"/><line x1=\"260\" y1=\"75\" x2=\"260\" y2=\"115\"/><line x1=\"251\" y1=\"65\" x2=\"269\" y2=\"65\"/><line x1=\"251\" y1=\"75\" x2=\"269\" y2=\"75\"/><text x=\"274\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_diff</text><circle cx=\"260\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"260\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "Diode small-signal model."
+    },
+    {
+      "id": "diode-ss-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "For that diode (\\(C_{diff}=77.2\\ \\mathrm{pF}\\)), \\(C_{j0}=1\\ \\mathrm{pF}\\). Using the reader's forward-bias estimate \\(C_j\\approx1.4C_{j0}\\), what is the total small-signal capacitance, in pF?",
+      "answer": 78.6201,
+      "unit": "pF",
+      "tolerance": 0.02,
+      "explanation": "The two capacitances are in parallel (Fig. 6.14): \\(C_{tot}=C_j+C_{diff}=1.4+77.2=78.62\\ \\mathrm{pF}\\).\nIn forward bias at mA currents the diffusion capacitance dominates.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode small-signal model</title><polyline points=\"40,25 280,25\"/><polyline points=\"40,115 280,115\"/><circle cx=\"40\" cy=\"25\" r=\"3\"/><circle cx=\"40\" cy=\"115\" r=\"3\"/><text x=\"30\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_d</text><polyline points=\"100,25 100,52 94,55 106,60 94,65 106,70 94,75 106,80 100,88 100,115\"/><text x=\"112\" y=\"74\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">r_d = 1/g_d</text><circle cx=\"100\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"100\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"195\" y1=\"25\" x2=\"195\" y2=\"65\"/><line x1=\"195\" y1=\"75\" x2=\"195\" y2=\"115\"/><line x1=\"186\" y1=\"65\" x2=\"204\" y2=\"65\"/><line x1=\"186\" y1=\"75\" x2=\"204\" y2=\"75\"/><text x=\"209\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_j</text><circle cx=\"195\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"195\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"260\" y1=\"25\" x2=\"260\" y2=\"65\"/><line x1=\"260\" y1=\"75\" x2=\"260\" y2=\"115\"/><line x1=\"251\" y1=\"65\" x2=\"269\" y2=\"65\"/><line x1=\"251\" y1=\"75\" x2=\"269\" y2=\"75\"/><text x=\"274\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_diff</text><circle cx=\"260\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"260\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "Diode small-signal model."
+    },
+    {
+      "id": "diode-ss-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Which capacitance dominates the diode's small-signal model in strong forward bias, and which in reverse bias?",
+      "options": [
+        "Junction capacitance in both",
+        "Diffusion capacitance in both",
+        "Forward: diffusion capacitance (grows with \\(I_D\\)); reverse: junction (depletion) capacitance, since \\(C_{diff}\\approx0\\)",
+        "Forward: junction; reverse: diffusion"
+      ],
+      "correct_index": 2,
+      "explanation": "\\(C_{diff}=\\tau_FI_D/V_t\\) is proportional to current, large in forward bias and negligible when \\(I_D\\approx-I_S\\). \\(C_j\\) exists in both regions but is only a few pF; in reverse bias it's all that's left (and \\(g_d\\approx0\\)).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode small-signal model</title><polyline points=\"40,25 280,25\"/><polyline points=\"40,115 280,115\"/><circle cx=\"40\" cy=\"25\" r=\"3\"/><circle cx=\"40\" cy=\"115\" r=\"3\"/><text x=\"30\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_d</text><polyline points=\"100,25 100,52 94,55 106,60 94,65 106,70 94,75 106,80 100,88 100,115\"/><text x=\"112\" y=\"74\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">r_d = 1/g_d</text><circle cx=\"100\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"100\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"195\" y1=\"25\" x2=\"195\" y2=\"65\"/><line x1=\"195\" y1=\"75\" x2=\"195\" y2=\"115\"/><line x1=\"186\" y1=\"65\" x2=\"204\" y2=\"65\"/><line x1=\"186\" y1=\"75\" x2=\"204\" y2=\"75\"/><text x=\"209\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_j</text><circle cx=\"195\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"195\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"260\" y1=\"25\" x2=\"260\" y2=\"65\"/><line x1=\"260\" y1=\"75\" x2=\"260\" y2=\"115\"/><line x1=\"251\" y1=\"65\" x2=\"269\" y2=\"65\"/><line x1=\"251\" y1=\"75\" x2=\"269\" y2=\"75\"/><text x=\"274\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_diff</text><circle cx=\"260\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"260\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "Diode small-signal model."
+    },
+    {
+      "id": "diode-ss-r3-q1",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A diode is biased at \\(I_D\\) and a \\(+10\\ \\mathrm{mV}\\) step is applied. The exact current change is \\(I_D(e^{v/V_t}-1)\\); the small-signal estimate is \\(g_dv\\). By what percentage does the exact change exceed the estimate (\\(V_t=25.9\\ \\mathrm{mV}\\))?",
+      "answer": 22.0492,
+      "unit": "%",
+      "tolerance": 0.02,
+      "explanation": "\\(x=10/25.9=0.386\\). Exact/linear \\(=\\dfrac{e^{x}-1}{x}=\\dfrac{0.4712}{0.386}=1.2203\\), so the estimate is 22.05% low.\nGotcha: 10 mV is not ≪ 26 mV. For a 1% error you need \\(|v|\\lesssim0.5\\ \\mathrm{mV}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve."
+    },
+    {
+      "id": "diode-ss-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Two diodes, one with 10× the area (10× \\(I_S\\)) of the other, are both biased at 1 mA. How do their small-signal resistances compare?",
+      "options": [
+        "The larger diode has 10× lower \\(r_d\\)",
+        "They are equal (\\(r_d=V_t/I_D=25.9\\ \\Omega\\)); the larger diode just needs a lower \\(V_D\\)",
+        "The larger diode has 10× higher \\(r_d\\)",
+        "The larger diode has \\(\\sqrt{10}\\) lower \\(r_d\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(g_d=I_D/V_t\\) contains no \\(I_S\\): at a given CURRENT the slope of an exponential is the same. Area only shifts the curve in voltage by \\(V_t\\ln10=60\\ \\mathrm{mV}\\). (Its junction capacitance is larger, though.)",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve."
+    },
+    {
+      "id": "diode-ss-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "What is the small-signal model of a diode reverse-biased at \\(-3\\ \\mathrm{V}\\)?",
+      "options": [
+        "Essentially just the junction capacitance \\(C_j(-3\\ \\mathrm{V})\\); \\(g_d\\approx0\\) and \\(C_{diff}\\approx0\\)",
+        "A 25.9 Ω resistor",
+        "A short circuit",
+        "\\(g_d=I_S/V_t\\) in parallel with a large \\(C_{diff}\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "With \\(I_D\\approx-I_S\\), \\(g_d=\\dfrac{dI}{dV}=\\dfrac{I_Se^{V/V_t}}{V_t}\\approx0\\) and no minority charge is stored, so \\(C_{diff}\\approx0\\). What's left is the depletion capacitance, which is how varactors are used. (\\(I_S/V_t\\) would be the conductance at zero bias, not at \\(-3\\ \\mathrm{V}\\).)",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode small-signal model</title><polyline points=\"40,25 280,25\"/><polyline points=\"40,115 280,115\"/><circle cx=\"40\" cy=\"25\" r=\"3\"/><circle cx=\"40\" cy=\"115\" r=\"3\"/><text x=\"30\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_d</text><polyline points=\"100,25 100,52 94,55 106,60 94,65 106,70 94,75 106,80 100,88 100,115\"/><text x=\"112\" y=\"74\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">r_d = 1/g_d</text><circle cx=\"100\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"100\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"195\" y1=\"25\" x2=\"195\" y2=\"65\"/><line x1=\"195\" y1=\"75\" x2=\"195\" y2=\"115\"/><line x1=\"186\" y1=\"65\" x2=\"204\" y2=\"65\"/><line x1=\"186\" y1=\"75\" x2=\"204\" y2=\"75\"/><text x=\"209\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_j</text><circle cx=\"195\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"195\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"260\" y1=\"25\" x2=\"260\" y2=\"65\"/><line x1=\"260\" y1=\"75\" x2=\"260\" y2=\"115\"/><line x1=\"251\" y1=\"65\" x2=\"269\" y2=\"65\"/><line x1=\"251\" y1=\"75\" x2=\"269\" y2=\"75\"/><text x=\"274\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_diff</text><circle cx=\"260\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"260\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "Diode small-signal model."
+    },
+    {
+      "id": "diode-ss-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of the BJT small-signal model. A BJT's collector current \\(I_C=I_Se^{V_{BE}/V_t}\\) has transconductance \\(g_m=dI_C/dV_{BE}\\). At \\(I_C=1\\ \\mathrm{mA}\\), what is \\(g_m\\), in mS?",
+      "answer": 38.61,
+      "unit": "mS",
+      "tolerance": 0.01,
+      "explanation": "Same derivative as the diode: \\(g_m=I_C/V_t=1\\ \\mathrm{mA}/25.9\\ \\mathrm{mV}=38.6\\ \\mathrm{mS}\\). The BJT small-signal model starts from the diode's \\(g_d\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode small-signal model</title><polyline points=\"40,25 280,25\"/><polyline points=\"40,115 280,115\"/><circle cx=\"40\" cy=\"25\" r=\"3\"/><circle cx=\"40\" cy=\"115\" r=\"3\"/><text x=\"30\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_d</text><polyline points=\"100,25 100,52 94,55 106,60 94,65 106,70 94,75 106,80 100,88 100,115\"/><text x=\"112\" y=\"74\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">r_d = 1/g_d</text><circle cx=\"100\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"100\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"195\" y1=\"25\" x2=\"195\" y2=\"65\"/><line x1=\"195\" y1=\"75\" x2=\"195\" y2=\"115\"/><line x1=\"186\" y1=\"65\" x2=\"204\" y2=\"65\"/><line x1=\"186\" y1=\"75\" x2=\"204\" y2=\"75\"/><text x=\"209\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_j</text><circle cx=\"195\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"195\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"260\" y1=\"25\" x2=\"260\" y2=\"65\"/><line x1=\"260\" y1=\"75\" x2=\"260\" y2=\"115\"/><line x1=\"251\" y1=\"65\" x2=\"269\" y2=\"65\"/><line x1=\"251\" y1=\"75\" x2=\"269\" y2=\"75\"/><text x=\"274\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_diff</text><circle cx=\"260\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"260\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "Diode small-signal model.",
+      "preview": [
+        "bjt-ss"
+      ]
+    },
+    {
+      "id": "diode-ss-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of \\(f_T\\). When \\(C_{diff}\\) dominates, the diode's \\(g_d\\) and \\(C_{diff}=\\tau_Fg_d\\) set a corner frequency \\(\\dfrac{g_d}{2\\pi C_{diff}}\\). For \\(\\tau_F=50\\ \\mathrm{ps}\\), what is it, in GHz?",
+      "answer": 3.1831,
+      "unit": "GHz",
+      "tolerance": 0.02,
+      "explanation": "\\(\\dfrac{g_d}{2\\pi\\tau_Fg_d}=\\dfrac{1}{2\\pi\\tau_F}=\\dfrac{1}{2\\pi\\times50\\times10^{-12}}=3.183\\ \\mathrm{GHz}\\), independent of the current.\nTransistors have an analogous speed limit, their unity-gain frequency \\(f_T\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode small-signal model</title><polyline points=\"40,25 280,25\"/><polyline points=\"40,115 280,115\"/><circle cx=\"40\" cy=\"25\" r=\"3\"/><circle cx=\"40\" cy=\"115\" r=\"3\"/><text x=\"30\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_d</text><polyline points=\"100,25 100,52 94,55 106,60 94,65 106,70 94,75 106,80 100,88 100,115\"/><text x=\"112\" y=\"74\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">r_d = 1/g_d</text><circle cx=\"100\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"100\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"195\" y1=\"25\" x2=\"195\" y2=\"65\"/><line x1=\"195\" y1=\"75\" x2=\"195\" y2=\"115\"/><line x1=\"186\" y1=\"65\" x2=\"204\" y2=\"65\"/><line x1=\"186\" y1=\"75\" x2=\"204\" y2=\"75\"/><text x=\"209\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_j</text><circle cx=\"195\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"195\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"260\" y1=\"25\" x2=\"260\" y2=\"65\"/><line x1=\"260\" y1=\"75\" x2=\"260\" y2=\"115\"/><line x1=\"251\" y1=\"65\" x2=\"269\" y2=\"65\"/><line x1=\"251\" y1=\"75\" x2=\"269\" y2=\"75\"/><text x=\"274\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_diff</text><circle cx=\"260\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"260\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "Diode small-signal model.",
+      "preview": [
+        "ft"
+      ]
+    },
+    {
+      "id": "diode-ss-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of small-signal analysis. A diode is biased at 1 mA through \\(R=1\\ \\mathrm{k\\Omega}\\) from a DC source, and a small AC signal is added to that source. What fraction of the AC signal appears across the diode?",
+      "options": [
+        "About 70%, since the diode drops 0.7 V",
+        "100%, since the diode is forward-biased",
+        "0%, since the DC source shorts AC",
+        "About 2.5%: \\(r_d/(R+r_d)\\) with \\(r_d=25.9\\ \\Omega\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "For small signals, replace the DC source by a short (its AC part remains), and the diode by \\(r_d=V_t/I_D=25.9\\ \\Omega\\). Then it's a divider: \\(\\dfrac{25.9}{1025.9}=2.52\\%\\).\nThis 'DC bias, then linear small-signal circuit' recipe is the core of the small-signal-model skills.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 125\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Biased diode with a small AC signal</title><line x1=\"100\" y1=\"25\" x2=\"100\" y2=\"48\"/><line x1=\"100\" y1=\"72\" x2=\"100\" y2=\"95\"/><circle cx=\"100\" cy=\"60\" r=\"12\"/><text x=\"100\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"100\" y=\"70\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"83\" y=\"64\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_DC + v_s</text><polyline points=\"100,25 140,25\"/><polyline points=\"140,25 152,25 155,19 160,31 165,19 170,31 175,19 180,31 188,25 200,25\"/><text x=\"170\" y=\"13\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R = 1 kΩ</text><polyline points=\"200,25 250,25\"/><line x1=\"250\" y1=\"25\" x2=\"250\" y2=\"52\"/><line x1=\"250\" y1=\"68\" x2=\"250\" y2=\"95\"/><polygon points=\"242,52 258,52 250,68\"/><line x1=\"242\" y1=\"68\" x2=\"258\" y2=\"68\"/><text x=\"264\" y=\"64\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><polyline points=\"100,95 250,95\"/><line x1=\"175\" y1=\"95\" x2=\"175\" y2=\"101\"/><line x1=\"166\" y1=\"101\" x2=\"184\" y2=\"101\"/><line x1=\"170\" y1=\"105\" x2=\"180\" y2=\"105\"/><line x1=\"173.5\" y1=\"109\" x2=\"176.5\" y2=\"109\"/></svg>",
+      "figure_alt": "Source with DC and small AC parts, a 1 kΩ resistor and a diode to ground.",
+      "preview": [
+        "ss-model"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "skill_id": "continuity",
+  "version": 1,
+  "questions": [
+    {
+      "id": "continuity-r1-q1",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Holes in n-type silicon have \\(D_p = 12\\ \\mathrm{cm^2/s}\\) and \\(\\tau_p = 0.5\\ \\mu\\mathrm{s}\\). What is the diffusion length \\(L_p = \\sqrt{D_p\\tau_p}\\), in µm?",
+      "answer": 24.4949,
+      "unit": "µm",
+      "tolerance": 0.02,
+      "explanation": "\\[L_p = \\sqrt{12\\times0.5\\times10^{-6}} = \\sqrt{6\\times10^{-6}}\\ \\mathrm{cm} = 2.45\\times10^{-3}\\ \\mathrm{cm} \\approx 24.5\\ \\mu\\mathrm{m}\\]\nCommon mistake: forgetting the square root, or entering \\(\\tau\\) in µs (giving 2.45 cm)."
+    },
+    {
+      "id": "continuity-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Excess holes are continuously injected at \\(x = 0\\) into a long n-type region, with \\(\\Delta p(\\infty) = 0\\). In steady state, \\(\\frac{d^2\\Delta p}{dx^2} = \\frac{\\Delta p}{L_p^2}\\). What is the profile?",
+      "options": [
+        "\\(\\Delta p(x) = \\Delta p(0)(1 - x/L_p)\\)",
+        "\\(\\Delta p(x) = \\Delta p(0)\\,e^{-x/L_p}\\)",
+        "\\(\\Delta p(x) = \\Delta p(0)\\,e^{+x/L_p}\\)",
+        "\\(\\Delta p(x) = \\Delta p(0)\\cos(x/L_p)\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "The general solution is \\(Ae^{-x/L_p} + Be^{x/L_p}\\) (reader Eq. 6.13). \\(\\Delta p(\\infty) = 0\\) forces \\(B = 0\\), and the value at \\(x = 0\\) gives \\(A = \\Delta p(0)\\).\nA straight line is the no-recombination (short-region) case. A cosine would solve \\(\\Delta p'' = -\\Delta p/L^2\\), which has the wrong sign.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 210\" role=\"img\" aria-label=\"Excess minority carrier profile\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"170.0\" x2=\"332.0\" y2=\"170.0\" stroke-width=\"1.5\"/><polygon points=\"332.0,170.0 325.6,172.7 325.6,167.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"170.0\" x2=\"56.0\" y2=\"24.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,24.0 58.7,30.4 53.3,30.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"332.0\" y=\"200.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"16.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Δp(x)</text><polyline points=\"56.0,38.0 58.8,43.2 61.5,48.1 64.3,52.9 67.0,57.5 69.8,61.9 72.6,66.2 75.3,70.2 78.1,74.1 80.8,77.9 83.6,81.5 86.4,85.0 89.1,88.3 91.9,91.5 94.6,94.6 97.4,97.6 100.2,100.4 102.9,103.1 105.7,105.7 108.4,108.3 111.2,110.7 114.0,113.0 116.7,115.2 119.5,117.4 122.2,119.5 125.0,121.4 127.8,123.3 130.5,125.2 133.3,126.9 136.0,128.6 138.8,130.2 141.6,131.8 144.3,133.3 147.1,134.7 149.8,136.1 152.6,137.4 155.4,138.7 158.1,140.0 160.9,141.1 163.6,142.3 166.4,143.3 169.2,144.4 171.9,145.4 174.7,146.4 177.4,147.3 180.2,148.2 183.0,149.0 185.7,149.9 188.5,150.6 191.2,151.4 194.0,152.1 196.8,152.8 199.5,153.5 202.3,154.2 205.0,154.8 207.8,155.4 210.6,155.9 213.3,156.5 216.1,157.0 218.8,157.5 221.6,158.0 224.4,158.5 227.1,158.9 229.9,159.4 232.6,159.8 235.4,160.2 238.2,160.6 240.9,160.9 243.7,161.3 246.4,161.6 249.2,162.0 252.0,162.3 254.7,162.6 257.5,162.9 260.2,163.2 263.0,163.4 265.8,163.7 268.5,163.9 271.3,164.2 274.0,164.4 276.8,164.6 279.6,164.8 282.3,165.0 285.1,165.2 287.8,165.4 290.6,165.6 293.4,165.8 296.1,165.9 298.9,166.1 301.6,166.2 304.4,166.4 307.2,166.5 309.9,166.7 312.7,166.8 315.4,166.9 318.2,167.0 321.0,167.2 323.7,167.3 326.5,167.4 329.2,167.5 332.0,167.6\" fill=\"none\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><line x1=\"125.0\" y1=\"170.0\" x2=\"125.0\" y2=\"121.4\" stroke-width=\"1\" stroke-dasharray=\"3 3\"/><text x=\"125.0\" y=\"186.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L<tspan font-size=\"7\" dy=\"3.1\">p</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"131.0\" y=\"115.4\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Δp(0)/e</text><text x=\"50.0\" y=\"42.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Δp(0)</text></svg>",
+      "figure_alt": "Excess hole concentration Δp(x) decaying exponentially from Δp(0) at x = 0; at x = Lp it has fallen to Δp(0)/e."
+    },
+    {
+      "id": "continuity-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What does the diffusion length \\(L_p\\) represent physically?",
+      "options": [
+        "The typical distance an excess minority carrier diffuses before it recombines; at x = Lp the excess has fallen to 1/e of its starting value",
+        "The width of the depletion region",
+        "The distance a carrier moves between collisions",
+        "The distance at which the excess has fallen exactly to zero"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(L_p = \\sqrt{D_p\\tau_p}\\) combines how fast carriers spread (\\(D_p\\)) with how long they last (\\(\\tau_p\\)). It's typically micrometres to millimetres, far longer than the mean free path (about 10 nm) and usually longer than the depletion width.\nAn exponential never reaches exactly zero; after \\(3L_p\\) about 5% remains."
+    },
+    {
+      "id": "continuity-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Excess holes are injected with \\(\\Delta p(0) = 10^{14}\\ \\mathrm{cm^{-3}}\\) into a long n-region with \\(L_p = 25\\ \\mu\\mathrm{m}\\). What is \\(\\Delta p\\) at \\(x = 50\\ \\mu\\mathrm{m}\\)? Scientific notation is fine.",
+      "answer": 13533500000000.0,
+      "unit": "cm⁻³",
+      "tolerance": 0.02,
+      "explanation": "\\[\\Delta p(50\\ \\mu m) = 10^{14}e^{-50/25} = 10^{14}e^{-2} \\approx 1.35\\times10^{13}\\ \\mathrm{cm^{-3}}\\]\nTwo diffusion lengths, so \\(e^{-2} \\approx 13.5\\%\\) is left.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 210\" role=\"img\" aria-label=\"Excess minority carrier profile\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"170.0\" x2=\"332.0\" y2=\"170.0\" stroke-width=\"1.5\"/><polygon points=\"332.0,170.0 325.6,172.7 325.6,167.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"170.0\" x2=\"56.0\" y2=\"24.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,24.0 58.7,30.4 53.3,30.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"332.0\" y=\"200.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"16.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Δp(x)</text><polyline points=\"56.0,38.0 58.8,43.2 61.5,48.1 64.3,52.9 67.0,57.5 69.8,61.9 72.6,66.2 75.3,70.2 78.1,74.1 80.8,77.9 83.6,81.5 86.4,85.0 89.1,88.3 91.9,91.5 94.6,94.6 97.4,97.6 100.2,100.4 102.9,103.1 105.7,105.7 108.4,108.3 111.2,110.7 114.0,113.0 116.7,115.2 119.5,117.4 122.2,119.5 125.0,121.4 127.8,123.3 130.5,125.2 133.3,126.9 136.0,128.6 138.8,130.2 141.6,131.8 144.3,133.3 147.1,134.7 149.8,136.1 152.6,137.4 155.4,138.7 158.1,140.0 160.9,141.1 163.6,142.3 166.4,143.3 169.2,144.4 171.9,145.4 174.7,146.4 177.4,147.3 180.2,148.2 183.0,149.0 185.7,149.9 188.5,150.6 191.2,151.4 194.0,152.1 196.8,152.8 199.5,153.5 202.3,154.2 205.0,154.8 207.8,155.4 210.6,155.9 213.3,156.5 216.1,157.0 218.8,157.5 221.6,158.0 224.4,158.5 227.1,158.9 229.9,159.4 232.6,159.8 235.4,160.2 238.2,160.6 240.9,160.9 243.7,161.3 246.4,161.6 249.2,162.0 252.0,162.3 254.7,162.6 257.5,162.9 260.2,163.2 263.0,163.4 265.8,163.7 268.5,163.9 271.3,164.2 274.0,164.4 276.8,164.6 279.6,164.8 282.3,165.0 285.1,165.2 287.8,165.4 290.6,165.6 293.4,165.8 296.1,165.9 298.9,166.1 301.6,166.2 304.4,166.4 307.2,166.5 309.9,166.7 312.7,166.8 315.4,166.9 318.2,167.0 321.0,167.2 323.7,167.3 326.5,167.4 329.2,167.5 332.0,167.6\" fill=\"none\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><line x1=\"125.0\" y1=\"170.0\" x2=\"125.0\" y2=\"121.4\" stroke-width=\"1\" stroke-dasharray=\"3 3\"/><text x=\"125.0\" y=\"186.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L<tspan font-size=\"7\" dy=\"3.1\">p</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"131.0\" y=\"115.4\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Δp(0)/e</text><text x=\"50.0\" y=\"42.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Δp(0)</text></svg>",
+      "figure_alt": "Exponential decay of injected excess holes with distance."
+    },
+    {
+      "id": "continuity-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Holes are injected into a long n-region with \\(\\Delta p(0) = 10^{14}\\ \\mathrm{cm^{-3}}\\), \\(D_p = 12\\ \\mathrm{cm^2/s}\\) and \\(L_p = 24.5\\ \\mu\\mathrm{m}\\). What is the hole diffusion current density at \\(x = 0\\), in mA/cm²?",
+      "answer": 78.4817,
+      "unit": "mA/cm²",
+      "tolerance": 0.02,
+      "explanation": "\\[J_p(x) = -qD_p\\frac{d\\Delta p}{dx} = \\frac{qD_p\\Delta p(0)}{L_p}e^{-x/L_p}\\]\n\\[J_p(0) = \\frac{(1.602\\times10^{-19})(12)(10^{14})}{2.45\\times10^{-3}} = 7.85\\times10^{-2}\\ \\mathrm{A/cm^2} \\approx 78.5\\ \\mathrm{mA/cm^2}\\]\nIt's like a linear profile that drops to zero over one diffusion length. (Reader Eq. 6.15 leaves out the factor \\(qD_p\\) in this result. That's a typo; the units only work with it.)",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 210\" role=\"img\" aria-label=\"Excess minority carrier profile\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"170.0\" x2=\"332.0\" y2=\"170.0\" stroke-width=\"1.5\"/><polygon points=\"332.0,170.0 325.6,172.7 325.6,167.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"170.0\" x2=\"56.0\" y2=\"24.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,24.0 58.7,30.4 53.3,30.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"332.0\" y=\"200.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"16.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Δp(x)</text><polyline points=\"56.0,38.0 58.8,43.2 61.5,48.1 64.3,52.9 67.0,57.5 69.8,61.9 72.6,66.2 75.3,70.2 78.1,74.1 80.8,77.9 83.6,81.5 86.4,85.0 89.1,88.3 91.9,91.5 94.6,94.6 97.4,97.6 100.2,100.4 102.9,103.1 105.7,105.7 108.4,108.3 111.2,110.7 114.0,113.0 116.7,115.2 119.5,117.4 122.2,119.5 125.0,121.4 127.8,123.3 130.5,125.2 133.3,126.9 136.0,128.6 138.8,130.2 141.6,131.8 144.3,133.3 147.1,134.7 149.8,136.1 152.6,137.4 155.4,138.7 158.1,140.0 160.9,141.1 163.6,142.3 166.4,143.3 169.2,144.4 171.9,145.4 174.7,146.4 177.4,147.3 180.2,148.2 183.0,149.0 185.7,149.9 188.5,150.6 191.2,151.4 194.0,152.1 196.8,152.8 199.5,153.5 202.3,154.2 205.0,154.8 207.8,155.4 210.6,155.9 213.3,156.5 216.1,157.0 218.8,157.5 221.6,158.0 224.4,158.5 227.1,158.9 229.9,159.4 232.6,159.8 235.4,160.2 238.2,160.6 240.9,160.9 243.7,161.3 246.4,161.6 249.2,162.0 252.0,162.3 254.7,162.6 257.5,162.9 260.2,163.2 263.0,163.4 265.8,163.7 268.5,163.9 271.3,164.2 274.0,164.4 276.8,164.6 279.6,164.8 282.3,165.0 285.1,165.2 287.8,165.4 290.6,165.6 293.4,165.8 296.1,165.9 298.9,166.1 301.6,166.2 304.4,166.4 307.2,166.5 309.9,166.7 312.7,166.8 315.4,166.9 318.2,167.0 321.0,167.2 323.7,167.3 326.5,167.4 329.2,167.5 332.0,167.6\" fill=\"none\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><line x1=\"125.0\" y1=\"170.0\" x2=\"125.0\" y2=\"121.4\" stroke-width=\"1\" stroke-dasharray=\"3 3\"/><text x=\"125.0\" y=\"186.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L<tspan font-size=\"7\" dy=\"3.1\">p</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"131.0\" y=\"115.4\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Δp(0)/e</text><text x=\"50.0\" y=\"42.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Δp(0)</text></svg>",
+      "figure_alt": "Exponential excess hole profile; the slope at x = 0 sets the diffusion current."
+    },
+    {
+      "id": "continuity-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Same region (\\(J_p(0) = 78.5\\ \\mathrm{mA/cm^2}\\)). What is the hole diffusion current density at \\(x = L_p\\), in mA/cm²?",
+      "answer": 28.8718,
+      "unit": "mA/cm²",
+      "tolerance": 0.02,
+      "explanation": "The current is proportional to the slope, which decays like the profile itself:\n\\[J_p(L_p) = J_p(0)e^{-1} = 78.5\\times0.368 \\approx 28.9\\ \\mathrm{mA/cm^2}\\]\nThe 'missing' hole current became recombination between 0 and \\(L_p\\). The next question asks where it went."
+    },
+    {
+      "id": "continuity-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "In the long n-region above, the hole current decays as \\(e^{-x/L_p}\\), yet in steady state the TOTAL current through the device has to be the same at every \\(x\\). How?",
+      "options": [
+        "The total current also decays; charge builds up in the n-region",
+        "The lost holes leave through the sides of the device",
+        "Displacement current makes up the difference",
+        "Majority electrons carry the rest: an electron current flows in to recombine with the holes, so Jₙ(x) + Jₚ(x) = Jₚ(0) everywhere"
+      ],
+      "correct_index": 3,
+      "explanation": "Each recombination removes one hole and one electron. The electrons come from the n-contact as majority current, so where \\(J_p\\) shrinks, \\(J_n\\) grows by the same amount (reader Sec. 6.4.3).\nGotcha: 'current decays' sounds like charge is lost, but it only changes CARRIER TYPE. In steady state nothing builds up and nothing changes in time, so there's no displacement current.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 210\" role=\"img\" aria-label=\"Excess minority carrier profile\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"170.0\" x2=\"332.0\" y2=\"170.0\" stroke-width=\"1.5\"/><polygon points=\"332.0,170.0 325.6,172.7 325.6,167.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"170.0\" x2=\"56.0\" y2=\"24.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,24.0 58.7,30.4 53.3,30.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"332.0\" y=\"200.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"16.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">J<tspan font-size=\"7\" dy=\"3.1\">p</tspan><tspan dy=\"-3.1\"></tspan>(x)</text><polyline points=\"56.0,38.0 58.8,43.2 61.5,48.1 64.3,52.9 67.0,57.5 69.8,61.9 72.6,66.2 75.3,70.2 78.1,74.1 80.8,77.9 83.6,81.5 86.4,85.0 89.1,88.3 91.9,91.5 94.6,94.6 97.4,97.6 100.2,100.4 102.9,103.1 105.7,105.7 108.4,108.3 111.2,110.7 114.0,113.0 116.7,115.2 119.5,117.4 122.2,119.5 125.0,121.4 127.8,123.3 130.5,125.2 133.3,126.9 136.0,128.6 138.8,130.2 141.6,131.8 144.3,133.3 147.1,134.7 149.8,136.1 152.6,137.4 155.4,138.7 158.1,140.0 160.9,141.1 163.6,142.3 166.4,143.3 169.2,144.4 171.9,145.4 174.7,146.4 177.4,147.3 180.2,148.2 183.0,149.0 185.7,149.9 188.5,150.6 191.2,151.4 194.0,152.1 196.8,152.8 199.5,153.5 202.3,154.2 205.0,154.8 207.8,155.4 210.6,155.9 213.3,156.5 216.1,157.0 218.8,157.5 221.6,158.0 224.4,158.5 227.1,158.9 229.9,159.4 232.6,159.8 235.4,160.2 238.2,160.6 240.9,160.9 243.7,161.3 246.4,161.6 249.2,162.0 252.0,162.3 254.7,162.6 257.5,162.9 260.2,163.2 263.0,163.4 265.8,163.7 268.5,163.9 271.3,164.2 274.0,164.4 276.8,164.6 279.6,164.8 282.3,165.0 285.1,165.2 287.8,165.4 290.6,165.6 293.4,165.8 296.1,165.9 298.9,166.1 301.6,166.2 304.4,166.4 307.2,166.5 309.9,166.7 312.7,166.8 315.4,166.9 318.2,167.0 321.0,167.2 323.7,167.3 326.5,167.4 329.2,167.5 332.0,167.6\" fill=\"none\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><line x1=\"125.0\" y1=\"170.0\" x2=\"125.0\" y2=\"121.4\" stroke-width=\"1\" stroke-dasharray=\"3 3\"/><text x=\"125.0\" y=\"186.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L<tspan font-size=\"7\" dy=\"3.1\">p</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"131.0\" y=\"115.4\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">J<tspan font-size=\"7\" dy=\"2.8\">p</tspan><tspan dy=\"-2.8\"></tspan>(0)/e</text><text x=\"50.0\" y=\"42.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">J<tspan font-size=\"7\" dy=\"2.8\">p</tspan><tspan dy=\"-2.8\"></tspan>(0)</text></svg>",
+      "figure_alt": "Hole current density Jp(x) decaying exponentially from Jp(0); the remainder of the constant total current is carried by electrons."
+    },
+    {
+      "id": "continuity-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "In that long n-region, what fraction of the total current is carried by HOLES at \\(x = 2L_p\\)?",
+      "answer": 0.135335,
+      "unit": "(fraction)",
+      "tolerance": 0.02,
+      "explanation": "The total current equals \\(J_p(0)\\) everywhere, and the hole part is \\(J_p(0)e^{-x/L_p}\\):\n\\[\\frac{J_p(2L_p)}{J_{total}} = e^{-2} \\approx 0.135\\]\nThe other 86.5% is electron current at that point. By about 5 diffusion lengths, essentially all the current is carried by majority carriers, as in an ordinary resistor."
+    },
+    {
+      "id": "continuity-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "An n-region is only \\(W = 1\\ \\mu\\mathrm{m}\\) long, with \\(L_p = 25\\ \\mu\\mathrm{m}\\). Holes are injected at \\(x = 0\\), and an ohmic contact at \\(x = W\\) holds \\(\\Delta p(W) = 0\\). What does the excess-hole profile look like?",
+      "options": [
+        "An exponential with decay length Lp, cut off at W",
+        "An exponential with decay length W",
+        "Nearly a straight line from Δp(0) to 0: almost no recombination happens, so the hole current is nearly the same at every x",
+        "Flat at Δp(0) up to W, then a sudden drop to zero"
+      ],
+      "correct_index": 2,
+      "explanation": "With \\(W \\ll L_p\\), the \\(\\Delta p/L_p^2\\) term is negligible: \\(\\Delta p'' \\approx 0\\), so the profile is LINEAR (reader Sec. 6.5.2 and Fig. 6.11). A constant slope means a constant current: \\(J_p = qD_p\\Delta p(0)/W\\).\nGotcha: copying the long-region exponential gets both the shape and the current wrong. The current is larger by about \\(L_p/W\\), because the gradient is much steeper.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 210\" role=\"img\" aria-label=\"Excess minority carrier profile\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"170.0\" x2=\"332.0\" y2=\"170.0\" stroke-width=\"1.5\"/><polygon points=\"332.0,170.0 325.6,172.7 325.6,167.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"170.0\" x2=\"56.0\" y2=\"24.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,24.0 58.7,30.4 53.3,30.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"332.0\" y=\"200.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"16.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Δp(x)</text><polyline points=\"56.0,38.0 276.8,170.0\" fill=\"none\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><text x=\"276.8\" y=\"186.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">W</text><text x=\"50.0\" y=\"42.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Δp(0)</text></svg>",
+      "figure_alt": "Excess hole concentration falling in a straight line from Δp(0) at x = 0 to zero at x = W."
+    },
+    {
+      "id": "continuity-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of the diode equation: holes are injected with \\(\\Delta p(0) = 10^{14}\\ \\mathrm{cm^{-3}}\\) into a SHORT n-region of width \\(W_n = 2\\ \\mu\\mathrm{m}\\) (\\(\\ll L_p\\)), with \\(D_p = 12\\ \\mathrm{cm^2/s}\\). What hole current density flows, in A/cm²?",
+      "answer": 0.9612,
+      "unit": "A/cm²",
+      "tolerance": 0.02,
+      "explanation": "Linear profile, so the slope is \\(\\Delta p(0)/W_n\\):\n\\[J_p = \\frac{qD_p\\Delta p(0)}{W_n} = \\frac{(1.602\\times10^{-19})(12)(10^{14})}{2\\times10^{-4}} \\approx 0.961\\ \\mathrm{A/cm^2}\\]\nThat's about 12.2 times the long-region value, because \\(L_p/W_n\\) is that big. In the diode skill, \\(\\Delta p(0)\\) is set by the applied voltage.",
+      "preview": [
+        "minority-profile",
+        "diode-iv"
+      ],
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 210\" role=\"img\" aria-label=\"Excess minority carrier profile\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"170.0\" x2=\"332.0\" y2=\"170.0\" stroke-width=\"1.5\"/><polygon points=\"332.0,170.0 325.6,172.7 325.6,167.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"170.0\" x2=\"56.0\" y2=\"24.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,24.0 58.7,30.4 53.3,30.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"332.0\" y=\"200.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"16.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Δp(x)</text><polyline points=\"56.0,38.0 276.8,170.0\" fill=\"none\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><text x=\"276.8\" y=\"186.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">W</text><text x=\"50.0\" y=\"42.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Δp(0)</text></svg>",
+      "figure_alt": "Linear excess hole profile across a short region of width W."
+    },
+    {
+      "id": "continuity-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of the bipolar transistor: a BJT injects minority electrons into a thin p-type 'base', and they must diffuse across it to be collected on the other side. Why is the base made much thinner than the electrons' diffusion length \\(L_n\\)?",
+      "options": [
+        "So that the electrons recombine quickly, which keeps the transistor cool",
+        "So that almost every injected electron crosses before it recombines; recombination in the base would waste current",
+        "To make the electron profile exponential instead of linear",
+        "Because a thin base has a longer lifetime"
+      ],
+      "correct_index": 1,
+      "explanation": "With \\(W_B \\ll L_n\\) the profile is nearly linear, and only a tiny fraction (of order \\((W_B/L_n)^2\\)) of the electrons recombine. So the current that leaves is almost all of the current injected.\nThat near-perfect transfer is what makes 'transistor action' possible; the BJT skills build on it.",
+      "preview": [
+        "bjt-action"
+      ]
+    },
+    {
+      "id": "continuity-r4-q3",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of forward-biased diodes: forward bias \\(V\\) raises the hole concentration at the edge of an n-region to \\(p_{n0}e^{V/(kT/q)}\\), so \\(\\Delta p(0) = p_{n0}(e^{V/V_{th}} - 1)\\). For \\(N_D = 10^{16}\\ \\mathrm{cm^{-3}}\\) (\\(p_{n0} = 10^{4}\\)) and \\(V = 0.6\\ \\mathrm{V}\\) (\\(V_{th} = 26\\ \\mathrm{mV}\\)), with a long n-region (\\(D_p = 12\\ \\mathrm{cm^2/s}\\), \\(L_p = 24.5\\ \\mu\\mathrm{m}\\)), find the hole current density at the edge, in mA/cm².",
+      "answer": 82.594,
+      "unit": "mA/cm²",
+      "tolerance": 0.03,
+      "explanation": "\\[\\Delta p(0) = 10^{4}\\left(e^{0.6/0.026} - 1\\right) = 10^{4}e^{23.08} \\approx 1.05\\times10^{14}\\ \\mathrm{cm^{-3}}\\]\n\\[J_p = \\frac{qD_p\\Delta p(0)}{L_p} = \\frac{(1.602\\times10^{-19})(12)(1.05\\times10^{14})}{2.45\\times10^{-3}} \\approx 82.6\\ \\mathrm{mA/cm^2}\\]\nEvery 60 mV of extra forward bias multiplies this by 10: the exponential diode law.",
+      "preview": [
+        "diode-iv",
+        "minority-profile"
+      ]
+    }
+  ]
+}
