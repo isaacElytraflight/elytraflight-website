@@ -312,3 +312,21 @@ figure.qfig.small svg{max-height:200px}
 @media (prefers-reduced-motion:reduce){.tile.t4 .light-dot{animation:none;box-shadow:0 0 16px 6px var(--light-glow)}}
 #world.lights-view .tile{transition:background .2s,border-color .2s}
 #world.lights-view #edges path{stroke-opacity:0.15}
+
+/* Nested boxes / collections */
+.blob.course{background:rgba(255,255,255,.15);border-width:3px;border-style:solid}
+.blob.course>.hd{padding:10px 14px 0}
+.blob .toggle{border:0;background:rgba(255,255,255,.8);border-radius:8px;width:26px;height:26px;font-size:14px;font-weight:800;display:grid;place-items:center;flex:none;transition:transform .2s}
+.blob .toggle:hover{background:#fff;transform:scale(1.1)}
+.blob.collapsed .toggle{transform:rotate(-90deg)}
+.blob.collapsed .toggle:hover{transform:rotate(-90deg) scale(1.1)}
+.blob.collapsed>.inner,.blob.collapsed>.hd~.blob{display:none}
+.blob .inner{position:absolute;inset:0;pointer-events:none}
+.blob .inner .tile{pointer-events:auto}
+.blob.chapter{border-radius:20px}
+.blob.nested{position:absolute}
+
+/* Box picker */
+#boxPicker{max-width:200px;text-overflow:ellipsis}
+.blob.boxdim{opacity:.25}
+.tile.boxdim{opacity:.18}

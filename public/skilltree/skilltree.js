@@ -421,57 +421,151 @@ function computeTreeLayout() {
 }
 
 function computeGroupedLayout() {
+  const COLLAPSED_H = 50;
+  const COURSE_PAD = 20;
+  const INNER_GAP = 14;
+  
   const byCh = {}; skills.forEach(s => (byCh[s.chapter] = byCh[s.chapter] || []).push(s.id));
+  
+  const courseBoxes = COLLECTIONS ? COLLECTIONS.boxes.filter(b => b.kind === 'course') : [];
+  const useNested = courseBoxes.length > 0;
+  
   const subs = {}, bs = {};
+  
+  if (useNested) {
+    for (const course of courseBoxes) {
+      const chapterIds = course.children || [];
+      for (const chId of chapterIds) {
+        const chBox = boxById[chId];
+        if (!chBox) continue;
+        const ids = (chBox.skills || []).filter(id => byId[id]);
+        const set = new Set(ids);
+        const collapsed = collapsedBoxes.has(chId);
+        if (collapsed || ids.length === 0) {
+          subs[chId] = { pos: {}, mids: {}, w: 0, h: 0 };
+          bs[chId] = { w: BMIN, h: COLLAPSED_H };
+        } else {
+          const sub = layeredLayout(ids, allEdges.filter(([p, c]) => set.has(p) && set.has(c)));
+          subs[chId] = sub;
+          bs[chId] = { w: Math.max(sub.w + PAD * 2, BMIN), h: HDR + sub.h + PAD + 4 };
+        }
+      }
+    }
+  }
+  
   for (const ch of chNums) {
+    if (subs[`ee105-ch${ch}`]) continue;
     const ids = byCh[ch] || [], set = new Set(ids);
     const sub = layeredLayout(ids, allEdges.filter(([p, c]) => set.has(p) && set.has(c)));
     subs[ch] = sub; bs[ch] = { w: Math.max(sub.w + PAD * 2, BMIN), h: HDR + sub.h + PAD + 4 };
   }
-  const cpred = {}; chNums.forEach(c => cpred[c] = new Map());
-  allEdges.forEach(([p, c]) => { const a = byId[p].chapter, b = byId[c].chapter; if (a !== b) cpred[b].set(a, (cpred[b].get(a) || 0) + 1) });
+  
+  const chapterKeys = useNested 
+    ? courseBoxes.flatMap(c => c.children || []).filter(id => bs[id])
+    : chNums;
+  
+  const getChapter = key => typeof key === 'number' ? key : (boxById[key]?.color_index || 1);
+  
+  const cpred = {}; chapterKeys.forEach(c => cpred[c] = new Map());
+  allEdges.forEach(([p, c]) => {
+    const ca = byId[p].chapter, cb = byId[c].chapter;
+    const ka = useNested ? `ee105-ch${ca}` : ca;
+    const kb = useNested ? `ee105-ch${cb}` : cb;
+    if (ka !== kb && cpred[kb]) cpred[kb].set(ka, (cpred[kb].get(ka) || 0) + 1);
+  });
+  
   const rank = {};
-  const R = c => rank[c] != null ? rank[c] : (rank[c] = cpred[c].size ? 1 + Math.max(...[...cpred[c].keys()].map(R)) : 0);
-  chNums.forEach(R);
-  const gdepth = chNums.map(c => ({ c, d: byCh[c].reduce((a, id) => a + (layout.tree.layerOf[id] || 0), 0) / byCh[c].length }));
-  const avgD = {}; gdepth.forEach(o => avgD[o.c] = o.d);
-  const maxRank = Math.max(...chNums.map(c => rank[c]));
+  const R = c => rank[c] != null ? rank[c] : (rank[c] = cpred[c] && cpred[c].size ? 1 + Math.max(...[...cpred[c].keys()].map(R)) : 0);
+  chapterKeys.forEach(R);
+  
+  const avgD = {};
+  chapterKeys.forEach(key => {
+    const ids = useNested ? (boxById[key]?.skills || []).filter(id => byId[id]) : (byCh[key] || []);
+    avgD[key] = ids.length ? ids.reduce((a, id) => a + (layout.tree.layerOf[id] || 0), 0) / ids.length : 0;
+  });
+  
+  const maxRank = Math.max(0, ...chapterKeys.map(c => rank[c]));
   const bx = {}, by = {}; let y = 0;
   const center = c => bx[c] + bs[c].w / 2;
-  const mean = a => a.reduce((x, y) => x + y, 0) / a.length;
+  const mean = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0;
+  
   for (let r = 0; r <= maxRank; r++) {
-    let row = chNums.filter(c => rank[c] === r);
-    const want = c => { const ps = [...cpred[c].entries()].filter(([p]) => bx[p] != null); return ps.length ? ps.reduce((a, [p, n]) => a + center(p) * n, 0) / ps.reduce((a, [, n]) => a + n, 0) : null };
-    row.sort((a, b) => { const wa = want(a), wb = want(b); return (wa == null ? 0 : wa) - (wb == null ? 0 : wb) || avgD[a] - avgD[b] || a - b });
+    let row = chapterKeys.filter(c => rank[c] === r);
+    const want = c => { 
+      const ps = cpred[c] ? [...cpred[c].entries()].filter(([p]) => bx[p] != null) : [];
+      return ps.length ? ps.reduce((a, [p, n]) => a + center(p) * n, 0) / ps.reduce((a, [, n]) => a + n, 0) : null;
+    };
+    row.sort((a, b) => { 
+      const wa = want(a), wb = want(b);
+      return (wa == null ? 0 : wa) - (wb == null ? 0 : wb) || avgD[a] - avgD[b] || String(a).localeCompare(String(b));
+    });
     const subrows = [[]]; let w = 0;
-    row.forEach(c => { if (w && w + bs[c].w + BGAP > ROWMAX) { subrows.push([]); w = 0 } subrows[subrows.length - 1].push(c); w += bs[c].w + BGAP });
+    row.forEach(c => { 
+      if (w && w + bs[c].w + BGAP > ROWMAX) { subrows.push([]); w = 0 }
+      subrows[subrows.length - 1].push(c); w += bs[c].w + BGAP;
+    });
     subrows.forEach(sr => {
-      const wants = sr.map(c => want(c)); const fallback = 0;
-      const t = sr.map((c, i) => wants[i] == null ? null : wants[i]);
-      const known = t.filter(v => v != null); const base = known.length ? mean(known) : fallback;
+      const wants = sr.map(c => want(c));
+      const t = sr.map((c, i) => wants[i]);
+      const known = t.filter(v => v != null);
+      const base = known.length ? mean(known) : 0;
       const tgt = t.map(v => v == null ? base : v);
       const seps = sr.slice(1).map((c, i) => (bs[sr[i]].w + bs[c].w) / 2 + BGAP);
       const xs = pav(tgt, seps, sr.map(() => 1));
-      let rh = 0; sr.forEach((c, i) => { bx[c] = xs[i] - bs[c].w / 2; by[c] = y; rh = Math.max(rh, bs[c].h) });
+      let rh = 0; 
+      sr.forEach((c, i) => { bx[c] = xs[i] - bs[c].w / 2; by[c] = y; rh = Math.max(rh, bs[c].h) });
       y += rh + RGAP;
     });
   }
-  const minX = Math.min(...chNums.map(c => bx[c])), maxX = Math.max(...chNums.map(c => bx[c] + bs[c].w));
+  
+  const allKeys = chapterKeys.filter(c => bx[c] != null);
+  const minX = allKeys.length ? Math.min(...allKeys.map(c => bx[c])) : 0;
+  const maxX = allKeys.length ? Math.max(...allKeys.map(c => bx[c] + bs[c].w)) : 0;
+  
   const nodes = {}, mids = {}, blobs = {};
-  for (const ch of chNums) {
-    const ox = bx[ch] - minX + WPAD, oy = by[ch] + WPAD;
-    blobs[ch] = { x: ox, y: oy, w: bs[ch].w, h: bs[ch].h };
-    const ix = ox + (bs[ch].w - subs[ch].w) / 2, iy = oy + PAD + 4;
-    for (const id in subs[ch].pos) nodes[id] = { x: ix + subs[ch].pos[id].x, y: iy + subs[ch].pos[id].y };
-    for (const k in subs[ch].mids) mids[k] = subs[ch].mids[k].map(p => [ix + p[0], iy + p[1]]);
+  
+  for (const key of allKeys) {
+    const ox = bx[key] - minX + WPAD, oy = by[key] + WPAD;
+    const ch = getChapter(key);
+    blobs[key] = { x: ox, y: oy, w: bs[key].w, h: bs[key].h, ch, kind: 'chapter', boxId: typeof key === 'string' ? key : null };
+    
+    if (!collapsedBoxes.has(key) && subs[key].w > 0) {
+      const ix = ox + (bs[key].w - subs[key].w) / 2, iy = oy + PAD + 4;
+      for (const id in subs[key].pos) nodes[id] = { x: ix + subs[key].pos[id].x, y: iy + subs[key].pos[id].y };
+      for (const k in subs[key].mids) mids[k] = subs[key].mids[k].map(p => [ix + p[0], iy + p[1]]);
+    }
   }
+  
+  if (useNested) {
+    for (const course of courseBoxes) {
+      const chapterIds = (course.children || []).filter(id => blobs[id]);
+      if (chapterIds.length === 0) continue;
+      
+      const courseCollapsed = collapsedBoxes.has(course.id);
+      const cx0 = Math.min(...chapterIds.map(id => blobs[id].x)) - COURSE_PAD;
+      const cy0 = Math.min(...chapterIds.map(id => blobs[id].y)) - HDR - INNER_GAP;
+      const cx1 = Math.max(...chapterIds.map(id => blobs[id].x + blobs[id].w)) + COURSE_PAD;
+      const cy1 = Math.max(...chapterIds.map(id => blobs[id].y + blobs[id].h)) + COURSE_PAD;
+      
+      blobs[course.id] = {
+        x: cx0, y: cy0, 
+        w: cx1 - cx0, h: courseCollapsed ? COLLAPSED_H : (cy1 - cy0),
+        kind: 'course', boxId: course.id, children: chapterIds
+      };
+    }
+  }
+  
   const M = 26;
+  const getChKey = id => useNested ? `ee105-ch${byId[id].chapter}` : byId[id].chapter;
+  
   allEdges.forEach(([p, c]) => {
-    const cp = byId[p].chapter, cc = byId[c].chapter; if (cp === cc) return;
-    const A = blobs[cp], B = blobs[cc], P = nodes[p], Q = nodes[c];
+    const kp = getChKey(p), kc = getChKey(c);
+    if (kp === kc || !nodes[p] || !nodes[c]) return;
+    const A = blobs[kp], B = blobs[kc], P = nodes[p], Q = nodes[c];
+    if (!A || !B) return;
     const sx = P.x + TW / 2, sy = P.y + TH, tx = Q.x + TW / 2, ty = Q.y;
     if (ty <= sy) return;
-    const obs = chNums.filter(x => x !== cp && x !== cc).map(x => blobs[x]).filter(o => o.y < ty && o.y + o.h > sy).sort((u, v) => u.y - v.y);
+    const obs = allKeys.filter(x => x !== kp && x !== kc).map(x => blobs[x]).filter(o => o.y < ty && o.y + o.h > sy).sort((u, v) => u.y - v.y);
     if (!obs.length) return;
     const bands = [];
     obs.forEach(o => {
@@ -490,15 +584,22 @@ function computeGroupedLayout() {
     });
     mids[p + '>' + c] = pts;
   });
+  
   const allX = []; for (const k in mids) mids[k].forEach(q => allX.push(q[0]));
-  const shiftX = Math.max(0, 20 - Math.min(Infinity, ...allX));
-  if (shiftX) { for (const id in nodes) nodes[id].x += shiftX; for (const k in mids) mids[k].forEach(q => q[0] += shiftX); for (const c in blobs) blobs[c].x += shiftX }
-  const worldW = Math.max(maxX - minX + WPAD * 2, ...allX.map(v => v + WPAD), ...chNums.map(c => blobs[c].x + blobs[c].w + WPAD));
+  const shiftX = Math.max(0, 20 - Math.min(Infinity, ...allX.concat([minX])));
+  if (shiftX) { 
+    for (const id in nodes) nodes[id].x += shiftX;
+    for (const k in mids) mids[k].forEach(q => q[0] += shiftX);
+    for (const c in blobs) blobs[c].x += shiftX;
+  }
+  
+  const worldW = Math.max(maxX - minX + WPAD * 2, ...allX.map(v => v + WPAD), ...Object.values(blobs).map(b => b.x + b.w + WPAD));
   const worldH = y - RGAP + WPAD * 2;
   for (const id in nodes) nodes[id].y = worldH - nodes[id].y - TH;
   for (const k in mids) mids[k].forEach(q => q[1] = worldH - q[1]);
   for (const c in blobs) blobs[c].y = worldH - blobs[c].y - blobs[c].h;
-  layout.grouped = { nodes, mids, blobs, w: worldW, h: worldH, rank };
+  
+  layout.grouped = { nodes, mids, blobs, w: worldW, h: worldH, rank, useNested };
 }
 
 function computeLayouts() { computeTreeLayout(); computeGroupedLayout() }
@@ -508,11 +609,36 @@ let world, tv, edgesSvg, panel;
 const panelOpen = () => panel && panel.classList.contains('open');
 let view = { x: 20, y: 20, s: 1 }, selected = null, hoverId = null, quizOpen = false;
 let layoutMode = 'tree', curPos = {}, morphRaf = 0;
-const filter = { chapter: 0, playable: false, view: 'tree' };
+const filter = { chapter: 0, playable: false, view: 'tree', box: null };
+const collapsedBoxes = new Set();
 const edgeEls = [];
 const drag = { on: false, moved: false, sx: 0, sy: 0, vx: 0, vy: 0 };
 const curL = () => layout[layoutMode];
 const reducedMotion = () => window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+function getBoxSkills(boxId) {
+  const box = boxById[boxId];
+  if (!box) return [];
+  return (box.skills || []).filter(id => byId[id]);
+}
+
+function getBoxDescendantSkills(boxId) {
+  const box = boxById[boxId];
+  if (!box) return [];
+  const direct = (box.skills || []).filter(id => byId[id]);
+  const childSkills = (box.children || []).flatMap(cid => getBoxDescendantSkills(cid));
+  return [...new Set([...direct, ...childSkills])];
+}
+
+function skillInBox(skillId, boxId) {
+  const boxes = skillToBoxes[skillId] || [];
+  if (boxes.includes(boxId)) return true;
+  const box = boxById[boxId];
+  if (box && box.children) {
+    return box.children.some(cid => skillInBox(skillId, cid));
+  }
+  return false;
+}
 
 function tileTitle(s) { return `${s.name} · Ch ${s.chapter}` }
 
@@ -535,7 +661,9 @@ function buildTile(s, st) {
 function refreshTile(b) {
   const id = b.dataset.id, s = byId[id], t = tierOf(id), soon = !isPlayable(id), ready = isReady(id);
   const st = b.classList.contains('st');
-  b.className = 'tile' + (st ? ' st' : '') + ' t' + t + (soon ? ' soon' : '') + (ready ? ' ready' : '') + (selected === id ? ' sel' : '');
+  const boxDimmed = b.classList.contains('boxdim');
+  const lightMode = b.classList.contains('light-mode');
+  b.className = 'tile' + (st ? ' st' : '') + ' t' + t + (soon ? ' soon' : '') + (ready ? ' ready' : '') + (selected === id ? ' sel' : '') + (boxDimmed ? ' boxdim' : '') + (lightMode ? ' light-mode' : '');
   b.style.setProperty('--fill', FILL[t] + '%');
   b.querySelectorAll('.pips i').forEach((p, i) => p.classList.toggle('on', t > i));
   b.querySelector('.tl').textContent = soon ? '' : TIERS[t];
@@ -570,15 +698,90 @@ function setEdge(e, r) { e.path.setAttribute('d', r.d); e.dot.setAttribute('cx',
 function sizeWorld(L) { world.style.width = L.w + 'px'; world.style.height = L.h + 'px'; edgesSvg.setAttribute('width', L.w); edgesSvg.setAttribute('height', L.h) }
 function placeTiles(pos) { world.querySelectorAll('.tile').forEach(t => { const p = pos[t.dataset.id]; t.style.left = p.x + 'px'; t.style.top = p.y + 'px' }) }
 
-function buildTree() {
-  computeLayouts();
+function toggleBoxCollapse(boxId) {
+  if (collapsedBoxes.has(boxId)) collapsedBoxes.delete(boxId);
+  else collapsedBoxes.add(boxId);
+  rebuildGroupedLayout();
+}
+
+function rebuildGroupedLayout() {
+  computeGroupedLayout();
+  updateBlobsDOM();
+  if (layoutMode === 'grouped') {
+    showLayout('grouped', false);
+    refreshAll();
+  }
+}
+
+function updateBlobsDOM() {
+  document.querySelectorAll('#world .blob').forEach(b => b.remove());
   const G = layout.grouped;
-  for (const ch of chNums) {
-    const b = G.blobs[ch];
-    const blob = el('div', { class: 'blob', 'data-ch': ch, style: `left:${b.x}px;top:${b.y}px;width:${b.w}px;height:${b.h}px;${colorVars(ch)}` },
-      el('div', { class: 'hd' }, el('span', { class: 'cpill', text: 'Ch ' + ch }), el('span', { style: 'font-weight:800;font-size:13.5px', text: DATA.chapters[ch] }), el('span', { class: 'ct', 'data-ct': ch })));
+  
+  const courseBoxes = COLLECTIONS ? COLLECTIONS.boxes.filter(b => b.kind === 'course') : [];
+  
+  for (const key in G.blobs) {
+    const b = G.blobs[key];
+    if (b.kind === 'course') continue;
+    
+    const ch = b.ch || (typeof key === 'number' ? key : 1);
+    const boxId = b.boxId;
+    const isCollapsed = boxId && collapsedBoxes.has(boxId);
+    const title = boxId && boxById[boxId] ? boxById[boxId].title : `Ch ${ch} · ${DATA.chapters[ch]}`;
+    
+    const blob = el('div', { 
+      class: 'blob chapter' + (isCollapsed ? ' collapsed' : ''), 
+      'data-ch': ch, 
+      'data-box': boxId || '',
+      style: `left:${b.x}px;top:${b.y}px;width:${b.w}px;height:${b.h}px;${colorVars(ch)}` 
+    });
+    
+    const hd = el('div', { class: 'hd' });
+    if (boxId) {
+      hd.append(el('button', { 
+        class: 'toggle', 
+        'aria-label': isCollapsed ? 'Expand' : 'Collapse',
+        onclick: e => { e.stopPropagation(); toggleBoxCollapse(boxId); }
+      }, isCollapsed ? '▶' : '▼'));
+    }
+    hd.append(
+      el('span', { class: 'cpill', text: 'Ch ' + ch }),
+      el('span', { style: 'font-weight:800;font-size:13.5px', text: title.replace(/^Chapter \d+:\s*/, '') }),
+      el('span', { class: 'ct', 'data-ct': ch })
+    );
+    blob.append(hd);
     world.insertBefore(blob, edgesSvg);
   }
+  
+  for (const course of courseBoxes) {
+    const b = G.blobs[course.id];
+    if (!b) continue;
+    
+    const isCollapsed = collapsedBoxes.has(course.id);
+    const blob = el('div', { 
+      class: 'blob course' + (isCollapsed ? ' collapsed' : ''), 
+      'data-box': course.id,
+      style: `left:${b.x}px;top:${b.y}px;width:${b.w}px;height:${b.h}px;border-color:${PALETTE[0]};background:rgba(255,244,214,.15)` 
+    });
+    
+    const hd = el('div', { class: 'hd' });
+    hd.append(
+      el('button', { 
+        class: 'toggle', 
+        'aria-label': isCollapsed ? 'Expand' : 'Collapse',
+        onclick: e => { e.stopPropagation(); toggleBoxCollapse(course.id); }
+      }, isCollapsed ? '▶' : '▼'),
+      el('span', { class: 'cpill', style: `background:${PALETTE[0]};color:#fff`, text: '📚' }),
+      el('span', { style: 'font-weight:800;font-size:15px', text: course.title })
+    );
+    blob.append(hd);
+    world.insertBefore(blob, edgesSvg);
+  }
+}
+
+function buildTree() {
+  computeLayouts();
+  updateBlobsDOM();
+  
   const NS = 'http://www.w3.org/2000/svg';
   allEdges.forEach(([p, c]) => {
     const path = document.createElementNS(NS, 'path');
@@ -600,28 +803,86 @@ const MORPH_MS = 600;
 function showLayout(mode, animated) {
   cancelAnimationFrame(morphRaf);
   const L = layout[mode], ids = skills.map(s => s.id);
-  const from = {}; ids.forEach(id => from[id] = curPos[id] || L.nodes[id]);
+  const from = {}; ids.forEach(id => from[id] = curPos[id] || L.nodes[id] || { x: 0, y: 0 });
   layoutMode = mode; tv.dataset.mode = mode; world.dataset.layout = mode;
   sizeWorld(L);
-  document.querySelectorAll('#world .blob').forEach(b => b.classList.toggle('on', mode === 'grouped'));
+  
+  document.querySelectorAll('#world .blob').forEach(b => {
+    const isGrouped = mode === 'grouped';
+    b.classList.toggle('on', isGrouped);
+    
+    if (isGrouped) {
+      const boxId = b.dataset.box;
+      const key = boxId || +b.dataset.ch;
+      const blobData = L.blobs[key];
+      if (blobData) {
+        b.style.left = blobData.x + 'px';
+        b.style.top = blobData.y + 'px';
+        b.style.width = blobData.w + 'px';
+        b.style.height = blobData.h + 'px';
+      }
+    }
+  });
+  
   const btn = $('btnGroup'); btn.setAttribute('aria-pressed', String(mode === 'grouped'));
   btn.querySelector('.t').textContent = mode === 'grouped' ? 'Ungroup' : 'Group by course';
-  btn.title = mode === 'grouped' ? 'Back to one homogeneous prerequisite tree' : 'Sort the tree into chapter blocks';
+  btn.title = mode === 'grouped' ? 'Back to one homogeneous prerequisite tree' : 'Sort the tree into course and chapter blocks';
+  
   const finish = () => {
-    ids.forEach(id => curPos[id] = { x: L.nodes[id].x, y: L.nodes[id].y });
-    placeTiles(curPos); edgeEls.forEach(e => setEdge(e, routedD(e, L)));
+    ids.forEach(id => {
+      const pos = L.nodes[id];
+      if (pos) curPos[id] = { x: pos.x, y: pos.y };
+    });
+    placeTiles(curPos); 
+    edgeEls.forEach(e => {
+      if (L.nodes[e.from] && L.nodes[e.to]) setEdge(e, routedD(e, L));
+    });
     edgesSvg.classList.remove('morph'); world.classList.remove('morphing'); world.dataset.morphing = '0';
+    applyBoxFilter();
   };
   if (!animated || reducedMotion()) { finish(); return }
   world.classList.add('morphing'); world.dataset.morphing = '1'; edgesSvg.classList.add('morph');
   const t0 = performance.now();
   const step = now => {
     const k = Math.min(1, (now - t0) / MORPH_MS), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
-    ids.forEach(id => { const a = from[id], b = L.nodes[id]; curPos[id] = { x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e } });
-    placeTiles(curPos); edgeEls.forEach(ed => setEdge(ed, directD(curPos[ed.from], curPos[ed.to])));
+    ids.forEach(id => { 
+      const a = from[id], b = L.nodes[id];
+      if (a && b) curPos[id] = { x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e };
+    });
+    placeTiles(curPos); 
+    edgeEls.forEach(ed => {
+      if (curPos[ed.from] && curPos[ed.to]) setEdge(ed, directD(curPos[ed.from], curPos[ed.to]));
+    });
     if (k < 1) morphRaf = requestAnimationFrame(step); else finish();
   };
   morphRaf = requestAnimationFrame(step);
+}
+
+function applyBoxFilter() {
+  const boxId = filter.box;
+  if (!boxId) {
+    document.querySelectorAll('#world .tile').forEach(t => t.classList.remove('boxdim'));
+    document.querySelectorAll('#world .blob').forEach(b => b.classList.remove('boxdim'));
+    return;
+  }
+  
+  document.querySelectorAll('#world .tile').forEach(t => {
+    const skillId = t.dataset.id;
+    const inBox = skillInBox(skillId, boxId);
+    t.classList.toggle('boxdim', !inBox);
+  });
+  
+  document.querySelectorAll('#world .blob').forEach(b => {
+    const blobBoxId = b.dataset.box;
+    if (!blobBoxId) {
+      b.classList.remove('boxdim');
+      return;
+    }
+    const isSelected = blobBoxId === boxId;
+    const isChild = boxById[boxId]?.children?.includes(blobBoxId);
+    const isParent = boxById[blobBoxId]?.children?.includes(boxId);
+    b.classList.toggle('boxdim', !isSelected && !isChild && !isParent);
+  });
 }
 
 function toggleGroup() {
@@ -675,7 +936,9 @@ const HOME_BOTTOM = 84;
 function goHome(anim) {
   let box; const L = curL();
   if (layoutMode === 'grouped') {
-    const bs = [1, 2].map(c => L.blobs[c]).filter(Boolean);
+    const blobKeys = Object.keys(L.blobs);
+    const bs = blobKeys.map(k => L.blobs[k]).filter(Boolean);
+    if (bs.length === 0) { goFit(); return; }
     const x0 = Math.min(...bs.map(b => b.x)), y0 = Math.min(...bs.map(b => b.y)), x1 = Math.max(...bs.map(b => b.x + b.w)), y1 = Math.max(...bs.map(b => b.y + b.h));
     box = { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
   } else {
@@ -791,6 +1054,26 @@ function renderStats() {
   st.append(el('span', { class: 'chip', title: 'Unpracticed skills whose prerequisites are all at Level 2 or Mastered (skills with no prerequisites are ready from the start; coming-soon prerequisites are ignored)' }, el('span', { class: 'sw ready' }), 'Ready to learn ', el('b', { text: nReady })));
   st.append(el('span', { class: 'chip', title: 'No questions written yet' }, el('span', { class: 'sw soon' }), 'Coming soon ', el('b', { text: skills.length - playable.length })));
   const hc = $('hctl'); hc.innerHTML = '';
+  
+  const boxPicker = el('select', { id: 'boxPicker', 'aria-label': 'Filter by course/box' });
+  boxPicker.append(el('option', { value: '', text: 'All skills' }));
+  if (COLLECTIONS && COLLECTIONS.boxes) {
+    const courseBoxes = COLLECTIONS.boxes.filter(b => b.kind === 'course');
+    for (const course of courseBoxes) {
+      boxPicker.append(el('option', { value: course.id, text: course.title }));
+      for (const chId of (course.children || [])) {
+        const chBox = boxById[chId];
+        if (chBox) boxPicker.append(el('option', { value: chId, text: '  └ ' + chBox.title.replace(/^Chapter \d+:\s*/, 'Ch ' + (chBox.color_index || '') + ': ') }));
+      }
+    }
+  }
+  boxPicker.value = filter.box || '';
+  boxPicker.onchange = () => {
+    filter.box = boxPicker.value || null;
+    applyBoxFilter();
+    refreshAll();
+  };
+  
   const sel = el('select', { id: 'chSel', 'aria-label': 'Filter by chapter' }, el('option', { value: 0, text: 'All chapters' }), chNums.map(c => el('option', { value: c, text: `Ch ${c} · ${DATA.chapters[c]}` })));
   sel.value = filter.chapter;
   sel.onchange = () => { filter.chapter = +sel.value; refreshAll(); if (filter.view === 'tree') { filter.chapter ? focusChapter(filter.chapter) : (layoutMode === 'grouped' ? goHome(true) : goFit()) } };
@@ -798,7 +1081,7 @@ function renderStats() {
   hc.append(el('div', { class: 'seg', role: 'group', 'aria-label': 'View' },
     el('button', { id: 'vTree', 'aria-pressed': String(filter.view === 'tree'), onclick: () => setView('tree') }, 'Tree'),
     el('button', { id: 'vGrid', 'aria-pressed': String(filter.view === 'grid'), onclick: () => setView('grid') }, 'Grid')),
-    sel, el('label', { class: 'chk' }, chk, 'Playable only'));
+    boxPicker, sel, el('label', { class: 'chk' }, chk, 'Playable only'));
 }
 
 function setView(v) {
@@ -1546,8 +1829,12 @@ async function init() {
     qa: { bankMeta: () => bankMeta, bankCache: () => bankCache, fetchBank, prepareQ, renderQuiz, setQuiz: q => { quiz = q }, closeQuizUI, openQuiz: () => quizEl.classList.add('open'), figureNode, katexErrors: () => window.__katexErrors },
     explainers: { meta: () => explainerMeta, cache: () => explainerCache, fetch: fetchExplainer, has: hasExplainer, open: openExplainer },
     lights: { mode: () => lightsMode, threshold: LIGHTS_THRESHOLD, setScale: s => { view.s = s; applyView(); } },
-    collections: { data: () => COLLECTIONS, boxById: () => boxById, skillToBoxes: () => skillToBoxes, getSkillBox, getSkillColorIndex },
-    openModal, toast, reloadProgress: loadProgress, reloadTiming: loadTiming, refreshAll
+    collections: { 
+      data: () => COLLECTIONS, boxById: () => boxById, skillToBoxes: () => skillToBoxes, getSkillBox, getSkillColorIndex,
+      collapsed: () => collapsedBoxes, toggleCollapse: toggleBoxCollapse, filter: () => filter.box, setFilter: boxId => { filter.box = boxId; applyBoxFilter(); refreshAll(); },
+      getBoxSkills, getBoxDescendantSkills, skillInBox
+    },
+    openModal, toast, reloadProgress: loadProgress, reloadTiming: loadTiming, refreshAll, toggleGroup
   };
   
   if (window.SkillgroveAuth) {
