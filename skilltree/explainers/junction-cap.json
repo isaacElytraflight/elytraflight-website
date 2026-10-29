@@ -1,0 +1,30 @@
+{
+ "id": "junction-cap",
+ "title": "Depletion capacitance and varactors",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "A reverse-biased junction stores charge in its depletion region, and that charge changes with voltage, so it acts as a capacitor. It is non-linear: the small-signal capacitance is the slope \\(dQ_j/dV\\). It turns out to equal a parallel-plate capacitor whose plate separation is the depletion width at that bias.\n\nAs reverse bias grows, the depletion region widens and the capacitance drops, roughly as one over the square root of the total potential. A **varactor** diode exploits this to make a voltage-tuned capacitor, for example to tune an oscillator.",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+   "figure_alt": "PN junction with the depletion region between -xp and xn."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "\\[ C_j = \\frac{\\varepsilon_{si} A}{X_d(V_D)} \\]\n\\[ C_j(V_D) = \\frac{C_{j0}}{\\sqrt{1 - V_D/\\phi_{bi}}} \\]\nwhere \\(C_{j0}\\) is the zero-bias capacitance and \\(V_D < 0\\) in reverse bias.\nFor a varactor tuning an LC tank: \\(\\omega_0 = 1/\\sqrt{L C_j}\\).",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Junction capacitance vs bias</title><line x1=\"20\" y1=\"120\" x2=\"310\" y2=\"120\"/><line x1=\"290\" y1=\"125\" x2=\"290\" y2=\"20\"/><text x=\"30\" y=\"135\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D = -4 V</text><text x=\"290\" y=\"135\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"286\" y=\"25\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C_j</text><polyline points=\"30,89 33.2,88.8 36.5,88.6 39.8,88.5 43,88.3 46.2,88.1 49.5,88 52.8,87.8 56,87.6 59.2,87.4 62.5,87.2 65.8,87 69,86.8 72.2,86.6 75.5,86.4 78.8,86.2 82,86 85.2,85.8 88.5,85.6 91.8,85.4 95,85.1 98.2,84.9 101.5,84.7 104.8,84.4 108,84.2 111.2,83.9 114.5,83.7 117.8,83.4 121,83.1 124.2,82.9 127.5,82.6 130.8,82.3 134,82 137.2,81.7 140.5,81.4 143.8,81.1 147,80.8 150.2,80.4 153.5,80.1 156.8,79.7 160,79.4 163.2,79 166.5,78.6 169.8,78.2 173,77.8 176.2,77.4 179.5,77 182.8,76.6 186,76.1 189.2,75.7 192.5,75.2 195.8,74.7 199,74.2 202.2,73.6 205.5,73.1 208.8,72.5 212,71.9 215.2,71.3 218.5,70.7 221.8,70 225,69.3 228.2,68.6 231.5,67.9 234.8,67.1 238,66.3 241.2,65.4 244.5,64.5 247.8,63.5 251,62.5 254.2,61.5 257.5,60.4 260.8,59.2 264,57.9 267.2,56.6 270.5,55.2 273.8,53.7 277,52 280.2,50.3 283.5,48.3 286.8,46.3 290,44\" stroke-width=\"2.2\"/><text x=\"296\" y=\"48\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">C_j0</text></svg>",
+   "figure_alt": "Junction capacitance decreasing with reverse bias."
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "A junction has \\(C_{j0} = 4\\ \\mathrm{pF}\\) and \\(\\phi_{bi} = 0.75\\ \\mathrm{V}\\). At \\(V_D = -2.25\\ \\mathrm{V}\\):\n\\[ C_j = \\frac{4}{\\sqrt{1 + 2.25/0.75}} = \\frac{4}{\\sqrt4} = 2\\ \\mathrm{pF} \\]\nHalving the capacitance takes a fourfold increase in total potential (from 0.75 V to 3 V)."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Using \\(Q/V\\) instead of the slope \\(dQ/dV\\).\n- Writing \\(1 + V_D/\\phi_{bi}\\) with negative \\(V_D\\); keep the sign convention consistent.\n- Forgetting the square root.\n- Expecting capacitance to rise with reverse bias; it falls."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "Junction capacitance appears in every transistor as a parasitic that limits speed. In the diode small-signal model it sits in parallel with the diffusion capacitance. When you analyse an amplifier's bandwidth later, these voltage-dependent capacitances are often what sets the highest usable frequency. Get comfortable with the square-root bias dependence now, so the later circuit analysis feels familiar."
+  }
+ ]
+}

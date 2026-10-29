@@ -1,0 +1,28 @@
+{
+ "id": "bias-current",
+ "title": "Input bias and offset currents",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "Real op-amp inputs draw small DC currents: the base currents of bipolar input transistors, or leakage currents for CMOS inputs. The two inputs draw \\(I_{B1}\\) and \\(I_{B2}\\). The datasheet **input bias current** \\(I_B\\) is their average, and the **input offset current** \\(I_{OS}\\) is their difference.\n\nThese currents flowing through the external resistors create unwanted DC voltages. In an inverting amplifier with the input grounded, the \\(-\\) input current must flow through \\(R_2\\) from the output, so the output shifts by \\(I_B R_2\\). The fix is to add a resistor \\(R_3 = R_1 \\parallel R_2\\) in series with the \\(+\\) input, so both inputs see the same resistance and the bias drops cancel, leaving only an error from \\(I_{OS}\\).",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 150\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Input bias currents in an inverting configuration</title><polygon points=\"150,40 150,100 206,70\"/><text x=\"157\" y=\"59\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"157\" y=\"89\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"150,55 120,55\"/><circle cx=\"120\" cy=\"55\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"50,55 62,55 65,49 70,61 75,49 80,61 85,49 90,61 98,55 110,55\"/><text x=\"80\" y=\"43\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₁</text><polyline points=\"110,55 120,55\"/><polyline points=\"50,55 35,55 35,70\"/><line x1=\"35\" y1=\"70\" x2=\"35\" y2=\"76\"/><line x1=\"26\" y1=\"76\" x2=\"44\" y2=\"76\"/><line x1=\"30\" y1=\"80\" x2=\"40\" y2=\"80\"/><line x1=\"33.5\" y1=\"84\" x2=\"36.5\" y2=\"84\"/><polyline points=\"120,55 120,20 160,20\"/><polyline points=\"160,20 167,20 170,14 175,26 180,14 185,26 190,14 195,26 203,20 210,20\"/><text x=\"185\" y=\"10\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂</text><polyline points=\"210,20 225,20 225,70\"/><line x1=\"128\" y1=\"49\" x2=\"146\" y2=\"49\"/><polygon points=\"146,49 141.4,50.9 141.4,47.1\" fill=\"currentColor\" stroke=\"none\"/><text x=\"137\" y=\"44\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">I_B1</text><polyline points=\"150,85 120,85\"/><line x1=\"120\" y1=\"85\" x2=\"120\" y2=\"91\"/><line x1=\"111\" y1=\"91\" x2=\"129\" y2=\"91\"/><line x1=\"115\" y1=\"95\" x2=\"125\" y2=\"95\"/><line x1=\"118.5\" y1=\"99\" x2=\"121.5\" y2=\"99\"/><line x1=\"128\" y1=\"91\" x2=\"146\" y2=\"91\"/><polygon points=\"146,91 141.4,92.9 141.4,89.1\" fill=\"currentColor\" stroke=\"none\"/><text x=\"137\" y=\"103\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">I_B2</text><polyline points=\"206,70 260,70\"/><circle cx=\"225\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"263\" cy=\"70\" r=\"3\"/><text x=\"276\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text></svg>",
+   "figure_alt": "Op-amp with bias currents shown at both inputs."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "\\[ I_B = \\frac{I_{B1} + I_{B2}}{2}, \\qquad I_{OS} = |I_{B1} - I_{B2}| \\]\nWithout compensation: \\(V_o \\approx I_{B}R_2\\).\nWith \\(R_3 = R_1 \\parallel R_2\\): \\(V_o \\approx I_{OS}R_2\\)."
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "An amplifier uses \\(R_1 = 20\\ \\mathrm{k\\Omega}\\), \\(R_2 = 200\\ \\mathrm{k\\Omega}\\), and an op-amp with \\(I_B = 50\\ \\mathrm{nA}\\), \\(I_{OS} = 5\\ \\mathrm{nA}\\).\nWithout compensation: \\(V_o \\approx 50\\ \\mathrm{nA}\\times200\\ \\mathrm{k\\Omega} = 10\\ \\mathrm{mV}\\).\nAdd \\(R_3 = 20\\parallel200 \\approx 18.2\\ \\mathrm{k\\Omega}\\): \\(V_o \\approx 5\\ \\mathrm{nA}\\times200\\ \\mathrm{k\\Omega} = 1\\ \\mathrm{mV}\\)."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Confusing \\(I_B\\) (average) with \\(I_{OS}\\) (difference).\n- Using \\(R_1\\) instead of \\(R_2\\) when computing the output error.\n- Picking \\(R_3 = R_1 + R_2\\) instead of the parallel combination.\n- Assuming bias current is negligible with megohm resistors."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "Combined with offset voltage, bias and offset currents give the total DC output error, a standard datasheet calculation."
+  }
+ ]
+}

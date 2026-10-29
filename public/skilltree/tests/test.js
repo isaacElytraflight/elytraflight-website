@@ -460,6 +460,90 @@ async function test(name, fn) {
     await ctx.close();
   });
 
+  await test('explainer button shows for skills with explainers, opens modal with content', async () => {
+    const p = await newPage();
+    
+    await openSkill(p, 'bode');
+    await sleep(300);
+    
+    const explainerBtn = await p.$('#explainerBtn');
+    assert(explainerBtn, 'explainer button should exist for bode skill');
+    
+    const btnText = await p.$eval('#explainerBtn', e => e.textContent);
+    assert(/Read first|Explainer/i.test(btnText), 'button should say Read first or Explainer');
+    
+    await explainerBtn.click();
+    await sleep(800);
+    
+    const modalOpen = await p.$eval('#modalBack', e => e.classList.contains('open'));
+    assert(modalOpen, 'modal should be open');
+    
+    const explainerContent = await p.$('#explainerContent');
+    assert(explainerContent, 'explainer content should be present');
+    
+    const sections = await p.$$eval('.exp-section', els => els.length);
+    assert(sections >= 1, 'should have at least one section');
+    
+    const hasKatex = await p.$eval('.explainer-body', e => e.querySelector('.katex') !== null);
+    assert(hasKatex, 'should render KaTeX math');
+    
+    await p.screenshot({ path: path.join(SHOTS_DIR, '11_explainer_modal.png') });
+    
+    await p.keyboard.press('Escape');
+    await sleep(200);
+    await p._ctx.close();
+  });
+
+  await test('skill without explainer has no explainer button', async () => {
+    const p = await newPage();
+    
+    const hasExplainer = await p.evaluate(() => window.__skillgrove.explainers.has('clm'));
+    assert(!hasExplainer, 'clm should not have an explainer (coming soon skill)');
+    
+    await p._ctx.close();
+  });
+
+  await test('lights mode activates when zoomed out below threshold', async () => {
+    const p = await newPage(T({
+      'bode': { tier: 4, lastPracticed: now - DAY, history: [] },
+      'phasors': { tier: 4, lastPracticed: now - 2 * DAY, history: [] },
+      'lti-def': { tier: 3, lastPracticed: now - DAY, history: [] },
+      'cx-exp': { tier: 2, lastPracticed: now - DAY, history: [] },
+      'rc-lpf': { tier: 1, lastPracticed: now - DAY, history: [] }
+    }));
+    
+    const threshold = await p.evaluate(() => window.__skillgrove.lights.threshold);
+    assert(typeof threshold === 'number', 'threshold should be a number');
+    
+    let lightsOn = await p.evaluate(() => window.__skillgrove.lights.mode());
+    assert(!lightsOn, 'lights mode should be off at normal zoom');
+    
+    await p.evaluate(() => window.__skillgrove.lights.setScale(0.25));
+    await sleep(100);
+    
+    lightsOn = await p.evaluate(() => window.__skillgrove.lights.mode());
+    assert(lightsOn, 'lights mode should be on when zoomed out');
+    
+    const worldHasClass = await p.$eval('#world', e => e.classList.contains('lights-view'));
+    assert(worldHasClass, 'world should have lights-view class');
+    
+    const lightModeCount = await p.$$eval('#world .tile.light-mode', els => els.length);
+    assert.strictEqual(lightModeCount, 121, 'all tiles should have light-mode class');
+    
+    const lightDot = await p.$('.tile.t4 .light-dot');
+    assert(lightDot, 'mastered tile should have light-dot element');
+    
+    await p.screenshot({ path: path.join(SHOTS_DIR, '12_lights_mode.png') });
+    
+    await p.evaluate(() => window.__skillgrove.lights.setScale(0.8));
+    await sleep(100);
+    
+    lightsOn = await p.evaluate(() => window.__skillgrove.lights.mode());
+    assert(!lightsOn, 'lights mode should turn off when zoomed back in');
+    
+    await p._ctx.close();
+  });
+
   await browser.close();
 
   console.log('\n=== Test Results ===\n');

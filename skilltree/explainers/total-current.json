@@ -1,0 +1,30 @@
+{
+ "id": "total-current",
+ "title": "Total current and boundary conditions",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "The total current in a semiconductor is the sum of four pieces: electron drift, electron diffusion, hole drift and hole diffusion. In most practical situations one or two dominate. Majority carriers in a neutral region mostly drift; minority carriers in a diode mostly diffuse.\n\nIn **thermal equilibrium** there is no net current of either carrier type, separately. If a doping gradient makes carriers diffuse, a built-in field must appear that pushes them back by exactly the same amount. Solving \\(J_n = 0\\) with the Einstein relation gives that field and leads directly to the Boltzmann relations used for junctions. At contacts and boundaries, use current continuity: the total current is the same through every cross-section of a two-terminal device in steady state.",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 150\" role=\"img\" aria-label=\"Doped resistor: drift current\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:380px;width:100%;height:auto\"><rect x=\"70.0\" y=\"46.0\" width=\"230.0\" height=\"50.0\" fill=\"currentColor\" fill-opacity=\"0.1\" stroke-width=\"1.5\"/><line x1=\"30.0\" y1=\"71.0\" x2=\"70.0\" y2=\"71.0\" stroke-width=\"1.5\"/><line x1=\"300.0\" y1=\"71.0\" x2=\"340.0\" y2=\"71.0\" stroke-width=\"1.5\"/><text x=\"40.0\" y=\"63.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"330.0\" y=\"63.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"185.0\" y=\"16.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V</text><line x1=\"110.0\" y1=\"58.0\" x2=\"260.0\" y2=\"58.0\" stroke-width=\"1.5\"/><polygon points=\"260.0,58.0 253.6,60.7 253.6,55.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"43.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"250.0\" y1=\"84.0\" x2=\"120.0\" y2=\"84.0\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"/><polygon points=\"120.0,84.0 126.4,81.3 126.4,86.7\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"79.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.8\" fill=\"currentColor\" stroke=\"none\">electrons</text><line x1=\"70.0\" y1=\"116.0\" x2=\"300.0\" y2=\"116.0\" stroke-width=\"1.5\"/><polygon points=\"300.0,116.0 295.4,117.9 295.4,114.1\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"300.0\" y1=\"116.0\" x2=\"70.0\" y2=\"116.0\" stroke-width=\"1.5\"/><polygon points=\"70.0,116.0 74.6,114.1 74.6,117.9\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"132.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text><text x=\"306.0\" y=\"116.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.8\" fill=\"currentColor\" stroke=\"none\">cross-section A</text></svg>",
+   "figure_alt": "Uniformly doped bar with an applied field; the carrier concentration is flat, so the current is drift."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "\\[ J_n = q\\,n\\,\\mu_n E + q\\,D_n\\frac{dn}{dx}, \\qquad J_p = q\\,p\\,\\mu_p E - q\\,D_p\\frac{dp}{dx} \\]\n\\[ J = J_n + J_p \\]\nEquilibrium (\\(J_n = 0\\)):\n\\[ E = -\\frac{kT}{q}\\,\\frac{1}{n}\\frac{dn}{dx} \\]",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"plot\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n(x)</text><polyline points=\"56.0,50.0 312.4,134.0\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"235.5\" y=\"50.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E points −x</text></svg>",
+   "figure_alt": "Electron concentration decreasing with x, with the field pointing toward −x."
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "In equilibrium, an n-type region has electrons decreasing exponentially, \\(n(x) = n_0 e^{-x/\\lambda}\\) with \\(\\lambda = 2\\ \\mu\\mathrm{m}\\). Then \\(\\frac{1}{n}\\frac{dn}{dx} = -1/\\lambda\\), so\n\\[ E = \\frac{kT}{q}\\cdot\\frac{1}{\\lambda} = \\frac{0.026}{2\\times10^{-4}} = 130\\ \\mathrm{V/cm} \\]\nThe field points in \\(+x\\), pushing electrons back toward \\(-x\\) and cancelling their diffusion."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Assuming zero total current means zero drift and zero diffusion. They can be large and cancel.\n- Requiring only \\(J_n + J_p = 0\\) in equilibrium. Each must vanish separately.\n- Mixing up which sign belongs to which diffusion term.\n- Forgetting the minority carrier drift is usually negligible because \\(n\\) or \\(p\\) is tiny."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "Setting the total electron current to zero is how the Boltzmann relations and the built-in junction potential are derived. Outside equilibrium, the same four-term equation feeds into the continuity equation and the diode I–V."
+  }
+ ]
+}

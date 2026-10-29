@@ -1,0 +1,30 @@
+{
+ "id": "diode-ss",
+ "title": "Diode small-signal model and diffusion capacitance",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "For small signals around a DC operating point, the exponential diode looks like a straight line: a **small-signal conductance** \\(g_d\\), the slope of the I–V curve. Because the slope of an exponential is proportional to its value, \\(g_d\\) is simply the bias current divided by the thermal voltage.\n\nA forward-biased diode also stores injected minority charge in its neutral regions. That charge rises with current, giving a **diffusion capacitance** \\(C_d\\) that sits in parallel with the junction capacitance \\(C_j\\). In forward bias \\(C_d\\) usually dominates. The small-signal model is valid only for swings well under \\(kT/q\\).",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+   "figure_alt": "Diode I-V curve."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "\\[ g_d = \\frac{dI_D}{dV_D} = \\frac{qI_D}{kT}, \\qquad r_d = \\frac{1}{g_d} = \\frac{kT/q}{I_D} \\]\n\\[ C_d = g_d\\,\\tau_T \\]\nwhere \\(\\tau_T\\) is the transit time (short base, \\(\\tau_T = W^2/2D\\)) or the lifetime (long base).\nSmall-signal model: \\(g_d \\parallel C_d \\parallel C_j\\).",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode small-signal model</title><polyline points=\"40,25 280,25\"/><polyline points=\"40,115 280,115\"/><circle cx=\"40\" cy=\"25\" r=\"3\"/><circle cx=\"40\" cy=\"115\" r=\"3\"/><text x=\"30\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_d</text><polyline points=\"100,25 100,52 94,55 106,60 94,65 106,70 94,75 106,80 100,88 100,115\"/><text x=\"112\" y=\"74\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">r_d = 1/g_d</text><circle cx=\"100\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"100\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"195\" y1=\"25\" x2=\"195\" y2=\"65\"/><line x1=\"195\" y1=\"75\" x2=\"195\" y2=\"115\"/><line x1=\"186\" y1=\"65\" x2=\"204\" y2=\"65\"/><line x1=\"186\" y1=\"75\" x2=\"204\" y2=\"75\"/><text x=\"209\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_j</text><circle cx=\"195\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"195\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"260\" y1=\"25\" x2=\"260\" y2=\"65\"/><line x1=\"260\" y1=\"75\" x2=\"260\" y2=\"115\"/><line x1=\"251\" y1=\"65\" x2=\"269\" y2=\"65\"/><line x1=\"251\" y1=\"75\" x2=\"269\" y2=\"75\"/><text x=\"274\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_diff</text><circle cx=\"260\" cy=\"25\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"260\" cy=\"115\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+   "figure_alt": "Diode small-signal model: r_d in parallel with C_j and C_diff."
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "A diode is biased at \\(I_D = 0.26\\ \\mathrm{mA}\\) with a transit time of 1 ns.\n\\[ g_d = \\frac{0.26\\ \\mathrm{mA}}{26\\ \\mathrm{mV}} = 10\\ \\mathrm{mS}, \\qquad r_d = 100\\ \\Omega \\]\n\\[ C_d = 10^{-2}\\times10^{-9} = 10\\ \\mathrm{pF} \\]\nThe corner where \\(g_d\\) and \\(C_d\\) are equal is \\(g_d/C_d = 10^{9}\\ \\mathrm{rad/s}\\), set by the transit time alone."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Using \\(V_D/I_D\\) (large-signal ratio) as the small-signal resistance.\n- Forgetting \\(C_d\\) grows with current while \\(C_j\\) is nearly fixed.\n- Applying the model to swings comparable to 26 mV.\n- Mixing \\(g_d\\) and \\(r_d\\) units (S versus Ω)."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "The same small-signal thinking (slope of a large-signal law at the bias point) is how transistor models are built, with transconductance taking the place of \\(g_d\\)."
+  }
+ ]
+}

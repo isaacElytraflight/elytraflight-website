@@ -1,0 +1,28 @@
+{
+ "id": "datasheet",
+ "title": "Reading op-amp datasheets",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "A **datasheet** is the contract between an op-amp maker and you. Learning to read one means knowing which numbers bound which errors, and which conditions they were measured under.\n\nKey entries: **open-loop gain** (often in dB) sets static gain error; **GBW** sets closed-loop bandwidth; **slew rate** limits large fast signals; **offset voltage** and **bias currents** set DC errors; **noise density** sets the noise floor; **CMRR** and **PSRR** tell how well the part ignores common-mode and supply changes; the **input common-mode range** and **output swing** tell which voltages actually work. Always check the typical versus maximum columns and the test conditions (supply, load, temperature).",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>ADA4891 key specs (reader Sec. 18.6)</title><rect x=\"10\" y=\"6\" width=\"320\" height=\"164\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"22\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Gain-bandwidth product</text><text x=\"318\" y=\"28\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">240 MHz</text><text x=\"22\" y=\"50\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Slew rate</text><text x=\"318\" y=\"50\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">170 V/µs</text><text x=\"22\" y=\"72\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Input offset voltage</text><text x=\"318\" y=\"72\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">2 mV</text><text x=\"22\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Open-loop gain</text><text x=\"318\" y=\"94\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">66 dB</text><text x=\"22\" y=\"116\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Input resistance</text><text x=\"318\" y=\"116\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">5 GΩ</text><text x=\"22\" y=\"138\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Input common-mode range</text><text x=\"318\" y=\"138\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">−Vs − 0.3 V to +Vs − 0.8 V</text><text x=\"22\" y=\"160\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">CMRR</text><text x=\"318\" y=\"160\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">88 dB</text></svg>",
+   "figure_alt": "Table of ADA4891 specs: GBW 240 MHz, slew rate 170 V/µs, offset 2 mV, open-loop gain 66 dB, input resistance 5 GΩ, input common-mode range -Vs-0.3 V to +Vs-0.8 V, CMRR 88 dB."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "dB to ratio: \\(A = 10^{A_{dB}/20}\\)\nClosed-loop bandwidth: \\(BW \\approx \\dfrac{GBW}{1/f}\\)\nFull-power bandwidth: \\(f_{FP} = \\dfrac{SR}{2\\pi V_p}\\)\nOutput offset: \\(V_{os}\\,(1 + R_2/R_1) + I_{OS}R_2\\) (with bias compensation)"
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "A part lists \\(A_{OL} = 100\\ \\mathrm{dB}\\), \\(GBW = 10\\ \\mathrm{MHz}\\), \\(SR = 5\\ \\mathrm{V/\\mu s}\\), \\(V_{os,max} = 0.5\\ \\mathrm{mV}\\). For a gain-of-20 amplifier with a 5 V peak output:\n- \\(A_{OL} = 10^5\\), static error \\(\\approx 20/10^5 = 0.02\\%\\).\n- \\(BW \\approx 10\\ \\mathrm{MHz}/20 = 500\\ \\mathrm{kHz}\\).\n- \\(f_{FP} = 5\\times10^6/(2\\pi\\times5) \\approx 159\\ \\mathrm{kHz}\\): slewing limits full-swing signals first.\n- Output offset up to \\(20\\times0.5 = 10\\ \\mathrm{mV}\\)."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Reading a \"typical\" value as guaranteed.\n- Converting dB with 10 instead of 20.\n- Ignoring the input common-mode range: an input near a rail may not work.\n- Forgetting that specs depend on the stated supply and load."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "This skill pulls the whole op-amp chapter together. Real design is choosing the cheapest part whose worst-case specs meet the requirements, and checking each error budget as above."
+  }
+ ]
+}

@@ -23,6 +23,8 @@ const BASE_URL = (function() {
 let DATA = null;       // loaded from skills.*.json
 let bankCache = {};    // skill_id -> loaded bank questions
 let bankMeta = {};     // skill_id -> {file, hash, questionCount, rounds}
+let explainerCache = {};  // skill_id -> loaded explainer
+let explainerMeta = {};   // skill_id -> {file, hash, sectionCount}
 let dataReady = false;
 let loadError = null;
 
@@ -37,6 +39,7 @@ async function loadManifest() {
     DATA = await sRes.json();
     
     bankMeta = DATA.banks || {};
+    explainerMeta = DATA.explainers || {};
     dataReady = true;
     return true;
   } catch (e) {
@@ -59,6 +62,23 @@ async function fetchBank(skillId) {
     return bankCache[skillId];
   } catch (e) {
     console.error(`Failed to load bank ${skillId}:`, e);
+    throw e;
+  }
+}
+
+async function fetchExplainer(skillId) {
+  if (explainerCache[skillId]) return explainerCache[skillId];
+  const meta = explainerMeta[skillId];
+  if (!meta) return null;
+  
+  try {
+    const res = await fetch(BASE_URL + meta.file);
+    if (!res.ok) throw new Error(`${meta.file}: ${res.status}`);
+    const data = await res.json();
+    explainerCache[skillId] = data;
+    return data;
+  } catch (e) {
+    console.error(`Failed to load explainer ${skillId}:`, e);
     throw e;
   }
 }
@@ -96,6 +116,7 @@ const roundQsCount = (id, r) => {
   return (m && m.rounds && m.rounds[r]) || 0;
 };
 const isPlayable = id => hasRound(id, 1);
+const hasExplainer = id => !!(explainerMeta[id] && explainerMeta[id].sectionCount > 0);
 let playable = [];
 
 /* ====================== storage ====================== */
@@ -458,10 +479,12 @@ const reducedMotion = () => window.matchMedia && matchMedia('(prefers-reduced-mo
 function tileTitle(s) { return `${s.name} · Ch ${s.chapter}` }
 
 function buildTile(s, st) {
-  const b = el('button', { class: 'tile' + (st ? ' st' : ''), 'data-id': s.id, style: colorVars(s.chapter), type: 'button', title: tileTitle(s) },
-    el('span', { class: 'fill' }), el('span', { class: 'nm', text: s.name }),
-    el('span', { class: 'meta' }, el('span', { class: 'pips' }, [0, 1, 2, 3].map(() => el('i'))), el('span', { class: 'tl' }), el('span', { class: 'tag' })),
-    el('span', { class: 'star', 'aria-hidden': 'true', text: '★' }));
+  const shimmerDelay = (Math.random() * 4 + 1).toFixed(2) + 's';
+  const b = el('button', { class: 'tile' + (st ? ' st' : ''), 'data-id': s.id, style: colorVars(s.chapter) + `;--shimmer-delay:${shimmerDelay}`, type: 'button', title: tileTitle(s) },
+    el('span', { class: 'fill' }), el('span', { class: 'nm name', text: s.name }),
+    el('span', { class: 'meta sub' }, el('span', { class: 'pips' }, [0, 1, 2, 3].map(() => el('i'))), el('span', { class: 'tl' }), el('span', { class: 'tag' })),
+    el('span', { class: 'star', 'aria-hidden': 'true', text: '★' }),
+    el('span', { class: 'light', 'aria-hidden': 'true' }, el('span', { class: 'light-dot' })));
   b.addEventListener('click', () => { if (drag.moved) return; selectSkill(s.id) });
   b.addEventListener('mouseenter', () => { hoverId = s.id; applyEdgeHighlight() });
   b.addEventListener('mouseleave', () => { hoverId = null; applyEdgeHighlight() });
@@ -581,7 +604,18 @@ function applyEdgeHighlight() {
   });
 }
 
-function applyView() { world.style.transform = `translate(${view.x}px,${view.y}px) scale(${view.s})` }
+const LIGHTS_THRESHOLD = 0.38;
+let lightsMode = false;
+
+function applyView() {
+  world.style.transform = `translate(${view.x}px,${view.y}px) scale(${view.s})`;
+  const shouldLights = view.s < LIGHTS_THRESHOLD;
+  if (shouldLights !== lightsMode) {
+    lightsMode = shouldLights;
+    world.classList.toggle('lights-view', lightsMode);
+    world.querySelectorAll('.tile').forEach(t => t.classList.toggle('light-mode', lightsMode));
+  }
+}
 function animateView(fn) { world.classList.add('anim'); fn(); clearTimeout(animateView.t); animateView.t = setTimeout(() => world.classList.remove('anim'), 500) }
 const MINS = .1;
 
@@ -791,6 +825,9 @@ function renderPanel() {
       TIERS.map((n, i) => el('div', { class: 'step' + (i <= t && i > 0 ? ' done' : '') + (i === t ? ' cur' : '') }, el('div', { class: 'dot', text: i > 0 && i <= t ? '✓' : '' }), n))));
     kids.push(el('div', { class: 'kv', id: 'panelTier' }, el('b', { text: 'Tier: ' }), TIERS[t], ready ? ' · ready to learn' : ''));
     kids.push(el('div', { class: 'kv', id: 'panelLast', title: lastOf(id) ? fmtDate(lastOf(id)) : '' }, el('b', { text: 'Last practiced: ' }), lastOf(id) ? `${ago(lastOf(id))} (${fmtDate(lastOf(id))})` : 'never'));
+    if (hasExplainer(id)) {
+      kids.push(el('button', { class: 'btn explainer-btn', style: 'width:100%;justify-content:center;margin-top:10px', id: 'explainerBtn', onclick: () => openExplainer(id) }, el('span', { class: 'exp-icon', 'aria-hidden': 'true', text: '📖' }), t === 0 ? 'Read first' : 'Explainer'));
+    }
     const gaps = prereqGaps(id), soonP = s.prereqs.filter(p => !isPlayable(p));
     if (t === 0 && ready) kids.push(el('div', { class: 'note ok', id: 'readyNote' }, el('b', { text: 'Ready to learn: ' }), s.prereqs.length && s.prereqs.some(isPlayable) ? 'all its prerequisites are at Level 2 or Mastered.' : 'it has no prerequisites you can practice yet, so you can start right away.'));
     if (gaps.length && t === 0) kids.push(el('div', { class: 'note warn', id: 'prereqNote' }, el('b', { text: 'Gentle heads-up: ' }), `this skill is recommended once its prerequisites reach Level 2. Still to go: ${gaps.map(p => `${byId[p].name} (${TIERS[tierOf(p)]})`).join('; ')}. Nothing is locked, so start whenever you like.`));
@@ -1067,6 +1104,81 @@ function openModal({ title, body, actions, wide }) {
 }
 
 function closeModal() { if (!mb.classList.contains('open')) return; mb.classList.remove('open'); mEl.innerHTML = ''; try { modalFocusBack && modalFocusBack.focus && modalFocusBack.focus() } catch (e) { } }
+
+/* ====================== explainer modal ====================== */
+let explainerLoading = false;
+
+function renderMarkdown(text) {
+  if (!text) return '';
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n- /g, '</p><ul><li>')
+    .replace(/\n(\d+)\. /g, '</p><ol><li>')
+    .replace(/<\/li>\n- /g, '</li><li>')
+    .replace(/<\/li>\n(\d+)\. /g, '</li><li>')
+    .replace(/<li>([^<]*?)(?=<\/p>|$)/g, (m, c) => `<li>${c}</li></ul>`)
+    .replace(/<li>([^<]*?)(?=<\/p>|$)/g, (m, c) => `<li>${c}</li></ol>`);
+}
+
+function renderExplainerSection(sec) {
+  const div = el('div', { class: 'exp-section' });
+  div.append(el('h3', { text: sec.heading }));
+  
+  const body = el('div', { class: 'exp-body' });
+  setMath(body, sec.body_md);
+  div.append(body);
+  
+  if (sec.figure) {
+    const fig = figureNode({ figure: sec.figure, figure_alt: sec.figure_alt, id: 'exp-fig' });
+    if (fig) div.append(fig);
+  }
+  
+  return div;
+}
+
+async function openExplainer(skillId) {
+  if (explainerLoading) return;
+  
+  const s = byId[skillId];
+  if (!s) return;
+  
+  if (!explainerCache[skillId]) {
+    explainerLoading = true;
+    const btn = $('explainerBtn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Loading…'; }
+    
+    try {
+      await fetchExplainer(skillId);
+    } catch (e) {
+      explainerLoading = false;
+      if (btn) { btn.disabled = false; btn.textContent = 'Read first'; }
+      openModal({
+        title: 'Failed to load explainer',
+        body: el('p', { text: `Could not load the explainer: ${e.message || e}` }),
+        actions: [{ label: 'OK' }]
+      });
+      return;
+    }
+    explainerLoading = false;
+    if (btn) { btn.disabled = false; btn.textContent = 'Read first'; }
+  }
+  
+  const exp = explainerCache[skillId];
+  if (!exp || !exp.sections) return;
+  
+  const body = el('div', { class: 'explainer-body', id: 'explainerContent' });
+  exp.sections.forEach(sec => body.append(renderExplainerSection(sec)));
+  
+  openModal({
+    title: exp.title || s.name,
+    body,
+    actions: [{ label: 'Close', kind: 'primary' }],
+    wide: true
+  });
+}
 
 function openQueue() {
   const q = queue();
@@ -1393,6 +1505,8 @@ async function init() {
   window.__skillgrove = {
     version: 1, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode, timing: () => timing, plan: (scratch) => runPlan(!!scratch), ready: () => skills.filter(s => isReady(s.id)).map(s => s.id), playableIds: () => playable.map(s => s.id),
     qa: { bankMeta: () => bankMeta, bankCache: () => bankCache, fetchBank, prepareQ, renderQuiz, setQuiz: q => { quiz = q }, closeQuizUI, openQuiz: () => quizEl.classList.add('open'), figureNode, katexErrors: () => window.__katexErrors },
+    explainers: { meta: () => explainerMeta, cache: () => explainerCache, fetch: fetchExplainer, has: hasExplainer, open: openExplainer },
+    lights: { mode: () => lightsMode, threshold: LIGHTS_THRESHOLD, setScale: s => { view.s = s; applyView(); } },
     openModal, toast, reloadProgress: loadProgress, reloadTiming: loadTiming, refreshAll
   };
   
