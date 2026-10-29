@@ -1,0 +1,167 @@
+{
+  "skill_id": "phasors",
+  "version": 1,
+  "questions": [
+    {
+      "id": "phasors-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What is the impedance of an ideal capacitor C at angular frequency \\(\\omega\\)?",
+      "options": [
+        "\\(Z_{C}=1/(j\\omega C)\\)",
+        "\\(Z_{C}=j\\omega C\\)",
+        "\\(Z_{C}=-j\\omega C\\)",
+        "\\(Z_{C}=C/(j\\omega)\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "From I \\(=j\\omega C\\cdot V\\) (reader Eq. 2.26), \\(Z_{C}=V/I=1/(j\\omega C)=-j/(\\omega C)\\). It is purely imaginary, with magnitude \\(1/(\\omega C)\\) that shrinks as frequency rises.\n• \\(j\\omega C\\) is the ADMITTANCE \\(Y_{C}\\), not the impedance.\n• \\(-j\\omega C\\) has the wrong dependence on \\(\\omega\\) (it would grow with frequency).\n• \\(C/(j\\omega)\\) has wrong units."
+    },
+    {
+      "id": "phasors-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In sinusoidal steady state, how do an ideal capacitor and an ideal inductor behave as \\(\\omega\\to 0\\) (near DC)?",
+      "options": [
+        "The capacitor acts like a short circuit; the inductor acts like an open circuit",
+        "Both act like short circuits",
+        "Both act like open circuits",
+        "The capacitor acts like an open circuit; the inductor acts like a short circuit"
+      ],
+      "correct_index": 3,
+      "explanation": "\\(|Z_{C}|=1/(\\omega C)\\to\\infty\\) as \\(\\omega\\to 0\\) (open circuit), and \\(|Z_{L}|=\\omega L\\to 0\\) (short circuit). At very high frequency the roles reverse: the capacitor shorts and the inductor opens.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 216 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>L and C at low frequency</title><line x1=\"46\" y1=\"46\" x2=\"46\" y2=\"74\"/><line x1=\"46\" y1=\"98\" x2=\"46\" y2=\"126\"/><circle cx=\"46\" cy=\"86\" r=\"12\"/><text x=\"46\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"46\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"29\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vₛ</text><line x1=\"46\" y1=\"126\" x2=\"46\" y2=\"132\"/><line x1=\"37\" y1=\"132\" x2=\"55\" y2=\"132\"/><line x1=\"41\" y1=\"136\" x2=\"51\" y2=\"136\"/><line x1=\"44.5\" y1=\"140\" x2=\"47.5\" y2=\"140\"/><line x1=\"46\" y1=\"46\" x2=\"64\" y2=\"46\"/><path d=\"M64,46 h15 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 h15\"/><text x=\"99\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">L</text><line x1=\"134\" y1=\"46\" x2=\"156\" y2=\"46\"/><circle cx=\"156\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"156\" y1=\"56\" x2=\"156\" y2=\"81\"/><line x1=\"156\" y1=\"91\" x2=\"156\" y2=\"116\"/><line x1=\"147\" y1=\"81\" x2=\"165\" y2=\"81\"/><line x1=\"147\" y1=\"91\" x2=\"165\" y2=\"91\"/><text x=\"170\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"156\" y1=\"46\" x2=\"156\" y2=\"56\"/><line x1=\"156\" y1=\"116\" x2=\"156\" y2=\"126\"/><line x1=\"156\" y1=\"126\" x2=\"156\" y2=\"132\"/><line x1=\"147\" y1=\"132\" x2=\"165\" y2=\"132\"/><line x1=\"151\" y1=\"136\" x2=\"161\" y2=\"136\"/><line x1=\"154.5\" y1=\"140\" x2=\"157.5\" y2=\"140\"/><line x1=\"156\" y1=\"46\" x2=\"170\" y2=\"46\"/><line x1=\"170\" y1=\"46\" x2=\"186\" y2=\"46\"/><circle cx=\"189\" cy=\"46\" r=\"3\"/><text x=\"196\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text></svg>",
+      "figure_alt": "A source driving an inductor in series and a capacitor to ground."
+    },
+    {
+      "id": "phasors-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "What is the magnitude of the impedance of a 100 nF capacitor at \\(f=1\\ \\mathrm{kHz}\\)?",
+      "answer": 1591.55,
+      "unit": "Ω",
+      "tolerance": 0.02,
+      "explanation": "\\(|Z_{C}|=1/(\\omega C)=1/(2\\pi\\times 1000\\times 100\\times 10^{-9})=1/(6.283\\times 10^{-4})=1592\\ \\Omega\\).\nCommon mistake: using f instead of \\(\\omega\\ (1/(1000\\times 10^{-7})=10\\ \\mathrm{k}\\Omega)\\)."
+    },
+    {
+      "id": "phasors-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A 300 Ω resistor is in series with a 40 mH inductor. What is the magnitude of the total impedance at \\(\\omega=10{,}000\\ \\mathrm{rad}/\\mathrm{s}\\)?",
+      "answer": 500.0,
+      "unit": "Ω",
+      "tolerance": 0.02,
+      "explanation": "\\(Z=R+j\\omega L=300+j(10^{4}\\times 0.04)=300+j400\\ \\Omega\\).\n\\(|Z|=\\sqrt{300^{2}+400^{2}}=\\sqrt{250}{,}000=500\\ \\Omega\\) (a 3-4-5 triangle).\nCommon mistake: adding magnitudes, \\(300+400=700\\ \\Omega\\). Resistance and reactance are 90° apart in the complex plane, so they add as vectors.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 278 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Series R–L</title><line x1=\"46\" y1=\"46\" x2=\"46\" y2=\"74\"/><line x1=\"46\" y1=\"98\" x2=\"46\" y2=\"126\"/><circle cx=\"46\" cy=\"86\" r=\"12\"/><text x=\"46\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"46\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"29\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vₛ</text><line x1=\"46\" y1=\"126\" x2=\"46\" y2=\"132\"/><line x1=\"37\" y1=\"132\" x2=\"55\" y2=\"132\"/><line x1=\"41\" y1=\"136\" x2=\"51\" y2=\"136\"/><line x1=\"44.5\" y1=\"140\" x2=\"47.5\" y2=\"140\"/><line x1=\"46\" y1=\"46\" x2=\"64\" y2=\"46\"/><polyline points=\"64,46 81,46 84,40 89,52 94,40 99,52 104,40 109,52 117,46 134,46\"/><text x=\"99\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">300 Ω</text><line x1=\"134\" y1=\"46\" x2=\"148\" y2=\"46\"/><path d=\"M148,46 h15 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 h15\"/><text x=\"183\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">40 mH</text><line x1=\"218\" y1=\"46\" x2=\"232\" y2=\"46\"/><line x1=\"232\" y1=\"46\" x2=\"248\" y2=\"46\"/><circle cx=\"251\" cy=\"46\" r=\"3\"/><text x=\"258\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text></svg>",
+      "figure_alt": "A 300 ohm resistor in series with a 40 millihenry inductor."
+    },
+    {
+      "id": "phasors-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A 0.1 µF capacitor has the voltage \\(v(t)=5\\cos(2\\pi\\cdot 1000\\cdot t)\\ \\mathrm{V}\\) across it. What is the PEAK value of the current through it?",
+      "answer": 3.14159,
+      "unit": "mA",
+      "tolerance": 0.02,
+      "explanation": "Phasor relation: I \\(=j\\omega C\\cdot V\\), so \\(|I|=\\omega C|V|=2\\pi(1000)(0.1\\times 10^{-6})(5)=3.142\\ \\mathrm{mA}\\).\n(The current leads the voltage by 90°.) Common mistake: forgetting \\(2\\pi\\), which gives 0.5 mA."
+    },
+    {
+      "id": "phasors-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "For a single circuit element, the voltage is \\(v(t)=10\\cos(\\omega t)\\ \\mathrm{V}\\) and the current is \\(i(t)=2\\cos(\\omega t-90^{\\circ})\\) A with \\(\\omega=1000\\ \\mathrm{rad}/\\mathrm{s}\\). What is the element?",
+      "options": [
+        "A capacitor of 200 µF",
+        "A resistor of 5 Ω",
+        "An inductor of 5 mH",
+        "An inductor of 5 H"
+      ],
+      "correct_index": 2,
+      "explanation": "The current LAGS the voltage by 90°, which is the signature of an inductor (\\(V=j\\omega L\\cdot I\\), so V leads I by 90°). \\(|Z|=10\\ \\mathrm{V}/2\\) A \\(=5\\ \\Omega=\\omega L\\) ⇒ \\(L=5/1000=5\\ \\mathrm{mH}\\).\n• A capacitor's current would LEAD the voltage by 90°; 200 µF would have \\(1/(\\omega C)=5\\ \\Omega\\) but the wrong phase relationship.\n• A resistor would have current in phase with voltage.\n• 5 H would make \\(\\omega L=5000\\ \\Omega\\), not 5 Ω (units slip).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 200\" role=\"img\" aria-label=\"Voltage and current of the element\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"91.0\" x2=\"338.0\" y2=\"91.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,91.0 331.6,93.7 331.6,88.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"160.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"190.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">ωt</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v</text><polyline points=\"56.0,35.8 58.8,36.2 61.6,37.5 64.5,39.7 67.3,42.6 70.1,46.3 72.9,50.8 75.7,55.8 78.6,61.4 81.4,67.5 84.2,73.9 87.0,80.7 89.8,87.5 92.7,94.5 95.5,101.3 98.3,108.1 101.1,114.5 103.9,120.6 106.8,126.2 109.6,131.2 112.4,135.7 115.2,139.4 118.0,142.3 120.9,144.5 123.7,145.8 126.5,146.2 129.3,145.8 132.1,144.5 135.0,142.3 137.8,139.4 140.6,135.7 143.4,131.2 146.2,126.2 149.1,120.6 151.9,114.5 154.7,108.1 157.5,101.3 160.3,94.5 163.2,87.5 166.0,80.7 168.8,73.9 171.6,67.5 174.4,61.4 177.3,55.8 180.1,50.8 182.9,46.3 185.7,42.6 188.5,39.7 191.4,37.5 194.2,36.2 197.0,35.8 199.8,36.2 202.6,37.5 205.5,39.7 208.3,42.6 211.1,46.3 213.9,50.8 216.7,55.8 219.6,61.4 222.4,67.5 225.2,73.9 228.0,80.7 230.8,87.5 233.7,94.5 236.5,101.3 239.3,108.1 242.1,114.5 244.9,120.6 247.8,126.2 250.6,131.2 253.4,135.7 256.2,139.4 259.0,142.3 261.9,144.5 264.7,145.8 267.5,146.2 270.3,145.8 273.1,144.5 276.0,142.3 278.8,139.4 281.6,135.7 284.4,131.2 287.2,126.2 290.1,120.6 292.9,114.5 295.7,108.1 298.5,101.3 301.3,94.5 304.2,87.5 307.0,80.7 309.8,73.9 312.6,67.5 315.4,61.4 318.3,55.8 321.1,50.8 323.9,46.3 326.7,42.6 329.5,39.7 332.4,37.5 335.2,36.2 338.0,35.8\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"210.8\" y=\"38.6\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v(t)</text><polyline points=\"56.0,91.0 58.8,86.8 61.6,82.8 64.5,78.8 67.3,75.0 70.1,71.5 72.9,68.3 75.7,65.5 78.6,63.0 81.4,61.0 84.2,59.5 87.0,58.5 89.8,57.9 92.7,57.9 95.5,58.5 98.3,59.5 101.1,61.0 103.9,63.0 106.8,65.5 109.6,68.3 112.4,71.5 115.2,75.0 118.0,78.8 120.9,82.8 123.7,86.8 126.5,91.0 129.3,95.2 132.1,99.2 135.0,103.2 137.8,107.0 140.6,110.5 143.4,113.7 146.2,116.5 149.1,119.0 151.9,121.0 154.7,122.5 157.5,123.5 160.3,124.1 163.2,124.1 166.0,123.5 168.8,122.5 171.6,121.0 174.4,119.0 177.3,116.5 180.1,113.7 182.9,110.5 185.7,107.0 188.5,103.2 191.4,99.2 194.2,95.2 197.0,91.0 199.8,86.8 202.6,82.8 205.5,78.8 208.3,75.0 211.1,71.5 213.9,68.3 216.7,65.5 219.6,63.0 222.4,61.0 225.2,59.5 228.0,58.5 230.8,57.9 233.7,57.9 236.5,58.5 239.3,59.5 242.1,61.0 244.9,63.0 247.8,65.5 250.6,68.3 253.4,71.5 256.2,75.0 259.0,78.8 261.9,82.8 264.7,86.8 267.5,91.0 270.3,95.2 273.1,99.2 276.0,103.2 278.8,107.0 281.6,110.5 284.4,113.7 287.2,116.5 290.1,119.0 292.9,121.0 295.7,122.5 298.5,123.5 301.3,124.1 304.2,124.1 307.0,123.5 309.8,122.5 312.6,121.0 315.4,119.0 318.3,116.5 321.1,113.7 323.9,110.5 326.7,107.0 329.5,103.2 332.4,99.2 335.2,95.2 338.0,91.0\" fill=\"none\" stroke-width=\"2.0\" stroke-dasharray=\"5 4\" stroke-linejoin=\"round\"/><text x=\"210.8\" y=\"149.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">i(t) (scaled)</text></svg>",
+      "figure_alt": "Voltage cosine and a current cosine lagging it by 90 degrees."
+    },
+    {
+      "id": "phasors-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A series circuit of an inductor and a capacitor is driven by a sinusoidal source. The measured voltage amplitudes are \\(|V_{L}|=40\\ \\mathrm{V}\\) and \\(|V_{C}|=30\\ \\mathrm{V}\\). What is the amplitude of the source voltage?",
+      "options": [
+        "70 V",
+        "10 V",
+        "50 V",
+        "35 V"
+      ],
+      "correct_index": 1,
+      "explanation": "In a series circuit the same current flows through both, so \\(V_{L}=j\\omega L\\cdot I\\) leads I by 90° and \\(V_{C}=I/(j\\omega C)\\) lags I by 90°: the two voltages are 180° out of phase and subtract. Source \\(=|40-30|=10\\ \\mathrm{V}\\) (phasor addition, reader Fig. 2.12).\n• 70 V adds the magnitudes as if they were in phase.\n• 50 V is the Pythagorean sum \\((\\sqrt{40^{2}+30^{2}})\\), which would be right if they were 90° apart (e.g., one was a resistor voltage).\n• 35 V is just their average.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Phasors in the series L–C</title><line x1=\"14\" y1=\"110\" x2=\"230\" y2=\"110\"/><polygon points=\"230,110 223.6,112.7 223.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"210\" x2=\"120\" y2=\"10\"/><polygon points=\"120,10 122.7,16.4 117.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"126\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"126\" y=\"18\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"35.3\"/><polygon points=\"120,35.3 123.1,42.7 116.9,42.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"120\" y=\"29.3\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_L</text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"166\"/><polygon points=\"120,166 116.9,158.6 123.1,158.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"120\" y=\"180\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_C</text><line x1=\"120\" y1=\"110\" x2=\"121.9\" y2=\"110\" stroke-dasharray=\"4 3\"/><circle cx=\"121.9\" cy=\"110\" r=\"2.5\" fill=\"currentColor\"/><text x=\"131.9\" y=\"114\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">I</text></svg>",
+      "figure_alt": "Inductor voltage phasor pointing up and capacitor voltage phasor pointing down, along with the common current reference."
+    },
+    {
+      "id": "phasors-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A 10 µF capacitor has \\(v(t)=20\\cos(1000t)\\ \\mathrm{V}\\) across it (t in seconds). What is the current \\(i(t)\\) at \\(t=1\\ \\mathrm{ms}\\)? (Use the reference direction that makes \\(i=C\\cdot dv/dt\\).)",
+      "answer": -168.294,
+      "unit": "mA",
+      "tolerance": 0.02,
+      "explanation": "Phasor: I \\(=j\\omega C\\cdot V=j(1000)(10\\times 10^{-6})(20)=j0.2\\) A \\(=0.2\\angle 90^{\\circ}\\) A. So \\(i(t)=0.2\\cos(1000t+90^{\\circ})=-0.2\\ \\sin(1000t)\\) A.\nAt \\(t=1\\ \\mathrm{ms}\\): \\(\\omega t=1\\ \\mathrm{rad}\\), so \\(i=-0.2\\ \\sin(1\\ \\mathrm{rad})=-0.2\\times 0.8415=-168.3\\ \\mathrm{mA}\\).\n(Check with the time-domain relation \\(i=C\\ dv/dt=10\\ \\mu\\mathrm{F}\\times(-20000\\ \\sin(1000t))=-0.2\\ \\sin(1000t)\\) A ✔.)\nCommon mistakes: working in degrees \\((\\sin 1^{\\circ}=0.0175)\\) or dropping the 90° phase lead \\((0.2\\cos(1)=+108\\ \\mathrm{mA})\\)."
+    },
+    {
+      "id": "phasors-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Using a cosine reference, which phasor represents \\(v(t)=10\\sin(\\omega t+30^{\\circ})\\ \\mathrm{V}\\)?",
+      "options": [
+        "\\(10\\angle-60^{\\circ}\\ \\mathrm{V}\\)",
+        "\\(10\\angle 30^{\\circ}\\ \\mathrm{V}\\)",
+        "\\(10\\angle 120^{\\circ}\\ \\mathrm{V}\\)",
+        "\\(10\\angle 60^{\\circ}\\ \\mathrm{V}\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "Phasors are defined relative to \\(\\cos(\\omega t+\\phi)\\). Convert: \\(\\sin(x)=\\cos(x-90^{\\circ})\\), so \\(10\\sin(\\omega t+30^{\\circ})=10\\cos(\\omega t+30^{\\circ}-90^{\\circ})=10\\cos(\\omega t-60^{\\circ})\\). The phasor is \\(10\\angle-60^{\\circ}\\).\n• \\(10\\angle 30^{\\circ}\\) treats the sine as a cosine (no conversion).\n• \\(10\\angle 120^{\\circ}\\) adds 90° instead of subtracting it (that would represent \\(-\\sin\\)).\n• \\(10\\angle 60^{\\circ}\\) flips the sign of the correct phase."
+    },
+    {
+      "id": "phasors-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of finding \\(H(j\\omega)\\) directly. A later skill shows that a series R–L circuit with the output taken across the inductor has \\(H(j\\omega)=j\\omega L/(R+j\\omega L)\\). With \\(R=1\\ \\mathrm{k}\\Omega\\), \\(L=10\\ \\mathrm{mH}\\), \\(\\omega=100\\ \\mathrm{krad}/\\mathrm{s}\\) and \\(v_{\\mathrm{in}}(t)=4\\cos(\\omega t)\\ \\mathrm{V}\\), what is the steady-state output \\(v_{\\mathrm{out}}\\) at \\(t=0\\)?",
+      "answer": 2.0,
+      "unit": "V",
+      "tolerance": 0.02,
+      "explanation": "Phasor impedances: \\(Z_{L}=j\\omega L=j(10^{5})(0.01)=j1000\\ \\Omega\\). \\(H=j1000/(1000+j1000)=j/(1+j)=0.7071\\angle(90^{\\circ}-45^{\\circ})=0.7071\\angle 45^{\\circ}\\).\nOutput \\(=4\\times 0.7071=2.828\\ \\mathrm{V}\\) amplitude with a +45° phase: \\(v_{\\mathrm{out}}=2.828\\cos(\\omega t+45^{\\circ})\\).\nAt \\(t=0\\): \\(2.828\\cos 45^{\\circ}=2\\ \\mathrm{V}\\).\nCommon mistake: using −45° (for a low-pass) or forgetting that an inductor's impedance is a positive-imaginary number.",
+      "preview": [
+        "direct-h"
+      ],
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 255 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>R–L high-pass</title><line x1=\"50\" y1=\"46\" x2=\"50\" y2=\"74\"/><line x1=\"50\" y1=\"98\" x2=\"50\" y2=\"126\"/><circle cx=\"50\" cy=\"86\" r=\"12\"/><text x=\"50\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"50\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"33\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"50\" y1=\"126\" x2=\"50\" y2=\"132\"/><line x1=\"41\" y1=\"132\" x2=\"59\" y2=\"132\"/><line x1=\"45\" y1=\"136\" x2=\"55\" y2=\"136\"/><line x1=\"48.5\" y1=\"140\" x2=\"51.5\" y2=\"140\"/><line x1=\"50\" y1=\"46\" x2=\"68\" y2=\"46\"/><polyline points=\"68,46 85,46 88,40 93,52 98,40 103,52 108,40 113,52 121,46 138,46\"/><text x=\"103\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">1 kΩ</text><line x1=\"138\" y1=\"46\" x2=\"160\" y2=\"46\"/><circle cx=\"160\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><path d=\"M160,56 v10 a5.0,5.0 0 0 1 0,10.0 a5.0,5.0 0 0 1 0,10.0 a5.0,5.0 0 0 1 0,10.0 a5.0,5.0 0 0 1 0,10.0 v10\"/><text x=\"174\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">10 mH</text><line x1=\"160\" y1=\"46\" x2=\"160\" y2=\"56\"/><line x1=\"160\" y1=\"116\" x2=\"160\" y2=\"126\"/><line x1=\"160\" y1=\"126\" x2=\"160\" y2=\"132\"/><line x1=\"151\" y1=\"132\" x2=\"169\" y2=\"132\"/><line x1=\"155\" y1=\"136\" x2=\"165\" y2=\"136\"/><line x1=\"158.5\" y1=\"140\" x2=\"161.5\" y2=\"140\"/><line x1=\"160\" y1=\"46\" x2=\"174\" y2=\"46\"/><line x1=\"174\" y1=\"46\" x2=\"190\" y2=\"46\"/><circle cx=\"193\" cy=\"46\" r=\"3\"/><text x=\"200\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><text x=\"193\" y=\"68\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"193\" y=\"124\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text></svg>",
+      "figure_alt": "A 1 kilohm resistor in series with the output taken across a 10 millihenry inductor to ground."
+    },
+    {
+      "id": "phasors-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of AC power. A later skill shows that the average power into a load is \\(P=\\tfrac{1}{2}|I|^{2}\\cdot\\mathrm{Re}\\{Z\\}\\), where I is the peak current phasor. A load is a 10 Ω resistor in series with a capacitor whose reactance magnitude is 10 Ω at \\(\\omega=1000\\ \\mathrm{rad}/\\mathrm{s}\\ (C=100\\ \\mu\\mathrm{F})\\). The peak current is 2 A. What is the average power?",
+      "answer": 20.0,
+      "unit": "W",
+      "tolerance": 0.02,
+      "explanation": "\\(Z=R+1/(j\\omega C)=10-j10\\ \\Omega\\), so \\(\\mathrm{Re}\\{Z\\}=10\\ \\Omega\\) (the imaginary part comes from the capacitor).\n\\(P=\\tfrac{1}{2}(2\\ \\mathrm{A})^{2}(10\\ \\Omega)=20\\ \\mathrm{W}\\). The capacitor's reactance does not change the answer: only the resistive part dissipates power.\nCommon mistake: using \\(|Z|=14.1\\ \\Omega\\) (gives 28.3 W) or forgetting the \\(\\tfrac{1}{2}\\) for a peak (not RMS) current (40 W).",
+      "preview": [
+        "ac-power"
+      ]
+    },
+    {
+      "id": "phasors-r4-q3",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of series RLC circuits. A series circuit has \\(R=50\\ \\Omega\\), \\(L=10\\ \\mathrm{mH}\\) and \\(C=1\\ \\mu\\mathrm{F}\\). (A later skill shows it resonates at \\(\\omega_{0}=1/\\sqrt{LC}=10{,}000\\ \\mathrm{rad}/\\mathrm{s}\\), where \\(\\mathrm{Im}\\ Z=0\\).) What is the magnitude of the total impedance at \\(\\omega=5000\\ \\mathrm{rad}/\\mathrm{s}\\), half the resonant frequency?",
+      "answer": 158.114,
+      "unit": "Ω",
+      "tolerance": 0.02,
+      "explanation": "\\(Z=R+j\\omega L+1/(j\\omega C)\\).\n\\(j\\omega L=j(5000)(0.01)=+j50\\ \\Omega\\). \\(1/(j\\omega C)=-j/(5000\\times 10^{-6})=-j200\\ \\Omega\\).\n\\(Z=50+j(50-200)=50-j150\\ \\Omega\\).\n\\(|Z|=\\sqrt{50^{2}+150^{2}}=\\sqrt{25}{,}000=158.1\\ \\Omega\\) (capacitive, since the capacitor's reactance dominates below resonance).\nCommon mistake: adding the reactances with the same sign \\((50+200=250)\\), or adding magnitudes of everything (300 Ω).",
+      "preview": [
+        "rlc"
+      ],
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 362 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Series RLC</title><line x1=\"46\" y1=\"46\" x2=\"46\" y2=\"74\"/><line x1=\"46\" y1=\"98\" x2=\"46\" y2=\"126\"/><circle cx=\"46\" cy=\"86\" r=\"12\"/><text x=\"46\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"46\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"29\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vₛ</text><line x1=\"46\" y1=\"126\" x2=\"46\" y2=\"132\"/><line x1=\"37\" y1=\"132\" x2=\"55\" y2=\"132\"/><line x1=\"41\" y1=\"136\" x2=\"51\" y2=\"136\"/><line x1=\"44.5\" y1=\"140\" x2=\"47.5\" y2=\"140\"/><line x1=\"46\" y1=\"46\" x2=\"64\" y2=\"46\"/><polyline points=\"64,46 81,46 84,40 89,52 94,40 99,52 104,40 109,52 117,46 134,46\"/><text x=\"99\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">50 Ω</text><line x1=\"134\" y1=\"46\" x2=\"148\" y2=\"46\"/><path d=\"M148,46 h15 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 h15\"/><text x=\"183\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">10 mH</text><line x1=\"218\" y1=\"46\" x2=\"232\" y2=\"46\"/><line x1=\"232\" y1=\"46\" x2=\"262\" y2=\"46\"/><line x1=\"272\" y1=\"46\" x2=\"302\" y2=\"46\"/><line x1=\"262\" y1=\"37\" x2=\"262\" y2=\"55\"/><line x1=\"272\" y1=\"37\" x2=\"272\" y2=\"55\"/><text x=\"267\" y=\"32\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">1 µF</text><line x1=\"302\" y1=\"46\" x2=\"316\" y2=\"46\"/><line x1=\"316\" y1=\"46\" x2=\"332\" y2=\"46\"/><circle cx=\"335\" cy=\"46\" r=\"3\"/><text x=\"342\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text></svg>",
+      "figure_alt": "Series RLC: 50 ohms, 10 millihenries, 1 microfarad."
+    }
+  ]
+}

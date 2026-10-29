@@ -1,0 +1,179 @@
+{
+  "skill_id": "diode-iv",
+  "version": 1,
+  "questions": [
+    {
+      "id": "diode-iv-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Which equation is the ideal diode law (ideality factor \\(n\\), \\(V_t=kT/q\\))?",
+      "options": [
+        "\\(I_D=I_S\\,e^{-V_D/nV_t}\\)",
+        "\\(I_D=V_D/R\\)",
+        "\\(I_D=I_S\\left(e^{V_D/nV_t}-1\\right)\\)",
+        "\\(I_D=I_S\\left(1-e^{V_D/nV_t}\\right)\\)"
+      ],
+      "correct_index": 2,
+      "explanation": "Forward: grows exponentially. Reverse: approaches \\(-I_S\\) (reader Eq. 6.25 has the same form, with \\(n=1\\)). The '\\(-1\\)' makes \\(I_D=0\\) at \\(V_D=0\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve."
+    },
+    {
+      "id": "diode-iv-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A diode has \\(I_S=2\\times10^{-15}\\ \\mathrm{A}\\), \\(n=1\\), \\(V_t=25.9\\ \\mathrm{mV}\\). What current flows at \\(V_D=0.7\\ \\mathrm{V}\\), in mA?",
+      "answer": 1.09325,
+      "unit": "mA",
+      "tolerance": 0.02,
+      "explanation": "\\(V_D/V_t=27.03\\), \\(e^{27.03}=5.47\\times10^{11}\\), \\(I=2\\times10^{-15}\\times5.47\\times10^{11}=1.093\\ \\mathrm{mA}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 125\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode circuit</title><line x1=\"100\" y1=\"25\" x2=\"100\" y2=\"48\"/><line x1=\"100\" y1=\"72\" x2=\"100\" y2=\"95\"/><circle cx=\"100\" cy=\"60\" r=\"12\"/><text x=\"100\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"100\" y=\"70\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"83\" y=\"64\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V</text><polyline points=\"100,25 140,25\"/><polyline points=\"140,25 152,25 155,19 160,31 165,19 170,31 175,19 180,31 188,25 200,25\"/><text x=\"170\" y=\"13\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><polyline points=\"200,25 250,25\"/><line x1=\"250\" y1=\"25\" x2=\"250\" y2=\"52\"/><line x1=\"250\" y1=\"68\" x2=\"250\" y2=\"95\"/><polygon points=\"242,52 258,52 250,68\"/><line x1=\"242\" y1=\"68\" x2=\"258\" y2=\"68\"/><text x=\"264\" y=\"64\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><polyline points=\"100,95 250,95\"/><line x1=\"175\" y1=\"95\" x2=\"175\" y2=\"101\"/><line x1=\"166\" y1=\"101\" x2=\"184\" y2=\"101\"/><line x1=\"170\" y1=\"105\" x2=\"180\" y2=\"105\"/><line x1=\"173.5\" y1=\"109\" x2=\"176.5\" y2=\"109\"/></svg>",
+      "figure_alt": "Source, resistor and diode circuit."
+    },
+    {
+      "id": "diode-iv-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "What forward voltage gives \\(I_D=1\\ \\mathrm{mA}\\) for \\(I_S=10^{-15}\\ \\mathrm{A}\\) (\\(n=1\\), \\(V_t=25.9\\ \\mathrm{mV}\\)), in V?",
+      "answer": 0.715643,
+      "unit": "V",
+      "tolerance": 0.01,
+      "explanation": "\\(V_D=V_t\\ln\\!\\left(\\dfrac{I_D}{I_S}+1\\right)=0.0259\\times\\ln(10^{12})=0.0259\\times27.63=0.7156\\ \\mathrm{V}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve."
+    },
+    {
+      "id": "diode-iv-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A short-base diode (\\(L\\gg W\\)) has area \\(100\\ \\mu\\mathrm{m^2}\\). N side: \\(N_D=10^{17}\\ \\mathrm{cm^{-3}}\\), \\(W_n=1\\ \\mu\\mathrm{m}\\), \\(D_p=10\\ \\mathrm{cm^2/s}\\). P side: \\(N_A=10^{18}\\ \\mathrm{cm^{-3}}\\), \\(W_p=1\\ \\mu\\mathrm{m}\\), \\(D_n=30\\ \\mathrm{cm^2/s}\\). \\(n_i=10^{10}\\ \\mathrm{cm^{-3}}\\). Using \\(I_S=qAn_i^2\\left(\\dfrac{D_p}{N_DW_n}+\\dfrac{D_n}{N_AW_p}\\right)\\), what is \\(I_S\\) in aA (\\(1\\ \\mathrm{aA}=10^{-18}\\ \\mathrm{A}\\))?",
+      "answer": 20.826,
+      "unit": "aA",
+      "tolerance": 0.02,
+      "explanation": "Units in cm: \\(A=10^{-6}\\ \\mathrm{cm^2}\\), \\(W=10^{-4}\\ \\mathrm{cm}\\).\n\\(\\dfrac{D_p}{N_DW_n}=\\dfrac{10}{10^{13}}=10^{-12}\\), \\(\\dfrac{D_n}{N_AW_p}=\\dfrac{30}{10^{14}}=3\\times10^{-13}\\) (cm⁴/s).\n\\(I_S=1.602\\times10^{-19}\\times10^{-6}\\times10^{20}\\times1.3\\times10^{-12}=2.08\\times10^{-17}\\ \\mathrm{A}=20.8\\ \\mathrm{aA}\\) (reader Eq. 6.25 times area). Tiny, because \\(n_i^2\\) is tiny; real diodes add sidewall and generation currents.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "Abrupt PN junction."
+    },
+    {
+      "id": "diode-iv-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "In that diode, what percentage of the current is carried by holes injected into the N side?",
+      "answer": 76.9231,
+      "unit": "%",
+      "tolerance": 0.01,
+      "explanation": "Each side's share is set by \\(D/(NW)\\): holes \\(10^{-12}\\), electrons \\(3\\times10^{-13}\\). Hole fraction \\(=\\dfrac{1}{1.3}=76.92\\%\\).\nThe LIGHTLY doped side receives most of the injection: fewer majority carriers there means more minority carriers injected into it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "Abrupt PN junction."
+    },
+    {
+      "id": "diode-iv-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A real diode has ideality factor \\(n=1.5\\). How much must \\(V_D\\) increase per decade of current (\\(V_t=25.9\\ \\mathrm{mV}\\))?",
+      "options": [
+        "About 59.6 mV",
+        "About 89.5 mV",
+        "About 119 mV",
+        "About 38.9 mV"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(\\Delta V=nV_t\\ln10=1.5\\times59.6\\ \\mathrm{mV}=89.5\\ \\mathrm{mV}\\).\n• 59.6 mV is the ideal \\(n=1\\) value.\n• 119 mV would be \\(n=2\\).\n• 38.9 mV is \\(1.5\\times V_t\\) without the \\(\\ln10\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve."
+    },
+    {
+      "id": "diode-iv-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Two identical diodes are connected in parallel and together carry the same total current that one diode carried before. How does the voltage change?",
+      "options": [
+        "It drops by \\(V_t\\ln2\\approx18\\ \\mathrm{mV}\\): each diode carries half the current (equivalently, \\(I_S\\) doubles)",
+        "It halves",
+        "It doesn't change",
+        "It drops by 60 mV"
+      ],
+      "correct_index": 0,
+      "explanation": "Doubling the area doubles \\(I_S\\). For a fixed current, \\(V=V_t\\ln(I/I_S)\\) falls by \\(V_t\\ln2=17.9\\ \\mathrm{mV}\\). Exponential devices respond logarithmically to current or area changes: a factor of 10 is 60 mV, a factor of 2 is 18 mV.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve."
+    },
+    {
+      "id": "diode-iv-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A diode's current doubles from 1 mA to 2 mA (\\(n=1\\), \\(V_t=25.9\\ \\mathrm{mV}\\)). By how much does \\(V_D\\) increase, in mV?",
+      "answer": 17.9525,
+      "unit": "mV",
+      "tolerance": 0.01,
+      "explanation": "\\(\\Delta V=V_t\\ln(I_2/I_1)=25.9\\ \\mathrm{mV}\\times\\ln2=17.95\\ \\mathrm{mV}\\), independent of \\(I_S\\).\nGotcha: the diode isn't a 0.7 V battery, but it isn't far off: doubling the current costs only 18 mV.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve."
+    },
+    {
+      "id": "diode-iv-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "For an ideal diode with \\(I_S=10^{-14}\\ \\mathrm{A}\\), what current flows at \\(V_D=-5\\ \\mathrm{V}\\)?",
+      "options": [
+        "\\(-10^{-14}e^{5/V_t}\\ \\mathrm{A}\\), an enormous negative current",
+        "0 A exactly",
+        "\\(+10^{-14}\\ \\mathrm{A}\\)",
+        "\\(\\approx-10^{-14}\\ \\mathrm{A}\\) (that is, \\(-I_S\\))"
+      ],
+      "correct_index": 3,
+      "explanation": "\\(I=I_S(e^{-5/0.0259}-1)=I_S(e^{-193}-1)\\approx-I_S\\). The exponential term vanishes; only the \\(-1\\) survives. (Real diodes leak more because of generation in the depletion region, and break down at large reverse voltage.)",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve."
+    },
+    {
+      "id": "diode-iv-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of the small-signal model. Differentiate the diode law: what is the incremental resistance \\(r_d=\\left(\\dfrac{dI_D}{dV_D}\\right)^{-1}\\) at \\(I_D=1\\ \\mathrm{mA}\\) (\\(n=1\\), \\(V_t=25.9\\ \\mathrm{mV}\\)), in Ω?",
+      "answer": 25.9,
+      "unit": "Ω",
+      "tolerance": 0.01,
+      "explanation": "\\(\\dfrac{dI_D}{dV_D}=\\dfrac{I_Se^{V_D/V_t}}{V_t}\\approx\\dfrac{I_D}{V_t}\\), so \\(r_d=\\dfrac{V_t}{I_D}=\\dfrac{25.9\\ \\mathrm{mV}}{1\\ \\mathrm{mA}}=25.9\\ \\Omega\\). The diode small-signal skill builds on this.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve.",
+      "preview": [
+        "diode-ss"
+      ]
+    },
+    {
+      "id": "diode-iv-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of solar cells. An illuminated diode is modeled as \\(I=I_S(e^{V/V_t}-1)-I_L\\) with \\(I_L=30\\ \\mathrm{mA}\\) and \\(I_S=10^{-12}\\ \\mathrm{A}\\). What is the open-circuit voltage (\\(I=0\\)), in V?",
+      "answer": 0.624824,
+      "unit": "V",
+      "tolerance": 0.01,
+      "explanation": "\\(I=0\\Rightarrow e^{V/V_t}-1=I_L/I_S\\Rightarrow V_{oc}=V_t\\ln\\!\\left(\\dfrac{I_L}{I_S}+1\\right)=0.0259\\ln(3\\times10^{10})=0.6248\\ \\mathrm{V}\\).\nThe same diode law, now with the light current pushing it into forward bias.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>I–V of an illuminated diode</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve.",
+      "preview": [
+        "solar-cell"
+      ]
+    },
+    {
+      "id": "diode-iv-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of BJTs. A bipolar transistor's collector current follows the same law, \\(I_C=I_Se^{V_{BE}/V_t}\\). If \\(V_{BE}\\) rises by 60 mV, what happens to \\(I_C\\)?",
+      "options": [
+        "It doubles",
+        "It increases by 60 mA",
+        "It increases about 10×",
+        "It increases about 2.3×"
+      ],
+      "correct_index": 2,
+      "explanation": "\\(e^{0.060/0.0259}=e^{2.32}\\approx10.1\\): the 60 mV/decade rule carries straight over. BJT design reuses everything you know about the diode exponential.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve.",
+      "preview": [
+        "bjt-iv"
+      ]
+    }
+  ]
+}

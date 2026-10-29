@@ -1,0 +1,184 @@
+{
+  "skill_id": "inverting",
+  "version": 1,
+  "questions": [
+    {
+      "id": "inverting-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For an ideal op-amp, the inverting amplifier in the figure has closed-loop gain \\(v_{out}/v_{in}\\) equal to",
+      "options": [
+        "\\(+R_2/R_1\\)",
+        "\\(1+R_2/R_1\\)",
+        "\\(-R_2/R_1\\)",
+        "\\(-R_1/R_2\\)"
+      ],
+      "correct_index": 2,
+      "explanation": "With the \\(+\\) input grounded, the inverting input is a virtual ground. The input current \\(v_{in}/R_1\\) must flow through \\(R_2\\) (the op-amp draws none), so \\(v_{out}=0-\\dfrac{v_{in}}{R_1}R_2\\Rightarrow\\dfrac{v_{out}}{v_{in}}=-\\dfrac{R_2}{R_1}\\) (reader Eq. 17.41).\n• \\(1+R_2/R_1\\) is the NON-inverting gain.\n• \\(R_1/R_2\\) flips the ratio; the feedback resistor goes in the numerator.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 45,60\"/><polyline points=\"45,60 59.5,60 62.5,54 67.5,66 72.5,54 77.5,66 82.5,54 87.5,66 95.5,60 110,60\"/><text x=\"77.5\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₁</text><polyline points=\"110,60 130,60\"/><circle cx=\"110\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"130,90 116,90\"/><line x1=\"116\" y1=\"90\" x2=\"116\" y2=\"96\"/><line x1=\"107\" y1=\"96\" x2=\"125\" y2=\"96\"/><line x1=\"111\" y1=\"100\" x2=\"121\" y2=\"100\"/><line x1=\"114.5\" y1=\"104\" x2=\"117.5\" y2=\"104\"/><polyline points=\"110,60 110,25 125,25\"/><polyline points=\"125,25 139.5,25 142.5,19 147.5,31 152.5,19 157.5,31 162.5,19 167.5,31 175.5,25 190,25\"/><text x=\"157\" y=\"14\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂</text><polyline points=\"190,25 205,25 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "Inverting op-amp amplifier: R1 from the input to the − terminal, R2 from the output to the − terminal, + terminal grounded."
+    },
+    {
+      "id": "inverting-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In an inverting amplifier with an ideal op-amp and a normal output (not saturated), the inverting-input voltage \\(V^-\\) is very close to 0 V. Why?",
+      "options": [
+        "Because the inverting input is physically connected to ground",
+        "The huge gain forces \\(V^+-V^-\\) to be tiny, and \\(V^+\\) is grounded, so \\(V^-\\approx0\\) (a virtual ground)",
+        "Because \\(R_1\\) and \\(R_2\\) are equal",
+        "Because the op-amp draws a large current from the input"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(v_{out}=A(V^+-V^-)\\) with finite \\(v_{out}\\) and \\(A\\to\\infty\\) requires \\(V^+-V^-\\to0\\). Since \\(V^+=0\\), \\(V^-\\approx0\\): a 'virtual' ground, at 0 V but NOT connected to ground.\n• The node isn't wired to ground; it sits at 0 V because of feedback.\n• Any resistor values give a virtual ground.\n• The input current of an ideal op-amp is zero.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 45,60\"/><polyline points=\"45,60 59.5,60 62.5,54 67.5,66 72.5,54 77.5,66 82.5,54 87.5,66 95.5,60 110,60\"/><text x=\"77.5\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₁</text><polyline points=\"110,60 130,60\"/><circle cx=\"110\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"130,90 116,90\"/><line x1=\"116\" y1=\"90\" x2=\"116\" y2=\"96\"/><line x1=\"107\" y1=\"96\" x2=\"125\" y2=\"96\"/><line x1=\"111\" y1=\"100\" x2=\"121\" y2=\"100\"/><line x1=\"114.5\" y1=\"104\" x2=\"117.5\" y2=\"104\"/><polyline points=\"110,60 110,25 125,25\"/><polyline points=\"125,25 139.5,25 142.5,19 147.5,31 152.5,19 157.5,31 162.5,19 167.5,31 175.5,25 190,25\"/><text x=\"157\" y=\"14\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂</text><polyline points=\"190,25 205,25 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "Inverting op-amp amplifier with the + input grounded."
+    },
+    {
+      "id": "inverting-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The inverting amplifier has \\(R_1=2\\ \\mathrm{k\\Omega}\\), \\(R_2=10\\ \\mathrm{k\\Omega}\\) and \\(v_{in}=0.3\\ \\mathrm{V}\\). With an ideal op-amp, what is \\(v_{out}\\)?",
+      "answer": -1.5,
+      "unit": "V",
+      "tolerance": 0.01,
+      "explanation": "Gain \\(=-R_2/R_1=-10/2=-5\\), so \\(v_{out}=-5\\times0.3\\ \\mathrm{V}=-1.5\\ \\mathrm{V}\\).\nCheck with currents: \\(i=0.3/2\\ \\mathrm{k\\Omega}=150\\ \\mu\\mathrm{A}\\) flows through \\(R_2\\), dropping \\(150\\ \\mu\\mathrm{A}\\times10\\ \\mathrm{k\\Omega}=1.5\\ \\mathrm{V}\\) from the virtual ground (0 V) down to \\(v_{out}=-1.5\\ \\mathrm{V}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">0.3 V</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 45,60\"/><polyline points=\"45,60 59.5,60 62.5,54 67.5,66 72.5,54 77.5,66 82.5,54 87.5,66 95.5,60 110,60\"/><text x=\"77.5\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₁ = 2 kΩ</text><polyline points=\"110,60 130,60\"/><circle cx=\"110\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"130,90 116,90\"/><line x1=\"116\" y1=\"90\" x2=\"116\" y2=\"96\"/><line x1=\"107\" y1=\"96\" x2=\"125\" y2=\"96\"/><line x1=\"111\" y1=\"100\" x2=\"121\" y2=\"100\"/><line x1=\"114.5\" y1=\"104\" x2=\"117.5\" y2=\"104\"/><polyline points=\"110,60 110,25 125,25\"/><polyline points=\"125,25 139.5,25 142.5,19 147.5,31 152.5,19 157.5,31 162.5,19 167.5,31 175.5,25 190,25\"/><text x=\"157\" y=\"14\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂ = 10 kΩ</text><polyline points=\"190,25 205,25 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "Inverting amplifier with R1 = 2 kΩ, R2 = 10 kΩ, and a 0.3 V input."
+    },
+    {
+      "id": "inverting-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "An inverting amplifier uses \\(R_1=4.7\\ \\mathrm{k\\Omega}\\) and \\(R_2=47\\ \\mathrm{k\\Omega}\\) (ideal op-amp). What resistance does the source \\(v_{in}\\) see looking into the input terminal?",
+      "answer": 4700.0,
+      "unit": "Ω",
+      "tolerance": 0.01,
+      "explanation": "The right end of \\(R_1\\) is the virtual ground, so \\(i_{in}=\\dfrac{v_{in}-0}{R_1}\\) and \\(R_{in}=\\dfrac{v_{in}}{i_{in}}=R_1=4.7\\ \\mathrm{k\\Omega}=4700\\ \\Omega\\).\nUnlike the non-inverting amplifier (\\(R_{in}\\to\\infty\\)), the inverting amplifier loads its source with exactly \\(R_1\\), a design constraint when the source is weak. Common mistake: answering \\(R_1+R_2\\) or \\(R_1\\parallel R_2\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 45,60\"/><polyline points=\"45,60 59.5,60 62.5,54 67.5,66 72.5,54 77.5,66 82.5,54 87.5,66 95.5,60 110,60\"/><text x=\"77.5\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₁ = 4.7 kΩ</text><polyline points=\"110,60 130,60\"/><circle cx=\"110\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"130,90 116,90\"/><line x1=\"116\" y1=\"90\" x2=\"116\" y2=\"96\"/><line x1=\"107\" y1=\"96\" x2=\"125\" y2=\"96\"/><line x1=\"111\" y1=\"100\" x2=\"121\" y2=\"100\"/><line x1=\"114.5\" y1=\"104\" x2=\"117.5\" y2=\"104\"/><polyline points=\"110,60 110,25 125,25\"/><polyline points=\"125,25 139.5,25 142.5,19 147.5,31 152.5,19 157.5,31 162.5,19 167.5,31 175.5,25 190,25\"/><text x=\"157\" y=\"14\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂ = 47 kΩ</text><polyline points=\"190,25 205,25 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "Inverting amplifier with R1 = 4.7 kΩ and R2 = 47 kΩ; the question asks for the resistance seen at the input."
+    },
+    {
+      "id": "inverting-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The amplifier has \\(R_1=1\\ \\mathrm{k\\Omega}\\), \\(R_2=9\\ \\mathrm{k\\Omega}\\) (ideal gain \\(-9\\)), but the op-amp has finite gain \\(A=1000\\). The exact gain is \\(\\dfrac{v_{out}}{v_{in}}=\\dfrac{-A\\,g}{1+A\\,f}\\) with \\(g=\\dfrac{R_2}{R_1+R_2}\\), \\(f=\\dfrac{R_1}{R_1+R_2}\\). What is it?",
+      "answer": -8.91089,
+      "unit": "V/V",
+      "tolerance": 0.01,
+      "explanation": "\\(f=0.1\\), \\(g=0.9\\). Then \\(\\dfrac{-1000(0.9)}{1+1000(0.1)}=\\dfrac{-900}{101}=-8.911\\).\nThat is 1% smaller in magnitude than the ideal \\(-9\\): the loop gain \\(T=Af=100\\), so the error is about \\(1/(1+T)\\) (reader Eq. 17.40). Common mistake: using \\(A\\,f\\) in place of \\(A\\,g\\) in the numerator.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 45,60\"/><polyline points=\"45,60 59.5,60 62.5,54 67.5,66 72.5,54 77.5,66 82.5,54 87.5,66 95.5,60 110,60\"/><text x=\"77.5\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₁ = 1 kΩ</text><polyline points=\"110,60 130,60\"/><circle cx=\"110\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"130,90 116,90\"/><line x1=\"116\" y1=\"90\" x2=\"116\" y2=\"96\"/><line x1=\"107\" y1=\"96\" x2=\"125\" y2=\"96\"/><line x1=\"111\" y1=\"100\" x2=\"121\" y2=\"100\"/><line x1=\"114.5\" y1=\"104\" x2=\"117.5\" y2=\"104\"/><polyline points=\"110,60 110,25 125,25\"/><polyline points=\"125,25 139.5,25 142.5,19 147.5,31 152.5,19 157.5,31 162.5,19 167.5,31 175.5,25 190,25\"/><text x=\"157\" y=\"14\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂ = 9 kΩ</text><polyline points=\"190,25 205,25 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "Inverting amplifier with R1 = 1 kΩ and R2 = 9 kΩ and a finite-gain op-amp A = 1000."
+    },
+    {
+      "id": "inverting-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "In the inverting amplifier with an ideal op-amp, \\(R_2\\) is doubled while \\(R_1\\) and \\(v_{in}\\) stay fixed. What happens to the current through \\(R_1\\)?",
+      "options": [
+        "It is unchanged: the virtual ground holds the right end of \\(R_1\\) at 0 V regardless of \\(R_2\\)",
+        "It doubles",
+        "It halves",
+        "It becomes zero"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(i_1=\\dfrac{v_{in}-V^-}{R_1}=\\dfrac{v_{in}}{R_1}\\) because \\(V^-\\approx0\\). Doubling \\(R_2\\) changes the OUTPUT voltage (the same current through a larger resistor, \\(v_{out}=-i_1R_2\\)), not the input current. This independence is why one can trim the gain with \\(R_2\\) without disturbing the source.\n• The current would only change if the virtual-ground assumption broke (for example the output saturated).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 45,60\"/><polyline points=\"45,60 59.5,60 62.5,54 67.5,66 72.5,54 77.5,66 82.5,54 87.5,66 95.5,60 110,60\"/><text x=\"77.5\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₁</text><polyline points=\"110,60 130,60\"/><circle cx=\"110\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"130,90 116,90\"/><line x1=\"116\" y1=\"90\" x2=\"116\" y2=\"96\"/><line x1=\"107\" y1=\"96\" x2=\"125\" y2=\"96\"/><line x1=\"111\" y1=\"100\" x2=\"121\" y2=\"100\"/><line x1=\"114.5\" y1=\"104\" x2=\"117.5\" y2=\"104\"/><polyline points=\"110,60 110,25 125,25\"/><polyline points=\"125,25 139.5,25 142.5,19 147.5,31 152.5,19 157.5,31 162.5,19 167.5,31 175.5,25 190,25\"/><text x=\"157\" y=\"14\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂ → 2R₂</text><polyline points=\"190,25 205,25 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "Inverting amplifier in which R2 is doubled."
+    },
+    {
+      "id": "inverting-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Which closed-loop voltage gain can be realized with a single ideal-op-amp stage (inverting or non-inverting)?",
+      "options": [
+        "\\(+0.5\\) with a non-inverting stage",
+        "\\(+0.9\\) with an inverting stage",
+        "\\(0\\) with a non-inverting stage",
+        "\\(-0.1\\) with an inverting stage (\\(R_2=R_1/10\\))"
+      ],
+      "correct_index": 3,
+      "explanation": "The inverting gain \\(-R_2/R_1\\) can have any magnitude, including less than 1, but is always negative. The non-inverting gain \\(1+R_2/R_1\\) is always \\(\\ge 1\\) (with \\(R_2=0\\) it is a follower). So the correct choice is \\(-0.1\\); a positive gain below 1 needs an extra divider.\n• \\(+0.5\\) and \\(0\\) are impossible for non-inverting (\\(\\ge1\\)).\n• An inverting stage always gives a NEGATIVE gain, so \\(+0.9\\) is impossible.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 45,60\"/><polyline points=\"45,60 59.5,60 62.5,54 67.5,66 72.5,54 77.5,66 82.5,54 87.5,66 95.5,60 110,60\"/><text x=\"77.5\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₁</text><polyline points=\"110,60 130,60\"/><circle cx=\"110\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"130,90 116,90\"/><line x1=\"116\" y1=\"90\" x2=\"116\" y2=\"96\"/><line x1=\"107\" y1=\"96\" x2=\"125\" y2=\"96\"/><line x1=\"111\" y1=\"100\" x2=\"121\" y2=\"100\"/><line x1=\"114.5\" y1=\"104\" x2=\"117.5\" y2=\"104\"/><polyline points=\"110,60 110,25 125,25\"/><polyline points=\"125,25 139.5,25 142.5,19 147.5,31 152.5,19 157.5,31 162.5,19 167.5,31 175.5,25 190,25\"/><text x=\"157\" y=\"14\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂</text><polyline points=\"190,25 205,25 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "Inverting amplifier with R1 and R2."
+    },
+    {
+      "id": "inverting-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Supplies are \\(\\pm12\\ \\mathrm{V}\\), \\(R_2/R_1=20\\) and \\(v_{in}=0.8\\ \\mathrm{V}\\) (otherwise ideal op-amp). What is \\(v_{out}\\)?",
+      "options": [
+        "\\(-16\\ \\mathrm{V}\\)",
+        "\\(+12\\ \\mathrm{V}\\)",
+        "About \\(-12\\ \\mathrm{V}\\) (clipped at the negative rail; the ideal result of \\(-16\\ \\mathrm{V}\\) is impossible)",
+        "\\(0\\ \\mathrm{V}\\), since the virtual ground forces zero output"
+      ],
+      "correct_index": 2,
+      "explanation": "The ideal equation gives \\(-20\\times0.8=-16\\ \\mathrm{V}\\), beyond the supply. The output cannot exceed the rails (reader Sec. 18.4.1), so it clips at about \\(-12\\ \\mathrm{V}\\) (in practice a bit less).\nWhile clipped, the feedback loop is no longer in control: the input terminals are no longer at the same voltage, so the 'virtual ground' assumption (and the gain formula) fails. The largest linear input is \\(12/20=0.6\\ \\mathrm{V}\\).\n• The virtual ground is at the inverting INPUT, not the output.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">0.8 V</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 45,60\"/><polyline points=\"45,60 59.5,60 62.5,54 67.5,66 72.5,54 77.5,66 82.5,54 87.5,66 95.5,60 110,60\"/><text x=\"77.5\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₁</text><polyline points=\"110,60 130,60\"/><circle cx=\"110\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"130,90 116,90\"/><line x1=\"116\" y1=\"90\" x2=\"116\" y2=\"96\"/><line x1=\"107\" y1=\"96\" x2=\"125\" y2=\"96\"/><line x1=\"111\" y1=\"100\" x2=\"121\" y2=\"100\"/><line x1=\"114.5\" y1=\"104\" x2=\"117.5\" y2=\"104\"/><polyline points=\"110,60 110,25 125,25\"/><polyline points=\"125,25 139.5,25 142.5,19 147.5,31 152.5,19 157.5,31 162.5,19 167.5,31 175.5,25 190,25\"/><text x=\"157\" y=\"14\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂ = 20 R₁</text><polyline points=\"190,25 205,25 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ  (rails ±12 V)</text></svg>",
+      "figure_alt": "Inverting amplifier with gain -20 and a 0.8 V input; supply rails are +12 V and -12 V."
+    },
+    {
+      "id": "inverting-r3-q3",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "An op-amp has a gain-bandwidth product (unity-gain frequency) of 1 MHz. Used as an inverting amplifier with \\(R_1=1\\ \\mathrm{k\\Omega}\\), \\(R_2=9\\ \\mathrm{k\\Omega}\\), what is the closed-loop gain-bandwidth product \\(|A_{cl}|\\cdot BW\\), in kHz? (Reader Eq. 17.43: \\(GBW=A_0\\,g\\,\\omega_{-3dB}\\).)",
+      "answer": 900.0,
+      "unit": "kHz",
+      "tolerance": 0.02,
+      "explanation": "The closed-loop bandwidth is \\(\\dfrac{f_u}{1+R_2/R_1}=\\dfrac{1\\ \\mathrm{MHz}}{10}=100\\ \\mathrm{kHz}\\) (set by \\(f\\), as for the non-inverting amplifier). But the DC gain magnitude is only \\(R_2/R_1=9\\), not 10, because the input is attenuated by \\(g=0.9\\).\nProduct: \\(9\\times100\\ \\mathrm{kHz}=900\\ \\mathrm{kHz}=g\\,f_u\\), 10% below the non-inverting amplifier's \\(1\\ \\mathrm{MHz}\\). Common mistake: assuming GBW is always the op-amp's 1 MHz.\nReader typo: Eq. 17.42 writes \\(v_o/v_o\\); it should be \\(v_o/v_s\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 45,60\"/><polyline points=\"45,60 59.5,60 62.5,54 67.5,66 72.5,54 77.5,66 82.5,54 87.5,66 95.5,60 110,60\"/><text x=\"77.5\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₁ = 1 kΩ</text><polyline points=\"110,60 130,60\"/><circle cx=\"110\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"130,90 116,90\"/><line x1=\"116\" y1=\"90\" x2=\"116\" y2=\"96\"/><line x1=\"107\" y1=\"96\" x2=\"125\" y2=\"96\"/><line x1=\"111\" y1=\"100\" x2=\"121\" y2=\"100\"/><line x1=\"114.5\" y1=\"104\" x2=\"117.5\" y2=\"104\"/><polyline points=\"110,60 110,25 125,25\"/><polyline points=\"125,25 139.5,25 142.5,19 147.5,31 152.5,19 157.5,31 162.5,19 167.5,31 175.5,25 190,25\"/><text x=\"157\" y=\"14\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂ = 9 kΩ</text><polyline points=\"190,25 205,25 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "Inverting amplifier built from an op-amp with 1 MHz unity-gain frequency, R1 = 1 kΩ and R2 = 9 kΩ."
+    },
+    {
+      "id": "inverting-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of common-source gain (an inverting stage in disguise). Two sources feed the inverting node through \\(10\\ \\mathrm{k\\Omega}\\) and \\(20\\ \\mathrm{k\\Omega}\\) resistors, with \\(R_2=40\\ \\mathrm{k\\Omega}\\) feedback (ideal op-amp). With \\(v_1=0.2\\ \\mathrm{V}\\) and \\(v_2=-0.1\\ \\mathrm{V}\\), what is \\(v_{out}\\)?",
+      "answer": -0.6,
+      "unit": "V",
+      "tolerance": 0.02,
+      "explanation": "The inverting node is a virtual ground, so the input currents add: \\(i=\\dfrac{v_1}{10\\ \\mathrm{k}}+\\dfrac{v_2}{20\\ \\mathrm{k}}=20\\ \\mu\\mathrm{A}-5\\ \\mu\\mathrm{A}=15\\ \\mu\\mathrm{A}\\).\nAll of it flows through \\(R_2\\): \\(v_{out}=-iR_2=-15\\ \\mu\\mathrm{A}\\times40\\ \\mathrm{k\\Omega}=-0.6\\ \\mathrm{V}\\), i.e. \\(-(4v_1+2v_2)\\) (a weighted sum). Later you will meet transistor amplifiers whose gain is also an inverting ratio \\(-g_mR\\); the same virtual-ground thinking helps.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 150\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Summing amplifier</title><text x=\"14\" y=\"40\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v₁</text><circle cx=\"26\" cy=\"36\" r=\"3\"/><polyline points=\"29,36 40,36\"/><polyline points=\"40,36 52,36 55,30 60,42 65,30 70,42 75,30 80,42 88,36 100,36\"/><text x=\"70\" y=\"24\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">10 kΩ</text><polyline points=\"100,36 140,36\"/><text x=\"14\" y=\"78\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v₂</text><circle cx=\"26\" cy=\"74\" r=\"3\"/><polyline points=\"29,74 40,74\"/><polyline points=\"40,74 52,74 55,68 60,80 65,68 70,80 75,68 80,80 88,74 100,74\"/><text x=\"70\" y=\"62\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">20 kΩ</text><polyline points=\"100,74 120,74 120,36\"/><circle cx=\"120\" cy=\"36\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"140,36 140,65 170,65\"/><circle cx=\"140\" cy=\"36\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"170,50 170,110 226,80\"/><text x=\"177\" y=\"69\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"177\" y=\"99\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"170,95 156,95\"/><line x1=\"156\" y1=\"95\" x2=\"156\" y2=\"101\"/><line x1=\"147\" y1=\"101\" x2=\"165\" y2=\"101\"/><line x1=\"151\" y1=\"105\" x2=\"161\" y2=\"105\"/><line x1=\"154.5\" y1=\"109\" x2=\"157.5\" y2=\"109\"/><polyline points=\"140,36 140,14 160,14\"/><polyline points=\"160,14 177,14 180,8 185,20 190,8 195,20 200,8 205,20 213,14 230,14\"/><text x=\"195\" y=\"4\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂ = 40 kΩ</text><polyline points=\"230,14 255,14 255,80\"/><polyline points=\"226,80 300,80\"/><circle cx=\"255\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"303\" cy=\"80\" r=\"3\"/><text x=\"318\" y=\"84\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "Summing inverting amplifier: v1 through 10 kΩ and v2 through 20 kΩ into the inverting input; R2 = 40 kΩ feedback; + input grounded.",
+      "preview": [
+        "cs-analysis"
+      ]
+    },
+    {
+      "id": "inverting-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of transimpedance. A photodiode is modeled as a \\(2\\ \\mu\\mathrm{A}\\) current source driving the inverting input of an ideal-op-amp inverting stage with \\(R_2=500\\ \\mathrm{k\\Omega}\\) (no \\(R_1\\)). The current flows into the inverting node. What is \\(v_{out}\\)?",
+      "answer": -1.0,
+      "unit": "V",
+      "tolerance": 0.02,
+      "explanation": "The virtual ground absorbs the source current with no voltage developed at the input, and the op-amp pushes that entire current through \\(R_2\\) (the op-amp draws none): \\(v_{out}=0-i\\,R_2=-2\\ \\mu\\mathrm{A}\\times500\\ \\mathrm{k\\Omega}=-1.0\\ \\mathrm{V}\\).\nThe circuit converts current to voltage with gain \\(-R_2\\) (a 'transimpedance' amplifier, as the reader notes the inverting amplifier really is). The virtual ground keeps the source operating at 0 V, which matters for photodiodes and other current-output sensors.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Transimpedance amplifier</title><line x1=\"50\" y1=\"40\" x2=\"50\" y2=\"53\"/><line x1=\"50\" y1=\"77\" x2=\"50\" y2=\"90\"/><circle cx=\"50\" cy=\"65\" r=\"12\"/><line x1=\"50\" y1=\"73\" x2=\"50\" y2=\"57\"/><polygon points=\"50,57 52.3,62.5 47.7,62.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"67\" y=\"69\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">2 µA</text><polyline points=\"50,40 50,30 130,30 130,60 150,60\"/><polyline points=\"50,90 50,105\"/><line x1=\"50\" y1=\"105\" x2=\"50\" y2=\"111\"/><line x1=\"41\" y1=\"111\" x2=\"59\" y2=\"111\"/><line x1=\"45\" y1=\"115\" x2=\"55\" y2=\"115\"/><line x1=\"48.5\" y1=\"119\" x2=\"51.5\" y2=\"119\"/><polygon points=\"150,45 150,105 206,75\"/><text x=\"157\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"157\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"150,90 136,90\"/><line x1=\"136\" y1=\"90\" x2=\"136\" y2=\"96\"/><line x1=\"127\" y1=\"96\" x2=\"145\" y2=\"96\"/><line x1=\"131\" y1=\"100\" x2=\"141\" y2=\"100\"/><line x1=\"134.5\" y1=\"104\" x2=\"137.5\" y2=\"104\"/><polyline points=\"130,30 130,14 160,14\"/><circle cx=\"130\" cy=\"30\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"160,14 172,14 175,8 180,20 185,8 190,20 195,8 200,20 208,14 220,14\"/><text x=\"190\" y=\"5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂ = 500 kΩ</text><polyline points=\"220,14 240,14 240,75\"/><polyline points=\"206,75 280,75\"/><circle cx=\"240\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"283\" cy=\"75\" r=\"3\"/><text x=\"296\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "A 2 microamp current source feeds the inverting input; a 500 kΩ resistor connects the output back to the inverting input; + input grounded.",
+      "preview": [
+        "cs-analysis",
+        "miller"
+      ]
+    },
+    {
+      "id": "inverting-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of the Miller effect and integrators. In the inverting stage the feedback resistor is replaced by a capacitor \\(C=100\\ \\mathrm{nF}\\), with \\(R=10\\ \\mathrm{k\\Omega}\\) at the input. A \\(1\\ \\mathrm{V}\\) step is applied at \\(t=0\\) (initial output 0 V, ideal op-amp). How fast does \\(v_{out}\\) change?",
+      "options": [
+        "\\(-10\\ \\mathrm{V/ms}\\)",
+        "\\(-1\\ \\mathrm{V/ms}\\) (a linear ramp)",
+        "\\(-0.1\\ \\mathrm{V/ms}\\)",
+        "\\(+1\\ \\mathrm{V/ms}\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "The virtual ground gives a constant input current \\(i=\\dfrac{1\\ \\mathrm{V}}{10\\ \\mathrm{k\\Omega}}=100\\ \\mu\\mathrm{A}\\), and that same current charges \\(C\\): \\(i=-C\\dfrac{dv_{out}}{dt}\\).\nSo \\(\\dfrac{dv_{out}}{dt}=-\\dfrac{i}{C}=-\\dfrac{100\\ \\mu\\mathrm{A}}{100\\ \\mathrm{nF}}=-10^{3}\\ \\mathrm{V/s}=-1\\ \\mathrm{V/ms}\\).\nThe inverting sign (the output goes negative for a positive input) and the ramp are the point: a capacitor in the feedback path of an inverting amplifier will later appear as an enlarged input capacitance (Miller effect).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inverting integrator</title><text x=\"20\" y=\"49\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">1 V step</text><circle cx=\"60\" cy=\"60\" r=\"3\"/><polyline points=\"63,60 70,60\"/><polyline points=\"70,60 77,60 80,54 85,66 90,54 95,66 100,54 105,66 113,60 120,60\"/><text x=\"95\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R = 10 kΩ</text><polyline points=\"120,60 150,60\"/><circle cx=\"130\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"150,45 150,105 206,75\"/><text x=\"157\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"157\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"150,90 136,90\"/><line x1=\"136\" y1=\"90\" x2=\"136\" y2=\"96\"/><line x1=\"127\" y1=\"96\" x2=\"145\" y2=\"96\"/><line x1=\"131\" y1=\"100\" x2=\"141\" y2=\"100\"/><line x1=\"134.5\" y1=\"104\" x2=\"137.5\" y2=\"104\"/><polyline points=\"130,60 130,20 150,20\"/><line x1=\"150\" y1=\"20\" x2=\"175\" y2=\"20\"/><line x1=\"185\" y1=\"20\" x2=\"210\" y2=\"20\"/><line x1=\"175\" y1=\"11\" x2=\"175\" y2=\"29\"/><line x1=\"185\" y1=\"11\" x2=\"185\" y2=\"29\"/><text x=\"180\" y=\"6\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C = 100 nF</text><polyline points=\"210,20 240,20 240,75\"/><polyline points=\"206,75 280,75\"/><circle cx=\"240\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"283\" cy=\"75\" r=\"3\"/><text x=\"296\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "Inverting amplifier with R = 10 kΩ at the input and a 100 nF capacitor in the feedback path; a 1 V step is applied.",
+      "preview": [
+        "miller"
+      ]
+    }
+  ]
+}

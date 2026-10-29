@@ -1,0 +1,670 @@
+{
+  "version": 1,
+  "generated": "2026-10-29T11:04:31.611441Z",
+  "skills": {
+    "file": "skills.712f6067.json",
+    "hash": "712f6067"
+  },
+  "banks": {
+    "ac-power": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "f775c273",
+      "file": "banks/ac-power.f775c273.json"
+    },
+    "bias-current": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7994ea56",
+      "file": "banks/bias-current.7994ea56.json"
+    },
+    "bode": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d62f9fad",
+      "file": "banks/bode.d62f9fad.json"
+    },
+    "carrier-pot": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "73f158ef",
+      "file": "banks/carrier-pot.73f158ef.json"
+    },
+    "contact-pot": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d7c7b6ac",
+      "file": "banks/contact-pot.d7c7b6ac.json"
+    },
+    "continuity": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "145277d2",
+      "file": "banks/continuity.145277d2.json"
+    },
+    "cx-exp": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "342c9baa",
+      "file": "banks/cx-exp.342c9baa.json"
+    },
+    "datasheet": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "90acb136",
+      "file": "banks/datasheet.90acb136.json"
+    },
+    "depl-approx": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "c3cb3a4e",
+      "file": "banks/depl-approx.c3cb3a4e.json"
+    },
+    "diffusion": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "2852e54d",
+      "file": "banks/diffusion.2852e54d.json"
+    },
+    "diode-iv": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "94650a52",
+      "file": "banks/diode-iv.94650a52.json"
+    },
+    "diode-qual": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "be6e01d3",
+      "file": "banks/diode-qual.be6e01d3.json"
+    },
+    "diode-ss": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "0453bf32",
+      "file": "banks/diode-ss.0453bf32.json"
+    },
+    "direct-h": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "8c449146",
+      "file": "banks/direct-h.8c449146.json"
+    },
+    "doping": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d0e9894c",
+      "file": "banks/doping.d0e9894c.json"
+    },
+    "drift": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "2cd11877",
+      "file": "banks/drift.2cd11877.json"
+    },
+    "drude": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "97ce3501",
+      "file": "banks/drude.97ce3501.json"
+    },
+    "electrostatics": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ba8fb6f2",
+      "file": "banks/electrostatics.ba8fb6f2.json"
+    },
+    "excess-carriers": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "92496aaf",
+      "file": "banks/excess-carriers.92496aaf.json"
+    },
+    "fb-errors": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d1f2d2b9",
+      "file": "banks/fb-errors.d1f2d2b9.json"
+    },
+    "fb-impedance": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "a3238617",
+      "file": "banks/fb-impedance.a3238617.json"
+    },
+    "fb-intro": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "9823bfbb",
+      "file": "banks/fb-intro.9823bfbb.json"
+    },
+    "freq-char": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "e8970ebd",
+      "file": "banks/freq-char.e8970ebd.json"
+    },
+    "gbw": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "9c17c0cd",
+      "file": "banks/gbw.9c17c0cd.json"
+    },
+    "impulse-conv": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "58f7af37",
+      "file": "banks/impulse-conv.58f7af37.json"
+    },
+    "intrinsic": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "76333a5b",
+      "file": "banks/intrinsic.76333a5b.json"
+    },
+    "inverting": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "891e27f3",
+      "file": "banks/inverting.891e27f3.json"
+    },
+    "junction-cap": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "fa289381",
+      "file": "banks/junction-cap.fa289381.json"
+    },
+    "loop-gain": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ac4ec2e7",
+      "file": "banks/loop-gain.ac4ec2e7.json"
+    },
+    "lti-def": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "483809bf",
+      "file": "banks/lti-def.483809bf.json"
+    },
+    "mim-cap": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "6972caa0",
+      "file": "banks/mim-cap.6972caa0.json"
+    },
+    "minority-profile": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "56ad6c42",
+      "file": "banks/minority-profile.56ad6c42.json"
+    },
+    "mos-cv": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "652c77ea",
+      "file": "banks/mos-cv.652c77ea.json"
+    },
+    "mos-fields": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ee686829",
+      "file": "banks/mos-fields.ee686829.json"
+    },
+    "mos-regions": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "04fa6c7d",
+      "file": "banks/mos-regions.04fa6c7d.json"
+    },
+    "mos-struct": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "377cf126",
+      "file": "banks/mos-struct.377cf126.json"
+    },
+    "nl-cap": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "f91234f8",
+      "file": "banks/nl-cap.f91234f8.json"
+    },
+    "noise-dist": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "89c6c06a",
+      "file": "banks/noise-dist.89c6c06a.json"
+    },
+    "offset": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "37af406c",
+      "file": "banks/offset.37af406c.json"
+    },
+    "opamp-fr": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "84a64c4a",
+      "file": "banks/opamp-fr.84a64c4a.json"
+    },
+    "opamp-models": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "744eae46",
+      "file": "banks/opamp-models.744eae46.json"
+    },
+    "phasors": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "99243278",
+      "file": "banks/phasors.99243278.json"
+    },
+    "pn-overview": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "a6697a38",
+      "file": "banks/pn-overview.a6697a38.json"
+    },
+    "pole-zero": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ff064709",
+      "file": "banks/pole-zero.ff064709.json"
+    },
+    "rc-lpf": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "2819bcc1",
+      "file": "banks/rc-lpf.2819bcc1.json"
+    },
+    "rev-bias": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "3d1a3792",
+      "file": "banks/rev-bias.3d1a3792.json"
+    },
+    "rlc": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "4de08526",
+      "file": "banks/rlc.4de08526.json"
+    },
+    "si-props": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "f8d1d852",
+      "file": "banks/si-props.f8d1d852.json"
+    },
+    "sinusoid-resp": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "86bdd0a2",
+      "file": "banks/sinusoid-resp.86bdd0a2.json"
+    },
+    "slew": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7902171c",
+      "file": "banks/slew.7902171c.json"
+    },
+    "stability": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "66ad83fe",
+      "file": "banks/stability.66ad83fe.json"
+    },
+    "step-resp": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "f7f0cd49",
+      "file": "banks/step-resp.f7f0cd49.json"
+    },
+    "tf": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "1e0c5d64",
+      "file": "banks/tf.1e0c5d64.json"
+    },
+    "total-current": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "37d31a72",
+      "file": "banks/total-current.37d31a72.json"
+    },
+    "vt": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "81249898",
+      "file": "banks/vt.81249898.json"
+    }
+  }
+}

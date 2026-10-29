@@ -1,0 +1,187 @@
+{
+  "skill_id": "diode-qual",
+  "version": 1,
+  "questions": [
+    {
+      "id": "diode-qual-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In thermal equilibrium (no applied bias), why is the net current through a PN junction zero?",
+      "options": [
+        "Because no carriers move at all",
+        "Because the depletion region is a perfect insulator with no field",
+        "Because only electrons flow and they cancel holes",
+        "For each carrier type, the diffusion current over the barrier exactly balances the drift current of minority carriers swept across by the field"
+      ],
+      "correct_index": 3,
+      "explanation": "Carriers move constantly, but the few majority carriers energetic enough to diffuse over the built-in barrier are balanced by minority carriers that wander to the junction and drift back across (reader Sec. 6.2.1). The depletion region has a strong field; that's what drives the drift.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,40 130,40 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"34\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"40\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"65\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">equilibrium: q·φ_bi</text></svg>",
+      "figure_alt": "Energy barrier for electrons between the P side (high) and the N side (low) in equilibrium."
+    },
+    {
+      "id": "diode-qual-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Under reverse bias, the diode current saturates at a small value \\(-I_S\\). Why doesn't it grow with more reverse voltage?",
+      "options": [
+        "Because the depletion region stops growing",
+        "Because the diode breaks down",
+        "The reverse current is drift of minority carriers that reach the junction, which doesn't depend on the barrier height; diffusion is already shut off",
+        "Because diffusion current grows to cancel it"
+      ],
+      "correct_index": 2,
+      "explanation": "Reader Sec. 6.2.2: a larger barrier suppresses diffusion exponentially, leaving only the drift of thermally generated minority carriers. Their supply is fixed by generation near the junction, not by the voltage, so the current saturates at \\(I_S\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,15 130,15 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"9\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"15\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"52.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">reverse bias: q(φ_bi + V_R)</text></svg>",
+      "figure_alt": "Energy barrier raised by reverse bias."
+    },
+    {
+      "id": "diode-qual-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "In forward bias the diode current grows as \\(e^{V_D/V_t}\\) with \\(V_t=25.9\\ \\mathrm{mV}\\). By how much must \\(V_D\\) increase to multiply the current by 10, in mV?",
+      "answer": 59.637,
+      "unit": "mV",
+      "tolerance": 0.01,
+      "explanation": "\\(e^{\\Delta V/V_t}=10\\Rightarrow\\Delta V=V_t\\ln10=25.9\\ \\mathrm{mV}\\times2.303=59.64\\ \\mathrm{mV}\\).\nAbout 60 mV per decade of current at room temperature: a key rule of thumb.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve: tiny constant reverse current, exponential forward current."
+    },
+    {
+      "id": "diode-qual-r2-q1",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A forward bias \\(V_D\\) is applied to a junction with built-in potential \\(\\phi_{bi}\\). What barrier do majority carriers now have to climb?",
+      "options": [
+        "\\(q(\\phi_{bi}+V_D)\\)",
+        "\\(q(\\phi_{bi}-V_D)\\), lowered by the applied voltage",
+        "\\(q\\phi_{bi}\\), unchanged",
+        "\\(qV_D\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "Forward bias opposes the built-in potential, so the barrier drops to \\(q(\\phi_{bi}-V_D)\\) (reader Eq. 6.17). Reverse bias raises it to \\(q(\\phi_{bi}+V_R)\\). The diffusion current depends exponentially on this barrier.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,65 130,65 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"59\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"65\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"77.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">forward bias: q(φ_bi − V_D)</text></svg>",
+      "figure_alt": "Energy barrier lowered by forward bias."
+    },
+    {
+      "id": "diode-qual-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "By what factor does the diffusion current increase when the forward bias rises by 0.12 V (\\(V_t=25.9\\ \\mathrm{mV}\\))?",
+      "answer": 102.843,
+      "unit": "×",
+      "tolerance": 0.02,
+      "explanation": "The number of carriers able to cross scales as \\(e^{-\\text{barrier}/kT}\\), so lowering the barrier by \\(0.12\\ \\mathrm{eV}\\) gives \\(e^{0.12/0.0259}=e^{4.633}=102.8\\).\nCheck: 0.12 V ≈ 2 decades at 60 mV/decade, ≈ 100×.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,65 130,65 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"59\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"65\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"77.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">forward bias: q(φ_bi − V_D)</text></svg>",
+      "figure_alt": "Energy barrier lowered by forward bias."
+    },
+    {
+      "id": "diode-qual-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Which carriers make up the reverse saturation current \\(I_S\\)?",
+      "options": [
+        "Minority carriers generated within about a diffusion length of the junction, which drift across it",
+        "Majority carriers diffusing over the barrier",
+        "Electrons tunneling through the oxide",
+        "Carriers injected from the metal contacts"
+      ],
+      "correct_index": 0,
+      "explanation": "Only minority carriers that reach the depletion edge before recombining get swept across (reader Sec. 6.2.1). They are scarce (\\(n_p=n_i^2/N_A\\)), so \\(I_S\\) is tiny.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,15 130,15 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"9\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"15\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"52.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">reverse bias: q(φ_bi + V_R)</text></svg>",
+      "figure_alt": "Energy barrier under reverse bias."
+    },
+    {
+      "id": "diode-qual-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "An ideal diode is reverse-biased first at 1 V, then at 5 V. How do the currents compare?",
+      "options": [
+        "5× larger at 5 V, like a resistor",
+        "\\(e^{4/V_t}\\) times larger at 5 V",
+        "Zero at 5 V",
+        "Essentially equal (both \\(\\approx-I_S\\))"
+      ],
+      "correct_index": 3,
+      "explanation": "Once \\(|V_D|\\gg V_t\\), \\(I=I_S(e^{V_D/V_t}-1)\\approx-I_S\\) regardless of \\(V_D\\). Real diodes show some increase (generation in the widening depletion region, and eventually breakdown), but the ideal model saturates.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve."
+    },
+    {
+      "id": "diode-qual-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "For an ideal diode, what is the ratio of the forward current at \\(+0.1\\ \\mathrm{V}\\) to the magnitude of the reverse current at \\(-0.1\\ \\mathrm{V}\\) (\\(V_t=25.9\\ \\mathrm{mV}\\))?",
+      "answer": 47.513,
+      "unit": "×",
+      "tolerance": 0.02,
+      "explanation": "\\(\\dfrac{e^{x}-1}{1-e^{-x}}=e^{x}\\) for \\(x=0.1/0.0259=3.861\\): ratio \\(=e^{3.861}=47.51\\).\nGotcha: at only ±0.1 V the diode already rectifies about 47:1; the 'turn-on voltage' of ~0.7 V is about currents in the mA range, not about where rectification starts.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve."
+    },
+    {
+      "id": "diode-qual-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "In an integrated PN diode built in an N-well on a P substrate, why is the substrate tied to the most negative voltage?",
+      "options": [
+        "To forward-bias the parasitic diode and add current",
+        "To set the diode's built-in potential",
+        "To keep the parasitic N-well/substrate diode reverse-biased so it isolates the device",
+        "Because the substrate is the diode's anode"
+      ],
+      "correct_index": 2,
+      "explanation": "The N-well and P substrate form an unwanted diode. Reverse-biasing it (substrate at the lowest potential) keeps it off, isolating the diode from everything else on the chip (reader Sec. 6.2.5).\nReader note: Sec. 6.2.5 says the cathode connects to the P region and the N+ contact is at the anode; for a P-in-N-well diode the P region is the ANODE and the N+ well contact is the CATHODE.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>IC diode cross-section</title><rect x=\"20\" y=\"60\" width=\"300\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"104\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P substrate (most negative)</text><rect x=\"60\" y=\"30\" width=\"220\" height=\"55\"/><text x=\"170\" y=\"80\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N-well</text><rect x=\"90\" y=\"30\" width=\"60\" height=\"20\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"120\" y=\"44\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">P+ (anode)</text><rect x=\"190\" y=\"30\" width=\"60\" height=\"20\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"220\" y=\"44\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">N+ (cathode)</text></svg>",
+      "figure_alt": "Cross-section: P substrate containing an N-well; inside the well a P+ anode region and an N+ cathode contact."
+    },
+    {
+      "id": "diode-qual-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of the ideal diode equation. With \\(I=I_S(e^{V_D/V_t}-1)\\), \\(I_S=10^{-14}\\ \\mathrm{A}\\) and \\(V_t=25.9\\ \\mathrm{mV}\\), what current flows at \\(V_D=0.65\\ \\mathrm{V}\\), in mA?",
+      "answer": 0.793017,
+      "unit": "mA",
+      "tolerance": 0.02,
+      "explanation": "\\(V_D/V_t=25.10\\), \\(e^{25.10}=7.93\\times10^{10}\\), so \\(I=0.793\\ \\mathrm{mA}\\).\nThe next skill derives \\(I_S\\) from the minority-carrier profiles.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V curve</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve.",
+      "preview": [
+        "diode-iv"
+      ]
+    },
+    {
+      "id": "diode-qual-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of minority-carrier profiles. Boltzmann's law gives the hole density at the N-side depletion edge as \\(p_n(x_n)=N_Ae^{-(\\phi_{bi}-V_D)/V_t}\\). With \\(N_A=10^{17}\\ \\mathrm{cm^{-3}}\\), \\(\\phi_{bi}=0.8\\ \\mathrm{V}\\), \\(V_D=0.6\\ \\mathrm{V}\\), what is it, in units of \\(10^{13}\\ \\mathrm{cm^{-3}}\\)?",
+      "answer": 4.4297,
+      "unit": "×10¹³ cm⁻³",
+      "tolerance": 0.02,
+      "explanation": "\\(p_n=10^{17}\\times e^{-0.2/0.0259}=10^{17}\\times4.43\\times10^{-4}=4.43\\times10^{13}\\ \\mathrm{cm^{-3}}\\).\nHoles from the P side that clear the lowered barrier become minority carriers on the N side. Reader note: Eq. 6.18 labels \\(p_n\\) as the 'minority e⁻ concentration'; \\(p_n\\) is the minority HOLE density on the N side.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "PN junction with depletion edges.",
+      "preview": [
+        "minority-profile"
+      ]
+    },
+    {
+      "id": "diode-qual-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of solar cells. Light shining on a junction generates extra electron-hole pairs near it. Using the drift/diffusion picture, how does the I–V curve change?",
+      "options": [
+        "The forward diffusion current increases, shifting the curve up",
+        "Extra minority carriers add to the reverse (drift) current, so the whole curve shifts downward by a light-generated current",
+        "The built-in potential disappears",
+        "Nothing; light doesn't affect diodes"
+      ],
+      "correct_index": 1,
+      "explanation": "Minority carriers generated within a diffusion length are swept across by the junction field, exactly like the thermal ones that make \\(-I_S\\), only many more. That adds a reverse current \\(-I_L\\) at every voltage: the principle of the solar cell.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Diode I–V (shifts down under light)</title><line x1=\"20\" y1=\"100\" x2=\"330\" y2=\"100\" stroke-opacity=\"0.6\"/><line x1=\"200\" y1=\"130\" x2=\"200\" y2=\"10\" stroke-opacity=\"0.6\"/><text x=\"328\" y=\"114\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">V_D</text><text x=\"206\" y=\"16\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_D</text><polyline points=\"30,101.2 32,101.2 34,101.2 36,101.2 38,101.2 40,101.2 42,101.2 44,101.2 46,101.2 48,101.2 50,101.2 52,101.2 54,101.2 56,101.2 58,101.2 60,101.2 62,101.2 64,101.2 66,101.2 68,101.2 70,101.2 72,101.2 74,101.2 76,101.2 78,101.2 80,101.2 82,101.2 84,101.2 86,101.2 88,101.2 90,101.2 92,101.2 94,101.2 96,101.2 98,101.2 100,101.2 102,101.2 104,101.2 106,101.2 108,101.2 110,101.2 112,101.2 114,101.2 116,101.2 118,101.2 120,101.2 122,101.2 124,101.2 126,101.2 128,101.2 130,101.2 132,101.2 134,101.2 136,101.2 138,101.2 140,101.2 142,101.2 144,101.2 146,101.2 148,101.2 150,101.2 152,101.2 154,101.2 156,101.2 158,101.2 160,101.2 162,101.1 164,101.1 166,101.1 168,101.1 170,101.1 172,101.1 174,101.1 176,101 178,101 180,101 182,100.9 184,100.9 186,100.8 188,100.8 190,100.7 192,100.6 194,100.5 196,100.3 198,100.2 200,100 202,99.8 204,99.5 206,99.2 208,98.9 210,98.4 212,97.9 214,97.3 216,96.6 218,95.8 220,94.8 222,93.7 224,92.3 226,90.7 228,88.8 230,86.6 232,83.9 234,80.8 236,77.1 238,72.7 240,67.6 242,61.5 244,54.3 246,45.7 248,35.7 250,23.8 252,15 254,15 256,15 258,15 260,15\" stroke-width=\"2.2\"/><text x=\"60\" y=\"118\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">reverse: I ≈ −I_S</text><text x=\"180\" y=\"30\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward: exponential</text></svg>",
+      "figure_alt": "Diode I-V curve.",
+      "preview": [
+        "solar-cell"
+      ]
+    }
+  ]
+}
