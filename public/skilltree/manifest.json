@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-10-29T11:04:31.611441Z",
+  "generated": "2026-10-29T12:43:19.366412Z",
   "skills": {
-    "file": "skills.712f6067.json",
-    "hash": "712f6067"
+    "file": "skills.87d798bc.json",
+    "hash": "87d798bc"
   },
   "banks": {
     "ac-power": {
@@ -665,6 +665,283 @@
       },
       "hash": "81249898",
       "file": "banks/vt.81249898.json"
+    }
+  },
+  "explainers": {
+    "ac-power": {
+      "hash": "fae234f8",
+      "file": "explainers/ac-power.fae234f8.json",
+      "sectionCount": 5
+    },
+    "bias-current": {
+      "hash": "45b43990",
+      "file": "explainers/bias-current.45b43990.json",
+      "sectionCount": 5
+    },
+    "bode": {
+      "hash": "1ceb432c",
+      "file": "explainers/bode.1ceb432c.json",
+      "sectionCount": 5
+    },
+    "carrier-pot": {
+      "hash": "e99034dc",
+      "file": "explainers/carrier-pot.e99034dc.json",
+      "sectionCount": 5
+    },
+    "contact-pot": {
+      "hash": "dd644a6e",
+      "file": "explainers/contact-pot.dd644a6e.json",
+      "sectionCount": 5
+    },
+    "continuity": {
+      "hash": "7746acf7",
+      "file": "explainers/continuity.7746acf7.json",
+      "sectionCount": 5
+    },
+    "cx-exp": {
+      "hash": "ab8cf724",
+      "file": "explainers/cx-exp.ab8cf724.json",
+      "sectionCount": 5
+    },
+    "datasheet": {
+      "hash": "c4cfea0d",
+      "file": "explainers/datasheet.c4cfea0d.json",
+      "sectionCount": 5
+    },
+    "depl-approx": {
+      "hash": "9ff4b231",
+      "file": "explainers/depl-approx.9ff4b231.json",
+      "sectionCount": 5
+    },
+    "diffusion": {
+      "hash": "5c7c0cac",
+      "file": "explainers/diffusion.5c7c0cac.json",
+      "sectionCount": 5
+    },
+    "diode-iv": {
+      "hash": "06965402",
+      "file": "explainers/diode-iv.06965402.json",
+      "sectionCount": 5
+    },
+    "diode-qual": {
+      "hash": "61257a83",
+      "file": "explainers/diode-qual.61257a83.json",
+      "sectionCount": 5
+    },
+    "diode-ss": {
+      "hash": "7cc1be3f",
+      "file": "explainers/diode-ss.7cc1be3f.json",
+      "sectionCount": 5
+    },
+    "direct-h": {
+      "hash": "655321a2",
+      "file": "explainers/direct-h.655321a2.json",
+      "sectionCount": 5
+    },
+    "doping": {
+      "hash": "a33929fb",
+      "file": "explainers/doping.a33929fb.json",
+      "sectionCount": 5
+    },
+    "drift": {
+      "hash": "e80b4dc0",
+      "file": "explainers/drift.e80b4dc0.json",
+      "sectionCount": 5
+    },
+    "drude": {
+      "hash": "38c348c1",
+      "file": "explainers/drude.38c348c1.json",
+      "sectionCount": 5
+    },
+    "electrostatics": {
+      "hash": "7cb26824",
+      "file": "explainers/electrostatics.7cb26824.json",
+      "sectionCount": 5
+    },
+    "excess-carriers": {
+      "hash": "74969728",
+      "file": "explainers/excess-carriers.74969728.json",
+      "sectionCount": 5
+    },
+    "fb-errors": {
+      "hash": "7b1504e3",
+      "file": "explainers/fb-errors.7b1504e3.json",
+      "sectionCount": 5
+    },
+    "fb-impedance": {
+      "hash": "0dac5885",
+      "file": "explainers/fb-impedance.0dac5885.json",
+      "sectionCount": 5
+    },
+    "fb-intro": {
+      "hash": "660faa79",
+      "file": "explainers/fb-intro.660faa79.json",
+      "sectionCount": 5
+    },
+    "freq-char": {
+      "hash": "b7f890ed",
+      "file": "explainers/freq-char.b7f890ed.json",
+      "sectionCount": 5
+    },
+    "gbw": {
+      "hash": "721abc00",
+      "file": "explainers/gbw.721abc00.json",
+      "sectionCount": 5
+    },
+    "impulse-conv": {
+      "hash": "8f37aaf0",
+      "file": "explainers/impulse-conv.8f37aaf0.json",
+      "sectionCount": 5
+    },
+    "intrinsic": {
+      "hash": "8bed791c",
+      "file": "explainers/intrinsic.8bed791c.json",
+      "sectionCount": 5
+    },
+    "inverting": {
+      "hash": "76353343",
+      "file": "explainers/inverting.76353343.json",
+      "sectionCount": 5
+    },
+    "junction-cap": {
+      "hash": "424f0c83",
+      "file": "explainers/junction-cap.424f0c83.json",
+      "sectionCount": 5
+    },
+    "loop-gain": {
+      "hash": "7100d26f",
+      "file": "explainers/loop-gain.7100d26f.json",
+      "sectionCount": 5
+    },
+    "lti-def": {
+      "hash": "8bf367c9",
+      "file": "explainers/lti-def.8bf367c9.json",
+      "sectionCount": 5
+    },
+    "mim-cap": {
+      "hash": "9dd5f997",
+      "file": "explainers/mim-cap.9dd5f997.json",
+      "sectionCount": 5
+    },
+    "minority-profile": {
+      "hash": "a1239233",
+      "file": "explainers/minority-profile.a1239233.json",
+      "sectionCount": 5
+    },
+    "mos-cv": {
+      "hash": "1684a212",
+      "file": "explainers/mos-cv.1684a212.json",
+      "sectionCount": 5
+    },
+    "mos-fields": {
+      "hash": "a9764449",
+      "file": "explainers/mos-fields.a9764449.json",
+      "sectionCount": 5
+    },
+    "mos-regions": {
+      "hash": "6d484f50",
+      "file": "explainers/mos-regions.6d484f50.json",
+      "sectionCount": 5
+    },
+    "mos-struct": {
+      "hash": "94ff5d14",
+      "file": "explainers/mos-struct.94ff5d14.json",
+      "sectionCount": 5
+    },
+    "nl-cap": {
+      "hash": "67aeb041",
+      "file": "explainers/nl-cap.67aeb041.json",
+      "sectionCount": 5
+    },
+    "noise-dist": {
+      "hash": "b17d1272",
+      "file": "explainers/noise-dist.b17d1272.json",
+      "sectionCount": 5
+    },
+    "offset": {
+      "hash": "479ebbd3",
+      "file": "explainers/offset.479ebbd3.json",
+      "sectionCount": 5
+    },
+    "opamp-fr": {
+      "hash": "9edb9802",
+      "file": "explainers/opamp-fr.9edb9802.json",
+      "sectionCount": 5
+    },
+    "opamp-models": {
+      "hash": "9944f627",
+      "file": "explainers/opamp-models.9944f627.json",
+      "sectionCount": 5
+    },
+    "phasors": {
+      "hash": "d3c076c1",
+      "file": "explainers/phasors.d3c076c1.json",
+      "sectionCount": 5
+    },
+    "pn-overview": {
+      "hash": "9f8cd2b7",
+      "file": "explainers/pn-overview.9f8cd2b7.json",
+      "sectionCount": 5
+    },
+    "pole-zero": {
+      "hash": "4172cb82",
+      "file": "explainers/pole-zero.4172cb82.json",
+      "sectionCount": 5
+    },
+    "rc-lpf": {
+      "hash": "3ec1f979",
+      "file": "explainers/rc-lpf.3ec1f979.json",
+      "sectionCount": 5
+    },
+    "rev-bias": {
+      "hash": "1c78766e",
+      "file": "explainers/rev-bias.1c78766e.json",
+      "sectionCount": 5
+    },
+    "rlc": {
+      "hash": "b06f1588",
+      "file": "explainers/rlc.b06f1588.json",
+      "sectionCount": 5
+    },
+    "si-props": {
+      "hash": "b5e9c94a",
+      "file": "explainers/si-props.b5e9c94a.json",
+      "sectionCount": 5
+    },
+    "sinusoid-resp": {
+      "hash": "a20ffaba",
+      "file": "explainers/sinusoid-resp.a20ffaba.json",
+      "sectionCount": 5
+    },
+    "slew": {
+      "hash": "04a6ad10",
+      "file": "explainers/slew.04a6ad10.json",
+      "sectionCount": 5
+    },
+    "stability": {
+      "hash": "499cb8d5",
+      "file": "explainers/stability.499cb8d5.json",
+      "sectionCount": 5
+    },
+    "step-resp": {
+      "hash": "b6dbebd2",
+      "file": "explainers/step-resp.b6dbebd2.json",
+      "sectionCount": 5
+    },
+    "tf": {
+      "hash": "043823aa",
+      "file": "explainers/tf.043823aa.json",
+      "sectionCount": 5
+    },
+    "total-current": {
+      "hash": "efca8743",
+      "file": "explainers/total-current.efca8743.json",
+      "sectionCount": 5
+    },
+    "vt": {
+      "hash": "71f0041e",
+      "file": "explainers/vt.71f0041e.json",
+      "sectionCount": 5
     }
   }
 }

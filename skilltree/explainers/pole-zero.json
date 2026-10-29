@@ -1,0 +1,28 @@
+{
+ "id": "pole-zero",
+ "title": "Poles and zeros of a transfer function",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "Replace \\(j\\omega\\) by the complex frequency \\(s\\) and a transfer function becomes a ratio of polynomials \\(H(s) = N(s)/D(s)\\). The roots of the numerator are **zeros** (where \\(H = 0\\)) and the roots of the denominator are **poles** (where \\(H\\) blows up). Plotted on the \\(s\\)-plane, they summarize the whole system.\n\nPoles set the natural behaviour: a pole at \\(s = -\\alpha\\) gives a decaying term \\(e^{-\\alpha t}\\) in the response. Poles in the left half-plane mean the system is stable; a pole in the right half-plane means the response grows without bound. Complex-conjugate pole pairs give oscillation inside a decaying envelope. The frequency response is just \\(H(s)\\) evaluated along the imaginary axis.",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Complex RLC poles</title><line x1=\"20\" y1=\"96\" x2=\"248\" y2=\"96\"/><polygon points=\"248,96 241.6,98.7 241.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"196\" y1=\"182\" x2=\"196\" y2=\"10\"/><polygon points=\"196,10 198.7,16.4 193.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"112\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">σ</text><text x=\"202\" y=\"18\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">jω</text><line x1=\"168\" y1=\"27.6\" x2=\"180\" y2=\"39.6\" stroke-width=\"2.2\"/><line x1=\"168\" y1=\"39.6\" x2=\"180\" y2=\"27.6\" stroke-width=\"2.2\"/><line x1=\"168\" y1=\"152.4\" x2=\"180\" y2=\"164.4\" stroke-width=\"2.2\"/><line x1=\"168\" y1=\"164.4\" x2=\"180\" y2=\"152.4\" stroke-width=\"2.2\"/><text x=\"254\" y=\"196\" text-anchor=\"end\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">× pole   ○ zero</text></svg>",
+   "figure_alt": "Two complex-conjugate poles in the left half-plane."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "\\[ H(s) = K\\,\\frac{(s - z_1)(s - z_2)\\cdots}{(s - p_1)(s - p_2)\\cdots} \\]\nA real pole at \\(s = -\\omega_p\\) gives a corner at \\(\\omega = \\omega_p\\) in the frequency response and the time constant \\(\\tau = 1/\\omega_p\\).\nStability: every pole must satisfy \\(\\operatorname{Re}(p_k) < 0\\)."
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "Find the poles and zeros of\n\\[ H(s) = \\frac{10\\,(s + 50)}{s^2 + 1100\\,s + 10^{5}} \\]\nZero: \\(s = -50\\). Poles: factor \\(s^2 + 1100s + 10^5 = (s + 100)(s + 1000)\\), so \\(s = -100\\) and \\(s = -1000\\). All are in the left half-plane, so the system is stable. The step response contains \\(e^{-100t}\\) and \\(e^{-1000t}\\) terms; the slower one (time constant 10 ms) dominates the settling."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Sign slips: a factor \\((s + 100)\\) means a pole at \\(s = -100\\), not \\(+100\\).\n- Calling a zero in the right half-plane unstable. Only poles decide stability.\n- Forgetting a pole or zero at the origin hidden in an \\(s\\) factor.\n- Confusing the pole location (rad/s) with a frequency in Hz."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "Poles and zeros connect the time domain (decaying exponentials and ringing) with the frequency domain (corners on a Bode plot). They are central to feedback stability, where a loop's extra poles decide whether an amplifier rings or oscillates."
+  }
+ ]
+}

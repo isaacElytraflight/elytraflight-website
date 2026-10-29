@@ -1,0 +1,30 @@
+{
+ "id": "noise-dist",
+ "title": "Op-amp noise and distortion",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "**Noise** is random fluctuation added to a signal: thermal noise from resistors and noise from the op-amp's own transistors. Because it is random, we describe it statistically by its **power spectral density**. Op-amp voltage noise is quoted as \\(e_n\\) in \\(\\mathrm{nV/\\sqrt{Hz}}\\); squaring gives power per hertz. Uncorrelated noise sources add in **power**, not in amplitude, so you add squares and take a square root.\n\n**Distortion** is a deterministic consequence of non-linearity. If the output contains a \\(v^2\\) term, a pure sine input creates a DC shift and a second harmonic. A \\(v^3\\) term creates a third harmonic. Negative feedback suppresses distortion generated inside the loop by about \\(1 + T\\).",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Harmonics produced by a nonlinearity</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
+   "figure_alt": "Spectrum sketch with lines at the fundamental, second and third harmonic."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "White noise in bandwidth \\(B\\): \\(v_{n,rms} = e_n\\sqrt{B}\\)\nResistor thermal noise: \\(\\overline{v_n^2} = 4kTR\\,\\Delta f\\)\nUncorrelated sum: \\(v_{tot} = \\sqrt{v_1^2 + v_2^2}\\)\n\\[ \\cos^2\\omega t = \\tfrac12 + \\tfrac12\\cos2\\omega t \\]",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Noise vs signal spectra</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
+   "figure_alt": "Spectrum sketch."
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "An op-amp has \\(e_n = 4\\ \\mathrm{nV/\\sqrt{Hz}}\\), and a \\(10\\ \\mathrm{k\\Omega}\\) source resistor contributes about \\(12.9\\ \\mathrm{nV/\\sqrt{Hz}}\\) at 300 K. Over a 100 kHz bandwidth:\n\\[ e_{tot} = \\sqrt{4^2 + 12.9^2} \\approx 13.5\\ \\mathrm{nV/\\sqrt{Hz}}, \\quad v_{n,rms} \\approx 13.5\\ \\mathrm{nV}\\times316 \\approx 4.3\\ \\mu\\mathrm{V} \\]\nThe resistor dominates, so a quieter op-amp would barely help."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Adding noise voltages linearly.\n- Multiplying by \\(B\\) instead of \\(\\sqrt{B}\\).\n- Confusing distortion (new harmonics, deterministic) with noise (random, broadband).\n- Forgetting the DC term created by a square-law non-linearity."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "Noise and distortion are the last pieces of the datasheet puzzle. Together with offset and bandwidth, they determine an amplifier's usable dynamic range. In practice, compare every noise source in the same units (per root hertz) before adding them."
+  }
+ ]
+}

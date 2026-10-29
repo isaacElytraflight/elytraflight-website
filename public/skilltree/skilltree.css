@@ -281,3 +281,34 @@ figure.qfig.small svg{max-height:200px}
 .google-btn:hover{border-color:var(--accent);background:#fafbfe}
 .google-btn svg{flex:none}
 @media (max-width:700px){.user-email{display:none}.auth-ui{gap:6px}}
+
+/* Explainer */
+.explainer-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#f8f4ff,#fff8f0);border:2px solid #e5defa}
+.explainer-btn:hover{border-color:var(--accent);background:linear-gradient(135deg,#f0e8ff,#fff0e0)}
+.exp-icon{font-size:16px}
+.explainer-body{max-height:65vh;overflow-y:auto;padding:0 4px 10px}
+.exp-section{margin-bottom:20px}
+.exp-section h3{font-size:16px;margin:0 0 8px;color:var(--accent)}
+.exp-body{font-size:14.5px;line-height:1.65;white-space:pre-wrap}
+.exp-body p{margin:0 0 10px}
+.exp-body strong{font-weight:700}
+.exp-body code{background:#f0f3f9;padding:1px 5px;border-radius:4px;font-family:ui-monospace,monospace;font-size:13px}
+.exp-body ul,.exp-body ol{margin:8px 0;padding-left:24px}
+.exp-body li{margin:4px 0}
+
+/* Lights mode (zoomed-out view) */
+.tile.light-mode{background:transparent!important;border:none!important;box-shadow:none!important;overflow:visible}
+.tile.light-mode .name,.tile.light-mode .sub{opacity:0;transition:opacity .2s}
+.tile .light{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;pointer-events:none}
+.tile.light-mode .light{opacity:1}
+.light-dot{width:18px;height:18px;border-radius:50%;background:var(--light-color,#9ca3af);box-shadow:0 0 0 0 var(--light-glow,transparent);transition:background .3s,box-shadow .3s}
+.tile.t0 .light-dot{background:#9ca3af;--light-glow:transparent}
+.tile.t1 .light-dot{background:color-mix(in srgb,var(--c) 40%,#9ca3af);--light-glow:color-mix(in srgb,var(--c) 20%,transparent)}
+.tile.t2 .light-dot{background:color-mix(in srgb,var(--c) 70%,#9ca3af);--light-glow:color-mix(in srgb,var(--c) 40%,transparent)}
+.tile.t3 .light-dot{background:var(--c);--light-glow:color-mix(in srgb,var(--c) 60%,transparent);box-shadow:0 0 8px 2px var(--light-glow)}
+.tile.t4 .light-dot{background:var(--c);--light-glow:var(--c);box-shadow:0 0 12px 4px var(--light-glow);animation:shimmer 3s ease-in-out infinite}
+.tile.t4 .light-dot{animation-delay:var(--shimmer-delay,0s)}
+@keyframes shimmer{0%,100%{box-shadow:0 0 12px 4px var(--light-glow);transform:scale(1)}50%{box-shadow:0 0 20px 8px var(--light-glow);transform:scale(1.15)}}
+@media (prefers-reduced-motion:reduce){.tile.t4 .light-dot{animation:none;box-shadow:0 0 16px 6px var(--light-glow)}}
+#world.lights-view .tile{transition:background .2s,border-color .2s}
+#world.lights-view #edges path{stroke-opacity:0.15}

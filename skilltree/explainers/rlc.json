@@ -1,0 +1,28 @@
+{
+ "id": "rlc",
+ "title": "Series RLC circuits",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "A series RLC circuit stores energy in two places, the inductor's magnetic field and the capacitor's electric field, and can slosh energy back and forth between them. That gives it a second-order transfer function with two poles. The **resonant frequency** \\(\\omega_0\\) is where the inductor and capacitor reactances cancel. The **quality factor** \\(Q\\) measures how little the resistor damps the sloshing.\n\nHigh \\(Q\\) means complex poles close to the \\(j\\omega\\) axis: the step response rings and the frequency response has a sharp peak. Low \\(Q\\) (overdamped) means two real poles and a sluggish response. \\(Q = 1/2\\) is critical damping, the fastest response without overshoot.",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 362 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Series RLC: Z = R + jωL + 1/(jωC)</title><line x1=\"46\" y1=\"46\" x2=\"46\" y2=\"74\"/><line x1=\"46\" y1=\"98\" x2=\"46\" y2=\"126\"/><circle cx=\"46\" cy=\"86\" r=\"12\"/><text x=\"46\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"46\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"29\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vₛ</text><line x1=\"46\" y1=\"126\" x2=\"46\" y2=\"132\"/><line x1=\"37\" y1=\"132\" x2=\"55\" y2=\"132\"/><line x1=\"41\" y1=\"136\" x2=\"51\" y2=\"136\"/><line x1=\"44.5\" y1=\"140\" x2=\"47.5\" y2=\"140\"/><line x1=\"46\" y1=\"46\" x2=\"64\" y2=\"46\"/><polyline points=\"64,46 81,46 84,40 89,52 94,40 99,52 104,40 109,52 117,46 134,46\"/><text x=\"99\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><line x1=\"134\" y1=\"46\" x2=\"148\" y2=\"46\"/><path d=\"M148,46 h15 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 h15\"/><text x=\"183\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">L</text><line x1=\"218\" y1=\"46\" x2=\"232\" y2=\"46\"/><line x1=\"232\" y1=\"46\" x2=\"262\" y2=\"46\"/><line x1=\"272\" y1=\"46\" x2=\"302\" y2=\"46\"/><line x1=\"262\" y1=\"37\" x2=\"262\" y2=\"55\"/><line x1=\"272\" y1=\"37\" x2=\"272\" y2=\"55\"/><text x=\"267\" y=\"32\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"302\" y1=\"46\" x2=\"316\" y2=\"46\"/><line x1=\"316\" y1=\"46\" x2=\"332\" y2=\"46\"/><circle cx=\"335\" cy=\"46\" r=\"3\"/><text x=\"342\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text></svg>",
+   "figure_alt": "Series RLC circuit across a source."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "\\[ \\omega_0 = \\frac{1}{\\sqrt{LC}}, \\qquad Q = \\frac{1}{R}\\sqrt{\\frac{L}{C}}, \\qquad \\zeta = \\frac{1}{2Q} \\]\nOutput across the capacitor:\n\\[ H(s) = \\frac{\\omega_0^2}{s^2 + \\frac{\\omega_0}{Q}s + \\omega_0^2} \\]\nPoles are complex when \\(Q > 1/2\\). Across \\(R\\), the response is band-pass with bandwidth \\(\\omega_0/Q\\)."
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "Take \\(L = 10\\ \\mathrm{mH}\\), \\(C = 100\\ \\mathrm{nF}\\), \\(R = 50\\ \\Omega\\).\n\\[ \\omega_0 = \\frac{1}{\\sqrt{10^{-2}\\cdot10^{-7}}} = \\frac{1}{\\sqrt{10^{-9}}} \\approx 31.6\\ \\mathrm{krad/s} \\]\n\\[ Q = \\frac{1}{50}\\sqrt{\\frac{10^{-2}}{10^{-7}}} = \\frac{316}{50} \\approx 6.3 \\]\n\\(Q > 1/2\\), so the step response rings; the voltage across \\(C\\) peaks at roughly \\(Q \\approx 6\\) times the input near \\(\\omega_0\\)."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Using the parallel-RLC formula \\(Q = R\\sqrt{C/L}\\) for a series circuit. In series, a **smaller** \\(R\\) means a higher \\(Q\\).\n- Forgetting the square root in \\(\\omega_0\\).\n- Assuming the peak is always exactly at \\(\\omega_0\\) for every output. It depends which element you measure across.\n- Treating \\(\\omega_0\\) in rad/s as Hz."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "The second-order response here is the same shape that appears in feedback amplifiers with two poles. Phase margin and overshoot in closed-loop op-amp circuits map directly onto \\(Q\\) and damping, so the intuition carries straight over."
+  }
+ ]
+}

@@ -5,10 +5,12 @@ Build script for Skillgrove multi-file app.
 Reads:
   - skilltree/ee105_skills_draft.json (skill graph)
   - skilltree/bank/*.json (question banks)
+  - skilltree/explainers/*.json (skill explainers)
 
 Outputs to public/skilltree/:
   - skills.json (graph + metadata for simulator, loaded at startup)
   - banks/<skill-id>.<hash>.json (individual bank files, lazy loaded)
+  - explainers/<skill-id>.<hash>.json (individual explainer files, lazy loaded)
   - manifest.json (content hashes for cache busting)
 """
 import json
@@ -22,6 +24,7 @@ REPO = Path(__file__).parent.parent.parent
 SRC = REPO / "skilltree"
 OUT = REPO / "public" / "skilltree"
 BANKS_OUT = OUT / "banks"
+EXPLAINERS_OUT = OUT / "explainers"
 
 def sha256_short(data: bytes, length: int = 8) -> str:
     return hashlib.sha256(data).hexdigest()[:length]
@@ -45,8 +48,10 @@ def main():
     skill_ids = {s["id"] for s in skills}
     
     BANKS_OUT.mkdir(parents=True, exist_ok=True)
+    EXPLAINERS_OUT.mkdir(parents=True, exist_ok=True)
     
     banks_meta = {}  # skill_id -> {version, questionCount, hash, file}
+    explainers_meta = {}  # skill_id -> {hash, file, sectionCount}
     playable_ids = []
     
     for bank_file in sorted(bank_dir.glob("*.json")):
@@ -97,6 +102,36 @@ def main():
         if round_counts.get(1, 0) > 0:
             playable_ids.append(sid)
     
+    # Process explainers
+    explainer_dir = SRC / "explainers"
+    if explainer_dir.exists():
+        for explainer_file in sorted(explainer_dir.glob("*.json")):
+            explainer = json.loads(explainer_file.read_text(encoding="utf-8"))
+            sid = explainer["id"]
+            
+            if sid not in skill_ids:
+                print(f"Warning: explainer {explainer_file.name} for unknown skill {sid}; skipped", file=sys.stderr)
+                continue
+            
+            explainer_data = {
+                "id": sid,
+                "title": explainer.get("title", ""),
+                "sections": explainer.get("sections", [])
+            }
+            
+            explainer_json = json.dumps(explainer_data, ensure_ascii=False, separators=(",", ":"))
+            explainer_bytes = explainer_json.encode("utf-8")
+            content_hash = sha256_short(explainer_bytes)
+            
+            out_name = f"{sid}.{content_hash}.json"
+            (EXPLAINERS_OUT / out_name).write_bytes(explainer_bytes)
+            
+            explainers_meta[sid] = {
+                "hash": content_hash,
+                "file": f"explainers/{out_name}",
+                "sectionCount": len(explainer_data["sections"])
+            }
+    
     skills_out = {
         "course": data.get("course", "EE 105"),
         "source": data.get("source", ""),
@@ -107,6 +142,7 @@ def main():
             for s in skills
         ],
         "banks": banks_meta,
+        "explainers": explainers_meta,
         "playable": sorted(playable_ids),
     }
     
@@ -124,6 +160,7 @@ def main():
             "hash": skills_hash,
         },
         "banks": banks_meta,
+        "explainers": explainers_meta,
     }
     (OUT / "manifest.json").write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False),
@@ -131,9 +168,11 @@ def main():
     )
     
     total_bank_size = sum((BANKS_OUT / f"{sid}.{m['hash']}.json").stat().st_size for sid, m in banks_meta.items())
+    total_explainer_size = sum((EXPLAINERS_OUT / f"{sid}.{m['hash']}.json").stat().st_size for sid, m in explainers_meta.items()) if explainers_meta else 0
     print(f"Built to {OUT}:")
     print(f"  - {skills_filename}: {len(skills_bytes):,} bytes ({len(skills)} skills, {len(playable_ids)} playable)")
     print(f"  - {len(banks_meta)} bank files: {total_bank_size:,} bytes total")
+    print(f"  - {len(explainers_meta)} explainer files: {total_explainer_size:,} bytes total")
     print(f"  - manifest.json")
     
     return 0

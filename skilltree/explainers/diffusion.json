@@ -1,0 +1,30 @@
+{
+ "id": "diffusion",
+ "title": "Diffusion current and the Einstein relation",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "**Diffusion** is net motion from high concentration to low concentration, caused purely by random thermal motion. No force is needed: more carriers happen to wander out of a crowded region than wander in. The flux is proportional to the concentration **gradient**.\n\nHoles diffuse down their gradient and carry current in that direction. Electrons also diffuse down their gradient, but because they are negative, their current points **up** the gradient. The diffusion constant and the mobility describe the same random collisions, so they are tied together by the **Einstein relation**: \\(D = (kT/q)\\,\\mu\\).",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"plot\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n(x)</text><polyline points=\"56.0,50.0 312.4,176.0\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/></svg>",
+   "figure_alt": "Electron concentration falling linearly with position."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "\\[ J_{n,diff} = q\\,D_n\\,\\frac{dn}{dx}, \\qquad J_{p,diff} = -q\\,D_p\\,\\frac{dp}{dx} \\]\n\\[ \\frac{D}{\\mu} = \\frac{kT}{q} \\approx 26\\ \\mathrm{mV} \\ \\text{at 300 K} \\]\nDiffusion length with lifetime \\(\\tau\\): \\(L = \\sqrt{D\\tau}\\).",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"plot\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">excess</text><polyline points=\"56.0,37.3 58.8,41.8 61.6,46.2 64.5,50.4 67.3,54.5 70.1,58.5 72.9,62.4 75.7,66.2 78.6,69.9 81.4,73.4 84.2,76.9 87.0,80.2 89.8,83.4 92.7,86.6 95.5,89.7 98.3,92.6 101.1,95.5 103.9,98.3 106.8,101.0 109.6,103.6 112.4,106.2 115.2,108.7 118.0,111.1 120.9,113.4 123.7,115.7 126.5,117.9 129.3,120.0 132.1,122.1 135.0,124.1 137.8,126.0 140.6,127.9 143.4,129.7 146.2,131.5 149.1,133.3 151.9,134.9 154.7,136.6 157.5,138.1 160.3,139.7 163.2,141.2 166.0,142.6 168.8,144.0 171.6,145.4 174.4,146.7 177.3,148.0 180.1,149.2 182.9,150.4 185.7,151.6 188.5,152.7 191.4,153.8 194.2,154.9 197.0,155.9 199.8,156.9 202.6,157.9 205.5,158.9 208.3,159.8 211.1,160.7 213.9,161.5 216.7,162.4 219.6,163.2 222.4,164.0 225.2,164.8 228.0,165.5 230.8,166.2 233.7,166.9 236.5,167.6 239.3,168.3 242.1,168.9 244.9,169.5 247.8,170.1 250.6,170.7 253.4,171.3 256.2,171.9 259.0,172.4 261.9,172.9 264.7,173.4 267.5,173.9 270.3,174.4 273.1,174.8 276.0,175.3 278.8,175.7 281.6,176.1 284.4,176.6 287.2,177.0 290.1,177.3 292.9,177.7 295.7,178.1 298.5,178.4 301.3,178.8 304.2,179.1 307.0,179.4 309.8,179.7 312.6,180.0 315.4,180.3 318.3,180.6 321.1,180.9 323.9,181.2 326.7,181.4 329.5,181.7 332.4,181.9 335.2,182.2 338.0,182.4\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"168.8\" y=\"121.3\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Δn = Δp</text></svg>",
+   "figure_alt": "Identical decaying profiles of excess electrons and holes from the surface."
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "Holes fall linearly from \\(10^{15}\\ \\mathrm{cm^{-3}}\\) to zero over \\(5\\ \\mu\\mathrm{m}\\), with \\(\\mu_p = 450\\ \\mathrm{cm^2/(V\\,s)}\\).\n\\[ D_p = 0.026 \\times 450 \\approx 11.7\\ \\mathrm{cm^2/s} \\]\n\\[ \\frac{dp}{dx} = -\\frac{10^{15}}{5\\times10^{-4}} = -2\\times10^{18}\\ \\mathrm{cm^{-4}} \\]\n\\[ J_p = -q D_p \\frac{dp}{dx} \\approx (1.602\\times10^{-19})(11.7)(2\\times10^{18}) \\approx 3.7\\ \\mathrm{A/cm^2} \\]\nPositive: the current flows toward lower hole concentration."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Getting the electron sign wrong; electron diffusion current flows up the gradient.\n- Thinking diffusion needs a field. It does not.\n- Using \\(D = \\mu\\,kT\\) with \\(kT\\) in joules but \\(\\mu\\) in cm units; just use \\(kT/q\\) in volts.\n- Forgetting that a tiny minority concentration can still carry big diffusion current if its gradient is steep."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "Diffusion is how a forward-biased diode conducts: injected minority carriers diffuse away from the junction. The Einstein relation also lets you turn the drift–diffusion balance into the Boltzmann relations."
+  }
+ ]
+}
