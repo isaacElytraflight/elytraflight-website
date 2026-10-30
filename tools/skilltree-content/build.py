@@ -194,15 +194,26 @@ def main():
             "boxCount": len(collections_data["boxes"])
         }
     
+    def public_skill(s):
+        out = {"id": s["id"], "name": s["name"], "prereqs": s.get("prereqs") or []}
+        if s.get("chapter") is not None:
+            out["chapter"] = s["chapter"]
+        if s.get("reader_section"):
+            out["reader_section"] = s["reader_section"]
+        if s.get("summary"):
+            out["summary"] = s["summary"]
+        if s.get("sources"):
+            out["sources"] = s["sources"]
+        if s.get("status"):
+            out["status"] = s["status"]
+        return out
+
     skills_out = {
         "course": data.get("course", "EE 105"),
         "source": data.get("source", ""),
         "version": data.get("version"),
-        "chapters": data["chapters"],
-        "skills": [
-            {k: s[k] for k in ("id", "name", "chapter", "reader_section", "prereqs")}
-            for s in skills
-        ],
+        "chapters": data.get("chapters") or {},
+        "skills": [public_skill(s) for s in skills],
         "banks": banks_meta,
         "explainers": explainers_meta,
         "playable": sorted(playable_ids),

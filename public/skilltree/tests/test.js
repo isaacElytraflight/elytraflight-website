@@ -24,11 +24,19 @@ for (const f of fs.readdirSync(BANK_DIR)) {
 
 const KEY = 'skilltree.progress.v1';
 const SKJ = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', '..', 'skilltree', 'ee105_skills_draft.json'))).skills;
+const COLLECTIONS = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', '..', 'skilltree', 'collections.json')));
 const NSKILL = SKJ.length;
 const NPLAY = Object.keys(BANK).length;
 const NSOON = SKJ.length - NPLAY;
 const EDGES = SKJ.reduce((n, s) => n + s.prereqs.length, 0);
 const ROOTS = SKJ.filter(s => BANK[s.id] && !s.prereqs.some(q => BANK[q])).map(s => s.id).sort();
+const CHAPTERS = COLLECTIONS.boxes.filter(b => b.kind === 'chapter');
+const GRID = CHAPTERS.reduce((n, b) => n + (b.skills || []).length, 0);
+const NBOX = COLLECTIONS.boxes.length;
+const NCHAPTER = CHAPTERS.length;
+const NCOURSE = COLLECTIONS.boxes.filter(b => b.kind === 'course').length;
+const NTEXTBOOK = COLLECTIONS.boxes.filter(b => b.kind === 'textbook').length;
+const NBLOB = NBOX;
 
 let browser, results = [], errs = [];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -178,13 +186,15 @@ async function test(name, fn) {
       ready: [...document.querySelectorAll('#world .tile.ready')].map(t => t.dataset.id).sort(),
       blobs: document.querySelectorAll('.blob').length,
       courseBlobs: document.querySelectorAll('.blob.course').length,
+      textbookBlobs: document.querySelectorAll('.blob.textbook').length,
       chapterBlobs: document.querySelectorAll('.blob.chapter').length,
       paths: document.querySelectorAll('#edges path').length,
       title: document.querySelector('h1').textContent
     }));
-    assert.deepStrictEqual([r.tree, r.grid, r.soon, r.blobs, r.paths], [NSKILL, NSKILL, NSOON, 19, EDGES]);
-    assert.strictEqual(r.courseBlobs, 1, 'should have 1 course blob');
-    assert.strictEqual(r.chapterBlobs, 18, 'should have 18 chapter blobs');
+    assert.deepStrictEqual([r.tree, r.grid, r.soon, r.blobs, r.paths], [NSKILL, GRID, NSOON, NBLOB, EDGES]);
+    assert.strictEqual(r.courseBlobs, NCOURSE, 'should have one blob per course');
+    assert.strictEqual(r.textbookBlobs, NTEXTBOOK, 'Feedback Systems is its own textbook blob');
+    assert.strictEqual(r.chapterBlobs, NCHAPTER, 'should have one blob per chapter');
     assert.deepStrictEqual(r.ready, ROOTS);
     assert.strictEqual(r.title, 'Skillgrove');
     await p.screenshot({ path: path.join(SHOTS_DIR, '01_tree_home.png') });
@@ -599,14 +609,14 @@ async function test(name, fn) {
     });
     
     assert(collections, 'collections should be loaded');
-    assert.strictEqual(collections.boxCount, 19, 'should have 19 boxes (1 course + 18 chapters)');
+    assert.strictEqual(collections.boxCount, NBOX, 'should have every course, textbook, and chapter box');
     
     assert(collections.courseBox, 'EE105 course box should exist');
     assert.strictEqual(collections.courseBox.kind, 'course');
     assert.strictEqual(collections.courseBox.title, 'EE 105 (UC Berkeley)');
     assert.strictEqual(collections.courseBox.children.length, 18, 'course should have 18 chapter children');
     
-    assert.strictEqual(collections.chapterBoxes.length, 18, 'should have 18 chapter boxes');
+    assert.strictEqual(collections.chapterBoxes.length, NCHAPTER, 'should have a chapter box for every chapter');
     
     const bodeBoxes = collections.skillMappings['bode'];
     assert(bodeBoxes, 'bode skill should be mapped to boxes');
@@ -691,7 +701,7 @@ async function test(name, fn) {
     assert(layout.ch1Blob, 'chapter 1 blob should exist');
     assert(layout.ch2Blob, 'chapter 2 blob should exist');
     assert(layout.domCourseBlob, 'DOM should have course blob element');
-    assert.strictEqual(layout.domChapterBlobs, 18, 'DOM should have 18 chapter blobs');
+    assert.strictEqual(layout.domChapterBlobs, NCHAPTER, 'DOM should have a chapter blob for every chapter');
     
     await p.screenshot({ path: path.join(SHOTS_DIR, '14_nested_grouped.png') });
     await p._ctx.close();
@@ -811,13 +821,16 @@ async function test(name, fn) {
         height: blob.h,
         chapters: document.querySelectorAll('.blob.chapter').length,
         hiddenTiles: document.querySelectorAll('#world .tile.collapsed-hide').length,
+        tileCount: document.querySelectorAll('#world .tile').length,
+        skillCount: sg.collections.getBoxDescendantSkills('ee105-ucb').length,
         expanded: document.querySelector('.blob.course .toggle').getAttribute('aria-expanded'),
         bad, visible
       };
     });
     assert(course.height < 100, 'collapsed course should shrink to its header');
     assert.strictEqual(course.chapters, 0, 'chapter boxes should be removed while the course is collapsed');
-    assert.strictEqual(course.hiddenTiles, NSKILL, 'every skill tile should be hidden with the course');
+    assert.strictEqual(course.hiddenTiles, course.skillCount, 'every EE 105 skill tile should be hidden with the course');
+    assert.strictEqual(course.tileCount, course.skillCount, 'the EE 105 scope lays out only that course');
     assert.strictEqual(course.expanded, 'false');
     assert.strictEqual(course.bad, 0);
     assert.strictEqual(course.visible, 0, 'no edge should be left dangling from hidden skills');
@@ -846,8 +859,8 @@ async function test(name, fn) {
     assert.strictEqual(controls.oldPlan, false);
 
     const options = await p.$$eval('#scopePicker option', opts => opts.map(o => ({ value: o.value, text: o.textContent })));
-    assert.strictEqual(options[0].value, '', 'first option should be All skills');
-    assert.strictEqual(options[0].text, 'All skills');
+    assert.strictEqual(options[0].value, '', 'first option should be Everything');
+    assert.strictEqual(options[0].text, 'Everything');
     const courseAt = options.findIndex(o => o.value === 'ee105-ucb');
     const ch1At = options.findIndex(o => o.value === 'ee105-ch1');
     const ch2At = options.findIndex(o => o.value === 'ee105-ch2');
@@ -919,7 +932,7 @@ async function test(name, fn) {
       scope: window.__skillgrove.collections.scope()
     }));
     assert.strictEqual(course.scope, 'ee105-ucb');
-    assert.strictEqual(course.dimmed, 0, 'every skill in the only course stays visible');
+    assert.strictEqual(course.dimmed, 0, 'every skill in the EE 105 scope stays visible');
 
     await p.select('#scopePicker', '');
     await sleep(150);
@@ -982,12 +995,13 @@ async function test(name, fn) {
       lightsOn: window.__skillgrove.lights.mode(),
       worldHasClass: document.querySelector('#world').classList.contains('lights-view'),
       lightModeCount: document.querySelectorAll('#world .tile.light-mode').length,
+      tileCount: document.querySelectorAll('#world .tile').length,
       masteredHasShimmer: document.querySelector('.tile[data-id="bode"].t4 .light-dot') !== null
     }));
     
     assert(lightsResult.lightsOn, 'lights mode should be on');
     assert(lightsResult.worldHasClass, 'world should have lights-view class');
-    assert.strictEqual(lightsResult.lightModeCount, NSKILL, 'all tiles should have light-mode');
+    assert.strictEqual(lightsResult.lightModeCount, lightsResult.tileCount, 'all tiles should have light-mode');
     assert(lightsResult.masteredHasShimmer, 'mastered tile should have light-dot');
     
     await p.screenshot({ path: path.join(SHOTS_DIR, '17_lights_nested.png') });
@@ -1112,6 +1126,267 @@ async function test(name, fn) {
       await p.screenshot({ path: path.join(SHOTS_DIR, '19_plan_prereq_extras.png') });
     }
 
+    await p._ctx.close();
+  });
+
+  await test('scope selector lists ME 132 and Feedback Systems as independent choices', async () => {
+    const p = await newPage();
+    const options = await p.$$eval('#scopePicker option', opts => opts.map(o => ({ value: o.value, text: o.textContent })));
+    const me = options.find(o => o.value === 'me132');
+    const book = options.find(o => o.value === 'am08');
+    assert(me, 'selector should list ME 132');
+    assert(book, 'selector should list Feedback Systems');
+    assert.strictEqual(me.text, 'ME 132 (UC Berkeley)');
+    assert.strictEqual(book.text, 'Feedback Systems');
+    assert(!/^[ \u00a0└]/.test(me.text) && !/^[ \u00a0└]/.test(book.text), 'both new boxes are top-level choices');
+    const meAt = options.findIndex(o => o.value === 'me132');
+    const bookAt = options.findIndex(o => o.value === 'am08');
+    const eeAt = options.findIndex(o => o.value === 'ee105-ucb');
+    assert(eeAt >= 0 && meAt > eeAt && bookAt > meAt, 'the three scopes are siblings, in collection order');
+    const meChapters = options.filter(o => o.value.startsWith('me132/'));
+    const bookChapters = options.filter(o => o.value.startsWith('am08/'));
+    assert.strictEqual(meChapters.length, 9);
+    assert.strictEqual(bookChapters.length, 13);
+    assert(bookChapters.some(o => o.value === 'am08/ch99' && /Beyond the book/.test(o.text)));
+    assert(meChapters.every(o => o.text.includes('└')));
+    assert(bookChapters.every(o => o.text.includes('└')));
+    const nesting = await p.evaluate(() => {
+      const boxes = window.__skillgrove.collections.data().boxes;
+      const me = boxes.find(b => b.id === 'me132');
+      const book = boxes.find(b => b.id === 'am08');
+      return {
+        meKind: me.kind,
+        bookKind: book.kind,
+        meHoldsBook: (me.children || []).includes('am08'),
+        bookHoldsMe: (book.children || []).includes('me132')
+      };
+    });
+    assert.strictEqual(nesting.meKind, 'course');
+    assert.strictEqual(nesting.bookKind, 'textbook');
+    assert.strictEqual(nesting.meHoldsBook, false);
+    assert.strictEqual(nesting.bookHoldsMe, false);
+    await p._ctx.close();
+  });
+
+  await test('coming-soon skills stay out of readiness and the learning plan', async () => {
+    const p = await newPage();
+    const result = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const playable = new Set(sg.playableIds());
+      const ready = sg.ready();
+      const full = sg.plan(true, null);
+      const me = sg.plan(true, 'me132');
+      const book = sg.plan(true, 'am08');
+      const practiced = rows => new Set((rows || []).flatMap(row => row.practiced || []));
+      const challenged = rows => new Set((rows || []).flatMap(row => (row.challenges || []).map(c => c.id)));
+      const used = plan => {
+        const ids = new Set([...practiced(plan.rows), ...challenged(plan.rows), ...(plan.extras || []), ...(plan.critical && plan.critical.chain || [])]);
+        return [...ids];
+      };
+      const fullIds = used(full);
+      const meIds = used(me);
+      const bookIds = used(book);
+      const soon = 'fb-concepts';
+      return {
+        readySoon: ready.filter(id => !playable.has(id)),
+        fullSoon: fullIds.filter(id => !playable.has(id)),
+        meSoon: meIds.filter(id => !playable.has(id)),
+        bookSoon: bookIds.filter(id => !playable.has(id)),
+        fullCount: full.scope,
+        playableCount: playable.size,
+        fullOk: full.ok,
+        meOk: me.ok,
+        bookOk: book.ok,
+        meHasSoon: meIds.includes(soon),
+        meExtras: me.extras || [],
+        readyHasSoon: ready.includes(soon),
+        queueHasSoon: sg.queue().some(s => s.id === soon || !playable.has(s.id))
+      };
+    });
+    assert.strictEqual(result.fullOk, true, 'full plan should succeed');
+    assert.strictEqual(result.meOk, true, 'ME 132 plan should succeed');
+    assert.strictEqual(result.bookOk, true, 'Feedback Systems plan should succeed');
+    assert.strictEqual(result.fullCount, result.playableCount, 'the plan covers playable skills only');
+    assert.deepStrictEqual(result.readySoon, [], 'readiness ignores coming-soon skills');
+    assert.deepStrictEqual(result.fullSoon, [], 'coming-soon skills are excluded from the plan');
+    assert.deepStrictEqual(result.meSoon, []);
+    assert.deepStrictEqual(result.bookSoon, []);
+    assert.strictEqual(result.meHasSoon, false);
+    assert.strictEqual(result.readyHasSoon, false);
+    assert.strictEqual(result.queueHasSoon, false, 'the recommender queue stays on playable skills');
+    assert(result.meExtras.includes('gbw'), 'a playable prerequisite outside ME 132 stays in the plan: ' + result.meExtras.join(','));
+
+    await openSkill(p, 'fb-concepts');
+    const panel = await p.evaluate(() => ({
+      text: document.getElementById('panel').textContent,
+      label: document.querySelector('#world .tile[data-id="fb-concepts"]').getAttribute('aria-label'),
+      title: document.querySelector('#world .tile[data-id="fb-concepts"]').title,
+      soon: document.querySelector('#world .tile[data-id="fb-concepts"]').classList.contains('soon'),
+      start: !!document.getElementById('startBtn')
+    }));
+    assert(panel.soon, 'fb-concepts should use the coming-soon tile style');
+    assert(/Coming soon/.test(panel.text));
+    assert(/coming soon/.test(panel.title));
+    assert(/Coming soon, no questions yet/.test(panel.label));
+    assert.strictEqual(panel.start, false);
+    await p._ctx.close();
+  });
+
+  await test('shared skills keep one progress record across boxes', async () => {
+    const p = await newPage(T({
+      bode: { tier: 4, lastPracticed: now - DAY, history: [] }
+    }));
+    await p.click('#btnGroup');
+    await sleep(700);
+    const shared = await p.evaluate(() => {
+      const tiles = [...document.querySelectorAll('#world .tile[data-id="bode"]')];
+      const stored = JSON.parse(localStorage.getItem('skilltree.progress.v1')).skills;
+      return {
+        boxes: tiles.map(t => t.dataset.box).sort(),
+        tiers: tiles.map(t => t.classList.contains('t4')),
+        records: Object.keys(stored).filter(id => id === 'bode').length
+      };
+    });
+    assert.deepStrictEqual(shared.boxes, ['am08/ch8', 'ee105-ch2', 'me132/m3']);
+    assert(shared.tiers.every(Boolean), 'every bode placement shows the same mastered tier');
+    assert.strictEqual(shared.records, 1);
+    await p._ctx.close();
+  });
+
+  await test('ME 132 and Feedback Systems scopes render for review', async () => {
+    const p = await newPage();
+    await p.setViewport({ width: 1440, height: 900 });
+    const shoot = async (scope, file) => {
+      await p.select('#scopePicker', scope);
+      await sleep(300);
+      const grouped = await p.$eval('#btnGroup', b => b.getAttribute('aria-pressed') === 'true');
+      if (!grouped) {
+        await p.click('#btnGroup');
+        await sleep(800);
+      }
+      await p.evaluate(() => {
+        const L = window.__skillgrove.layout().grouped;
+        const box = Object.values(L.blobs).find(b => b.kind === 'course' || b.kind === 'textbook');
+        const tv = document.getElementById('treeView');
+        const vw = tv.clientWidth, vh = tv.clientHeight;
+        const sliceH = Math.min(box.h, 1280);
+        const s = Math.min(0.72, (vw - 48) / box.w, (vh - 36) / sliceH);
+        const x = (vw - box.w * s) / 2 - box.x * s;
+        const y = 16 - box.y * s;
+        window.__skillgrove.lights.setScale(Math.max(s, 0.4));
+        const world = document.getElementById('world');
+        const m = /scale\(([^)]+)\)/.exec(world.style.transform);
+        const scale = m ? parseFloat(m[1]) : s;
+        world.style.transform = `translate(${x}px,${y}px) scale(${scale})`;
+      });
+      await sleep(250);
+      const view = await p.evaluate(scope => {
+        const sg = window.__skillgrove;
+        const tiles = [...document.querySelectorAll('#world .tile')];
+        const soon = tiles.filter(t => t.classList.contains('soon')).length;
+        return {
+          scope: sg.collections.scope(),
+          title: (sg.collections.boxById()[scope] || {}).title,
+          course: document.querySelectorAll('.blob.course.on').length,
+          textbook: document.querySelectorAll('.blob.textbook.on').length,
+          chapters: document.querySelectorAll('.blob.chapter.on').length,
+          tiles: tiles.length,
+          soon,
+          dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+          memberCount: sg.collections.getBoxDescendantSkills(scope).length
+        };
+      }, scope);
+      assert.strictEqual(view.scope, scope);
+      assert.strictEqual(view.dimmed, 0, scope + ' should show its own skills without dimming them');
+      assert.strictEqual(view.tiles, view.memberCount, scope + ' tile count');
+      if (scope === 'me132') {
+        assert.strictEqual(view.title, 'ME 132 (UC Berkeley)');
+        assert.strictEqual(view.course, 1);
+        assert.strictEqual(view.textbook, 0);
+        assert.strictEqual(view.chapters, 9);
+      } else {
+        assert.strictEqual(view.title, 'Feedback Systems');
+        assert.strictEqual(view.course, 0);
+        assert.strictEqual(view.textbook, 1);
+        assert.strictEqual(view.chapters, 13);
+      }
+      assert(view.soon > 0, scope + ' should show coming-soon skills');
+      await p.screenshot({ path: path.join(SHOTS_DIR, file), fullPage: false });
+    };
+    await shoot('me132', '20_me132_scope.png');
+    await shoot('am08', '21_feedback_systems_scope.png');
+    await p._ctx.close();
+  });
+
+  await test('grouped box headers do not overlap in any scope', async () => {
+    const p = await newPage();
+    await p.setViewport({ width: 1440, height: 900 });
+    await p.click('#btnGroup');
+    await sleep(800);
+
+    const overlaps = () => p.evaluate(() => {
+      const hits = [];
+      const heads = [...document.querySelectorAll('#world .blob.on .hd')].map(hd => {
+        const blob = hd.closest('.blob');
+        const r = hd.getBoundingClientRect();
+        const b = blob.getBoundingClientRect();
+        const title = hd.querySelector('.btitle');
+        const counter = hd.querySelector('.ct');
+        if (r.top < b.top - 1 || r.left < b.left - 1 || r.bottom > b.bottom + 1 || r.right > b.right + 1) {
+          hits.push(blob.dataset.box + ' header spills out of its box');
+        }
+        if (title && counter) {
+          const a = title.getBoundingClientRect();
+          const c = counter.getBoundingClientRect();
+          if (a.right > c.left + 1 && c.right > a.left + 1 && a.bottom > c.top + 1 && c.bottom > a.top + 1) {
+            hits.push(blob.dataset.box + ' title overlaps its counter');
+          }
+        }
+        return { id: blob.dataset.box, r };
+      });
+      for (let i = 0; i < heads.length; i++) {
+        for (let j = i + 1; j < heads.length; j++) {
+          const a = heads[i].r, c = heads[j].r;
+          if (a.right > c.left + 1 && c.right > a.left + 1 && a.bottom > c.top + 1 && c.bottom > a.top + 1) {
+            hits.push(heads[i].id + ' ∩ ' + heads[j].id);
+          }
+        }
+      }
+      return hits;
+    });
+
+    const setCollapsed = async ids => {
+      await p.evaluate(want => {
+        const sg = window.__skillgrove;
+        const have = new Set(sg.collections.collapsed());
+        [...have].forEach(id => { if (!want.includes(id)) sg.collections.toggleCollapse(id); });
+        want.forEach(id => { if (!sg.collections.collapsed().has(id)) sg.collections.toggleCollapse(id); });
+      }, ids);
+      await sleep(80);
+    };
+
+    const cases = [
+      { scope: '', label: 'Everything', chapters: ['ee105-ch10', 'me132/m3', 'am08/ch99'], outer: 'me132' },
+      { scope: 'ee105-ucb', label: 'EE 105', chapters: ['ee105-ch10'], outer: 'ee105-ucb' },
+      { scope: 'me132', label: 'ME 132', chapters: ['me132/m1', 'me132/m3'], outer: 'me132' },
+      { scope: 'am08', label: 'Feedback Systems', chapters: ['am08/ch9', 'am08/ch99'], outer: 'am08' }
+    ];
+    for (const c of cases) {
+      await p.select('#scopePicker', c.scope);
+      await sleep(250);
+      await setCollapsed([]);
+      assert.deepStrictEqual(await overlaps(), [], c.label + ' expanded');
+      await setCollapsed(c.chapters);
+      assert.deepStrictEqual(await overlaps(), [], c.label + ' with chapters collapsed');
+      await setCollapsed([c.outer]);
+      assert.deepStrictEqual(await overlaps(), [], c.label + ' with the outer box collapsed');
+      await setCollapsed([]);
+    }
+
+    await p.select('#scopePicker', 'me132');
+    await sleep(250);
+    await panTo(p, '.blob[data-box="me132/m1"] .hd');
+    await p.screenshot({ path: path.join(SHOTS_DIR, '22_me132_header.png') });
     await p._ctx.close();
   });
 

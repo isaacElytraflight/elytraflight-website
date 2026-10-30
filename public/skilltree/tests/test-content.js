@@ -42,11 +42,13 @@ function readJsonDir(dir) {
 
 console.log('\n=== Skillgrove content integrity ===\n');
 
-test('graph is version 2 with 106 live skills and 15 retired ids', () => {
+test('graph is version 2 with 163 live skills and 15 retired ids', () => {
   assert.strictEqual(graph.version, 2);
-  assert.strictEqual(skills.length, 106);
+  assert.strictEqual(skills.length, 163);
   assert.strictEqual(retiredIds.size, 15);
-  assert.strictEqual(new Set(skills.map(s => s.id)).size, 106, 'skill ids are unique');
+  assert.strictEqual(new Set(skills.map(s => s.id)).size, 163, 'skill ids are unique');
+  const soon = skills.filter(s => s.status === 'coming-soon');
+  assert.strictEqual(soon.length, 57, 'ME 132 and Feedback Systems add 57 coming-soon skills');
 });
 
 test('every retired id points at a live survivor and is not itself live', () => {
@@ -57,14 +59,21 @@ test('every retired id points at a live survivor and is not itself live', () => 
   }
 });
 
-test('every graph skill has a quiz bank whose skill_id matches', () => {
+test('playable skills have quiz banks and coming-soon skills do not', () => {
   const banks = readJsonDir(path.join(SRC, 'bank'));
   assert.strictEqual(Object.keys(banks).length, 106);
+  const soon = skills.filter(s => s.status === 'coming-soon');
+  assert.strictEqual(soon.length, 57);
   for (const skill of skills) {
     const bank = banks[skill.id];
+    if (skill.status === 'coming-soon') {
+      assert(!bank, skill.id + ' is coming soon and must not have a question bank');
+      continue;
+    }
     assert(bank, 'missing bank for ' + skill.id);
     assert.strictEqual(bank.skill_id, skill.id);
     assert(Array.isArray(bank.questions) && bank.questions.length > 0, skill.id + ' bank is empty');
+    assert(bank.questions.some(q => q.round === 1), skill.id + ' has no round-1 questions');
   }
   for (const id of Object.keys(banks)) {
     assert(skillIds.has(id), 'bank for unknown skill ' + id);
@@ -72,11 +81,15 @@ test('every graph skill has a quiz bank whose skill_id matches', () => {
   }
 });
 
-test('every graph skill has an explainer', () => {
+test('playable skills have explainers and coming-soon skills do not', () => {
   const explainers = readJsonDir(path.join(SRC, 'explainers'));
   assert.strictEqual(Object.keys(explainers).length, 106);
   for (const skill of skills) {
     const exp = explainers[skill.id];
+    if (skill.status === 'coming-soon') {
+      assert(!exp, skill.id + ' is coming soon and must not have an explainer');
+      continue;
+    }
     assert(exp, 'missing explainer for ' + skill.id);
     assert.strictEqual(exp.id, skill.id);
     assert(Array.isArray(exp.sections) && exp.sections.length > 0, skill.id + ' explainer is empty');
@@ -109,7 +122,24 @@ test('every prerequisite resolves to a live skill and the graph is acyclic', () 
   assert.strictEqual(visited.size, skills.length);
 });
 
-test('collections reference no retired ids and every listed skill exists', () => {
+function topLevelBoxes(boxes) {
+  const childIds = new Set();
+  for (const box of boxes) for (const child of box.children || []) childIds.add(child);
+  return boxes.filter(box => !childIds.has(box.id));
+}
+
+function skillsInBox(box, byId) {
+  const out = new Set(box.skills || []);
+  for (const child of box.children || []) {
+    const nested = byId[child];
+    assert(nested, 'missing child box ' + child);
+    for (const id of skillsInBox(nested, byId)) out.add(id);
+  }
+  return out;
+}
+
+test('collections reference no retired ids and every skill sits in a top-level box', () => {
+  const byId = Object.fromEntries(collections.boxes.map(box => [box.id, box]));
   const seen = new Set();
   for (const box of collections.boxes) {
     assert(!retiredIds.has(box.id), 'box id is a retired skill id: ' + box.id);
@@ -119,10 +149,47 @@ test('collections reference no retired ids and every listed skill exists', () =>
       seen.add(sid);
     }
     for (const child of box.children || []) {
+      assert(byId[child], box.id + ' child ' + child + ' does not resolve');
       assert(!retiredIds.has(child), box.id + ' child ' + child + ' is a retired skill id');
     }
   }
   for (const id of skillIds) assert(seen.has(id), 'live skill missing from collections: ' + id);
+
+  const tops = topLevelBoxes(collections.boxes);
+  const topIds = tops.map(box => box.id);
+  assert.deepStrictEqual(topIds, ['ee105-ucb', 'me132', 'am08']);
+  const me132 = tops.find(box => box.id === 'me132');
+  const am08 = tops.find(box => box.id === 'am08');
+  assert.strictEqual(me132.title, 'ME 132 (UC Berkeley)');
+  assert.strictEqual(me132.kind, 'course');
+  assert.strictEqual(me132.children.length, 9);
+  assert.strictEqual(am08.title, 'Feedback Systems');
+  assert.strictEqual(am08.kind, 'textbook');
+  assert.strictEqual(am08.children.length, 13);
+  assert(!me132.children.includes('am08') && !am08.children.includes('me132'), 'the two new boxes must stay independent');
+
+  const covered = new Set();
+  for (const top of tops) {
+    const members = skillsInBox(top, byId);
+    const chapters = (top.children || []).map(id => byId[id]);
+    const seenInTop = new Set();
+    for (const chapter of chapters) {
+      for (const sid of chapter.skills || []) {
+        assert(!seenInTop.has(sid), sid + ' is in two chapters of ' + top.id);
+        seenInTop.add(sid);
+      }
+    }
+    for (const sid of members) covered.add(sid);
+  }
+  for (const id of skillIds) assert(covered.has(id), 'skill missing from every top-level box: ' + id);
+  assert.strictEqual(skillsInBox(me132, byId).size, 56);
+  assert.strictEqual(skillsInBox(am08, byId).size, 71);
+  for (const shared of ['tf', 'bode', 'fb-intro', 'rc-lpf']) {
+    const boxes = collections.boxes.filter(box => (box.skills || []).includes(shared)).map(box => box.id);
+    assert(boxes.some(id => id.startsWith('ee105-')), shared + ' should stay in EE 105');
+    assert(boxes.some(id => id.startsWith('me132/')), shared + ' should appear in ME 132');
+    assert(boxes.some(id => id.startsWith('am08/')), shared + ' should appear in Feedback Systems');
+  }
 });
 
 test('no retired id is referenced by the built app payload', () => {
@@ -130,12 +197,20 @@ test('no retired id is referenced by the built app payload', () => {
   const built = JSON.parse(fs.readFileSync(path.join(PUB, manifest.skills.file), 'utf8'));
   assert.deepStrictEqual(built.retired, retired);
   const builtIds = built.skills.map(s => s.id);
-  assert.strictEqual(builtIds.length, 106);
+  assert.strictEqual(builtIds.length, 163);
+  assert.strictEqual(Object.keys(built.banks).length, 106);
+  assert.strictEqual(Object.keys(built.explainers).length, 106);
   for (const id of builtIds) {
     assert(!retiredIds.has(id), 'built graph still contains ' + id);
-    for (const pre of built.skills.find(s => s.id === id).prereqs) {
+    const skill = built.skills.find(s => s.id === id);
+    for (const pre of skill.prereqs) {
       assert(builtIds.includes(pre), id + ' prereq ' + pre + ' missing from built graph');
       assert(!retiredIds.has(pre), id + ' prereq ' + pre + ' is retired');
+    }
+    if (skill.status === 'coming-soon') {
+      assert(!built.banks[id], 'coming-soon skill has a built bank: ' + id);
+      assert(!built.explainers[id], 'coming-soon skill has a built explainer: ' + id);
+      continue;
     }
     assert(built.banks[id], 'built manifest missing bank for ' + id);
     assert(fs.existsSync(path.join(PUB, built.banks[id].file)), 'missing ' + built.banks[id].file);
@@ -144,6 +219,12 @@ test('no retired id is referenced by the built app payload', () => {
   }
   for (const id of Object.keys(built.banks)) assert(!retiredIds.has(id), 'built bank for retired ' + id);
   const builtCollections = JSON.parse(fs.readFileSync(path.join(PUB, manifest.collections.file), 'utf8'));
+  const builtById = Object.fromEntries(builtCollections.boxes.map(box => [box.id, box]));
+  const builtTops = topLevelBoxes(builtCollections.boxes).map(box => box.id);
+  assert.deepStrictEqual(builtTops, ['ee105-ucb', 'me132', 'am08']);
+  const covered = new Set();
+  for (const topId of builtTops) for (const sid of skillsInBox(builtById[topId], builtById)) covered.add(sid);
+  for (const id of builtIds) assert(covered.has(id), 'built skill missing from top-level boxes: ' + id);
   for (const box of builtCollections.boxes) {
     for (const sid of box.skills || []) {
       assert(builtIds.includes(sid), 'built collection lists unknown ' + sid);

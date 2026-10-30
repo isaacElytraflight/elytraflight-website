@@ -29,7 +29,14 @@
    "chapter": 1,
    "reader_section": "1.3",
    "prereqs": [],
-   "owns": "linearity, time invariance, superposition"
+   "owns": "linearity, time invariance, superposition",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "5.1",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "rc-lpf",
@@ -37,7 +44,14 @@
    "chapter": 1,
    "reader_section": "1.2",
    "prereqs": [],
-   "owns": "first-order RC step/transient in time domain"
+   "owns": "first-order RC step/transient in time domain",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "notes",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "cx-exp",
@@ -45,7 +59,14 @@
    "chapter": 1,
    "reader_section": "1.4",
    "prereqs": [],
-   "owns": "complex exponentials, polar form, Euler"
+   "owns": "complex exponentials, polar form, Euler",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "8.1",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "sinusoid-resp",
@@ -57,7 +78,14 @@
     "lti-def",
     "rc-lpf"
    ],
-   "owns": "SSS response via e^{jwt} substitution"
+   "owns": "SSS response via e^{jwt} substitution",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "8.1",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "impulse-conv",
@@ -67,7 +95,14 @@
    "prereqs": [
     "lti-def"
    ],
-   "owns": "impulse response and convolution"
+   "owns": "impulse response and convolution",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "5.3",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "step-resp",
@@ -78,7 +113,14 @@
     "impulse-conv",
     "rc-lpf"
    ],
-   "owns": "step/pulse response metrics (rise, settling)"
+   "owns": "step/pulse response metrics (rise, settling)",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "5.3",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "freq-char",
@@ -89,7 +131,14 @@
     "sinusoid-resp",
     "impulse-conv"
    ],
-   "owns": "frequency-domain view of signals and systems"
+   "owns": "frequency-domain view of signals and systems",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "8.1",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "tf",
@@ -99,7 +148,14 @@
    "prereqs": [
     "sinusoid-resp"
    ],
-   "owns": "transfer-function definitions (voltage/current gain, transimpedance)"
+   "owns": "transfer-function definitions (voltage/current gain, transimpedance)",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "8.2",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "phasors",
@@ -130,7 +186,14 @@
    "prereqs": [
     "tf"
    ],
-   "owns": "poles/zeros and their time/frequency meaning"
+   "owns": "poles/zeros and their time/frequency meaning",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "8.2",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "rlc",
@@ -151,7 +214,14 @@
    "prereqs": [
     "pole-zero"
    ],
-   "owns": "Bode magnitude/phase sketching"
+   "owns": "Bode magnitude/phase sketching",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "8.4",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "ac-power",
@@ -989,7 +1059,14 @@
    "prereqs": [
     "tf"
    ],
-   "owns": "feedback block diagram"
+   "owns": "feedback block diagram",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "1.1",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "loop-gain",
@@ -999,7 +1076,14 @@
    "prereqs": [
     "fb-intro"
    ],
-   "owns": "loop gain and desensitivity"
+   "owns": "loop gain and desensitivity",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "9.1",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "opamp-models",
@@ -1043,7 +1127,14 @@
    "prereqs": [
     "loop-gain"
    ],
-   "owns": "static/dynamic feedback errors"
+   "owns": "static/dynamic feedback errors",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "10.1",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "fb-impedance",
@@ -1065,7 +1156,14 @@
     "gbw",
     "pole-zero"
    ],
-   "owns": "stability and phase margin"
+   "owns": "stability and phase margin",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "9.3",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "offset",
@@ -1129,6 +1227,1174 @@
     "noise-dist"
    ],
    "owns": "reading op-amp datasheets"
+  },
+  {
+   "id": "fb-concepts",
+   "name": "What feedback does: open vs closed loop",
+   "summary": "Contrast open-loop and closed-loop control and name the plant, sensor, actuator, controller, reference and disturbance.",
+   "prereqs": [
+    "fb-intro"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "1.1-1.4",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "block-diagram",
+   "name": "Block-diagram algebra",
+   "summary": "Reduce series, parallel and feedback interconnections to a single transfer function.",
+   "prereqs": [
+    "tf",
+    "fb-concepts"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "8.3",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "onoff-pid-intro",
+   "name": "Simple feedback: on-off, P, PI, PID",
+   "summary": "Compare on-off, proportional, integral and derivative action qualitatively and predict steady-state error.",
+   "prereqs": [
+    "fb-concepts"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "1.5",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "ode-model",
+   "name": "Modeling with differential equations",
+   "summary": "Write ODE models of mechanical, electrical and fluid elements from physical laws.",
+   "prereqs": [
+    "lti-def"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "2.1",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "state-space-model",
+   "name": "State-space models",
+   "summary": "Put an n-th order ODE or coupled ODEs into x'=Ax+Bu, y=Cx+Du form.",
+   "prereqs": [
+    "ode-model"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "2.2",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "cruise-control",
+   "name": "Cruise control as a feedback example",
+   "summary": "Model a vehicle speed loop with drag and grade disturbance and see what P and PI control achieve.",
+   "prereqs": [
+    "ode-model",
+    "onoff-pid-intro"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "3.1",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "laplace",
+   "name": "Laplace transform and its properties",
+   "summary": "Transform signals and ODEs, use derivative/integral rules and the final value theorem.",
+   "prereqs": [
+    "cx-exp"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "8.5",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "model-method",
+   "name": "Modeling methodology: scaling, units, identification",
+   "summary": "Choose states, nondimensionalize, and pick model fidelity for a control purpose.",
+   "prereqs": [
+    "ode-model"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "2.3",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "first-order-sys",
+   "name": "First-order systems",
+   "summary": "Find time constant, DC gain, step and free response of a first-order system and its control.",
+   "prereqs": [
+    "laplace",
+    "step-resp"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "5.3, notes",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "second-order-sys",
+   "name": "Second-order systems: damping and natural frequency",
+   "summary": "Relate zeta and omega_n to pole locations and to under/over/critically damped responses.",
+   "prereqs": [
+    "first-order-sys",
+    "pole-zero"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "5.3, 7.5",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "step-specs",
+   "name": "Step-response specifications",
+   "summary": "Compute rise time, overshoot, settling time and steady-state error, and map them to the s-plane.",
+   "prereqs": [
+    "second-order-sys"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "5.3, 11.3",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "pid",
+   "name": "PID control law and its effects",
+   "summary": "Predict how proportional, integral and derivative gains change the closed-loop poles and errors.",
+   "prereqs": [
+    "second-order-sys",
+    "onoff-pid-intro"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "10.1",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "windup",
+   "name": "Integrator windup and anti-windup",
+   "summary": "Explain actuator saturation windup and design back-calculation or clamping anti-windup.",
+   "prereqs": [
+    "pid"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "10.4",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "pid-tuning",
+   "name": "PID tuning (Ziegler-Nichols and model-based)",
+   "summary": "Tune a PID from step or ultimate-gain experiments and from a first-order-plus-delay model.",
+   "prereqs": [
+    "pid"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "10.3",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "pid-impl",
+   "name": "PID implementation: derivative filtering, setpoint weighting, discretization",
+   "summary": "Filter the derivative, weight setpoints and discretize a PID for a computer.",
+   "prereqs": [
+    "pid"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "10.5",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "ss-solution",
+   "name": "Matrix exponential and the general solution",
+   "summary": "Solve x'=Ax+Bu with e^{At} and the convolution integral.",
+   "prereqs": [
+    "state-space-model",
+    "impulse-conv"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "5.2-5.3",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "eig-modes",
+   "name": "Eigenvalues, modes and diagonalization",
+   "summary": "Decompose a response into modes using eigenvectors and Jordan form.",
+   "prereqs": [
+    "ss-solution"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "5.2",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "ss-to-tf",
+   "name": "From state space to transfer function",
+   "summary": "Compute G(s)=C(sI-A)^{-1}B+D and relate poles to eigenvalues.",
+   "prereqs": [
+    "ss-solution",
+    "tf"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "8.2",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "realization",
+   "name": "Realizations: controllable and observable canonical forms",
+   "summary": "Build a state-space realization from a transfer function; note non-uniqueness.",
+   "prereqs": [
+    "ss-to-tf"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "6.1, 7.1",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "lti-stability",
+   "name": "Stability of LTI systems",
+   "summary": "Decide asymptotic and BIBO stability from eigenvalues or poles; Routh-Hurwitz test.",
+   "prereqs": [
+    "eig-modes",
+    "pole-zero"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "4.3, 5.2",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "freq-resp-lti",
+   "name": "Frequency response of a general LTI system",
+   "summary": "Get steady-state sinusoidal response from G(j omega) for state-space and TF models.",
+   "prereqs": [
+    "ss-to-tf",
+    "sinusoid-resp"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "5.3, 8.1",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "lin-algebra-review",
+   "name": "Linear algebra for state space",
+   "summary": "Rank, null space, eigenvalues and similarity transforms as used in control.",
+   "prereqs": [],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "appendix",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "discrete-time",
+   "name": "Discrete-time systems and sampling",
+   "summary": "Model sampled systems as difference equations and check stability inside the unit circle.",
+   "prereqs": [
+    "ss-solution"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "5.3 (discrete), 10.5",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "loop-tf",
+   "name": "Loop transfer function and the Gang of Four",
+   "summary": "Form L=PC and the closed-loop maps S, T, PS, CS from reference, disturbance and noise.",
+   "prereqs": [
+    "block-diagram",
+    "loop-gain"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "9.1, 11.1",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "root-locus",
+   "name": "Root locus",
+   "summary": "Sketch how closed-loop poles move with gain using asymptotes, breakaway and angle rules.",
+   "prereqs": [
+    "loop-tf",
+    "lti-stability"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "12.4 (root locus)",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "nyquist",
+   "name": "Nyquist plot and stability criterion",
+   "summary": "Count encirclements of -1 to infer closed-loop unstable poles.",
+   "prereqs": [
+    "loop-tf",
+    "bode"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "9.2",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "time-delay",
+   "name": "Time delay in feedback loops",
+   "summary": "Represent delay as e^{-sT}, see its phase lag, and use Padé approximations.",
+   "prereqs": [
+    "freq-resp-lti"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "9.2, 11.5",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "margins",
+   "name": "Gain, phase and stability margins",
+   "summary": "Read gain, phase and stability margins from Bode and Nyquist plots.",
+   "prereqs": [
+    "nyquist"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "9.3",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "min-phase",
+   "name": "Bode's relations and minimum-phase systems",
+   "summary": "Relate gain slope to phase and recognize nonminimum-phase zeros and delays.",
+   "prereqs": [
+    "bode",
+    "margins"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "9.4",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "gen-gain-phase",
+   "name": "Generalized gain, describing functions",
+   "summary": "Extend gain/phase to nonlinear elements via describing functions and the small-gain idea.",
+   "prereqs": [
+    "nyquist"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "9.5",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "sensitivity",
+   "name": "Sensitivity functions and disturbance rejection",
+   "summary": "Use S and T to quantify disturbance attenuation, noise and tracking.",
+   "prereqs": [
+    "loop-tf"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "11.1",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "uncertainty",
+   "name": "Modeling uncertainty",
+   "summary": "Describe parametric and unmodeled-dynamics uncertainty with additive/multiplicative bounds.",
+   "prereqs": [
+    "sensitivity"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "12.1",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "robust-stability",
+   "name": "Robust stability",
+   "summary": "Apply the small-gain test |T Δ|<1 and stability margins to uncertain plants.",
+   "prereqs": [
+    "uncertainty",
+    "margins"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "12.2",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "robust-perf",
+   "name": "Robust performance",
+   "summary": "Keep specs under uncertainty using weighted S and T bounds.",
+   "prereqs": [
+    "robust-stability"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "12.3, 12.5",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "feedforward",
+   "name": "Feedforward design and 2-DOF control",
+   "summary": "Add reference and disturbance feedforward to a feedback loop.",
+   "prereqs": [
+    "sensitivity"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "11.2",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "perf-specs-freq",
+   "name": "Frequency-domain performance specifications",
+   "summary": "Translate bandwidth, peak sensitivity and crossover into design targets.",
+   "prereqs": [
+    "sensitivity",
+    "step-specs"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "11.3",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "loop-shaping",
+   "name": "Loop shaping with lead and lag compensators",
+   "summary": "Shape L(j omega) with lead/lag/PI to meet margins and bandwidth.",
+   "prereqs": [
+    "perf-specs-freq",
+    "margins"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "11.4",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "fund-limits",
+   "name": "Fundamental limitations: RHP zeros, delays, Bode integral",
+   "summary": "Bound achievable bandwidth from RHP poles/zeros and the waterbed effect.",
+   "prereqs": [
+    "loop-shaping",
+    "min-phase"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "11.5",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "reachability",
+   "name": "Reachability (controllability)",
+   "summary": "Test reachability with the rank of [B AB ... ] and reach canonical form.",
+   "prereqs": [
+    "realization",
+    "lin-algebra-review"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "6.1",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "state-feedback",
+   "name": "State feedback and pole placement",
+   "summary": "Choose K so that A-BK has desired eigenvalues; Ackermann's formula.",
+   "prereqs": [
+    "reachability",
+    "second-order-sys"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "6.2-6.3",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "integral-action",
+   "name": "Integral action in state feedback",
+   "summary": "Augment the state with an error integrator to remove steady-state error.",
+   "prereqs": [
+    "state-feedback"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "6.4",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "lqr",
+   "name": "Linear quadratic regulator",
+   "summary": "Pick weights Q, R and interpret the LQR gain trade-off.",
+   "prereqs": [
+    "state-feedback"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "6.3 (LQR)",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "observability",
+   "name": "Observability",
+   "summary": "Test observability with the rank of [C; CA; ...] and observable canonical form.",
+   "prereqs": [
+    "realization",
+    "lin-algebra-review"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "7.1",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "observer",
+   "name": "State estimation with observers",
+   "summary": "Design an observer gain L so that A-LC is fast and stable.",
+   "prereqs": [
+    "observability"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "7.2",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "separation",
+   "name": "Output feedback and the separation principle",
+   "summary": "Combine state feedback with an observer and see that the eigenvalues separate.",
+   "prereqs": [
+    "observer",
+    "state-feedback"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "7.3",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "kalman",
+   "name": "Kalman filtering",
+   "summary": "Estimate states optimally under process and sensor noise.",
+   "prereqs": [
+    "observer"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "7.4",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "gen-controller",
+   "name": "General controller structure",
+   "summary": "Combine feedforward, state feedback and estimation into a 2-DOF structure.",
+   "prereqs": [
+    "separation",
+    "feedforward"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "7.5",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "equilibria",
+   "name": "Equilibrium points and phase portraits",
+   "summary": "Find equilibria and sketch phase portraits of 2-D nonlinear systems.",
+   "prereqs": [
+    "state-space-model"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "4.2",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "linearization",
+   "name": "Linearization about an equilibrium",
+   "summary": "Compute Jacobians and use local linear models for analysis and control.",
+   "prereqs": [
+    "equilibria",
+    "eig-modes"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "5.4",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "lyapunov",
+   "name": "Lyapunov stability",
+   "summary": "Prove stability with a Lyapunov function and the Lyapunov equation.",
+   "prereqs": [
+    "equilibria",
+    "lti-stability"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "4.4",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "limit-cycles",
+   "name": "Limit cycles, bifurcations and nonlocal behavior",
+   "summary": "Recognize limit cycles, regions of attraction and parameter bifurcations.",
+   "prereqs": [
+    "equilibria"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "4.5",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "fb-linearization",
+   "name": "Feedback linearization",
+   "summary": "Cancel nonlinearities with input transformations to get linear dynamics.",
+   "prereqs": [
+    "linearization",
+    "state-feedback"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "6.3, notes",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "gain-scheduling",
+   "name": "Gain scheduling",
+   "summary": "Interpolate linear controllers designed at several operating points.",
+   "prereqs": [
+    "linearization",
+    "state-feedback"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "notes (beyond AM08 depth)",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "sys-id",
+   "name": "System identification",
+   "summary": "Fit a model from step/frequency data and least squares.",
+   "prereqs": [
+    "first-order-sys",
+    "freq-resp-lti"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "2.3, notes",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "mpc",
+   "name": "Model predictive control (intro)",
+   "summary": "Solve a receding-horizon optimization with constraints at each step.",
+   "prereqs": [
+    "state-feedback",
+    "discrete-time"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "notes (outside AM08)",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "adaptive",
+   "name": "Adaptive control (intro)",
+   "summary": "Update controller parameters online from estimates.",
+   "prereqs": [
+    "sys-id",
+    "pid"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "notes (outside AM08)",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "app-examples",
+   "name": "Applications tour: op-amps, AFM, drug dosing, populations",
+   "summary": "Apply modeling and feedback ideas to the textbook's application families.",
+   "prereqs": [
+    "state-space-model",
+    "fb-concepts"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "3.2-3.7",
+     "use": "reference only"
+    },
+    {
+     "ref": "ME 132 Fall 2026 syllabus/notes",
+     "use": "scope only"
+    }
+   ]
   }
  ],
  "retired": {
