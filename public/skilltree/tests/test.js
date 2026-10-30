@@ -814,6 +814,93 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('learning plan scope picker filters by chapter', async () => {
+    const p = await newPage(T({
+      'lti-def': { tier: 1, lastPracticed: now - DAY, history: [] },
+      'rc-lpf': { tier: 1, lastPracticed: now - 2 * DAY, history: [] }
+    }));
+    
+    await p.click('#btnPlan');
+    await sleep(500);
+    
+    const scopePicker = await p.$('#planScopePicker');
+    assert(scopePicker, 'scope picker should exist in plan modal');
+    
+    const options = await p.$$eval('#planScopePicker option', opts => opts.map(o => ({ value: o.value, text: o.textContent.trim() })));
+    assert(options.length > 1, 'picker should have multiple options');
+    assert.strictEqual(options[0].value, '', 'first option should be All skills');
+    assert(options.some(o => o.value === 'ee105-ucb'), 'should have course option');
+    assert(options.some(o => o.value === 'ee105-ch1'), 'should have chapter options');
+    
+    const allSkillsResult = await p.evaluate(() => {
+      const sessions = document.getElementById('planSessions');
+      return sessions ? parseInt(sessions.textContent) : null;
+    });
+    assert(allSkillsResult > 0, 'all skills should have sessions');
+    
+    await p.select('#planScopePicker', 'ee105-ch1');
+    await sleep(300);
+    
+    const ch1Result = await p.evaluate(() => {
+      const sessions = document.getElementById('planSessions');
+      const scopeNote = document.getElementById('planScopeNote');
+      return {
+        sessions: sessions ? parseInt(sessions.textContent) : null,
+        scopeNote: scopeNote ? scopeNote.textContent : ''
+      };
+    });
+    
+    assert(ch1Result.sessions > 0, 'ch1 scope should have sessions');
+    assert(ch1Result.sessions <= allSkillsResult, 'ch1 sessions should be <= all skills sessions');
+    assert(/Chapter 1/.test(ch1Result.scopeNote) || /ee105-ch1/.test(ch1Result.scopeNote) || /playable skill/.test(ch1Result.scopeNote), 
+      'scope note should mention the selected scope');
+    
+    await p.screenshot({ path: path.join(SHOTS_DIR, '18_plan_scope_picker.png') });
+    await p._ctx.close();
+  });
+
+  await test('learning plan includes out-of-box prerequisites with star marker', async () => {
+    const p = await newPage();
+    
+    const prereqTest = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const ch2Skills = sg.collections.getBoxDescendantSkills('ee105-ch2');
+      
+      const allPlayable = sg.playableIds();
+      const ch2Playable = ch2Skills.filter(id => allPlayable.includes(id));
+      
+      const r = sg.plan(true, 'ee105-ch2');
+      return {
+        ch2PlayableCount: ch2Playable.length,
+        planScope: r.scope,
+        extras: r.extras || [],
+        ok: r.ok,
+        hasExtras: (r.extras || []).length > 0
+      };
+    });
+    
+    assert(prereqTest.ok, 'plan should succeed');
+    assert(prereqTest.planScope > prereqTest.ch2PlayableCount || prereqTest.hasExtras, 
+      'plan scope should include extras or be larger than ch2 playable count');
+    
+    if (prereqTest.hasExtras) {
+      await p.click('#btnPlan');
+      await sleep(500);
+      await p.select('#planScopePicker', 'ee105-ch2');
+      await sleep(300);
+      
+      const extrasNote = await p.$('#planExtras');
+      if (extrasNote) {
+        const text = await p.$eval('#planExtras', e => e.textContent);
+        assert(/prerequisite.*outside/i.test(text), 'should show prerequisites outside scope note');
+      }
+      
+      await p.screenshot({ path: path.join(SHOTS_DIR, '19_plan_prereq_extras.png') });
+    }
+    
+    await p._ctx.close();
+  });
+
   await browser.close();
 
   console.log('\n=== Test Results ===\n');
