@@ -16,7 +16,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "An amplifier has \\(R_{in} = 50\\ \\mathrm{k\\Omega}\\), \\(A_v = 40\\), \\(R_{out} = 200\\ \\Omega\\). It is driven from a source with \\(R_s = 10\\ \\mathrm{k\\Omega}\\) and drives \\(R_L = 800\\ \\Omega\\).\n\\[ \\frac{v_o}{v_s} = \\frac{50}{60}\\cdot 40\\cdot\\frac{800}{1000} = 0.833 \\cdot 40 \\cdot 0.8 \\approx 26.7 \\]\nThat is \\(20\\log_{10}26.7 \\approx 28.5\\) dB, down from the intrinsic 32 dB."
+   "body_md": "An amplifier has \\(R_{in} = 90\\ \\mathrm{k\\Omega}\\), \\(A_v = 25\\), \\(R_{out} = 100\\ \\Omega\\). It is driven from a source with \\(R_s = 10\\ \\mathrm{k\\Omega}\\) and drives \\(R_L = 900\\ \\Omega\\).\n\\[ \\frac{v_o}{v_s} = \\frac{90}{100}\\cdot 25\\cdot\\frac{900}{1000} = 0.9 \\cdot 25 \\cdot 0.9 = 20.25 \\]\nThat is \\(20\\log_{10}20.25 \\approx 26.1\\) dB, down from the intrinsic 28.0 dB."
   },
   {
    "heading": "Common pitfalls",

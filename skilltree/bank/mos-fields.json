@@ -142,7 +142,7 @@
       "explanation": "\\[\\frac{C_{ox}}{q} = \\frac{1.725\\times10^{-6}}{1.602\\times10^{-19}} \\approx 1.08\\times10^{13}\\ \\mathrm{cm^{-2}V^{-1}}\\]",
       "preview": [
         "triode",
-        "saturation"
+        "square-law"
       ]
     },
     {

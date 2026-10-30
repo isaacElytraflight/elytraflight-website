@@ -16,7 +16,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "An n-type sample (\\(N_D = 10^{16}\\ \\mathrm{cm^{-3}}\\)) is illuminated with \\(G_L = 10^{19}\\ \\mathrm{cm^{-3}s^{-1}}\\) and \\(\\tau_p = 2\\ \\mu\\mathrm{s}\\).\n\\[ \\Delta p = \\Delta n = 10^{19}\\times2\\times10^{-6} = 2\\times10^{13}\\ \\mathrm{cm^{-3}} \\]\nHoles jump from \\(10^4\\) to \\(2\\times10^{13}\\), a factor of \\(2\\times10^{9}\\). Electrons go from \\(10^{16}\\) to \\(1.002\\times10^{16}\\), almost unchanged. That is low-level injection."
+   "body_md": "An n-type sample (\\(N_D = 10^{17}\\ \\mathrm{cm^{-3}}\\), so \\(p_0 = 10^3\\ \\mathrm{cm^{-3}}\\)) is illuminated with \\(G_L = 4\\times10^{20}\\ \\mathrm{cm^{-3}s^{-1}}\\) and \\(\\tau_p = 1\\ \\mu\\mathrm{s}\\).\n\\[ \\Delta p = \\Delta n = 4\\times10^{20}\\times10^{-6} = 4\\times10^{14}\\ \\mathrm{cm^{-3}} \\]\nHoles jump from \\(10^3\\) to \\(4\\times10^{14}\\), a factor of \\(4\\times10^{11}\\). Electrons go from \\(10^{17}\\) to \\(1.004\\times10^{17}\\), almost unchanged. That is low-level injection."
   },
   {
    "heading": "Common pitfalls",

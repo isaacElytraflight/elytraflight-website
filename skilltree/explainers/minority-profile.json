@@ -16,7 +16,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "N side with \\(N_D = 10^{17}\\ \\mathrm{cm^{-3}}\\), so \\(p_{n0} = 10^{3}\\ \\mathrm{cm^{-3}}\\). At \\(V_D = 0.54\\ \\mathrm{V}\\) (about 9 decades by the 60 mV rule):\n\\[ p_n(x_n) \\approx 10^{3}\\times10^{9} = 10^{12}\\ \\mathrm{cm^{-3}} \\]\nStill far below \\(10^{17}\\), so low-level injection holds. In a short region of width \\(1\\ \\mu\\mathrm{m}\\), the slope is \\(10^{12}/10^{-4} = 10^{16}\\ \\mathrm{cm^{-4}}\\)."
+   "body_md": "N side with \\(N_D = 10^{18}\\ \\mathrm{cm^{-3}}\\), so \\(p_{n0} = 10^{2}\\ \\mathrm{cm^{-3}}\\). At \\(V_D = 0.6\\ \\mathrm{V}\\) (about 10 decades by the 60 mV rule):\n\\[ p_n(x_n) \\approx 10^{2}\\times10^{10} = 10^{12}\\ \\mathrm{cm^{-3}} \\]\nStill far below \\(10^{18}\\), so low-level injection holds. In a short region of width \\(4\\ \\mu\\mathrm{m}\\), the slope is \\(10^{12}/(4\\times10^{-4}) = 2.5\\times10^{15}\\ \\mathrm{cm^{-4}}\\)."
   },
   {
    "heading": "Common pitfalls",

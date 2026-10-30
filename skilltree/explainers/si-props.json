@@ -16,7 +16,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "How rare are broken bonds? At 300 K, \\(n_i \\approx 10^{10}\\ \\mathrm{cm^{-3}}\\). Silicon has about \\(5\\times10^{22}\\) atoms per cm³ and four bonds per atom, shared by two atoms, so about \\(10^{23}\\) bonds per cm³.\n\\[ \\frac{10^{10}}{10^{23}} = 10^{-13} \\]\nOnly about one bond in ten trillion is broken, which is why pure silicon is such a poor conductor."
+   "body_md": "How rare are broken bonds? At room temperature, \\(n_i \\approx 10^{10}\\ \\mathrm{cm^{-3}}\\). Silicon has four bonds per atom, each shared by two atoms, which works out to about \\(10^{23}\\) bonds per cm³.\n\\[ \\frac{10^{10}}{10^{23}} = 10^{-13} \\]\nOnly about one bond in ten trillion is broken, which is why pure silicon is such a poor conductor."
   },
   {
    "heading": "Common pitfalls",

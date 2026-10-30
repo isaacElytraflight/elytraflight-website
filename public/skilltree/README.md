@@ -19,9 +19,9 @@ public/skilltree/
 ├── skills.<hash>.json      # Skill graph + metadata (~30 KB, loaded at startup)
 ├── collections.<hash>.json # Course/chapter hierarchy (loaded at startup)
 ├── banks/                  # Question banks, loaded lazily on quiz start
-│   └── ... (55 banks, ~1.7 MB total)
-└── explainers/             # Skill explainers, loaded lazily
-    └── ... (55 explainers, ~350 KB total)
+│   └── ... (106 banks)
+└── explainers/             # Skill explainers, loaded lazily ("Read first")
+    └── ... (106 explainers)
 ```
 
 ## How It Works
@@ -160,6 +160,8 @@ The app is plain JavaScript with no build step. Edit the files directly:
 Tests are in `public/skilltree/tests/`. They include:
 
 - **Unit tests** for merge functions (`test-merge.js`)
+- **Unit tests** for retired-id progress migration (`test-migrate.js`)
+- **Content integrity** for the skill graph, banks, and collections (`test-content.js`)
 - **UI tests** using Puppeteer (`test.js`)
 
 ```bash
@@ -168,6 +170,8 @@ npm install
 
 # Unit tests (no server needed)
 node test-merge.js
+node test-migrate.js
+node test-content.js
 
 # UI tests (needs local server)
 # Start a server from repo root first:

@@ -1,0 +1,30 @@
+{
+ "id": "bjt-struct",
+ "title": "BJT structure, layout and symbol",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "A bipolar junction transistor (BJT) is two pn junctions back to back sharing a very thin middle region. In an **npn**, an n-type **emitter** sits against a thin p-type **base**, which sits against an n-type **collector**. In normal (forward-active) use, the base-emitter junction is forward biased and the base-collector junction is reverse biased.\n\nThe structure is deliberately asymmetric. The emitter is very heavily doped so that the current across the base-emitter junction is almost all electrons going into the base, not holes coming back. The base is thin so those electrons diffuse across before they recombine, and the reverse-biased collector junction then sweeps them in. Real devices are built vertically: an n+ emitter diffused into a p base, which is diffused into the n collector. In the symbol, the emitter arrow shows conventional current: out of an npn, into a pnp.",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 196\" role=\"img\" aria-label=\"Cross-section of a vertical npn BJT: heavily doped n+ emitter on top, a thin p base under it, and the n collector below; current flows vertically through the base width W_B.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"60\" width=\"320\" height=\"120\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n collector</text><rect x=\"90\" y=\"60\" width=\"180\" height=\"70\" stroke-dasharray=\"4 3\"/><text x=\"118\" y=\"120\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p base</text><rect x=\"140\" y=\"60\" width=\"80\" height=\"30\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"80\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ emitter</text><text x=\"180\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E</text><text x=\"110\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"300\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"180\" y1=\"90\" x2=\"180\" y2=\"130\" stroke-dasharray=\"4 3\"/><text x=\"186\" y=\"112\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">W_B</text></svg>",
+   "figure_alt": "Cross-section of a vertical npn BJT: heavily doped n+ emitter on top, a thin p base under it, and the n collector below; current flows vertically through the base width W_B."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "Terminal currents (KCL), with currents defined as flowing into the device:\n\\[ I_C + I_B + I_E = 0 \\quad\\Rightarrow\\quad -I_E = I_C + I_B \\]\nForward-active: \\(I_C \\approx -I_E\\) and \\(I_C \\gg I_B\\).\nCollector current set by the base-emitter voltage: \\(I_C \\approx I_S\\,e^{V_{BE}/V_{th}}\\).",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 150\" role=\"img\" aria-label=\"npn BJT symbol: base on the left, collector at the top, emitter at the bottom, emitter arrow pointing out of the device.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"126\" y1=\"80\" x2=\"150\" y2=\"80\"/><line x1=\"150\" y1=\"66\" x2=\"150\" y2=\"94\" stroke-width=\"2.4\"/><line x1=\"150\" y1=\"74\" x2=\"168\" y2=\"62\"/><line x1=\"168\" y1=\"62\" x2=\"168\" y2=\"52\"/><line x1=\"168\" y1=\"98\" x2=\"168\" y2=\"108\"/><line x1=\"150\" y1=\"86\" x2=\"168\" y2=\"98\"/><polygon points=\"168,98 161.1,96.7 164.1,92.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"174\" y=\"84\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">npn</text><text x=\"120\" y=\"76\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"176\" y=\"48\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><text x=\"176\" y=\"120\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">E</text></svg>",
+   "figure_alt": "npn BJT symbol: base on the left, collector at the top, emitter at the bottom, emitter arrow pointing out of the device."
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "A device has \\(I_C = 3.20\\ \\mathrm{mA}\\) and an emitter current of magnitude \\(3.23\\ \\mathrm{mA}\\). Then\n\\[ I_B = |I_E| - I_C = 30\\ \\mu\\mathrm{A}, \\qquad \\frac{I_C}{I_B} \\approx 107 \\]\nA 1% difference between the emitter and collector currents already means a current gain near 100."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Treating the BJT as symmetric. Swapping emitter and collector gives a much lower gain.\n- Forgetting the sign convention: \\(I_E\\) is negative for an npn when currents are defined as flowing in.\n- Drawing the emitter arrow on the wrong terminal or in the wrong direction for pnp.\n- Thinking the base current flows \"through\" to the collector; it is the small recombination and back-injection part."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "The next skills turn this structure into equations: the measured I-V curves, the diffusion physics of transistor action, and the current gain \\(\\beta_F\\)."
+  }
+ ]
+}

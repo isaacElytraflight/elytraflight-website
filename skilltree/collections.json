@@ -148,8 +148,6 @@
         "nmos-regions",
         "triode",
         "square-law",
-        "saturation",
-        "clm",
         "pmos"
       ]
     },
@@ -161,12 +159,9 @@
       "children": [],
       "skills": [
         "cs-intro",
-        "op-point",
         "gm",
         "ro",
-        "ss-model",
-        "ss-steps",
-        "pmos-ss"
+        "ss-model"
       ]
     },
     {
@@ -177,8 +172,7 @@
       "children": [],
       "skills": [
         "mos-caps",
-        "body-effect",
-        "ss-4term"
+        "body-effect"
       ]
     },
     {
@@ -191,7 +185,6 @@
         "bjt-struct",
         "bjt-iv",
         "bjt-action",
-        "bjt-gain",
         "ebers-moll",
         "early",
         "bjt-ss"
@@ -209,7 +202,6 @@
         "cs-analysis",
         "cg",
         "cd",
-        "body-amp",
         "amp-choice"
       ]
     },
@@ -223,11 +215,8 @@
         "high-load",
         "diode-conn",
         "mirror",
-        "mirror-ratio",
-        "mirror-ro",
         "degeneration",
         "cascode-src",
-        "cd-real",
         "ref-gen"
       ]
     },
@@ -241,7 +230,6 @@
         "freq-basics",
         "cs-brute",
         "miller",
-        "cs-miller",
         "cd-freq",
         "cg-freq",
         "ft",
@@ -255,7 +243,6 @@
       "color_index": 15,
       "children": [],
       "skills": [
-        "z-match",
         "cs-cascade",
         "cs-cascade-freq",
         "cs-cap-load",
@@ -273,9 +260,7 @@
       "skills": [
         "diff-intro",
         "diff-dc",
-        "dm-cm",
         "half-circuit",
-        "cm-gain",
         "cmrr",
         "mirror-load"
       ]

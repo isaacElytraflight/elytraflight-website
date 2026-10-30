@@ -16,7 +16,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "An n+ poly gate on p-type silicon with \\(N_A = 10^{15}\\ \\mathrm{cm^{-3}}\\) and \\(t_{ox} = 5\\ \\mathrm{nm}\\):\n\\[ \\varphi_p = -0.026\\ln10^{5} \\approx -0.30\\ \\mathrm{V} \\]\n\\[ \\varphi_{n^+} - \\varphi_p \\approx 0.55 + 0.30 = 0.85\\ \\mathrm{V} \\]\n\\[ C_{ox} = \\frac{3.45\\times10^{-13}}{5\\times10^{-7}} = 6.9\\times10^{-7}\\ \\mathrm{F/cm^2} = 6.9\\ \\mathrm{fF/\\mu m^2} \\]"
+   "body_md": "An n+ poly gate on p-type silicon with \\(N_A = 10^{15}\\ \\mathrm{cm^{-3}}\\) and \\(t_{ox} = 4\\ \\mathrm{nm}\\):\n\\[ \\varphi_p = -0.026\\ln10^{5} \\approx -0.30\\ \\mathrm{V} \\]\n\\[ \\varphi_{n^+} - \\varphi_p \\approx 0.55 + 0.30 = 0.85\\ \\mathrm{V} \\]\n\\[ C_{ox} = \\frac{\\varepsilon_{ox}}{t_{ox}} = \\frac{\\varepsilon_{ox}}{4\\ \\mathrm{nm}} \\approx 8.6\\ \\mathrm{fF/\\mu m^2} \\]"
   },
   {
    "heading": "Common pitfalls",

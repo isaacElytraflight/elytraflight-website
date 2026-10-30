@@ -14,7 +14,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "Find the magnitude and angle of \\(z = \\dfrac{3 + 3j}{2j}\\).\n\nNumerator: \\(|3+3j| = 3\\sqrt2 \\approx 4.24\\) at \\(45^\\circ\\). Denominator: \\(2j\\) has magnitude 2 at \\(90^\\circ\\).\n\\[ |z| = \\frac{4.24}{2} = 2.12, \\qquad \\angle z = 45^\\circ - 90^\\circ = -45^\\circ \\]\nCheck in rectangular form: \\(\\frac{3+3j}{2j} = \\frac{(3+3j)(-j)}{2} = 1.5 - 1.5j\\). ✓"
+   "body_md": "Find the magnitude and angle of \\(z = \\dfrac{3 + 4j}{1 + j}\\).\n\nNumerator: \\(|3 + 4j| = 5\\) at \\(53.13^\\circ\\). Denominator: \\(|1 + j| = \\sqrt2 \\approx 1.414\\) at \\(45^\\circ\\).\n\\[ |z| = \\frac{5}{1.414} \\approx 3.54, \\qquad \\angle z = 53.13^\\circ - 45^\\circ = 8.13^\\circ \\]\nCheck in rectangular form: \\(\\frac{(3 + 4j)(1 - j)}{2} = \\frac{7 + j}{2} = 3.5 + 0.5j\\), magnitude 3.54 at \\(\\tan^{-1}(1/7) = 8.13^\\circ\\). ✓"
   },
   {
    "heading": "Common pitfalls",

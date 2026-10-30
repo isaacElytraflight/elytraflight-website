@@ -1,0 +1,175 @@
+{
+  "skill_id": "ic-fab",
+  "version": 1,
+  "questions": [
+    {
+      "id": "ic-fab-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In the reader's process flow, what is the job of the patterned \\(\\mathrm{SiO_2}\\) layer during ion implantation?",
+      "options": [
+        "It supplies the dopant atoms that diffuse into the silicon",
+        "It converts the implanted ions into active donors",
+        "It blocks the ions everywhere except where windows have been etched, so only the openings get doped",
+        "It protects the photoresist from the UV exposure"
+      ],
+      "correct_index": 2,
+      "explanation": "Ions are implanted over the whole wafer surface. Oxide-covered regions stop them; the etched windows let them reach the silicon (reader Sec. 4.2.2). The oxide is a mask, not a dopant source; activation happens in the later high-temperature step.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 196\" role=\"img\" aria-label=\"Ion implantation through an oxide window: ions hit the whole wafer, but the oxide blocks them except in the opening, where an n-type region forms in the p-type substrate.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"110\" width=\"320\" height=\"70\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p-type Si substrate</text><rect x=\"20\" y=\"96\" width=\"120\" height=\"14\"/><rect x=\"220\" y=\"96\" width=\"120\" height=\"14\"/><text x=\"80\" y=\"92\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂</text><text x=\"280\" y=\"92\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂</text><line x1=\"150\" y1=\"30\" x2=\"150\" y2=\"104\"/><polygon points=\"150,104 147.7,98.5 152.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"164\" y1=\"30\" x2=\"164\" y2=\"104\"/><polygon points=\"164,104 161.7,98.5 166.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"178\" y1=\"30\" x2=\"178\" y2=\"104\"/><polygon points=\"178,104 175.7,98.5 180.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"192\" y1=\"30\" x2=\"192\" y2=\"104\"/><polygon points=\"192,104 189.7,98.5 194.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"206\" y1=\"30\" x2=\"206\" y2=\"104\"/><polygon points=\"206,104 203.7,98.5 208.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"30\" x2=\"40\" y2=\"90\"/><polygon points=\"40,90 37.7,84.5 42.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"80\" y1=\"30\" x2=\"80\" y2=\"90\"/><polygon points=\"80,90 77.7,84.5 82.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"30\" x2=\"120\" y2=\"90\"/><polygon points=\"120,90 117.7,84.5 122.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"240\" y1=\"30\" x2=\"240\" y2=\"90\"/><polygon points=\"240,90 237.7,84.5 242.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 277.7,84.5 282.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"320\" y1=\"30\" x2=\"320\" y2=\"90\"/><polygon points=\"320,90 317.7,84.5 322.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"140\" y=\"110\" width=\"80\" height=\"22\" stroke-dasharray=\"4 3\"/><text x=\"180\" y=\"125\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n implant</text><text x=\"180\" y=\"22\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">dopant ions</text></svg>",
+      "figure_alt": "Ion implantation through an oxide window: ions hit the whole wafer, but the oxide blocks them except in the opening, where an n-type region forms in the p-type substrate."
+    },
+    {
+      "id": "ic-fab-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Put the reader's diffusion-region flow in order (after the substrate is ready).",
+      "options": [
+        "Implant → grow oxide → coat photoresist → etch → anneal",
+        "Coat photoresist → implant → grow oxide → UV expose → etch",
+        "Grow oxide → implant → coat photoresist → anneal → etch",
+        "Grow oxide → coat photoresist → UV expose through a mask → etch → implant → anneal (diffuse)"
+      ],
+      "correct_index": 3,
+      "explanation": "The mask (oxide with windows) must exist before implantation, and the windows come from photolithography: resist, exposure, etch. The final heating step lets the dopants move into lattice sites and diffuse (reader Fig. 4.1).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 196\" role=\"img\" aria-label=\"Ion implantation through an oxide window: ions hit the whole wafer, but the oxide blocks them except in the opening, where an n-type region forms in the p-type substrate.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"110\" width=\"320\" height=\"70\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p-type Si substrate</text><rect x=\"20\" y=\"96\" width=\"120\" height=\"14\"/><rect x=\"220\" y=\"96\" width=\"120\" height=\"14\"/><text x=\"80\" y=\"92\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂</text><text x=\"280\" y=\"92\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂</text><line x1=\"150\" y1=\"30\" x2=\"150\" y2=\"104\"/><polygon points=\"150,104 147.7,98.5 152.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"164\" y1=\"30\" x2=\"164\" y2=\"104\"/><polygon points=\"164,104 161.7,98.5 166.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"178\" y1=\"30\" x2=\"178\" y2=\"104\"/><polygon points=\"178,104 175.7,98.5 180.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"192\" y1=\"30\" x2=\"192\" y2=\"104\"/><polygon points=\"192,104 189.7,98.5 194.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"206\" y1=\"30\" x2=\"206\" y2=\"104\"/><polygon points=\"206,104 203.7,98.5 208.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"30\" x2=\"40\" y2=\"90\"/><polygon points=\"40,90 37.7,84.5 42.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"80\" y1=\"30\" x2=\"80\" y2=\"90\"/><polygon points=\"80,90 77.7,84.5 82.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"30\" x2=\"120\" y2=\"90\"/><polygon points=\"120,90 117.7,84.5 122.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"240\" y1=\"30\" x2=\"240\" y2=\"90\"/><polygon points=\"240,90 237.7,84.5 242.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 277.7,84.5 282.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"320\" y1=\"30\" x2=\"320\" y2=\"90\"/><polygon points=\"320,90 317.7,84.5 322.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"140\" y=\"110\" width=\"80\" height=\"22\" stroke-dasharray=\"4 3\"/><text x=\"180\" y=\"125\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n implant</text><text x=\"180\" y=\"22\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">dopant ions</text></svg>",
+      "figure_alt": "Ion implantation through an oxide window: ions hit the whole wafer, but the oxide blocks them except in the opening, where an n-type region forms in the p-type substrate."
+    },
+    {
+      "id": "ic-fab-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Silicon has about \\(5\\times10^{22}\\) atoms per cm³. A region is doped at \\(N_D = 2\\times10^{16}\\ \\mathrm{cm^{-3}}\\). On average, how many silicon atoms are there per dopant atom?",
+      "answer": 2500000.0,
+      "unit": "atoms",
+      "tolerance": 0.02,
+      "explanation": "\\[\\frac{5\\times10^{22}}{2\\times10^{16}} = 2.5\\times10^{6}\\] Even a 'heavy' design doping replaces only one atom in millions, which is why the starting wafer must be purer still (about 1 part in \\(10^9\\))."
+    },
+    {
+      "id": "ic-fab-r2-q1",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Why must the starting wafer's unintentional impurity level be around \\(10^{12}\\ \\mathrm{cm^{-3}}\\) or lower?",
+      "options": [
+        "Intentional doping goes as low as about \\(10^{14}\\), so stray impurities must be one to two orders of magnitude below that",
+        "Impurities above \\(10^{12}\\) would make silicon metallic",
+        "Photoresist cannot be exposed on impure wafers",
+        "Oxide cannot grow if impurities exceed \\(10^{12}\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "Designers dope from roughly \\(10^{14}\\) to \\(10^{18}\\ \\mathrm{cm^{-3}}\\). If the background impurities were comparable, the lightest doping levels would be uncontrolled (reader Sec. 4.2)."
+    },
+    {
+      "id": "ic-fab-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "An implant delivers a dose of \\(3\\times10^{13}\\) donors per cm² of surface. If the dopants end up spread uniformly through a layer \\(0.6\\ \\mu\\mathrm{m}\\) deep, what is the doping concentration (in cm⁻³)?",
+      "answer": 5e+17,
+      "unit": "cm⁻³",
+      "tolerance": 0.02,
+      "explanation": "Dose is atoms per area; dividing by the depth (in cm) gives atoms per volume: \\[N = \\frac{3\\times10^{13}}{0.6\\times10^{-4}} = 5\\times10^{17}\\ \\mathrm{cm^{-3}}\\] Common mistake: forgetting \\(1\\ \\mu\\mathrm{m} = 10^{-4}\\ \\mathrm{cm}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 196\" role=\"img\" aria-label=\"Ion implantation through an oxide window: ions hit the whole wafer, but the oxide blocks them except in the opening, where an n-type region forms in the p-type substrate.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"110\" width=\"320\" height=\"70\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p-type Si substrate</text><rect x=\"20\" y=\"96\" width=\"120\" height=\"14\"/><rect x=\"220\" y=\"96\" width=\"120\" height=\"14\"/><text x=\"80\" y=\"92\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂</text><text x=\"280\" y=\"92\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂</text><line x1=\"150\" y1=\"30\" x2=\"150\" y2=\"104\"/><polygon points=\"150,104 147.7,98.5 152.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"164\" y1=\"30\" x2=\"164\" y2=\"104\"/><polygon points=\"164,104 161.7,98.5 166.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"178\" y1=\"30\" x2=\"178\" y2=\"104\"/><polygon points=\"178,104 175.7,98.5 180.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"192\" y1=\"30\" x2=\"192\" y2=\"104\"/><polygon points=\"192,104 189.7,98.5 194.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"206\" y1=\"30\" x2=\"206\" y2=\"104\"/><polygon points=\"206,104 203.7,98.5 208.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"30\" x2=\"40\" y2=\"90\"/><polygon points=\"40,90 37.7,84.5 42.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"80\" y1=\"30\" x2=\"80\" y2=\"90\"/><polygon points=\"80,90 77.7,84.5 82.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"30\" x2=\"120\" y2=\"90\"/><polygon points=\"120,90 117.7,84.5 122.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"240\" y1=\"30\" x2=\"240\" y2=\"90\"/><polygon points=\"240,90 237.7,84.5 242.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 277.7,84.5 282.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"320\" y1=\"30\" x2=\"320\" y2=\"90\"/><polygon points=\"320,90 317.7,84.5 322.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"140\" y=\"110\" width=\"80\" height=\"22\" stroke-dasharray=\"4 3\"/><text x=\"180\" y=\"125\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n implant</text><text x=\"180\" y=\"22\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">dopant ions</text></svg>",
+      "figure_alt": "Ion implantation through an oxide window: ions hit the whole wafer, but the oxide blocks them except in the opening, where an n-type region forms in the p-type substrate."
+    },
+    {
+      "id": "ic-fab-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A positive photoresist is exposed to UV through a mask and then developed. Which regions are removed?",
+      "options": [
+        "The regions shaded by the mask",
+        "The regions that were exposed to UV",
+        "All of the resist, leaving only the oxide pattern",
+        "None; exposure only hardens the resist"
+      ],
+      "correct_index": 1,
+      "explanation": "In a positive resist, UV exposure changes the chemistry so the exposed areas wash away (reader footnote, Sec. 4.2.2). A negative resist does the opposite."
+    },
+    {
+      "id": "ic-fab-r3-q1",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "The \\(5\\times10^{17}\\ \\mathrm{cm^{-3}}\\) layer from before is \\(0.6\\ \\mu\\mathrm{m}\\) thick with electron mobility \\(250\\ \\mathrm{cm^2/(V\\,s)}\\). What is its sheet resistance \\(R_\\square = 1/(qN\\mu t)\\) in Ω per square?",
+      "answer": 832.293,
+      "unit": "Ω/□",
+      "tolerance": 0.02,
+      "explanation": "\\[R_\\square = \\frac{1}{(1.602\\times10^{-19})(5\\times10^{17})(250)(0.6\\times10^{-4})} \\approx 83\\ \\Omega/\\square\\] Note \\(qN\\mu t = q\\mu Q\\): the sheet resistance depends only on the dose, not on how deep it spreads.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 196\" role=\"img\" aria-label=\"Ion implantation through an oxide window: ions hit the whole wafer, but the oxide blocks them except in the opening, where an n-type region forms in the p-type substrate.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"110\" width=\"320\" height=\"70\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p-type Si substrate</text><rect x=\"20\" y=\"96\" width=\"120\" height=\"14\"/><rect x=\"220\" y=\"96\" width=\"120\" height=\"14\"/><text x=\"80\" y=\"92\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂</text><text x=\"280\" y=\"92\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂</text><line x1=\"150\" y1=\"30\" x2=\"150\" y2=\"104\"/><polygon points=\"150,104 147.7,98.5 152.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"164\" y1=\"30\" x2=\"164\" y2=\"104\"/><polygon points=\"164,104 161.7,98.5 166.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"178\" y1=\"30\" x2=\"178\" y2=\"104\"/><polygon points=\"178,104 175.7,98.5 180.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"192\" y1=\"30\" x2=\"192\" y2=\"104\"/><polygon points=\"192,104 189.7,98.5 194.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"206\" y1=\"30\" x2=\"206\" y2=\"104\"/><polygon points=\"206,104 203.7,98.5 208.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"30\" x2=\"40\" y2=\"90\"/><polygon points=\"40,90 37.7,84.5 42.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"80\" y1=\"30\" x2=\"80\" y2=\"90\"/><polygon points=\"80,90 77.7,84.5 82.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"30\" x2=\"120\" y2=\"90\"/><polygon points=\"120,90 117.7,84.5 122.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"240\" y1=\"30\" x2=\"240\" y2=\"90\"/><polygon points=\"240,90 237.7,84.5 242.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 277.7,84.5 282.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"320\" y1=\"30\" x2=\"320\" y2=\"90\"/><polygon points=\"320,90 317.7,84.5 322.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"140\" y=\"110\" width=\"80\" height=\"22\" stroke-dasharray=\"4 3\"/><text x=\"180\" y=\"125\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n implant</text><text x=\"180\" y=\"22\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">dopant ions</text></svg>",
+      "figure_alt": "Ion implantation through an oxide window: ions hit the whole wafer, but the oxide blocks them except in the opening, where an n-type region forms in the p-type substrate."
+    },
+    {
+      "id": "ic-fab-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Why is \\(\\mathrm{SiO_2}\\) so convenient for silicon processing?",
+      "options": [
+        "It is a good conductor for interconnect",
+        "It is a direct-band-gap material for optical devices",
+        "It grows natively on silicon, is chemically very stable, insulates, and can mask implants",
+        "It has the same dielectric constant as silicon"
+      ],
+      "correct_index": 2,
+      "explanation": "The reader lists its uses: stable native oxide, insulator for interconnect isolation, and a mask that blocks implantation outside etched windows (Sec. 4.2.1). Its relative permittivity is 3.9, versus 11.7 for silicon."
+    },
+    {
+      "id": "ic-fab-r3-q3",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A wafer is polished to \\(700\\ \\mu\\mathrm{m}\\) thick, but devices only use roughly the top \\(2\\ \\mu\\mathrm{m}\\). What fraction (as a percentage) of the wafer thickness is the active layer?",
+      "answer": 0.285714,
+      "unit": "%",
+      "tolerance": 0.02,
+      "explanation": "\\(2/700 \\approx 0.29\\%\\). Almost all of the wafer is mechanical support; everything happens in thin films at the top surface (reader Sec. 4.2)."
+    },
+    {
+      "id": "ic-fab-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of IC resistors: an n-type implanted strip in a p-type substrate is used as a resistor. What condition keeps it isolated from the substrate?",
+      "options": [
+        "The strip must be biased below the substrate",
+        "An oxide layer must separate the strip from the substrate",
+        "No condition: the substrate has higher resistance",
+        "The strip must never go below the substrate potential, so the n-strip/p-substrate junction stays reverse biased"
+      ],
+      "correct_index": 3,
+      "explanation": "The strip and substrate form a pn junction. Reverse biased, it blocks DC current, leaving only a distributed capacitance to the substrate (reader Sec. 4.3.1).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 196\" role=\"img\" aria-label=\"Ion implantation through an oxide window: ions hit the whole wafer, but the oxide blocks them except in the opening, where an n-type region forms in the p-type substrate.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"110\" width=\"320\" height=\"70\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p-type Si substrate</text><rect x=\"20\" y=\"96\" width=\"120\" height=\"14\"/><rect x=\"220\" y=\"96\" width=\"120\" height=\"14\"/><text x=\"80\" y=\"92\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂</text><text x=\"280\" y=\"92\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂</text><line x1=\"150\" y1=\"30\" x2=\"150\" y2=\"104\"/><polygon points=\"150,104 147.7,98.5 152.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"164\" y1=\"30\" x2=\"164\" y2=\"104\"/><polygon points=\"164,104 161.7,98.5 166.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"178\" y1=\"30\" x2=\"178\" y2=\"104\"/><polygon points=\"178,104 175.7,98.5 180.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"192\" y1=\"30\" x2=\"192\" y2=\"104\"/><polygon points=\"192,104 189.7,98.5 194.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"206\" y1=\"30\" x2=\"206\" y2=\"104\"/><polygon points=\"206,104 203.7,98.5 208.3,98.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"30\" x2=\"40\" y2=\"90\"/><polygon points=\"40,90 37.7,84.5 42.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"80\" y1=\"30\" x2=\"80\" y2=\"90\"/><polygon points=\"80,90 77.7,84.5 82.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"30\" x2=\"120\" y2=\"90\"/><polygon points=\"120,90 117.7,84.5 122.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"240\" y1=\"30\" x2=\"240\" y2=\"90\"/><polygon points=\"240,90 237.7,84.5 242.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 277.7,84.5 282.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"320\" y1=\"30\" x2=\"320\" y2=\"90\"/><polygon points=\"320,90 317.7,84.5 322.3,84.5\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"140\" y=\"110\" width=\"80\" height=\"22\" stroke-dasharray=\"4 3\"/><text x=\"180\" y=\"125\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n implant</text><text x=\"180\" y=\"22\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">dopant ions</text></svg>",
+      "figure_alt": "Ion implantation through an oxide window: ions hit the whole wafer, but the oxide blocks them except in the opening, where an n-type region forms in the p-type substrate.",
+      "preview": [
+        "sheet-res"
+      ]
+    },
+    {
+      "id": "ic-fab-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of IC resistors: a resistor strip uses the \\(83\\ \\Omega/\\square\\) layer and is 40 squares long. Ignoring the contacts, what is its resistance in kΩ?",
+      "answer": 3.332,
+      "unit": "kΩ",
+      "tolerance": 0.03,
+      "explanation": "\\(R = R_\\square \\cdot (L/W) = 83.3 \\times 40 \\approx 3.33\\ \\mathrm{k\\Omega}\\). Counting squares is how IC resistors are designed.",
+      "preview": [
+        "sheet-res"
+      ]
+    },
+    {
+      "id": "ic-fab-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of MOSFET structure: which processing idea from this skill also forms a MOSFET's source and drain?",
+      "options": [
+        "Implanting through windows defined by a mask, with the gate itself acting as part of the mask (self-aligned)",
+        "Depositing metal directly on bare silicon",
+        "Growing a thick oxide over the source and drain",
+        "Shining UV on the substrate to create carriers"
+      ],
+      "correct_index": 0,
+      "explanation": "Source and drain are n+ regions implanted into the p body. The poly gate blocks the implant beneath it, so the source and drain line up with the gate edges automatically.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 206\" role=\"img\" aria-label=\"Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"90\" width=\"320\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p-type body</text><rect x=\"50\" y=\"90\" width=\"70\" height=\"26\"/><rect x=\"240\" y=\"90\" width=\"70\" height=\"26\"/><text x=\"85\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><text x=\"275\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><rect x=\"120\" y=\"80\" width=\"120\" height=\"10\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"120\" y=\"50\" width=\"120\" height=\"30\"/><text x=\"180\" y=\"70\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ poly gate on thin oxide</text><text x=\"85\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><text x=\"275\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><text x=\"180\" y=\"40\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"180\" y=\"132\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">← L →</text><line x1=\"20\" y1=\"180\" x2=\"340\" y2=\"180\"/><text x=\"180\" y=\"198\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">B (body contact)</text></svg>",
+      "figure_alt": "Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them.",
+      "preview": [
+        "mosfet-struct"
+      ]
+    }
+  ]
+}

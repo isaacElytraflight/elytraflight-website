@@ -1,0 +1,179 @@
+{
+  "skill_id": "bjt-ss",
+  "version": 1,
+  "questions": [
+    {
+      "id": "bjt-ss-r1-q1",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A BJT is biased at \\(I_C = 1\\ \\mathrm{mA}\\). Find \\(g_m\\) in mS (\\(V_{th} = kT/q = 26\\ \\mathrm{mV}\\)).",
+      "answer": 38.4615,
+      "unit": "mS",
+      "tolerance": 0.02,
+      "explanation": "\\(g_m = I_C/V_{th} = 1\\ \\mathrm{mA}/26\\ \\mathrm{mV} = 38.5\\ \\mathrm{mS}\\) (reader Eq. 11.24). Unlike a MOSFET, it depends only on current, not size.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"24\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"34\" y1=\"60\" x2=\"90\" y2=\"60\"/><polyline points=\"90,60 90,77 84,80 96,85 84,90 96,95 84,100 96,105 90,113 90,130\"/><text x=\"102\" y=\"99\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_π</text><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_be</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_be</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel."
+    },
+    {
+      "id": "bjt-ss-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A BJT with \\(\\beta = 100\\) is biased at \\(I_C = 0.5\\ \\mathrm{mA}\\). Find \\(r_\\pi\\) in kΩ.",
+      "answer": 5.2,
+      "unit": "kΩ",
+      "tolerance": 0.02,
+      "explanation": "\\(r_\\pi = \\beta/g_m = 100/(19.2\\ \\mathrm{mS}) = 5.2\\ \\mathrm{k\\Omega}\\) (Eq. 11.27). Forgetting \\(\\beta\\) gives \\(1/g_m = 52\\ \\Omega\\), the emitter-side value.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"24\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"34\" y1=\"60\" x2=\"90\" y2=\"60\"/><polyline points=\"90,60 90,77 84,80 96,85 84,90 96,95 84,100 96,105 90,113 90,130\"/><text x=\"102\" y=\"99\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_π</text><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_be</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_be</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel."
+    },
+    {
+      "id": "bjt-ss-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What physical effect does \\(r_\\pi\\) represent?",
+      "options": [
+        "The resistance of the neutral base region",
+        "Base-width modulation",
+        "The emitter contact resistance",
+        "The base current rising with \\(v_{be}\\), i.e. the collector's \\(g_m\\) divided by \\(\\beta\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "\\(i_b = i_c/\\beta = g_mv_{be}/\\beta\\), so the base looks like a conductance \\(g_m/\\beta\\). Base-width modulation gives \\(r_o\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"24\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"34\" y1=\"60\" x2=\"90\" y2=\"60\"/><polyline points=\"90,60 90,77 84,80 96,85 84,90 96,95 84,100 96,105 90,113 90,130\"/><text x=\"102\" y=\"99\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_π</text><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_be</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_be</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel."
+    },
+    {
+      "id": "bjt-ss-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A BJT with Early voltage \\(V_A = 50\\ \\mathrm{V}\\) carries \\(I_C = 0.25\\ \\mathrm{mA}\\). Find \\(r_o\\) in kΩ.",
+      "answer": 200.0,
+      "unit": "kΩ",
+      "tolerance": 0.02,
+      "explanation": "\\(r_o = V_A/I_C = 50/0.25\\ \\mathrm{mA} = 200\\ \\mathrm{k\\Omega}\\) (Eq. 11.29).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"24\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"34\" y1=\"60\" x2=\"90\" y2=\"60\"/><polyline points=\"90,60 90,77 84,80 96,85 84,90 96,95 84,100 96,105 90,113 90,130\"/><text x=\"102\" y=\"99\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_π</text><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_be</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_be</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel."
+    },
+    {
+      "id": "bjt-ss-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "At the same bias current, how does a BJT's \\(g_m\\) compare with a MOSFET's at \\(V_{ov} = 0.2\\ \\mathrm{V}\\)?",
+      "options": [
+        "About four times higher: \\(1/V_{th} \\approx 38\\ \\mathrm{V^{-1}}\\) versus \\(2/V_{ov} = 10\\ \\mathrm{V^{-1}}\\)",
+        "The same, since both are \\(I/V\\)",
+        "Lower, because of \\(\\beta\\)",
+        "Higher only if the BJT is larger"
+      ],
+      "correct_index": 0,
+      "explanation": "Exponential devices give the most transconductance per amp. A MOSFET would need \\(V_{ov} = 2V_{th} = 52\\ \\mathrm{mV}\\) to match, outside the square-law region.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"24\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"34\" y1=\"60\" x2=\"90\" y2=\"60\"/><polyline points=\"90,60 90,77 84,80 96,85 84,90 96,95 84,100 96,105 90,113 90,130\"/><text x=\"102\" y=\"99\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_π</text><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_be</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_be</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel."
+    },
+    {
+      "id": "bjt-ss-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Find the intrinsic gain \\(g_mr_o\\) of a BJT with \\(V_A = 40\\ \\mathrm{V}\\) at \\(I_C = 1\\ \\mathrm{mA}\\).",
+      "answer": 1538.46,
+      "unit": "",
+      "tolerance": 0.02,
+      "explanation": "\\(g_mr_o = (I_C/V_{th})(V_A/I_C) = V_A/V_{th} = 40/0.026 \\approx 1540\\), independent of current.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"24\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"34\" y1=\"60\" x2=\"90\" y2=\"60\"/><polyline points=\"90,60 90,77 84,80 96,85 84,90 96,95 84,100 96,105 90,113 90,130\"/><text x=\"102\" y=\"99\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_π</text><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_be</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_be</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel."
+    },
+    {
+      "id": "bjt-ss-r3-q1",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A BJT at \\(I_C = 2\\ \\mathrm{mA}\\) sees \\(v_{be} = 2\\ \\mathrm{mV}\\). Find the small-signal collector current in µA (ignore \\(r_o\\)).",
+      "answer": 153.846,
+      "unit": "µA",
+      "tolerance": 0.02,
+      "explanation": "\\(i_c = g_mv_{be} = 76.9\\ \\mathrm{mS}\\times2\\ \\mathrm{mV} = 154\\ \\mu\\mathrm{A}\\). Since \\(2\\ \\mathrm{mV} \\ll V_{th}\\), the linear model is accurate.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"24\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"34\" y1=\"60\" x2=\"90\" y2=\"60\"/><polyline points=\"90,60 90,77 84,80 96,85 84,90 96,95 84,100 96,105 90,113 90,130\"/><text x=\"102\" y=\"99\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_π</text><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_be</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_be</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel."
+    },
+    {
+      "id": "bjt-ss-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Doubling \\(I_C\\) changes the hybrid-pi elements how?",
+      "options": [
+        "\\(g_m\\) rises by \\(\\sqrt2\\); \\(r_\\pi\\) is fixed",
+        "\\(g_m\\) doubles, \\(r_\\pi\\) and \\(r_o\\) halve",
+        "All three double",
+        "Only \\(g_m\\) changes"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(g_m = I_C/V_{th}\\), \\(r_\\pi = \\beta V_{th}/I_C\\), \\(r_o = V_A/I_C\\). The \\(\\sqrt2\\) law belongs to the MOSFET at fixed size.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"24\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"34\" y1=\"60\" x2=\"90\" y2=\"60\"/><polyline points=\"90,60 90,77 84,80 96,85 84,90 96,95 84,100 96,105 90,113 90,130\"/><text x=\"102\" y=\"99\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_π</text><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_be</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_be</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel."
+    },
+    {
+      "id": "bjt-ss-r3-q3",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A BJT with \\(\\beta = 150\\) is biased at \\(I_C = 0.2\\ \\mathrm{mA}\\) with its emitter grounded. What small-signal resistance (kΩ) is seen looking into the base?",
+      "answer": 19.5,
+      "unit": "kΩ",
+      "tolerance": 0.02,
+      "explanation": "With the emitter at AC ground the base sees just \\(r_\\pi = \\beta V_{th}/I_C = 19.5\\ \\mathrm{k\\Omega}\\). A MOSFET gate would be an open circuit.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"24\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"34\" y1=\"60\" x2=\"90\" y2=\"60\"/><polyline points=\"90,60 90,77 84,80 96,85 84,90 96,95 84,100 96,105 90,113 90,130\"/><text x=\"102\" y=\"99\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_π</text><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_be</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_be</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel."
+    },
+    {
+      "id": "bjt-ss-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of CS-type gain: a common-emitter stage at \\(I_C = 1\\ \\mathrm{mA}\\) has \\(R_C = 5\\ \\mathrm{k\\Omega}\\) and \\(r_o = 100\\ \\mathrm{k\\Omega}\\). Find the voltage gain.",
+      "answer": -183.15,
+      "unit": "",
+      "tolerance": 0.02,
+      "explanation": "\\(A_v = -g_m(R_C\\parallel r_o) = -38.5\\ \\mathrm{mS}\\times4.76\\ \\mathrm{k\\Omega} \\approx -183\\), far more than a comparable MOSFET stage.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"24\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"34\" y1=\"60\" x2=\"90\" y2=\"60\"/><polyline points=\"90,60 90,77 84,80 96,85 84,90 96,95 84,100 96,105 90,113 90,130\"/><text x=\"102\" y=\"99\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_π</text><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_be</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_be</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.",
+      "preview": [
+        "cs-analysis"
+      ]
+    },
+    {
+      "id": "bjt-ss-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of \\(f_T\\): what extra capacitance does a forward-active BJT have from base to emitter beyond its junction capacitance?",
+      "options": [
+        "An oxide capacitance",
+        "None",
+        "A diffusion capacitance \\(g_m\\tau_F\\) from the minority charge stored in the base",
+        "The collector-base depletion capacitance"
+      ],
+      "correct_index": 2,
+      "explanation": "Raising \\(v_{be}\\) stores more electrons in the base, \\(\\Delta Q = \\tau_F\\Delta I_C\\) (reader Eq. 11.31).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"24\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"34\" y1=\"60\" x2=\"90\" y2=\"60\"/><polyline points=\"90,60 90,77 84,80 96,85 84,90 96,95 84,100 96,105 90,113 90,130\"/><text x=\"102\" y=\"99\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_π</text><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_be</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_be</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.",
+      "preview": [
+        "ft"
+      ]
+    },
+    {
+      "id": "bjt-ss-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of followers: looking into the emitter of a BJT whose base is driven by an ideal source, what resistance do you see (ignore \\(r_o\\))?",
+      "options": [
+        "\\(r_\\pi\\)",
+        "\\(\\beta r_o\\)",
+        "Infinite",
+        "About \\(1/g_m\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "The emitter current is \\((\\beta + 1)i_b\\) for a voltage \\(v\\) across \\(r_\\pi\\), giving \\(r_\\pi/(\\beta + 1) \\approx 1/g_m\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"24\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"34\" y1=\"60\" x2=\"90\" y2=\"60\"/><polyline points=\"90,60 90,77 84,80 96,85 84,90 96,95 84,100 96,105 90,113 90,130\"/><text x=\"102\" y=\"99\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_π</text><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_be</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_be</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "BJT hybrid-pi small-signal model: r_pi from base to emitter, controlled source g_m v_be from collector to emitter, r_o in parallel.",
+      "preview": [
+        "cd"
+      ]
+    }
+  ]
+}

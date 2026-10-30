@@ -16,7 +16,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "A forward amplifier has \\(G = 2000\\) and the feedback network returns \\(f = 0.05\\).\n\\[ T = 2000 \\times 0.05 = 100, \\qquad A_{CL} = \\frac{2000}{101} \\approx 19.80 \\]\nThe ideal value is \\(1/f = 20\\), only 1% higher. If \\(G\\) dropped to 1000, \\(A_{CL}\\) would be \\(1000/51 \\approx 19.61\\): the gain changed by 50%, the output by less than 1%."
+   "body_md": "A forward amplifier has \\(G = 5000\\) and the feedback network returns \\(f = 0.02\\).\n\\[ T = 5000 \\times 0.02 = 100, \\qquad A_{CL} = \\frac{5000}{101} \\approx 49.50 \\]\nThe ideal value is \\(1/f = 50\\), only 1% higher. If \\(G\\) dropped to 2500, \\(A_{CL}\\) would be \\(2500/51 \\approx 49.02\\): the gain changed by 50%, the output by less than 1%."
   },
   {
    "heading": "Common pitfalls",

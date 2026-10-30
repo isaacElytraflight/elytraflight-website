@@ -173,26 +173,19 @@ async function signOut() {
 }
 
 function mergeSkill(local, remote) {
-  if (!local && !remote) return null;
-  if (!local) return remote;
-  if (!remote) return local;
-  
-  const seenT = new Set();
-  const mergedHist = [];
-  const allHist = [...(local.history || []), ...(remote.history || [])];
-  allHist.sort((a, b) => a.t - b.t);
-  for (const h of allHist) {
-    if (!seenT.has(h.t)) {
-      seenT.add(h.t);
-      mergedHist.push(h);
-    }
-  }
-  
-  return {
-    tier: Math.max(local.tier || 0, remote.tier || 0),
-    lastPracticed: Math.max(local.lastPracticed || 0, remote.lastPracticed || 0) || null,
-    history: mergedHist.slice(-60)
-  };
+  return window.SkillgroveMigrate.mergeSkillRecords(local, remote);
+}
+
+function retirementMap() {
+  const fromApp = window.__skillgrove && window.__skillgrove.retired && window.__skillgrove.retired();
+  return fromApp && typeof fromApp === 'object' ? fromApp : {};
+}
+
+/** Migrate retired ids on each side, then keep the higher tier and later practice time. */
+function migrateSyncedProgress(localProgress, remoteProgress) {
+  return window.SkillgroveMigrate.combineMigratedProgress(
+    localProgress, remoteProgress, retirementMap(), mergeProgress
+  );
 }
 
 function mergeProgress(local, remote) {
@@ -292,22 +285,26 @@ async function syncOnSignIn() {
   const local = getLocalData();
   const remote = await fetchRemote();
   
+  const remoteProgress = remote && remote.progress;
+  const remoteTiming = remote && remote.timing;
+  const migrated = migrateSyncedProgress(local.progress, remoteProgress);
+  const mergedTiming = mergeTiming(local.timing, remoteTiming);
+
   if (!remote) {
-    if (local.progress || local.timing) {
-      await upsertRemote({ progress: local.progress, timing: local.timing });
+    if (migrated.changed) setLocalData(migrated.progress, null);
+    if (migrated.progress || local.timing) {
+      await upsertRemote({ progress: migrated.progress, timing: local.timing });
+    }
+    if (migrated.changed && window.__skillgrove) {
+      window.__skillgrove.reloadProgress?.();
+      window.__skillgrove.refreshAll?.();
     }
     setSyncStatus('synced');
     return;
   }
-  
-  const remoteProgress = remote.progress;
-  const remoteTiming = remote.timing;
-  
-  const mergedProgress = mergeProgress(local.progress, remoteProgress);
-  const mergedTiming = mergeTiming(local.timing, remoteTiming);
-  
-  setLocalData(mergedProgress, mergedTiming);
-  await upsertRemote({ progress: mergedProgress, timing: mergedTiming });
+
+  setLocalData(migrated.progress, mergedTiming);
+  await upsertRemote({ progress: migrated.progress, timing: mergedTiming });
   
   if (window.__skillgrove) {
     window.__skillgrove.reloadProgress?.();
@@ -325,7 +322,9 @@ function debouncedSync() {
   clearTimeout(syncDebounceTimer);
   syncDebounceTimer = setTimeout(async () => {
     const local = getLocalData();
-    await upsertRemote({ progress: local.progress, timing: local.timing });
+    const mig = window.SkillgroveMigrate.migrateRetiredProgress(local.progress, retirementMap());
+    if (mig.changed) setLocalData(mig.progress, null);
+    await upsertRemote({ progress: mig.progress, timing: local.timing });
   }, SYNC_DEBOUNCE_MS);
 }
 
@@ -389,7 +388,8 @@ window.SkillgroveAuth = {
   getSyncStatus: () => syncStatus,
   mergeProgress,
   mergeTiming,
-  mergeSkill
+  mergeSkill,
+  migrateSyncedProgress
 };
 
 })();
