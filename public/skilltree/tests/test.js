@@ -33,6 +33,28 @@ const ROOTS = SKJ.filter(s => BANK[s.id] && !s.prereqs.some(q => BANK[q])).map(s
 let browser, results = [], errs = [];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+async function panTo(p, selector) {
+  const box = await p.evaluate(sel => {
+    const node = document.querySelector(sel);
+    if (!node) throw new Error('missing ' + sel);
+    const world = document.getElementById('world');
+    const tv = document.getElementById('treeView');
+    world.classList.remove('anim');
+    world.style.transition = 'none';
+    world.style.transform = 'translate(0px,0px) scale(1)';
+    void world.offsetWidth;
+    const br = node.getBoundingClientRect();
+    const vr = tv.getBoundingClientRect();
+    const dx = (vr.left + vr.width / 2) - (br.left + br.width / 2);
+    const dy = (vr.top + Math.min(180, vr.height / 3)) - (br.top + br.height / 2);
+    world.style.transform = `translate(${dx}px, ${dy}px) scale(1)`;
+    void world.offsetWidth;
+    const at = node.getBoundingClientRect();
+    return { w: at.width, h: at.height, x: at.x, y: at.y };
+  }, selector);
+  assert(box.w >= 20 && box.h >= 20, 'control should be on screen at full size, got ' + box.w + 'x' + box.h);
+}
+
 async function newPage(seed, opts = {}) {
   const ctx = await browser.createBrowserContext();
   const p = await ctx.newPage();
@@ -675,97 +697,241 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
-  await test('collapse/expand: chapter box can be collapsed and expanded', async () => {
+  await test('collapse toggle hides a box, keeps edges valid, and persists', async () => {
     const p = await newPage();
     
     await p.click('#btnGroup');
     await sleep(700);
+    await panTo(p, '.blob[data-box="ee105-ch1"] .toggle');
     
     const before = await p.evaluate(() => {
       const sg = window.__skillgrove;
-      const ch1Blob = sg.layout().grouped.blobs['ee105-ch1'];
+      const btn = document.querySelector('.blob[data-box="ee105-ch1"] .toggle');
+      const chev = btn.querySelector('.chev');
       return {
         collapsed: sg.collections.collapsed().has('ee105-ch1'),
-        height: ch1Blob?.h || 0,
-        hasToggle: !!document.querySelector('.blob[data-box="ee105-ch1"] .toggle')
+        height: sg.layout().grouped.blobs['ee105-ch1'].h,
+        expanded: btn.getAttribute('aria-expanded'),
+        label: btn.getAttribute('aria-label'),
+        chev: getComputedStyle(chev).transform
       };
     });
-    
     assert(!before.collapsed, 'chapter should start expanded');
     assert(before.height > 100, 'expanded chapter should have significant height');
-    assert(before.hasToggle, 'chapter should have toggle button');
+    assert.strictEqual(before.expanded, 'true');
+    assert(/Collapse/.test(before.label));
+    assert.strictEqual(before.chev, 'none', 'expanded arrow is not rotated');
     
-    await p.evaluate(() => document.querySelector('.blob[data-box="ee105-ch1"] .toggle').click());
-    await sleep(300);
+    await p.click('.blob[data-box="ee105-ch1"] .toggle');
+    await sleep(150);
     
     const after = await p.evaluate(() => {
       const sg = window.__skillgrove;
-      const ch1Blob = sg.layout().grouped.blobs['ee105-ch1'];
+      const blobs = sg.layout().grouped.blobs;
+      const chapters = Object.keys(blobs).filter(id => blobs[id].kind === 'chapter').map(id => ({ id, ...blobs[id] }));
+      const overlap = chapters.some((a, i) => chapters.some((b, j) => i < j && a.x < b.x + b.w - 1 && b.x < a.x + a.w - 1 && a.y < b.y + b.h - 1 && b.y < a.y + a.h - 1));
+      const course = blobs['ee105-ucb'];
+      const ch1 = blobs['ee105-ch1'];
+      const inside = ch1.x >= course.x - 1 && ch1.y >= course.y - 1 && ch1.x + ch1.w <= course.x + course.w + 1 && ch1.y + ch1.h <= course.y + course.h + 1;
+      const skills = sg.collections.getBoxSkills('ee105-ch1');
+      const hiddenTiles = skills.filter(id => document.querySelector('#world .tile[data-id="' + id + '"]').classList.contains('collapsed-hide')).length;
+      const btn = document.querySelector('.blob[data-box="ee105-ch1"] .toggle');
+      const m = new DOMMatrix(getComputedStyle(btn.querySelector('.chev')).transform);
+      const paths = [...document.querySelectorAll('#edges path')];
+      let visible = 0, hidden = 0, bad = 0;
+      paths.forEach(path => {
+        const d = path.getAttribute('d') || '';
+        if (path.classList.contains('collapsed-hide')) { hidden++; return }
+        visible++;
+        if (!d || /NaN|Infinity|undefined/.test(d)) bad++;
+      });
       return {
         collapsed: sg.collections.collapsed().has('ee105-ch1'),
-        height: ch1Blob?.h || 0,
-        hasCollapsedClass: document.querySelector('.blob[data-box="ee105-ch1"]').classList.contains('collapsed')
+        height: ch1.h,
+        hasClass: document.querySelector('.blob[data-box="ee105-ch1"]').classList.contains('collapsed'),
+        expanded: btn.getAttribute('aria-expanded'),
+        rotated: Math.abs(m.b + 1) < 0.05 && Math.abs(m.c - 1) < 0.05,
+        hiddenTiles, skillCount: skills.length,
+        overlap, inside, visible, hidden, bad, edges: paths.length,
+        stored: localStorage.getItem('skilltree.collapsed.v1')
       };
     });
+    assert(after.collapsed, 'chapter should be collapsed after a real click');
+    assert(after.height < 100, 'collapsed chapter should shrink to its header');
+    assert(after.hasClass, 'collapsed class should be set');
+    assert.strictEqual(after.expanded, 'false');
+    assert(after.rotated, 'arrow should rotate to point right');
+    assert.strictEqual(after.hiddenTiles, after.skillCount, 'skills inside the chapter should be hidden');
+    assert(!after.overlap, 'chapter boxes should not overlap');
+    assert(after.inside, 'collapsed chapter should stay inside its course');
+    assert.strictEqual(after.bad, 0, 'visible edges should have finite paths');
+    assert(after.hidden > 0, 'edges into the collapsed chapter should be hidden');
+    assert(after.visible > 0, 'edges between the other chapters should remain');
+    assert.strictEqual(after.visible + after.hidden, after.edges);
+    assert(/ee105-ch1/.test(after.stored), 'collapsed ids should be stored locally');
     
-    assert(after.collapsed, 'chapter should be collapsed after toggle');
-    assert(after.height < 100, 'collapsed chapter should have small height');
-    assert(after.hasCollapsedClass, 'DOM should have collapsed class');
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    const kept = await p.evaluate(() => ({
+      pressed: document.querySelector('#btnGroup').getAttribute('aria-pressed'),
+      collapsed: window.__skillgrove.collections.collapsed().has('ee105-ch1'),
+      expanded: document.querySelector('.blob[data-box="ee105-ch1"] .toggle').getAttribute('aria-expanded')
+    }));
+    assert.strictEqual(kept.pressed, 'true', 'grouped view should still be on');
+    assert(kept.collapsed, 'collapsed chapter should survive reload');
+    assert.strictEqual(kept.expanded, 'false');
     
-    await p.evaluate(() => document.querySelector('.blob[data-box="ee105-ch1"] .toggle').click());
-    await sleep(300);
-    
+    await p.focus('.blob[data-box="ee105-ch1"] .toggle');
+    await p.keyboard.press('Enter');
+    await sleep(150);
     const restored = await p.evaluate(() => {
       const sg = window.__skillgrove;
-      return !sg.collections.collapsed().has('ee105-ch1');
+      const shown = sg.collections.getBoxSkills('ee105-ch1').filter(id => !document.querySelector('#world .tile[data-id="' + id + '"]').classList.contains('collapsed-hide')).length;
+      return {
+        collapsed: sg.collections.collapsed().has('ee105-ch1'),
+        expanded: document.querySelector('.blob[data-box="ee105-ch1"] .toggle').getAttribute('aria-expanded'),
+        shown
+      };
     });
-    assert(restored, 'chapter should be expanded after second toggle');
+    assert(!restored.collapsed, 'Enter should expand the chapter');
+    assert.strictEqual(restored.expanded, 'true');
+    assert.strictEqual(restored.shown, (await p.evaluate(() => window.__skillgrove.collections.getBoxSkills('ee105-ch1').length)));
     
-    await p.screenshot({ path: path.join(SHOTS_DIR, '15_collapse_expand.png') });
+    await p.select('#scopePicker', 'ee105-ucb');
+    await panTo(p, '.blob.course[data-box="ee105-ucb"] .toggle');
+    await p.click('.blob.course[data-box="ee105-ucb"] .toggle');
+    await sleep(150);
+    const course = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const blob = sg.layout().grouped.blobs['ee105-ucb'];
+      const paths = [...document.querySelectorAll('#edges path')];
+      const bad = paths.filter(path => !path.classList.contains('collapsed-hide') && /NaN|Infinity|undefined/.test(path.getAttribute('d') || '')).length;
+      const visible = paths.filter(path => !path.classList.contains('collapsed-hide')).length;
+      return {
+        height: blob.h,
+        chapters: document.querySelectorAll('.blob.chapter').length,
+        hiddenTiles: document.querySelectorAll('#world .tile.collapsed-hide').length,
+        expanded: document.querySelector('.blob.course .toggle').getAttribute('aria-expanded'),
+        bad, visible
+      };
+    });
+    assert(course.height < 100, 'collapsed course should shrink to its header');
+    assert.strictEqual(course.chapters, 0, 'chapter boxes should be removed while the course is collapsed');
+    assert.strictEqual(course.hiddenTiles, NSKILL, 'every skill tile should be hidden with the course');
+    assert.strictEqual(course.expanded, 'false');
+    assert.strictEqual(course.bad, 0);
+    assert.strictEqual(course.visible, 0, 'no edge should be left dangling from hidden skills');
+    await panTo(p, '.blob.course[data-box="ee105-ucb"]');
+    await p.screenshot({ path: path.join(SHOTS_DIR, '15_collapsed_box.png') });
+    
+    await p.click('.blob.course[data-box="ee105-ucb"] .toggle');
+    await sleep(150);
+    const back = await p.evaluate(() => document.querySelectorAll('.blob.chapter').length);
+    assert.strictEqual(back, 18, 'expanding the course should restore its chapters');
     await p._ctx.close();
   });
 
-  await test('box picker: filters skills by selected box', async () => {
+  await test('scope selector filters the tree and the learning plan', async () => {
     const p = await newPage();
-    
-    const pickerExists = await p.$('#boxPicker');
-    assert(pickerExists, 'box picker should exist');
-    
-    const options = await p.$$eval('#boxPicker option', opts => opts.map(o => ({ value: o.value, text: o.textContent })));
-    assert(options.length > 1, 'picker should have multiple options');
+
+    const controls = await p.evaluate(() => ({
+      selects: [...document.querySelectorAll('#hctl select')].map(e => e.id),
+      oldChapter: !!document.getElementById('chSel'),
+      oldBox: !!document.getElementById('boxPicker'),
+      oldPlan: !!document.getElementById('planScopePicker')
+    }));
+    assert.deepStrictEqual(controls.selects, ['scopePicker']);
+    assert.strictEqual(controls.oldChapter, false, 'the old chapter filter should be gone');
+    assert.strictEqual(controls.oldBox, false, 'the old box filter should be gone');
+    assert.strictEqual(controls.oldPlan, false);
+
+    const options = await p.$$eval('#scopePicker option', opts => opts.map(o => ({ value: o.value, text: o.textContent })));
     assert.strictEqual(options[0].value, '', 'first option should be All skills');
-    assert(options.some(o => o.value === 'ee105-ucb'), 'picker should have EE105 course option');
-    assert(options.some(o => o.value === 'ee105-ch2'), 'picker should have chapter options');
-    
-    await p.select('#boxPicker', 'ee105-ch2');
+    assert.strictEqual(options[0].text, 'All skills');
+    const courseAt = options.findIndex(o => o.value === 'ee105-ucb');
+    const ch1At = options.findIndex(o => o.value === 'ee105-ch1');
+    const ch2At = options.findIndex(o => o.value === 'ee105-ch2');
+    assert(courseAt > 0, 'picker should list the course from collections');
+    assert(ch1At > courseAt && ch2At > ch1At, 'chapters should be nested under their course');
+    assert(/Ch 2:/.test(options[ch2At].text), options[ch2At].text);
+
+    await p.click('#btnPlan');
+    await sleep(400);
+    const allSkillsSessions = await p.$eval('#planSessions', e => parseInt(e.textContent, 10));
+    assert(allSkillsSessions > 0, 'all skills should have sessions');
+    assert.strictEqual(await p.$('#planScopePicker'), null, 'the plan should not grow a second scope selector');
+    assert.strictEqual(await p.$$eval('#modal select', els => els.length), 0);
+    await p.keyboard.press('Escape');
     await sleep(200);
-    
+
+    await p.select('#scopePicker', 'ee105-ch2');
+    await sleep(200);
     const filterResult = await p.evaluate(() => {
       const sg = window.__skillgrove;
       const dimmedTiles = document.querySelectorAll('#world .tile.boxdim').length;
       const visibleTiles = document.querySelectorAll('#world .tile:not(.boxdim)').length;
-      const ch2Skills = sg.collections.getBoxSkills('ee105-ch2');
+      const ch2Skills = sg.collections.getBoxDescendantSkills('ee105-ch2');
       return {
         filterActive: sg.collections.filter() === 'ee105-ch2',
+        planScope: sg.collections.scope(),
+        stored: localStorage.getItem('skilltree.planscope.v1'),
         dimmedTiles,
         visibleTiles,
         ch2SkillCount: ch2Skills.length
       };
     });
-    
-    assert(filterResult.filterActive, 'filter should be active');
-    assert(filterResult.dimmedTiles > 0, 'some tiles should be dimmed');
-    assert.strictEqual(filterResult.visibleTiles, filterResult.ch2SkillCount, 'visible tiles should match ch2 skill count');
-    
-    await p.select('#boxPicker', '');
+    assert(filterResult.filterActive, 'tree filter should follow the scope');
+    assert.strictEqual(filterResult.planScope, 'ee105-ch2', 'plan scope should follow the same selection');
+    assert.strictEqual(filterResult.stored, 'ee105-ch2');
+    assert(filterResult.dimmedTiles > 0, 'skills outside the chapter should be dimmed');
+    assert.strictEqual(filterResult.visibleTiles, filterResult.ch2SkillCount, 'visible tiles should match the chapter');
+
+    await p.click('#btnPlan');
+    await sleep(400);
+    const ch2Plan = await p.evaluate(() => ({
+      sessions: parseInt(document.getElementById('planSessions').textContent, 10),
+      note: document.getElementById('planScopeNote').textContent,
+      extras: (document.getElementById('planExtras') || {}).textContent || ''
+    }));
+    assert(ch2Plan.sessions > 0, 'chapter scope should still have a plan');
+    assert(ch2Plan.sessions <= allSkillsSessions, 'chapter plan should be no larger than the full plan');
+    assert(/Chapter 2/.test(ch2Plan.note), ch2Plan.note);
+    assert(/outside this scope/i.test(ch2Plan.note));
+    if (ch2Plan.extras) assert(/prerequisite.*outside/i.test(ch2Plan.extras));
+    await p.keyboard.press('Escape');
     await sleep(200);
-    
-    const cleared = await p.evaluate(() => {
-      return document.querySelectorAll('#world .tile.boxdim').length === 0;
-    });
-    assert(cleared, 'clearing filter should remove all boxdim classes');
-    
-    await p.screenshot({ path: path.join(SHOTS_DIR, '16_box_picker.png') });
+
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    const kept = await p.evaluate(() => ({
+      value: document.getElementById('scopePicker').value,
+      dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+      scope: window.__skillgrove.collections.scope()
+    }));
+    assert.strictEqual(kept.value, 'ee105-ch2', 'scope should survive reload');
+    assert.strictEqual(kept.scope, 'ee105-ch2');
+    assert(kept.dimmed > 0, 'tree should still be filtered after reload');
+
+    await p.select('#scopePicker', 'ee105-ucb');
+    await sleep(150);
+    const course = await p.evaluate(() => ({
+      dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+      scope: window.__skillgrove.collections.scope()
+    }));
+    assert.strictEqual(course.scope, 'ee105-ucb');
+    assert.strictEqual(course.dimmed, 0, 'every skill in the only course stays visible');
+
+    await p.select('#scopePicker', '');
+    await sleep(150);
+    const cleared = await p.evaluate(() => ({
+      dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+      stored: localStorage.getItem('skilltree.planscope.v1'),
+      scope: window.__skillgrove.collections.scope()
+    }));
+    assert.strictEqual(cleared.dimmed, 0, 'clearing scope should show every skill');
+    assert.strictEqual(cleared.stored, null);
+    assert.strictEqual(cleared.scope, null);
+    await p.screenshot({ path: path.join(SHOTS_DIR, '16_scope_selector.png') });
     await p._ctx.close();
   });
 
@@ -907,51 +1073,6 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
-  await test('learning plan scope picker filters by chapter', async () => {
-    const p = await newPage(T({
-      'lti-def': { tier: 1, lastPracticed: now - DAY, history: [] },
-      'rc-lpf': { tier: 1, lastPracticed: now - 2 * DAY, history: [] }
-    }));
-    
-    await p.click('#btnPlan');
-    await sleep(500);
-    
-    const scopePicker = await p.$('#planScopePicker');
-    assert(scopePicker, 'scope picker should exist in plan modal');
-    
-    const options = await p.$$eval('#planScopePicker option', opts => opts.map(o => ({ value: o.value, text: o.textContent.trim() })));
-    assert(options.length > 1, 'picker should have multiple options');
-    assert.strictEqual(options[0].value, '', 'first option should be All skills');
-    assert(options.some(o => o.value === 'ee105-ucb'), 'should have course option');
-    assert(options.some(o => o.value === 'ee105-ch1'), 'should have chapter options');
-    
-    const allSkillsResult = await p.evaluate(() => {
-      const sessions = document.getElementById('planSessions');
-      return sessions ? parseInt(sessions.textContent) : null;
-    });
-    assert(allSkillsResult > 0, 'all skills should have sessions');
-    
-    await p.select('#planScopePicker', 'ee105-ch1');
-    await sleep(300);
-    
-    const ch1Result = await p.evaluate(() => {
-      const sessions = document.getElementById('planSessions');
-      const scopeNote = document.getElementById('planScopeNote');
-      return {
-        sessions: sessions ? parseInt(sessions.textContent) : null,
-        scopeNote: scopeNote ? scopeNote.textContent : ''
-      };
-    });
-    
-    assert(ch1Result.sessions > 0, 'ch1 scope should have sessions');
-    assert(ch1Result.sessions <= allSkillsResult, 'ch1 sessions should be <= all skills sessions');
-    assert(/Chapter 1/.test(ch1Result.scopeNote) || /ee105-ch1/.test(ch1Result.scopeNote) || /playable skill/.test(ch1Result.scopeNote), 
-      'scope note should mention the selected scope');
-    
-    await p.screenshot({ path: path.join(SHOTS_DIR, '18_plan_scope_picker.png') });
-    await p._ctx.close();
-  });
-
   await test('learning plan includes out-of-box prerequisites with star marker', async () => {
     const p = await newPage();
     
@@ -977,10 +1098,10 @@ async function test(name, fn) {
       'plan scope should include extras or be larger than ch2 playable count');
     
     if (prereqTest.hasExtras) {
+      await p.select('#scopePicker', 'ee105-ch2');
+      await sleep(200);
       await p.click('#btnPlan');
-      await sleep(500);
-      await p.select('#planScopePicker', 'ee105-ch2');
-      await sleep(300);
+      await sleep(400);
       
       const extrasNote = await p.$('#planExtras');
       if (extrasNote) {
