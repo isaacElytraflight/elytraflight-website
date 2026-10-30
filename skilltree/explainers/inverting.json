@@ -14,7 +14,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "\\(R_1 = 3\\ \\mathrm{k\\Omega}\\), \\(R_2 = 27\\ \\mathrm{k\\Omega}\\), \\(A = 1000\\). Ideal gain \\(-9\\). Feedback factor \\(f = 3/30 = 0.1\\), loop gain \\(Af = 100\\):\n\\[ \\frac{v_{out}}{v_{in}} = -9\\cdot\\frac{1}{1.01} \\approx -8.91 \\]\nWith 0.2 V in, the input current is \\(66.7\\ \\mu\\mathrm{A}\\) and the output about \\(-1.78\\ \\mathrm{V}\\)."
+   "body_md": "\\(R_1 = 4\\ \\mathrm{k\\Omega}\\), \\(R_2 = 28\\ \\mathrm{k\\Omega}\\), \\(A = 800\\). Ideal gain \\(-7\\). Feedback factor \\(f = 4/32 = 0.125\\), loop gain \\(Af = 100\\):\n\\[ \\frac{v_{out}}{v_{in}} = -7\\cdot\\frac{1}{1.01} \\approx -6.93 \\]\nWith 0.3 V in, the input current is \\(75\\ \\mu\\mathrm{A}\\) and the output about \\(-2.08\\ \\mathrm{V}\\)."
   },
   {
    "heading": "Common pitfalls",

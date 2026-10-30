@@ -1,0 +1,28 @@
+{
+ "id": "cg",
+ "title": "Common-gate amplifier",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "In the **common-gate** stage the gate sits at a DC bias (AC ground), the signal enters at the source, and the output is taken at the drain. A voltage \\(v\\) at the source appears directly as \\(v_{gs} = -v\\). The device then conducts \\(g_mv\\) out of the source node, so the input resistance is low, about \\(1/g_m\\). If \\(r_o\\) is comparable to the drain load, it rises to \\((r_o + R_D)/(1 + g_mr_o)\\). Whatever current enters the source leaves through the drain, so the short-circuit current gain is about 1. The stage is a **current buffer**: it takes current in at low impedance and delivers it at high impedance.\n\nLooking back into the drain, any source resistance \\(R_S\\) degenerates the device. The output resistance is \\(R_D\\) in parallel with \\(r_o + R_S + g_mr_oR_S\\). As a voltage amplifier from an ideal source the gain is \\(+g_m(R_D\\parallel R_L)\\), positive and as large as a CS stage's. A real source resistance forms a divider with the small \\(R_{in}\\) and wastes much of the signal.",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 230\" role=\"img\" aria-label=\"Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><polyline points=\"130,20 130,27 124,30 136,35 124,40 136,45 124,50 136,55 130,63 130,70\"/><text x=\"142\" y=\"49\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"70\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><text x=\"56\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"166\"/><circle cx=\"130\" cy=\"166\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"160\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"130\" y1=\"166\" x2=\"70\" y2=\"166\"/><line x1=\"70\" y1=\"166\" x2=\"70\" y2=\"174\"/><line x1=\"70\" y1=\"198\" x2=\"70\" y2=\"206\"/><circle cx=\"70\" cy=\"186\" r=\"12\"/><text x=\"70\" y=\"184\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"70\" y=\"196\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"53\" y=\"190\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"70\" y1=\"206\" x2=\"70\" y2=\"212\"/><line x1=\"61\" y1=\"212\" x2=\"79\" y2=\"212\"/><line x1=\"65\" y1=\"216\" x2=\"75\" y2=\"216\"/><line x1=\"68.5\" y1=\"220\" x2=\"71.5\" y2=\"220\"/><line x1=\"130\" y1=\"166\" x2=\"130\" y2=\"176\"/><line x1=\"130\" y1=\"176\" x2=\"130\" y2=\"181\"/><line x1=\"130\" y1=\"205\" x2=\"130\" y2=\"210\"/><circle cx=\"130\" cy=\"193\" r=\"12\"/><line x1=\"130\" y1=\"185\" x2=\"130\" y2=\"201\"/><polygon points=\"130,201 127.7,195.5 132.3,195.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"197\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"210\" x2=\"130\" y2=\"216\"/><line x1=\"121\" y1=\"216\" x2=\"139\" y2=\"216\"/><line x1=\"125\" y1=\"220\" x2=\"135\" y2=\"220\"/><line x1=\"128.5\" y1=\"224\" x2=\"131.5\" y2=\"224\"/></svg>",
+   "figure_alt": "Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "\\[ R_{in} = \\frac{r_o + R_D}{1 + g_mr_o} \\approx \\frac1{g_m}, \\qquad A_i \\approx 1, \\qquad R_{out} = R_D\\parallel(r_o + R_S + g_mr_oR_S) \\]\n\\[ A_v = +g_m(R_D\\parallel R_L) \\ (\\text{ideal source}), \\qquad \\frac{v_{out}}{v_s} = \\frac{g_m(R_D\\parallel R_L)}{1 + g_mR_S} \\]"
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "A CG stage with \\(g_m = 4\\ \\mathrm{mS}\\) and \\(R_D = 8\\ \\mathrm{k\\Omega}\\) presents 250 Ω at its source. Driven by an ideal source its gain is \\(+32\\). Driven from a 750 Ω source, only a quarter of the signal reaches the source node, and the gain falls to 8."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Giving the CG stage a negative gain; it does not invert.\n- Using \\(1/g_m\\) for \\(R_{in}\\) when \\(r_o\\) is not much larger than the drain load.\n- Forgetting that the source resistance raises \\(R_{out}\\) by degeneration."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "Stacking a CG device on a CS device gives the cascode, which keeps the CS drain nearly still. The grounded gate also means no Miller multiplication, so CG stages are fast."
+  }
+ ]
+}

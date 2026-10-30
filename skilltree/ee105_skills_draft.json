@@ -1,7 +1,7 @@
 {
  "course": "EE 105",
  "source": "Niknejad EE105 Reader (Oct 31, 2022)",
- "version": 1,
+ "version": 2,
  "chapters": {
   "1": "Linear Time-Invariant Systems",
   "2": "AC Circuits and AC Analysis",
@@ -28,21 +28,24 @@
    "name": "Linear time-invariant systems and superposition",
    "chapter": 1,
    "reader_section": "1.3",
-   "prereqs": []
+   "prereqs": [],
+   "owns": "linearity, time invariance, superposition"
   },
   {
    "id": "rc-lpf",
    "name": "Solve a first-order RC low-pass filter in the time domain",
    "chapter": 1,
    "reader_section": "1.2",
-   "prereqs": []
+   "prereqs": [],
+   "owns": "first-order RC step/transient in time domain"
   },
   {
    "id": "cx-exp",
    "name": "Complex exponentials and Euler's relations",
    "chapter": 1,
    "reader_section": "1.4",
-   "prereqs": []
+   "prereqs": [],
+   "owns": "complex exponentials, polar form, Euler"
   },
   {
    "id": "sinusoid-resp",
@@ -53,7 +56,8 @@
     "cx-exp",
     "lti-def",
     "rc-lpf"
-   ]
+   ],
+   "owns": "SSS response via e^{jwt} substitution"
   },
   {
    "id": "impulse-conv",
@@ -62,7 +66,8 @@
    "reader_section": "1.8",
    "prereqs": [
     "lti-def"
-   ]
+   ],
+   "owns": "impulse response and convolution"
   },
   {
    "id": "step-resp",
@@ -72,7 +77,8 @@
    "prereqs": [
     "impulse-conv",
     "rc-lpf"
-   ]
+   ],
+   "owns": "step/pulse response metrics (rise, settling)"
   },
   {
    "id": "freq-char",
@@ -82,7 +88,8 @@
    "prereqs": [
     "sinusoid-resp",
     "impulse-conv"
-   ]
+   ],
+   "owns": "frequency-domain view of signals and systems"
   },
   {
    "id": "tf",
@@ -91,7 +98,8 @@
    "reader_section": "2.2",
    "prereqs": [
     "sinusoid-resp"
-   ]
+   ],
+   "owns": "transfer-function definitions (voltage/current gain, transimpedance)"
   },
   {
    "id": "phasors",
@@ -100,7 +108,8 @@
    "reader_section": "2.4",
    "prereqs": [
     "sinusoid-resp"
-   ]
+   ],
+   "owns": "phasors and R/L/C impedance"
   },
   {
    "id": "direct-h",
@@ -110,7 +119,8 @@
    "prereqs": [
     "phasors",
     "tf"
-   ]
+   ],
+   "owns": "writing H(jw) of a circuit from impedances"
   },
   {
    "id": "pole-zero",
@@ -119,7 +129,8 @@
    "reader_section": "2.3",
    "prereqs": [
     "tf"
-   ]
+   ],
+   "owns": "poles/zeros and their time/frequency meaning"
   },
   {
    "id": "rlc",
@@ -129,7 +140,8 @@
    "prereqs": [
     "direct-h",
     "pole-zero"
-   ]
+   ],
+   "owns": "second-order RLC: w0, Q, damping"
   },
   {
    "id": "bode",
@@ -138,7 +150,8 @@
    "reader_section": "2.6",
    "prereqs": [
     "pole-zero"
-   ]
+   ],
+   "owns": "Bode magnitude/phase sketching"
   },
   {
    "id": "ac-power",
@@ -147,14 +160,16 @@
    "reader_section": "2.7",
    "prereqs": [
     "phasors"
-   ]
+   ],
+   "owns": "RMS and average power"
   },
   {
    "id": "drude",
    "name": "Conduction in metals, mobility, microscopic Ohm's law",
    "chapter": 3,
    "reader_section": "3.2",
-   "prereqs": []
+   "prereqs": [],
+   "owns": "mobility and microscopic Ohm law"
   },
   {
    "id": "si-props",
@@ -163,7 +178,8 @@
    "reader_section": "3.3",
    "prereqs": [
     "drude"
-   ]
+   ],
+   "owns": "bond model, electrons and holes"
   },
   {
    "id": "intrinsic",
@@ -172,7 +188,8 @@
    "reader_section": "3.4",
    "prereqs": [
     "si-props"
-   ]
+   ],
+   "owns": "n_i and mass action"
   },
   {
    "id": "doping",
@@ -181,7 +198,8 @@
    "reader_section": "3.5",
    "prereqs": [
     "intrinsic"
-   ]
+   ],
+   "owns": "donor/acceptor carrier concentrations"
   },
   {
    "id": "drift",
@@ -191,7 +209,8 @@
    "prereqs": [
     "drude",
     "doping"
-   ]
+   ],
+   "owns": "drift current"
   },
   {
    "id": "diffusion",
@@ -200,7 +219,8 @@
    "reader_section": "3.7",
    "prereqs": [
     "doping"
-   ]
+   ],
+   "owns": "diffusion current and Einstein relation"
   },
   {
    "id": "total-current",
@@ -210,14 +230,16 @@
    "prereqs": [
     "drift",
     "diffusion"
-   ]
+   ],
+   "owns": "drift+diffusion total current, equilibrium balance"
   },
   {
    "id": "ic-fab",
    "name": "IC fabrication basics: oxide, implantation",
    "chapter": 4,
    "reader_section": "4.2",
-   "prereqs": []
+   "prereqs": [],
+   "owns": "oxidation, implantation, lithography basics"
   },
   {
    "id": "sheet-res",
@@ -227,14 +249,16 @@
    "prereqs": [
     "drude",
     "ic-fab"
-   ]
+   ],
+   "owns": "sheet resistance and IC resistor sizing"
   },
   {
    "id": "electrostatics",
    "name": "1D electrostatics, fields and potential",
    "chapter": 4,
    "reader_section": "4.4",
-   "prereqs": []
+   "prereqs": [],
+   "owns": "1D Gauss/Poisson: rho, E, phi"
   },
   {
    "id": "mim-cap",
@@ -243,7 +267,8 @@
    "reader_section": "4.5",
    "prereqs": [
     "electrostatics"
-   ]
+   ],
+   "owns": "parallel-plate/MIM capacitance"
   },
   {
    "id": "nl-cap",
@@ -252,7 +277,8 @@
    "reader_section": "4.5.3",
    "prereqs": [
     "mim-cap"
-   ]
+   ],
+   "owns": "small-signal capacitance of non-linear Q(V)"
   },
   {
    "id": "carrier-pot",
@@ -261,7 +287,8 @@
    "reader_section": "5.3",
    "prereqs": [
     "doping"
-   ]
+   ],
+   "owns": "Boltzmann relation between potential and carrier density"
   },
   {
    "id": "pn-overview",
@@ -271,7 +298,8 @@
    "prereqs": [
     "carrier-pot",
     "total-current"
-   ]
+   ],
+   "owns": "qualitative PN junction in equilibrium"
   },
   {
    "id": "depl-approx",
@@ -281,7 +309,8 @@
    "prereqs": [
     "pn-overview",
     "electrostatics"
-   ]
+   ],
+   "owns": "depletion width and field under the depletion approximation"
   },
   {
    "id": "contact-pot",
@@ -290,7 +319,8 @@
    "reader_section": "5.4.7",
    "prereqs": [
     "pn-overview"
-   ]
+   ],
+   "owns": "built-in potential"
   },
   {
    "id": "rev-bias",
@@ -300,7 +330,8 @@
    "prereqs": [
     "depl-approx",
     "contact-pot"
-   ]
+   ],
+   "owns": "depletion width/charge versus reverse bias"
   },
   {
    "id": "junction-cap",
@@ -310,7 +341,8 @@
    "prereqs": [
     "rev-bias",
     "nl-cap"
-   ]
+   ],
+   "owns": "depletion capacitance and varactors"
   },
   {
    "id": "diode-qual",
@@ -319,7 +351,8 @@
    "reader_section": "6.2",
    "prereqs": [
     "pn-overview"
-   ]
+   ],
+   "owns": "qualitative diode I-V by region"
   },
   {
    "id": "excess-carriers",
@@ -328,7 +361,8 @@
    "reader_section": "6.3",
    "prereqs": [
     "doping"
-   ]
+   ],
+   "owns": "excess carriers, lifetime, R-G"
   },
   {
    "id": "continuity",
@@ -338,7 +372,8 @@
    "prereqs": [
     "excess-carriers",
     "total-current"
-   ]
+   ],
+   "owns": "continuity equation"
   },
   {
    "id": "minority-profile",
@@ -348,7 +383,8 @@
    "prereqs": [
     "continuity",
     "diode-qual"
-   ]
+   ],
+   "owns": "minority-carrier profiles (long/short regions)"
   },
   {
    "id": "diode-iv",
@@ -357,7 +393,8 @@
    "reader_section": "6.5.3",
    "prereqs": [
     "minority-profile"
-   ]
+   ],
+   "owns": "ideal diode equation and I_S"
   },
   {
    "id": "diode-ss",
@@ -368,7 +405,8 @@
     "diode-iv",
     "junction-cap",
     "nl-cap"
-   ]
+   ],
+   "owns": "diode r_d and diffusion capacitance"
   },
   {
    "id": "solar-cell",
@@ -377,7 +415,8 @@
    "reader_section": "6.7",
    "prereqs": [
     "diode-iv"
-   ]
+   ],
+   "owns": "solar cell I_sc, V_oc, fill factor"
   },
   {
    "id": "led",
@@ -386,7 +425,8 @@
    "reader_section": "6.7.6",
    "prereqs": [
     "diode-iv"
-   ]
+   ],
+   "owns": "LED wavelength/efficiency"
   },
   {
    "id": "mos-struct",
@@ -396,7 +436,8 @@
    "prereqs": [
     "electrostatics",
     "contact-pot"
-   ]
+   ],
+   "owns": "MOS capacitor structure and flat-band/contact potential"
   },
   {
    "id": "mos-regions",
@@ -406,7 +447,8 @@
    "prereqs": [
     "mos-struct",
     "depl-approx"
-   ]
+   ],
+   "owns": "accumulation/depletion/inversion"
   },
   {
    "id": "vt",
@@ -415,7 +457,8 @@
    "reader_section": "7.4",
    "prereqs": [
     "mos-regions"
-   ]
+   ],
+   "owns": "threshold voltage derivation"
   },
   {
    "id": "mos-fields",
@@ -424,7 +467,8 @@
    "reader_section": "7.5",
    "prereqs": [
     "mos-regions"
-   ]
+   ],
+   "owns": "fields and potential in oxide and substrate"
   },
   {
    "id": "mos-cv",
@@ -434,7 +478,8 @@
    "prereqs": [
     "mos-regions",
     "vt"
-   ]
+   ],
+   "owns": "MOS Q-V and C-V curves"
   },
   {
    "id": "mosfet-struct",
@@ -443,7 +488,8 @@
    "reader_section": "8.2",
    "prereqs": [
     "mos-struct"
-   ]
+   ],
+   "owns": "MOSFET layout, cross section, symbols"
   },
   {
    "id": "nmos-regions",
@@ -453,7 +499,8 @@
    "prereqs": [
     "vt",
     "mosfet-struct"
-   ]
+   ],
+   "owns": "the region test (cut-off/triode/saturation) for any MOSFET bias"
   },
   {
    "id": "triode",
@@ -462,62 +509,40 @@
    "reader_section": "8.4.1",
    "prereqs": [
     "nmos-regions"
-   ]
+   ],
+   "owns": "triode current and R_on"
   },
   {
    "id": "square-law",
-   "name": "Square-law derivation",
+   "name": "Saturation: pinch-off and the square law",
    "chapter": 8,
    "reader_section": "8.4.5",
    "prereqs": [
     "triode"
-   ]
-  },
-  {
-   "id": "saturation",
-   "name": "Saturation and pinch-off",
-   "chapter": 8,
-   "reader_section": "8.5",
-   "prereqs": [
-    "square-law"
-   ]
-  },
-  {
-   "id": "clm",
-   "name": "Channel-length modulation",
-   "chapter": 8,
-   "reader_section": "8.5.5",
-   "prereqs": [
-    "saturation"
-   ]
+   ],
+   "owns": "saturation current: pinch-off physics and the square law"
   },
   {
    "id": "pmos",
-   "name": "PMOS device and regions of operation",
+   "name": "PMOS: regions, sign conventions and small-signal use",
    "chapter": 8,
    "reader_section": "8.6",
    "prereqs": [
-    "saturation"
-   ]
+    "square-law",
+    "ss-model"
+   ],
+   "owns": "PMOS sign conventions in large- and small-signal analysis"
   },
   {
    "id": "cs-intro",
-   "name": "Common-source amplifier and its bias point",
+   "name": "Common-source amplifier: transfer curve and bias-point selection",
    "chapter": 9,
    "reader_section": "9.2",
    "prereqs": [
-    "saturation",
+    "square-law",
     "tf"
-   ]
-  },
-  {
-   "id": "op-point",
-   "name": "Large-signal versus small-signal and bias selection",
-   "chapter": 9,
-   "reader_section": "9.3",
-   "prereqs": [
-    "cs-intro"
-   ]
+   ],
+   "owns": "CS DC transfer curve, load line and bias-point choice for swing"
   },
   {
    "id": "gm",
@@ -525,47 +550,31 @@
    "chapter": 9,
    "reader_section": "9.4.2",
    "prereqs": [
-    "op-point"
-   ]
+    "cs-intro"
+   ],
+   "owns": "MOS g_m formulas and their trade-offs"
   },
   {
    "id": "ro",
-   "name": "MOS output resistance ro",
+   "name": "Channel-length modulation and output resistance ro",
    "chapter": 9,
    "reader_section": "9.4.3",
    "prereqs": [
-    "clm",
+    "square-law",
     "gm"
-   ]
+   ],
+   "owns": "CLM physics, lambda, r_o = 1/(lambda I_D), intrinsic gain"
   },
   {
    "id": "ss-model",
-   "name": "MOS small-signal model",
+   "name": "MOS small-signal model and analysis procedure",
    "chapter": 9,
    "reader_section": "9.4.4",
    "prereqs": [
     "gm",
     "ro"
-   ]
-  },
-  {
-   "id": "ss-steps",
-   "name": "Small-signal analysis procedure",
-   "chapter": 9,
-   "reader_section": "9.4.5",
-   "prereqs": [
-    "ss-model"
-   ]
-  },
-  {
-   "id": "pmos-ss",
-   "name": "PMOS small-signal model and amplifier",
-   "chapter": 9,
-   "reader_section": "9.5",
-   "prereqs": [
-    "ss-model",
-    "pmos"
-   ]
+   ],
+   "owns": "building/using the MOS small-signal model (procedure, validity)"
   },
   {
    "id": "mos-caps",
@@ -575,27 +584,19 @@
    "prereqs": [
     "ss-model",
     "junction-cap"
-   ]
+   ],
+   "owns": "C_gs, C_gd, C_db, C_sb values by region"
   },
   {
    "id": "body-effect",
-   "name": "Body effect on threshold voltage and signals",
+   "name": "Body effect: threshold shift and gmb",
    "chapter": 10,
    "reader_section": "10.3",
    "prereqs": [
     "vt",
     "ss-model"
-   ]
-  },
-  {
-   "id": "ss-4term",
-   "name": "Four-terminal small-signal model",
-   "chapter": 10,
-   "reader_section": "10.4",
-   "prereqs": [
-    "mos-caps",
-    "body-effect"
-   ]
+   ],
+   "owns": "V_T shift with V_SB and g_mb"
   },
   {
    "id": "bjt-struct",
@@ -604,7 +605,8 @@
    "reader_section": "11.2",
    "prereqs": [
     "pn-overview"
-   ]
+   ],
+   "owns": "BJT structure, layout, symbol"
   },
   {
    "id": "bjt-iv",
@@ -614,26 +616,19 @@
    "prereqs": [
     "bjt-struct",
     "diode-iv"
-   ]
+   ],
+   "owns": "observed BJT I-V and regions"
   },
   {
    "id": "bjt-action",
-   "name": "Transistor action and BJT currents",
+   "name": "Transistor action, BJT currents and current gain",
    "chapter": 11,
    "reader_section": "11.4",
    "prereqs": [
     "bjt-iv",
     "minority-profile"
-   ]
-  },
-  {
-   "id": "bjt-gain",
-   "name": "Collector current, base current and current gain",
-   "chapter": 11,
-   "reader_section": "11.5",
-   "prereqs": [
-    "bjt-action"
-   ]
+   ],
+   "owns": "carrier flow in forward-active, alpha/beta and their physical ratio"
   },
   {
    "id": "ebers-moll",
@@ -641,8 +636,9 @@
    "chapter": 11,
    "reader_section": "11.6.1",
    "prereqs": [
-    "bjt-gain"
-   ]
+    "bjt-action"
+   ],
+   "owns": "Ebers-Moll equations in all regions"
   },
   {
    "id": "early",
@@ -651,7 +647,8 @@
    "reader_section": "11.6.3",
    "prereqs": [
     "ebers-moll"
-   ]
+   ],
+   "owns": "base-width modulation and V_A"
   },
   {
    "id": "bjt-ss",
@@ -660,17 +657,19 @@
    "reader_section": "11.6.5",
    "prereqs": [
     "early",
-    "ss-steps"
-   ]
+    "ss-model"
+   ],
+   "owns": "BJT hybrid-pi model: g_m, r_pi, r_o"
   },
   {
    "id": "two-port",
-   "name": "Two-port amplifier models, Zin and Zout",
+   "name": "Two-port amplifier models and loading in cascades",
    "chapter": 12,
    "reader_section": "12.2",
    "prereqs": [
-    "ss-steps"
-   ]
+    "ss-model"
+   ],
+   "owns": "two-port models, R_in/R_out, loading by source, load and next stage"
   },
   {
    "id": "bias-coupling",
@@ -678,8 +677,9 @@
    "chapter": 12,
    "reader_section": "12.3.1",
    "prereqs": [
-    "op-point"
-   ]
+    "cs-intro"
+   ],
+   "owns": "isolating DC bias points: DC vs AC coupling choices"
   },
   {
    "id": "cs-analysis",
@@ -688,8 +688,9 @@
    "reader_section": "12.3",
    "prereqs": [
     "two-port",
-    "ss-steps"
-   ]
+    "ss-model"
+   ],
+   "owns": "CS gain, R_in, R_out"
   },
   {
    "id": "cg",
@@ -698,28 +699,21 @@
    "reader_section": "12.3.3",
    "prereqs": [
     "two-port",
-    "ss-steps"
-   ]
+    "ss-model"
+   ],
+   "owns": "CG gain, R_in, R_out"
   },
   {
    "id": "cd",
-   "name": "Common-drain (source follower) amplifier",
+   "name": "Source follower: gain with body effect and real bias source",
    "chapter": 12,
    "reader_section": "12.4",
    "prereqs": [
     "two-port",
-    "ss-steps"
-   ]
-  },
-  {
-   "id": "body-amp",
-   "name": "Impact of body effect on amplifiers",
-   "chapter": 12,
-   "reader_section": "12.5",
-   "prereqs": [
-    "cd",
+    "ss-model",
     "body-effect"
-   ]
+   ],
+   "owns": "source-follower gain (incl. g_mb and bias-source r_o), R_out"
   },
   {
    "id": "amp-choice",
@@ -730,7 +724,8 @@
     "cs-analysis",
     "cg",
     "cd"
-   ]
+   ],
+   "owns": "choosing CS/CG/CD for a spec"
   },
   {
    "id": "high-load",
@@ -739,7 +734,8 @@
    "reader_section": "13.2",
    "prereqs": [
     "cs-analysis"
-   ]
+   ],
+   "owns": "CS with current-source load: gain vs headroom"
   },
   {
    "id": "diode-conn",
@@ -748,36 +744,19 @@
    "reader_section": "13.3.1",
    "prereqs": [
     "ss-model",
-    "saturation"
-   ]
+    "square-law"
+   ],
+   "owns": "diode-connected device: 1/g_m impedance and bias"
   },
   {
    "id": "mirror",
-   "name": "Basic current mirror",
+   "name": "Current mirror: ratios and output resistance",
    "chapter": 13,
    "reader_section": "13.3.3",
    "prereqs": [
     "diode-conn"
-   ]
-  },
-  {
-   "id": "mirror-ratio",
-   "name": "Mirror with multiplication ratio and multiple outputs",
-   "chapter": 13,
-   "reader_section": "13.3.4",
-   "prereqs": [
-    "mirror"
-   ]
-  },
-  {
-   "id": "mirror-ro",
-   "name": "Small-signal resistance of a current source",
-   "chapter": 13,
-   "reader_section": "13.3.6",
-   "prereqs": [
-    "mirror",
-    "ro"
-   ]
+   ],
+   "owns": "current mirroring by W/L ratio and mirror output resistance"
   },
   {
    "id": "degeneration",
@@ -785,8 +764,9 @@
    "chapter": 13,
    "reader_section": "13.4.2",
    "prereqs": [
-    "ss-steps"
-   ]
+    "ss-model"
+   ],
+   "owns": "source degeneration: G_m and R_out"
   },
   {
    "id": "cascode-src",
@@ -795,18 +775,9 @@
    "reader_section": "13.4.3",
    "prereqs": [
     "degeneration",
-    "mirror-ro"
-   ]
-  },
-  {
-   "id": "cd-real",
-   "name": "Source follower with a real current source",
-   "chapter": 13,
-   "reader_section": "13.6",
-   "prereqs": [
-    "cd",
     "mirror"
-   ]
+   ],
+   "owns": "cascode current source: R_out ~ g_m r_o^2 and headroom"
   },
   {
    "id": "ref-gen",
@@ -815,7 +786,8 @@
    "reader_section": "13.7",
    "prereqs": [
     "mirror"
-   ]
+   ],
+   "owns": "constant-g_m (supply-independent) reference"
   },
   {
    "id": "freq-basics",
@@ -825,7 +797,8 @@
    "prereqs": [
     "bode",
     "cs-analysis"
-   ]
+   ],
+   "owns": "low-frequency corners from coupling/bypass capacitors and high-frequency limits overview"
   },
   {
    "id": "cs-brute",
@@ -835,25 +808,18 @@
    "prereqs": [
     "freq-basics",
     "mos-caps"
-   ]
+   ],
+   "owns": "exact two-pole CS transfer function by nodal analysis"
   },
   {
    "id": "miller",
-   "name": "Miller theorem and Miller effect",
+   "name": "Miller theorem and common-source bandwidth",
    "chapter": 14,
    "reader_section": "14.6",
    "prereqs": [
     "cs-brute"
-   ]
-  },
-  {
-   "id": "cs-miller",
-   "name": "Common-source bandwidth using Miller",
-   "chapter": 14,
-   "reader_section": "14.7",
-   "prereqs": [
-    "miller"
-   ]
+   ],
+   "owns": "Miller theorem, Miller multiplication and the CS input pole"
   },
   {
    "id": "cd-freq",
@@ -863,7 +829,8 @@
    "prereqs": [
     "miller",
     "cd"
-   ]
+   ],
+   "owns": "source-follower frequency response"
   },
   {
    "id": "cg-freq",
@@ -873,7 +840,8 @@
    "prereqs": [
     "freq-basics",
     "cg"
-   ]
+   ],
+   "owns": "CG bandwidth (no Miller)"
   },
   {
    "id": "ft",
@@ -883,7 +851,8 @@
    "prereqs": [
     "mos-caps",
     "gm"
-   ]
+   ],
+   "owns": "unity-current-gain frequency f_T"
   },
   {
    "id": "octc",
@@ -892,17 +861,9 @@
    "reader_section": "14.11",
    "prereqs": [
     "pole-zero",
-    "cs-miller"
-   ]
-  },
-  {
-   "id": "z-match",
-   "name": "Input and output impedance in cascades",
-   "chapter": 15,
-   "reader_section": "15.3",
-   "prereqs": [
-    "two-port"
-   ]
+    "miller"
+   ],
+   "owns": "open-circuit time-constant bandwidth estimate"
   },
   {
    "id": "cs-cascade",
@@ -910,9 +871,10 @@
    "chapter": 15,
    "reader_section": "15.4",
    "prereqs": [
-    "z-match",
+    "two-port",
     "cs-analysis"
-   ]
+   ],
+   "owns": "two-stage CS cascade gain"
   },
   {
    "id": "cs-cascade-freq",
@@ -922,7 +884,8 @@
    "prereqs": [
     "cs-cascade",
     "miller"
-   ]
+   ],
+   "owns": "cascade bandwidth and bandwidth extension"
   },
   {
    "id": "cs-cap-load",
@@ -930,8 +893,9 @@
    "chapter": 15,
    "reader_section": "15.5",
    "prereqs": [
-    "cs-miller"
-   ]
+    "miller"
+   ],
+   "owns": "CS with dominant output pole from large C_L"
   },
   {
    "id": "cascode-amp",
@@ -942,7 +906,8 @@
     "cs-cascade",
     "cg",
     "miller"
-   ]
+   ],
+   "owns": "cascode amplifier gain and bandwidth"
   },
   {
    "id": "cascode-bias",
@@ -951,7 +916,8 @@
    "reader_section": "15.6.6",
    "prereqs": [
     "cascode-amp"
-   ]
+   ],
+   "owns": "cascode bias voltages and swing budget"
   },
   {
    "id": "big-circuit",
@@ -961,7 +927,8 @@
    "prereqs": [
     "cascode-amp",
     "cs-cascade"
-   ]
+   ],
+   "owns": "simplifying large circuits into known stages"
   },
   {
    "id": "diff-intro",
@@ -970,7 +937,8 @@
    "reader_section": "16.2",
    "prereqs": [
     "degeneration"
-   ]
+   ],
+   "owns": "source-coupled pair: motivation and structure"
   },
   {
    "id": "diff-dc",
@@ -979,45 +947,27 @@
    "reader_section": "16.4",
    "prereqs": [
     "diff-intro"
-   ]
-  },
-  {
-   "id": "dm-cm",
-   "name": "Differential-mode and common-mode decomposition",
-   "chapter": 16,
-   "reader_section": "16.5",
-   "prereqs": [
-    "diff-intro",
-    "ss-steps"
-   ]
+   ],
+   "owns": "differential pair large-signal transfer and bias"
   },
   {
    "id": "half-circuit",
-   "name": "Differential half-circuit analysis",
+   "name": "Differential/common-mode decomposition and half circuits",
    "chapter": 16,
    "reader_section": "16.5.4",
-   "prereqs": [
-    "dm-cm"
-   ]
-  },
-  {
-   "id": "cm-gain",
-   "name": "Common-mode gain with a real current source",
-   "chapter": 16,
-   "reader_section": "16.5.6",
-   "prereqs": [
-    "dm-cm",
-    "mirror-ro"
-   ]
+   "prereqs": [],
+   "owns": "DM/CM decomposition and half-circuit gains"
   },
   {
    "id": "cmrr",
-   "name": "CMRR and DC offsets",
+   "name": "Common-mode gain and CMRR",
    "chapter": 16,
    "reader_section": "16.6",
    "prereqs": [
-    "cm-gain"
-   ]
+    "half-circuit",
+    "mirror"
+   ],
+   "owns": "CM gain with finite tail resistance and CMRR"
   },
   {
    "id": "mirror-load",
@@ -1028,7 +978,8 @@
     "diff-intro",
     "mirror",
     "half-circuit"
-   ]
+   ],
+   "owns": "diff pair with mirror load: single-ended gain"
   },
   {
    "id": "fb-intro",
@@ -1037,7 +988,8 @@
    "reader_section": "17.2",
    "prereqs": [
     "tf"
-   ]
+   ],
+   "owns": "feedback block diagram"
   },
   {
    "id": "loop-gain",
@@ -1046,7 +998,8 @@
    "reader_section": "17.3",
    "prereqs": [
     "fb-intro"
-   ]
+   ],
+   "owns": "loop gain and desensitivity"
   },
   {
    "id": "opamp-models",
@@ -1056,7 +1009,8 @@
    "prereqs": [
     "ss-model",
     "fb-intro"
-   ]
+   ],
+   "owns": "op-amp/OTA models"
   },
   {
    "id": "gbw",
@@ -1067,7 +1021,8 @@
     "loop-gain",
     "bode",
     "opamp-models"
-   ]
+   ],
+   "owns": "gain-bandwidth trade-off"
   },
   {
    "id": "inverting",
@@ -1077,7 +1032,8 @@
    "prereqs": [
     "loop-gain",
     "opamp-models"
-   ]
+   ],
+   "owns": "inverting amplifier"
   },
   {
    "id": "fb-errors",
@@ -1086,7 +1042,8 @@
    "reader_section": "17.7",
    "prereqs": [
     "loop-gain"
-   ]
+   ],
+   "owns": "static/dynamic feedback errors"
   },
   {
    "id": "fb-impedance",
@@ -1096,7 +1053,8 @@
    "prereqs": [
     "fb-intro",
     "two-port"
-   ]
+   ],
+   "owns": "feedback effect on impedances"
   },
   {
    "id": "stability",
@@ -1106,7 +1064,8 @@
    "prereqs": [
     "gbw",
     "pole-zero"
-   ]
+   ],
+   "owns": "stability and phase margin"
   },
   {
    "id": "offset",
@@ -1116,7 +1075,8 @@
    "prereqs": [
     "opamp-models",
     "cmrr"
-   ]
+   ],
+   "owns": "op-amp input offset (incl. pair mismatch)"
   },
   {
    "id": "bias-current",
@@ -1125,7 +1085,8 @@
    "reader_section": "18.2.3",
    "prereqs": [
     "offset"
-   ]
+   ],
+   "owns": "input bias/offset currents"
   },
   {
    "id": "opamp-fr",
@@ -1134,7 +1095,8 @@
    "reader_section": "18.3",
    "prereqs": [
     "gbw"
-   ]
+   ],
+   "owns": "open/closed-loop op-amp frequency response"
   },
   {
    "id": "slew",
@@ -1143,7 +1105,8 @@
    "reader_section": "18.4",
    "prereqs": [
     "opamp-fr"
-   ]
+   ],
+   "owns": "slew rate and full-power bandwidth"
   },
   {
    "id": "noise-dist",
@@ -1152,7 +1115,8 @@
    "reader_section": "18.5",
    "prereqs": [
     "opamp-models"
-   ]
+   ],
+   "owns": "noise and distortion"
   },
   {
    "id": "datasheet",
@@ -1163,7 +1127,25 @@
     "offset",
     "slew",
     "noise-dist"
-   ]
+   ],
+   "owns": "reading op-amp datasheets"
   }
- ]
+ ],
+ "retired": {
+  "saturation": "square-law",
+  "bjt-gain": "bjt-action",
+  "clm": "ro",
+  "op-point": "cs-intro",
+  "ss-steps": "ss-model",
+  "ss-4term": "body-effect",
+  "body-amp": "cd",
+  "cd-real": "cd",
+  "z-match": "two-port",
+  "mirror-ratio": "mirror",
+  "mirror-ro": "mirror",
+  "cs-miller": "miller",
+  "dm-cm": "half-circuit",
+  "cm-gain": "cmrr",
+  "pmos-ss": "pmos"
+ }
 }

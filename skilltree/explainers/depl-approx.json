@@ -16,7 +16,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "A one-sided junction has \\(N_A = 10^{18}\\) and \\(N_D = 4\\times10^{15}\\ \\mathrm{cm^{-3}}\\), with \\(\\varphi_{bi} = 0.8\\ \\mathrm{V}\\). The \\(1/N_A\\) term is negligible:\n\\[ X_d \\approx \\sqrt{\\frac{2(1.04\\times10^{-12})(0.8)}{(1.602\\times10^{-19})(4\\times10^{15})}} \\approx \\sqrt{2.6\\times10^{-9}} \\approx 0.51\\ \\mu\\mathrm{m} \\]\n\\[ E_{max} = \\frac{2\\varphi_{bi}}{X_d} \\approx 3.1\\times10^{4}\\ \\mathrm{V/cm} \\]"
+   "body_md": "A one-sided junction has a heavily doped p side (\\(N_A \\gg N_D\\)) and \\(N_D = 3\\times10^{16}\\ \\mathrm{cm^{-3}}\\), with \\(\\varphi_{bi} = 0.8\\ \\mathrm{V}\\). The \\(1/N_A\\) term is negligible, so with silicon's \\(\\varepsilon_s\\) and the electron charge \\(q\\):\n\\[ X_d \\approx \\sqrt{\\frac{2\\varepsilon_s\\varphi_{bi}}{qN_D}} \\approx \\sqrt{3.46\\times10^{-10}\\ \\mathrm{cm^2}} \\approx 0.186\\ \\mu\\mathrm{m} \\]\n\\[ E_{max} = \\frac{2\\varphi_{bi}}{X_d} \\approx 8.6\\times10^{4}\\ \\mathrm{V/cm} \\]"
   },
   {
    "heading": "Common pitfalls",

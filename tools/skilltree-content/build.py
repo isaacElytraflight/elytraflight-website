@@ -37,6 +37,17 @@ def normalize_bank_question(q: dict) -> dict:
             "answer", "unit", "tolerance", "explanation", "preview", "figure", "figure_alt")
     return {k: q[k] for k in keep if k in q}
 
+def clear_stale_outputs():
+    """Drop previously hashed content so retired banks are not still served."""
+    BANKS_OUT.mkdir(parents=True, exist_ok=True)
+    EXPLAINERS_OUT.mkdir(parents=True, exist_ok=True)
+    for folder in (BANKS_OUT, EXPLAINERS_OUT):
+        for path in folder.glob("*.json"):
+            path.unlink()
+    for pattern in ("skills.*.json", "collections.*.json"):
+        for path in OUT.glob(pattern):
+            path.unlink()
+
 def main():
     skills_file = SRC / "ee105_skills_draft.json"
     bank_dir = SRC / "bank"
@@ -48,9 +59,27 @@ def main():
     data = json.loads(skills_file.read_text(encoding="utf-8"))
     skills = data["skills"]
     skill_ids = {s["id"] for s in skills}
-    
-    BANKS_OUT.mkdir(parents=True, exist_ok=True)
-    EXPLAINERS_OUT.mkdir(parents=True, exist_ok=True)
+    retired = data.get("retired") or {}
+    if not isinstance(retired, dict):
+        print("Error: retired must be an object of {oldId: survivorId}", file=sys.stderr)
+        sys.exit(1)
+    errors = 0
+    for old_id, survivor_id in retired.items():
+        if old_id in skill_ids:
+            print(f"Error: retired id {old_id} is still a live skill", file=sys.stderr)
+            errors += 1
+        if survivor_id not in skill_ids:
+            print(f"Error: retired id {old_id} maps to unknown skill {survivor_id}", file=sys.stderr)
+            errors += 1
+    for skill in skills:
+        for prereq in skill.get("prereqs") or []:
+            if prereq not in skill_ids or prereq in retired:
+                print(f"Error: skill {skill['id']} has unresolved prerequisite {prereq}", file=sys.stderr)
+                errors += 1
+    if errors:
+        sys.exit(1)
+
+    clear_stale_outputs()
     
     banks_meta = {}  # skill_id -> {version, questionCount, hash, file}
     explainers_meta = {}  # skill_id -> {hash, file, sectionCount}
@@ -60,8 +89,9 @@ def main():
         bank = json.loads(bank_file.read_text(encoding="utf-8"))
         sid = bank["skill_id"]
         
-        if sid not in skill_ids:
-            print(f"Warning: bank {bank_file.name} for unknown skill {sid}; skipped", file=sys.stderr)
+        if sid not in skill_ids or sid in retired:
+            print(f"Error: bank {bank_file.name} for unknown or retired skill {sid}", file=sys.stderr)
+            errors += 1
             continue
         
         questions = [normalize_bank_question(q) for q in bank["questions"]]
@@ -111,8 +141,9 @@ def main():
             explainer = json.loads(explainer_file.read_text(encoding="utf-8"))
             sid = explainer["id"]
             
-            if sid not in skill_ids:
-                print(f"Warning: explainer {explainer_file.name} for unknown skill {sid}; skipped", file=sys.stderr)
+            if sid not in skill_ids or sid in retired:
+                print(f"Error: explainer {explainer_file.name} for unknown or retired skill {sid}", file=sys.stderr)
+                errors += 1
                 continue
             
             explainer_data = {
@@ -147,8 +178,9 @@ def main():
                 if child_id not in box_ids:
                     print(f"Warning: box {box['id']} references unknown child {child_id}", file=sys.stderr)
             for sid in box.get("skills", []):
-                if sid not in skill_ids:
-                    print(f"Warning: box {box['id']} references unknown skill {sid}", file=sys.stderr)
+                if sid not in skill_ids or sid in retired:
+                    print(f"Error: box {box['id']} references unknown or retired skill {sid}", file=sys.stderr)
+                    errors += 1
         
         collections_json = json.dumps(collections_data, ensure_ascii=False, separators=(",", ":"))
         collections_bytes = collections_json.encode("utf-8")
@@ -174,6 +206,7 @@ def main():
         "banks": banks_meta,
         "explainers": explainers_meta,
         "playable": sorted(playable_ids),
+        "retired": retired,
     }
     
     skills_json = json.dumps(skills_out, ensure_ascii=False, separators=(",", ":"))
@@ -207,6 +240,10 @@ def main():
     print(f"  - {len(banks_meta)} bank files: {total_bank_size:,} bytes total")
     print(f"  - {len(explainers_meta)} explainer files: {total_explainer_size:,} bytes total")
     print(f"  - manifest.json")
+    print(f"  - retired map: {len(retired)} ids")
+    if errors:
+        print(f"Error: {errors} content problem(s)", file=sys.stderr)
+        return 1
     
     return 0
 

@@ -16,7 +16,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "Picture a junction with \\(N_A = 10^{17}\\) on the left and \\(N_D = 10^{15}\\ \\mathrm{cm^{-3}}\\) on the right. Charge balance says \\(N_A x_p = N_D x_n\\), so\n\\[ \\frac{x_n}{x_p} = \\frac{N_A}{N_D} = 100 \\]\nThe depletion region reaches 100 times further into the lightly doped n side. Most of the potential step and most of the depletion width are on the lightly doped side."
+   "body_md": "Picture a junction with \\(N_A = 2\\times10^{19}\\) on the left and \\(N_D = 10^{17}\\ \\mathrm{cm^{-3}}\\) on the right. Charge balance says \\(N_A x_p = N_D x_n\\), so\n\\[ \\frac{x_n}{x_p} = \\frac{N_A}{N_D} = 200 \\]\nThe depletion region reaches 200 times further into the lightly doped n side. Most of the potential step and most of the depletion width are on the lightly doped side."
   },
   {
    "heading": "Common pitfalls",

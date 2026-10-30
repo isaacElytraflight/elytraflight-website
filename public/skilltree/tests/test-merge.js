@@ -4,29 +4,7 @@
  * Run: node test-merge.js
  */
 const assert = require('assert');
-
-const mergeSkill = (local, remote) => {
-  if (!local && !remote) return null;
-  if (!local) return remote;
-  if (!remote) return local;
-  
-  const seenT = new Set();
-  const mergedHist = [];
-  const allHist = [...(local.history || []), ...(remote.history || [])];
-  allHist.sort((a, b) => a.t - b.t);
-  for (const h of allHist) {
-    if (!seenT.has(h.t)) {
-      seenT.add(h.t);
-      mergedHist.push(h);
-    }
-  }
-  
-  return {
-    tier: Math.max(local.tier || 0, remote.tier || 0),
-    lastPracticed: Math.max(local.lastPracticed || 0, remote.lastPracticed || 0) || null,
-    history: mergedHist.slice(-60)
-  };
-};
+const { mergeSkillRecords: mergeSkill } = require('../migrate.js');
 
 const mergeProgress = (local, remote) => {
   if (!local || !local.skills) return remote;

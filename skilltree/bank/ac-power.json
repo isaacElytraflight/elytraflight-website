@@ -158,7 +158,7 @@
       "tolerance": 0.02,
       "explanation": "DC supply power: \\(P_{\\mathrm{DC}}=V_{\\mathrm{DD}}\\cdot I_{D}=3\\ \\mathrm{V}\\times 1\\ \\mathrm{mA}=3\\ \\mathrm{mW}\\).\nAC signal power in \\(R_{D}\\): \\(P_{\\mathrm{AC}}=V_{p}^{2}/(2R_{D})=0.25/(2\\times 2000)=62.5\\ \\mu\\mathrm{W}\\).\nRatio \\(=62.5\\ \\mu\\mathrm{W}/3\\ \\mathrm{mW}=2.083\\%\\). This is why bias (large-signal) power and signal (small-signal) power are analyzed separately.\nCommon mistake: forgetting the \\(\\tfrac{1}{2}\\ (125\\ \\mu\\mathrm{W}\\to 4.17\\%)\\).",
       "preview": [
-        "op-point"
+        "cs-intro"
       ]
     }
   ]

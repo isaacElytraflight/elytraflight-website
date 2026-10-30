@@ -24,8 +24,10 @@ for (const f of fs.readdirSync(BANK_DIR)) {
 
 const KEY = 'skilltree.progress.v1';
 const SKJ = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', '..', 'skilltree', 'ee105_skills_draft.json'))).skills;
+const NSKILL = SKJ.length;
 const NPLAY = Object.keys(BANK).length;
 const NSOON = SKJ.length - NPLAY;
+const EDGES = SKJ.reduce((n, s) => n + s.prereqs.length, 0);
 const ROOTS = SKJ.filter(s => BANK[s.id] && !s.prereqs.some(q => BANK[q])).map(s => s.id).sort();
 
 let browser, results = [], errs = [];
@@ -145,7 +147,7 @@ async function test(name, fn) {
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
 
-  await test(`initial render: 121 skills x2 views, ${121 - NPLAY} coming soon, ${ROOTS.length} ready`, async () => {
+  await test(`initial render: ${NSKILL} skills x2 views, ${NSOON} coming soon, ${ROOTS.length} ready`, async () => {
     const p = await newPage();
     const r = await p.evaluate(() => ({
       tree: document.querySelectorAll('#world .tile').length,
@@ -158,7 +160,7 @@ async function test(name, fn) {
       paths: document.querySelectorAll('#edges path').length,
       title: document.querySelector('h1').textContent
     }));
-    assert.deepStrictEqual([r.tree, r.grid, r.soon, r.blobs, r.paths], [121, 121, NSOON, 19, 180]);
+    assert.deepStrictEqual([r.tree, r.grid, r.soon, r.blobs, r.paths], [NSKILL, NSKILL, NSOON, 19, EDGES]);
     assert.strictEqual(r.courseBlobs, 1, 'should have 1 course blob');
     assert.strictEqual(r.chapterBlobs, 18, 'should have 18 chapter blobs');
     assert.deepStrictEqual(r.ready, ROOTS);
@@ -167,18 +169,24 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
-  await test('coming-soon skill: badge, panel note, cannot start', async () => {
+  await test('coming-soon skills cannot start; skills with banks can', async () => {
     const p = await newPage();
-    await openSkill(p, 'clm');
-    const r = await p.evaluate(() => ({
-      start: !!document.getElementById('startBtn'),
-      txt: document.getElementById('panel').textContent,
-      btns: [...document.querySelectorAll('#panel button')].map(b => b.textContent)
-    }));
-    assert(/Coming soon/.test(r.txt));
-    assert(!r.start);
-    assert(!r.btns.some(b => /Start/.test(b)), 'no start button ' + r.btns);
-    await p.screenshot({ path: path.join(SHOTS_DIR, '02_panel_coming_soon.png') });
+    const soon = await p.$$eval('#world .tile.soon', els => els.map(e => e.dataset.id));
+    assert.strictEqual(soon.length, NSOON);
+    const legend = await p.$eval('#stats', e => e.textContent);
+    assert(legend.includes('Coming soon'), legend);
+    if (soon.length) {
+      await openSkill(p, soon[0]);
+      const txt = await p.$eval('#panel', e => e.textContent);
+      assert(/Coming soon/.test(txt));
+      assert(!(await p.$('#startBtn')));
+      await p.screenshot({ path: path.join(SHOTS_DIR, '02_panel_coming_soon.png') });
+    } else {
+      await openSkill(p, 'ro');
+      assert(await p.$('#startBtn'), 'a skill with a bank can start');
+      assert(!/Coming soon/.test(await p.$eval('#panel', e => e.textContent)));
+      await p.screenshot({ path: path.join(SHOTS_DIR, '02_panel_playable.png') });
+    }
     await p._ctx.close();
   });
 
@@ -400,7 +408,7 @@ async function test(name, fn) {
     assert(loadingGone, 'loading overlay should be removed after data loads');
     
     const tiles = await p.evaluate(() => document.querySelectorAll('#world .tile').length);
-    assert.strictEqual(tiles, 121, 'should render all 121 skill tiles');
+    assert.strictEqual(tiles, NSKILL, 'should render every skill tile');
     
     const title = await p.$eval('h1', e => e.textContent);
     assert.strictEqual(title, 'Skillgrove');
@@ -490,6 +498,10 @@ async function test(name, fn) {
     
     const hasKatex = await p.$eval('.explainer-body', e => e.querySelector('.katex') !== null);
     assert(hasKatex, 'should render KaTeX math');
+    const hasFig = await p.$('#explainerContent .qfig svg');
+    assert(hasFig, 'explainer diagram should render');
+    const katexErrs = await p.evaluate(() => (window.__katexErrors || []).slice());
+    assert.deepStrictEqual(katexErrs, [], 'KaTeX errors: ' + katexErrs.join(' | '));
     
     await p.screenshot({ path: path.join(SHOTS_DIR, '11_explainer_modal.png') });
     
@@ -501,8 +513,10 @@ async function test(name, fn) {
   await test('skill without explainer has no explainer button', async () => {
     const p = await newPage();
     
+    const retired = await p.evaluate(() => window.__skillgrove.retired());
+    assert.strictEqual(retired.clm, 'ro', 'retired map should send clm to ro');
     const hasExplainer = await p.evaluate(() => window.__skillgrove.explainers.has('clm'));
-    assert(!hasExplainer, 'clm should not have an explainer (coming soon skill)');
+    assert(!hasExplainer, 'retired id clm should not have an explainer');
     
     await p._ctx.close();
   });
@@ -532,7 +546,7 @@ async function test(name, fn) {
     assert(worldHasClass, 'world should have lights-view class');
     
     const lightModeCount = await p.$$eval('#world .tile.light-mode', els => els.length);
-    assert.strictEqual(lightModeCount, 121, 'all tiles should have light-mode class');
+    assert.strictEqual(lightModeCount, NSKILL, 'all tiles should have light-mode class');
     
     const lightDot = await p.$('.tile.t4 .light-dot');
     assert(lightDot, 'mastered tile should have light-dot element');
@@ -807,10 +821,89 @@ async function test(name, fn) {
     
     assert(lightsResult.lightsOn, 'lights mode should be on');
     assert(lightsResult.worldHasClass, 'world should have lights-view class');
-    assert.strictEqual(lightsResult.lightModeCount, 121, 'all tiles should have light-mode');
+    assert.strictEqual(lightsResult.lightModeCount, NSKILL, 'all tiles should have light-mode');
     assert(lightsResult.masteredHasShimmer, 'mastered tile should have light-dot');
     
     await p.screenshot({ path: path.join(SHOTS_DIR, '17_lights_nested.png') });
+    await p._ctx.close();
+  });
+
+  await test('quiz prompt renders LaTeX and the question diagram', async () => {
+    const p = await newPage();
+    await openSkill(p, 'square-law');
+    await p.click('#startBtn');
+    await p.waitForSelector('#qPrompt .katex', { timeout: 10000 });
+    const fig = await p.$('#quiz .qfig svg');
+    assert(fig, 'question diagram should render as SVG');
+    const label = await p.$eval('#quiz .qfig svg', e => e.getAttribute('aria-label'));
+    assert(label && label.length > 0, 'diagram should keep its label');
+    const katexErrs = await p.evaluate(() => (window.__katexErrors || []).slice());
+    assert.deepStrictEqual(katexErrs, [], 'KaTeX errors: ' + katexErrs.join(' | '));
+    await p.screenshot({ path: path.join(SHOTS_DIR, '18_quiz_latex_figure.png') });
+    await p._ctx.close();
+  });
+
+  await test('local progress on retired ids moves to the survivor and stays there', async () => {
+    const p = await newPage(T({
+      saturation: { tier: 2, lastPracticed: now - 5 * DAY, history: [{ t: now - 5 * DAY, round: 2, correct: 2, total: 3, passed: true }] },
+      'square-law': { tier: 4, lastPracticed: now - DAY, history: [{ t: now - DAY, round: 4, correct: 3, total: 3, passed: true }] },
+      'bjt-gain': { tier: 3, lastPracticed: now - 2 * DAY, history: [{ t: now - 2 * DAY, round: 3, correct: 2, total: 3, passed: true }] },
+      'not-a-skill': { tier: 1, lastPracticed: now - 3 * DAY, history: [] }
+    }));
+    const s = await store(p);
+    assert.strictEqual(s.skills.saturation, undefined);
+    assert.strictEqual(s.skills['bjt-gain'], undefined);
+    assert.strictEqual(s.skills['square-law'].tier, 4, 'survivor keeps the higher tier');
+    assert.strictEqual(s.skills['square-law'].lastPracticed, now - DAY, 'later practice time wins');
+    assert.strictEqual(s.skills['square-law'].history.length, 2, 'both histories are kept');
+    assert.strictEqual(s.skills['bjt-action'].tier, 3);
+    assert.strictEqual(s.skills['bjt-action'].lastPracticed, now - 2 * DAY);
+    assert.strictEqual(s.skills['not-a-skill'].tier, 1, 'unrelated ids are preserved');
+
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    const again = await store(p);
+    assert.strictEqual(again.skills.saturation, undefined);
+    assert.deepStrictEqual(again.skills['square-law'], s.skills['square-law']);
+    assert.deepStrictEqual(again.skills['bjt-action'], s.skills['bjt-action']);
+    await p._ctx.close();
+  });
+
+  await test('signed-in sync migrates retired ids on both devices before merging', async () => {
+    const p = await newPage();
+    const result = await p.evaluate((now) => {
+      const retired = window.__skillgrove.retired();
+      const merge = window.SkillgroveAuth.mergeProgress;
+      const day = 86400000;
+      const local = { version: 1, skills: {
+        saturation: { tier: 2, lastPracticed: now - 5 * day, history: [{ t: 1, passed: true }] },
+        'body-amp': { tier: 1, lastPracticed: now - 9 * day, history: [{ t: 4, passed: false }] }
+      }};
+      const remote = { version: 1, skills: {
+        'square-law': { tier: 1, lastPracticed: now - 8 * day, history: [{ t: 2, passed: true }] },
+        saturation: { tier: 3, lastPracticed: now - day, history: [{ t: 3, passed: true }] },
+        'cd-real': { tier: 4, lastPracticed: now - 2 * day, history: [{ t: 5, passed: true }] }
+      }};
+      const once = window.SkillgroveMigrate.combineMigratedProgress(local, remote, retired, merge);
+      const twice = window.SkillgroveMigrate.combineMigratedProgress(once.progress, once.progress, retired, merge);
+      return {
+        keys: Object.keys(once.progress.skills).sort(),
+        square: once.progress.skills['square-law'],
+        cd: once.progress.skills.cd,
+        changed: once.changed,
+        again: twice.changed,
+        same: JSON.stringify(twice.progress.skills) === JSON.stringify(once.progress.skills)
+      };
+    }, now);
+    assert.deepStrictEqual(result.keys, ['cd', 'square-law']);
+    assert.strictEqual(result.square.tier, 3);
+    assert.strictEqual(result.square.lastPracticed, now - DAY);
+    assert.strictEqual(result.square.history.length, 3);
+    assert.strictEqual(result.cd.tier, 4);
+    assert.strictEqual(result.cd.lastPracticed, now - 2 * DAY);
+    assert.strictEqual(result.changed, true);
+    assert.strictEqual(result.again, false);
+    assert.strictEqual(result.same, true);
     await p._ctx.close();
   });
 
@@ -897,7 +990,7 @@ async function test(name, fn) {
       
       await p.screenshot({ path: path.join(SHOTS_DIR, '19_plan_prereq_extras.png') });
     }
-    
+
     await p._ctx.close();
   });
 

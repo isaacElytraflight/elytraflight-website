@@ -175,7 +175,7 @@
       "correct_index": 2,
       "explanation": "The local inversion charge is \\(C_{ox}(V_{GS} - V(x) - V_T)\\). At \\(V_{DS} = V_{GS} - V_T\\) this reaches zero at the drain: saturation.",
       "preview": [
-        "saturation",
+        "square-law",
         "nmos-regions"
       ]
     }

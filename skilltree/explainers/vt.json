@@ -16,7 +16,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "Take \\(N_A = 10^{16}\\ \\mathrm{cm^{-3}}\\), \\(t_{ox} = 10\\ \\mathrm{nm}\\), n+ poly gate.\n\\(\\varphi_p \\approx -0.359\\ \\mathrm{V}\\), so \\(V_{FB} \\approx -0.359 - 0.55 = -0.909\\ \\mathrm{V}\\) and \\(-2\\varphi_p \\approx 0.718\\ \\mathrm{V}\\).\n\\[ |Q_B| = \\sqrt{2(1.602\\times10^{-19})(1.04\\times10^{-12})(10^{16})(0.718)} \\approx 4.9\\times10^{-8}\\ \\mathrm{C/cm^2} \\]\n\\[ C_{ox} = 3.45\\times10^{-7}\\ \\mathrm{F/cm^2}, \\quad \\frac{|Q_B|}{C_{ox}} \\approx 0.14\\ \\mathrm{V} \\]\n\\[ V_T \\approx -0.909 + 0.718 + 0.14 \\approx -0.05\\ \\mathrm{V} \\]"
+   "body_md": "Take \\(N_A = 4\\times10^{17}\\ \\mathrm{cm^{-3}}\\), \\(t_{ox} = 10\\ \\mathrm{nm}\\), n+ poly gate.\n\\(\\varphi_p = -0.026\\ln(4\\times10^{7}) \\approx -0.455\\ \\mathrm{V}\\). Adding the n+ poly potential gives \\(V_{FB} \\approx -1.005\\ \\mathrm{V}\\), and \\(-2\\varphi_p \\approx 0.910\\ \\mathrm{V}\\).\n\\[ |Q_B| = \\sqrt{2q\\varepsilon_sN_A(-2\\varphi_p)} \\approx 3.48\\times10^{-7}\\ \\mathrm{C/cm^2} \\]\n\\[ C_{ox} = \\varepsilon_{ox}/t_{ox} \\approx 3.45\\times10^{-7}\\ \\mathrm{F/cm^2}, \\quad \\frac{|Q_B|}{C_{ox}} \\approx 1.01\\ \\mathrm{V} \\]\n\\[ V_T \\approx -1.005 + 0.910 + 1.01 \\approx 0.92\\ \\mathrm{V} \\]"
   },
   {
    "heading": "Common pitfalls",

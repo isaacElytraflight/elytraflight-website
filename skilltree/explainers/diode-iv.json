@@ -16,7 +16,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "A short-base diode has \\(A = 10^{-4}\\ \\mathrm{cm^2}\\), a heavily doped p side, and an n side with \\(N_D = 10^{16}\\ \\mathrm{cm^{-3}}\\), \\(W_n = 2\\ \\mu\\mathrm{m}\\), \\(D_p = 10\\ \\mathrm{cm^2/s}\\). Only the n side matters:\n\\[ I_S \\approx (1.602\\times10^{-19})(10^{-4})(10^{20})\\frac{10}{10^{16}\\cdot2\\times10^{-4}} \\approx 8\\times10^{-15}\\ \\mathrm{A} \\]\nAt \\(V_D = 0.65\\ \\mathrm{V}\\): \\(I_D \\approx 8\\times10^{-15}e^{25} \\approx 0.58\\ \\mathrm{mA}\\)."
+   "body_md": "A short-base diode has \\(A = 10^{-4}\\ \\mathrm{cm^2}\\), a heavily doped p side, and an n side with \\(N_D = 2\\times10^{16}\\ \\mathrm{cm^{-3}}\\), \\(W_n = 2\\ \\mu\\mathrm{m}\\), \\(D_p = 10\\ \\mathrm{cm^2/s}\\). Only the n side matters:\n\\[ I_S \\approx qAn_i^2\\frac{D_p}{N_DW_n} \\approx 4\\ \\mathrm{fA} \\]\nAt \\(V_D = 0.7\\ \\mathrm{V}\\): \\(I_D \\approx 4\\ \\mathrm{fA}\\times e^{0.7/0.026} = 4\\ \\mathrm{fA}\\times e^{26.9} \\approx 2.0\\ \\mathrm{mA}\\)."
   },
   {
    "heading": "Common pitfalls",

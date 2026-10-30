@@ -178,6 +178,11 @@ function normalizeProgress(raw) {
   return out;
 }
 
+function applyRetirement(p) {
+  if (!p || !window.SkillgroveMigrate) return { progress: p, changed: false };
+  return window.SkillgroveMigrate.migrateRetiredProgress(p, (DATA && DATA.retired) || {});
+}
+
 function loadProgress() {
   storageOK = probeStorage();
   if (!storageOK) { showWarn('Browser storage is unavailable here, so progress will be lost when you close this tab. Use Export (top right) to save a backup file.'); return }
@@ -186,7 +191,12 @@ function loadProgress() {
   if (!raw) return;
   try {
     const p = normalizeProgress(JSON.parse(raw));
-    if (p) { progress = p; return }
+    if (p) {
+      const mig = applyRetirement(p);
+      progress = mig.progress;
+      if (mig.changed) saveProgress();
+      return;
+    }
   } catch (e) { }
   try { localStorage.setItem(KEY + '.backup-' + Date.now(), raw) } catch (e) { }
   setTimeout(() => toast('Saved progress could not be read; a backup copy was kept and you start fresh.'), 300);
@@ -476,7 +486,20 @@ function computeGroupedLayout() {
   });
   
   const rank = {};
-  const R = c => rank[c] != null ? rank[c] : (rank[c] = cpred[c] && cpred[c].size ? 1 + Math.max(...[...cpred[c].keys()].map(R)) : 0);
+  const visiting = new Set();
+  /* Chapter boxes can depend on each other in a cycle (ch 8 ↔ ch 9 after the
+     pmos / ss-model split) even though the skill graph is acyclic. A back edge
+     is ignored so ranking still finishes. */
+  const R = c => {
+    if (rank[c] != null) return rank[c];
+    if (visiting.has(c)) return 0;
+    visiting.add(c);
+    let r = 0;
+    if (cpred[c]) for (const p of cpred[c].keys()) r = Math.max(r, 1 + R(p));
+    visiting.delete(c);
+    rank[c] = r;
+    return r;
+  };
   chapterKeys.forEach(R);
   
   const avgD = {};
@@ -1811,8 +1834,9 @@ function importFile(file) {
   r.onerror = () => toast('Could not read that file.');
   r.onload = () => {
     let raw; try { raw = JSON.parse(r.result) } catch (e) { openModal({ title: 'Import failed', body: el('p', { id: 'impErr', text: "That file isn't valid JSON." }), actions: [{ label: 'OK' }] }); return }
-    const p = normalizeProgress(raw);
-    if (!p) { openModal({ title: 'Import failed', body: el('p', { id: 'impErr', text: "That doesn't look like a Skillgrove progress file (expected version 1 with a \"skills\" object)." }), actions: [{ label: 'OK' }] }); return }
+    const normalized = normalizeProgress(raw);
+    if (!normalized) { openModal({ title: 'Import failed', body: el('p', { id: 'impErr', text: "That doesn't look like a Skillgrove progress file (expected version 1 with a \"skills\" object)." }), actions: [{ label: 'OK' }] }); return }
+    const p = applyRetirement(normalized).progress;
     const ids = Object.keys(p.skills), known = ids.filter(i => byId[i]), unknown = ids.length - known.length;
     const impT = (raw.timing && typeof raw.timing === 'object') ? Sim.normalizeTiming(raw.timing) : null;
     const nT = impT ? impT.practice.length + impT.challenge.length : 0;
@@ -1915,9 +1939,10 @@ async function init() {
   window.addEventListener('resize', () => { if (panelOpen()) placePanel() });
   
   window.__skillgrove = {
-    version: 1, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode, timing: () => timing, 
-    plan: (scratch, scope) => runPlan(!!scratch, scope), planState: () => planState, 
+    version: 1, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode, timing: () => timing,
+    plan: (scratch, scope) => runPlan(!!scratch, scope), planState: () => planState,
     ready: () => skills.filter(s => isReady(s.id)).map(s => s.id), playableIds: () => playable.map(s => s.id),
+    retired: () => (DATA && DATA.retired) || {},
     qa: { bankMeta: () => bankMeta, bankCache: () => bankCache, fetchBank, prepareQ, renderQuiz, setQuiz: q => { quiz = q }, closeQuizUI, openQuiz: () => quizEl.classList.add('open'), figureNode, katexErrors: () => window.__katexErrors },
     explainers: { meta: () => explainerMeta, cache: () => explainerCache, fetch: fetchExplainer, has: hasExplainer, open: openExplainer },
     lights: { mode: () => lightsMode, threshold: LIGHTS_THRESHOLD, setScale: s => { view.s = s; applyView(); } },

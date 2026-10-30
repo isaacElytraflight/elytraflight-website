@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "generated": "2026-10-29T21:11:15.141822Z",
+  "generated": "2026-10-30T07:39:23.623359Z",
   "skills": {
-    "file": "skills.87d798bc.json",
-    "hash": "87d798bc"
+    "file": "skills.c6d3324b.json",
+    "hash": "c6d3324b"
   },
   "collections": {
-    "file": "collections.f7f7874e.json",
-    "hash": "f7f7874e",
+    "file": "collections.1424036d.json",
+    "hash": "1424036d",
     "boxCount": 19
   },
   "banks": {
@@ -20,8 +20,32 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f775c273",
-      "file": "banks/ac-power.f775c273.json"
+      "hash": "5a770724",
+      "file": "banks/ac-power.5a770724.json"
+    },
+    "amp-choice": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "65054c65",
+      "file": "banks/amp-choice.65054c65.json"
+    },
+    "bias-coupling": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "402f24c6",
+      "file": "banks/bias-coupling.402f24c6.json"
     },
     "bias-current": {
       "version": 1,
@@ -35,6 +59,66 @@
       "hash": "7994ea56",
       "file": "banks/bias-current.7994ea56.json"
     },
+    "big-circuit": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "782a6901",
+      "file": "banks/big-circuit.782a6901.json"
+    },
+    "bjt-action": {
+      "version": 2,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "705be917",
+      "file": "banks/bjt-action.705be917.json"
+    },
+    "bjt-iv": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "74332c65",
+      "file": "banks/bjt-iv.74332c65.json"
+    },
+    "bjt-ss": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "dfad7595",
+      "file": "banks/bjt-ss.dfad7595.json"
+    },
+    "bjt-struct": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "f2be7bfe",
+      "file": "banks/bjt-struct.f2be7bfe.json"
+    },
     "bode": {
       "version": 1,
       "questionCount": 12,
@@ -47,6 +131,18 @@
       "hash": "d62f9fad",
       "file": "banks/bode.d62f9fad.json"
     },
+    "body-effect": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "02cd517d",
+      "file": "banks/body-effect.02cd517d.json"
+    },
     "carrier-pot": {
       "version": 1,
       "questionCount": 12,
@@ -58,6 +154,102 @@
       },
       "hash": "73f158ef",
       "file": "banks/carrier-pot.73f158ef.json"
+    },
+    "cascode-amp": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "db7e5b3c",
+      "file": "banks/cascode-amp.db7e5b3c.json"
+    },
+    "cascode-bias": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "38a0dcf3",
+      "file": "banks/cascode-bias.38a0dcf3.json"
+    },
+    "cascode-src": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "1b8011e3",
+      "file": "banks/cascode-src.1b8011e3.json"
+    },
+    "cd-freq": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d3a21ef4",
+      "file": "banks/cd-freq.d3a21ef4.json"
+    },
+    "cd": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "07188146",
+      "file": "banks/cd.07188146.json"
+    },
+    "cg-freq": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7f1811bc",
+      "file": "banks/cg-freq.7f1811bc.json"
+    },
+    "cg": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "cea73a13",
+      "file": "banks/cg.cea73a13.json"
+    },
+    "cmrr": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "649eaccd",
+      "file": "banks/cmrr.649eaccd.json"
     },
     "contact-pot": {
       "version": 1,
@@ -83,6 +275,78 @@
       "hash": "145277d2",
       "file": "banks/continuity.145277d2.json"
     },
+    "cs-analysis": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "462f5b78",
+      "file": "banks/cs-analysis.462f5b78.json"
+    },
+    "cs-brute": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "562d3fbc",
+      "file": "banks/cs-brute.562d3fbc.json"
+    },
+    "cs-cap-load": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "3c3442c5",
+      "file": "banks/cs-cap-load.3c3442c5.json"
+    },
+    "cs-cascade-freq": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ea73d10f",
+      "file": "banks/cs-cascade-freq.ea73d10f.json"
+    },
+    "cs-cascade": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "48e9aea1",
+      "file": "banks/cs-cascade.48e9aea1.json"
+    },
+    "cs-intro": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "1db74cdb",
+      "file": "banks/cs-intro.1db74cdb.json"
+    },
     "cx-exp": {
       "version": 1,
       "questionCount": 12,
@@ -107,6 +371,18 @@
       "hash": "90acb136",
       "file": "banks/datasheet.90acb136.json"
     },
+    "degeneration": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "bacc3b09",
+      "file": "banks/degeneration.bacc3b09.json"
+    },
     "depl-approx": {
       "version": 1,
       "questionCount": 12,
@@ -119,6 +395,30 @@
       "hash": "c3cb3a4e",
       "file": "banks/depl-approx.c3cb3a4e.json"
     },
+    "diff-dc": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "47e3c4ff",
+      "file": "banks/diff-dc.47e3c4ff.json"
+    },
+    "diff-intro": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "3ef02c4a",
+      "file": "banks/diff-intro.3ef02c4a.json"
+    },
     "diffusion": {
       "version": 1,
       "questionCount": 12,
@@ -130,6 +430,18 @@
       },
       "hash": "2852e54d",
       "file": "banks/diffusion.2852e54d.json"
+    },
+    "diode-conn": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "50ecdba7",
+      "file": "banks/diode-conn.50ecdba7.json"
     },
     "diode-iv": {
       "version": 1,
@@ -215,6 +527,30 @@
       "hash": "97ce3501",
       "file": "banks/drude.97ce3501.json"
     },
+    "early": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "76955ec1",
+      "file": "banks/early.76955ec1.json"
+    },
+    "ebers-moll": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "4369db90",
+      "file": "banks/ebers-moll.4369db90.json"
+    },
     "electrostatics": {
       "version": 1,
       "questionCount": 12,
@@ -260,8 +596,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "a3238617",
-      "file": "banks/fb-impedance.a3238617.json"
+      "hash": "f0cdfd43",
+      "file": "banks/fb-impedance.f0cdfd43.json"
     },
     "fb-intro": {
       "version": 1,
@@ -275,6 +611,18 @@
       "hash": "9823bfbb",
       "file": "banks/fb-intro.9823bfbb.json"
     },
+    "freq-basics": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "a8d2d187",
+      "file": "banks/freq-basics.a8d2d187.json"
+    },
     "freq-char": {
       "version": 1,
       "questionCount": 12,
@@ -287,6 +635,18 @@
       "hash": "e8970ebd",
       "file": "banks/freq-char.e8970ebd.json"
     },
+    "ft": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "36d27dc2",
+      "file": "banks/ft.36d27dc2.json"
+    },
     "gbw": {
       "version": 1,
       "questionCount": 12,
@@ -298,6 +658,54 @@
       },
       "hash": "9c17c0cd",
       "file": "banks/gbw.9c17c0cd.json"
+    },
+    "gm": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "4d1b5cdb",
+      "file": "banks/gm.4d1b5cdb.json"
+    },
+    "half-circuit": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d6384010",
+      "file": "banks/half-circuit.d6384010.json"
+    },
+    "high-load": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "e99f392d",
+      "file": "banks/high-load.e99f392d.json"
+    },
+    "ic-fab": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ea794ad8",
+      "file": "banks/ic-fab.ea794ad8.json"
     },
     "impulse-conv": {
       "version": 1,
@@ -347,6 +755,18 @@
       "hash": "fa289381",
       "file": "banks/junction-cap.fa289381.json"
     },
+    "led": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "a06a5fee",
+      "file": "banks/led.a06a5fee.json"
+    },
     "loop-gain": {
       "version": 1,
       "questionCount": 12,
@@ -370,6 +790,18 @@
       },
       "hash": "483809bf",
       "file": "banks/lti-def.483809bf.json"
+    },
+    "miller": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "305d8885",
+      "file": "banks/miller.305d8885.json"
     },
     "mim-cap": {
       "version": 1,
@@ -395,6 +827,42 @@
       "hash": "56ad6c42",
       "file": "banks/minority-profile.56ad6c42.json"
     },
+    "mirror-load": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "77f71310",
+      "file": "banks/mirror-load.77f71310.json"
+    },
+    "mirror": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7f64384b",
+      "file": "banks/mirror.7f64384b.json"
+    },
+    "mos-caps": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "98836580",
+      "file": "banks/mos-caps.98836580.json"
+    },
     "mos-cv": {
       "version": 1,
       "questionCount": 12,
@@ -416,8 +884,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ee686829",
-      "file": "banks/mos-fields.ee686829.json"
+      "hash": "74ee0b0a",
+      "file": "banks/mos-fields.74ee0b0a.json"
     },
     "mos-regions": {
       "version": 1,
@@ -428,8 +896,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "04fa6c7d",
-      "file": "banks/mos-regions.04fa6c7d.json"
+      "hash": "df95a7ec",
+      "file": "banks/mos-regions.df95a7ec.json"
     },
     "mos-struct": {
       "version": 1,
@@ -443,6 +911,18 @@
       "hash": "377cf126",
       "file": "banks/mos-struct.377cf126.json"
     },
+    "mosfet-struct": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "c0b56236",
+      "file": "banks/mosfet-struct.c0b56236.json"
+    },
     "nl-cap": {
       "version": 1,
       "questionCount": 12,
@@ -455,6 +935,18 @@
       "hash": "f91234f8",
       "file": "banks/nl-cap.f91234f8.json"
     },
+    "nmos-regions": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "5a072852",
+      "file": "banks/nmos-regions.5a072852.json"
+    },
     "noise-dist": {
       "version": 1,
       "questionCount": 12,
@@ -466,6 +958,18 @@
       },
       "hash": "89c6c06a",
       "file": "banks/noise-dist.89c6c06a.json"
+    },
+    "octc": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ee5daecb",
+      "file": "banks/octc.ee5daecb.json"
     },
     "offset": {
       "version": 1,
@@ -515,6 +1019,18 @@
       "hash": "99243278",
       "file": "banks/phasors.99243278.json"
     },
+    "pmos": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "17c4e5d8",
+      "file": "banks/pmos.17c4e5d8.json"
+    },
     "pn-overview": {
       "version": 1,
       "questionCount": 12,
@@ -551,6 +1067,18 @@
       "hash": "2819bcc1",
       "file": "banks/rc-lpf.2819bcc1.json"
     },
+    "ref-gen": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "65d9f04c",
+      "file": "banks/ref-gen.65d9f04c.json"
+    },
     "rev-bias": {
       "version": 1,
       "questionCount": 12,
@@ -574,6 +1102,30 @@
       },
       "hash": "4de08526",
       "file": "banks/rlc.4de08526.json"
+    },
+    "ro": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "40e16726",
+      "file": "banks/ro.40e16726.json"
+    },
+    "sheet-res": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "1dce642d",
+      "file": "banks/sheet-res.1dce642d.json"
     },
     "si-props": {
       "version": 1,
@@ -610,6 +1162,42 @@
       },
       "hash": "7902171c",
       "file": "banks/slew.7902171c.json"
+    },
+    "solar-cell": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "c2871285",
+      "file": "banks/solar-cell.c2871285.json"
+    },
+    "square-law": {
+      "version": 2,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "a7647450",
+      "file": "banks/square-law.a7647450.json"
+    },
+    "ss-model": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "fd5d74e0",
+      "file": "banks/ss-model.fd5d74e0.json"
     },
     "stability": {
       "version": 1,
@@ -659,6 +1247,30 @@
       "hash": "37d31a72",
       "file": "banks/total-current.37d31a72.json"
     },
+    "triode": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "fce6163a",
+      "file": "banks/triode.fce6163a.json"
+    },
+    "two-port": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "041c0c0f",
+      "file": "banks/two-port.041c0c0f.json"
+    },
     "vt": {
       "version": 1,
       "questionCount": 12,
@@ -674,8 +1286,18 @@
   },
   "explainers": {
     "ac-power": {
-      "hash": "fae234f8",
-      "file": "explainers/ac-power.fae234f8.json",
+      "hash": "d5440289",
+      "file": "explainers/ac-power.d5440289.json",
+      "sectionCount": 5
+    },
+    "amp-choice": {
+      "hash": "0a449253",
+      "file": "explainers/amp-choice.0a449253.json",
+      "sectionCount": 5
+    },
+    "bias-coupling": {
+      "hash": "a42fccbf",
+      "file": "explainers/bias-coupling.a42fccbf.json",
       "sectionCount": 5
     },
     "bias-current": {
@@ -683,14 +1305,84 @@
       "file": "explainers/bias-current.45b43990.json",
       "sectionCount": 5
     },
+    "big-circuit": {
+      "hash": "7cec94c6",
+      "file": "explainers/big-circuit.7cec94c6.json",
+      "sectionCount": 5
+    },
+    "bjt-action": {
+      "hash": "8e4c93ab",
+      "file": "explainers/bjt-action.8e4c93ab.json",
+      "sectionCount": 5
+    },
+    "bjt-iv": {
+      "hash": "7a93cd94",
+      "file": "explainers/bjt-iv.7a93cd94.json",
+      "sectionCount": 5
+    },
+    "bjt-ss": {
+      "hash": "e09f08d7",
+      "file": "explainers/bjt-ss.e09f08d7.json",
+      "sectionCount": 5
+    },
+    "bjt-struct": {
+      "hash": "f75a4463",
+      "file": "explainers/bjt-struct.f75a4463.json",
+      "sectionCount": 5
+    },
     "bode": {
       "hash": "1ceb432c",
       "file": "explainers/bode.1ceb432c.json",
       "sectionCount": 5
     },
+    "body-effect": {
+      "hash": "8725e4b4",
+      "file": "explainers/body-effect.8725e4b4.json",
+      "sectionCount": 5
+    },
     "carrier-pot": {
       "hash": "e99034dc",
       "file": "explainers/carrier-pot.e99034dc.json",
+      "sectionCount": 5
+    },
+    "cascode-amp": {
+      "hash": "26c02746",
+      "file": "explainers/cascode-amp.26c02746.json",
+      "sectionCount": 5
+    },
+    "cascode-bias": {
+      "hash": "400f72b3",
+      "file": "explainers/cascode-bias.400f72b3.json",
+      "sectionCount": 5
+    },
+    "cascode-src": {
+      "hash": "cb55d0ba",
+      "file": "explainers/cascode-src.cb55d0ba.json",
+      "sectionCount": 5
+    },
+    "cd-freq": {
+      "hash": "4d2c4acb",
+      "file": "explainers/cd-freq.4d2c4acb.json",
+      "sectionCount": 5
+    },
+    "cd": {
+      "hash": "63aa1835",
+      "file": "explainers/cd.63aa1835.json",
+      "sectionCount": 5
+    },
+    "cg-freq": {
+      "hash": "2722303f",
+      "file": "explainers/cg-freq.2722303f.json",
+      "sectionCount": 5
+    },
+    "cg": {
+      "hash": "115301be",
+      "file": "explainers/cg.115301be.json",
+      "sectionCount": 5
+    },
+    "cmrr": {
+      "hash": "a7ada259",
+      "file": "explainers/cmrr.a7ada259.json",
       "sectionCount": 5
     },
     "contact-pot": {
@@ -703,9 +1395,39 @@
       "file": "explainers/continuity.7746acf7.json",
       "sectionCount": 5
     },
+    "cs-analysis": {
+      "hash": "82fc8c7a",
+      "file": "explainers/cs-analysis.82fc8c7a.json",
+      "sectionCount": 5
+    },
+    "cs-brute": {
+      "hash": "77570120",
+      "file": "explainers/cs-brute.77570120.json",
+      "sectionCount": 5
+    },
+    "cs-cap-load": {
+      "hash": "18ab5d0c",
+      "file": "explainers/cs-cap-load.18ab5d0c.json",
+      "sectionCount": 5
+    },
+    "cs-cascade-freq": {
+      "hash": "325628f4",
+      "file": "explainers/cs-cascade-freq.325628f4.json",
+      "sectionCount": 5
+    },
+    "cs-cascade": {
+      "hash": "221943d6",
+      "file": "explainers/cs-cascade.221943d6.json",
+      "sectionCount": 5
+    },
+    "cs-intro": {
+      "hash": "5b72d985",
+      "file": "explainers/cs-intro.5b72d985.json",
+      "sectionCount": 5
+    },
     "cx-exp": {
-      "hash": "ab8cf724",
-      "file": "explainers/cx-exp.ab8cf724.json",
+      "hash": "a62af9c9",
+      "file": "explainers/cx-exp.a62af9c9.json",
       "sectionCount": 5
     },
     "datasheet": {
@@ -713,9 +1435,24 @@
       "file": "explainers/datasheet.c4cfea0d.json",
       "sectionCount": 5
     },
+    "degeneration": {
+      "hash": "3d9e655c",
+      "file": "explainers/degeneration.3d9e655c.json",
+      "sectionCount": 5
+    },
     "depl-approx": {
-      "hash": "9ff4b231",
-      "file": "explainers/depl-approx.9ff4b231.json",
+      "hash": "9f90eaf1",
+      "file": "explainers/depl-approx.9f90eaf1.json",
+      "sectionCount": 5
+    },
+    "diff-dc": {
+      "hash": "584335fe",
+      "file": "explainers/diff-dc.584335fe.json",
+      "sectionCount": 5
+    },
+    "diff-intro": {
+      "hash": "83b587a8",
+      "file": "explainers/diff-intro.83b587a8.json",
       "sectionCount": 5
     },
     "diffusion": {
@@ -723,9 +1460,14 @@
       "file": "explainers/diffusion.5c7c0cac.json",
       "sectionCount": 5
     },
+    "diode-conn": {
+      "hash": "da668fb1",
+      "file": "explainers/diode-conn.da668fb1.json",
+      "sectionCount": 5
+    },
     "diode-iv": {
-      "hash": "06965402",
-      "file": "explainers/diode-iv.06965402.json",
+      "hash": "545b7d1c",
+      "file": "explainers/diode-iv.545b7d1c.json",
       "sectionCount": 5
     },
     "diode-qual": {
@@ -758,14 +1500,24 @@
       "file": "explainers/drude.38c348c1.json",
       "sectionCount": 5
     },
+    "early": {
+      "hash": "124fbcfc",
+      "file": "explainers/early.124fbcfc.json",
+      "sectionCount": 5
+    },
+    "ebers-moll": {
+      "hash": "21e13953",
+      "file": "explainers/ebers-moll.21e13953.json",
+      "sectionCount": 5
+    },
     "electrostatics": {
       "hash": "7cb26824",
       "file": "explainers/electrostatics.7cb26824.json",
       "sectionCount": 5
     },
     "excess-carriers": {
-      "hash": "74969728",
-      "file": "explainers/excess-carriers.74969728.json",
+      "hash": "0b2bad25",
+      "file": "explainers/excess-carriers.0b2bad25.json",
       "sectionCount": 5
     },
     "fb-errors": {
@@ -779,8 +1531,13 @@
       "sectionCount": 5
     },
     "fb-intro": {
-      "hash": "660faa79",
-      "file": "explainers/fb-intro.660faa79.json",
+      "hash": "88249a23",
+      "file": "explainers/fb-intro.88249a23.json",
+      "sectionCount": 5
+    },
+    "freq-basics": {
+      "hash": "991e6953",
+      "file": "explainers/freq-basics.991e6953.json",
       "sectionCount": 5
     },
     "freq-char": {
@@ -788,9 +1545,34 @@
       "file": "explainers/freq-char.b7f890ed.json",
       "sectionCount": 5
     },
+    "ft": {
+      "hash": "89419ce2",
+      "file": "explainers/ft.89419ce2.json",
+      "sectionCount": 5
+    },
     "gbw": {
       "hash": "721abc00",
       "file": "explainers/gbw.721abc00.json",
+      "sectionCount": 5
+    },
+    "gm": {
+      "hash": "85315815",
+      "file": "explainers/gm.85315815.json",
+      "sectionCount": 5
+    },
+    "half-circuit": {
+      "hash": "8239d389",
+      "file": "explainers/half-circuit.8239d389.json",
+      "sectionCount": 5
+    },
+    "high-load": {
+      "hash": "cb6669ca",
+      "file": "explainers/high-load.cb6669ca.json",
+      "sectionCount": 5
+    },
+    "ic-fab": {
+      "hash": "5b4b6930",
+      "file": "explainers/ic-fab.5b4b6930.json",
       "sectionCount": 5
     },
     "impulse-conv": {
@@ -804,13 +1586,18 @@
       "sectionCount": 5
     },
     "inverting": {
-      "hash": "76353343",
-      "file": "explainers/inverting.76353343.json",
+      "hash": "9f1721ff",
+      "file": "explainers/inverting.9f1721ff.json",
       "sectionCount": 5
     },
     "junction-cap": {
       "hash": "424f0c83",
       "file": "explainers/junction-cap.424f0c83.json",
+      "sectionCount": 5
+    },
+    "led": {
+      "hash": "da5c57e8",
+      "file": "explainers/led.da5c57e8.json",
       "sectionCount": 5
     },
     "loop-gain": {
@@ -823,14 +1610,34 @@
       "file": "explainers/lti-def.8bf367c9.json",
       "sectionCount": 5
     },
+    "miller": {
+      "hash": "e0b13d61",
+      "file": "explainers/miller.e0b13d61.json",
+      "sectionCount": 5
+    },
     "mim-cap": {
       "hash": "9dd5f997",
       "file": "explainers/mim-cap.9dd5f997.json",
       "sectionCount": 5
     },
     "minority-profile": {
-      "hash": "a1239233",
-      "file": "explainers/minority-profile.a1239233.json",
+      "hash": "705519dd",
+      "file": "explainers/minority-profile.705519dd.json",
+      "sectionCount": 5
+    },
+    "mirror-load": {
+      "hash": "6c6801c7",
+      "file": "explainers/mirror-load.6c6801c7.json",
+      "sectionCount": 5
+    },
+    "mirror": {
+      "hash": "22d94e0d",
+      "file": "explainers/mirror.22d94e0d.json",
+      "sectionCount": 5
+    },
+    "mos-caps": {
+      "hash": "e3bbf4ce",
+      "file": "explainers/mos-caps.e3bbf4ce.json",
       "sectionCount": 5
     },
     "mos-cv": {
@@ -849,8 +1656,13 @@
       "sectionCount": 5
     },
     "mos-struct": {
-      "hash": "94ff5d14",
-      "file": "explainers/mos-struct.94ff5d14.json",
+      "hash": "0635225d",
+      "file": "explainers/mos-struct.0635225d.json",
+      "sectionCount": 5
+    },
+    "mosfet-struct": {
+      "hash": "e05c7470",
+      "file": "explainers/mosfet-struct.e05c7470.json",
       "sectionCount": 5
     },
     "nl-cap": {
@@ -858,9 +1670,19 @@
       "file": "explainers/nl-cap.67aeb041.json",
       "sectionCount": 5
     },
+    "nmos-regions": {
+      "hash": "bfd299ff",
+      "file": "explainers/nmos-regions.bfd299ff.json",
+      "sectionCount": 5
+    },
     "noise-dist": {
       "hash": "b17d1272",
       "file": "explainers/noise-dist.b17d1272.json",
+      "sectionCount": 5
+    },
+    "octc": {
+      "hash": "ed6fb74f",
+      "file": "explainers/octc.ed6fb74f.json",
       "sectionCount": 5
     },
     "offset": {
@@ -883,9 +1705,14 @@
       "file": "explainers/phasors.d3c076c1.json",
       "sectionCount": 5
     },
+    "pmos": {
+      "hash": "0d651367",
+      "file": "explainers/pmos.0d651367.json",
+      "sectionCount": 5
+    },
     "pn-overview": {
-      "hash": "9f8cd2b7",
-      "file": "explainers/pn-overview.9f8cd2b7.json",
+      "hash": "7ba5238b",
+      "file": "explainers/pn-overview.7ba5238b.json",
       "sectionCount": 5
     },
     "pole-zero": {
@@ -898,6 +1725,11 @@
       "file": "explainers/rc-lpf.3ec1f979.json",
       "sectionCount": 5
     },
+    "ref-gen": {
+      "hash": "9ad542f1",
+      "file": "explainers/ref-gen.9ad542f1.json",
+      "sectionCount": 5
+    },
     "rev-bias": {
       "hash": "1c78766e",
       "file": "explainers/rev-bias.1c78766e.json",
@@ -908,9 +1740,19 @@
       "file": "explainers/rlc.b06f1588.json",
       "sectionCount": 5
     },
+    "ro": {
+      "hash": "d4271073",
+      "file": "explainers/ro.d4271073.json",
+      "sectionCount": 5
+    },
+    "sheet-res": {
+      "hash": "01703bc3",
+      "file": "explainers/sheet-res.01703bc3.json",
+      "sectionCount": 5
+    },
     "si-props": {
-      "hash": "b5e9c94a",
-      "file": "explainers/si-props.b5e9c94a.json",
+      "hash": "22932f16",
+      "file": "explainers/si-props.22932f16.json",
       "sectionCount": 5
     },
     "sinusoid-resp": {
@@ -921,6 +1763,21 @@
     "slew": {
       "hash": "04a6ad10",
       "file": "explainers/slew.04a6ad10.json",
+      "sectionCount": 5
+    },
+    "solar-cell": {
+      "hash": "cf71702d",
+      "file": "explainers/solar-cell.cf71702d.json",
+      "sectionCount": 5
+    },
+    "square-law": {
+      "hash": "95533903",
+      "file": "explainers/square-law.95533903.json",
+      "sectionCount": 5
+    },
+    "ss-model": {
+      "hash": "4b759b7d",
+      "file": "explainers/ss-model.4b759b7d.json",
       "sectionCount": 5
     },
     "stability": {
@@ -934,8 +1791,8 @@
       "sectionCount": 5
     },
     "tf": {
-      "hash": "043823aa",
-      "file": "explainers/tf.043823aa.json",
+      "hash": "7c427736",
+      "file": "explainers/tf.7c427736.json",
       "sectionCount": 5
     },
     "total-current": {
@@ -943,9 +1800,19 @@
       "file": "explainers/total-current.efca8743.json",
       "sectionCount": 5
     },
+    "triode": {
+      "hash": "264646f7",
+      "file": "explainers/triode.264646f7.json",
+      "sectionCount": 5
+    },
+    "two-port": {
+      "hash": "43ead05f",
+      "file": "explainers/two-port.43ead05f.json",
+      "sectionCount": 5
+    },
     "vt": {
-      "hash": "71f0041e",
-      "file": "explainers/vt.71f0041e.json",
+      "hash": "b85a8032",
+      "file": "explainers/vt.b85a8032.json",
       "sectionCount": 5
     }
   }

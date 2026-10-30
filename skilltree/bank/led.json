@@ -1,0 +1,175 @@
+{
+  "skill_id": "led",
+  "version": 1,
+  "questions": [
+    {
+      "id": "led-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What is the key difference between a direct and an indirect band gap material?",
+      "options": [
+        "A direct gap is always smaller",
+        "In a direct gap, the conduction-band minimum and valence-band maximum occur at the same momentum \\(k\\)",
+        "Only indirect materials can absorb light",
+        "Direct materials have no valence band"
+      ],
+      "correct_index": 1,
+      "explanation": "When the band edges line up in \\(k\\), a photon (with almost no momentum) can connect them by itself. Otherwise a phonon must supply the momentum (reader Fig. 6.20).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 190\" role=\"img\" aria-label=\"Direct band gap E-k diagram: the conduction-band minimum sits directly above the valence-band maximum, so a vertical (photon-only) transition connects them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:350px;width:100%;height:auto\"><line x1=\"40\" y1=\"170\" x2=\"330\" y2=\"170\"/><polygon points=\"330,170 323.6,172.7 323.6,167.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"170\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"186\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"44\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">E</text><polyline points=\"125,84.4 126.5,83.7 128,83 129.5,82.3 131,81.7 132.5,81 134,80.4 135.5,79.8 137,79.2 138.5,78.6 140,78.1 141.5,77.6 143,77.1 144.5,76.6 146,76.1 147.5,75.6 149,75.2 150.5,74.8 152,74.4 153.5,74 155,73.6 156.5,73.2 158,72.9 159.5,72.6 161,72.3 162.5,72 164,71.8 165.5,71.5 167,71.3 168.5,71.1 170,70.9 171.5,70.7 173,70.6 174.5,70.4 176,70.3 177.5,70.2 179,70.1 180.5,70.1 182,70 183.5,70 185,70 186.5,70 188,70 189.5,70.1 191,70.1 192.5,70.2 194,70.3 195.5,70.4 197,70.6 198.5,70.7 200,70.9 201.5,71.1 203,71.3 204.5,71.5 206,71.8 207.5,72 209,72.3 210.5,72.6 212,72.9 213.5,73.2 215,73.6 216.5,74 218,74.4 219.5,74.8 221,75.2 222.5,75.6 224,76.1 225.5,76.6 227,77.1 228.5,77.6 230,78.1 231.5,78.6 233,79.2 234.5,79.8 236,80.4 237.5,81 239,81.7 240.5,82.3 242,83 243.5,83.7 245,84.4\"/><polyline points=\"125,125.6 126.5,126.3 128,127 129.5,127.7 131,128.3 132.5,129 134,129.6 135.5,130.2 137,130.8 138.5,131.4 140,131.9 141.5,132.4 143,132.9 144.5,133.4 146,133.9 147.5,134.4 149,134.8 150.5,135.2 152,135.6 153.5,136 155,136.4 156.5,136.8 158,137.1 159.5,137.4 161,137.7 162.5,138 164,138.2 165.5,138.5 167,138.7 168.5,138.9 170,139.1 171.5,139.3 173,139.4 174.5,139.6 176,139.7 177.5,139.8 179,139.9 180.5,139.9 182,140 183.5,140 185,140 186.5,140 188,140 189.5,139.9 191,139.9 192.5,139.8 194,139.7 195.5,139.6 197,139.4 198.5,139.3 200,139.1 201.5,138.9 203,138.7 204.5,138.5 206,138.2 207.5,138 209,137.7 210.5,137.4 212,137.1 213.5,136.8 215,136.4 216.5,136 218,135.6 219.5,135.2 221,134.8 222.5,134.4 224,133.9 225.5,133.4 227,132.9 228.5,132.4 230,131.9 231.5,131.4 233,130.8 234.5,130.2 236,129.6 237.5,129 239,128.3 240.5,127.7 242,127 243.5,126.3 245,125.6\"/><line x1=\"185\" y1=\"138\" x2=\"185\" y2=\"72\"/><polygon points=\"185,72 187.7,78.4 182.3,78.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"192\" y=\"108\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">photon</text></svg>",
+      "figure_alt": "Direct band gap E-k diagram: the conduction-band minimum sits directly above the valence-band maximum, so a vertical (photon-only) transition connects them."
+    },
+    {
+      "id": "led-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Using \\(\\lambda = 1.24/E_g\\) (λ in µm, \\(E_g\\) in eV), what wavelength (in nm) does a material with \\(E_g = 1.9\\ \\mathrm{eV}\\) emit?",
+      "answer": 652.632,
+      "unit": "nm",
+      "tolerance": 0.02,
+      "explanation": "\\(\\lambda = 1.24/1.9 = 0.653\\ \\mu\\mathrm{m} = 653\\ \\mathrm{nm}\\), red light.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 190\" role=\"img\" aria-label=\"Direct band gap E-k diagram: the conduction-band minimum sits directly above the valence-band maximum, so a vertical (photon-only) transition connects them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:350px;width:100%;height:auto\"><line x1=\"40\" y1=\"170\" x2=\"330\" y2=\"170\"/><polygon points=\"330,170 323.6,172.7 323.6,167.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"170\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"186\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"44\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">E</text><polyline points=\"125,84.4 126.5,83.7 128,83 129.5,82.3 131,81.7 132.5,81 134,80.4 135.5,79.8 137,79.2 138.5,78.6 140,78.1 141.5,77.6 143,77.1 144.5,76.6 146,76.1 147.5,75.6 149,75.2 150.5,74.8 152,74.4 153.5,74 155,73.6 156.5,73.2 158,72.9 159.5,72.6 161,72.3 162.5,72 164,71.8 165.5,71.5 167,71.3 168.5,71.1 170,70.9 171.5,70.7 173,70.6 174.5,70.4 176,70.3 177.5,70.2 179,70.1 180.5,70.1 182,70 183.5,70 185,70 186.5,70 188,70 189.5,70.1 191,70.1 192.5,70.2 194,70.3 195.5,70.4 197,70.6 198.5,70.7 200,70.9 201.5,71.1 203,71.3 204.5,71.5 206,71.8 207.5,72 209,72.3 210.5,72.6 212,72.9 213.5,73.2 215,73.6 216.5,74 218,74.4 219.5,74.8 221,75.2 222.5,75.6 224,76.1 225.5,76.6 227,77.1 228.5,77.6 230,78.1 231.5,78.6 233,79.2 234.5,79.8 236,80.4 237.5,81 239,81.7 240.5,82.3 242,83 243.5,83.7 245,84.4\"/><polyline points=\"125,125.6 126.5,126.3 128,127 129.5,127.7 131,128.3 132.5,129 134,129.6 135.5,130.2 137,130.8 138.5,131.4 140,131.9 141.5,132.4 143,132.9 144.5,133.4 146,133.9 147.5,134.4 149,134.8 150.5,135.2 152,135.6 153.5,136 155,136.4 156.5,136.8 158,137.1 159.5,137.4 161,137.7 162.5,138 164,138.2 165.5,138.5 167,138.7 168.5,138.9 170,139.1 171.5,139.3 173,139.4 174.5,139.6 176,139.7 177.5,139.8 179,139.9 180.5,139.9 182,140 183.5,140 185,140 186.5,140 188,140 189.5,139.9 191,139.9 192.5,139.8 194,139.7 195.5,139.6 197,139.4 198.5,139.3 200,139.1 201.5,138.9 203,138.7 204.5,138.5 206,138.2 207.5,138 209,137.7 210.5,137.4 212,137.1 213.5,136.8 215,136.4 216.5,136 218,135.6 219.5,135.2 221,134.8 222.5,134.4 224,133.9 225.5,133.4 227,132.9 228.5,132.4 230,131.9 231.5,131.4 233,130.8 234.5,130.2 236,129.6 237.5,129 239,128.3 240.5,127.7 242,127 243.5,126.3 245,125.6\"/><line x1=\"185\" y1=\"138\" x2=\"185\" y2=\"72\"/><polygon points=\"185,72 187.7,78.4 182.3,78.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"192\" y=\"108\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">photon</text></svg>",
+      "figure_alt": "Direct band gap E-k diagram: the conduction-band minimum sits directly above the valence-band maximum, so a vertical (photon-only) transition connects them."
+    },
+    {
+      "id": "led-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Why is silicon rarely used for LEDs?",
+      "options": [
+        "Its band gap is in the ultraviolet",
+        "It cannot be doped n-type",
+        "It is an indirect-gap material, so recombination mostly goes through traps and makes heat",
+        "It absorbs all of its own light"
+      ],
+      "correct_index": 2,
+      "explanation": "In silicon, momentum is not conserved by a photon alone, so radiative recombination is rare (reader Sec. 6.7.6).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 190\" role=\"img\" aria-label=\"Indirect band gap E-k diagram: the conduction-band minimum is offset in k from the valence-band maximum, so a transition needs a phonon as well as a photon.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:350px;width:100%;height:auto\"><line x1=\"40\" y1=\"170\" x2=\"330\" y2=\"170\"/><polygon points=\"330,170 323.6,172.7 323.6,167.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"170\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"186\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"44\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">E</text><polyline points=\"195,84.4 196.5,83.7 198,83 199.5,82.3 201,81.7 202.5,81 204,80.4 205.5,79.8 207,79.2 208.5,78.6 210,78.1 211.5,77.6 213,77.1 214.5,76.6 216,76.1 217.5,75.6 219,75.2 220.5,74.8 222,74.4 223.5,74 225,73.6 226.5,73.2 228,72.9 229.5,72.6 231,72.3 232.5,72 234,71.8 235.5,71.5 237,71.3 238.5,71.1 240,70.9 241.5,70.7 243,70.6 244.5,70.4 246,70.3 247.5,70.2 249,70.1 250.5,70.1 252,70 253.5,70 255,70 256.5,70 258,70 259.5,70.1 261,70.1 262.5,70.2 264,70.3 265.5,70.4 267,70.6 268.5,70.7 270,70.9 271.5,71.1 273,71.3 274.5,71.5 276,71.8 277.5,72 279,72.3 280.5,72.6 282,72.9 283.5,73.2 285,73.6 286.5,74 288,74.4 289.5,74.8 291,75.2 292.5,75.6 294,76.1 295.5,76.6 297,77.1 298.5,77.6 300,78.1 301.5,78.6 303,79.2 304.5,79.8 306,80.4 307.5,81 309,81.7 310.5,82.3 312,83 313.5,83.7 315,84.4\"/><polyline points=\"65,125.6 66.5,126.3 68,127 69.5,127.7 71,128.3 72.5,129 74,129.6 75.5,130.2 77,130.8 78.5,131.4 80,131.9 81.5,132.4 83,132.9 84.5,133.4 86,133.9 87.5,134.4 89,134.8 90.5,135.2 92,135.6 93.5,136 95,136.4 96.5,136.8 98,137.1 99.5,137.4 101,137.7 102.5,138 104,138.2 105.5,138.5 107,138.7 108.5,138.9 110,139.1 111.5,139.3 113,139.4 114.5,139.6 116,139.7 117.5,139.8 119,139.9 120.5,139.9 122,140 123.5,140 125,140 126.5,140 128,140 129.5,139.9 131,139.9 132.5,139.8 134,139.7 135.5,139.6 137,139.4 138.5,139.3 140,139.1 141.5,138.9 143,138.7 144.5,138.5 146,138.2 147.5,138 149,137.7 150.5,137.4 152,137.1 153.5,136.8 155,136.4 156.5,136 158,135.6 159.5,135.2 161,134.8 162.5,134.4 164,133.9 165.5,133.4 167,132.9 168.5,132.4 170,131.9 171.5,131.4 173,130.8 174.5,130.2 176,129.6 177.5,129 179,128.3 180.5,127.7 182,127 183.5,126.3 185,125.6\"/><line x1=\"125\" y1=\"138\" x2=\"125\" y2=\"80\"/><polygon points=\"125,80 127.7,86.4 122.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"127\" y1=\"78\" x2=\"250\" y2=\"72\"/><polygon points=\"250,72 243.7,75 243.4,69.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"130\" y=\"108\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">photon</text><text x=\"190\" y=\"66\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">phonon</text></svg>",
+      "figure_alt": "Indirect band gap E-k diagram: the conduction-band minimum is offset in k from the valence-band maximum, so a transition needs a phonon as well as a photon."
+    },
+    {
+      "id": "led-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "What band gap (in eV) is needed for a blue LED at \\(\\lambda = 460\\ \\mathrm{nm}\\)?",
+      "answer": 2.69565,
+      "unit": "eV",
+      "tolerance": 0.02,
+      "explanation": "\\(E_g = 1.24/0.46 \\approx 2.70\\ \\mathrm{eV}\\). Wider gaps give shorter wavelengths.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 190\" role=\"img\" aria-label=\"Direct band gap E-k diagram: the conduction-band minimum sits directly above the valence-band maximum, so a vertical (photon-only) transition connects them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:350px;width:100%;height:auto\"><line x1=\"40\" y1=\"170\" x2=\"330\" y2=\"170\"/><polygon points=\"330,170 323.6,172.7 323.6,167.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"170\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"186\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"44\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">E</text><polyline points=\"125,84.4 126.5,83.7 128,83 129.5,82.3 131,81.7 132.5,81 134,80.4 135.5,79.8 137,79.2 138.5,78.6 140,78.1 141.5,77.6 143,77.1 144.5,76.6 146,76.1 147.5,75.6 149,75.2 150.5,74.8 152,74.4 153.5,74 155,73.6 156.5,73.2 158,72.9 159.5,72.6 161,72.3 162.5,72 164,71.8 165.5,71.5 167,71.3 168.5,71.1 170,70.9 171.5,70.7 173,70.6 174.5,70.4 176,70.3 177.5,70.2 179,70.1 180.5,70.1 182,70 183.5,70 185,70 186.5,70 188,70 189.5,70.1 191,70.1 192.5,70.2 194,70.3 195.5,70.4 197,70.6 198.5,70.7 200,70.9 201.5,71.1 203,71.3 204.5,71.5 206,71.8 207.5,72 209,72.3 210.5,72.6 212,72.9 213.5,73.2 215,73.6 216.5,74 218,74.4 219.5,74.8 221,75.2 222.5,75.6 224,76.1 225.5,76.6 227,77.1 228.5,77.6 230,78.1 231.5,78.6 233,79.2 234.5,79.8 236,80.4 237.5,81 239,81.7 240.5,82.3 242,83 243.5,83.7 245,84.4\"/><polyline points=\"125,125.6 126.5,126.3 128,127 129.5,127.7 131,128.3 132.5,129 134,129.6 135.5,130.2 137,130.8 138.5,131.4 140,131.9 141.5,132.4 143,132.9 144.5,133.4 146,133.9 147.5,134.4 149,134.8 150.5,135.2 152,135.6 153.5,136 155,136.4 156.5,136.8 158,137.1 159.5,137.4 161,137.7 162.5,138 164,138.2 165.5,138.5 167,138.7 168.5,138.9 170,139.1 171.5,139.3 173,139.4 174.5,139.6 176,139.7 177.5,139.8 179,139.9 180.5,139.9 182,140 183.5,140 185,140 186.5,140 188,140 189.5,139.9 191,139.9 192.5,139.8 194,139.7 195.5,139.6 197,139.4 198.5,139.3 200,139.1 201.5,138.9 203,138.7 204.5,138.5 206,138.2 207.5,138 209,137.7 210.5,137.4 212,137.1 213.5,136.8 215,136.4 216.5,136 218,135.6 219.5,135.2 221,134.8 222.5,134.4 224,133.9 225.5,133.4 227,132.9 228.5,132.4 230,131.9 231.5,131.4 233,130.8 234.5,130.2 236,129.6 237.5,129 239,128.3 240.5,127.7 242,127 243.5,126.3 245,125.6\"/><line x1=\"185\" y1=\"138\" x2=\"185\" y2=\"72\"/><polygon points=\"185,72 187.7,78.4 182.3,78.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"192\" y=\"108\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">photon</text></svg>",
+      "figure_alt": "Direct band gap E-k diagram: the conduction-band minimum sits directly above the valence-band maximum, so a vertical (photon-only) transition connects them."
+    },
+    {
+      "id": "led-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A red LED emits \\(5\\ \\mathrm{mW}\\) of light at \\(\\lambda = 630\\ \\mathrm{nm}\\). How many photons per second is that? (Use \\(h = 6.626\\times10^{-34}\\ \\mathrm{J\\,s}\\), \\(c = 3\\times10^8\\ \\mathrm{m/s}\\).)",
+      "answer": 1.58467e+16,
+      "unit": "photons/s",
+      "tolerance": 0.02,
+      "explanation": "Photon energy \\(hc/\\lambda = 3.16\\times10^{-19}\\ \\mathrm{J}\\) (1.97 eV). Rate \\(= 5\\times10^{-3}/3.16\\times10^{-19} \\approx 1.6\\times10^{16}\\) photons per second.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 190\" role=\"img\" aria-label=\"Direct band gap E-k diagram: the conduction-band minimum sits directly above the valence-band maximum, so a vertical (photon-only) transition connects them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:350px;width:100%;height:auto\"><line x1=\"40\" y1=\"170\" x2=\"330\" y2=\"170\"/><polygon points=\"330,170 323.6,172.7 323.6,167.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"170\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"186\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"44\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">E</text><polyline points=\"125,84.4 126.5,83.7 128,83 129.5,82.3 131,81.7 132.5,81 134,80.4 135.5,79.8 137,79.2 138.5,78.6 140,78.1 141.5,77.6 143,77.1 144.5,76.6 146,76.1 147.5,75.6 149,75.2 150.5,74.8 152,74.4 153.5,74 155,73.6 156.5,73.2 158,72.9 159.5,72.6 161,72.3 162.5,72 164,71.8 165.5,71.5 167,71.3 168.5,71.1 170,70.9 171.5,70.7 173,70.6 174.5,70.4 176,70.3 177.5,70.2 179,70.1 180.5,70.1 182,70 183.5,70 185,70 186.5,70 188,70 189.5,70.1 191,70.1 192.5,70.2 194,70.3 195.5,70.4 197,70.6 198.5,70.7 200,70.9 201.5,71.1 203,71.3 204.5,71.5 206,71.8 207.5,72 209,72.3 210.5,72.6 212,72.9 213.5,73.2 215,73.6 216.5,74 218,74.4 219.5,74.8 221,75.2 222.5,75.6 224,76.1 225.5,76.6 227,77.1 228.5,77.6 230,78.1 231.5,78.6 233,79.2 234.5,79.8 236,80.4 237.5,81 239,81.7 240.5,82.3 242,83 243.5,83.7 245,84.4\"/><polyline points=\"125,125.6 126.5,126.3 128,127 129.5,127.7 131,128.3 132.5,129 134,129.6 135.5,130.2 137,130.8 138.5,131.4 140,131.9 141.5,132.4 143,132.9 144.5,133.4 146,133.9 147.5,134.4 149,134.8 150.5,135.2 152,135.6 153.5,136 155,136.4 156.5,136.8 158,137.1 159.5,137.4 161,137.7 162.5,138 164,138.2 165.5,138.5 167,138.7 168.5,138.9 170,139.1 171.5,139.3 173,139.4 174.5,139.6 176,139.7 177.5,139.8 179,139.9 180.5,139.9 182,140 183.5,140 185,140 186.5,140 188,140 189.5,139.9 191,139.9 192.5,139.8 194,139.7 195.5,139.6 197,139.4 198.5,139.3 200,139.1 201.5,138.9 203,138.7 204.5,138.5 206,138.2 207.5,138 209,137.7 210.5,137.4 212,137.1 213.5,136.8 215,136.4 216.5,136 218,135.6 219.5,135.2 221,134.8 222.5,134.4 224,133.9 225.5,133.4 227,132.9 228.5,132.4 230,131.9 231.5,131.4 233,130.8 234.5,130.2 236,129.6 237.5,129 239,128.3 240.5,127.7 242,127 243.5,126.3 245,125.6\"/><line x1=\"185\" y1=\"138\" x2=\"185\" y2=\"72\"/><polygon points=\"185,72 187.7,78.4 182.3,78.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"192\" y=\"108\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">photon</text></svg>",
+      "figure_alt": "Direct band gap E-k diagram: the conduction-band minimum sits directly above the valence-band maximum, so a vertical (photon-only) transition connects them."
+    },
+    {
+      "id": "led-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Which statement about an LED's structure is right?",
+      "options": [
+        "It is a reverse-biased junction that emits when it breaks down",
+        "It is a MOS capacitor in inversion",
+        "It is a silicon diode with a coloured lens",
+        "It is a forward-biased pn junction of a direct-gap material, packaged with a lens to collect and direct the light"
+      ],
+      "correct_index": 3,
+      "explanation": "Forward bias injects minority carriers, which recombine radiatively in the direct-gap material; the lens collimates the output (reader Fig. 6.23).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 120\" role=\"img\" aria-label=\"LED symbol: a forward-biased diode with arrows showing light emitted from the junction.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><line x1=\"60\" y1=\"60\" x2=\"112\" y2=\"60\"/><line x1=\"128\" y1=\"60\" x2=\"180\" y2=\"60\"/><polygon points=\"112,52 112,68 128,60\"/><line x1=\"128\" y1=\"52\" x2=\"128\" y2=\"68\"/><line x1=\"150\" y1=\"40\" x2=\"180\" y2=\"14\"/><polygon points=\"180,14 176.9,20.3 173.3,16.2\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"170\" y1=\"44\" x2=\"200\" y2=\"18\"/><polygon points=\"200,18 196.9,24.3 193.3,20.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">forward current</text><text x=\"212\" y=\"20\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">light</text></svg>",
+      "figure_alt": "LED symbol: a forward-biased diode with arrows showing light emitted from the junction."
+    },
+    {
+      "id": "led-r3-q1",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "An LED draws \\(20\\ \\mathrm{mA}\\). If 30% of injected electrons recombine radiatively and every photon escapes, how many photons per second are emitted?",
+      "answer": 3.74532e+16,
+      "unit": "photons/s",
+      "tolerance": 0.02,
+      "explanation": "Electrons per second \\(= I/q = 1.25\\times10^{17}\\); 30% of them give photons: \\(3.7\\times10^{16}\\ \\mathrm{s^{-1}}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 190\" role=\"img\" aria-label=\"Direct band gap E-k diagram: the conduction-band minimum sits directly above the valence-band maximum, so a vertical (photon-only) transition connects them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:350px;width:100%;height:auto\"><line x1=\"40\" y1=\"170\" x2=\"330\" y2=\"170\"/><polygon points=\"330,170 323.6,172.7 323.6,167.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"170\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"186\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"44\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">E</text><polyline points=\"125,84.4 126.5,83.7 128,83 129.5,82.3 131,81.7 132.5,81 134,80.4 135.5,79.8 137,79.2 138.5,78.6 140,78.1 141.5,77.6 143,77.1 144.5,76.6 146,76.1 147.5,75.6 149,75.2 150.5,74.8 152,74.4 153.5,74 155,73.6 156.5,73.2 158,72.9 159.5,72.6 161,72.3 162.5,72 164,71.8 165.5,71.5 167,71.3 168.5,71.1 170,70.9 171.5,70.7 173,70.6 174.5,70.4 176,70.3 177.5,70.2 179,70.1 180.5,70.1 182,70 183.5,70 185,70 186.5,70 188,70 189.5,70.1 191,70.1 192.5,70.2 194,70.3 195.5,70.4 197,70.6 198.5,70.7 200,70.9 201.5,71.1 203,71.3 204.5,71.5 206,71.8 207.5,72 209,72.3 210.5,72.6 212,72.9 213.5,73.2 215,73.6 216.5,74 218,74.4 219.5,74.8 221,75.2 222.5,75.6 224,76.1 225.5,76.6 227,77.1 228.5,77.6 230,78.1 231.5,78.6 233,79.2 234.5,79.8 236,80.4 237.5,81 239,81.7 240.5,82.3 242,83 243.5,83.7 245,84.4\"/><polyline points=\"125,125.6 126.5,126.3 128,127 129.5,127.7 131,128.3 132.5,129 134,129.6 135.5,130.2 137,130.8 138.5,131.4 140,131.9 141.5,132.4 143,132.9 144.5,133.4 146,133.9 147.5,134.4 149,134.8 150.5,135.2 152,135.6 153.5,136 155,136.4 156.5,136.8 158,137.1 159.5,137.4 161,137.7 162.5,138 164,138.2 165.5,138.5 167,138.7 168.5,138.9 170,139.1 171.5,139.3 173,139.4 174.5,139.6 176,139.7 177.5,139.8 179,139.9 180.5,139.9 182,140 183.5,140 185,140 186.5,140 188,140 189.5,139.9 191,139.9 192.5,139.8 194,139.7 195.5,139.6 197,139.4 198.5,139.3 200,139.1 201.5,138.9 203,138.7 204.5,138.5 206,138.2 207.5,138 209,137.7 210.5,137.4 212,137.1 213.5,136.8 215,136.4 216.5,136 218,135.6 219.5,135.2 221,134.8 222.5,134.4 224,133.9 225.5,133.4 227,132.9 228.5,132.4 230,131.9 231.5,131.4 233,130.8 234.5,130.2 236,129.6 237.5,129 239,128.3 240.5,127.7 242,127 243.5,126.3 245,125.6\"/><line x1=\"185\" y1=\"138\" x2=\"185\" y2=\"72\"/><polygon points=\"185,72 187.7,78.4 182.3,78.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"192\" y=\"108\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">photon</text></svg>",
+      "figure_alt": "Direct band gap E-k diagram: the conduction-band minimum sits directly above the valence-band maximum, so a vertical (photon-only) transition connects them."
+    },
+    {
+      "id": "led-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "For that LED emitting at \\(E_g = 2.0\\ \\mathrm{eV}\\), what is the optical output power in mW?",
+      "answer": 12.0,
+      "unit": "mW",
+      "tolerance": 0.02,
+      "explanation": "Each photon carries 2.0 eV \\(= 3.2\\times10^{-19}\\ \\mathrm{J}\\): \\(P = 3.7\\times10^{16}\\times3.2\\times10^{-19} \\approx 12\\ \\mathrm{mW}\\). Shortcut: \\(P = \\eta I E_g/q = 0.3 \\times 20\\ \\mathrm{mA} \\times 2.0\\ \\mathrm{V}\\)."
+    },
+    {
+      "id": "led-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A GaAs device (\\(E_g \\approx 1.42\\ \\mathrm{eV}\\)) emits near 870 nm. What colour is that?",
+      "options": [
+        "Near infrared, just beyond visible red",
+        "Deep red",
+        "Yellow",
+        "Green"
+      ],
+      "correct_index": 0,
+      "explanation": "Visible light runs from about 400 to 700 nm. 870 nm is near-infrared, which is why GaAs is used in remote controls. (The reader's Table 6.1 labels GaAs 'red'; that entry is a slip.)"
+    },
+    {
+      "id": "led-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of the diode equation: an LED's light output rises roughly in proportion to its current. How does the needed forward voltage change if the current is raised tenfold?",
+      "options": [
+        "It rises tenfold",
+        "It rises only by about \\(V_{th}\\ln 10\\) (roughly 60 mV for an ideal diode)",
+        "It falls",
+        "It must reach the band-gap voltage times ten"
+      ],
+      "correct_index": 1,
+      "explanation": "Current is exponential in voltage, so a decade of current costs only about 60 mV (ideal).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 190\" role=\"img\" aria-label=\"Direct band gap E-k diagram: the conduction-band minimum sits directly above the valence-band maximum, so a vertical (photon-only) transition connects them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:350px;width:100%;height:auto\"><line x1=\"40\" y1=\"170\" x2=\"330\" y2=\"170\"/><polygon points=\"330,170 323.6,172.7 323.6,167.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"170\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"186\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"44\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">E</text><polyline points=\"125,84.4 126.5,83.7 128,83 129.5,82.3 131,81.7 132.5,81 134,80.4 135.5,79.8 137,79.2 138.5,78.6 140,78.1 141.5,77.6 143,77.1 144.5,76.6 146,76.1 147.5,75.6 149,75.2 150.5,74.8 152,74.4 153.5,74 155,73.6 156.5,73.2 158,72.9 159.5,72.6 161,72.3 162.5,72 164,71.8 165.5,71.5 167,71.3 168.5,71.1 170,70.9 171.5,70.7 173,70.6 174.5,70.4 176,70.3 177.5,70.2 179,70.1 180.5,70.1 182,70 183.5,70 185,70 186.5,70 188,70 189.5,70.1 191,70.1 192.5,70.2 194,70.3 195.5,70.4 197,70.6 198.5,70.7 200,70.9 201.5,71.1 203,71.3 204.5,71.5 206,71.8 207.5,72 209,72.3 210.5,72.6 212,72.9 213.5,73.2 215,73.6 216.5,74 218,74.4 219.5,74.8 221,75.2 222.5,75.6 224,76.1 225.5,76.6 227,77.1 228.5,77.6 230,78.1 231.5,78.6 233,79.2 234.5,79.8 236,80.4 237.5,81 239,81.7 240.5,82.3 242,83 243.5,83.7 245,84.4\"/><polyline points=\"125,125.6 126.5,126.3 128,127 129.5,127.7 131,128.3 132.5,129 134,129.6 135.5,130.2 137,130.8 138.5,131.4 140,131.9 141.5,132.4 143,132.9 144.5,133.4 146,133.9 147.5,134.4 149,134.8 150.5,135.2 152,135.6 153.5,136 155,136.4 156.5,136.8 158,137.1 159.5,137.4 161,137.7 162.5,138 164,138.2 165.5,138.5 167,138.7 168.5,138.9 170,139.1 171.5,139.3 173,139.4 174.5,139.6 176,139.7 177.5,139.8 179,139.9 180.5,139.9 182,140 183.5,140 185,140 186.5,140 188,140 189.5,139.9 191,139.9 192.5,139.8 194,139.7 195.5,139.6 197,139.4 198.5,139.3 200,139.1 201.5,138.9 203,138.7 204.5,138.5 206,138.2 207.5,138 209,137.7 210.5,137.4 212,137.1 213.5,136.8 215,136.4 216.5,136 218,135.6 219.5,135.2 221,134.8 222.5,134.4 224,133.9 225.5,133.4 227,132.9 228.5,132.4 230,131.9 231.5,131.4 233,130.8 234.5,130.2 236,129.6 237.5,129 239,128.3 240.5,127.7 242,127 243.5,126.3 245,125.6\"/><line x1=\"185\" y1=\"138\" x2=\"185\" y2=\"72\"/><polygon points=\"185,72 187.7,78.4 182.3,78.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"192\" y=\"108\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">photon</text></svg>",
+      "figure_alt": "Direct band gap E-k diagram: the conduction-band minimum sits directly above the valence-band maximum, so a vertical (photon-only) transition connects them.",
+      "preview": [
+        "diode-ss"
+      ]
+    },
+    {
+      "id": "led-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of the small-signal model: an LED biased at \\(I_D = 10\\ \\mathrm{mA}\\) behaves like an ideal diode for small signals. What is \\(r_d\\) in Ω?",
+      "answer": 2.6,
+      "unit": "Ω",
+      "tolerance": 0.02,
+      "explanation": "\\(r_d = V_{th}/I_D = 26\\ \\mathrm{mV}/10\\ \\mathrm{mA} = 2.6\\ \\Omega\\).",
+      "preview": [
+        "diode-ss"
+      ]
+    },
+    {
+      "id": "led-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of optical-link circuits: a photodiode (reverse-biased pn junction) feeds a transimpedance stage. What does the junction contribute besides the photocurrent?",
+      "options": [
+        "A large forward voltage",
+        "Gain",
+        "Junction capacitance, which limits bandwidth",
+        "Negative resistance"
+      ],
+      "correct_index": 2,
+      "explanation": "Reverse-biased, the photodiode is a current source in parallel with its depletion capacitance, which the following amplifier must drive.",
+      "preview": [
+        "mos-caps"
+      ]
+    }
+  ]
+}

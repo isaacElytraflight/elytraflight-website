@@ -14,7 +14,7 @@
   },
   {
    "heading": "Worked example",
-   "body_md": "A load \\(Z = 30 + 40j\\ \\Omega\\) is driven by a sinusoid with amplitude \\(V_m = 100\\ \\mathrm{V}\\).\n\\[ |Z| = 50\\ \\Omega, \\quad I_m = \\frac{100}{50} = 2\\ \\mathrm{A}, \\quad \\theta = \\tan^{-1}\\frac{40}{30} \\approx 53.1^\\circ \\]\n\\[ P = \\tfrac12 \\cdot 100 \\cdot 2 \\cdot \\cos 53.1^\\circ = 100 \\cdot 0.6 = 60\\ \\mathrm{W} \\]\nCheck: all real power goes into the resistive part, \\(\\tfrac12 I_m^2 R = \\tfrac12\\cdot4\\cdot30 = 60\\ \\mathrm{W}\\). ✓"
+   "body_md": "A load \\(Z = 24 + 7j\\ \\Omega\\) is driven by a sinusoid with amplitude \\(V_m = 50\\ \\mathrm{V}\\).\n\\[ |Z| = 25\\ \\Omega, \\quad I_m = \\frac{50}{25} = 2\\ \\mathrm{A}, \\quad \\theta = \\tan^{-1}\\frac{7}{24} \\approx 16.3^\\circ \\]\n\\[ P = \\tfrac12 \\cdot 50 \\cdot 2 \\cdot \\cos 16.3^\\circ = 50 \\cdot 0.96 = 48\\ \\mathrm{W} \\]\nCheck: all real power goes into the resistive part, \\(\\tfrac12 I_m^2 R = \\tfrac12\\cdot4\\cdot24 = 48\\ \\mathrm{W}\\). ✓"
   },
   {
    "heading": "Common pitfalls",
