@@ -106,6 +106,8 @@ main{flex:1;position:relative;min-height:0}
 .t0{border-style:dashed;border-color:#b3bbcc}
 .t0 .pips i{border-color:#b3bbcc}
 .star{display:none}
+.extstar{display:none}
+.tile.ext-prereq .extstar{display:block;position:absolute;left:6px;top:2px;color:#5b4fd6;font-size:14px;text-shadow:0 1px 0 #fff}
 .t4{border-width:3.5px;box-shadow:0 0 0 3px rgba(255,201,60,.55),0 4px 10px rgba(40,50,90,.15)}
 .t4 .fill{background:var(--cs2)}
 .t4 .nm{padding-right:16px}
@@ -317,8 +319,9 @@ figure.qfig.small svg{max-height:200px}
 #world.lights-view #edges path{stroke-opacity:0.15}
 
 /* Nested boxes / collections */
-.blob.course{background:rgba(255,255,255,.15);border-width:3px;border-style:solid}
-.blob.course>.hd{padding:10px 14px 0}
+.blob.course,.blob.textbook{background:rgba(255,255,255,.15);border-width:3px;border-style:solid}
+.blob.course>.hd,.blob.textbook>.hd{padding:10px 14px 0}
+.blob.textbook{background:rgba(124,108,255,.08)}
 .blob .toggle{border:0;background:rgba(255,255,255,.8);border-radius:8px;width:26px;height:26px;padding:0;font-size:14px;font-weight:800;display:grid;place-items:center;flex:none;position:relative;z-index:8;pointer-events:auto;transition:background .15s,transform .15s}
 .blob .toggle:hover{background:#fff;transform:scale(1.1)}
 .blob .toggle .chev{display:block;line-height:1;transition:transform .2s}

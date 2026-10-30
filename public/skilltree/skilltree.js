@@ -84,10 +84,11 @@ function getSkillBox(skillId) {
 }
 
 function getSkillColorIndex(skillId) {
-  const box = getSkillBox(skillId);
+  const chapters = chaptersFor(skillId, filter && filter.box);
+  const box = chapters.find(b => b.color_index != null) || getSkillBox(skillId);
   if (box && box.color_index != null) return box.color_index;
   const s = byId[skillId];
-  return s ? s.chapter : 1;
+  return (s && s.chapter) || 1;
 }
 
 async function fetchBank(skillId) {
@@ -139,8 +140,8 @@ function initData() {
   byId = {};
   skills.forEach(s => byId[s.id] = s);
   dependents = {};
-  skills.forEach(s => dependents[s.id] = []);
-  skills.forEach(s => s.prereqs.forEach(p => dependents[p].push(s.id)));
+  skills.forEach(s => { if (!s.prereqs) s.prereqs = []; dependents[s.id] = []; });
+  skills.forEach(s => s.prereqs.forEach(p => { if (dependents[p]) dependents[p].push(s.id); }));
   chNums = Object.keys(DATA.chapters).map(Number).sort((a, b) => a - b);
 }
 
@@ -306,7 +307,8 @@ function ago(ts) {
 const fmtDate = ts => new Date(ts).toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
 let toastT;
 function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 3200) }
-function colorVars(ch) { const c = chColor(ch); return `--c:${c};--cs:${rgba(c, .5)};--cs2:${rgba(c, .78)};--tc:${textOn(c)};--bg:${rgba(c, .1)};--cb:${rgba(c, .55)}` }
+function colorVars(ch) { const c = chColor(ch || 1); return `--c:${c};--cs:${rgba(c, .5)};--cs2:${rgba(c, .78)};--tc:${textOn(c)};--bg:${rgba(c, .1)};--cb:${rgba(c, .55)}` }
+function colorOf(id) { return colorVars(getSkillColorIndex(id)); }
 
 const READY_TIER = 3;
 const prereqGaps = id => byId[id].prereqs.filter(p => isPlayable(p) && tierOf(p) < READY_TIER);
@@ -427,197 +429,228 @@ function layeredLayout(ids, edges) {
 let allEdges = [];
 const layout = { tree: null, grouped: null };
 
-function computeTreeLayout() {
-  const r = layeredLayout(skills.map(s => s.id), allEdges);
-  const nodes = {}, mids = {};
-  for (const id in r.pos) nodes[id] = { x: r.pos[id].x + WPAD, y: (r.h - r.pos[id].y - TH) + WPAD };
-  for (const k in r.mids) mids[k] = r.mids[k].map(p => [p[0] + WPAD, (r.h - p[1]) + WPAD]);
-  layout.tree = { nodes, mids, blobs: {}, w: r.w + WPAD * 2, h: r.h + WPAD * 2, layers: r.nl, crossings: r.crossings, layerOf: r.layerOf };
+function topLevelBoxes() {
+  if (!COLLECTIONS || !COLLECTIONS.boxes) return [];
+  const childIds = new Set();
+  COLLECTIONS.boxes.forEach(b => (b.children || []).forEach(id => childIds.add(id)));
+  return COLLECTIONS.boxes.filter(b => !childIds.has(b.id));
 }
 
-function computeGroupedLayout() {
-  const COLLAPSED_H = 64;
-  const COURSE_PAD = 20;
-  const INNER_GAP = 14;
-  
-  const byCh = {}; skills.forEach(s => (byCh[s.chapter] = byCh[s.chapter] || []).push(s.id));
-  
-  const courseBoxes = COLLECTIONS ? COLLECTIONS.boxes.filter(b => b.kind === 'course') : [];
-  const useNested = courseBoxes.length > 0;
-  
-  const subs = {}, bs = {};
-  
-  if (useNested) {
-    for (const course of courseBoxes) {
-      /* A collapsed course is one bar. Its chapters are not placed, so they
-         cannot stick out of the bar or keep their old edges. */
-      if (collapsedBoxes.has(course.id)) continue;
-      const chapterIds = course.children || [];
-      for (const chId of chapterIds) {
-        const chBox = boxById[chId];
-        if (!chBox) continue;
-        const ids = (chBox.skills || []).filter(id => byId[id]);
-        const set = new Set(ids);
-        const collapsed = boxOrAncestorCollapsed(chId);
-        if (ids.length === 0) {
-          subs[chId] = { pos: {}, mids: {}, w: 0, h: 0 };
-          bs[chId] = { w: BMIN, h: COLLAPSED_H };
-        } else {
-          const sub = layeredLayout(ids, allEdges.filter(([p, c]) => set.has(p) && set.has(c)));
-          subs[chId] = collapsed ? { pos: {}, mids: {}, w: 0, h: 0 } : sub;
-          bs[chId] = { w: Math.max(sub.w + PAD * 2, BMIN), h: collapsed ? COLLAPSED_H : (HDR + sub.h + PAD + 4) };
-        }
-      }
-    }
+function scopeRootId(boxId) {
+  let cur = boxId;
+  const seen = new Set();
+  while (cur && parentOfBox[cur] && !seen.has(cur)) {
+    seen.add(cur);
+    cur = parentOfBox[cur];
   }
-  
-  for (const ch of chNums) {
-    const key = `ee105-ch${ch}`;
-    if (subs[key] || subs[ch] || boxOrAncestorCollapsed(key)) continue;
-    const ids = byCh[ch] || [], set = new Set(ids);
-    const sub = layeredLayout(ids, allEdges.filter(([p, c]) => set.has(p) && set.has(c)));
-    subs[ch] = sub; bs[ch] = { w: Math.max(sub.w + PAD * 2, BMIN), h: HDR + sub.h + PAD + 4 };
+  return cur || boxId;
+}
+
+function layoutRoot() {
+  return filter.box ? scopeRootId(filter.box) : null;
+}
+
+function isDescendantBox(boxId, ancestorId) {
+  let cur = boxId;
+  const seen = new Set();
+  while (cur && !seen.has(cur)) {
+    if (cur === ancestorId) return true;
+    seen.add(cur);
+    cur = parentOfBox[cur];
   }
-  
-  const placeKeys = [];
-  if (useNested) {
-    for (const course of courseBoxes) {
-      if (collapsedBoxes.has(course.id)) {
-        bs[course.id] = { w: BMIN, h: COLLAPSED_H };
-        placeKeys.push(course.id);
-      } else {
-        for (const id of course.children || []) if (bs[id]) placeKeys.push(id);
-      }
-    }
-  } else {
-    placeKeys.push(...chNums);
-  }
-  
-  const getChapter = key => typeof key === 'number' ? key : (boxById[key]?.color_index || 1);
-  
-  const unitOf = id => {
-    const ch = byId[id].chapter;
-    let key = useNested ? `ee105-ch${ch}` : ch;
-    if (!useNested) return key;
-    let p = parentOfBox[key];
-    while (p) {
-      if (collapsedBoxes.has(p)) return p;
-      p = parentOfBox[p];
-    }
-    return key;
-  };
-  const cpred = {}; placeKeys.forEach(c => cpred[c] = new Map());
-  allEdges.forEach(([p, c]) => {
-    const ka = unitOf(p), kb = unitOf(c);
-    if (ka !== kb && cpred[kb] && cpred[ka]) cpred[kb].set(ka, (cpred[kb].get(ka) || 0) + 1);
+  return false;
+}
+
+function visibleContainers() {
+  const tops = topLevelBoxes();
+  const root = layoutRoot();
+  if (!root) return tops;
+  return tops.filter(b => b.id === root);
+}
+
+function chapterBoxesOf(container) {
+  const out = [];
+  (container.children || []).forEach(id => {
+    const b = boxById[id];
+    if (!b) return;
+    if (b.kind === 'chapter') out.push(b);
+    else chapterBoxesOf(b).forEach(ch => out.push(ch));
   });
-  
-  const rank = {};
-  const visiting = new Set();
-  /* Chapter boxes can depend on each other in a cycle (ch 8 ↔ ch 9 after the
-     pmos / ss-model split) even though the skill graph is acyclic. A back edge
-     is ignored so ranking still finishes. */
+  return out;
+}
+
+function allChapterBoxes() {
+  const out = [];
+  topLevelBoxes().forEach(t => chapterBoxesOf(t).forEach(ch => out.push(ch)));
+  return out;
+}
+
+function chaptersFor(skillId, scopeBoxId) {
+  const chapters = (skillToBoxes[skillId] || []).map(id => boxById[id]).filter(b => b && b.kind === 'chapter');
+  if (!scopeBoxId) return chapters;
+  const root = scopeRootId(scopeBoxId);
+  const inRoot = chapters.filter(b => scopeRootId(b.id) === root);
+  if (parentOfBox[scopeBoxId]) {
+    const exact = inRoot.filter(b => b.id === scopeBoxId);
+    if (exact.length) return exact;
+  }
+  return inRoot;
+}
+
+function chapterLabel(skillId) {
+  const chs = chaptersFor(skillId, filter.box);
+  if (!chs.length) {
+    const s = byId[skillId];
+    if (s && s.chapter && DATA.chapters && DATA.chapters[s.chapter]) return 'Chapter ' + s.chapter + ': ' + DATA.chapters[s.chapter];
+    return 'Skill';
+  }
+  if (chs.length === 1) return chs[0].title;
+  return chs.map(b => b.title).join(' · ');
+}
+
+function chapterPillText(box) {
+  const m = /^Chapter\s+(\d+)/.exec(box.title || '');
+  if (m) return 'Ch ' + m[1];
+  const tail = (box.id || '').split('/').pop();
+  return tail ? tail.toUpperCase() : '§';
+}
+
+function layoutSkillIds() {
+  const root = layoutRoot();
+  if (!root) return skills.map(s => s.id);
+  const ids = new Set(getBoxDescendantSkills(root));
+  return skills.map(s => s.id).filter(id => ids.has(id));
+}
+
+function tileInScope(tile) {
+  if (!filter.box) return true;
+  const boxId = tile.dataset.box;
+  if (boxId) return boxId === filter.box || isDescendantBox(boxId, filter.box);
+  return skillInBox(tile.dataset.id, filter.box);
+}
+
+function computeTreeLayout() {
+  const ids = layoutSkillIds();
+  const idset = new Set(ids);
+  const edges = allEdges.filter(([p, c]) => idset.has(p) && idset.has(c));
+  const r = ids.length ? layeredLayout(ids, edges) : { pos: {}, mids: {}, w: 200, h: 120, nl: 0, crossings: 0, layerOf: {} };
+  const nodes = {}, mids = {};
+  for (const id in r.pos) nodes[id] = { x: r.pos[id].x + WPAD, y: (r.h - r.pos[id].y - TH) + WPAD };
+  for (const k in r.mids) mids[k] = r.mids[k].map(pt => [pt[0] + WPAD, (r.h - pt[1]) + WPAD]);
+  layout.tree = {
+    nodes, mids, blobs: {}, w: Math.max((r.w || 0) + WPAD * 2, 200), h: Math.max((r.h || 0) + WPAD * 2, 120),
+    layers: r.nl, crossings: r.crossings, layerOf: r.layerOf || {},
+    edges: edges.map(([p, c]) => ({ from: p, to: c, fromKey: p, toKey: c }))
+  };
+}
+
+function layoutOneContainer(container) {
+  const COLLAPSED_H = 64, COURSE_PAD = 20, INNER_GAP = 14;
+  const chapters = chapterBoxesOf(container);
+  const places = [];
+  chapters.forEach(ch => (ch.skills || []).forEach(id => { if (byId[id]) places.push({ skillId: id, boxId: ch.id }); }));
+  const kind = container.kind === 'textbook' ? 'textbook' : 'course';
+  if (collapsedBoxes.has(container.id)) {
+    return {
+      nodes: {}, mids: {}, places, edges: [],
+      blobs: { [container.id]: { x: 0, y: 0, w: BMIN, h: COLLAPSED_H, kind, boxId: container.id, children: [] } },
+      w: BMIN, h: COLLAPSED_H
+    };
+  }
+  const subs = {}, bs = {}, chapterIds = [];
+  for (const chBox of chapters) {
+    const chId = chBox.id;
+    chapterIds.push(chId);
+    const ids = (chBox.skills || []).filter(id => byId[id]);
+    const set = new Set(ids);
+    const collapsed = boxOrAncestorCollapsed(chId);
+    const sub = ids.length ? layeredLayout(ids, allEdges.filter(([p, c]) => set.has(p) && set.has(c))) : { pos: {}, mids: {}, w: 0, h: 0 };
+    subs[chId] = collapsed ? { pos: {}, mids: {}, w: sub.w || 0, h: 0 } : sub;
+    bs[chId] = { w: Math.max((sub.w || 0) + PAD * 2, BMIN), h: (collapsed || !ids.length) ? COLLAPSED_H : (HDR + sub.h + PAD + 4) };
+  }
+  const chOf = {};
+  chapters.forEach(ch => (ch.skills || []).forEach(id => { if (byId[id]) chOf[id] = ch.id; }));
+  const cpred = {};
+  chapterIds.forEach(c => cpred[c] = new Map());
+  allEdges.forEach(([p, c]) => {
+    const ka = chOf[p], kb = chOf[c];
+    if (ka && kb && ka !== kb && cpred[kb] && cpred[ka]) cpred[kb].set(ka, (cpred[kb].get(ka) || 0) + 1);
+  });
+  const rank = {}, visiting = new Set();
   const R = c => {
     if (rank[c] != null) return rank[c];
     if (visiting.has(c)) return 0;
     visiting.add(c);
-    let r = 0;
-    if (cpred[c]) for (const p of cpred[c].keys()) r = Math.max(r, 1 + R(p));
+    let rnk = 0;
+    if (cpred[c]) for (const p of cpred[c].keys()) rnk = Math.max(rnk, 1 + R(p));
     visiting.delete(c);
-    rank[c] = r;
-    return r;
+    rank[c] = rnk;
+    return rnk;
   };
-  placeKeys.forEach(R);
-  
+  chapterIds.forEach(R);
   const avgD = {};
-  placeKeys.forEach(key => {
-    let ids;
-    if (typeof key === 'number') ids = byCh[key] || [];
-    else if (boxById[key] && boxById[key].kind === 'course') ids = getBoxDescendantSkills(key);
-    else ids = (boxById[key]?.skills || []).filter(id => byId[id]);
-    avgD[key] = ids.length ? ids.reduce((a, id) => a + (layout.tree.layerOf[id] || 0), 0) / ids.length : 0;
+  chapterIds.forEach(key => {
+    const ids = (boxById[key].skills || []).filter(id => byId[id]);
+    const layers = (layout.tree && layout.tree.layerOf) || {};
+    avgD[key] = ids.length ? ids.reduce((a, id) => a + (layers[id] || 0), 0) / ids.length : 0;
   });
-  
-  const maxRank = Math.max(0, ...placeKeys.map(c => rank[c]));
+  const maxRank = chapterIds.length ? Math.max(0, ...chapterIds.map(c => rank[c] || 0)) : 0;
   const bx = {}, by = {}; let y = 0;
   const center = c => bx[c] + bs[c].w / 2;
-  const mean = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0;
-  
+  const mean = a => a.length ? a.reduce((x, yy) => x + yy, 0) / a.length : 0;
   for (let r = 0; r <= maxRank; r++) {
-    let row = placeKeys.filter(c => rank[c] === r);
-    const want = c => { 
+    const row = chapterIds.filter(c => rank[c] === r);
+    const want = c => {
       const ps = cpred[c] ? [...cpred[c].entries()].filter(([p]) => bx[p] != null) : [];
       return ps.length ? ps.reduce((a, [p, n]) => a + center(p) * n, 0) / ps.reduce((a, [, n]) => a + n, 0) : null;
     };
-    row.sort((a, b) => { 
+    row.sort((a, b) => {
       const wa = want(a), wb = want(b);
       return (wa == null ? 0 : wa) - (wb == null ? 0 : wb) || avgD[a] - avgD[b] || String(a).localeCompare(String(b));
     });
     const subrows = [[]]; let w = 0;
-    row.forEach(c => { 
+    row.forEach(c => {
       if (w && w + bs[c].w + BGAP > ROWMAX) { subrows.push([]); w = 0 }
       subrows[subrows.length - 1].push(c); w += bs[c].w + BGAP;
     });
     subrows.forEach(sr => {
       const wants = sr.map(c => want(c));
-      const t = sr.map((c, i) => wants[i]);
-      const known = t.filter(v => v != null);
+      const known = wants.filter(v => v != null);
       const base = known.length ? mean(known) : 0;
-      const tgt = t.map(v => v == null ? base : v);
+      const tgt = wants.map(v => v == null ? base : v);
       const seps = sr.slice(1).map((c, i) => (bs[sr[i]].w + bs[c].w) / 2 + BGAP);
       const xs = pav(tgt, seps, sr.map(() => 1));
-      let rh = 0; 
+      let rh = 0;
       sr.forEach((c, i) => { bx[c] = xs[i] - bs[c].w / 2; by[c] = y; rh = Math.max(rh, bs[c].h) });
       y += rh + RGAP;
     });
   }
-  
-  const allKeys = placeKeys.filter(c => bx[c] != null);
+  const allKeys = chapterIds.filter(c => bx[c] != null);
   const minX = allKeys.length ? Math.min(...allKeys.map(c => bx[c])) : 0;
-  const maxX = allKeys.length ? Math.max(...allKeys.map(c => bx[c] + bs[c].w)) : 0;
-  
+  const maxX = allKeys.length ? Math.max(...allKeys.map(c => bx[c] + bs[c].w)) : BMIN;
   const nodes = {}, mids = {}, blobs = {};
-  
   for (const key of allKeys) {
     const ox = bx[key] - minX + WPAD, oy = by[key] + WPAD;
-    if (boxById[key] && boxById[key].kind === 'course') {
-      blobs[key] = { x: ox, y: oy, w: bs[key].w, h: bs[key].h, kind: 'course', boxId: key, children: [] };
-      continue;
-    }
-    const ch = getChapter(key);
-    blobs[key] = { x: ox, y: oy, w: bs[key].w, h: bs[key].h, ch, kind: 'chapter', boxId: typeof key === 'string' ? key : null };
-    
-    if (subs[key] && subs[key].w > 0 && !collapsedBoxes.has(key)) {
+    const ch = boxById[key].color_index || 1;
+    blobs[key] = { x: ox, y: oy, w: bs[key].w, h: bs[key].h, ch, kind: 'chapter', boxId: key };
+    if (subs[key] && subs[key].pos && !collapsedBoxes.has(key)) {
       const ix = ox + (bs[key].w - subs[key].w) / 2, iy = oy + PAD + 4;
       for (const id in subs[key].pos) nodes[id] = { x: ix + subs[key].pos[id].x, y: iy + subs[key].pos[id].y };
-      for (const k in subs[key].mids) mids[k] = subs[key].mids[k].map(p => [ix + p[0], iy + p[1]]);
+      for (const k in subs[key].mids) mids[k] = subs[key].mids[k].map(pt => [ix + pt[0], iy + pt[1]]);
     }
   }
-  
-  if (useNested) {
-    for (const course of courseBoxes) {
-      if (collapsedBoxes.has(course.id)) continue;
-      const chapterIds = (course.children || []).filter(id => blobs[id]);
-      if (chapterIds.length === 0) continue;
-      
-      const cx0 = Math.min(...chapterIds.map(id => blobs[id].x)) - COURSE_PAD;
-      const cy0 = Math.min(...chapterIds.map(id => blobs[id].y)) - HDR - INNER_GAP;
-      const cx1 = Math.max(...chapterIds.map(id => blobs[id].x + blobs[id].w)) + COURSE_PAD;
-      const cy1 = Math.max(...chapterIds.map(id => blobs[id].y + blobs[id].h)) + COURSE_PAD;
-      
-      blobs[course.id] = {
-        x: cx0, y: cy0, 
-        w: cx1 - cx0, h: cy1 - cy0,
-        kind: 'course', boxId: course.id, children: chapterIds
-      };
-    }
+  if (allKeys.length) {
+    const cx0 = Math.min(...allKeys.map(id => blobs[id].x)) - COURSE_PAD;
+    const cy0 = Math.min(...allKeys.map(id => blobs[id].y)) - HDR - INNER_GAP;
+    const cx1 = Math.max(...allKeys.map(id => blobs[id].x + blobs[id].w)) + COURSE_PAD;
+    const cy1 = Math.max(...allKeys.map(id => blobs[id].y + blobs[id].h)) + COURSE_PAD;
+    blobs[container.id] = { x: cx0, y: cy0, w: cx1 - cx0, h: cy1 - cy0, kind, boxId: container.id, children: allKeys.slice() };
   }
-  
-  const M = 26;
-  const getChKey = id => useNested ? `ee105-ch${byId[id].chapter}` : byId[id].chapter;
-  
+  const M = 26, edges = [];
   allEdges.forEach(([p, c]) => {
-    const kp = getChKey(p), kc = getChKey(c);
+    const kp = chOf[p], kc = chOf[c];
+    if (!kp || !kc) return;
+    edges.push({ from: p, to: c, fromBox: kp, toBox: kc });
     if (kp === kc || !nodes[p] || !nodes[c]) return;
     const A = blobs[kp], B = blobs[kc], P = nodes[p], Q = nodes[c];
     if (!A || !B) return;
@@ -628,36 +661,79 @@ function computeGroupedLayout() {
     const bands = [];
     obs.forEach(o => {
       const last = bands[bands.length - 1];
-      if (last && o.y < last.y1 + RGAP * .6) { last.y1 = Math.max(last.y1, o.y + o.h); last.iv.push([o.x - M, o.x + o.w + M]) }
-      else bands.push({ y0: o.y, y1: o.y + o.h, iv: [[o.x - M, o.x + o.w + M]] })
+      if (last && o.y < last.y1 + RGAP * .6) { last.y1 = Math.max(last.y1, o.y + o.h); last.iv.push([o.x - M, o.x + o.w + M]); }
+      else bands.push({ y0: o.y, y1: o.y + o.h, iv: [[o.x - M, o.x + o.w + M]] });
     });
     const pts = [];
     bands.forEach(bd => {
-      const iv = bd.iv.sort((u, v) => u[0] - v[0]).reduce((acc, r) => { const l = acc[acc.length - 1]; if (l && r[0] <= l[1]) l[1] = Math.max(l[1], r[1]); else acc.push([r[0], r[1]]); return acc }, []);
+      const iv = bd.iv.sort((u, v) => u[0] - v[0]).reduce((acc, rng) => { const l = acc[acc.length - 1]; if (l && rng[0] <= l[1]) l[1] = Math.max(l[1], rng[1]); else acc.push([rng[0], rng[1]]); return acc; }, []);
       const ym = (bd.y0 + bd.y1) / 2, f = Math.max(0, Math.min(1, (ym - sy) / (ty - sy)));
       let x = sx + (tx - sx) * f;
-      const hit = iv.find(r => x > r[0] && x < r[1]);
-      if (hit) { const l = hit[0], r = hit[1]; x = (l < 14 || Math.abs(x - l) > Math.abs(r - x)) ? r : l }
+      const hit = iv.find(rng => x > rng[0] && x < rng[1]);
+      if (hit) { const l = hit[0], rr = hit[1]; x = (l < 14 || Math.abs(x - l) > Math.abs(rr - x)) ? rr : l; }
       pts.push([x, Math.max(sy + 8, bd.y0 - RGAP * .35)], [x, Math.min(ty - 8, bd.y1 + RGAP * .35)]);
     });
     mids[p + '>' + c] = pts;
   });
-  
-  const allX = []; for (const k in mids) mids[k].forEach(q => allX.push(q[0]));
-  const shiftX = Math.max(0, 20 - Math.min(Infinity, ...allX.concat([minX])));
-  if (shiftX) { 
+  const allX = [];
+  for (const k in mids) mids[k].forEach(q => allX.push(q[0]));
+  const blobXs = Object.values(blobs).map(b => b.x);
+  const shiftX = Math.max(0, 20 - Math.min(Infinity, ...allX.concat(blobXs.length ? blobXs : [0])));
+  if (shiftX) {
     for (const id in nodes) nodes[id].x += shiftX;
     for (const k in mids) mids[k].forEach(q => q[0] += shiftX);
     for (const c in blobs) blobs[c].x += shiftX;
   }
-  
-  const worldW = Math.max(maxX - minX + WPAD * 2, ...allX.map(v => v + WPAD), ...Object.values(blobs).map(b => b.x + b.w + WPAD));
-  const worldH = y - RGAP + WPAD * 2;
+  const worldW = Math.max(maxX - minX + WPAD * 2, ...allX.map(v => v + WPAD), ...Object.values(blobs).map(b => b.x + b.w + WPAD), BMIN);
+  const worldH = Math.max(1, (y > RGAP ? y - RGAP : y) + WPAD * 2);
   for (const id in nodes) nodes[id].y = worldH - nodes[id].y - TH;
   for (const k in mids) mids[k].forEach(q => q[1] = worldH - q[1]);
   for (const c in blobs) blobs[c].y = worldH - blobs[c].y - blobs[c].h;
-  
-  layout.grouped = { nodes, mids, blobs, w: worldW, h: worldH, rank, useNested };
+  let minY = 0;
+  Object.values(blobs).forEach(b => { if (b.y < minY) minY = b.y; });
+  Object.values(nodes).forEach(n => { if (n.y < minY) minY = n.y; });
+  if (minY < 0) {
+    const shift = -minY + 8;
+    for (const id in nodes) nodes[id].y += shift;
+    for (const k in mids) mids[k].forEach(q => q[1] += shift);
+    for (const c in blobs) blobs[c].y += shift;
+  }
+  const h = Math.max(worldH, ...Object.values(blobs).map(b => b.y + b.h + 8), ...Object.values(nodes).map(n => n.y + TH + 8), COLLAPSED_H);
+  const w = Math.max(worldW, ...Object.values(blobs).map(b => b.x + b.w + 8), BMIN);
+  return { nodes, mids, blobs, places, edges, w, h };
+}
+
+function computeGroupedLayout() {
+  const containers = visibleContainers();
+  const nodes = {}, mids = {}, blobs = {}, places = [], edges = [];
+  let yOff = 0, maxW = 0;
+  const GAP = 72;
+  containers.forEach(container => {
+    const local = layoutOneContainer(container);
+    for (const k in local.blobs) {
+      const b = local.blobs[k];
+      blobs[k] = Object.assign({}, b, { x: b.x, y: b.y + yOff });
+    }
+    local.places.forEach(p => {
+      const key = p.boxId + '|' + p.skillId;
+      const pos = local.nodes[p.skillId];
+      if (pos) nodes[key] = { x: pos.x, y: pos.y + yOff };
+      if (pos && nodes[p.skillId] == null) nodes[p.skillId] = nodes[key];
+      places.push({ key, skillId: p.skillId, boxId: p.boxId });
+    });
+    local.edges.forEach(e => {
+      const fk = e.fromBox + '|' + e.from, tk = e.toBox + '|' + e.to;
+      edges.push({ from: e.from, to: e.to, fromKey: fk, toKey: tk });
+      const mk = e.from + '>' + e.to;
+      if (local.mids[mk]) mids[fk + '>' + tk] = local.mids[mk].map(pt => [pt[0], pt[1] + yOff]);
+    });
+    yOff += local.h + GAP;
+    maxW = Math.max(maxW, local.w);
+  });
+  layout.grouped = {
+    nodes, mids, blobs, places, edges,
+    w: Math.max(maxW, 200), h: Math.max(yOff, 120), useNested: containers.length > 0, rank: {}
+  };
 }
 
 function computeLayouts() { computeTreeLayout(); computeGroupedLayout() }
@@ -698,16 +774,24 @@ function skillInBox(skillId, boxId) {
   return false;
 }
 
-function tileTitle(s) { return `${s.name} · Ch ${s.chapter}` }
+function labelForTile(s, tile) {
+  const boxId = tile && tile.dataset.box;
+  if (boxId && boxById[boxId]) return boxById[boxId].title;
+  return chapterLabel(s.id);
+}
 
-function buildTile(s, st) {
+function tileTitle(s, tile) { return `${s.name} · ${labelForTile(s, tile)}` }
+
+function buildTile(s, st, boxId) {
   const shimmerDelay = (Math.random() * 4 + 1).toFixed(2) + 's';
-  const ci = getSkillColorIndex(s.id);
-  const b = el('button', { class: 'tile' + (st ? ' st' : ''), 'data-id': s.id, style: colorVars(ci) + `;--shimmer-delay:${shimmerDelay}`, type: 'button', title: tileTitle(s) },
+  const ci = (boxId && boxById[boxId] && boxById[boxId].color_index != null) ? boxById[boxId].color_index : getSkillColorIndex(s.id);
+  const b = el('button', { class: 'tile' + (st ? ' st' : ''), 'data-id': s.id, style: colorVars(ci) + `;--shimmer-delay:${shimmerDelay}`, type: 'button', title: s.name },
     el('span', { class: 'fill' }), el('span', { class: 'nm name', text: s.name }),
     el('span', { class: 'meta sub' }, el('span', { class: 'pips' }, [0, 1, 2, 3].map(() => el('i'))), el('span', { class: 'tl' }), el('span', { class: 'tag' })),
     el('span', { class: 'star', 'aria-hidden': 'true', text: '★' }),
+    el('span', { class: 'extstar', 'aria-hidden': 'true', text: '☆' }),
     el('span', { class: 'light', 'aria-hidden': 'true' }, el('span', { class: 'light-dot' })));
+  if (boxId) b.dataset.box = boxId;
   b.addEventListener('click', () => { if (drag.moved) return; selectSkill(s.id) });
   b.addEventListener('mouseenter', () => { hoverId = s.id; applyEdgeHighlight() });
   b.addEventListener('mouseleave', () => { hoverId = null; applyEdgeHighlight() });
@@ -716,20 +800,28 @@ function buildTile(s, st) {
   return b;
 }
 
+function isOutsidePrereq(id) {
+  if (!filter.box || skillInBox(id, filter.box)) return false;
+  const inside = getBoxDescendantSkills(filter.box);
+  return inside.some(sid => byId[sid] && byId[sid].prereqs.includes(id));
+}
+
 function refreshTile(b) {
   const id = b.dataset.id, s = byId[id], t = tierOf(id), soon = !isPlayable(id), ready = isReady(id);
   const st = b.classList.contains('st');
-  const boxDimmed = !!(filter.box && !skillInBox(id, filter.box));
+  const boxDimmed = !tileInScope(b);
+  const outside = isOutsidePrereq(id);
   const lightMode = b.classList.contains('light-mode');
-  const hidden = !st && skillHiddenByCollapse(id);
-  b.className = 'tile' + (st ? ' st' : '') + ' t' + t + (soon ? ' soon' : '') + (ready ? ' ready' : '') + (selected === id ? ' sel' : '') + (boxDimmed ? ' boxdim' : '') + (lightMode ? ' light-mode' : '') + (hidden ? ' collapsed-hide' : '');
+  const hidden = !st && skillHiddenByCollapse(id, b.dataset.box || null);
+  b.className = 'tile' + (st ? ' st' : '') + ' t' + t + (soon ? ' soon' : '') + (ready ? ' ready' : '') + (selected === id ? ' sel' : '') + (boxDimmed ? ' boxdim' : '') + (outside ? ' ext-prereq' : '') + (lightMode ? ' light-mode' : '') + (hidden ? ' collapsed-hide' : '');
   b.style.setProperty('--fill', FILL[t] + '%');
   b.querySelectorAll('.pips i').forEach((p, i) => p.classList.toggle('on', t > i));
   b.querySelector('.tl').textContent = soon ? '' : TIERS[t];
   const tag = b.querySelector('.tag'); tag.textContent = soon ? 'SOON' : (ready ? 'READY' : ''); tag.style.display = (soon || ready) ? '' : 'none';
   const gaps = (!soon && t === 0 && !ready) ? prereqGaps(id).length : 0;
-  b.title = tileTitle(s) + (soon ? ' · coming soon' : ready ? ' · ready to learn' : gaps ? ` · recommended once prerequisites reach ${TIERS[READY_TIER]}` : '');
-  b.setAttribute('aria-label', `${s.name}. Chapter ${s.chapter}. ${soon ? 'Coming soon, no questions yet' : TIERS[t] + (ready ? ', ready to learn' : '')}`);
+  const label = labelForTile(s, b);
+  b.title = `${s.name} · ${label}` + (soon ? ' · coming soon' : ready ? ' · ready to learn' : gaps ? ` · recommended once prerequisites reach ${TIERS[READY_TIER]}` : '') + (outside ? ' · prerequisite outside this scope' : '');
+  b.setAttribute('aria-label', `${s.name}. ${label}. ${soon ? 'Coming soon, no questions yet' : TIERS[t] + (ready ? ', ready to learn' : '')}${outside ? '. Prerequisite outside this scope' : ''}`);
   b.setAttribute('aria-pressed', selected === id ? 'true' : 'false');
   if (filter.playable && soon && !st) b.classList.add('dim');
 }
@@ -743,8 +835,10 @@ function directD(A, B) {
 }
 
 function routedD(e, L) {
-  const A = L.nodes[e.from], B = L.nodes[e.to];
-  const mids = L.mids[e.from + '>' + e.to];
+  const fromKey = e.fromKey || e.from, toKey = e.toKey || e.to;
+  const A = L.nodes[fromKey], B = L.nodes[toKey];
+  if (!A || !B) return { d: '', ex: 0, ey: 0 };
+  const mids = L.mids[fromKey + '>' + toKey];
   if (!mids) return directD(A, B);
   const pts = [[A.x + TW / 2, A.y], ...mids, [B.x + TW / 2, B.y + TH]];
   let d = `M${pts[0][0]},${pts[0][1]}`;
@@ -756,7 +850,8 @@ function setEdge(e, r) { e.path.setAttribute('d', r.d); e.dot.setAttribute('cx',
 function sizeWorld(L) { world.style.width = L.w + 'px'; world.style.height = L.h + 'px'; edgesSvg.setAttribute('width', L.w); edgesSvg.setAttribute('height', L.h) }
 function placeTiles(pos) {
   world.querySelectorAll('.tile').forEach(t => {
-    const p = pos[t.dataset.id];
+    const key = t.dataset.place || t.dataset.id;
+    const p = pos[key];
     if (!p) return;
     t.style.left = p.x + 'px';
     t.style.top = p.y + 'px';
@@ -772,17 +867,60 @@ function boxOrAncestorCollapsed(boxId) {
   return false;
 }
 
-function skillHiddenByCollapse(id) {
+function skillHiddenByCollapse(id, boxId) {
   if (layoutMode !== 'grouped' || filter.view !== 'tree') return false;
-  const chapters = (skillToBoxes[id] || []).filter(bid => boxById[bid] && boxById[bid].kind === 'chapter');
-  const relevant = chapters.length ? chapters : (skillToBoxes[id] || []);
-  if (!relevant.length) return false;
-  return relevant.every(boxOrAncestorCollapsed);
+  if (boxId) return boxOrAncestorCollapsed(boxId);
+  return false;
+}
+
+function edgeHidden(e) {
+  if (layoutMode !== 'grouped' || filter.view !== 'tree') return false;
+  const fromBox = e.fromKey && e.fromKey.includes('|') ? e.fromKey.split('|')[0] : null;
+  const toBox = e.toKey && e.toKey.includes('|') ? e.toKey.split('|')[0] : null;
+  if (fromBox && boxOrAncestorCollapsed(fromBox)) return true;
+  if (toBox && boxOrAncestorCollapsed(toBox)) return true;
+  return false;
+}
+
+function syncTiles() {
+  const want = new Map();
+  if (layoutMode === 'grouped' && layout.grouped && layout.grouped.places) {
+    layout.grouped.places.forEach(p => want.set(p.key, p));
+  } else {
+    layoutSkillIds().forEach(id => want.set(id, { key: id, skillId: id, boxId: null }));
+  }
+  world.querySelectorAll('.tile:not(.st)').forEach(t => {
+    const key = t.dataset.place || t.dataset.id;
+    if (!want.has(key)) t.remove();
+  });
+  want.forEach(p => {
+    const existing = p.boxId
+      ? world.querySelector('.tile[data-place="' + p.key.replace(/"/g, '') + '"]')
+      : world.querySelector('.tile[data-id="' + p.skillId + '"]:not([data-place])');
+    if (existing) return;
+    const tile = buildTile(byId[p.skillId], false, p.boxId);
+    if (p.boxId) tile.dataset.place = p.key;
+    world.append(tile);
+  });
+  world.querySelectorAll('.tile:not(.st)').forEach(refreshTile);
+}
+
+function syncEdges() {
+  edgeEls.splice(0).forEach(e => { e.path.remove(); e.dot.remove(); });
+  const NS = 'http://www.w3.org/2000/svg';
+  const list = layoutMode === 'grouped' ? ((layout.grouped && layout.grouped.edges) || []) : ((layout.tree && layout.tree.edges) || []);
+  list.forEach(e => {
+    const path = document.createElementNS(NS, 'path');
+    const dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('r', '3.2');
+    edgesSvg.append(path, dot);
+    edgeEls.push({ from: e.from, to: e.to, fromKey: e.fromKey, toKey: e.toKey, path, dot });
+  });
 }
 
 function syncCollapsedTiles() {
   document.querySelectorAll('#world .tile').forEach(t => {
-    t.classList.toggle('collapsed-hide', skillHiddenByCollapse(t.dataset.id));
+    t.classList.toggle('collapsed-hide', skillHiddenByCollapse(t.dataset.id, t.dataset.box || null));
   });
 }
 
@@ -839,85 +977,85 @@ function rebuildGroupedLayout() {
 function updateBlobsDOM() {
   document.querySelectorAll('#world .blob').forEach(b => b.remove());
   const G = layout.grouped;
-  
-  const courseBoxes = COLLECTIONS ? COLLECTIONS.boxes.filter(b => b.kind === 'course') : [];
-  
+  if (!G) return;
+  const containers = [];
   for (const key in G.blobs) {
     const b = G.blobs[key];
-    if (b.kind === 'course') continue;
-    
-    const ch = b.ch || (typeof key === 'number' ? key : 1);
-    const boxId = b.boxId;
-    const isCollapsed = boxId && collapsedBoxes.has(boxId);
-    const title = boxId && boxById[boxId] ? boxById[boxId].title : `Ch ${ch} · ${DATA.chapters[ch]}`;
-    
-    const blob = el('div', { 
-      class: 'blob chapter' + (isCollapsed ? ' collapsed' : ''), 
-      'data-ch': ch, 
-      'data-box': boxId || '',
-      style: `left:${b.x}px;top:${b.y}px;width:${b.w}px;height:${b.h}px;${colorVars(ch)}` 
+    if (b.kind === 'course' || b.kind === 'textbook') { containers.push(key); continue; }
+    const box = b.boxId && boxById[b.boxId];
+    const ch = b.ch || 1;
+    const title = box ? box.title : ('Ch ' + ch);
+    const isCollapsed = b.boxId && collapsedBoxes.has(b.boxId);
+    const blob = el('div', {
+      class: 'blob chapter' + (isCollapsed ? ' collapsed' : ''),
+      'data-ch': ch,
+      'data-box': b.boxId || '',
+      style: `left:${b.x}px;top:${b.y}px;width:${b.w}px;height:${b.h}px;${colorVars(ch)}`
     });
-    
     const hd = el('div', { class: 'hd' });
-    if (boxId) hd.append(collapseButton(boxId, title));
+    if (b.boxId) hd.append(collapseButton(b.boxId, title));
     hd.append(
-      el('span', { class: 'cpill', text: 'Ch ' + ch }),
+      el('span', { class: 'cpill', text: box ? chapterPillText(box) : ('Ch ' + ch) }),
       el('span', { style: 'font-weight:800;font-size:13.5px', text: title.replace(/^Chapter \d+:\s*/, '') }),
-      el('span', { class: 'ct', 'data-ct': ch })
+      el('span', { class: 'ct', 'data-ct': b.boxId || '' })
     );
     blob.append(hd);
     world.insertBefore(blob, edgesSvg);
   }
-  
-  for (const course of courseBoxes) {
-    const b = G.blobs[course.id];
-    if (!b) continue;
-    
-    const isCollapsed = collapsedBoxes.has(course.id);
-    const blob = el('div', { 
-      class: 'blob course' + (isCollapsed ? ' collapsed' : ''), 
-      'data-box': course.id,
-      style: `left:${b.x}px;top:${b.y}px;width:${b.w}px;height:${b.h}px;border-color:${PALETTE[0]};background:rgba(255,244,214,.15)` 
+  containers.forEach(id => {
+    const b = G.blobs[id];
+    const box = boxById[id];
+    if (!box) return;
+    const isCollapsed = collapsedBoxes.has(id);
+    const textbook = b.kind === 'textbook';
+    const blob = el('div', {
+      class: 'blob ' + (textbook ? 'textbook' : 'course') + (isCollapsed ? ' collapsed' : ''),
+      'data-box': id,
+      style: `left:${b.x}px;top:${b.y}px;width:${b.w}px;height:${b.h}px;border-color:${textbook ? '#7c6cff' : PALETTE[0]};background:${textbook ? 'rgba(124,108,255,.08)' : 'rgba(255,244,214,.15)'}`
     });
-    
     const hd = el('div', { class: 'hd' });
     hd.append(
-      collapseButton(course.id, course.title),
-      el('span', { class: 'cpill', style: `background:${PALETTE[0]};color:#fff`, text: '📚' }),
-      el('span', { style: 'font-weight:800;font-size:15px', text: course.title })
+      collapseButton(id, box.title),
+      el('span', { class: 'cpill', style: `background:${textbook ? '#7c6cff' : PALETTE[0]};color:#fff`, text: textbook ? '📘' : '📚' }),
+      el('span', { style: 'font-weight:800;font-size:15px', text: box.title })
     );
     blob.append(hd);
     world.insertBefore(blob, edgesSvg);
-  }
+  });
 }
 
 function buildTree() {
   computeLayouts();
   updateBlobsDOM();
-  
-  const NS = 'http://www.w3.org/2000/svg';
-  allEdges.forEach(([p, c]) => {
-    const path = document.createElementNS(NS, 'path');
-    const dot = document.createElementNS(NS, 'circle'); dot.setAttribute('r', 3.2);
-    edgesSvg.append(path, dot); edgeEls.push({ from: p, to: c, path, dot });
-  });
-  skills.forEach(s => world.append(buildTile(s, false)));
 }
 
 function legendBuild() {
   const lg = $('chLegend'); lg.innerHTML = '';
   lg.append(el('summary', {}, 'Chapter colors'));
   const box = el('div', { class: 'lgrid' });
-  chNums.forEach(c => box.append(el('button', { class: 'lg', type: 'button', style: colorVars(c), title: 'Show chapter ' + c, 'data-ch': c, onclick: () => { const boxId = boxForChapter(c); if (!boxId) return; setScope(filter.box === boxId.id ? null : boxId.id, { focus: true }); } }, el('i'), el('span', { text: `${c} · ${DATA.chapters[c]}` }))));
+  const chapters = visibleContainers().flatMap(chapterBoxesOf);
+  (chapters.length ? chapters : allChapterBoxes()).forEach(ch => box.append(el('button', {
+    class: 'lg', type: 'button', style: colorVars(ch.color_index || 1), title: ch.title, 'data-box': ch.id,
+    onclick: () => setScope(filter.box === ch.id ? null : ch.id, { focus: true })
+  }, el('i'), el('span', { text: `${chapterPillText(ch)} · ${ch.title.replace(/^Chapter\s+\d+:\s*/, '')}` }))));
   lg.append(box);
 }
 
 const MORPH_MS = 600;
 function showLayout(mode, animated) {
   cancelAnimationFrame(morphRaf);
-  const L = layout[mode], ids = skills.map(s => s.id);
-  const from = {}; ids.forEach(id => from[id] = curPos[id] || L.nodes[id] || { x: 0, y: 0 });
-  layoutMode = mode; tv.dataset.mode = mode; world.dataset.layout = mode;
+  layoutMode = mode;
+  syncTiles();
+  syncEdges();
+  const L = layout[mode];
+  const tiles = [...world.querySelectorAll('.tile')];
+  const keys = tiles.map(t => t.dataset.place || t.dataset.id);
+  const from = {};
+  keys.forEach((key, i) => {
+    const id = tiles[i].dataset.id;
+    from[key] = curPos[key] || curPos[id] || L.nodes[key] || L.nodes[id] || { x: 0, y: 0 };
+  });
+  tv.dataset.mode = mode; world.dataset.layout = mode;
   sizeWorld(L);
   
   document.querySelectorAll('#world .blob').forEach(b => {
@@ -943,19 +1081,20 @@ function showLayout(mode, animated) {
   
   const drawEdges = (useRouted) => {
     edgeEls.forEach(e => {
-      const hide = skillHiddenByCollapse(e.from) || skillHiddenByCollapse(e.to);
+      const hide = edgeHidden(e);
       e.path.classList.toggle('collapsed-hide', hide);
       e.dot.classList.toggle('collapsed-hide', hide);
       if (hide) return;
-      const from = useRouted ? L.nodes[e.from] : curPos[e.from];
-      const to = useRouted ? L.nodes[e.to] : curPos[e.to];
-      if (from && to) setEdge(e, useRouted ? routedD(e, L) : directD(curPos[e.from], curPos[e.to]));
+      const fromKey = e.fromKey || e.from, toKey = e.toKey || e.to;
+      const from = useRouted ? L.nodes[fromKey] : (curPos[fromKey] || L.nodes[fromKey]);
+      const to = useRouted ? L.nodes[toKey] : (curPos[toKey] || L.nodes[toKey]);
+      if (from && to) setEdge(e, useRouted ? routedD(e, L) : directD(from, to));
     });
   };
   const finish = () => {
-    ids.forEach(id => {
-      const pos = L.nodes[id];
-      if (pos) curPos[id] = { x: pos.x, y: pos.y };
+    keys.forEach(key => {
+      const pos = L.nodes[key];
+      if (pos) curPos[key] = { x: pos.x, y: pos.y };
     });
     placeTiles(curPos);
     drawEdges(true);
@@ -968,9 +1107,10 @@ function showLayout(mode, animated) {
   const t0 = performance.now();
   const step = now => {
     const k = Math.min(1, (now - t0) / MORPH_MS), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
-    ids.forEach(id => { 
-      const a = from[id], b = L.nodes[id];
-      if (a && b && !skillHiddenByCollapse(id)) curPos[id] = { x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e };
+    keys.forEach(key => {
+      const tile = world.querySelector(key.includes('|') ? '.tile[data-place="' + key + '"]' : '.tile[data-id="' + key + '"]:not([data-place])');
+      const a = from[key], b = L.nodes[key];
+      if (a && b && !(tile && skillHiddenByCollapse(tile.dataset.id, tile.dataset.box || null))) curPos[key] = { x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e };
     });
     placeTiles(curPos);
     drawEdges(false);
@@ -988,9 +1128,7 @@ function applyBoxFilter() {
   }
   
   document.querySelectorAll('#world .tile').forEach(t => {
-    const skillId = t.dataset.id;
-    const inBox = skillInBox(skillId, boxId);
-    t.classList.toggle('boxdim', !inBox);
+    t.classList.toggle('boxdim', !tileInScope(t));
   });
   
   document.querySelectorAll('#world .blob').forEach(b => {
@@ -999,10 +1137,8 @@ function applyBoxFilter() {
       b.classList.remove('boxdim');
       return;
     }
-    const isSelected = blobBoxId === boxId;
-    const isChild = boxById[boxId]?.children?.includes(blobBoxId);
-    const isParent = boxById[blobBoxId]?.children?.includes(boxId);
-    b.classList.toggle('boxdim', !isSelected && !isChild && !isParent);
+    const related = blobBoxId === boxId || isDescendantBox(blobBoxId, boxId) || isDescendantBox(boxId, blobBoxId);
+    b.classList.toggle('boxdim', !related);
   });
 }
 
@@ -1022,7 +1158,7 @@ function applyEdgeHighlight() {
     e.dot.classList.toggle('in', inn); e.dot.classList.toggle('out', out);
     const fd = !!(filter.box && !skillInBox(e.from, filter.box) && !skillInBox(e.to, filter.box));
     e.path.classList.toggle('fdim', fd); e.dot.classList.toggle('fdim', fd);
-    const hide = skillHiddenByCollapse(e.from) || skillHiddenByCollapse(e.to);
+    const hide = edgeHidden(e);
     e.path.classList.toggle('collapsed-hide', hide); e.dot.classList.toggle('collapsed-hide', hide);
   });
 }
@@ -1138,26 +1274,25 @@ function setupPanZoom() {
 /* ====================== grid view ====================== */
 function buildGrid() {
   const g = $('gridView'); g.innerHTML = '';
-  for (const ch of chNums) {
-    const list = skills.filter(s => s.chapter === ch);
-    g.append(el('section', { class: 'gsec', 'data-ch': ch, style: colorVars(ch) },
-      el('div', { class: 'hd' }, el('span', { class: 'cpill', text: 'Ch ' + ch }), el('b', { text: DATA.chapters[ch] }), el('span', { class: 'ct', 'data-ct': ch })),
-      el('div', { class: 'ggrid' }, list.map(s => buildTile(s, true)))));
+  for (const ch of allChapterBoxes()) {
+    const list = (ch.skills || []).filter(id => byId[id]).map(id => byId[id]);
+    g.append(el('section', { class: 'gsec', 'data-box': ch.id, style: colorVars(ch.color_index || 1) },
+      el('div', { class: 'hd' }, el('span', { class: 'cpill', text: chapterPillText(ch) }), el('b', { text: ch.title }), el('span', { class: 'ct', 'data-ct': ch.id })),
+      el('div', { class: 'ggrid' }, list.map(s => buildTile(s, true, ch.id)))));
   }
 }
 
 function applyGridFilter() {
   document.querySelectorAll('#gridView .gsec').forEach(sec => {
-    const ch = +sec.dataset.ch; let any = false;
+    let any = false;
     sec.querySelectorAll('.tile').forEach(t => {
-      const hide = (filter.playable && !isPlayable(t.dataset.id)) || (filter.box && !skillInBox(t.dataset.id, filter.box));
+      const hide = (filter.playable && !isPlayable(t.dataset.id)) || !tileInScope(t);
       t.style.display = hide ? 'none' : ''; if (!hide) any = true;
     });
     sec.style.display = any ? '' : 'none';
   });
   document.querySelectorAll('#chLegend .lg').forEach(b => {
-    const box = boxForChapter(+b.dataset.ch);
-    b.classList.toggle('on', !!(box && filter.box === box.id));
+    b.classList.toggle('on', !!(filter.box && b.dataset.box === filter.box));
   });
 }
 
@@ -1169,7 +1304,7 @@ function scopeOptionLabel(box, depth) {
 }
 
 function fillScopeSelect(select) {
-  select.append(el('option', { value: '', text: 'All skills' }));
+  select.append(el('option', { value: '', text: 'Everything' }));
   if (!COLLECTIONS || !COLLECTIONS.boxes) return;
   const childIds = new Set();
   COLLECTIONS.boxes.forEach(b => (b.children || []).forEach(id => childIds.add(id)));
@@ -1186,10 +1321,10 @@ function fillScopeSelect(select) {
 function scopeNoteText() {
   const scopeBox = planState.scope ? boxById[planState.scope] : null;
   const scopeSkills = planState.scope ? getBoxDescendantSkills(planState.scope).filter(id => isPlayable(id)) : playable.map(s => s.id);
-  const scopeName = scopeBox ? scopeBox.title : 'all skills';
+  const scopeName = scopeBox ? scopeBox.title : 'Everything';
   return planState.scope
     ? `Planning for ${scopeSkills.length} playable skill${scopeSkills.length === 1 ? '' : 's'} in "${scopeName}". Prerequisites outside this scope will be included to Level 2.`
-    : `Planning for all ${playable.length} playable skills. Coming-soon skills (${skills.length - playable.length}) are excluded.`;
+    : `Planning for Everything: ${playable.length} playable skills. Coming-soon skills (${skills.length - playable.length}) are excluded.`;
 }
 
 function refreshOpenPlan() {
@@ -1203,9 +1338,16 @@ function refreshOpenPlan() {
 
 function setScope(boxId, opts) {
   const id = boxId && boxById[boxId] ? boxId : null;
+  const prev = layoutRoot();
   filter.box = id;
   planState.scope = id;
   savePlanScope();
+  if (prev !== layoutRoot()) {
+    computeLayouts();
+    updateBlobsDOM();
+    legendBuild();
+    showLayout(layoutMode, false);
+  }
   refreshAll();
   refreshOpenPlan();
   if (opts && opts.focus && filter.view === 'tree') focusScope();
@@ -1216,8 +1358,11 @@ function refreshAll() {
   renderStats(); renderBanner(); renderPlanBadge();
   $('qCount').textContent = queue().length;
   document.querySelectorAll('[data-ct]').forEach(e => {
-    const ch = +e.dataset.ct; const l = skills.filter(s => s.chapter === ch); const p = l.filter(s => isPlayable(s.id)).length;
-    const c = l.filter(s => tierOf(s.id) > 0).length;
+    const box = boxById[e.dataset.ct];
+    if (!box) return;
+    const l = (box.skills || []).filter(id => byId[id]);
+    const p = l.filter(id => isPlayable(id)).length;
+    const c = l.filter(id => tierOf(id) > 0).length;
     e.textContent = `${c}/${l.length} colored in` + (p ? ` · ${p} playable` : '');
   });
   applyBoxFilter(); applyGridFilter(); applyEdgeHighlight();
@@ -1239,7 +1384,7 @@ function renderStats() {
   st.append(el('span', { class: 'chip', title: 'No questions written yet' }, el('span', { class: 'sw soon' }), 'Coming soon ', el('b', { text: skills.length - playable.length })));
   const hc = $('hctl'); hc.innerHTML = '';
   
-  const scopePicker = el('select', { id: 'scopePicker', 'aria-label': 'Scope: all skills, a course, or a chapter' });
+  const scopePicker = el('select', { id: 'scopePicker', 'aria-label': 'Scope: Everything, a course, or a chapter' });
   fillScopeSelect(scopePicker);
   scopePicker.value = filter.box || '';
   scopePicker.onchange = () => setScope(scopePicker.value || null, { focus: true });
@@ -1268,7 +1413,7 @@ function renderBanner() {
   b.append(el('span', {}, el('b', { text: started ? 'Go wide before deep. ' : 'Welcome! ' }),
     started ? 'New skills are recommended once their prerequisites reach Level 2, so go wide rather than racing one branch to Mastered; spaced mastery challenges stick better after a break.'
       : 'Pick a glowing "ready" skill (no prerequisites needed to start), then spread out across the tree. A new skill glows once its prerequisites reach Level 2.'));
-  if (ready.length) b.append(el('span', { class: 'rd' }, el('b', { text: 'Ready to learn:' }), ready.slice(0, 2).map(s => el('button', { class: 'pill', style: colorVars(s.chapter), onclick: () => selectSkill(s.id, true), title: s.name }, short(s.name, 24))), ready.length > 2 ? el('span', { text: `+${ready.length - 2} more` }) : null));
+  if (ready.length) b.append(el('span', { class: 'rd' }, el('b', { text: 'Ready to learn:' }), ready.slice(0, 2).map(s => el('button', { class: 'pill', style: colorOf(s.id), onclick: () => selectSkill(s.id, true), title: s.name }, short(s.name, 24))), ready.length > 2 ? el('span', { text: `+${ready.length - 2} more` }) : null));
   if (q.length) b.append(el('button', { class: 'pill', style: '--c:#ff7a59;--cs:#ffe3da', onclick: openQueue }, `${q.length} mastery challenge${q.length > 1 ? 's' : ''} waiting`));
   b.append(el('button', { class: 'x', 'aria-label': 'Dismiss tip', onclick: () => { bannerHidden = true; renderBanner() } }, '×'));
 }
@@ -1294,8 +1439,9 @@ function closePanel() {
 
 function tierPill(id) {
   const s = byId[id], t = tierOf(id);
-  return el('button', { class: 'pill', style: colorVars(s.chapter), onclick: () => selectSkill(id, true), title: TIERS[t] + (isPlayable(id) ? '' : ' · coming soon') },
-    el('span', { class: 'sw t' + t, style: `--f:${FILL[t]}%;width:14px;height:14px;border-color:${chColor(s.chapter)}` }), short(s.name, 40))
+  const outside = !!(filter.box && !skillInBox(id, filter.box));
+  return el('button', { class: 'pill' + (outside ? ' ext' : ''), style: colorOf(id), onclick: () => selectSkill(id, true), title: TIERS[t] + (isPlayable(id) ? '' : ' · coming soon') + (outside ? ' · prerequisite outside this scope' : '') },
+    el('span', { class: 'sw t' + t, style: `--f:${FILL[t]}%;width:14px;height:14px;border-color:${chColor(getSkillColorIndex(id))}` }), (outside ? '☆ ' : '') + short(s.name, 40))
 }
 
 const need = n => Math.ceil(n * 2 / 3);
@@ -1305,12 +1451,16 @@ function renderPanel() {
   const s = byId[id], t = tierOf(id), soon = !isPlayable(id), ready = isReady(id);
   const nextR = t + 1, kids = [];
   kids.push(el('button', { class: 'close', 'aria-label': 'Close panel', onclick: closePanel }, '×'));
-  kids.push(el('div', { style: colorVars(s.chapter) }, el('span', { class: 'cpill', text: `Ch ${s.chapter} · ${DATA.chapters[s.chapter]}` })));
+  kids.push(el('div', { style: colorOf(id) }, el('span', { class: 'cpill', id: 'panelChapter', text: chapterLabel(id) })));
   kids.push(el('h2', { text: s.name, id: 'panelTitle' }));
-  kids.push(el('div', { class: 'kv', text: `Reader section ${s.reader_section || '—'} · id: ${s.id}` }));
+  kids.push(el('div', { class: 'kv', text: (s.reader_section ? `Reader section ${s.reader_section} · ` : '') + `id: ${s.id}` }));
+  if (s.summary) kids.push(el('p', { class: 'kv', id: 'skillSummary', text: s.summary }));
+  const boxNames = (skillToBoxes[id] || []).map(bid => boxById[bid] && boxById[bid].title).filter(Boolean);
+  if (boxNames.length) kids.push(el('div', { class: 'kv', id: 'boxList', text: 'Boxes: ' + boxNames.join(' · ') }));
+  if (s.sources && s.sources.length) kids.push(el('div', { class: 'kv', id: 'furtherReading', text: 'Further reading: ' + s.sources.map(src => src.ref + (src.section ? ', ' + src.section : '')).join('; ') }));
   if (soon) kids.push(el('div', { class: 'note soon', role: 'note' }, el('b', { text: 'Coming soon. ' }), "This skill is in the tree, but its questions haven't been written yet, so it can't be practiced in this demo."));
   else {
-    kids.push(el('div', { class: 'steps', style: colorVars(s.chapter), role: 'img', 'aria-label': 'Tier: ' + TIERS[t] },
+    kids.push(el('div', { class: 'steps', style: colorOf(s.id), role: 'img', 'aria-label': 'Tier: ' + TIERS[t] },
       TIERS.map((n, i) => el('div', { class: 'step' + (i <= t && i > 0 ? ' done' : '') + (i === t ? ' cur' : '') }, el('div', { class: 'dot', text: i > 0 && i <= t ? '✓' : '' }), n))));
     kids.push(el('div', { class: 'kv', id: 'panelTier' }, el('b', { text: 'Tier: ' }), TIERS[t], ready ? ' · ready to learn' : ''));
     kids.push(el('div', { class: 'kv', id: 'panelLast', title: lastOf(id) ? fmtDate(lastOf(id)) : '' }, el('b', { text: 'Last practiced: ' }), lastOf(id) ? `${ago(lastOf(id))} (${fmtDate(lastOf(id))})` : 'never'));
@@ -1440,7 +1590,7 @@ const answerLine = it => it.q.type === 'mc' ? `Answer: ${'ABCD'[it.ci]}. ${it.op
 
 function renderQuiz() {
   const Q = quiz; if (!Q) return;
-  const s = byId[Q.id]; quizEl.style.cssText = colorVars(s.chapter); quizEl.innerHTML = '';
+  const s = byId[Q.id]; quizEl.style.cssText = colorOf(s.id); quizEl.innerHTML = '';
   const wrap = el('div', { class: 'qwrap' }); quizEl.append(wrap);
   const label = Q.round === 1 ? 'Round 1 · Practice quiz' : `Round ${Q.round} · Mastery challenge → ${TIERS[Q.round]}`;
   wrap.append(el('div', { class: 'qtop' },
@@ -1477,7 +1627,7 @@ function renderQuiz() {
     card.append(fb);
     if (Q.round === 4 && q.preview && q.preview.length) {
       card.append(el('div', { class: 'coming', id: 'coming' }, el('b', { text: 'Coming up: ' }), 'this skill feeds into ',
-        q.preview.map((p, i) => [i ? ', ' : '', el('button', { class: 'pill', style: colorVars(byId[p].chapter), onclick: () => selectSkill(p, false), title: 'Open this skill' }, byId[p].name)])));
+        q.preview.map((p, i) => [i ? ', ' : '', el('button', { class: 'pill', style: colorOf(p), onclick: () => selectSkill(p, false), title: 'Open this skill' }, byId[p].name)])));
     }
     card.append(el('div', { class: 'qact' }, el('button', { class: 'btn primary', id: 'nextBtn', onclick: nextQ }, Q.i === n - 1 ? 'See results' : 'Next question →')));
   }
@@ -1676,7 +1826,7 @@ function openQueue() {
   if (!q.length) body.append(el('div', { class: 'note info', text: 'Nothing waiting yet. Finish a Round 1 quiz on any skill to start a queue.' }));
   q.forEach((s, i) => {
     const t = tierOf(s.id);
-    body.append(el('div', { class: 'qrow' + (i === 0 ? ' top' : ''), 'data-id': s.id, style: colorVars(s.chapter) },
+    body.append(el('div', { class: 'qrow' + (i === 0 ? ' top' : ''), 'data-id': s.id, style: colorOf(s.id) },
       el('span', { class: 'rk', text: i + 1 }), el('span', { class: 'dotc' }),
       el('span', { class: 'nm' }, s.name, el('div', { class: 'sm', text: `${TIERS[t]} → ${TIERS[t + 1]} · last practiced ${ago(lastOf(s.id))}` })),
       el('button', { class: 'btn small ' + (i === 0 ? 'hot' : ''), onclick: () => { closeModal(); doStartQuiz(s.id, t + 1, 'challenge') } }, i === 0 ? 'Start top challenge' : 'Start')));
@@ -1696,7 +1846,7 @@ function openHelp() {
     el('li', {}, 'Prerequisites are guidance, not locks. A new skill glows "ready" once all its prerequisites are at Level 2 or Mastered (prerequisites that are still coming soon are ignored). Lines show what leads to what; click a tile to highlight them.'),
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
     el('li', {}, el('b', { text: 'Learning plan ' }), 'simulates sessions (practice every ready skill, one mastery challenge per unmastered skill) to estimate how many sessions and how much time it takes to master everything playable. It learns how fast you are from your own timed quizzes.'),
-    el('li', {}, el('b', { text: 'Scope ' }), 'limits both the tree and the learning plan to all skills, one course, or one chapter. Prerequisites from outside that scope stay in the plan and are marked with a star.'),
+    el('li', {}, el('b', { text: 'Scope ' }), 'limits both the tree and the learning plan to Everything, one course or textbook, or one chapter. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside that scope stay in the plan and are marked with a star.'),
     el('li', {}, el('b', { text: 'Group by course ' }), 'regroups the tree into course and chapter blocks. The arrow on a block collapses its contents, and Ungroup flows it back.'),
     el('li', {}, 'Progress autosaves in this browser after every quiz. Use Export for a backup file you can Import later (or on another device).'),
     el('li', {}, 'Skills are organized into courses and chapters. Some skills have questions; the rest say "coming soon".'));
@@ -1840,7 +1990,7 @@ function planResults(box) {
   const r = runPlan(planState.scratch, planState.scope);
   const extraSet = new Set(r.extras || []);
   const scopeBox = planState.scope ? boxById[planState.scope] : null;
-  const scopeName = scopeBox ? scopeBox.title : 'all skills';
+  const scopeName = scopeBox ? scopeBox.title : 'Everything';
   
   if (!r.ok) { box.append(el('div', { class: 'note warn', id: 'planStuck', text: 'The simulation got stuck: some skill can never become ready. This should not happen — please tell Isaac.' })); return }
   const est = planEstimates();
