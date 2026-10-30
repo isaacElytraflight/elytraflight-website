@@ -1318,6 +1318,78 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('grouped box headers do not overlap in any scope', async () => {
+    const p = await newPage();
+    await p.setViewport({ width: 1440, height: 900 });
+    await p.click('#btnGroup');
+    await sleep(800);
+
+    const overlaps = () => p.evaluate(() => {
+      const hits = [];
+      const heads = [...document.querySelectorAll('#world .blob.on .hd')].map(hd => {
+        const blob = hd.closest('.blob');
+        const r = hd.getBoundingClientRect();
+        const b = blob.getBoundingClientRect();
+        const title = hd.querySelector('.btitle');
+        const counter = hd.querySelector('.ct');
+        if (r.top < b.top - 1 || r.left < b.left - 1 || r.bottom > b.bottom + 1 || r.right > b.right + 1) {
+          hits.push(blob.dataset.box + ' header spills out of its box');
+        }
+        if (title && counter) {
+          const a = title.getBoundingClientRect();
+          const c = counter.getBoundingClientRect();
+          if (a.right > c.left + 1 && c.right > a.left + 1 && a.bottom > c.top + 1 && c.bottom > a.top + 1) {
+            hits.push(blob.dataset.box + ' title overlaps its counter');
+          }
+        }
+        return { id: blob.dataset.box, r };
+      });
+      for (let i = 0; i < heads.length; i++) {
+        for (let j = i + 1; j < heads.length; j++) {
+          const a = heads[i].r, c = heads[j].r;
+          if (a.right > c.left + 1 && c.right > a.left + 1 && a.bottom > c.top + 1 && c.bottom > a.top + 1) {
+            hits.push(heads[i].id + ' ∩ ' + heads[j].id);
+          }
+        }
+      }
+      return hits;
+    });
+
+    const setCollapsed = async ids => {
+      await p.evaluate(want => {
+        const sg = window.__skillgrove;
+        const have = new Set(sg.collections.collapsed());
+        [...have].forEach(id => { if (!want.includes(id)) sg.collections.toggleCollapse(id); });
+        want.forEach(id => { if (!sg.collections.collapsed().has(id)) sg.collections.toggleCollapse(id); });
+      }, ids);
+      await sleep(80);
+    };
+
+    const cases = [
+      { scope: '', label: 'Everything', chapters: ['ee105-ch10', 'me132/m3', 'am08/ch99'], outer: 'me132' },
+      { scope: 'ee105-ucb', label: 'EE 105', chapters: ['ee105-ch10'], outer: 'ee105-ucb' },
+      { scope: 'me132', label: 'ME 132', chapters: ['me132/m1', 'me132/m3'], outer: 'me132' },
+      { scope: 'am08', label: 'Feedback Systems', chapters: ['am08/ch9', 'am08/ch99'], outer: 'am08' }
+    ];
+    for (const c of cases) {
+      await p.select('#scopePicker', c.scope);
+      await sleep(250);
+      await setCollapsed([]);
+      assert.deepStrictEqual(await overlaps(), [], c.label + ' expanded');
+      await setCollapsed(c.chapters);
+      assert.deepStrictEqual(await overlaps(), [], c.label + ' with chapters collapsed');
+      await setCollapsed([c.outer]);
+      assert.deepStrictEqual(await overlaps(), [], c.label + ' with the outer box collapsed');
+      await setCollapsed([]);
+    }
+
+    await p.select('#scopePicker', 'me132');
+    await sleep(250);
+    await panTo(p, '.blob[data-box="me132/m1"] .hd');
+    await p.screenshot({ path: path.join(SHOTS_DIR, '22_me132_header.png') });
+    await p._ctx.close();
+  });
+
   await browser.close();
 
   console.log('\n=== Test Results ===\n');

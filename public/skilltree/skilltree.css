@@ -89,9 +89,12 @@ main{flex:1;position:relative;min-height:0}
 #chLegend .lg i{flex:none;width:12px;height:12px;border-radius:4px;background:var(--c)}
 #chLegend .lg:hover,#chLegend .lg.on{background:var(--cs)}
 #treeView[data-mode=grouped] #chLegend{display:none}
-.blob .hd{position:absolute;left:16px;top:10px;right:16px;display:flex;align-items:center;gap:8px;z-index:8;pointer-events:none}
-.cpill{background:var(--c);color:var(--tc);border-radius:99px;padding:3px 12px;font-weight:800;font-size:13px;white-space:nowrap}
-.blob .ct{font-size:12px;font-weight:700;color:var(--ink2);margin-left:auto;white-space:nowrap}
+.blob .hd{position:absolute;left:12px;top:8px;right:12px;display:flex;align-items:flex-start;gap:8px;z-index:8;pointer-events:none}
+.blob .hd .btitle{flex:1 1 auto;min-width:0;line-height:1.25;padding-top:4px;font-weight:800}
+.blob.chapter .btitle{font-size:13.5px}
+.blob.course .btitle,.blob.textbook .btitle{font-size:15px}
+.cpill{background:var(--c);color:var(--tc);border-radius:99px;padding:3px 12px;font-weight:800;font-size:13px;white-space:nowrap;flex:none}
+.blob .ct{font-size:12px;font-weight:700;color:var(--ink2);white-space:nowrap;flex:none;padding-top:5px}
 .tile{position:absolute;width:168px;height:72px;border-radius:14px;border:2.5px solid var(--c);background:#fff;overflow:hidden;text-align:left;padding:7px 9px 6px;
   display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 2px 0 rgba(0,0,0,.07);transition:transform .15s, box-shadow .15s, opacity .3s;color:var(--ink)}
 .tile:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 8px 18px rgba(40,50,90,.2);z-index:5}
@@ -320,7 +323,7 @@ figure.qfig.small svg{max-height:200px}
 
 /* Nested boxes / collections */
 .blob.course,.blob.textbook{background:rgba(255,255,255,.15);border-width:3px;border-style:solid}
-.blob.course>.hd,.blob.textbook>.hd{padding:10px 14px 0}
+.blob.course>.hd,.blob.textbook>.hd{padding:0 2px}
 .blob.textbook{background:rgba(124,108,255,.08)}
 .blob .toggle{border:0;background:rgba(255,255,255,.8);border-radius:8px;width:26px;height:26px;padding:0;font-size:14px;font-weight:800;display:grid;place-items:center;flex:none;position:relative;z-index:8;pointer-events:auto;transition:background .15s,transform .15s}
 .blob .toggle:hover{background:#fff;transform:scale(1.1)}

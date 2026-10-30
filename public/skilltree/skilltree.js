@@ -545,7 +545,7 @@ function computeTreeLayout() {
 }
 
 function layoutOneContainer(container) {
-  const COLLAPSED_H = 64, COURSE_PAD = 20, INNER_GAP = 14;
+  const COLLAPSED_H = 64, CHAPTER_COLLAPSED = 88, COURSE_PAD = 20, INNER_GAP = 14, OUTER_HEAD = 72, CHAPTER_HEAD = 96;
   const chapters = chapterBoxesOf(container);
   const places = [];
   chapters.forEach(ch => (ch.skills || []).forEach(id => { if (byId[id]) places.push({ skillId: id, boxId: ch.id }); }));
@@ -566,7 +566,7 @@ function layoutOneContainer(container) {
     const collapsed = boxOrAncestorCollapsed(chId);
     const sub = ids.length ? layeredLayout(ids, allEdges.filter(([p, c]) => set.has(p) && set.has(c))) : { pos: {}, mids: {}, w: 0, h: 0 };
     subs[chId] = collapsed ? { pos: {}, mids: {}, w: sub.w || 0, h: 0 } : sub;
-    bs[chId] = { w: Math.max((sub.w || 0) + PAD * 2, BMIN), h: (collapsed || !ids.length) ? COLLAPSED_H : (HDR + sub.h + PAD + 4) };
+    bs[chId] = { w: Math.max((sub.w || 0) + PAD * 2, BMIN), h: (collapsed || !ids.length) ? CHAPTER_COLLAPSED : (CHAPTER_HEAD + sub.h + PAD + 4) };
   }
   const chOf = {};
   chapters.forEach(ch => (ch.skills || []).forEach(id => { if (byId[id]) chOf[id] = ch.id; }));
@@ -643,7 +643,8 @@ function layoutOneContainer(container) {
     const cx0 = Math.min(...allKeys.map(id => blobs[id].x)) - COURSE_PAD;
     const cy0 = Math.min(...allKeys.map(id => blobs[id].y)) - HDR - INNER_GAP;
     const cx1 = Math.max(...allKeys.map(id => blobs[id].x + blobs[id].w)) + COURSE_PAD;
-    const cy1 = Math.max(...allKeys.map(id => blobs[id].y + blobs[id].h)) + COURSE_PAD;
+    // The tree is flipped so foundations sit at the bottom, so this inset — added past the pre-flip bottom — is the visual padding above the first chapter.
+    const cy1 = Math.max(...allKeys.map(id => blobs[id].y + blobs[id].h)) + OUTER_HEAD;
     blobs[container.id] = { x: cx0, y: cy0, w: cx1 - cx0, h: cy1 - cy0, kind, boxId: container.id, children: allKeys.slice() };
   }
   const M = 26, edges = [];
@@ -996,7 +997,7 @@ function updateBlobsDOM() {
     if (b.boxId) hd.append(collapseButton(b.boxId, title));
     hd.append(
       el('span', { class: 'cpill', text: box ? chapterPillText(box) : ('Ch ' + ch) }),
-      el('span', { style: 'font-weight:800;font-size:13.5px', text: title.replace(/^Chapter \d+:\s*/, '') }),
+      el('span', { class: 'btitle', text: title.replace(/^Chapter \d+:\s*/, '') }),
       el('span', { class: 'ct', 'data-ct': b.boxId || '' })
     );
     blob.append(hd);
@@ -1017,7 +1018,7 @@ function updateBlobsDOM() {
     hd.append(
       collapseButton(id, box.title),
       el('span', { class: 'cpill', style: `background:${textbook ? '#7c6cff' : PALETTE[0]};color:#fff`, text: textbook ? '📘' : '📚' }),
-      el('span', { style: 'font-weight:800;font-size:15px', text: box.title })
+      el('span', { class: 'btitle', text: box.title })
     );
     blob.append(hd);
     world.insertBefore(blob, edgesSvg);
