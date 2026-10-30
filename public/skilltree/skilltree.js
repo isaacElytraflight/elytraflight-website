@@ -123,6 +123,7 @@ async function fetchExplainer(skillId) {
 
 /* ====================== constants & helpers ====================== */
 const KEY='skilltree.progress.v1', UIKEY='skilltree.ui.v1';
+const PLAN_SCOPE_KEY='skilltree.planscope.v1';
 const TIERS=['Unpracticed','Practiced','Level 1','Level 2','Mastered'];
 const FILL=[0,30,55,80,100];
 const PALETTE=['#ff6b6b','#ff9f43','#f4b400','#8bc34a','#2ed47a','#14c1a8','#22b8e6','#4c8dff','#7c6cff','#b15cff','#e25ce0','#ff5c9d','#f2784b','#6fae2e','#1fa39a','#5a7bef','#9a63d9','#d9588a'];
@@ -1572,12 +1573,45 @@ function recordTiming(kind, seconds) {
   return r.added;
 }
 
-const planState = { scratch: false, open: null };
+const planState = { scratch: false, open: null, scope: null };
 
-function planGraph() {
-  const ids = playable.map(s => s.id), prereqs = {}, maxTier = {};
-  ids.forEach(id => { prereqs[id] = byId[id].prereqs.slice(); let t = 0; while (hasRound(id, t + 1)) t++; maxTier[id] = t });
-  return { ids, prereqs, maxTier };
+function loadPlanScope() {
+  try { const s = localStorage.getItem(PLAN_SCOPE_KEY); if (s) planState.scope = s } catch (e) { }
+}
+function savePlanScope() {
+  try { if (planState.scope) localStorage.setItem(PLAN_SCOPE_KEY, planState.scope); else localStorage.removeItem(PLAN_SCOPE_KEY) } catch (e) { }
+}
+
+function planGraph(scopeBoxId) {
+  let targetIds;
+  let extras = new Set();
+  
+  if (scopeBoxId && boxById[scopeBoxId]) {
+    const inBox = new Set(getBoxDescendantSkills(scopeBoxId));
+    targetIds = playable.filter(s => inBox.has(s.id)).map(s => s.id);
+    
+    const needPrereqs = id => {
+      const ps = byId[id].prereqs.filter(p => isPlayable(p) && !inBox.has(p));
+      ps.forEach(p => { extras.add(p); needPrereqs(p) });
+    };
+    targetIds.forEach(needPrereqs);
+    
+    targetIds = targetIds.concat([...extras]);
+  } else {
+    targetIds = playable.map(s => s.id);
+  }
+  
+  const ids = targetIds, prereqs = {}, maxTier = {};
+  ids.forEach(id => {
+    prereqs[id] = byId[id].prereqs.filter(p => ids.includes(p));
+    let t = 0; while (hasRound(id, t + 1)) t++;
+    if (extras.has(id)) {
+      maxTier[id] = Math.min(READY_TIER, t);
+    } else {
+      maxTier[id] = t;
+    }
+  });
+  return { ids, prereqs, maxTier, extras: [...extras] };
 }
 
 function planEstimates() {
@@ -1589,11 +1623,14 @@ function planEstimates() {
   return out;
 }
 
-function runPlan(scratch) {
-  const g = planGraph(), start = {};
+function runPlan(scratch, scopeBoxId) {
+  const g = planGraph(scopeBoxId), start = {};
   if (!scratch) g.ids.forEach(id => start[id] = tierOf(id));
   const est = planEstimates();
-  return Sim.simulate(g, start, { practiceMin: est.practice.used, challengeMin: est.challenge.used });
+  const result = Sim.simulate(g, start, { practiceMin: est.practice.used, challengeMin: est.challenge.used });
+  result.extras = g.extras || [];
+  result.scopeBoxId = scopeBoxId;
+  return result;
 }
 
 function renderPlanBadge() {
@@ -1654,13 +1691,27 @@ function tierChart(r) {
 
 function planResults(box) {
   box.innerHTML = '';
-  const r = runPlan(planState.scratch);
+  const r = runPlan(planState.scratch, planState.scope);
+  const extraSet = new Set(r.extras || []);
+  const scopeBox = planState.scope ? boxById[planState.scope] : null;
+  const scopeName = scopeBox ? scopeBox.title : 'all skills';
+  
   if (!r.ok) { box.append(el('div', { class: 'note warn', id: 'planStuck', text: 'The simulation got stuck: some skill can never become ready. This should not happen — please tell Isaac.' })); return }
   const est = planEstimates();
   if (!r.sessions) {
-    box.append(el('div', { class: 'note ok', id: 'planDone' }, el('b', { text: '0 sessions. ' }), `All ${r.scope} playable skills are already Mastered, so there is nothing left to plan. The total will grow when more question banks are added.`));
+    const inBoxCount = r.scope - r.extras.length;
+    box.append(el('div', { class: 'note ok', id: 'planDone' }, el('b', { text: '0 sessions. ' }), 
+      scopeBox ? `All ${inBoxCount} playable skills in "${scopeName}" are already Mastered, so there is nothing left to plan.`
+        : `All ${r.scope} playable skills are already Mastered, so there is nothing left to plan. The total will grow when more question banks are added.`));
     return;
   }
+  
+  if (r.extras.length) {
+    box.append(el('div', { class: 'note info', id: 'planExtras' }, 
+      el('b', { text: 'Prerequisites outside scope: ' }), 
+      `${r.extras.length} skill${r.extras.length === 1 ? '' : 's'} from outside "${scopeName}" ${r.extras.length === 1 ? 'is' : 'are'} included as ${r.extras.length === 1 ? 'a ' : ''}prerequisite${r.extras.length === 1 ? '' : 's'} (practiced to Level 2 for readiness): ${r.extras.map(id => byId[id].name).join(', ')}.`));
+  }
+  
   box.append(el('div', { class: 'pcards', id: 'planCards' },
     el('div', { class: 'pc' }, el('div', { class: 'pn', id: 'planSessions', text: r.sessions }), el('div', { class: 'pl', text: r.sessions === 1 ? 'learning session' : 'sequential learning sessions' })),
     el('div', { class: 'pc' }, el('div', { class: 'pn', id: 'planTotal', text: fmtMin(r.totalMinutes) }), el('div', { class: 'pl', text: 'total study time' })),
@@ -1681,6 +1732,7 @@ function planResults(box) {
   box.append(el('h3', { class: 'ph', text: 'Session by session' }));
   const tb = el('table', { class: 'ptab', id: 'planTable' }, el('thead', {}, el('tr', {}, ['#', 'New skills practiced', 'Challenges', 'Session', 'Total so far', 'Tiers after (Unp · Pra · L1 · L2 · Mas)'].map(h => el('th', { text: h })))));
   const body = el('tbody');
+  const fmtSkillName = id => byId[id].name + (extraSet.has(id) ? ' ★' : '');
   r.rows.forEach(row => {
     const open = planState.open === row.n;
     const sums = row.tiers.map((v, t) => v ? el('span', { style: `flex:${v};background:${TIER_COL[t]}`, title: `${v} at ${TIERS[t]}` }) : null);
@@ -1689,8 +1741,9 @@ function planResults(box) {
       el('td', {}, el('div', { class: 'mini' }, sums), el('span', { class: 'mt', text: row.tiers.join(' · ') }))));
     if (open) {
       body.append(el('tr', { class: 'pdet' }, el('td', { colspan: 6 },
-        row.practiced.length ? el('div', {}, el('b', { text: 'Practice (Round 1): ' }), row.practiced.map(id => byId[id].name).join('; ')) : null,
-        row.challenges.length ? el('div', {}, el('b', { text: 'Mastery challenges: ' }), row.challenges.map(c => `${byId[c.id].name} (${TIERS[c.from]} → ${TIERS[c.to]})`).join('; ')) : null)));
+        row.practiced.length ? el('div', {}, el('b', { text: 'Practice (Round 1): ' }), row.practiced.map(fmtSkillName).join('; ')) : null,
+        row.challenges.length ? el('div', {}, el('b', { text: 'Mastery challenges: ' }), row.challenges.map(c => `${fmtSkillName(c.id)} (${TIERS[c.from]} → ${TIERS[c.to]})`).join('; ')) : null,
+        r.extras.length && (row.practiced.some(id => extraSet.has(id)) || row.challenges.some(c => extraSet.has(c.id))) ? el('div', { class: 'kv', style: 'margin-top:4px;font-size:11px' }, '★ = prerequisite outside selected scope') : null)));
     }
   });
   tb.append(body); box.append(el('div', { class: 'ptabwrap' }, tb));
@@ -1712,11 +1765,47 @@ function openPlan() {
     $('estResetP').hidden = !timing.override.practice; $('estResetC').hidden = !timing.override.challenge;
   };
   body.append(el('p', { class: 'pintro', text: 'Each simulated learning session: practice every skill that is ready (all its prerequisites at Level 2 or Mastered), and take one mastery challenge on every skill that is practiced but not yet mastered. A skill moves up one step per session — so it never jumps ahead within a session — and we repeat until everything is Mastered.' }));
-  body.append(el('div', { class: 'note info', id: 'planScope' }, el('b', { text: 'Scope: ' }), `only the ${playable.length} playable skills (the ones with questions written) are simulated. The other ${skills.length - playable.length} "coming soon" skills are excluded, so these totals will grow as more question banks are added.`));
+  
+  const scopePicker = el('select', { id: 'planScopePicker', 'aria-label': 'Scope for the plan' });
+  scopePicker.append(el('option', { value: '', text: 'All skills' }));
+  if (COLLECTIONS && COLLECTIONS.boxes) {
+    const courseBoxes = COLLECTIONS.boxes.filter(b => b.kind === 'course');
+    for (const course of courseBoxes) {
+      scopePicker.append(el('option', { value: course.id, text: course.title }));
+      for (const chId of (course.children || [])) {
+        const chBox = boxById[chId];
+        if (chBox) scopePicker.append(el('option', { value: chId, text: '  └ ' + chBox.title.replace(/^Chapter \d+:\s*/, 'Ch ' + (chBox.color_index || '') + ': ') }));
+      }
+    }
+  }
+  scopePicker.value = planState.scope || '';
+  scopePicker.onchange = () => {
+    planState.scope = scopePicker.value || null;
+    planState.open = null;
+    savePlanScope();
+    updateScopeNote();
+    planResults(results);
+    renderPlanBadge();
+  };
+  
+  const updateScopeNote = () => {
+    const scopeBox = planState.scope ? boxById[planState.scope] : null;
+    const scopeSkills = planState.scope ? getBoxDescendantSkills(planState.scope).filter(id => isPlayable(id)) : playable.map(s => s.id);
+    const scopeName = scopeBox ? scopeBox.title : 'all skills';
+    $('planScopeNote').textContent = planState.scope 
+      ? `Planning for ${scopeSkills.length} playable skill${scopeSkills.length === 1 ? '' : 's'} in "${scopeName}". Prerequisites outside this scope will be included to Level 2.`
+      : `Planning for all ${playable.length} playable skills. Coming-soon skills (${skills.length - playable.length}) are excluded.`;
+  };
+  
+  body.append(el('div', { class: 'prow2', id: 'planScopeRow' }, 
+    el('label', { for: 'planScopePicker', text: 'Scope: ', style: 'font-weight:600;margin-right:8px' }), 
+    scopePicker));
+  body.append(el('div', { class: 'kv', id: 'planScopeNote', style: 'margin:0 0 12px' }));
+  
   const seg = el('div', { class: 'seg', role: 'group', 'aria-label': 'Where the simulation starts' },
     el('button', { id: 'planCur', 'aria-pressed': String(!planState.scratch), onclick: () => setScratch(false) }, 'From my progress'),
     el('button', { id: 'planScr', 'aria-pressed': String(planState.scratch), onclick: () => setScratch(true) }, 'Start from scratch'));
-  const setScratch = v => { planState.scratch = v; planState.open = null; $('planCur').setAttribute('aria-pressed', String(!v)); $('planScr').setAttribute('aria-pressed', String(v)); $('planStartNote').textContent = v ? 'Pretending every playable skill is Unpracticed. Your real progress is not touched.' : `Starting from your saved progress (${playable.filter(s => tierOf(s.id) > 0).length} of ${playable.length} playable skills already practiced).`; planResults(results) };
+  const setScratch = v => { planState.scratch = v; planState.open = null; $('planCur').setAttribute('aria-pressed', String(!v)); $('planScr').setAttribute('aria-pressed', String(v)); $('planStartNote').textContent = v ? 'Pretending every skill in scope is Unpracticed. Your real progress is not touched.' : `Starting from your saved progress.`; planResults(results) };
   body.append(el('div', { class: 'prow2' }, seg, el('span', { class: 'kv', id: 'planStartNote', style: 'margin:0' })));
   const mkInp = (k, idIn, idNote, idReset, label) => {
     const inp = el('input', { type: 'number', id: idIn, min: '0.5', max: '600', step: '0.5', 'aria-label': label });
@@ -1728,7 +1817,7 @@ function openPlan() {
   body.append(el('div', { class: 'ests' }, mkInp('practice', 'estPractice', 'estNoteP', 'estResetP', 'Minutes per new-skill practice quiz'), mkInp('challenge', 'estChallenge', 'estNoteC', 'estResetC', 'Minutes per mastery challenge')));
   body.append(results);
   openModal({ title: 'Learning plan — how many sessions to master everything?', body, actions: [{ label: 'Close', kind: 'primary' }], wide: true });
-  refreshNotes(); setScratch(planState.scratch);
+  refreshNotes(); updateScopeNote(); setScratch(planState.scratch);
 }
 
 /* ====================== export / import / reset ====================== */
@@ -1826,6 +1915,7 @@ async function init() {
   
   loadProgress();
   loadTiming();
+  loadPlanScope();
   $('playableNote').textContent = `${playable.length} of ${skills.length} skills ready`;
   buildTree(); buildGrid(); legendBuild();
   
@@ -1849,7 +1939,9 @@ async function init() {
   window.addEventListener('resize', () => { if (panelOpen()) placePanel() });
   
   window.__skillgrove = {
-    version: 1, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode, timing: () => timing, plan: (scratch) => runPlan(!!scratch), ready: () => skills.filter(s => isReady(s.id)).map(s => s.id), playableIds: () => playable.map(s => s.id),
+    version: 1, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode, timing: () => timing,
+    plan: (scratch, scope) => runPlan(!!scratch, scope), planState: () => planState,
+    ready: () => skills.filter(s => isReady(s.id)).map(s => s.id), playableIds: () => playable.map(s => s.id),
     retired: () => (DATA && DATA.retired) || {},
     qa: { bankMeta: () => bankMeta, bankCache: () => bankCache, fetchBank, prepareQ, renderQuiz, setQuiz: q => { quiz = q }, closeQuizUI, openQuiz: () => quizEl.classList.add('open'), figureNode, katexErrors: () => window.__katexErrors },
     explainers: { meta: () => explainerMeta, cache: () => explainerCache, fetch: fetchExplainer, has: hasExplainer, open: openExplainer },
@@ -1859,6 +1951,7 @@ async function init() {
       collapsed: () => collapsedBoxes, toggleCollapse: toggleBoxCollapse, filter: () => filter.box, setFilter: boxId => { filter.box = boxId; applyBoxFilter(); refreshAll(); },
       getBoxSkills, getBoxDescendantSkills, skillInBox
     },
+    queue,
     openModal, toast, reloadProgress: loadProgress, reloadTiming: loadTiming, refreshAll, toggleGroup
   };
   
