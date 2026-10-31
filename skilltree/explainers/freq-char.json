@@ -4,25 +4,25 @@
  "sections": [
   {
    "heading": "The idea",
-   "body_md": "Any reasonable signal can be written as a sum of sinusoids at different frequencies; this is its **spectrum**. An LTI system treats each frequency independently, multiplying it by \\(H(j\\omega)\\). So instead of thinking about the time waveform, we can think about which frequencies a system lets through.\n\nA **low-pass** filter passes slow signals and attenuates fast ones; a **high-pass** does the opposite; a **band-pass** passes a range. Time-domain and frequency-domain properties mirror each other: a sharp edge in time needs lots of high-frequency content, and a system with a narrow bandwidth responds slowly. The impulse response and the frequency response are a Fourier-transform pair, two views of the same system.",
+   "body_md": "The **frequency response** \\(H(j\\omega)\\) of an LTI system tells you, for every frequency, how much the system scales a sinusoid and how far it shifts it. Its magnitude and phase as functions of frequency describe the system completely.\n\nSystems are often named by the shape of \\(|H|\\). A **low-pass** system passes slow inputs and attenuates fast ones. A **high-pass** blocks slow changes and passes fast ones. A **band-pass** favours a range, and an **all-pass** keeps every magnitude but shifts phase. The **bandwidth** or **cutoff frequency** is usually where \\(|H|\\) falls to \\(1/\\sqrt2\\) of its passband value, which is \\(-3\\ \\mathrm{dB}\\).\n\nBecause a system is linear, an input made of several tones is handled one tone at a time. Each tone is scaled by \\(|H|\\) at its own frequency, and the results are added. Gains are often quoted in decibels, \\(20\\log_{10}|H|\\), so that cascaded gains add.",
    "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 274 70\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Time-domain view</title><text x=\"10\" y=\"27\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x(t)</text><line x1=\"10\" y1=\"35\" x2=\"60\" y2=\"35\"/><polygon points=\"60,35 53.6,37.7 53.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"17\" width=\"60\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"39\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">h(t)</text><line x1=\"120\" y1=\"35\" x2=\"166\" y2=\"35\"/><polygon points=\"166,35 159.6,37.7 159.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"170\" y=\"39\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y(t) = h ∗ x</text></svg>",
    "figure_alt": "Block diagram: x(t) through h(t) gives y(t) equals h convolved with x."
   },
   {
    "heading": "Key equations",
-   "body_md": "\\[ y(t) = \\sum_k A_k\\,|H(j\\omega_k)|\\cos\\!\\big(\\omega_k t + \\phi_k + \\angle H(j\\omega_k)\\big) \\]\n\\[ H(j\\omega) = \\int_{-\\infty}^{\\infty} h(t)\\,e^{-j\\omega t}\\,dt \\]\nFor the first-order low-pass, the \\(-3\\) dB bandwidth and the time constant are linked:\n\\[ \\omega_{-3dB} = \\frac{1}{\\tau}, \\qquad f_{-3dB} = \\frac{1}{2\\pi\\tau} \\]"
+   "body_md": "\\[ |H|_{\\mathrm{dB}} = 20\\log_{10}|H|, \\qquad |H(j\\omega_c)| = \\tfrac{1}{\\sqrt2}|H|_{\\text{pass}} \\]\n\\[ H_{\\text{total}} = H_1 H_2 \\;\\Rightarrow\\; |H_{\\text{total}}|_{\\mathrm{dB}} = |H_1|_{\\mathrm{dB}} + |H_2|_{\\mathrm{dB}} \\]"
   },
   {
    "heading": "Worked example",
-   "body_md": "An input \\(x(t) = 1 + \\cos(100t) + \\cos(10^4 t)\\) enters an RC low-pass with \\(\\tau = 1\\ \\mathrm{ms}\\), so the corner is \\(\\omega = 1000\\) rad/s.\n\n- DC: \\(|H| = 1\\), passes unchanged.\n- \\(\\omega = 100\\): \\(\\omega\\tau = 0.1\\), \\(|H| \\approx 0.995\\), nearly untouched.\n- \\(\\omega = 10^4\\): \\(\\omega\\tau = 10\\), \\(|H| \\approx 0.0995\\), cut by about 10×.\n\nThe filter strips off the fast ripple and keeps the slow part."
+   "body_md": "A sensor has \\(|H| = 0.9\\) at 0.5 Hz and \\(|H| = 0.05\\) at 40 Hz. Its input is a slow signal of amplitude 3 plus 40 Hz vibration of amplitude 3. The output is a slow part of amplitude 2.7 plus a vibration part of 0.15. The vibration is reduced by a factor of 18, or 25 dB."
   },
   {
    "heading": "Common pitfalls",
-   "body_md": "- Forgetting the DC component (\\(\\omega = 0\\)), which gets \\(H(0)\\).\n- Mixing Hz and rad/s when comparing a frequency to the corner.\n- Thinking a filter shifts frequencies. It only rescales and phase-shifts the ones present.\n- Assuming wider bandwidth means slower. It is the opposite."
+   "body_md": "- Applying one frequency's gain to every tone.\n- Mixing up 10 log and 20 log for amplitude ratios.\n- Defining the cutoff at half the amplitude instead of \\(1/\\sqrt2\\)."
   },
   {
    "heading": "Where this leads",
-   "body_md": "Thinking in frequency lets you reason about filters, amplifier bandwidth, noise bandwidth and distortion harmonics. The duality between narrow bandwidth and slow response will come back with gain-bandwidth trade-offs and op-amp settling time."
+   "body_md": "Transfer functions give \\(H(j\\omega)\\) in closed form, and pole-zero maps and Bode plots let you sketch it quickly."
   }
  ]
 }

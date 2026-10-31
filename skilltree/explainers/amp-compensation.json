@@ -1,0 +1,30 @@
+{
+ "id": "amp-compensation",
+ "title": "Op-amp and amplifier stability and compensation",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "A real op-amp has more than one pole. Each adds phase lag to the loop gain \\(T = af\\). If the total lag reaches \\(-180^\\circ\\) while \\(|T|\\) is still above one, the feedback amplifier rings or oscillates. The worst case is unity-gain feedback, \\(f = 1\\), where \\(T\\) is largest.\n\n**Compensation** shapes \\(a(s)\\) so that the loop crosses unity gain with enough phase margin. **Dominant-pole compensation** places one low-frequency pole so that the gain falls at \\(-20\\ \\mathrm{dB/decade}\\) to below one before the second pole adds much lag. In a two-stage op-amp, a **Miller capacitor** across the second stage does this, and it also pushes the second pole higher (pole splitting).\n\nCapacitive loads add a pole with the op-amp's output resistance and erode margin. A rule of thumb is that the second pole should sit at least two to three times above the unity-gain frequency for \\(60^\\circ\\) to \\(70^\\circ\\) of phase margin.",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 310 125\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Unity-gain follower</title><text x=\"18\" y=\"49\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"45\" r=\"3\"/><polyline points=\"33,45 110,45\"/><polygon points=\"110,30 110,90 166,60\"/><text x=\"117\" y=\"49\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"117\" y=\"79\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><polyline points=\"110,75 95,75 95,110 190,110 190,60\"/><polyline points=\"166,60 225,60\"/><circle cx=\"190\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"228\" cy=\"60\" r=\"3\"/><text x=\"247\" y=\"64\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+   "figure_alt": "Unity-gain follower."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "\\[ PM = 180^\\circ - 90^\\circ - \\arctan\\frac{\\omega_c}{\\omega_{p2}}, \\quad \\omega_c \\approx \\omega_t f \\]\n\\[ \\omega_t \\approx \\frac{g_{m1}}{C_c}, \\qquad \\omega_{p2} \\approx \\frac{g_{m2}}{C_L} \\]",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Loop gain with two poles</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|T| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,46.2 124.3,46.2 235.7,154 310,297.8\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"118.1\" x2=\"53\" y2=\"118.1\"/><text x=\"44\" y=\"121.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"82.1\" x2=\"53\" y2=\"82.1\"/><text x=\"44\" y=\"85.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"46.2\" x2=\"53\" y2=\"46.2\"/><text x=\"44\" y=\"49.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"87.1\" y1=\"151\" x2=\"87.1\" y2=\"157\"/><text x=\"87.1\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"124.3\" y1=\"151\" x2=\"124.3\" y2=\"157\"/><text x=\"124.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"161.4\" y1=\"151\" x2=\"161.4\" y2=\"157\"/><text x=\"161.4\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"198.6\" y1=\"151\" x2=\"198.6\" y2=\"157\"/><text x=\"198.6\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"235.7\" y1=\"151\" x2=\"235.7\" y2=\"157\"/><text x=\"235.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"272.9\" y1=\"151\" x2=\"272.9\" y2=\"157\"/><text x=\"272.9\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁸</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
+   "figure_alt": "Two-pole loop gain Bode magnitude."
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "An op-amp has \\(f_t = 3\\ \\mathrm{MHz}\\) and a second pole at 7.5 MHz. At unity gain, crossover is about 3 MHz and the second pole adds \\(\\arctan(0.4) = 21.8^\\circ\\) of lag, so PM is about \\(68^\\circ\\). A load capacitor that moves the second pole down to 2 MHz cuts PM to about \\(34^\\circ\\)."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Checking margin at a large closed-loop gain only.\n- Forgetting the capacitive-load pole.\n- Moving the dominant pole without rechecking crossover."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "Compensation choices lead to slew-rate limits and to datasheet stability specs."
+  }
+ ]
+}

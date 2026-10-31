@@ -1,0 +1,159 @@
+{
+  "skill_id": "lti-mech",
+  "version": 1,
+  "questions": [
+    {
+      "id": "lti-mech-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A mass m slides on a frictionless floor, tied to a wall by a spring k and a damper b. A force u pushes the mass, and y is its displacement. Which equation describes it?",
+      "options": [
+        "\\(m\\ddot y=u+b\\dot y+ky\\)",
+        "\\(b\\ddot y+m\\dot y+ky=u\\)",
+        "\\(m\\dot y+ky=u\\)",
+        "\\(m\\ddot y+b\\dot y+ky=u\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "Newton's law: \\(m\\ddot y=u-b\\dot y-ky\\). Spring and damper forces oppose displacement and velocity. Rearranged, \\(m\\ddot y+b\\dot y+ky=u\\), a linear constant-coefficient ODE, so the system is LTI.\n• Adding the spring and damper forces makes them push in the direction of motion, which would be unstable.\n• Damping multiplies velocity, and mass multiplies acceleration, not the reverse.\n• Dropping \\(\\ddot y\\) ignores inertia.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 175\" role=\"img\" aria-label=\"Mass-spring-damper: a mass m on a frictionless floor is tied to a wall by a spring k and a damper b; an applied force u pushes it, and y is its displacement.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><rect x=\"10\" y=\"30\" width=\"12\" height=\"110\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"22\" y1=\"60\" x2=\"40\" y2=\"60\"/><polyline points=\"40,60 48,50 58,70 68,50 78,70 88,50 98,70 108,50 118,60 140,60\"/><text x=\"90\" y=\"40\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"22\" y1=\"110\" x2=\"70\" y2=\"110\"/><rect x=\"70\" y=\"98\" width=\"30\" height=\"24\"/><line x1=\"85\" y1=\"110\" x2=\"140\" y2=\"110\"/><text x=\"85\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"40\" width=\"70\" height=\"90\"/><text x=\"175\" y=\"90\" text-anchor=\"middle\" font-size=\"14\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"210\" y1=\"85\" x2=\"260\" y2=\"85\"/><polygon points=\"260,85 253.6,87.7 253.6,82.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"272\" y=\"89\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"140\" y1=\"150\" x2=\"140\" y2=\"160\"/><line x1=\"140\" y1=\"155\" x2=\"190\" y2=\"155\"/><polygon points=\"190,155 183.6,157.7 183.6,152.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"159\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"22\" y1=\"140\" x2=\"230\" y2=\"140\"/></svg>",
+      "figure_alt": "Mass-spring-damper: a mass m on a frictionless floor is tied to a wall by a spring k and a damper b; an applied force u pushes it, and y is its displacement."
+    },
+    {
+      "id": "lti-mech-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A mass-spring-damper has \\(m=2\\ \\mathrm{kg}\\), \\(b=20\\ \\mathrm{N\\,s/m}\\) and \\(k=400\\ \\mathrm{N/m}\\). A constant 10 N force is applied. Where does the mass settle, in m?",
+      "answer": 0.025,
+      "unit": "m",
+      "tolerance": 0.02,
+      "explanation": "At rest, \\(\\ddot y=\\dot y=0\\), so \\(ky=u\\) and \\(y=10/400=0.025\\ \\mathrm{m}\\). Mass and damping set how it gets there, not where it stops.\n• \\(10/20=0.5\\) divides by the damping.\n• \\(10/2=5\\) divides by the mass, which only affects acceleration.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 175\" role=\"img\" aria-label=\"Mass-spring-damper with m = 2 kg, k = 400 N/m and b = 20 N s/m, pushed by a constant force.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><rect x=\"10\" y=\"30\" width=\"12\" height=\"110\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"22\" y1=\"60\" x2=\"40\" y2=\"60\"/><polyline points=\"40,60 48,50 58,70 68,50 78,70 88,50 98,70 108,50 118,60 140,60\"/><text x=\"90\" y=\"40\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"22\" y1=\"110\" x2=\"70\" y2=\"110\"/><rect x=\"70\" y=\"98\" width=\"30\" height=\"24\"/><line x1=\"85\" y1=\"110\" x2=\"140\" y2=\"110\"/><text x=\"85\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"40\" width=\"70\" height=\"90\"/><text x=\"175\" y=\"90\" text-anchor=\"middle\" font-size=\"14\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"210\" y1=\"85\" x2=\"260\" y2=\"85\"/><polygon points=\"260,85 253.6,87.7 253.6,82.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"272\" y=\"89\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"140\" y1=\"150\" x2=\"140\" y2=\"160\"/><line x1=\"140\" y1=\"155\" x2=\"190\" y2=\"155\"/><polygon points=\"190,155 183.6,157.7 183.6,152.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"159\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"22\" y1=\"140\" x2=\"230\" y2=\"140\"/></svg>",
+      "figure_alt": "Mass-spring-damper with m = 2 kg, k = 400 N/m and b = 20 N s/m, pushed by a constant force."
+    },
+    {
+      "id": "lti-mech-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What is the transfer function from force \\(U(s)\\) to displacement \\(Y(s)\\) for \\(m\\ddot y+b\\dot y+ky=u\\)?",
+      "options": [
+        "\\(\\dfrac{1}{ms^2+bs+k}\\)",
+        "\\(ms^2+bs+k\\)",
+        "\\(\\dfrac{s}{ms^2+bs+k}\\)",
+        "\\(\\dfrac{1}{ks^2+bs+m}\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "Transforming with zero initial conditions: \\((ms^2+bs+k)Y=U\\). The inverse polynomial is the transfer function, with units m/N.\n• The polynomial without inversion is \\(U/Y\\).\n• An extra s gives force to velocity, not displacement.\n• Swapping m and k reverses the coefficients."
+    },
+    {
+      "id": "lti-mech-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A mass of 0.5 kg hangs on a spring of \\(k=200\\ \\mathrm{N/m}\\) with damping \\(b=4\\ \\mathrm{N\\,s/m}\\). What is its natural frequency \\(\\omega_n\\), in rad/s?",
+      "answer": 20.0,
+      "unit": "rad/s",
+      "tolerance": 0.02,
+      "explanation": "\\(\\omega_n=\\sqrt{k/m}=\\sqrt{400}=20\\ \\mathrm{rad/s}\\), the frequency it would oscillate at with no damping. Gravity only shifts the equilibrium point; it does not change \\(\\omega_n\\).\n• \\(k/m=400\\) forgets the square root.\n• \\(\\sqrt{k}=14.1\\) ignores the mass.\n• \\(\\omega_n/(2\\pi)=3.18\\) is the frequency in Hz.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 175\" role=\"img\" aria-label=\"Mass-spring-damper with m = 0.5 kg, k = 200 N/m and b = 4 N s/m.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><rect x=\"10\" y=\"30\" width=\"12\" height=\"110\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"22\" y1=\"60\" x2=\"40\" y2=\"60\"/><polyline points=\"40,60 48,50 58,70 68,50 78,70 88,50 98,70 108,50 118,60 140,60\"/><text x=\"90\" y=\"40\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"22\" y1=\"110\" x2=\"70\" y2=\"110\"/><rect x=\"70\" y=\"98\" width=\"30\" height=\"24\"/><line x1=\"85\" y1=\"110\" x2=\"140\" y2=\"110\"/><text x=\"85\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"40\" width=\"70\" height=\"90\"/><text x=\"175\" y=\"90\" text-anchor=\"middle\" font-size=\"14\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"210\" y1=\"85\" x2=\"260\" y2=\"85\"/><polygon points=\"260,85 253.6,87.7 253.6,82.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"272\" y=\"89\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"140\" y1=\"150\" x2=\"140\" y2=\"160\"/><line x1=\"140\" y1=\"155\" x2=\"190\" y2=\"155\"/><polygon points=\"190,155 183.6,157.7 183.6,152.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"159\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"22\" y1=\"140\" x2=\"230\" y2=\"140\"/></svg>",
+      "figure_alt": "Mass-spring-damper with m = 0.5 kg, k = 200 N/m and b = 4 N s/m."
+    },
+    {
+      "id": "lti-mech-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "For the same system (\\(m=0.5\\ \\mathrm{kg}\\), \\(k=200\\ \\mathrm{N/m}\\), \\(b=4\\ \\mathrm{N\\,s/m}\\)), what is the damping ratio \\(\\zeta=\\dfrac{b}{2\\sqrt{km}}\\)?",
+      "answer": 0.2,
+      "unit": "",
+      "tolerance": 0.02,
+      "explanation": "\\(2\\sqrt{km}=2\\sqrt{100}=20\\), so \\(\\zeta=4/20=0.2\\): lightly damped, so expect visible ringing. \\(b=20\\) would be critical damping.\n• \\(b/\\sqrt{km}=0.4\\) forgets the factor 2.\n• \\(b/(2k)=0.01\\) uses the wrong combination."
+    },
+    {
+      "id": "lti-mech-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A motor shaft has inertia \\(J=0.02\\ \\mathrm{kg\\,m^2}\\) and viscous friction \\(c=0.1\\ \\mathrm{N\\,m\\,s}\\), so its speed obeys \\(J\\dot\\omega+c\\omega=\\tau\\). A constant torque of 0.5 N·m is applied from rest. What speed does it settle to, in rad/s?",
+      "answer": 5.0,
+      "unit": "rad/s",
+      "tolerance": 0.02,
+      "explanation": "In steady state \\(\\dot\\omega=0\\), so \\(\\omega=\\tau/c=0.5/0.1=5\\ \\mathrm{rad/s}\\). It is a first-order system with time constant \\(J/c=0.2\\ \\mathrm{s}\\), the rotational version of a mass with drag.\n• \\(\\tau/J=25\\) is the initial acceleration in \\(\\mathrm{rad/s^2}\\), not a speed.\n• 0.2 is the time constant.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 210\" role=\"img\" aria-label=\"Shaft speed rising exponentially toward its final value after a torque step.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"50\" y1=\"176\" x2=\"330\" y2=\"176\"/><polygon points=\"330,176 323.6,178.7 323.6,173.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"176\" x2=\"50\" y2=\"16\"/><polygon points=\"50,16 52.7,22.4 47.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"192\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t (s)</text><text x=\"54\" y=\"12\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">ω (rad/s)</text><polyline points=\"50,176 52.2,168.1 54.5,160.7 56.8,154.4 59,147.1 61.2,141 63.5,135.8 65.8,130.3 68,124.6 70.2,119.9 72.5,115.3 74.8,111.1 77,107.5 79.2,103.4 81.5,100.2 83.8,96.6 86,93.5 88.2,90.6 90.5,87.9 92.8,85.3 95,82.9 97.2,80.6 99.5,78.5 101.8,76.7 104,74.8 106.2,72.8 108.5,71.2 110.8,69.6 113,68.3 115.2,66.8 117.5,65.5 119.8,64.3 122,63.2 124.2,62.2 126.5,61.1 128.8,60.1 131,59.2 133.2,58.4 135.5,57.6 137.8,56.9 140,56.2 142.2,55.6 144.5,54.9 146.8,54.4 149,53.8 151.2,53.3 153.5,52.9 155.8,52.4 158,52 160.2,51.6 162.5,51.2 164.8,50.9 167,50.6 169.2,50.2 171.5,50 173.8,49.7 176,49.5 178.2,49.2 180.5,49 182.8,48.8 185,48.6 187.2,48.4 189.5,48.2 191.8,48 194,47.9 196.2,47.7 198.5,47.6 200.8,47.5 203,47.4 205.2,47.2 207.5,47.1 209.8,47 212,46.9 214.2,46.9 216.5,46.8 218.8,46.7 221,46.6 223.2,46.6 225.5,46.5 227.8,46.4 230,46.4 232.2,46.3 234.5,46.3 236.8,46.2 239,46.2 241.2,46.1 243.5,46.1 245.7,46.1 248,46 250.2,46 252.5,46 254.8,45.9 257,45.9 259.2,45.9 261.5,45.9 263.8,45.8 266,45.8 268.2,45.8 270.5,45.8 272.8,45.8 275,45.7 277.2,45.7 279.5,45.7 281.8,45.7 284,45.7 286.2,45.7 288.5,45.7 290.8,45.7 293,45.6 295.2,45.6 297.5,45.6 299.8,45.6 302,45.6 304.2,45.6 306.5,45.6 308.8,45.6 311,45.6 313.2,45.6 315.5,45.6 317.8,45.6 320,45.6\" stroke-width=\"2\"/></svg>",
+      "figure_alt": "Shaft speed rising exponentially toward its final value after a torque step."
+    },
+    {
+      "id": "lti-mech-r3-q1",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A mass-spring-damper with \\(m=1\\ \\mathrm{kg}\\), \\(b=2\\ \\mathrm{N\\,s/m}\\) and \\(k=25\\ \\mathrm{N/m}\\) is driven by \\(u=3\\cos(5t)\\) N. What is the steady-state displacement amplitude, in m?",
+      "answer": 0.3,
+      "unit": "m",
+      "tolerance": 0.02,
+      "explanation": "\\(H(j\\omega)=\\dfrac{1}{k-m\\omega^2+jb\\omega}\\). At \\(\\omega=5=\\omega_n\\), \\(k-m\\omega^2=0\\), so \\(|H|=1/(b\\omega)=0.1\\ \\mathrm{m/N}\\) and the amplitude is 0.3 m, 2.5 times the static deflection \\(3/25=0.12\\ \\mathrm{m}\\). The ratio \\(1/(2\\zeta)=2.5\\) is the resonance gain.\n• 0.12 m is the static response.\n• \\(3/\\sqrt{25^2+10^2}\\) forgets the \\(-m\\omega^2\\) term.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 210\" role=\"img\" aria-label=\"Bode magnitude from force to displacement: flat, then a resonance peak at 5 rad/s, then falling 40 dB per decade.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"50\" y1=\"176\" x2=\"330\" y2=\"176\"/><polygon points=\"330,176 323.6,178.7 323.6,173.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"176\" x2=\"50\" y2=\"16\"/><polygon points=\"50,16 52.7,22.4 47.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"192\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log10 ω (rad/s)</text><text x=\"54\" y=\"12\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><polyline points=\"50,61.9 52.2,61.9 54.5,61.9 56.8,61.8 59,61.8 61.2,61.8 63.5,61.8 65.8,61.7 68,61.7 70.2,61.7 72.5,61.7 74.8,61.6 77,61.6 79.2,61.5 81.5,61.5 83.8,61.5 86,61.4 88.2,61.3 90.5,61.3 92.8,61.2 95,61.2 97.2,61.1 99.5,61 101.8,60.9 104,60.8 106.2,60.7 108.5,60.6 110.8,60.5 113,60.4 115.2,60.2 117.5,60.1 119.8,59.9 122,59.7 124.2,59.5 126.5,59.3 128.8,59 131,58.8 133.2,58.5 135.5,58.2 137.8,57.9 140,57.5 142.2,57.1 144.5,56.7 146.8,56.2 149,55.7 151.2,55.1 153.5,54.5 155.8,53.8 158,53 160.2,52.2 162.5,51.3 164.8,50.3 167,49.2 169.2,48.1 171.5,46.8 173.8,45.6 176,44.3 178.2,43.3 180.5,42.5 182.8,42.2 185,42.7 187.2,43.8 189.5,45.7 191.8,48.1 194,50.8 196.2,53.7 198.5,56.6 200.8,59.4 203,62.2 205.2,64.9 207.5,67.6 209.8,70.1 212,72.6 214.2,74.9 216.5,77.3 218.8,79.5 221,81.7 223.2,83.9 225.5,86 227.8,88 230,90.1 232.2,92 234.5,94 236.8,95.9 239,97.8 241.2,99.7 243.5,101.6 245.8,103.4 248,105.3 250.2,107.1 252.5,108.9 254.8,110.7 257,112.4 259.2,114.2 261.5,115.9 263.8,117.7 266,119.4 268.2,121.1 270.5,122.8 272.8,124.5 275,126.2 277.2,127.9 279.5,129.6 281.8,131.3 284,133 286.2,134.7 288.5,136.4 290.8,138 293,139.7 295.2,141.4 297.5,143 299.8,144.7 302,146.3 304.2,148 306.5,149.6 308.8,151.3 311,152.9 313.2,154.6 315.5,156.2 317.8,157.9 320,159.5\" stroke-width=\"2\"/></svg>",
+      "figure_alt": "Bode magnitude from force to displacement: flat, then a resonance peak at 5 rad/s, then falling 40 dB per decade."
+    },
+    {
+      "id": "lti-mech-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "The same system (\\(m=1\\), \\(b=2\\), \\(k=25\\), so \\(\\zeta=0.2\\)) receives a step force. What is the percent overshoot of the displacement?",
+      "answer": 52.6621,
+      "unit": "%",
+      "tolerance": 0.02,
+      "explanation": "\\(M_p=e^{-\\pi\\zeta/\\sqrt{1-\\zeta^2}}=e^{-\\pi(0.2)/0.98}=e^{-0.641}=0.527\\), so 52.7%. The light damping that gave the large resonance peak also gives large overshoot: both describe the same pair of poles.\n• \\(e^{-\\pi\\zeta}=53.3\\%\\) drops the square root.\n• 20% treats \\(\\zeta\\) as the overshoot.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 210\" role=\"img\" aria-label=\"Step response of the displacement: large overshoot and decaying ringing.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"50\" y1=\"176\" x2=\"330\" y2=\"176\"/><polygon points=\"330,176 323.6,178.7 323.6,173.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"176\" x2=\"50\" y2=\"16\"/><polygon points=\"50,16 52.7,22.4 47.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"192\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t (s)</text><text x=\"54\" y=\"12\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y (m)</text><polyline points=\"50,176 52.2,173.4 54.5,166.2 56.8,156.4 59,141.4 61.2,125.9 63.5,111.4 65.8,95.6 68,79.7 70.2,67.3 72.5,57.4 74.8,50.5 77,46.8 79.2,45.6 81.5,47.1 83.8,51.6 86,57.7 88.2,65.2 90.5,73.4 92.8,81.9 95,90.1 97.2,97.5 99.5,103.8 101.8,108.3 104,111.9 106.2,113.9 108.5,114.2 110.8,113 113,110.9 115.2,107.2 117.5,103.2 119.8,98.8 122,94.3 124.2,90.5 126.5,86.3 128.8,83.1 131,80.6 133.2,79 135.5,78.2 137.8,78.2 140,78.9 142.2,80.1 144.5,82.1 146.8,84.3 149,86.6 151.2,89 153.5,91 155.8,93.1 158,94.6 160.2,96 162.5,96.8 164.8,97.1 167,97 169.2,96.6 171.5,95.8 173.8,94.8 176,93.8 178.2,92.4 180.5,91.2 182.8,90 185,89 187.2,88.2 189.5,87.6 191.8,87.2 194,87.1 196.2,87.2 198.5,87.4 200.8,87.9 203,88.4 205.2,89 207.5,89.7 209.8,90.3 212,90.9 214.2,91.4 216.5,91.9 218.8,92.2 221,92.3 223.2,92.4 225.5,92.3 227.8,92.2 230,91.9 232.2,91.7 234.5,91.3 236.8,91 239,90.6 241.2,90.3 243.5,90.1 245.7,89.8 248,89.7 250.2,89.6 252.5,89.6 254.8,89.6 257,89.7 259.2,89.9 261.5,90 263.8,90.2 266,90.4 268.2,90.5 270.5,90.7 272.8,90.8 275,91 277.2,91 279.5,91.1 281.8,91.1 284,91 286.2,91 288.5,90.9 290.8,90.8 293,90.7 295.2,90.6 297.5,90.5 299.8,90.5 302,90.4 304.2,90.3 306.5,90.3 308.8,90.3 311,90.3 313.2,90.3 315.5,90.3 317.8,90.4 320,90.4\" stroke-width=\"2\"/></svg>",
+      "figure_alt": "Step response of the displacement: large overshoot and decaying ringing."
+    },
+    {
+      "id": "lti-mech-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "In a mass-spring-damper, the mass is doubled while k and b stay the same. How do \\(\\omega_n\\) and \\(\\zeta\\) change?",
+      "options": [
+        "\\(\\omega_n\\) falls by \\(\\sqrt2\\) and \\(\\zeta\\) is unchanged",
+        "Both fall by a factor of \\(\\sqrt2\\)",
+        "\\(\\omega_n\\) halves and \\(\\zeta\\) doubles",
+        "Both rise by \\(\\sqrt2\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(\\omega_n=\\sqrt{k/m}\\) and \\(\\zeta=b/(2\\sqrt{km})\\): both have \\(\\sqrt m\\) in the denominator. A heavier mass rings more slowly and with relatively less damping.\n• \\(\\zeta\\) depends on m too.\n• Square roots, not linear factors.\n• More mass never raises \\(\\omega_n\\)."
+    },
+    {
+      "id": "lti-mech-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of second-order systems. For \\(m=1\\), \\(b=2\\), \\(k=25\\) (poles at \\(-1\\pm j\\sqrt{24}\\)), at what time does the step response reach its first peak, in s?",
+      "answer": 0.641275,
+      "unit": "s",
+      "tolerance": 0.02,
+      "explanation": "The first peak comes half a damped period after the step: \\(t_p=\\pi/\\omega_d=\\pi/4.90=0.641\\ \\mathrm{s}\\).\n• \\(\\pi/\\omega_n=0.628\\ \\mathrm{s}\\) uses the undamped frequency.\n• \\(2\\pi/\\omega_d=1.28\\ \\mathrm{s}\\) is a full period.",
+      "preview": [
+        "second-order-sys"
+      ]
+    },
+    {
+      "id": "lti-mech-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of system identification. A lightly damped 2 kg mass on an unknown spring is tapped, and it rings with a period of 0.5 s. Estimate the spring constant \\(k\\approx m(2\\pi/T)^2\\), in N/m.",
+      "answer": 315.827,
+      "unit": "N/m",
+      "tolerance": 0.02,
+      "explanation": "Light damping means \\(\\omega_d\\approx\\omega_n=2\\pi/T=12.57\\ \\mathrm{rad/s}\\), so \\(k=m\\omega_n^2=2\\times158=316\\ \\mathrm{N/m}\\). Reading parameters off a measured response is the basic idea of identification.\n• \\(m(2\\pi/T)=25\\) forgets to square.\n• \\(m/T^2=8\\) forgets the \\(2\\pi\\).",
+      "preview": [
+        "sys-id"
+      ]
+    },
+    {
+      "id": "lti-mech-r4-q3",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of cruise control. A 1200 kg car with linearized drag \\(b=60\\ \\mathrm{N\\,s/m}\\) obeys \\(m\\dot v+bv=F\\). Starting from steady speed, an extra 600 N of drive force is applied. How much has the speed increased after 20 s, in m/s?",
+      "answer": 6.32121,
+      "unit": "m/s",
+      "tolerance": 0.02,
+      "explanation": "First order: time constant \\(m/b=20\\ \\mathrm{s}\\) and final change \\(F/b=10\\ \\mathrm{m/s}\\). After one time constant, \\(10(1-e^{-1})=6.32\\ \\mathrm{m/s}\\).\n• 10 m/s is the final change, reached only after several time constants.\n• \\(F/m\\cdot20=10\\) assumes the acceleration stays constant, ignoring the growing drag.",
+      "preview": [
+        "cruise-control"
+      ]
+    }
+  ]
+}

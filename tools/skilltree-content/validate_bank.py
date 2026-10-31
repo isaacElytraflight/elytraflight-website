@@ -26,23 +26,53 @@ elif _vs:
 LEAF_PREVIEW_ALLOWED = {
     'step-resp': {'octc', 'cs-cap-load', 'slew', 'stability'},
     'freq-char': {'noise-dist', 'opamp-fr', 'fb-errors', 'freq-basics'},
-    'rlc':       {'stability', 'freq-basics', 'opamp-fr'},
-    'ac-power':  {'slew', 'datasheet', 'op-point'},
+    'rlc':       {'amp-compensation', 'freq-basics', 'opamp-fr'},
+    'ac-power':  {'slew', 'datasheet', 'cs-intro'},
     'mos-cv':    {'mos-caps', 'nmos-regions', 'triode', 'mosfet-struct'},
-    'mos-fields': {'nmos-regions', 'saturation', 'mos-caps', 'body-effect', 'triode'},
+    'mos-fields': {'nmos-regions', 'square-law', 'mos-caps', 'body-effect', 'triode'},
 }
 # batch2b leaf/conceptual follow-ons (skills with no DAG dependents, or whose natural follow-on is not a DAG descendant)
+# batch v2 (66 remaining EE 105 skills): leaf skills and conceptual follow-ons
 LEAF_PREVIEW_ALLOWED.update({
+    'ic-fab':     {'mosfet-struct'},
+    'sheet-res':  {'mos-caps', 'triode', 'square-law'},
+    'solar-cell': {'led', 'diode-ss'},
+    'led':        {'diode-ss', 'mos-caps'},
+})
+LEAF_PREVIEW_ALLOWED.update({
+    'bias-coupling': {'freq-basics', 'diff-intro', 'cs-cascade'},
     'bias-current': {'datasheet', 'noise-dist'},
     'datasheet':    {'cmrr', 'ft', 'diff-intro'},
     'stability':    {'miller', 'cs-cap-load', 'ft', 'cmrr'},
     'fb-errors':    {'degeneration', 'cd', 'cs-analysis'},
-    'fb-impedance': {'cd', 'degeneration', 'cs-analysis', 'z-match'},
+    'fb-impedance': {'cd', 'degeneration', 'cs-analysis', 'two-port'},
     'inverting':    {'miller', 'cs-analysis', 'degeneration', 'cs-brute'},
     'diode-ss':     {'bjt-ss', 'ss-model', 'mos-caps', 'ft', 'bjt-action'},
 })
 
+LEAF_PREVIEW_ALLOWED.update({   # batches 4-9 (post-merge): leaf skills -> conceptual follow-ons
+    'pmos':        {'high-load', 'cs-analysis', 'mirror-load', 'cascode-bias'},
+    'bjt-ss':      {'cs-analysis', 'ft', 'cd', 'diff-intro'},
+    'ft':          {'miller', 'cs-cascade-freq', 'cd-freq', 'octc'},
+    'ref-gen':     {'cascode-bias', 'big-circuit', 'offset'},
+    'amp-choice':  {'cascode-amp', 'big-circuit', 'cs-cascade'},
+    'high-load':   {'cascode-src', 'mirror-load', 'cascode-amp'},
+    'cascode-src': {'cascode-amp', 'cascode-bias'},
+    'diff-dc':     {'half-circuit', 'cmrr', 'mirror-load'},
+    'cg-freq':     {'cascode-amp', 'octc'},
+    'mirror-load': {'offset', 'opamp-models', 'gbw'},
+    'cd-freq':     {'big-circuit', 'octc'},
+    'cs-cascade-freq': {'gbw', 'amp-compensation', 'opamp-fr'},
+    'octc':        {'opamp-fr', 'amp-compensation', 'cascode-amp'},
+    'cs-cap-load': {'amp-compensation', 'opamp-fr', 'gbw'},
+    'cascode-bias': {'opamp-models', 'big-circuit'},
+    'big-circuit': {'opamp-models', 'mirror-load', 'noise-dist'},
+})
+
 errors, warns = [], []
+# v3 application leaves
+LEAF_PREVIEW_ALLOWED.update({"lti-circuits": ["cs-cap-load", "octc", "slew"], "freq-resp-circuits": ["noise-dist", "opamp-fr", "two-port"], "bode-circuits": ["freq-basics", "gbw", "rlc"], "fb-amp": ["fb-amp-errors", "fb-impedance", "gbw", "inverting"], "fb-amp-errors": ["cd", "cs-analysis", "degeneration", "opamp-fr"], "amp-compensation": ["cs-cap-load", "miller", "opamp-fr"], "lti-mech": ["cruise-control", "second-order-sys", "sys-id"], "loop-margin-design": ["loop-shaping", "robust-stability", "time-delay"]})
+LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")
 
@@ -114,7 +144,7 @@ for sid in BATCH:
         err(sid, f"invalid JSON: {e}"); continue
     if sid not in skills: err(sid, "skill id not in skills JSON")
     if d.get("skill_id") != sid: err(sid, f"skill_id mismatch: {d.get('skill_id')}")
-    if d.get("version") != 1: err(sid, f"version should be 1, got {d.get('version')}")
+    if not (isinstance(d.get("version"), int) and d.get("version") >= 1): err(sid, f"version should be an int >= 1, got {d.get('version')}")
     qs = d.get("questions")
     if not isinstance(qs, list) or len(qs) != 12:
         err(sid, f"expected 12 questions, got {len(qs) if isinstance(qs, list) else 'none'}")

@@ -560,6 +560,7 @@ async function test(name, fn) {
     
     const retired = await p.evaluate(() => window.__skillgrove.retired());
     assert.strictEqual(retired.clm, 'ro', 'retired map should send clm to ro');
+    assert.strictEqual(retired.margins, 'stability', 'retired map should send margins to stability');
     const hasExplainer = await p.evaluate(() => window.__skillgrove.explainers.has('clm'));
     assert(!hasExplainer, 'retired id clm should not have an explainer');
     
@@ -924,6 +925,7 @@ async function test(name, fn) {
       saturation: { tier: 2, lastPracticed: now - 5 * DAY, history: [{ t: now - 5 * DAY, round: 2, correct: 2, total: 3, passed: true }] },
       'square-law': { tier: 4, lastPracticed: now - DAY, history: [{ t: now - DAY, round: 4, correct: 3, total: 3, passed: true }] },
       'bjt-gain': { tier: 3, lastPracticed: now - 2 * DAY, history: [{ t: now - 2 * DAY, round: 3, correct: 2, total: 3, passed: true }] },
+      margins: { tier: 2, lastPracticed: now - 4 * DAY, history: [{ t: now - 4 * DAY, round: 2, correct: 2, total: 3, passed: true }] },
       'not-a-skill': { tier: 1, lastPracticed: now - 3 * DAY, history: [] }
     }));
     const s = await store(p);
@@ -934,6 +936,10 @@ async function test(name, fn) {
     assert.strictEqual(s.skills['square-law'].history.length, 2, 'both histories are kept');
     assert.strictEqual(s.skills['bjt-action'].tier, 3);
     assert.strictEqual(s.skills['bjt-action'].lastPracticed, now - 2 * DAY);
+    assert.strictEqual(s.skills.margins, undefined);
+    assert.strictEqual(s.skills.stability.tier, 2, 'margins progress merges into stability');
+    assert.strictEqual(s.skills.stability.lastPracticed, now - 4 * DAY);
+    assert.strictEqual(s.skills['lti-circuits'], undefined, 'a new application skill starts at zero');
     assert.strictEqual(s.skills['not-a-skill'].tier, 1, 'unrelated ids are preserved');
 
     await p.reload({ waitUntil: 'networkidle0' });
@@ -1112,7 +1118,7 @@ async function test(name, fn) {
     assert.strictEqual(result.meHasSoon, false);
     assert.strictEqual(result.readyHasSoon, false);
     assert.strictEqual(result.queueHasSoon, false, 'the recommender queue stays on playable skills');
-    assert(result.meExtras.includes('gbw'), 'a playable prerequisite outside ME 132 stays in the plan: ' + result.meExtras.join(','));
+    assert.deepStrictEqual(result.meExtras, [], 'every playable prerequisite of an ME 132 skill sits inside ME 132: ' + result.meExtras.join(','));
 
     await openSkill(p, 'fb-concepts');
     const panel = await p.evaluate(() => ({

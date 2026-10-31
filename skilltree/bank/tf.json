@@ -1,153 +1,151 @@
 {
   "skill_id": "tf",
-  "version": 1,
+  "version": 3,
   "questions": [
     {
       "id": "tf-r1-q1",
       "round": 1,
       "type": "mc",
-      "prompt": "The voltage transfer function (voltage gain) of a circuit at frequency \\(\\omega\\) is defined as…",
+      "prompt": "What is the transfer function \\(H(s)\\) of an LTI system?",
       "options": [
-        "\\(G_{v}=V_{\\mathrm{out}}\\times V_{\\mathrm{in}}\\), a real number in volts squared",
-        "\\(G_{v}=I_{\\mathrm{out}}/I_{\\mathrm{in}}\\), a ratio of currents",
-        "\\(G_{v}=V_{\\mathrm{out}}-V_{\\mathrm{in}}\\), the voltage drop in volts",
-        "\\(G_{v}(j\\omega)=V_{\\mathrm{out}}/V_{\\mathrm{in}}\\), a complex number (ratio of output and input phasors)"
+        "The product \\(Y(s)X(s)\\)",
+        "The output when the input is a unit step",
+        "The ratio \\(Y(s)/X(s)\\) of the Laplace transforms of output and input with zero initial conditions, which equals the Laplace transform of the impulse response",
+        "The ratio \\(X(s)/Y(s)\\) of input to output"
       ],
-      "correct_index": 3,
-      "explanation": "A transfer function is the ratio of an output phasor to an input phasor (reader Sec. 2.2). For voltage gain, \\(G_{v}=V_{2}/V_{1}=(|V_{2}|/|V_{1}|)e^{j(\\phi_{2}-\\phi_{1})}\\). Its magnitude is the amplitude ratio and its angle is the phase shift.\n• The product of voltages is not a ratio and has units of \\(V^{2}\\).\n• The ratio of currents is the CURRENT gain, \\(G_{i}\\).\n• A difference is not a transfer function."
+      "correct_index": 2,
+      "explanation": "Transforming a linear ODE with zero initial conditions turns derivatives into powers of s, so the output transform is \\(H(s)\\) times the input transform, and \\(H(s)=Y(s)/X(s)\\). An impulse has transform 1, so \\(H(s)\\) is also the transform of \\(h(t)\\).\n• A product would not be a property of the system alone.\n• The step response is \\(H(s)/s\\), not \\(H(s)\\).\n• \\(X/Y\\) is the inverse system.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 390 100\" role=\"img\" aria-label=\"Block chain: X(s) enters a block H(s) and leaves as Y(s) = H(s) X(s).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:390px;width:100%;height:auto\"><rect x=\"20\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"65\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">X(s)</text><line x1=\"110\" y1=\"50\" x2=\"130\" y2=\"50\"/><polygon points=\"130,50 123.6,52.7 123.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"130\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"175\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">H(s)</text><line x1=\"220\" y1=\"50\" x2=\"240\" y2=\"50\"/><polygon points=\"240,50 233.6,52.7 233.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"240\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"285\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Y(s) = H X</text></svg>",
+      "figure_alt": "Block chain: X(s) enters a block H(s) and leaves as Y(s) = H(s) X(s)."
     },
     {
       "id": "tf-r1-q2",
       "round": 1,
       "type": "mc",
-      "prompt": "A transimpedance amplifier (TIA) converts an input current into an output voltage. What are the units of its transfer function \\(V_{\\mathrm{out}}/I_{\\mathrm{in}}\\)?",
+      "prompt": "A system obeys \\(3\\ddot y+2\\dot y+5y=4x\\). With zero initial conditions, what is \\(H(s)=Y(s)/X(s)\\)?",
       "options": [
-        "Siemens (S)",
-        "Unitless \\((V/V)\\)",
-        "Ohms (Ω)",
-        "Watts (W)"
+        "\\(\\dfrac{3s^2+2s+5}{4}\\)",
+        "\\(\\dfrac{4s}{3s^2+2s+5}\\)",
+        "\\(\\dfrac{4}{5s^2+2s+3}\\)",
+        "\\(\\dfrac{4}{3s^2+2s+5}\\)"
       ],
-      "correct_index": 2,
-      "explanation": "Volts divided by amps is ohms, so the transfer function is an impedance-like quantity: a 'trans-impedance' (reader Eq. 2.6).\n• Siemens \\((A/V)\\) is for a trans-ADMITTANCE (output current/input voltage).\n• \\(V/V\\) is a voltage gain; \\(A/A\\) would be a current gain.\n• Watts would be for power, not a ratio of signals.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 218 70\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Transimpedance amplifier</title><text x=\"10\" y=\"27\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">i_in</text><line x1=\"10\" y1=\"35\" x2=\"60\" y2=\"35\"/><polygon points=\"60,35 53.6,37.7 53.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"17\" width=\"60\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"39\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">TIA</text><line x1=\"120\" y1=\"35\" x2=\"166\" y2=\"35\"/><polygon points=\"166,35 159.6,37.7 159.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"170\" y=\"39\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v_out</text></svg>",
-      "figure_alt": "Block diagram: an input current into a transimpedance amplifier gives an output voltage."
+      "correct_index": 3,
+      "explanation": "Each derivative becomes a factor of s: \\((3s^2+2s+5)Y(s)=4X(s)\\), so \\(H=4/(3s^2+2s+5)\\).\n• The flipped fraction is \\(X/Y\\).\n• An extra s in the numerator would need a \\(\\dot x\\) term on the right side.\n• Reversing the coefficient order puts the 5 on \\(s^2\\); the highest derivative goes with the highest power."
     },
     {
       "id": "tf-r1-q3",
       "round": 1,
       "type": "numeric",
-      "prompt": "An amplifier is driven with a 2 mV amplitude sinusoid and the output amplitude is 0.5 V. What is the magnitude of its voltage gain \\(|G_{v}|\\)?",
-      "answer": 250.0,
-      "unit": "V/V",
+      "prompt": "What is the DC (zero-frequency) gain of \\(H(s)=\\dfrac{2s+6}{s^2+4s+3}\\)?",
+      "answer": 2.0,
+      "unit": "",
       "tolerance": 0.02,
-      "explanation": "\\(|G_{v}|=|V_{\\mathrm{out}}|/|V_{\\mathrm{in}}|=0.5\\ \\mathrm{V}/0.002\\ \\mathrm{V}=250\\). Since \\(|G_{v}|>1\\) the circuit has voltage gain (if it were below 1 it would attenuate). Common mistake: dividing in mV and V without converting units \\((0.5/2=0.25)\\)."
+      "explanation": "DC means \\(s=0\\): \\(H(0)=6/3=2\\). A constant input of 1 settles to an output of 2.\n• Taking the ratio of the leading coefficients (\\(2/1\\) on \\(s/s^2\\)) describes high frequency, not DC; it gives a gain falling as \\(2/s\\).\n• Answering 3 or 0.5 swaps or mixes the constant terms.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 390 100\" role=\"img\" aria-label=\"Block chain: a constant input of 1 enters H(s); the settled output is unknown.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:390px;width:100%;height:auto\"><rect x=\"20\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"65\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">constant 1</text><line x1=\"110\" y1=\"50\" x2=\"130\" y2=\"50\"/><polygon points=\"130,50 123.6,52.7 123.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"130\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"175\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">H(s)</text><line x1=\"220\" y1=\"50\" x2=\"240\" y2=\"50\"/><polygon points=\"240,50 233.6,52.7 233.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"240\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"285\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">settles to ?</text></svg>",
+      "figure_alt": "Block chain: a constant input of 1 enters H(s); the settled output is unknown."
     },
     {
       "id": "tf-r2-q1",
       "round": 2,
-      "type": "numeric",
-      "prompt": "A circuit has an input voltage amplitude of 250 mV and produces an output CURRENT amplitude of 5 mA. What is the magnitude of its transadmittance \\(K=I_{\\mathrm{out}}/V_{\\mathrm{in}}\\)? (Answer in millisiemens, mS.)",
-      "answer": 20.0,
-      "unit": "mS",
-      "tolerance": 0.02,
-      "explanation": "\\(K=I_{2}/V_{1}=5\\ \\mathrm{mA}/0.25\\ \\mathrm{V}=0.02\\ \\mathrm{S}=20\\ \\mathrm{mS}\\). A transadmittance has units of siemens \\((A/V)\\). Common mistake: dividing 0.25/5 (giving 50, i.e., Ω instead of S)."
+      "type": "mc",
+      "prompt": "A tank's level \\(h\\) (in m) responds to an inflow rate \\(q\\) (in \\(\\mathrm{m^3/s}\\)). What are the units of the transfer function \\(H(s)=h(s)/q(s)\\) evaluated at a frequency?",
+      "options": [
+        "\\(\\mathrm{s/m^2}\\): output units divided by input units",
+        "\\(\\mathrm{m^2/s}\\)",
+        "Dimensionless, because transfer functions are always ratios of like quantities",
+        "\\(\\mathrm{m^4/s}\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "A transfer function carries output units over input units: \\(\\mathrm{m}/(\\mathrm{m^3/s})=\\mathrm{s/m^2}\\). Gains between unlike quantities (force to position, flow to level, voltage to speed) are normal in system models.\n• \\(\\mathrm{m^2/s}\\) is the inverse.\n• Dimensionless gains only occur when input and output share units.\n• \\(\\mathrm{m^4/s}\\) multiplies instead of dividing."
     },
     {
       "id": "tf-r2-q2",
       "round": 2,
       "type": "numeric",
-      "prompt": "A circuit has voltage transfer function \\(G_{v}(j\\omega_{0})=0.8\\angle-30^{\\circ}\\) at the operating frequency \\(\\omega_{0}\\). The input is \\(v_{\\mathrm{in}}(t)=5\\cos(\\omega_{0}t+20^{\\circ})\\ \\mathrm{V}\\). What is the output voltage at \\(t=0\\)?",
+      "prompt": "A system has transfer function \\(G(j\\omega_{0})=0.8\\angle-30^{\\circ}\\) at the operating frequency \\(\\omega_{0}\\). The input is \\(x(t)=5\\cos(\\omega_{0}t+20^{\\circ})\\). What is the output at \\(t=0\\)?",
       "answer": 3.93923,
-      "unit": "V",
+      "unit": "",
       "tolerance": 0.02,
-      "explanation": "Output amplitude \\(=5\\times 0.8=4\\ \\mathrm{V}\\). Output phase \\(=\\) input phase \\(+\\angle G_{v}=20^{\\circ}+(-30^{\\circ})=-10^{\\circ}\\).\nSo \\(v_{\\mathrm{out}}(t)=4\\cos(\\omega_{0}t-10^{\\circ})\\) and \\(v_{\\mathrm{out}}(0)=4\\cos(-10^{\\circ})=4\\times 0.9848=3.939\\ \\mathrm{V}\\).\nCommon mistake: using only the transfer function's phase \\((4\\cos(-30^{\\circ})=3.46\\ \\mathrm{V})\\) and forgetting the input's own +20° phase.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Input and output phasors (shape)</title><line x1=\"14\" y1=\"110\" x2=\"230\" y2=\"110\"/><polygon points=\"230,110 223.6,112.7 223.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"210\" x2=\"120\" y2=\"10\"/><polygon points=\"120,10 122.7,16.4 117.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"126\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"126\" y=\"18\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"120\" y1=\"110\" x2=\"185.8\" y2=\"86.1\"/><polygon points=\"185.8,86.1 179.9,91.5 177.8,85.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"195.2\" y=\"86.6\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_in</text><line x1=\"120\" y1=\"110\" x2=\"175.1\" y2=\"119.7\"/><polygon points=\"175.1,119.7 167.4,121.5 168.4,115.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"185\" y=\"125.5\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_out</text></svg>",
+      "explanation": "Output amplitude \\(=5\\times 0.8=4\\). Output phase \\(=\\) input phase \\(+\\angle G=20^{\\circ}+(-30^{\\circ})=-10^{\\circ}\\).\nSo \\(y(t)=4\\cos(\\omega_{0}t-10^{\\circ})\\) and \\(y(0)=4\\cos(-10^{\\circ})=4\\times 0.9848=3.939\\).\nCommon mistake: using only the transfer function's phase \\((4\\cos(-30^{\\circ})=3.46)\\) and forgetting the input's own +20° phase.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Input and output phasors (shape)</title><line x1=\"14\" y1=\"110\" x2=\"230\" y2=\"110\"/><polygon points=\"230,110 223.6,112.7 223.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"210\" x2=\"120\" y2=\"10\"/><polygon points=\"120,10 122.7,16.4 117.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"126\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"126\" y=\"18\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"120\" y1=\"110\" x2=\"185.8\" y2=\"86.1\"/><polygon points=\"185.8,86.1 179.9,91.5 177.8,85.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"195.2\" y=\"86.6\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"120\" y1=\"110\" x2=\"175.1\" y2=\"119.7\"/><polygon points=\"175.1,119.7 167.4,121.5 168.4,115.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"185\" y=\"125.5\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
       "figure_alt": "Two phasors: the input at plus 20 degrees and a slightly shorter output at minus 10 degrees."
     },
     {
       "id": "tf-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "A resistive voltage divider has a 2 kΩ series resistor followed by a 6 kΩ resistor to ground. A 6 kΩ load is connected across the 6 kΩ resistor, and the output is taken across the load. What is \\(G_{v}=V_{\\mathrm{out}}/V_{\\mathrm{in}}\\)?",
-      "options": [
-        "0.75",
-        "0.6",
-        "0.4",
-        "0.5"
-      ],
-      "correct_index": 1,
-      "explanation": "The load is in parallel with the 6 kΩ shunt resistor: \\(6\\ \\mathrm{k}\\Omega\\parallel 6\\ \\mathrm{k}\\Omega=3\\ \\mathrm{k}\\Omega\\). Then \\(G_{v}=3k/(2k+3k)=0.6\\).\n• \\(0.75=6k/(2k+6k)\\) ignores the loading by the 6 kΩ load.\n• \\(0.4=2k/(2k+3k)\\) divides in the wrong order (series resistor over the total).\n• \\(0.5=6k/(6k+6k)\\) divides the input between the two 6 kΩ resistors and ignores the 2 kΩ series resistor.\nA transfer function always depends on what is connected to the output.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 307 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Divider with a load</title><line x1=\"50\" y1=\"46\" x2=\"50\" y2=\"74\"/><line x1=\"50\" y1=\"98\" x2=\"50\" y2=\"126\"/><circle cx=\"50\" cy=\"86\" r=\"12\"/><text x=\"50\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"50\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"33\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"50\" y1=\"126\" x2=\"50\" y2=\"132\"/><line x1=\"41\" y1=\"132\" x2=\"59\" y2=\"132\"/><line x1=\"45\" y1=\"136\" x2=\"55\" y2=\"136\"/><line x1=\"48.5\" y1=\"140\" x2=\"51.5\" y2=\"140\"/><line x1=\"50\" y1=\"46\" x2=\"68\" y2=\"46\"/><polyline points=\"68,46 85,46 88,40 93,52 98,40 103,52 108,40 113,52 121,46 138,46\"/><text x=\"103\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">2 kΩ</text><line x1=\"138\" y1=\"46\" x2=\"160\" y2=\"46\"/><circle cx=\"160\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"160,56 160,68 154,71 166,76 154,81 166,86 154,91 166,96 160,104 160,116\"/><text x=\"172\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">6 kΩ</text><line x1=\"160\" y1=\"46\" x2=\"160\" y2=\"56\"/><line x1=\"160\" y1=\"116\" x2=\"160\" y2=\"126\"/><line x1=\"160\" y1=\"126\" x2=\"160\" y2=\"132\"/><line x1=\"151\" y1=\"132\" x2=\"169\" y2=\"132\"/><line x1=\"155\" y1=\"136\" x2=\"165\" y2=\"136\"/><line x1=\"158.5\" y1=\"140\" x2=\"161.5\" y2=\"140\"/><line x1=\"160\" y1=\"46\" x2=\"212\" y2=\"46\"/><circle cx=\"212\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"212,56 212,68 206,71 218,76 206,81 218,86 206,91 218,96 212,104 212,116\"/><text x=\"224\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">6 kΩ load</text><line x1=\"212\" y1=\"46\" x2=\"212\" y2=\"56\"/><line x1=\"212\" y1=\"116\" x2=\"212\" y2=\"126\"/><line x1=\"212\" y1=\"126\" x2=\"212\" y2=\"132\"/><line x1=\"203\" y1=\"132\" x2=\"221\" y2=\"132\"/><line x1=\"207\" y1=\"136\" x2=\"217\" y2=\"136\"/><line x1=\"210.5\" y1=\"140\" x2=\"213.5\" y2=\"140\"/><line x1=\"212\" y1=\"46\" x2=\"226\" y2=\"46\"/><line x1=\"226\" y1=\"46\" x2=\"242\" y2=\"46\"/><circle cx=\"245\" cy=\"46\" r=\"3\"/><text x=\"252\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><text x=\"245\" y=\"68\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"245\" y=\"124\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text></svg>",
-      "figure_alt": "Voltage divider: 2 kilohms in series, then 6 kilohms to ground, with a 6 kilohm load in parallel."
+      "type": "numeric",
+      "prompt": "Two LTI blocks are connected in series: \\(H_1(s)=\\dfrac{2}{s+1}\\) followed by \\(H_2(s)=\\dfrac{5}{s+10}\\). What is the magnitude of the overall frequency response at \\(\\omega=1\\ \\mathrm{rad/s}\\)?",
+      "answer": 0.703598,
+      "unit": "",
+      "tolerance": 0.02,
+      "explanation": "Series blocks multiply: \\(H=H_1H_2\\), so \\(|H|=|H_1||H_2|\\). At \\(\\omega=1\\): \\(|H_1|=2/\\sqrt2=1.414\\) and \\(|H_2|=5/\\sqrt{101}=0.498\\), so \\(|H|=0.704\\).\n• Adding the magnitudes (1.91) treats a series connection as parallel.\n• Using DC gains gives \\(2\\times0.5=1\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 500 100\" role=\"img\" aria-label=\"Two blocks in series: x passes through 2/(s+1) and then 5/(s+10) to give y.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:500px;width:100%;height:auto\"><rect x=\"20\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"65\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"110\" y1=\"50\" x2=\"130\" y2=\"50\"/><polygon points=\"130,50 123.6,52.7 123.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"130\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"175\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">2/(s+1)</text><line x1=\"220\" y1=\"50\" x2=\"240\" y2=\"50\"/><polygon points=\"240,50 233.6,52.7 233.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"240\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"285\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">5/(s+10)</text><line x1=\"330\" y1=\"50\" x2=\"350\" y2=\"50\"/><polygon points=\"350,50 343.6,52.7 343.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"350\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"395\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure_alt": "Two blocks in series: x passes through 2/(s+1) and then 5/(s+10) to give y."
     },
     {
       "id": "tf-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "A series RLC circuit (passive: only R, L and C, with a voltage source) has \\(Q=10\\). Can the voltage across the capacitor be larger than the source voltage?",
-      "options": [
-        "Yes: at resonance \\(|V_{C}/V_{s}|=Q=10\\). The circuit has voltage gain but no power gain",
-        "No: a passive circuit can only attenuate, so \\(|V_{C}/V_{s}|\\le 1\\) at every frequency",
-        "Yes, and since the voltage is \\(10\\times\\) larger, the circuit also has a power gain of 10",
-        "No: \\(|V_{C}|=|V_{L}|\\) always, so the capacitor and inductor voltages cancel and stay below the source"
-      ],
-      "correct_index": 0,
-      "explanation": "'Gain' of a transfer function just means \\(|V_{\\mathrm{out}}/V_{\\mathrm{in}}|>1\\); passive circuits can have it (reader Sec. 2.2.2 and 2.5.3). At resonance, I \\(=V_{s}/R\\), so \\(|V_{C}|=|I|/(\\omega_{0}C)=V_{s}\\cdot Q\\): the capacitor and inductor voltages are each Q times the source voltage (and 180° out of phase with each other, so they cancel in the KVL sum).\nThis is voltage gain, not power gain: the source supplies the power dissipated in R, and no more.\n• Passive \\(\\ne\\) attenuation-only for voltage ratios.\n• Power gain would need an active element.\n• \\(V_{C}\\) and \\(V_{L}\\) are equal in magnitude at resonance but each is Q times \\(V_{s}\\), which can be larger than the source.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 321 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Series RLC, output across C</title><line x1=\"46\" y1=\"46\" x2=\"46\" y2=\"74\"/><line x1=\"46\" y1=\"98\" x2=\"46\" y2=\"126\"/><circle cx=\"46\" cy=\"86\" r=\"12\"/><text x=\"46\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"46\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"29\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vₛ</text><line x1=\"46\" y1=\"126\" x2=\"46\" y2=\"132\"/><line x1=\"37\" y1=\"132\" x2=\"55\" y2=\"132\"/><line x1=\"41\" y1=\"136\" x2=\"51\" y2=\"136\"/><line x1=\"44.5\" y1=\"140\" x2=\"47.5\" y2=\"140\"/><line x1=\"46\" y1=\"46\" x2=\"64\" y2=\"46\"/><polyline points=\"64,46 81,46 84,40 89,52 94,40 99,52 104,40 109,52 117,46 134,46\"/><text x=\"99\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><line x1=\"134\" y1=\"46\" x2=\"148\" y2=\"46\"/><path d=\"M148,46 h15 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 h15\"/><text x=\"183\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">L</text><line x1=\"218\" y1=\"46\" x2=\"240\" y2=\"46\"/><circle cx=\"240\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"240\" y1=\"56\" x2=\"240\" y2=\"81\"/><line x1=\"240\" y1=\"91\" x2=\"240\" y2=\"116\"/><line x1=\"231\" y1=\"81\" x2=\"249\" y2=\"81\"/><line x1=\"231\" y1=\"91\" x2=\"249\" y2=\"91\"/><text x=\"254\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"240\" y1=\"46\" x2=\"240\" y2=\"56\"/><line x1=\"240\" y1=\"116\" x2=\"240\" y2=\"126\"/><line x1=\"240\" y1=\"126\" x2=\"240\" y2=\"132\"/><line x1=\"231\" y1=\"132\" x2=\"249\" y2=\"132\"/><line x1=\"235\" y1=\"136\" x2=\"245\" y2=\"136\"/><line x1=\"238.5\" y1=\"140\" x2=\"241.5\" y2=\"140\"/><line x1=\"240\" y1=\"46\" x2=\"254\" y2=\"46\"/><line x1=\"254\" y1=\"46\" x2=\"270\" y2=\"46\"/><circle cx=\"273\" cy=\"46\" r=\"3\"/><text x=\"280\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_C</text><text x=\"273\" y=\"68\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"273\" y=\"124\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text></svg>",
-      "figure_alt": "Series RLC circuit driven by a voltage source with the output taken across the capacitor."
+      "type": "numeric",
+      "prompt": "Two blocks are connected in parallel, with their outputs added: \\(H_1=\\dfrac{1}{s+2}\\) and \\(H_2=\\dfrac{3}{s+4}\\). The combined transfer function has one zero. What is its magnitude (distance from the origin)?",
+      "answer": 2.5,
+      "unit": "",
+      "tolerance": 0.02,
+      "explanation": "\\(H=\\dfrac{1}{s+2}+\\dfrac{3}{s+4}=\\dfrac{(s+4)+3(s+2)}{(s+2)(s+4)}=\\dfrac{4s+10}{(s+2)(s+4)}\\). The zero is at \\(s=-2.5\\). Parallel paths can create zeros that neither block has alone.\n• Multiplying the blocks instead gives \\(3/((s+2)(s+4))\\), which has no finite zero.\n• Answering 2 or 4 picks a pole, not the zero.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" aria-label=\"s-plane: poles at -2 and -4 and the zero of the parallel combination between them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"20\" y1=\"100\" x2=\"320\" y2=\"100\"/><line x1=\"170\" y1=\"10\" x2=\"170\" y2=\"190\"/><text x=\"312\" y=\"94\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"184\" y=\"18\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"111.2\" y1=\"95\" x2=\"121.2\" y2=\"105\"/><line x1=\"111.2\" y1=\"105\" x2=\"121.2\" y2=\"95\"/><line x1=\"57.3\" y1=\"95\" x2=\"67.3\" y2=\"105\"/><line x1=\"57.3\" y1=\"105\" x2=\"67.3\" y2=\"95\"/><circle cx=\"102.7\" cy=\"100\" r=\"5\"/></svg>",
+      "figure_alt": "s-plane: poles at -2 and -4 and the zero of the parallel combination between them."
     },
     {
       "id": "tf-r3-q2",
       "round": 3,
-      "type": "numeric",
-      "prompt": "Two identical resistive dividers (each: 10 kΩ in series, then 10 kΩ to ground) are connected directly one after the other (no buffer). What is the overall \\(V_{\\mathrm{out}}/V_{\\mathrm{in}}\\) measured at the output of the second divider (open circuit)?",
-      "answer": 0.2,
-      "unit": "V/V",
-      "tolerance": 0.02,
-      "explanation": "Each divider alone has \\(G=10k/(10k+10k)=0.5\\), but the gains do NOT simply multiply (0.25), because the second divider loads the first.\nThe first divider's shunt resistor sees 10 kΩ in parallel with the second divider's input resistance \\((10k+10k=20\\ \\mathrm{k}\\Omega)\\): \\(10k\\parallel 20k=6.667\\ \\mathrm{k}\\Omega\\).\n\\(G_{1}=6.667k/(10k+6.667k)=0.4\\). The second stage (unloaded) has \\(G_{2}=0.5\\). Total \\(=0.4\\times 0.5=0.2\\).\n(Nodal analysis confirms 0.2.) Cascading transfer functions requires including the loading effect.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 361 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Two dividers, no buffer</title><line x1=\"50\" y1=\"46\" x2=\"50\" y2=\"74\"/><line x1=\"50\" y1=\"98\" x2=\"50\" y2=\"126\"/><circle cx=\"50\" cy=\"86\" r=\"12\"/><text x=\"50\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"50\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"33\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"50\" y1=\"126\" x2=\"50\" y2=\"132\"/><line x1=\"41\" y1=\"132\" x2=\"59\" y2=\"132\"/><line x1=\"45\" y1=\"136\" x2=\"55\" y2=\"136\"/><line x1=\"48.5\" y1=\"140\" x2=\"51.5\" y2=\"140\"/><line x1=\"50\" y1=\"46\" x2=\"68\" y2=\"46\"/><polyline points=\"68,46 85,46 88,40 93,52 98,40 103,52 108,40 113,52 121,46 138,46\"/><text x=\"103\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">10 kΩ</text><line x1=\"138\" y1=\"46\" x2=\"160\" y2=\"46\"/><circle cx=\"160\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"160,56 160,68 154,71 166,76 154,81 166,86 154,91 166,96 160,104 160,116\"/><text x=\"172\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">10 kΩ</text><line x1=\"160\" y1=\"46\" x2=\"160\" y2=\"56\"/><line x1=\"160\" y1=\"116\" x2=\"160\" y2=\"126\"/><line x1=\"160\" y1=\"126\" x2=\"160\" y2=\"132\"/><line x1=\"151\" y1=\"132\" x2=\"169\" y2=\"132\"/><line x1=\"155\" y1=\"136\" x2=\"165\" y2=\"136\"/><line x1=\"158.5\" y1=\"140\" x2=\"161.5\" y2=\"140\"/><line x1=\"160\" y1=\"46\" x2=\"174\" y2=\"46\"/><polyline points=\"174,46 191,46 194,40 199,52 204,40 209,52 214,40 219,52 227,46 244,46\"/><text x=\"209\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">10 kΩ</text><line x1=\"244\" y1=\"46\" x2=\"266\" y2=\"46\"/><circle cx=\"266\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"266,56 266,68 260,71 272,76 260,81 272,86 260,91 272,96 266,104 266,116\"/><text x=\"278\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">10 kΩ</text><line x1=\"266\" y1=\"46\" x2=\"266\" y2=\"56\"/><line x1=\"266\" y1=\"116\" x2=\"266\" y2=\"126\"/><line x1=\"266\" y1=\"126\" x2=\"266\" y2=\"132\"/><line x1=\"257\" y1=\"132\" x2=\"275\" y2=\"132\"/><line x1=\"261\" y1=\"136\" x2=\"271\" y2=\"136\"/><line x1=\"264.5\" y1=\"140\" x2=\"267.5\" y2=\"140\"/><line x1=\"266\" y1=\"46\" x2=\"280\" y2=\"46\"/><line x1=\"280\" y1=\"46\" x2=\"296\" y2=\"46\"/><circle cx=\"299\" cy=\"46\" r=\"3\"/><text x=\"306\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><text x=\"299\" y=\"68\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"299\" y=\"124\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text></svg>",
-      "figure_alt": "Two identical 10 kilohm dividers connected directly one after the other."
+      "type": "mc",
+      "prompt": "A block \\(G(s)=\\dfrac{K}{s+a}\\) is placed in a unity negative-feedback loop. What is the closed-loop transfer function?",
+      "options": [
+        "\\(\\dfrac{K}{s+a-K}\\)",
+        "\\(\\dfrac{K}{s+a+K}\\)",
+        "\\(\\dfrac{K}{s+a}\\)",
+        "\\(\\dfrac{s+a}{s+a+K}\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(\\dfrac{G}{1+G}=\\dfrac{K/(s+a)}{1+K/(s+a)}=\\dfrac{K}{s+a+K}\\). The pole moves from \\(-a\\) to \\(-(a+K)\\): feedback speeds up the response.\n• A minus sign belongs to positive feedback.\n• The open-loop G ignores the loop.\n• \\((s+a)/(s+a+K)\\) is the error response \\(1/(1+G)\\), not the output.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 310 150\" role=\"img\" aria-label=\"Unity negative-feedback loop around the block K/(s+a).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:310px;width:100%;height:auto\"><text x=\"18\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"30\" y1=\"56\" x2=\"66\" y2=\"56\"/><polygon points=\"66,56 59.6,58.7 59.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"76\" cy=\"56\" r=\"10\"/><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"84\" y=\"78\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"86\" y1=\"56\" x2=\"120\" y2=\"56\"/><polygon points=\"120,56 113.6,58.7 113.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"120\" y=\"38\" width=\"70\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"155\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">K/(s+a)</text><line x1=\"190\" y1=\"56\" x2=\"230\" y2=\"56\"/><line x1=\"230\" y1=\"56\" x2=\"270\" y2=\"56\"/><polygon points=\"270,56 263.6,58.7 263.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"286\" y=\"60\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">y</text><circle cx=\"250\" cy=\"56\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"250\" y1=\"56\" x2=\"250\" y2=\"118\"/><line x1=\"250\" y1=\"118\" x2=\"190\" y2=\"118\"/><rect x=\"120\" y=\"100\" width=\"70\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"155\" y=\"122\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"120\" y1=\"118\" x2=\"76\" y2=\"118\"/><line x1=\"76\" y1=\"118\" x2=\"76\" y2=\"66\"/><polygon points=\"76,66 78.7,72.4 73.3,72.4\" fill=\"currentColor\" stroke=\"none\"/></svg>",
+      "figure_alt": "Unity negative-feedback loop around the block K/(s+a)."
     },
     {
       "id": "tf-r3-q3",
       "round": 3,
       "type": "mc",
-      "prompt": "A circuit has voltage transfer function \\(H=0.5\\angle-90^{\\circ}\\) at the frequency of the input \\(v_{\\mathrm{in}}(t)=2\\sin(\\omega t)\\ \\mathrm{V}\\). Which is the steady-state output?",
+      "prompt": "A system has transfer function \\(H=0.5\\angle-90^{\\circ}\\) at the frequency of the input \\(x(t)=2\\sin(\\omega t)\\). Which is the steady-state output?",
       "options": [
-        "\\(\\sin(\\omega t)\\ \\mathrm{V}\\)",
-        "\\(\\cos(\\omega t)\\ \\mathrm{V}\\)",
-        "\\(-\\sin(\\omega t)\\ \\mathrm{V}\\)",
-        "\\(-\\cos(\\omega t)\\ \\mathrm{V}\\)"
+        "\\(\\sin(\\omega t)\\)",
+        "\\(\\cos(\\omega t)\\)",
+        "\\(-\\sin(\\omega t)\\)",
+        "\\(-\\cos(\\omega t)\\)"
       ],
       "correct_index": 3,
-      "explanation": "The amplitude is \\(2\\times 0.5=1\\ \\mathrm{V}\\), and the phase shift is −90° applied to a sine: \\(1\\cdot\\sin(\\omega t-90^{\\circ})\\). Since \\(\\sin(x-90^{\\circ})=-\\cos(x)\\), the output is \\(-\\cos(\\omega t)\\ \\mathrm{V}\\).\n• \\(\\sin(\\omega t)\\) ignores the phase shift.\n• \\(\\cos(\\omega t)\\) has the wrong sign: \\(\\sin(x-90^{\\circ})=-\\cos x\\), not \\(+\\cos x\\). (\\(\\sin(x+90^{\\circ})\\) would give \\(+\\cos x\\).)\n• \\(-\\sin(\\omega t)\\) is a 180° shift, not 90°."
+      "explanation": "The amplitude is \\(2\\times 0.5=1\\), and the phase shift is −90° applied to a sine: \\(1\\cdot\\sin(\\omega t-90^{\\circ})\\). Since \\(\\sin(x-90^{\\circ})=-\\cos(x)\\), the output is \\(-\\cos(\\omega t)\\).\n• \\(\\sin(\\omega t)\\) ignores the phase shift.\n• \\(\\cos(\\omega t)\\) has the wrong sign: \\(\\sin(x-90^{\\circ})=-\\cos x\\), not \\(+\\cos x\\). (\\(\\sin(x+90^{\\circ})\\) would give \\(+\\cos x\\).)\n• \\(-\\sin(\\omega t)\\) is a 180° shift, not 90°."
     },
     {
       "id": "tf-r4-q1",
       "round": 4,
-      "type": "mc",
-      "prompt": "Preview of the common-source amplifier. A transistor produces a drain current \\(i_{d}=g_{m}\\cdot v_{\\mathrm{gs}}\\), a transadmittance of \\(g_{m}=2\\ \\mathrm{mS}\\) (this current flows from the supply through \\(R_{D}=5\\ \\mathrm{k}\\Omega\\) to the drain, so \\(v_{\\mathrm{out}}=-i_{d}\\cdot R_{D}\\)). The small-signal input is \\(v_{\\mathrm{gs}}=10\\cos(\\omega t)\\ \\mathrm{mV}\\). What is \\(v_{\\mathrm{out}}\\)?",
-      "options": [
-        "\\(+100\\cos(\\omega t)\\ \\mathrm{mV}\\)",
-        "\\(-20\\cos(\\omega t)\\ \\mathrm{mV}\\)",
-        "\\(-100\\cos(\\omega t)\\ \\mathrm{mV}\\)",
-        "\\(-10\\cos(\\omega t)\\ \\mathrm{mV}\\)"
-      ],
-      "correct_index": 2,
-      "explanation": "Chain the two transfer functions: first a transadmittance (voltage → current), then a transimpedance with gain \\(-R_{D}\\) (current → voltage).\n\\(i_{d}=2\\ \\mathrm{mS}\\times 10\\ \\mathrm{mV}=20\\ \\mu\\mathrm{A}\\); \\(v_{\\mathrm{out}}=-20\\ \\mu\\mathrm{A}\\times 5\\ \\mathrm{k}\\Omega=-100\\ \\mathrm{mV}\\). The overall voltage gain is \\(-g_{m}\\ R_{D}=-10\\ \\mathrm{V}/\\mathrm{V}\\) (an inverting amplifier, phase 180°).\n• +100 mV misses the inversion.\n• −20 mV forgets to multiply by \\(R_{D}\\ (20\\ \\mu\\mathrm{A}\\) is the current, not a voltage).\n• −10 mV is the gain \\(-g_{m}R_{D}\\) with no input amplitude applied.",
+      "type": "numeric",
+      "prompt": "Preview of poles and zeros. \\(H(s)=\\dfrac{s+4}{s^2+5s+6}\\). The poles are the roots of the denominator. What is the magnitude of the pole farthest from the origin?",
+      "answer": 3.0,
+      "unit": "",
+      "tolerance": 0.02,
+      "explanation": "\\(s^2+5s+6=(s+2)(s+3)\\), so the poles are at \\(-2\\) and \\(-3\\); the farthest is at distance 3. The numerator root \\(-4\\) is a zero, not a pole.\n• Answering 4 picks the zero.\n• Answering 6 reads the constant term, which is the product of the pole magnitudes.",
       "preview": [
-        "cs-intro"
+        "pole-zero"
       ]
     },
     {
       "id": "tf-r4-q2",
       "round": 4,
       "type": "numeric",
-      "prompt": "Preview of feedback. A later skill shows that when a forward amplifier with voltage gain A is wrapped in a feedback path with gain \\(\\beta\\), the overall (closed-loop) transfer function is \\(A/(1+A\\beta)\\). Find the closed-loop gain for A \\(=1000\\ \\mathrm{V}/\\mathrm{V}\\) and \\(\\beta=0.1\\).",
+      "prompt": "Preview of feedback. A later skill shows that when a forward block with gain A is wrapped in a feedback path with gain \\(\\beta\\), the overall (closed-loop) transfer function is \\(A/(1+A\\beta)\\). Find the closed-loop gain for A \\(=1000\\) and \\(\\beta=0.1\\).",
       "answer": 9.90099,
-      "unit": "V/V",
+      "unit": "",
       "tolerance": 0.02,
-      "explanation": "\\(A_{\\mathrm{cl}}=1000/(1+1000\\times 0.1)=1000/101=9.901\\ \\mathrm{V}/\\mathrm{V}\\), very close to \\(1/\\beta=10\\).\nEach block is a transfer function, and the loop combines them algebraically. Common mistake: computing \\(A/(1+A)\\ (=0.999\\), forgetting \\(\\beta\\)) or \\(1/(1+A\\beta)\\).",
+      "explanation": "\\(A_{\\mathrm{cl}}=1000/(1+1000\\times 0.1)=1000/101=9.901\\), very close to \\(1/\\beta=10\\).\nEach block is a transfer function, and the loop combines them algebraically. Common mistake: computing \\(A/(1+A)\\ (=0.999\\), forgetting \\(\\beta\\)) or \\(1/(1+A\\beta)\\).",
       "preview": [
         "fb-intro"
       ],
@@ -158,11 +156,11 @@
       "id": "tf-r4-q3",
       "round": 4,
       "type": "numeric",
-      "prompt": "Preview of poles and zeros. An amplifier's gain is \\(G_{v}(j\\omega)=100/(1+jf/10\\ \\mathrm{kHz})\\). For a 1 mV amplitude input at 100 kHz, what is the output amplitude in mV?",
+      "prompt": "Preview of poles and zeros. A system has \\(G(j\\omega)=100/(1+jf/10\\ \\mathrm{kHz})\\). For an input of amplitude 1 at 100 kHz, what is the output amplitude?",
       "answer": 9.95037,
-      "unit": "mV",
+      "unit": "",
       "tolerance": 0.02,
-      "explanation": "At \\(f=100\\ \\mathrm{kHz}\\): \\(f/f_{p}=10\\), so \\(|G_{v}|=100/\\sqrt{1+100}=100/10.05=9.95\\).\nOutput amplitude \\(=1\\ \\mathrm{mV}\\times 9.95=9.95\\ \\mathrm{mV}\\).\nThe pole at 10 kHz has cut the gain from 100 to about 10 by 100 kHz (one decade above the pole: −20 dB). Common mistake: using the DC gain, giving 100 mV.",
+      "explanation": "At \\(f=100\\ \\mathrm{kHz}\\): \\(f/f_{p}=10\\), so \\(|G|=100/\\sqrt{1+100}=100/10.05=9.95\\).\nOutput amplitude \\(=1\\times 9.95=9.95\\).\nThe pole at 10 kHz has cut the gain from 100 to about 10 by 100 kHz (one decade above the pole: −20 dB). Common mistake: using the DC gain, giving 100.",
       "preview": [
         "pole-zero"
       ],

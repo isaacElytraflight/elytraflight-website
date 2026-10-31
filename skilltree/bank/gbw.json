@@ -1,6 +1,6 @@
 {
   "skill_id": "gbw",
-  "version": 1,
+  "version": 3,
   "questions": [
     {
       "id": "gbw-r1-q1",
@@ -149,7 +149,7 @@
       "id": "gbw-r4-q2",
       "round": 4,
       "type": "numeric",
-      "prompt": "Preview of stability. An op-amp has \\(A_0=10^5\\), a dominant pole at 100 Hz (so \\(f_u=10\\ \\mathrm{MHz}\\)) and a second pole at 5 MHz. With \\(f=0.1\\) the loop gain \\(T=Af\\) crosses unity near \\(f\\cdot f_u=1\\ \\mathrm{MHz}\\). What is the phase of \\(T\\) at 1 MHz, in degrees?",
+      "prompt": "Preview of amplifier compensation. An op-amp has \\(A_0=10^5\\), a dominant pole at 100 Hz (so \\(f_u=10\\ \\mathrm{MHz}\\)) and a second pole at 5 MHz. With \\(f=0.1\\) the loop gain \\(T=Af\\) crosses unity near \\(f\\cdot f_u=1\\ \\mathrm{MHz}\\). What is the phase of \\(T\\) at 1 MHz, in degrees?",
       "answer": -101.304,
       "unit": "degrees",
       "tolerance": 0.02,
@@ -157,7 +157,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Open-loop gain |A| (asymptotic)</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|A| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,46.2 115,46.2 277.5,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"132.4\" x2=\"53\" y2=\"132.4\"/><text x=\"44\" y=\"135.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"110.9\" x2=\"53\" y2=\"110.9\"/><text x=\"44\" y=\"113.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"89.3\" x2=\"53\" y2=\"89.3\"/><text x=\"44\" y=\"92.3\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"47\" y1=\"67.7\" x2=\"53\" y2=\"67.7\"/><text x=\"44\" y=\"70.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">80</text><line x1=\"47\" y1=\"46.2\" x2=\"53\" y2=\"46.2\"/><text x=\"44\" y=\"49.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">100</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"82.5\" y1=\"151\" x2=\"82.5\" y2=\"157\"/><text x=\"82.5\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"115\" y1=\"151\" x2=\"115\" y2=\"157\"/><text x=\"115\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"147.5\" y1=\"151\" x2=\"147.5\" y2=\"157\"/><text x=\"147.5\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"180\" y1=\"151\" x2=\"180\" y2=\"157\"/><text x=\"180\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"212.5\" y1=\"151\" x2=\"212.5\" y2=\"157\"/><text x=\"212.5\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"245\" y1=\"151\" x2=\"245\" y2=\"157\"/><text x=\"245\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"277.5\" y1=\"151\" x2=\"277.5\" y2=\"157\"/><text x=\"277.5\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁸</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><text x=\"267.7\" y=\"142\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2nd pole 5 MHz</text></svg>",
       "figure_alt": "Open-loop Bode magnitude: 100 dB to 100 Hz, then -20 dB/decade, with a second pole marked at 5 MHz.",
       "preview": [
-        "stability"
+        "amp-compensation"
       ]
     },
     {

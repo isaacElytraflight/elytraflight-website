@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "generated": "2026-10-30T23:35:05.958761Z",
+  "generated": "2026-10-31T02:01:11.242142Z",
   "skills": {
-    "file": "skills.df6860a3.json",
-    "hash": "df6860a3"
+    "file": "skills.9537bae3.json",
+    "hash": "9537bae3"
   },
   "collections": {
-    "file": "collections.5e08f301.json",
-    "hash": "5e08f301",
+    "file": "collections.17ae963b.json",
+    "hash": "17ae963b",
     "boxCount": 43
   },
   "banks": {
@@ -34,6 +34,18 @@
       },
       "hash": "65054c65",
       "file": "banks/amp-choice.65054c65.json"
+    },
+    "amp-compensation": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "e7b46f9c",
+      "file": "banks/amp-compensation.e7b46f9c.json"
     },
     "bias-coupling": {
       "version": 1,
@@ -119,7 +131,7 @@
       "hash": "f2be7bfe",
       "file": "banks/bjt-struct.f2be7bfe.json"
     },
-    "bode": {
+    "bode-circuits": {
       "version": 1,
       "questionCount": 12,
       "rounds": {
@@ -128,8 +140,20 @@
         "3": 3,
         "4": 3
       },
-      "hash": "d62f9fad",
-      "file": "banks/bode.d62f9fad.json"
+      "hash": "89d7ea1f",
+      "file": "banks/bode-circuits.89d7ea1f.json"
+    },
+    "bode": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "08d7b84f",
+      "file": "banks/bode.08d7b84f.json"
     },
     "body-effect": {
       "version": 1,
@@ -300,7 +324,7 @@
       "file": "banks/cs-brute.562d3fbc.json"
     },
     "cs-cap-load": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -308,11 +332,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3c3442c5",
-      "file": "banks/cs-cap-load.3c3442c5.json"
+      "hash": "eaa36b38",
+      "file": "banks/cs-cap-load.eaa36b38.json"
     },
     "cs-cascade-freq": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -320,8 +344,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ea73d10f",
-      "file": "banks/cs-cascade-freq.ea73d10f.json"
+      "hash": "74f20804",
+      "file": "banks/cs-cascade-freq.74f20804.json"
     },
     "cs-cascade": {
       "version": 1,
@@ -348,7 +372,7 @@
       "file": "banks/cs-intro.1db74cdb.json"
     },
     "cx-exp": {
-      "version": 1,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -356,8 +380,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "342c9baa",
-      "file": "banks/cx-exp.342c9baa.json"
+      "hash": "1b9316a6",
+      "file": "banks/cx-exp.1b9316a6.json"
     },
     "datasheet": {
       "version": 1,
@@ -575,7 +599,7 @@
       "hash": "92496aaf",
       "file": "banks/excess-carriers.92496aaf.json"
     },
-    "fb-errors": {
+    "fb-amp-errors": {
       "version": 1,
       "questionCount": 12,
       "rounds": {
@@ -584,8 +608,32 @@
         "3": 3,
         "4": 3
       },
-      "hash": "d1f2d2b9",
-      "file": "banks/fb-errors.d1f2d2b9.json"
+      "hash": "bb28e87e",
+      "file": "banks/fb-amp-errors.bb28e87e.json"
+    },
+    "fb-amp": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b59aa5be",
+      "file": "banks/fb-amp.b59aa5be.json"
+    },
+    "fb-errors": {
+      "version": 2,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d5e48e95",
+      "file": "banks/fb-errors.d5e48e95.json"
     },
     "fb-impedance": {
       "version": 1,
@@ -600,7 +648,7 @@
       "file": "banks/fb-impedance.f0cdfd43.json"
     },
     "fb-intro": {
-      "version": 1,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -608,8 +656,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "9823bfbb",
-      "file": "banks/fb-intro.9823bfbb.json"
+      "hash": "3cf5d2c9",
+      "file": "banks/fb-intro.3cf5d2c9.json"
     },
     "freq-basics": {
       "version": 1,
@@ -624,6 +672,18 @@
       "file": "banks/freq-basics.a8d2d187.json"
     },
     "freq-char": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "cb0a1fb3",
+      "file": "banks/freq-char.cb0a1fb3.json"
+    },
+    "freq-resp-circuits": {
       "version": 1,
       "questionCount": 12,
       "rounds": {
@@ -632,8 +692,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e8970ebd",
-      "file": "banks/freq-char.e8970ebd.json"
+      "hash": "263e5dd3",
+      "file": "banks/freq-resp-circuits.263e5dd3.json"
     },
     "ft": {
       "version": 1,
@@ -648,7 +708,7 @@
       "file": "banks/ft.36d27dc2.json"
     },
     "gbw": {
-      "version": 1,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -656,8 +716,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "9c17c0cd",
-      "file": "banks/gbw.9c17c0cd.json"
+      "hash": "b5c4c9b9",
+      "file": "banks/gbw.b5c4c9b9.json"
     },
     "gm": {
       "version": 1,
@@ -708,7 +768,7 @@
       "file": "banks/ic-fab.ea794ad8.json"
     },
     "impulse-conv": {
-      "version": 1,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -716,8 +776,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "58f7af37",
-      "file": "banks/impulse-conv.58f7af37.json"
+      "hash": "1ad8c5f8",
+      "file": "banks/impulse-conv.1ad8c5f8.json"
     },
     "intrinsic": {
       "version": 1,
@@ -768,6 +828,18 @@
       "file": "banks/led.a06a5fee.json"
     },
     "loop-gain": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "11a2d4ef",
+      "file": "banks/loop-gain.11a2d4ef.json"
+    },
+    "loop-margin-design": {
       "version": 1,
       "questionCount": 12,
       "rounds": {
@@ -776,10 +848,34 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ac4ec2e7",
-      "file": "banks/loop-gain.ac4ec2e7.json"
+      "hash": "582bb8fa",
+      "file": "banks/loop-margin-design.582bb8fa.json"
+    },
+    "lti-circuits": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "399b0a85",
+      "file": "banks/lti-circuits.399b0a85.json"
     },
     "lti-def": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "e27ad69e",
+      "file": "banks/lti-def.e27ad69e.json"
+    },
+    "lti-mech": {
       "version": 1,
       "questionCount": 12,
       "rounds": {
@@ -788,8 +884,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "483809bf",
-      "file": "banks/lti-def.483809bf.json"
+      "hash": "0f5f7238",
+      "file": "banks/lti-mech.0f5f7238.json"
     },
     "miller": {
       "version": 1,
@@ -960,7 +1056,7 @@
       "file": "banks/noise-dist.89c6c06a.json"
     },
     "octc": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -968,8 +1064,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ee5daecb",
-      "file": "banks/octc.ee5daecb.json"
+      "hash": "e68a93e8",
+      "file": "banks/octc.e68a93e8.json"
     },
     "offset": {
       "version": 1,
@@ -1044,7 +1140,7 @@
       "file": "banks/pn-overview.a6697a38.json"
     },
     "pole-zero": {
-      "version": 1,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1052,11 +1148,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ff064709",
-      "file": "banks/pole-zero.ff064709.json"
+      "hash": "4659fd9e",
+      "file": "banks/pole-zero.4659fd9e.json"
     },
     "rc-lpf": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1064,8 +1160,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "2819bcc1",
-      "file": "banks/rc-lpf.2819bcc1.json"
+      "hash": "642140ff",
+      "file": "banks/rc-lpf.642140ff.json"
     },
     "ref-gen": {
       "version": 1,
@@ -1092,7 +1188,7 @@
       "file": "banks/rev-bias.3d1a3792.json"
     },
     "rlc": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1100,8 +1196,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "4de08526",
-      "file": "banks/rlc.4de08526.json"
+      "hash": "6d8579f0",
+      "file": "banks/rlc.6d8579f0.json"
     },
     "ro": {
       "version": 1,
@@ -1140,7 +1236,7 @@
       "file": "banks/si-props.f8d1d852.json"
     },
     "sinusoid-resp": {
-      "version": 1,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1148,8 +1244,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "86bdd0a2",
-      "file": "banks/sinusoid-resp.86bdd0a2.json"
+      "hash": "ec140e3d",
+      "file": "banks/sinusoid-resp.ec140e3d.json"
     },
     "slew": {
       "version": 1,
@@ -1200,7 +1296,7 @@
       "file": "banks/ss-model.fd5d74e0.json"
     },
     "stability": {
-      "version": 1,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1208,11 +1304,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "66ad83fe",
-      "file": "banks/stability.66ad83fe.json"
+      "hash": "9702f1d0",
+      "file": "banks/stability.9702f1d0.json"
     },
     "step-resp": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1220,11 +1316,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f7f0cd49",
-      "file": "banks/step-resp.f7f0cd49.json"
+      "hash": "6a45f1a8",
+      "file": "banks/step-resp.6a45f1a8.json"
     },
     "tf": {
-      "version": 1,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1232,8 +1328,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "1e0c5d64",
-      "file": "banks/tf.1e0c5d64.json"
+      "hash": "b4f1f843",
+      "file": "banks/tf.b4f1f843.json"
     },
     "total-current": {
       "version": 1,
@@ -1295,6 +1391,11 @@
       "file": "explainers/amp-choice.0a449253.json",
       "sectionCount": 5
     },
+    "amp-compensation": {
+      "hash": "3cd7c696",
+      "file": "explainers/amp-compensation.3cd7c696.json",
+      "sectionCount": 5
+    },
     "bias-coupling": {
       "hash": "a42fccbf",
       "file": "explainers/bias-coupling.a42fccbf.json",
@@ -1330,9 +1431,14 @@
       "file": "explainers/bjt-struct.f75a4463.json",
       "sectionCount": 5
     },
+    "bode-circuits": {
+      "hash": "68c25e12",
+      "file": "explainers/bode-circuits.68c25e12.json",
+      "sectionCount": 5
+    },
     "bode": {
-      "hash": "1ceb432c",
-      "file": "explainers/bode.1ceb432c.json",
+      "hash": "0dfb71ba",
+      "file": "explainers/bode.0dfb71ba.json",
       "sectionCount": 5
     },
     "body-effect": {
@@ -1426,8 +1532,8 @@
       "sectionCount": 5
     },
     "cx-exp": {
-      "hash": "a62af9c9",
-      "file": "explainers/cx-exp.a62af9c9.json",
+      "hash": "f165adcd",
+      "file": "explainers/cx-exp.f165adcd.json",
       "sectionCount": 5
     },
     "datasheet": {
@@ -1520,9 +1626,19 @@
       "file": "explainers/excess-carriers.0b2bad25.json",
       "sectionCount": 5
     },
+    "fb-amp-errors": {
+      "hash": "9955c4aa",
+      "file": "explainers/fb-amp-errors.9955c4aa.json",
+      "sectionCount": 5
+    },
+    "fb-amp": {
+      "hash": "147a4302",
+      "file": "explainers/fb-amp.147a4302.json",
+      "sectionCount": 5
+    },
     "fb-errors": {
-      "hash": "7b1504e3",
-      "file": "explainers/fb-errors.7b1504e3.json",
+      "hash": "f6735430",
+      "file": "explainers/fb-errors.f6735430.json",
       "sectionCount": 5
     },
     "fb-impedance": {
@@ -1531,8 +1647,8 @@
       "sectionCount": 5
     },
     "fb-intro": {
-      "hash": "88249a23",
-      "file": "explainers/fb-intro.88249a23.json",
+      "hash": "64704698",
+      "file": "explainers/fb-intro.64704698.json",
       "sectionCount": 5
     },
     "freq-basics": {
@@ -1541,8 +1657,13 @@
       "sectionCount": 5
     },
     "freq-char": {
-      "hash": "b7f890ed",
-      "file": "explainers/freq-char.b7f890ed.json",
+      "hash": "4eb45a3e",
+      "file": "explainers/freq-char.4eb45a3e.json",
+      "sectionCount": 5
+    },
+    "freq-resp-circuits": {
+      "hash": "da02bdc0",
+      "file": "explainers/freq-resp-circuits.da02bdc0.json",
       "sectionCount": 5
     },
     "ft": {
@@ -1576,8 +1697,8 @@
       "sectionCount": 5
     },
     "impulse-conv": {
-      "hash": "8f37aaf0",
-      "file": "explainers/impulse-conv.8f37aaf0.json",
+      "hash": "c4b7cff5",
+      "file": "explainers/impulse-conv.c4b7cff5.json",
       "sectionCount": 5
     },
     "intrinsic": {
@@ -1601,13 +1722,28 @@
       "sectionCount": 5
     },
     "loop-gain": {
-      "hash": "7100d26f",
-      "file": "explainers/loop-gain.7100d26f.json",
+      "hash": "c3797457",
+      "file": "explainers/loop-gain.c3797457.json",
+      "sectionCount": 5
+    },
+    "loop-margin-design": {
+      "hash": "300275d9",
+      "file": "explainers/loop-margin-design.300275d9.json",
+      "sectionCount": 5
+    },
+    "lti-circuits": {
+      "hash": "693afd4b",
+      "file": "explainers/lti-circuits.693afd4b.json",
       "sectionCount": 5
     },
     "lti-def": {
-      "hash": "8bf367c9",
-      "file": "explainers/lti-def.8bf367c9.json",
+      "hash": "19ef7dec",
+      "file": "explainers/lti-def.19ef7dec.json",
+      "sectionCount": 5
+    },
+    "lti-mech": {
+      "hash": "fa3d616b",
+      "file": "explainers/lti-mech.fa3d616b.json",
       "sectionCount": 5
     },
     "miller": {
@@ -1716,8 +1852,8 @@
       "sectionCount": 5
     },
     "pole-zero": {
-      "hash": "4172cb82",
-      "file": "explainers/pole-zero.4172cb82.json",
+      "hash": "f60b27a0",
+      "file": "explainers/pole-zero.f60b27a0.json",
       "sectionCount": 5
     },
     "rc-lpf": {
@@ -1756,8 +1892,8 @@
       "sectionCount": 5
     },
     "sinusoid-resp": {
-      "hash": "a20ffaba",
-      "file": "explainers/sinusoid-resp.a20ffaba.json",
+      "hash": "4f74accf",
+      "file": "explainers/sinusoid-resp.4f74accf.json",
       "sectionCount": 5
     },
     "slew": {
@@ -1781,18 +1917,18 @@
       "sectionCount": 5
     },
     "stability": {
-      "hash": "499cb8d5",
-      "file": "explainers/stability.499cb8d5.json",
+      "hash": "d39a35e7",
+      "file": "explainers/stability.d39a35e7.json",
       "sectionCount": 5
     },
     "step-resp": {
-      "hash": "b6dbebd2",
-      "file": "explainers/step-resp.b6dbebd2.json",
+      "hash": "14cb0b74",
+      "file": "explainers/step-resp.14cb0b74.json",
       "sectionCount": 5
     },
     "tf": {
-      "hash": "7c427736",
-      "file": "explainers/tf.7c427736.json",
+      "hash": "a4b8b86c",
+      "file": "explainers/tf.a4b8b86c.json",
       "sectionCount": 5
     },
     "total-current": {

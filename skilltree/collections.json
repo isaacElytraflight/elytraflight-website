@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "boxes": [
     {
       "id": "ee105-ucb",
@@ -42,7 +42,9 @@
         "sinusoid-resp",
         "impulse-conv",
         "step-resp",
-        "freq-char"
+        "freq-char",
+        "lti-circuits",
+        "freq-resp-circuits"
       ]
     },
     {
@@ -58,7 +60,8 @@
         "pole-zero",
         "rlc",
         "bode",
-        "ac-power"
+        "ac-power",
+        "bode-circuits"
       ]
     },
     {
@@ -279,7 +282,10 @@
         "inverting",
         "fb-errors",
         "fb-impedance",
-        "stability"
+        "stability",
+        "fb-amp",
+        "fb-amp-errors",
+        "amp-compensation"
       ]
     },
     {
@@ -338,7 +344,6 @@
       "children": [],
       "skills": [
         "step-resp",
-        "rc-lpf",
         "fb-errors",
         "laplace",
         "first-order-sys",
@@ -346,7 +351,8 @@
         "step-specs",
         "pid",
         "windup",
-        "pid-tuning"
+        "pid-tuning",
+        "lti-mech"
       ],
       "color_index": 20
     },
@@ -389,10 +395,10 @@
       "kind": "chapter",
       "children": [],
       "skills": [
-        "margins",
         "sensitivity",
         "uncertainty",
-        "robust-stability"
+        "robust-stability",
+        "loop-margin-design"
       ],
       "color_index": 23
     },
@@ -496,7 +502,8 @@
         "ode-model",
         "state-space-model",
         "model-method",
-        "sys-id"
+        "sys-id",
+        "lti-mech"
       ],
       "color_index": 29
     },
@@ -602,9 +609,9 @@
         "loop-tf",
         "nyquist",
         "time-delay",
-        "margins",
         "min-phase",
-        "gen-gain-phase"
+        "gen-gain-phase",
+        "loop-margin-design"
       ],
       "color_index": 36
     },
@@ -655,7 +662,6 @@
       "kind": "chapter",
       "children": [],
       "skills": [
-        "rc-lpf",
         "lin-algebra-review",
         "gain-scheduling",
         "mpc",

@@ -1,6 +1,6 @@
 {
   "skill_id": "rlc",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "rlc-r1-q1",
@@ -128,13 +128,13 @@
       "id": "rlc-r4-q1",
       "round": 4,
       "type": "numeric",
-      "prompt": "Preview of stability. A later skill analyzes feedback amplifiers whose closed-loop response has the denominator \\(s^{2}+2\\times 10^{5}\\cdot s+10^{12}\\ (s\\) in \\(\\mathrm{rad}/\\mathrm{s}\\)). Compare it with the series-RLC form \\(s^{2}+(R/L)s+1/(LC)=s^{2}+(\\omega_{0}/Q)s+\\omega_{0}^{2}\\) . What Q does this feedback amplifier have?",
+      "prompt": "Preview of amplifier compensation. A later skill analyzes feedback amplifiers whose closed-loop response has the denominator \\(s^{2}+2\\times 10^{5}\\cdot s+10^{12}\\ (s\\) in \\(\\mathrm{rad}/\\mathrm{s}\\)). Compare it with the series-RLC form \\(s^{2}+(R/L)s+1/(LC)=s^{2}+(\\omega_{0}/Q)s+\\omega_{0}^{2}\\) . What Q does this feedback amplifier have?",
       "answer": 5.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
       "explanation": "Match coefficients: \\(\\omega_{0}^{2}=10^{12}\\) ⇒ \\(\\omega_{0}=10^{6}\\ \\mathrm{rad}/\\mathrm{s}\\). \\(\\omega_{0}/Q=2\\times 10^{5}\\) ⇒ \\(Q=10^{6}/(2\\times 10^{5})=5\\).\nA Q of 5 means a lightly damped, strongly peaking response: the poles are very close to the \\(j\\omega\\) axis, where an amplifier would ring badly or oscillate. Keeping Q low enough (well below 1) is a key goal of the stability skill. Common mistake: using \\(Q=\\omega_{0}/(2\\times 2\\times 10^{5})=2.5\\); the s-coefficient is \\(\\omega_{0}/Q\\) itself, with no extra factor of 2.",
       "preview": [
-        "stability"
+        "amp-compensation"
       ]
     },
     {
