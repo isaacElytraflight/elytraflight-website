@@ -84,7 +84,7 @@ function getSkillBox(skillId) {
 }
 
 function getSkillColorIndex(skillId) {
-  const chapters = chaptersFor(skillId, filter && filter.box);
+  const chapters = chaptersFor(skillId, null);
   const box = chapters.find(b => b.color_index != null) || getSkillBox(skillId);
   if (box && box.color_index != null) return box.color_index;
   const s = byId[skillId];
@@ -128,7 +128,6 @@ async function fetchExplainer(skillId) {
 /* ====================== constants & helpers ====================== */
 const KEY='skilltree.progress.v1', UIKEY='skilltree.ui.v1';
 const PLAN_SCOPE_KEY='skilltree.planscope.v1';
-const COLLAPSE_KEY='skilltree.collapsed.v1';
 const TIERS=['Unpracticed','Practiced','Level 1','Level 2','Mastered'];
 const FILL=[0,30,55,80,100];
 const PALETTE=['#ff6b6b','#ff9f43','#f4b400','#8bc34a','#2ed47a','#14c1a8','#22b8e6','#4c8dff','#7c6cff','#b15cff','#e25ce0','#ff5c9d','#f2784b','#6fae2e','#1fa39a','#5a7bef','#9a63d9','#d9588a'];
@@ -446,10 +445,6 @@ function scopeRootId(boxId) {
   return cur || boxId;
 }
 
-function layoutRoot() {
-  return filter.box ? scopeRootId(filter.box) : null;
-}
-
 function isDescendantBox(boxId, ancestorId) {
   let cur = boxId;
   const seen = new Set();
@@ -461,11 +456,8 @@ function isDescendantBox(boxId, ancestorId) {
   return false;
 }
 
-function visibleContainers() {
-  const tops = topLevelBoxes();
-  const root = layoutRoot();
-  if (!root) return tops;
-  return tops.filter(b => b.id === root);
+function isStrictDescendant(boxId, ancestorId) {
+  return boxId !== ancestorId && isDescendantBox(boxId, ancestorId);
 }
 
 function chapterBoxesOf(container) {
@@ -497,8 +489,17 @@ function chaptersFor(skillId, scopeBoxId) {
   return inRoot;
 }
 
+function chapterPillText(box) {
+  const m = /^Chapter\s+(\d+)/.exec(box.title || '');
+  if (m) return 'Ch ' + m[1];
+  const tail = (box.id || '').split('/').pop();
+  return tail ? tail.toUpperCase() : '§';
+}
+
 function chapterLabel(skillId) {
-  const chs = chaptersFor(skillId, filter.box);
+  let chs = chaptersFor(skillId, null);
+  const chosen = chs.filter(b => selectedBoxes.has(b.id));
+  if (chosen.length) chs = chosen;
   if (!chs.length) {
     const s = byId[skillId];
     if (s && s.chapter && DATA.chapters && DATA.chapters[s.chapter]) return 'Chapter ' + s.chapter + ': ' + DATA.chapters[s.chapter];
@@ -508,29 +509,8 @@ function chapterLabel(skillId) {
   return chs.map(b => b.title).join(' · ');
 }
 
-function chapterPillText(box) {
-  const m = /^Chapter\s+(\d+)/.exec(box.title || '');
-  if (m) return 'Ch ' + m[1];
-  const tail = (box.id || '').split('/').pop();
-  return tail ? tail.toUpperCase() : '§';
-}
-
-function layoutSkillIds() {
-  const root = layoutRoot();
-  if (!root) return skills.map(s => s.id);
-  const ids = new Set(getBoxDescendantSkills(root));
-  return skills.map(s => s.id).filter(id => ids.has(id));
-}
-
-function tileInScope(tile) {
-  if (!filter.box) return true;
-  const boxId = tile.dataset.box;
-  if (boxId) return boxId === filter.box || isDescendantBox(boxId, filter.box);
-  return skillInBox(tile.dataset.id, filter.box);
-}
-
 function computeTreeLayout() {
-  const ids = layoutSkillIds();
+  const ids = skills.map(s => s.id);
   const idset = new Set(ids);
   const edges = allEdges.filter(([p, c]) => idset.has(p) && idset.has(c));
   const r = ids.length ? layeredLayout(ids, edges) : { pos: {}, mids: {}, w: 200, h: 120, nl: 0, crossings: 0, layerOf: {} };
@@ -544,196 +524,183 @@ function computeTreeLayout() {
   };
 }
 
-function layoutOneContainer(container) {
-  const COLLAPSED_H = 64, CHAPTER_COLLAPSED = 88, COURSE_PAD = 20, INNER_GAP = 14, OUTER_HEAD = 72, CHAPTER_HEAD = 96;
-  const chapters = chapterBoxesOf(container);
-  const places = [];
-  chapters.forEach(ch => (ch.skills || []).forEach(id => { if (byId[id]) places.push({ skillId: id, boxId: ch.id }); }));
-  const kind = container.kind === 'textbook' ? 'textbook' : 'course';
-  if (collapsedBoxes.has(container.id)) {
-    return {
-      nodes: {}, mids: {}, places, edges: [],
-      blobs: { [container.id]: { x: 0, y: 0, w: BMIN, h: COLLAPSED_H, kind, boxId: container.id, children: [] } },
-      w: BMIN, h: COLLAPSED_H
-    };
+function convexHull(points) {
+  const uniq = [];
+  points.map(p => [Math.round(p[0] * 10) / 10, Math.round(p[1] * 10) / 10])
+    .sort((a, b) => a[0] - b[0] || a[1] - b[1])
+    .forEach(p => { const l = uniq[uniq.length - 1]; if (!l || l[0] !== p[0] || l[1] !== p[1]) uniq.push(p); });
+  if (uniq.length <= 2) return uniq;
+  const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const lower = [];
+  uniq.forEach(p => { while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop(); lower.push(p); });
+  const upper = [];
+  for (let i = uniq.length - 1; i >= 0; i--) { const p = uniq[i]; while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop(); upper.push(p); }
+  lower.pop(); upper.pop();
+  return lower.concat(upper);
+}
+
+function boxPad(box) {
+  if (box && (box.kind === 'course' || box.kind === 'textbook')) return 76;
+  return 44;
+}
+
+function boxColorIndex(box) {
+  if (box && box.color_index != null) return box.color_index;
+  if (!box) return 1;
+  if (box.id === 'ee105-ucb') return 41;
+  if (box.id === 'me132') return 42;
+  if (box.id === 'am08') return 43;
+  let h = 0;
+  for (let i = 0; i < box.id.length; i++) h = (h * 33 + box.id.charCodeAt(i)) >>> 0;
+  return 44 + (h % 40);
+}
+
+function boxHue(box) { return Math.round((boxColorIndex(box) * 137.508) % 360); }
+function boxStroke(box) { return 'hsl(' + boxHue(box) + ' 70% 36%)'; }
+function boxFill(box) { return 'hsla(' + boxHue(box) + ' 85% 52% / 0.28)'; }
+
+function leafBoxesFor(skillId) {
+  if (!COLLECTIONS || !COLLECTIONS.boxes) return [];
+  const ids = [];
+  for (const box of COLLECTIONS.boxes) {
+    if (!selectedBoxes.has(box.id) || !skillInBox(skillId, box.id)) continue;
+    ids.push(box.id);
   }
-  const subs = {}, bs = {}, chapterIds = [];
-  for (const chBox of chapters) {
-    const chId = chBox.id;
-    chapterIds.push(chId);
-    const ids = (chBox.skills || []).filter(id => byId[id]);
-    const set = new Set(ids);
-    const collapsed = boxOrAncestorCollapsed(chId);
-    const sub = ids.length ? layeredLayout(ids, allEdges.filter(([p, c]) => set.has(p) && set.has(c))) : { pos: {}, mids: {}, w: 0, h: 0 };
-    subs[chId] = collapsed ? { pos: {}, mids: {}, w: sub.w || 0, h: 0 } : sub;
-    bs[chId] = { w: Math.max((sub.w || 0) + PAD * 2, BMIN), h: (collapsed || !ids.length) ? CHAPTER_COLLAPSED : (CHAPTER_HEAD + sub.h + PAD + 4) };
-  }
-  const chOf = {};
-  chapters.forEach(ch => (ch.skills || []).forEach(id => { if (byId[id]) chOf[id] = ch.id; }));
-  const cpred = {};
-  chapterIds.forEach(c => cpred[c] = new Map());
-  allEdges.forEach(([p, c]) => {
-    const ka = chOf[p], kb = chOf[c];
-    if (ka && kb && ka !== kb && cpred[kb] && cpred[ka]) cpred[kb].set(ka, (cpred[kb].get(ka) || 0) + 1);
-  });
-  const rank = {}, visiting = new Set();
-  const R = c => {
-    if (rank[c] != null) return rank[c];
-    if (visiting.has(c)) return 0;
-    visiting.add(c);
-    let rnk = 0;
-    if (cpred[c]) for (const p of cpred[c].keys()) rnk = Math.max(rnk, 1 + R(p));
-    visiting.delete(c);
-    rank[c] = rnk;
-    return rnk;
+  return ids.filter(id => !ids.some(other => isStrictDescendant(other, id)));
+}
+
+function computeAnchors() {
+  const anchor = {};
+  const layers = (layout.tree && layout.tree.layerOf) || {};
+  const meanLayer = box => {
+    const ids = getBoxDescendantSkills(box.id);
+    if (!ids.length) return 0;
+    return ids.reduce((a, id) => a + (layers[id] || 0), 0) / ids.length;
   };
-  chapterIds.forEach(R);
-  const avgD = {};
-  chapterIds.forEach(key => {
-    const ids = (boxById[key].skills || []).filter(id => byId[id]);
-    const layers = (layout.tree && layout.tree.layerOf) || {};
-    avgD[key] = ids.length ? ids.reduce((a, id) => a + (layers[id] || 0), 0) / ids.length : 0;
+  topLevelBoxes().forEach((b, i) => {
+    const center = i * 1000;
+    anchor[b.id] = center;
+    const kids = (b.children || []).map(id => boxById[id]).filter(Boolean);
+    kids.sort((a, c) => meanLayer(a) - meanLayer(c) || a.id.localeCompare(c.id));
+    kids.forEach((ch, k) => {
+      const t = kids.length === 1 ? 0.5 : k / (kids.length - 1);
+      anchor[ch.id] = center + (t - 0.5) * 480;
+    });
   });
-  const maxRank = chapterIds.length ? Math.max(0, ...chapterIds.map(c => rank[c] || 0)) : 0;
-  const bx = {}, by = {}; let y = 0;
-  const center = c => bx[c] + bs[c].w / 2;
-  const mean = a => a.length ? a.reduce((x, yy) => x + yy, 0) / a.length : 0;
-  for (let r = 0; r <= maxRank; r++) {
-    const row = chapterIds.filter(c => rank[c] === r);
-    const want = c => {
-      const ps = cpred[c] ? [...cpred[c].entries()].filter(([p]) => bx[p] != null) : [];
-      return ps.length ? ps.reduce((a, [p, n]) => a + center(p) * n, 0) / ps.reduce((a, [, n]) => a + n, 0) : null;
-    };
-    row.sort((a, b) => {
-      const wa = want(a), wb = want(b);
-      return (wa == null ? 0 : wa) - (wb == null ? 0 : wb) || avgD[a] - avgD[b] || String(a).localeCompare(String(b));
-    });
-    const subrows = [[]]; let w = 0;
-    row.forEach(c => {
-      if (w && w + bs[c].w + BGAP > ROWMAX) { subrows.push([]); w = 0 }
-      subrows[subrows.length - 1].push(c); w += bs[c].w + BGAP;
-    });
-    subrows.forEach(sr => {
-      const wants = sr.map(c => want(c));
-      const known = wants.filter(v => v != null);
-      const base = known.length ? mean(known) : 0;
-      const tgt = wants.map(v => v == null ? base : v);
-      const seps = sr.slice(1).map((c, i) => (bs[sr[i]].w + bs[c].w) / 2 + BGAP);
-      const xs = pav(tgt, seps, sr.map(() => 1));
-      let rh = 0;
-      sr.forEach((c, i) => { bx[c] = xs[i] - bs[c].w / 2; by[c] = y; rh = Math.max(rh, bs[c].h) });
-      y += rh + RGAP;
-    });
-  }
-  const allKeys = chapterIds.filter(c => bx[c] != null);
-  const minX = allKeys.length ? Math.min(...allKeys.map(c => bx[c])) : 0;
-  const maxX = allKeys.length ? Math.max(...allKeys.map(c => bx[c] + bs[c].w)) : BMIN;
-  const nodes = {}, mids = {}, blobs = {};
-  for (const key of allKeys) {
-    const ox = bx[key] - minX + WPAD, oy = by[key] + WPAD;
-    const ch = boxById[key].color_index || 1;
-    blobs[key] = { x: ox, y: oy, w: bs[key].w, h: bs[key].h, ch, kind: 'chapter', boxId: key };
-    if (subs[key] && subs[key].pos && !collapsedBoxes.has(key)) {
-      const ix = ox + (bs[key].w - subs[key].w) / 2, iy = oy + PAD + 4;
-      for (const id in subs[key].pos) nodes[id] = { x: ix + subs[key].pos[id].x, y: iy + subs[key].pos[id].y };
-      for (const k in subs[key].mids) mids[k] = subs[key].mids[k].map(pt => [ix + pt[0], iy + pt[1]]);
-    }
-  }
-  if (allKeys.length) {
-    const cx0 = Math.min(...allKeys.map(id => blobs[id].x)) - COURSE_PAD;
-    const cy0 = Math.min(...allKeys.map(id => blobs[id].y)) - HDR - INNER_GAP;
-    const cx1 = Math.max(...allKeys.map(id => blobs[id].x + blobs[id].w)) + COURSE_PAD;
-    // The tree is flipped so foundations sit at the bottom, so this inset — added past the pre-flip bottom — is the visual padding above the first chapter.
-    const cy1 = Math.max(...allKeys.map(id => blobs[id].y + blobs[id].h)) + OUTER_HEAD;
-    blobs[container.id] = { x: cx0, y: cy0, w: cx1 - cx0, h: cy1 - cy0, kind, boxId: container.id, children: allKeys.slice() };
-  }
-  const M = 26, edges = [];
-  allEdges.forEach(([p, c]) => {
-    const kp = chOf[p], kc = chOf[c];
-    if (!kp || !kc) return;
-    edges.push({ from: p, to: c, fromBox: kp, toBox: kc });
-    if (kp === kc || !nodes[p] || !nodes[c]) return;
-    const A = blobs[kp], B = blobs[kc], P = nodes[p], Q = nodes[c];
-    if (!A || !B) return;
-    const sx = P.x + TW / 2, sy = P.y + TH, tx = Q.x + TW / 2, ty = Q.y;
-    if (ty <= sy) return;
-    const obs = allKeys.filter(x => x !== kp && x !== kc).map(x => blobs[x]).filter(o => o.y < ty && o.y + o.h > sy).sort((u, v) => u.y - v.y);
-    if (!obs.length) return;
-    const bands = [];
-    obs.forEach(o => {
-      const last = bands[bands.length - 1];
-      if (last && o.y < last.y1 + RGAP * .6) { last.y1 = Math.max(last.y1, o.y + o.h); last.iv.push([o.x - M, o.x + o.w + M]); }
-      else bands.push({ y0: o.y, y1: o.y + o.h, iv: [[o.x - M, o.x + o.w + M]] });
-    });
-    const pts = [];
-    bands.forEach(bd => {
-      const iv = bd.iv.sort((u, v) => u[0] - v[0]).reduce((acc, rng) => { const l = acc[acc.length - 1]; if (l && rng[0] <= l[1]) l[1] = Math.max(l[1], rng[1]); else acc.push([rng[0], rng[1]]); return acc; }, []);
-      const ym = (bd.y0 + bd.y1) / 2, f = Math.max(0, Math.min(1, (ym - sy) / (ty - sy)));
-      let x = sx + (tx - sx) * f;
-      const hit = iv.find(rng => x > rng[0] && x < rng[1]);
-      if (hit) { const l = hit[0], rr = hit[1]; x = (l < 14 || Math.abs(x - l) > Math.abs(rr - x)) ? rr : l; }
-      pts.push([x, Math.max(sy + 8, bd.y0 - RGAP * .35)], [x, Math.min(ty - 8, bd.y1 + RGAP * .35)]);
-    });
-    mids[p + '>' + c] = pts;
+  return anchor;
+}
+
+function sigZone(sig) {
+  if (!sig) return 99;
+  const order = topLevelBoxes().map(b => b.id);
+  const idxs = [...new Set(sig.split('|').map(scopeRootId))].map(id => order.indexOf(id)).filter(i => i >= 0).sort((a, b) => a - b);
+  if (!idxs.length) return 98;
+  return idxs.length === 1 ? idxs[0] * 2 : idxs[0] * 2 + 1;
+}
+
+function regionPoints(ids, nodes, pad) {
+  const pts = [];
+  ids.forEach(id => {
+    const n = nodes[id];
+    if (!n) return;
+    pts.push([n.x - pad, n.y - pad], [n.x + TW + pad, n.y - pad], [n.x - pad, n.y + TH + pad], [n.x + TW + pad, n.y + TH + pad]);
   });
-  const allX = [];
-  for (const k in mids) mids[k].forEach(q => allX.push(q[0]));
-  const blobXs = Object.values(blobs).map(b => b.x);
-  const shiftX = Math.max(0, 20 - Math.min(Infinity, ...allX.concat(blobXs.length ? blobXs : [0])));
-  if (shiftX) {
-    for (const id in nodes) nodes[id].x += shiftX;
-    for (const k in mids) mids[k].forEach(q => q[0] += shiftX);
-    for (const c in blobs) blobs[c].x += shiftX;
-  }
-  const worldW = Math.max(maxX - minX + WPAD * 2, ...allX.map(v => v + WPAD), ...Object.values(blobs).map(b => b.x + b.w + WPAD), BMIN);
-  const worldH = Math.max(1, (y > RGAP ? y - RGAP : y) + WPAD * 2);
-  for (const id in nodes) nodes[id].y = worldH - nodes[id].y - TH;
-  for (const k in mids) mids[k].forEach(q => q[1] = worldH - q[1]);
-  for (const c in blobs) blobs[c].y = worldH - blobs[c].y - blobs[c].h;
-  let minY = 0;
-  Object.values(blobs).forEach(b => { if (b.y < minY) minY = b.y; });
-  Object.values(nodes).forEach(n => { if (n.y < minY) minY = n.y; });
-  if (minY < 0) {
-    const shift = -minY + 8;
-    for (const id in nodes) nodes[id].y += shift;
-    for (const k in mids) mids[k].forEach(q => q[1] += shift);
-    for (const c in blobs) blobs[c].y += shift;
-  }
-  const h = Math.max(worldH, ...Object.values(blobs).map(b => b.y + b.h + 8), ...Object.values(nodes).map(n => n.y + TH + 8), COLLAPSED_H);
-  const w = Math.max(worldW, ...Object.values(blobs).map(b => b.x + b.w + 8), BMIN);
-  return { nodes, mids, blobs, places, edges, w, h };
+  return convexHull(pts);
 }
 
 function computeGroupedLayout() {
-  const containers = visibleContainers();
-  const nodes = {}, mids = {}, blobs = {}, places = [], edges = [];
-  let yOff = 0, maxW = 0;
-  const GAP = 72;
-  containers.forEach(container => {
-    const local = layoutOneContainer(container);
-    for (const k in local.blobs) {
-      const b = local.blobs[k];
-      blobs[k] = Object.assign({}, b, { x: b.x, y: b.y + yOff });
-    }
-    local.places.forEach(p => {
-      const key = p.boxId + '|' + p.skillId;
-      const pos = local.nodes[p.skillId];
-      if (pos) nodes[key] = { x: pos.x, y: pos.y + yOff };
-      if (pos && nodes[p.skillId] == null) nodes[p.skillId] = nodes[key];
-      places.push({ key, skillId: p.skillId, boxId: p.boxId });
-    });
-    local.edges.forEach(e => {
-      const fk = e.fromBox + '|' + e.from, tk = e.toBox + '|' + e.to;
-      edges.push({ from: e.from, to: e.to, fromKey: fk, toKey: tk });
-      const mk = e.from + '>' + e.to;
-      if (local.mids[mk]) mids[fk + '>' + tk] = local.mids[mk].map(pt => [pt[0], pt[1] + yOff]);
-    });
-    yOff += local.h + GAP;
-    maxW = Math.max(maxW, local.w);
+  const tree = layout.tree;
+  const empty = { nodes: {}, mids: {}, blobs: {}, places: [], edges: [], w: 200, h: 120, useNested: false, rank: {} };
+  if (!tree || !skills.length) { layout.grouped = empty; return; }
+  const layerOf = tree.layerOf || {};
+  const GYR_G = 72, COLGAP = 52, ZONE_GAP = 140, OUT_GAP = 160, MARGIN_X = 32, MARGIN_Y = 28;
+  const groups = new Map();
+  skills.forEach(s => {
+    const sig = leafBoxesFor(s.id).slice().sort().join('|');
+    if (!groups.has(sig)) groups.set(sig, []);
+    groups.get(sig).push(s.id);
   });
+  const anchors = computeAnchors();
+  const sigAnchor = sig => {
+    if (!sig) return 1e9;
+    const ids = sig.split('|');
+    return ids.reduce((a, id) => a + (anchors[id] || 0), 0) / ids.length;
+  };
+  const zones = new Map();
+  groups.forEach((_, sig) => {
+    const z = sigZone(sig);
+    if (!zones.has(z)) zones.set(z, []);
+    zones.get(z).push(sig);
+  });
+  const placed = {};
+  let cursor = 0;
+  [...zones.keys()].sort((a, b) => a - b).forEach((z, zi) => {
+    if (zi) cursor += (z >= 99 ? OUT_GAP : ZONE_GAP);
+    const sigs = zones.get(z).slice().sort((a, b) => {
+      const amin = Math.min(...groups.get(a).map(id => layerOf[id] || 0));
+      const bmin = Math.min(...groups.get(b).map(id => layerOf[id] || 0));
+      return amin - bmin || sigAnchor(a) - sigAnchor(b) || a.localeCompare(b);
+    });
+    const columns = [];
+    sigs.forEach(sig => {
+      const counts = {};
+      groups.get(sig).forEach(id => { const l = layerOf[id] || 0; counts[l] = (counts[l] || 0) + 1; });
+      const layers = Object.keys(counts).map(Number);
+      const need = Math.max(...Object.values(counts));
+      let col = columns.find(c => layers.every(l => !c.occ.has(l)));
+      if (!col) { col = { occ: new Set(), w: 0, sigs: [] }; columns.push(col); }
+      layers.forEach(l => col.occ.add(l));
+      col.w = Math.max(col.w, need);
+      col.sigs.push({ sig, counts });
+    });
+    columns.forEach(col => {
+      const width = col.w * TW + Math.max(0, col.w - 1) * GX;
+      col.sigs.forEach(item => { placed[item.sig] = { x: cursor, w: width, counts: item.counts }; });
+      cursor += width + COLGAP;
+    });
+    if (columns.length) cursor -= COLGAP;
+  });
+  const maxL = Math.max(0, ...skills.map(s => layerOf[s.id] || 0));
+  const nodes = {};
+  groups.forEach((ids, sig) => {
+    const slot = placed[sig];
+    if (!slot) return;
+    const byLayer = {};
+    ids.forEach(id => { const l = layerOf[id] || 0; (byLayer[l] || (byLayer[l] = [])).push(id); });
+    Object.keys(byLayer).forEach(ls => {
+      const row = byLayer[ls].sort((a, b) => ((tree.nodes[a] && tree.nodes[a].x) || 0) - ((tree.nodes[b] && tree.nodes[b].x) || 0) || a.localeCompare(b));
+      const rowW = row.length * TW + Math.max(0, row.length - 1) * GX;
+      const start = slot.x + (slot.w - rowW) / 2;
+      const y = (maxL - (+ls)) * (TH + GYR_G);
+      row.forEach((id, i) => { nodes[id] = { x: start + i * (TW + GX), y }; });
+    });
+  });
+  const blobs = {};
+  (COLLECTIONS && COLLECTIONS.boxes || []).filter(b => selectedBoxes.has(b.id)).forEach(box => {
+    const members = getBoxDescendantSkills(box.id).filter(id => nodes[id]);
+    if (!members.length) return;
+    const points = regionPoints(members, nodes, boxPad(box));
+    if (points.length < 3) return;
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    points.forEach(([x, y]) => { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); });
+    blobs[box.id] = { x: x0, y: y0, w: x1 - x0, h: y1 - y0, points, kind: box.kind || 'chapter', boxId: box.id, ch: boxColorIndex(box), pad: boxPad(box) };
+  });
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  Object.values(nodes).forEach(n => { minX = Math.min(minX, n.x); minY = Math.min(minY, n.y); maxX = Math.max(maxX, n.x + TW); maxY = Math.max(maxY, n.y + TH); });
+  Object.values(blobs).forEach(b => { minX = Math.min(minX, b.x); minY = Math.min(minY, b.y); maxX = Math.max(maxX, b.x + b.w); maxY = Math.max(maxY, b.y + b.h); });
+  if (!isFinite(minX)) { minX = 0; minY = 0; maxX = 200; maxY = 120; }
+  const dx = MARGIN_X - minX, dy = MARGIN_Y - minY;
+  Object.values(nodes).forEach(n => { n.x += dx; n.y += dy; });
+  Object.values(blobs).forEach(b => { b.x += dx; b.y += dy; b.points = b.points.map(pt => [pt[0] + dx, pt[1] + dy]); });
+  const selected = (COLLECTIONS && COLLECTIONS.boxes || []).filter(b => selectedBoxes.has(b.id));
   layout.grouped = {
-    nodes, mids, blobs, places, edges,
-    w: Math.max(maxW, 200), h: Math.max(yOff, 120), useNested: containers.length > 0, rank: {}
+    nodes, mids: {}, blobs,
+    places: skills.map(s => ({ key: s.id, skillId: s.id, boxId: null })),
+    edges: allEdges.map(([p, c]) => ({ from: p, to: c, fromKey: p, toKey: c })),
+    w: Math.max(maxX + dx + MARGIN_X, 200),
+    h: Math.max(maxY + dy + MARGIN_Y, 120),
+    useNested: selected.some(b => b.kind === 'chapter') && selected.some(b => b.kind === 'course' || b.kind === 'textbook'),
+    rank: {}
   };
 }
 
@@ -744,8 +711,11 @@ let world, tv, edgesSvg, panel;
 const panelOpen = () => panel && panel.classList.contains('open');
 let view = { x: 20, y: 20, s: 1 }, selected = null, hoverId = null, quizOpen = false;
 let layoutMode = 'tree', curPos = {}, morphRaf = 0;
-const filter = { playable: false, view: 'tree', box: null };
-const collapsedBoxes = new Set();
+const filter = { playable: false, view: 'tree' };
+let selectedBoxes = new Set();
+let scopePanelOpen = false;
+let regionsSvg = null;
+let labelLayer = null;
 const edgeEls = [];
 const drag = { on: false, moved: false, sx: 0, sy: 0, vx: 0, vy: 0 };
 const curL = () => layout[layoutMode];
@@ -801,10 +771,29 @@ function buildTile(s, st, boxId) {
   return b;
 }
 
+function allBoxIds() {
+  return (COLLECTIONS && COLLECTIONS.boxes || []).map(b => b.id);
+}
+function selectionIsAll() {
+  const ids = allBoxIds();
+  return ids.length > 0 && ids.every(id => selectedBoxes.has(id));
+}
+function skillInSelection(id) {
+  if (selectionIsAll()) return true;
+  for (const boxId of selectedBoxes) if (skillInBox(id, boxId)) return true;
+  return false;
+}
+function tileInScope(tile) { return skillInSelection(tile.dataset.id); }
+function selectedInOrder() { return allBoxIds().filter(id => selectedBoxes.has(id)); }
+function scopeForPlan() {
+  if (!COLLECTIONS || !COLLECTIONS.boxes || !COLLECTIONS.boxes.length) return null;
+  if (selectedBoxes.size === 0) return [];
+  if (selectionIsAll()) return null;
+  return selectedInOrder();
+}
 function isOutsidePrereq(id) {
-  if (!filter.box || skillInBox(id, filter.box)) return false;
-  const inside = getBoxDescendantSkills(filter.box);
-  return inside.some(sid => byId[sid] && byId[sid].prereqs.includes(id));
+  if (skillInSelection(id) || selectionIsAll() || selectedBoxes.size === 0) return false;
+  return skills.some(s => skillInSelection(s.id) && s.prereqs.includes(id));
 }
 
 function refreshTile(b) {
@@ -813,8 +802,7 @@ function refreshTile(b) {
   const boxDimmed = !tileInScope(b);
   const outside = isOutsidePrereq(id);
   const lightMode = b.classList.contains('light-mode');
-  const hidden = !st && skillHiddenByCollapse(id, b.dataset.box || null);
-  b.className = 'tile' + (st ? ' st' : '') + ' t' + t + (soon ? ' soon' : '') + (ready ? ' ready' : '') + (selected === id ? ' sel' : '') + (boxDimmed ? ' boxdim' : '') + (outside ? ' ext-prereq' : '') + (lightMode ? ' light-mode' : '') + (hidden ? ' collapsed-hide' : '');
+  b.className = 'tile' + (st ? ' st' : '') + ' t' + t + (soon ? ' soon' : '') + (ready ? ' ready' : '') + (selected === id ? ' sel' : '') + (boxDimmed ? ' boxdim' : '') + (outside ? ' ext-prereq' : '') + (lightMode ? ' light-mode' : '');
   b.style.setProperty('--fill', FILL[t] + '%');
   b.querySelectorAll('.pips i').forEach((p, i) => p.classList.toggle('on', t > i));
   b.querySelector('.tl').textContent = soon ? '' : TIERS[t];
@@ -848,7 +836,11 @@ function routedD(e, L) {
 }
 
 function setEdge(e, r) { e.path.setAttribute('d', r.d); e.dot.setAttribute('cx', r.ex); e.dot.setAttribute('cy', r.ey) }
-function sizeWorld(L) { world.style.width = L.w + 'px'; world.style.height = L.h + 'px'; edgesSvg.setAttribute('width', L.w); edgesSvg.setAttribute('height', L.h) }
+function sizeWorld(L) {
+  world.style.width = L.w + 'px'; world.style.height = L.h + 'px';
+  edgesSvg.setAttribute('width', L.w); edgesSvg.setAttribute('height', L.h);
+  if (regionsSvg) { regionsSvg.setAttribute('width', L.w); regionsSvg.setAttribute('height', L.h); }
+}
 function placeTiles(pos) {
   world.querySelectorAll('.tile').forEach(t => {
     const key = t.dataset.place || t.dataset.id;
@@ -859,51 +851,18 @@ function placeTiles(pos) {
   });
 }
 
-function boxOrAncestorCollapsed(boxId) {
-  let cur = boxId;
-  while (cur) {
-    if (collapsedBoxes.has(cur)) return true;
-    cur = parentOfBox[cur];
-  }
-  return false;
-}
-
-function skillHiddenByCollapse(id, boxId) {
-  if (layoutMode !== 'grouped' || filter.view !== 'tree') return false;
-  if (boxId) return boxOrAncestorCollapsed(boxId);
-  return false;
-}
-
-function edgeHidden(e) {
-  if (layoutMode !== 'grouped' || filter.view !== 'tree') return false;
-  const fromBox = e.fromKey && e.fromKey.includes('|') ? e.fromKey.split('|')[0] : null;
-  const toBox = e.toKey && e.toKey.includes('|') ? e.toKey.split('|')[0] : null;
-  if (fromBox && boxOrAncestorCollapsed(fromBox)) return true;
-  if (toBox && boxOrAncestorCollapsed(toBox)) return true;
-  return false;
-}
-
 function syncTiles() {
-  const want = new Map();
-  if (layoutMode === 'grouped' && layout.grouped && layout.grouped.places) {
-    layout.grouped.places.forEach(p => want.set(p.key, p));
-  } else {
-    layoutSkillIds().forEach(id => want.set(id, { key: id, skillId: id, boxId: null }));
-  }
+  const want = new Set(skills.map(s => s.id));
   world.querySelectorAll('.tile:not(.st)').forEach(t => {
-    const key = t.dataset.place || t.dataset.id;
-    if (!want.has(key)) t.remove();
+    if (!want.has(t.dataset.id) || t.dataset.place) t.remove();
   });
-  want.forEach(p => {
-    const existing = p.boxId
-      ? world.querySelector('.tile[data-place="' + p.key.replace(/"/g, '') + '"]')
-      : world.querySelector('.tile[data-id="' + p.skillId + '"]:not([data-place])');
-    if (existing) return;
-    const tile = buildTile(byId[p.skillId], false, p.boxId);
-    if (p.boxId) tile.dataset.place = p.key;
-    world.append(tile);
+  const have = new Set([...world.querySelectorAll('.tile:not(.st)')].map(t => t.dataset.id));
+  skills.forEach(s => {
+    if (have.has(s.id)) return;
+    world.append(buildTile(s, false, null));
   });
   world.querySelectorAll('.tile:not(.st)').forEach(refreshTile);
+  if (labelLayer) world.append(labelLayer);
 }
 
 function syncEdges() {
@@ -919,110 +878,130 @@ function syncEdges() {
   });
 }
 
-function syncCollapsedTiles() {
-  document.querySelectorAll('#world .tile').forEach(t => {
-    t.classList.toggle('collapsed-hide', skillHiddenByCollapse(t.dataset.id, t.dataset.box || null));
-  });
+function rectsOverlap(a, b, gap) {
+  gap = gap || 0;
+  return a.x < b.x + b.w + gap && b.x < a.x + a.w + gap && a.y < b.y + b.h + gap && b.y < a.y + a.h + gap;
 }
 
-function boxForChapter(ch) {
-  if (!COLLECTIONS || !COLLECTIONS.boxes) return null;
-  return COLLECTIONS.boxes.find(b => b.kind === 'chapter' && (b.color_index === ch || b.id === 'ee105-ch' + ch)) || null;
+function regionLabelText(box) {
+  if (!box) return '';
+  if (box.kind === 'chapter') {
+    const rest = (box.title || box.id).replace(/^Chapter\s+\d+:\s*/, '');
+    const text = chapterPillText(box) + ' · ' + rest;
+    return text.length > 42 ? text.slice(0, 41) + '…' : text;
+  }
+  return box.title || box.id;
 }
 
-function loadCollapsed() {
-  collapsedBoxes.clear();
-  try {
-    const raw = JSON.parse(localStorage.getItem(COLLAPSE_KEY) || '[]');
-    if (!Array.isArray(raw)) return;
-    raw.forEach(id => { if (typeof id === 'string' && boxById[id]) collapsedBoxes.add(id); });
-  } catch (e) { }
-}
-
-function saveCollapsed() {
-  try { localStorage.setItem(COLLAPSE_KEY, JSON.stringify([...collapsedBoxes])); } catch (e) { }
-}
-
-function toggleBoxCollapse(boxId) {
-  if (!boxById[boxId]) return;
-  if (collapsedBoxes.has(boxId)) collapsedBoxes.delete(boxId);
-  else collapsedBoxes.add(boxId);
-  saveCollapsed();
-  rebuildGroupedLayout();
-  const btn = document.querySelector('.blob[data-box="' + (window.CSS && CSS.escape ? CSS.escape(boxId) : boxId) + '"] .toggle');
-  if (btn) btn.focus();
-}
-
-function collapseButton(boxId, title) {
-  const isCollapsed = collapsedBoxes.has(boxId);
-  return el('button', {
-    class: 'toggle',
-    type: 'button',
-    'aria-expanded': String(!isCollapsed),
-    'aria-label': (isCollapsed ? 'Expand ' : 'Collapse ') + title,
-    onclick: e => { e.stopPropagation(); e.preventDefault(); toggleBoxCollapse(boxId); },
-    onpointerdown: e => e.stopPropagation(),
-    onmousedown: e => e.stopPropagation()
-  }, el('span', { class: 'chev', 'aria-hidden': 'true', text: '▼' }));
-}
-
-function rebuildGroupedLayout() {
-  computeGroupedLayout();
-  updateBlobsDOM();
-  if (layoutMode === 'grouped') {
-    showLayout('grouped', false);
-    refreshAll();
+function ensureRegionLayers() {
+  const NS = 'http://www.w3.org/2000/svg';
+  if (!regionsSvg) {
+    regionsSvg = document.createElementNS(NS, 'svg');
+    regionsSvg.id = 'regions';
+    regionsSvg.setAttribute('aria-hidden', 'true');
+    world.insertBefore(regionsSvg, edgesSvg);
+  }
+  if (!labelLayer) {
+    labelLayer = el('div', { id: 'regionLabels' });
+    world.append(labelLayer);
   }
 }
 
 function updateBlobsDOM() {
-  document.querySelectorAll('#world .blob').forEach(b => b.remove());
+  ensureRegionLayers();
+  while (regionsSvg.firstChild) regionsSvg.removeChild(regionsSvg.firstChild);
+  labelLayer.innerHTML = '';
   const G = layout.grouped;
   if (!G) return;
-  const containers = [];
-  for (const key in G.blobs) {
-    const b = G.blobs[key];
-    if (b.kind === 'course' || b.kind === 'textbook') { containers.push(key); continue; }
-    const box = b.boxId && boxById[b.boxId];
-    const ch = b.ch || 1;
-    const title = box ? box.title : ('Ch ' + ch);
-    const isCollapsed = b.boxId && collapsedBoxes.has(b.boxId);
-    const blob = el('div', {
-      class: 'blob chapter' + (isCollapsed ? ' collapsed' : ''),
-      'data-ch': ch,
-      'data-box': b.boxId || '',
-      style: `left:${b.x}px;top:${b.y}px;width:${b.w}px;height:${b.h}px;${colorVars(ch)}`
-    });
-    const hd = el('div', { class: 'hd' });
-    if (b.boxId) hd.append(collapseButton(b.boxId, title));
-    hd.append(
-      el('span', { class: 'cpill', text: box ? chapterPillText(box) : ('Ch ' + ch) }),
-      el('span', { class: 'btitle', text: title.replace(/^Chapter \d+:\s*/, '') }),
-      el('span', { class: 'ct', 'data-ct': b.boxId || '' })
-    );
-    blob.append(hd);
-    world.insertBefore(blob, edgesSvg);
-  }
-  containers.forEach(id => {
+  const NS = 'http://www.w3.org/2000/svg';
+  regionsSvg.setAttribute('width', G.w);
+  regionsSvg.setAttribute('height', G.h);
+  const order = Object.keys(G.blobs).sort((a, b) => {
+    const rank = k => (k === 'course' || k === 'textbook') ? 0 : 1;
+    return rank(G.blobs[a].kind) - rank(G.blobs[b].kind) || (G.blobs[b].w * G.blobs[b].h) - (G.blobs[a].w * G.blobs[a].h);
+  });
+  order.forEach(id => {
     const b = G.blobs[id];
     const box = boxById[id];
-    if (!box) return;
-    const isCollapsed = collapsedBoxes.has(id);
-    const textbook = b.kind === 'textbook';
-    const blob = el('div', {
-      class: 'blob ' + (textbook ? 'textbook' : 'course') + (isCollapsed ? ' collapsed' : ''),
-      'data-box': id,
-      style: `left:${b.x}px;top:${b.y}px;width:${b.w}px;height:${b.h}px;border-color:${textbook ? '#7c6cff' : PALETTE[0]};background:${textbook ? 'rgba(124,108,255,.08)' : 'rgba(255,244,214,.15)'}`
-    });
-    const hd = el('div', { class: 'hd' });
-    hd.append(
-      collapseButton(id, box.title),
-      el('span', { class: 'cpill', style: `background:${textbook ? '#7c6cff' : PALETTE[0]};color:#fff`, text: textbook ? '📘' : '📚' }),
-      el('span', { class: 'btitle', text: box.title })
-    );
-    blob.append(hd);
-    world.insertBefore(blob, edgesSvg);
+    const poly = document.createElementNS(NS, 'polygon');
+    poly.setAttribute('class', 'blob on ' + (b.kind || 'chapter'));
+    poly.setAttribute('data-box', id);
+    poly.setAttribute('points', b.points.map(pt => pt[0].toFixed(1) + ',' + pt[1].toFixed(1)).join(' '));
+    poly.setAttribute('fill', boxFill(box));
+    poly.setAttribute('stroke', boxStroke(box));
+    poly.setAttribute('stroke-width', (b.kind === 'course' || b.kind === 'textbook') ? '3.5' : '2.25');
+    poly.setAttribute('stroke-linejoin', 'round');
+    regionsSvg.append(poly);
   });
+  const tileRects = Object.values(G.nodes).map(n => ({ x: n.x, y: n.y, w: TW, h: TH }));
+  const labels = order.map(id => {
+    const box = boxById[id];
+    const node = el('div', { class: 'region-label', 'data-box': id, title: box ? box.title : id, text: regionLabelText(box) });
+    node.style.position = 'absolute';
+    node.style.whiteSpace = 'nowrap';
+    node.style.color = boxStroke(box);
+    node.style.borderColor = boxStroke(box);
+    labelLayer.append(node);
+    return { id, node, w: Math.max(node.offsetWidth, 8), h: Math.max(node.offsetHeight, 8), bbox: G.blobs[id] };
+  });
+  const placed = [];
+  const fits = r => r.x >= 2 && r.y >= 2 && r.x + r.w < G.w + 240 && !tileRects.some(o => rectsOverlap(r, o, 4)) && !placed.some(o => rectsOverlap(r, o, 4));
+  labels.sort((a, b) => (b.bbox.w * b.bbox.h) - (a.bbox.w * a.bbox.h));
+  labels.forEach(lab => {
+    const b = lab.bbox;
+    const candidates = [
+      { x: b.x + 8, y: b.y + 4 },
+      { x: b.x + 8 + lab.w + 10, y: b.y + 4 },
+      { x: b.x + Math.max(8, (b.w - lab.w) / 2), y: b.y + 4 },
+      { x: Math.max(2, b.x + b.w - lab.w - 8), y: b.y + 4 },
+      { x: b.x + 8, y: b.y + Math.max(4, b.h - lab.h - 6) },
+      { x: b.x + b.w + 10, y: b.y + 4 },
+      { x: b.x - lab.w - 10, y: b.y + 4 }
+    ];
+    let chosen = null;
+    for (const c of candidates) {
+      const r = { x: c.x, y: c.y, w: lab.w, h: lab.h };
+      if (fits(r)) { chosen = r; break; }
+    }
+    if (!chosen) {
+      const cx = b.x + 8, cy = b.y + 4;
+      outer: for (let rad = 1; rad <= 120; rad++) {
+        for (let k = 0; k < 18; k++) {
+          const ang = (k / 18) * Math.PI * 2 + rad * 0.35;
+          const r = { x: cx + Math.cos(ang) * rad * 18, y: cy + Math.sin(ang) * rad * 14, w: lab.w, h: lab.h };
+          if (fits(r)) { chosen = r; break outer; }
+        }
+      }
+    }
+    if (!chosen) {
+      const right = Math.max(G.w, ...tileRects.map(t => t.x + t.w), 0) + 24;
+      let y = 8;
+      placed.forEach(r => { if (r.x + r.w > right - 8) y = Math.max(y, r.y + r.h + 6); });
+      chosen = { x: right, y, w: lab.w, h: lab.h };
+    }
+    lab.node.style.left = chosen.x + 'px';
+    lab.node.style.top = chosen.y + 'px';
+    placed.push(chosen);
+  });
+  let maxX = G.w, maxY = G.h, minX = 0, minY = 0;
+  placed.forEach(r => { maxX = Math.max(maxX, r.x + r.w + 16); maxY = Math.max(maxY, r.y + r.h + 16); minX = Math.min(minX, r.x); minY = Math.min(minY, r.y); });
+  if (minX < 0 || minY < 0) {
+    const dx = minX < 0 ? -minX + 8 : 0, dy = minY < 0 ? -minY + 8 : 0;
+    Object.values(G.nodes).forEach(n => { n.x += dx; n.y += dy; });
+    Object.values(G.blobs).forEach(b => { b.x += dx; b.y += dy; b.points = b.points.map(pt => [pt[0] + dx, pt[1] + dy]); });
+    placed.forEach(r => { r.x += dx; r.y += dy; });
+    labels.forEach(lab => { lab.node.style.left = (parseFloat(lab.node.style.left) + dx) + 'px'; lab.node.style.top = (parseFloat(lab.node.style.top) + dy) + 'px'; });
+    order.forEach(id => {
+      const poly = regionsSvg.querySelector('[data-box="' + CSS.escape(id) + '"]');
+      const b = G.blobs[id];
+      if (poly && b) poly.setAttribute('points', b.points.map(pt => pt[0].toFixed(1) + ',' + pt[1].toFixed(1)).join(' '));
+    });
+    maxX += dx; maxY += dy;
+  }
+  if (maxX > G.w || maxY > G.h) { G.w = maxX; G.h = maxY; }
+  regionsSvg.setAttribute('width', G.w);
+  regionsSvg.setAttribute('height', G.h);
+  world.append(labelLayer);
 }
 
 function buildTree() {
@@ -1034,10 +1013,13 @@ function legendBuild() {
   const lg = $('chLegend'); lg.innerHTML = '';
   lg.append(el('summary', {}, 'Chapter colors'));
   const box = el('div', { class: 'lgrid' });
-  const chapters = visibleContainers().flatMap(chapterBoxesOf);
-  (chapters.length ? chapters : allChapterBoxes()).forEach(ch => box.append(el('button', {
-    class: 'lg', type: 'button', style: colorVars(ch.color_index || 1), title: ch.title, 'data-box': ch.id,
-    onclick: () => setScope(filter.box === ch.id ? null : ch.id, { focus: true })
+  allChapterBoxes().forEach(ch => box.append(el('button', {
+    class: 'lg' + (selectedBoxes.has(ch.id) ? ' on' : ''), type: 'button', style: colorVars(ch.color_index || 1), title: ch.title, 'data-box': ch.id,
+    onclick: () => {
+      const next = new Set(selectedBoxes);
+      if (next.has(ch.id)) next.delete(ch.id); else next.add(ch.id);
+      setScope([...next]);
+    }
   }, el('i'), el('span', { text: `${chapterPillText(ch)} · ${ch.title.replace(/^Chapter\s+\d+:\s*/, '')}` }))));
   lg.append(box);
 }
@@ -1049,43 +1031,17 @@ function showLayout(mode, animated) {
   syncTiles();
   syncEdges();
   const L = layout[mode];
-  const tiles = [...world.querySelectorAll('.tile')];
-  const keys = tiles.map(t => t.dataset.place || t.dataset.id);
+  const tiles = [...world.querySelectorAll('.tile:not(.st)')];
+  const keys = tiles.map(t => t.dataset.id);
   const from = {};
-  keys.forEach((key, i) => {
-    const id = tiles[i].dataset.id;
-    from[key] = curPos[key] || curPos[id] || L.nodes[key] || L.nodes[id] || { x: 0, y: 0 };
-  });
+  keys.forEach(key => { from[key] = curPos[key] || L.nodes[key] || { x: 0, y: 0 }; });
   tv.dataset.mode = mode; world.dataset.layout = mode;
   sizeWorld(L);
-  
-  document.querySelectorAll('#world .blob').forEach(b => {
-    const isGrouped = mode === 'grouped';
-    b.classList.toggle('on', isGrouped);
-    
-    if (isGrouped) {
-      const boxId = b.dataset.box;
-      const key = boxId || +b.dataset.ch;
-      const blobData = L.blobs[key];
-      if (blobData) {
-        b.style.left = blobData.x + 'px';
-        b.style.top = blobData.y + 'px';
-        b.style.width = blobData.w + 'px';
-        b.style.height = blobData.h + 'px';
-      }
-    }
-  });
-  
   const btn = $('btnGroup'); btn.setAttribute('aria-pressed', String(mode === 'grouped'));
   btn.querySelector('.t').textContent = mode === 'grouped' ? 'Ungroup' : 'Group by course';
-  btn.title = mode === 'grouped' ? 'Back to one homogeneous prerequisite tree' : 'Sort the tree into course and chapter blocks';
-  
+  btn.title = mode === 'grouped' ? 'Back to one homogeneous prerequisite tree' : 'Draw each course and chapter as a region around its skills';
   const drawEdges = (useRouted) => {
     edgeEls.forEach(e => {
-      const hide = edgeHidden(e);
-      e.path.classList.toggle('collapsed-hide', hide);
-      e.dot.classList.toggle('collapsed-hide', hide);
-      if (hide) return;
       const fromKey = e.fromKey || e.from, toKey = e.toKey || e.to;
       const from = useRouted ? L.nodes[fromKey] : (curPos[fromKey] || L.nodes[fromKey]);
       const to = useRouted ? L.nodes[toKey] : (curPos[toKey] || L.nodes[toKey]);
@@ -1102,16 +1058,14 @@ function showLayout(mode, animated) {
     edgesSvg.classList.remove('morph'); world.classList.remove('morphing'); world.dataset.morphing = '0';
     applyBoxFilter();
   };
-  syncCollapsedTiles();
   if (!animated || reducedMotion()) { finish(); return }
   world.classList.add('morphing'); world.dataset.morphing = '1'; edgesSvg.classList.add('morph');
   const t0 = performance.now();
   const step = now => {
     const k = Math.min(1, (now - t0) / MORPH_MS), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
     keys.forEach(key => {
-      const tile = world.querySelector(key.includes('|') ? '.tile[data-place="' + key + '"]' : '.tile[data-id="' + key + '"]:not([data-place])');
       const a = from[key], b = L.nodes[key];
-      if (a && b && !(tile && skillHiddenByCollapse(tile.dataset.id, tile.dataset.box || null))) curPos[key] = { x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e };
+      if (a && b) curPos[key] = { x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e };
     });
     placeTiles(curPos);
     drawEdges(false);
@@ -1121,26 +1075,7 @@ function showLayout(mode, animated) {
 }
 
 function applyBoxFilter() {
-  const boxId = filter.box;
-  if (!boxId) {
-    document.querySelectorAll('#world .tile').forEach(t => t.classList.remove('boxdim'));
-    document.querySelectorAll('#world .blob').forEach(b => b.classList.remove('boxdim'));
-    return;
-  }
-  
-  document.querySelectorAll('#world .tile').forEach(t => {
-    t.classList.toggle('boxdim', !tileInScope(t));
-  });
-  
-  document.querySelectorAll('#world .blob').forEach(b => {
-    const blobBoxId = b.dataset.box;
-    if (!blobBoxId) {
-      b.classList.remove('boxdim');
-      return;
-    }
-    const related = blobBoxId === boxId || isDescendantBox(blobBoxId, boxId) || isDescendantBox(boxId, blobBoxId);
-    b.classList.toggle('boxdim', !related);
-  });
+  document.querySelectorAll('#world .tile').forEach(t => t.classList.toggle('boxdim', !tileInScope(t)));
 }
 
 function toggleGroup() {
@@ -1157,10 +1092,8 @@ function applyEdgeHighlight() {
     const inn = !!id && e.to === id, out = !!id && e.from === id;
     e.path.classList.toggle('in', inn); e.path.classList.toggle('out', out);
     e.dot.classList.toggle('in', inn); e.dot.classList.toggle('out', out);
-    const fd = !!(filter.box && !skillInBox(e.from, filter.box) && !skillInBox(e.to, filter.box));
+    const fd = selectedBoxes.size > 0 && !selectionIsAll() && !skillInSelection(e.from) && !skillInSelection(e.to);
     e.path.classList.toggle('fdim', fd); e.dot.classList.toggle('fdim', fd);
-    const hide = edgeHidden(e);
-    e.path.classList.toggle('collapsed-hide', hide); e.dot.classList.toggle('collapsed-hide', hide);
   });
 }
 
@@ -1234,14 +1167,18 @@ function focusTile(id) {
 
 function focusScope() {
   if (filter.view !== 'tree') return;
-  if (!filter.box) { layoutMode === 'grouped' ? goHome(true) : goFit(); return }
+  if (selectionIsAll() || selectedBoxes.size === 0) { layoutMode === 'grouped' ? goHome(true) : goFit(); return }
   const L = curL();
-  const blob = L.blobs && L.blobs[filter.box];
-  if (layoutMode === 'grouped' && blob) {
-    animateView(() => { fitBox(blob.x, blob.y, blob.w, blob.h, 1); applyView() });
-    return;
+  if (layoutMode === 'grouped' && L.blobs) {
+    const bs = selectedInOrder().map(id => L.blobs[id]).filter(Boolean);
+    if (bs.length) {
+      const x0 = Math.min(...bs.map(b => b.x)), y0 = Math.min(...bs.map(b => b.y));
+      const x1 = Math.max(...bs.map(b => b.x + b.w)), y1 = Math.max(...bs.map(b => b.y + b.h));
+      animateView(() => { fitBox(x0, y0, x1 - x0, y1 - y0, 1); applyView() });
+      return;
+    }
   }
-  const ids = getBoxDescendantSkills(filter.box).filter(id => L.nodes[id]);
+  const ids = skills.map(s => s.id).filter(id => skillInSelection(id) && L.nodes[id]);
   if (!ids.length) { goFit(); return }
   const box = bboxOf(ids);
   animateView(() => { fitBox(box.x, box.y, box.w, box.h, 1.1); applyView() });
@@ -1287,13 +1224,13 @@ function applyGridFilter() {
   document.querySelectorAll('#gridView .gsec').forEach(sec => {
     let any = false;
     sec.querySelectorAll('.tile').forEach(t => {
-      const hide = (filter.playable && !isPlayable(t.dataset.id)) || !tileInScope(t);
+      const hide = filter.playable && !isPlayable(t.dataset.id);
       t.style.display = hide ? 'none' : ''; if (!hide) any = true;
     });
     sec.style.display = any ? '' : 'none';
   });
   document.querySelectorAll('#chLegend .lg').forEach(b => {
-    b.classList.toggle('on', !!(filter.box && b.dataset.box === filter.box));
+    b.classList.toggle('on', selectedBoxes.has(b.dataset.box));
   });
 }
 
@@ -1301,31 +1238,101 @@ function applyGridFilter() {
 function scopeOptionLabel(box, depth) {
   let title = box.title || box.id;
   if (box.kind === 'chapter') title = title.replace(/^Chapter\s+(\d+):\s*/, 'Ch $1: ');
-  return (depth > 0 ? '  '.repeat(depth) + '└ ' : '') + title;
+  return (depth > 0 ? '└ ' : '') + title;
 }
 
-function fillScopeSelect(select) {
-  select.append(el('option', { value: '', text: 'Everything' }));
-  if (!COLLECTIONS || !COLLECTIONS.boxes) return;
+function scopeButtonText() {
+  const n = selectedBoxes.size, all = allBoxIds().length;
+  if (!all || n === all) return 'All boxes';
+  if (n === 0) return 'None';
+  const ids = selectedInOrder();
+  if (n === 1) return (boxById[ids[0]] && boxById[ids[0]].title) || ids[0];
+  if (n === 2) return ids.map(id => (boxById[id] && boxById[id].title) || id).join(' + ');
+  return n + ' boxes';
+}
+
+function syncScopePicker() {
+  const btn = $('scopeToggle');
+  if (!btn) return;
+  document.querySelectorAll('#scopePicker input[type=checkbox]').forEach(inp => { inp.checked = selectedBoxes.has(inp.value); });
+  btn.textContent = scopeButtonText();
+  const panel = $('scopePanel');
+  if (panel) panel.hidden = !scopePanelOpen;
+  btn.setAttribute('aria-expanded', String(scopePanelOpen));
+}
+
+function buildControls() {
+  const hc = $('hctl'); hc.innerHTML = '';
+  const list = el('div', { class: 'scope-list', role: 'group', 'aria-label': 'Scope, select all that apply' });
   const childIds = new Set();
-  COLLECTIONS.boxes.forEach(b => (b.children || []).forEach(id => childIds.add(id)));
+  (COLLECTIONS && COLLECTIONS.boxes || []).forEach(b => (b.children || []).forEach(id => childIds.add(id)));
   const walk = (box, depth) => {
-    select.append(el('option', { value: box.id, text: scopeOptionLabel(box, depth) }));
-    for (const cid of box.children || []) {
-      const child = boxById[cid];
-      if (child) walk(child, depth + 1);
-    }
+    const input = el('input', { type: 'checkbox', value: box.id });
+    input.checked = selectedBoxes.has(box.id);
+    input.addEventListener('change', () => {
+      const next = new Set(selectedBoxes);
+      if (input.checked) next.add(box.id); else next.delete(box.id);
+      setScope([...next]);
+    });
+    list.append(el('label', { class: 'scope-row' + (depth ? ' depth' : '') }, input, el('span', { text: scopeOptionLabel(box, depth) })));
+    (box.children || []).forEach(cid => { const child = boxById[cid]; if (child) walk(child, depth + 1); });
   };
-  COLLECTIONS.boxes.filter(b => !childIds.has(b.id)).forEach(b => walk(b, 0));
+  (COLLECTIONS && COLLECTIONS.boxes || []).filter(b => !childIds.has(b.id)).forEach(b => walk(b, 0));
+  const panel = el('div', { class: 'scope-panel', id: 'scopePanel' });
+  panel.hidden = true;
+  panel.append(
+    el('div', { class: 'scope-quick' },
+      el('button', { type: 'button', id: 'scopeAll', onclick: e => { e.preventDefault(); setScope(null); } }, 'All'),
+      el('button', { type: 'button', id: 'scopeNone', onclick: e => { e.preventDefault(); setScope([]); } }, 'None')),
+    list);
+  const toggle = el('button', { type: 'button', id: 'scopeToggle', class: 'scope-toggle', 'aria-haspopup': 'true', 'aria-expanded': 'false',
+    onclick: e => { e.stopPropagation(); scopePanelOpen = !scopePanelOpen; syncScopePicker(); } }, scopeButtonText());
+  const chk = el('input', { type: 'checkbox', id: 'onlyPlay' });
+  chk.checked = filter.playable;
+  chk.onchange = () => { filter.playable = chk.checked; refreshAll(); };
+  hc.append(
+    el('div', { class: 'seg', role: 'group', 'aria-label': 'View' },
+      el('button', { id: 'vTree', 'aria-pressed': String(filter.view === 'tree'), onclick: () => setView('tree') }, 'Tree'),
+      el('button', { id: 'vGrid', 'aria-pressed': String(filter.view === 'grid'), onclick: () => setView('grid') }, 'Grid')),
+    el('span', { class: 'scope-label', id: 'scopeLabel', text: 'Scope' }),
+    el('div', { class: 'scope-multi', id: 'scopePicker' }, toggle, panel),
+    el('label', { class: 'chk' }, chk, 'Playable only'));
+  if (!buildControls.bound) {
+    document.addEventListener('click', e => {
+      if (scopePanelOpen && !(e.target.closest && e.target.closest('#scopePicker'))) { scopePanelOpen = false; syncScopePicker(); }
+    });
+    buildControls.bound = true;
+  }
+  syncScopePicker();
+}
+
+function unionSkillIds(scope) {
+  if (scope == null || scope === '') return null;
+  const boxes = Array.isArray(scope) ? scope : [scope];
+  const ids = new Set();
+  boxes.forEach(id => { if (boxById[id]) getBoxDescendantSkills(id).forEach(s => ids.add(s)); });
+  return ids;
+}
+
+function scopeName(scope) {
+  if (scope == null || scope === '') return 'Everything';
+  const boxes = (Array.isArray(scope) ? scope : [scope]).filter(Boolean);
+  if (!boxes.length) return 'nothing selected';
+  const names = boxes.map(id => (boxById[id] && boxById[id].title) || id);
+  if (names.length === 1) return names[0];
+  if (names.length === 2) return names[0] + ' + ' + names[1];
+  return 'the union of ' + names.length + ' boxes';
 }
 
 function scopeNoteText() {
-  const scopeBox = planState.scope ? boxById[planState.scope] : null;
-  const scopeSkills = planState.scope ? getBoxDescendantSkills(planState.scope).filter(id => isPlayable(id)) : playable.map(s => s.id);
-  const scopeName = scopeBox ? scopeBox.title : 'Everything';
-  return planState.scope
-    ? `Planning for ${scopeSkills.length} playable skill${scopeSkills.length === 1 ? '' : 's'} in "${scopeName}". Prerequisites outside this scope will be included to Level 2.`
-    : `Planning for Everything: ${playable.length} playable skills. Coming-soon skills (${skills.length - playable.length}) are excluded.`;
+  const scope = scopeForPlan();
+  if (Array.isArray(scope) && scope.length === 0) return 'No boxes selected. Choose one or more courses or chapters to build a learning plan.';
+  if (scope == null) return `Planning for Everything: ${playable.length} playable skills. Coming-soon skills (${skills.length - playable.length}) are excluded.`;
+  const ids = unionSkillIds(scope);
+  const n = playable.filter(s => ids.has(s.id)).length;
+  const name = scopeName(scope);
+  const quoted = scope.length === 1 ? '"' + name + '"' : name;
+  return `Planning for ${n} playable skill${n === 1 ? '' : 's'} in ${quoted}. Prerequisites outside this scope will be included to Level 2.`;
 }
 
 function refreshOpenPlan() {
@@ -1337,20 +1344,22 @@ function refreshOpenPlan() {
   planResults(results);
 }
 
-function setScope(boxId, opts) {
-  const id = boxId && boxById[boxId] ? boxId : null;
-  const prev = layoutRoot();
-  filter.box = id;
-  planState.scope = id;
-  savePlanScope();
-  if (prev !== layoutRoot()) {
-    computeLayouts();
-    updateBlobsDOM();
-    legendBuild();
-    showLayout(layoutMode, false);
+function setScope(ids, opts) {
+  if (ids == null) selectedBoxes = new Set(allBoxIds());
+  else {
+    const list = typeof ids === 'string' ? (ids ? [ids] : []) : ids;
+    const next = new Set();
+    (list || []).forEach(id => { if (boxById[id]) next.add(id); });
+    selectedBoxes = next;
   }
+  savePlanScope();
+  computeGroupedLayout();
+  updateBlobsDOM();
+  legendBuild();
+  if (world) showLayout(layoutMode, false);
   refreshAll();
   refreshOpenPlan();
+  syncScopePicker();
   if (opts && opts.focus && filter.view === 'tree') focusScope();
 }
 
@@ -1367,6 +1376,7 @@ function refreshAll() {
     e.textContent = `${c}/${l.length} colored in` + (p ? ` · ${p} playable` : '');
   });
   applyBoxFilter(); applyGridFilter(); applyEdgeHighlight();
+  syncScopePicker();
 }
 
 function renderStats() {
@@ -1383,18 +1393,6 @@ function renderStats() {
   TIERS.forEach((n, i) => st.append(el('span', { class: 'chip', 'data-tier': i, title: i === 0 ? 'Not started yet' : 'Skills at ' + n }, el('span', { class: 'sw t' + i, style: `--f:${FILL[i]}%` }), n, ' ', el('b', { text: counts[i] }))));
   st.append(el('span', { class: 'chip', title: 'Unpracticed skills whose prerequisites are all at Level 2 or Mastered (skills with no prerequisites are ready from the start; coming-soon prerequisites are ignored)' }, el('span', { class: 'sw ready' }), 'Ready to learn ', el('b', { text: nReady })));
   st.append(el('span', { class: 'chip', title: 'No questions written yet' }, el('span', { class: 'sw soon' }), 'Coming soon ', el('b', { text: skills.length - playable.length })));
-  const hc = $('hctl'); hc.innerHTML = '';
-  
-  const scopePicker = el('select', { id: 'scopePicker', 'aria-label': 'Scope: Everything, a course, or a chapter' });
-  fillScopeSelect(scopePicker);
-  scopePicker.value = filter.box || '';
-  scopePicker.onchange = () => setScope(scopePicker.value || null, { focus: true });
-  const chk = el('input', { type: 'checkbox', id: 'onlyPlay' }); chk.checked = filter.playable; chk.onchange = () => { filter.playable = chk.checked; refreshAll() };
-  hc.append(el('div', { class: 'seg', role: 'group', 'aria-label': 'View' },
-    el('button', { id: 'vTree', 'aria-pressed': String(filter.view === 'tree'), onclick: () => setView('tree') }, 'Tree'),
-    el('button', { id: 'vGrid', 'aria-pressed': String(filter.view === 'grid'), onclick: () => setView('grid') }, 'Grid')),
-    el('label', { class: 'scope-label', for: 'scopePicker', text: 'Scope' }),
-    scopePicker, el('label', { class: 'chk' }, chk, 'Playable only'));
 }
 
 function setView(v) {
@@ -1440,7 +1438,7 @@ function closePanel() {
 
 function tierPill(id) {
   const s = byId[id], t = tierOf(id);
-  const outside = !!(filter.box && !skillInBox(id, filter.box));
+  const outside = !skillInSelection(id) && !selectionIsAll() && selectedBoxes.size > 0;
   return el('button', { class: 'pill' + (outside ? ' ext' : ''), style: colorOf(id), onclick: () => selectSkill(id, true), title: TIERS[t] + (isPlayable(id) ? '' : ' · coming soon') + (outside ? ' · prerequisite outside this scope' : '') },
     el('span', { class: 'sw t' + t, style: `--f:${FILL[t]}%;width:14px;height:14px;border-color:${chColor(getSkillColorIndex(id))}` }), (outside ? '☆ ' : '') + short(s.name, 40))
 }
@@ -1847,8 +1845,8 @@ function openHelp() {
     el('li', {}, 'Prerequisites are guidance, not locks. A new skill glows "ready" once all its prerequisites are at Level 2 or Mastered (prerequisites that are still coming soon are ignored). Lines show what leads to what; click a tile to highlight them.'),
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
     el('li', {}, el('b', { text: 'Learning plan ' }), 'simulates sessions (practice every ready skill, one mastery challenge per unmastered skill) to estimate how many sessions and how much time it takes to master everything playable. It learns how fast you are from your own timed quizzes.'),
-    el('li', {}, el('b', { text: 'Scope ' }), 'limits both the tree and the learning plan to Everything, one course or textbook, or one chapter. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside that scope stay in the plan and are marked with a star.'),
-    el('li', {}, el('b', { text: 'Group by course ' }), 'regroups the tree into course and chapter blocks. The arrow on a block collapses its contents, and Ungroup flows it back.'),
+    el('li', {}, el('b', { text: 'Scope ' }), 'is select-all-that-apply: choose any courses or chapters. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
+    el('li', {}, el('b', { text: 'Group by course ' }), 'draws each selected course and chapter as a colored region around its skills. Regions overlap where boxes share skills, and Ungroup returns to one prerequisite tree.'),
     el('li', {}, 'Progress autosaves in this browser after every quiz. Use Export for a backup file you can Import later (or on another device).'),
     el('li', {}, 'Skills are organized into courses and chapters. Some skills have questions; the rest say "coming soon".'));
   openModal({ title: 'How Skillgrove works', body: ul, actions: [{ label: 'Got it', kind: 'primary' }] });
@@ -1868,29 +1866,45 @@ function recordTiming(kind, seconds) {
   return r.added;
 }
 
-const planState = { scratch: false, open: null, scope: null };
+const planState = { scratch: false, open: null };
 
 function loadPlanScope() {
-  try { const s = localStorage.getItem(PLAN_SCOPE_KEY); if (s) planState.scope = s } catch (e) { }
+  selectedBoxes = new Set(allBoxIds());
+  let raw = null;
+  try { raw = localStorage.getItem(PLAN_SCOPE_KEY); } catch (e) { return; }
+  if (!raw) return;
+  let parsed = null;
+  try { parsed = JSON.parse(raw); } catch (e) { parsed = null; }
+  if (parsed && typeof parsed === 'object' && parsed.v === 2) {
+    if (parsed.all) return;
+    const next = new Set();
+    (Array.isArray(parsed.boxes) ? parsed.boxes : []).forEach(id => { if (boxById[id]) next.add(id); });
+    selectedBoxes = next;
+    return;
+  }
+  const legacy = typeof parsed === 'string' ? parsed : raw;
+  if (typeof legacy === 'string' && boxById[legacy]) selectedBoxes = new Set([legacy]);
 }
 function savePlanScope() {
-  try { if (planState.scope) localStorage.setItem(PLAN_SCOPE_KEY, planState.scope); else localStorage.removeItem(PLAN_SCOPE_KEY) } catch (e) { }
+  if (!storageOK) return;
+  try {
+    const payload = (selectionIsAll() || !allBoxIds().length) ? { v: 2, all: true } : { v: 2, boxes: selectedInOrder() };
+    localStorage.setItem(PLAN_SCOPE_KEY, JSON.stringify(payload));
+  } catch (e) { }
 }
 
-function planGraph(scopeBoxId) {
+function planGraph(scope) {
   let targetIds;
-  let extras = new Set();
-  
-  if (scopeBoxId && boxById[scopeBoxId]) {
-    const inBox = new Set(getBoxDescendantSkills(scopeBoxId));
+  const extras = new Set();
+  const legacyAll = scope == null || scope === '' || (typeof scope === 'string' && !boxById[scope]);
+  if (!legacyAll) {
+    const inBox = unionSkillIds(scope) || new Set();
     targetIds = playable.filter(s => inBox.has(s.id)).map(s => s.id);
-    
     const needPrereqs = id => {
       const ps = byId[id].prereqs.filter(p => isPlayable(p) && !inBox.has(p));
-      ps.forEach(p => { extras.add(p); needPrereqs(p) });
+      ps.forEach(p => { if (!extras.has(p)) { extras.add(p); needPrereqs(p); } });
     };
     targetIds.forEach(needPrereqs);
-    
     targetIds = targetIds.concat([...extras]);
   } else {
     targetIds = playable.map(s => s.id);
@@ -1918,22 +1932,28 @@ function planEstimates() {
   return out;
 }
 
-function runPlan(scratch, scopeBoxId) {
-  const g = planGraph(scopeBoxId), start = {};
+function runPlan(scratch, scope) {
+  const use = scope === undefined ? scopeForPlan() : scope;
+  const g = planGraph(use), start = {};
   if (!scratch) g.ids.forEach(id => start[id] = tierOf(id));
   const est = planEstimates();
   const result = Sim.simulate(g, start, { practiceMin: est.practice.used, challengeMin: est.challenge.used });
   result.extras = g.extras || [];
-  result.scopeBoxId = scopeBoxId;
+  result.scopeBoxId = use;
   return result;
 }
 
 function renderPlanBadge() {
   const b = $('planCount'); if (!b) return;
-  const r = runPlan(false, planState.scope);
+  const scope = scopeForPlan();
+  if (Array.isArray(scope) && scope.length === 0) {
+    b.textContent = '–';
+    $('btnPlan').title = 'No boxes selected — choose courses or chapters to plan';
+    return;
+  }
+  const r = runPlan(false, scope);
   b.textContent = r.ok ? (r.sessions ? r.sessions : '✓') : '?';
-  const scopeBox = planState.scope ? boxById[planState.scope] : null;
-  const where = scopeBox ? ` in ${scopeBox.title}` : '';
+  const where = scope == null ? '' : ` in ${scopeName(scope)}`;
   $('btnPlan').title = r.ok ? (r.sessions ? `About ${r.sessions} more learning session${r.sessions === 1 ? '' : 's'} (~${Sim.fmtDuration(r.totalMinutes)}) to master the ${r.scope} playable skills${where} — click for the plan` : `All ${r.scope} playable skills${where} are mastered — nothing left to plan`) : 'Learning plan';
 }
 
@@ -1988,17 +2008,21 @@ function tierChart(r) {
 
 function planResults(box) {
   box.innerHTML = '';
-  const r = runPlan(planState.scratch, planState.scope);
+  const scope = scopeForPlan();
+  if (Array.isArray(scope) && scope.length === 0) {
+    box.append(el('div', { class: 'note info', id: 'planEmpty', text: 'No boxes selected. Choose one or more courses or chapters to build a learning plan.' }));
+    return;
+  }
+  const r = runPlan(planState.scratch, scope);
   const extraSet = new Set(r.extras || []);
-  const scopeBox = planState.scope ? boxById[planState.scope] : null;
-  const scopeName = scopeBox ? scopeBox.title : 'Everything';
+  const label = scopeName(scope);
+  const scoped = scope != null;
   
   if (!r.ok) { box.append(el('div', { class: 'note warn', id: 'planStuck', text: 'The simulation got stuck: some skill can never become ready. This should not happen — please tell Isaac.' })); return }
-  const est = planEstimates();
   if (!r.sessions) {
     const inBoxCount = r.scope - r.extras.length;
     box.append(el('div', { class: 'note ok', id: 'planDone' }, el('b', { text: '0 sessions. ' }), 
-      scopeBox ? `All ${inBoxCount} playable skills in "${scopeName}" are already Mastered, so there is nothing left to plan.`
+      scoped ? `All ${inBoxCount} playable skills in "${label}" are already Mastered, so there is nothing left to plan.`
         : `All ${r.scope} playable skills are already Mastered, so there is nothing left to plan. The total will grow when more question banks are added.`));
     return;
   }
@@ -2006,7 +2030,7 @@ function planResults(box) {
   if (r.extras.length) {
     box.append(el('div', { class: 'note info', id: 'planExtras' }, 
       el('b', { text: 'Prerequisites outside scope: ' }), 
-      `${r.extras.length} skill${r.extras.length === 1 ? '' : 's'} from outside "${scopeName}" ${r.extras.length === 1 ? 'is' : 'are'} included as ${r.extras.length === 1 ? 'a ' : ''}prerequisite${r.extras.length === 1 ? '' : 's'} (practiced to Level 2 for readiness): ${r.extras.map(id => byId[id].name).join(', ')}.`));
+      `${r.extras.length} skill${r.extras.length === 1 ? '' : 's'} from outside "${label}" ${r.extras.length === 1 ? 'is' : 'are'} included as ${r.extras.length === 1 ? 'a ' : ''}prerequisite${r.extras.length === 1 ? '' : 's'} (practiced to Level 2 for readiness): ${r.extras.map(id => byId[id].name).join(', ')}.`));
   }
   
   box.append(el('div', { class: 'pcards', id: 'planCards' },
@@ -2178,11 +2202,8 @@ async function init() {
   loadProgress();
   loadTiming();
   loadPlanScope();
-  if (planState.scope && !boxById[planState.scope]) { planState.scope = null; savePlanScope(); }
-  filter.box = planState.scope || null;
-  loadCollapsed();
   $('playableNote').textContent = `${playable.length} of ${skills.length} skills ready`;
-  buildTree(); buildGrid(); legendBuild();
+  buildTree(); buildGrid(); legendBuild(); buildControls();
   
   try { const u = JSON.parse(localStorage.getItem(UIKEY) || 'null'); if (u && u.view === 'grid') filter.view = 'grid' } catch (e) { }
   let startMode = 'tree'; try { if (localStorage.getItem(LAYKEY) === 'grouped') startMode = 'grouped' } catch (e) { }
@@ -2213,7 +2234,8 @@ async function init() {
     lights: { mode: () => lightsMode, threshold: LIGHTS_THRESHOLD, setScale: s => { view.s = s; applyView(); } },
     collections: { 
       data: () => COLLECTIONS, boxById: () => boxById, skillToBoxes: () => skillToBoxes, getSkillBox, getSkillColorIndex,
-      collapsed: () => collapsedBoxes, toggleCollapse: toggleBoxCollapse, filter: () => filter.box, setFilter: boxId => setScope(boxId), scope: () => planState.scope,
+      selected: () => selectedInOrder(), setSelected: (ids, opts) => setScope(ids, opts),
+      filter: () => scopeForPlan(), setFilter: ids => setScope(ids), scope: () => scopeForPlan(),
       getBoxSkills, getBoxDescendantSkills, skillInBox
     },
     queue,

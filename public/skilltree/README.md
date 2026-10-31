@@ -141,8 +141,7 @@ Progress is stored per web origin. The app uses these localStorage keys:
 - `skilltree.progress.v1` — User's tier progress per skill
 - `skilltree.layout.v1` — UI preference (tree vs grouped view)
 - `skilltree.timing.v1` — Quiz timing samples for learning plan estimates
-- `skilltree.planscope.v1` — Scope (all skills, a course, or a chapter) for the tree and the learning plan
-- `skilltree.collapsed.v1` — Course and chapter boxes collapsed in the grouped view
+- `skilltree.planscope.v1` — Which course and chapter boxes are selected. A missing key means every box. Current saves are JSON: `{"v":2,"all":true}` or `{"v":2,"boxes":["ee105-ucb","me132"]}`. An older save that stored a single box id is read as that one box. The learning plan covers the union of the selected boxes.
 
 **Migration note**: When moving from the old single-file version, users should:
 1. Export their progress from the old file (Export button)
