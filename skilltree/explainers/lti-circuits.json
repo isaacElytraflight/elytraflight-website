@@ -1,0 +1,28 @@
+{
+ "id": "lti-circuits",
+ "title": "LTI analysis of RC and RLC circuits",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "Circuits built from resistors, capacitors and inductors are LTI systems. Each element law is linear: \\(v = iR\\), \\(i = C\\,dv/dt\\), \\(v = L\\,di/dt\\). Combining them with Kirchhoff's laws gives a linear differential equation with constant coefficients, so all the LTI tools apply.\n\nA series RC driven by a source is first order, with time constant \\(\\tau = RC\\). A series RLC is second order, with natural frequency \\(\\omega_0 = 1/\\sqrt{LC}\\) and damping set by the resistance. To find \\(\\tau\\) in a larger first-order circuit, turn off the independent sources and find the resistance seen by the capacitor.\n\nInitial conditions come from continuity: a capacitor's voltage and an inductor's current cannot jump. After a switch event, the circuit moves exponentially from that starting value to its new DC steady state, where capacitors are open and inductors are short.",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 279 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>RC low-pass with a step input</title><line x1=\"95\" y1=\"46\" x2=\"95\" y2=\"74\"/><line x1=\"95\" y1=\"98\" x2=\"95\" y2=\"126\"/><circle cx=\"95\" cy=\"86\" r=\"12\"/><text x=\"95\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"95\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"78\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">step 0 → Vₛ</text><line x1=\"95\" y1=\"126\" x2=\"95\" y2=\"132\"/><line x1=\"86\" y1=\"132\" x2=\"104\" y2=\"132\"/><line x1=\"90\" y1=\"136\" x2=\"100\" y2=\"136\"/><line x1=\"93.5\" y1=\"140\" x2=\"96.5\" y2=\"140\"/><line x1=\"95\" y1=\"46\" x2=\"113\" y2=\"46\"/><polyline points=\"113,46 130,46 133,40 138,52 143,40 148,52 153,40 158,52 166,46 183,46\"/><text x=\"148\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><line x1=\"183\" y1=\"46\" x2=\"205\" y2=\"46\"/><circle cx=\"205\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"205\" y1=\"56\" x2=\"205\" y2=\"81\"/><line x1=\"205\" y1=\"91\" x2=\"205\" y2=\"116\"/><line x1=\"196\" y1=\"81\" x2=\"214\" y2=\"81\"/><line x1=\"196\" y1=\"91\" x2=\"214\" y2=\"91\"/><text x=\"219\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"205\" y1=\"46\" x2=\"205\" y2=\"56\"/><line x1=\"205\" y1=\"116\" x2=\"205\" y2=\"126\"/><line x1=\"205\" y1=\"126\" x2=\"205\" y2=\"132\"/><line x1=\"196\" y1=\"132\" x2=\"214\" y2=\"132\"/><line x1=\"200\" y1=\"136\" x2=\"210\" y2=\"136\"/><line x1=\"203.5\" y1=\"140\" x2=\"206.5\" y2=\"140\"/><line x1=\"205\" y1=\"46\" x2=\"219\" y2=\"46\"/><line x1=\"219\" y1=\"46\" x2=\"235\" y2=\"46\"/><circle cx=\"238\" cy=\"46\" r=\"3\"/><text x=\"245\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><text x=\"238\" y=\"68\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"238\" y=\"124\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text></svg>",
+   "figure_alt": "RC low-pass filter driven by a step from 0 to Vs."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "\\[ \\tau = R_{\\text{th}}C, \\qquad \\tau = L/R_{\\text{th}} \\]\n\\[ \\omega_0 = \\frac{1}{\\sqrt{LC}}, \\qquad \\zeta_{\\text{series}} = \\frac R2\\sqrt{\\frac CL} \\]"
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "A 47 kΩ resistor charges a 330 nF capacitor from a 9 V source. Then \\(\\tau = 15.5\\ \\mathrm{ms}\\), the voltage reaches 5.7 V after one time constant, and it is within 1% of 9 V after 78 ms. Adding a 0.2 H inductor in series gives \\(\\omega_0 = 3890\\ \\mathrm{rad/s}\\) and \\(\\zeta \\approx 30\\), heavily overdamped."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Using the source resistance alone instead of the Thevenin resistance.\n- Letting a capacitor voltage jump at a switch.\n- Confusing \\(\\omega_0\\) in rad/s with hertz."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "Replacing the differential equation by impedances leads to circuit transfer functions and frequency response."
+  }
+ ]
+}

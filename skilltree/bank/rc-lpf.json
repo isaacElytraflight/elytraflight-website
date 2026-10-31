@@ -1,6 +1,6 @@
 {
   "skill_id": "rc-lpf",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "rc-lpf-r1-q1",
@@ -130,26 +130,26 @@
       "id": "rc-lpf-r4-q1",
       "round": 4,
       "type": "numeric",
-      "prompt": "Preview of sinusoidal steady state. A later skill shows that replacing \\(d/dt\\) by \\(j\\omega\\) in the RC filter equation gives \\(H(j\\omega)=V_{o}/V_{s}=1/(1+j\\omega RC)\\). Take \\(R=1\\ \\mathrm{k}\\Omega\\), \\(C=159\\ \\mathrm{nF}\\) and a source \\(2\\cos(2\\pi\\cdot 1000\\cdot t)\\ \\mathrm{V}\\). What is the steady-state amplitude of \\(v_{o}\\)?",
+      "prompt": "Preview of circuit frequency response. Recall from sinusoidal steady state that replacing \\(d/dt\\) by \\(j\\omega\\) in the RC filter equation gives \\(H(j\\omega)=V_{o}/V_{s}=1/(1+j\\omega RC)\\). Take \\(R=1\\ \\mathrm{k}\\Omega\\), \\(C=159\\ \\mathrm{nF}\\) and a source \\(2\\cos(2\\pi\\cdot 1000\\cdot t)\\ \\mathrm{V}\\). What is the steady-state amplitude of \\(v_{o}\\)?",
       "answer": 1.4149,
       "unit": "V",
       "tolerance": 0.02,
       "explanation": "\\(\\tau=RC=1\\ \\mathrm{k}\\Omega\\times 159\\ \\mathrm{nF}=159\\ \\mu\\mathrm{s}\\). \\(\\omega=2\\pi\\cdot 1000=6283\\ \\mathrm{rad}/\\mathrm{s}\\), so \\(\\omega\\tau=0.999\\approx 1\\).\n\\(|H|=1/\\sqrt{1+(\\omega\\tau)^{2}}=0.7075\\), so the amplitude is \\(2\\times 0.7075=1.415\\ \\mathrm{V}\\).\nThe phase is \\(\\angle H=-\\tan^{-1}(\\omega\\tau)=-44.97^{\\circ}\\approx-45^{\\circ}\\): this is the 'corner frequency' case \\((f_{c}=1/(2\\pi RC)\\approx 1\\ \\mathrm{kHz})\\).",
       "preview": [
-        "sinusoid-resp"
+        "freq-resp-circuits"
       ]
     },
     {
       "id": "rc-lpf-r4-q2",
       "round": 4,
       "type": "numeric",
-      "prompt": "Preview of step response. A later skill uses the step response to measure delay. For an RC low-pass filter with \\(R=2.2\\ \\mathrm{k}\\Omega\\) and \\(C=10\\ \\mathrm{nF}\\), the output is \\(v_{o}=V_{f}(1-e^{-t/RC})\\) after a step. How long does the output take to reach 50% of its final value?",
+      "prompt": "Preview of LTI circuit analysis. A later skill uses the step response to measure circuit delay. For an RC low-pass filter with \\(R=2.2\\ \\mathrm{k}\\Omega\\) and \\(C=10\\ \\mathrm{nF}\\), the output is \\(v_{o}=V_{f}(1-e^{-t/RC})\\) after a step. How long does the output take to reach 50% of its final value?",
       "answer": 15.2492,
       "unit": "µs",
       "tolerance": 0.02,
       "explanation": "Set \\(1-e^{-t/\\tau}=0.5\\) ⇒ \\(e^{-t/\\tau}=0.5\\) ⇒ \\(t=\\tau\\ \\ln 2=0.693\\tau\\).\n\\(\\tau=RC=2.2\\ \\mathrm{k}\\Omega\\times 10\\ \\mathrm{nF}=22\\ \\mu\\mathrm{s}\\), so \\(t_{50}=0.693\\times 22\\ \\mu\\mathrm{s}=15.25\\ \\mu\\mathrm{s}\\).\nCommon mistake: using \\(t=\\tau\\) (that is the 63.2% point).",
       "preview": [
-        "step-resp"
+        "lti-circuits"
       ],
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"Step response reaching 50%\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t / RC</text><line x1=\"56.0\" y1=\"117.0\" x2=\"338.0\" y2=\"117.0\" stroke-width=\"1\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.7\"/><text x=\"338.0\" y=\"113.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">50%</text><polyline points=\"56.0,190.0 58.8,184.3 61.6,178.8 64.5,173.5 67.3,168.4 70.1,163.5 72.9,158.8 75.7,154.3 78.6,150.0 81.4,145.8 84.2,141.8 87.0,138.0 89.8,134.3 92.7,130.8 95.5,127.4 98.3,124.1 101.1,120.9 103.9,117.9 106.8,115.0 109.6,112.2 112.4,109.6 115.2,107.0 118.0,104.5 120.9,102.1 123.7,99.8 126.5,97.7 129.3,95.5 132.1,93.5 135.0,91.6 137.8,89.7 140.6,87.9 143.4,86.2 146.2,84.5 149.1,82.9 151.9,81.4 154.7,79.9 157.5,78.5 160.3,77.2 163.2,75.9 166.0,74.6 168.8,73.4 171.6,72.3 174.4,71.1 177.3,70.1 180.1,69.0 182.9,68.1 185.7,67.1 188.5,66.2 191.4,65.3 194.2,64.5 197.0,63.7 199.8,62.9 202.6,62.2 205.5,61.4 208.3,60.8 211.1,60.1 213.9,59.5 216.7,58.9 219.6,58.3 222.4,57.7 225.2,57.2 228.0,56.6 230.8,56.1 233.7,55.7 236.5,55.2 239.3,54.8 242.1,54.3 244.9,53.9 247.8,53.5 250.6,53.2 253.4,52.8 256.2,52.4 259.0,52.1 261.9,51.8 264.7,51.5 267.5,51.2 270.3,50.9 273.1,50.6 276.0,50.4 278.8,50.1 281.6,49.9 284.4,49.6 287.2,49.4 290.1,49.2 292.9,49.0 295.7,48.8 298.5,48.6 301.3,48.4 304.2,48.2 307.0,48.1 309.8,47.9 312.6,47.7 315.4,47.6 318.3,47.5 321.1,47.3 323.9,47.2 326.7,47.1 329.5,46.9 332.4,46.8 335.2,46.7 338.0,46.6\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"267.5\" y=\"65.8\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v<tspan font-size=\"7\" dy=\"3.1\">o</tspan><tspan dy=\"-3.1\"></tspan> / V<tspan font-size=\"7\" dy=\"3.1\">f</tspan><tspan dy=\"-3.1\"></tspan></text></svg>",
       "figure_alt": "Normalized RC step response with a dashed line at 50 percent of the final value."
@@ -158,13 +158,13 @@
       "id": "rc-lpf-r4-q3",
       "round": 4,
       "type": "numeric",
-      "prompt": "Preview of Bode plots. A later skill plots |H| in decibels, \\(\\mathrm{dB}=20\\cdot\\log_{10}|V_{o}/V_{s}|\\). You want an RC low-pass filter to attenuate a 10 kHz tone by 20 dB (output amplitude \\(=0.1\\times\\) input). Using \\(|H|=1/\\sqrt{1+(\\omega\\tau)^{2}}\\), what time constant \\(\\tau=RC\\) is required?",
+      "prompt": "Preview of circuit frequency response. A later skill plots |H| in decibels, \\(\\mathrm{dB}=20\\cdot\\log_{10}|V_{o}/V_{s}|\\). You want an RC low-pass filter to attenuate a 10 kHz tone by 20 dB (output amplitude \\(=0.1\\times\\) input). Using \\(|H|=1/\\sqrt{1+(\\omega\\tau)^{2}}\\), what time constant \\(\\tau=RC\\) is required?",
       "answer": 158.357,
       "unit": "µs",
       "tolerance": 0.02,
       "explanation": "−20 dB means \\(|H|=10^{-20/20}=0.1\\).\n\\(1/\\sqrt{1+(\\omega\\tau)^{2}}=0.1\\) ⇒ \\(1+(\\omega\\tau)^{2}=100\\) ⇒ \\(\\omega\\tau=\\sqrt{99}=9.95\\).\n\\(\\omega=2\\pi\\times 10\\ \\mathrm{kHz}=62{,}832\\ \\mathrm{rad}/\\mathrm{s}\\) ⇒ \\(\\tau=9.95/62{,}832=158.4\\ \\mu\\mathrm{s}\\).\nCommon mistake: using the high-frequency approximation \\(\\omega\\tau\\approx 10\\), which gives \\(\\tau=159.2\\ \\mu\\mathrm{s}\\); it is within 0.5%, but the exact relation includes the '1 +' term.",
       "preview": [
-        "bode"
+        "freq-resp-circuits"
       ],
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Want −20 dB at 10 kHz</title><line x1=\"52\" y1=\"164\" x2=\"320\" y2=\"164\"/><polygon points=\"320,164 313.6,166.7 313.6,161.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"52\" y1=\"164\" x2=\"52\" y2=\"14\"/><polygon points=\"52,14 54.7,20.4 49.3,20.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"192\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><text x=\"56\" y=\"10\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><line x1=\"49\" y1=\"164\" x2=\"55\" y2=\"164\"/><text x=\"46\" y=\"167\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-40</text><line x1=\"49\" y1=\"132.9\" x2=\"55\" y2=\"132.9\"/><text x=\"46\" y=\"135.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-30</text><line x1=\"49\" y1=\"101.8\" x2=\"55\" y2=\"101.8\"/><text x=\"46\" y=\"104.8\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-20</text><line x1=\"49\" y1=\"70.7\" x2=\"55\" y2=\"70.7\"/><text x=\"46\" y=\"73.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-10</text><line x1=\"49\" y1=\"39.6\" x2=\"55\" y2=\"39.6\"/><text x=\"46\" y=\"42.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"52\" y1=\"39.6\" x2=\"312\" y2=\"39.6\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"52\" y1=\"161\" x2=\"52\" y2=\"167\"/><text x=\"52\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"117\" y1=\"161\" x2=\"117\" y2=\"167\"/><text x=\"117\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"182\" y1=\"161\" x2=\"182\" y2=\"167\"/><text x=\"182\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"247\" y1=\"161\" x2=\"247\" y2=\"167\"/><text x=\"247\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"312\" y1=\"161\" x2=\"312\" y2=\"167\"/><text x=\"312\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><polyline points=\"52,39.6 182,39.6 312,164\" stroke-width=\"2.2\"/><circle cx=\"247\" cy=\"101.8\" r=\"3\" fill=\"currentColor\"/><text x=\"253\" y=\"95.8\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−20 dB at 10 kHz</text></svg>",
       "figure_alt": "Asymptotic low-pass Bode plot with a marked point at minus 20 dB at 10 kilohertz."

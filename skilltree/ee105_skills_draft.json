@@ -1,7 +1,7 @@
 {
- "course": "EE 105",
+ "course": "Skillgrove global graph (EE 105, ME 132, Feedback Systems)",
  "source": "Niknejad EE105 Reader (Oct 31, 2022)",
- "version": 2,
+ "version": 3,
  "chapters": {
   "1": "Linear Time-Invariant Systems",
   "2": "AC Circuits and AC Analysis",
@@ -43,7 +43,9 @@
    "name": "Solve a first-order RC low-pass filter in the time domain",
    "chapter": 1,
    "reader_section": "1.2",
-   "prereqs": [],
+   "prereqs": [
+    "step-resp"
+   ],
    "owns": "first-order RC step/transient in time domain",
    "sources": [
     {
@@ -75,8 +77,7 @@
    "reader_section": "1.5",
    "prereqs": [
     "cx-exp",
-    "lti-def",
-    "rc-lpf"
+    "lti-def"
    ],
    "owns": "SSS response via e^{jwt} substitution",
    "sources": [
@@ -110,8 +111,7 @@
    "chapter": 1,
    "reader_section": "1.9",
    "prereqs": [
-    "impulse-conv",
-    "rc-lpf"
+    "impulse-conv"
    ],
    "owns": "step/pulse response metrics (rise, settling)",
    "sources": [
@@ -1149,12 +1149,13 @@
   },
   {
    "id": "stability",
-   "name": "Stability, non-dominant poles and oscillation",
+   "name": "Closed-loop stability, gain and phase margins",
    "chapter": 17,
    "reader_section": "17.9",
    "prereqs": [
-    "gbw",
-    "pole-zero"
+    "pole-zero",
+    "loop-gain",
+    "bode"
    ],
    "owns": "stability and phase margin",
    "sources": [
@@ -1274,7 +1275,8 @@
    "name": "Simple feedback: on-off, P, PI, PID",
    "summary": "Compare on-off, proportional, integral and derivative action qualitatively and predict steady-state error.",
    "prereqs": [
-    "fb-concepts"
+    "fb-concepts",
+    "fb-errors"
    ],
    "status": "coming-soon",
    "sources": [
@@ -1779,32 +1781,12 @@
    ]
   },
   {
-   "id": "margins",
-   "name": "Gain, phase and stability margins",
-   "summary": "Read gain, phase and stability margins from Bode and Nyquist plots.",
-   "prereqs": [
-    "nyquist"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "Astrom & Murray, Feedback Systems (2008)",
-     "section": "9.3",
-     "use": "reference only"
-    },
-    {
-     "ref": "ME 132 Fall 2026 syllabus/notes",
-     "use": "scope only"
-    }
-   ]
-  },
-  {
    "id": "min-phase",
    "name": "Bode's relations and minimum-phase systems",
    "summary": "Relate gain slope to phase and recognize nonminimum-phase zeros and delays.",
    "prereqs": [
     "bode",
-    "margins"
+    "stability"
    ],
    "status": "coming-soon",
    "sources": [
@@ -1885,7 +1867,7 @@
    "summary": "Apply the small-gain test |T Δ|<1 and stability margins to uncertain plants.",
    "prereqs": [
     "uncertainty",
-    "margins"
+    "stability"
    ],
    "status": "coming-soon",
    "sources": [
@@ -1967,7 +1949,7 @@
    "summary": "Shape L(j omega) with lead/lag/PI to meet margins and bandwidth.",
    "prereqs": [
     "perf-specs-freq",
-    "margins"
+    "loop-margin-design"
    ],
    "status": "coming-soon",
    "sources": [
@@ -2395,6 +2377,109 @@
      "use": "scope only"
     }
    ]
+  },
+  {
+   "id": "lti-circuits",
+   "name": "LTI analysis of RC and RLC circuits",
+   "prereqs": [
+    "step-resp",
+    "impulse-conv",
+    "rc-lpf"
+   ],
+   "summary": "Apply linearity, convolution and step response to circuit equations: RC charging, pulses, rise time and loading.",
+   "chapter": 1,
+   "reader_section": "1.4-1.6"
+  },
+  {
+   "id": "freq-resp-circuits",
+   "name": "Frequency response and transfer functions of circuits",
+   "prereqs": [
+    "freq-char",
+    "tf",
+    "rc-lpf",
+    "phasors"
+   ],
+   "summary": "Sinusoidal steady state of RC/RL filters, impedance magnitudes, voltage gain and transimpedance.",
+   "chapter": 1,
+   "reader_section": "1.6-1.8, 2.1"
+  },
+  {
+   "id": "bode-circuits",
+   "name": "Poles, zeros and Bode plots of circuits",
+   "prereqs": [
+    "bode",
+    "direct-h"
+   ],
+   "summary": "Locate poles and zeros from circuit time constants and sketch Bode plots of filters and amplifiers.",
+   "chapter": 2,
+   "reader_section": "2.3-2.5"
+  },
+  {
+   "id": "fb-amp",
+   "name": "Feedback amplifiers: feedback factor and loop gain",
+   "prereqs": [
+    "loop-gain",
+    "opamp-models"
+   ],
+   "summary": "Find f, the loop gain and the closed-loop gain of op-amp feedback circuits.",
+   "chapter": 17,
+   "reader_section": "17.1-17.3"
+  },
+  {
+   "id": "fb-amp-errors",
+   "name": "Gain errors in feedback amplifiers",
+   "prereqs": [
+    "fb-errors",
+    "fb-amp"
+   ],
+   "summary": "Static and dynamic gain errors of op-amp amplifiers from finite and frequency-dependent open-loop gain.",
+   "chapter": 17,
+   "reader_section": "17.4"
+  },
+  {
+   "id": "amp-compensation",
+   "name": "Op-amp and amplifier stability and compensation",
+   "prereqs": [
+    "stability",
+    "gbw",
+    "fb-amp"
+   ],
+   "summary": "Phase margin of op-amp loops: second poles, capacitive loads, dominant-pole and Miller compensation.",
+   "chapter": 17,
+   "reader_section": "17.6"
+  },
+  {
+   "id": "lti-mech",
+   "name": "LTI models of mechanical systems",
+   "prereqs": [
+    "step-resp",
+    "freq-char",
+    "ode-model"
+   ],
+   "summary": "Mass-spring-damper and rotational systems as LTI models: static gain, natural frequency, damping, step and frequency response.",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "2.1-2.2",
+     "use": "reference only"
+    }
+   ]
+  },
+  {
+   "id": "loop-margin-design",
+   "name": "Stability margins in control loop design",
+   "prereqs": [
+    "stability",
+    "loop-tf"
+   ],
+   "summary": "Use gain, phase, delay and sensitivity margins to judge and tune control loops.",
+   "sources": [
+    {
+     "ref": "Astrom & Murray, Feedback Systems (2008)",
+     "section": "2.1, 9.3",
+     "use": "reference only"
+    }
+   ]
   }
  ],
  "retired": {
@@ -2412,6 +2497,7 @@
   "cs-miller": "miller",
   "dm-cm": "half-circuit",
   "cm-gain": "cmrr",
-  "pmos-ss": "pmos"
+  "pmos-ss": "pmos",
+  "margins": "stability"
  }
 }

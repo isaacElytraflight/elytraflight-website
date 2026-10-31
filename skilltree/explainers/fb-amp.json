@@ -1,0 +1,28 @@
+{
+ "id": "fb-amp",
+ "title": "Feedback amplifiers: feedback factor and loop gain",
+ "sections": [
+  {
+   "heading": "The idea",
+   "body_md": "An amplifier with negative feedback is the standard example of the feedback loop. The forward path \\(a\\) is the open-loop amplifier gain, and the feedback path \\(f\\) is a resistor network that returns a fraction of the output to the input. The **feedback factor** of a divider made of \\(R_1\\) to ground and \\(R_2\\) from the output is \\(f = R_1/(R_1 + R_2)\\).\n\nA noninverting op-amp stage then has closed-loop gain \\(a/(1 + af) \\approx 1 + R_2/R_1\\). The loop gain \\(T = af\\) is very large at low frequency, because op-amp gains are \\(10^5\\) or more.\n\nTo find \\(T\\) in a real circuit, turn off the input, break the loop at the op-amp input, inject a test voltage, and trace it through the amplifier and the network. Loading by the network and the amplifier's input and output resistances should be kept. The same block diagram covers inverting stages, transimpedance stages and transistor feedback pairs; only the way the network samples the output and mixes at the input changes, and with it the input and output resistances.",
+   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 205\" role=\"img\" aria-label=\"Non-inverting amplifier: v_in drives the op-amp's + input; the output feeds back through R2 to the − input, which connects to ground through R1.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:280px;width:100%;height:auto\"><polygon points=\"92,42 92,98 148,70\"/><text x=\"99\" y=\"60\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"99\" y=\"88\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"40\" y1=\"56\" x2=\"92\" y2=\"56\"/><text x=\"34\" y=\"60\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"148\" y1=\"70\" x2=\"210\" y2=\"70\"/><text x=\"232\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v_out</text><circle cx=\"190\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"190\" y1=\"70\" x2=\"190\" y2=\"130\"/><line x1=\"190\" y1=\"130\" x2=\"160\" y2=\"130\"/><polyline points=\"100,130 112,130 115,124 120,136 125,124 130,136 135,124 140,136 148,130 160,130\"/><text x=\"130\" y=\"118\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R2</text><line x1=\"100\" y1=\"130\" x2=\"70\" y2=\"130\"/><line x1=\"70\" y1=\"130\" x2=\"70\" y2=\"84\"/><line x1=\"70\" y1=\"84\" x2=\"92\" y2=\"84\"/><circle cx=\"70\" cy=\"130\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"70\" y1=\"130\" x2=\"70\" y2=\"140\"/><polyline points=\"70,140 70,142 64,145 76,150 64,155 76,160 64,165 76,170 70,178 70,180\"/><text x=\"82\" y=\"164\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R1</text><line x1=\"70\" y1=\"180\" x2=\"70\" y2=\"186\"/><line x1=\"61\" y1=\"186\" x2=\"79\" y2=\"186\"/><line x1=\"65\" y1=\"190\" x2=\"75\" y2=\"190\"/><line x1=\"68.5\" y1=\"194\" x2=\"71.5\" y2=\"194\"/></svg>",
+   "figure_alt": "Non-inverting amplifier: v_in drives the op-amp's + input; the output feeds back through R2 to the − input, which connects to ground through R1."
+  },
+  {
+   "heading": "Key equations",
+   "body_md": "\\[ f = \\frac{R_1}{R_1 + R_2}, \\qquad A = \\frac{a}{1 + af} \\approx 1 + \\frac{R_2}{R_1} \\]\n\\[ T = af \\]"
+  },
+  {
+   "heading": "Worked example",
+   "body_md": "An op-amp with \\(a = 4\\times10^4\\) uses \\(R_1 = 1.5\\ \\mathrm{k\\Omega}\\) and \\(R_2 = 13.5\\ \\mathrm{k\\Omega}\\). Then \\(f = 0.1\\), \\(T = 4000\\), and \\(A = 4\\times10^4/4001 = 9.9975\\), against the ideal 10. The 0.025% shortfall is the \\(1/T\\) gain error."
+  },
+  {
+   "heading": "Common pitfalls",
+   "body_md": "- Inverting the divider ratio.\n- Using the closed-loop gain in place of \\(1/f\\) when \\(T\\) is small.\n- Dropping the amplifier's output resistance when breaking the loop."
+  },
+  {
+   "heading": "Where this leads",
+   "body_md": "Finite loop gain gives the gain errors of feedback amplifiers, and its frequency dependence decides their stability."
+  }
+ ]
+}
