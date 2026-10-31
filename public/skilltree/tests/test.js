@@ -41,6 +41,19 @@ const NBLOB = NBOX;
 let browser, results = [], errs = [];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+async function pickBoxes(p, ids) {
+  await p.evaluate(ids => {
+    const panel = document.getElementById('scopePanel');
+    if (panel.hidden) document.getElementById('scopeToggle').click();
+    document.getElementById('scopeNone').click();
+    const want = new Set(ids);
+    document.querySelectorAll('#scopePicker input[type=checkbox]').forEach(inp => {
+      if (want.has(inp.value)) inp.click();
+    });
+  }, ids);
+  await sleep(250);
+}
+
 async function panTo(p, selector) {
   const box = await p.evaluate(sel => {
     const node = document.querySelector(sel);
@@ -707,166 +720,39 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
-  await test('collapse toggle hides a box, keeps edges valid, and persists', async () => {
-    const p = await newPage();
-    
-    await p.click('#btnGroup');
-    await sleep(700);
-    await panTo(p, '.blob[data-box="ee105-ch1"] .toggle');
-    
-    const before = await p.evaluate(() => {
-      const sg = window.__skillgrove;
-      const btn = document.querySelector('.blob[data-box="ee105-ch1"] .toggle');
-      const chev = btn.querySelector('.chev');
-      return {
-        collapsed: sg.collections.collapsed().has('ee105-ch1'),
-        height: sg.layout().grouped.blobs['ee105-ch1'].h,
-        expanded: btn.getAttribute('aria-expanded'),
-        label: btn.getAttribute('aria-label'),
-        chev: getComputedStyle(chev).transform
-      };
-    });
-    assert(!before.collapsed, 'chapter should start expanded');
-    assert(before.height > 100, 'expanded chapter should have significant height');
-    assert.strictEqual(before.expanded, 'true');
-    assert(/Collapse/.test(before.label));
-    assert.strictEqual(before.chev, 'none', 'expanded arrow is not rotated');
-    
-    await p.click('.blob[data-box="ee105-ch1"] .toggle');
-    await sleep(150);
-    
-    const after = await p.evaluate(() => {
-      const sg = window.__skillgrove;
-      const blobs = sg.layout().grouped.blobs;
-      const chapters = Object.keys(blobs).filter(id => blobs[id].kind === 'chapter').map(id => ({ id, ...blobs[id] }));
-      const overlap = chapters.some((a, i) => chapters.some((b, j) => i < j && a.x < b.x + b.w - 1 && b.x < a.x + a.w - 1 && a.y < b.y + b.h - 1 && b.y < a.y + a.h - 1));
-      const course = blobs['ee105-ucb'];
-      const ch1 = blobs['ee105-ch1'];
-      const inside = ch1.x >= course.x - 1 && ch1.y >= course.y - 1 && ch1.x + ch1.w <= course.x + course.w + 1 && ch1.y + ch1.h <= course.y + course.h + 1;
-      const skills = sg.collections.getBoxSkills('ee105-ch1');
-      const hiddenTiles = skills.filter(id => document.querySelector('#world .tile[data-id="' + id + '"]').classList.contains('collapsed-hide')).length;
-      const btn = document.querySelector('.blob[data-box="ee105-ch1"] .toggle');
-      const m = new DOMMatrix(getComputedStyle(btn.querySelector('.chev')).transform);
-      const paths = [...document.querySelectorAll('#edges path')];
-      let visible = 0, hidden = 0, bad = 0;
-      paths.forEach(path => {
-        const d = path.getAttribute('d') || '';
-        if (path.classList.contains('collapsed-hide')) { hidden++; return }
-        visible++;
-        if (!d || /NaN|Infinity|undefined/.test(d)) bad++;
-      });
-      return {
-        collapsed: sg.collections.collapsed().has('ee105-ch1'),
-        height: ch1.h,
-        hasClass: document.querySelector('.blob[data-box="ee105-ch1"]').classList.contains('collapsed'),
-        expanded: btn.getAttribute('aria-expanded'),
-        rotated: Math.abs(m.b + 1) < 0.05 && Math.abs(m.c - 1) < 0.05,
-        hiddenTiles, skillCount: skills.length,
-        overlap, inside, visible, hidden, bad, edges: paths.length,
-        stored: localStorage.getItem('skilltree.collapsed.v1')
-      };
-    });
-    assert(after.collapsed, 'chapter should be collapsed after a real click');
-    assert(after.height < 100, 'collapsed chapter should shrink to its header');
-    assert(after.hasClass, 'collapsed class should be set');
-    assert.strictEqual(after.expanded, 'false');
-    assert(after.rotated, 'arrow should rotate to point right');
-    assert.strictEqual(after.hiddenTiles, after.skillCount, 'skills inside the chapter should be hidden');
-    assert(!after.overlap, 'chapter boxes should not overlap');
-    assert(after.inside, 'collapsed chapter should stay inside its course');
-    assert.strictEqual(after.bad, 0, 'visible edges should have finite paths');
-    assert(after.hidden > 0, 'edges into the collapsed chapter should be hidden');
-    assert(after.visible > 0, 'edges between the other chapters should remain');
-    assert.strictEqual(after.visible + after.hidden, after.edges);
-    assert(/ee105-ch1/.test(after.stored), 'collapsed ids should be stored locally');
-    
-    await p.reload({ waitUntil: 'networkidle0' });
-    await sleep(500);
-    const kept = await p.evaluate(() => ({
-      pressed: document.querySelector('#btnGroup').getAttribute('aria-pressed'),
-      collapsed: window.__skillgrove.collections.collapsed().has('ee105-ch1'),
-      expanded: document.querySelector('.blob[data-box="ee105-ch1"] .toggle').getAttribute('aria-expanded')
-    }));
-    assert.strictEqual(kept.pressed, 'true', 'grouped view should still be on');
-    assert(kept.collapsed, 'collapsed chapter should survive reload');
-    assert.strictEqual(kept.expanded, 'false');
-    
-    await p.focus('.blob[data-box="ee105-ch1"] .toggle');
-    await p.keyboard.press('Enter');
-    await sleep(150);
-    const restored = await p.evaluate(() => {
-      const sg = window.__skillgrove;
-      const shown = sg.collections.getBoxSkills('ee105-ch1').filter(id => !document.querySelector('#world .tile[data-id="' + id + '"]').classList.contains('collapsed-hide')).length;
-      return {
-        collapsed: sg.collections.collapsed().has('ee105-ch1'),
-        expanded: document.querySelector('.blob[data-box="ee105-ch1"] .toggle').getAttribute('aria-expanded'),
-        shown
-      };
-    });
-    assert(!restored.collapsed, 'Enter should expand the chapter');
-    assert.strictEqual(restored.expanded, 'true');
-    assert.strictEqual(restored.shown, (await p.evaluate(() => window.__skillgrove.collections.getBoxSkills('ee105-ch1').length)));
-    
-    await p.select('#scopePicker', 'ee105-ucb');
-    await panTo(p, '.blob.course[data-box="ee105-ucb"] .toggle');
-    await p.click('.blob.course[data-box="ee105-ucb"] .toggle');
-    await sleep(150);
-    const course = await p.evaluate(() => {
-      const sg = window.__skillgrove;
-      const blob = sg.layout().grouped.blobs['ee105-ucb'];
-      const paths = [...document.querySelectorAll('#edges path')];
-      const bad = paths.filter(path => !path.classList.contains('collapsed-hide') && /NaN|Infinity|undefined/.test(path.getAttribute('d') || '')).length;
-      const visible = paths.filter(path => !path.classList.contains('collapsed-hide')).length;
-      return {
-        height: blob.h,
-        chapters: document.querySelectorAll('.blob.chapter').length,
-        hiddenTiles: document.querySelectorAll('#world .tile.collapsed-hide').length,
-        tileCount: document.querySelectorAll('#world .tile').length,
-        skillCount: sg.collections.getBoxDescendantSkills('ee105-ucb').length,
-        expanded: document.querySelector('.blob.course .toggle').getAttribute('aria-expanded'),
-        bad, visible
-      };
-    });
-    assert(course.height < 100, 'collapsed course should shrink to its header');
-    assert.strictEqual(course.chapters, 0, 'chapter boxes should be removed while the course is collapsed');
-    assert.strictEqual(course.hiddenTiles, course.skillCount, 'every EE 105 skill tile should be hidden with the course');
-    assert.strictEqual(course.tileCount, course.skillCount, 'the EE 105 scope lays out only that course');
-    assert.strictEqual(course.expanded, 'false');
-    assert.strictEqual(course.bad, 0);
-    assert.strictEqual(course.visible, 0, 'no edge should be left dangling from hidden skills');
-    await panTo(p, '.blob.course[data-box="ee105-ucb"]');
-    await p.screenshot({ path: path.join(SHOTS_DIR, '15_collapsed_box.png') });
-    
-    await p.click('.blob.course[data-box="ee105-ucb"] .toggle');
-    await sleep(150);
-    const back = await p.evaluate(() => document.querySelectorAll('.blob.chapter').length);
-    assert.strictEqual(back, 18, 'expanding the course should restore its chapters');
-    await p._ctx.close();
-  });
-
   await test('scope selector filters the tree and the learning plan', async () => {
     const p = await newPage();
 
     const controls = await p.evaluate(() => ({
       selects: [...document.querySelectorAll('#hctl select')].map(e => e.id),
+      picker: document.getElementById('scopePicker') && document.getElementById('scopePicker').tagName,
       oldChapter: !!document.getElementById('chSel'),
       oldBox: !!document.getElementById('boxPicker'),
-      oldPlan: !!document.getElementById('planScopePicker')
+      oldPlan: !!document.getElementById('planScopePicker'),
+      all: !!document.getElementById('scopeAll'),
+      none: !!document.getElementById('scopeNone')
     }));
-    assert.deepStrictEqual(controls.selects, ['scopePicker']);
+    assert.deepStrictEqual(controls.selects, [], 'the single scope dropdown should be gone');
+    assert.strictEqual(controls.picker, 'DIV');
     assert.strictEqual(controls.oldChapter, false, 'the old chapter filter should be gone');
     assert.strictEqual(controls.oldBox, false, 'the old box filter should be gone');
     assert.strictEqual(controls.oldPlan, false);
+    assert(controls.all && controls.none, 'All and None shortcuts should be present');
 
-    const options = await p.$$eval('#scopePicker option', opts => opts.map(o => ({ value: o.value, text: o.textContent })));
-    assert.strictEqual(options[0].value, '', 'first option should be Everything');
-    assert.strictEqual(options[0].text, 'Everything');
+    const options = await p.$$eval('#scopePicker .scope-row', rows => rows.map(row => ({
+      value: row.querySelector('input').value,
+      text: row.querySelector('span').textContent,
+      depth: row.classList.contains('depth')
+    })));
     const courseAt = options.findIndex(o => o.value === 'ee105-ucb');
     const ch1At = options.findIndex(o => o.value === 'ee105-ch1');
     const ch2At = options.findIndex(o => o.value === 'ee105-ch2');
-    assert(courseAt > 0, 'picker should list the course from collections');
+    assert(courseAt >= 0, 'picker should list the course from collections');
     assert(ch1At > courseAt && ch2At > ch1At, 'chapters should be nested under their course');
+    assert(options[ch1At].depth && options[ch2At].depth);
+    assert(!options[courseAt].depth);
     assert(/Ch 2:/.test(options[ch2At].text), options[ch2At].text);
+    assert.strictEqual(options.length, NBOX);
 
     await p.click('#btnPlan');
     await sleep(400);
@@ -877,27 +763,31 @@ async function test(name, fn) {
     await p.keyboard.press('Escape');
     await sleep(200);
 
-    await p.select('#scopePicker', 'ee105-ch2');
-    await sleep(200);
+    await pickBoxes(p, ['ee105-ch2']);
     const filterResult = await p.evaluate(() => {
       const sg = window.__skillgrove;
       const dimmedTiles = document.querySelectorAll('#world .tile.boxdim').length;
       const visibleTiles = document.querySelectorAll('#world .tile:not(.boxdim)').length;
       const ch2Skills = sg.collections.getBoxDescendantSkills('ee105-ch2');
+      const drawn = [...document.querySelectorAll('#regions .blob')].map(b => b.dataset.box);
       return {
-        filterActive: sg.collections.filter() === 'ee105-ch2',
+        filterActive: JSON.stringify(sg.collections.filter()) === JSON.stringify(['ee105-ch2']),
         planScope: sg.collections.scope(),
         stored: localStorage.getItem('skilltree.planscope.v1'),
         dimmedTiles,
         visibleTiles,
-        ch2SkillCount: ch2Skills.length
+        ch2SkillCount: ch2Skills.length,
+        drawn,
+        tileCount: document.querySelectorAll('#world .tile').length
       };
     });
     assert(filterResult.filterActive, 'tree filter should follow the scope');
-    assert.strictEqual(filterResult.planScope, 'ee105-ch2', 'plan scope should follow the same selection');
-    assert.strictEqual(filterResult.stored, 'ee105-ch2');
+    assert.deepStrictEqual(filterResult.planScope, ['ee105-ch2'], 'plan scope should follow the same selection');
+    assert.deepStrictEqual(JSON.parse(filterResult.stored), { v: 2, boxes: ['ee105-ch2'] });
     assert(filterResult.dimmedTiles > 0, 'skills outside the chapter should be dimmed');
-    assert.strictEqual(filterResult.visibleTiles, filterResult.ch2SkillCount, 'visible tiles should match the chapter');
+    assert.strictEqual(filterResult.visibleTiles, filterResult.ch2SkillCount, 'undimmed tiles should match the chapter');
+    assert.strictEqual(filterResult.tileCount, NSKILL, 'out-of-scope skills stay on the tree');
+    assert.deepStrictEqual(filterResult.drawn, ['ee105-ch2']);
 
     await p.click('#btnPlan');
     await sleep(400);
@@ -917,33 +807,39 @@ async function test(name, fn) {
     await p.reload({ waitUntil: 'networkidle0' });
     await sleep(500);
     const kept = await p.evaluate(() => ({
-      value: document.getElementById('scopePicker').value,
+      checked: [...document.querySelectorAll('#scopePicker input:checked')].map(i => i.value),
       dimmed: document.querySelectorAll('#world .tile.boxdim').length,
       scope: window.__skillgrove.collections.scope()
     }));
-    assert.strictEqual(kept.value, 'ee105-ch2', 'scope should survive reload');
-    assert.strictEqual(kept.scope, 'ee105-ch2');
+    assert.deepStrictEqual(kept.checked, ['ee105-ch2'], 'scope should survive reload');
+    assert.deepStrictEqual(kept.scope, ['ee105-ch2']);
     assert(kept.dimmed > 0, 'tree should still be filtered after reload');
 
-    await p.select('#scopePicker', 'ee105-ucb');
-    await sleep(150);
+    await pickBoxes(p, ['ee105-ucb']);
     const course = await p.evaluate(() => ({
       dimmed: document.querySelectorAll('#world .tile.boxdim').length,
-      scope: window.__skillgrove.collections.scope()
+      bright: document.querySelectorAll('#world .tile:not(.boxdim)').length,
+      scope: window.__skillgrove.collections.scope(),
+      members: window.__skillgrove.collections.getBoxDescendantSkills('ee105-ucb').length,
+      drawn: [...document.querySelectorAll('#regions .blob')].map(b => b.dataset.box)
     }));
-    assert.strictEqual(course.scope, 'ee105-ucb');
-    assert.strictEqual(course.dimmed, 0, 'every skill in the EE 105 scope stays visible');
+    assert.deepStrictEqual(course.scope, ['ee105-ucb']);
+    assert.strictEqual(course.bright, course.members, 'every EE 105 skill stays undimmed');
+    assert(course.dimmed > 0, 'skills outside EE 105 stay visible but dimmed');
+    assert.deepStrictEqual(course.drawn, ['ee105-ucb']);
 
-    await p.select('#scopePicker', '');
+    await p.click('#scopeAll');
     await sleep(150);
     const cleared = await p.evaluate(() => ({
       dimmed: document.querySelectorAll('#world .tile.boxdim').length,
-      stored: localStorage.getItem('skilltree.planscope.v1'),
-      scope: window.__skillgrove.collections.scope()
+      stored: JSON.parse(localStorage.getItem('skilltree.planscope.v1')),
+      scope: window.__skillgrove.collections.scope(),
+      blobs: document.querySelectorAll('.blob').length
     }));
-    assert.strictEqual(cleared.dimmed, 0, 'clearing scope should show every skill');
-    assert.strictEqual(cleared.stored, null);
+    assert.strictEqual(cleared.dimmed, 0, 'All should show every skill');
+    assert.deepStrictEqual(cleared.stored, { v: 2, all: true });
     assert.strictEqual(cleared.scope, null);
+    assert.strictEqual(cleared.blobs, NBOX);
     await p.screenshot({ path: path.join(SHOTS_DIR, '16_scope_selector.png') });
     await p._ctx.close();
   });
@@ -1112,8 +1008,7 @@ async function test(name, fn) {
       'plan scope should include extras or be larger than ch2 playable count');
     
     if (prereqTest.hasExtras) {
-      await p.select('#scopePicker', 'ee105-ch2');
-      await sleep(200);
+      await pickBoxes(p, ['ee105-ch2']);
       await p.click('#btnPlan');
       await sleep(400);
       
@@ -1131,7 +1026,10 @@ async function test(name, fn) {
 
   await test('scope selector lists ME 132 and Feedback Systems as independent choices', async () => {
     const p = await newPage();
-    const options = await p.$$eval('#scopePicker option', opts => opts.map(o => ({ value: o.value, text: o.textContent })));
+    const options = await p.$$eval('#scopePicker .scope-row', rows => rows.map(row => ({
+      value: row.querySelector('input').value,
+      text: row.querySelector('span').textContent
+    })));
     const me = options.find(o => o.value === 'me132');
     const book = options.find(o => o.value === 'am08');
     assert(me, 'selector should list ME 132');
@@ -1241,14 +1139,17 @@ async function test(name, fn) {
     const shared = await p.evaluate(() => {
       const tiles = [...document.querySelectorAll('#world .tile[data-id="bode"]')];
       const stored = JSON.parse(localStorage.getItem('skilltree.progress.v1')).skills;
+      const boxes = window.__skillgrove.collections.skillToBoxes()['bode'].slice().sort();
       return {
-        boxes: tiles.map(t => t.dataset.box).sort(),
+        tiles: tiles.length,
         tiers: tiles.map(t => t.classList.contains('t4')),
-        records: Object.keys(stored).filter(id => id === 'bode').length
+        records: Object.keys(stored).filter(id => id === 'bode').length,
+        boxes
       };
     });
+    assert.strictEqual(shared.tiles, 1, 'a shared skill is one tile');
     assert.deepStrictEqual(shared.boxes, ['am08/ch8', 'ee105-ch2', 'me132/m3']);
-    assert(shared.tiers.every(Boolean), 'every bode placement shows the same mastered tier');
+    assert(shared.tiers.every(Boolean), 'the single bode tile shows the mastered tier');
     assert.strictEqual(shared.records, 1);
     await p._ctx.close();
   });
@@ -1257,8 +1158,7 @@ async function test(name, fn) {
     const p = await newPage();
     await p.setViewport({ width: 1440, height: 900 });
     const shoot = async (scope, file) => {
-      await p.select('#scopePicker', scope);
-      await sleep(300);
+      await pickBoxes(p, [scope]);
       const grouped = await p.$eval('#btnGroup', b => b.getAttribute('aria-pressed') === 'true');
       if (!grouped) {
         await p.click('#btnGroup');
@@ -1273,17 +1173,17 @@ async function test(name, fn) {
         const s = Math.min(0.72, (vw - 48) / box.w, (vh - 36) / sliceH);
         const x = (vw - box.w * s) / 2 - box.x * s;
         const y = 16 - box.y * s;
-        window.__skillgrove.lights.setScale(Math.max(s, 0.4));
         const world = document.getElementById('world');
-        const m = /scale\(([^)]+)\)/.exec(world.style.transform);
-        const scale = m ? parseFloat(m[1]) : s;
-        world.style.transform = `translate(${x}px,${y}px) scale(${scale})`;
+        world.classList.remove('anim');
+        world.style.transition = 'none';
+        world.style.transform = `translate(${x}px,${y}px) scale(${s})`;
       });
       await sleep(250);
       const view = await p.evaluate(scope => {
         const sg = window.__skillgrove;
         const tiles = [...document.querySelectorAll('#world .tile')];
         const soon = tiles.filter(t => t.classList.contains('soon')).length;
+        const bright = tiles.filter(t => !t.classList.contains('boxdim')).length;
         return {
           scope: sg.collections.scope(),
           title: (sg.collections.boxById()[scope] || {}).title,
@@ -1292,25 +1192,29 @@ async function test(name, fn) {
           chapters: document.querySelectorAll('.blob.chapter.on').length,
           tiles: tiles.length,
           soon,
+          bright,
           dimmed: document.querySelectorAll('#world .tile.boxdim').length,
-          memberCount: sg.collections.getBoxDescendantSkills(scope).length
+          memberCount: sg.collections.getBoxDescendantSkills(scope).length,
+          soonLabel: (document.querySelector('#world .tile.soon .tag') || {}).textContent || ''
         };
       }, scope);
-      assert.strictEqual(view.scope, scope);
-      assert.strictEqual(view.dimmed, 0, scope + ' should show its own skills without dimming them');
-      assert.strictEqual(view.tiles, view.memberCount, scope + ' tile count');
+      assert.deepStrictEqual(view.scope, [scope]);
+      assert.strictEqual(view.bright, view.memberCount, scope + ' members stay undimmed');
+      assert.strictEqual(view.tiles, NSKILL, scope + ' still draws every skill once');
+      assert.strictEqual(view.dimmed, NSKILL - view.memberCount);
       if (scope === 'me132') {
         assert.strictEqual(view.title, 'ME 132 (UC Berkeley)');
         assert.strictEqual(view.course, 1);
         assert.strictEqual(view.textbook, 0);
-        assert.strictEqual(view.chapters, 9);
+        assert.strictEqual(view.chapters, 0, 'unselected chapters are not drawn');
       } else {
         assert.strictEqual(view.title, 'Feedback Systems');
         assert.strictEqual(view.course, 0);
         assert.strictEqual(view.textbook, 1);
-        assert.strictEqual(view.chapters, 13);
+        assert.strictEqual(view.chapters, 0, 'unselected chapters are not drawn');
       }
       assert(view.soon > 0, scope + ' should show coming-soon skills');
+      assert.strictEqual(view.soonLabel, 'SOON');
       await p.screenshot({ path: path.join(SHOTS_DIR, file), fullPage: false });
     };
     await shoot('me132', '20_me132_scope.png');
@@ -1318,75 +1222,287 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
-  await test('grouped box headers do not overlap in any scope', async () => {
+  await test('each skill renders exactly one tile', async () => {
+    const p = await newPage();
+    const tree = await p.evaluate(() => {
+      const ids = [...document.querySelectorAll('#world .tile')].map(t => t.dataset.id);
+      const counts = {};
+      ids.forEach(id => { counts[id] = (counts[id] || 0) + 1; });
+      const dupes = Object.keys(counts).filter(id => counts[id] !== 1);
+      return {
+        tiles: ids.length,
+        dupes,
+        toggles: document.querySelectorAll('#world .toggle, #regions .toggle').length,
+        soon: document.querySelector('#world .tile[data-id="fb-concepts"] .tag').textContent
+      };
+    });
+    assert.strictEqual(tree.tiles, NSKILL);
+    assert.deepStrictEqual(tree.dupes, []);
+    assert.strictEqual(tree.toggles, 0, 'collapse arrows are gone');
+    assert.strictEqual(tree.soon, 'SOON');
+    await p.click('#btnGroup');
+    await sleep(700);
+    const grouped = await p.evaluate(() => {
+      const ids = [...document.querySelectorAll('#world .tile')].map(t => t.dataset.id);
+      const counts = {};
+      ids.forEach(id => { counts[id] = (counts[id] || 0) + 1; });
+      return {
+        tiles: ids.length,
+        dupes: Object.keys(counts).filter(id => counts[id] !== 1),
+        bode: document.querySelectorAll('#world .tile[data-id="bode"]').length
+      };
+    });
+    assert.strictEqual(grouped.tiles, NSKILL);
+    assert.deepStrictEqual(grouped.dupes, []);
+    assert.strictEqual(grouped.bode, 1);
+    await p.click('#btnGroup');
+    await sleep(400);
+    const back = await p.evaluate(() => document.querySelector('#world').dataset.layout);
+    assert.strictEqual(back, 'tree', 'Ungroup restores the prerequisite tree');
+    await p._ctx.close();
+  });
+
+  await test('selected regions contain their members and labels stay clear', async () => {
     const p = await newPage();
     await p.setViewport({ width: 1440, height: 900 });
     await p.click('#btnGroup');
     await sleep(800);
 
-    const overlaps = () => p.evaluate(() => {
-      const hits = [];
-      const heads = [...document.querySelectorAll('#world .blob.on .hd')].map(hd => {
-        const blob = hd.closest('.blob');
-        const r = hd.getBoundingClientRect();
-        const b = blob.getBoundingClientRect();
-        const title = hd.querySelector('.btitle');
-        const counter = hd.querySelector('.ct');
-        if (r.top < b.top - 1 || r.left < b.left - 1 || r.bottom > b.bottom + 1 || r.right > b.right + 1) {
-          hits.push(blob.dataset.box + ' header spills out of its box');
+    const geometry = () => p.evaluate(() => {
+      const world = document.getElementById('world');
+      world.classList.remove('anim');
+      world.style.transition = 'none';
+      world.style.transform = 'translate(0px,0px) scale(1)';
+      void world.offsetWidth;
+      const sg = window.__skillgrove;
+      const L = sg.layout().grouped;
+      const inside = (poly, x, y) => {
+        let c = false;
+        for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+          const xi = poly[i][0], yi = poly[i][1], xj = poly[j][0], yj = poly[j][1];
+          if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / ((yj - yi) || 1e-9) + xi)) c = !c;
         }
-        if (title && counter) {
-          const a = title.getBoundingClientRect();
-          const c = counter.getBoundingClientRect();
-          if (a.right > c.left + 1 && c.right > a.left + 1 && a.bottom > c.top + 1 && c.bottom > a.top + 1) {
-            hits.push(blob.dataset.box + ' title overlaps its counter');
-          }
-        }
-        return { id: blob.dataset.box, r };
+        return c;
+      };
+      const outside = [];
+      const selected = sg.collections.selected();
+      selected.forEach(id => {
+        const blob = L.blobs[id];
+        if (!blob) { outside.push(id + ' has no region'); return; }
+        sg.collections.getBoxDescendantSkills(id).forEach(sid => {
+          const n = L.nodes[sid];
+          if (!n) { outside.push(sid + ' missing from ' + id); return; }
+          const corners = [[n.x + 2, n.y + 2], [n.x + 166, n.y + 2], [n.x + 2, n.y + 70], [n.x + 166, n.y + 70]];
+          if (!corners.every(([x, y]) => inside(blob.points, x, y))) outside.push(sid + ' outside ' + id);
+        });
       });
-      for (let i = 0; i < heads.length; i++) {
-        for (let j = i + 1; j < heads.length; j++) {
-          const a = heads[i].r, c = heads[j].r;
-          if (a.right > c.left + 1 && c.right > a.left + 1 && a.bottom > c.top + 1 && c.bottom > a.top + 1) {
-            hits.push(heads[i].id + ' ∩ ' + heads[j].id);
-          }
+      const hit = (a, b) => {
+        const w = Math.min(a.right, b.right) - Math.max(a.left, b.left);
+        const h = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
+        return w > 1 && h > 1;
+      };
+      const labels = [...document.querySelectorAll('.region-label')].map(n => ({ id: n.dataset.box, r: n.getBoundingClientRect() }));
+      const tiles = [...document.querySelectorAll('#world .tile')].map(n => n.getBoundingClientRect());
+      const labelHits = [];
+      for (let i = 0; i < labels.length; i++) {
+        for (let j = i + 1; j < labels.length; j++) {
+          if (hit(labels[i].r, labels[j].r)) labelHits.push(labels[i].id + ' ∩ ' + labels[j].id);
         }
+        if (tiles.some(t => hit(labels[i].r, t))) labelHits.push(labels[i].id + ' overlaps a tile');
       }
-      return hits;
+      const nesting = [];
+      selected.forEach(id => {
+        const box = sg.collections.boxById()[id];
+        const parentId = (box && (sg.collections.data().boxes.find(b => (b.children || []).includes(id)) || {}).id) || null;
+        if (!parentId || !selected.includes(parentId)) return;
+        const parent = L.blobs[parentId], child = L.blobs[id];
+        if (!parent || !child) { nesting.push(id + ' missing parent region'); return; }
+        const cx = child.points.reduce((s, pt) => s + pt[0], 0) / child.points.length;
+        const cy = child.points.reduce((s, pt) => s + pt[1], 0) / child.points.length;
+        const tucked = child.points.every(([x, y]) => {
+          const dx = cx - x, dy = cy - y, len = Math.hypot(dx, dy) || 1;
+          return inside(parent.points, x + dx / len * 3, y + dy / len * 3);
+        });
+        if (!tucked) nesting.push(id + ' escapes ' + parentId);
+      });
+      return {
+        outside: outside.slice(0, 8),
+        outsideCount: outside.length,
+        labelHits: labelHits.slice(0, 8),
+        labelHitCount: labelHits.length,
+        nesting: nesting.slice(0, 8),
+        nestingCount: nesting.length,
+        regions: selected.filter(id => L.blobs[id]).length,
+        selected: selected.length
+      };
     });
 
-    const setCollapsed = async ids => {
-      await p.evaluate(want => {
-        const sg = window.__skillgrove;
-        const have = new Set(sg.collections.collapsed());
-        [...have].forEach(id => { if (!want.includes(id)) sg.collections.toggleCollapse(id); });
-        want.forEach(id => { if (!sg.collections.collapsed().has(id)) sg.collections.toggleCollapse(id); });
-      }, ids);
-      await sleep(80);
+    const frame = async () => {
+      await p.evaluate(() => {
+        const panel = document.getElementById('scopePanel');
+        if (panel && !panel.hidden) document.getElementById('scopeToggle').click();
+        const L = window.__skillgrove.layout().grouped;
+        const blobs = Object.values(L.blobs);
+        const x0 = Math.min(...blobs.map(b => b.x)), y0 = Math.min(...blobs.map(b => b.y));
+        const x1 = Math.max(...blobs.map(b => b.x + b.w)), y1 = Math.max(...blobs.map(b => b.y + b.h));
+        const tv = document.getElementById('treeView');
+        const pad = 16;
+        const s = Math.min((tv.clientWidth - pad * 2) / (x1 - x0), (tv.clientHeight - pad * 2) / (y1 - y0));
+        const world = document.getElementById('world');
+        world.classList.remove('anim');
+        world.style.transition = 'none';
+        world.style.transform = `translate(${pad - x0 * s}px, ${pad - y0 * s}px) scale(${s})`;
+      });
+      await sleep(200);
     };
 
-    const cases = [
-      { scope: '', label: 'Everything', chapters: ['ee105-ch10', 'me132/m3', 'am08/ch99'], outer: 'me132' },
-      { scope: 'ee105-ucb', label: 'EE 105', chapters: ['ee105-ch10'], outer: 'ee105-ucb' },
-      { scope: 'me132', label: 'ME 132', chapters: ['me132/m1', 'me132/m3'], outer: 'me132' },
-      { scope: 'am08', label: 'Feedback Systems', chapters: ['am08/ch9', 'am08/ch99'], outer: 'am08' }
-    ];
-    for (const c of cases) {
-      await p.select('#scopePicker', c.scope);
-      await sleep(250);
-      await setCollapsed([]);
-      assert.deepStrictEqual(await overlaps(), [], c.label + ' expanded');
-      await setCollapsed(c.chapters);
-      assert.deepStrictEqual(await overlaps(), [], c.label + ' with chapters collapsed');
-      await setCollapsed([c.outer]);
-      assert.deepStrictEqual(await overlaps(), [], c.label + ' with the outer box collapsed');
-      await setCollapsed([]);
-    }
+    let geo = await geometry();
+    assert.strictEqual(geo.selected, NBOX, 'everything starts selected');
+    assert.strictEqual(geo.regions, NBOX);
+    assert.strictEqual(geo.outsideCount, 0, 'member outside its region: ' + geo.outside.join(', '));
+    assert.strictEqual(geo.labelHitCount, 0, 'label collision: ' + geo.labelHits.join(', '));
+    assert.strictEqual(geo.nestingCount, 0, 'chapter escaped its course: ' + geo.nesting.join(', '));
+    await frame();
+    await p.screenshot({ path: path.join(SHOTS_DIR, '24_everything_selected.png') });
 
-    await p.select('#scopePicker', 'me132');
-    await sleep(250);
-    await panTo(p, '.blob[data-box="me132/m1"] .hd');
-    await p.screenshot({ path: path.join(SHOTS_DIR, '22_me132_header.png') });
+    await pickBoxes(p, ['ee105-ucb', 'me132']);
+    await sleep(400);
+    geo = await geometry();
+    assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.collections.selected()), ['ee105-ucb', 'me132']);
+    assert.strictEqual(geo.regions, 2);
+    assert.strictEqual(geo.outsideCount, 0, 'member outside its region: ' + geo.outside.join(', '));
+    assert.strictEqual(geo.labelHitCount, 0, 'label collision: ' + geo.labelHits.join(', '));
+    const overlap = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const both = sg.collections.getBoxDescendantSkills('ee105-ucb').filter(id => sg.collections.skillInBox(id, 'me132'));
+      const L = sg.layout().grouped;
+      const ee = L.blobs['ee105-ucb'], me = L.blobs['me132'];
+      const inside = (poly, x, y) => {
+        let c = false;
+        for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+          const xi = poly[i][0], yi = poly[i][1], xj = poly[j][0], yj = poly[j][1];
+          if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / ((yj - yi) || 1e-9) + xi)) c = !c;
+        }
+        return c;
+      };
+      const sharedInside = both.filter(id => {
+        const n = L.nodes[id];
+        const x = n.x + 84, y = n.y + 36;
+        return inside(ee.points, x, y) && inside(me.points, x, y);
+      });
+      return { both: both.length, sharedInside: sharedInside.length, dimmed: document.querySelectorAll('#world .tile.boxdim').length };
+    });
+    assert(overlap.both > 0, 'EE 105 and ME 132 share skills');
+    assert.strictEqual(overlap.sharedInside, overlap.both, 'shared skills sit in both regions');
+    assert(overlap.dimmed > 0, 'skills outside both courses are dimmed');
+    await frame();
+    await p.screenshot({ path: path.join(SHOTS_DIR, '23_ee_me_overlap.png') });
+    await p._ctx.close();
+  });
+
+  await test('multi-select drives the drawn regions and the plan union', async () => {
+    const p = await newPage();
+    await p.click('#btnGroup');
+    await sleep(700);
+    await pickBoxes(p, ['ee105-ucb', 'me132']);
+    const drawn = await p.evaluate(() => ({
+      regions: [...document.querySelectorAll('#regions .blob')].map(b => b.dataset.box).sort(),
+      scope: window.__skillgrove.collections.scope(),
+      dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+      tiles: document.querySelectorAll('#world .tile').length
+    }));
+    assert.deepStrictEqual(drawn.regions, ['ee105-ucb', 'me132']);
+    assert.deepStrictEqual(drawn.scope, ['ee105-ucb', 'me132']);
+    assert.strictEqual(drawn.tiles, NSKILL);
+    assert(drawn.dimmed > 0);
+
+    const union = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const ids = new Set([...sg.collections.getBoxDescendantSkills('ee105-ucb'), ...sg.collections.getBoxDescendantSkills('me132')]);
+      const playable = new Set(sg.playableIds());
+      const inUnion = [...ids].filter(id => playable.has(id));
+      const plan = sg.plan(true, ['ee105-ucb', 'me132']);
+      const single = sg.plan(true, 'ee105-ucb');
+      return {
+        inUnion: inUnion.length,
+        scope: plan.scope,
+        extras: plan.extras || [],
+        ok: plan.ok,
+        sessions: plan.sessions,
+        singleSessions: single.sessions
+      };
+    });
+    assert.strictEqual(union.ok, true);
+    assert(union.sessions > 0);
+    assert(union.sessions >= union.singleSessions, 'the union plan is at least as large as one course');
+    assert.strictEqual(union.scope, union.inUnion + union.extras.length, 'plan scope is the union plus out-of-scope prerequisites');
+    union.extras.forEach(id => {
+      assert(!drawn.regions.includes(id));
+    });
+
+    await p.click('#btnPlan');
+    await sleep(400);
+    const note = await p.$eval('#planScopeNote', e => e.textContent);
+    assert(/EE 105/.test(note) && /ME 132/.test(note), note);
+    assert.strictEqual(await p.$('#planEmpty'), null);
+    await p.keyboard.press('Escape');
+    await sleep(150);
+
+    await p.evaluate(() => document.getElementById('scopeNone').click());
+    await sleep(200);
+    const none = await p.evaluate(() => ({
+      regions: document.querySelectorAll('#regions .blob').length,
+      dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+      scope: window.__skillgrove.collections.scope(),
+      tiles: document.querySelectorAll('#world .tile').length
+    }));
+    assert.strictEqual(none.regions, 0);
+    assert.strictEqual(none.dimmed, NSKILL);
+    assert.deepStrictEqual(none.scope, []);
+    assert.strictEqual(none.tiles, NSKILL);
+    await p.click('#btnPlan');
+    await sleep(300);
+    const empty = await p.$eval('#planEmpty', e => e.textContent);
+    assert(/No boxes selected/.test(empty));
+    await p._ctx.close();
+  });
+
+  await test('scope selection persists across reloads and migrates a saved single scope', async () => {
+    const p = await newPage();
+    await p.evaluate(() => localStorage.setItem('skilltree.planscope.v1', 'ee105-ch2'));
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    const migrated = await p.evaluate(() => ({
+      checked: [...document.querySelectorAll('#scopePicker input:checked')].map(i => i.value),
+      scope: window.__skillgrove.collections.scope(),
+      drawn: [...document.querySelectorAll('#regions .blob')].map(b => b.dataset.box),
+      dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+      stored: localStorage.getItem('skilltree.planscope.v1')
+    }));
+    assert.deepStrictEqual(migrated.checked, ['ee105-ch2'], 'an old single-scope value selects that box');
+    assert.deepStrictEqual(migrated.scope, ['ee105-ch2']);
+    assert.deepStrictEqual(migrated.drawn, ['ee105-ch2']);
+    assert(migrated.dimmed > 0);
+    assert.strictEqual(migrated.stored, 'ee105-ch2', 'the old value is kept until the selection changes');
+
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(400);
+    const still = await p.evaluate(() => window.__skillgrove.collections.scope());
+    assert.deepStrictEqual(still, ['ee105-ch2']);
+
+    await pickBoxes(p, ['ee105-ucb', 'me132']);
+    const saved = await p.evaluate(() => localStorage.getItem('skilltree.planscope.v1'));
+    assert.deepStrictEqual(JSON.parse(saved), { v: 2, boxes: ['ee105-ucb', 'me132'] });
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    const kept = await p.evaluate(() => ({
+      checked: [...document.querySelectorAll('#scopePicker input:checked')].map(i => i.value),
+      scope: window.__skillgrove.collections.scope(),
+      regions: [...document.querySelectorAll('#regions .blob')].map(b => b.dataset.box).sort()
+    }));
+    assert.deepStrictEqual(kept.checked, ['ee105-ucb', 'me132']);
+    assert.deepStrictEqual(kept.scope, ['ee105-ucb', 'me132']);
+    assert.deepStrictEqual(kept.regions, ['ee105-ucb', 'me132']);
     await p._ctx.close();
   });
 

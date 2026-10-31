@@ -21,7 +21,15 @@ header{padding:10px 18px 8px;background:rgba(255,255,255,.82);backdrop-filter:bl
 .spacer{flex:1}
 .hctl{display:flex;align-items:center;gap:10px;margin-left:auto;flex:none;flex-wrap:wrap}
 .scope-label{font-size:12.5px;font-weight:750;color:var(--ink2)}
-#scopePicker{min-width:180px;max-width:320px}
+.scope-multi{position:relative}
+.scope-toggle{min-width:180px;max-width:320px;text-align:left;border:2px solid var(--line);background:#fff;border-radius:10px;padding:5px 10px;font-weight:650}
+.scope-panel{position:absolute;top:calc(100% + 6px);right:0;z-index:40;background:#fff;border:2px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:8px;width:340px;max-height:360px;overflow:auto}
+.scope-quick{display:flex;gap:6px;margin-bottom:6px}
+.scope-quick button{border:1px solid var(--line);background:#f6f7fb;border-radius:8px;padding:3px 10px;font-weight:700;font-size:12px}
+.scope-list{display:flex;flex-direction:column}
+.scope-row{display:flex;gap:8px;align-items:flex-start;padding:3px 4px;font-size:12.5px;font-weight:600;cursor:pointer}
+.scope-row.depth{padding-left:22px}
+.scope-row input{margin-top:2px;flex:none}
 .btn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:7px 12px;font-weight:650;display:inline-flex;gap:6px;align-items:center;transition:transform .12s, box-shadow .12s, background .12s}
 .btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 4px 10px rgba(40,50,90,.12)}
 .btn:disabled{opacity:.5;cursor:not-allowed}
@@ -64,6 +72,12 @@ main{flex:1;position:relative;min-height:0}
 #world{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
 #world.anim{transition:transform .45s cubic-bezier(.3,.9,.3,1)}
 #edges{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+#regions{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+#regions .blob{position:static;opacity:1;visibility:visible;border:none;background:none;border-radius:0;transition:none}
+#world:not([data-layout=grouped]) #regions,
+#world:not([data-layout=grouped]) #regionLabels{opacity:0;visibility:hidden}
+#regionLabels{position:absolute;left:0;top:0;z-index:7;pointer-events:none}
+.region-label{position:absolute;z-index:7;pointer-events:none;font:800 11px/1.15 system-ui,sans-serif;padding:1px 5px;border:1.5px solid;border-radius:8px;background:rgba(255,255,255,.94);white-space:nowrap}
 #edges path{fill:none;stroke:#9aa3b8;stroke-width:1.6;opacity:.38;transition:opacity .2s, stroke .2s, stroke-width .2s}
 #edges circle{fill:#9aa3b8;opacity:.45}
 #edges.active path{opacity:.07}
