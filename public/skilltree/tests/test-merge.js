@@ -4,22 +4,7 @@
  * Run: node test-merge.js
  */
 const assert = require('assert');
-const { mergeSkillRecords: mergeSkill } = require('../migrate.js');
-
-const mergeProgress = (local, remote) => {
-  if (!local || !local.skills) return remote;
-  if (!remote || !remote.skills) return local;
-  
-  const merged = { version: 1, skills: {} };
-  const allIds = new Set([...Object.keys(local.skills), ...Object.keys(remote.skills)]);
-  
-  for (const id of allIds) {
-    const m = mergeSkill(local.skills[id], remote.skills[id]);
-    if (m) merged.skills[id] = m;
-  }
-  
-  return merged;
-};
+const { mergeSkillRecords: mergeSkill, mergeProgress, appendTodo, sessionTodoItems, normalizeScope, mergeScope } = require('../migrate.js');
 
 const mergeTiming = (local, remote) => {
   if (!local) return remote;
@@ -152,6 +137,67 @@ test('mergeTiming: dedupes by timestamp', () => {
   const result = mergeTiming(local, remote);
   assert.strictEqual(result.practice.length, 3);
   assert.deepStrictEqual(result.practice.map(s => s.t), [1000, 2000, 3000]);
+});
+
+test('mergeProgress: keeps an older save that has no todo or scope', () => {
+  const local = { version: 1, skills: { bode: { tier: 1, lastPracticed: now, history: [] } } };
+  const remote = { version: 1, skills: { tf: { tier: 2, lastPracticed: now, history: [] } } };
+  const result = mergeProgress(local, remote);
+  assert.strictEqual(result.todo, undefined);
+  assert.strictEqual(result.scope, undefined);
+  assert.strictEqual(result.skills.bode.tier, 1);
+  assert.strictEqual(result.skills.tf.tier, 2);
+});
+
+test('mergeProgress: concatenates todo lists, local order first, and dedupes', () => {
+  const local = { version: 1, savedAt: now - DAY, skills: { bode: { tier: 1, lastPracticed: now, history: [] } },
+    todo: [{ type: 'skill', id: 'bode' }, { type: 'challenge', id: 'tf' }] };
+  const remote = { version: 1, savedAt: now, skills: { bode: { tier: 2, lastPracticed: now, history: [] } },
+    todo: [{ type: 'challenge', id: 'tf' }, { type: 'skill', id: 'phasors' }] };
+  const result = mergeProgress(local, remote);
+  assert.deepStrictEqual(result.todo, [
+    { type: 'skill', id: 'bode' },
+    { type: 'challenge', id: 'tf' },
+    { type: 'skill', id: 'phasors' }
+  ]);
+  assert.strictEqual(result.skills.bode.tier, 2);
+});
+
+test('mergeProgress: newer savedAt wins the scope, and a missing scope does not wipe one', () => {
+  const older = { version: 1, savedAt: now - DAY, scope: { v: 2, boxes: ['ee105-ch2'] }, skills: { bode: { tier: 1, lastPracticed: now, history: [] } } };
+  const newer = { version: 1, savedAt: now, scope: { v: 2, all: true }, skills: { bode: { tier: 1, lastPracticed: now, history: [] } } };
+  assert.deepStrictEqual(mergeProgress(older, newer).scope, { v: 2, all: true });
+  assert.deepStrictEqual(mergeProgress(newer, older).scope, { v: 2, all: true });
+  const noScope = { version: 1, savedAt: now + DAY, skills: { bode: { tier: 1, lastPracticed: now, history: [] } } };
+  assert.deepStrictEqual(mergeProgress(older, noScope).scope, { v: 2, boxes: ['ee105-ch2'] });
+  assert.deepStrictEqual(normalizeScope('ee105-ch2'), { v: 2, boxes: ['ee105-ch2'] });
+  assert.strictEqual(mergeScope(null, null), null);
+});
+
+test('session queue: skills before challenges, skip ids, append dedupes without mutating', () => {
+  const row = {
+    practiced: ['soon', 'alpha', 'beta'],
+    challenges: [{ id: 'gamma', from: 1, to: 2 }, { id: 'soon' }, 'beta']
+  };
+  const items = sessionTodoItems(row, new Set(['soon']));
+  assert.deepStrictEqual(items, [
+    { type: 'skill', id: 'alpha' },
+    { type: 'skill', id: 'beta' },
+    { type: 'challenge', id: 'gamma' },
+    { type: 'challenge', id: 'beta' }
+  ]);
+  const existing = [{ type: 'skill', id: 'alpha' }];
+  const snapshot = JSON.parse(JSON.stringify(existing));
+  const { todo, added } = appendTodo(existing, items);
+  assert.strictEqual(added, 3);
+  assert.deepStrictEqual(existing, snapshot);
+  assert.deepStrictEqual(todo, [
+    { type: 'skill', id: 'alpha' },
+    { type: 'skill', id: 'beta' },
+    { type: 'challenge', id: 'gamma' },
+    { type: 'challenge', id: 'beta' }
+  ]);
+  assert.strictEqual(appendTodo(todo, items).added, 0);
 });
 
 test('mergeTiming: limits to 50 entries per category', () => {

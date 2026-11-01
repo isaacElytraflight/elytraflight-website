@@ -1,7 +1,9 @@
-/* Skillgrove progress migration for retired skill ids.
+/* Skillgrove progress migration for retired skill ids, to-do items, and scope.
    Works in the browser (window.SkillgroveMigrate) and in Node (module.exports).
    Retired progress moves onto the survivor: higher mastery tier, later practice
-   time, and the union of attempt history. Running it again changes nothing. */
+   time, and the union of attempt history. To-do entries follow the same map and,
+   when a catalog of live skill ids is provided, entries that no longer exist are
+   dropped. Running it again changes nothing. */
 (function (root, factory) {
   const api = factory();
   if (typeof module === 'object' && module.exports) module.exports = api;
@@ -51,8 +53,110 @@
     return cur;
   }
 
-  /** Move progress off retired ids. Does not mutate `progress`. */
-  function migrateRetiredProgress(progress, retired) {
+  function normalizeTodoItem(item) {
+    if (!item || typeof item !== 'object') return null;
+    const type = item.type === 'skill' || item.type === 'challenge' ? item.type : null;
+    if (!type || typeof item.id !== 'string' || !item.id) return null;
+    return { type, id: item.id };
+  }
+
+  function todoKey(item) { return item.type + '\0' + item.id; }
+
+  /** Latest multi-select scope. Null when the value is absent or unreadable. */
+  function normalizeScope(scope) {
+    if (scope == null || scope === '') return null;
+    if (typeof scope === 'string') return { v: 2, boxes: [scope] };
+    if (Array.isArray(scope)) return { v: 2, boxes: scope.filter(x => typeof x === 'string' && x) };
+    if (typeof scope !== 'object') return null;
+    if (scope.all === true) return { v: 2, all: true };
+    if (Array.isArray(scope.boxes)) return { v: 2, boxes: scope.boxes.filter(x => typeof x === 'string' && x) };
+    return null;
+  }
+
+  /** Prefer the scope saved later. A missing side keeps the side that has one. */
+  function mergeScope(local, remote) {
+    const l = normalizeScope(local && local.scope);
+    const r = normalizeScope(remote && remote.scope);
+    if (!l) return r;
+    if (!r) return l;
+    const lt = Number(local && local.savedAt) || 0;
+    const rt = Number(remote && remote.savedAt) || 0;
+    return rt > lt ? r : l;
+  }
+
+  /**
+   * Append `items` to `list`, keeping order and skipping duplicates.
+   * Does not mutate `list`.
+   */
+  function appendTodo(list, items) {
+    const out = [];
+    const seen = new Set();
+    let added = 0;
+    const push = (raw, isNew) => {
+      const item = normalizeTodoItem(raw);
+      if (!item) return;
+      const key = todoKey(item);
+      if (seen.has(key)) return;
+      seen.add(key);
+      out.push(item);
+      if (isNew) added++;
+    };
+    (Array.isArray(list) ? list : []).forEach(item => push(item, false));
+    (Array.isArray(items) ? items : []).forEach(item => push(item, true));
+    return { todo: out, added };
+  }
+
+  /**
+   * First learning-session items: new skills, then mastery challenges.
+   * `skipIds` (ids with no questions, or anything else to leave out) are omitted.
+   */
+  function sessionTodoItems(row, skipIds) {
+    const skip = skipIds == null ? null : (skipIds instanceof Set ? skipIds : new Set(skipIds));
+    const items = [];
+    const push = (type, id) => {
+      if (typeof id !== 'string' || !id) return;
+      if (skip && skip.has(id)) return;
+      items.push({ type, id });
+    };
+    const practiced = row && Array.isArray(row.practiced) ? row.practiced : [];
+    const challenges = row && Array.isArray(row.challenges) ? row.challenges : [];
+    practiced.forEach(id => push('skill', id));
+    challenges.forEach(c => push('challenge', typeof c === 'string' ? c : (c && c.id)));
+    return items;
+  }
+
+  /**
+   * Map retired to-do ids onto survivors and drop entries that are no longer
+   * a live skill when `knownIds` is provided. Does not mutate `todo`.
+   */
+  function migrateTodoField(todo, retired, knownIds) {
+    if (todo == null) return { changed: false };
+    if (!Array.isArray(todo)) return { changed: true, todo: [] };
+    const map = retired && typeof retired === 'object' ? retired : {};
+    const known = knownIds == null ? null : (knownIds instanceof Set ? knownIds : new Set(knownIds));
+    const out = [];
+    const seen = new Set();
+    let changed = false;
+    for (const raw of todo) {
+      const item = normalizeTodoItem(raw);
+      if (!item) { changed = true; continue; }
+      const id = resolveSurvivor(item.id, map);
+      if (id !== item.id) changed = true;
+      if (known && !known.has(id)) { changed = true; continue; }
+      const key = item.type + '\0' + id;
+      if (seen.has(key)) { changed = true; continue; }
+      seen.add(key);
+      if (raw.type !== item.type || raw.id !== id || Object.keys(raw).length !== 2) changed = true;
+      out.push({ type: item.type, id });
+    }
+    if (out.length !== todo.length) changed = true;
+    return changed ? { changed: true, todo: out } : { changed: false };
+  }
+
+  /** Move progress off retired ids. Does not mutate `progress`.
+      Pass `knownIds` (array or Set of live skill ids) to drop to-do entries
+      whose ids were removed. Omit it to keep unknown ids. */
+  function migrateRetiredProgress(progress, retired, knownIds) {
     if (!progress || typeof progress !== 'object' || !progress.skills || typeof progress.skills !== 'object' || Array.isArray(progress.skills)) {
       return { progress, changed: false };
     }
@@ -73,8 +177,40 @@
       else skills[dest] = mergeSkillRecords(skills[dest], incoming);
     }
 
-    if (!changed) return { progress, changed: false };
-    return { progress: { ...progress, skills }, changed: true };
+    const todoMig = migrateTodoField(progress.todo, map, knownIds);
+    if (!changed && !todoMig.changed) return { progress, changed: false };
+    const next = { ...progress };
+    if (changed) next.skills = skills;
+    if (todoMig.changed) next.todo = todoMig.todo;
+    return { progress: next, changed: true };
+  }
+
+  /**
+   * Cross-device merge. Skills keep the higher tier. To-do lists concatenate
+   * (local order, then new remote items). Scope keeps the later save.
+   * A null side is returned unchanged so older callers stay valid.
+   */
+  function mergeProgress(local, remote) {
+    if (!local || !local.skills) return remote;
+    if (!remote || !remote.skills) return local;
+
+    const merged = { version: 1, skills: {} };
+    const allIds = new Set([...Object.keys(local.skills), ...Object.keys(remote.skills)]);
+    for (const id of allIds) {
+      const m = mergeSkillRecords(local.skills[id], remote.skills[id]);
+      if (m) merged.skills[id] = m;
+    }
+    if (Array.isArray(local.todo) || Array.isArray(remote.todo)) {
+      merged.todo = appendTodo(local.todo, remote.todo).todo;
+    }
+    const scope = mergeScope(local, remote);
+    if (scope) merged.scope = scope;
+    const lt = Number(local.savedAt);
+    const rt = Number(remote.savedAt);
+    if (Number.isFinite(lt) || Number.isFinite(rt)) {
+      merged.savedAt = Math.max(Number.isFinite(lt) ? lt : 0, Number.isFinite(rt) ? rt : 0);
+    }
+    return merged;
   }
 
   /**
@@ -92,5 +228,8 @@
     };
   }
 
-  return { mergeSkillRecords, migrateRetiredProgress, combineMigratedProgress };
+  return {
+    mergeSkillRecords, migrateRetiredProgress, combineMigratedProgress,
+    normalizeTodoItem, normalizeScope, mergeScope, mergeProgress, appendTodo, sessionTodoItems
+  };
 });
