@@ -880,6 +880,7 @@ function syncEdges() {
     const path = document.createElementNS(NS, 'path');
     const dot = document.createElementNS(NS, 'circle');
     dot.setAttribute('r', '3.2');
+    path.style.setProperty('--edge', chColor(getSkillColorIndex(e.to)));
     edgesSvg.append(path, dot);
     edgeEls.push({ from: e.from, to: e.to, fromKey: e.fromKey, toKey: e.toKey, path, dot });
   });
@@ -1093,7 +1094,10 @@ function toggleGroup() {
 }
 
 function applyEdgeHighlight() {
-  const id = hoverId || selected;
+  // #world is one scaled composited layer in lights mode. Restyling edge paint
+  // from a hover invalidates that entire layer (exploded paint, white flash).
+  // Lights-mode strokes stay a static tint; the highlight returns when zoomed in.
+  const id = lightsMode ? null : (hoverId || selected);
   edgesSvg.classList.toggle('active', !!id);
   edgeEls.forEach(e => {
     const inn = !!id && e.to === id, out = !!id && e.from === id;
@@ -1114,6 +1118,7 @@ function applyView() {
     lightsMode = shouldLights;
     world.classList.toggle('lights-view', lightsMode);
     world.querySelectorAll('.tile').forEach(t => t.classList.toggle('light-mode', lightsMode));
+    applyEdgeHighlight();
   }
 }
 function animateView(fn) { world.classList.add('anim'); fn(); clearTimeout(animateView.t); animateView.t = setTimeout(() => world.classList.remove('anim'), 500) }

@@ -88,7 +88,7 @@ main{flex:1;position:relative;min-height:0}
 #world:not([data-layout=grouped]) #regionLabels{opacity:0;visibility:hidden}
 #regionLabels{position:absolute;left:0;top:0;z-index:7;pointer-events:none}
 .region-label{position:absolute;z-index:7;pointer-events:none;font:800 11px/1.15 system-ui,sans-serif;padding:1px 5px;border:1.5px solid;border-radius:8px;background:rgba(255,255,255,.94);white-space:nowrap}
-#edges path{fill:none;stroke:#9aa3b8;stroke-width:1.6;opacity:.38;transition:opacity .2s, stroke .2s, stroke-width .2s}
+#edges path{fill:none;stroke:#9aa3b8;stroke-width:1.6;opacity:.38;transition:opacity .2s}
 #edges circle{fill:#9aa3b8;opacity:.45}
 #edges.active path{opacity:.07}
 #edges.active circle{opacity:.07}
@@ -330,6 +330,8 @@ figure.qfig.small svg{max-height:200px}
 
 /* Lights mode (zoomed-out view) */
 .tile.light-mode{background:transparent!important;border:none!important;box-shadow:none!important;overflow:visible}
+/* Card hover lifts with a transform. That promotes a layer inside the scaled #world and re-rasters the whole tree, which flashes white. Dots do not lift. */
+.tile.light-mode:hover{transform:none;z-index:auto}
 .tile.light-mode .name,.tile.light-mode .sub{opacity:0;transition:opacity .2s}
 .tile .light{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;pointer-events:none}
 .tile.light-mode .light{opacity:1}
@@ -343,7 +345,12 @@ figure.qfig.small svg{max-height:200px}
 @keyframes shimmer{0%,100%{box-shadow:0 0 12px 4px var(--light-glow);transform:scale(1)}50%{box-shadow:0 0 20px 8px var(--light-glow);transform:scale(1.15)}}
 @media (prefers-reduced-motion:reduce){.tile.t4 .light-dot{animation:none;box-shadow:0 0 16px 6px var(--light-glow)}}
 #world.lights-view .tile{transition:background .2s,border-color .2s}
-#world.lights-view #edges path{stroke-opacity:0.15}
+/* Static structure lines. Opacity stays the zoomed-in value so the opacity transition never runs.
+   stroke-opacity .42 times that .38 is about .16. The width is in layout pixels: #world is one
+   scaled layer, and a non-scaling stroke is rasterized before that scale, so it disappears at
+   full zoom-out. 9.6px is about one screen pixel at scale .12 and stays thin up near the threshold. */
+#world.lights-view #edges path{stroke:var(--edge,#9aa3b8);stroke-width:9.6px;stroke-opacity:.42;stroke-linecap:round;stroke-linejoin:round;transition:none}
+#world.lights-view #edges circle{display:none}
 
 /* Nested boxes / collections */
 .blob.course,.blob.textbook{background:rgba(255,255,255,.15);border-width:3px;border-style:solid}
