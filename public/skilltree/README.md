@@ -138,10 +138,10 @@ Then add `"ee105-ch1-lti"` to the parent chapter's `children` array.
 
 Progress is stored per web origin. The app uses these localStorage keys:
 
-- `skilltree.progress.v1` — User's tier progress per skill
+- `skilltree.progress.v1` — User progress, synced through Supabase when signed in. `skills` is the tier record. `todo` is an ordered list of `{ "type": "skill"|"challenge", "id": "<skill id>" }`. `scope` is the latest multi-select scope, `{ "v": 2, "all": true }` or `{ "v": 2, "boxes": ["ee105-ucb", "me132"] }`. Saves written before these fields existed still load; a missing `todo` is an empty list, and a missing `scope` falls back to `skilltree.planscope.v1`.
 - `skilltree.layout.v1` — UI preference (tree vs grouped view)
 - `skilltree.timing.v1` — Quiz timing samples for learning plan estimates
-- `skilltree.planscope.v1` — Which course and chapter boxes are selected. A missing key means every box. Current saves are JSON: `{"v":2,"all":true}` or `{"v":2,"boxes":["ee105-ucb","me132"]}`. An older save that stored a single box id is read as that one box. The learning plan covers the union of the selected boxes.
+- `skilltree.planscope.v1` — Mirror of the scope choice, kept so older builds and older saves still work. A missing key means every box. When the progress object includes `scope`, that value wins on load and on sign-in. Current saves are JSON: `{"v":2,"all":true}` or `{"v":2,"boxes":["ee105-ucb","me132"]}`. An older save that stored a single box id is read as that one box. The learning plan covers the union of the selected boxes.
 
 **Migration note**: When moving from the old single-file version, users should:
 1. Export their progress from the old file (Export button)

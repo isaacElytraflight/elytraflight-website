@@ -351,3 +351,59 @@ figure.qfig.small svg{max-height:200px}
 
 .blob.boxdim{opacity:.25}
 .tile.boxdim{opacity:.18}
+
+/* To-do notebook */
+#todoBook{
+  --todo-lh:24px;
+  position:absolute;left:12px;top:12px;z-index:30;width:236px;
+  max-height:min(68vh, calc(100% - 130px));
+  display:flex;flex-direction:column;
+  background:linear-gradient(180deg,#ffd4e6 0 26px,#ff8eb9 26px);
+  border-radius:14px 14px 16px 16px;
+  box-shadow:0 10px 22px rgba(150,40,80,.18), inset 0 0 0 2px rgba(255,255,255,.5);
+  padding:6px 8px 8px;color:#6d2044;
+  user-select:none;-webkit-user-select:none;
+}
+#todoBook.collapsed{width:180px;max-height:none}
+#todoBook.collapsed .todo-spiral{margin-bottom:2px}
+#todoBook.collapsed .todo-spiral i:nth-child(n+8){display:none}
+.todo-head{display:flex;align-items:center;gap:6px;min-height:28px;padding:0 2px 2px;flex:none}
+.todo-title{font-weight:800;font-size:13px;letter-spacing:-.01em}
+.todo-count{font-size:11px;font-weight:800;background:rgba(255,255,255,.7);color:#7a2348;border-radius:99px;min-width:18px;text-align:center;padding:0 5px}
+.todo-collapse,.todo-edit{border:0;background:rgba(255,255,255,.62);color:#6d2044;border-radius:8px;font-weight:800;font-size:12px;padding:2px 8px;line-height:1.4}
+.todo-edit{margin-left:auto}
+.todo-edit[aria-pressed=true]{background:#6d2044;color:#fff}
+.todo-spiral{display:flex;justify-content:space-between;align-items:flex-end;height:15px;margin:0 10px -8px;position:relative;z-index:2;pointer-events:none;flex:none}
+.todo-spiral i{box-sizing:border-box;width:14px;height:15px;border:2.5px solid #1c1c1c;border-bottom-color:transparent;border-radius:9px 9px 2px 2px;background:transparent;box-shadow:0 1px 0 #1c1c1c}
+.todo-paper{
+  position:relative;z-index:1;flex:1 1 auto;min-height:96px;overflow:auto;
+  background-color:#fffefb;
+  background-image:repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--todo-lh) - 1px), #c5d6ee calc(var(--todo-lh) - 1px), #c5d6ee var(--todo-lh));
+  border-radius:2px 2px 6px 6px;
+  box-shadow:inset 0 0 0 1px rgba(80,40,60,.06);
+}
+.todo-paper::before{content:"";position:absolute;left:22px;top:0;bottom:0;width:1.5px;background:#f0b3c4;z-index:0}
+.todo-line,.todo-empty,.todo-blank{position:relative;z-index:1;height:var(--todo-lh);min-height:var(--todo-lh);box-sizing:border-box}
+.todo-line{display:flex;align-items:flex-end;gap:2px;padding:0 4px 0 26px}
+.todo-paper.editing .todo-line{padding-left:2px}
+.todo-empty{padding:0 8px 2px 28px;display:flex;align-items:flex-end;color:#b3a8b4;font:italic 12.5px/1 Palatino,"Palatino Linotype",Georgia,serif}
+.todo-hit{flex:1;min-width:0;display:flex;align-items:flex-end;gap:5px;border:0;background:transparent;padding:0 0 1px;text-align:left;color:#24304a;font:italic 13px/1.05 Palatino,"Palatino Linotype",Georgia,serif}
+.todo-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.todo-mark{flex:none;color:#c45b7a;font-style:normal;font-weight:700;font-size:12px}
+.todo-line.challenge .todo-mark{color:#7a4db8}
+.todo-grip{flex:none;border:0;background:transparent;color:#8d97ab;cursor:grab;font-size:11px;letter-spacing:-2px;padding:0 1px 1px;touch-action:none;line-height:1}
+.todo-grip:active{cursor:grabbing}
+.todo-remove{flex:none;border:0;background:transparent;color:#b42348;font-weight:800;width:18px;height:18px;padding:0;line-height:1;border-radius:6px}
+.todo-remove:hover{background:#ffe0ea}
+.todo-line.dragging{opacity:.45}
+.todo-line.drop-target{box-shadow:inset 0 2px 0 #7a4db8}
+.todo-actions{flex:none;padding-top:8px}
+.todo-queue{width:100%;white-space:normal;text-align:center;line-height:1.25;font-size:12px;padding:6px 8px;background:rgba(255,255,255,.92);color:#6d2044;border-color:#e7b3c6}
+#todoBook.collapsed .todo-paper,
+#todoBook.collapsed .todo-actions,
+#todoBook.collapsed .todo-edit{display:none}
+@media (max-width:720px){
+  #todoBook{left:8px;right:8px;width:auto;top:8px;max-height:48vh}
+  #todoBook.collapsed{right:auto;width:180px;min-width:0;max-height:none}
+  .todo-hit{font-size:14px}
+}

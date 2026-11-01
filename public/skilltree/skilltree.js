@@ -179,12 +179,19 @@ function normalizeProgress(raw) {
   if (!raw || typeof raw !== 'object' || raw.version !== 1 || !raw.skills || typeof raw.skills !== 'object' || Array.isArray(raw.skills)) return null;
   const out = { version: 1, skills: {} };
   for (const id of Object.keys(raw.skills)) { const n = normalizeSkill(raw.skills[id]); if (n) out.skills[id] = n; }
+  if (Array.isArray(raw.todo)) out.todo = raw.todo;
+  if (raw.scope != null) out.scope = raw.scope;
+  if (raw.savedAt != null && Number.isFinite(Number(raw.savedAt))) out.savedAt = Number(raw.savedAt);
   return out;
+}
+
+function knownSkillIds() {
+  return (Array.isArray(skills) && skills.length) ? skills.map(s => s.id) : null;
 }
 
 function applyRetirement(p) {
   if (!p || !window.SkillgroveMigrate) return { progress: p, changed: false };
-  return window.SkillgroveMigrate.migrateRetiredProgress(p, (DATA && DATA.retired) || {});
+  return window.SkillgroveMigrate.migrateRetiredProgress(p, (DATA && DATA.retired) || {}, knownSkillIds());
 }
 
 function loadProgress() {
@@ -1377,6 +1384,7 @@ function refreshAll() {
   });
   applyBoxFilter(); applyGridFilter(); applyEdgeHighlight();
   syncScopePicker();
+  renderTodo();
 }
 
 function renderStats() {
@@ -1407,12 +1415,11 @@ function short(s, n) { return s.length > n ? s.slice(0, n - 1) + '…' : s }
 function renderBanner() {
   const b = $('banner'); b.innerHTML = '';
   if (bannerHidden) { return }
-  const ready = skills.filter(s => isReady(s.id)), q = queue();
+  const q = queue();
   const started = skills.some(s => tierOf(s.id) > 0);
   b.append(el('span', {}, el('b', { text: started ? 'Go wide before deep. ' : 'Welcome! ' }),
     started ? 'New skills are recommended once their prerequisites reach Level 2, so go wide rather than racing one branch to Mastered; spaced mastery challenges stick better after a break.'
       : 'Pick a glowing "ready" skill (no prerequisites needed to start), then spread out across the tree. A new skill glows once its prerequisites reach Level 2.'));
-  if (ready.length) b.append(el('span', { class: 'rd' }, el('b', { text: 'Ready to learn:' }), ready.slice(0, 2).map(s => el('button', { class: 'pill', style: colorOf(s.id), onclick: () => selectSkill(s.id, true), title: s.name }, short(s.name, 24))), ready.length > 2 ? el('span', { text: `+${ready.length - 2} more` }) : null));
   if (q.length) b.append(el('button', { class: 'pill', style: '--c:#ff7a59;--cs:#ffe3da', onclick: openQueue }, `${q.length} mastery challenge${q.length > 1 ? 's' : ''} waiting`));
   b.append(el('button', { class: 'x', 'aria-label': 'Dismiss tip', onclick: () => { bannerHidden = true; renderBanner() } }, '×'));
 }
@@ -1486,6 +1493,8 @@ function renderPanel() {
       if (hasRound(id, 4)) kids.push(el('button', { class: 'btn', style: 'width:100%;justify-content:center', id: 'startBtn', onclick: () => doStartQuiz(id, 4, 'review') }, 'Review round 4 (no tier change)'));
     }
   }
+  kids.push(todoAddButton('skill', id));
+  if (!soon && t >= 1 && t < 4 && roundQsCount(id, nextR)) kids.push(todoAddButton('challenge', id));
   kids.push(el('h3', { text: 'Prerequisites' }));
   kids.push(s.prereqs.length ? el('div', { class: 'chips', id: 'prereqChips' }, s.prereqs.map(tierPill)) : el('div', { class: 'kv', text: 'None — a starting point.' }));
   const deps = dependents[id];
@@ -1592,10 +1601,12 @@ function renderQuiz() {
   const s = byId[Q.id]; quizEl.style.cssText = colorOf(s.id); quizEl.innerHTML = '';
   const wrap = el('div', { class: 'qwrap' }); quizEl.append(wrap);
   const label = Q.round === 1 ? 'Round 1 · Practice quiz' : `Round ${Q.round} · Mastery challenge → ${TIERS[Q.round]}`;
-  wrap.append(el('div', { class: 'qtop' },
+  const qtop = el('div', { class: 'qtop' },
     el('button', { class: 'btn small', onclick: leaveQuiz, id: 'qLeave' }, '← Leave'),
     el('h2', { text: s.name }),
-    el('span', { class: 'rbadge', id: 'rbadge', text: Q.mode === 'review' ? 'Review · no tier change' : label })));
+    el('span', { class: 'rbadge', id: 'rbadge', text: Q.mode === 'review' ? 'Review · no tier change' : label }));
+  if (Q.mode === 'challenge') qtop.append(todoAddButton('challenge', Q.id, { id: 'addTodoQuiz', compact: true }));
+  wrap.append(qtop);
   if (Q.result) { renderResult(wrap); quizEl.scrollTop = 0; return }
   const n = Q.items.length;
   wrap.append(el('div', { class: 'prog', role: 'img', 'aria-label': `Question ${Q.i + 1} of ${n}` }, Q.items.map((it, i) => el('i', { class: it.done ? (it.correct ? 'ok' : 'no') : (i === Q.i ? 'cur' : '') }))));
@@ -1828,7 +1839,8 @@ function openQueue() {
     body.append(el('div', { class: 'qrow' + (i === 0 ? ' top' : ''), 'data-id': s.id, style: colorOf(s.id) },
       el('span', { class: 'rk', text: i + 1 }), el('span', { class: 'dotc' }),
       el('span', { class: 'nm' }, s.name, el('div', { class: 'sm', text: `${TIERS[t]} → ${TIERS[t + 1]} · last practiced ${ago(lastOf(s.id))}` })),
-      el('button', { class: 'btn small ' + (i === 0 ? 'hot' : ''), onclick: () => { closeModal(); doStartQuiz(s.id, t + 1, 'challenge') } }, i === 0 ? 'Start top challenge' : 'Start')));
+      el('button', { class: 'btn small ' + (i === 0 ? 'hot' : ''), onclick: () => { closeModal(); doStartQuiz(s.id, t + 1, 'challenge') } }, i === 0 ? 'Start top challenge' : 'Start'),
+      todoAddButton('challenge', s.id, { compact: true, queue: true })));
   });
   const ready = skills.filter(s => isReady(s.id));
   if (ready.length) body.append(el('div', { class: 'note info' }, el('b', { text: 'Breadth first: ' }), `${ready.length} new skill${ready.length > 1 ? 's are' : ' is'} ready to learn. Picking up a new one now gives your queued skills time to sink in.`));
@@ -1842,6 +1854,7 @@ function openHelp() {
     el('li', {}, el('b', { text: 'Rounds 2–4 ' }), 'are mastery challenges: 3 questions, get at least 2 right to move up. Round 2 is harder, round 3 hunts for gotchas, round 4 applies the skill to what comes next.'),
     el('li', {}, 'Missing a challenge never costs a tier. Retry any time.'),
     el('li', {}, 'The mastery queue lists unmastered skills, least recently practiced first. Learn broadly first; come back for mastery.'),
+    el('li', {}, el('b', { text: 'To-do list ' }), 'is your own ordered notebook of skills and mastery challenges. Add them from a skill, or queue the next learning session in the current scope. It is saved with your progress.'),
     el('li', {}, 'Prerequisites are guidance, not locks. A new skill glows "ready" once all its prerequisites are at Level 2 or Mastered (prerequisites that are still coming soon are ignored). Lines show what leads to what; click a tile to highlight them.'),
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
     el('li', {}, el('b', { text: 'Learning plan ' }), 'simulates sessions (practice every ready skill, one mastery challenge per unmastered skill) to estimate how many sessions and how much time it takes to master everything playable. It learns how fast you are from your own timed quizzes.'),
@@ -1868,7 +1881,23 @@ function recordTiming(kind, seconds) {
 
 const planState = { scratch: false, open: null };
 
+function scopePayloadFromSelection() {
+  return (selectionIsAll() || !allBoxIds().length) ? { v: 2, all: true } : { v: 2, boxes: selectedInOrder() };
+}
+function applyScopeValue(norm) {
+  if (!norm) return false;
+  if (norm.all) selectedBoxes = new Set(allBoxIds());
+  else {
+    const next = new Set();
+    (norm.boxes || []).forEach(id => { if (boxById[id]) next.add(id); });
+    selectedBoxes = next;
+  }
+  return true;
+}
 function loadPlanScope() {
+  const Mig = window.SkillgroveMigrate;
+  const fromProgress = (progress.scope != null && Mig) ? Mig.normalizeScope(progress.scope) : null;
+  if (fromProgress && applyScopeValue(fromProgress)) return;
   selectedBoxes = new Set(allBoxIds());
   let raw = null;
   try { raw = localStorage.getItem(PLAN_SCOPE_KEY); } catch (e) { return; }
@@ -1886,11 +1915,23 @@ function loadPlanScope() {
   if (typeof legacy === 'string' && boxById[legacy]) selectedBoxes = new Set([legacy]);
 }
 function savePlanScope() {
+  const payload = scopePayloadFromSelection();
+  progress.scope = payload;
   if (!storageOK) return;
-  try {
-    const payload = (selectionIsAll() || !allBoxIds().length) ? { v: 2, all: true } : { v: 2, boxes: selectedInOrder() };
-    localStorage.setItem(PLAN_SCOPE_KEY, JSON.stringify(payload));
-  } catch (e) { }
+  saveProgress();
+  try { localStorage.setItem(PLAN_SCOPE_KEY, JSON.stringify(payload)); } catch (e) { }
+}
+function reloadProgress() {
+  loadProgress();
+  loadPlanScope();
+  renderTodo();
+  if (!world) return;
+  computeGroupedLayout();
+  updateBlobsDOM();
+  legendBuild();
+  showLayout(layoutMode, false);
+  refreshAll();
+  if (selected) { if (byId[selected]) renderPanel(); else closePanel(); }
 }
 
 function planGraph(scope) {
@@ -2108,7 +2149,13 @@ function openPlan() {
 
 /* ====================== export / import / reset ====================== */
 function exportProgress() {
-  const out = { version: 1, app: 'skillgrove', exportedAt: new Date().toISOString(), skills: progress.skills, timing: { practice: timing.practice, challenge: timing.challenge } };
+  const out = {
+    version: 1, app: 'skillgrove', exportedAt: new Date().toISOString(),
+    skills: progress.skills,
+    todo: Array.isArray(progress.todo) ? progress.todo : [],
+    scope: progress.scope || scopePayloadFromSelection(),
+    timing: { practice: timing.practice, challenge: timing.challenge }
+  };
   const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
   const a = el('a', { href: URL.createObjectURL(blob), download: `skillgrove-progress-${new Date().toISOString().slice(0, 10)}.json` });
   document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove() }, 500);
@@ -2123,6 +2170,11 @@ function importFile(file) {
     const normalized = normalizeProgress(raw);
     if (!normalized) { openModal({ title: 'Import failed', body: el('p', { id: 'impErr', text: "That doesn't look like a Skillgrove progress file (expected version 1 with a \"skills\" object)." }), actions: [{ label: 'OK' }] }); return }
     const p = applyRetirement(normalized).progress;
+    if (!Array.isArray(p.todo)) p.todo = Array.isArray(normalized.todo) ? normalized.todo : [];
+    if (raw.savedAt == null && raw.exportedAt) {
+      const t = Date.parse(raw.exportedAt);
+      if (Number.isFinite(t)) p.savedAt = t;
+    }
     const ids = Object.keys(p.skills), known = ids.filter(i => byId[i]), unknown = ids.length - known.length;
     const impT = (raw.timing && typeof raw.timing === 'object') ? Sim.normalizeTiming(raw.timing) : null;
     const nT = impT ? impT.practice.length + impT.challenge.length : 0;
@@ -2130,15 +2182,24 @@ function importFile(file) {
       el('p', {}, el('b', { text: 'Merge' }), ' keeps the higher tier and latest practice time for each skill. ', el('b', { text: 'Replace' }), " discards what's on this device."));
     openModal({
       title: 'Import progress', body, actions: [{ label: 'Cancel' },
-      { label: 'Replace', kind: 'danger', id: 'impReplace', onClick: () => { progress = p; if (impT) { timing.practice = impT.practice; timing.challenge = impT.challenge; saveTiming() } afterImport('Progress replaced.') } },
+      { label: 'Replace', kind: 'danger', id: 'impReplace', onClick: () => {
+        progress = p;
+        if (!Array.isArray(progress.todo)) progress.todo = [];
+        if (progress.scope && window.SkillgroveMigrate) {
+          const norm = window.SkillgroveMigrate.normalizeScope(progress.scope);
+          if (norm) { progress.scope = norm; applyScopeValue(norm); }
+        }
+        if (impT) { timing.practice = impT.practice; timing.challenge = impT.challenge; saveTiming() }
+        afterImport('Progress replaced.');
+      } },
       {
         label: 'Merge', kind: 'primary', id: 'impMerge', onClick: () => {
-          for (const id of ids) {
-            const a = progress.skills[id], b = p.skills[id];
-            if (!a) { progress.skills[id] = b; continue }
-            const seen = new Set(a.history.map(h => h.t));
-            const hist = a.history.concat(b.history.filter(h => !seen.has(h.t))).sort((x, y) => x.t - y.t).slice(-60);
-            progress.skills[id] = { tier: Math.max(a.tier, b.tier), lastPracticed: Math.max(a.lastPracticed || 0, b.lastPracticed || 0) || null, history: hist };
+          const merged = window.SkillgroveMigrate.mergeProgress(progress, p);
+          progress.skills = merged.skills;
+          if (Array.isArray(merged.todo)) progress.todo = merged.todo;
+          if (merged.scope) {
+            progress.scope = merged.scope;
+            applyScopeValue(merged.scope);
           }
           if (impT) { timing.practice = Sim.mergeSamples(timing.practice, impT.practice); timing.challenge = Sim.mergeSamples(timing.challenge, impT.challenge); saveTiming() }
           afterImport('Progress merged.');
@@ -2149,13 +2210,227 @@ function importFile(file) {
   r.readAsText(file);
 }
 
-function afterImport(msg) { saveProgress(); refreshAll(); if (selected) renderPanel(); toast(msg) }
+function afterImport(msg) {
+  saveProgress();
+  if (progress.scope) { try { localStorage.setItem(PLAN_SCOPE_KEY, JSON.stringify(scopePayloadFromSelection())); } catch (e) { } }
+  if (world) { computeGroupedLayout(); updateBlobsDOM(); legendBuild(); showLayout(layoutMode, false); }
+  refreshAll();
+  if (selected) renderPanel();
+  toast(msg);
+}
 
 function resetProgress() {
   openModal({
     title: 'Reset all progress?', body: el('p', { text: 'This erases every tier on this device. Tip: Export first if you might want it back.' }),
-    actions: [{ label: 'Cancel' }, { label: 'Export first', onClick: exportProgress }, { label: 'Reset everything', kind: 'danger', id: 'confirmReset', onClick: () => { progress = { version: 1, skills: {} }; saveProgress(); refreshAll(); if (selected) renderPanel(); toast('Progress reset.') } }]
+    actions: [{ label: 'Cancel' }, { label: 'Export first', onClick: exportProgress }, { label: 'Reset everything', kind: 'danger', id: 'confirmReset', onClick: () => {
+      const scope = progress.scope;
+      progress = { version: 1, skills: {}, todo: [] };
+      if (scope) progress.scope = scope;
+      saveProgress(); refreshAll(); if (selected) renderPanel(); toast('Progress reset.');
+    } }]
   });
+}
+
+/* ====================== to-do list ====================== */
+let todoCollapsed = !!(window.matchMedia && matchMedia('(max-width: 720px)').matches);
+let todoEditing = false;
+let todoDrag = null;
+
+function todoList() {
+  return (Array.isArray(progress.todo) ? progress.todo : []).map(it => ({ type: it.type, id: it.id }));
+}
+function todoHas(type, id) {
+  return Array.isArray(progress.todo) && progress.todo.some(it => it.type === type && it.id === id);
+}
+function addTodo(type, id) {
+  if (!byId[id] || (type !== 'skill' && type !== 'challenge') || todoHas(type, id)) return false;
+  if (!Array.isArray(progress.todo)) progress.todo = [];
+  progress.todo.push({ type, id });
+  saveProgress();
+  renderTodo();
+  if (panelOpen()) renderPanel();
+  const quizBtn = $('addTodoQuiz');
+  if (quizBtn && type === 'challenge' && quiz && quiz.id === id) {
+    quizBtn.disabled = true;
+    quizBtn.textContent = 'On to-do list';
+  }
+  toast('Added to your to-do list.');
+  return true;
+}
+function removeTodo(type, id) {
+  if (!Array.isArray(progress.todo)) return false;
+  const next = progress.todo.filter(it => !(it.type === type && it.id === id));
+  if (next.length === progress.todo.length) return false;
+  progress.todo = next;
+  saveProgress();
+  renderTodo();
+  if (panelOpen()) renderPanel();
+  return true;
+}
+function moveTodo(from, to) {
+  if (!Array.isArray(progress.todo)) return false;
+  if (from === to || from < 0 || to < 0 || from >= progress.todo.length || to >= progress.todo.length) return false;
+  const next = progress.todo.slice();
+  const [item] = next.splice(from, 1);
+  next.splice(to, 0, item);
+  progress.todo = next;
+  saveProgress();
+  renderTodo();
+  return true;
+}
+function openTodoItem(item) {
+  if (!item || !byId[item.id]) { toast('That item is no longer in the tree.'); return; }
+  if (item.type === 'challenge') {
+    const t = tierOf(item.id), next = t + 1;
+    if (quizOpen) { selectSkill(item.id, true); toast('Finish or leave the current quiz first.'); return; }
+    if (t >= 1 && t < 4 && hasRound(item.id, next)) {
+      selectSkill(item.id, false);
+      doStartQuiz(item.id, next, 'challenge');
+      return;
+    }
+    selectSkill(item.id, true);
+    toast('That mastery challenge is not available right now.');
+    return;
+  }
+  selectSkill(item.id, true);
+}
+function queueNextSession() {
+  const scope = scopeForPlan();
+  if (Array.isArray(scope) && scope.length === 0) { toast('Choose at least one box in Scope before queueing a session.'); return 0; }
+  const plan = runPlan(false, scope);
+  const row = plan && plan.ok && plan.rows && plan.rows[0];
+  if (!row) { toast('Nothing left to queue in this learning plan.'); return 0; }
+  const soon = new Set(skills.filter(s => !isPlayable(s.id)).map(s => s.id));
+  const items = window.SkillgroveMigrate.sessionTodoItems(row, soon).filter(it => byId[it.id]);
+  const res = window.SkillgroveMigrate.appendTodo(progress.todo, items);
+  if (!res.added) { toast('Those items are already on your to-do list.'); return 0; }
+  progress.todo = res.todo;
+  saveProgress();
+  renderTodo();
+  if (panelOpen()) renderPanel();
+  toast(`Added ${res.added} item${res.added === 1 ? '' : 's'} from the next learning session.`);
+  return res.added;
+}
+function todoAddButton(type, id, opts) {
+  opts = opts || {};
+  const on = todoHas(type, id);
+  const label = opts.compact
+    ? (on ? (opts.id === 'addTodoQuiz' ? 'On to-do list' : 'Added') : (opts.queue ? 'Add' : 'Add to to-do list'))
+    : (type === 'challenge'
+      ? (on ? 'Challenge already on your to-do list' : 'Add mastery challenge to to-do list')
+      : (on ? 'Already on your to-do list' : 'Add to to-do list'));
+  const props = {
+    type: 'button',
+    class: 'btn todo-add' + (opts.compact ? ' small' : ''),
+    disabled: on,
+    title: label,
+    onclick: e => {
+      if (!addTodo(type, id)) return;
+      if (opts.compact && e.currentTarget) { e.currentTarget.disabled = true; e.currentTarget.textContent = opts.id === 'addTodoQuiz' ? 'On to-do list' : 'Added'; }
+    }
+  };
+  if (!opts.compact) props.id = type === 'challenge' ? 'addTodoChallenge' : 'addTodoSkill';
+  else if (opts.id) props.id = opts.id;
+  if (!opts.compact) props.style = 'width:100%;justify-content:center;margin-top:8px';
+  return el('button', props, label);
+}
+function bindTodoGrip(grip, from) {
+  grip.addEventListener('pointerdown', e => {
+    if (e.button != null && e.button !== 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+    grip.setPointerCapture(e.pointerId);
+    const line = grip.closest('.todo-line');
+    if (line) line.classList.add('dragging');
+    todoDrag = { from, over: from };
+    const move = ev => {
+      const lines = [...document.querySelectorAll('#todoPaper .todo-line')];
+      let over = lines.length;
+      for (let i = 0; i < lines.length; i++) {
+        const r = lines[i].getBoundingClientRect();
+        if (ev.clientY < r.top + r.height / 2) { over = i; break; }
+      }
+      todoDrag.over = over;
+      lines.forEach((ln, i) => ln.classList.toggle('drop-target', i === over));
+    };
+    const up = () => {
+      grip.removeEventListener('pointermove', move);
+      grip.removeEventListener('pointerup', up);
+      grip.removeEventListener('pointercancel', up);
+      const over = todoDrag ? todoDrag.over : from;
+      todoDrag = null;
+      let to = over;
+      if (from < to) to -= 1;
+      to = Math.max(0, Math.min(to, (progress.todo || []).length - 1));
+      if (to !== from) moveTodo(from, to);
+      else if (line) line.classList.remove('dragging');
+    };
+    grip.addEventListener('pointermove', move);
+    grip.addEventListener('pointerup', up);
+    grip.addEventListener('pointercancel', up);
+  });
+}
+function renderTodo() {
+  const host = $('todoBook');
+  if (!host || !host.isConnected) return;
+  host.classList.toggle('collapsed', todoCollapsed);
+  const items = Array.isArray(progress.todo) ? progress.todo : [];
+  host.innerHTML = '';
+  const toggle = el('button', {
+    type: 'button', class: 'todo-collapse', id: 'todoToggle',
+    'aria-expanded': String(!todoCollapsed),
+    'aria-controls': 'todoPaper',
+    'aria-label': todoCollapsed ? 'Expand to-do list' : 'Collapse to-do list',
+    onclick: () => { todoCollapsed = !todoCollapsed; renderTodo(); }
+  }, todoCollapsed ? '▸' : '▾');
+  const edit = el('button', {
+    type: 'button', class: 'todo-edit', id: 'todoEdit',
+    'aria-pressed': String(todoEditing),
+    onclick: () => { todoEditing = !todoEditing; renderTodo(); }
+  }, todoEditing ? 'Done' : 'Edit');
+  const head = el('div', { class: 'todo-head' },
+    toggle,
+    el('span', { class: 'todo-title', text: 'To-do list' }),
+    el('span', { class: 'todo-count', id: 'todoCount', text: String(items.length) }),
+    edit);
+  const spiral = el('div', { class: 'todo-spiral', 'aria-hidden': 'true' });
+  for (let i = 0; i < 12; i++) spiral.append(el('i'));
+  const paper = el('div', { class: 'todo-paper' + (todoEditing ? ' editing' : ''), id: 'todoPaper', role: 'list' });
+  if (!items.length) paper.append(el('div', { class: 'todo-empty', text: 'Nothing here yet.' }));
+  items.forEach((item, index) => {
+    const skill = byId[item.id];
+    const name = skill ? skill.name : item.id;
+    const kind = item.type === 'challenge' ? 'Mastery challenge' : 'Skill';
+    const line = el('div', {
+      class: 'todo-line ' + (item.type === 'challenge' ? 'challenge' : 'skill'),
+      role: 'listitem',
+      'data-type': item.type,
+      'data-id': item.id,
+      'data-index': String(index)
+    });
+    if (todoEditing) {
+      const grip = el('button', { type: 'button', class: 'todo-grip', 'aria-label': 'Drag to reorder ' + name, title: 'Drag to reorder' }, '⋮⋮');
+      line.append(grip);
+      bindTodoGrip(grip, index);
+    }
+    line.append(el('button', {
+      type: 'button', class: 'todo-hit', title: kind + ': ' + name,
+      onclick: () => { if (!todoEditing && !todoDrag) openTodoItem(item); }
+    }, el('span', { class: 'todo-mark', 'aria-hidden': 'true', text: item.type === 'challenge' ? '✎' : '•' }),
+       el('span', { class: 'todo-name', text: name })));
+    if (todoEditing) {
+      line.append(el('button', {
+        type: 'button', class: 'todo-remove', 'aria-label': 'Remove ' + name,
+        onclick: () => removeTodo(item.type, item.id)
+      }, '×'));
+    }
+    paper.append(line);
+  });
+  const blanks = Math.max(0, 4 - Math.max(items.length, 1));
+  for (let i = 0; i < blanks; i++) paper.append(el('div', { class: 'todo-blank', 'aria-hidden': 'true' }));
+  const actions = el('div', { class: 'todo-actions' },
+    el('button', { type: 'button', class: 'btn todo-queue', id: 'todoQueueSession', onclick: queueNextSession }, 'Queue up next learning session'));
+  host.append(head, spiral, paper, actions);
 }
 
 /* ====================== keyboard ====================== */
@@ -2239,7 +2514,8 @@ async function init() {
       getBoxSkills, getBoxDescendantSkills, skillInBox
     },
     queue,
-    openModal, toast, reloadProgress: loadProgress, reloadTiming: loadTiming, refreshAll, toggleGroup
+    todo: { list: todoList, add: addTodo, remove: removeTodo, move: moveTodo, queueSession: queueNextSession },
+    openModal, toast, reloadProgress, reloadTiming: loadTiming, refreshAll, toggleGroup
   };
   
   if (window.SkillgroveAuth) {

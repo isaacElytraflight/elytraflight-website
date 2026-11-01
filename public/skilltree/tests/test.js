@@ -79,7 +79,7 @@ async function panTo(p, selector) {
 async function newPage(seed, opts = {}) {
   const ctx = await browser.createBrowserContext();
   const p = await ctx.newPage();
-  await p.setViewport({ width: 1280, height: 800 });
+  await p.setViewport(opts.viewport || { width: 1280, height: 800 });
   p.on('console', m => { if (['error', 'warning'].includes(m.type())) errs.push(m.type() + ': ' + m.text()) });
   p.on('pageerror', e => errs.push('PAGEERR ' + e.message));
   if (opts.noStorage) await p.evaluateOnNewDocument(() => { Storage.prototype.setItem = function() { throw new DOMException('denied', 'SecurityError') } });
@@ -1509,6 +1509,229 @@ async function test(name, fn) {
     assert.deepStrictEqual(kept.checked, ['ee105-ucb', 'me132']);
     assert.deepStrictEqual(kept.scope, ['ee105-ucb', 'me132']);
     assert.deepStrictEqual(kept.regions, ['ee105-ucb', 'me132']);
+    await p._ctx.close();
+  });
+
+  const ART = process.env.SKILLTREE_SHOTS || path.join(__dirname, 'shots');
+
+  async function shot(p, name) {
+    await p.evaluate(() => { const t = document.getElementById('toast'); if (t) t.classList.remove('show'); });
+    const book = await p.$('#todoBook');
+    await book.screenshot({ path: path.join(ART, name) });
+  }
+
+  await test('to-do list starts empty, adds and removes skills and challenges, and persists', async () => {
+    const p = await newPage(T({ bode: { tier: 1, lastPracticed: now - DAY, history: [] } }));
+    assert.strictEqual(await p.$('#banner .rd'), null, 'the top-bar ready queue should be gone');
+    const welcome = await p.$eval('#banner', e => e.textContent);
+    assert(!/Ready to learn:/.test(welcome));
+    assert.strictEqual(await p.$eval('#todoBook', e => e.classList.contains('collapsed')), false);
+    assert.strictEqual(await p.$eval('#todoCount', e => e.textContent), '0');
+    assert.strictEqual(await p.$eval('#todoPaper', e => e.textContent), 'Nothing here yet.');
+    await shot(p, 'todo_desktop_empty.png');
+
+    await openSkill(p, 'bode');
+    await p.waitForSelector('#addTodoSkill');
+    await p.waitForSelector('#addTodoChallenge');
+    await p.$eval('#addTodoSkill', e => e.scrollIntoView({ block: 'center' }));
+    await p.click('#addTodoSkill');
+    await sleep(200);
+    assert.strictEqual(await p.$eval('#addTodoSkill', e => e.disabled), true);
+    assert(/Already on your to-do list/.test(await p.$eval('#addTodoSkill', e => e.textContent)));
+    await p.$eval('#addTodoChallenge', e => e.scrollIntoView({ block: 'center' }));
+    await p.click('#addTodoChallenge');
+    await sleep(200);
+    assert.strictEqual(await p.$eval('#addTodoChallenge', e => e.disabled), true);
+
+    await p.click('#btnQueue');
+    await sleep(200);
+    const queueAdd = await p.$$eval('.qrow', rows => rows.map(row => ({
+      id: row.dataset.id,
+      added: row.querySelector('.todo-add') ? row.querySelector('.todo-add').disabled : null
+    })));
+    const bodeRow = queueAdd.find(r => r.id === 'bode');
+    assert(bodeRow && bodeRow.added === true, 'the open mastery challenge shows as already added');
+    await p.keyboard.press('Escape');
+    await sleep(150);
+
+    const listed = await p.evaluate(() => window.__skillgrove.todo.list());
+    assert.deepStrictEqual(listed, [
+      { type: 'skill', id: 'bode' },
+      { type: 'challenge', id: 'bode' }
+    ]);
+    await p.evaluate(() => document.querySelector('#panel .close').click());
+    await sleep(200);
+    await shot(p, 'todo_desktop_filled.png');
+
+    await p.click('#todoPaper .todo-line[data-type="skill"] .todo-hit');
+    await sleep(300);
+    assert.strictEqual(await p.$eval('#panelTitle', e => e.textContent.length > 0), true);
+    assert.strictEqual(await p.$eval('#panel', e => e.classList.contains('open')), true);
+    await p.evaluate(() => document.querySelector('#panel .close').click());
+    await sleep(150);
+    await p.click('#todoPaper .todo-line[data-type="challenge"] .todo-hit');
+    await p.waitForSelector('#quiz.open #qPrompt', { timeout: 10000 });
+    assert.strictEqual(await p.$eval('#addTodoQuiz', e => e.disabled), true);
+    await p.click('#qLeave');
+    await sleep(200);
+    const leaveOpen = await p.$('#confirmLeave');
+    if (leaveOpen) { await p.click('#confirmLeave'); await sleep(250); }
+
+    await p.click('#todoEdit');
+    await sleep(100);
+    assert.strictEqual(await p.$eval('#todoEdit', e => e.textContent), 'Done');
+    await shot(p, 'todo_desktop_edit.png');
+    const grip = await p.$('.todo-line[data-type="skill"] .todo-grip');
+    const challenge = await p.$('.todo-line[data-type="challenge"]');
+    const gbox = await grip.boundingBox();
+    const cbox = await challenge.boundingBox();
+    await p.mouse.move(gbox.x + gbox.width / 2, gbox.y + gbox.height / 2);
+    await p.mouse.down();
+    await p.mouse.move(cbox.x + cbox.width / 2, cbox.y + cbox.height + 6, { steps: 10 });
+    await p.mouse.up();
+    await sleep(200);
+    const moved = await p.evaluate(() => window.__skillgrove.todo.list());
+    assert.deepStrictEqual(moved, [
+      { type: 'challenge', id: 'bode' },
+      { type: 'skill', id: 'bode' }
+    ], 'drag moves the skill after the challenge');
+
+    await p.click('.todo-line[data-type="skill"] .todo-remove');
+    await sleep(150);
+    assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.todo.list()), [
+      { type: 'challenge', id: 'bode' }
+    ]);
+    await p.click('#todoEdit');
+
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.todo.list()), [
+      { type: 'challenge', id: 'bode' }
+    ]);
+    const saved = await store(p);
+    assert.strictEqual(saved.skills.bode.tier, 1);
+    assert.deepStrictEqual(saved.todo, [{ type: 'challenge', id: 'bode' }]);
+    await p._ctx.close();
+  });
+
+  await test('queue next session appends skills then challenges, skips dupes and coming-soon', async () => {
+    const p = await newPage(T({ bode: { tier: 1, lastPracticed: now - DAY, history: [] } }));
+    const soonId = await p.$eval('#world .tile.soon', e => e.dataset.id);
+    await openSkill(p, soonId);
+    await p.$eval('#addTodoSkill', e => e.scrollIntoView({ block: 'center' }));
+    await p.click('#addTodoSkill');
+    await sleep(150);
+    const plan = await p.evaluate(() => {
+      const row = window.__skillgrove.plan(false).rows[0];
+      const playable = new Set(window.__skillgrove.playableIds());
+      const items = [];
+      row.practiced.forEach(id => { if (playable.has(id)) items.push({ type: 'skill', id }); });
+      row.challenges.forEach(c => { if (playable.has(c.id)) items.push({ type: 'challenge', id: c.id }); });
+      return { items, practiced: row.practiced.length, challenges: row.challenges.length };
+    });
+    assert(plan.practiced > 0, 'the first session should practice ready skills');
+    assert(plan.challenges > 0, 'the seeded tier should add a mastery challenge');
+    const firstChallenge = plan.items.findIndex(it => it.type === 'challenge');
+    const lastSkill = plan.items.map(it => it.type).lastIndexOf('skill');
+    assert(lastSkill < firstChallenge, 'new skills come before mastery challenges');
+    const anchor = plan.items[0];
+    await p.evaluate(item => window.__skillgrove.todo.add(item.type, item.id), anchor);
+    await sleep(100);
+    await p.click('#todoQueueSession');
+    await sleep(250);
+    const after = await p.evaluate(() => window.__skillgrove.todo.list());
+    const playable = new Set(await p.evaluate(() => window.__skillgrove.playableIds()));
+    assert.deepStrictEqual(after[0], { type: 'skill', id: soonId });
+    assert.deepStrictEqual(after[1], anchor);
+    const appended = after.slice(2);
+    assert.deepStrictEqual(appended, plan.items.filter(it => !(it.type === anchor.type && it.id === anchor.id)));
+    assert(after.filter(it => it.id === soonId).length === 1, 'a coming-soon skill is not queued again');
+    assert(appended.every(it => playable.has(it.id)), 'queued items are playable');
+    assert.strictEqual(after.filter(it => it.type === anchor.type && it.id === anchor.id).length, 1);
+    await p.click('#todoQueueSession');
+    await sleep(200);
+    assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.todo.list()), after, 'a second queue adds nothing new');
+    await p._ctx.close();
+  });
+
+  await test('old progress without todo or scope still loads, and retired todo ids are cleaned', async () => {
+    const old = await newPage(T({ bode: { tier: 2, lastPracticed: now - DAY, history: [] } }));
+    assert.deepStrictEqual(await old.evaluate(() => window.__skillgrove.todo.list()), []);
+    assert.strictEqual((await store(old)).skills.bode.tier, 2);
+    assert.strictEqual(await old.$('#todoQueueSession') !== null, true);
+    await old._ctx.close();
+
+    const seed = T({ bode: { tier: 1, lastPracticed: now, history: [] } });
+    seed.todo = [
+      { type: 'skill', id: 'saturation' },
+      { type: 'challenge', id: 'bjt-gain' },
+      { type: 'skill', id: 'gone-skill' },
+      { type: 'skill', id: 'bode' },
+      { type: 'skill', id: 'saturation' }
+    ];
+    seed.scope = { v: 2, boxes: ['ee105-ch2'] };
+    const p = await newPage(seed);
+    assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.todo.list()), [
+      { type: 'skill', id: 'square-law' },
+      { type: 'challenge', id: 'bjt-action' },
+      { type: 'skill', id: 'bode' }
+    ]);
+    assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.collections.scope()), ['ee105-ch2']);
+    const disk = await store(p);
+    assert.strictEqual(disk.skills.saturation, undefined);
+    assert.strictEqual(disk.todo.some(it => it.id === 'gone-skill' || it.id === 'saturation'), false);
+    await p._ctx.close();
+  });
+
+  await test('scope in the progress file restores on load and beats a stale legacy key', async () => {
+    const p = await newPage();
+    await pickBoxes(p, ['ee105-ch2', 'me132']);
+    const stored = await store(p);
+    assert.ok(stored.scope && stored.scope.boxes.includes('ee105-ch2') && stored.scope.boxes.includes('me132'));
+    assert.strictEqual(stored.scope.boxes.includes('ee105-ucb'), false);
+    await p.evaluate(() => localStorage.setItem('skilltree.planscope.v1', JSON.stringify({ v: 2, boxes: ['ee105-ucb'] })));
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    const scope = await p.evaluate(() => window.__skillgrove.collections.scope());
+    assert.deepStrictEqual(scope, (await store(p)).scope.boxes);
+    assert.ok(scope.includes('ee105-ch2') && scope.includes('me132'));
+    assert.strictEqual(scope.includes('ee105-ucb'), false);
+
+    await p.evaluate(() => {
+      const cur = JSON.parse(localStorage.getItem('skilltree.progress.v1'));
+      cur.scope = { v: 2, boxes: ['me132'] };
+      cur.savedAt = Date.now();
+      localStorage.setItem('skilltree.progress.v1', JSON.stringify(cur));
+      localStorage.removeItem('skilltree.planscope.v1');
+      window.__skillgrove.reloadProgress();
+    });
+    await sleep(300);
+    assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.collections.scope()), ['me132']);
+    await p._ctx.close();
+  });
+
+  await test('to-do notebook collapses on a phone and still edits', async () => {
+    const p = await newPage(T({ bode: { tier: 1, lastPracticed: now - DAY, history: [] } }), { viewport: { width: 390, height: 844, isMobile: true, hasTouch: true } });
+    assert.strictEqual(await p.$eval('#todoBook', e => e.classList.contains('collapsed')), true);
+    await shot(p, 'todo_mobile_collapsed.png');
+    await p.click('#todoToggle');
+    await sleep(150);
+    assert.strictEqual(await p.$eval('#todoBook', e => e.classList.contains('collapsed')), false);
+    assert(/Nothing here yet/.test(await p.$eval('#todoPaper', e => e.textContent)));
+    await shot(p, 'todo_mobile_empty.png');
+    await p.click('#todoQueueSession');
+    await sleep(300);
+    const n = await p.evaluate(() => window.__skillgrove.todo.list().length);
+    assert(n > 1, 'queueing a session fills the notebook');
+    await shot(p, 'todo_mobile_filled.png');
+    await p.click('#todoEdit');
+    await sleep(100);
+    assert(await p.$('.todo-remove'));
+    await shot(p, 'todo_mobile_edit.png');
+    const before = await p.evaluate(() => window.__skillgrove.todo.list().length);
+    await p.click('.todo-remove');
+    await sleep(150);
+    assert.strictEqual(await p.evaluate(() => window.__skillgrove.todo.list().length), before - 1);
     await p._ctx.close();
   });
 

@@ -3,7 +3,7 @@
  * Run: node test-migrate.js
  */
 const assert = require('assert');
-const { migrateRetiredProgress, combineMigratedProgress, mergeSkillRecords } = require('../migrate.js');
+const { migrateRetiredProgress, combineMigratedProgress, mergeProgress } = require('../migrate.js');
 
 const RETIRED = {
   saturation: 'square-law',
@@ -211,17 +211,6 @@ test('null, empty, and already-clean progress are unchanged', () => {
   assert.strictEqual(migrateRetiredProgress(progress({ bode: skill(1, now, []) }), null).changed, false);
 });
 
-function mergeProgress(local, remote) {
-  if (!local || !local.skills) return remote;
-  if (!remote || !remote.skills) return local;
-  const merged = { version: 1, skills: {} };
-  for (const id of new Set([...Object.keys(local.skills), ...Object.keys(remote.skills)])) {
-    const m = mergeSkillRecords(local.skills[id], remote.skills[id]);
-    if (m) merged.skills[id] = m;
-  }
-  return merged;
-}
-
 test('sync merge migrates both sides before combining, and does not drop either device', () => {
   const local = progress({
     saturation: skill(2, now - 5 * DAY, [{ t: 1, passed: true }]),
@@ -255,6 +244,81 @@ test('sync with only a remote retired id still migrates and is idempotent', () =
   const twice = combineMigratedProgress(once.progress, null, RETIRED, mergeProgress);
   assert.strictEqual(twice.changed, false);
   assert.strictEqual(twice.progress.skills['half-circuit'].tier, 3);
+});
+
+test('old saves without todo or scope are unchanged, including the same object', () => {
+  const input = progress({ bode: skill(1, now, []) });
+  const res = migrateRetiredProgress(input, RETIRED);
+  assert.strictEqual(res.changed, false);
+  assert.strictEqual(res.progress, input);
+  assert.strictEqual(input.todo, undefined);
+  assert.strictEqual(input.scope, undefined);
+});
+
+test('todo entries follow the retired map, drop removed ids, and collapse duplicates', () => {
+  const input = progress({ bode: skill(1, now, []) });
+  input.todo = [
+    { type: 'skill', id: 'saturation' },
+    { type: 'challenge', id: 'bjt-gain' },
+    { type: 'skill', id: 'gone-skill' },
+    { type: 'skill', id: 'bode' },
+    { type: 'skill', id: 'saturation' },
+    { type: 'nope', id: 'bode' }
+  ];
+  input.scope = { v: 2, boxes: ['ee105-ch2'] };
+  const known = new Set(['square-law', 'bjt-action', 'bode', 'cd']);
+  const snapshot = JSON.parse(JSON.stringify(input));
+  const { progress: out, changed } = migrateRetiredProgress(input, RETIRED, known);
+  assert.strictEqual(changed, true);
+  assert.deepStrictEqual(input, snapshot);
+  assert.deepStrictEqual(out.todo, [
+    { type: 'skill', id: 'square-law' },
+    { type: 'challenge', id: 'bjt-action' },
+    { type: 'skill', id: 'bode' }
+  ]);
+  assert.deepStrictEqual(out.scope, { v: 2, boxes: ['ee105-ch2'] });
+  assert.strictEqual(out.skills.bode.tier, 1);
+  const again = migrateRetiredProgress(out, RETIRED, known);
+  assert.strictEqual(again.changed, false);
+  assert.strictEqual(again.progress, out);
+});
+
+test('without a skill catalog, unknown todo ids are kept and retired ids still move', () => {
+  const input = progress({ bode: skill(2, now, []) });
+  input.todo = [{ type: 'challenge', id: 'clm' }, { type: 'skill', id: 'future-skill' }];
+  const { progress: out, changed } = migrateRetiredProgress(input, RETIRED);
+  assert.strictEqual(changed, true);
+  assert.deepStrictEqual(out.todo, [
+    { type: 'challenge', id: 'ro' },
+    { type: 'skill', id: 'future-skill' }
+  ]);
+});
+
+test('sync merge keeps todo order across devices and the newer scope', () => {
+  const local = progress({
+    saturation: skill(2, now - 5 * DAY, [{ t: 1, passed: true }])
+  });
+  local.todo = [{ type: 'skill', id: 'saturation' }];
+  local.scope = { v: 2, boxes: ['ee105-ch2'] };
+  local.savedAt = now - DAY;
+  const remote = progress({
+    bode: skill(3, now, [])
+  });
+  remote.todo = [{ type: 'challenge', id: 'bode' }, { type: 'skill', id: 'square-law' }];
+  remote.scope = { v: 2, all: true };
+  remote.savedAt = now;
+  const once = combineMigratedProgress(local, remote, RETIRED, mergeProgress);
+  assert.deepStrictEqual(once.progress.todo, [
+    { type: 'skill', id: 'square-law' },
+    { type: 'challenge', id: 'bode' }
+  ]);
+  assert.deepStrictEqual(once.progress.scope, { v: 2, all: true });
+  assert.strictEqual(once.progress.skills['square-law'].tier, 2);
+  assert.strictEqual(once.progress.skills.bode.tier, 3);
+  const twice = combineMigratedProgress(once.progress, once.progress, RETIRED, mergeProgress);
+  assert.strictEqual(twice.changed, false);
+  assert.deepStrictEqual(twice.progress.todo, once.progress.todo);
+  assert.deepStrictEqual(twice.progress.scope, once.progress.scope);
 });
 
 test('sync does not wipe a survivor when the other device only has a lower retired tier', () => {

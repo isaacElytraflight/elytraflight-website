@@ -189,18 +189,7 @@ function migrateSyncedProgress(localProgress, remoteProgress) {
 }
 
 function mergeProgress(local, remote) {
-  if (!local || !local.skills) return remote;
-  if (!remote || !remote.skills) return local;
-  
-  const merged = { version: 1, skills: {} };
-  const allIds = new Set([...Object.keys(local.skills), ...Object.keys(remote.skills)]);
-  
-  for (const id of allIds) {
-    const m = mergeSkill(local.skills[id], remote.skills[id]);
-    if (m) merged.skills[id] = m;
-  }
-  
-  return merged;
+  return window.SkillgroveMigrate.mergeProgress(local, remote);
 }
 
 function mergeTiming(local, remote) {
