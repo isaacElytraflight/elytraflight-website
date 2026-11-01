@@ -106,6 +106,21 @@ test('playable skills have explainers and coming-soon skills do not', () => {
   }
 });
 
+test('half-circuit prerequisites match the skills its questions assume', () => {
+  const byId = Object.fromEntries(skills.map(s => [s.id, s]));
+  assert.deepStrictEqual(byId['half-circuit'].prereqs, [
+    'diff-intro',
+    'cs-analysis',
+    'degeneration',
+    'ss-model',
+    'lti-def'
+  ]);
+  assert.deepStrictEqual(byId['diff-intro'].prereqs, ['degeneration']);
+  assert.deepStrictEqual(byId['diff-dc'].prereqs, ['diff-intro']);
+  assert.deepStrictEqual(byId['cmrr'].prereqs, ['half-circuit', 'mirror']);
+  assert.deepStrictEqual(byId['mirror-load'].prereqs, ['diff-intro', 'mirror', 'half-circuit']);
+});
+
 test('every prerequisite resolves to a live skill and the graph is acyclic', () => {
   const visiting = new Set();
   const visited = new Set();

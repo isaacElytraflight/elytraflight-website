@@ -196,7 +196,7 @@ function applyRetirement(p) {
 
 function loadProgress() {
   storageOK = probeStorage();
-  if (!storageOK) { showWarn('Browser storage is unavailable here, so progress will be lost when you close this tab. Use Export (top right) to save a backup file.'); return }
+  if (!storageOK) { showWarn('Browser storage is unavailable here, so progress will be lost when you close this tab. Use Export in Settings to save a backup file.'); return }
   let raw = null;
   try { raw = localStorage.getItem(KEY) } catch (e) { storageOK = false }
   if (!raw) return;
@@ -216,7 +216,7 @@ function loadProgress() {
 function saveProgress() {
   progress.savedAt = Date.now();
   if (storageOK) {
-    try { localStorage.setItem(KEY, JSON.stringify(progress)); flashSaved(); return true } catch (e) { storageOK = false; showWarn('Could not save to browser storage. Progress is kept in memory only — Export a backup now.') }
+    try { localStorage.setItem(KEY, JSON.stringify(progress)); flashSaved(); return true } catch (e) { storageOK = false; showWarn('Could not save to browser storage. Progress is kept in memory only — open Settings and Export a backup now.') }
   }
   memStore = JSON.stringify(progress);
   return false;
@@ -1372,7 +1372,7 @@ function setScope(ids, opts) {
 
 function refreshAll() {
   document.querySelectorAll('.tile[data-id]').forEach(refreshTile);
-  renderStats(); renderBanner(); renderPlanBadge();
+  renderStats(); renderPlanBadge();
   $('qCount').textContent = queue().length;
   document.querySelectorAll('[data-ct]').forEach(e => {
     const box = boxById[e.dataset.ct];
@@ -1388,19 +1388,25 @@ function refreshAll() {
 }
 
 function renderStats() {
-  const counts = [0, 0, 0, 0, 0]; skills.forEach(s => counts[tierOf(s.id)]++);
+  const counts = [0, 0, 0, 0, 0];
+  skills.forEach(s => {
+    const t = tierOf(s.id);
+    if (t === 0 && !isPlayable(s.id)) return;
+    counts[t]++;
+  });
   const pct = skills.reduce((a, s) => a + tierOf(s.id), 0) / (4 * skills.length) * 100;
   const pp = playable.length ? playable.reduce((a, s) => a + tierOf(s.id), 0) / (4 * playable.length) * 100 : 0;
   const f = v => v < 10 ? v.toFixed(1) : String(Math.round(v));
   const st = $('stats'); st.innerHTML = '';
   const nReady = skills.filter(s => isReady(s.id)).length;
+  const nSoon = skills.length - playable.length;
   st.append(el('div', { class: 'meter', title: 'Weighted by tier: Practiced = ¼, Level 1 = ½, Level 2 = ¾, Mastered = 1 per skill' },
     el('span', { text: 'Colored in' }), el('b', { id: 'pctTxt', text: f(pct) + '%' }),
     el('span', { class: 'bar' }, el('i', { style: `width:${pct}%` })), el('span', { style: 'font-size:12px;color:var(--ink2);white-space:nowrap', text: `${f(pp)}% of playable` })));
   st.append(el('span', { class: 'sep' }));
-  TIERS.forEach((n, i) => st.append(el('span', { class: 'chip', 'data-tier': i, title: i === 0 ? 'Not started yet' : 'Skills at ' + n }, el('span', { class: 'sw t' + i, style: `--f:${FILL[i]}%` }), n, ' ', el('b', { text: counts[i] }))));
+  TIERS.forEach((n, i) => st.append(el('span', { class: 'chip', 'data-tier': i, title: i === 0 ? 'Playable skills not started yet. Coming-soon skills have no round-1 questions and are counted separately.' : 'Skills at ' + n }, el('span', { class: 'sw t' + i, style: `--f:${FILL[i]}%` }), n, ' ', el('b', { text: counts[i] }))));
   st.append(el('span', { class: 'chip', title: 'Unpracticed skills whose prerequisites are all at Level 2 or Mastered (skills with no prerequisites are ready from the start; coming-soon prerequisites are ignored)' }, el('span', { class: 'sw ready' }), 'Ready to learn ', el('b', { text: nReady })));
-  st.append(el('span', { class: 'chip', title: 'No questions written yet' }, el('span', { class: 'sw soon' }), 'Coming soon ', el('b', { text: skills.length - playable.length })));
+  st.append(el('span', { class: 'chip', 'data-stat': 'soon', title: 'No round-1 questions yet' }, el('span', { class: 'sw soon' }), 'Coming soon ', el('b', { text: nSoon })));
 }
 
 function setView(v) {
@@ -1409,20 +1415,7 @@ function setView(v) {
   try { localStorage.setItem(UIKEY, JSON.stringify({ view: v })) } catch (e) { }
 }
 
-let bannerHidden = false;
 function short(s, n) { return s.length > n ? s.slice(0, n - 1) + '…' : s }
-
-function renderBanner() {
-  const b = $('banner'); b.innerHTML = '';
-  if (bannerHidden) { return }
-  const q = queue();
-  const started = skills.some(s => tierOf(s.id) > 0);
-  b.append(el('span', {}, el('b', { text: started ? 'Go wide before deep. ' : 'Welcome! ' }),
-    started ? 'New skills are recommended once their prerequisites reach Level 2, so go wide rather than racing one branch to Mastered; spaced mastery challenges stick better after a break.'
-      : 'Pick a glowing "ready" skill (no prerequisites needed to start), then spread out across the tree. A new skill glows once its prerequisites reach Level 2.'));
-  if (q.length) b.append(el('button', { class: 'pill', style: '--c:#ff7a59;--cs:#ffe3da', onclick: openQueue }, `${q.length} mastery challenge${q.length > 1 ? 's' : ''} waiting`));
-  b.append(el('button', { class: 'x', 'aria-label': 'Dismiss tip', onclick: () => { bannerHidden = true; renderBanner() } }, '×'));
-}
 
 /* ====================== skill panel ====================== */
 function selectSkill(id, focus) {
@@ -1696,7 +1689,7 @@ function renderResult(wrap) {
   if (Q.mode === 'practice' && R.correct < need(R.n)) card.append(el('div', { class: 'kv', text: 'Practiced is about showing up — but the explanations below are worth another look before you try a mastery challenge.' }));
   if (Q.mode !== 'review') {
     card.append(el('div', { class: 'tu' }, el('span', { class: 'tierchip', text: TIERS[R.before] }), up ? [el('span', { text: '→' }), el('span', { class: 'tierchip', id: 'newTier', text: TIERS[R.after] })] : el('span', { style: 'font-weight:600;color:var(--ink2)', text: '(unchanged)' })));
-    card.append(el('div', { class: 'kv', text: storageOK ? 'Progress saved on this device ✓' : 'Progress kept in memory only (storage unavailable) — please Export a backup.' }));
+    card.append(el('div', { class: 'kv', text: storageOK ? 'Progress saved on this device ✓' : 'Progress kept in memory only (storage unavailable) — open Settings and Export a backup.' }));
   }
   const recap = el('div', { class: 'recap' });
   Q.items.forEach((it, i) => recap.append(el('div', {}, el('span', { class: 'm ' + (it.correct ? 'ok' : 'no'), text: it.correct ? '✓' : '✗' }), el('span', { math: `Q${i + 1}: ` + shortMath(it.q.prompt, 150) }))));
@@ -1860,7 +1853,7 @@ function openHelp() {
     el('li', {}, el('b', { text: 'Learning plan ' }), 'simulates sessions (practice every ready skill, one mastery challenge per unmastered skill) to estimate how many sessions and how much time it takes to master everything playable. It learns how fast you are from your own timed quizzes.'),
     el('li', {}, el('b', { text: 'Scope ' }), 'is select-all-that-apply: choose any courses or chapters. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
     el('li', {}, el('b', { text: 'Group by course ' }), 'draws each selected course and chapter as a colored region around its skills. Regions overlap where boxes share skills, and Ungroup returns to one prerequisite tree.'),
-    el('li', {}, 'Progress autosaves in this browser after every quiz. Use Export for a backup file you can Import later (or on another device).'),
+    el('li', {}, 'Progress autosaves in this browser after every quiz. Open Settings (the gear) to Export a backup you can Import later, or on another device.'),
     el('li', {}, 'Skills are organized into courses and chapters. Some skills have questions; the rest say "coming soon".'));
   openModal({ title: 'How Skillgrove works', body: ul, actions: [{ label: 'Got it', kind: 'primary' }] });
 }
@@ -2433,11 +2426,148 @@ function renderTodo() {
   host.append(head, spiral, paper, actions);
 }
 
+/* ====================== settings menu ====================== */
+let settingsOpen = false;
+function syncSettings() {
+  const panel = $('settingsPanel'), btn = $('btnSettings');
+  if (!panel || !btn) return;
+  panel.hidden = !settingsOpen;
+  btn.setAttribute('aria-expanded', String(settingsOpen));
+}
+function closeSettings() { settingsOpen = false; syncSettings(); }
+
+/* ====================== feedback ====================== */
+const APP_VERSION = (window.SKILLTREE_CONFIG && window.SKILLTREE_CONFIG.app && window.SKILLTREE_CONFIG.app.version) || '1';
+const FEEDBACK_MAX = 4000;
+
+function feedbackPage() {
+  return (location.pathname || '/') + (location.search || '');
+}
+
+function feedbackContext() {
+  const id = selected && byId[selected] ? selected : null;
+  let agent = '';
+  try { agent = navigator.userAgent || ''; } catch (e) { agent = ''; }
+  if (agent.length > 400) agent = agent.slice(0, 400);
+  return {
+    skill_id: id,
+    skill_name: id ? byId[id].name : null,
+    user_agent: agent,
+    view: filter.view,
+    layout: layoutMode
+  };
+}
+
+function feedbackFailureMessage(kind) {
+  if (kind === 'missing') return "Feedback isn't set up on the server yet, so this note wasn't saved. Please try again later.";
+  if (kind === 'network') return "Couldn't reach the server. Please try again.";
+  if (kind === 'unavailable') return "Feedback isn't available in this session.";
+  return "Couldn't send that just now. Please try again.";
+}
+
+async function postFeedback(row) {
+  const cfg = window.SKILLTREE_CONFIG && window.SKILLTREE_CONFIG.supabase;
+  if (!cfg || !cfg.url || !cfg.anonKey) return { ok: false, kind: 'unavailable' };
+  let token = cfg.anonKey;
+  try {
+    const sb = window.SkillgroveAuth && window.SkillgroveAuth.client && window.SkillgroveAuth.client();
+    if (sb) {
+      const { data } = await sb.auth.getSession();
+      if (data && data.session && data.session.access_token) token = data.session.access_token;
+    }
+  } catch (e) { }
+  let res;
+  try {
+    res = await fetch(String(cfg.url).replace(/\/$/, '') + '/rest/v1/feedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: cfg.anonKey,
+        Authorization: 'Bearer ' + token,
+        Prefer: 'return=minimal'
+      },
+      body: JSON.stringify(row)
+    });
+  } catch (e) {
+    return { ok: false, kind: 'network' };
+  }
+  if (res.ok) return { ok: true };
+  let body = {};
+  try { body = await res.json(); } catch (e) { body = {}; }
+  const code = String(body.code || '');
+  const message = String(body.message || '').toLowerCase();
+  const missing = res.status === 404 || code === 'PGRST205' || code === '42P01' || code === 'PGRST204'
+    || message.includes('schema cache') || message.includes('does not exist') || message.includes('could not find the table');
+  return { ok: false, kind: missing ? 'missing' : 'error' };
+}
+
+function showFeedbackError(text) {
+  const err = $('fbError');
+  if (!err) return;
+  err.hidden = false;
+  err.textContent = text;
+}
+
+async function submitFeedback() {
+  const ta = $('fbMessage');
+  const cat = $('fbCategory');
+  const btn = $('fbSubmit');
+  if (!ta || !btn) return;
+  const message = ta.value.trim();
+  if (!message) { showFeedbackError('Write a short message before submitting.'); ta.focus(); return; }
+  if (message.length > FEEDBACK_MAX) { showFeedbackError('That note is too long. Please keep it under 4,000 characters.'); return; }
+  const category = cat && (cat.value === 'bug' || cat.value === 'suggestion') ? cat.value : null;
+  const user = window.SkillgroveAuth && window.SkillgroveAuth.getUser && window.SkillgroveAuth.getUser();
+  const row = {
+    user_id: user && user.id ? user.id : null,
+    message,
+    category,
+    page: feedbackPage().slice(0, 2000),
+    context: feedbackContext(),
+    app_version: APP_VERSION
+  };
+  btn.disabled = true;
+  const prev = btn.textContent;
+  btn.textContent = 'Sending…';
+  const result = await postFeedback(row);
+  if (result.ok) {
+    closeModal();
+    toast('Thanks — your feedback was sent.');
+    return;
+  }
+  btn.disabled = false;
+  btn.textContent = prev;
+  showFeedbackError(feedbackFailureMessage(result.kind));
+}
+
+function openFeedback() {
+  closeSettings();
+  const ta = el('textarea', { id: 'fbMessage', rows: '5', maxlength: String(FEEDBACK_MAX), placeholder: 'What happened, or what would help?' });
+  const cat = el('select', { id: 'fbCategory', 'aria-label': 'Category, optional' },
+    el('option', { value: '', text: 'No category' }),
+    el('option', { value: 'bug', text: 'Bug' }),
+    el('option', { value: 'suggestion', text: 'Suggestion' }));
+  const err = el('p', { id: 'fbError', class: 'auth-msg error', hidden: true });
+  const submit = el('button', { class: 'btn primary', id: 'fbSubmit', type: 'button', onclick: () => { submitFeedback(); } }, 'Submit');
+  const body = el('div', { class: 'fb-form' },
+    el('p', { class: 'pintro', text: 'Guests can send this too. It goes to the Skillgrove feedback box with the skill you have open, this page, and your browser.' }),
+    el('label', { for: 'fbMessage', text: 'Message' }),
+    ta,
+    el('label', { for: 'fbCategory', text: 'Category (optional)' }),
+    cat,
+    err,
+    el('div', { class: 'fb-submit' }, submit));
+  openModal({ title: 'Report a bug / give feedback', body, actions: [{ label: 'Cancel' }] });
+  const box = $('fbMessage');
+  if (box) box.focus();
+}
+
 /* ====================== keyboard ====================== */
 function setupKeyboard() {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       if (mb.classList.contains('open')) closeModal();
+      else if (settingsOpen) closeSettings();
       else if (quizOpen) leaveQuiz();
       else if (panelOpen()) closePanel();
       return;
@@ -2489,18 +2619,23 @@ async function init() {
   setupPanZoom();
   setupKeyboard();
   
-  $('btnExport').onclick = exportProgress;
-  $('btnImport').onclick = () => $('fileIn').click();
+  $('btnSettings').onclick = e => { e.stopPropagation(); settingsOpen = !settingsOpen; syncSettings(); };
+  document.addEventListener('click', e => {
+    if (settingsOpen && !(e.target.closest && e.target.closest('#settingsMenu'))) closeSettings();
+  });
+  $('btnExport').onclick = () => { closeSettings(); exportProgress(); };
+  $('btnImport').onclick = () => { closeSettings(); $('fileIn').click(); };
   $('fileIn').onchange = e => { const f = e.target.files[0]; if (f) importFile(f); e.target.value = '' };
   $('btnPlan').onclick = openPlan;
-  $('btnReset').onclick = resetProgress;
+  $('btnReset').onclick = () => { closeSettings(); resetProgress(); };
   $('btnQueue').onclick = openQueue;
   $('btnHelp').onclick = openHelp;
+  $('btnFeedback').onclick = openFeedback;
   mb.addEventListener('mousedown', e => { if (e.target === mb) closeModal() });
   window.addEventListener('resize', () => { if (panelOpen()) placePanel() });
   
   window.__skillgrove = {
-    version: 1, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode, timing: () => timing,
+    version: APP_VERSION, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode, timing: () => timing,
     plan: (scratch, scope) => runPlan(!!scratch, scope), planState: () => planState,
     ready: () => skills.filter(s => isReady(s.id)).map(s => s.id), playableIds: () => playable.map(s => s.id),
     retired: () => (DATA && DATA.retired) || {},

@@ -40,15 +40,22 @@
     <span id="saveInd" aria-live="polite">Saved ✓</span>
     <button class="btn hot" id="btnQueue">Mastery challenges <span class="badge" id="qCount">0</span></button>
     <button class="btn" id="btnPlan" title="Simulate how many learning sessions it takes to master everything that is playable">Learning plan <span class="badge pl" id="planCount">–</span></button>
-    <button class="btn" id="btnExport" title="Download your progress as a JSON backup">Export</button>
-    <button class="btn" id="btnImport" title="Load progress from a JSON backup">Import</button>
-    <button class="btn danger" id="btnReset">Reset</button>
+    <div class="menu" id="settingsMenu">
+      <button class="btn icon" id="btnSettings" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsPanel" title="Settings" aria-label="Settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.2 7.2 0 0 0-1.63-.94l-.36-2.54A.5.5 0 0 0 13.9 2h-3.8a.5.5 0 0 0-.49.42l-.36 2.54c-.59.22-1.14.54-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.71 8.48a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.31.6.22l2.39-.96c.49.4 1.04.72 1.63.94l.36 2.54c.05.24.25.42.49.42h3.8c.24 0 .44-.18.49-.42l.36-2.54c.59-.22 1.14-.54 1.63-.94l2.39.96c.22.09.47 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>
+      </button>
+      <div class="menu-panel" id="settingsPanel" role="menu" aria-label="Settings" hidden>
+        <button class="btn menu-item" id="btnExport" type="button" role="menuitem" title="Download your progress as a JSON backup">Export</button>
+        <button class="btn menu-item" id="btnImport" type="button" role="menuitem" title="Load progress from a JSON backup">Import</button>
+        <button class="btn menu-item danger" id="btnReset" type="button" role="menuitem">Reset</button>
+      </div>
+    </div>
     <button class="btn" id="btnHelp" aria-label="How it works">?</button>
     <input type="file" id="fileIn" accept=".json,application/json" class="sr" tabindex="-1" aria-label="Import progress file">
   </div>
   <div class="stats" id="stats"></div>
 </header>
-<div id="strip"><div id="banner"></div><button class="btn primary grp" id="btnGroup" type="button" aria-pressed="false"><span class="gi" aria-hidden="true">▦</span><span class="t">Group by course</span></button><div class="hctl" id="hctl"></div></div>
+<div id="strip"><div id="banner"><button class="btn small" id="btnFeedback" type="button">Report a bug / give feedback for Skillgrove</button></div><button class="btn primary grp" id="btnGroup" type="button" aria-pressed="false"><span class="gi" aria-hidden="true">▦</span><span class="t">Group by course</span></button><div class="hctl" id="hctl"></div></div>
 <main>
   <aside id="todoBook" aria-label="To-do list"></aside>
   <div id="treeView" aria-label="Skill tree"><div id="world"><svg id="edges" aria-hidden="true"></svg></div>

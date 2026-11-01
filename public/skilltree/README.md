@@ -144,8 +144,8 @@ Progress is stored per web origin. The app uses these localStorage keys:
 - `skilltree.planscope.v1` — Mirror of the scope choice, kept so older builds and older saves still work. A missing key means every box. When the progress object includes `scope`, that value wins on load and on sign-in. Current saves are JSON: `{"v":2,"all":true}` or `{"v":2,"boxes":["ee105-ucb","me132"]}`. An older save that stored a single box id is read as that one box. The learning plan covers the union of the selected boxes.
 
 **Migration note**: When moving from the old single-file version, users should:
-1. Export their progress from the old file (Export button)
-2. Import it on the new site (Import button)
+1. Export their progress from the old file (Settings → Export)
+2. Import it on the new site (Settings → Import)
 
 ## Development
 

@@ -84,8 +84,43 @@ async function newPage(seed, opts = {}) {
   p.on('pageerror', e => errs.push('PAGEERR ' + e.message));
   if (opts.noStorage) await p.evaluateOnNewDocument(() => { Storage.prototype.setItem = function() { throw new DOMException('denied', 'SecurityError') } });
   
+  p._feedbackPosts = [];
+  p._feedbackMode = opts.feedbackMode || 'ok';
   await p.setRequestInterception(true);
   p.on('request', req => {
+    if (req.url().includes('/rest/v1/feedback')) {
+      const cors = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'apikey, authorization, content-type, prefer, accept',
+        'Access-Control-Max-Age': '600'
+      };
+      if (req.method() === 'OPTIONS') {
+        req.respond({ status: 204, headers: cors, body: '' });
+        return;
+      }
+      p._feedbackPosts.push({
+        method: req.method(),
+        url: req.url(),
+        body: req.postData(),
+        headers: req.headers()
+      });
+      if (p._feedbackMode === 'missing') {
+        req.respond({
+          status: 404,
+          contentType: 'application/json',
+          headers: cors,
+          body: JSON.stringify({ code: 'PGRST205', message: "Could not find the table 'public.feedback' in the schema cache" })
+        });
+        return;
+      }
+      if (p._feedbackMode === 'down') {
+        req.respond({ status: 500, contentType: 'application/json', headers: cors, body: JSON.stringify({ message: 'db down' }) });
+        return;
+      }
+      req.respond({ status: 201, contentType: 'application/json', headers: cors, body: '' });
+      return;
+    }
     if (req.url().includes('supabase.min.js')) {
       req.respond({
         status: 200,
@@ -97,11 +132,11 @@ async function newPage(seed, opts = {}) {
     }
   });
   
-  await p.evaluateOnNewDocument(() => {
+  await p.evaluateOnNewDocument((session) => {
     window.__oauthCalls = [];
     window.__supabaseMock = {
       auth: {
-        getSession: async () => ({ data: { session: null } }),
+        getSession: async () => ({ data: { session } }),
         signInWithOtp: async () => ({ error: null }),
         signInWithOAuth: async (opts) => { window.__oauthCalls.push(opts); return { error: null }; },
         signOut: async () => ({}),
@@ -112,7 +147,7 @@ async function newPage(seed, opts = {}) {
         upsert: async () => ({ error: null })
       })
     };
-  });
+  }, opts.session || null);
   
   if (seed) {
     await p.goto(BASE_URL);
@@ -1733,6 +1768,158 @@ async function test(name, fn) {
     await sleep(150);
     assert.strictEqual(await p.evaluate(() => window.__skillgrove.todo.list().length), before - 1);
     await p._ctx.close();
+  });
+
+  await test('unpracticed count excludes coming-soon skills', async () => {
+    const p = await newPage(T({ bode: { tier: 1, lastPracticed: now - DAY, history: [] } }));
+    const stats = await p.evaluate(() => ({
+      unpracticed: document.querySelector('#stats .chip[data-tier="0"] b').textContent,
+      soon: document.querySelector('#stats .chip[data-stat="soon"] b').textContent,
+      banner: document.getElementById('banner').textContent,
+      wide: document.body.innerText.includes('Go wide before deep'),
+      waiting: /mastery challenge/i.test(document.getElementById('strip').innerText)
+    }));
+    assert.strictEqual(stats.unpracticed, String(NPLAY - 1));
+    assert.strictEqual(stats.soon, String(NSOON));
+    assert.strictEqual(Number(stats.unpracticed) + 1 + Number(stats.soon), NSKILL);
+    assert(/Report a bug \/ give feedback for Skillgrove/.test(stats.banner));
+    assert.strictEqual(stats.wide, false);
+    assert.strictEqual(stats.waiting, false);
+    await p._ctx.close();
+  });
+
+  await test('settings menu keeps export, import, and the reset confirm', async () => {
+    const p = await newPage(T({ bode: { tier: 2, lastPracticed: now - DAY, history: [] } }));
+    assert.strictEqual(await p.$eval('#settingsPanel', e => e.hidden), true);
+    assert.strictEqual(await p.$('#hrow #btnExport, header > .hrow > #btnExport'), null);
+    await p.click('#btnSettings');
+    await sleep(100);
+    assert.strictEqual(await p.$eval('#settingsPanel', e => e.hidden), false);
+    assert.strictEqual(await p.$eval('#btnSettings', e => e.getAttribute('aria-expanded')), 'true');
+    for (const id of ['#btnExport', '#btnImport', '#btnReset']) assert(await p.$(id), id);
+    await p.click('#btnReset');
+    await sleep(150);
+    assert(await p.$('#confirmReset'));
+    await p.keyboard.press('Escape');
+    await sleep(100);
+    assert.strictEqual((await store(p)).skills.bode.tier, 2);
+    await p.click('#btnSettings');
+    await sleep(80);
+    await p.click('#btnReset');
+    await sleep(150);
+    await p.click('#confirmReset');
+    await sleep(200);
+    const after = await store(p);
+    assert.deepStrictEqual(after.skills, {});
+    assert.deepStrictEqual(after.todo, []);
+    await p._ctx.close();
+  });
+
+  async function sendFeedback(p, text, category) {
+    await p.click('#btnFeedback');
+    await p.waitForSelector('#fbMessage');
+    await p.type('#fbMessage', text);
+    if (category) await p.select('#fbCategory', category);
+    await p.click('#fbSubmit');
+    await sleep(300);
+  }
+
+  await test('feedback from a guest stores message, category, page, and context', async () => {
+    const p = await newPage();
+    await openSkill(p, 'half-circuit');
+    await sendFeedback(p, 'The half-circuit figure is cramped.', 'bug');
+    assert.strictEqual(p._feedbackPosts.length, 1);
+    const post = p._feedbackPosts[0];
+    const row = JSON.parse(post.body);
+    const anon = await p.evaluate(() => window.SKILLTREE_CONFIG.supabase.anonKey);
+    assert.strictEqual(post.method, 'POST');
+    assert.strictEqual(post.headers.apikey, anon);
+    assert.strictEqual(post.headers.authorization, 'Bearer ' + anon);
+    assert(/return=minimal/.test(post.headers.prefer));
+    assert(!/service_role/i.test(post.body + JSON.stringify(post.headers)));
+    assert.strictEqual(row.user_id, null);
+    assert.strictEqual(row.message, 'The half-circuit figure is cramped.');
+    assert.strictEqual(row.category, 'bug');
+    assert.strictEqual(row.app_version, '1.2.0');
+    assert(/skilltree/.test(row.page));
+    assert.strictEqual(row.page.includes('#'), false);
+    assert.strictEqual(row.context.skill_id, 'half-circuit');
+    assert(/half circuits/i.test(row.context.skill_name));
+    assert(row.context.user_agent);
+    assert.strictEqual(await p.$('#fbMessage'), null);
+    assert(/feedback was sent/.test(await p.$eval('#toast', e => e.textContent)));
+    await p._ctx.close();
+  });
+
+  await test('feedback category is optional and a missing table fails gently', async () => {
+    const guest = await newPage();
+    await sendFeedback(guest, 'Please add a search box.');
+    const row = JSON.parse(guest._feedbackPosts[0].body);
+    assert.strictEqual(row.category, null);
+    assert.strictEqual(row.context.skill_id, null);
+    await guest.click('#btnFeedback');
+    await guest.waitForSelector('#fbSubmit');
+    await guest.click('#fbSubmit');
+    await sleep(150);
+    assert.strictEqual(guest._feedbackPosts.length, 1);
+    assert(/Write a short message/.test(await guest.$eval('#fbError', e => e.textContent)));
+    await guest._ctx.close();
+
+    const missing = await newPage(null, { feedbackMode: 'missing' });
+    await sendFeedback(missing, 'This should not crash.');
+    assert(/isn't set up on the server yet/.test(await missing.$eval('#fbError', e => e.textContent)));
+    assert(await missing.$('#fbMessage'));
+    const errsBefore = errs.length;
+    assert.strictEqual(errs.slice(errsBefore).length, 0);
+    await missing._ctx.close();
+  });
+
+  await test('signed-in feedback uses that user id and access token', async () => {
+    const session = {
+      access_token: 'user-access-token',
+      user: { id: '11111111-1111-4111-8111-111111111111', email: 'ada@example.com' }
+    };
+    const p = await newPage(null, { session });
+    await sendFeedback(p, 'Signed-in note', 'suggestion');
+    const post = p._feedbackPosts[0];
+    const row = JSON.parse(post.body);
+    const anon = await p.evaluate(() => window.SKILLTREE_CONFIG.supabase.anonKey);
+    assert.strictEqual(post.headers.apikey, anon);
+    assert.strictEqual(post.headers.authorization, 'Bearer user-access-token');
+    assert.strictEqual(row.user_id, session.user.id);
+    assert.strictEqual(row.category, 'suggestion');
+    await p._ctx.close();
+  });
+
+  const UI_DIR = '/opt/cursor/artifacts/skillgrove-ui';
+  fs.mkdirSync(UI_DIR, { recursive: true });
+  async function shootUi(p, name) {
+    await p.evaluate(() => { const t = document.getElementById('toast'); if (t) t.classList.remove('show'); });
+    await p.screenshot({ path: path.join(UI_DIR, name) });
+  }
+  await test('screenshots of the top bar, feedback modal, and settings menu', async () => {
+    for (const vp of [
+      { name: 'desktop', viewport: { width: 1280, height: 800 } },
+      { name: 'mobile', viewport: { width: 390, height: 844, isMobile: true, hasTouch: true } }
+    ]) {
+      const p = await newPage(null, { viewport: vp.viewport });
+      const top = await p.evaluate(() => {
+        const strip = document.getElementById('strip').getBoundingClientRect();
+        return { x: 0, y: 0, width: Math.ceil(strip.width), height: Math.ceil(strip.bottom) };
+      });
+      await p.screenshot({ path: path.join(UI_DIR, `topbar-${vp.name}.png`), clip: top });
+      await p.click('#btnFeedback');
+      await p.waitForSelector('#fbMessage');
+      await p.type('#fbMessage', 'The tree is hard to pan on a phone.');
+      await shootUi(p, `feedback-${vp.name}.png`);
+      await p.keyboard.press('Escape');
+      await sleep(150);
+      await p.click('#btnSettings');
+      await p.waitForSelector('#settingsPanel:not([hidden])');
+      await sleep(100);
+      await shootUi(p, `settings-${vp.name}.png`);
+      await p._ctx.close();
+    }
   });
 
   await browser.close();

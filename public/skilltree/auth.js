@@ -373,6 +373,7 @@ window.SkillgroveAuth = {
   init: initAuth,
   openSignIn: openSignInModal,
   signOut,
+  client: getSupabase,
   getUser: () => currentUser,
   getSyncStatus: () => syncStatus,
   mergeProgress,
