@@ -880,6 +880,7 @@ function syncEdges() {
     const path = document.createElementNS(NS, 'path');
     const dot = document.createElementNS(NS, 'circle');
     dot.setAttribute('r', '3.2');
+    path.style.setProperty('--edge', chColor(getSkillColorIndex(e.to)));
     edgesSvg.append(path, dot);
     edgeEls.push({ from: e.from, to: e.to, fromKey: e.fromKey, toKey: e.toKey, path, dot });
   });
@@ -1093,9 +1094,9 @@ function toggleGroup() {
 }
 
 function applyEdgeHighlight() {
-  // #world is one scaled composited layer in lights mode. Changing edge stroke
+  // #world is one scaled composited layer in lights mode. Restyling edge paint
   // from a hover invalidates that entire layer (exploded paint, white flash).
-  // Edges are already faint here; the highlight comes back when zoomed in.
+  // Lights-mode strokes stay a static tint; the highlight returns when zoomed in.
   const id = lightsMode ? null : (hoverId || selected);
   edgesSvg.classList.toggle('active', !!id);
   edgeEls.forEach(e => {

@@ -345,7 +345,12 @@ figure.qfig.small svg{max-height:200px}
 @keyframes shimmer{0%,100%{box-shadow:0 0 12px 4px var(--light-glow);transform:scale(1)}50%{box-shadow:0 0 20px 8px var(--light-glow);transform:scale(1.15)}}
 @media (prefers-reduced-motion:reduce){.tile.t4 .light-dot{animation:none;box-shadow:0 0 16px 6px var(--light-glow)}}
 #world.lights-view .tile{transition:background .2s,border-color .2s}
-#world.lights-view #edges path{stroke-opacity:0.15}
+/* Static structure lines. Opacity stays the zoomed-in value so the opacity transition never runs.
+   stroke-opacity .42 times that .38 is about .16. The width is in layout pixels: #world is one
+   scaled layer, and a non-scaling stroke is rasterized before that scale, so it disappears at
+   full zoom-out. 9.6px is about one screen pixel at scale .12 and stays thin up near the threshold. */
+#world.lights-view #edges path{stroke:var(--edge,#9aa3b8);stroke-width:9.6px;stroke-opacity:.42;stroke-linecap:round;stroke-linejoin:round;transition:none}
+#world.lights-view #edges circle{display:none}
 
 /* Nested boxes / collections */
 .blob.course,.blob.textbook{background:rgba(255,255,255,.15);border-width:3px;border-style:solid}

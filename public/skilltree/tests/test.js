@@ -808,6 +808,89 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('lights mode shows every prerequisite as a static thin stroke', async () => {
+    const p = await newPage();
+    await sleep(200);
+
+    const lights = await p.evaluate(() => {
+      window.__skillgrove.lights.setScale(0.12);
+      const world = document.getElementById('world');
+      const tv = document.getElementById('treeView');
+      const s = 0.12;
+      const vr = tv.getBoundingClientRect();
+      world.style.transform = `translate(${(vr.width - world.offsetWidth * s) / 2}px,${(vr.height - world.offsetHeight * s) / 2}px) scale(${s})`;
+      const paths = [...document.querySelectorAll('#edges path')];
+      const cs0 = paths.length ? getComputedStyle(paths[0]) : null;
+      const strokes = new Set(paths.map(path => getComputedStyle(path).stroke));
+      const edgeAnims = document.getAnimations().filter(a => {
+        const t = a.effect && a.effect.target;
+        return t && t.ownerSVGElement && t.ownerSVGElement.id === 'edges';
+      });
+      const visual = cs0 ? parseFloat(cs0.opacity) * parseFloat(cs0.strokeOpacity) : 0;
+      return {
+        on: window.__skillgrove.lights.mode(),
+        paths: paths.length,
+        circles: document.querySelectorAll('#edges circle').length,
+        circlesShown: [...document.querySelectorAll('#edges circle')].filter(c => getComputedStyle(c).display !== 'none').length,
+        opacity: cs0 && cs0.opacity,
+        strokeOpacity: cs0 && cs0.strokeOpacity,
+        visual,
+        width: cs0 && cs0.strokeWidth,
+        vector: cs0 && cs0.vectorEffect,
+        transition: cs0 && cs0.transitionDuration,
+        strokeCount: strokes.size,
+        edgeAnims: edgeAnims.length
+      };
+    });
+    assert(lights.on, 'full zoom-out is lights mode');
+    assert.strictEqual(lights.paths, EDGES, 'every prerequisite connection is drawn');
+    assert(lights.circles > 0, 'arrow dots still exist for zoomed-in mode');
+    assert.strictEqual(lights.circlesShown, 0, 'arrow dots stay hidden so they do not cover the dots');
+    assert(lights.visual > 0.12 && lights.visual < 0.2, 'visible stroke alpha should sit between 0.12 and 0.2, got ' + lights.visual);
+    assert(Math.abs(parseFloat(lights.width) - 9.6) < 0.15, 'layout stroke should stay about one screen pixel when scaled, got ' + lights.width);
+    assert(Math.abs(parseFloat(lights.width) * 0.12 - 1.15) < 0.2, lights.width);
+    assert.strictEqual(lights.vector, 'none');
+    assert.strictEqual(lights.transition, '0s', 'lights-mode strokes must not transition paint');
+    assert(lights.strokeCount > 1, 'strokes should pick up more than one box color');
+    assert.strictEqual(lights.edgeAnims, 0, 'edge paint should be static');
+
+    await p.screenshot({ path: path.join(SHOTS_DIR, '12c_lights_edges.png') });
+
+    const zoomed = await p.evaluate(() => {
+      window.__skillgrove.lights.setScale(1);
+      const path = document.querySelector('#edges path');
+      const cs = getComputedStyle(path);
+      const dot = document.querySelector('#edges circle');
+      return {
+        on: window.__skillgrove.lights.mode(),
+        opacity: cs.opacity,
+        width: cs.strokeWidth,
+        vector: cs.vectorEffect,
+        stroke: cs.stroke,
+        strokeOpacity: cs.strokeOpacity,
+        transition: cs.transitionProperty,
+        duration: cs.transitionDuration,
+        dot: dot ? getComputedStyle(dot).display : 'missing',
+        edgeAnims: document.getAnimations().filter(a => {
+          const t = a.effect && a.effect.target;
+          return t && t.ownerSVGElement && t.ownerSVGElement.id === 'edges';
+        }).length
+      };
+    });
+    assert.strictEqual(zoomed.on, false);
+    assert(Math.abs(parseFloat(zoomed.opacity) - 0.38) < 0.02, zoomed.opacity);
+    assert.strictEqual(zoomed.width, '1.6px');
+    assert.strictEqual(zoomed.vector, 'none');
+    assert.strictEqual(zoomed.stroke, 'rgb(154, 163, 184)', 'zoomed-in edges stay the neutral gray');
+    assert(Math.abs(parseFloat(zoomed.strokeOpacity) - 1) < 0.02, zoomed.strokeOpacity);
+    assert(zoomed.transition.includes('opacity'), zoomed.transition);
+    assert(zoomed.duration !== '0s');
+    assert.strictEqual(zoomed.edgeAnims, 0, 'leaving lights mode must not fade every edge');
+    assert.notStrictEqual(zoomed.dot, 'none');
+
+    await p._ctx.close();
+  });
+
   await test('collections: EE105 course with 18 chapter boxes loads correctly', async () => {
     const p = await newPage();
     
