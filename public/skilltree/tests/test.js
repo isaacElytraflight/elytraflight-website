@@ -9,6 +9,7 @@ const puppeteer = require('puppeteer-core');
 const fs = require('fs');
 const path = require('path');
 const assert = require('assert');
+const zlib = require('zlib');
 
 const BASE_URL = process.env.SKILLTREE_URL || 'http://localhost:5000/skilltree/';
 const SHOTS_DIR = path.join(__dirname, 'shots');
@@ -159,6 +160,58 @@ async function newPage(seed, opts = {}) {
   await sleep(500);
   p._ctx = ctx;
   return p;
+}
+
+function decodePNG(buf) {
+  buf = Buffer.from(buf);
+  let p = 8, width = 0, height = 0, colorType = 6;
+  const idat = [];
+  while (p < buf.length) {
+    const len = buf.readUInt32BE(p); p += 4;
+    const type = buf.toString('ascii', p, p + 4); p += 4;
+    const data = buf.subarray(p, p + len); p += len + 4;
+    if (type === 'IHDR') { width = data.readUInt32BE(0); height = data.readUInt32BE(4); colorType = data[9]; }
+    else if (type === 'IDAT') idat.push(data);
+    else if (type === 'IEND') break;
+  }
+  const raw = zlib.inflateSync(Buffer.concat(idat));
+  const bpp = colorType === 6 ? 4 : 3;
+  const out = Buffer.alloc(width * height * 4);
+  let s = 0, d = 0;
+  let prev = Buffer.alloc(width * bpp);
+  const paeth = (a, b, c) => {
+    const pa = Math.abs(b - c), pb = Math.abs(a - c), pc = Math.abs(a + b - 2 * c);
+    return pa <= pb && pa <= pc ? a : pb <= pc ? b : c;
+  };
+  for (let y = 0; y < height; y++) {
+    const filter = raw[s++];
+    const row = Buffer.from(raw.subarray(s, s + width * bpp));
+    s += width * bpp;
+    for (let i = 0; i < row.length; i++) {
+      const left = i >= bpp ? row[i - bpp] : 0;
+      const up = prev[i];
+      const ul = i >= bpp ? prev[i - bpp] : 0;
+      if (filter === 1) row[i] = (row[i] + left) & 255;
+      else if (filter === 2) row[i] = (row[i] + up) & 255;
+      else if (filter === 3) row[i] = (row[i] + ((left + up) >> 1)) & 255;
+      else if (filter === 4) row[i] = (row[i] + paeth(left, up, ul)) & 255;
+    }
+    prev = row;
+    if (bpp === 4) { row.copy(out, d); d += row.length; }
+    else for (let i = 0; i < width; i++) { out[d++] = row[i * 3]; out[d++] = row[i * 3 + 1]; out[d++] = row[i * 3 + 2]; out[d++] = 255; }
+  }
+  return { width, height, data: out };
+}
+
+function pixelDiffCount(a, b) {
+  const A = decodePNG(a), B = decodePNG(b);
+  assert.strictEqual(A.width, B.width);
+  assert.strictEqual(A.height, B.height);
+  let n = 0;
+  for (let i = 0; i < A.data.length; i += 4) {
+    if (Math.abs(A.data[i] - B.data[i]) + Math.abs(A.data[i + 1] - B.data[i + 1]) + Math.abs(A.data[i + 2] - B.data[i + 2]) > 12) n++;
+  }
+  return { n, pixels: A.width * A.height };
 }
 
 const store = p => p.evaluate(k => JSON.parse(localStorage.getItem(k)), KEY);
@@ -640,6 +693,118 @@ async function test(name, fn) {
     lightsOn = await p.evaluate(() => window.__skillgrove.lights.mode());
     assert(!lightsOn, 'lights mode should turn off when zoomed back in');
     
+    await p._ctx.close();
+  });
+
+  await test('lights mode hover does not repaint the tree or change its pixels', async () => {
+    const p = await newPage();
+    await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(400);
+
+    const target = await p.evaluate(() => {
+      window.__skillgrove.lights.setScale(0.25);
+      const s = 0.25;
+      const tv = document.getElementById('treeView');
+      const world = document.getElementById('world');
+      const tiles = [...document.querySelectorAll('#world .tile')];
+      tiles.sort((a, b) => parseFloat(a.style.top) - parseFloat(b.style.top) || parseFloat(a.style.left) - parseFloat(b.style.left));
+      const tile = tiles[Math.floor(tiles.length * 0.45)];
+      const wx = parseFloat(tile.style.left) + 84;
+      const wy = parseFloat(tile.style.top) + 36;
+      const vr = tv.getBoundingClientRect();
+      world.style.transform = `translate(${vr.width / 2 - wx * s}px,${vr.height / 2 - wy * s}px) scale(${s})`;
+      document.getAnimations().forEach(a => a.pause());
+      const r = tile.getBoundingClientRect();
+      window.__treeMut = [];
+      const mo = new MutationObserver(recs => {
+        for (const rec of recs) {
+          window.__treeMut.push({
+            type: rec.type,
+            target: rec.target.id || rec.target.className || rec.target.nodeName,
+            attr: rec.attributeName,
+            added: rec.addedNodes.length,
+            removed: rec.removedNodes.length
+          });
+        }
+      });
+      mo.observe(world, { subtree: true, attributes: true, childList: true });
+      return { id: tile.dataset.id, x: r.x + r.width / 2, y: r.y + r.height / 2, lights: window.__skillgrove.lights.mode() };
+    });
+    assert(target.lights, 'lights mode should be on');
+    const hit = await p.evaluate((x, y) => {
+      const el = document.elementFromPoint(x, y);
+      const tile = el && el.closest ? el.closest('.tile') : null;
+      return tile ? tile.dataset.id : null;
+    }, target.x, target.y);
+    assert.strictEqual(hit, target.id, 'pointer should be over the skill dot');
+
+    const tree = await p.$('#treeView');
+    const before = await tree.screenshot({ type: 'png' });
+    await p.tracing.start({ categories: ['devtools.timeline'] });
+    await p.mouse.move(target.x, target.y);
+    await sleep(280);
+    const traceBuf = await p.tracing.stop();
+    const during = await tree.screenshot({ type: 'png' });
+    await sleep(200);
+    const after = await tree.screenshot({ type: 'png' });
+    fs.writeFileSync(path.join(SHOTS_DIR, '12b_lights_hover.png'), after);
+
+    const paints = JSON.parse(Buffer.from(traceBuf).toString('utf8')).traceEvents.filter(e => e.name === 'Paint');
+    const exploded = paints.filter(e => {
+      const c = e.args.data.clip;
+      const w = Math.abs(c[2] - c[0]);
+      return e.args.data.nodeName !== '#document' && w > 8000;
+    }).map(e => e.args.data.nodeName);
+    assert.deepStrictEqual(exploded, [], 'hover should not repaint the world or edge layer: ' + exploded.join(', '));
+
+    const mut = await p.evaluate(() => window.__treeMut);
+    const structural = mut.filter(m => m.type === 'childList' && (m.added || m.removed));
+    assert.deepStrictEqual(structural, [], 'hover should not rebuild the tree');
+    assert.strictEqual(mut.length, 0, 'hover should not restyle the tree: ' + JSON.stringify(mut.slice(0, 6)));
+
+    const hoverState = await p.evaluate(() => {
+      const tile = document.querySelector('#world .tile:hover');
+      const cs = tile ? getComputedStyle(tile) : null;
+      return {
+        active: document.getElementById('edges').classList.contains('active'),
+        transform: cs ? cs.transform : null,
+        background: cs ? cs.backgroundColor : null
+      };
+    });
+    assert.strictEqual(hoverState.active, false, 'lights mode should not highlight every edge');
+    assert.strictEqual(hoverState.transform, 'none');
+    assert.strictEqual(hoverState.background, 'rgba(0, 0, 0, 0)');
+
+    const mid = pixelDiffCount(before, during);
+    const end = pixelDiffCount(before, after);
+    assert.strictEqual(mid.n, 0, `hover frame changed ${mid.n} of ${mid.pixels} tree pixels`);
+    assert.strictEqual(end.n, 0, `settled hover changed ${end.n} of ${end.pixels} tree pixels`);
+
+    await p.mouse.move(4, 4);
+    const zoomed = await p.evaluate((id) => {
+      window.__skillgrove.lights.setScale(1);
+      const s = 1;
+      const tv = document.getElementById('treeView');
+      const world = document.getElementById('world');
+      const tile = document.querySelector('#world .tile[data-id="' + id + '"]');
+      const wx = parseFloat(tile.style.left) + 84;
+      const wy = parseFloat(tile.style.top) + 36;
+      const vr = tv.getBoundingClientRect();
+      world.style.transform = `translate(${vr.width / 2 - wx * s}px,${vr.height / 2 - wy * s}px) scale(${s})`;
+      const r = tile.getBoundingClientRect();
+      return { x: r.x + r.width / 2, y: r.y + r.height / 2, lights: window.__skillgrove.lights.mode() };
+    }, target.id);
+    assert.strictEqual(zoomed.lights, false);
+    await p.mouse.move(zoomed.x, zoomed.y);
+    await sleep(50);
+    const highlighted = await p.evaluate(() => ({
+      active: document.getElementById('edges').classList.contains('active'),
+      marked: document.querySelectorAll('#edges path.in, #edges path.out').length
+    }));
+    assert.strictEqual(highlighted.active, true, 'zoomed-in hover should still highlight edges');
+    assert(highlighted.marked > 0, 'zoomed-in hover should mark the connected edges');
+
     await p._ctx.close();
   });
 

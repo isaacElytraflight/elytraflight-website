@@ -88,7 +88,7 @@ main{flex:1;position:relative;min-height:0}
 #world:not([data-layout=grouped]) #regionLabels{opacity:0;visibility:hidden}
 #regionLabels{position:absolute;left:0;top:0;z-index:7;pointer-events:none}
 .region-label{position:absolute;z-index:7;pointer-events:none;font:800 11px/1.15 system-ui,sans-serif;padding:1px 5px;border:1.5px solid;border-radius:8px;background:rgba(255,255,255,.94);white-space:nowrap}
-#edges path{fill:none;stroke:#9aa3b8;stroke-width:1.6;opacity:.38;transition:opacity .2s, stroke .2s, stroke-width .2s}
+#edges path{fill:none;stroke:#9aa3b8;stroke-width:1.6;opacity:.38;transition:opacity .2s}
 #edges circle{fill:#9aa3b8;opacity:.45}
 #edges.active path{opacity:.07}
 #edges.active circle{opacity:.07}
@@ -330,6 +330,8 @@ figure.qfig.small svg{max-height:200px}
 
 /* Lights mode (zoomed-out view) */
 .tile.light-mode{background:transparent!important;border:none!important;box-shadow:none!important;overflow:visible}
+/* Card hover lifts with a transform. That promotes a layer inside the scaled #world and re-rasters the whole tree, which flashes white. Dots do not lift. */
+.tile.light-mode:hover{transform:none;z-index:auto}
 .tile.light-mode .name,.tile.light-mode .sub{opacity:0;transition:opacity .2s}
 .tile .light{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;pointer-events:none}
 .tile.light-mode .light{opacity:1}

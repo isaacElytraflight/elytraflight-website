@@ -1093,7 +1093,10 @@ function toggleGroup() {
 }
 
 function applyEdgeHighlight() {
-  const id = hoverId || selected;
+  // #world is one scaled composited layer in lights mode. Changing edge stroke
+  // from a hover invalidates that entire layer (exploded paint, white flash).
+  // Edges are already faint here; the highlight comes back when zoomed in.
+  const id = lightsMode ? null : (hoverId || selected);
   edgesSvg.classList.toggle('active', !!id);
   edgeEls.forEach(e => {
     const inn = !!id && e.to === id, out = !!id && e.from === id;
@@ -1114,6 +1117,7 @@ function applyView() {
     lightsMode = shouldLights;
     world.classList.toggle('lights-view', lightsMode);
     world.querySelectorAll('.tile').forEach(t => t.classList.toggle('light-mode', lightsMode));
+    applyEdgeHighlight();
   }
 }
 function animateView(fn) { world.classList.add('anim'); fn(); clearTimeout(animateView.t); animateView.t = setTimeout(() => world.classList.remove('anim'), 500) }
