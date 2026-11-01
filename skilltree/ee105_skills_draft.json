@@ -1025,7 +1025,13 @@
    "name": "Differential/common-mode decomposition and half circuits",
    "chapter": 16,
    "reader_section": "16.5.4",
-   "prereqs": [],
+   "prereqs": [
+    "diff-intro",
+    "cs-analysis",
+    "degeneration",
+    "ss-model",
+    "lti-def"
+   ],
    "owns": "DM/CM decomposition and half-circuit gains"
   },
   {

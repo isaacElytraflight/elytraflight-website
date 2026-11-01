@@ -1,5 +1,8 @@
 /* Skillgrove configuration — public values only, no secrets */
 window.SKILLTREE_CONFIG = {
+  app: {
+    version: '1.2.0'
+  },
   supabase: {
     url: 'https://yjnwgfjbuwgkmxcreblw.supabase.co',
     anonKey: 'sb_publishable_yQrS56HMDZf7xzzjMKJE-w_l8OrLPeg'
