@@ -1491,8 +1491,8 @@ function renderPanel() {
       if (hasRound(id, 4)) kids.push(el('button', { class: 'btn', style: 'width:100%;justify-content:center', id: 'startBtn', onclick: () => doStartQuiz(id, 4, 'review') }, 'Review round 4 (no tier change)'));
     }
   }
-  kids.push(todoAddButton('skill', id));
-  if (!soon && t >= 1 && t < 4 && roundQsCount(id, nextR)) kids.push(todoAddButton('challenge', id));
+  const task = nextTodoType(id);
+  if (task) kids.push(todoAddButton(task, id));
   kids.push(el('h3', { text: 'Prerequisites' }));
   kids.push(s.prereqs.length ? el('div', { class: 'chips', id: 'prereqChips' }, s.prereqs.map(tierPill)) : el('div', { class: 'kv', text: 'None — a starting point.' }));
   const deps = dependents[id];
@@ -1852,7 +1852,7 @@ function openHelp() {
     el('li', {}, el('b', { text: 'Rounds 2–4 ' }), 'are mastery challenges: 3 questions, get at least 2 right to move up. Round 2 is harder, round 3 hunts for gotchas, round 4 applies the skill to what comes next.'),
     el('li', {}, 'Missing a challenge never costs a tier. Retry any time.'),
     el('li', {}, 'The mastery queue lists unmastered skills, least recently practiced first. Learn broadly first; come back for mastery.'),
-    el('li', {}, el('b', { text: 'To-do list ' }), 'is your own ordered notebook of skills and mastery challenges. Add them from a skill, or queue the next learning session in the current scope. Each line shows the step that skill is on — 0 → P, P → 1, 1 → 2, or 2 → a crown — and drops off once you finish that step. It is saved with your progress.'),
+    el('li', {}, el('b', { text: 'To-do list ' }), 'is your own ordered notebook of skills and mastery challenges. Add them from a skill, or queue the next learning session in the current scope. Each line shows the step that skill is on — 0 → P, P → 1, 1 → 2, or 2 → 👑 — and drops off once you finish that step. It is saved with your progress.'),
     el('li', {}, 'Prerequisites are guidance, not locks. A new skill glows "ready" once all its prerequisites are at Level 2 or Mastered (prerequisites that are still coming soon are ignored). Lines show what leads to what; click a tile to highlight them.'),
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
     el('li', {}, el('b', { text: 'Learning plan ' }), 'simulates sessions (practice every ready skill, one mastery challenge per unmastered skill) to estimate how many sessions and how much time it takes to master everything playable. It learns how fast you are from your own timed quizzes.'),
@@ -2260,30 +2260,6 @@ function settleTodos() {
   if (panelOpen()) renderPanel();
   return true;
 }
-function todoCrownIcon() {
-  const ns = 'http://www.w3.org/2000/svg';
-  const svg = document.createElementNS(ns, 'svg');
-  svg.setAttribute('class', 'todo-crown');
-  svg.setAttribute('viewBox', '0 0 16 12');
-  svg.setAttribute('aria-hidden', 'true');
-  const peak = document.createElementNS(ns, 'path');
-  peak.setAttribute('fill', 'currentColor');
-  peak.setAttribute('stroke', '#6d4a12');
-  peak.setAttribute('stroke-width', '0.8');
-  peak.setAttribute('stroke-linejoin', 'round');
-  peak.setAttribute('d', 'M1.3 8.1 3.3 3.1 5.7 6.3 8 1.1 10.3 6.3 12.7 3.1 14.7 8.1Z');
-  const band = document.createElementNS(ns, 'rect');
-  band.setAttribute('x', '1.2');
-  band.setAttribute('y', '8.4');
-  band.setAttribute('width', '13.6');
-  band.setAttribute('height', '2.4');
-  band.setAttribute('rx', '0.4');
-  band.setAttribute('fill', 'currentColor');
-  band.setAttribute('stroke', '#6d4a12');
-  band.setAttribute('stroke-width', '0.8');
-  svg.append(peak, band);
-  return svg;
-}
 function todoTransition(id) {
   const tier = byId[id] ? tierOf(id) : 0;
   if (tier >= 4) return { mark: '👑', label: 'Mastered', crownOnly: true };
@@ -2299,11 +2275,15 @@ function todoMarkNode(tr) {
     'aria-hidden': 'true',
     'data-mark': tr.mark
   });
-  if (tr.crownOnly) { mark.append(todoCrownIcon()); return mark; }
-  mark.append(document.createTextNode(tr.from + ' → '));
-  if (tr.toCrown) mark.append(todoCrownIcon());
-  else mark.append(document.createTextNode(tr.to));
+  mark.append(document.createTextNode(tr.crownOnly ? '👑' : (tr.from + (tr.toCrown ? ' → 👑' : ' → ' + tr.to))));
   return mark;
+}
+function nextTodoType(id) {
+  if (!byId[id]) return null;
+  const t = tierOf(id);
+  if (t <= 0) return 'skill';
+  if (t >= 4 || !roundQsCount(id, t + 1)) return null;
+  return 'challenge';
 }
 
 function todoList() {
@@ -2385,9 +2365,7 @@ function todoAddButton(type, id, opts) {
   const on = todoHas(type, id);
   const label = opts.compact
     ? (on ? (opts.id === 'addTodoQuiz' ? 'On to-do list' : 'Added') : (opts.queue ? 'Add' : 'Add to to-do list'))
-    : (type === 'challenge'
-      ? (on ? 'Challenge already on your to-do list' : 'Add mastery challenge to to-do list')
-      : (on ? 'Already on your to-do list' : 'Add to to-do list'));
+    : (on ? 'Already on your to-do list' : 'Add to to-do list');
   const props = {
     type: 'button',
     class: 'btn todo-add' + (opts.compact ? ' small' : ''),
@@ -2398,7 +2376,7 @@ function todoAddButton(type, id, opts) {
       if (opts.compact && e.currentTarget) { e.currentTarget.disabled = true; e.currentTarget.textContent = opts.id === 'addTodoQuiz' ? 'On to-do list' : 'Added'; }
     }
   };
-  if (!opts.compact) props.id = type === 'challenge' ? 'addTodoChallenge' : 'addTodoSkill';
+  if (!opts.compact) props.id = 'addTodoSkill';
   else if (opts.id) props.id = opts.id;
   if (!opts.compact) props.style = 'width:100%;justify-content:center;margin-top:8px';
   return el('button', props, label);

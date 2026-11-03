@@ -414,8 +414,7 @@ figure.qfig.small svg{max-height:200px}
   letter-spacing:-.02em;white-space:nowrap;
   box-shadow:inset 0 0 0 1px rgba(196,91,122,.28);
 }
-.todo-mark .todo-crown{width:15px;height:11px;display:block;flex:none;color:#c4922a;margin:0 0 1px 1px}
-.todo-mark.crown .todo-crown{margin-left:0}
+.todo-mark.crown{font-size:13px;line-height:1}
 .todo-grip{flex:none;border:0;background:transparent;color:#8d97ab;cursor:grab;font-size:11px;letter-spacing:-2px;padding:0 1px 1px;touch-action:none;line-height:1}
 .todo-grip:active{cursor:grabbing}
 .todo-remove{flex:none;border:0;background:transparent;color:#b42348;font-weight:800;width:18px;height:18px;padding:0;line-height:1;border-radius:6px}
