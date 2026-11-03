@@ -217,8 +217,10 @@ def build_map():
     add('lti-def-r2-q3', P([dict(pts=[(0, 0), (0.0001, 0), (1, 4), (2, 3), (3, 1.5)], label="y(t)", lx=2.2, ly=3.4)], (0, 3.2), (0, 5), "t (ms)", "y (V)",
                            marks=[(1, 4, "4 V", 6, -6), (2, 3, "3 V", 6, -6)], xticks=[(1, "1"), (2, "2"), (3, "3")], label="Measured output y(t)"),
         "Sketch of the original output y(t), passing 4 V at t = 1 ms and 3 V at t = 2 ms.")
-    add('lti-def-r3-q1', P([dict(fn=lambda v: 2 * v + 1, label="v_out = 2v_in + 1", lx=0.15, ly=4.4)], (-1, 2), (-2, 5), "v_in (V)", "v_out (V)", zero_axis=True, marks=[(0, 1, "1 V at v_in = 0", 6, -8)], label="Input-output line"),
-        "Straight line v_out = 2 v_in + 1 that crosses the vertical axis at 1 V, not at the origin.")
+    add('lti-def-r3-q1', P([dict(fn=lambda v: 2 * v + 1, label="v_{out} = 2v_{in} + 1", lx=-0.08, ly=4.05, anchor="end")],
+                           (-1, 2), (-2, 5), "v_{in} (V)", "v_{out} (V)", zero_axis=True,
+                           marks=[(0, 1, "1 at v_{in} = 0", -18, -40)], label="Input-output line"),
+        "Straight line y = 2x + 1 that crosses the vertical axis at 1, not at the origin.")
     add('lti-def-r3-q3', P([dict(fn=lambda f: 0, pts=[(1, 0), (1, 1)], label="1 kHz", lx=1.1, ly=0.95), dict(pts=[(3, 0), (3, 0.3)], label="3 kHz", lx=3.1, ly=0.32)], (0, 4.5), (0, 1.2), "f (kHz)", "output spectrum", label="Output spectrum"),
         "Output spectrum with a tall line at 1 kHz and a smaller line at 3 kHz, although only 1 kHz was applied.")
     add('lti-def-r4-q1', o_stems([0, 4, 2, 1], ["0", "1", "2", "3"], ylabel="h (V)", title="Response to one unit pulse"), "Stem plot of the single-pulse response: 0, 4, 2 and 1 volts at t = 0, 1, 2 and 3 ms.")

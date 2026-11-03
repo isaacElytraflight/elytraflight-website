@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-01T20:09:04.331764Z",
+  "generated": "2026-11-03T21:45:33.182098Z",
   "skills": {
-    "file": "skills.a57e1484.json",
-    "hash": "a57e1484"
+    "file": "skills.102d23cd.json",
+    "hash": "102d23cd"
   },
   "collections": {
     "file": "collections.17ae963b.json",
@@ -860,8 +860,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "399b0a85",
-      "file": "banks/lti-circuits.399b0a85.json"
+      "hash": "0d105b10",
+      "file": "banks/lti-circuits.0d105b10.json"
     },
     "lti-def": {
       "version": 3,
@@ -872,8 +872,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e27ad69e",
-      "file": "banks/lti-def.e27ad69e.json"
+      "hash": "1ffc1e80",
+      "file": "banks/lti-def.1ffc1e80.json"
     },
     "lti-mech": {
       "version": 1,
@@ -920,8 +920,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "56ad6c42",
-      "file": "banks/minority-profile.56ad6c42.json"
+      "hash": "03b16e15",
+      "file": "banks/minority-profile.03b16e15.json"
     },
     "mirror-load": {
       "version": 1,
@@ -1004,8 +1004,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "377cf126",
-      "file": "banks/mos-struct.377cf126.json"
+      "hash": "682cb02e",
+      "file": "banks/mos-struct.682cb02e.json"
     },
     "mosfet-struct": {
       "version": 1,
@@ -1160,8 +1160,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "642140ff",
-      "file": "banks/rc-lpf.642140ff.json"
+      "hash": "b272765f",
+      "file": "banks/rc-lpf.b272765f.json"
     },
     "ref-gen": {
       "version": 1,
@@ -1376,8 +1376,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "81249898",
-      "file": "banks/vt.81249898.json"
+      "hash": "d7dce394",
+      "file": "banks/vt.d7dce394.json"
     }
   },
   "explainers": {

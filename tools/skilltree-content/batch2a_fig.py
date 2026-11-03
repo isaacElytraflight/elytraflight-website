@@ -1,6 +1,8 @@
 """batch2a_fig.py - SVG figure helpers for the batch2a question banks (device-physics diagrams).
 Self-contained inline SVG (viewBox, no scripts, no external refs); strokes/text = currentColor.
-Text mini-markup: 'V_{GB}', 'x_p', 'N_A^-', 'cm^{-3}' -> sub/superscript tspans."""
+Text mini-markup: 'V_{GB}', 'v_out', 'x_p', 'N_A^-', 'cm^{-3}' -> sub/superscript tspans.
+An unbraced _ or ^ takes the following run of letters and digits (so v_out and v_in
+subscript the whole word), or a single symbol when the next character is not alphanumeric."""
 import math
 from xml.sax.saxutils import escape
 
@@ -12,6 +14,10 @@ def _mk(s, size):
         if c in "_^" and i + 1 < len(s):
             if s[i + 1] == "{":
                 j = s.index("}", i); tok = s[i + 2:j]; i = j + 1
+            elif s[i + 1].isalnum():
+                j = i + 2
+                while j < len(s) and s[j].isalnum(): j += 1
+                tok = s[i + 1:j]; i = j
             else:
                 tok = s[i + 1]; i += 2
             dy = size * (0.28 if c == "_" else -0.4)
@@ -74,10 +80,16 @@ def plot(curves, xlim, ylim, xlabel="", ylabel="", w=360, h=230, title="", label
     X0, Y0, W, H = L, T, w - L - R, h - T - B
     ax = lambda x: X0 + (x - xlim[0]) / (xlim[1] - xlim[0]) * W
     ay = lambda y: Y0 + H - (y - ylim[0]) / (ylim[1] - ylim[0]) * H
+    # Axes meet at the origin whenever 0 is inside the range. The vertical axis used to
+    # sit on the left edge, so a line such as v_out = 2 v_in + 1 crossed it at the wrong height.
+    x_at_zero = xlim[0] < 0 < xlim[1]
+    yaxis_x = ax(0) if x_at_zero else X0
     xaxis_y = ay(0) if (zero_axis or (zero_axis is None and ylim[0] < 0 < ylim[1])) else Y0 + H
-    f.arrow(X0, xaxis_y, X0 + W, xaxis_y); f.arrow(X0, Y0 + H, X0, Y0)
+    f.arrow(X0, xaxis_y, X0 + W, xaxis_y); f.arrow(yaxis_x, Y0 + H, yaxis_x, Y0)
     if xlabel: f.text(X0 + W, Y0 + H + 30, xlabel, anchor="end", size=11)
-    if ylabel: f.text(X0 - 8, Y0 - 8, ylabel, anchor="start", size=11)
+    if ylabel:
+        if x_at_zero: f.text(yaxis_x, max(12, Y0 - 4), ylabel, anchor="middle", size=11)
+        else: f.text(X0 - 8, Y0 - 8, ylabel, anchor="start", size=11)
     if title: f.text(w / 2, 15, title, size=12, bold=True)
     for v, t in hlines:
         f.line(X0, ay(v), X0 + W, ay(v), dash="4 3", w=1, op=0.7); f.text(X0 + W, ay(v) - 4, t, anchor="end", size=10)
@@ -86,7 +98,7 @@ def plot(curves, xlim, ylim, xlabel="", ylabel="", w=360, h=230, title="", label
     for v, t in xticks:
         f.line(ax(v), xaxis_y - 3, ax(v), xaxis_y + 3, w=1.2); f.text(ax(v), Y0 + H + 16, t, size=10)
     for v, t in yticks:
-        f.line(X0 - 3, ay(v), X0 + 3, ay(v), w=1.2); f.text(X0 - 7, ay(v) + 4, t, anchor="end", size=10)
+        f.line(yaxis_x - 3, ay(v), yaxis_x + 3, ay(v), w=1.2); f.text(yaxis_x - 7, ay(v) + 4, t, anchor="end", size=10)
     for c in curves:
         pts = c.get("pts") or [(x, c["fn"](x)) for x in [xlim[0] + (xlim[1] - xlim[0]) * i / 100 for i in range(101)]]
         pp = [(ax(x), ay(y)) for x, y in pts if ylim[0] - 1e-9 <= y <= ylim[1] + 1e-9]
