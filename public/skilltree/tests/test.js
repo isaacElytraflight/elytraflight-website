@@ -1839,8 +1839,8 @@ async function test(name, fn) {
 
     const listed = await p.evaluate(() => window.__skillgrove.todo.list());
     assert.deepStrictEqual(listed, [
-      { type: 'skill', id: 'bode' },
-      { type: 'challenge', id: 'bode' }
+      { type: 'skill', id: 'bode', from: 1 },
+      { type: 'challenge', id: 'bode', from: 1 }
     ]);
     await p.evaluate(() => document.querySelector('#panel .close').click());
     await sleep(200);
@@ -1848,17 +1848,20 @@ async function test(name, fn) {
 
     await p.click('#todoPaper .todo-line[data-type="skill"] .todo-hit');
     await sleep(300);
-    assert.strictEqual(await p.$eval('#panelTitle', e => e.textContent.length > 0), true);
+    assert.strictEqual(await p.$eval('#panelTitle', e => e.textContent), 'Bode plots: magnitude and phase');
     assert.strictEqual(await p.$eval('#panel', e => e.classList.contains('open')), true);
+    assert.strictEqual(await p.$('#quiz.open'), null, 'a practice line opens the skill info panel');
     await p.evaluate(() => document.querySelector('#panel .close').click());
     await sleep(150);
     await p.click('#todoPaper .todo-line[data-type="challenge"] .todo-hit');
-    await p.waitForSelector('#quiz.open #qPrompt', { timeout: 10000 });
-    assert.strictEqual(await p.$eval('#addTodoQuiz', e => e.disabled), true);
-    await p.click('#qLeave');
-    await sleep(200);
-    const leaveOpen = await p.$('#confirmLeave');
-    if (leaveOpen) { await p.click('#confirmLeave'); await sleep(250); }
+    await sleep(300);
+    assert.strictEqual(await p.$('#quiz.open'), null, 'a mastery line opens the skill info panel, not the quiz');
+    assert.strictEqual(await p.$eval('#panel', e => e.classList.contains('open')), true);
+    assert.strictEqual(await p.$eval('#panelTitle', e => e.textContent), 'Bode plots: magnitude and phase');
+    assert(/Start mastery challenge/.test(await p.$eval('#startBtn', e => e.textContent)));
+    assert.strictEqual(await p.$eval('#addTodoChallenge', e => e.disabled), true);
+    await p.evaluate(() => document.querySelector('#panel .close').click());
+    await sleep(150);
 
     await p.click('#todoEdit');
     await sleep(100);
@@ -1875,25 +1878,25 @@ async function test(name, fn) {
     await sleep(200);
     const moved = await p.evaluate(() => window.__skillgrove.todo.list());
     assert.deepStrictEqual(moved, [
-      { type: 'challenge', id: 'bode' },
-      { type: 'skill', id: 'bode' }
+      { type: 'challenge', id: 'bode', from: 1 },
+      { type: 'skill', id: 'bode', from: 1 }
     ], 'drag moves the skill after the challenge');
 
     await p.click('.todo-line[data-type="skill"] .todo-remove');
     await sleep(150);
     assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.todo.list()), [
-      { type: 'challenge', id: 'bode' }
+      { type: 'challenge', id: 'bode', from: 1 }
     ]);
     await p.click('#todoEdit');
 
     await p.reload({ waitUntil: 'networkidle0' });
     await sleep(500);
     assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.todo.list()), [
-      { type: 'challenge', id: 'bode' }
+      { type: 'challenge', id: 'bode', from: 1 }
     ]);
     const saved = await store(p);
     assert.strictEqual(saved.skills.bode.tier, 1);
-    assert.deepStrictEqual(saved.todo, [{ type: 'challenge', id: 'bode' }]);
+    assert.deepStrictEqual(saved.todo, [{ type: 'challenge', id: 'bode', from: 1 }]);
     await p._ctx.close();
   });
 
@@ -1924,16 +1927,171 @@ async function test(name, fn) {
     await sleep(250);
     const after = await p.evaluate(() => window.__skillgrove.todo.list());
     const playable = new Set(await p.evaluate(() => window.__skillgrove.playableIds()));
-    assert.deepStrictEqual(after[0], { type: 'skill', id: soonId });
-    assert.deepStrictEqual(after[1], anchor);
-    const appended = after.slice(2);
+    const plain = list => list.map(it => ({ type: it.type, id: it.id }));
+    assert.deepStrictEqual(plain(after).slice(0, 2), [{ type: 'skill', id: soonId }, anchor]);
+    const appended = plain(after).slice(2);
     assert.deepStrictEqual(appended, plan.items.filter(it => !(it.type === anchor.type && it.id === anchor.id)));
+    assert(after.every(it => Number.isInteger(it.from) && it.from >= 0 && it.from <= 4), 'queued lines remember their starting tier');
     assert(after.filter(it => it.id === soonId).length === 1, 'a coming-soon skill is not queued again');
     assert(appended.every(it => playable.has(it.id)), 'queued items are playable');
     assert.strictEqual(after.filter(it => it.type === anchor.type && it.id === anchor.id).length, 1);
     await p.click('#todoQueueSession');
     await sleep(200);
     assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.todo.list()), after, 'a second queue adds nothing new');
+    await p._ctx.close();
+  });
+
+  async function todoMarks(p) {
+    return p.$$eval('#todoPaper .todo-line', lines => lines.map(line => {
+      const m = line.querySelector('.todo-mark');
+      return {
+        id: line.dataset.id,
+        type: line.dataset.type,
+        mark: m.getAttribute('data-mark'),
+        text: m.textContent.replace(/\s+/g, ' ').trim(),
+        crown: !!m.querySelector('svg.todo-crown')
+      };
+    }));
+  }
+
+  await test('to-do marks show the level step, and a click opens that skill', async () => {
+    const p = await newPage(T({
+      tf: { tier: 1, lastPracticed: now - DAY, history: [] },
+      phasors: { tier: 2, lastPracticed: now - DAY, history: [] },
+      'pole-zero': { tier: 3, lastPracticed: now - DAY, history: [] },
+      'lti-def': { tier: 4, lastPracticed: now - DAY, history: [] }
+    }));
+    await p.evaluate(() => {
+      const t = window.__skillgrove.todo;
+      t.add('skill', 'bode');
+      t.add('challenge', 'tf');
+      t.add('challenge', 'phasors');
+      t.add('challenge', 'pole-zero');
+    });
+    await sleep(200);
+    const marks = await todoMarks(p);
+    assert.deepStrictEqual(marks, [
+      { id: 'bode', type: 'skill', mark: '0 → P', text: '0 → P', crown: false },
+      { id: 'tf', type: 'challenge', mark: 'P → 1', text: 'P → 1', crown: false },
+      { id: 'phasors', type: 'challenge', mark: '1 → 2', text: '1 → 2', crown: false },
+      { id: 'pole-zero', type: 'challenge', mark: '2 → 👑', text: '2 →', crown: true }
+    ]);
+    await shot(p, 'todo_level_marks.png');
+    const art = process.env.SKILLGROVE_TODO_SHOT;
+    if (art) {
+      const book = await p.$('#todoBook');
+      await book.screenshot({ path: art });
+    }
+
+    await p.evaluate(() => window.__skillgrove.todo.add('skill', 'tf'));
+    await sleep(100);
+    const sameStep = await todoMarks(p);
+    assert.deepStrictEqual(sameStep.filter(m => m.id === 'tf').map(m => m.mark), ['P → 1', 'P → 1']);
+    await p.evaluate(() => window.__skillgrove.todo.add('skill', 'lti-def'));
+    await sleep(100);
+    const mastered = await p.$eval('#todoPaper .todo-line[data-id="lti-def"] .todo-mark', e => ({
+      mark: e.getAttribute('data-mark'),
+      crown: !!e.querySelector('svg.todo-crown')
+    }));
+    assert.deepStrictEqual(mastered, { mark: '👑', crown: true });
+
+    await p.click('#todoPaper .todo-line[data-id="bode"] .todo-hit');
+    await sleep(300);
+    assert.strictEqual(await p.$('#quiz.open'), null);
+    assert.strictEqual(await p.$eval('#panelTitle', e => e.textContent), 'Bode plots: magnitude and phase');
+    assert(/Tier: Unpracticed/.test(await p.$eval('#panelTier', e => e.textContent)));
+    assert(/Start Round 1 quiz/.test(await p.$eval('#startBtn', e => e.textContent)));
+    await p.evaluate(() => document.querySelector('#panel .close').click());
+    await sleep(150);
+    await p.click('#todoPaper .todo-line[data-id="pole-zero"] .todo-hit');
+    await sleep(300);
+    assert.strictEqual(await p.$('#quiz.open'), null);
+    assert.strictEqual(await p.$eval('#panelTitle', e => e.textContent), 'Poles and zeros of a transfer function');
+    assert(/Start mastery challenge → Mastered/.test(await p.$eval('#startBtn', e => e.textContent)));
+
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    const kept = await p.evaluate(() => window.__skillgrove.todo.list());
+    assert.deepStrictEqual(kept, [
+      { type: 'skill', id: 'bode', from: 0 },
+      { type: 'challenge', id: 'tf', from: 1 },
+      { type: 'challenge', id: 'phasors', from: 2 },
+      { type: 'challenge', id: 'pole-zero', from: 3 },
+      { type: 'skill', id: 'tf', from: 1 },
+      { type: 'skill', id: 'lti-def', from: 4 }
+    ]);
+    const again = await todoMarks(p);
+    assert.strictEqual(again[0].mark, '0 → P');
+    assert.strictEqual(again[3].mark, '2 → 👑');
+    assert.strictEqual(again[3].crown, true);
+    await p._ctx.close();
+  });
+
+  await test('finishing a step removes that to-do line and a miss leaves it', async () => {
+    const p = await newPage(T({
+      tf: { tier: 1, lastPracticed: now - DAY, history: [] }
+    }));
+    await p.evaluate(() => {
+      const t = window.__skillgrove.todo;
+      t.add('skill', 'bode');
+      t.add('skill', 'tf');
+      t.add('challenge', 'tf');
+    });
+    await sleep(150);
+    await openSkill(p, 'bode');
+    await p.click('#startBtn');
+    await sleep(400);
+    await p.waitForSelector('.prog', { timeout: 10000 });
+    await answerQuiz(p, 'bode', [true, false, true]);
+    assert.strictEqual((await store(p)).skills.bode.tier, 1);
+    assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.todo.list()), [
+      { type: 'skill', id: 'tf', from: 1 },
+      { type: 'challenge', id: 'tf', from: 1 }
+    ], 'finishing practice drops the unpracticed line and leaves the other skill');
+
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.todo.list()), [
+      { type: 'skill', id: 'tf', from: 1 },
+      { type: 'challenge', id: 'tf', from: 1 }
+    ], 'the cleared practice line stays gone after reload');
+
+    await p.evaluate(() => window.__skillgrove.todo.add('challenge', 'bode'));
+    await sleep(100);
+    assert.deepStrictEqual((await p.evaluate(() => window.__skillgrove.todo.list())).find(it => it.id === 'bode'), {
+      type: 'challenge', id: 'bode', from: 1
+    });
+    await openSkill(p, 'bode');
+    await p.click('#startBtn');
+    await sleep(400);
+    await p.waitForSelector('.prog', { timeout: 10000 });
+    await answerQuiz(p, 'bode', [false, true, false]);
+    assert.strictEqual((await store(p)).skills.bode.tier, 1);
+    assert.strictEqual((await p.evaluate(() => window.__skillgrove.todo.list())).some(it => it.id === 'bode' && it.type === 'challenge'), true, 'a failed mastery challenge stays on the list');
+
+    await p.click('#resRetry');
+    await sleep(400);
+    await p.waitForSelector('.prog', { timeout: 10000 });
+    await answerQuiz(p, 'bode', [true, true, false]);
+    assert.strictEqual((await store(p)).skills.bode.tier, 2);
+    const afterPass = await p.evaluate(() => window.__skillgrove.todo.list());
+    assert.strictEqual(afterPass.some(it => it.id === 'bode'), false, 'passing the challenge drops lines added at the old tier');
+    assert.deepStrictEqual(afterPass.filter(it => it.id === 'tf'), [
+      { type: 'skill', id: 'tf', from: 1 },
+      { type: 'challenge', id: 'tf', from: 1 }
+    ]);
+
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    assert.strictEqual((await p.evaluate(() => window.__skillgrove.todo.list())).some(it => it.id === 'bode'), false);
+
+    await p.evaluate(() => window.__skillgrove.todo.add('challenge', 'bode'));
+    await sleep(150);
+    const readded = await p.evaluate(() => window.__skillgrove.todo.list());
+    assert.deepStrictEqual(readded.find(it => it.id === 'bode'), { type: 'challenge', id: 'bode', from: 2 });
+    assert.strictEqual(await p.$eval('#todoPaper .todo-line[data-id="bode"] .todo-mark', e => e.getAttribute('data-mark')), '1 → 2');
+    await openSkill(p, 'bode');
+    assert.strictEqual(await p.$eval('#addTodoChallenge', e => e.disabled), true);
     await p._ctx.close();
   });
 
@@ -1955,9 +2113,9 @@ async function test(name, fn) {
     seed.scope = { v: 2, boxes: ['ee105-ch2'] };
     const p = await newPage(seed);
     assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.todo.list()), [
-      { type: 'skill', id: 'square-law' },
-      { type: 'challenge', id: 'bjt-action' },
-      { type: 'skill', id: 'bode' }
+      { type: 'skill', id: 'square-law', from: 0 },
+      { type: 'challenge', id: 'bjt-action', from: 0 },
+      { type: 'skill', id: 'bode', from: 1 }
     ]);
     assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.collections.scope()), ['ee105-ch2']);
     const disk = await store(p);

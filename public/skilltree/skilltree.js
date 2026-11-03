@@ -1852,7 +1852,7 @@ function openHelp() {
     el('li', {}, el('b', { text: 'Rounds 2–4 ' }), 'are mastery challenges: 3 questions, get at least 2 right to move up. Round 2 is harder, round 3 hunts for gotchas, round 4 applies the skill to what comes next.'),
     el('li', {}, 'Missing a challenge never costs a tier. Retry any time.'),
     el('li', {}, 'The mastery queue lists unmastered skills, least recently practiced first. Learn broadly first; come back for mastery.'),
-    el('li', {}, el('b', { text: 'To-do list ' }), 'is your own ordered notebook of skills and mastery challenges. Add them from a skill, or queue the next learning session in the current scope. It is saved with your progress.'),
+    el('li', {}, el('b', { text: 'To-do list ' }), 'is your own ordered notebook of skills and mastery challenges. Add them from a skill, or queue the next learning session in the current scope. Each line shows the step that skill is on — 0 → P, P → 1, 1 → 2, or 2 → a crown — and drops off once you finish that step. It is saved with your progress.'),
     el('li', {}, 'Prerequisites are guidance, not locks. A new skill glows "ready" once all its prerequisites are at Level 2 or Mastered (prerequisites that are still coming soon are ignored). Lines show what leads to what; click a tile to highlight them.'),
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
     el('li', {}, el('b', { text: 'Learning plan ' }), 'simulates sessions (practice every ready skill, one mastery challenge per unmastered skill) to estimate how many sessions and how much time it takes to master everything playable. It learns how fast you are from your own timed quizzes.'),
@@ -2230,12 +2230,89 @@ function resetProgress() {
 }
 
 /* ====================== to-do list ====================== */
+/* Marks follow the five tiers: 0 Unpracticed, P Practiced, 1 Level 1, 2 Level 2, crown Mastered.
+   A line shows the step up from the skill's current tier. `from` is that tier when the line
+   was added (older lines pick up the current tier). The line leaves once the skill climbs past it. */
 let todoCollapsed = !!(window.matchMedia && matchMedia('(max-width: 720px)').matches);
 let todoEditing = false;
 let todoDrag = null;
+const TIER_MARK = ['0', 'P', '1', '2'];
+
+function todoStartLevel(item) {
+  const n = item && item.from;
+  if (typeof n !== 'number' || !Number.isInteger(n) || n < 0 || n > 4) return null;
+  return n;
+}
+function settleTodos() {
+  if (!Array.isArray(progress.todo) || !byId) return false;
+  let changed = false;
+  const next = [];
+  for (const it of progress.todo) {
+    if (!it || !byId[it.id]) { next.push(it); continue; }
+    let from = todoStartLevel(it);
+    if (from == null) { from = tierOf(it.id); it.from = from; changed = true; }
+    if (tierOf(it.id) > from) { changed = true; continue; }
+    next.push(it);
+  }
+  if (!changed) return false;
+  progress.todo = next;
+  saveProgress();
+  if (panelOpen()) renderPanel();
+  return true;
+}
+function todoCrownIcon() {
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('class', 'todo-crown');
+  svg.setAttribute('viewBox', '0 0 16 12');
+  svg.setAttribute('aria-hidden', 'true');
+  const peak = document.createElementNS(ns, 'path');
+  peak.setAttribute('fill', 'currentColor');
+  peak.setAttribute('stroke', '#6d4a12');
+  peak.setAttribute('stroke-width', '0.8');
+  peak.setAttribute('stroke-linejoin', 'round');
+  peak.setAttribute('d', 'M1.3 8.1 3.3 3.1 5.7 6.3 8 1.1 10.3 6.3 12.7 3.1 14.7 8.1Z');
+  const band = document.createElementNS(ns, 'rect');
+  band.setAttribute('x', '1.2');
+  band.setAttribute('y', '8.4');
+  band.setAttribute('width', '13.6');
+  band.setAttribute('height', '2.4');
+  band.setAttribute('rx', '0.4');
+  band.setAttribute('fill', 'currentColor');
+  band.setAttribute('stroke', '#6d4a12');
+  band.setAttribute('stroke-width', '0.8');
+  svg.append(peak, band);
+  return svg;
+}
+function todoTransition(id) {
+  const tier = byId[id] ? tierOf(id) : 0;
+  if (tier >= 4) return { mark: '👑', label: 'Mastered', crownOnly: true };
+  const from = TIER_MARK[tier];
+  const toCrown = tier === 3;
+  const to = toCrown ? '👑' : TIER_MARK[tier + 1];
+  const labels = ['unpracticed to practiced', 'practiced to level 1', 'level 1 to level 2', 'level 2 to mastered'];
+  return { mark: from + ' → ' + to, label: labels[tier], from, to, toCrown };
+}
+function todoMarkNode(tr) {
+  const mark = el('span', {
+    class: 'todo-mark' + (tr.crownOnly || tr.toCrown ? ' crown' : ''),
+    'aria-hidden': 'true',
+    'data-mark': tr.mark
+  });
+  if (tr.crownOnly) { mark.append(todoCrownIcon()); return mark; }
+  mark.append(document.createTextNode(tr.from + ' → '));
+  if (tr.toCrown) mark.append(todoCrownIcon());
+  else mark.append(document.createTextNode(tr.to));
+  return mark;
+}
 
 function todoList() {
-  return (Array.isArray(progress.todo) ? progress.todo : []).map(it => ({ type: it.type, id: it.id }));
+  return (Array.isArray(progress.todo) ? progress.todo : []).map(it => {
+    const out = { type: it.type, id: it.id };
+    const from = todoStartLevel(it);
+    if (from != null) out.from = from;
+    return out;
+  });
 }
 function todoHas(type, id) {
   return Array.isArray(progress.todo) && progress.todo.some(it => it.type === type && it.id === id);
@@ -2243,7 +2320,7 @@ function todoHas(type, id) {
 function addTodo(type, id) {
   if (!byId[id] || (type !== 'skill' && type !== 'challenge') || todoHas(type, id)) return false;
   if (!Array.isArray(progress.todo)) progress.todo = [];
-  progress.todo.push({ type, id });
+  progress.todo.push({ type, id, from: tierOf(id) });
   saveProgress();
   renderTodo();
   if (panelOpen()) renderPanel();
@@ -2278,18 +2355,12 @@ function moveTodo(from, to) {
 }
 function openTodoItem(item) {
   if (!item || !byId[item.id]) { toast('That item is no longer in the tree.'); return; }
-  if (item.type === 'challenge') {
-    const t = tierOf(item.id), next = t + 1;
-    if (quizOpen) { selectSkill(item.id, true); toast('Finish or leave the current quiz first.'); return; }
-    if (t >= 1 && t < 4 && hasRound(item.id, next)) {
-      selectSkill(item.id, false);
-      doStartQuiz(item.id, next, 'challenge');
-      return;
-    }
+  if (quizOpen && quiz && !quiz.result) {
     selectSkill(item.id, true);
-    toast('That mastery challenge is not available right now.');
+    toast('Finish or leave the current quiz first.');
     return;
   }
+  if (quizOpen) closeQuizUI();
   selectSkill(item.id, true);
 }
 function queueNextSession() {
@@ -2299,7 +2370,7 @@ function queueNextSession() {
   const row = plan && plan.ok && plan.rows && plan.rows[0];
   if (!row) { toast('Nothing left to queue in this learning plan.'); return 0; }
   const soon = new Set(skills.filter(s => !isPlayable(s.id)).map(s => s.id));
-  const items = window.SkillgroveMigrate.sessionTodoItems(row, soon).filter(it => byId[it.id]);
+  const items = window.SkillgroveMigrate.sessionTodoItems(row, soon).filter(it => byId[it.id]).map(it => ({ type: it.type, id: it.id, from: tierOf(it.id) }));
   const res = window.SkillgroveMigrate.appendTodo(progress.todo, items);
   if (!res.added) { toast('Those items are already on your to-do list.'); return 0; }
   progress.todo = res.todo;
@@ -2371,6 +2442,7 @@ function bindTodoGrip(grip, from) {
 function renderTodo() {
   const host = $('todoBook');
   if (!host || !host.isConnected) return;
+  settleTodos();
   host.classList.toggle('collapsed', todoCollapsed);
   const items = Array.isArray(progress.todo) ? progress.todo : [];
   host.innerHTML = '';
@@ -2399,6 +2471,7 @@ function renderTodo() {
     const skill = byId[item.id];
     const name = skill ? skill.name : item.id;
     const kind = item.type === 'challenge' ? 'Mastery challenge' : 'Skill';
+    const tr = todoTransition(item.id);
     const line = el('div', {
       class: 'todo-line ' + (item.type === 'challenge' ? 'challenge' : 'skill'),
       role: 'listitem',
@@ -2412,10 +2485,10 @@ function renderTodo() {
       bindTodoGrip(grip, index);
     }
     line.append(el('button', {
-      type: 'button', class: 'todo-hit', title: kind + ': ' + name,
+      type: 'button', class: 'todo-hit', title: kind + ': ' + name + ' · ' + tr.mark,
+      'aria-label': name + ', ' + tr.label,
       onclick: () => { if (!todoEditing && !todoDrag) openTodoItem(item); }
-    }, el('span', { class: 'todo-mark', 'aria-hidden': 'true', text: item.type === 'challenge' ? '✎' : '•' }),
-       el('span', { class: 'todo-name', text: name })));
+    }, todoMarkNode(tr), el('span', { class: 'todo-name', text: name })));
     if (todoEditing) {
       line.append(el('button', {
         type: 'button', class: 'todo-remove', 'aria-label': 'Remove ' + name,

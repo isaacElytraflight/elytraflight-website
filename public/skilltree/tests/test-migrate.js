@@ -283,6 +283,27 @@ test('todo entries follow the retired map, drop removed ids, and collapse duplic
   assert.strictEqual(again.progress, out);
 });
 
+test('todo starting tier is kept across retirement and a second pass changes nothing', () => {
+  const input = progress({ bode: skill(1, now, []) });
+  input.todo = [
+    { type: 'skill', id: 'bode', from: 1 },
+    { type: 'challenge', id: 'saturation', from: 2 },
+    { type: 'skill', id: 'bode', from: 0 },
+    { type: 'challenge', id: 'bode', from: 'nope' }
+  ];
+  const known = new Set(['bode', 'square-law']);
+  const { progress: out, changed } = migrateRetiredProgress(input, RETIRED, known);
+  assert.strictEqual(changed, true);
+  assert.deepStrictEqual(out.todo, [
+    { type: 'skill', id: 'bode', from: 1 },
+    { type: 'challenge', id: 'square-law', from: 2 },
+    { type: 'challenge', id: 'bode' }
+  ]);
+  const again = migrateRetiredProgress(out, RETIRED, known);
+  assert.strictEqual(again.changed, false);
+  assert.strictEqual(again.progress, out);
+});
+
 test('without a skill catalog, unknown todo ids are kept and retired ids still move', () => {
   const input = progress({ bode: skill(2, now, []) });
   input.todo = [{ type: 'challenge', id: 'clm' }, { type: 'skill', id: 'future-skill' }];
