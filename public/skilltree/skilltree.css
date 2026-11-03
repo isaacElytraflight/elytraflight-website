@@ -372,7 +372,7 @@ figure.qfig.small svg{max-height:200px}
 /* To-do notebook */
 #todoBook{
   --todo-lh:24px;
-  position:absolute;left:12px;top:12px;z-index:30;width:236px;
+  position:absolute;left:12px;top:12px;z-index:30;width:276px;
   max-height:min(68vh, calc(100% - 130px));
   display:flex;flex-direction:column;
   background:linear-gradient(180deg,#ffd4e6 0 26px,#ff8eb9 26px);
@@ -406,8 +406,15 @@ figure.qfig.small svg{max-height:200px}
 .todo-empty{padding:0 8px 2px 28px;display:flex;align-items:flex-end;color:#b3a8b4;font:italic 12.5px/1 Palatino,"Palatino Linotype",Georgia,serif}
 .todo-hit{flex:1;min-width:0;display:flex;align-items:flex-end;gap:5px;border:0;background:transparent;padding:0 0 1px;text-align:left;color:#24304a;font:italic 13px/1.05 Palatino,"Palatino Linotype",Georgia,serif}
 .todo-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.todo-mark{flex:none;color:#c45b7a;font-style:normal;font-weight:700;font-size:12px}
-.todo-line.challenge .todo-mark{color:#7a4db8}
+.todo-mark{
+  flex:none;display:inline-flex;align-items:center;gap:0;
+  margin:0 1px 1px 0;padding:0 3px;border-radius:3px;
+  background:rgba(255,236,242,.92);color:#8d3154;
+  font:700 10.5px/1.35 Palatino,"Palatino Linotype",Georgia,serif;
+  letter-spacing:-.02em;white-space:nowrap;
+  box-shadow:inset 0 0 0 1px rgba(196,91,122,.28);
+}
+.todo-mark.crown{font-size:13px;line-height:1}
 .todo-grip{flex:none;border:0;background:transparent;color:#8d97ab;cursor:grab;font-size:11px;letter-spacing:-2px;padding:0 1px 1px;touch-action:none;line-height:1}
 .todo-grip:active{cursor:grabbing}
 .todo-remove{flex:none;border:0;background:transparent;color:#b42348;font-weight:800;width:18px;height:18px;padding:0;line-height:1;border-radius:6px}

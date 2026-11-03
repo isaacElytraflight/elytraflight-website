@@ -1,9 +1,10 @@
 /* Skillgrove progress migration for retired skill ids, to-do items, and scope.
    Works in the browser (window.SkillgroveMigrate) and in Node (module.exports).
    Retired progress moves onto the survivor: higher mastery tier, later practice
-   time, and the union of attempt history. To-do entries follow the same map and,
+   time, and the union of attempt history.    To-do entries follow the same map and,
    when a catalog of live skill ids is provided, entries that no longer exist are
-   dropped. Running it again changes nothing. */
+   dropped. A starting tier (`from`, an integer 0–4) is kept when present.
+   Running it again changes nothing. */
 (function (root, factory) {
   const api = factory();
   if (typeof module === 'object' && module.exports) module.exports = api;
@@ -53,11 +54,40 @@
     return cur;
   }
 
+  /** Starting tier stored on a to-do line. Null when missing or not an integer 0–4. */
+  function readTodoFrom(raw) {
+    if (!raw || typeof raw !== 'object') return null;
+    const n = raw.from;
+    if (typeof n !== 'number' || !Number.isInteger(n) || n < 0 || n > 4) return null;
+    return n;
+  }
+
   function normalizeTodoItem(item) {
     if (!item || typeof item !== 'object') return null;
     const type = item.type === 'skill' || item.type === 'challenge' ? item.type : null;
     if (!type || typeof item.id !== 'string' || !item.id) return null;
-    return { type, id: item.id };
+    const out = { type, id: item.id };
+    const from = readTodoFrom(item);
+    if (from != null) out.from = from;
+    return out;
+  }
+
+  function todoEntryChanged(raw, next) {
+    if (!raw || typeof raw !== 'object') return true;
+    if (raw.type !== next.type || raw.id !== next.id) return true;
+    const rawFrom = readTodoFrom(raw);
+    const nextFrom = next.from == null ? null : next.from;
+    if (rawFrom !== nextFrom) return true;
+    if (raw.from !== undefined && rawFrom == null) return true;
+    for (const k of Object.keys(raw)) {
+      if (k !== 'type' && k !== 'id' && k !== 'from') return true;
+    }
+    return false;
+  }
+
+  function keepHigherFrom(prev, from) {
+    if (from == null) return;
+    if (prev.from == null || from > prev.from) prev.from = from;
   }
 
   function todoKey(item) { return item.type + '\0' + item.id; }
@@ -90,14 +120,17 @@
    */
   function appendTodo(list, items) {
     const out = [];
-    const seen = new Set();
+    const seen = new Map();
     let added = 0;
     const push = (raw, isNew) => {
       const item = normalizeTodoItem(raw);
       if (!item) return;
       const key = todoKey(item);
-      if (seen.has(key)) return;
-      seen.add(key);
+      if (seen.has(key)) {
+        keepHigherFrom(out[seen.get(key)], item.from);
+        return;
+      }
+      seen.set(key, out.length);
       out.push(item);
       if (isNew) added++;
     };
@@ -135,7 +168,7 @@
     const map = retired && typeof retired === 'object' ? retired : {};
     const known = knownIds == null ? null : (knownIds instanceof Set ? knownIds : new Set(knownIds));
     const out = [];
-    const seen = new Set();
+    const seen = new Map();
     let changed = false;
     for (const raw of todo) {
       const item = normalizeTodoItem(raw);
@@ -143,11 +176,17 @@
       const id = resolveSurvivor(item.id, map);
       if (id !== item.id) changed = true;
       if (known && !known.has(id)) { changed = true; continue; }
+      const next = { type: item.type, id };
+      if (item.from != null) next.from = item.from;
       const key = item.type + '\0' + id;
-      if (seen.has(key)) { changed = true; continue; }
-      seen.add(key);
-      if (raw.type !== item.type || raw.id !== id || Object.keys(raw).length !== 2) changed = true;
-      out.push({ type: item.type, id });
+      if (seen.has(key)) {
+        changed = true;
+        keepHigherFrom(out[seen.get(key)], next.from);
+        continue;
+      }
+      seen.set(key, out.length);
+      if (todoEntryChanged(raw, next)) changed = true;
+      out.push(next);
     }
     if (out.length !== todo.length) changed = true;
     return changed ? { changed: true, todo: out } : { changed: false };

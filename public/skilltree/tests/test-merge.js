@@ -200,6 +200,20 @@ test('session queue: skills before challenges, skip ids, append dedupes without 
   assert.strictEqual(appendTodo(todo, items).added, 0);
 });
 
+test('appendTodo keeps the higher starting tier when the same line is merged', () => {
+  const low = [{ type: 'challenge', id: 'bode', from: 1 }];
+  const high = [{ type: 'challenge', id: 'bode', from: 2 }];
+  const up = appendTodo(low, high);
+  assert.strictEqual(up.added, 0);
+  assert.deepStrictEqual(up.todo, [{ type: 'challenge', id: 'bode', from: 2 }]);
+  assert.deepStrictEqual(appendTodo(high, low).todo, [{ type: 'challenge', id: 'bode', from: 2 }]);
+  assert.deepStrictEqual(appendTodo([{ type: 'skill', id: 'bode' }], [{ type: 'skill', id: 'bode', from: 0 }]).todo, [
+    { type: 'skill', id: 'bode', from: 0 }
+  ]);
+  const junk = [{ type: 'skill', id: 'bode', from: 1.5, extra: true }];
+  assert.deepStrictEqual(appendTodo([], junk).todo, [{ type: 'skill', id: 'bode' }]);
+});
+
 test('mergeTiming: limits to 50 entries per category', () => {
   const makeSamples = (start, count) => Array.from({ length: count }, (_, i) => ({ t: start + i, d: 10 }));
   const local = { practice: makeSamples(0, 30), challenge: makeSamples(0, 30) };
