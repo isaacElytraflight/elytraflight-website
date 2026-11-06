@@ -1,0 +1,18 @@
+{
+  "id": "me132-b2",
+  "label": "B2",
+  "box": "ME 132 (me132) and Feedback Systems (am08)",
+  "skills": ["block-diagram", "first-order-sys", "model-method", "onoff-pid-intro", "state-space-model"],
+  "areas": {
+    "block-diagram": ["feedback-loop"],
+    "first-order-sys": ["time-response"],
+    "model-method": ["physical-models"],
+    "onoff-pid-intro": ["feedback-loop"],
+    "state-space-model": ["state-space"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/me132-content-batches.md",
+  "verifier": "skilltree/verify_me132_b2.py"
+}

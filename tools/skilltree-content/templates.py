@@ -217,36 +217,123 @@ def mass_spring(title, spring=True, damper=True):
     return _guard(b2b_svg(280, 168, body, title))
 
 
-def block_diagram(blocks, title, feedback=None, input_label="", output_label="out"):
-    """A row of labeled blocks. feedback is an optional return-path label. The width follows the row."""
-    n = max(1, len(blocks))
+def block_diagram(blocks, title, feedback=None, input_label="", output_label="out", feedback_sign="-",
+                  error_label="", disturbance=None):
+    """A row of labeled blocks, with an optional feedback loop.
+
+    input_label sits on the arrow that enters the summing junction (the reference).
+    error_label sits on the arrow that leaves that junction, before the first block.
+    feedback_sign is '-' when the return is subtracted and '+' when it is added.
+    Each summer input gets its own sign. disturbance is a label added at the output,
+    after the forward blocks and before the feedback pickoff. A call with no
+    feedback keeps the original series drawing.
+    """
     gap = 36
     box_w = 84
     box_h = 44
     y = 56
     x = 24
     body = ""
-    if input_label:
-        body += b2b_text(x, y + 4, input_label)
-        x += 18
-    for i, label in enumerate(blocks):
+    if not feedback:
+        if input_label:
+            body += b2b_text(x, y + 4, input_label)
+            x += 18
+        for label in blocks:
+            body += b2b_arrow(x, y, x + gap, y)
+            x += gap
+            body += b2b_box(x, y - box_h / 2, box_w, box_h, label)
+            x += box_w
         body += b2b_arrow(x, y, x + gap, y)
         x += gap
+        body += b2b_text(x + 4, y + 4, output_label, anchor="start")
+        return _guard(b2b_svg(x + 36, 120, body, title))
+
+    if feedback_sign not in ("-", "+"):
+        raise ValueError("feedback_sign must be '-' or '+'")
+    if disturbance and feedback_sign != "-":
+        raise ValueError("an output disturbance is drawn on a negative loop")
+    fb = "\u2212" if feedback_sign == "-" else "+"
+    y = 78
+    radius = 12
+    if input_label:
+        body += b2b_text(6, y + 4, input_label, anchor="start")
+    jx = 64
+    body += b2b_arrow(28, y, jx - radius, y)
+    body += b2b_circle(jx, y, radius)
+    body += b2b_text(jx - 18, y - 16, "+", size=13)
+    body += b2b_text(jx - 22, y + 30, fb, size=13)
+
+    x = jx + radius
+    first_gap = 56 if error_label else gap
+    body += b2b_arrow(x, y, x + first_gap, y)
+    if error_label:
+        body += b2b_text(x + first_gap / 2, y - 12, error_label, size=13)
+    x += first_gap
+    n = len(blocks)
+    for i, label in enumerate(blocks):
         body += b2b_box(x, y - box_h / 2, box_w, box_h, label)
         x += box_w
-    body += b2b_arrow(x, y, x + gap, y)
-    x += gap
+        if disturbance and i == n - 1:
+            continue
+        body += b2b_arrow(x, y, x + gap, y)
+        x += gap
+    if disturbance:
+        # One arrow from the last block into the output summer. The block does not
+        # also keep its own outgoing arrowhead on that same wire.
+        sx = x + gap + radius
+        body += b2b_arrow(x, y, sx - radius, y)
+        body += b2b_circle(sx, y, radius)
+        body += b2b_text(sx - 22, y - 16, "+", size=13)
+        body += b2b_text(sx + 14, y - 28, "+", size=13)
+        body += b2b_arrow(sx, y - 50, sx, y - radius)
+        body += b2b_text(sx + 16, y - 44, disturbance, anchor="start", size=13)
+        x = sx + radius
+        body += b2b_arrow(x, y, x + gap, y)
+        x += gap
     body += b2b_text(x + 4, y + 4, output_label, anchor="start")
-    width = x + 36
-    height = 120
-    if feedback:
-        yb = 100
-        body += b2b_line(x - 8, y, x - 8, yb)
-        body += b2b_line(x - 8, yb, 40, yb)
-        body += b2b_arrow(40, yb, 40, y + 16)
-        body += b2b_text((x + 40) / 2, yb - 8, feedback, size=11)
-        height = 140
-    return _guard(b2b_svg(width, height, body, title))
+    pick = x - 8
+    yb = y + 56
+    body += b2b_line(pick, y, pick, yb)
+    body += b2b_line(pick, yb, jx, yb)
+    body += b2b_arrow(jx, yb, jx, y + radius)
+    body += b2b_text((pick + jx) / 2, yb + 16, feedback, size=11)
+    return _guard(b2b_svg(x + 40, yb + 30, body, title))
+
+
+def parallel_sum(blocks, title, output_label="out"):
+    """One signal splits into side-by-side blocks whose outputs add."""
+    if len(blocks) < 2:
+        raise ValueError("parallel_sum needs at least two blocks")
+    box_w, box_h = 72, 36
+    pitch = box_h + 22
+    top = 28
+    bus_in = 44
+    x_box = 86
+    body = ""
+    centers = []
+    for i, label in enumerate(blocks):
+        y = top + i * pitch
+        cy = y + box_h / 2
+        centers.append(cy)
+        body += b2b_arrow(bus_in, cy, x_box, cy)
+        body += b2b_box(x_box, y, box_w, box_h, label)
+    mid = (centers[0] + centers[-1]) / 2
+    body += b2b_arrow(10, mid, bus_in, mid)
+    body += b2b_line(bus_in, centers[0], bus_in, centers[-1])
+    body += b2b_circle(bus_in, mid, 2.6, fill=True)
+    bus_out = x_box + box_w + 28
+    for cy in centers:
+        body += b2b_line(x_box + box_w, cy, bus_out, cy)
+        body += b2b_text(bus_out - 12, cy - 8, "+", size=13)
+    body += b2b_line(bus_out, centers[0], bus_out, centers[-1])
+    sum_x = bus_out + 36
+    body += b2b_arrow(bus_out, mid, sum_x - 12, mid)
+    body += b2b_circle(sum_x, mid, 12)
+    body += b2b_text(sum_x, mid + 4, "\u03a3", size=13)
+    body += b2b_arrow(sum_x + 12, mid, sum_x + 40, mid)
+    body += b2b_text(sum_x + 46, mid + 4, output_label, anchor="start")
+    height = top + (len(blocks) - 1) * pitch + box_h + 20
+    return _guard(b2b_svg(sum_x + 72, height, body, title))
 
 
 def nyquist(points, title):

@@ -1,0 +1,29 @@
+{
+  "id": "onoff-pid-intro",
+  "title": "On-off, P, PI, and PID",
+  "version": 3,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>proportional cruise-style loop</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Kc</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A proportional block and a plant, with the return subtracted at the input.",
+      "body_md": "On-off feedback looks at the sign of the error and commands full on or full off. It chatters near the reference, because the only way to reduce the command is to switch it off. Proportional control multiplies the error by a gain, so a small error produces a small command. It can settle. It does not settle at zero error.\n\nIntegral action adds up the error as time passes. A leftover constant error keeps the sum moving, so the command keeps changing until the error is gone. Derivative action looks at how fast the error is changing. It can calm a transient. On a constant error its contribution is zero, so it does not fix the resting value.\n\nThis skill stops at that split and at the steady error of a proportional loop. The three-term formula is a later skill."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "On-off: \\(u\\) is one of two values. Proportional: \\(u = K_c(r - y)\\).\n\nIf the plant's DC gain is \\(P\\) and nothing else integrates, the loop gain is \\(L = K_c P\\) and a constant reference leaves\n\\[\ny = \\frac{L}{1+L} r, \\qquad r - y = \\frac{r}{1+L}.\n\\]\nA disturbance of size \\(d\\) that adds at the output is left as \\(d/(1+L)\\). Raising \\(K_c\\) shrinks the error and never removes it. Integral action, once the loop is stable, is what makes a constant error untenable."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Use \\(K_c = 2\\) and a plant DC gain \\(P = 5\\), and let the reference step to 7. The loop gain is \\(2 \\times 5 = 10\\). The steady output is\n\\[\ny = \\frac{10}{11} \\times 7 = 6.364,\n\\]\nand the steady error is \\(7/11 = 0.636\\). Check: the error times \\(K_c\\) is the command \\(1.273\\), and the plant turns that into \\(5 \\times 1.273 = 6.364\\). A constant output disturbance of 1.1 contributes \\(1.1/11 = 0.1\\) on top of that balance. Doubling \\(K_c\\) would cut the error roughly in half and still leave it nonzero. An integrator would be a different controller."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "A stable proportional loop is not a zero-error loop. Zero error needs a free integrator somewhere in the loop, in the plant or in the controller. Derivative action feels like it should fix the steady error because it \"anticipates,\" but the derivative of a constant is zero. On-off cannot hold an intermediate command, so a plant that needs an intermediate command to match the reference will oscillate around it. Doubling the gain does not double the output of a loop that is already closed: the output moves closer to the reference, and the command does not scale in the open-loop way."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The proportional speed error is the cruise-control question: a grade or a drag change looks like a constant disturbance, and P control leaves a speed offset. Tuning is the decision of how large \\(K_c\\) may be before the transient is unacceptable. The PID law writes the three terms as one command, with a real actuator limit beside them."
+    }
+  ]
+}

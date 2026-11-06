@@ -27,3 +27,37 @@ Items above version 1:
 - `ode-model-r2-q2` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## B2 — me132-b2
+
+Box: ME 132 (me132) and Feedback Systems (am08).
+
+Skills: `block-diagram`, `first-order-sys`, `model-method`, `onoff-pid-intro`, `state-space-model`.
+
+Items above version 1:
+
+- `block-diagram-r1-q3` version 3
+- `block-diagram-r2-q1` version 3
+- `block-diagram-r2-q3` version 3
+- `block-diagram-r3-q1` version 3
+- `block-diagram-r3-q2` version 3
+- `block-diagram-r3-q3` version 2
+- `block-diagram-r4-q1` version 3
+- `block-diagram-r4-q2` version 4
+- `block-diagram-r4-q3` version 2
+- `block-diagram#explainer` version 3
+- `first-order-sys-r4-q3` version 3
+- `onoff-pid-intro-r1-q1` version 3
+- `onoff-pid-intro-r1-q3` version 3
+- `onoff-pid-intro-r2-q1` version 3
+- `onoff-pid-intro-r2-q2` version 3
+- `onoff-pid-intro-r2-q3` version 4
+- `onoff-pid-intro-r3-q1` version 3
+- `onoff-pid-intro-r3-q2` version 3
+- `onoff-pid-intro-r3-q3` version 3
+- `onoff-pid-intro-r4-q1` version 3
+- `onoff-pid-intro-r4-q2` version 3
+- `onoff-pid-intro-r4-q3` version 3
+- `onoff-pid-intro#explainer` version 3
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-06T02:46:06.862939Z",
+  "generated": "2026-11-06T19:36:32.098264Z",
   "skills": {
-    "file": "skills.3493cef3.json",
-    "hash": "3493cef3"
+    "file": "skills.d006ed39.json",
+    "hash": "d006ed39"
   },
   "collections": {
     "file": "collections.17ae963b.json",
@@ -130,6 +130,18 @@
       },
       "hash": "f2be7bfe",
       "file": "banks/bjt-struct.f2be7bfe.json"
+    },
+    "block-diagram": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "75ce98c8",
+      "file": "banks/block-diagram.75ce98c8.json"
     },
     "bode-circuits": {
       "version": 1,
@@ -671,6 +683,18 @@
       "hash": "3cf5d2c9",
       "file": "banks/fb-intro.3cf5d2c9.json"
     },
+    "first-order-sys": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "19741cfb",
+      "file": "banks/first-order-sys.19741cfb.json"
+    },
     "freq-basics": {
       "version": 1,
       "questionCount": 12,
@@ -995,6 +1019,18 @@
       "hash": "7f64384b",
       "file": "banks/mirror.7f64384b.json"
     },
+    "model-method": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "3f1190d1",
+      "file": "banks/model-method.3f1190d1.json"
+    },
     "mos-caps": {
       "version": 1,
       "questionCount": 12,
@@ -1138,6 +1174,18 @@
       },
       "hash": "37af406c",
       "file": "banks/offset.37af406c.json"
+    },
+    "onoff-pid-intro": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "671126d8",
+      "file": "banks/onoff-pid-intro.671126d8.json"
     },
     "opamp-fr": {
       "version": 1,
@@ -1367,6 +1415,18 @@
       "hash": "9702f1d0",
       "file": "banks/stability.9702f1d0.json"
     },
+    "state-space-model": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "4db33b3c",
+      "file": "banks/state-space-model.4db33b3c.json"
+    },
     "step-resp": {
       "version": 2,
       "questionCount": 12,
@@ -1490,6 +1550,12 @@
       "hash": "f75a4463",
       "file": "explainers/bjt-struct.f75a4463.json",
       "sectionCount": 5
+    },
+    "block-diagram": {
+      "hash": "53ba50fe",
+      "file": "explainers/block-diagram.53ba50fe.json",
+      "sectionCount": 5,
+      "version": 3
     },
     "bode-circuits": {
       "hash": "68c25e12",
@@ -1717,6 +1783,12 @@
       "file": "explainers/fb-intro.64704698.json",
       "sectionCount": 5
     },
+    "first-order-sys": {
+      "hash": "c45495c2",
+      "file": "explainers/first-order-sys.c45495c2.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "freq-basics": {
       "hash": "991e6953",
       "file": "explainers/freq-basics.991e6953.json",
@@ -1855,6 +1927,12 @@
       "file": "explainers/mirror.22d94e0d.json",
       "sectionCount": 5
     },
+    "model-method": {
+      "hash": "9fc004b5",
+      "file": "explainers/model-method.9fc004b5.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "mos-caps": {
       "hash": "e3bbf4ce",
       "file": "explainers/mos-caps.e3bbf4ce.json",
@@ -1915,6 +1993,12 @@
       "hash": "479ebbd3",
       "file": "explainers/offset.479ebbd3.json",
       "sectionCount": 5
+    },
+    "onoff-pid-intro": {
+      "hash": "01a370f4",
+      "file": "explainers/onoff-pid-intro.01a370f4.json",
+      "sectionCount": 5,
+      "version": 3
     },
     "opamp-fr": {
       "hash": "9edb9802",
@@ -2010,6 +2094,12 @@
       "hash": "d39a35e7",
       "file": "explainers/stability.d39a35e7.json",
       "sectionCount": 5
+    },
+    "state-space-model": {
+      "hash": "b51a5868",
+      "file": "explainers/state-space-model.b51a5868.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "step-resp": {
       "hash": "14cb0b74",
