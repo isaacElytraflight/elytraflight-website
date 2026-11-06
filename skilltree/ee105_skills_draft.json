@@ -1242,7 +1242,6 @@
    "prereqs": [
     "fb-intro"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1304,7 +1303,6 @@
    "prereqs": [
     "lti-def"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1365,7 +1363,6 @@
    "prereqs": [
     "cx-exp"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1670,7 +1667,6 @@
    "name": "Linear algebra for state space",
    "summary": "Rank, null space, eigenvalues and similarity transforms as used in control.",
    "prereqs": [],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1794,7 +1790,6 @@
     "bode",
     "stability"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",

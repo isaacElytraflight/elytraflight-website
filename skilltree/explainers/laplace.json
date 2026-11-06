@@ -1,0 +1,28 @@
+{
+  "id": "laplace",
+  "title": "Laplace transform and its properties",
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A step in time, the signal whose transform is 1/s</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,127.8 52,122.9 55.1,118.4 58.1,114 61.1,109.9 64.1,106.1 67.2,102.4 70.2,99 73.2,95.7 76.2,92.6 79.2,89.7 82.3,86.9 85.3,84.3 88.3,81.8 91.3,79.4 94.4,77.2 97.4,75.1 100.4,73.1 103.4,71.3 106.4,69.5 109.5,67.8 112.5,66.2 115.5,64.7 118.5,63.3 121.6,61.9 124.6,60.7 127.6,59.5 130.6,58.3 133.6,57.2 136.7,56.2 139.7,55.3 142.7,54.3 145.7,53.5 148.8,52.7 151.8,51.9 154.8,51.2 157.8,50.5 160.8,49.8 163.9,49.2 166.9,48.6 169.9,48.1 172.9,47.5 176,47 179,46.6 182,46.1 185,45.7 188,45.3 191.1,44.9 194.1,44.6 197.1,44.3 200.1,43.9 203.2,43.6 206.2,43.4 209.2,43.1 212.2,42.8 215.2,42.6 218.3,42.4 221.3,42.1 224.3,41.9 227.3,41.7 230.4,41.6 233.4,41.4 236.4,41.2 239.4,41.1 242.4,40.9 245.5,40.8 248.5,40.7 251.5,40.5 254.5,40.4 257.6,40.3 260.6,40.2 263.6,40.1 266.6,40 269.6,39.9 272.7,39.8 275.7,39.8 278.7,39.7 281.7,39.6 284.8,39.6 287.8,39.5 290.8,39.4 293.8,39.4 296.8,39.3 299.9,39.3 302.9,39.2 305.9,39.2 308.9,39.1 312,39.1 315,39.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that rises from rest toward a constant level.",
+      "body_md": "The Laplace transform turns a time signal into a function of a complex variable \\(s\\). Differentiation becomes multiplication by \\(s\\), so a linear constant-coefficient differential equation becomes algebra. That is why the same transform produces transfer functions: solve for the output transform and divide by the input transform, with the initial state at rest.\n\nThe integral is \\(\\int_0^\\infty f(t) e^{-st}\\,dt\\). It converges when \\(f\\) does not grow faster than some exponential, which is the usual case for signals from stable hardware. The transform is linear, so the transform of a sum is the sum of the transforms. A delay in time becomes a factor \\(e^{-sT}\\) in \\(s\\)."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "\\[ \\mathcal{L}\\{1\\} = \\frac{1}{s}, \\qquad \\mathcal{L}\\{e^{-at}\\} = \\frac{1}{s+a}, \\qquad \\mathcal{L}\\{t\\} = \\frac{1}{s^2}. \\]\n\\[ \\mathcal{L}\\{\\sin \\omega t\\} = \\frac{\\omega}{s^2+\\omega^2}, \\qquad \\mathcal{L}\\{\\cos \\omega t\\} = \\frac{s}{s^2+\\omega^2}. \\]\n\\[ \\mathcal{L}\\{\\dot f\\} = sF(s) - f(0), \\qquad \\mathcal{L}\\!\\left\\{\\int_0^t f(\\tau)\\,d\\tau\\right\\} = \\frac{F(s)}{s}. \\]\nIf every pole of \\(sF(s)\\) is in the open left half-plane, the final-value theorem says \\(\\lim_{t \\to \\infty} f(t) = \\lim_{s \\to 0} sF(s)\\). The initial-value theorem needs no stability caveat of that kind: \\(\\lim_{t \\to 0+} f(t) = \\lim_{s \\to \\infty} sF(s)\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "A level obeys \\(\\dot h + 5h = 20 u\\) with \\(h(0) = 2\\) and \\(u\\) a unit step. Transform both sides: \\(sH - 2 + 5H = 20/s\\), so\n\\[ H(s) = \\frac{2(s+10)}{s(s+5)}. \\]\nThe final-value theorem gives \\(\\lim sH = 20/5 = 4\\). The initial-value theorem gives \\(\\lim sH = 2\\), matching \\(h(0)\\). The time function is \\(h(t) = 4 - 2e^{-5t}\\). At \\(t = 0.2\\ \\mathrm{s}\\) the exponent is \\(-1\\), so the level is \\(4 - 2/e = 3.264\\)."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "- Dropping \\(f(0)\\) in the derivative rule when the state does not start at rest.\n- Applying the final-value theorem to a right-half-plane pole. The algebraic limit can exist while the signal diverges.\n- Swapping sine and cosine. Sine carries \\(\\omega\\) in the numerator. Cosine carries \\(s\\).\n- Using the integral rule on a derivative, or the reverse. One divides by \\(s\\). The other multiplies by \\(s\\) and corrects the initial value."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "A first-order step response is the inverse transform of \\(K/(s(\\tau s+1))\\). A second-order plant produces a quadratic denominator, and the final-value theorem still reads the resting point off the constant terms. A PI controller is \\(K_p + K_i/s\\), a zero over a pole at the origin, which is the same algebra."
+    }
+  ]
+}
