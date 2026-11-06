@@ -1203,6 +1203,39 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('quiz without figure does not render literal null text or empty container', async () => {
+    const p = await newPage();
+    await openSkill(p, 'bode');
+    await p.click('#startBtn');
+    await p.waitForSelector('.qcard', { timeout: 10000 });
+    const cardResult = await p.evaluate(() => {
+      const card = document.querySelector('.qcard');
+      const html = card.innerHTML;
+      const text = card.textContent;
+      const figCount = card.querySelectorAll('.qfig').length;
+      const hasLiteralNull = />\s*null\s*</.test(html) || html.includes('>null<');
+      return { figCount, hasLiteralNull, textSnippet: text.substring(0, 200) };
+    });
+    assert.strictEqual(cardResult.hasLiteralNull, false, 'should not render literal "null" text in quiz card');
+    await p._ctx.close();
+  });
+
+  await test('quiz with figure renders SVG with accessibility', async () => {
+    const p = await newPage();
+    await openSkill(p, 'square-law');
+    await p.click('#startBtn');
+    await p.waitForSelector('.qcard .qfig svg', { timeout: 10000 });
+    const figAttrs = await p.$eval('.qcard .qfig svg', svg => ({
+      role: svg.getAttribute('role'),
+      ariaLabel: svg.getAttribute('aria-label'),
+      hasTitle: !!svg.querySelector('title')
+    }));
+    assert.strictEqual(figAttrs.role, 'img', 'SVG should have role=img');
+    assert(figAttrs.ariaLabel && figAttrs.ariaLabel.length > 0, 'SVG should have aria-label');
+    assert(figAttrs.hasTitle, 'SVG should have a title element');
+    await p._ctx.close();
+  });
+
   await test('local progress on retired ids moves to the survivor and stays there', async () => {
     const p = await newPage(T({
       saturation: { tier: 2, lastPracticed: now - 5 * DAY, history: [{ t: now - 5 * DAY, round: 2, correct: 2, total: 3, passed: true }] },

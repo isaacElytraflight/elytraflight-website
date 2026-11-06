@@ -81,14 +81,36 @@ Bugbot identified 5 issues on commit 78cb6be; all fixed:
 
 Also updated puppeteer tests to use `step-specs` (still coming-soon) instead of `second-order-sys` (now playable) for coming-soon tile tests.
 
+### 10. UI bug fix: null figure rendering (~15 min)
+Isaac reported that quiz questions without diagrams rendered literal "null" text.
+
+**Root cause**: `Element.append()` converts non-node values to strings, so `figureNode(q)` returning `null` became the text "null".
+
+**Fix**: In `skilltree.js` line 1615, changed from:
+```javascript
+card.append(..., figureNode(q), ...);
+```
+To:
+```javascript
+const fig = figureNode(q);
+card.append(...);
+if (fig) card.append(fig);
+card.append(...);
+```
+
+**Regression tests added** (2 new tests, total 50 puppeteer tests):
+- `quiz without figure does not render literal null text or empty container`
+- `quiz with figure renders SVG with accessibility`
+
 ### Wasted work / Retries
 - MC position balancing required multiple iterations (~4 passes)
 - KaTeX package path resolution needed manual install
 - Batch spec missing fields (id, label, areas) caught incrementally
 - Bugbot fixes required verifier updates to match new explainer values
+- Initial null-figure test referenced bankCache incorrectly (fixed)
 
 ### Token cost estimate
-Rough estimate: ~120-150k tokens total (initial content generation + Bugbot fix iteration)
+Rough estimate: ~150-180k tokens total (initial content generation + Bugbot fix iteration + UI fix)
 
 ## Preexisting warnings
 The following figure-bounds warnings existed before B3 and are not addressed:
