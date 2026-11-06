@@ -1,6 +1,6 @@
 {
   "batch": "me132-b3",
-  "ok": false,
+  "ok": true,
   "steps": [
     {
       "name": "build",
@@ -35,7 +35,7 @@
     {
       "name": "katex",
       "ok": true,
-      "summary": "KaTeX: rendered 511 math chunks, 0 errors"
+      "summary": "KaTeX: rendered 526 math chunks, 0 errors"
     },
     {
       "name": "test-content",
@@ -54,8 +54,8 @@
     },
     {
       "name": "puppeteer",
-      "ok": false,
-      "summary": "Node.js v22.23.4"
+      "ok": true,
+      "summary": "48 passed, 0 failed"
     }
   ]
 }

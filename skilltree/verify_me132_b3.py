@@ -176,8 +176,10 @@ def main():
 
     Kc4, P4 = 5, 4
     expected["cruise-control-r4-q1"] = 30 - prop_steady(Kc4, P4, 30)
-    # Ideal feedforward gain: (1 + L) / P = 13/4 = 3.25 where L = Kc * P = 3 * 4 = 12
-    expected["cruise-control-r4-q2"] = (1 + 12) / 4.0
+    # Ideal feedforward gain: K_ff = 1/P = 0.25 where P = 4
+    # The closed-loop with feedforward is (K_ff P + K_c P)/(1 + K_c P).
+    # For unity DC gain: K_ff P + K_c P = 1 + K_c P, so K_ff P = 1, K_ff = 1/P.
+    expected["cruise-control-r4-q2"] = 1.0 / 4
 
     # --- app-examples ---
     expected["app-examples-r1-q2"] = 2 * 4  # AR = 8
@@ -200,9 +202,9 @@ def main():
     # worked examples, recomputed a different way and required to appear in the text
     texts = {sid: json.dumps(json.load(open(os.path.join(EXP, sid + ".json"), encoding="utf-8"))) for sid in SKILLS}
 
-    # second-order-sys worked: zeta=0.5, wn=5, overshoot=16.3%
-    worked_mp = second_order_overshoot(0.5)
-    if abs(worked_mp - 16.3) > 0.1 or "16.3" not in texts["second-order-sys"]:
+    # second-order-sys worked: zeta=0.4, wn=6, overshoot=25.4%
+    worked_mp = second_order_overshoot(0.4)
+    if abs(worked_mp - 25.4) > 0.2 or "25.4" not in texts["second-order-sys"]:
         mismatches.append(f"second-order-sys worked {worked_mp}")
 
     # ss-solution worked: A = diag(-1,-3), x0 = [2,1], x1(1) = 2*e^{-1} = 0.736
@@ -211,8 +213,8 @@ def main():
     if abs(x_w[0] - 0.736) > 0.01 or "0.736" not in texts["ss-solution"]:
         mismatches.append(f"ss-solution worked {x_w[0]}")
 
-    # loop-tf worked: G=10, H=0.2, T=3.333, S=0.333
-    if "3.333" not in texts["loop-tf"] or "0.333" not in texts["loop-tf"]:
+    # loop-tf worked: G=8, H=1 (unity feedback), T=8/9=0.889, S=1/9=0.111
+    if "0.889" not in texts["loop-tf"] or "0.111" not in texts["loop-tf"]:
         mismatches.append("loop-tf worked text")
 
     # equilibria worked: 4 - 0.5x = 0 -> x = 8
@@ -224,8 +226,8 @@ def main():
     if abs(cruise_v - 23.81) > 0.1 or "23.81" not in texts["cruise-control"]:
         mismatches.append(f"cruise worked {cruise_v}")
 
-    # app-examples worked: AR=8, h_e=2
-    if "= 8" not in texts["app-examples"] or "= 2" not in texts["app-examples"]:
+    # app-examples worked: A=3, R=5, AR=15, h_e=3
+    if "= 15" not in texts["app-examples"] or "= 3" not in texts["app-examples"]:
         mismatches.append("app-examples worked text")
 
     print(f"numeric {numeric}, mismatches {len(mismatches)}, worked examples checked")

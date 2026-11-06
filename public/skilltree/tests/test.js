@@ -1373,7 +1373,7 @@ async function test(name, fn) {
       const fullIds = used(full);
       const meIds = used(me);
       const bookIds = used(book);
-      const soon = 'second-order-sys';
+      const soon = 'step-specs';
       return {
         readySoon: ready.filter(id => !playable.has(id)),
         fullSoon: fullIds.filter(id => !playable.has(id)),
@@ -1403,15 +1403,15 @@ async function test(name, fn) {
     assert.strictEqual(result.queueHasSoon, false, 'the recommender queue stays on playable skills');
     assert.deepStrictEqual(result.meExtras, [], 'every playable prerequisite of an ME 132 skill sits inside ME 132: ' + result.meExtras.join(','));
 
-    await openSkill(p, 'second-order-sys');
+    await openSkill(p, 'step-specs');
     const panel = await p.evaluate(() => ({
       text: document.getElementById('panel').textContent,
-      label: document.querySelector('#world .tile[data-id="second-order-sys"]').getAttribute('aria-label'),
-      title: document.querySelector('#world .tile[data-id="second-order-sys"]').title,
-      soon: document.querySelector('#world .tile[data-id="second-order-sys"]').classList.contains('soon'),
+      label: document.querySelector('#world .tile[data-id="step-specs"]').getAttribute('aria-label'),
+      title: document.querySelector('#world .tile[data-id="step-specs"]').title,
+      soon: document.querySelector('#world .tile[data-id="step-specs"]').classList.contains('soon'),
       start: !!document.getElementById('startBtn')
     }));
-    assert(panel.soon, 'second-order-sys should use the coming-soon tile style');
+    assert(panel.soon, 'step-specs should use the coming-soon tile style');
     assert(/Coming soon/.test(panel.text));
     assert(/coming soon/.test(panel.title));
     assert(/Coming soon, no questions yet/.test(panel.label));
@@ -1522,7 +1522,7 @@ async function test(name, fn) {
         tiles: ids.length,
         dupes,
         toggles: document.querySelectorAll('#world .toggle, #regions .toggle').length,
-        soon: document.querySelector('#world .tile[data-id="second-order-sys"] .tag').textContent
+        soon: document.querySelector('#world .tile[data-id="step-specs"] .tag').textContent
       };
     });
     assert.strictEqual(tree.tiles, NSKILL);

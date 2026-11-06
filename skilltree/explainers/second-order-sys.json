@@ -15,7 +15,7 @@
     },
     {
       "heading": "Worked example",
-      "body_md": "Take \\(\\omega_n = 5\\) rad/s and \\(\\zeta = 0.5\\). The poles are at \\(-2.5 \\pm j4.33\\). The damped frequency is \\(\\omega_d = 5 \\times 0.866 = 4.33\\) rad/s. The percent overshoot is\n\\[\nM_p = 100 e^{-\\pi \\times 0.5/0.866} = 16.3\\%.\n\\]\nThe time to peak is \\(t_p = \\pi/4.33 = 0.725\\) s. The settling time is about \\(4/(2.5) = 1.6\\) s. Using \\(\\omega_n = 5\\) instead of \\(\\omega_d\\) in the peak time formula gives \\(\\pi/5 = 0.628\\) s, which is wrong."
+      "body_md": "Take \\(\\omega_n = 6\\) rad/s and \\(\\zeta = 0.4\\). The poles are at \\(-2.4 \\pm j5.5\\). The damped frequency is \\(\\omega_d = 6 \\times 0.917 = 5.5\\) rad/s. The percent overshoot is\n\\[\nM_p = 100 e^{-\\pi \\times 0.4/0.917} = 25.4\\%.\n\\]\nThe time to peak is \\(t_p = \\pi/5.5 = 0.571\\) s. The settling time is about \\(4/(2.4) = 1.67\\) s. Using \\(\\omega_n = 6\\) instead of \\(\\omega_d\\) in the peak time formula gives \\(\\pi/6 = 0.524\\) s, which is wrong."
     },
     {
       "heading": "Common pitfalls",

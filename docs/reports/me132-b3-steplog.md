@@ -57,24 +57,40 @@ Batch B3 ships 6 skills: `app-examples`, `cruise-control`, `equilibria`, `loop-t
 - domain: PASS (0 unwaived warnings)
 - numeric: PASS (0 mismatches)
 - figure-bounds: PASS (30 warnings elsewhere)
-- katex: PASS (511 math chunks, 0 errors)
+- katex: PASS (526 math chunks, 0 errors)
 - test-content: PASS (14/14)
 - test-merge: PASS (19/19)
 - test-migrate: PASS (22/22)
-- puppeteer: FAIL (environment issue - no browser)
+- puppeteer: PASS (48/48)
+
+### 9. Bugbot review fixes (~20 min)
+Bugbot identified 5 issues on commit 78cb6be; all fixed:
+
+1. **False T plus S identity (High)** - loop-tf explainer incorrectly equated T=G/(1+GH) with L/(1+L). Fixed by using unity feedback example (G=8, H=1) where T+S=1 holds, and clarifying notation.
+
+2. **Wrong feedforward gain answer (High)** - cruise-control-r4-q2 had K_ff=3.25 but correct formula gives K_ff=1/P=0.25. Fixed answer and explanation in generator and verifier.
+
+3. **Explainer reuses quiz numbers (Medium)** - Worked examples used same parameters as quiz questions. Fixed by using different values:
+   - second-order-sys: ω_n=6, ζ=0.4 (was 5, 0.5)
+   - loop-tf: G=8, H=1 (was 10, 0.2)
+   - app-examples: A=3, R=5, q_in=0.6 (was 2, 4, 0.5)
+
+4. **Tank level omits resistance (Medium)** - app-examples-r1-q3 didn't state R. Fixed by adding "The same tank (R = 4 s/m²)".
+
+5. **Positive trace stability claim (Medium)** - ss-solution-r4-q3 incorrectly said positive trace can have stable eigenvalues. Fixed explanation to say positive trace implies at least one positive eigenvalue.
+
+Also updated puppeteer tests to use `step-specs` (still coming-soon) instead of `second-order-sys` (now playable) for coming-soon tile tests.
 
 ### Wasted work / Retries
 - MC position balancing required multiple iterations (~4 passes)
 - KaTeX package path resolution needed manual install
 - Batch spec missing fields (id, label, areas) caught incrementally
+- Bugbot fixes required verifier updates to match new explainer values
 
 ### Token cost estimate
-Rough estimate: ~80-100k tokens for this session (content generation, verification, debugging)
+Rough estimate: ~120-150k tokens total (initial content generation + Bugbot fix iteration)
 
 ## Preexisting warnings
 The following figure-bounds warnings existed before B3 and are not addressed:
 - amp-compensation, cascode-amp, cd-freq, cs-cascade-freq
 - noise-dist, octc, rev-bias, rlc, stability, vt
-
-## Puppeteer failure
-The puppeteer test requires a headless Chrome browser which is not available in this cloud environment. All content quality gates passed. The puppeteer tests check UI rendering which can be verified manually or in a local development environment.

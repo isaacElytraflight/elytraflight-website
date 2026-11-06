@@ -293,7 +293,7 @@ def bank_ss_solution():
           r"all eigenvalues are purely imaginary",
           r"all eigenvalues of \(A\) have negative real parts",
           r"the trace of \(A\) is positive"], 2,
-         r"Every eigenvalue in the open left half-plane means every mode decays. A zero eigenvalue is a free integrator, which drifts rather than settling. Purely imaginary eigenvalues are marginally stable and oscillate forever. A positive trace can still have stable eigenvalues in some cases, but it is not sufficient for stability.",
+         r"Every eigenvalue in the open left half-plane means every mode decays. A zero eigenvalue is a free integrator, which drifts rather than settling. Purely imaginary eigenvalues are marginally stable and oscillate forever. A positive trace means the sum of eigenvalues is positive, so at least one eigenvalue has a positive real part, which is unstable.",
           splane([(-1, 0), (-3, 0)], [], "stable eigenvalues"),
           modes, ["lti-stability"])
     b.save()
@@ -565,8 +565,8 @@ def bank_cruise():
           loop, ["pid-tuning"])
     b.num(4,
           r"A feedforward term \(K_{ff}\) is added to P control with \(K_c = 3\) on a plant of gain 4. The ideal feedforward gain that makes the DC closed-loop gain exactly 1 is",
-          (1 + 12) / 4, "1",
-          r"The closed-loop gain is \((K_{ff} P + K_c P)/(1 + K_c P)\). For DC gain 1, \(K_{ff} P + K_c P = 1 + K_c P\), so \(K_{ff} = (1 + L)/P = 13/4 = 3.25\). Using \(K_c\) alone gives 3, which does not account for the closed-loop denominator.",
+          1.0 / 4, "1",
+          r"The closed-loop gain is \((K_{ff} P + K_c P)/(1 + K_c P)\). For DC gain 1, \(K_{ff} P + K_c P = 1 + K_c P\), so \(K_{ff} P = 1\) and \(K_{ff} = 1/P = 0.25\). Using \(K_c\) alone gives 3, which does not account for the plant gain. Using \((1 + L)/P = 3.25\) is a common error from incorrect algebra.",
           block_diagram(["Kc+Kff", "4"], "feedforward cruise", feedback="1", input_label="r", output_label="v"),
           loop, ["feedforward"])
     b.mc(4,
@@ -602,7 +602,7 @@ def bank_app_examples():
           step_response("tank time constant", tau=8, goal=1),
           tank)
     b.num(1,
-          r"A constant inflow of \(q_{in} = 0.5\) m\(^3\)/s fills the tank. At equilibrium the level is",
+          r"The same tank (\(R = 4\) s/m\(^2\)) has a constant inflow of \(q_{in} = 0.5\) m\(^3\)/s. At equilibrium the level is",
           0.5 * 4, "m",
           r"At equilibrium \(q_{in} = h/R\), so \(h = q_{in} R = 0.5 \times 4 = 2\) m. The inflow 0.5 is not the level. The time constant 8 is not the level.",
           step_response("tank equilibrium", tau=8, goal=2),
@@ -688,11 +688,11 @@ The natural frequency is the distance from the origin to the pole. It sets the o
 Poles at \(-\zeta\omega_n \pm j\omega_n\sqrt{1-\zeta^2}\) for \(\zeta < 1\). The damped frequency is \(\omega_d = \omega_n\sqrt{1-\zeta^2}\).
 
 Percent overshoot: \(M_p = 100 e^{-\pi\zeta/\sqrt{1-\zeta^2}}\). Time to peak: \(t_p = \pi/\omega_d\). Approximate 2% settling time: \(t_s \approx 4/(\zeta\omega_n)\)."""},
-        {"heading": "Worked example", "body_md": r"""Take \(\omega_n = 5\) rad/s and \(\zeta = 0.5\). The poles are at \(-2.5 \pm j4.33\). The damped frequency is \(\omega_d = 5 \times 0.866 = 4.33\) rad/s. The percent overshoot is
+        {"heading": "Worked example", "body_md": r"""Take \(\omega_n = 6\) rad/s and \(\zeta = 0.4\). The poles are at \(-2.4 \pm j5.5\). The damped frequency is \(\omega_d = 6 \times 0.917 = 5.5\) rad/s. The percent overshoot is
 \[
-M_p = 100 e^{-\pi \times 0.5/0.866} = 16.3\%.
+M_p = 100 e^{-\pi \times 0.4/0.917} = 25.4\%.
 \]
-The time to peak is \(t_p = \pi/4.33 = 0.725\) s. The settling time is about \(4/(2.5) = 1.6\) s. Using \(\omega_n = 5\) instead of \(\omega_d\) in the peak time formula gives \(\pi/5 = 0.628\) s, which is wrong."""},
+The time to peak is \(t_p = \pi/5.5 = 0.571\) s. The settling time is about \(4/(2.4) = 1.67\) s. Using \(\omega_n = 6\) instead of \(\omega_d\) in the peak time formula gives \(\pi/6 = 0.524\) s, which is wrong."""},
         {"heading": "Common pitfalls", "body_md": r"""The natural frequency is not the ringing frequency. The ringing frequency is the damped frequency \(\omega_d\), which is smaller than \(\omega_n\) when \(\zeta > 0\). The percent overshoot formula does not depend on \(\omega_n\) directly; it depends only on \(\zeta\). Confusing \(\omega_n\) with \(\omega_d\) in the peak-time formula gives the wrong answer. Critical damping (\(\zeta = 1\)) is not overdamping; overdamping has \(\zeta > 1\)."""},
         {"heading": "Where this leads", "body_md": r"""Step-response specifications quote percent overshoot, rise time, and settling time. PID tuning often aims for a closed-loop damping ratio around 0.7, which gives about 5% overshoot. Nyquist and Bode plots relate the loop gain to the closed-loop damping ratio through phase and gain margins."""},
     ]
@@ -728,22 +728,23 @@ At \(t = 1\), \(x_1 = 2 e^{-1} = 0.736\) and \(x_2 = e^{-3} = 0.050\). The \(-3\
 
 
 def expl_loop_tf():
-    fig = block_diagram(["G"], "loop transfer function", feedback="H", input_label="r", output_label="y", error_label="e")
+    fig = block_diagram(["G"], "loop transfer function", feedback="1", input_label="r", output_label="y", error_label="e")
     sections = [
         {"heading": "The idea", "figure_svg": fig,
-         "figure_alt": "A forward block and a return path that is subtracted at the input.",
+         "figure_alt": "A forward block with unity feedback subtracted at the input.",
          "body_md": r"""The loop transfer function \(L(s)\) is the product of every block you meet walking once around the loop. Start at the error, go through the forward path to the output, then through the return path back to the summing junction. That product tells you the loop gain at each frequency and determines stability and performance.
 
-The closed-loop transfer function \(T(s) = G/(1+GH)\) is what the reference sees. The sensitivity \(S(s) = 1/(1+L)\) is what a disturbance sees. Together \(T + S = 1\). The return difference \(1 + L\) is what converts open-loop behavior to closed-loop behavior."""},
+For unity feedback (\(H = 1\)), the closed-loop transfer function is \(T(s) = L/(1+L)\) and the sensitivity is \(S(s) = 1/(1+L)\). Together \(T + S = 1\). The return difference \(1 + L\) converts open-loop behavior to closed-loop behavior."""},
         {"heading": "Key equations", "body_md": r"""Loop gain: \(L(s) = G(s) H(s)\).
 
-Closed-loop (complementary sensitivity): \(T(s) = \dfrac{G(s)}{1 + G(s)H(s)} = \dfrac{L(s)}{1 + L(s)}\).
+For unity feedback (\(H = 1\)):
+- Complementary sensitivity: \(T(s) = \dfrac{L(s)}{1 + L(s)}\).
+- Sensitivity: \(S(s) = \dfrac{1}{1 + L(s)}\).
+- Constraint: \(T(s) + S(s) = 1\).
 
-Sensitivity: \(S(s) = \dfrac{1}{1 + L(s)}\).
-
-Constraint: \(T(s) + S(s) = 1\). A disturbance at the output is multiplied by \(S\), so larger \(L\) means smaller disturbance effect."""},
-        {"heading": "Worked example", "body_md": r"""Take \(G = 10\) and \(H = 0.2\). The loop gain is \(L = 10 \times 0.2 = 2\). The closed-loop gain is \(T = 10/3 = 3.333\). The sensitivity is \(S = 1/3 = 0.333\). Check: \(T + S = 3.333 + 0.333 \approx 1\) after rounding. A unit disturbance at the output is reduced to 0.333. Using the loop gain 2 as the closed-loop gain is wrong; 2 is the product around the loop, not the gain from reference to output."""},
-        {"heading": "Common pitfalls", "body_md": r"""The loop gain is not the closed-loop gain. The loop gain is the open-loop product around the loop. The closed-loop gain divides by \(1 + L\). Confusing sensitivity with complementary sensitivity swaps what the reference sees and what the disturbance sees. The return difference \(1 + L\) is not the loop gain; it is one more than the loop gain. On a Nyquist plot, the critical point is \(-1\), not \(0\) or \(1\)."""},
+For general \(H\), the closed-loop gain from reference to output is \(G/(1+GH)\), which equals \(T\) only when \(H = 1\). A disturbance at the output is multiplied by \(S\), so larger \(L\) means smaller disturbance effect."""},
+        {"heading": "Worked example", "body_md": r"""Consider unity feedback with \(G = 8\). The loop gain is \(L = 8\). The complementary sensitivity is \(T = 8/9 = 0.889\). The sensitivity is \(S = 1/9 = 0.111\). Check: \(T + S = 8/9 + 1/9 = 1\). A unit disturbance at the output is reduced to \(1/9\). Using the loop gain 8 as the closed-loop gain is wrong; 8 is the open-loop product around the loop, not the gain from reference to output. With a reference of 9, the output is \(8/9 \times 9 = 8\), not 9."""},
+        {"heading": "Common pitfalls", "body_md": r"""The loop gain is not the closed-loop gain. The loop gain is the open-loop product around the loop. The closed-loop gain divides by \(1 + L\). Confusing sensitivity with complementary sensitivity swaps what the reference sees and what the disturbance sees. The return difference \(1 + L\) is not the loop gain; it is one more than the loop gain. On a Nyquist plot, the critical point is \(-1\), not \(0\) or \(1\). The identity \(T + S = 1\) holds for unity feedback; with a general sensor \(H \ne 1\), the closed-loop gain \(G/(1+GH)\) is not the same as \(L/(1+L)\)."""},
         {"heading": "Where this leads", "body_md": r"""A Nyquist plot draws \(L(j\omega)\) in the complex plane and counts encirclements of \(-1\) to determine stability. Sensitivity analysis asks how large \(S(j\omega)\) can be before the loop is too sensitive to disturbances. Robust performance bounds combine \(S\) and \(T\) with uncertainty descriptions. The loop transfer function is the central object in all of these analyses."""},
     ]
     save_explainer("loop-tf", "Loop transfer function", sections)
@@ -795,7 +796,7 @@ Disturbance effect: a disturbance \(d\) at the output adds \(\dfrac{d}{1+L}\) to
 
 
 def expl_app_examples():
-    fig = step_response("tank level", tau=8, goal=2)
+    fig = step_response("tank level", tau=15, goal=3)
     sections = [
         {"heading": "The idea", "figure_svg": fig,
          "figure_alt": "A curve that rises and settles.",
@@ -807,7 +808,7 @@ The modeling process is the same: identify the stored quantities, write the bala
 Motor: \(\dot{\omega} = \dfrac{K_t i}{J} - \dfrac{b\omega}{J}\). Time constant \(\tau = J/b\).
 
 Pendulum (linearized near downward): \(\ddot{\theta} + \dfrac{g}{\ell}\theta = 0\). Natural frequency \(\omega_n = \sqrt{g/\ell}\)."""},
-        {"heading": "Worked example", "body_md": r"""A tank has area \(A = 2\) m\(^2\) and hydraulic resistance \(R = 4\) s/m\(^2\). The time constant is \(\tau = 2 \times 4 = 8\) s. With inflow \(q_{in} = 0.5\) m\(^3\)/s, the equilibrium level is \(h_e = q_{in} R = 0.5 \times 4 = 2\) m. The state-space coefficient is \(-1/(AR) = -1/8 = -0.125\). Using the area or the resistance alone as the time constant is wrong; the time constant is their product."""},
+        {"heading": "Worked example", "body_md": r"""A tank has area \(A = 3\) m\(^2\) and hydraulic resistance \(R = 5\) s/m\(^2\). The time constant is \(\tau = 3 \times 5 = 15\) s. With inflow \(q_{in} = 0.6\) m\(^3\)/s, the equilibrium level is \(h_e = q_{in} R = 0.6 \times 5 = 3\) m. The state-space coefficient is \(-1/(AR) = -1/15 = -0.0667\). Using the area or the resistance alone as the time constant is wrong; the time constant is their product."""},
         {"heading": "Common pitfalls", "body_md": r"""Different domains use different symbols for the same concept. The time constant is \(J/b\) for a motor and \(AR\) for a tank, but both are the ratio of storage capacity to dissipation. Confusing the input with the state (like calling the inflow a state) gives the wrong model. The linearized pendulum is valid only for small angles; large swings break the approximation."""},
         {"heading": "Where this leads", "body_md": r"""Realization writes a transfer function as a state-space model. Discrete-time models sample the continuous model at fixed intervals. Linearization builds a linear model around an operating point of a nonlinear system. All of these steps start with the state-space form that this skill introduces."""},
     ]

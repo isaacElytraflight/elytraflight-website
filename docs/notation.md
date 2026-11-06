@@ -104,6 +104,8 @@ Added in B3 for `loop-tf`.
 | symbol | meaning | aliases |
 |---|---|---|
 | \(L(s)\) | loop transfer function, product around the loop | loop gain when evaluated |
-| \(T(s)\) | closed-loop transfer function \(G/(1+GH)\) | complementary sensitivity |
+| \(T(s)\) | complementary sensitivity \(L/(1+L)\) | equals closed-loop \(G/(1+GH)\) only for unity feedback |
 | \(S(s)\) | sensitivity \(1/(1+L)\) | |
 | \(1 + L(s)\) | return difference | |
+
+Note: The identity \(T + S = 1\) holds for \(T = L/(1+L)\) and \(S = 1/(1+L)\). For non-unity feedback (\(H \ne 1\)), the closed-loop gain \(G/(1+GH)\) differs from \(L/(1+L)\).

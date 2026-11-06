@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-06T20:02:00.808757Z",
+  "generated": "2026-11-06T20:42:47.956819Z",
   "skills": {
-    "file": "skills.598934ab.json",
-    "hash": "598934ab"
+    "file": "skills.0bd5bf34.json",
+    "hash": "0bd5bf34"
   },
   "collections": {
     "file": "collections.17ae963b.json",
@@ -56,8 +56,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "7fc83013",
-      "file": "banks/app-examples.7fc83013.json"
+      "hash": "ab4c1285",
+      "file": "banks/app-examples.ab4c1285.json"
     },
     "bias-coupling": {
       "version": 1,
@@ -332,8 +332,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "fbd977d6",
-      "file": "banks/cruise-control.fbd977d6.json"
+      "hash": "73ee3453",
+      "file": "banks/cruise-control.73ee3453.json"
     },
     "cs-analysis": {
       "version": 1,
@@ -1472,8 +1472,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "976f1131",
-      "file": "banks/ss-solution.976f1131.json"
+      "hash": "8308e1f7",
+      "file": "banks/ss-solution.8308e1f7.json"
     },
     "stability": {
       "version": 3,
@@ -1589,8 +1589,8 @@
       "sectionCount": 5
     },
     "app-examples": {
-      "hash": "d05e747f",
-      "file": "explainers/app-examples.d05e747f.json",
+      "hash": "f33edd64",
+      "file": "explainers/app-examples.f33edd64.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -1972,8 +1972,8 @@
       "sectionCount": 5
     },
     "loop-tf": {
-      "hash": "c11a474c",
-      "file": "explainers/loop-tf.c11a474c.json",
+      "hash": "1cfc30db",
+      "file": "explainers/loop-tf.1cfc30db.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -2152,8 +2152,8 @@
       "sectionCount": 5
     },
     "second-order-sys": {
-      "hash": "66893b7c",
-      "file": "explainers/second-order-sys.66893b7c.json",
+      "hash": "9f11ec3e",
+      "file": "explainers/second-order-sys.9f11ec3e.json",
       "sectionCount": 5,
       "version": 1
     },

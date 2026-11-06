@@ -15,7 +15,7 @@
     },
     {
       "heading": "Worked example",
-      "body_md": "A tank has area \\(A = 2\\) m\\(^2\\) and hydraulic resistance \\(R = 4\\) s/m\\(^2\\). The time constant is \\(\\tau = 2 \\times 4 = 8\\) s. With inflow \\(q_{in} = 0.5\\) m\\(^3\\)/s, the equilibrium level is \\(h_e = q_{in} R = 0.5 \\times 4 = 2\\) m. The state-space coefficient is \\(-1/(AR) = -1/8 = -0.125\\). Using the area or the resistance alone as the time constant is wrong; the time constant is their product."
+      "body_md": "A tank has area \\(A = 3\\) m\\(^2\\) and hydraulic resistance \\(R = 5\\) s/m\\(^2\\). The time constant is \\(\\tau = 3 \\times 5 = 15\\) s. With inflow \\(q_{in} = 0.6\\) m\\(^3\\)/s, the equilibrium level is \\(h_e = q_{in} R = 0.6 \\times 5 = 3\\) m. The state-space coefficient is \\(-1/(AR) = -1/15 = -0.0667\\). Using the area or the resistance alone as the time constant is wrong; the time constant is their product."
     },
     {
       "heading": "Common pitfalls",
