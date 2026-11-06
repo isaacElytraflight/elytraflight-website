@@ -272,11 +272,11 @@
     },
     {
       "id": "block-diagram-r1-q3",
-      "version": 2
+      "version": 3
     },
     {
       "id": "block-diagram-r2-q1",
-      "version": 2
+      "version": 3
     },
     {
       "id": "block-diagram-r2-q2",
@@ -284,15 +284,15 @@
     },
     {
       "id": "block-diagram-r2-q3",
-      "version": 2
+      "version": 3
     },
     {
       "id": "block-diagram-r3-q1",
-      "version": 2
+      "version": 3
     },
     {
       "id": "block-diagram-r3-q2",
-      "version": 1
+      "version": 2
     },
     {
       "id": "block-diagram-r3-q3",
@@ -300,11 +300,11 @@
     },
     {
       "id": "block-diagram-r4-q1",
-      "version": 2
+      "version": 3
     },
     {
       "id": "block-diagram-r4-q2",
-      "version": 2
+      "version": 3
     },
     {
       "id": "block-diagram-r4-q3",
@@ -312,7 +312,7 @@
     },
     {
       "id": "block-diagram#explainer",
-      "version": 2
+      "version": 3
     },
     {
       "id": "first-order-sys-r1-q1",
@@ -360,7 +360,7 @@
     },
     {
       "id": "first-order-sys-r4-q3",
-      "version": 2
+      "version": 3
     },
     {
       "id": "first-order-sys#explainer",
@@ -420,7 +420,7 @@
     },
     {
       "id": "onoff-pid-intro-r1-q1",
-      "version": 2
+      "version": 3
     },
     {
       "id": "onoff-pid-intro-r1-q2",
@@ -428,47 +428,47 @@
     },
     {
       "id": "onoff-pid-intro-r1-q3",
-      "version": 2
+      "version": 3
     },
     {
       "id": "onoff-pid-intro-r2-q1",
-      "version": 2
+      "version": 3
     },
     {
       "id": "onoff-pid-intro-r2-q2",
-      "version": 2
+      "version": 3
     },
     {
       "id": "onoff-pid-intro-r2-q3",
-      "version": 2
+      "version": 3
     },
     {
       "id": "onoff-pid-intro-r3-q1",
-      "version": 2
+      "version": 3
     },
     {
       "id": "onoff-pid-intro-r3-q2",
-      "version": 2
+      "version": 3
     },
     {
       "id": "onoff-pid-intro-r3-q3",
-      "version": 2
+      "version": 3
     },
     {
       "id": "onoff-pid-intro-r4-q1",
-      "version": 2
+      "version": 3
     },
     {
       "id": "onoff-pid-intro-r4-q2",
-      "version": 2
+      "version": 3
     },
     {
       "id": "onoff-pid-intro-r4-q3",
-      "version": 2
+      "version": 3
     },
     {
       "id": "onoff-pid-intro#explainer",
-      "version": 2
+      "version": 3
     },
     {
       "id": "state-space-model-r1-q1",

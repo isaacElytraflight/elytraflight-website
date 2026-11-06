@@ -339,31 +339,92 @@ test('series block-diagram alt text matches the number of blocks drawn', () => {
   }
 });
 
-test('feedback figures show the summing sign the stem uses', () => {
-  const banks = ['block-diagram', 'first-order-sys', 'onoff-pid-intro'].map(id =>
-    JSON.parse(fs.readFileSync(path.join(SRC, 'bank', id + '.json'), 'utf8')));
-  const questions = banks.flatMap(bank => bank.questions);
-  const pos = questions.find(q => q.id === 'block-diagram-r3-q1');
-  assert(/>\+<\/text>/.test(pos.figure), 'positive feedback figure has no plus');
-  assert(!/>−<\/text>/.test(pos.figure), 'positive feedback figure still has a minus');
-  assert(/added/.test(pos.figure_alt));
-  assert.strictEqual(pos.version, 2);
-  const neg = questions.filter(q => q.figure_alt && /subtract/.test(q.figure_alt));
-  assert(neg.length > 1);
-  for (const q of neg) {
-    assert(/<circle\b/.test(q.figure) && />−<\/text>/.test(q.figure), q.id + ' negative loop has no minus junction');
-    assert.ok(q.version >= 2, q.id + ' figure edit should bump the version');
+function svgTexts(svg) {
+  return [...svg.matchAll(/<text x="([^"]+)" y="([^"]+)"[^>]*>([^<]*)<\/text>/g)]
+    .map(m => ({ x: Number(m[1]), y: Number(m[2]), t: m[3] }));
+}
+
+function svgCircles(svg) {
+  return [...svg.matchAll(/<circle cx="([^"]+)" cy="([^"]+)" r="([^"]+)"/g)]
+    .map(m => ({ x: Number(m[1]), y: Number(m[2]), r: Number(m[3]) }));
+}
+
+function svgLines(svg) {
+  return [...svg.matchAll(/<line x1="([^"]+)" y1="([^"]+)" x2="([^"]+)" y2="([^"]+)"/g)]
+    .map(m => ({ x1: Number(m[1]), y1: Number(m[2]), x2: Number(m[3]), y2: Number(m[4]) }));
+}
+
+test('feedback labels, signs, and disturbance topology match the stems', () => {
+  const skills = ['block-diagram', 'first-order-sys', 'onoff-pid-intro'];
+  const questions = skills.flatMap(id =>
+    JSON.parse(fs.readFileSync(path.join(SRC, 'bank', id + '.json'), 'utf8')).questions);
+  const explainers = skills.map(id =>
+    JSON.parse(fs.readFileSync(path.join(SRC, 'explainers', id + '.json'), 'utf8')));
+  const figures = [
+    ...questions.filter(q => q.figure).map(q => ({ id: q.id, svg: q.figure, alt: q.figure_alt || '', version: q.version })),
+    ...explainers.flatMap(exp => exp.sections.filter(s => s.figure_svg).map(s => ({
+      id: exp.id + ' explainer', svg: s.figure_svg, alt: s.figure_alt || '', version: exp.version,
+    }))),
+  ];
+  const loops = figures.filter(item => /subtract|added at the input|disturbance/.test(item.alt) && /<circle\b/.test(item.svg));
+  assert(loops.length >= 8, 'expected the feedback figures from the banks and explainers');
+  for (const item of loops) {
+    const texts = svgTexts(item.svg);
+    const circles = svgCircles(item.svg);
+    const junction = circles.reduce((a, b) => (a.x < b.x ? a : b));
+    const label = name => texts.find(t => t.t === name);
+    const ref = label('r');
+    const err = label('e');
+    if (ref) assert(ref.x < junction.x, item.id + ' puts r on the wrong side of the summer');
+    if (err) assert(err.x > junction.x, item.id + ' puts the error before the summer');
+    const returnSign = texts.find(t => (t.t === '−' || t.t === '+') && t.y > junction.y + 8 && Math.abs(t.x - junction.x) < 40);
+    const referenceSign = texts.find(t => t.t === '+' && t.y < junction.y - 4 && Math.abs(t.x - junction.x) < 40);
+    assert(referenceSign, item.id + ' does not mark the reference input with a plus');
+    const upward = svgLines(item.svg).some(ln =>
+      Math.abs(ln.x1 - junction.x) < 1.5 && Math.abs(ln.x2 - junction.x) < 1.5 && ln.y1 > ln.y2);
+    assert(upward, item.id + ' return arrow does not enter the summer');
+    if (/subtract/.test(item.alt)) {
+      assert(returnSign && returnSign.t === '−', item.id + ' return is not marked minus');
+    }
+    if (/added at the input/.test(item.alt)) {
+      assert(returnSign && returnSign.t === '+', item.id + ' return is not marked plus');
+      assert(!texts.some(t => t.t === '−'), item.id + ' positive loop still shows a minus');
+    }
+    if (/disturbance/.test(item.alt)) {
+      assert(circles.length >= 2 && label('d'), item.id + ' does not draw the output disturbance');
+      const rects = [...item.svg.matchAll(/<rect x="([^"]+)"/g)].map(m => Number(m[1]));
+      const outputSummer = Math.max(...circles.map(c => c.x));
+      assert(outputSummer > Math.max(...rects), item.id + ' adds the disturbance before the forward blocks');
+    }
+  }
+  const walk = questions.find(q => q.id === 'block-diagram-r2-q3');
+  assert.strictEqual(walk.version, 3);
+  assert(svgTexts(walk.figure).some(t => t.t === 'e'));
+  assert(svgTexts(walk.figure).some(t => t.t === 'r'));
+  for (const id of ['block-diagram-r3-q2', 'block-diagram-r4-q2', 'onoff-pid-intro-r2-q3']) {
+    const q = questions.find(item => item.id === id);
+    assert(/disturbance/.test(q.figure_alt), id);
+    assert.ok(q.version >= 2, id);
+  }
+  for (const exp of explainers) {
+    if (exp.id === 'first-order-sys') continue;
+    assert.ok(exp.version >= 3, exp.id + ' explainer figure should be version 3');
   }
 });
 
-test('PID terms are drawn as a sum, not a series cascade', () => {
+test('PID terms split from one signal and their outputs add', () => {
   const bank = JSON.parse(fs.readFileSync(path.join(SRC, 'bank', 'onoff-pid-intro.json'), 'utf8'));
   const q = bank.questions.find(item => item.id === 'onoff-pid-intro-r4-q3');
-  const ys = [...q.figure.matchAll(/<rect x="[^"]+" y="([^"]+)"/g)].map(m => m[1]);
-  assert.strictEqual(new Set(ys).size, 3, 'the three terms should sit on different rows');
+  const rects = [...q.figure.matchAll(/<rect x="([^"]+)" y="([^"]+)"/g)].map(m => ({ x: m[1], y: m[2] }));
+  assert.strictEqual(new Set(rects.map(r => r.y)).size, 3, 'the three terms should sit on different rows');
+  assert.strictEqual(new Set(rects.map(r => r.x)).size, 1, 'the three terms should share a column');
+  const left = Math.min(...rects.map(r => Number(r.x)));
+  const fan = svgLines(q.figure).some(ln => ln.x1 === ln.x2 && ln.x1 < left && ln.y1 !== ln.y2);
+  assert(fan, 'the three terms should split from one signal');
   assert(/add/.test(q.figure_alt));
   assert(!/in a row/.test(q.figure_alt));
-  assert.strictEqual(q.version, 2);
+  assert(!/>e<\/text>/.test(q.figure), 'the figure should not name the error and give away the choice');
+  assert.strictEqual(q.version, 3);
 });
 
 console.log(`\n${passed} passed, ${failed} failed\n`);

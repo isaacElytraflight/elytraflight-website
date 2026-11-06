@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-06T18:51:04.037474Z",
+  "generated": "2026-11-06T19:17:24.549180Z",
   "skills": {
-    "file": "skills.2506f751.json",
-    "hash": "2506f751"
+    "file": "skills.6e9331b9.json",
+    "hash": "6e9331b9"
   },
   "collections": {
     "file": "collections.17ae963b.json",
@@ -140,8 +140,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e0cedc95",
-      "file": "banks/block-diagram.e0cedc95.json"
+      "hash": "c4f32c42",
+      "file": "banks/block-diagram.c4f32c42.json"
     },
     "bode-circuits": {
       "version": 1,
@@ -692,8 +692,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "01dcd9b3",
-      "file": "banks/first-order-sys.01dcd9b3.json"
+      "hash": "19741cfb",
+      "file": "banks/first-order-sys.19741cfb.json"
     },
     "freq-basics": {
       "version": 1,
@@ -1184,8 +1184,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "0de64c6e",
-      "file": "banks/onoff-pid-intro.0de64c6e.json"
+      "hash": "1eb59ef9",
+      "file": "banks/onoff-pid-intro.1eb59ef9.json"
     },
     "opamp-fr": {
       "version": 1,
@@ -1552,10 +1552,10 @@
       "sectionCount": 5
     },
     "block-diagram": {
-      "hash": "98240bae",
-      "file": "explainers/block-diagram.98240bae.json",
+      "hash": "53ba50fe",
+      "file": "explainers/block-diagram.53ba50fe.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "bode-circuits": {
       "hash": "68c25e12",
@@ -1995,10 +1995,10 @@
       "sectionCount": 5
     },
     "onoff-pid-intro": {
-      "hash": "03239e41",
-      "file": "explainers/onoff-pid-intro.03239e41.json",
+      "hash": "01a370f4",
+      "file": "explainers/onoff-pid-intro.01a370f4.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "opamp-fr": {
       "hash": "9edb9802",
