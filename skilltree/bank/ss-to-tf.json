@@ -53,14 +53,14 @@
       "id": "ss-to-tf-r2-q1",
       "round": 2,
       "type": "numeric",
-      "prompt": "A diagonal \\(A = \\mathrm{diag}(-2, -5)\\) gives poles at",
-      "explanation": "The eigenvalues of a diagonal matrix are its diagonal entries. The poles are at \\(-2\\) and \\(-5\\). The question asks for one; \\(-2\\) is the slower pole.",
+      "prompt": "A diagonal \\(A = \\mathrm{diag}(-2, -5)\\) has its slower pole at",
+      "explanation": "The eigenvalues of a diagonal matrix are its diagonal entries, so the poles are \\(-2\\) and \\(-5\\). The slower pole is the one closer to the origin, \\(-2\\). Entering \\(-5\\) names the faster pole.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal poles</title><line x1=\"20\" y1=\"90\" x2=\"26\" y2=\"90\"/><line x1=\"54\" y1=\"90\" x2=\"92\" y2=\"90\"/><line x1=\"120\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"101\" y1=\"85\" x2=\"111\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"95\" x2=\"111\" y2=\"85\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"85\" x2=\"45\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"95\" x2=\"45\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "Pole marks in the s-plane.",
       "answer": -2.0,
       "unit": "rad/s",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "ss-to-tf-r2-q2",
@@ -96,14 +96,14 @@
       "id": "ss-to-tf-r3-q1",
       "round": 3,
       "type": "numeric",
-      "prompt": "A first-order system has pole at \\(-2\\) and DC gain 3. If \\(D = 0\\), then \\(C \\cdot B / |A|\\) equals",
-      "explanation": "DC gain is \\(-CA^{-1}B = CB/|A| = 3\\). With \\(|A| = 2\\), \\(CB = 6\\). The pole location is \\(-2\\), so \\(A = -2\\). Solving: \\(C \\cdot 1 \\cdot B / 2 = 3\\) gives \\(CB = 6\\).",
+      "prompt": "A first-order system has a pole at \\(-2\\) and DC gain 3. If \\(D = 0\\), the product \\(CB\\) is",
+      "explanation": "With \\(D = 0\\), the DC gain is \\(CB/|A|\\). The pole at \\(-2\\) means \\(|A| = 2\\), and the DC gain is 3, so \\(CB/2 = 3\\) and \\(CB = 6\\). Reporting 3 repeats the DC gain instead of the product.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>first-order gain</title><line x1=\"20\" y1=\"90\" x2=\"92\" y2=\"90\"/><line x1=\"120\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"101\" y1=\"85\" x2=\"111\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"95\" x2=\"111\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "Pole marks in the s-plane.",
       "answer": 6.0,
       "unit": "1",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "ss-to-tf-r3-q2",

@@ -16,72 +16,7 @@ from templates import (
     block_diagram, bode, matrix_fig, nyquist, plot, splane, step_response,
 )
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-BANK = os.path.join(ROOT, "skilltree", "bank")
-EXP = os.path.join(ROOT, "skilltree", "explainers")
-
-
-def g(x):
-    return float(f"{x:.6g}")
-
-
-class Bank:
-    def __init__(self, sid):
-        self.sid = sid
-        self.qs = []
-        self.n = {1: 0, 2: 0, 3: 0, 4: 0}
-
-    def q(self, rnd, kind, prompt, explanation, fig=None, alt=None, preview=None, version=1, **kw):
-        self.n[rnd] += 1
-        item = {
-            "id": f"{self.sid}-r{rnd}-q{self.n[rnd]}",
-            "round": rnd,
-            "type": kind,
-            "prompt": prompt,
-            "explanation": explanation,
-        }
-        if fig is not None:
-            item["figure"] = fig
-            item["figure_alt"] = alt
-        if rnd == 4:
-            item["preview"] = preview
-        elif preview:
-            raise SystemExit("preview only in round 4")
-        item.update(kw)
-        item["version"] = version
-        self.qs.append(item)
-
-    def mc(self, rnd, prompt, options, correct, explanation, fig=None, alt=None, preview=None, version=1):
-        self.q(rnd, "mc", prompt, explanation, fig, alt, preview, version,
-               options=options, correct_index=correct)
-
-    def num(self, rnd, prompt, answer, unit, explanation, fig=None, alt=None, preview=None, version=1):
-        self.q(rnd, "numeric", prompt, explanation, fig, alt, preview, version,
-               answer=g(answer), unit=unit, tolerance=0.02)
-
-    def save(self):
-        assert self.n == {1: 3, 2: 3, 3: 3, 4: 3}, (self.sid, self.n)
-        path = os.path.join(BANK, f"{self.sid}.json")
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump({"skill_id": self.sid, "version": 1, "questions": self.qs},
-                      f, indent=2, ensure_ascii=False)
-            f.write("\n")
-
-
-def save_explainer(sid, title, sections, version=1):
-    path = os.path.join(EXP, f"{sid}.json")
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump({"id": sid, "title": title, "version": version, "sections": sections},
-                  f, indent=2, ensure_ascii=False)
-        f.write("\n")
-
-
-def words(sections):
-    text = " ".join(s["body_md"] for s in sections)
-    text = re.sub(r"<svg[\s\S]*?</svg>", " ", text)
-    text = re.sub(r"\\\(|\\\)|\\\[|\\\]", " ", text)
-    text = re.sub(r"\\[a-zA-Z]+", " ", text)
-    return len(re.findall(r"[A-Za-z0-9']+", text))
+from banklib import BANK, EXP, Bank, save_explainer, words
 
 
 def second_order_step(zeta, wn, goal, t_end):
@@ -241,11 +176,11 @@ def bank_step_specs():
          "A forward block with unity feedback.")
 
     b.num(4,
-          r"Design targets: 5% settling time under 1 s, overshoot under 20%. The minimum \(\omega_n\) is",
-          4 / (0.45 * 1.0), "rad/s",
-          r"From \(t_s = 4/(\zeta\omega_n)\), with \(t_s = 1\) and \(\zeta \approx 0.45\) (for 20% overshoot), \(\omega_n = 4/(0.45 \times 1) = 8.89\) rad/s. Using 5 instead of 4 gives the 1% rule.",
-          second_order_step(0.45, 9, 1, 2),
-          step_fig, ["perf-specs-freq"])
+          r"Design targets: 5% settling time under 1 s with \(\zeta = 0.45\) (about 20% overshoot). The minimum \(\omega_n\) is",
+          3 / (0.45 * 1.0), "rad/s",
+          r"The 5% settling rule is \(t_s \approx 3/(\zeta\omega_n)\). With \(t_s = 1\) and \(\zeta = 0.45\), \(\omega_n = 3/(0.45 \times 1) = 6.67\) rad/s. The 2% rule uses 4 in the numerator and would ask for 8.89.",
+          second_order_step(0.45, 4, 1, 3),
+          step_fig, ["perf-specs-freq"], version=2)
     b.num(4,
           r"A closed-loop has poles at \(-3 \pm j4\). The natural frequency is",
           5.0, "rad/s",
@@ -282,10 +217,10 @@ def bank_pid():
          loop)
     b.num(1,
           r"A PI controller has \(K_p = 4\) and \(K_i = 2\). The transfer function is \(K_p + K_i/s\). At \(s = 1\), the magnitude is",
-          math.sqrt(Kp1**2 + Ki1**2), "1",
-          r"At \(s = 1\), \(C(1) = 4 + 2/1 = 4 + 2j\) (treating \(1/s\) as \(1/j\omega = -j/\omega\) at \(\omega=1\)). Wait, for \(s=1\) (not \(j\omega\)), \(C(1) = 4 + 2 = 6\). But if evaluating at \(s = j\), \(C(j) = 4 + 2/j = 4 - 2j\), magnitude \(\sqrt{16+4} = 4.47\).",
+          abs(Kp1 + Ki1 / 1.0), "1",
+          r"At the real point \(s = 1\), \(C(1) = 4 + 2/1 = 6\), so the magnitude is 6. Evaluating \(K_p + K_i/(j\omega)\) at \(\omega = 1\) instead gives \(4 - 2j\), whose magnitude is about 4.47. That is a frequency-response number, not \(C(1)\).",
           pid_block(Kp1, Ki1, 0, "PI controller"),
-          loop)
+          loop, version=2)
     b.mc(1,
          r"Increasing the proportional gain \(K_p\) in a stable loop",
          ["increases the loop gain and reduces steady error",
@@ -342,11 +277,11 @@ def bank_pid():
           loop)
 
     b.num(4,
-          r"PID tuning: a first-order plant has time constant 2 s and gain 3. The Ziegler-Nichols rule suggests \(K_p \approx 1.2/(K \cdot \tau/L)\) when delay \(L = 0.3\) s. The suggested \(K_p\) is",
-          1.2 / (3 * 0.3 / 2), "1",
-          r"\(K_p = 1.2 \tau / (K L) = 1.2 \times 2 / (3 \times 0.3) = 2.67\). This is a starting point; tuning adjusts for overshoot and settling time constraints.",
+          r"PID tuning from a step test: plant gain \(K = 3\), time constant \(\tau = 2\) s, apparent delay \(L = 0.3\) s. The reaction-curve rule \(K_p \approx 1.2\,\tau/(KL)\) gives",
+          1.2 * 2 / (3 * 0.3), "1",
+          r"\(K_p = 1.2 \tau / (K L) = 1.2 \times 2 / (3 \times 0.3) = 2.67\). Writing the fraction upside down, \(1.2 L/(K\tau)\), gives about 0.06 and is not this rule. The number is a starting gain, not a finished design.",
           step_response("Ziegler-Nichols step", tau=2, goal=3),
-          step_fig, ["pid-tuning"])
+          step_fig, ["pid-tuning"], version=2)
     b.mc(4,
          r"Feedforward combined with PID",
          ["cannot improve tracking",
@@ -376,11 +311,11 @@ def bank_sensitivity():
          r"The sensitivity function \(S(s)\) gives the transfer function from",
          ["disturbance at the output to the output",
           "reference to output",
-          "reference to error",
+          "reference to the control signal",
           "noise to control signal"], 0,
-         r"With unity feedback, \(S = 1/(1+L)\). A disturbance \(d\) at the output appears as \(S \cdot d\) in the output. The reference-to-output transfer function is the complementary sensitivity \(T = L/(1+L)\). Reference to error is also \(S\).",
+         r"With the definitions used here, \(S = 1/(1+L)\) multiplies a disturbance added at the output. Reference to output is the complementary sensitivity \(T\). Reference to the control signal is the control sensitivity, not \(S\).",
          block_diagram(["G"], "sensitivity", feedback="1", input_label="r", output_label="y", disturbance="d"),
-         "A loop with a disturbance added at the output.")
+         "A loop with a disturbance added at the output.", version=2)
     b.num(1,
           r"A loop has loop gain \(L = 8\). The sensitivity \(S = 1/(1+L)\) is",
           1 / (1 + L1), "1",
@@ -395,14 +330,14 @@ def bank_sensitivity():
           loop)
 
     b.mc(2,
-         r"The constraint \(S + T = 1\) holds when",
-         ["always, for any stable system",
-          "only for unity feedback",
+         r"For \(S = 1/(1+L)\) and \(T = L/(1+L)\), the identity \(S + T = 1\) holds",
+         ["only when the closed loop is stable",
+          r"at every frequency where \(L\) is defined",
           "only at DC",
-          "only for unstable systems"], 1,
-         r"\(S = 1/(1+L)\) and \(T = L/(1+L)\) sum to 1 for unity feedback. With a non-unity sensor \(H\), the transfer functions differ and the identity may not hold. The identity holds at all frequencies for unity feedback, not just DC.",
+          "only when the open loop is unstable"], 1,
+         r"Adding the definitions gives \(1/(1+L) + L/(1+L) = 1\) wherever \(L\) is defined, stable or not. Unity feedback is a separate fact: it makes \(T\) equal the reference-to-output map. A non-unity sensor changes that map, not this algebra. The identity is not limited to DC.",
          block_diagram(["G"], "S + T", feedback="1", input_label="r", output_label="y"),
-         loop)
+         loop, version=2)
     b.num(2,
           r"A loop has \(L = 15\). A unit disturbance at the output is attenuated to",
           1 / (1 + L2), "1",
@@ -443,11 +378,11 @@ def bank_sensitivity():
           loop)
 
     b.num(4,
-          r"For robust stability: the loop has \(L = 10\) at the gain crossover frequency. The gain margin in dB is approximately",
-          20 * math.log10(10), "dB",
-          r"Gain margin is how much the loop gain can increase before instability. If \(|L| = 10\) at crossover, the gain margin is roughly 20 dB (factor of 10). This is a simplified estimate; the exact margin depends on the phase.",
-          nyquist([(10, 0), (5, -3), (1, -5), (0, -4), (-0.5, -2), (-0.2, 0)], "gain crossover"),
-          nyq_fig, ["robust-stability"])
+          r"At the phase crossover, \(|L| = 0.1\). The gain margin in dB is",
+          20 * math.log10(1 / 0.1), "dB",
+          r"Gain margin is read where the phase is \(-180^\circ\), not at the gain crossover where \(|L| = 1\). Here \(|L| = 0.1\), so the gain can increase by a factor of 10 before that crossing reaches \(-1\). In decibels that factor is \(20\log_{10}(10) = 20\).",
+          nyquist([(2, 0), (0.8, -0.9), (0.05, -0.45), (-0.55, 0)], "phase crossover"),
+          "A Nyquist curve that crosses the negative real axis.", ["robust-stability"], version=2)
     b.mc(4,
          r"The Gang of Four in feedback analysis consists of",
          [r"\(S\), \(T\), \(PS\), and \(CS\)",
@@ -722,11 +657,11 @@ def bank_eig_modes():
     A_ex = [[-1, 2], [0, -3]]
     eigvals = [-1, -3]
     b.num(3,
-          r"The matrix \(A = \begin{bmatrix}-1 & 2 \\ 0 & -3\end{bmatrix}\) is upper triangular. Its eigenvalues are",
+          r"The matrix \(A = \begin{bmatrix}-1 & 2 \\ 0 & -3\end{bmatrix}\) is upper triangular. Its slower eigenvalue is",
           -1.0, "1",
-          r"For a triangular matrix, the eigenvalues are the diagonal entries: \(-1\) and \(-3\). No characteristic polynomial is needed. The faster answer asks for one eigenvalue; \(-1\) is the slower.",
+          r"For a triangular matrix, the eigenvalues are the diagonal entries \(-1\) and \(-3\). The slower one is closer to the origin, so it is \(-1\). The other eigenvalue, \(-3\), decays three times faster.",
           splane([(-1, 0), (-3, 0)], [], "triangular eigenvalues"),
-          pole_fig)
+          pole_fig, version=2)
     b.num(3,
           r"Same matrix. If the initial state is \([1, 0]^T\), which is an eigenvector for \(\lambda = -1\), the state at \(t = 1\) is entirely in the first mode with value",
           math.exp(-1), "1",
@@ -797,11 +732,11 @@ def bank_ss_to_tf():
          pole_fig)
 
     b.num(2,
-          r"A diagonal \(A = \mathrm{diag}(-2, -5)\) gives poles at",
+          r"A diagonal \(A = \mathrm{diag}(-2, -5)\) has its slower pole at",
           -2.0, "rad/s",
-          r"The eigenvalues of a diagonal matrix are its diagonal entries. The poles are at \(-2\) and \(-5\). The question asks for one; \(-2\) is the slower pole.",
+          r"The eigenvalues of a diagonal matrix are its diagonal entries, so the poles are \(-2\) and \(-5\). The slower pole is the one closer to the origin, \(-2\). Entering \(-5\) names the faster pole.",
           splane([(-2, 0), (-5, 0)], [], "diagonal poles"),
-          pole_fig)
+          pole_fig, version=2)
     b.mc(2,
          r"If the state-space realization is minimal (controllable and observable), the transfer function poles",
          ["equal the eigenvalues of \(A\)",
@@ -819,11 +754,11 @@ def bank_ss_to_tf():
           mat_fig)
 
     b.num(3,
-          r"A first-order system has pole at \(-2\) and DC gain 3. If \(D = 0\), then \(C \cdot B / |A|\) equals",
-          6.0, "1",
-          r"DC gain is \(-CA^{-1}B = CB/|A| = 3\). With \(|A| = 2\), \(CB = 6\). The pole location is \(-2\), so \(A = -2\). Solving: \(C \cdot 1 \cdot B / 2 = 3\) gives \(CB = 6\).",
+          r"A first-order system has a pole at \(-2\) and DC gain 3. If \(D = 0\), the product \(CB\) is",
+          3.0 * 2.0, "1",
+          r"With \(D = 0\), the DC gain is \(CB/|A|\). The pole at \(-2\) means \(|A| = 2\), and the DC gain is 3, so \(CB/2 = 3\) and \(CB = 6\). Reporting 3 repeats the DC gain instead of the product.",
           splane([(-2, 0)], [], "first-order gain"),
-          pole_fig)
+          pole_fig, version=2)
     b.mc(3,
          r"A zero of the transfer function corresponds to",
          ["a pole-zero cancellation in a mode",
@@ -969,13 +904,13 @@ def bank_limit_cycles():
          phase_fig, ["lyapunov"])
     b.mc(4,
          r"Poincar\u00e9 map analysis of periodic orbits",
-         ["samples the trajectory at fixed intervals and studies the resulting map",
+         ["records successive crossings of a surface of section and studies that map",
           "uses only linear analysis",
           "finds all equilibria",
           "applies only in one dimension"], 0,
-         r"The Poincar\u00e9 map records where a trajectory crosses a surface of section. For a limit cycle, this gives a fixed point of the map. Stability of the limit cycle relates to stability of this fixed point. It extends analysis to higher dimensions.",
+         r"A Poincar\u00e9 map records where a trajectory crosses a surface of section, then studies that map. For a limit cycle the crossing is a fixed point, and the orbit is stable when that fixed point is. Sampling at a fixed clock period is a stroboscopic map, which is a different construction. The method is not limited to one dimension and it is not a search for every equilibrium.",
          limit_cycle_fig("Poincare map"),
-         cycle_fig, ["gen-gain-phase"])
+         cycle_fig, ["gen-gain-phase"], version=2)
     b.save()
 
 
@@ -1042,22 +977,22 @@ def expl_sensitivity():
     sections = [
         {"heading": "The idea", "figure_svg": fig,
          "figure_alt": "A feedback loop with reference and disturbance inputs.",
-         "body_md": r"""The sensitivity function \(S(s)\) tells how much of a disturbance appears at the output. For unity feedback, \(S = 1/(1+L)\). When the loop gain \(L\) is large, \(S\) is small and disturbances are attenuated. The complementary sensitivity \(T = L/(1+L)\) tells how well the output tracks the reference.
+         "body_md": r"""The sensitivity function \(S(s)\) tells how much of a disturbance appears at the output. With loop gain \(L\), \(S = 1/(1+L)\). When \(L\) is large, \(S\) is small and disturbances are attenuated. The complementary sensitivity \(T = L/(1+L)\) is the fraction of the loop that tracks a reference when feedback is unity.
 
 These two functions satisfy \(S + T = 1\). This constraint means you cannot make both small at the same frequency. At low frequencies you want \(T \approx 1\) and \(S \approx 0\). At high frequencies you want \(S \approx 1\) (inevitable) and \(T \approx 0\) (to reject noise)."""},
-        {"heading": "Key equations", "body_md": r"""For unity feedback:
+        {"heading": "Key equations", "body_md": r"""With \(L\) the loop gain:
 \[
 S(s) = \frac{1}{1 + L(s)}, \quad T(s) = \frac{L(s)}{1 + L(s)}, \quad S + T = 1.
 \]
 
-The transfer from disturbance \(d\) at the output to output is \(S\). The transfer from reference \(r\) to output is \(T\). The transfer from reference to error is \(S\).
+Those two definitions add to 1 at every frequency where \(L\) is defined. For unity feedback, a disturbance at the output reaches the output through \(S\), the reference reaches the output through \(T\), and the reference reaches the error through \(S\).
 
 Peak sensitivity \(M_s = \max_\omega |S(j\omega)|\) is a robustness measure. The reciprocal \(1/M_s\) is the closest approach of the Nyquist curve to \(-1\)."""},
         {"heading": "Worked example", "body_md": r"""A loop has \(L(j\omega) = 10\) at \(\omega = 0.1\) rad/s. The sensitivity is \(S = 1/11 = 0.091\). A disturbance of amplitude 5 at the output is reduced to \(0.091 \times 5 = 0.45\) at the output after the loop responds. The complementary sensitivity is \(T = 10/11 = 0.91\), so a reference of 10 gives output \(0.91 \times 10 = 9.1\). The tracking error is \(10 - 9.1 = 0.9 = S \times 10\)."""},
-        {"heading": "Common pitfalls", "body_md": r"""The identity \(S + T = 1\) holds for unity feedback. With a sensor dynamics \(H \ne 1\), the output sees \(G/(1+GH)\), which is not \(T = L/(1+L)\). Confusing \(S\) and \(T\) swaps disturbance rejection and tracking. A small \(|S|\) does not mean the system is insensitive to everything; it means disturbances at the output are attenuated."""},
+        {"heading": "Common pitfalls", "body_md": r"""\(S + T = 1\) follows from the definitions of \(S\) and \(T\). It does not require stability, and it is not only a DC identity. Unity feedback is what makes \(T\) equal the reference-to-output map. With a sensor \(H \ne 1\), that map is \(G/(1+GH)\), which is not \(T = L/(1+L)\). Confusing \(S\) and \(T\) swaps disturbance rejection and tracking. A small \(|S|\) means disturbances at the output are attenuated, not that every signal in the loop is insensitive."""},
         {"heading": "Where this leads", "body_md": r"""The Gang of Four (\(S\), \(T\), \(PS\), \(CS\)) fully characterizes a loop. Robust stability bounds \(|T \cdot \Delta| < 1\) for multiplicative uncertainty. Robust performance bounds combine \(S\) and \(T\) with uncertainty models. The waterbed effect and Bode integrals show fundamental limits on \(S\)."""},
     ]
-    save_explainer("sensitivity", "Sensitivity functions", sections)
+    save_explainer("sensitivity", "Sensitivity functions", sections, version=2)
     return words(sections)
 
 

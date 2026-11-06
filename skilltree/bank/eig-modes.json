@@ -92,14 +92,14 @@
       "id": "eig-modes-r3-q1",
       "round": 3,
       "type": "numeric",
-      "prompt": "The matrix \\(A = \\begin{bmatrix}-1 & 2 \\\\ 0 & -3\\end{bmatrix}\\) is upper triangular. Its eigenvalues are",
-      "explanation": "For a triangular matrix, the eigenvalues are the diagonal entries: \\(-1\\) and \\(-3\\). No characteristic polynomial is needed. The faster answer asks for one eigenvalue; \\(-1\\) is the slower.",
+      "prompt": "The matrix \\(A = \\begin{bmatrix}-1 & 2 \\\\ 0 & -3\\end{bmatrix}\\) is upper triangular. Its slower eigenvalue is",
+      "explanation": "For a triangular matrix, the eigenvalues are the diagonal entries \\(-1\\) and \\(-3\\). The slower one is closer to the origin, so it is \\(-1\\). The other eigenvalue, \\(-3\\), decays three times faster.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>triangular eigenvalues</title><line x1=\"20\" y1=\"90\" x2=\"70\" y2=\"90\"/><line x1=\"98\" y1=\"90\" x2=\"114\" y2=\"90\"/><line x1=\"142\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"85\" x2=\"133\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"95\" x2=\"133\" y2=\"85\" stroke-width=\"1.8\"/><line x1=\"79\" y1=\"85\" x2=\"89\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"79\" y1=\"95\" x2=\"89\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "Pole marks in the complex plane.",
       "answer": -1.0,
       "unit": "1",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "eig-modes-r3-q2",

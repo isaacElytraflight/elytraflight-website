@@ -7,17 +7,17 @@
       "round": 1,
       "type": "mc",
       "prompt": "The sensitivity function \\(S(s)\\) gives the transfer function from",
-      "explanation": "With unity feedback, \\(S = 1/(1+L)\\). A disturbance \\(d\\) at the output appears as \\(S \\cdot d\\) in the output. The reference-to-output transfer function is the complementary sensitivity \\(T = L/(1+L)\\). Reference to error is also \\(S\\).",
+      "explanation": "With the definitions used here, \\(S = 1/(1+L)\\) multiplies a disturbance added at the output. Reference to output is the complementary sensitivity \\(T\\). Reference to the control signal is the control sensitivity, not \\(S\\).",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 332 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"244\" cy=\"78\" r=\"12\"/><text x=\"222\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"258\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"244\" y1=\"28\" x2=\"244\" y2=\"66\"/><polygon points=\"244,66 241.3,59.6 246.7,59.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"260\" y=\"34\" text-anchor=\"start\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"256\" y1=\"78\" x2=\"292\" y2=\"78\"/><polygon points=\"292,78 285.6,80.7 285.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"296\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"284\" y1=\"78\" x2=\"284\" y2=\"134\"/><line x1=\"284\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"174\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
       "figure_alt": "A loop with a disturbance added at the output.",
       "options": [
         "disturbance at the output to the output",
         "reference to output",
-        "reference to error",
+        "reference to the control signal",
         "noise to control signal"
       ],
       "correct_index": 0,
-      "version": 1
+      "version": 2
     },
     {
       "id": "sensitivity-r1-q2",
@@ -49,18 +49,18 @@
       "id": "sensitivity-r2-q1",
       "round": 2,
       "type": "mc",
-      "prompt": "The constraint \\(S + T = 1\\) holds when",
-      "explanation": "\\(S = 1/(1+L)\\) and \\(T = L/(1+L)\\) sum to 1 for unity feedback. With a non-unity sensor \\(H\\), the transfer functions differ and the identity may not hold. The identity holds at all frequencies for unity feedback, not just DC.",
+      "prompt": "For \\(S = 1/(1+L)\\) and \\(T = L/(1+L)\\), the identity \\(S + T = 1\\) holds",
+      "explanation": "Adding the definitions gives \\(1/(1+L) + L/(1+L) = 1\\) wherever \\(L\\) is defined, stable or not. Unity feedback is a separate fact: it makes \\(T\\) equal the reference-to-output map. A non-unity sensor changes that map, not this algebra. The identity is not limited to DC.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>S + T</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
       "figure_alt": "A forward block and a return path.",
       "options": [
-        "always, for any stable system",
-        "only for unity feedback",
+        "only when the closed loop is stable",
+        "at every frequency where \\(L\\) is defined",
         "only at DC",
-        "only for unstable systems"
+        "only when the open loop is unstable"
       ],
       "correct_index": 1,
-      "version": 1
+      "version": 2
     },
     {
       "id": "sensitivity-r2-q2",
@@ -139,17 +139,17 @@
       "id": "sensitivity-r4-q1",
       "round": 4,
       "type": "numeric",
-      "prompt": "For robust stability: the loop has \\(L = 10\\) at the gain crossover frequency. The gain margin in dB is approximately",
-      "explanation": "Gain margin is how much the loop gain can increase before instability. If \\(|L| = 10\\) at crossover, the gain margin is roughly 20 dB (factor of 10). This is a simplified estimate; the exact margin depends on the phase.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>gain crossover</title><line x1=\"48\" y1=\"42.7\" x2=\"270\" y2=\"42.7\"/><polygon points=\"270,42.7 263.6,45.4 263.6,40\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"80.7\" y1=\"180\" x2=\"80.7\" y2=\"28\"/><polygon points=\"80.7,28 83.4,34.4 78,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"56.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"86.7\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.7,42.7 167.7,116.3 98.1,165.3 80.7,140.8 72,91.7 77.2,42.7\" stroke-width=\"2.2\"/><circle cx=\"63.3\" cy=\"42.7\" r=\"4\"/><text x=\"63.3\" y=\"32.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−1</text></svg>",
-      "figure_alt": "A curve in the complex plane with the critical point marked.",
+      "prompt": "At the phase crossover, \\(|L| = 0.1\\). The gain margin in dB is",
+      "explanation": "Gain margin is read where the phase is \\(-180^\\circ\\), not at the gain crossover where \\(|L| = 1\\). Here \\(|L| = 0.1\\), so the gain can increase by a factor of 10 before that crossing reaches \\(-1\\). In decibels that factor is \\(20\\log_{10}(10) = 20\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>phase crossover</title><line x1=\"48\" y1=\"42.7\" x2=\"270\" y2=\"42.7\"/><polygon points=\"270,42.7 263.6,45.4 263.6,40\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"127.1\" y1=\"180\" x2=\"127.1\" y2=\"28\"/><polygon points=\"127.1,28 129.8,34.4 124.4,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"56.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"133.1\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.7,42.7 178.1,165.3 130.3,104 92,42.7\" stroke-width=\"2.2\"/><circle cx=\"63.3\" cy=\"42.7\" r=\"4\"/><text x=\"63.3\" y=\"32.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−1</text></svg>",
+      "figure_alt": "A Nyquist curve that crosses the negative real axis.",
       "preview": [
         "robust-stability"
       ],
       "answer": 20.0,
       "unit": "dB",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "sensitivity-r4-q2",

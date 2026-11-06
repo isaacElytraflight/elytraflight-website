@@ -4,16 +4,12 @@
 The generator uses closed-form algebra. This file recomputes the same items
 by signal equations, RK4, eigenvalue routines, or matrix exponentials.
 """
-import json
 import math
-import os
 
 import numpy as np
-from scipy import linalg
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-BANK = os.path.join(ROOT, "skilltree", "bank")
-EXP = os.path.join(ROOT, "skilltree", "explainers")
+from verify_harness import check_expected, finish, load_banks, load_texts
+
 SKILLS = ["step-specs", "pid", "sensitivity", "nyquist", "discrete-time", "eig-modes", "ss-to-tf", "limit-cycles"]
 
 
@@ -30,23 +26,9 @@ def time_to_peak(zeta, wn):
     return math.pi / wd
 
 
-def check(name, got, exp, mismatches):
-    scale = max(abs(exp), 1e-9)
-    if abs(got - exp) / scale > 2e-3:
-        mismatches.append(f"{name}: bank {got} != recomputed {exp}")
-
-
 def main():
     mismatches = []
-    numeric = 0
-    banks = {sid: json.load(open(os.path.join(BANK, sid + ".json"), encoding="utf-8")) for sid in SKILLS}
-
-    def ans(sid, qid):
-        for q in banks[sid]["questions"]:
-            if q["id"] == qid:
-                return float(q["answer"])
-        raise SystemExit("missing " + qid)
-
+    banks = load_banks(SKILLS)
     expected = {}
 
     # --- step-specs ---
@@ -62,12 +44,11 @@ def main():
     expected["step-specs-r3-q1"] = overshoot_pct(z3)
     expected["step-specs-r3-q2"] = settling_time_2pct(z3, wn3)
 
-    expected["step-specs-r4-q1"] = 4 / (0.45 * 1.0)
+    expected["step-specs-r4-q1"] = 3 / (0.45 * 1.0)  # 5% settling, not the 2% rule
     expected["step-specs-r4-q2"] = 5.0  # sqrt(3^2 + 4^2)
 
     # --- pid ---
-    Kp1, Ki1 = 4.0, 2.0
-    expected["pid-r1-q2"] = math.sqrt(Kp1**2 + Ki1**2)
+    expected["pid-r1-q2"] = abs(4.0 + 2.0 / 1.0)  # C(1), not |C(j)|
 
     Kp2, Kd2 = 3.0, 0.5
     expected["pid-r2-q2"] = -Kp2 / Kd2  # zero location
@@ -76,7 +57,7 @@ def main():
     expected["pid-r3-q1"] = 2.0  # number of zeros
     expected["pid-r3-q3"] = 1.0  # DC gain with integral
 
-    expected["pid-r4-q1"] = 1.2 / (3 * 0.3 / 2)  # Ziegler-Nichols
+    expected["pid-r4-q1"] = 1.2 * 2 / (3 * 0.3)  # Kp = 1.2*tau/(K*L)
     expected["pid-r4-q3"] = 0.5  # tau_i = Kp/Ki = 6/12
 
     # --- sensitivity ---
@@ -91,7 +72,7 @@ def main():
     expected["sensitivity-r3-q1"] = 1 / Ms
     expected["sensitivity-r3-q3"] = 1 / 21
 
-    expected["sensitivity-r4-q1"] = 20 * math.log10(10)
+    expected["sensitivity-r4-q1"] = 20 * math.log10(1 / 0.1)  # phase crossover, |L|=0.1
     expected["sensitivity-r4-q3"] = 9.0
 
     # --- nyquist ---
@@ -123,7 +104,8 @@ def main():
     expected["eig-modes-r2-q2"] = 5.0  # natural freq of -3+4j
     expected["eig-modes-r2-q3"] = 0.6  # damping ratio
 
-    expected["eig-modes-r3-q1"] = -1.0  # eigenvalue of upper triangular
+    tri = np.linalg.eigvals(np.array([[-1.0, 2.0], [0.0, -3.0]]))
+    expected["eig-modes-r3-q1"] = float(max(tri.real))  # slower diagonal entry
     expected["eig-modes-r3-q2"] = math.exp(-1)  # mode at t=1
 
     expected["eig-modes-r4-q1"] = -0.5  # dominant eigenvalue
@@ -132,25 +114,22 @@ def main():
     # --- ss-to-tf ---
     expected["ss-to-tf-r1-q3"] = 2 * (1 / 3) * 1  # DC gain
 
-    expected["ss-to-tf-r2-q1"] = -2.0  # slower pole
+    poles = np.linalg.eigvals(np.diag([-2.0, -5.0]))
+    expected["ss-to-tf-r2-q1"] = float(max(poles.real))  # slower pole
     expected["ss-to-tf-r2-q3"] = 1 * 1 / 1 + 1 * 1 / 4  # DC gain
 
-    expected["ss-to-tf-r3-q1"] = 6.0  # CB
+    expected["ss-to-tf-r3-q1"] = 3.0 * 2.0  # CB = (DC gain) * |A|
     expected["ss-to-tf-r3-q3"] = 4.0  # coefficient a
 
     expected["ss-to-tf-r4-q1"] = 2.0  # degree
     expected["ss-to-tf-r4-q3"] = 1.0  # minimal states
 
-    # --- limit-cycles (no numeric questions in bank, only MC) ---
-    expected["limit-cycles-r3-q3"] = 0.5  # frequency = 1/period
+    expected["limit-cycles-r3-q3"] = 1.0 / 2.0  # frequency = 1/period
 
-    for qid, exp in expected.items():
-        sid = qid.rsplit("-r", 1)[0]
-        numeric += 1
-        check(qid, ans(sid, qid), exp, mismatches)
+    numeric = check_expected(banks, expected, mismatches)
 
     # worked examples
-    texts = {sid: json.dumps(json.load(open(os.path.join(EXP, sid + ".json"), encoding="utf-8"))) for sid in SKILLS}
+    texts = load_texts(SKILLS)
 
     # step-specs: zeta=0.6, overshoot=9.5%
     if "9.5" not in texts["step-specs"]:
@@ -184,12 +163,7 @@ def main():
     if "a = 2" not in texts["limit-cycles"]:
         mismatches.append("limit-cycles worked text")
 
-    print(f"numeric {numeric}, mismatches {len(mismatches)}, worked examples checked")
-    for m in mismatches:
-        print(" ", m)
-    if mismatches:
-        raise SystemExit(1)
-    print("0 mismatches")
+    finish(numeric, mismatches)
 
 
 if __name__ == "__main__":

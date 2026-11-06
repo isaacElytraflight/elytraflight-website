@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-06T23:12:46.376910Z",
+  "generated": "2026-11-06T23:44:23.447718Z",
   "skills": {
-    "file": "skills.6a336f7f.json",
-    "hash": "6a336f7f"
+    "file": "skills.314bea33.json",
+    "hash": "314bea33"
   },
   "collections": {
     "file": "collections.17ae963b.json",
@@ -632,8 +632,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "2e5028dd",
-      "file": "banks/eig-modes.2e5028dd.json"
+      "hash": "e104c509",
+      "file": "banks/eig-modes.e104c509.json"
     },
     "electrostatics": {
       "version": 1,
@@ -944,8 +944,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "db82816b",
-      "file": "banks/limit-cycles.db82816b.json"
+      "hash": "b210fe9a",
+      "file": "banks/limit-cycles.b210fe9a.json"
     },
     "lin-algebra-review": {
       "version": 1,
@@ -1328,8 +1328,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "65ef8a7c",
-      "file": "banks/pid.65ef8a7c.json"
+      "hash": "796ec66f",
+      "file": "banks/pid.796ec66f.json"
     },
     "pmos": {
       "version": 1,
@@ -1448,8 +1448,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e3d1b9fb",
-      "file": "banks/sensitivity.e3d1b9fb.json"
+      "hash": "61a4812e",
+      "file": "banks/sensitivity.61a4812e.json"
     },
     "sheet-res": {
       "version": 1,
@@ -1556,8 +1556,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "2fbf725f",
-      "file": "banks/ss-to-tf.2fbf725f.json"
+      "hash": "5816e56b",
+      "file": "banks/ss-to-tf.5816e56b.json"
     },
     "stability": {
       "version": 3,
@@ -1604,8 +1604,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "41746d79",
-      "file": "banks/step-specs.41746d79.json"
+      "hash": "6fe3095f",
+      "file": "banks/step-specs.6fe3095f.json"
     },
     "tf": {
       "version": 3,
@@ -2284,10 +2284,10 @@
       "version": 1
     },
     "sensitivity": {
-      "hash": "3d0d3710",
-      "file": "explainers/sensitivity.3d0d3710.json",
+      "hash": "bfeb9c28",
+      "file": "explainers/sensitivity.bfeb9c28.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "sheet-res": {
       "hash": "01703bc3",

@@ -4,45 +4,14 @@
 The generator uses closed-form algebra. This file recomputes the same items
 by signal equations, RK4, eigenvalue routines, or matrix exponentials.
 """
-import json
 import math
-import os
 
 import numpy as np
 from scipy import linalg
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-BANK = os.path.join(ROOT, "skilltree", "bank")
-EXP = os.path.join(ROOT, "skilltree", "explainers")
+from verify_harness import check_expected, finish, load_banks, load_texts, prop_steady
+
 SKILLS = ["second-order-sys", "ss-solution", "loop-tf", "equilibria", "cruise-control", "app-examples"]
-
-
-def rk4(f, y0, t_end, steps):
-    y = float(y0)
-    h = t_end / steps
-    t = 0.0
-    for _ in range(steps):
-        k1 = f(t, y)
-        k2 = f(t + h / 2, y + h * k1 / 2)
-        k3 = f(t + h / 2, y + h * k2 / 2)
-        k4 = f(t + h, y + h * k3)
-        y += h * (k1 + 2 * k2 + 2 * k3 + k4) / 6
-        t += h
-    return y
-
-
-def rk4_vec(f, y0, t_end, steps):
-    y = np.array(y0, dtype=float)
-    h = t_end / steps
-    t = 0.0
-    for _ in range(steps):
-        k1 = f(t, y)
-        k2 = f(t + h / 2, y + h * k1 / 2)
-        k3 = f(t + h / 2, y + h * k2 / 2)
-        k4 = f(t + h, y + h * k3)
-        y = y + h * (k1 + 2 * k2 + 2 * k3 + k4) / 6
-        t += h
-    return y
 
 
 def second_order_overshoot(zeta):
@@ -61,33 +30,9 @@ def second_order_settling_2pct(zeta, wn):
     return 4 / (zeta * wn)
 
 
-def prop_steady(kc, p, reference, disturbance=0.0, tau=0.4):
-    """RK4 of a first-order plant under proportional control. d adds at the output."""
-    def f(_t, yp):
-        measured = yp + disturbance
-        u = kc * (reference - measured)
-        return (p * u - yp) / tau
-    yp = rk4(f, 0.0, 40 * tau, 4000)
-    return yp + disturbance
-
-
-def check(name, got, exp, mismatches):
-    scale = max(abs(exp), 1e-9)
-    if abs(got - exp) / scale > 2e-3:
-        mismatches.append(f"{name}: bank {got} != recomputed {exp}")
-
-
 def main():
     mismatches = []
-    numeric = 0
-    banks = {sid: json.load(open(os.path.join(BANK, sid + ".json"), encoding="utf-8")) for sid in SKILLS}
-
-    def ans(sid, qid):
-        for q in banks[sid]["questions"]:
-            if q["id"] == qid:
-                return float(q["answer"])
-        raise SystemExit("missing " + qid)
-
+    banks = load_banks(SKILLS)
     expected = {}
 
     # --- second-order-sys ---
@@ -194,13 +139,10 @@ def main():
     expected["app-examples-r4-q1"] = -1 / 6  # -1/(AR) = -1/6
     expected["app-examples-r4-q2"] = 0.4  # T/10 where T = 4s
 
-    for qid, exp in expected.items():
-        sid = qid.rsplit("-r", 1)[0]
-        numeric += 1
-        check(qid, ans(sid, qid), exp, mismatches)
+    numeric = check_expected(banks, expected, mismatches)
 
     # worked examples, recomputed a different way and required to appear in the text
-    texts = {sid: json.dumps(json.load(open(os.path.join(EXP, sid + ".json"), encoding="utf-8"))) for sid in SKILLS}
+    texts = load_texts(SKILLS)
 
     # second-order-sys worked: zeta=0.4, wn=6, overshoot=25.4%
     worked_mp = second_order_overshoot(0.4)
@@ -230,12 +172,7 @@ def main():
     if "= 15" not in texts["app-examples"] or "= 3" not in texts["app-examples"]:
         mismatches.append("app-examples worked text")
 
-    print(f"numeric {numeric}, mismatches {len(mismatches)}, worked examples checked")
-    for m in mismatches:
-        print(" ", m)
-    if mismatches:
-        raise SystemExit(1)
-    print("0 mismatches")
+    finish(numeric, mismatches)
 
 
 if __name__ == "__main__":
