@@ -1285,7 +1285,6 @@
     "ode-model",
     "onoff-pid-intro"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1331,7 +1330,6 @@
     "first-order-sys",
     "pole-zero"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1453,7 +1451,6 @@
     "state-space-model",
     "impulse-conv"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1603,7 +1600,6 @@
     "block-diagram",
     "loop-gain"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1661,7 +1657,7 @@
   {
    "id": "time-delay",
    "name": "Time delay in feedback loops",
-   "summary": "Represent delay as e^{-sT}, see its phase lag, and use Padé approximations.",
+   "summary": "Represent delay as e^{-sT}, see its phase lag, and use Pad\u00e9 approximations.",
    "prereqs": [
     "freq-resp-lti"
    ],
@@ -1750,7 +1746,7 @@
   {
    "id": "robust-stability",
    "name": "Robust stability",
-   "summary": "Apply the small-gain test |T Δ|<1 and stability margins to uncertain plants.",
+   "summary": "Apply the small-gain test |T \u0394|<1 and stability margins to uncertain plants.",
    "prereqs": [
     "uncertainty",
     "stability"
@@ -2063,7 +2059,6 @@
    "prereqs": [
     "state-space-model"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -2251,7 +2246,6 @@
     "state-space-model",
     "fb-concepts"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",

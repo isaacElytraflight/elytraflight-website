@@ -1,0 +1,29 @@
+{
+  "id": "second-order-sys",
+  "title": "Second-order systems",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-order step</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,131.7 52,128.6 55.1,123.8 58.1,117.7 61.1,110.6 64.1,103 67.2,95 70.2,87 73.2,79.2 76.2,71.9 79.2,65.1 82.3,58.9 85.3,53.6 88.3,49.1 91.3,45.5 94.4,42.7 97.4,40.7 100.4,39.5 103.4,39 106.4,39.1 109.5,39.8 112.5,40.9 115.5,42.4 118.5,44.1 121.6,46 124.6,48 127.6,50.1 130.6,52.1 133.6,54 136.7,55.7 139.7,57.3 142.7,58.7 145.7,60 148.8,60.9 151.8,61.7 154.8,62.3 157.8,62.6 160.8,62.8 163.9,62.8 166.9,62.7 169.9,62.4 172.9,62.1 176,61.6 179,61.2 182,60.7 185,60.2 188,59.6 191.1,59.2 194.1,58.7 197.1,58.3 200.1,57.9 203.2,57.6 206.2,57.3 209.2,57.1 212.2,56.9 215.2,56.8 218.3,56.8 221.3,56.8 224.3,56.8 227.3,56.9 230.4,56.9 233.4,57 236.4,57.2 239.4,57.3 242.4,57.4 245.5,57.5 248.5,57.7 251.5,57.8 254.5,57.9 257.6,58 260.6,58.1 263.6,58.2 266.6,58.2 269.6,58.3 272.7,58.3 275.7,58.3 278.7,58.3 281.7,58.3 284.8,58.3 287.8,58.3 290.8,58.2 293.8,58.2 296.8,58.2 299.9,58.2 302.9,58.1 305.9,58.1 308.9,58.1 312,58 315,58 318,58\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that rises, overshoots, and then settles.",
+      "body_md": "A second-order system has two poles. If those poles are a complex conjugate pair in the left half-plane, the step response overshoots and oscillates before settling. Two numbers capture the shape: the natural frequency \\(\\omega_n\\) and the damping ratio \\(\\zeta\\).\n\nThe natural frequency is the distance from the origin to the pole. It sets the overall speed of the response. The damping ratio is the cosine of the angle from the negative real axis to the pole. It sets how much the response rings. A damping ratio of 1 is critical damping, where the poles are real and equal and the response settles as fast as possible without overshooting."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "Standard second-order form:\n\\[\n\\ddot{y} + 2\\zeta\\omega_n\\dot{y} + \\omega_n^2 y = \\omega_n^2 u.\n\\]\nPoles at \\(-\\zeta\\omega_n \\pm j\\omega_n\\sqrt{1-\\zeta^2}\\) for \\(\\zeta < 1\\). The damped frequency is \\(\\omega_d = \\omega_n\\sqrt{1-\\zeta^2}\\).\n\nPercent overshoot: \\(M_p = 100 e^{-\\pi\\zeta/\\sqrt{1-\\zeta^2}}\\). Time to peak: \\(t_p = \\pi/\\omega_d\\). Approximate 2% settling time: \\(t_s \\approx 4/(\\zeta\\omega_n)\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(\\omega_n = 5\\) rad/s and \\(\\zeta = 0.5\\). The poles are at \\(-2.5 \\pm j4.33\\). The damped frequency is \\(\\omega_d = 5 \\times 0.866 = 4.33\\) rad/s. The percent overshoot is\n\\[\nM_p = 100 e^{-\\pi \\times 0.5/0.866} = 16.3\\%.\n\\]\nThe time to peak is \\(t_p = \\pi/4.33 = 0.725\\) s. The settling time is about \\(4/(2.5) = 1.6\\) s. Using \\(\\omega_n = 5\\) instead of \\(\\omega_d\\) in the peak time formula gives \\(\\pi/5 = 0.628\\) s, which is wrong."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The natural frequency is not the ringing frequency. The ringing frequency is the damped frequency \\(\\omega_d\\), which is smaller than \\(\\omega_n\\) when \\(\\zeta > 0\\). The percent overshoot formula does not depend on \\(\\omega_n\\) directly; it depends only on \\(\\zeta\\). Confusing \\(\\omega_n\\) with \\(\\omega_d\\) in the peak-time formula gives the wrong answer. Critical damping (\\(\\zeta = 1\\)) is not overdamping; overdamping has \\(\\zeta > 1\\)."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Step-response specifications quote percent overshoot, rise time, and settling time. PID tuning often aims for a closed-loop damping ratio around 0.7, which gives about 5% overshoot. Nyquist and Bode plots relate the loop gain to the closed-loop damping ratio through phase and gain margins."
+    }
+  ]
+}
