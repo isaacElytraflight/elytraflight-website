@@ -34,6 +34,9 @@ Box: ME 132 (me132) and Feedback Systems (am08).
 
 Skills: `block-diagram`, `first-order-sys`, `model-method`, `onoff-pid-intro`, `state-space-model`.
 
-Every item is version 1.
+Items above version 1:
+
+- `block-diagram-r3-q3` version 2
+- `block-diagram-r4-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
