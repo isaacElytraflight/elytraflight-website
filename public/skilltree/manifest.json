@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-06T02:08:56.376931Z",
+  "generated": "2026-11-06T02:35:49.039221Z",
   "skills": {
-    "file": "skills.f37dff65.json",
-    "hash": "f37dff65"
+    "file": "skills.33dc28d3.json",
+    "hash": "33dc28d3"
   },
   "collections": {
     "file": "collections.17ae963b.json",
@@ -860,8 +860,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "290083b5",
-      "file": "banks/lin-algebra-review.290083b5.json"
+      "hash": "1113dbbb",
+      "file": "banks/lin-algebra-review.1113dbbb.json"
     },
     "loop-gain": {
       "version": 3,
@@ -956,8 +956,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "a5a29f9a",
-      "file": "banks/min-phase.a5a29f9a.json"
+      "hash": "80b19567",
+      "file": "banks/min-phase.80b19567.json"
     },
     "minority-profile": {
       "version": 1,
@@ -1124,8 +1124,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3a7ef9e0",
-      "file": "banks/ode-model.3a7ef9e0.json"
+      "hash": "3aa58e9f",
+      "file": "banks/ode-model.3aa58e9f.json"
     },
     "offset": {
       "version": 1,

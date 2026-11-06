@@ -28,3 +28,13 @@ Citations are in `docs/sources.md`. They are not on the skill records, because t
 Domain-validator warnings: none. Nothing to waive.
 
 The verbatim gate log is `docs/gates/b1-verbatim.log`. Zero failures. Four number flags were reviewed there and left as original problems.
+
+Figure fixes after review. Each edited question is version 2:
+
+- `min-phase-r4-q1`. The zero sat at x = 414, outside a 300-wide viewBox. The s-plane frame now scales so that zero and the real-axis break stay inside.
+- `min-phase-r2-q2`. The pole at −8 was drawn at about x = −26 and clipped. The same frame puts it inside.
+- `ode-model-r1-q2`. The stem says there is no spring. The figure draws the damper only.
+- `ode-model-r2-q2`. The stem says there is no damper. The figure draws the spring only.
+- `lin-algebra-review-r3-q3`, `lin-algebra-review-r4-q1`, and `lin-algebra-review-r4-q2`. Matrix figures take a list of entries, so a minus sign stays with its digit.
+
+`skilltree/validate_bank.py` warns when a circle, line endpoint, text anchor, or path falls outside the viewBox. B1 has no such warnings. Older banks do, and those figures were left as they were.

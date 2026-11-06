@@ -33,7 +33,7 @@ class Bank:
         self.qs = []
         self.n = {1: 0, 2: 0, 3: 0, 4: 0}
 
-    def q(self, rnd, kind, prompt, explanation, fig=None, alt=None, preview=None, **kw):
+    def q(self, rnd, kind, prompt, explanation, fig=None, alt=None, preview=None, version=1, **kw):
         self.n[rnd] += 1
         item = {
             "id": f"{self.sid}-r{rnd}-q{self.n[rnd]}",
@@ -50,15 +50,15 @@ class Bank:
         elif preview:
             raise SystemExit("preview only in round 4")
         item.update(kw)
-        item.setdefault("version", 1)
+        item["version"] = version
         self.qs.append(item)
 
-    def mc(self, rnd, prompt, options, correct, explanation, fig=None, alt=None, preview=None):
-        self.q(rnd, "mc", prompt, explanation, fig, alt, preview,
+    def mc(self, rnd, prompt, options, correct, explanation, fig=None, alt=None, preview=None, version=1):
+        self.q(rnd, "mc", prompt, explanation, fig, alt, preview, version,
                options=options, correct_index=correct)
 
-    def num(self, rnd, prompt, answer, unit, explanation, fig=None, alt=None, preview=None):
-        self.q(rnd, "numeric", prompt, explanation, fig, alt, preview,
+    def num(self, rnd, prompt, answer, unit, explanation, fig=None, alt=None, preview=None, version=1):
+        self.q(rnd, "numeric", prompt, explanation, fig, alt, preview, version,
                answer=g(answer), unit=unit, tolerance=0.02)
 
     def save(self):
@@ -585,24 +585,27 @@ def bank_lin():
           "\n• \(-2\) is the faster mode.\n"
           "• \(-3\) is the trace, the sum of the roots.\n"
           "• \(+1\) flips the sign. Both roots are in the left half-plane.",
-          matrix_fig(["0   -2", "1   -3"], "A 2 by 2 matrix with a zero in the corner"),
-          "A 2 by 2 matrix with first row 0, -2 and second row 1, -3.")
+          matrix_fig([["0", "-2"], ["1", "-3"]], "A 2 by 2 matrix with a zero in the corner"),
+          "A 2 by 2 matrix with first row 0, -2 and second row 1, -3.",
+          version=2)
     b.num(4,
           r"For \(A = \begin{bmatrix} 0 & 1 \\ 0 & -2 \end{bmatrix}\) and \(B = \begin{bmatrix} 0 \\ 1 \end{bmatrix}\), the controllability matrix is \(\begin{bmatrix} B & AB \end{bmatrix}\). What is its rank?",
           2.0, "1",
           r"\(AB = \begin{bmatrix} 1 \\ -2 \end{bmatrix}\), so the controllability matrix is \(\begin{bmatrix} 0 & 1 \\ 1 & -2 \end{bmatrix}\). Its determinant is \(-1\), not zero, so the rank is \(2\). "
           r"Full rank is the reachability test for a two-state linear system.",
-          matrix_fig(["0   1", "1  -2"], "A 2 by 2 controllability matrix"),
+          matrix_fig([["0", "1"], ["1", "-2"]], "A 2 by 2 controllability matrix"),
           "A 2 by 2 matrix with first row 0, 1 and second row 1, -2.",
-          ["reachability"])
+          ["reachability"],
+          version=2)
     b.num(4,
           r"For \(A = \begin{bmatrix} -1 & 0 \\ 0 & -3 \end{bmatrix}\) and \(C = \begin{bmatrix} 1 & 0 \end{bmatrix}\), the observability matrix stacks \(C\) over \(CA\). What is its rank?",
           1.0, "1",
           r"\(CA = \begin{bmatrix} -1 & 0 \end{bmatrix}\). Stacking gives \(\begin{bmatrix} 1 & 0 \\ -1 & 0 \end{bmatrix}\). The second row is \(-1\) times the first, and the second column is zero, so the rank is \(1\), not \(2\). "
           r"A rank short of the state dimension means the pair is not observable: the mode at \(-3\) never appears in the output.",
-          matrix_fig(["1   0", "-1  0"], "A 2 by 2 observability matrix with a zero column"),
+          matrix_fig([["1", "0"], ["-1", "0"]], "A 2 by 2 observability matrix with a zero column"),
           "A 2 by 2 matrix with first row 1, 0 and second row -1, 0.",
-          ["observability"])
+          ["observability"],
+          version=2)
     b.num(4,
           r"Pole placement wants the closed-loop characteristic polynomial \((s+2)(s+5)\). What is the coefficient of \(s\)?",
           7.0, "1",
@@ -738,7 +741,8 @@ def bank_min():
          r"A factor \(e^{-0.1 s}\) is a delay, which adds lag at every frequency and is not minimum phase. "
          r"\((3-s)/(s+3)\) is an all-pass with a right-half-plane zero.",
          splane([(-1, 0), (-8, 0)], [(-3, 0)], "Poles and a zero, all in the left half-plane"),
-         "s-plane with two poles and one zero, all on the negative real axis.")
+         "s-plane with two poles and one zero, all on the negative real axis.",
+         version=2)
     b.num(2,
           r"\(H(s) = \dfrac{s+5}{s+20}\). What is the phase of \(H(j5)\), in degrees? Give the signed number.",
           math.degrees(math.atan2(5, 5) - math.atan2(5, 20)), "deg",
@@ -794,7 +798,8 @@ def bank_min():
           "• \(+36.9\) would be lead, which a right-half-plane zero does not provide.",
           splane([], [(12, 0)], "A zero on the positive real axis"),
           "s-plane with one zero to the right of the imaginary axis.",
-          ["fund-limits"])
+          ["fund-limits"],
+          version=2)
     b.num(4,
           r"A design plans to cross over at \(40\ \mathrm{rad/s}\) and must live with a \(5\ \mathrm{ms}\) delay. How many degrees of phase lag does that delay add at crossover? Give a positive number.",
           math.degrees(40 * 0.005), "deg",
@@ -899,8 +904,9 @@ def bank_ode():
           "\n• \(24/4 = 6\) is the initial acceleration in \(\mathrm{m/s^2}\), if the mass starts from rest, not a speed.\n"
           "• \(8/4 = 2\) is the reciprocal of the time constant, in \(\mathrm{s^{-1}}\).\n"
           "• \(24 \times 8\) multiplies the two coefficients.",
-          mass_spring("Mass with damping, pulled by a constant force"),
-          "A mass connected to a wall through a damper, with a force arrow.")
+          mass_spring("Mass with damping, pulled by a constant force", spring=False),
+          "A mass connected to a wall through a damper, with a force arrow.",
+          version=2)
     b.mc(1,
          r"A tank of surface area \(A\) is filled by a volume flow \(q_\mathrm{in}\). The outflow is linearized as \(q_\mathrm{out} = h/R\). Which height equation matches the volume balance?",
          [
@@ -936,8 +942,9 @@ def bank_ode():
          "The spring force on the mass pulls back toward the unstretched position, so it enters with a minus: \(m\\ddot y = u - ky\). "
          "A plus sign on \(ky\) would push the mass further out as it moves out, which is unstable. "
          "The mass multiplies acceleration, not velocity. Swapping \(m\) and \(k\) assigns inertia to the spring and a spring law to the mass.",
-         mass_spring("Mass and spring, no damper drawn in the force balance"),
-         "A mass, a spring to a wall, and an applied force.")
+         mass_spring("Mass and spring, no damper drawn in the force balance", damper=False),
+         "A mass, a spring to a wall, and an applied force.",
+         version=2)
     b.num(2,
           r"A rotor has inertia \(J = 0.4\ \mathrm{kg\,m^2}\) and viscous friction \(0.08\ \mathrm{N\,m\,s}\). A constant torque of \(0.16\ \mathrm{N\,m}\) is applied. What speed does it settle to, in rad/s?",
           0.16 / 0.08, "rad/s",
