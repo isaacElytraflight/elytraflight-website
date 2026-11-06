@@ -26,18 +26,11 @@ description: >-
 ## 2. Sources and copyright
 - Ground each skill in two or more canonical sources: open textbooks, standard references, and course materials used with permission. Check each source's license page and record it in a source registry. Treat anything not openly licensed as fully copyrighted. Use course syllabi and notes for scope only.
 - **Reference, not source.** Read the section, close it, and write from understanding. Never draft with the source open.
-- **Nothing verbatim.** Don't copy sentences, definition wording or explanation structure. Standard equations and notation are facts and fine to use.
-- **No borrowed problems.** Don't reuse exercises, worked examples, or their parameter sets. Invent scenarios, use fresh numbers that never match the source, and frame questions differently.
+- **Paraphrase from understanding.** Read the section, close it, and write in your own words. Do not copy wording, problems, parameter sets, or figures. Standard equations and notation are facts and fine to use.
+- **No borrowed problems.** Don't reuse exercises, worked examples, or their parameter sets. Invent scenarios, use fresh numbers, and frame questions differently.
 - **Figures.** Never trace, redraw or screenshot a source figure. Generate every figure from our own code, data and labels.
-- **Citations.** Cite as "Further reading: Author, Title, §x.y" (reference only). Never quote the source, show its pages, or ship or link its PDF.
-- **Automated no-verbatim gate:**
-  - normalize the source text and build 8-word shingles
-  - check every stem, choice, explanation and explainer against them
-  - fail on any matching run of 12+ words, or on more than 5% of a text's 8-grams matching
-  - flag any 3+ numbers that appear together in one source sentence
-  - allowlist only standard phrases
-  - log the results
-- **Spot audit.** Each batch, compare 10% of items against their cited sections for close paraphrase, and rewrite any that fail.
+- **No source names in learner-facing content.** Stems, choices, explanations, explainers, figures, alt text, and the skill panel do not name a reader or a textbook. Record citations in the authoring source registry only. Never quote the source, show its pages, or ship or link its PDF.
+- **Shingle gate and spot audit, deferred.** The automated 8-word shingle gate and the manual 10% spot audit are not part of the batch pipeline. They wait for a later cleanup pass.
 - **Errata.** Log source errata and use the correct version.
 
 ## 3. Notation
@@ -70,7 +63,7 @@ description: >-
 
 ## 6. Figures and math
 - Figures on at least 50% of questions (aim for 75%) and in every explainer.
-- Build them only from a shared helper library, extended per topic area.
+- Build them from `tools/skilltree-content/templates.py` (s-plane, block diagram, mass-spring-damper, matrix, Bode, step response, Nyquist, root locus, generic plot). The templates fit themselves to the viewBox. Extend that library for a shape it does not have.
 - Sanitize SVG: well-formed, viewBox, size cap, no scripts, embeds, links, styles, handlers or URLs.
 - Alt text on every figure. Neither the figure nor the alt text reveals the answer.
 - Use one math delimiter convention with no `$`, and render in strict mode. Use raw strings in code.
@@ -88,13 +81,14 @@ description: >-
 ## 9. Throughput
 - A coordinator splits the work into batches of 5–15 skills (one breadth-first layer of a box, prerequisites done) and reserves new ids up front.
 - Parallel writers get a fixed brief and own disjoint files; shared-file changes come back as patches.
-- **Hard gates:**
-  - an independent verifier recomputes every answer and worked example by a different method, with 0 mismatches
-  - the schema, graph and domain validators pass
-  - the no-verbatim copyright gate passes
-  - strict math rendering passes
-  - the writer looks at rendered previews
-- An expert reviews a random 10% of questions, at least one per skill. Any error means the whole batch is reviewed.
+- **Hard gates.** One command, `python3 tools/skilltree-content/run_gates.py --batch <id>`, runs:
+  - the schema, graph, and domain validators
+  - the batch's independent numeric verifier (0 mismatches)
+  - the figure-bounds check
+  - strict math rendering
+  - `test-content`, `test-merge`, `test-migrate`, and the Puppeteer suite
+- The shingle gate and the 10% spot audit are deferred. They are not part of this command.
+- The writer looks at rendered previews.
 
 ## 10. Learner feedback loop
 - A flag button on every question: wrong, unclear, typo, figure, other.
@@ -113,5 +107,5 @@ Every batch brief states:
 - the prerequisites, the registries to read, and the sources (with licenses) and sections
 - the bank and explainer specs, and the core/application split
 - the gates
-- deliverables (content, generator, verifier, patches) and the report (counts, gate outputs, previews, dedupe and split decisions, errata)
+- deliverables (content, generator, verifier, patches) and the generated report (counts, gate outputs, dedupe pointer)
 - "do not publish"

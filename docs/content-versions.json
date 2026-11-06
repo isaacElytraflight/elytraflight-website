@@ -1,6 +1,6 @@
 {
-  "batch": "B1",
-  "note": "Learner progress is separate. This list is the content version of each item.",
+  "batch": "me132-b1",
+  "note": "Generated from the bank and explainer files. Learner progress is separate.",
   "items": [
     {
       "id": "fb-concepts-r1-q1",
@@ -40,7 +40,7 @@
     },
     {
       "id": "fb-concepts-r4-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "fb-concepts-r4-q2",
@@ -164,7 +164,7 @@
     },
     {
       "id": "min-phase-r1-q2",
-      "version": 1
+      "version": 2
     },
     {
       "id": "min-phase-r1-q3",
@@ -172,7 +172,7 @@
     },
     {
       "id": "min-phase-r2-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "min-phase-r2-q2",
@@ -192,7 +192,7 @@
     },
     {
       "id": "min-phase-r3-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "min-phase-r4-q1",
@@ -200,7 +200,7 @@
     },
     {
       "id": "min-phase-r4-q2",
-      "version": 1
+      "version": 2
     },
     {
       "id": "min-phase-r4-q3",

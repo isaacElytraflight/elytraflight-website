@@ -25,12 +25,12 @@
       "type": "numeric",
       "prompt": "A pure delay of \\(0.02\\ \\mathrm{s}\\) has frequency response \\(e^{-j\\omega T}\\). What is its phase lag at \\(\\omega = 50\\ \\mathrm{rad/s}\\), in degrees? Give a positive number.",
       "explanation": "The phase is \\(-\\omega T\\) radians. \\(\\omega T = 50 \\times 0.02 = 1\\) radian, and \\(1 \\times 180/\\pi = 57.2958\\) degrees of lag. The magnitude of a delay is \\(1\\) at every frequency, so a magnitude plot cannot see this lag.\n• \\(50 \\times 0.02 = 1\\) leaves the answer in radians.\n• \\(0.02 \\times 180/\\pi = 1.15\\) forgets to multiply by \\(\\omega\\).\n• \\(360 \\times 0.02 = 7.2\\) treats the delay as a fraction of a one-second period.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A block that delays its input</title><line x1=\"16\" y1=\"70\" x2=\"50\" y2=\"70\"/><polygon points=\"50,70 43.6,72.7 43.6,67.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"50\" y=\"46\" width=\"90\" height=\"48\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"95\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">delay</text><line x1=\"140\" y1=\"70\" x2=\"190\" y2=\"70\"/><polygon points=\"190,70 183.6,72.7 183.6,67.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 216 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A block that delays its input</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">delay</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"184\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
       "figure_alt": "A single block on a signal path, labeled as a delay.",
       "answer": 57.2958,
       "unit": "deg",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "min-phase-r1-q3",
@@ -55,12 +55,12 @@
       "type": "numeric",
       "prompt": "The all-pass \\((7-s)/(7+s)\\) is evaluated at \\(\\omega = 14\\ \\mathrm{rad/s}\\). What is its phase, in degrees? Give the signed number.",
       "explanation": "At \\(s = j14\\), the numerator \\(7-j14\\) has angle \\(\\tan^{-1}(-14/7) = \\tan^{-1}(-2)\\), and the denominator \\(7+j14\\) has the opposite angle. The phase is \\(-2\\tan^{-1}(2) = -126.870\\) degrees. Equivalently, a delay-free all-pass of this form contributes \\(-2\\tan^{-1}(\\omega/z)\\).\n• \\(-63.4\\) degrees counts only one of the two factors.\n• \\(+126.9\\) flips the sign, which would be lead.\n• \\(-90\\) would be the phase at \\(\\omega = 7\\), the corner, not at twice that frequency.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>An all-pass block on a signal path</title><line x1=\"16\" y1=\"70\" x2=\"50\" y2=\"70\"/><polygon points=\"50,70 43.6,72.7 43.6,67.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"50\" y=\"46\" width=\"90\" height=\"48\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"95\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">delay</text><line x1=\"140\" y1=\"70\" x2=\"190\" y2=\"70\"/><polygon points=\"190,70 183.6,72.7 183.6,67.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 216 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>An all-pass block on a signal path</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">delay</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"184\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
       "figure_alt": "A block in series on a signal path.",
       "answer": -126.87,
       "unit": "deg",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "min-phase-r2-q2",
@@ -128,12 +128,12 @@
       "type": "numeric",
       "prompt": "Evaluate the all-pass \\((8-s)/(8+s)\\) at \\(\\omega = 4\\ \\mathrm{rad/s}\\). What is its phase, in degrees? Give the signed number.",
       "explanation": "The phase of \\((z-s)/(z+s)\\) on \\(s = j\\omega\\) is \\(-2\\tan^{-1}(\\omega/z)\\). With \\(\\omega/z = 0.5\\), \\(\\tan^{-1}(0.5) = 26.565^\\circ\\) and the phase is \\(-53.130\\) degrees. The magnitude is exactly \\(1\\), so this lag is invisible on a magnitude plot.\n• \\(-26.6\\) degrees counts one factor.\n• \\(-90\\) would require \\(\\omega = z\\).\n• \\(+53.1\\) is the phase of the minimum-phase mirror \\((s+8)/(8)\\), not of this all-pass.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>All-pass factor in series</title><line x1=\"16\" y1=\"70\" x2=\"50\" y2=\"70\"/><polygon points=\"50,70 43.6,72.7 43.6,67.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"50\" y=\"46\" width=\"90\" height=\"48\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"95\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">delay</text><line x1=\"140\" y1=\"70\" x2=\"190\" y2=\"70\"/><polygon points=\"190,70 183.6,72.7 183.6,67.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 216 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>All-pass factor in series</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">delay</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"184\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
       "figure_alt": "A series block on a signal path.",
       "answer": -53.1301,
       "unit": "deg",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "min-phase-r4-q1",
@@ -157,7 +157,7 @@
       "type": "numeric",
       "prompt": "A design plans to cross over at \\(40\\ \\mathrm{rad/s}\\) and must live with a \\(5\\ \\mathrm{ms}\\) delay. How many degrees of phase lag does that delay add at crossover? Give a positive number.",
       "explanation": "Lag is \\(\\omega T\\) radians: \\(40 \\times 0.005 = 0.2\\) radian, times \\(180/\\pi\\), is \\(11.459\\) degrees. The delay does not change \\(|L|\\). It only spends phase margin. Keeping that lag small is one of the limits on how high the crossover can sit.\n• \\(0.2\\) leaves the unit in radians.\n• \\(40/0.005 = 8000\\) divides instead of multiplying.\n• \\(5\\) is the delay in milliseconds, not the phase.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Delay block ahead of a loop crossover</title><line x1=\"16\" y1=\"70\" x2=\"50\" y2=\"70\"/><polygon points=\"50,70 43.6,72.7 43.6,67.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"50\" y=\"46\" width=\"90\" height=\"48\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"95\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">delay</text><line x1=\"140\" y1=\"70\" x2=\"190\" y2=\"70\"/><polygon points=\"190,70 183.6,72.7 183.6,67.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 216 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Delay block ahead of a loop crossover</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">delay</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"184\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
       "figure_alt": "A delay block in a signal path.",
       "preview": [
         "fund-limits"
@@ -165,7 +165,7 @@
       "answer": 11.4592,
       "unit": "deg",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "min-phase-r4-q3",

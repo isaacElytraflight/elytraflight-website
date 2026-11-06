@@ -206,7 +206,8 @@ def bank_fb():
          "Blocks in series multiply. The equivalent gain is \(3 \\times 4 = 12\). Addition is the rule for signals that meet at a summing junction, not for blocks one after another. A ratio would be a feedback or a divider. Nothing here cancels: cancellation would need a block of gain \(1/3\) after the first block.",
          series_blocks("Two blocks in series, gains 3 and 4"),
          "Two blocks one after another, labeled gain 3 and gain 4, with an arrow into the first and an arrow out of the second.",
-         ["block-diagram"])
+         ["block-diagram"],
+         version=2)
     b.mc(4,
          r"A proportional controller uses \(K_c = 5\). The reference is \(6\) and the measured output is \(4\). What command does it send?",
          [
@@ -702,7 +703,8 @@ def bank_min():
           "• \(0.02 \\times 180/\\pi = 1.15\) forgets to multiply by \(\\omega\).\n"
           "• \(360 \\times 0.02 = 7.2\) treats the delay as a fraction of a one-second period.",
           delay_blocks("A block that delays its input"),
-          "A single block on a signal path, labeled as a delay.")
+          "A single block on a signal path, labeled as a delay.",
+          version=2)
     b.mc(1,
          "You may multiply a transfer function by one of the following without changing its magnitude Bode plot. Which choice adds phase lag?",
          [
@@ -726,7 +728,8 @@ def bank_min():
           "• \(+126.9\) flips the sign, which would be lead.\n"
           "• \(-90\) would be the phase at \(\\omega = 7\), the corner, not at twice that frequency.",
           delay_blocks("An all-pass block on a signal path"),
-          "A block in series on a signal path.")
+          "A block in series on a signal path.",
+          version=2)
     b.mc(2,
          "Which transfer function is minimum phase?",
          [
@@ -787,7 +790,8 @@ def bank_min():
           "• \(-90\) would require \(\omega = z\).\n"
           "• \(+53.1\) is the phase of the minimum-phase mirror \((s+8)/(8)\), not of this all-pass.",
           delay_blocks("All-pass factor in series"),
-          "A series block on a signal path.")
+          "A series block on a signal path.",
+          version=2)
     b.num(4,
           r"Replacing a left-half-plane zero at \(-12\) by a right-half-plane zero at \(+12\) multiplies the transfer function by the all-pass \((12-s)/(12+s)\). At \(\omega = 4\ \mathrm{rad/s}\), how much extra phase does that all-pass add, in degrees? Give the signed number.",
           math.degrees(math.atan2(-4, 12) - math.atan2(4, 12)), "deg",
@@ -810,7 +814,8 @@ def bank_min():
           "• \(5\) is the delay in milliseconds, not the phase.",
           delay_blocks("Delay block ahead of a loop crossover"),
           "A delay block in a signal path.",
-          ["fund-limits"])
+          ["fund-limits"],
+          version=2)
     b.num(4,
           r"A right-half-plane zero sits at \(+6\). Consider the factor \((6-s)\) alone. What is its phase, in degrees, at \(\omega = 6\ \mathrm{rad/s}\)? Give the signed number.",
           -45.0, "deg",

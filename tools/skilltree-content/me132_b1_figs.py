@@ -1,4 +1,4 @@
-"""SVG figures for ME 132 batch B1. Built on the shared figlib helpers.
+"""SVG figures for ME 132 batch B1. Shared shapes come from templates.py.
 
 Alt text describes the drawing. It does not state the quantity the question asks for.
 """
@@ -8,29 +8,14 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from figlib import (
-    b2b_arrow, b2b_axes, b2b_box, b2b_circle, b2b_curve, b2b_dot, b2b_ground,
-    b2b_line, b2b_poly, b2b_rect, b2b_resistor, b2b_svg, b2b_text, b2b_vsource,
+    b2b_arrow, b2b_box, b2b_circle, b2b_dot, b2b_ground,
+    b2b_line, b2b_rect, b2b_resistor, b2b_svg, b2b_text, b2b_vsource,
     b2b_wire, b2b_capacitor,
 )
-
-
-def plot(fn, xa, xb, xlabel, ylabel, title, w=340, h=176, zero=False):
-    n = 90
-    ys = [fn(xa + (xb - xa) * i / n) for i in range(n + 1)]
-    lo, hi = min(ys), max(ys)
-    span = hi - lo or 1.0
-    lo -= 0.14 * span
-    hi += 0.16 * span
-    x0, y0 = 46, h - 30
-    pw, ph = w - 68, h - 54
-    sx = pw / (xb - xa)
-    sy = ph / (hi - lo)
-    body = b2b_axes(x0, y0, pw, ph, xlabel, ylabel)
-    if zero and lo < 0 < hi:
-        yz = y0 - sy * (0 - lo)
-        body += b2b_line(x0, yz, x0 + pw, yz, dash=True)
-    body += b2b_curve(lambda x: fn(x) - lo, xa, xb, x0, y0, sx, sy, n=n, sw=2.2)
-    return b2b_svg(w, h, body, title)
+from templates import (
+    block_diagram, bode_sketch as bode_slope, mass_spring, matrix_fig, plot,
+    splane, step_response,
+)
 
 
 def _summer(x, y, minus="bottom"):
@@ -97,14 +82,7 @@ def open_loop(title, disturbance=False):
 
 
 def series_blocks(title):
-    y = 70
-    body = b2b_arrow(20, y, 50, y)
-    body += b2b_box(50, y - 24, 70, 48, "gain 3")
-    body += b2b_arrow(120, y, 160, y)
-    body += b2b_box(160, y - 24, 70, 48, "gain 4")
-    body += b2b_arrow(230, y, 280, y)
-    body += b2b_text(292, y + 4, "out", anchor="start")
-    return b2b_svg(340, 120, body, title)
+    return block_diagram(["gain 3", "gain 4"], title, output_label="out")
 
 
 def proportional(title):
@@ -138,19 +116,6 @@ def bars(title):
     return b2b_svg(290, 186, body, title)
 
 
-def matrix_fig(rows, title):
-    """Each row is a list of entries, such as ["0", "-2"]. A preformatted string is drawn as given."""
-    body = b2b_text(28, 78, "[", size=28)
-    body += b2b_text(168, 78, "]", size=28)
-    for i, row in enumerate(rows):
-        if isinstance(row, (list, tuple)):
-            label = "   ".join(str(entry) for entry in row)
-        else:
-            label = str(row)
-        body += b2b_text(98, 58 + i * 28, label, size=16)
-    return b2b_svg(200, 130, body, title)
-
-
 def vectors(title):
     body = b2b_arrow(30, 120, 150, 40)
     body += b2b_text(156, 38, "v1", anchor="start", size=12)
@@ -171,108 +136,10 @@ def eigen_plane(title):
     return b2b_svg(270, 170, body, title)
 
 
-def _splane_map(marks, w=300, h=180):
-    """Origin and scale. Keep 150, 90, 22 when every mark and axis break fits.
-    Otherwise shrink and shift so a far pole or zero stays inside the viewBox."""
-    x0, y0, s = 150.0, 90.0, 22.0
-
-    def outside(x0, y0, s):
-        pts = [(20, y0), (280, y0), (x0, 160), (x0, 16), (x0 + 8, 14), (274, y0 + 16)]
-        for re, im in marks:
-            x, y = x0 + s * re, y0 - s * im
-            pts += [(x - 5, y - 5), (x + 5, y + 5), (x - 5, y + 5), (x + 5, y - 5)]
-            if abs(im) < 0.2:
-                pts += [(x - 14, y), (x + 14, y)]
-        return any(px < 0 or px > w or py < 0 or py > h for px, py in pts)
-
-    if not outside(x0, y0, s):
-        return x0, y0, s
-    res = [0.0] + [float(re) for re, im in marks]
-    ims = [0.0] + [float(im) for re, im in marks]
-    rmin, rmax = min(res), max(res)
-    imin, imax = min(ims), max(ims)
-    if rmax - rmin < 1:
-        mid = (rmin + rmax) / 2
-        rmin, rmax = mid - 1, mid + 1
-    if imax - imin < 1:
-        mid = (imin + imax) / 2
-        imin, imax = mid - 1, mid + 1
-    # Mark centers sit in this box, leaving 14 px for a real-axis break and room for the arrows.
-    left, right, top, bottom = 40.0, 246.0, 36.0, 148.0
-    s = min((right - left) / (rmax - rmin), (bottom - top) / (imax - imin))
-    for _ in range(8):
-        x0 = (left + right) / 2 - s * (rmin + rmax) / 2
-        y0 = (top + bottom) / 2 + s * (imin + imax) / 2
-        if not outside(x0, y0, s):
-            return x0, y0, s
-        s *= 0.85
-    return x0, y0, s
-
-
-def splane(poles, zeros, title):
-    w, h = 300, 180
-    marks = list(poles) + list(zeros)
-    x0, y0, sx = _splane_map(marks, w, h)
-    # Break the real axis around marks that sit on it, so a zero is an open circle.
-    gaps = []
-    for pr, pi in marks:
-        if abs(pi) < 0.2:
-            gaps.append(x0 + sx * pr)
-    gaps.sort()
-    x = 20
-    body = ""
-    for g in gaps:
-        if g - 14 > x:
-            body += b2b_line(x, y0, g - 14, y0)
-        x = max(x, g + 14)
-    if x < 280:
-        body += b2b_arrow(x, y0, 280, y0)
-    body += b2b_arrow(x0, 160, x0, 16)
-    body += b2b_text(274, y0 + 16, "Re", size=11)
-    body += b2b_text(x0 + 8, 14, "Im", anchor="start", size=11)
-    for pr, pi in poles:
-        x, y = x0 + sx * pr, y0 - sx * pi
-        body += b2b_line(x - 5, y - 5, x + 5, y + 5, sw=1.8)
-        body += b2b_line(x - 5, y + 5, x + 5, y - 5, sw=1.8)
-    for zr, zi in zeros:
-        body += b2b_circle(x0 + sx * zr, y0 - sx * zi, 5)
-    return b2b_svg(w, h, body, title)
-
-
-def bode_slope(title):
-    """Magnitude falling at one slope, then steeper. The trace stays inside the axes."""
-    pts = [(58, 42), (150, 86), (268, 142)]
-    body = b2b_axes(50, 156, 250, 126, "log \u03c9", "|H| dB")
-    body += b2b_poly(pts, sw=2.2)
-    body += b2b_text(96, 52, "\u221220", size=11)
-    body += b2b_text(188, 96, "\u221240", size=11)
-    return b2b_svg(330, 186, body, title)
-
-
 def inverse_step(title):
     def y(t):
         return 0.5 - math.exp(-t) + 0.5 * math.exp(-4 * t)
     return plot(y, 0, 4, "t", "y", title, zero=True)
-
-
-def mass_spring(title, spring=True, damper=True):
-    """Draw only the elements the question includes. A missing spring or damper is omitted."""
-    body = b2b_rect(16, 36, 14, 100, fill=True)
-    if spring:
-        body += b2b_line(30, 70, 48, 70)
-        body += b2b_poly([(48, 70), (56, 58), (66, 82), (76, 58), (86, 82), (96, 58), (106, 82), (116, 70), (140, 70)])
-        body += b2b_text(90, 50, "k", size=12)
-    if damper:
-        body += b2b_line(30, 112, 78, 112)
-        body += b2b_rect(78, 100, 28, 24)
-        body += b2b_line(106, 112, 140, 112)
-        body += b2b_text(92, 142, "b", size=12)
-    body += b2b_rect(140, 48, 64, 80)
-    body += b2b_text(172, 94, "m", size=16)
-    body += b2b_arrow(204, 88, 250, 88)
-    body += b2b_text(258, 92, "F", anchor="start")
-    body += b2b_line(30, 148, 230, 148)
-    return b2b_svg(280, 168, body, title)
 
 
 def rotor(title):
@@ -350,7 +217,7 @@ def car(title):
 
 
 def step_shape(title, tau=1.0, goal=1.0):
-    return plot(lambda t: goal * (1 - math.exp(-t / tau)), 0, 5 * tau, "t", "y", title)
+    return step_response(title, tau=tau, goal=goal)
 
 
 def decay_shape(title):
@@ -362,9 +229,4 @@ def sine_shape(title):
 
 
 def delay_blocks(title):
-    y = 70
-    body = b2b_arrow(16, y, 50, y)
-    body += b2b_box(50, y - 24, 90, 48, "delay")
-    body += b2b_arrow(140, y, 190, y)
-    body += b2b_text(200, y + 4, "y", anchor="start")
-    return b2b_svg(240, 120, body, title)
+    return block_diagram(["delay"], title, output_label="y")

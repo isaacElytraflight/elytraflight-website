@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""No-verbatim gate for a content batch.
+"""Deferred. Not part of the batch gate.
+
+Writers paraphrase from understanding: no copied wording, problems, parameter
+sets, or figures, and no source names in learner-facing content. This shingle
+check and the manual spot audit come back in a later cleanup pass. Do not call
+this from run_gates.py.
+
+No-verbatim gate for a content batch.
 
 Compares learner-facing stems, choices, explanations, and explainers with
 source text that is kept outside the repo.

@@ -1,0 +1,24 @@
+{
+  "id": "me132-b1",
+  "label": "B1",
+  "box": "ME 132 (me132) and Feedback Systems (am08)",
+  "skills": [
+    "fb-concepts",
+    "laplace",
+    "lin-algebra-review",
+    "min-phase",
+    "ode-model"
+  ],
+  "areas": {
+    "fb-concepts": ["feedback-loop"],
+    "laplace": ["laplace", "signals"],
+    "lin-algebra-review": ["linear-algebra"],
+    "min-phase": ["frequency-response"],
+    "ode-model": ["physical-models"]
+  },
+  "cores": ["lin-algebra-review"],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/me132-content-batches.md",
+  "verifier": "skilltree/verify_me132_b1.py"
+}
