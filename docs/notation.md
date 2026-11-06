@@ -109,3 +109,38 @@ Added in B3 for `loop-tf`.
 | \(1 + L(s)\) | return difference | |
 
 Note: The identity \(T + S = 1\) holds for \(T = L/(1+L)\) and \(S = 1/(1+L)\). For non-unity feedback (\(H \ne 1\)), the closed-loop gain \(G/(1+GH)\) differs from \(L/(1+L)\).
+
+## pid-control
+
+Added in B4 for `pid`.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(K_p\) | proportional gain | |
+| \(K_i\) | integral gain | |
+| \(K_d\) | derivative gain | |
+| \(\tau_i = K_p/K_i\) | integral time constant | |
+| \(\tau_d = K_d/K_p\) | derivative time constant | |
+
+## nyquist-stability
+
+Added in B4 for `nyquist`.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| GM | gain margin, factor by which loop gain can increase | in dB: \(20\log_{10}(\text{GM})\) |
+| PM | phase margin, degrees from \(-180°\) at \(|L|=1\) | |
+| \(M_s\) | peak sensitivity \(\max|S(j\omega)|\) | reciprocal of closest approach to \(-1\) |
+| \(-1\) | critical point on the Nyquist plot | encirclement count determines stability |
+
+## discrete-time-systems
+
+Added in B4 for `discrete-time`.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(z\) | z-transform variable | \(z = e^{sT}\) |
+| \(T\) | sample period, seconds | sample time |
+| \(f_N = 1/(2T)\) | Nyquist frequency, Hz | folding frequency |
+| \(z^{-1}\) | one-sample delay | unit delay |
+| unit circle | stability boundary in the z-plane | \(|z| = 1\) |

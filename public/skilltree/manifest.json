@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-06T20:42:47.956819Z",
+  "generated": "2026-11-06T23:44:23.447718Z",
   "skills": {
-    "file": "skills.0bd5bf34.json",
-    "hash": "0bd5bf34"
+    "file": "skills.314bea33.json",
+    "hash": "314bea33"
   },
   "collections": {
     "file": "collections.17ae963b.json",
@@ -551,6 +551,18 @@
       "hash": "8c449146",
       "file": "banks/direct-h.8c449146.json"
     },
+    "discrete-time": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b8a19f94",
+      "file": "banks/discrete-time.b8a19f94.json"
+    },
     "doping": {
       "version": 1,
       "questionCount": 12,
@@ -610,6 +622,18 @@
       },
       "hash": "4369db90",
       "file": "banks/ebers-moll.4369db90.json"
+    },
+    "eig-modes": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "e104c509",
+      "file": "banks/eig-modes.e104c509.json"
     },
     "electrostatics": {
       "version": 1,
@@ -911,6 +935,18 @@
       "hash": "a06a5fee",
       "file": "banks/led.a06a5fee.json"
     },
+    "limit-cycles": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b210fe9a",
+      "file": "banks/limit-cycles.b210fe9a.json"
+    },
     "lin-algebra-review": {
       "version": 1,
       "questionCount": 12,
@@ -1187,6 +1223,18 @@
       "hash": "89c6c06a",
       "file": "banks/noise-dist.89c6c06a.json"
     },
+    "nyquist": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "25502bad",
+      "file": "banks/nyquist.25502bad.json"
+    },
     "octc": {
       "version": 2,
       "questionCount": 12,
@@ -1270,6 +1318,18 @@
       },
       "hash": "99243278",
       "file": "banks/phasors.99243278.json"
+    },
+    "pid": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "796ec66f",
+      "file": "banks/pid.796ec66f.json"
     },
     "pmos": {
       "version": 1,
@@ -1379,6 +1439,18 @@
       "hash": "3f600b1a",
       "file": "banks/second-order-sys.3f600b1a.json"
     },
+    "sensitivity": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "61a4812e",
+      "file": "banks/sensitivity.61a4812e.json"
+    },
     "sheet-res": {
       "version": 1,
       "questionCount": 12,
@@ -1475,6 +1547,18 @@
       "hash": "8308e1f7",
       "file": "banks/ss-solution.8308e1f7.json"
     },
+    "ss-to-tf": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "5816e56b",
+      "file": "banks/ss-to-tf.5816e56b.json"
+    },
     "stability": {
       "version": 3,
       "questionCount": 12,
@@ -1510,6 +1594,18 @@
       },
       "hash": "6a45f1a8",
       "file": "banks/step-resp.6a45f1a8.json"
+    },
+    "step-specs": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "6fe3095f",
+      "file": "banks/step-specs.6fe3095f.json"
     },
     "tf": {
       "version": 3,
@@ -1801,6 +1897,12 @@
       "file": "explainers/direct-h.655321a2.json",
       "sectionCount": 5
     },
+    "discrete-time": {
+      "hash": "8c80d752",
+      "file": "explainers/discrete-time.8c80d752.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "doping": {
       "hash": "a33929fb",
       "file": "explainers/doping.a33929fb.json",
@@ -1825,6 +1927,12 @@
       "hash": "21e13953",
       "file": "explainers/ebers-moll.21e13953.json",
       "sectionCount": 5
+    },
+    "eig-modes": {
+      "hash": "283c1c15",
+      "file": "explainers/eig-modes.283c1c15.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "electrostatics": {
       "hash": "7cb26824",
@@ -1955,6 +2063,12 @@
       "file": "explainers/led.da5c57e8.json",
       "sectionCount": 5
     },
+    "limit-cycles": {
+      "hash": "783be767",
+      "file": "explainers/limit-cycles.783be767.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "lin-algebra-review": {
       "hash": "7e85ac96",
       "file": "explainers/lin-algebra-review.7e85ac96.json",
@@ -2074,6 +2188,12 @@
       "file": "explainers/noise-dist.b17d1272.json",
       "sectionCount": 5
     },
+    "nyquist": {
+      "hash": "79c90f67",
+      "file": "explainers/nyquist.79c90f67.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "octc": {
       "hash": "ed6fb74f",
       "file": "explainers/octc.ed6fb74f.json",
@@ -2110,6 +2230,12 @@
       "hash": "d3c076c1",
       "file": "explainers/phasors.d3c076c1.json",
       "sectionCount": 5
+    },
+    "pid": {
+      "hash": "84321696",
+      "file": "explainers/pid.84321696.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "pmos": {
       "hash": "0d651367",
@@ -2157,6 +2283,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "sensitivity": {
+      "hash": "bfeb9c28",
+      "file": "explainers/sensitivity.bfeb9c28.json",
+      "sectionCount": 5,
+      "version": 2
+    },
     "sheet-res": {
       "hash": "01703bc3",
       "file": "explainers/sheet-res.01703bc3.json",
@@ -2198,6 +2330,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "ss-to-tf": {
+      "hash": "52fbbdf1",
+      "file": "explainers/ss-to-tf.52fbbdf1.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "stability": {
       "hash": "d39a35e7",
       "file": "explainers/stability.d39a35e7.json",
@@ -2213,6 +2351,12 @@
       "hash": "14cb0b74",
       "file": "explainers/step-resp.14cb0b74.json",
       "sectionCount": 5
+    },
+    "step-specs": {
+      "hash": "d25f0590",
+      "file": "explainers/step-specs.d25f0590.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "tf": {
       "hash": "a4b8b86c",

@@ -1349,7 +1349,6 @@
    "prereqs": [
     "second-order-sys"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1370,7 +1369,6 @@
     "second-order-sys",
     "onoff-pid-intro"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1470,7 +1468,6 @@
    "prereqs": [
     "ss-solution"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1491,7 +1488,6 @@
     "ss-solution",
     "tf"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1579,7 +1575,6 @@
    "prereqs": [
     "ss-solution"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1641,7 +1636,6 @@
     "loop-tf",
     "bode"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1710,7 +1704,6 @@
    "prereqs": [
     "loop-tf"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -2120,7 +2113,6 @@
    "prereqs": [
     "equilibria"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",

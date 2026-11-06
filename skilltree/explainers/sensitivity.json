@@ -1,0 +1,29 @@
+{
+  "id": "sensitivity",
+  "title": "Sensitivity functions",
+  "version": 2,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 332 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity functions</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"244\" cy=\"78\" r=\"12\"/><text x=\"222\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"258\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"244\" y1=\"28\" x2=\"244\" y2=\"66\"/><polygon points=\"244,66 241.3,59.6 246.7,59.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"260\" y=\"34\" text-anchor=\"start\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"256\" y1=\"78\" x2=\"292\" y2=\"78\"/><polygon points=\"292,78 285.6,80.7 285.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"296\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"284\" y1=\"78\" x2=\"284\" y2=\"134\"/><line x1=\"284\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"174\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A feedback loop with reference and disturbance inputs.",
+      "body_md": "The sensitivity function \\(S(s)\\) tells how much of a disturbance appears at the output. With loop gain \\(L\\), \\(S = 1/(1+L)\\). When \\(L\\) is large, \\(S\\) is small and disturbances are attenuated. The complementary sensitivity \\(T = L/(1+L)\\) is the fraction of the loop that tracks a reference when feedback is unity.\n\nThese two functions satisfy \\(S + T = 1\\). This constraint means you cannot make both small at the same frequency. At low frequencies you want \\(T \\approx 1\\) and \\(S \\approx 0\\). At high frequencies you want \\(S \\approx 1\\) (inevitable) and \\(T \\approx 0\\) (to reject noise)."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "With \\(L\\) the loop gain:\n\\[\nS(s) = \\frac{1}{1 + L(s)}, \\quad T(s) = \\frac{L(s)}{1 + L(s)}, \\quad S + T = 1.\n\\]\n\nThose two definitions add to 1 at every frequency where \\(L\\) is defined. For unity feedback, a disturbance at the output reaches the output through \\(S\\), the reference reaches the output through \\(T\\), and the reference reaches the error through \\(S\\).\n\nPeak sensitivity \\(M_s = \\max_\\omega |S(j\\omega)|\\) is a robustness measure. The reciprocal \\(1/M_s\\) is the closest approach of the Nyquist curve to \\(-1\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "A loop has \\(L(j\\omega) = 10\\) at \\(\\omega = 0.1\\) rad/s. The sensitivity is \\(S = 1/11 = 0.091\\). A disturbance of amplitude 5 at the output is reduced to \\(0.091 \\times 5 = 0.45\\) at the output after the loop responds. The complementary sensitivity is \\(T = 10/11 = 0.91\\), so a reference of 10 gives output \\(0.91 \\times 10 = 9.1\\). The tracking error is \\(10 - 9.1 = 0.9 = S \\times 10\\)."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "\\(S + T = 1\\) follows from the definitions of \\(S\\) and \\(T\\). It does not require stability, and it is not only a DC identity. Unity feedback is what makes \\(T\\) equal the reference-to-output map. With a sensor \\(H \\ne 1\\), that map is \\(G/(1+GH)\\), which is not \\(T = L/(1+L)\\). Confusing \\(S\\) and \\(T\\) swaps disturbance rejection and tracking. A small \\(|S|\\) means disturbances at the output are attenuated, not that every signal in the loop is insensitive."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The Gang of Four (\\(S\\), \\(T\\), \\(PS\\), \\(CS\\)) fully characterizes a loop. Robust stability bounds \\(|T \\cdot \\Delta| < 1\\) for multiplicative uncertainty. Robust performance bounds combine \\(S\\) and \\(T\\) with uncertainty models. The waterbed effect and Bode integrals show fundamental limits on \\(S\\)."
+    }
+  ]
+}

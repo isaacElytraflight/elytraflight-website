@@ -71,3 +71,25 @@ Skills: `app-examples`, `cruise-control`, `equilibria`, `loop-tf`, `second-order
 Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## B4 — me132-b4
+
+Box: ME 132 (me132) and Feedback Systems (am08).
+
+Skills: `discrete-time`, `eig-modes`, `limit-cycles`, `nyquist`, `pid`, `sensitivity`, `ss-to-tf`, `step-specs`.
+
+Items above version 1:
+
+- `eig-modes-r3-q1` version 2
+- `limit-cycles-r4-q3` version 2
+- `pid-r1-q2` version 2
+- `pid-r4-q1` version 2
+- `sensitivity-r1-q1` version 2
+- `sensitivity-r2-q1` version 2
+- `sensitivity-r4-q1` version 2
+- `sensitivity#explainer` version 2
+- `ss-to-tf-r2-q1` version 2
+- `ss-to-tf-r3-q1` version 2
+- `step-specs-r4-q1` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

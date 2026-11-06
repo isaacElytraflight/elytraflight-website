@@ -4,30 +4,13 @@
 The generator uses closed-form algebra. This file recomputes the same items
 by linear solves, fixed-step RK4, or eigenvalue routines.
 """
-import json
 import math
-import os
 
 import numpy as np
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-BANK = os.path.join(ROOT, "skilltree", "bank")
-EXP = os.path.join(ROOT, "skilltree", "explainers")
+from verify_harness import check_expected, finish, load_banks, load_texts, prop_steady, rk4
+
 SKILLS = ["block-diagram", "first-order-sys", "model-method", "onoff-pid-intro", "state-space-model"]
-
-
-def rk4(f, y0, t_end, steps):
-    y = float(y0)
-    h = t_end / steps
-    t = 0.0
-    for _ in range(steps):
-        k1 = f(t, y)
-        k2 = f(t + h / 2, y + h * k1 / 2)
-        k3 = f(t + h / 2, y + h * k2 / 2)
-        k4 = f(t + h, y + h * k3)
-        y += h * (k1 + 2 * k2 + 2 * k3 + k4) / 6
-        t += h
-    return y
 
 
 def loop_gain_closed(forward, ret, positive=False, reference=1.0, disturbance=0.0):
@@ -45,16 +28,6 @@ def series(gains):
     for g in gains:
         y = y * g
     return float(y)
-
-
-def prop_steady(kc, p, reference, disturbance=0.0, tau=0.4):
-    """RK4 of a first-order plant under proportional control. d adds at the output."""
-    def f(_t, yp):
-        measured = yp + disturbance
-        u = kc * (reference - measured)
-        return (p * u - yp) / tau
-    yp = rk4(f, 0.0, 40 * tau, 4000)
-    return yp + disturbance
 
 
 def accel(m, b, k, y, yd, u):
@@ -80,22 +53,9 @@ def initial_accel(m, b, k, y0, yd0, u, dt=1e-4):
     return step(y0, yd0)
 
 
-def check(name, got, exp, mismatches):
-    scale = max(abs(exp), 1e-9)
-    if abs(got - exp) / scale > 2e-3:
-        mismatches.append(f"{name}: bank {got} != recomputed {exp}")
-
-
 def main():
     mismatches = []
-    numeric = 0
-    banks = {sid: json.load(open(os.path.join(BANK, sid + ".json"), encoding="utf-8")) for sid in SKILLS}
-
-    def ans(sid, qid):
-        for q in banks[sid]["questions"]:
-            if q["id"] == qid:
-                return float(q["answer"])
-        raise SystemExit("missing " + qid)
+    banks = load_banks(SKILLS)
 
     # --- block diagrams: linear solve / running product, not the written fraction ---
     pairs = {
@@ -187,13 +147,10 @@ def main():
     expected["state-space-model-r4-q1"] = float(np.linalg.eigvals(np.array([[-1 / 3]]))[0].real)
     expected["state-space-model-r4-q2"] = 3.0
 
-    for qid, exp in expected.items():
-        sid = qid.rsplit("-r", 1)[0]
-        numeric += 1
-        check(qid, ans(sid, qid), exp, mismatches)
+    numeric = check_expected(banks, expected, mismatches)
 
     # worked examples, recomputed a different way and required to appear in the text
-    texts = {sid: json.dumps(json.load(open(os.path.join(EXP, sid + ".json"), encoding="utf-8"))) for sid in SKILLS}
+    texts = load_texts(SKILLS)
     worked = loop_gain_closed(5, 0.4)
     if abs(worked - 5 / 3) / (5 / 3) > 2e-3 or "1.667" not in texts["block-diagram"]:
         mismatches.append(f"block worked {worked}")
@@ -211,12 +168,7 @@ def main():
     if abs(float(xrest[0]) - 1) > 1e-6 or "x = 1" not in texts["state-space-model"]:
         mismatches.append(f"ss worked {xrest}")
 
-    print(f"numeric {numeric}, mismatches {len(mismatches)}, worked examples checked")
-    for m in mismatches:
-        print(" ", m)
-    if mismatches:
-        raise SystemExit(1)
-    print("0 mismatches")
+    finish(numeric, mismatches)
 
 
 if __name__ == "__main__":
