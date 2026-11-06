@@ -1,0 +1,29 @@
+{
+  "id": "discrete-time",
+  "title": "Discrete-time systems",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>z-plane stability</title><circle cx=\"140\" cy=\"120\" r=\"80\" stroke-dasharray=\"4 3\"/><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><text x=\"220\" y=\"134\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"191\" y1=\"91\" x2=\"201\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"191\" y1=\"101\" x2=\"201\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"191\" y1=\"139\" x2=\"201\" y2=\"149\" stroke-width=\"1.6\"/><line x1=\"191\" y1=\"149\" x2=\"201\" y2=\"139\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "The z-plane with poles inside the unit circle.",
+      "body_md": "Discrete-time systems operate on sampled data: the state updates at fixed intervals \\(T\\) seconds apart. Instead of differential equations, we have difference equations. Instead of the s-plane, we use the z-plane.\n\nStability shifts from the left half-plane to the inside of the unit circle. A pole at \\(z = 0.9\\) is stable (decaying); a pole at \\(z = 1.1\\) is unstable (growing). The mapping \\(z = e^{sT}\\) connects continuous and discrete poles. Faster sampling (smaller \\(T\\)) moves poles closer to \\(z = 1\\)."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "Difference equation: \\(x[k+1] = A_d x[k] + B_d u[k]\\).\n\nDiscretization of \\(s\\)-plane pole: \\(z = e^{sT}\\).\n\nA pole at \\(s = -a\\) maps to \\(z = e^{-aT}\\).\n\nStability: all poles inside \\(|z| < 1\\).\n\nNyquist frequency: \\(f_N = 1/(2T)\\). Frequencies above \\(f_N\\) alias."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "A continuous system has pole at \\(s = -4\\) with sample time \\(T = 0.1\\) s. The discrete pole is \\(z = e^{-4 \\times 0.1} = e^{-0.4} = 0.67\\). This is inside the unit circle, so the discrete mode decays. The decay per sample is 0.67, meaning each step the mode loses about 33% of its value. After 10 samples (1 s), the mode is at \\(0.67^{10} = 0.018\\), consistent with \\(e^{-4 \\times 1} = 0.018\\)."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Aliasing occurs when sampling below the Nyquist rate. Frequencies above \\(f_N = 1/(2T)\\) fold back and appear as low-frequency artifacts. Numerical issues arise when \\(T\\) is very small compared to the system time constants, as poles cluster near \\(z = 1\\). Computational delay of one sample is \\(z^{-1}\\), which adds phase lag."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Digital PID requires discretization (Tustin, forward Euler, backward Euler). Z-transform analysis mirrors Laplace methods. Multirate systems sample different signals at different rates. Anti-aliasing filters are essential before sampling. The bilinear (Tustin) transform preserves frequency-domain characteristics."
+    }
+  ]
+}

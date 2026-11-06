@@ -82,6 +82,12 @@ LEAF_PREVIEW_ALLOWED.update({
     "app-examples": ["realization", "discrete-time", "linearization"],
     "cruise-control": ["pid-tuning", "feedforward", "gain-scheduling"],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # ME132 B4 skills: leaf skills with conceptual follow-ons
+    "discrete-time": ["freq-resp-lti", "time-delay", "pid-impl"],
+    "eig-modes": ["realization", "lin-algebra-review", "observability"],
+    "limit-cycles": ["lyapunov", "gen-gain-phase", "adaptive"],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

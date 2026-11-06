@@ -1,0 +1,21 @@
+{
+  "id": "me132-b4",
+  "label": "B4",
+  "box": "ME 132 (me132) and Feedback Systems (am08)",
+  "skills": ["discrete-time", "eig-modes", "limit-cycles", "nyquist", "pid", "sensitivity", "ss-to-tf", "step-specs"],
+  "areas": {
+    "discrete-time": ["state-space", "discrete-systems"],
+    "eig-modes": ["state-space", "linear-algebra"],
+    "limit-cycles": ["nonlinear-systems"],
+    "nyquist": ["frequency-response", "stability"],
+    "pid": ["feedback-loop", "controller-design"],
+    "sensitivity": ["loop-transfer-function", "feedback-loop"],
+    "ss-to-tf": ["state-space", "transfer-function"],
+    "step-specs": ["time-response", "second-order-systems"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/me132-content-batches.md",
+  "verifier": "skilltree/verify_me132_b4.py"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "limit-cycles",
+  "title": "Limit cycles and nonlinear behavior",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>stable limit cycle</title><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₁</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₂</text><circle cx=\"140\" cy=\"120\" r=\"60\" stroke-dasharray=\"4 3\"/><polyline points=\"170,120 173.5,114.1 175.1,107.2 174.8,99.9 172.6,92.6 168.6,85.9 163.1,80 156.3,75.2 148.5,71.9 140,70.2 131.2,70.1 122.4,71.8 114,75 106.3,79.8 99.5,86 93.9,93.4 89.8,101.7 87.1,110.7 86.1,120 86.7,129.4 89,138.6 92.9,147.2 98.3,155 104.9,161.8 112.7,167.3 121.3,171.4 130.5,173.9 140,174.8 149.5,174 158.8,171.5 167.4,167.5 175.3,162 182.1,155.3 187.6,147.5 191.6,138.8 194.1,129.5 195,120\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A phase portrait with trajectories spiraling toward a closed orbit.",
+      "body_md": "A limit cycle is an isolated periodic orbit in a nonlinear system. Nearby trajectories either spiral in (stable limit cycle) or spiral out (unstable). Unlike centers in linear systems, limit cycles are isolated: there is no continuous family of periodic orbits at different amplitudes.\n\nLimit cycles require nonlinearity to sustain oscillation. The Van der Pol oscillator has negative damping at small amplitude and positive damping at large amplitude, which drives all trajectories toward a unique orbit. Relay control and saturation can also create limit cycles."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "Van der Pol oscillator:\n\\[\n\\ddot{x} - \\mu(1 - x^2)\\dot{x} + x = 0.\n\\]\nFor \\(\\mu > 0\\), there is a stable limit cycle.\n\nHopf bifurcation: a limit cycle is born when a complex eigenvalue pair crosses the imaginary axis.\n\nDescribing function: approximate nonlinearity gain \\(N(a)\\) for input amplitude \\(a\\). Limit cycle where \\(G(j\\omega) = -1/N(a)\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "A relay controller switches at zero error. The plant is \\(G(s) = 1/[s(s+1)]\\). The describing function of an ideal relay with amplitude \\(M\\) is \\(N(a) = 4M/(\\pi a)\\). Intersection of \\(-1/N(a)\\) with the Nyquist plot of \\(G\\) gives the limit cycle. If the intersection is at amplitude \\(a = 2\\) and frequency \\(\\omega = 1\\) rad/s, the relay system oscillates with peak-to-peak swing of 4 and period \\(2\\pi\\) s."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Linear systems cannot have isolated limit cycles; they have either stable equilibria, unstable trajectories, or (marginally) centers with a continuum of closed orbits. The describing function is an approximation; it assumes the nonlinearity sees a sinusoid and higher harmonics are filtered. Multiple limit cycles can coexist in some systems."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Bifurcation theory classifies how limit cycles appear and disappear. Poincaré maps reduce periodic orbit analysis to fixed-point analysis. Lyapunov methods estimate the region of attraction. Describing functions extend to saturation, backlash, and dead zone. Anti-windup and dither mitigate relay chatter."
+    }
+  ]
+}
