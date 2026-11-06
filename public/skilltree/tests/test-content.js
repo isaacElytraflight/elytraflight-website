@@ -321,5 +321,23 @@ test('no retired id is referenced by the built app payload', () => {
   }
 });
 
+test('series block-diagram alt text matches the number of blocks drawn', () => {
+  const bank = JSON.parse(fs.readFileSync(path.join(SRC, 'bank', 'block-diagram.json'), 'utf8'));
+  const counted = { 2: /\bTwo\b/, 3: /\bThree\b/ };
+  for (const q of bank.questions) {
+    if (!q.figure) continue;
+    const boxes = (q.figure.match(/<rect\b/g) || []).length;
+    if (boxes < 2) continue;
+    assert(counted[boxes], q.id + ' draws an uncounted ' + boxes + ' blocks');
+    assert(counted[boxes].test(q.figure_alt), q.id + ' draws ' + boxes + ' blocks but alt is ' + q.figure_alt);
+    if (boxes !== 2) assert(!/\bTwo\b/.test(q.figure_alt), q.id + ' alt still says two blocks');
+  }
+  for (const id of ['block-diagram-r3-q3', 'block-diagram-r4-q3']) {
+    const q = bank.questions.find(item => item.id === id);
+    assert.strictEqual(q.version, 2, id + ' alt edit should bump the question version');
+    assert.strictEqual((q.figure.match(/<rect\b/g) || []).length, 3, id);
+  }
+});
+
 console.log(`\n${passed} passed, ${failed} failed\n`);
 process.exit(failed > 0 ? 1 : 0);

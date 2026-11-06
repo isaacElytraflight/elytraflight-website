@@ -125,11 +125,11 @@
       "prompt": "Three blocks in series have gains 2, 3, and 4. The equivalent gain is",
       "explanation": "Each block multiplies the signal that leaves the previous one, so the gains multiply: \\(2 \\times 3 \\times 4 = 24\\). Adding gives 9. Multiplying only the first pair leaves 6, and only the last pair leaves 12.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 456 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>three series blocks</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">2</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">3</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">4</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"424\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Two labeled blocks in a row, with arrows in and out.",
+      "figure_alt": "Three labeled blocks in a row, with arrows in and out.",
       "answer": 24.0,
       "unit": "1",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "block-diagram-r4-q1",
@@ -170,14 +170,14 @@
       "prompt": "The product you would plot as a loop gain is made of three series blocks, 1.5, 2, and 4. That product is",
       "explanation": "The loop gain is the product of every block you meet on one trip around the loop. Here that trip is three blocks: \\(1.5 \\times 2 \\times 4 = 12\\). Adding gives 7.5. The first pair alone is 3, and the last pair alone is 8.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 456 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop product</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">1.5</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">2</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">4</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"424\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
-      "figure_alt": "Two labeled blocks in a row, with arrows in and out.",
+      "figure_alt": "Three labeled blocks in a row, with arrows in and out.",
       "preview": [
         "nyquist"
       ],
       "answer": 12.0,
       "unit": "1",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     }
   ]
 }

@@ -83,13 +83,14 @@ def words(sections):
 
 def bank_blocks():
     b = Bank("block-diagram")
-    series = "Two labeled blocks in a row, with arrows in and out."
+    series2 = "Two labeled blocks in a row, with arrows in and out."
+    series3 = "Three labeled blocks in a row, with arrows in and out."
     loop = "A forward block and a return path that comes back to the input."
     b.mc(1,
          r"Two blocks sit one after the other. The first multiplies by 6 and the second multiplies by 5. The single block that replaces both multiplies by",
          ["30", "11", "1.2", "6"], 0,
          r"Blocks in series share one signal, so their gains multiply: \(6 \times 5 = 30\). Adding them gives 11, which is the parallel rule. Dividing them gives 1.2. Keeping only 6 drops the second block.",
-         block_diagram(["6", "5"], "series blocks", output_label="y"), series)
+         block_diagram(["6", "5"], "series blocks", output_label="y"), series2)
     b.num(1,
           r"Two blocks sit in parallel. One multiplies by 4 and the other by 7, and their outputs add. The equivalent gain is",
           11, "1",
@@ -108,7 +109,7 @@ def bank_blocks():
           r"Three signals are not involved: just two blocks in series, with gains 2.5 and 4. The equivalent gain is",
           2.5 * 4, "1",
           r"Series gains multiply: \(2.5 \times 4 = 10\). Adding gives 6.5. Dividing gives 0.625. The order does not matter for the product, but dropping either factor leaves 2.5 or 4.",
-          block_diagram(["2.5", "4"], "two series gains", output_label="y"), series)
+          block_diagram(["2.5", "4"], "two series gains", output_label="y"), series2)
     b.mc(2,
          r"In a negative feedback loop the forward block is \(G\) and the return block is \(H\). Which expression is the loop gain?",
          [r"\(G\)", r"\(\dfrac{G}{1+GH}\)", r"\(GH\)", r"\(H\)"], 2,
@@ -127,7 +128,7 @@ def bank_blocks():
           r"Three blocks in series have gains 2, 3, and 4. The equivalent gain is",
           2 * 3 * 4, "1",
           r"Each block multiplies the signal that leaves the previous one, so the gains multiply: \(2 \times 3 \times 4 = 24\). Adding gives 9. Multiplying only the first pair leaves 6, and only the last pair leaves 12.",
-          block_diagram(["2", "3", "4"], "three series blocks", output_label="y"), series)
+          block_diagram(["2", "3", "4"], "three series blocks", output_label="y"), series3, version=2)
     b.num(4,
           r"A loop you will later write as one transfer function has forward gain 9 and return gain 2, with the return subtracted. The closed-loop gain is",
           9 / (1 + 9 * 2), "1",
@@ -145,7 +146,7 @@ def bank_blocks():
           1.5 * 2 * 4, "1",
           r"The loop gain is the product of every block you meet on one trip around the loop. Here that trip is three blocks: \(1.5 \times 2 \times 4 = 12\). Adding gives 7.5. The first pair alone is 3, and the last pair alone is 8.",
           block_diagram(["1.5", "2", "4"], "loop product", output_label="L"),
-          series, ["nyquist"])
+          series3, ["nyquist"], version=2)
     b.save()
 
 
@@ -642,6 +643,12 @@ def lint():
                 nfig += 1
             if q["type"] == "mc":
                 idxs.append(q["correct_index"])
+            if sid == "block-diagram" and q.get("figure"):
+                nbox = q["figure"].count("<rect ")
+                alt = q.get("figure_alt") or ""
+                expect = {2: "Two ", 3: "Three "}.get(nbox)
+                if expect and not alt.startswith(expect):
+                    problems.append(f"{q['id']} alt {alt!r} does not match {nbox} blocks")
         if nfig < 9:
             problems.append(f"{sid} only {nfig} figures")
         if len(idxs) % 4 == 0:
