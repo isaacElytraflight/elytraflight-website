@@ -339,5 +339,32 @@ test('series block-diagram alt text matches the number of blocks drawn', () => {
   }
 });
 
+test('feedback figures show the summing sign the stem uses', () => {
+  const banks = ['block-diagram', 'first-order-sys', 'onoff-pid-intro'].map(id =>
+    JSON.parse(fs.readFileSync(path.join(SRC, 'bank', id + '.json'), 'utf8')));
+  const questions = banks.flatMap(bank => bank.questions);
+  const pos = questions.find(q => q.id === 'block-diagram-r3-q1');
+  assert(/>\+<\/text>/.test(pos.figure), 'positive feedback figure has no plus');
+  assert(!/>−<\/text>/.test(pos.figure), 'positive feedback figure still has a minus');
+  assert(/added/.test(pos.figure_alt));
+  assert.strictEqual(pos.version, 2);
+  const neg = questions.filter(q => q.figure_alt && /subtract/.test(q.figure_alt));
+  assert(neg.length > 1);
+  for (const q of neg) {
+    assert(/<circle\b/.test(q.figure) && />−<\/text>/.test(q.figure), q.id + ' negative loop has no minus junction');
+    assert.ok(q.version >= 2, q.id + ' figure edit should bump the version');
+  }
+});
+
+test('PID terms are drawn as a sum, not a series cascade', () => {
+  const bank = JSON.parse(fs.readFileSync(path.join(SRC, 'bank', 'onoff-pid-intro.json'), 'utf8'));
+  const q = bank.questions.find(item => item.id === 'onoff-pid-intro-r4-q3');
+  const ys = [...q.figure.matchAll(/<rect x="[^"]+" y="([^"]+)"/g)].map(m => m[1]);
+  assert.strictEqual(new Set(ys).size, 3, 'the three terms should sit on different rows');
+  assert(/add/.test(q.figure_alt));
+  assert(!/in a row/.test(q.figure_alt));
+  assert.strictEqual(q.version, 2);
+});
+
 console.log(`\n${passed} passed, ${failed} failed\n`);
 process.exit(failed > 0 ? 1 : 0);

@@ -11,7 +11,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from templates import block_diagram, mass_spring, matrix_fig, plot, splane, step_response
+from templates import block_diagram, mass_spring, matrix_fig, parallel_sum, plot, splane, step_response
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 BANK = os.path.join(ROOT, "skilltree", "bank")
@@ -85,7 +85,7 @@ def bank_blocks():
     b = Bank("block-diagram")
     series2 = "Two labeled blocks in a row, with arrows in and out."
     series3 = "Three labeled blocks in a row, with arrows in and out."
-    loop = "A forward block and a return path that comes back to the input."
+    loop = "A forward block and a return path that is subtracted at the input."
     b.mc(1,
          r"Two blocks sit one after the other. The first multiplies by 6 and the second multiplies by 5. The single block that replaces both multiplies by",
          ["30", "11", "1.2", "6"], 0,
@@ -99,12 +99,12 @@ def bank_blocks():
          r"A forward block \(G\) and a return block \(H\) form a negative feedback loop: the return signal is subtracted from the reference. The closed-loop gain from reference to output is",
          [r"\(G + H\)", r"\(\dfrac{G}{1 + GH}\)", r"\(\dfrac{G}{1 - GH}\)", r"\(GH\)"], 1,
          r"Call the error \(e = r - Hy\) and the output \(y = Ge\). Substituting gives \(y = G(r - Hy)\), so \(y(1 + GH) = Gr\) and the gain is \(G/(1+GH)\). \(G+H\) adds the two blocks as if they were in parallel. The minus sign in the denominator is the positive-feedback formula. \(GH\) is the loop gain, not the closed-loop gain.",
-         block_diagram(["G"], "negative feedback", feedback="H", input_label="r", output_label="y"), loop)
+         block_diagram(["G"], "negative feedback", feedback="H", input_label="r", output_label="y"), loop, version=2)
     b.num(2,
           r"Negative feedback. The forward gain is 8 and the return gain is 0.5. The closed-loop gain is",
           8 / (1 + 8 * 0.5), "1",
           r"The loop product is \(8 \times 0.5 = 4\). Negative feedback puts that product in the denominator: \(8/(1+4) = 1.6\). Using \(1 - 4\) changes the sign of the loop and is the positive-feedback formula. The product 4 itself is the loop gain, and \(8 + 0.5\) adds the blocks.",
-          block_diagram(["8"], "forward 8", feedback="0.5", input_label="r", output_label="y"), loop)
+          block_diagram(["8"], "forward 8", feedback="0.5", input_label="r", output_label="y"), loop, version=2)
     b.num(2,
           r"Three signals are not involved: just two blocks in series, with gains 2.5 and 4. The equivalent gain is",
           2.5 * 4, "1",
@@ -114,12 +114,13 @@ def bank_blocks():
          r"In a negative feedback loop the forward block is \(G\) and the return block is \(H\). Which expression is the loop gain?",
          [r"\(G\)", r"\(\dfrac{G}{1+GH}\)", r"\(GH\)", r"\(H\)"], 2,
          r"Start at the error and walk once around the loop: multiply by \(G\), then by \(H\), and you are back at the summing junction. That product \(GH\) is the loop gain. \(G\) skips the return path. \(G/(1+GH)\) is what the closed loop does to a reference. \(H\) is only the sensor path.",
-         block_diagram(["G"], "walk the loop", feedback="H", input_label="e", output_label="y"), loop)
+         block_diagram(["G"], "walk the loop", feedback="H", input_label="e", output_label="y"), loop, version=2)
     b.num(3,
           r"The same blocks as a negative loop, but the return signal is added to the reference. Forward gain 2, return gain 0.2. The closed-loop gain is",
           2 / (1 - 2 * 0.2), "1",
           r"Positive feedback adds the return, so \(y = 2(r + 0.2 y)\). Then \(y(1 - 0.4) = 2r\) and the gain is \(2/0.6 = 3.333\). The negative-feedback formula \(2/(1+0.4) = 1.429\) subtracts a signal that this loop adds. The product 0.4 is the loop gain, and \(2 + 0.2\) adds the blocks as if they were side by side.",
-          block_diagram(["2"], "positive feedback", feedback="0.2", input_label="r", output_label="y"), loop)
+          block_diagram(["2"], "positive feedback", feedback="0.2", input_label="r", output_label="y", feedback_sign="+"),
+          "A forward block and a return path that is added at the input.", version=2)
     b.mc(3,
          r"A disturbance adds at the output, after the forward block. The loop gain is \(L\). The fraction of that disturbance still present at the output is",
          [r"\(L\)", r"\(\dfrac{L}{1+L}\)", r"\(1+L\)", r"\(\dfrac{1}{1+L}\)"], 3,
@@ -134,13 +135,13 @@ def bank_blocks():
           9 / (1 + 9 * 2), "1",
           r"The loop gain is \(9 \times 2 = 18\). Negative feedback gives \(9/(1+18) = 9/19 = 0.4737\). The product 18 is the loop gain, not the closed-loop gain. \(9/(1-18)\) flips the feedback sign. \(9+2\) adds the two paths.",
           block_diagram(["9"], "one closed-loop gain", feedback="2", input_label="r", output_label="y"),
-          loop, ["loop-tf"])
+          loop, ["loop-tf"], version=2)
     b.num(4,
           r"The loop gain is 4. A disturbance adds at the output. The fraction of it that remains is",
           1 / (1 + 4), "1",
           r"Hold the reference at zero. Then \(y = d - 4y\), so \(y = d/5 = 0.2\). The complementary fraction \(4/5 = 0.8\) is how much of a reference would get through, not how much of \(d\) remains. Leaving the 4 un-normalized reports the loop gain itself.",
           block_diagram(["4"], "disturbance at the output", feedback="1", input_label="r", output_label="y"),
-          loop, ["sensitivity"])
+          loop, ["sensitivity"], version=2)
     b.num(4,
           r"The product you would plot as a loop gain is made of three series blocks, 1.5, 2, and 4. That product is",
           1.5 * 2 * 4, "1",
@@ -218,7 +219,7 @@ def bank_first():
           "a nonzero constant"], 3,
          r"Proportional control produces a command \(u = K_c(r - y)\). A first-order plant has a finite DC gain and no free integrator, so a constant error is required to hold a constant output. Stability says the error settles, not that it settles at zero. The plant equation \(\tau\dot{y} + y = Ku\) reaches a constant, so the error is not a ramp. An integrator would be \(\dot{y} = Ku\), which this plant is not.",
          block_diagram(["plant"], "proportional loop", feedback="1", input_label="r", output_label="y"),
-         "A plant block with a return path to the input.", ["pid"])
+         "A plant block with a return path that is subtracted at the input.", ["pid"], version=2)
     b.save()
 
 
@@ -305,7 +306,7 @@ def bank_method():
 
 def bank_pid():
     b = Bank("onoff-pid-intro")
-    loop = "A controller block and a plant block, with a return path."
+    loop = "A controller and a plant, with the return subtracted at the input."
     # Kc=4, P=3, r=10 → y = 120/13, e = 10/13
     y_p = 4 * 3 / (1 + 4 * 3) * 10
     e_p = 10 / (1 + 12)
@@ -317,7 +318,7 @@ def bank_pid():
           "commands the derivative of the error"], 0,
          r"On-off has two legal outputs. It switches to one or the other according to the sign of the error, and it cannot sit at an intermediate command. A command proportional to the error is P control. Integrating the error is I control. Commanding the derivative is D control.",
          block_diagram(["on/off", "plant"], "two-level command", feedback="1", input_label="r", output_label="y"),
-         loop)
+         loop, version=2)
     b.num(1,
           r"The switch is stuck on, the plant output sits at 14, and the reference is 9. The error \(r - y\) is",
           9 - 14, "1",
@@ -329,13 +330,13 @@ def bank_pid():
           y_p, "1",
           r"The loop gain is \(4 \times 3 = 12\). The steady output is \(12/(1+12)\) of the reference: \(120/13 = 9.231\). Reporting the error \(10/13\) instead of the output, or the open-loop product \(4 \times 3 \times 10 = 120\), answers a different question.",
           block_diagram(["4", "3"], "proportional loop", feedback="1", input_label="r", output_label="y"),
-          loop)
+          loop, version=2)
     b.num(2,
           r"Same loop: proportional gain 4, plant DC gain 3, reference 10. The steady error \(r - y\) is",
           e_p, "1",
           r"The error is the reference divided by \(1+L\): \(10/(1+12) = 10/13 = 0.769\). The output \(9.231\) is what remains after you subtract this error from 10. Zero would require an integrator, which this proportional loop does not have.",
           block_diagram(["Kc", "P"], "error of a proportional loop", feedback="1", input_label="r", output_label="y"),
-          loop)
+          loop, version=2)
     b.mc(2,
          r"A constant reference and a constant disturbance act on a loop. Adding integral action, and no other change, makes the steady error",
          ["larger, because the integrator winds up on a constant",
@@ -344,19 +345,19 @@ def bank_pid():
           "a ramp, because the integrator keeps moving"], 1,
          r"An integrator in a stable loop cannot settle while its input, the error, is a nonzero constant. The only steady state is zero error. Windup is what happens when the actuator saturates and the integrator is left running, which is a different regime. The proportional-only error is exactly what the integrator removes. A ramp would mean the loop never reached a steady state.",
          block_diagram(["PI", "plant"], "integral in the forward path", feedback="1", input_label="r", output_label="y"),
-         loop)
+         loop, version=2)
     b.num(2,
           r"Proportional gain 4, plant DC gain 3, reference held at 0. A disturbance of 2 adds at the output. The steady output is",
           2 / (1 + 12), "1",
           r"The disturbance is divided by \(1+L\): \(2/13 = 0.154\). The loop gain 12 is not the output. \(2 \times 12/13\) would be the response to a reference of 2, and the sign here is an output disturbance, not a reference.",
           block_diagram(["4", "3"], "disturbance after the plant", feedback="1", input_label="r", output_label="y"),
-          loop)
+          loop, version=2)
     b.num(3,
           r"The proportional gain in that loop is doubled, from 4 to 8. The plant DC gain is still 3 and the reference is still 10. The new steady error is",
           10 / (1 + 8 * 3), "1",
           r"The new loop gain is \(8 \times 3 = 24\). The error is \(10/(1+24) = 0.4\). The old error \(0.769\) forgot the new gain. Doubling the error instead of shrinking it goes the wrong way: more gain leaves less error, and it still does not reach zero.",
           block_diagram(["8", "3"], "higher proportional gain", feedback="1", input_label="r", output_label="y"),
-          loop)
+          loop, version=2)
     b.mc(3,
          r"Derivative action is added to a proportional loop. The reference is a step, the disturbance is constant, and the loop stays linear. The steady error",
          ["becomes zero, because the derivative looks ahead",
@@ -365,25 +366,25 @@ def bank_pid():
           r"grows like \(t\), because a derivative emphasizes high frequency"], 2,
          r"A derivative of a constant is zero. Once the signals have settled, the D term contributes nothing, so the steady error is the P-only error. Looking ahead changes the transient, not the resting value. The sign of the error is set by the proportional balance. A growing error would mean the loop is not at a steady state.",
          block_diagram(["P+D", "plant"], "derivative added", feedback="1", input_label="r", output_label="y"),
-         loop)
+         loop, version=2)
     b.num(3,
           r"A speed loop uses proportional gain 6 on a plant of DC gain 2. The speed reference is 8. The steady shortfall \(r - y\) is",
           8 / (1 + 6 * 2), "1",
           r"Loop gain \(6 \times 2 = 12\). The shortfall is \(8/(1+12) = 8/13 = 0.615\). The steady speed itself is \(12/13 \times 8 = 7.385\). Zero shortfall would need integral action, which this loop does not have.",
           block_diagram(["6", "2"], "speed loop", feedback="1", input_label="r", output_label="v"),
-          loop)
+          loop, version=2)
     b.num(4,
           r"Tuning will later move this gain. For now, proportional gain 10 and plant DC gain 5 face a reference of 11. The steady error is",
           11 / (1 + 10 * 5), "1",
           r"Loop gain \(10 \times 5 = 50\). The error is \(11/51 = 0.216\). The output \(50/51 \times 11\) is not the error. A gain of 10 alone, ignoring the plant, is not the loop gain.",
           block_diagram(["10", "5"], "a gain you might tune", feedback="1", input_label="r", output_label="y"),
-          loop, ["pid-tuning"])
+          loop, ["pid-tuning"], version=2)
     b.num(4,
           r"A cruise loop is proportional, gain 3, on a plant of DC gain 5. The speed reference is 18. The steady speed error is",
           18 / (1 + 3 * 5), "1",
           r"Loop gain \(3 \times 5 = 15\). The error is \(18/(1+15) = 18/16 = 1.125\). The steady speed \(15/16 \times 18\) is not the error. Open-loop, the same command would not know the reference at all.",
           block_diagram(["3", "5"], "cruise, proportional only", feedback="1", input_label="r", output_label="v"),
-          loop, ["cruise-control"])
+          loop, ["cruise-control"], version=2)
     b.mc(4,
          r"A PID controller's command is the sum of three terms. Those terms act on",
          ["the plant gain, the sensor gain, and the disturbance",
@@ -391,8 +392,8 @@ def bank_pid():
           "the proportional gain only, written three times",
           "the error, the integral of the error, and the derivative of the error"], 3,
          r"P multiplies the error, I multiplies the running sum of the error, and D multiplies the rate of the error. The plant gain and the sensor gain are properties of the hardware around the controller. Writing the same proportional term three times does not add integral or derivative action.",
-         block_diagram(["P", "I", "D"], "three terms, summed", output_label="u"),
-         "Three blocks in a row, a stand-in for the three terms.", ["pid"])
+         parallel_sum(["P", "I", "D"], "three terms added", output_label="u"),
+         "Three blocks side by side. Their outputs add to make the command.", ["pid"], version=2)
     b.save()
 
 
@@ -486,7 +487,7 @@ def expl_blocks():
     fig = block_diagram(["5"], "worked feedback loop", feedback="0.4", input_label="r", output_label="y")
     sections = [
         {"heading": "The idea", "figure_svg": fig,
-         "figure_alt": "A forward block with a return path brought back to the input.",
+         "figure_alt": "A forward block and a return path that is subtracted at the input.",
          "body_md": r"""A block diagram is a picture of multiplications and additions. Each block is a gain, or later a transfer function, and the arrows are the signals those gains act on. The useful move is to erase the picture and leave one block that produces the same output from the same input.
 
 Three connections cover the pictures in this skill. Series blocks share a signal: the output of one is the input of the next, so the gains multiply. Parallel blocks see the same input and their outputs are added, so the gains add. Feedback sends a function of the output back to the input. If that return is subtracted, the loop fights the error. If it is added, the loop reinforces it.
@@ -509,7 +510,7 @@ A reference of 1 produces an output of 1.667. The error is \(1 - 0.4 \times 1.66
         {"heading": "Common pitfalls", "body_md": r"""Adding the gains of blocks that sit one after another is the parallel rule used in the wrong picture. Calling \(GH\) the closed-loop gain confuses the product around the loop with the gain from reference to output. The minus sign in \(1 - GH\) belongs only to a loop that adds the return. Leaving out a block that sits in the return path, a sensor gain for example, makes the loop gain wrong even when the forward block is copied correctly."""},
         {"heading": "Where this leads", "body_md": r"""The single closed-loop gain is the start of a loop transfer function, where each block is a function of \(s\) and the same algebra still applies. The fraction \(1/(1+L)\) is the sensitivity of the output to a disturbance. A Nyquist plot is a picture of the loop product \(L\) itself, not of the closed-loop gain."""},
     ]
-    save_explainer("block-diagram", "Block-diagram algebra", sections)
+    save_explainer("block-diagram", "Block-diagram algebra", sections, version=2)
     return words(sections)
 
 
@@ -590,7 +591,7 @@ and the steady error is \(7/11 = 0.636\). Check: the error times \(K_c\) is the 
         {"heading": "Common pitfalls", "body_md": r"""A stable proportional loop is not a zero-error loop. Zero error needs a free integrator somewhere in the loop, in the plant or in the controller. Derivative action feels like it should fix the steady error because it "anticipates," but the derivative of a constant is zero. On-off cannot hold an intermediate command, so a plant that needs an intermediate command to match the reference will oscillate around it. Doubling the gain does not double the output of a loop that is already closed: the output moves closer to the reference, and the command does not scale in the open-loop way."""},
         {"heading": "Where this leads", "body_md": r"""The proportional speed error is the cruise-control question: a grade or a drag change looks like a constant disturbance, and P control leaves a speed offset. Tuning is the decision of how large \(K_c\) may be before the transient is unacceptable. The PID law writes the three terms as one command, with a real actuator limit beside them."""},
     ]
-    save_explainer("onoff-pid-intro", "On-off, P, PI, and PID", sections)
+    save_explainer("onoff-pid-intro", "On-off, P, PI, and PID", sections, version=2)
     return words(sections)
 
 
@@ -649,6 +650,20 @@ def lint():
                 expect = {2: "Two ", 3: "Three "}.get(nbox)
                 if expect and not alt.startswith(expect):
                     problems.append(f"{q['id']} alt {alt!r} does not match {nbox} blocks")
+                if "<circle " in q.get("figure", ""):
+                    sign = "\u2212" if "subtract" in (q.get("figure_alt") or "") else "+"
+                    if f">{sign}</text>" not in q["figure"]:
+                        problems.append(f"{q['id']} junction sign is not {sign}")
+            alt_all = q.get("figure_alt") or ""
+            fig_all = q.get("figure") or ""
+            if "subtract" in alt_all and ">\u2212</text>" not in fig_all:
+                problems.append(f"{q['id']} alt says subtract but the figure has no minus")
+            if "added at the input" in alt_all and ">+</text>" not in fig_all:
+                problems.append(f"{q['id']} alt says added but the figure has no plus")
+            if sid == "onoff-pid-intro" and q["id"].endswith("r4-q3"):
+                ys = set(re.findall(r'<rect x="[^"]+" y="([^"]+)"', q.get("figure") or ""))
+                if len(ys) < 3 or "add" not in (q.get("figure_alt") or ""):
+                    problems.append(f"{q['id']} is not a parallel sum")
         if nfig < 9:
             problems.append(f"{sid} only {nfig} figures")
         if len(idxs) % 4 == 0:

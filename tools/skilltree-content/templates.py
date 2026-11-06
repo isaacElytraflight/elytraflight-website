@@ -217,19 +217,35 @@ def mass_spring(title, spring=True, damper=True):
     return _guard(b2b_svg(280, 168, body, title))
 
 
-def block_diagram(blocks, title, feedback=None, input_label="", output_label="out"):
-    """A row of labeled blocks. feedback is an optional return-path label. The width follows the row."""
-    n = max(1, len(blocks))
+def block_diagram(blocks, title, feedback=None, input_label="", output_label="out", feedback_sign="-"):
+    """A row of labeled blocks. feedback is an optional return-path label.
+
+    feedback_sign is '-' when the return is subtracted and '+' when it is added.
+    The sign is drawn on the summing junction. A call with no feedback is unchanged.
+    """
     gap = 36
     box_w = 84
     box_h = 44
     y = 56
     x = 24
     body = ""
-    if input_label:
+    junction = None
+    if input_label and not feedback:
         body += b2b_text(x, y + 4, input_label)
         x += 18
-    for i, label in enumerate(blocks):
+    if feedback:
+        if feedback_sign not in ("-", "+"):
+            raise ValueError("feedback_sign must be '-' or '+'")
+        sign = "\u2212" if feedback_sign == "-" else "+"
+        if input_label:
+            body += b2b_text(8, y + 4, input_label, anchor="start")
+        jx = 46.0
+        body += b2b_arrow(22, y, jx - 12, y)
+        body += b2b_circle(jx, y, 11)
+        body += b2b_text(jx, y + 4, sign, size=14)
+        junction = jx
+        x = jx + 12
+    for _label_i, label in enumerate(blocks):
         body += b2b_arrow(x, y, x + gap, y)
         x += gap
         body += b2b_box(x, y - box_h / 2, box_w, box_h, label)
@@ -240,12 +256,46 @@ def block_diagram(blocks, title, feedback=None, input_label="", output_label="ou
     width = x + 36
     height = 120
     if feedback:
-        yb = 100
+        jx = junction
+        yb = 112
         body += b2b_line(x - 8, y, x - 8, yb)
-        body += b2b_line(x - 8, yb, 40, yb)
-        body += b2b_arrow(40, yb, 40, y + 16)
-        body += b2b_text((x + 40) / 2, yb - 8, feedback, size=11)
-        height = 140
+        body += b2b_line(x - 8, yb, jx, yb)
+        body += b2b_arrow(jx, yb, jx, y + 12)
+        body += b2b_text((x - 8 + jx) / 2, yb + 14, feedback, size=11)
+        height = 150
+    return _guard(b2b_svg(width, height, body, title))
+
+
+def parallel_sum(blocks, title, output_label="out"):
+    """Blocks side by side whose outputs add. This is not a series cascade."""
+    if len(blocks) < 2:
+        raise ValueError("parallel_sum needs at least two blocks")
+    box_w, box_h = 72, 36
+    pitch = box_h + 20
+    top = 24
+    x_box = 48
+    body = ""
+    centers = []
+    for i, label in enumerate(blocks):
+        y = top + i * pitch
+        cy = y + box_h / 2
+        centers.append(cy)
+        body += b2b_arrow(12, cy, x_box, cy)
+        body += b2b_box(x_box, y, box_w, box_h, label)
+    bus_x = x_box + box_w + 28
+    for cy in centers:
+        body += b2b_line(x_box + box_w, cy, bus_x, cy)
+        body += b2b_text(bus_x - 10, cy - 8, "+", size=13)
+    body += b2b_line(bus_x, centers[0], bus_x, centers[-1])
+    mid = (centers[0] + centers[-1]) / 2
+    sum_x = bus_x + 36
+    body += b2b_arrow(bus_x, mid, sum_x - 12, mid)
+    body += b2b_circle(sum_x, mid, 12)
+    body += b2b_text(sum_x, mid + 4, "\u03a3", size=13)
+    body += b2b_arrow(sum_x + 12, mid, sum_x + 40, mid)
+    body += b2b_text(sum_x + 46, mid + 4, output_label, anchor="start")
+    width = sum_x + 72
+    height = top + (len(blocks) - 1) * pitch + box_h + 20
     return _guard(b2b_svg(width, height, body, title))
 
 
