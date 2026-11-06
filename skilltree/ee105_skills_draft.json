@@ -1250,18 +1250,6 @@
    "prereqs": [
     "tf",
     "fb-concepts"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "Astrom & Murray, Feedback Systems (2008)",
-     "section": "8.3",
-     "use": "reference only"
-    },
-    {
-     "ref": "ME 132 Fall 2026 syllabus/notes",
-     "use": "scope only"
-    }
    ]
   },
   {
@@ -1271,18 +1259,6 @@
    "prereqs": [
     "fb-concepts",
     "fb-errors"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "Astrom & Murray, Feedback Systems (2008)",
-     "section": "1.5",
-     "use": "reference only"
-    },
-    {
-     "ref": "ME 132 Fall 2026 syllabus/notes",
-     "use": "scope only"
-    }
    ]
   },
   {
@@ -1299,18 +1275,6 @@
    "summary": "Put an n-th order ODE or coupled ODEs into x'=Ax+Bu, y=Cx+Du form.",
    "prereqs": [
     "ode-model"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "Astrom & Murray, Feedback Systems (2008)",
-     "section": "2.2",
-     "use": "reference only"
-    },
-    {
-     "ref": "ME 132 Fall 2026 syllabus/notes",
-     "use": "scope only"
-    }
    ]
   },
   {
@@ -1348,18 +1312,6 @@
    "summary": "Choose states, nondimensionalize, and pick model fidelity for a control purpose.",
    "prereqs": [
     "ode-model"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "Astrom & Murray, Feedback Systems (2008)",
-     "section": "2.3",
-     "use": "reference only"
-    },
-    {
-     "ref": "ME 132 Fall 2026 syllabus/notes",
-     "use": "scope only"
-    }
    ]
   },
   {
@@ -1369,18 +1321,6 @@
    "prereqs": [
     "laplace",
     "step-resp"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "Astrom & Murray, Feedback Systems (2008)",
-     "section": "5.3, notes",
-     "use": "reference only"
-    },
-    {
-     "ref": "ME 132 Fall 2026 syllabus/notes",
-     "use": "scope only"
-    }
    ]
   },
   {

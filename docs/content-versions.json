@@ -1,5 +1,5 @@
 {
-  "batch": "me132-b1",
+  "batch": "all",
   "note": "Generated from the bank and explainer files. Learner progress is separate.",
   "items": [
     {
@@ -260,6 +260,266 @@
     },
     {
       "id": "ode-model#explainer",
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "block-diagram#explainer",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys#explainer",
+      "version": 1
+    },
+    {
+      "id": "model-method-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "model-method-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "model-method-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "model-method-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "model-method-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "model-method-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "model-method-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "model-method-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "model-method-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "model-method-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "model-method-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "model-method-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "model-method#explainer",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "onoff-pid-intro#explainer",
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "state-space-model#explainer",
       "version": 1
     }
   ]

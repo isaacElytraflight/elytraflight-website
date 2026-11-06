@@ -240,10 +240,18 @@ def main():
         write(os.path.join(ROOT, "docs", "briefs", spec["id"] + ".md"), brief(spec, counts, boxes))
         write(os.path.join(ROOT, "docs", "reports", spec["id"] + ".md"), report(spec, counts, items, gate))
         print("wrote", spec["id"])
+    # Versions cover every batch file. A one-batch run must not drop the others.
+    version_items = all_items
+    if only:
+        version_items = []
+        for path in sorted(glob.glob(os.path.join(ROOT, "docs", "batches", "*.json"))):
+            spec = load_json(path)
+            items, _counts = batch_items(spec, skills)
+            version_items.extend(items)
     versions = {
-        "batch": only or "all",
+        "batch": "all",
         "note": "Generated from the bank and explainer files. Learner progress is separate.",
-        "items": all_items,
+        "items": version_items,
     }
     write(os.path.join(ROOT, "docs", "content-versions.json"), json.dumps(versions, indent=2) + "\n")
     # Changelog covers every batch file, even when this run was asked for one.

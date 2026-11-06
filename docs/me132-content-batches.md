@@ -37,6 +37,12 @@ Dedupe, no splits:
 
 `block-diagram`, `first-order-sys`, `model-method`, `onoff-pid-intro`, `state-space-model`
 
+- `block-diagram` is not `fb-concepts`. The earlier skill names the blocks and contrasts open loop with closed loop. This skill multiplies series blocks, adds parallel blocks, and reduces a feedback loop to one gain.
+- `first-order-sys` is not `laplace` and not `step-resp`. It owns the time constant, the DC gain, and the step and free response of one real pole.
+- `model-method` is not `ode-model`. It owns the choice of states, unit checks, time-scale ratios, and how much detail a control model needs. Nothing lists it as a prerequisite, so round 4 points at linearization, identification, and equilibria.
+- `onoff-pid-intro` is not `fb-errors` and not `pid`. It compares on-off, P, PI, and D at the level of steady error. The later `pid` skill owns the three-term law in equations.
+- `state-space-model` is not `ode-model` and not `lin-algebra-review`. It owns the A, B, C, D packaging of an ODE. Matrix arithmetic stays in the algebra review.
+
 ## B3
 
 `app-examples`, `cruise-control`, `equilibria`, `loop-tf`, `second-order-sys`, `ss-solution`

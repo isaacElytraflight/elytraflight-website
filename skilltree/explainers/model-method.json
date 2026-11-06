@@ -1,0 +1,29 @@
+{
+  "id": "model-method",
+  "title": "Modeling methodology",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a model you might simplify</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"70\" x2=\"48\" y2=\"70\"/><polyline points=\"48,70 56,58 66,82 76,58 86,82 96,58 106,82 116,70 140,70\"/><text x=\"90\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"30\" y1=\"112\" x2=\"78\" y2=\"112\"/><rect x=\"78\" y=\"100\" width=\"28\" height=\"24\"/><line x1=\"106\" y1=\"112\" x2=\"140\" y2=\"112\"/><text x=\"92\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
+      "figure_alt": "A mass connected to a spring and a damper.",
+      "body_md": "Writing the differential equation is the second step. The first step is deciding what the model is for. A control model is not a catalog of every effect you can name. It is the smallest description that still gets the loop's behavior right: the right stored quantities, the right units, and the right split between fast effects you can collapse and slow effects you must keep.\n\nA state is a stored quantity that needs an initial condition: position of a mass, charge on a capacitor, level in a tank. A command, a reference, and a disturbance are inputs unless you give them dynamics of their own.\n\nUnits catch algebra errors before any simulation does. Scaling then turns the surviving terms into pure numbers, so a coefficient of 0.01 can be compared with a coefficient of 1 and dropped on purpose."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "A time scale from a length \\(L\\) and a velocity \\(V\\) is \\(L/V\\). A rotational speed in revolutions per minute becomes radians per second by\n\\[\n\\omega = N_{\\mathrm{rpm}} \\cdot \\frac{2\\pi}{60}.\n\\]\nA sensor gain converts the measured unit into the signal unit by multiplication, not by addition. Force is mass times acceleration. At a resting point every derivative is zero, which is an algebraic equation for the state. A ratio of a slow time scale to a fast one tells you whether the fast piece can be replaced by the gain it settles to."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "A tank level is read over a depth of 150 mm, which is 0.15 m. The flow you care about moves that surface at about 0.01 m/s, so the level time scale is \\(0.15/0.01 = 15\\) s. The valve that sets the flow moves in 0.05 s. The ratio of those scales is \\(15/0.05 = 300\\). A level loop over tens of seconds can treat the valve as an immediate gain. Entering 150 mm as 150 m would make the time scale 15000 s and send the design after the wrong plant."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Calling an input a state, or a state an input, swaps the columns of the model you write next. Comparing terms that still carry different units will drop the wrong one. A loop that is required to have zero steady error needs the integrator that produces that fact; a model that omits it will predict an error the hardware will not show. The halfway point of a measured step is not the time constant. For one real pole, the time constant is the 63% time."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Linearization builds a local linear model at the resting point you just solved. Identification reads a time constant and a gain back out of a measured step. Equilibrium calculations are the same derivative-equals-zero step, done for a plant you intend to hold."
+    }
+  ]
+}
