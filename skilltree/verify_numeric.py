@@ -362,6 +362,16 @@ def _():
 def _():
     t = np.linspace(0, 2*np.pi, 1000001)[:-1]; return np.mean((0.5*np.cos(t))**2/2e3)/(3*1e-3)*100
 
+# ME 132 batch B1. Closed-form answers are recomputed by ODE integration,
+# eigenvalues, and complex arguments in verify_me132_b1.
+import importlib.util
+_b1_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "verify_me132_b1.py")
+_b1_spec = importlib.util.spec_from_file_location("verify_me132_b1", _b1_path)
+_b1 = importlib.util.module_from_spec(_b1_spec)
+_b1_spec.loader.exec_module(_b1)
+for _qid, _fn in _b1.numeric_checks().items():
+    chk(_qid)(_fn)
+
 # ---------------- run
 bad = 0; done = 0; missing = []
 for qid, q in bank.items():

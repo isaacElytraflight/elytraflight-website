@@ -4,6 +4,7 @@ batch2a_validate.py and batch2b_validate.py). Checks schema, ids, round structur
 round-4 preview targets (DAG descendants + LEAF_PREVIEW_ALLOWED from batch2a and batch2b), letter references,
 LaTeX math delimiters (\\( \\) / \\[ \\] balanced, no '$'), and figure SVG safety (well-formed, viewBox,
 no script/foreignObject/image/use/a/style, no on* handlers, no href/URLs).
+Figures whose circles, line endpoints, text anchors, or paths fall outside the viewBox are warnings.
 Usage: python3 validate_bank.py [bank_dir] [skills.json];  VALIDATE_SKILLS="a,b" limits the set (default ALL).
 Exit code 0 = all good."""
 import json, os, re, sys, math
@@ -112,6 +113,8 @@ def check_delims(qid, field, v):
             state = None
     if state is not None: err(qid, f"unclosed math delimiter in {field}")
 import xml.etree.ElementTree as ET
+from figure_bounds import geometry_message
+
 def check_figure(qid, q):
     fg = q.get("figure"); alt = q.get("figure_alt")
     if fg is None:
@@ -124,6 +127,9 @@ def check_figure(qid, q):
     except Exception as e: err(qid, f"figure is not well-formed XML: {e}"); return
     if not root.tag.endswith("svg"): err(qid, "figure root is not <svg>"); return
     if "viewBox" not in root.attrib: err(qid, "figure <svg> needs a viewBox")
+    else:
+        msg = geometry_message(root)
+        if msg: warn(qid, msg)
     for el in root.iter():
         tag = el.tag.split("}")[-1].lower()
         if tag in ("script", "foreignobject", "image", "iframe", "object", "embed", "use", "a", "style"): err(qid, f"figure contains forbidden <{tag}>")

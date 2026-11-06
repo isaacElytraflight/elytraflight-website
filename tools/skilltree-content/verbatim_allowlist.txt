@@ -1,0 +1,20 @@
+# Standard phrases. An 8-word shingle listed here is not counted as a copy.
+# Keep this list to names of theorems, standard operator phrases, and units.
+# Do not add a sentence that was written for this batch.
+
+the laplace transform of a function
+the final value theorem
+the initial value theorem
+left half plane
+right half plane
+transfer function
+closed loop
+open loop
+minimum phase
+state space
+linear time invariant
+block diagram
+time constant
+loop gain
+natural frequency
+damping ratio

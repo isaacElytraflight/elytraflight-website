@@ -1241,18 +1241,6 @@
    "summary": "Contrast open-loop and closed-loop control and name the plant, sensor, actuator, controller, reference and disturbance.",
    "prereqs": [
     "fb-intro"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "Astrom & Murray, Feedback Systems (2008)",
-     "section": "1.1-1.4",
-     "use": "reference only"
-    },
-    {
-     "ref": "ME 132 Fall 2026 syllabus/notes",
-     "use": "scope only"
-    }
    ]
   },
   {
@@ -1303,18 +1291,6 @@
    "summary": "Write ODE models of mechanical, electrical and fluid elements from physical laws.",
    "prereqs": [
     "lti-def"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "Astrom & Murray, Feedback Systems (2008)",
-     "section": "2.1",
-     "use": "reference only"
-    },
-    {
-     "ref": "ME 132 Fall 2026 syllabus/notes",
-     "use": "scope only"
-    }
    ]
   },
   {
@@ -1364,18 +1340,6 @@
    "summary": "Transform signals and ODEs, use derivative/integral rules and the final value theorem.",
    "prereqs": [
     "cx-exp"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "Astrom & Murray, Feedback Systems (2008)",
-     "section": "8.5",
-     "use": "reference only"
-    },
-    {
-     "ref": "ME 132 Fall 2026 syllabus/notes",
-     "use": "scope only"
-    }
    ]
   },
   {
@@ -1669,19 +1633,7 @@
    "id": "lin-algebra-review",
    "name": "Linear algebra for state space",
    "summary": "Rank, null space, eigenvalues and similarity transforms as used in control.",
-   "prereqs": [],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "Astrom & Murray, Feedback Systems (2008)",
-     "section": "appendix",
-     "use": "reference only"
-    },
-    {
-     "ref": "ME 132 Fall 2026 syllabus/notes",
-     "use": "scope only"
-    }
-   ]
+   "prereqs": []
   },
   {
    "id": "discrete-time",
@@ -1793,18 +1745,6 @@
    "prereqs": [
     "bode",
     "stability"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "Astrom & Murray, Feedback Systems (2008)",
-     "section": "9.4",
-     "use": "reference only"
-    },
-    {
-     "ref": "ME 132 Fall 2026 syllabus/notes",
-     "use": "scope only"
-    }
    ]
   },
   {

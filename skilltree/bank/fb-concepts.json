@@ -1,0 +1,201 @@
+{
+  "skill_id": "fb-concepts",
+  "version": 1,
+  "questions": [
+    {
+      "id": "fb-concepts-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In closed-loop control, what signal does the controller act on?",
+      "explanation": "The controller's job in a negative-feedback loop is to drive the error, reference minus measurement, toward zero. The measurement is not a log: it is subtracted at the summing junction and that difference is the controller input.\n• Feeding the reference alone is open-loop control. The loop is not closed.\n• A disturbance is usually unmeasured. The controller sees it only through the error it causes.\n• Adding the measurement to the reference is positive feedback, which reinforces the error instead of reducing it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 440 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Closed loop: reference, controller, actuator, plant, sensor</title><text x=\"16\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"72\" x2=\"62\" y2=\"72\"/><polygon points=\"62,72 55.6,74.7 55.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"76\" cy=\"72\" r=\"12\"/><line x1=\"70\" y1=\"72\" x2=\"82\" y2=\"72\" stroke-width=\"1.1\"/><line x1=\"76\" y1=\"66\" x2=\"76\" y2=\"78\" stroke-width=\"1.1\"/><text x=\"58\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"92\" y=\"92\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"90\" y1=\"72\" x2=\"112\" y2=\"72\"/><polygon points=\"112,72 105.6,74.7 105.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"50\" width=\"46\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"135\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"158\" y1=\"72\" x2=\"176\" y2=\"72\"/><polygon points=\"176,72 169.6,74.7 169.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"176\" y=\"50\" width=\"78\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"215\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">actuator</text><line x1=\"254\" y1=\"72\" x2=\"272\" y2=\"72\"/><polygon points=\"272,72 265.6,74.7 265.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"272\" y=\"50\" width=\"52\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"298\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"324\" y1=\"72\" x2=\"392\" y2=\"72\"/><polygon points=\"392,72 385.6,74.7 385.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"404\" y=\"76\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"360\" y1=\"72\" x2=\"360\" y2=\"150\"/><circle cx=\"360\" cy=\"72\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"360,150 252,150\"/><rect x=\"188\" y=\"132\" width=\"64\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"220\" y=\"154\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sensor</text><polyline points=\"188,150 76,150\"/><line x1=\"76\" y1=\"150\" x2=\"76\" y2=\"86\"/><polygon points=\"76,86 78.7,92.4 73.3,92.4\" fill=\"currentColor\" stroke=\"none\"/></svg>",
+      "figure_alt": "Closed loop. Reference r enters a summing junction, then a controller C, an actuator, and a plant. The output y is measured by a sensor and subtracted at the junction.",
+      "options": [
+        "The difference between the reference and the measured output",
+        "The reference alone, with the measurement used only for logging",
+        "The disturbance, which the controller is assumed to know exactly",
+        "The plant output, added to the reference rather than subtracted"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Which block turns the controller's command into a physical cause acting on the plant?",
+      "explanation": "The actuator is the block that converts the command (a voltage, a valve position, a throttle) into the physical quantity the plant actually feels. The sensor does the opposite job: it reports the output. The reference is a number we choose, and a disturbance is an input we do not choose.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 440 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Blocks of a feedback loop, with the actuator between the controller and the plant</title><text x=\"16\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"72\" x2=\"62\" y2=\"72\"/><polygon points=\"62,72 55.6,74.7 55.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"76\" cy=\"72\" r=\"12\"/><line x1=\"70\" y1=\"72\" x2=\"82\" y2=\"72\" stroke-width=\"1.1\"/><line x1=\"76\" y1=\"66\" x2=\"76\" y2=\"78\" stroke-width=\"1.1\"/><text x=\"58\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"92\" y=\"92\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"90\" y1=\"72\" x2=\"112\" y2=\"72\"/><polygon points=\"112,72 105.6,74.7 105.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"50\" width=\"46\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"135\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"158\" y1=\"72\" x2=\"176\" y2=\"72\"/><polygon points=\"176,72 169.6,74.7 169.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"176\" y=\"50\" width=\"78\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"215\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">actuator</text><line x1=\"254\" y1=\"72\" x2=\"272\" y2=\"72\"/><polygon points=\"272,72 265.6,74.7 265.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"272\" y=\"50\" width=\"52\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"298\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"324\" y1=\"72\" x2=\"392\" y2=\"72\"/><polygon points=\"392,72 385.6,74.7 385.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"404\" y=\"76\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"360\" y1=\"72\" x2=\"360\" y2=\"150\"/><circle cx=\"360\" cy=\"72\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"360,150 252,150\"/><rect x=\"188\" y=\"132\" width=\"64\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"220\" y=\"154\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sensor</text><polyline points=\"188,150 76,150\"/><line x1=\"76\" y1=\"150\" x2=\"76\" y2=\"86\"/><polygon points=\"76,86 78.7,92.4 73.3,92.4\" fill=\"currentColor\" stroke=\"none\"/></svg>",
+      "figure_alt": "Feedback loop with blocks labeled controller, actuator, plant, and sensor.",
+      "options": [
+        "The sensor, because it is the only block that touches the real hardware",
+        "The actuator",
+        "The reference, because a larger reference produces a larger force",
+        "The disturbance, because it is the unwanted physical input"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A fan is run open loop. Each volt of drive produces \\(3.2\\ \\mathrm{rad/s}\\) of speed, and the model is exact. What drive, in V, produces \\(8\\ \\mathrm{rad/s}\\)?",
+      "explanation": "Open loop sets the command from the model alone: \\(u = 8/3.2 = 2.5\\ \\mathrm{V}\\). Nothing is measured, so this is right only while the fan really does deliver \\(3.2\\ \\mathrm{rad/s}\\) per volt.\n• Dividing the other way, \\(3.2/8\\), gives the reciprocal \\(0.4\\ \\mathrm{V}\\).\n• Multiplying \\(3.2 \times 8\\) gives \\(25.6\\), which is a speed, not a drive.\n• Treating \\(3.2\\) as already the answer forgets to scale it to the requested speed.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 440 170\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Open-loop fan: reference becomes a drive, then an actuator, then the fan</title><text x=\"16\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"30\" y1=\"78\" x2=\"58\" y2=\"78\"/><polygon points=\"58,78 51.6,80.7 51.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"58\" y=\"56\" width=\"70\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"93\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">command</text><line x1=\"128\" y1=\"78\" x2=\"156\" y2=\"78\"/><polygon points=\"156,78 149.6,80.7 149.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"156\" y=\"56\" width=\"78\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"195\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">actuator</text><line x1=\"234\" y1=\"78\" x2=\"262\" y2=\"78\"/><polygon points=\"262,78 255.6,80.7 255.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"262\" y=\"56\" width=\"52\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"288\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"314\" y1=\"78\" x2=\"390\" y2=\"78\"/><polygon points=\"390,78 383.6,80.7 383.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"402\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><text x=\"210\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">no measurement returns</text></svg>",
+      "figure_alt": "Open-loop chain from a speed reference through a command block and an actuator to a plant. No measurement returns.",
+      "answer": 2.5,
+      "unit": "V",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "An open-loop speed command is calibrated as \\(u = r/4\\), in volts, for a plant of \\(4\\ \\mathrm{rad/s}\\) per volt. The real plant is \\(5.2\\ \\mathrm{rad/s}\\) per volt. For \\(r = 10\\ \\mathrm{rad/s}\\), how far is the actual speed from \\(10\\ \\mathrm{rad/s}\\)? Give a positive number, in rad/s.",
+      "explanation": "The frozen command is \\(u = 10/4 = 2.5\\ \\mathrm{V}\\). The real speed is \\(5.2 \\times 2.5 = 13\\ \\mathrm{rad/s}\\), so the miss is \\(13 - 10 = 3\\ \\mathrm{rad/s}\\). Open loop has no measurement to pull the speed back.\n• \\(5.2 - 4 = 1.2\\) subtracts the gains and never applies them to the reference.\n• \\(10/5.2 = 1.92\\) would be the command that would have worked, not the error of the command that was sent.\n• \\(5.2 \times 10 = 52\\) multiplies the reference by the plant gain and ignores that the command was only \\(2.5\\ \\mathrm{V}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 440 170\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Open-loop speed command with no return path from the measured speed</title><text x=\"16\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"30\" y1=\"78\" x2=\"58\" y2=\"78\"/><polygon points=\"58,78 51.6,80.7 51.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"58\" y=\"56\" width=\"70\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"93\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">command</text><line x1=\"128\" y1=\"78\" x2=\"156\" y2=\"78\"/><polygon points=\"156,78 149.6,80.7 149.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"156\" y=\"56\" width=\"78\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"195\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">actuator</text><line x1=\"234\" y1=\"78\" x2=\"262\" y2=\"78\"/><polygon points=\"262,78 255.6,80.7 255.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"262\" y=\"56\" width=\"52\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"288\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"314\" y1=\"78\" x2=\"390\" y2=\"78\"/><polygon points=\"390,78 383.6,80.7 383.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"402\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><text x=\"210\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">no measurement returns</text></svg>",
+      "figure_alt": "Open-loop chain from reference to command, actuator, and plant, with the output leaving the diagram.",
+      "answer": 3.0,
+      "unit": "rad/s",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "An open-loop heater holds a fixed command. A disturbance then adds \\(2\\) degrees at the plant output. What happens to the output?",
+      "explanation": "With no measurement there is no loop gain to attenuate anything. An output disturbance adds directly: the shift is \\(2\\) degrees.\n• Division by \\(1+L\\) is the closed-loop sensitivity. It needs a measured error.\n• Calibration matched the model at one operating point. It does not cancel a new disturbance.\n• Multiplying by the plant gain would be right for a disturbance at the plant input, not for one already at the output.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 440 170\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Open-loop plant with a disturbance added at the output</title><text x=\"16\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"30\" y1=\"78\" x2=\"58\" y2=\"78\"/><polygon points=\"58,78 51.6,80.7 51.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"58\" y=\"56\" width=\"70\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"93\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">command</text><line x1=\"128\" y1=\"78\" x2=\"156\" y2=\"78\"/><polygon points=\"156,78 149.6,80.7 149.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"156\" y=\"56\" width=\"78\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"195\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">actuator</text><line x1=\"234\" y1=\"78\" x2=\"262\" y2=\"78\"/><polygon points=\"262,78 255.6,80.7 255.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"262\" y=\"56\" width=\"52\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"288\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"314\" y1=\"78\" x2=\"390\" y2=\"78\"/><polygon points=\"390,78 383.6,80.7 383.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"402\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"348\" y1=\"28\" x2=\"348\" y2=\"64\"/><polygon points=\"348,64 345.3,57.6 350.7,57.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"348\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">d</text><circle cx=\"348\" cy=\"78\" r=\"2.6\" fill=\"currentColor\"/><text x=\"210\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">no measurement returns</text></svg>",
+      "figure_alt": "Open-loop chain with a disturbance arrow added at the output. No sensor path returns.",
+      "options": [
+        "The disturbance is divided by \\(1+L\\), even though nothing is measured",
+        "The output does not move, because the command was calibrated",
+        "The output shifts by the full \\(2\\) degrees",
+        "The output shifts by \\(2\\) times the plant gain"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A proportional loop has loop gain \\(L = 20\\) and a constant reference. Which description of the steady output is right?",
+      "explanation": "Solving \\(y = L(r-y)\\) gives \\(y = \\dfrac{L}{1+L} r = \\dfrac{20}{21} r\\). The output is close to the reference, short by the sensitivity \\(1/21\\).\n• \\(L r\\) is the open command applied once, not the fixed point of the loop.\n• \\(r/L\\) is what you would get by inverting the loop gain instead of using it as feedback.\n• Nothing in \\(L/(1+L)\\) says the result is one half. One half would need \\(L = 1\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 290 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Qualitative comparison of a large open-loop shift and a small closed-loop shift</title><text x=\"70\" y=\"22\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">open loop</text><text x=\"210\" y=\"22\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">closed loop</text><rect x=\"40\" y=\"40\" width=\"28\" height=\"110\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"78\" y=\"100\" width=\"28\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"180\" y=\"78\" width=\"28\" height=\"72\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"218\" y=\"96\" width=\"28\" height=\"54\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"54\" y=\"168\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">before</text><text x=\"92\" y=\"168\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">after</text><text x=\"194\" y=\"168\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">before</text><text x=\"232\" y=\"168\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">after</text><line x1=\"30\" y1=\"150\" x2=\"260\" y2=\"150\"/></svg>",
+      "figure_alt": "Two pairs of bars. The open-loop pair changes height a lot. The closed-loop pair barely changes.",
+      "options": [
+        "The output equals \\(L\\) times the reference, because each pass around the loop multiplies by \\(L\\)",
+        "The output equals the reference divided by \\(L\\)",
+        "The output sits at half the reference, because half the gain is used up by feedback",
+        "The output equals \\(\\dfrac{L}{1+L}\\) times the reference, here \\(20/21\\) of it"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A loop has a large loop gain at the frequencies where a sensor is noisy. What does the loop do with that noise?",
+      "explanation": "The tracking factor \\(T = L/(1+L)\\) multiplies both the reference and the sensor noise. When \\(L\\) is large, \\(T\\) is near \\(1\\), so the output follows the noisy measurement. Output disturbances see the small factor \\(S = 1/(1+L)\\), not \\(T\\). Open loop does not read the sensor at all, so it does not pass sensor noise, and it also does not reject disturbances.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 440 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Sensor noise added on the return path of a feedback loop</title><text x=\"16\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"72\" x2=\"62\" y2=\"72\"/><polygon points=\"62,72 55.6,74.7 55.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"76\" cy=\"72\" r=\"12\"/><line x1=\"70\" y1=\"72\" x2=\"82\" y2=\"72\" stroke-width=\"1.1\"/><line x1=\"76\" y1=\"66\" x2=\"76\" y2=\"78\" stroke-width=\"1.1\"/><text x=\"58\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"92\" y=\"92\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"90\" y1=\"72\" x2=\"112\" y2=\"72\"/><polygon points=\"112,72 105.6,74.7 105.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"50\" width=\"46\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"135\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"158\" y1=\"72\" x2=\"176\" y2=\"72\"/><polygon points=\"176,72 169.6,74.7 169.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"176\" y=\"50\" width=\"78\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"215\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">actuator</text><line x1=\"254\" y1=\"72\" x2=\"272\" y2=\"72\"/><polygon points=\"272,72 265.6,74.7 265.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"272\" y=\"50\" width=\"52\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"298\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"324\" y1=\"72\" x2=\"392\" y2=\"72\"/><polygon points=\"392,72 385.6,74.7 385.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"404\" y=\"76\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"360\" y1=\"72\" x2=\"360\" y2=\"150\"/><circle cx=\"360\" cy=\"72\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"360,150 252,150\"/><rect x=\"188\" y=\"132\" width=\"64\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"220\" y=\"154\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sensor</text><polyline points=\"188,150 76,150\"/><line x1=\"76\" y1=\"150\" x2=\"76\" y2=\"86\"/><polygon points=\"76,86 78.7,92.4 73.3,92.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"220\" y1=\"118\" x2=\"220\" y2=\"132\"/><polygon points=\"220,132 217.3,125.6 222.7,125.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"220\" y=\"112\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">n</text></svg>",
+      "figure_alt": "Closed loop with an extra noise arrow entering the sensor on the return path.",
+      "options": [
+        "It copies the noise onto the output, because the loop treats the noisy measurement as the truth",
+        "It rejects sensor noise by \\(1+L\\), the same factor that rejects an output disturbance",
+        "It ignores the noise, because a sensor is outside the plant",
+        "It is less affected than an open-loop controller would be, because open loop also reads the sensor"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A proportional position loop has controller gain \\(9\\), plant gain \\(1\\), and a reference of \\(0\\). A disturbance adds \\(4\\ \\mathrm{m}\\) at the output. What is the steady output, in m?",
+      "explanation": "The loop equation is \\(y = 9(0 - y) + 4\\). Then \\(10y = 4\\) and \\(y = 0.4\\ \\mathrm{m}\\). The same result is \\(d/(1+L)\\) with \\(L = 9\\).\n• Leaving the disturbance unattenuated gives \\(4\\ \\mathrm{m}\\).\n• Multiplying by the loop gain gives \\(36\\ \\mathrm{m}\\).\n• Using \\(L/(1+L)\\) instead of \\(1/(1+L)\\) gives \\(3.6\\ \\mathrm{m}\\), which is the response to a reference, not to an output disturbance.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 440 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Disturbance added at the plant output of a closed loop</title><text x=\"16\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"72\" x2=\"62\" y2=\"72\"/><polygon points=\"62,72 55.6,74.7 55.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"76\" cy=\"72\" r=\"12\"/><line x1=\"70\" y1=\"72\" x2=\"82\" y2=\"72\" stroke-width=\"1.1\"/><line x1=\"76\" y1=\"66\" x2=\"76\" y2=\"78\" stroke-width=\"1.1\"/><text x=\"58\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"92\" y=\"92\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"90\" y1=\"72\" x2=\"112\" y2=\"72\"/><polygon points=\"112,72 105.6,74.7 105.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"50\" width=\"46\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"135\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"158\" y1=\"72\" x2=\"176\" y2=\"72\"/><polygon points=\"176,72 169.6,74.7 169.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"176\" y=\"50\" width=\"78\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"215\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">actuator</text><line x1=\"254\" y1=\"72\" x2=\"272\" y2=\"72\"/><polygon points=\"272,72 265.6,74.7 265.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"272\" y=\"50\" width=\"52\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"298\" y=\"76\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"324\" y1=\"72\" x2=\"392\" y2=\"72\"/><polygon points=\"392,72 385.6,74.7 385.6,69.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"404\" y=\"76\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"360\" y1=\"72\" x2=\"360\" y2=\"150\"/><circle cx=\"360\" cy=\"72\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"360,150 252,150\"/><rect x=\"188\" y=\"132\" width=\"64\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"220\" y=\"154\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sensor</text><polyline points=\"188,150 76,150\"/><line x1=\"76\" y1=\"150\" x2=\"76\" y2=\"86\"/><polygon points=\"76,86 78.7,92.4 73.3,92.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"360\" y1=\"28\" x2=\"360\" y2=\"58\"/><polygon points=\"360,58 357.3,51.6 362.7,51.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"360\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">d</text><circle cx=\"360\" cy=\"72\" r=\"4\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "Closed loop with a disturbance arrow entering at the output, after the plant.",
+      "answer": 0.4,
+      "unit": "m",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "The plant gain used for an open-loop calibration is \\(50\\%\\) low. A closed loop around the same plant has loop gain about \\(20\\). Which comparison is right?",
+      "explanation": "Open loop applies a frozen command, so the output scales with the plant: a \\(50\\%\\) plant error is a \\(50\\%\\) output error. Closed loop, the fractional output change is about \\(1/(1+L)\\) times the fractional plant change. With \\(L \\approx 20\\) that factor is about \\(1/21\\), a few percent, not \\(50\\%\\).\n• The loop gain does not multiply the error. It is what makes the sensitivity small.\n• A command computed from the old model is exactly why the open-loop output is wrong after the plant changes.",
+      "options": [
+        "Both outputs move by about \\(50\\%\\), because the plant moved by \\(50\\%\\)",
+        "The open-loop output moves by about \\(50\\%\\). The closed-loop output moves by only a few percent",
+        "The closed-loop output moves more, because the loop gain multiplies the plant error",
+        "The open-loop output does not move, because the command was computed from the old model"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Two blocks stand in series. The first has gain \\(3\\), the second gain \\(4\\). What single gain replaces them?",
+      "explanation": "Blocks in series multiply. The equivalent gain is \\(3 \\times 4 = 12\\). Addition is the rule for signals that meet at a summing junction, not for blocks one after another. A ratio would be a feedback or a divider. Nothing here cancels: cancellation would need a block of gain \\(1/3\\) after the first block.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 336 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Two blocks in series, gains 3 and 4</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">gain 3</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">gain 4</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"304\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">out</text></svg>",
+      "figure_alt": "Two blocks one after another, labeled gain 3 and gain 4, with an arrow into the first and an arrow out of the second.",
+      "preview": [
+        "block-diagram"
+      ],
+      "options": [
+        "\\(7\\), because series gains add",
+        "\\(3/4\\), the ratio of the two gains",
+        "\\(12\\), the product of the two gains",
+        "\\(1\\), because the second block undoes the first"
+      ],
+      "correct_index": 2,
+      "version": 2
+    },
+    {
+      "id": "fb-concepts-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A proportional controller uses \\(K_c = 5\\). The reference is \\(6\\) and the measured output is \\(4\\). What command does it send?",
+      "explanation": "Proportional control acts on the error: \\(u = K_c(r-y) = 5(6-4) = 10\\).\n• \\(K_c r = 30\\) forgets to subtract the measurement.\n• \\(K_c y = 20\\) feeds the measurement forward instead of the error.\n• \\(-10\\) flips the sign, which is positive feedback and drives the output away from the reference.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 160\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Proportional controller: command equals gain times the error</title><text x=\"16\" y=\"78\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"30\" y1=\"74\" x2=\"58\" y2=\"74\"/><polygon points=\"58,74 51.6,76.7 51.6,71.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"72\" cy=\"74\" r=\"12\"/><line x1=\"66\" y1=\"74\" x2=\"78\" y2=\"74\" stroke-width=\"1.1\"/><line x1=\"72\" y1=\"68\" x2=\"72\" y2=\"80\" stroke-width=\"1.1\"/><text x=\"54\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"88\" y=\"94\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"96\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e</text><line x1=\"86\" y1=\"74\" x2=\"118\" y2=\"74\"/><polygon points=\"118,74 111.6,76.7 111.6,71.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"118\" y=\"52\" width=\"64\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"150\" y=\"78\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Kc</text><line x1=\"182\" y1=\"74\" x2=\"230\" y2=\"74\"/><polygon points=\"230,74 223.6,76.7 223.6,71.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"242\" y=\"78\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">u</text><text x=\"72\" y=\"140\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"72\" y1=\"128\" x2=\"72\" y2=\"88\"/><polygon points=\"72,88 74.7,94.4 69.3,94.4\" fill=\"currentColor\" stroke=\"none\"/></svg>",
+      "figure_alt": "Summing junction forming an error from reference and measured output, then a block labeled Kc producing a command.",
+      "preview": [
+        "onoff-pid-intro"
+      ],
+      "options": [
+        "\\(30\\), the gain times the reference",
+        "\\(20\\), the gain times the measurement",
+        "\\(-10\\), the gain times the measurement minus the reference",
+        "\\(10\\), the gain times the reference minus the measurement"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r4-q3",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "A speed loop has already been reduced to a loop gain \\(L = 19\\). The reference is \\(0\\). A grade disturbance adds the equivalent of \\(2\\ \\mathrm{m/s}\\) at the output. What steady speed does that disturbance produce, in m/s?",
+      "explanation": "The fixed point is \\(y = L(0-y) + 2\\), so \\(y(1+19) = 2\\) and \\(y = 0.1\\ \\mathrm{m/s}\\). A large loop gain turns a \\(2\\ \\mathrm{m/s}\\) disturbance into a tenth of a meter per second. This is the same sensitivity a cruise-control loop uses on a grade.\n• Reporting \\(2\\ \\mathrm{m/s}\\) ignores the feedback.\n• \\(19 \times 2 = 38\\) multiplies the disturbance by the loop gain.\n• \\(19/20 \times 2 = 1.9\\) uses the tracking factor \\(T\\) where the sensitivity \\(S\\) belongs.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 146\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Vehicle pushed by a force, the plant inside a speed loop</title><rect x=\"70\" y=\"70\" width=\"120\" height=\"36\" rx=\"8\"/><rect x=\"96\" y=\"48\" width=\"60\" height=\"24\" rx=\"6\"/><circle cx=\"100\" cy=\"106\" r=\"12\"/><circle cx=\"164\" cy=\"106\" r=\"12\"/><line x1=\"40\" y1=\"120\" x2=\"250\" y2=\"120\"/><line x1=\"200\" y1=\"78\" x2=\"250\" y2=\"78\"/><polygon points=\"250,78 243.6,80.7 243.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"68\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">F</text><text x=\"130\" y=\"92\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">m</text></svg>",
+      "figure_alt": "Side view of a vehicle with a force arrow at the rear.",
+      "preview": [
+        "cruise-control"
+      ],
+      "answer": 0.1,
+      "unit": "m/s",
+      "tolerance": 0.02,
+      "version": 1
+    }
+  ]
+}

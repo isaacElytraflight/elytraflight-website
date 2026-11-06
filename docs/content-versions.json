@@ -1,0 +1,266 @@
+{
+  "batch": "me132-b1",
+  "note": "Generated from the bank and explainer files. Learner progress is separate.",
+  "items": [
+    {
+      "id": "fb-concepts-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "fb-concepts-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "fb-concepts-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "fb-concepts#explainer",
+      "version": 1
+    },
+    {
+      "id": "laplace-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "laplace-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "laplace-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "laplace-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "laplace-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "laplace-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "laplace-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "laplace-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "laplace-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "laplace-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "laplace-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "laplace-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "laplace#explainer",
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review#explainer",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "min-phase-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "min-phase-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "min-phase-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "min-phase-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "min-phase-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "min-phase-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "min-phase#explainer",
+      "version": 2
+    },
+    {
+      "id": "ode-model-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "ode-model-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "ode-model-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "ode-model-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "ode-model-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "ode-model-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "ode-model-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "ode-model-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "ode-model-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "ode-model-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "ode-model-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "ode-model-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "ode-model#explainer",
+      "version": 1
+    }
+  ]
+}
