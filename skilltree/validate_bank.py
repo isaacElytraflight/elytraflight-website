@@ -77,6 +77,11 @@ LEAF_PREVIEW_ALLOWED.update({
     # model-method has no dependents. Round 4 names the later modeling skills.
     "model-method": ["linearization", "sys-id", "equilibria"],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # ME132 B3 skills: leaf skills with conceptual follow-ons
+    "app-examples": ["realization", "discrete-time", "linearization"],
+    "cruise-control": ["pid-tuning", "feedforward", "gain-scheduling"],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

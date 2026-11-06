@@ -54,7 +54,7 @@ test('graph is version 3 with 170 live skills and 16 retired ids', () => {
   assert.strictEqual(retired.margins, 'stability');
   assert.strictEqual(new Set(skills.map(s => s.id)).size, 170, 'skill ids are unique');
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 46, 'batch B2 ships 5 more skills and leaves 46 coming soon');
+  assert.strictEqual(soon.length, 40, 'batch B3 ships 6 more skills and leaves 40 coming soon');
 });
 
 test('every retired id points at a live survivor and is not itself live', () => {
@@ -67,9 +67,9 @@ test('every retired id points at a live survivor and is not itself live', () => 
 
 test('playable skills have quiz banks and coming-soon skills do not', () => {
   const banks = readJsonDir(path.join(SRC, 'bank'));
-  assert.strictEqual(Object.keys(banks).length, 124);
+  assert.strictEqual(Object.keys(banks).length, 130);
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 46);
+  assert.strictEqual(soon.length, 40);
   for (const skill of skills) {
     const bank = banks[skill.id];
     if (skill.status === 'coming-soon') {
@@ -89,7 +89,7 @@ test('playable skills have quiz banks and coming-soon skills do not', () => {
 
 test('playable skills have explainers and coming-soon skills do not', () => {
   const explainers = readJsonDir(path.join(SRC, 'explainers'));
-  assert.strictEqual(Object.keys(explainers).length, 124);
+  assert.strictEqual(Object.keys(explainers).length, 130);
   for (const skill of skills) {
     const exp = explainers[skill.id];
     if (skill.status === 'coming-soon') {
@@ -286,8 +286,8 @@ test('no retired id is referenced by the built app payload', () => {
   assert.deepStrictEqual(built.retired, retired);
   const builtIds = built.skills.map(s => s.id);
   assert.strictEqual(builtIds.length, 170);
-  assert.strictEqual(Object.keys(built.banks).length, 124);
-  assert.strictEqual(Object.keys(built.explainers).length, 124);
+  assert.strictEqual(Object.keys(built.banks).length, 130);
+  assert.strictEqual(Object.keys(built.explainers).length, 130);
   for (const id of builtIds) {
     assert(!retiredIds.has(id), 'built graph still contains ' + id);
     const skill = built.skills.find(s => s.id === id);

@@ -69,3 +69,43 @@ Added in B1 for `ode-model`.
 | \(R, L, C, v, i\) | resistance, inductance, capacitance, voltage, current | |
 | \(A, h, q, R\) | tank surface area, height, volume flow, hydraulic resistance | this \(A\) is not a matrix; this \(R\) is not ohms. The sentence names the tank. |
 | time constant | \(m/b\), \(J/b\), \(L/R\), \(RC\), \(AR\) | not \(R/L\) or \(R/C\) |
+
+## state-space
+
+Added in B2 for `state-space-model`, extended in B3 for `ss-solution` and `equilibria`.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(x\) | state vector | |
+| \(A, B, C, D\) | state-space matrices | this \(A\) is not tank area; context tells which |
+| \(\dot{x} = Ax + Bu\) | state equation | |
+| \(y = Cx + Du\) | output equation | |
+| \(\lambda\) | eigenvalue of \(A\) | mode |
+| \(e^{At}\) | matrix exponential, the free-response operator | added in B3 |
+| \(x_e\) | equilibrium point, where \(\dot{x} = 0\) | added in B3 |
+
+## second-order-systems
+
+Added in B3 for `second-order-sys`.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(\omega_n\) | natural frequency, rad/s | undamped natural frequency |
+| \(\zeta\) | damping ratio | |
+| poles | \(-\zeta\omega_n \pm \omega_n\sqrt{\zeta^2 - 1}\) | when \(\zeta < 1\), a conjugate pair |
+| \(M_p\) | percent overshoot | peak overshoot |
+| \(t_p\) | time to peak | |
+| \(t_s\) | settling time, usually 2% or 5% of steady value | |
+
+## loop-transfer-function
+
+Added in B3 for `loop-tf`.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(L(s)\) | loop transfer function, product around the loop | loop gain when evaluated |
+| \(T(s)\) | complementary sensitivity \(L/(1+L)\) | equals closed-loop \(G/(1+GH)\) only for unity feedback |
+| \(S(s)\) | sensitivity \(1/(1+L)\) | |
+| \(1 + L(s)\) | return difference | |
+
+Note: The identity \(T + S = 1\) holds for \(T = L/(1+L)\) and \(S = 1/(1+L)\). For non-unity feedback (\(H \ne 1\)), the closed-loop gain \(G/(1+GH)\) differs from \(L/(1+L)\).

@@ -1203,6 +1203,39 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('quiz without figure does not render literal null text or empty container', async () => {
+    const p = await newPage();
+    await openSkill(p, 'bode');
+    await p.click('#startBtn');
+    await p.waitForSelector('.qcard', { timeout: 10000 });
+    const cardResult = await p.evaluate(() => {
+      const card = document.querySelector('.qcard');
+      const html = card.innerHTML;
+      const text = card.textContent;
+      const figCount = card.querySelectorAll('.qfig').length;
+      const hasLiteralNull = />\s*null\s*</.test(html) || html.includes('>null<');
+      return { figCount, hasLiteralNull, textSnippet: text.substring(0, 200) };
+    });
+    assert.strictEqual(cardResult.hasLiteralNull, false, 'should not render literal "null" text in quiz card');
+    await p._ctx.close();
+  });
+
+  await test('quiz with figure renders SVG with accessibility', async () => {
+    const p = await newPage();
+    await openSkill(p, 'square-law');
+    await p.click('#startBtn');
+    await p.waitForSelector('.qcard .qfig svg', { timeout: 10000 });
+    const figAttrs = await p.$eval('.qcard .qfig svg', svg => ({
+      role: svg.getAttribute('role'),
+      ariaLabel: svg.getAttribute('aria-label'),
+      hasTitle: !!svg.querySelector('title')
+    }));
+    assert.strictEqual(figAttrs.role, 'img', 'SVG should have role=img');
+    assert(figAttrs.ariaLabel && figAttrs.ariaLabel.length > 0, 'SVG should have aria-label');
+    assert(figAttrs.hasTitle, 'SVG should have a title element');
+    await p._ctx.close();
+  });
+
   await test('local progress on retired ids moves to the survivor and stays there', async () => {
     const p = await newPage(T({
       saturation: { tier: 2, lastPracticed: now - 5 * DAY, history: [{ t: now - 5 * DAY, round: 2, correct: 2, total: 3, passed: true }] },
@@ -1373,7 +1406,7 @@ async function test(name, fn) {
       const fullIds = used(full);
       const meIds = used(me);
       const bookIds = used(book);
-      const soon = 'second-order-sys';
+      const soon = 'step-specs';
       return {
         readySoon: ready.filter(id => !playable.has(id)),
         fullSoon: fullIds.filter(id => !playable.has(id)),
@@ -1403,15 +1436,15 @@ async function test(name, fn) {
     assert.strictEqual(result.queueHasSoon, false, 'the recommender queue stays on playable skills');
     assert.deepStrictEqual(result.meExtras, [], 'every playable prerequisite of an ME 132 skill sits inside ME 132: ' + result.meExtras.join(','));
 
-    await openSkill(p, 'second-order-sys');
+    await openSkill(p, 'step-specs');
     const panel = await p.evaluate(() => ({
       text: document.getElementById('panel').textContent,
-      label: document.querySelector('#world .tile[data-id="second-order-sys"]').getAttribute('aria-label'),
-      title: document.querySelector('#world .tile[data-id="second-order-sys"]').title,
-      soon: document.querySelector('#world .tile[data-id="second-order-sys"]').classList.contains('soon'),
+      label: document.querySelector('#world .tile[data-id="step-specs"]').getAttribute('aria-label'),
+      title: document.querySelector('#world .tile[data-id="step-specs"]').title,
+      soon: document.querySelector('#world .tile[data-id="step-specs"]').classList.contains('soon'),
       start: !!document.getElementById('startBtn')
     }));
-    assert(panel.soon, 'second-order-sys should use the coming-soon tile style');
+    assert(panel.soon, 'step-specs should use the coming-soon tile style');
     assert(/Coming soon/.test(panel.text));
     assert(/coming soon/.test(panel.title));
     assert(/Coming soon, no questions yet/.test(panel.label));
@@ -1522,7 +1555,7 @@ async function test(name, fn) {
         tiles: ids.length,
         dupes,
         toggles: document.querySelectorAll('#world .toggle, #regions .toggle').length,
-        soon: document.querySelector('#world .tile[data-id="second-order-sys"] .tag').textContent
+        soon: document.querySelector('#world .tile[data-id="step-specs"] .tag').textContent
       };
     });
     assert.strictEqual(tree.tiles, NSKILL);

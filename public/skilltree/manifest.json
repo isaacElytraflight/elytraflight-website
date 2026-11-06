@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-06T19:36:32.098264Z",
+  "generated": "2026-11-06T20:42:47.956819Z",
   "skills": {
-    "file": "skills.d006ed39.json",
-    "hash": "d006ed39"
+    "file": "skills.0bd5bf34.json",
+    "hash": "0bd5bf34"
   },
   "collections": {
     "file": "collections.17ae963b.json",
@@ -46,6 +46,18 @@
       },
       "hash": "e7b46f9c",
       "file": "banks/amp-compensation.e7b46f9c.json"
+    },
+    "app-examples": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ab4c1285",
+      "file": "banks/app-examples.ab4c1285.json"
     },
     "bias-coupling": {
       "version": 1,
@@ -310,6 +322,18 @@
       },
       "hash": "145277d2",
       "file": "banks/continuity.145277d2.json"
+    },
+    "cruise-control": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "73ee3453",
+      "file": "banks/cruise-control.73ee3453.json"
     },
     "cs-analysis": {
       "version": 1,
@@ -598,6 +622,18 @@
       },
       "hash": "ba8fb6f2",
       "file": "banks/electrostatics.ba8fb6f2.json"
+    },
+    "equilibria": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "74f7f18d",
+      "file": "banks/equilibria.74f7f18d.json"
     },
     "excess-carriers": {
       "version": 1,
@@ -910,6 +946,18 @@
       },
       "hash": "582bb8fa",
       "file": "banks/loop-margin-design.582bb8fa.json"
+    },
+    "loop-tf": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "95abcc9a",
+      "file": "banks/loop-tf.95abcc9a.json"
     },
     "lti-circuits": {
       "version": 1,
@@ -1319,6 +1367,18 @@
       "hash": "40e16726",
       "file": "banks/ro.40e16726.json"
     },
+    "second-order-sys": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "3f600b1a",
+      "file": "banks/second-order-sys.3f600b1a.json"
+    },
     "sheet-res": {
       "version": 1,
       "questionCount": 12,
@@ -1402,6 +1462,18 @@
       },
       "hash": "fd5d74e0",
       "file": "banks/ss-model.fd5d74e0.json"
+    },
+    "ss-solution": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "8308e1f7",
+      "file": "banks/ss-solution.8308e1f7.json"
     },
     "stability": {
       "version": 3,
@@ -1516,6 +1588,12 @@
       "file": "explainers/amp-compensation.3cd7c696.json",
       "sectionCount": 5
     },
+    "app-examples": {
+      "hash": "f33edd64",
+      "file": "explainers/app-examples.f33edd64.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "bias-coupling": {
       "hash": "a42fccbf",
       "file": "explainers/bias-coupling.a42fccbf.json",
@@ -1626,6 +1704,12 @@
       "hash": "7746acf7",
       "file": "explainers/continuity.7746acf7.json",
       "sectionCount": 5
+    },
+    "cruise-control": {
+      "hash": "b8cc3878",
+      "file": "explainers/cruise-control.b8cc3878.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "cs-analysis": {
       "hash": "82fc8c7a",
@@ -1746,6 +1830,12 @@
       "hash": "7cb26824",
       "file": "explainers/electrostatics.7cb26824.json",
       "sectionCount": 5
+    },
+    "equilibria": {
+      "hash": "b7644146",
+      "file": "explainers/equilibria.b7644146.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "excess-carriers": {
       "hash": "0b2bad25",
@@ -1880,6 +1970,12 @@
       "hash": "300275d9",
       "file": "explainers/loop-margin-design.300275d9.json",
       "sectionCount": 5
+    },
+    "loop-tf": {
+      "hash": "1cfc30db",
+      "file": "explainers/loop-tf.1cfc30db.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "lti-circuits": {
       "hash": "693afd4b",
@@ -2055,6 +2151,12 @@
       "file": "explainers/ro.d4271073.json",
       "sectionCount": 5
     },
+    "second-order-sys": {
+      "hash": "9f11ec3e",
+      "file": "explainers/second-order-sys.9f11ec3e.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "sheet-res": {
       "hash": "01703bc3",
       "file": "explainers/sheet-res.01703bc3.json",
@@ -2089,6 +2191,12 @@
       "hash": "4b759b7d",
       "file": "explainers/ss-model.4b759b7d.json",
       "sectionCount": 5
+    },
+    "ss-solution": {
+      "hash": "e857d6c5",
+      "file": "explainers/ss-solution.e857d6c5.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "stability": {
       "hash": "d39a35e7",

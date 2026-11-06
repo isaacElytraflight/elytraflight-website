@@ -1612,7 +1612,10 @@ function renderQuiz() {
   else if (Q.mode === 'practice') wrap.append(el('div', { class: 'kv', id: 'rule', style: 'margin:-6px 0 10px', text: 'Practice quiz (not a mastery challenge): finish all questions to color this skill in as Practiced.' }));
   const it = Q.items[Q.i], q = it.q;
   const card = el('div', { class: 'qcard' });
-  card.append(el('div', { class: 'qn', text: `Question ${Q.i + 1} of ${n}` }), figureNode(q), el('p', { class: 'qp', math: q.prompt, id: 'qPrompt', 'data-qid': q.id }));
+  const fig = figureNode(q);
+  card.append(el('div', { class: 'qn', text: `Question ${Q.i + 1} of ${n}` }));
+  if (fig) card.append(fig);
+  card.append(el('p', { class: 'qp', math: q.prompt, id: 'qPrompt', 'data-qid': q.id }));
   if (q.type === 'mc') {
     const box = el('div', { class: 'opts', role: 'group', 'aria-labelledby': 'qPrompt' });
     it.opts.forEach((o, i) => {

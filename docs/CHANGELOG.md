@@ -61,3 +61,13 @@ Items above version 1:
 - `onoff-pid-intro#explainer` version 3
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## B3 — me132-b3
+
+Box: ME 132 (me132) and Feedback Systems (am08).
+
+Skills: `app-examples`, `cruise-control`, `equilibria`, `loop-tf`, `second-order-sys`, `ss-solution`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
