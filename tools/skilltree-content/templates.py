@@ -269,13 +269,18 @@ def block_diagram(blocks, title, feedback=None, input_label="", output_label="ou
     if error_label:
         body += b2b_text(x + first_gap / 2, y - 12, error_label, size=13)
     x += first_gap
-    for label in blocks:
+    n = len(blocks)
+    for i, label in enumerate(blocks):
         body += b2b_box(x, y - box_h / 2, box_w, box_h, label)
         x += box_w
+        if disturbance and i == n - 1:
+            continue
         body += b2b_arrow(x, y, x + gap, y)
         x += gap
     if disturbance:
-        sx = x + 30
+        # One arrow from the last block into the output summer. The block does not
+        # also keep its own outgoing arrowhead on that same wire.
+        sx = x + gap + radius
         body += b2b_arrow(x, y, sx - radius, y)
         body += b2b_circle(sx, y, radius)
         body += b2b_text(sx - 22, y - 16, "+", size=13)

@@ -292,7 +292,7 @@
     },
     {
       "id": "block-diagram-r3-q2",
-      "version": 2
+      "version": 3
     },
     {
       "id": "block-diagram-r3-q3",
@@ -304,7 +304,7 @@
     },
     {
       "id": "block-diagram-r4-q2",
-      "version": 3
+      "version": 4
     },
     {
       "id": "block-diagram-r4-q3",
@@ -440,7 +440,7 @@
     },
     {
       "id": "onoff-pid-intro-r2-q3",
-      "version": 3
+      "version": 4
     },
     {
       "id": "onoff-pid-intro-r3-q1",

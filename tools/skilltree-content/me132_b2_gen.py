@@ -129,7 +129,7 @@ def bank_blocks():
          r"With the reference held at zero, \(y = d - L y\), because the loop sees the output and drives back against it. Then \(y(1+L) = d\), so the fraction is \(1/(1+L)\). \(L\) and \(1+L\) grow as the loop gets stronger, but a stronger loop rejects more of \(d\). \(L/(1+L)\) is the fraction of a reference that gets through, not of a disturbance.",
          block_diagram(["L"], "disturbance at the output", feedback="1", input_label="r", output_label="y", disturbance="d"),
          "A forward block, a return subtracted at the input, and a disturbance added at the output.",
-         version=2)
+         version=3)
     b.num(3,
           r"Three blocks in series have gains 2, 3, and 4. The equivalent gain is",
           2 * 3 * 4, "1",
@@ -147,7 +147,7 @@ def bank_blocks():
           r"Hold the reference at zero. Then \(y = d - 4y\), so \(y = d/5 = 0.2\). The complementary fraction \(4/5 = 0.8\) is how much of a reference would get through, not how much of \(d\) remains. Leaving the 4 un-normalized reports the loop gain itself.",
           block_diagram(["4"], "disturbance at the output", feedback="1", input_label="r", output_label="y", disturbance="d"),
           "A forward block, a return subtracted at the input, and a disturbance added at the output.",
-          ["sensitivity"], version=3)
+          ["sensitivity"], version=4)
     b.num(4,
           r"The product you would plot as a loop gain is made of three series blocks, 1.5, 2, and 4. That product is",
           1.5 * 2 * 4, "1",
@@ -358,7 +358,7 @@ def bank_pid():
           r"The disturbance is divided by \(1+L\): \(2/13 = 0.154\). The loop gain 12 is not the output. \(2 \times 12/13\) would be the response to a reference of 2, and the sign here is an output disturbance, not a reference.",
           block_diagram(["4", "3"], "disturbance after the plant", feedback="1", input_label="r", output_label="y", disturbance="d"),
           "Two forward blocks, a return subtracted at the input, and a disturbance added at the output.",
-          version=3)
+          version=4)
     b.num(3,
           r"The proportional gain in that loop is doubled, from 4 to 8. The plant DC gain is still 3 and the reference is still 10. The new steady error is",
           10 / (1 + 8 * 3), "1",
@@ -682,6 +682,14 @@ def audit_loop(svg, alt, where, problems):
         rects = [float(x) for x in re.findall(r'<rect x="([^"]+)"', svg)]
         if rects and max(c[0] for c in circles) <= max(rects):
             problems.append(f"{where} disturbance summer is not after the forward blocks")
+        tips = []
+        for pts in re.findall(r'<polygon points="([^"]+)"', svg):
+            px, py = pts.split()[0].split(",")
+            tips.append((float(px), float(py)))
+        horiz = sorted(px for px, py in tips if abs(py - jy) < 1.5)
+        for left, right in zip(horiz, horiz[1:]):
+            if right - left < 40:
+                problems.append(f"{where} has two arrowheads {right - left:.0f}px apart on one wire")
 
 
 def lint():

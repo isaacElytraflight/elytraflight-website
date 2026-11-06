@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-06T19:17:24.549180Z",
+  "generated": "2026-11-06T19:36:32.098264Z",
   "skills": {
-    "file": "skills.6e9331b9.json",
-    "hash": "6e9331b9"
+    "file": "skills.d006ed39.json",
+    "hash": "d006ed39"
   },
   "collections": {
     "file": "collections.17ae963b.json",
@@ -140,8 +140,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "c4f32c42",
-      "file": "banks/block-diagram.c4f32c42.json"
+      "hash": "75ce98c8",
+      "file": "banks/block-diagram.75ce98c8.json"
     },
     "bode-circuits": {
       "version": 1,
@@ -1184,8 +1184,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "1eb59ef9",
-      "file": "banks/onoff-pid-intro.1eb59ef9.json"
+      "hash": "671126d8",
+      "file": "banks/onoff-pid-intro.671126d8.json"
     },
     "opamp-fr": {
       "version": 1,

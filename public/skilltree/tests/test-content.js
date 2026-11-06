@@ -412,6 +412,30 @@ test('feedback labels, signs, and disturbance topology match the stems', () => {
   }
 });
 
+test('a disturbance wire has one arrowhead, not two', () => {
+  const banks = ['block-diagram', 'onoff-pid-intro'].map(id =>
+    JSON.parse(fs.readFileSync(path.join(SRC, 'bank', id + '.json'), 'utf8')));
+  const questions = banks.flatMap(bank => bank.questions);
+  const expected = {
+    'block-diagram-r3-q2': 3,
+    'block-diagram-r4-q2': 4,
+    'onoff-pid-intro-r2-q3': 4,
+  };
+  for (const [id, version] of Object.entries(expected)) {
+    const q = questions.find(item => item.id === id);
+    const tips = [...q.figure.matchAll(/<polygon points="([^"]+)"/g)].map(m => {
+      const [x, y] = m[1].split(/[\s,]+/).map(Number);
+      return { x, y };
+    });
+    const mainY = tips.map(t => t.y).sort((a, b) => a - b)[Math.floor(tips.length / 2)];
+    const horiz = tips.filter(t => Math.abs(t.y - mainY) < 1.5).map(t => t.x).sort((a, b) => a - b);
+    for (let i = 1; i < horiz.length; i++) {
+      assert(horiz[i] - horiz[i - 1] >= 40, id + ' has arrowheads ' + (horiz[i] - horiz[i - 1]) + 'px apart');
+    }
+    assert.strictEqual(q.version, version, id);
+  }
+});
+
 test('PID terms split from one signal and their outputs add', () => {
   const bank = JSON.parse(fs.readFileSync(path.join(SRC, 'bank', 'onoff-pid-intro.json'), 'utf8'));
   const q = bank.questions.find(item => item.id === 'onoff-pid-intro-r4-q3');
