@@ -50,6 +50,7 @@ class Bank:
         elif preview:
             raise SystemExit("preview only in round 4")
         item.update(kw)
+        item.setdefault("version", 1)
         self.qs.append(item)
 
     def mc(self, rnd, prompt, options, correct, explanation, fig=None, alt=None, preview=None):
@@ -69,10 +70,11 @@ class Bank:
             f.write("\n")
 
 
-def save_explainer(sid, title, sections):
+def save_explainer(sid, title, sections, version=1):
     path = os.path.join(EXP, f"{sid}.json")
     with open(path, "w", encoding="utf-8") as f:
-        json.dump({"id": sid, "title": title, "sections": sections}, f, indent=2, ensure_ascii=False)
+        json.dump({"id": sid, "title": title, "version": version, "sections": sections},
+                  f, indent=2, ensure_ascii=False)
         f.write("\n")
 
 
@@ -440,7 +442,8 @@ def expl_laplace():
              "The Laplace transform turns a time signal into a function of a complex variable \(s\). "
              "Differentiation becomes multiplication by \(s\), so a linear constant-coefficient differential equation becomes algebra. "
              "That is why the same transform produces transfer functions: solve for the output transform and divide by the input transform, with the initial state at rest.\n\n"
-             "The integral is \(\\int_0^\\infty f(t) e^{-st}\\,dt\). It converges when \(f\) does not grow faster than some exponential, which is the usual case for signals from stable hardware. "
+             "The integral runs from the instant we start caring, \(t = 0\), out to infinity: multiply the signal by a decaying exponential \(e^{-st}\) and add it up. "
+             "Pick the real part of \(s\) large enough and that decay wins for any signal a stable piece of hardware can produce. "
              "The transform is linear, so the transform of a sum is the sum of the transforms. A delay in time becomes a factor \(e^{-sT}\) in \(s\)."
          )},
         {"heading": "Key equations",
@@ -477,7 +480,7 @@ def expl_laplace():
              "A PI controller is \(K_p + K_i/s\), a zero over a pole at the origin, which is the same algebra."
          )},
     ]
-    save_explainer("laplace", "Laplace transform and its properties", sections)
+    save_explainer("laplace", "Laplace transform and its properties", sections, version=2)
     return words(sections)
 
 
@@ -828,9 +831,9 @@ def expl_min():
              "On a minimum-phase frequency response, the magnitude slope and the phase are tied together. "
              "A slope of \(-20\\ \\mathrm{dB}\) per decade, held across a wide band, sits near \(-90^\\circ\). "
              "A slope of \(-40\\ \\mathrm{dB}\) per decade sits near \(-180^\\circ\), and \(-60\) near \(-270^\\circ\). "
-             "The phase at one frequency is a weighted average of the slope nearby, so a slope that has only just changed has not yet dragged the phase all the way to the new value.\n\n"
+             "Phase does not snap to the new slope at a corner. It still reflects the slopes in a band around that frequency, so a corner you only just passed still shows the old slope in the phase.\n\n"
              "A system is minimum phase when every zero is in the open left half-plane and there is no time delay. "
-             "Among stable systems with the same magnitude curve, it has the smallest phase lag. "
+             "Hold the magnitude curve fixed and slide a zero across the imaginary axis: the lag grows and the magnitude does not. That is the low-lag placement. "
              "A right-half-plane zero matches the magnitude of its left-half-plane mirror and contributes the opposite phase, toward \(-90^\\circ\) instead of \(+90^\\circ\). "
              "The ratio of those two factors is an all-pass of magnitude \(1\). A delay \(e^{-sT}\) also has magnitude \(1\) and adds lag \(\\omega T\) radians. Both eat phase margin as the bandwidth goes up.\n\n"
              "A right-half-plane zero shows up in time as well. The step response first moves the wrong way, then settles in the commanded direction. That initial reversal is inverse response."
@@ -865,7 +868,7 @@ def expl_min():
              "A steeper loop slope near crossover costs the same margin, which is why loop shaping and the waterbed constraint are the next questions."
          )},
     ]
-    save_explainer("min-phase", "Bode gain-phase relations and minimum-phase systems", sections)
+    save_explainer("min-phase", "Bode gain-phase relations and minimum-phase systems", sections, version=2)
     return words(sections)
 
 

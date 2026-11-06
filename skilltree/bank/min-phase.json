@@ -16,7 +16,8 @@
         "about \\(-270^\\circ\\)",
         "about \\(0^\\circ\\), because phase is set by the gain at one frequency, not by the slope"
       ],
-      "correct_index": 0
+      "correct_index": 0,
+      "version": 1
     },
     {
       "id": "min-phase-r1-q2",
@@ -28,7 +29,8 @@
       "figure_alt": "A single block on a signal path, labeled as a delay.",
       "answer": 57.2958,
       "unit": "deg",
-      "tolerance": 0.02
+      "tolerance": 0.02,
+      "version": 1
     },
     {
       "id": "min-phase-r1-q3",
@@ -44,7 +46,8 @@
         "Multiplying by a positive constant gain",
         "Multiplying by \\(\\dfrac{s+z}{z-s}\\) and then taking the magnitude only"
       ],
-      "correct_index": 1
+      "correct_index": 1,
+      "version": 1
     },
     {
       "id": "min-phase-r2-q1",
@@ -56,7 +59,8 @@
       "figure_alt": "A block in series on a signal path.",
       "answer": -126.87,
       "unit": "deg",
-      "tolerance": 0.02
+      "tolerance": 0.02,
+      "version": 1
     },
     {
       "id": "min-phase-r2-q2",
@@ -72,7 +76,8 @@
         "\\(\\dfrac{s+3}{(s+1)(s+8)}\\)",
         "\\(\\dfrac{3-s}{s+3}\\)"
       ],
-      "correct_index": 2
+      "correct_index": 2,
+      "version": 1
     },
     {
       "id": "min-phase-r2-q3",
@@ -84,7 +89,8 @@
       "figure_alt": "A magnitude sketch that changes slope. No phase numbers are printed.",
       "answer": 30.9638,
       "unit": "deg",
-      "tolerance": 0.02
+      "tolerance": 0.02,
+      "version": 1
     },
     {
       "id": "min-phase-r3-q1",
@@ -96,7 +102,8 @@
       "figure_alt": "A Bode magnitude that starts with a gentle negative slope and then steepens.",
       "answer": -95.7106,
       "unit": "deg",
-      "tolerance": 0.02
+      "tolerance": 0.02,
+      "version": 1
     },
     {
       "id": "min-phase-r3-q2",
@@ -112,7 +119,8 @@
         "A pure time delay, which shifts the whole response later",
         "A right-half-plane zero"
       ],
-      "correct_index": 3
+      "correct_index": 3,
+      "version": 1
     },
     {
       "id": "min-phase-r3-q3",
@@ -124,7 +132,8 @@
       "figure_alt": "A series block on a signal path.",
       "answer": -53.1301,
       "unit": "deg",
-      "tolerance": 0.02
+      "tolerance": 0.02,
+      "version": 1
     },
     {
       "id": "min-phase-r4-q1",
@@ -139,7 +148,8 @@
       ],
       "answer": -36.8699,
       "unit": "deg",
-      "tolerance": 0.02
+      "tolerance": 0.02,
+      "version": 1
     },
     {
       "id": "min-phase-r4-q2",
@@ -154,7 +164,8 @@
       ],
       "answer": 11.4592,
       "unit": "deg",
-      "tolerance": 0.02
+      "tolerance": 0.02,
+      "version": 1
     },
     {
       "id": "min-phase-r4-q3",
@@ -169,7 +180,8 @@
       ],
       "answer": -45.0,
       "unit": "deg",
-      "tolerance": 0.02
+      "tolerance": 0.02,
+      "version": 1
     }
   ]
 }

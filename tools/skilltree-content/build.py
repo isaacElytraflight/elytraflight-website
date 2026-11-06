@@ -33,7 +33,7 @@ def sha256_short(data: bytes, length: int = 8) -> str:
 
 def normalize_bank_question(q: dict) -> dict:
     """Keep only the fields needed for the app."""
-    keep = ("id", "round", "type", "prompt", "options", "correct_index",
+    keep = ("id", "version", "round", "type", "prompt", "options", "correct_index",
             "answer", "unit", "tolerance", "explanation", "preview", "figure", "figure_alt")
     return {k: q[k] for k in keep if k in q}
 
@@ -151,6 +151,8 @@ def main():
                 "title": explainer.get("title", ""),
                 "sections": explainer.get("sections", [])
             }
+            if isinstance(explainer.get("version"), int):
+                explainer_data["version"] = explainer["version"]
             
             explainer_json = json.dumps(explainer_data, ensure_ascii=False, separators=(",", ":"))
             explainer_bytes = explainer_json.encode("utf-8")
@@ -159,11 +161,14 @@ def main():
             out_name = f"{sid}.{content_hash}.json"
             (EXPLAINERS_OUT / out_name).write_bytes(explainer_bytes)
             
-            explainers_meta[sid] = {
+            meta = {
                 "hash": content_hash,
                 "file": f"explainers/{out_name}",
-                "sectionCount": len(explainer_data["sections"])
+                "sectionCount": len(explainer_data["sections"]),
             }
+            if "version" in explainer_data:
+                meta["version"] = explainer_data["version"]
+            explainers_meta[sid] = meta
     
     # Process collections
     collections_file = SRC / "collections.json"

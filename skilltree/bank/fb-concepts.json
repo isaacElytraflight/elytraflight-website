@@ -16,7 +16,8 @@
         "The disturbance, which the controller is assumed to know exactly",
         "The plant output, added to the reference rather than subtracted"
       ],
-      "correct_index": 0
+      "correct_index": 0,
+      "version": 1
     },
     {
       "id": "fb-concepts-r1-q2",
@@ -32,7 +33,8 @@
         "The reference, because a larger reference produces a larger force",
         "The disturbance, because it is the unwanted physical input"
       ],
-      "correct_index": 1
+      "correct_index": 1,
+      "version": 1
     },
     {
       "id": "fb-concepts-r1-q3",
@@ -44,7 +46,8 @@
       "figure_alt": "Open-loop chain from a speed reference through a command block and an actuator to a plant. No measurement returns.",
       "answer": 2.5,
       "unit": "V",
-      "tolerance": 0.02
+      "tolerance": 0.02,
+      "version": 1
     },
     {
       "id": "fb-concepts-r2-q1",
@@ -56,7 +59,8 @@
       "figure_alt": "Open-loop chain from reference to command, actuator, and plant, with the output leaving the diagram.",
       "answer": 3.0,
       "unit": "rad/s",
-      "tolerance": 0.02
+      "tolerance": 0.02,
+      "version": 1
     },
     {
       "id": "fb-concepts-r2-q2",
@@ -72,7 +76,8 @@
         "The output shifts by the full \\(2\\) degrees",
         "The output shifts by \\(2\\) times the plant gain"
       ],
-      "correct_index": 2
+      "correct_index": 2,
+      "version": 1
     },
     {
       "id": "fb-concepts-r2-q3",
@@ -88,7 +93,8 @@
         "The output sits at half the reference, because half the gain is used up by feedback",
         "The output equals \\(\\dfrac{L}{1+L}\\) times the reference, here \\(20/21\\) of it"
       ],
-      "correct_index": 3
+      "correct_index": 3,
+      "version": 1
     },
     {
       "id": "fb-concepts-r3-q1",
@@ -104,7 +110,8 @@
         "It ignores the noise, because a sensor is outside the plant",
         "It is less affected than an open-loop controller would be, because open loop also reads the sensor"
       ],
-      "correct_index": 0
+      "correct_index": 0,
+      "version": 1
     },
     {
       "id": "fb-concepts-r3-q2",
@@ -116,7 +123,8 @@
       "figure_alt": "Closed loop with a disturbance arrow entering at the output, after the plant.",
       "answer": 0.4,
       "unit": "m",
-      "tolerance": 0.02
+      "tolerance": 0.02,
+      "version": 1
     },
     {
       "id": "fb-concepts-r3-q3",
@@ -130,7 +138,8 @@
         "The closed-loop output moves more, because the loop gain multiplies the plant error",
         "The open-loop output does not move, because the command was computed from the old model"
       ],
-      "correct_index": 1
+      "correct_index": 1,
+      "version": 1
     },
     {
       "id": "fb-concepts-r4-q1",
@@ -149,7 +158,8 @@
         "\\(12\\), the product of the two gains",
         "\\(1\\), because the second block undoes the first"
       ],
-      "correct_index": 2
+      "correct_index": 2,
+      "version": 1
     },
     {
       "id": "fb-concepts-r4-q2",
@@ -168,7 +178,8 @@
         "\\(-10\\), the gain times the measurement minus the reference",
         "\\(10\\), the gain times the reference minus the measurement"
       ],
-      "correct_index": 3
+      "correct_index": 3,
+      "version": 1
     },
     {
       "id": "fb-concepts-r4-q3",
@@ -183,7 +194,8 @@
       ],
       "answer": 0.1,
       "unit": "m/s",
-      "tolerance": 0.02
+      "tolerance": 0.02,
+      "version": 1
     }
   ]
 }

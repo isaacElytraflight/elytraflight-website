@@ -1,6 +1,7 @@
 {
   "id": "ode-model",
   "title": "Modeling with differential equations",
+  "version": 1,
   "sections": [
     {
       "heading": "The idea",

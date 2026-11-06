@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-06T01:55:51.502692Z",
+  "generated": "2026-11-06T02:08:56.376931Z",
   "skills": {
-    "file": "skills.96e14988.json",
-    "hash": "96e14988"
+    "file": "skills.f37dff65.json",
+    "hash": "f37dff65"
   },
   "collections": {
     "file": "collections.17ae963b.json",
@@ -92,8 +92,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "705be917",
-      "file": "banks/bjt-action.705be917.json"
+      "hash": "80953c7f",
+      "file": "banks/bjt-action.80953c7f.json"
     },
     "bjt-iv": {
       "version": 1,
@@ -632,8 +632,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "da49eaa5",
-      "file": "banks/fb-concepts.da49eaa5.json"
+      "hash": "8e7d95c1",
+      "file": "banks/fb-concepts.8e7d95c1.json"
     },
     "fb-errors": {
       "version": 2,
@@ -836,8 +836,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "2701a917",
-      "file": "banks/laplace.2701a917.json"
+      "hash": "a0d30342",
+      "file": "banks/laplace.a0d30342.json"
     },
     "led": {
       "version": 1,
@@ -860,8 +860,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "96fa2c83",
-      "file": "banks/lin-algebra-review.96fa2c83.json"
+      "hash": "290083b5",
+      "file": "banks/lin-algebra-review.290083b5.json"
     },
     "loop-gain": {
       "version": 3,
@@ -956,8 +956,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "dce2f5b2",
-      "file": "banks/min-phase.dce2f5b2.json"
+      "hash": "a5a29f9a",
+      "file": "banks/min-phase.a5a29f9a.json"
     },
     "minority-profile": {
       "version": 1,
@@ -1124,8 +1124,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "0493fbf7",
-      "file": "banks/ode-model.0493fbf7.json"
+      "hash": "3a7ef9e0",
+      "file": "banks/ode-model.3a7ef9e0.json"
     },
     "offset": {
       "version": 1,
@@ -1340,8 +1340,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "a7647450",
-      "file": "banks/square-law.a7647450.json"
+      "hash": "280f3292",
+      "file": "banks/square-law.280f3292.json"
     },
     "ss-model": {
       "version": 1,
@@ -1697,9 +1697,10 @@
       "sectionCount": 5
     },
     "fb-concepts": {
-      "hash": "9f63fa06",
-      "file": "explainers/fb-concepts.9f63fa06.json",
-      "sectionCount": 5
+      "hash": "2a1b08a8",
+      "file": "explainers/fb-concepts.2a1b08a8.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "fb-errors": {
       "hash": "f6735430",
@@ -1782,9 +1783,10 @@
       "sectionCount": 5
     },
     "laplace": {
-      "hash": "9acf660d",
-      "file": "explainers/laplace.9acf660d.json",
-      "sectionCount": 5
+      "hash": "6756fc0b",
+      "file": "explainers/laplace.6756fc0b.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "led": {
       "hash": "da5c57e8",
@@ -1792,9 +1794,10 @@
       "sectionCount": 5
     },
     "lin-algebra-review": {
-      "hash": "ad050e5d",
-      "file": "explainers/lin-algebra-review.ad050e5d.json",
-      "sectionCount": 5
+      "hash": "7e85ac96",
+      "file": "explainers/lin-algebra-review.7e85ac96.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "loop-gain": {
       "hash": "c3797457",
@@ -1832,9 +1835,10 @@
       "sectionCount": 5
     },
     "min-phase": {
-      "hash": "3866f6eb",
-      "file": "explainers/min-phase.3866f6eb.json",
-      "sectionCount": 5
+      "hash": "bf5fbbcc",
+      "file": "explainers/min-phase.bf5fbbcc.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "minority-profile": {
       "hash": "705519dd",
@@ -1902,9 +1906,10 @@
       "sectionCount": 5
     },
     "ode-model": {
-      "hash": "9219326e",
-      "file": "explainers/ode-model.9219326e.json",
-      "sectionCount": 5
+      "hash": "ba10e619",
+      "file": "explainers/ode-model.ba10e619.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "offset": {
       "hash": "479ebbd3",

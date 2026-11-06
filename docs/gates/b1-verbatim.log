@@ -1,0 +1,79 @@
+sources: 12 files, 72485 words, 71522 8-grams, 71801 12-grams
+source filenames: fbs-back.txt, fbs-front.txt, fbs-intro.txt, fbs-loop.txt, fbs-modeling.txt, fbs-xfer.txt, lst-lin.txt, lst-sig.txt, wb-Poles_and_Zeros.txt, wb-System_Modeling.txt, wb-Transfer_Functions.txt, wb-feedback.txt
+allowlist 8-grams: 0
+
+PASS fb-concepts-r1-q1: words=163 8-grams=156 overlap=0.0% longest_source_run=0
+PASS fb-concepts-r1-q2: words=109 8-grams=102 overlap=0.0% longest_source_run=0
+PASS fb-concepts-r1-q3: words=97 8-grams=90 overlap=0.0% longest_source_run=0
+PASS fb-concepts-r2-q1: words=116 8-grams=109 overlap=0.0% longest_source_run=0
+PASS fb-concepts-r2-q2: words=141 8-grams=134 overlap=0.0% longest_source_run=0
+PASS fb-concepts-r2-q3: words=136 8-grams=129 overlap=0.0% longest_source_run=0
+PASS fb-concepts-r3-q1: words=149 8-grams=142 overlap=0.0% longest_source_run=0
+PASS fb-concepts-r3-q2: words=77 8-grams=70 overlap=0.0% longest_source_run=0
+PASS fb-concepts-r3-q3: words=160 8-grams=153 overlap=0.0% longest_source_run=0
+PASS fb-concepts-r4-q1: words=113 8-grams=106 overlap=0.0% longest_source_run=0
+PASS fb-concepts-r4-q2: words=95 8-grams=88 overlap=0.0% longest_source_run=0
+PASS fb-concepts-r4-q3: words=99 8-grams=92 overlap=0.0% longest_source_run=0
+PASS fb-concepts#explainer: words=440 8-grams=433 overlap=0.0% longest_source_run=0
+PASS laplace-r1-q1: words=50 8-grams=43 overlap=0.0% longest_source_run=0
+PASS laplace-r1-q2: words=68 8-grams=61 overlap=0.0% longest_source_run=0
+PASS laplace-r1-q3: words=51 8-grams=44 overlap=0.0% longest_source_run=0
+PASS laplace-r2-q1: words=57 8-grams=50 overlap=0.0% longest_source_run=0
+PASS laplace-r2-q2: words=47 8-grams=40 overlap=0.0% longest_source_run=0
+PASS laplace-r2-q3: words=48 8-grams=41 overlap=0.0% longest_source_run=0
+PASS laplace-r3-q1: words=73 8-grams=66 overlap=0.0% longest_source_run=0
+PASS laplace-r3-q2: words=81 8-grams=74 overlap=0.0% longest_source_run=0
+FLAG laplace-r3-q3: words=50 8-grams=43 overlap=0.0% longest_source_run=0; FLAG numbers 3,2,3,6
+PASS laplace-r4-q1: words=65 8-grams=58 overlap=0.0% longest_source_run=0
+PASS laplace-r4-q2: words=86 8-grams=79 overlap=0.0% longest_source_run=0
+PASS laplace-r4-q3: words=96 8-grams=89 overlap=0.0% longest_source_run=0
+PASS laplace#explainer: words=319 8-grams=312 overlap=0.0% longest_source_run=0
+PASS lin-algebra-review-r1-q1: words=119 8-grams=112 overlap=0.0% longest_source_run=0
+PASS lin-algebra-review-r1-q2: words=76 8-grams=69 overlap=0.0% longest_source_run=0
+PASS lin-algebra-review-r1-q3: words=88 8-grams=81 overlap=0.0% longest_source_run=0
+PASS lin-algebra-review-r2-q1: words=58 8-grams=51 overlap=0.0% longest_source_run=0
+PASS lin-algebra-review-r2-q2: words=115 8-grams=108 overlap=0.0% longest_source_run=0
+PASS lin-algebra-review-r2-q3: words=83 8-grams=76 overlap=0.0% longest_source_run=0
+PASS lin-algebra-review-r3-q1: words=43 8-grams=36 overlap=0.0% longest_source_run=0
+PASS lin-algebra-review-r3-q2: words=88 8-grams=81 overlap=0.0% longest_source_run=0
+FLAG lin-algebra-review-r3-q3: words=69 8-grams=62 overlap=0.0% longest_source_run=0; FLAG numbers 2,2,3,2
+PASS lin-algebra-review-r4-q1: words=51 8-grams=44 overlap=0.0% longest_source_run=0
+PASS lin-algebra-review-r4-q2: words=67 8-grams=60 overlap=0.0% longest_source_run=0
+PASS lin-algebra-review-r4-q3: words=81 8-grams=74 overlap=0.0% longest_source_run=0
+FLAG lin-algebra-review#explainer: words=325 8-grams=318 overlap=0.0% longest_source_run=0; FLAG numbers 2,1,4
+PASS min-phase-r1-q1: words=133 8-grams=126 overlap=0.0% longest_source_run=0
+PASS min-phase-r1-q2: words=76 8-grams=69 overlap=0.0% longest_source_run=0
+PASS min-phase-r1-q3: words=133 8-grams=126 overlap=0.0% longest_source_run=0
+PASS min-phase-r2-q1: words=77 8-grams=70 overlap=0.0% longest_source_run=0
+PASS min-phase-r2-q2: words=73 8-grams=66 overlap=0.0% longest_source_run=0
+PASS min-phase-r2-q3: words=83 8-grams=76 overlap=0.0% longest_source_run=0
+PASS min-phase-r3-q1: words=91 8-grams=84 overlap=0.0% longest_source_run=0
+PASS min-phase-r3-q2: words=143 8-grams=136 overlap=0.0% longest_source_run=0
+PASS min-phase-r3-q3: words=65 8-grams=58 overlap=0.0% longest_source_run=0
+FLAG min-phase-r4-q1: words=118 8-grams=111 overlap=0.0% longest_source_run=0; FLAG numbers 2,1,4
+PASS min-phase-r4-q2: words=86 8-grams=79 overlap=0.0% longest_source_run=0
+PASS min-phase-r4-q3: words=76 8-grams=69 overlap=0.0% longest_source_run=0
+PASS min-phase#explainer: words=504 8-grams=497 overlap=0.0% longest_source_run=0
+PASS ode-model-r1-q1: words=73 8-grams=66 overlap=0.0% longest_source_run=0
+PASS ode-model-r1-q2: words=87 8-grams=80 overlap=0.0% longest_source_run=0
+PASS ode-model-r1-q3: words=90 8-grams=83 overlap=0.0% longest_source_run=0
+PASS ode-model-r2-q1: words=79 8-grams=72 overlap=0.0% longest_source_run=0
+PASS ode-model-r2-q2: words=98 8-grams=91 overlap=0.0% longest_source_run=0
+PASS ode-model-r2-q3: words=68 8-grams=61 overlap=0.0% longest_source_run=0
+PASS ode-model-r3-q1: words=80 8-grams=73 overlap=0.0% longest_source_run=0
+PASS ode-model-r3-q2: words=67 8-grams=60 overlap=0.0% longest_source_run=0
+PASS ode-model-r3-q3: words=132 8-grams=125 overlap=0.0% longest_source_run=0
+PASS ode-model-r4-q1: words=82 8-grams=75 overlap=0.0% longest_source_run=0
+PASS ode-model-r4-q2: words=73 8-grams=66 overlap=0.0% longest_source_run=0
+PASS ode-model-r4-q3: words=90 8-grams=83 overlap=0.0% longest_source_run=0
+PASS ode-model#explainer: words=380 8-grams=373 overlap=0.0% longest_source_run=0
+
+items=65 fails=0 number_flags=4
+
+# Review of the four number flags (2026-11-06)
+# A flag means the same contiguous number run appears in one source sentence and in one learner item.
+# None of the four is a borrowed parameter set:
+# - laplace-r3-q3 matched 3,2,3,6 against an index range (3-2, 3-6), not the integral 2/3 of 2e^{-3t}.
+# - lin-algebra-review-r3-q3 matched 2,2,3,2 against equation-style numbering, not the eigenvalues of that question.
+# - lin-algebra-review#explainer and min-phase-r4-q1 matched 2,1,4 against a short bibliographic token, not the matrix row 5,2,1,4 or the all-pass at 12 and 4.
+# No numbers were changed.

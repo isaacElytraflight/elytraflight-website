@@ -1,6 +1,7 @@
 {
   "id": "lin-algebra-review",
   "title": "Linear algebra for state space",
+  "version": 1,
   "sections": [
     {
       "heading": "The idea",
