@@ -1,7 +1,7 @@
 {
   "id": "perf-specs-freq",
   "title": "Frequency-domain performance specifications",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "For a first-order loop, \\(\\omega_b = 1/\\tau\\) and the 10% to 90% rise time is about \\(2.2/\\omega_b\\).\n\nWhen \\(|L| = 1\\), the distance from that point to \\(-1\\) is \\(2\\sin(\\mathrm{PM}/2)\\), so\n\\[\n|S| = \\frac{1}{2\\sin(\\mathrm{PM}/2)}\n\\]\nat crossover. This is the sensitivity at one frequency. The peak \\(M_s\\) is at least this large. The clearance from the Nyquist curve to \\(-1\\) is \\(1/M_s\\).\n\nIf \\(L\\) is real and positive, \\(|S| = 1/(1+L)\\) and \\(|T| = L/(1+L)\\). A demand \\(|S| \\le 0.1\\) then asks for \\(L \\ge 9\\)."
+      "body_md": "For a first-order loop, \\(\\omega_b = 1/\\tau\\) and the 10% to 90% rise time is about \\(2.2/\\omega_b\\).\n\nWhen \\(|L| = 1\\), the distance from that point to \\(-1\\) is \\(2\\sin(\\mathrm{PM}/2)\\), so\n\\[\n|S| = \\frac{1}{2\\sin(\\mathrm{PM}/2)}\n\\]\nat crossover. This is the sensitivity at one frequency. The peak \\(M_s\\) is at least this large. The clearance from the Nyquist curve to \\(-1\\) is \\(1/M_s\\).\n\nIf \\(L\\) is real and positive, \\(|S| = 1/(1+L)\\) and \\(|T| = L/(1+L)\\). A demand \\(|S| \\le 0.25\\) then asks for \\(L \\ge 3\\)."
     },
     {
       "heading": "Worked example",

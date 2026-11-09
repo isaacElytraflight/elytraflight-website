@@ -111,12 +111,12 @@
       "type": "numeric",
       "prompt": "Near the origin, \\(\\dot x_1 = x_2\\) and \\(\\dot x_2 = -2 x_1 + 0.5 x_2^2 + u\\). The determinant of the Jacobian \\(A\\) is",
       "explanation": "The quadratic term \\(0.5 x_2^2\\) has zero derivative at the origin, so \\(A = \\begin{bmatrix} 0 & 1 \\\\ -2 & 0 \\end{bmatrix}\\). Its determinant is \\(2\\), stored as 2. The trace is 0, which is not the determinant. The entry \\(-2\\) is one corner of \\(A\\), not \\(\\det A\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>jacobian at the origin</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">-2   0</text></svg>",
-      "figure_alt": "A two-by-two Jacobian.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>mass, spring, and damper</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"70\" x2=\"48\" y2=\"70\"/><polyline points=\"48,70 56,58 66,82 76,58 86,82 96,58 106,82 116,70 140,70\"/><text x=\"90\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"30\" y1=\"112\" x2=\"78\" y2=\"112\"/><rect x=\"78\" y=\"100\" width=\"28\" height=\"24\"/><line x1=\"106\" y1=\"112\" x2=\"140\" y2=\"112\"/><text x=\"92\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
+      "figure_alt": "A mass connected to a spring and a damper, with an applied force.",
       "answer": 2.0,
       "unit": "1",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "linearization-r3-q3",

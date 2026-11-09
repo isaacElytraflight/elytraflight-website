@@ -1404,7 +1404,7 @@
     },
     {
       "id": "gen-gain-phase#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "linearization-r1-q1",
@@ -1436,7 +1436,7 @@
     },
     {
       "id": "linearization-r3-q2",
-      "version": 1
+      "version": 2
     },
     {
       "id": "linearization-r3-q3",
@@ -1492,7 +1492,7 @@
     },
     {
       "id": "lti-stability-r3-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "lti-stability-r4-q1",
@@ -1560,7 +1560,7 @@
     },
     {
       "id": "perf-specs-freq#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "pid-impl-r1-q1",
@@ -1612,7 +1612,7 @@
     },
     {
       "id": "pid-impl#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "pid-tuning-r1-q1",
@@ -1768,7 +1768,7 @@
     },
     {
       "id": "uncertainty#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "windup-r1-q1",

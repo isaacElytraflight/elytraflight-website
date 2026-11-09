@@ -399,12 +399,12 @@ It is real, positive, and falls as \(a\) grows. A unit-slope saturation that cli
 \[
 N(a) = \frac{2}{\pi}\left(\sin^{-1}\delta + \delta\sqrt{1-\delta^2}\right).
 \]
-Balance against a linear plant \(G\) is \(G(j\omega) = -1/N(a)\). The small-gain bound says that a peak gain \(1.8\) tolerates an uncertain gain only up to its reciprocal."""},
+Balance against a linear plant \(G\) is \(G(j\omega) = -1/N(a)\). The small-gain bound says that a peak gain of \(2.5\) tolerates an uncertain gain only up to \(0.4\)."""},
         {"heading": "Worked example", "body_md": r"""A relay with levels \(\pm 6\) sees a sine of amplitude 2. The describing function is \(4\cdot 6/(\pi\cdot 2) = 12/\pi \approx 3.82\). The matching critical point is \(-1/N \approx -0.262\), on the negative real axis. If the plant Nyquist curve crosses the real axis at \(-0.262\), this amplitude is the predicted oscillation. A plant that never gets closer to the origin than \(0.1\) on the negative real axis does not intersect \(-1/N\) for this relay, so the approximation predicts no cycle."""},
         {"heading": "Common pitfalls", "body_md": r"""\(N(a)\) is a gain, so the locus is \(-1/N\), not \(-N\). An odd memoryless map has a real describing function; hysteresis is what adds phase. The third harmonic of a relay is a third of the fundamental, which is small only if the plant kills it. If the plant amplifies that harmonic, the sine-in, fundamental-out story is wrong and the predicted amplitude can be badly off. Small-gain is sufficient, not necessary: a larger perturbation can still be stable if its phase does not point at the critical point."""},
         {"heading": "Where this leads", "body_md": r"""Robust stability turns the small-gain idea into a test on \(T\) and a multiplicative weight. Lyapunov arguments cover the same nonlinear loop without dropping harmonics. Adaptive schemes change the linear gain on purpose, which moves the Nyquist curve relative to \(-1/N(a)\) and can create or destroy the intersection."""},
     ]
-    save_explainer("gen-gain-phase", "Describing functions and the small-gain idea", sections)
+    save_explainer("gen-gain-phase", "Describing functions and the small-gain idea", sections, version=2)
     return words(sections)
 
 
@@ -479,8 +479,7 @@ def bank_linearization():
           r"Near the origin, \(\dot x_1 = x_2\) and \(\dot x_2 = -2 x_1 + 0.5 x_2^2 + u\). The determinant of the Jacobian \(A\) is",
           2.0, "1",
           r"The quadratic term \(0.5 x_2^2\) has zero derivative at the origin, so \(A = \begin{bmatrix} 0 & 1 \\ -2 & 0 \end{bmatrix}\). Its determinant is \(2\), stored as " + show(2.0) + r". The trace is 0, which is not the determinant. The entry \(-2\) is one corner of \(A\), not \(\det A\).",
-          matrix_fig([["0", "1"], ["-2", "0"]], "jacobian at the origin"),
-          "A two-by-two Jacobian.")
+          ms, ms_alt, version=2)
     b.num(3,
           r"Return to \(\dot x = -x^3 + u\), now at the equilibrium \(x = 1.5\). The state Jacobian \(A\) is",
           a_mid, "1",
@@ -600,11 +599,11 @@ def bank_lti_stability():
           r"Here \(a = 2\) and \(b = 3\), so \(ab = 6\). The constant term \(k\) must stay below " + show(6.0) + r". The sum \(a + b = 5\) is not the critical value. The product \(a b c\) cannot be formed until \(k\) is known, and it is not the test.",
           imag, imag_alt)
     b.num(3,
-          r"Poles sit at \(-0.2 \pm j4\). Their damping ratio \(\zeta = |\sigma|/\sqrt{\sigma^2 + \omega^2}\) is",
-          0.2 / math.sqrt(0.04 + 16), "1",
-          r"The natural frequency is \(\sqrt{0.2^2 + 4^2} = \sqrt{16.04}\), and \(\zeta = 0.2/\sqrt{16.04} = " + show(0.2 / math.sqrt(16.04)) + r"\). Using the imaginary part 4 as \(\zeta\) confuses frequency with a ratio. Using \(0.2/4 = 0.05\) is close, and it drops the real part inside the square root.",
-          splane([(-0.2, 4), (-0.2, -4)], [], "a lightly damped pair"),
-          "A conjugate pair close to the imaginary axis.")
+          r"Poles sit at \(-1 \pm j2\). Their damping ratio \(\zeta = |\sigma|/\sqrt{\sigma^2 + \omega^2}\) is",
+          1 / math.sqrt(5), "1",
+          r"The natural frequency is \(\sqrt{1^2 + 2^2} = \sqrt{5}\), and \(\zeta = 1/\sqrt{5} = " + show(1 / math.sqrt(5)) + r"\). Using the imaginary part 2 as \(\zeta\) confuses frequency with a ratio. Using \(1/2 = 0.5\) drops the real part inside the square root, and it is not the same number.",
+          splane([(-1, 2), (-1, -2)], [], "a damped pair"),
+          "A conjugate pair in the open left half-plane.", version=2)
 
     b.num(4,
           r"\(A = \begin{bmatrix} -1 & 4 \\ 0 & -3 \end{bmatrix}\). The eigenvalue closer to the imaginary axis is",
@@ -764,12 +763,12 @@ When \(|L| = 1\), the distance from that point to \(-1\) is \(2\sin(\mathrm{PM}/
 \]
 at crossover. This is the sensitivity at one frequency. The peak \(M_s\) is at least this large. The clearance from the Nyquist curve to \(-1\) is \(1/M_s\).
 
-If \(L\) is real and positive, \(|S| = 1/(1+L)\) and \(|T| = L/(1+L)\). A demand \(|S| \le 0.1\) then asks for \(L \ge 9\)."""},
+If \(L\) is real and positive, \(|S| = 1/(1+L)\) and \(|T| = L/(1+L)\). A demand \(|S| \le 0.25\) then asks for \(L \ge 3\)."""},
         {"heading": "Worked example", "body_md": r"""A phase margin of \(48^\circ\) puts the crossover sensitivity at \(1/(2\sin 24^\circ)\). Since \(\sin 24^\circ \approx 0.407\), the sensitivity is about \(1.23\). That is already above 1, so the Nyquist curve is not far from \(-1\), but it is not a 30-degree design either. A first-order bandwidth of 10 rad/s would rise from 10% to 90% in about \(2.2/10 = 0.22\) s. The two numbers are a speed target and a damping target, and a later loop-shape has to meet both at once."""},
         {"heading": "Common pitfalls", "body_md": r"""Crossover of \(L\) is not the bandwidth of \(T\), though they are often near each other. The crossover formula gives \(|S|\) at one frequency, not automatically the peak over all frequencies. Phase margin is not the phase: a 50 degree margin means the phase is \(-130^\circ\), not \(-50^\circ\). And a larger allowed \(M_s\) is a weaker robustness spec, because it permits the curve to pass closer to \(-1\)."""},
         {"heading": "Where this leads", "body_md": r"""Loop shaping moves \(\omega_c\), the slope near crossover, and the low-frequency gain until these targets are met. Fundamental limits then say how high \(\omega_c\) can go before a right-half-plane zero, a delay, or the Bode sensitivity integral makes the spec impossible."""},
     ]
-    save_explainer("perf-specs-freq", "Frequency-domain performance specifications", sections)
+    save_explainer("perf-specs-freq", "Frequency-domain performance specifications", sections, version=2)
     return words(sections)
 
 
@@ -878,17 +877,17 @@ def expl_pid_impl():
     sections = [
         {"heading": "The idea", "figure_svg": fig,
          "figure_alt": "A PID controller and a plant in a feedback loop.",
-         "body_md": r"""The textbook sum \(K_p e + K_i\int e + K_d \dot e\) is not what a computer should run. A pure derivative amplifies the measurement noise, and a step in the reference becomes a spike if the derivative looks at the error. The integral and the derivative also have to become updates that use samples, and a one-sample delay is part of the loop whether or not the algebra mentions it.
+         "body_md": r"""The three-term sum \(K_p e + K_i\int e + K_d \dot e\) is not what a computer should run. A pure derivative amplifies the measurement noise, and a step in the reference becomes a spike if the derivative looks at the error. The integral and the derivative also have to become updates that use samples, and a one-sample delay is part of the loop whether or not the algebra mentions it.
 
 The practical repair is small. Filter the derivative. Let the proportional and derivative terms look at a weighted reference, often with no derivative on the reference at all. Then replace \(s\) by a discrete map and check that stable continuous poles stay inside the unit circle."""},
         {"heading": "Key equations", "body_md": r"""The filtered derivative is \(K_d s/(\tau_f s + 1)\) with \(\tau_f = \tau_d/N\). The filter pole sits at \(-N/\tau_d\). Setpoint weights \(b\) and \(c\) form the proportional input \(b r - y\) and the derivative input \(c r - y\). The choice \(c = 0\) keeps a reference step out of the derivative. These weights do not change the loop gain, which is still measured from \(y\).
 
 Forward Euler uses \(z = 1 + sT\). Backward Euler uses \(z = 1/(1 - sT)\). Tustin uses \(s = (2/T)(z-1)/(z+1)\). The integral update with backward Euler adds \(K_i T\) times the current error at every sample."""},
-        {"heading": "Worked example", "body_md": r"""Take \(\tau_d = 0.25\) s and \(N = 5\). The filter time constant is \(0.25/5 = 0.05\) s, and the filter pole is at \(-20\) rad/s. A sample period of \(0.1\) s is a bit coarse next to that pole. Forward Euler would send a continuous pole at \(-8\) to \(z = 1 + (-8)(0.1) = 0.2\), still inside the unit circle. The same map applied to a pole at \(-50\), as in a later numerical case with a shorter period, can leave the disk. The filter corner and the sample period have to be chosen together."""},
+        {"heading": "Worked example", "body_md": r"""Take \(\tau_d = 0.32\) s and \(N = 4\). The filter time constant is \(0.32/4 = 0.08\) s, and the filter pole is at \(-12.5\) rad/s. A sample period of \(0.03\) s sits comfortably under that corner. Forward Euler sends a continuous pole at \(-12\) to \(z = 1 + (-12)(0.03) = 0.64\), inside the unit circle. The same map on a pole at \(-80\) gives \(z = 1 - 2.4 = -1.4\), outside the disk. The filter corner and the sample period have to be chosen together."""},
         {"heading": "Common pitfalls", "body_md": r"""Forward Euler is the easy formula and the one that can turn a stable fast pole into an unstable discrete pole. Backward Euler and Tustin do not. The factor in the integrator is \(K_i T\), not \(K_i/T\). Setpoint weighting changes the zeros from reference to output and does not retune the loop gain. And a derivative filter is not a license to sample slowly: one sample of delay is still \(\omega T\) radians of phase at the crossover."""},
         {"heading": "Where this leads", "body_md": r"""A computational delay is a time delay in the loop, with the phase lag that delay always adds. Integral action in state feedback meets the same windup problem once the command saturates. Model-predictive controllers take the saturation into the optimization instead of repairing it afterward."""},
     ]
-    save_explainer("pid-impl", "Implementing a PID controller", sections)
+    save_explainer("pid-impl", "Implementing a PID controller", sections, version=2)
     return words(sections)
 
 
@@ -1241,12 +1240,12 @@ A parameter that simply sits in an interval, such as a gain known to ten percent
 \[
 \frac{|P - P_0|}{|P_0|} \le |W_m|.
 \]
-A \(\pm 35\) percent gain error is \(|W_m| = 0.35\), and the plant gain then lies between \(0.65|P_0|\) and \(1.35|P_0|\). Dividing an additive bound by \(|P_0|\) converts it into a relative one at that frequency. The small-gain test on a multiplicative weight will later demand \(|T W_m| < 1\)."""},
+A \(\pm 22\) percent gain error is \(|W_m| = 0.22\), and the plant gain then lies between \(0.78|P_0|\) and \(1.22|P_0|\). Dividing an additive bound by \(|P_0|\) converts it into a relative one at that frequency. The small-gain test on a multiplicative weight will later demand \(|T W_m| < 1\)."""},
         {"heading": "Worked example", "body_md": r"""Suppose the nominal gain is 7 and a bench measurement reads 9. The absolute error is \(9 - 7 = 2\). The relative error is \(2/7 \approx 0.286\). An additive weight of 2 covers this one measurement with nothing to spare. A multiplicative weight of 0.286 covers it as a fraction of the nominal gain. If the next unit on the production line could be another 10 percent high, the weight has to grow past 0.286. Using 0.286 because it matches today's bench is how an uncertainty model becomes too small."""},
         {"heading": "Common pitfalls", "body_md": r"""Relative and absolute errors are not interchangeable: an error of 2 on a gain of 7 is not an error of 2 on a gain of 70. A weight that is larger than the evidence is conservative and can make an otherwise fine spec look impossible. A weight that is smaller than the evidence is optimistic, and the robust test will pass for a set of plants that does not include the real one. Where \(|W_m|\) reaches 1, the model no longer determines the sign of the plant, and the loop gain at that frequency should already be small."""},
         {"heading": "Where this leads", "body_md": r"""Robust stability turns \(|W_m|\) into a limit on \(|T|\). Robust performance asks the sensitivity spec to hold for every plant inside the weight, not only for \(P_0\). Both of those tests are only as honest as the weight written down here."""},
     ]
-    save_explainer("uncertainty", "Modeling uncertainty", sections)
+    save_explainer("uncertainty", "Modeling uncertainty", sections, version=2)
     return words(sections)
 
 

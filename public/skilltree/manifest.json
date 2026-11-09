@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-09T22:22:59.497691Z",
+  "generated": "2026-11-09T22:35:50.033389Z",
   "skills": {
-    "file": "skills.93801366.json",
-    "hash": "93801366"
+    "file": "skills.d1780561.json",
+    "hash": "d1780561"
   },
   "collections": {
     "file": "collections.17ae963b.json",
@@ -1004,8 +1004,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "4173119b",
-      "file": "banks/linearization.4173119b.json"
+      "hash": "62729677",
+      "file": "banks/linearization.62729677.json"
     },
     "loop-gain": {
       "version": 3,
@@ -1088,8 +1088,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "eb0fc44e",
-      "file": "banks/lti-stability.eb0fc44e.json"
+      "hash": "5c11b347",
+      "file": "banks/lti-stability.5c11b347.json"
     },
     "miller": {
       "version": 1,
@@ -2157,10 +2157,10 @@
       "sectionCount": 5
     },
     "gen-gain-phase": {
-      "hash": "61b09253",
-      "file": "explainers/gen-gain-phase.61b09253.json",
+      "hash": "ffe73887",
+      "file": "explainers/gen-gain-phase.ffe73887.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "gm": {
       "hash": "85315815",
@@ -2389,10 +2389,10 @@
       "sectionCount": 5
     },
     "perf-specs-freq": {
-      "hash": "e8d01a9f",
-      "file": "explainers/perf-specs-freq.e8d01a9f.json",
+      "hash": "dcab8e68",
+      "file": "explainers/perf-specs-freq.dcab8e68.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "phasors": {
       "hash": "d3c076c1",
@@ -2400,10 +2400,10 @@
       "sectionCount": 5
     },
     "pid-impl": {
-      "hash": "924e2d00",
-      "file": "explainers/pid-impl.924e2d00.json",
+      "hash": "256dac68",
+      "file": "explainers/pid-impl.256dac68.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "pid-tuning": {
       "hash": "23886787",
@@ -2565,10 +2565,10 @@
       "sectionCount": 5
     },
     "uncertainty": {
-      "hash": "4e8c21b3",
-      "file": "explainers/uncertainty.4e8c21b3.json",
+      "hash": "60c939f2",
+      "file": "explainers/uncertainty.60c939f2.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "vt": {
       "hash": "b85a8032",

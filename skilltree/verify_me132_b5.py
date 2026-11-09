@@ -132,7 +132,7 @@ def main():
     unstable = np.roots([1.0, 1.5, -1.0])
     expected["lti-stability-r2-q3"] = float(max(unstable.real))
     expected["lti-stability-r3-q2"] = 2.0 * 3.0
-    sigma, omega = 0.2, 4.0
+    sigma, omega = 1.0, 2.0
     expected["lti-stability-r3-q3"] = sigma / math.hypot(sigma, omega)
     eigs = np.linalg.eigvals(np.array([[-1.0, 4.0], [0.0, -3.0]]))
     expected["lti-stability-r4-q1"] = float(max(eigs.real))
@@ -211,7 +211,7 @@ def main():
         "linearization": "A = -6",
         "lti-stability": "= 60",
         "perf-specs-freq": "1.23",
-        "pid-impl": "-20",
+        "pid-impl": "-12.5",
         "pid-tuning": "6.6",
         "realization": "13s",
         "uncertainty": "0.286",

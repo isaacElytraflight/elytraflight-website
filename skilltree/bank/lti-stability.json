@@ -122,14 +122,14 @@
       "id": "lti-stability-r3-q3",
       "round": 3,
       "type": "numeric",
-      "prompt": "Poles sit at \\(-0.2 \\pm j4\\). Their damping ratio \\(\\zeta = |\\sigma|/\\sqrt{\\sigma^2 + \\omega^2}\\) is",
-      "explanation": "The natural frequency is \\(\\sqrt{0.2^2 + 4^2} = \\sqrt{16.04}\\), and \\(\\zeta = 0.2/\\sqrt{16.04} = 0.0499376\\). Using the imaginary part 4 as \\(\\zeta\\) confuses frequency with a ratio. Using \\(0.2/4 = 0.05\\) is close, and it drops the real part inside the square root.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a lightly damped pair</title><line x1=\"20\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"144.4\" y1=\"160\" x2=\"144.4\" y2=\"16\"/><polygon points=\"144.4,16 147.1,22.4 141.7,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"152.4\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"136.6\" y1=\"31\" x2=\"146.6\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"136.6\" y1=\"41\" x2=\"146.6\" y2=\"31\" stroke-width=\"1.8\"/><line x1=\"136.6\" y1=\"143\" x2=\"146.6\" y2=\"153\" stroke-width=\"1.8\"/><line x1=\"136.6\" y1=\"153\" x2=\"146.6\" y2=\"143\" stroke-width=\"1.8\"/></svg>",
-      "figure_alt": "A conjugate pair close to the imaginary axis.",
-      "answer": 0.0499376,
+      "prompt": "Poles sit at \\(-1 \\pm j2\\). Their damping ratio \\(\\zeta = |\\sigma|/\\sqrt{\\sigma^2 + \\omega^2}\\) is",
+      "explanation": "The natural frequency is \\(\\sqrt{1^2 + 2^2} = \\sqrt{5}\\), and \\(\\zeta = 1/\\sqrt{5} = 0.447214\\). Using the imaginary part 2 as \\(\\zeta\\) confuses frequency with a ratio. Using \\(1/2 = 0.5\\) drops the real part inside the square root, and it is not the same number.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a damped pair</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"41\" x2=\"133\" y2=\"51\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"51\" x2=\"133\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"129\" x2=\"133\" y2=\"139\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"139\" x2=\"133\" y2=\"129\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A conjugate pair in the open left half-plane.",
+      "answer": 0.447214,
       "unit": "1",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "lti-stability-r4-q1",

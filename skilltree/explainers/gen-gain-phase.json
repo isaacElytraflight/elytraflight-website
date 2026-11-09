@@ -1,7 +1,7 @@
 {
   "id": "gen-gain-phase",
   "title": "Describing functions and the small-gain idea",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "An ideal relay of levels \\(\\pm M\\), driven by \\(a\\sin\\omega t\\), has\n\\[\nN(a) = \\frac{4M}{\\pi a}.\n\\]\nIt is real, positive, and falls as \\(a\\) grows. A unit-slope saturation that clips at \\(\\pm M\\) keeps \\(N = 1\\) for \\(a \\le M\\). For larger \\(a\\), with \\(\\delta = M/a\\),\n\\[\nN(a) = \\frac{2}{\\pi}\\left(\\sin^{-1}\\delta + \\delta\\sqrt{1-\\delta^2}\\right).\n\\]\nBalance against a linear plant \\(G\\) is \\(G(j\\omega) = -1/N(a)\\). The small-gain bound says that a peak gain \\(1.8\\) tolerates an uncertain gain only up to its reciprocal."
+      "body_md": "An ideal relay of levels \\(\\pm M\\), driven by \\(a\\sin\\omega t\\), has\n\\[\nN(a) = \\frac{4M}{\\pi a}.\n\\]\nIt is real, positive, and falls as \\(a\\) grows. A unit-slope saturation that clips at \\(\\pm M\\) keeps \\(N = 1\\) for \\(a \\le M\\). For larger \\(a\\), with \\(\\delta = M/a\\),\n\\[\nN(a) = \\frac{2}{\\pi}\\left(\\sin^{-1}\\delta + \\delta\\sqrt{1-\\delta^2}\\right).\n\\]\nBalance against a linear plant \\(G\\) is \\(G(j\\omega) = -1/N(a)\\). The small-gain bound says that a peak gain of \\(2.5\\) tolerates an uncertain gain only up to \\(0.4\\)."
     },
     {
       "heading": "Worked example",

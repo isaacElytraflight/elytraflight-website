@@ -1,7 +1,7 @@
 {
   "id": "uncertainty",
   "title": "Modeling uncertainty",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "Additive form: \\(P = P_0 + W_a \\Delta\\) with \\(|\\Delta| \\le 1\\), so \\(|P - P_0| \\le |W_a|\\). Multiplicative form: \\(P = P_0(1 + W_m \\Delta)\\) with \\(|\\Delta| \\le 1\\), so\n\\[\n\\frac{|P - P_0|}{|P_0|} \\le |W_m|.\n\\]\nA \\(\\pm 35\\) percent gain error is \\(|W_m| = 0.35\\), and the plant gain then lies between \\(0.65|P_0|\\) and \\(1.35|P_0|\\). Dividing an additive bound by \\(|P_0|\\) converts it into a relative one at that frequency. The small-gain test on a multiplicative weight will later demand \\(|T W_m| < 1\\)."
+      "body_md": "Additive form: \\(P = P_0 + W_a \\Delta\\) with \\(|\\Delta| \\le 1\\), so \\(|P - P_0| \\le |W_a|\\). Multiplicative form: \\(P = P_0(1 + W_m \\Delta)\\) with \\(|\\Delta| \\le 1\\), so\n\\[\n\\frac{|P - P_0|}{|P_0|} \\le |W_m|.\n\\]\nA \\(\\pm 22\\) percent gain error is \\(|W_m| = 0.22\\), and the plant gain then lies between \\(0.78|P_0|\\) and \\(1.22|P_0|\\). Dividing an additive bound by \\(|P_0|\\) converts it into a relative one at that frequency. The small-gain test on a multiplicative weight will later demand \\(|T W_m| < 1\\)."
     },
     {
       "heading": "Worked example",
