@@ -95,6 +95,10 @@ LEAF_PREVIEW_ALLOWED.update({
     "eig-modes": ["realization", "lin-algebra-review", "observability"],
     "limit-cycles": ["lyapunov", "gen-gain-phase", "adaptive"],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # Cauchy-Schwarz has no dependents. Round 4 names later uses of the inequality.
+    "cauchy-schwarz-inequality": ["induced-matrix-norms", "open-closed-sets", "convergence-rates"],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

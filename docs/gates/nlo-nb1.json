@@ -1,0 +1,61 @@
+{
+  "batch": "nlo-nb1",
+  "ok": true,
+  "steps": [
+    {
+      "name": "build",
+      "ok": true,
+      "summary": "content files written"
+    },
+    {
+      "name": "schema",
+      "ok": true,
+      "summary": "OK: all checks passed (195 warning(s))"
+    },
+    {
+      "name": "graph",
+      "ok": true,
+      "summary": "graph ok: 265 skills, acyclic, every skill in a top-level box"
+    },
+    {
+      "name": "domain",
+      "ok": true,
+      "summary": "0 unwaived warnings"
+    },
+    {
+      "name": "numeric",
+      "ok": true,
+      "summary": "0 mismatches"
+    },
+    {
+      "name": "figure-bounds",
+      "ok": true,
+      "summary": "figure-bounds: 30 warning(s), 0 on the batch; elsewhere amp-compensation, cascode-amp, cd-freq, cs-cascade-freq, noise-dist, octc, rev-bias, rlc, stability, vt"
+    },
+    {
+      "name": "katex",
+      "ok": true,
+      "summary": "KaTeX: rendered 595 math chunks, 0 errors"
+    },
+    {
+      "name": "test-content",
+      "ok": true,
+      "summary": "14 passed, 0 failed"
+    },
+    {
+      "name": "test-merge",
+      "ok": true,
+      "summary": "19 passed, 0 failed"
+    },
+    {
+      "name": "test-migrate",
+      "ok": true,
+      "summary": "22 passed, 0 failed"
+    },
+    {
+      "name": "puppeteer",
+      "ok": true,
+      "summary": "50 passed, 0 failed"
+    }
+  ]
+}

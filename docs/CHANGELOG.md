@@ -16,6 +16,7 @@ Items above version 1:
 - `lin-algebra-review-r3-q3` version 2
 - `lin-algebra-review-r4-q1` version 2
 - `lin-algebra-review-r4-q2` version 2
+- `lin-algebra-review#explainer` version 2
 - `min-phase-r1-q2` version 2
 - `min-phase-r2-q1` version 2
 - `min-phase-r2-q2` version 2
@@ -108,5 +109,15 @@ Items above version 1:
 - `perf-specs-freq#explainer` version 2
 - `pid-impl#explainer` version 2
 - `uncertainty#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## NB1 — nlo-nb1
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `rn-important-subsets`, `spectral-decomposition`, `positive-definite-matrices`, `singular-value-decomposition`, `rayleigh-quotient`, `inner-products`, `vector-norms-lp`, `cauchy-schwarz-inequality`.
+
+Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.

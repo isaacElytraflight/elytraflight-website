@@ -668,6 +668,232 @@
         "adaptive"
       ],
       "color_index": 40
+    },
+    {
+      "id": "nlo-tugraz",
+      "title": "Nonlinear Optimization (TU Graz)",
+      "kind": "course",
+      "institution": "TU Graz",
+      "children": [
+        "nlo-tugraz/l1",
+        "nlo-tugraz/l2",
+        "nlo-tugraz/l3",
+        "nlo-tugraz/l4",
+        "nlo-tugraz/l5",
+        "nlo-tugraz/l6",
+        "nlo-tugraz/l7",
+        "nlo-tugraz/l8",
+        "nlo-tugraz/l9",
+        "nlo-tugraz/l10",
+        "nlo-tugraz/l11",
+        "nlo-tugraz/l12"
+      ],
+      "skills": [],
+      "top_level": true
+    },
+    {
+      "id": "nlo-tugraz/l1",
+      "title": "Problem formulation",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "optimization-problem-formulation",
+        "graphical-2d-optimization",
+        "optimization-problem-classes",
+        "svm-quadratic-program"
+      ],
+      "color_index": 41
+    },
+    {
+      "id": "nlo-tugraz/l2",
+      "title": "Mathematical preliminaries",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "lin-algebra-review",
+        "rn-important-subsets",
+        "spectral-decomposition",
+        "positive-definite-matrices",
+        "singular-value-decomposition",
+        "rayleigh-quotient",
+        "inner-products",
+        "vector-norms-lp",
+        "cauchy-schwarz-inequality",
+        "induced-matrix-norms",
+        "frobenius-schatten-norms",
+        "open-closed-sets",
+        "compact-sets",
+        "level-sets-contours",
+        "convex-sets"
+      ],
+      "color_index": 42
+    },
+    {
+      "id": "nlo-tugraz/l3",
+      "title": "Derivatives and automatic differentiation",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "directional-derivative",
+        "gradient-partial-derivatives",
+        "differentiability-multivariable",
+        "hessian-matrix",
+        "jacobian-chain-rule",
+        "matrix-calculus-gradients",
+        "fundamental-theorem-along-segment",
+        "taylor-approximation-multivariable",
+        "taylor-exact-mean-value",
+        "convex-functions",
+        "convexity-first-order",
+        "convexity-second-order",
+        "finite-difference-derivatives",
+        "computational-graphs",
+        "ad-forward-mode",
+        "ad-reverse-mode",
+        "hessian-vector-products-ad",
+        "backprop-neural-network"
+      ],
+      "color_index": 43
+    },
+    {
+      "id": "nlo-tugraz/l4",
+      "title": "Optimality conditions",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "local-global-minima",
+        "existence-of-minimizers",
+        "first-order-optimality",
+        "second-order-optimality",
+        "stationary-point-classification",
+        "convex-optimality-global",
+        "quadratic-function-minimization"
+      ],
+      "color_index": 44
+    },
+    {
+      "id": "nlo-tugraz/l5",
+      "title": "Linear programming and the simplex method",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "lp-standard-form",
+        "lp-graphical-solution",
+        "polyhedra-extreme-points",
+        "basic-feasible-solutions",
+        "simplex-feasible-directions",
+        "simplex-method-iteration",
+        "simplex-phase-one"
+      ],
+      "color_index": 45
+    },
+    {
+      "id": "nlo-tugraz/l6",
+      "title": "Lagrange multipliers and duality",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "lagrangian-duality-lower-bounds",
+        "lagrange-multiplier-equality",
+        "kkt-conditions",
+        "lp-duality-kkt",
+        "projection-affine-halfspace-kkt"
+      ],
+      "color_index": 46
+    },
+    {
+      "id": "nlo-tugraz/l7",
+      "title": "Least squares",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "linear-least-squares",
+        "least-squares-data-fitting",
+        "nonlinear-least-squares",
+        "circle-fitting-least-squares"
+      ],
+      "color_index": 47
+    },
+    {
+      "id": "nlo-tugraz/l8",
+      "title": "Gradient methods",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "descent-directions",
+        "descent-method-framework",
+        "convergence-rates",
+        "exact-line-search-quadratic",
+        "armijo-backtracking",
+        "gradient-zigzag",
+        "condition-number-gradient-rate",
+        "lipschitz-gradient",
+        "descent-lemma",
+        "sufficient-decrease-lemma",
+        "gradient-method-convergence"
+      ],
+      "color_index": 48
+    },
+    {
+      "id": "nlo-tugraz/l9",
+      "title": "Gauss-Newton and incremental methods",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "gauss-newton-method",
+        "levenberg-marquardt",
+        "incremental-gradient-methods",
+        "kalman-recursive-least-squares",
+        "extended-kalman-filter"
+      ],
+      "color_index": 49
+    },
+    {
+      "id": "nlo-tugraz/l10",
+      "title": "Newton and quasi-Newton methods",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "newton-root-finding",
+        "newton-method-optimization",
+        "newton-local-quadratic-convergence",
+        "newton-globalization",
+        "wolfe-conditions",
+        "quasi-newton-secant",
+        "bfgs-update"
+      ],
+      "color_index": 50
+    },
+    {
+      "id": "nlo-tugraz/l11",
+      "title": "Accelerated gradient methods",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "gram-schmidt-orthogonalization",
+        "q-conjugate-directions",
+        "conjugate-gradient-method",
+        "heavy-ball-method",
+        "nesterov-accelerated-gradient"
+      ],
+      "color_index": 51
+    },
+    {
+      "id": "nlo-tugraz/l12",
+      "title": "Optimization over a convex set",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "optimality-over-convex-set",
+        "projection-onto-convex-set",
+        "gradient-projection-method",
+        "scaled-gradient-projection",
+        "affine-scaling-method",
+        "primal-dual-interior-point",
+        "frank-wolfe-conditional-gradient",
+        "power-method-eigenvector"
+      ],
+      "color_index": 52
     }
   ]
 }

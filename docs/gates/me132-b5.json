@@ -10,12 +10,12 @@
     {
       "name": "schema",
       "ok": true,
-      "summary": "OK: all checks passed (204 warning(s))"
+      "summary": "OK: all checks passed (207 warning(s))"
     },
     {
       "name": "graph",
       "ok": true,
-      "summary": "graph ok: 170 skills, acyclic, every skill in a top-level box"
+      "summary": "graph ok: 265 skills, acyclic, every skill in a top-level box"
     },
     {
       "name": "domain",

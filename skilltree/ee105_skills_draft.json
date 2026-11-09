@@ -1558,7 +1558,7 @@
   },
   {
    "id": "lin-algebra-review",
-   "name": "Linear algebra for state space",
+   "name": "Linear algebra review",
    "summary": "Rank, null space, eigenvalues and similarity transforms as used in control.",
    "prereqs": []
   },
@@ -1645,7 +1645,7 @@
   {
    "id": "time-delay",
    "name": "Time delay in feedback loops",
-   "summary": "Represent delay as e^{-sT}, see its phase lag, and use Pad\u00e9 approximations.",
+   "summary": "Represent delay as e^{-sT}, see its phase lag, and use Padé approximations.",
    "prereqs": [
     "freq-resp-lti"
    ],
@@ -1731,7 +1731,7 @@
   {
    "id": "robust-stability",
    "name": "Robust stability",
-   "summary": "Apply the small-gain test |T \u0394|<1 and stability margins to uncertain plants.",
+   "summary": "Apply the small-gain test |T Δ|<1 and stability margins to uncertain plants.",
    "prereqs": [
     "uncertainty",
     "stability"
@@ -2341,6 +2341,927 @@
      "use": "reference only"
     }
    ]
+  },
+  {
+   "id": "optimization-problem-formulation",
+   "name": "Formulating an optimization problem",
+   "summary": "Name the decision variable, the objective, and the feasible set, and tell a minimizer from the optimal value.",
+   "prereqs": [
+    "rn-important-subsets"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "graphical-2d-optimization",
+   "name": "Solving 2-D problems graphically",
+   "summary": "Lay objective contours over a planar feasible set and read off a minimizer.",
+   "prereqs": [
+    "optimization-problem-formulation",
+    "level-sets-contours"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "optimization-problem-classes",
+   "name": "LP, QP, convex and nonlinear programs",
+   "summary": "Recognize linear, quadratic, convex, and general nonlinear programs.",
+   "prereqs": [
+    "optimization-problem-formulation",
+    "convex-functions"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "svm-quadratic-program",
+   "name": "Support vector machines as a quadratic program",
+   "summary": "Turn a maximum-margin separator into a quadratic program in the weights.",
+   "prereqs": [
+    "optimization-problem-classes",
+    "quadratic-function-minimization"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "rn-important-subsets",
+   "name": "Key subsets of R^n",
+   "summary": "Describe orthants, simplices, lines, segments, hyperplanes, and half-spaces as subsets of R^n.",
+   "prereqs": []
+  },
+  {
+   "id": "spectral-decomposition",
+   "name": "Spectral decomposition of symmetric matrices",
+   "summary": "Diagonalize a real symmetric matrix with orthonormal eigenvectors and rebuild it from its eigenpairs.",
+   "prereqs": [
+    "lin-algebra-review"
+   ]
+  },
+  {
+   "id": "positive-definite-matrices",
+   "name": "Positive (semi)definite matrices",
+   "summary": "Test positive semidefinite and definite matrices by eigenvalues, and read quadratic-form level sets as ellipses.",
+   "prereqs": [
+    "spectral-decomposition"
+   ]
+  },
+  {
+   "id": "singular-value-decomposition",
+   "name": "Singular value decomposition",
+   "summary": "Factor a matrix as a rotation, an axis stretch, and a rotation, and read the rank from the singular values.",
+   "prereqs": [
+    "spectral-decomposition"
+   ]
+  },
+  {
+   "id": "rayleigh-quotient",
+   "name": "Rayleigh quotient and eigenvalue bounds",
+   "summary": "Bound the Rayleigh quotient by the extreme eigenvalues, and use trace and determinant as their sum and product.",
+   "prereqs": [
+    "spectral-decomposition"
+   ]
+  },
+  {
+   "id": "inner-products",
+   "name": "Inner products",
+   "summary": "Use the inner-product axioms, the dot product, the Frobenius pairing, and orthogonality.",
+   "prereqs": [
+    "lin-algebra-review"
+   ]
+  },
+  {
+   "id": "vector-norms-lp",
+   "name": "Vector norms and l_p norms",
+   "summary": "Check the norm axioms and compare the 1-norm, 2-norm, and infinity-norm, including their unit balls.",
+   "prereqs": [
+    "rn-important-subsets"
+   ]
+  },
+  {
+   "id": "cauchy-schwarz-inequality",
+   "name": "Cauchy-Schwarz inequality",
+   "summary": "Apply the bound on an inner product, including the equality case and the step that yields the triangle inequality.",
+   "prereqs": [
+    "inner-products",
+    "vector-norms-lp"
+   ]
+  },
+  {
+   "id": "induced-matrix-norms",
+   "name": "Induced matrix norms",
+   "summary": "Compute the operator norm and the closed forms of the matrix 1-norm, infinity-norm, and 2-norm.",
+   "prereqs": [
+    "vector-norms-lp",
+    "singular-value-decomposition"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "frobenius-schatten-norms",
+   "name": "Frobenius and Schatten norms",
+   "summary": "Compute the Frobenius norm from entries or singular values, and name the nuclear and spectral norms as Schatten norms.",
+   "prereqs": [
+    "vector-norms-lp",
+    "singular-value-decomposition"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "open-closed-sets",
+   "name": "Open and closed sets in R^n",
+   "summary": "Tell open and closed sets apart using balls, interior points, boundary, and closure.",
+   "prereqs": [
+    "vector-norms-lp"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "compact-sets",
+   "name": "Bounded and compact sets",
+   "summary": "Use compactness in R^n as closed and bounded, and recognize standard sets that fail it.",
+   "prereqs": [
+    "open-closed-sets"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "level-sets-contours",
+   "name": "Sublevel sets and contour sets",
+   "summary": "Sketch sublevel sets and level curves of a simple function of several variables.",
+   "prereqs": [
+    "rn-important-subsets"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "convex-sets",
+   "name": "Convex sets",
+   "summary": "Test convexity with line segments, and keep convexity under intersection.",
+   "prereqs": [
+    "rn-important-subsets",
+    "vector-norms-lp"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "directional-derivative",
+   "name": "Directional derivative",
+   "summary": "Compute a directional derivative from its one-sided limit along a line.",
+   "prereqs": [
+    "rn-important-subsets"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "gradient-partial-derivatives",
+   "name": "Partial derivatives and the gradient",
+   "summary": "Build the gradient from partial derivatives and use it as the direction of steepest increase.",
+   "prereqs": [
+    "directional-derivative"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "differentiability-multivariable",
+   "name": "Differentiability in several variables",
+   "summary": "Use the linear-approximation definition of differentiability and separate it from the existence of partial derivatives.",
+   "prereqs": [
+    "gradient-partial-derivatives"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "hessian-matrix",
+   "name": "Second derivatives and the Hessian",
+   "summary": "Assemble second partial derivatives into the Hessian and use symmetry of mixed partials.",
+   "prereqs": [
+    "gradient-partial-derivatives"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "jacobian-chain-rule",
+   "name": "Jacobian and multivariable chain rule",
+   "summary": "Multiply Jacobians to differentiate a composition, including the gradient of a scalar composition.",
+   "prereqs": [
+    "gradient-partial-derivatives"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "matrix-calculus-gradients",
+   "name": "Gradients of linear and quadratic forms",
+   "summary": "Differentiate c^T x, a squared norm, and x^T A x, including a nonsymmetric A.",
+   "prereqs": [
+    "hessian-matrix",
+    "jacobian-chain-rule"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "fundamental-theorem-along-segment",
+   "name": "Fundamental theorem of calculus along a segment",
+   "summary": "Write a function increment and a gradient increment as integrals along the segment between two points.",
+   "prereqs": [
+    "hessian-matrix"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "taylor-approximation-multivariable",
+   "name": "First- and second-order Taylor approximations",
+   "summary": "Build the linear and quadratic models of a function from its gradient and Hessian.",
+   "prereqs": [
+    "hessian-matrix"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "taylor-exact-mean-value",
+   "name": "Exact Taylor expansions and the mean value theorem",
+   "summary": "Place the remainder at an intermediate point and turn an expansion into a bound.",
+   "prereqs": [
+    "taylor-approximation-multivariable",
+    "fundamental-theorem-along-segment"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "convex-functions",
+   "name": "Convex functions",
+   "summary": "Use the chord definition of convexity, including strict convexity, for norms and affine maps.",
+   "prereqs": [
+    "convex-sets"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "convexity-first-order",
+   "name": "First-order convexity condition",
+   "summary": "Use the tangent inequality as a global underestimator of a differentiable convex function.",
+   "prereqs": [
+    "convex-functions",
+    "gradient-partial-derivatives"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "convexity-second-order",
+   "name": "Second-order convexity test",
+   "summary": "Test convexity of a twice differentiable function by a positive semidefinite Hessian.",
+   "prereqs": [
+    "convexity-first-order",
+    "positive-definite-matrices",
+    "matrix-calculus-gradients",
+    "taylor-exact-mean-value"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "finite-difference-derivatives",
+   "name": "Finite-difference derivatives",
+   "summary": "Choose between forward and central differences and balance truncation against round-off.",
+   "prereqs": [
+    "gradient-partial-derivatives",
+    "taylor-approximation-multivariable"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "computational-graphs",
+   "name": "Computational graphs",
+   "summary": "Break a formula into elementary steps and compare symbolic, numeric, and automatic differentiation.",
+   "prereqs": [
+    "jacobian-chain-rule"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "ad-forward-mode",
+   "name": "Forward-mode automatic differentiation",
+   "summary": "Push a tangent through a computational graph to get one directional derivative.",
+   "prereqs": [
+    "computational-graphs",
+    "directional-derivative"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "ad-reverse-mode",
+   "name": "Reverse-mode automatic differentiation",
+   "summary": "Sweep adjoints backward to get a full gradient at a cost close to one function evaluation.",
+   "prereqs": [
+    "computational-graphs"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "hessian-vector-products-ad",
+   "name": "Hessian-vector products with automatic differentiation",
+   "summary": "Combine forward and reverse modes to apply the Hessian to a vector without forming the matrix.",
+   "prereqs": [
+    "ad-forward-mode",
+    "ad-reverse-mode",
+    "hessian-matrix"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "backprop-neural-network",
+   "name": "Backpropagation for a small neural network",
+   "summary": "Apply reverse-mode differentiation to the weights of a two-layer classifier loss.",
+   "prereqs": [
+    "ad-reverse-mode"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "local-global-minima",
+   "name": "Local and global minimizers",
+   "summary": "Distinguish local and global minimizers, strict and non-strict, and a minimum from an infimum.",
+   "prereqs": [
+    "optimization-problem-formulation",
+    "open-closed-sets"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "existence-of-minimizers",
+   "name": "Existence of minimizers",
+   "summary": "Use compactness or coercivity to decide whether a minimum is attained.",
+   "prereqs": [
+    "local-global-minima",
+    "compact-sets",
+    "level-sets-contours"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "first-order-optimality",
+   "name": "First-order necessary condition",
+   "summary": "Set the gradient to zero at an interior local minimizer and name the stationary points.",
+   "prereqs": [
+    "local-global-minima",
+    "gradient-partial-derivatives"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "second-order-optimality",
+   "name": "Second-order optimality conditions",
+   "summary": "Use a positive semidefinite Hessian as necessary and a positive definite Hessian as sufficient.",
+   "prereqs": [
+    "first-order-optimality",
+    "positive-definite-matrices",
+    "taylor-exact-mean-value"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "stationary-point-classification",
+   "name": "Classifying stationary points",
+   "summary": "Find the stationary points of a simple function and classify them as minima, maxima, or saddles.",
+   "prereqs": [
+    "second-order-optimality",
+    "existence-of-minimizers"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "convex-optimality-global",
+   "name": "Optimality for convex functions",
+   "summary": "Conclude that a stationary point of a convex function is a global minimizer.",
+   "prereqs": [
+    "first-order-optimality",
+    "convexity-first-order"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "quadratic-function-minimization",
+   "name": "Minimizing quadratic functions",
+   "summary": "Solve a quadratic minimization from the linear system given by its Hessian, and tell when a solution exists.",
+   "prereqs": [
+    "matrix-calculus-gradients",
+    "second-order-optimality",
+    "convex-optimality-global"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "lp-standard-form",
+   "name": "Linear programs and standard form",
+   "summary": "Rewrite a linear program with slack variables, split free variables, and clear absolute values.",
+   "prereqs": [
+    "optimization-problem-classes"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "lp-graphical-solution",
+   "name": "Graphical LP solution and solution types",
+   "summary": "Solve a planar linear program and recognize unique, multiple, unbounded, and infeasible cases.",
+   "prereqs": [
+    "lp-standard-form",
+    "graphical-2d-optimization"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "polyhedra-extreme-points",
+   "name": "Polyhedra and extreme points",
+   "summary": "Identify vertices of a polyhedron with basic feasible solutions.",
+   "prereqs": [
+    "convex-sets",
+    "lp-standard-form"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "basic-feasible-solutions",
+   "name": "Constructing basic feasible solutions",
+   "summary": "Choose a basis, solve for the basic variables, and check feasibility.",
+   "prereqs": [
+    "polyhedra-extreme-points",
+    "lin-algebra-review"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "simplex-feasible-directions",
+   "name": "Basic directions, reduced costs, and the ratio test",
+   "summary": "Build a feasible edge step from reduced costs and the largest step that stays nonnegative.",
+   "prereqs": [
+    "basic-feasible-solutions"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "simplex-method-iteration",
+   "name": "The simplex method",
+   "summary": "Run one simplex iteration, including the tests for optimality and an unbounded ray.",
+   "prereqs": [
+    "simplex-feasible-directions"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "simplex-phase-one",
+   "name": "Finding an initial basic feasible solution",
+   "summary": "Build the auxiliary problem that either returns a basic feasible solution or proves infeasibility.",
+   "prereqs": [
+    "simplex-method-iteration"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "lagrangian-duality-lower-bounds",
+   "name": "Lagrangian lower bounds and the dual problem",
+   "summary": "Form the Lagrangian dual and use weak duality as a lower bound on the primal value.",
+   "prereqs": [
+    "first-order-optimality",
+    "quadratic-function-minimization"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "lagrange-multiplier-equality",
+   "name": "Lagrange multipliers for equality constraints",
+   "summary": "Write the Lagrange condition for equality constraints and see how it fails when constraint gradients are dependent.",
+   "prereqs": [
+    "first-order-optimality",
+    "jacobian-chain-rule",
+    "lin-algebra-review"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "kkt-conditions",
+   "name": "KKT conditions",
+   "summary": "Add nonnegative multipliers and complementary slackness for inequality constraints.",
+   "prereqs": [
+    "lagrange-multiplier-equality",
+    "lagrangian-duality-lower-bounds"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "lp-duality-kkt",
+   "name": "LP duality from KKT",
+   "summary": "Derive the dual of a standard-form linear program from its KKT system.",
+   "prereqs": [
+    "kkt-conditions",
+    "lp-standard-form"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "projection-affine-halfspace-kkt",
+   "name": "Projection onto affine sets and half-spaces",
+   "summary": "Project a point onto an affine set or a half-space with a short KKT calculation.",
+   "prereqs": [
+    "kkt-conditions"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "linear-least-squares",
+   "name": "Linear least squares",
+   "summary": "Solve an overdetermined linear fit by the normal equations when the columns are independent.",
+   "prereqs": [
+    "quadratic-function-minimization",
+    "singular-value-decomposition"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "least-squares-data-fitting",
+   "name": "Least-squares data fitting",
+   "summary": "Fit a model that is linear in its parameters, and count how many points the fit needs.",
+   "prereqs": [
+    "linear-least-squares"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "nonlinear-least-squares",
+   "name": "Nonlinear least-squares problems",
+   "summary": "Write a nonlinear fit as a sum of squared residuals and form the residual Jacobian.",
+   "prereqs": [
+    "linear-least-squares",
+    "jacobian-chain-rule"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "circle-fitting-least-squares",
+   "name": "Circle fitting by least squares",
+   "summary": "Rewrite a circle fit so that it becomes a linear least-squares problem.",
+   "prereqs": [
+    "nonlinear-least-squares",
+    "least-squares-data-fitting"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "descent-directions",
+   "name": "Descent directions",
+   "summary": "Test a direction by a negative directional derivative, including scaled gradients with a positive definite scaling.",
+   "prereqs": [
+    "gradient-partial-derivatives",
+    "positive-definite-matrices",
+    "taylor-approximation-multivariable"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "descent-method-framework",
+   "name": "General descent methods",
+   "summary": "Separate the choice of direction, the step length, and the stopping test in a descent iteration.",
+   "prereqs": [
+    "descent-directions"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "convergence-rates",
+   "name": "Rates of convergence",
+   "summary": "Classify linear, superlinear, sublinear, and quadratic convergence from a sequence of errors.",
+   "prereqs": [
+    "vector-norms-lp"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "exact-line-search-quadratic",
+   "name": "Exact line search on quadratics",
+   "summary": "Compute the exact step length along a direction for a quadratic objective.",
+   "prereqs": [
+    "descent-method-framework",
+    "quadratic-function-minimization"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "armijo-backtracking",
+   "name": "Armijo backtracking line search",
+   "summary": "Check the sufficient-decrease inequality and see why backtracking eventually accepts a step.",
+   "prereqs": [
+    "descent-method-framework",
+    "taylor-approximation-multivariable"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "gradient-zigzag",
+   "name": "Zig-zagging of steepest descent",
+   "summary": "See why exact line search makes successive steepest-descent steps orthogonal, and why a large condition number zigzags.",
+   "prereqs": [
+    "exact-line-search-quadratic"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "condition-number-gradient-rate",
+   "name": "Condition number and gradient-descent rate",
+   "summary": "Bound the linear rate of steepest descent on a quadratic by the condition number.",
+   "prereqs": [
+    "exact-line-search-quadratic",
+    "convergence-rates",
+    "rayleigh-quotient"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "lipschitz-gradient",
+   "name": "Lipschitz-continuous gradients",
+   "summary": "Bound the Lipschitz constant of a gradient by a Hessian operator norm.",
+   "prereqs": [
+    "induced-matrix-norms",
+    "fundamental-theorem-along-segment"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "descent-lemma",
+   "name": "The descent lemma",
+   "summary": "Use the quadratic upper bound on a function with a Lipschitz gradient.",
+   "prereqs": [
+    "lipschitz-gradient"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "sufficient-decrease-lemma",
+   "name": "Sufficient decrease lemma",
+   "summary": "Quantify the decrease of a gradient step whose length is below twice the reciprocal Lipschitz constant.",
+   "prereqs": [
+    "descent-lemma",
+    "armijo-backtracking"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "gradient-method-convergence",
+   "name": "Convergence of the gradient method",
+   "summary": "Conclude that gradient norms go to zero and name the sublinear rate for a smooth function.",
+   "prereqs": [
+    "sufficient-decrease-lemma",
+    "convergence-rates"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "gauss-newton-method",
+   "name": "Gauss-Newton method",
+   "summary": "Linearize residuals and solve a linear least-squares subproblem at each step.",
+   "prereqs": [
+    "nonlinear-least-squares",
+    "descent-method-framework",
+    "taylor-approximation-multivariable"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "levenberg-marquardt",
+   "name": "Levenberg-Marquardt method",
+   "summary": "Damp a Gauss-Newton step so that it bends toward steepest descent when the linear model is poor.",
+   "prereqs": [
+    "gauss-newton-method"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "incremental-gradient-methods",
+   "name": "Incremental gradient methods",
+   "summary": "Replace the full gradient by a pass through data blocks, and compare the step-size behavior with batch descent.",
+   "prereqs": [
+    "descent-method-framework",
+    "nonlinear-least-squares"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "kalman-recursive-least-squares",
+   "name": "Kalman filter as recursive least squares",
+   "summary": "Derive the Kalman update as incremental Gauss-Newton on linear least-squares blocks.",
+   "prereqs": [
+    "incremental-gradient-methods",
+    "linear-least-squares",
+    "gauss-newton-method"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "extended-kalman-filter",
+   "name": "Extended Kalman filter",
+   "summary": "Relinearize a nonlinear measurement model on each new block.",
+   "prereqs": [
+    "kalman-recursive-least-squares"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "newton-root-finding",
+   "name": "Newton's method for root finding",
+   "summary": "Solve a nonlinear equation by repeatedly linearizing it, and see the role of the start point.",
+   "prereqs": [
+    "jacobian-chain-rule"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "newton-method-optimization",
+   "name": "Newton's method for minimization",
+   "summary": "Step to the minimizer of the quadratic Taylor model, and see that the same step can be attracted to a maximum.",
+   "prereqs": [
+    "newton-root-finding",
+    "descent-method-framework",
+    "taylor-approximation-multivariable"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "newton-local-quadratic-convergence",
+   "name": "Local quadratic convergence of Newton",
+   "summary": "Explain the local quadratic rate of Newton's method when the Hessian is Lipschitz and positive definite.",
+   "prereqs": [
+    "newton-method-optimization",
+    "convergence-rates",
+    "lipschitz-gradient"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "newton-globalization",
+   "name": "Globalizing Newton's method",
+   "summary": "Add a line search or a Hessian shift so that a Newton step becomes a descent step.",
+   "prereqs": [
+    "newton-method-optimization",
+    "armijo-backtracking",
+    "positive-definite-matrices"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "wolfe-conditions",
+   "name": "Wolfe line-search conditions",
+   "summary": "Pair sufficient decrease with a curvature condition so that the step satisfies a positive secant curvature.",
+   "prereqs": [
+    "armijo-backtracking"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "quasi-newton-secant",
+   "name": "Quasi-Newton methods and the secant equation",
+   "summary": "Build a Hessian approximation that matches the gradient change along the last step.",
+   "prereqs": [
+    "newton-method-optimization",
+    "fundamental-theorem-along-segment"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "bfgs-update",
+   "name": "BFGS update",
+   "summary": "Apply the BFGS formula and keep it positive definite when the curvature condition holds.",
+   "prereqs": [
+    "quasi-newton-secant",
+    "wolfe-conditions"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "gram-schmidt-orthogonalization",
+   "name": "Gram-Schmidt orthogonalization",
+   "summary": "Orthogonalize independent vectors in a chosen inner product, including x^T Q y.",
+   "prereqs": [
+    "inner-products",
+    "positive-definite-matrices"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "q-conjugate-directions",
+   "name": "Conjugate directions",
+   "summary": "Use Q-conjugacy so that exact line search on a quadratic finishes in finitely many steps.",
+   "prereqs": [
+    "gram-schmidt-orthogonalization",
+    "exact-line-search-quadratic"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "conjugate-gradient-method",
+   "name": "Conjugate gradient method",
+   "summary": "Generate conjugate directions from gradients and relate the rate to the condition number.",
+   "prereqs": [
+    "q-conjugate-directions",
+    "condition-number-gradient-rate"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "heavy-ball-method",
+   "name": "Heavy-ball momentum",
+   "summary": "Add a momentum term to gradient descent and compare its rate with the plain gradient method.",
+   "prereqs": [
+    "gradient-method-convergence",
+    "condition-number-gradient-rate",
+    "finite-difference-derivatives"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "nesterov-accelerated-gradient",
+   "name": "Nesterov's accelerated gradient",
+   "summary": "Extrapolate before the gradient step and distinguish the scheme from heavy-ball momentum.",
+   "prereqs": [
+    "heavy-ball-method",
+    "descent-lemma"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "optimality-over-convex-set",
+   "name": "Optimality over a convex set",
+   "summary": "Use the variational inequality for a minimizer over a convex set, and see why convexity of the objective matters.",
+   "prereqs": [
+    "convex-sets",
+    "first-order-optimality",
+    "convex-optimality-global"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "projection-onto-convex-set",
+   "name": "Projection onto a convex set",
+   "summary": "Characterize the projection by an obtuse angle and compute it for simple convex sets.",
+   "prereqs": [
+    "optimality-over-convex-set",
+    "projection-affine-halfspace-kkt"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "gradient-projection-method",
+   "name": "Gradient projection method",
+   "summary": "Write stationarity as a fixed point of a projected gradient step and run the iteration.",
+   "prereqs": [
+    "projection-onto-convex-set",
+    "sufficient-decrease-lemma"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "scaled-gradient-projection",
+   "name": "Scaled gradient projection",
+   "summary": "Project in a scaled inner product, with projected Newton as one case.",
+   "prereqs": [
+    "gradient-projection-method",
+    "newton-method-optimization"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "affine-scaling-method",
+   "name": "Affine scaling for linear programs",
+   "summary": "Follow a sequence of scaled quadratic models inside a linear program, in primal or dual form.",
+   "prereqs": [
+    "scaled-gradient-projection",
+    "lp-duality-kkt"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "primal-dual-interior-point",
+   "name": "Primal-dual interior-point methods",
+   "summary": "Take Newton steps on a perturbed KKT system and stay near the central path.",
+   "prereqs": [
+    "affine-scaling-method",
+    "newton-root-finding"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "frank-wolfe-conditional-gradient",
+   "name": "Conditional gradient (Frank-Wolfe) method",
+   "summary": "Minimize a linear model over a simplex or an l1 ball and step toward that vertex.",
+   "prereqs": [
+    "optimality-over-convex-set",
+    "polyhedra-extreme-points",
+    "descent-lemma"
+   ],
+   "status": "coming-soon"
+  },
+  {
+   "id": "power-method-eigenvector",
+   "name": "Power method for the top eigenvector",
+   "summary": "Read power iteration as conditional gradient on the Rayleigh quotient.",
+   "prereqs": [
+    "frank-wolfe-conditional-gradient",
+    "rayleigh-quotient"
+   ],
+   "status": "coming-soon"
   }
  ],
  "retired": {

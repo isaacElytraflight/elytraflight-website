@@ -1,14 +1,14 @@
 {
   "version": 1,
-  "generated": "2026-11-09T22:35:50.033389Z",
+  "generated": "2026-11-09T22:57:46.511795Z",
   "skills": {
-    "file": "skills.d1780561.json",
-    "hash": "d1780561"
+    "file": "skills.9a45f15c.json",
+    "hash": "9a45f15c"
   },
   "collections": {
-    "file": "collections.17ae963b.json",
-    "hash": "17ae963b",
-    "boxCount": 43
+    "file": "collections.4ee0faec.json",
+    "hash": "4ee0faec",
+    "boxCount": 56
   },
   "banks": {
     "ac-power": {
@@ -238,6 +238,18 @@
       },
       "hash": "1b8011e3",
       "file": "banks/cascode-src.1b8011e3.json"
+    },
+    "cauchy-schwarz-inequality": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "6b855c2d",
+      "file": "banks/cauchy-schwarz-inequality.6b855c2d.json"
     },
     "cd-freq": {
       "version": 1,
@@ -911,6 +923,18 @@
       "hash": "1ad8c5f8",
       "file": "banks/impulse-conv.1ad8c5f8.json"
     },
+    "inner-products": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "fd081a64",
+      "file": "banks/inner-products.fd081a64.json"
+    },
     "intrinsic": {
       "version": 1,
       "questionCount": 12,
@@ -1463,6 +1487,30 @@
       "hash": "4659fd9e",
       "file": "banks/pole-zero.4659fd9e.json"
     },
+    "positive-definite-matrices": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d4b57805",
+      "file": "banks/positive-definite-matrices.d4b57805.json"
+    },
+    "rayleigh-quotient": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "504e8667",
+      "file": "banks/rayleigh-quotient.504e8667.json"
+    },
     "rc-lpf": {
       "version": 2,
       "questionCount": 12,
@@ -1522,6 +1570,18 @@
       },
       "hash": "6d8579f0",
       "file": "banks/rlc.6d8579f0.json"
+    },
+    "rn-important-subsets": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "78f39f8a",
+      "file": "banks/rn-important-subsets.78f39f8a.json"
     },
     "ro": {
       "version": 1,
@@ -1583,6 +1643,18 @@
       "hash": "f8d1d852",
       "file": "banks/si-props.f8d1d852.json"
     },
+    "singular-value-decomposition": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7cb28a68",
+      "file": "banks/singular-value-decomposition.7cb28a68.json"
+    },
     "sinusoid-resp": {
       "version": 3,
       "questionCount": 12,
@@ -1618,6 +1690,18 @@
       },
       "hash": "c2871285",
       "file": "banks/solar-cell.c2871285.json"
+    },
+    "spectral-decomposition": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "9472b97e",
+      "file": "banks/spectral-decomposition.9472b97e.json"
     },
     "square-law": {
       "version": 2,
@@ -1775,6 +1859,18 @@
       "hash": "d61add01",
       "file": "banks/uncertainty.d61add01.json"
     },
+    "vector-norms-lp": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "eadda4a4",
+      "file": "banks/vector-norms-lp.eadda4a4.json"
+    },
     "vt": {
       "version": 1,
       "questionCount": 12,
@@ -1897,6 +1993,12 @@
       "hash": "cb55d0ba",
       "file": "explainers/cascode-src.cb55d0ba.json",
       "sectionCount": 5
+    },
+    "cauchy-schwarz-inequality": {
+      "hash": "04177e0f",
+      "file": "explainers/cauchy-schwarz-inequality.04177e0f.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "cd-freq": {
       "hash": "4d2c4acb",
@@ -2187,6 +2289,12 @@
       "file": "explainers/impulse-conv.c4b7cff5.json",
       "sectionCount": 5
     },
+    "inner-products": {
+      "hash": "c65190f0",
+      "file": "explainers/inner-products.c65190f0.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "intrinsic": {
       "hash": "8bed791c",
       "file": "explainers/intrinsic.8bed791c.json",
@@ -2220,10 +2328,10 @@
       "version": 1
     },
     "lin-algebra-review": {
-      "hash": "7e85ac96",
-      "file": "explainers/lin-algebra-review.7e85ac96.json",
+      "hash": "e799a9ba",
+      "file": "explainers/lin-algebra-review.e799a9ba.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "linearization": {
       "hash": "f7383407",
@@ -2432,6 +2540,18 @@
       "file": "explainers/pole-zero.f60b27a0.json",
       "sectionCount": 5
     },
+    "positive-definite-matrices": {
+      "hash": "86938907",
+      "file": "explainers/positive-definite-matrices.86938907.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "rayleigh-quotient": {
+      "hash": "05f6cb07",
+      "file": "explainers/rayleigh-quotient.05f6cb07.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "rc-lpf": {
       "hash": "3ec1f979",
       "file": "explainers/rc-lpf.3ec1f979.json",
@@ -2457,6 +2577,12 @@
       "hash": "b06f1588",
       "file": "explainers/rlc.b06f1588.json",
       "sectionCount": 5
+    },
+    "rn-important-subsets": {
+      "hash": "d2bb8557",
+      "file": "explainers/rn-important-subsets.d2bb8557.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "ro": {
       "hash": "d4271073",
@@ -2485,6 +2611,12 @@
       "file": "explainers/si-props.22932f16.json",
       "sectionCount": 5
     },
+    "singular-value-decomposition": {
+      "hash": "355bc863",
+      "file": "explainers/singular-value-decomposition.355bc863.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "sinusoid-resp": {
       "hash": "4f74accf",
       "file": "explainers/sinusoid-resp.4f74accf.json",
@@ -2499,6 +2631,12 @@
       "hash": "cf71702d",
       "file": "explainers/solar-cell.cf71702d.json",
       "sectionCount": 5
+    },
+    "spectral-decomposition": {
+      "hash": "280d78bd",
+      "file": "explainers/spectral-decomposition.280d78bd.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "square-law": {
       "hash": "95533903",
@@ -2569,6 +2707,12 @@
       "file": "explainers/uncertainty.60c939f2.json",
       "sectionCount": 5,
       "version": 2
+    },
+    "vector-norms-lp": {
+      "hash": "eac85927",
+      "file": "explainers/vector-norms-lp.eac85927.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "vt": {
       "hash": "b85a8032",

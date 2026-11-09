@@ -246,3 +246,20 @@ Added in B4 for `discrete-time`.
 | \(f_N = 1/(2T)\) | Nyquist frequency, Hz | folding frequency |
 | \(z^{-1}\) | one-sample delay | unit delay |
 | unit circle | stability boundary in the z-plane | \(|z| = 1\) |
+
+## optimization
+
+Added for the nonlinear optimization skills. In this area \(x\) is a decision vector, not a state, and \(A\) is a data matrix, not a state matrix. A sentence that uses both areas names which one it means.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(x \in \mathbb{R}^n\) | decision vector | |
+| \(f(x)\) | objective | |
+| \(A\) | real matrix, taken symmetric when it is diagonalized by an orthogonal matrix | not a state matrix |
+| \(\lambda\) | eigenvalue of a symmetric matrix | |
+| \(\sigma\) | singular value | \(\sigma_i = \sqrt{\lambda_i(A^T A)}\) |
+| \(\lVert x \rVert_p\) | vector \(\ell_p\) norm | \(p = 1, 2, \infty\) |
+| \(\langle x, y \rangle\) | inner product | \(x^T y\) for the standard dot product |
+| \(R(x)\) | Rayleigh quotient \(x^T A x / x^T x\) | |
+| \(U, \Sigma, V\) | singular-value factors | \(A = U \Sigma V^T\) |
+| PSD, PD | positive semidefinite, positive definite | \(x^T A x \ge 0\), or \(> 0\) for every \(x \ne 0\) |

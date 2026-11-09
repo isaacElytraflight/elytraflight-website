@@ -1,0 +1,29 @@
+{
+  "id": "rayleigh-quotient",
+  "title": "Rayleigh quotient and eigenvalue bounds",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "body_md": "The Rayleigh quotient turns a symmetric matrix into a scalar function on nonzero vectors,\n\\[\nR(x) = \\frac{x^T A x}{x^T x}.\n\\]\nScaling \\(x\\) does not change \\(R\\), because the numerator and the denominator scale by the same factor. In an eigenbasis, \\(R\\) is a weighted average of the eigenvalues, with weights equal to the squared coordinates of the unit vector. An average sits between the smallest and the largest number being averaged. So every value of \\(R\\) lies between \\(\\lambda_{\\min}\\) and \\(\\lambda_{\\max}\\).\n\nThe bounds are achieved. At a unit eigenvector the quotient collapses to that eigenvalue. The trace is the sum of all the eigenvalues, and the determinant is their product. Those two summaries do not replace the quotient: the quotient inspects one direction at a time."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "For symmetric \\(A\\) and \\(x \\ne 0\\),\n\\[\n\\lambda_{\\min} \\le R(x) \\le \\lambda_{\\max}.\n\\]\nIf \\(Av = \\lambda v\\) and \\(v \\ne 0\\), then \\(R(v) = \\lambda\\). Also \\(\\mathrm{tr}\\, A = \\sum_i \\lambda_i\\) and \\(\\det A = \\prod_i \\lambda_i\\). For a symmetric positive definite matrix the 2-norm condition number is the ratio \\(\\lambda_{\\max}/\\lambda_{\\min}\\), which is the ratio of the extreme values of \\(R\\) on the unit sphere."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Let \\(A = \\mathrm{diag}(7, 5)\\). The eigenvalues are 7 and 5, so every Rayleigh quotient lies between 5 and 7. At \\((1,1)\\),\n\\[\nR(1,1) = \\frac{7+5}{2} = 6.\n\\]\nThe quotient equals 6. It is strictly between the eigenvalues because \\((1,1)\\) has weight on both axes. At \\((1,0)\\) the quotient equals 7, the larger eigenvalue, and at \\((0,1)\\) it equals 5. The trace is 12 and the determinant is 35. Neither of those numbers is the value of \\(R\\) at \\((1,1)\\)."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Forgetting to divide by \\(x^T x\\) computes the quadratic form, not the quotient. The quotient does not depend on the length of \\(x\\), so normalizing is optional as long as the division is there. The trace is the sum of the eigenvalues, not the value of \\(R\\) at a generic vector. The upper bound is not attained at every unit vector, only on the top eigenspace. The zero vector is excluded because the denominator would vanish."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The condition number \\(\\lambda_{\\max}/\\lambda_{\\min}\\) controls how fast steepest descent can converge on a quadratic, because the level sets are ellipses whose aspect ratio is that condition number. Power iteration multiplies by \\(A\\) and renormalizes, which pushes the Rayleigh quotient up toward the largest eigenvalue. Conjugate gradient is the method that stops paying that full condition-number penalty on a quadratic."
+    }
+  ]
+}

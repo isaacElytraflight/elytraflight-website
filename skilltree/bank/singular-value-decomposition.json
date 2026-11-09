@@ -1,0 +1,195 @@
+{
+  "skill_id": "singular-value-decomposition",
+  "version": 1,
+  "questions": [
+    {
+      "id": "singular-value-decomposition-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A full singular value decomposition of an \\(m \\times n\\) matrix \\(A\\) writes",
+      "explanation": "The full decomposition uses square orthogonal factors on both sides and puts the singular values on the diagonal of a rectangular middle factor. \\(U \\Sigma U^T\\) is a spectral factorization, and it needs symmetry. A sum of the three factors is not a factorization.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with a negative entry</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "options": [
+        "\\(A = U \\Sigma V^T\\) with orthogonal \\(U\\) and \\(V\\) and a rectangular diagonal \\(\\Sigma\\)",
+        "\\(A = U \\Sigma U^T\\) for every \\(A\\), symmetric or not",
+        "\\(A = V \\Sigma\\) with no third factor",
+        "\\(A = U + \\Sigma + V\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "What is the largest singular value of \\(A = \\begin{bmatrix} 3 & 0 \\\\ 0 & -4 \\end{bmatrix}\\)?",
+      "explanation": "\\(A^T A = \\mathrm{diag}(9, 16)\\), so the singular values are 3 and 4. The largest is 4. The signed eigenvalue \\(-4\\) keeps a sign that singular values drop. The sum \\(3+4 = 7\\) is not a singular value.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with a negative entry</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "answer": 4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The singular values of \\(A\\) are",
+      "explanation": "\\(A^T A\\) is symmetric positive semidefinite, and the singular values are the square roots of its eigenvalues. Eigenvalues of a nonsymmetric, or signed diagonal, matrix can be negative, so they are not the singular values. Diagonal entries and row sums are different summaries.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with a negative entry</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "options": [
+        "the eigenvalues of \\(A\\), including any negative ones",
+        "the diagonal entries of \\(A\\), whether or not \\(A\\) is diagonal",
+        "the row sums of \\(A\\)",
+        "the square roots of the eigenvalues of \\(A^T A\\)"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "How many nonzero singular values does \\(C = \\begin{bmatrix} 1 & 1 \\\\ 0 & 0 \\end{bmatrix}\\) have?",
+      "explanation": "\\(C^T C = \\begin{bmatrix} 1 & 1 \\\\ 1 & 1 \\end{bmatrix}\\) has eigenvalues 2 and 0, so one singular value is positive. That count is the rank. Counting both columns would give 2, which ignores the dependence between them.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
+      "answer": 1.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "The geometry of \\(A = U \\Sigma V^T\\) is",
+      "explanation": "\\(V^T\\) changes to the right singular basis, \\(\\Sigma\\) stretches those axes, and \\(U\\) rotates into the output coordinates. There is no translation. Omitting the stretch would preserve every length.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>arrows on the axes</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e2</text></svg>",
+      "figure_alt": "Two arrows point along the coordinate axes.",
+      "options": [
+        "a translation, then a stretch",
+        "a stretch along the original axes only",
+        "a rotation by \\(V^T\\), a stretch by the singular values, then a rotation by \\(U\\)",
+        "a single rotation, with no stretch"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "What is the largest singular value of \\(C = \\begin{bmatrix} 1 & 1 \\\\ 0 & 0 \\end{bmatrix}\\)?",
+      "explanation": "The nonzero eigenvalue of \\(C^T C\\) is 2, so the singular value is \\(\\sqrt{2}\\). The Frobenius norm \\(\\sqrt{2}\\) happens to agree here because the other singular value is 0. Reporting the eigenvalue 2 skips the square root.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
+      "answer": 1.41421,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "The rank of a matrix equals",
+      "explanation": "Each positive singular value contributes an independent row and column direction. Zero singular values are the dimensions that collapse. A zero row means the rank is smaller than the row count. The product of the singular values is zero whenever the rank is deficient, so the product does not equal the rank.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
+      "options": [
+        "the number of rows, even if a row is zero",
+        "the number of negative eigenvalues of \\(A\\)",
+        "the product of the singular values",
+        "the number of nonzero singular values"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "For \\(A = \\begin{bmatrix} 3 & 0 \\\\ 0 & -4 \\end{bmatrix}\\), what is the sum of the squares of the singular values?",
+      "explanation": "The singular values are 3 and 4, and \\(9+16 = 25\\). That sum is also the squared Frobenius norm, the sum of the squares of the entries. The product \\(12\\) and the signed product of the eigenvalues, \\(-12\\), are different.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with a negative entry</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "answer": 25.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r3-q3",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "What is the product of the two singular values of \\(A = \\begin{bmatrix} 3 & 0 \\\\ 0 & -4 \\end{bmatrix}\\)?",
+      "explanation": "The singular values are 4 and 3, and their product is 12. The product of the eigenvalues is \\(3 \\cdot (-4) = -12\\), which keeps a sign the singular values remove. The sum of the singular values is 7.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with a negative entry</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "answer": 12.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "The matrix 2-norm is the largest singular value. What is \\(\\lVert A \\rVert_2\\) for \\(A = \\begin{bmatrix} 3 & 0 \\\\ 0 & -4 \\end{bmatrix}\\)?",
+      "explanation": "The singular values are 4 and 3, so the operator 2-norm is 4. The smaller singular value 3 is not the operator norm. The Frobenius norm is 5, the square root of \\(9+16\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with a negative entry</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "preview": [
+        "induced-matrix-norms"
+      ],
+      "answer": 4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The squared Frobenius norm of a matrix equals",
+      "explanation": "Both the entrywise sum of squares and the sum of \\(\\sigma_i^2\\) equal \\(\\lVert A \\rVert_F^2\\). The largest singular value is the 2-norm, not the Frobenius norm. The product vanishes whenever a singular value does, even if the matrix is not zero.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with a negative entry</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "preview": [
+        "frobenius-schatten-norms"
+      ],
+      "options": [
+        "the largest singular value",
+        "the sum of the squares of the singular values",
+        "the product of the singular values",
+        "the smallest singular value"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "If a coefficient matrix in a least-squares problem has a zero singular value, then",
+      "explanation": "A zero singular value means a nontrivial null vector, so the columns are dependent. Adding that null vector does not change \\(Ax\\), and the least-squares minimizer is a whole affine space. Independent columns are exactly the case of a positive smallest singular value.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
+      "preview": [
+        "linear-least-squares"
+      ],
+      "options": [
+        "the columns are independent and the minimizer is unique",
+        "every residual can be made zero",
+        "the columns are dependent, so a minimizer need not be unique",
+        "the matrix is square and invertible"
+      ],
+      "correct_index": 2,
+      "version": 1
+    }
+  ]
+}

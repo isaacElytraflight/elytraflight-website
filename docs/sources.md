@@ -26,6 +26,20 @@ The skill graph used to cite 2008 section numbers. The gate used the 2020 chapte
 | `lin-algebra-review` | appendix | `lst-lin` (the 2020 back matter is an index, not a linear-algebra appendix), with Hefferon recorded as the open textbook |
 | `min-phase` | §9.4 | `fbs-loop` chapter 10 (minimum phase, all-pass, delay, inverse response). In the 2020 edition, §9.4 is block-diagram algebra, a later batch. |
 
+## optimization
+
+Added for the nonlinear optimization skills. Course notes fix the scope. Wording, problems, parameter sets, and figures in the banks are original.
+
+| id | work | license | use |
+|---|---|---|---|
+| `boyd-cvx` | Stephen Boyd and Lieven Vandenberghe, *Convex Optimization*, Cambridge University Press, 2004. The authors' PDF is posted for personal download. | Not an open license. | Reference for sets, norms, convexity, and optimality. Not a wording source. |
+| `nw-numopt` | Jorge Nocedal and Stephen J. Wright, *Numerical Optimization*, second edition, Springer, 2006. | Not an open license. | Reference for optimality, least squares, and the algorithms in later batches. Not a wording source. |
+| `hefferon-linalg` | Already registered above. | GFDL or CC BY-SA 3.0 US. | Open linear-algebra source for eigenvalues, rank, and inner products. |
+| `wikibooks-linalg` | Wikibooks, *Linear Algebra* (vector spaces, inner products, eigenvalues). | Creative Commons Attribution-ShareAlike. | Open second source for the NB1 linear-algebra skills. |
+| `nlo-notes` | Nonlinear optimization course notes and syllabus. | Not on file as an open license. | Scope only. Not a wording source. |
+
+NB1 uses `hefferon-linalg` and `wikibooks-linalg` for the linear-algebra facts, and `boyd-cvx` (appendix on matrices, norms, and singular values; chapter on convex sets) for the set and norm language. No section of those sources is quoted in the banks or explainers.
+
 ## Errata
 
 No separate errata list was in the v3.1.5 front matter or the back-matter index. Nothing in those files changes the B1 facts (element laws, transform rules, rank and eigenvalues, or the minimum-phase conditions). No erratum was applied.
