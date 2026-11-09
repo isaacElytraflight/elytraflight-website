@@ -33,45 +33,45 @@ const TREE_ROWS: SampleTile[][] = [
 
 const FEATURES = [
   {
-    title: 'A tree that fills in by tier',
-    body: 'Skills sit in a prerequisite tree that grows upward from the foundations. Each tile fills with its chapter color as you climb: empty, then 30%, 55%, 80%, and full at Mastered.',
+    title: 'Watch your progress fill in',
+    body: 'Skills sit on a colorful tree, with the basics along the bottom and later skills above them. Each one fills with color as you get better, until it is fully mastered.',
   },
   {
-    title: 'Five tiers and spaced mastery challenges',
-    body: 'The tiers are Unpracticed, Practiced, Level 1, Level 2, and Mastered. Round 1 is a practice quiz. Rounds 2–4 are mastery challenges: three questions, at least two correct to move up. The queue lists the least recently practiced skill first, and a miss never drops your tier.',
+    title: 'Climb in steps, then come back',
+    body: 'You move through five steps: Unpracticed, Practiced, Level 1, Level 2, and Mastered. A first practice gets you started. Later, a short challenge checks that the skill stuck, and the ones you have not visited in a while come back first. Missing never takes away a step you already earned.',
   },
   {
-    title: 'Practice questions with explanations',
-    body: 'After each question you see whether you were right, the correct answer, and a written explanation of why.',
+    title: 'Try a question, then see why',
+    body: 'After you answer, you see whether you were right, the correct answer, and a plain explanation. You learn from the try, not only from a score.',
   },
   {
-    title: 'Read-first explainers',
-    body: 'A skill with an explainer opens it from the skill panel. Before you have practiced that skill, the button says Read first.',
+    title: 'Read the idea first',
+    body: 'Before you practice a new skill, you can open a short explanation. The button says Read first, so you can understand the idea and then try the questions.',
   },
   {
-    title: 'Diagrams',
-    body: 'Questions and explainers can include SVG figures. Each figure keeps a text alternative.',
+    title: 'Pictures beside the words',
+    body: 'Questions and explanations often include a diagram, so the idea is easier to picture.',
   },
   {
-    title: 'Sign in, and progress follows you',
-    body: 'Sign in with an email magic link or Google. Progress stays on this device and, once you are signed in, syncs across devices. If both copies have a skill, the higher tier is kept.',
+    title: 'Pick up where you left off',
+    body: 'Sign in with your email or with Google. Your place in the tree stays on this device, and it is waiting when you sign in on another one. If you have gone further on one of them, that further progress is what you keep.',
   },
   {
-    title: 'Export and import',
-    body: 'Settings can export a JSON backup and import it later, including on another device. Import can merge with what is already saved here, or replace it.',
+    title: 'Keep a copy of your progress',
+    body: 'You can save your progress and open it again later, on this device or another.',
   },
 ] as const
 
-const COURSES: { title: string; body: string }[] = [
+const COURSES = [
   {
-    title: 'EE 105',
+    title: 'Berkeley EE 105',
     body: 'Signals, semiconductor devices, and analog circuits.',
   },
   {
-    title: 'ME 132',
+    title: 'Berkeley ME 132',
     body: 'Feedback, dynamics, and control.',
   },
-]
+] as const
 
 const PROJECTS = [
   {
@@ -109,14 +109,6 @@ function Tile({ tile }: { tile: SampleTile }) {
     >
       <span className="fill" />
       <span className="nm">{tile.label}</span>
-      <span className="meta">
-        <span className="pips">
-          {[0, 1, 2, 3].map((i) => (
-            <i key={i} className={tile.tier > i ? 'on' : undefined} />
-          ))}
-        </span>
-        <span>{tile.fill === '0%' ? 'Empty' : tile.fill}</span>
-      </span>
     </div>
   )
 }
@@ -146,18 +138,18 @@ function App() {
         <section className="hero" id="top" aria-labelledby="hero-title">
           <div className="hero-copy">
             <p className="eyebrow">Elytraflight</p>
-            <h1 id="hero-title">Master STEM skills, one node at a time.</h1>
+            <h1 id="hero-title">Master one STEM skill at a time.</h1>
             <p className="lede">
-              Skillgrove is Elytraflight’s mastery-based learning site for undergraduate STEM.
-              Practice a skill, climb its tier, and watch the tree fill in. EE 105 is one course on
-              that tree.
+              Skillgrove is Elytraflight’s learning site for undergraduate STEM. Practice until a
+              skill feels solid, watch it fill in with color, and come back so it stays with you.
+              Berkeley EE 105 is one of the courses you can study.
             </p>
             <div className="hero-actions">
               <a className="btn hot lg" href="/skilltree/">
                 Open Skillgrove
               </a>
               <a className="btn lg" href="#features">
-                See what it includes
+                See how it helps
               </a>
             </div>
           </div>
@@ -172,16 +164,15 @@ function App() {
               ))}
             </div>
             <figcaption>
-              Tiles fill with their chapter color as you climb. Four pips mark the tier, from
-              Unpracticed to Mastered.
+              Color fills in as a skill goes from new to mastered.
             </figcaption>
           </figure>
         </section>
 
         <section id="features" aria-labelledby="features-title">
           <div className="section-head">
-            <h2 id="features-title">What Skillgrove includes</h2>
-            <p>These are the pieces already in the app at /skilltree/.</p>
+            <h2 id="features-title">How learning feels</h2>
+            <p>A path you can see, practice that comes back, and progress that stays with you.</p>
           </div>
           <ul className="feature-grid">
             {FEATURES.map((feature) => (
@@ -195,10 +186,10 @@ function App() {
 
         <section id="courses" aria-labelledby="courses-title">
           <div className="section-head">
-            <h2 id="courses-title">Courses on the tree</h2>
+            <h2 id="courses-title">Courses to explore</h2>
             <p>
-              Skillgrove is built for STEM courses in general. Two courses are available now. Open
-              Skillgrove and choose either one.
+              Skillgrove is for undergraduate STEM in general. Open it and choose a course. These
+              two are ready now.
             </p>
           </div>
           <ul className="course-grid">
@@ -206,17 +197,15 @@ function App() {
               <li key={course.title}>
                 <h3>{course.title}</h3>
                 <p>{course.body}</p>
-                <a href="/skilltree/">Open {course.title} in Skillgrove</a>
               </li>
             ))}
           </ul>
-          <p className="note">Some skills do not have questions yet and show as coming soon.</p>
         </section>
 
         <section id="projects" aria-labelledby="projects-title">
           <div className="section-head">
             <h2 id="projects-title">Isaac’s CS 180 projects</h2>
-            <p>Computational photography write-ups from CS 180. Each page stays at its own address.</p>
+            <p>Computational photography projects from CS 180.</p>
           </div>
           <ul className="project-grid">
             {PROJECTS.map((project) => (

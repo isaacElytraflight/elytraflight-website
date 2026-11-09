@@ -240,7 +240,7 @@ h1 {
   padding: 8px 9px 7px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
   color: var(--ink);
 }
@@ -263,34 +263,6 @@ h1 {
   font-size: 0.82rem;
   font-weight: 700;
   line-height: 1.2;
-}
-
-.tile .meta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 8px;
-  font-size: 0.72rem;
-  font-weight: 750;
-  color: var(--ink2);
-}
-
-.pips {
-  display: inline-flex;
-  gap: 3px;
-}
-
-.pips i {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(29, 36, 51, 0.35);
-  background: rgba(255, 255, 255, 0.7);
-}
-
-.pips i.on {
-  background: var(--c);
-  border-color: rgba(29, 36, 51, 0.75);
 }
 
 .tile.t0 {
@@ -363,18 +335,6 @@ h1 {
 
 .course-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.course-grid a {
-  display: inline-block;
-  margin-top: 12px;
-  font-weight: 750;
-}
-
-.note {
-  margin: 16px 0 0;
-  color: var(--ink2);
-  max-width: 46rem;
 }
 
 .project-grid {
