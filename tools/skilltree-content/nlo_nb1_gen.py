@@ -30,6 +30,7 @@ AXES = plane_vectors([(1.2, 0, "e1"), (0, 1.2, "e2")], "arrows on the axes")
 DIAG = plane_vectors([(1, 1, "u"), (1, -1, "w")], "two diagonal arrows")
 ANGLE = plane_vectors([(2, 0.4, "x"), (0.4, 1.6, "y")], "two arrows from one origin")
 PERP = plane_vectors([(1.6, 0, "x"), (0, 1.4, "y")], "perpendicular arrows")
+RAY = plane_vectors([(1.15, 0, "x"), (2.3, 0, "y")], "two horizontal arrows of different lengths")
 MAT_S = matrix_fig([["4", "2"], ["2", "4"]], "symmetric 2 by 2 matrix")
 MAT_D = matrix_fig([["3", "0"], ["0", "-4"]], "diagonal matrix with a negative entry")
 MAT_R = matrix_fig([["1", "1"], ["0", "0"]], "matrix with a zero row")
@@ -45,6 +46,7 @@ A_AXES = "Two arrows point along the coordinate axes."
 A_DIAG = "Two arrows point along opposite diagonals."
 A_ANGLE = "Two arrows leave the origin with a gap between them."
 A_PERP = "Two arrows leave the origin at a right angle."
+A_RAY = "Two arrows of different lengths point along the positive horizontal axis."
 A_MAT_S = "A 2 by 2 matrix with equal diagonal entries and equal off-diagonal entries."
 A_MAT_D = "A diagonal 2 by 2 matrix. One diagonal entry is negative."
 A_MAT_R = "A 2 by 2 matrix whose second row is zero."
@@ -508,7 +510,7 @@ def bank_inner():
           "linearity, but \(\\langle x,y \\rangle = -\\langle y,x \\rangle\)",
           "\(\\langle x,x \\rangle > 0\), with no linearity requirement"],
          0,
-         r"A real inner product is symmetric, linear in each slot, and positive on nonzero vectors. Forcing every square to zero destroys positive definiteness. Skew-symmetry would make \(\\langle x,x \\rangle = 0\). Positivity alone does not give the angle formula.",
+         r"A real inner product is symmetric, linear in each slot, and positive on nonzero vectors. Forcing every square to zero destroys positive definiteness. Skew-symmetry would make \(\langle x,x \rangle = 0\). Positivity alone does not give the angle formula.",
          ANGLE, A_ANGLE)
     b.num(1,
           r"What is the dot product \((1,2,3)\cdot(2,0,-1)\)?",
@@ -702,7 +704,7 @@ def bank_cs():
           "the vectors have different lengths"],
          1,
          r"The quadratic \(\lVert x + t y \rVert^2\) touches zero only when \(x + t y = 0\) for some \(t\), which is linear dependence. Orthogonal nonzero vectors have inner product 0, and the bound is positive, so equality fails. Different lengths do not prevent one vector from being a multiple of the other.",
-         DIAG, A_DIAG)
+         ANGLE, A_ANGLE)
     b.num(2,
           r"What is \((1,2)\cdot(2,1)\)?",
           4, "1",
@@ -735,7 +737,7 @@ def bank_cs():
           r"For the parallel vectors \((2,0)\) and \((6,0)\), what is \(\lvert\langle x,y \rangle\rvert / (\lVert x \rVert_2\,\lVert y \rVert_2)\)?",
           1, "1",
           r"The inner product is 12 and the lengths are 2 and 6, so the ratio is 1. Equality is the Cauchy-Schwarz conclusion for linearly dependent vectors. A ratio of 12 would skip the division by the lengths.",
-          AXES, A_AXES)
+          RAY, A_RAY)
     b.num(3,
           r"Cauchy-Schwarz implies \(\lVert(3,0)+(0,4)\rVert_2 \le \lVert(3,0)\rVert_2 + \lVert(0,4)\rVert_2\). What is the right-hand side?",
           7, "1",

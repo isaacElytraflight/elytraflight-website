@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-09T21:39:31.792145Z",
+  "generated": "2026-11-09T22:10:07.918622Z",
   "skills": {
-    "file": "skills.b6a30f4e.json",
-    "hash": "b6a30f4e"
+    "file": "skills.112b9ec3.json",
+    "hash": "112b9ec3"
   },
   "collections": {
     "file": "collections.4ee0faec.json",
@@ -248,8 +248,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ae4336c3",
-      "file": "banks/cauchy-schwarz-inequality.ae4336c3.json"
+      "hash": "6b855c2d",
+      "file": "banks/cauchy-schwarz-inequality.6b855c2d.json"
     },
     "cd-freq": {
       "version": 1,
@@ -896,8 +896,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3dfb86f2",
-      "file": "banks/inner-products.3dfb86f2.json"
+      "hash": "fd081a64",
+      "file": "banks/inner-products.fd081a64.json"
     },
     "intrinsic": {
       "version": 1,
