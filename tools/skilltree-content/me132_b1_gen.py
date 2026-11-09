@@ -671,7 +671,7 @@ def expl_lin():
              "The coefficient of \(s\) in that monic polynomial is the sum of the desired poles."
          )},
     ]
-    save_explainer("lin-algebra-review", "Linear algebra for state space", sections)
+    save_explainer("lin-algebra-review", "Linear algebra review", sections, version=2)
     return words(sections)
 
 

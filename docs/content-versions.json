@@ -156,7 +156,7 @@
     },
     {
       "id": "lin-algebra-review#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "min-phase-r1-q1",
@@ -1248,6 +1248,422 @@
     },
     {
       "id": "step-specs#explainer",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "rn-important-subsets#explainer",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition#explainer",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices#explainer",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition#explainer",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient#explainer",
+      "version": 1
+    },
+    {
+      "id": "inner-products-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "inner-products-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "inner-products-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "inner-products-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "inner-products-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "inner-products-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "inner-products-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "inner-products-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "inner-products-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "inner-products-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "inner-products-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "inner-products-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "inner-products#explainer",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp#explainer",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "cauchy-schwarz-inequality#explainer",
       "version": 1
     }
   ]
