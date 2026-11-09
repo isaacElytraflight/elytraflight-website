@@ -365,12 +365,6 @@ h1 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.course-grid .detail {
-  margin-top: 4px;
-  font-weight: 750;
-  color: #c2410c;
-}
-
 .course-grid a {
   display: inline-block;
   margin-top: 12px;

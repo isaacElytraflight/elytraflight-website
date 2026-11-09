@@ -62,15 +62,14 @@ const FEATURES = [
   },
 ] as const
 
-const COURSES: { title: string; detail?: string; body: string }[] = [
+const COURSES: { title: string; body: string }[] = [
   {
-    title: 'EE 105 (UC Berkeley)',
-    detail: 'Fall 2022 (Niknejad Reader)',
-    body: 'Eighteen chapters, from linear time-invariant systems and semiconductors through amplifiers, feedback, and op-amp non-idealities.',
+    title: 'EE 105',
+    body: 'Signals, semiconductor devices, and analog circuits.',
   },
   {
-    title: 'ME 132 (UC Berkeley)',
-    body: 'Nine chapters, from feedback and block diagrams through state space, nonlinear systems, and identification.',
+    title: 'ME 132',
+    body: 'Feedback, dynamics, and control.',
   },
 ]
 
@@ -198,25 +197,20 @@ function App() {
           <div className="section-head">
             <h2 id="courses-title">Courses on the tree</h2>
             <p>
-              Skillgrove is built for STEM courses in general. Two UC Berkeley courses are available
-              now. Open Skillgrove and choose either one.
+              Skillgrove is built for STEM courses in general. Two courses are available now. Open
+              Skillgrove and choose either one.
             </p>
           </div>
           <ul className="course-grid">
             {COURSES.map((course) => (
               <li key={course.title}>
                 <h3>{course.title}</h3>
-                {course.detail ? <p className="detail">{course.detail}</p> : null}
                 <p>{course.body}</p>
                 <a href="/skilltree/">Open {course.title} in Skillgrove</a>
               </li>
             ))}
           </ul>
-          <p className="note">
-            A Feedback Systems outline (Astrom &amp; Murray, 2008) is also on the tree, marked
-            reference only. It is a textbook grouping, not a third course. Some skills do not have
-            questions yet and show as coming soon.
-          </p>
+          <p className="note">Some skills do not have questions yet and show as coming soon.</p>
         </section>
 
         <section id="projects" aria-labelledby="projects-title">
