@@ -1409,7 +1409,7 @@ async function test(name, fn) {
       const fullIds = used(full);
       const meIds = used(me);
       const bookIds = used(book);
-      const soon = 'windup';
+      const soon = 'loop-shaping';
       return {
         readySoon: ready.filter(id => !playable.has(id)),
         fullSoon: fullIds.filter(id => !playable.has(id)),
@@ -1439,15 +1439,15 @@ async function test(name, fn) {
     assert.strictEqual(result.queueHasSoon, false, 'the recommender queue stays on playable skills');
     assert.deepStrictEqual(result.meExtras, [], 'every playable prerequisite of an ME 132 skill sits inside ME 132: ' + result.meExtras.join(','));
 
-    await openSkill(p, 'windup');
+    await openSkill(p, 'loop-shaping');
     const panel = await p.evaluate(() => ({
       text: document.getElementById('panel').textContent,
-      label: document.querySelector('#world .tile[data-id="windup"]').getAttribute('aria-label'),
-      title: document.querySelector('#world .tile[data-id="windup"]').title,
-      soon: document.querySelector('#world .tile[data-id="windup"]').classList.contains('soon'),
+      label: document.querySelector('#world .tile[data-id="loop-shaping"]').getAttribute('aria-label'),
+      title: document.querySelector('#world .tile[data-id="loop-shaping"]').title,
+      soon: document.querySelector('#world .tile[data-id="loop-shaping"]').classList.contains('soon'),
       start: !!document.getElementById('startBtn')
     }));
-    assert(panel.soon, 'windup should use the coming-soon tile style');
+    assert(panel.soon, 'loop-shaping should use the coming-soon tile style');
     assert(/Coming soon/.test(panel.text));
     assert(/coming soon/.test(panel.title));
     assert(/Coming soon, no questions yet/.test(panel.label));
@@ -1558,7 +1558,7 @@ async function test(name, fn) {
         tiles: ids.length,
         dupes,
         toggles: document.querySelectorAll('#world .toggle, #regions .toggle').length,
-        soon: document.querySelector('#world .tile[data-id="windup"] .tag').textContent
+        soon: document.querySelector('#world .tile[data-id="loop-shaping"] .tag').textContent
       };
     });
     assert.strictEqual(tree.tiles, NSKILL);

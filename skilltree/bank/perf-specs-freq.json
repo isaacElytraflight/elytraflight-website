@@ -1,0 +1,187 @@
+{
+  "skill_id": "perf-specs-freq",
+  "version": 1,
+  "questions": [
+    {
+      "id": "perf-specs-freq-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Closed-loop bandwidth \\(\\omega_b\\) is the frequency where",
+      "explanation": "Bandwidth is a property of the complementary sensitivity \\(T\\), 3 dB below the low-frequency plateau. The frequency where \\(|L| = 1\\) is the gain crossover, which is related but not the same definition. Phase of \\(-180^\\circ\\) is the phase crossover. The peak of \\(|S|\\) is the peak sensitivity, not the bandwidth.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 76.7,44.9 98,75 140.7,93 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A loop-gain magnitude that is high at low frequency and then crosses downward.",
+      "options": [
+        "\\(|T(j\\omega)|\\) has fallen to \\(1/\\sqrt{2}\\) of its low-frequency value",
+        "\\(|L(j\\omega)|\\) first equals 1",
+        "the phase of \\(L\\) equals \\(-180^\\circ\\)",
+        "\\(|S(j\\omega)|\\) is largest"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "At the gain crossover, \\(|S| = 1/(2\\sin(\\mathrm{PM}/2))\\). For a phase margin of \\(36^\\circ\\) that sensitivity is",
+      "explanation": "Half of \\(36^\\circ\\) is \\(18^\\circ\\), and \\(\\sin 18^\\circ \\approx 0.309\\), so \\(|S| = 1/(2\\cdot 0.309) = 1.61803\\). Using \\(\\sin 36^\\circ\\) in the denominator forgets the half-angle in the distance formula. The phase margin itself, 36, is a number of degrees, not a sensitivity.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,129.2 76.7,79.9 98,38.8 140.7,47 283,47\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A sensitivity curve that is small at low frequency and rises toward 0 dB.",
+      "answer": 1.61803,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A first-order closed loop has bandwidth 5 rad/s. Its 10% to 90% rise time is about \\(2.2/\\omega_b\\), which equals",
+      "explanation": "\\(t_r \\approx 2.2/5 = 0.44\\) s. The reciprocal of the bandwidth, 0.2 s, is the time constant, and the 10% to 90% rise is \\(\\ln 9\\) time constants, not one. Twice the bandwidth in the denominator would give 0.22 s and is a different rule of thumb.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a closed-loop step</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,127.8 52,122.9 55.1,118.4 58.1,114 61.1,109.9 64.1,106.1 67.2,102.4 70.2,99 73.2,95.7 76.2,92.6 79.2,89.7 82.3,86.9 85.3,84.3 88.3,81.8 91.3,79.4 94.4,77.2 97.4,75.1 100.4,73.1 103.4,71.3 106.4,69.5 109.5,67.8 112.5,66.2 115.5,64.7 118.5,63.3 121.6,61.9 124.6,60.7 127.6,59.5 130.6,58.3 133.6,57.2 136.7,56.2 139.7,55.3 142.7,54.3 145.7,53.5 148.8,52.7 151.8,51.9 154.8,51.2 157.8,50.5 160.8,49.8 163.9,49.2 166.9,48.6 169.9,48.1 172.9,47.5 176,47 179,46.6 182,46.1 185,45.7 188,45.3 191.1,44.9 194.1,44.6 197.1,44.3 200.1,43.9 203.2,43.6 206.2,43.4 209.2,43.1 212.2,42.8 215.2,42.6 218.3,42.4 221.3,42.1 224.3,41.9 227.3,41.7 230.4,41.6 233.4,41.4 236.4,41.2 239.4,41.1 242.4,40.9 245.5,40.8 248.5,40.7 251.5,40.5 254.5,40.4 257.6,40.3 260.6,40.2 263.6,40.1 266.6,40 269.6,39.9 272.7,39.8 275.7,39.8 278.7,39.7 281.7,39.6 284.8,39.6 287.8,39.5 290.8,39.4 293.8,39.4 296.8,39.3 299.9,39.3 302.9,39.2 305.9,39.2 308.9,39.1 312,39.1 315,39.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A step response that settles.",
+      "answer": 0.44,
+      "unit": "s",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The loop transfer function is \\(L(s) = 12/s\\). The gain crossover frequency, where \\(|L| = 1\\), is",
+      "explanation": "\\(|L(j\\omega)| = 12/\\omega\\). Setting that equal to 1 gives \\(\\omega_c = 12\\) rad/s. The square root of 12 is a different crossover, for a \\(1/s^2\\) loop. Half of 12 would be the crossover of \\(6/s\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 76.7,44.9 98,75 140.7,93 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A loop-gain magnitude that is high at low frequency and then crosses downward.",
+      "answer": 12.0,
+      "unit": "rad/s",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A specification \\(M_s \\le 1.5\\) limits how close the Nyquist curve may come to \\(-1\\). A larger allowed \\(M_s\\) means",
+      "explanation": "Peak sensitivity is the reciprocal of the distance from the curve to \\(-1\\). Allowing a larger peak allows a smaller distance. The stricter spec is the smaller \\(M_s\\). Bandwidth is not fixed by \\(M_s\\) alone, and a 90 degree phase margin is a much stronger requirement than \\(M_s = 1.5\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Nyquist curve and the point -1</title><line x1=\"48\" y1=\"42.7\" x2=\"270\" y2=\"42.7\"/><polygon points=\"270,42.7 263.6,45.4 263.6,40\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"123.1\" y1=\"180\" x2=\"123.1\" y2=\"28\"/><polygon points=\"123.1,28 125.8,34.4 120.4,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"56.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"129.1\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.7,42.7 159,165.3 99.2,76.1 114.1,42.7\" stroke-width=\"2.2\"/><circle cx=\"63.3\" cy=\"42.7\" r=\"4\"/><text x=\"63.3\" y=\"32.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−1</text></svg>",
+      "figure_alt": "A Nyquist curve and the marked point -1.",
+      "options": [
+        "the curve must stay farther from \\(-1\\)",
+        "the curve may come closer to \\(-1\\), so the robustness demand is weaker",
+        "the bandwidth must be cut in half",
+        "the phase margin must be exactly 90 degrees"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The design requires \\(M_s \\le 1.5\\). The Nyquist curve must therefore stay at least this far from \\(-1\\):",
+      "explanation": "The distance is \\(1/M_s = 1/1.5 = 0.666667\\). The peak 1.5 itself is the reciprocal of the distance, not the distance. Twice the reciprocal, \\(1.333\\), doubles the clearance the spec actually demands.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,129.2 76.7,79.9 98,38.8 140.7,47 283,47\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A sensitivity curve that is small at low frequency and rises toward 0 dB.",
+      "answer": 0.666667,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Tracking and disturbance rejection both want \\(|L|\\) large at low frequency. Sensor-noise rejection wants",
+      "explanation": "Noise enters through \\(T\\). Making \\(|T|\\) small at high frequency means rolling \\(|L|\\) off. Keeping \\(|L|\\) large up there would pass the noise. A large \\(|S|\\) is the high-frequency fate of every proper loop, not a design goal by itself. Crossover has to stop somewhere because of that noise, the actuator, and the phase lag.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 76.7,44.9 98,75 140.7,93 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A loop-gain magnitude that is high at low frequency and then crosses downward.",
+      "options": [
+        "\\(|L|\\) large at high frequency as well",
+        "\\(|S|\\) large at high frequency",
+        "\\(|T|\\) small at high frequency, which means \\(|L|\\) small there",
+        "the crossover as high as the actuator can stand, with no further condition"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "At a frequency where the loop gain is real and equal to 0.25, the complementary sensitivity \\(|T|\\) is",
+      "explanation": "\\(T = L/(1+L) = 0.25/1.25 = 0.2\\). The sensitivity \\(S = 1/1.25 = 0.8\\) is the other closed-loop map. The loop gain 0.25 itself is not \\(T\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,129.2 76.7,79.9 98,38.8 140.7,47 283,47\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A sensitivity curve that is small at low frequency and rises toward 0 dB.",
+      "answer": 0.2,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r3-q3",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "The gain crossover has a phase margin of \\(50^\\circ\\). The phase of \\(L\\) at that frequency, in degrees, is",
+      "explanation": "Phase margin is the distance above \\(-180^\\circ\\), so the phase is \\(-180 + 50 = -130\\). Reporting \\(+50\\) gives the margin rather than the phase. Reporting \\(-50\\) measures down from 0 instead of up from \\(-180\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 250\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>crossover magnitude</title><line x1=\"54\" y1=\"108\" x2=\"300\" y2=\"108\"/><polygon points=\"300,108 293.6,110.7 293.6,105.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"108\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,35.7 115.6,63.4 283,100.3\" stroke-width=\"2.2\"/><text x=\"300\" y=\"124\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text><line x1=\"54\" y1=\"220\" x2=\"300\" y2=\"220\"/><polygon points=\"300,220 293.6,222.7 293.6,217.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"220\" x2=\"54\" y2=\"148\"/><polygon points=\"54,148 56.7,154.4 51.3,154.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"144\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">deg</text><polyline points=\"71,155 115.6,184 283,213\" stroke-width=\"2.2\"/><text x=\"300\" y=\"236\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Magnitude crossing 0 dB, with a phase curve.",
+      "answer": -130.0,
+      "unit": "deg",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "The crossover formula \\(|S| = 1/(2\\sin(\\mathrm{PM}/2))\\) is required to be at most 1.4. The smallest phase margin that meets the formula, in degrees, is",
+      "explanation": "Set \\(1/(2\\sin(\\mathrm{PM}/2)) = 1.4\\), so \\(\\sin(\\mathrm{PM}/2) = 1/2.8\\). Then \\(\\mathrm{PM}/2 \\approx 20.92^\\circ\\) and \\(\\mathrm{PM} = 41.8497\\). Using the half-angle as the answer reports about 20.9 degrees. A margin of 60 degrees gives \\(|S| = 1\\), which is stricter than 1.4.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,129.2 76.7,79.9 98,38.8 140.7,47 283,47\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A sensitivity curve that is small at low frequency and rises toward 0 dB.",
+      "preview": [
+        "loop-shaping"
+      ],
+      "answer": 41.8497,
+      "unit": "deg",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Raising the gain crossover, while the plant phase is still falling, usually",
+      "explanation": "A higher crossover uses a frequency where a typical plant has more lag, so the phase margin shrinks, while the closed-loop bandwidth and the speed both go up. The margin does not increase. Overshoot tends to grow as the margin shrinks. The high-frequency roll-off is still required, and it gets harder as the crossover moves up.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 76.7,44.9 98,75 140.7,93 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A loop-gain magnitude that is high at low frequency and then crosses downward.",
+      "preview": [
+        "fund-limits"
+      ],
+      "options": [
+        "increases the phase margin",
+        "leaves both bandwidth and overshoot unchanged",
+        "removes the need for a roll-off at high frequency",
+        "speeds the response and spends phase margin"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r4-q3",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Below 2 rad/s the spec is \\(|S| \\le 0.1\\), and \\(L\\) is real and positive. The smallest such \\(L\\) that makes \\(|S| = 0.1\\) is",
+      "explanation": "\\(1/(1+L) = 0.1\\) gives \\(1+L = 10\\) and \\(L = 9\\). The value 10 is \\(1+L\\), one step short of the loop gain. The value 0.1 is the sensitivity spec itself.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,129.2 76.7,79.9 98,38.8 140.7,47 283,47\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A sensitivity curve that is small at low frequency and rises toward 0 dB.",
+      "preview": [
+        "loop-shaping"
+      ],
+      "answer": 9.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    }
+  ]
+}

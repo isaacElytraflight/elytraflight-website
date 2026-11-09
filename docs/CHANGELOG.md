@@ -95,6 +95,27 @@ Items above version 1:
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## B5 — me132-b5
+
+Box: ME 132 (me132) and Feedback Systems (am08).
+
+Skills: `feedforward`, `freq-resp-lti`, `gen-gain-phase`, `linearization`, `lti-stability`, `perf-specs-freq`, `pid-impl`, `pid-tuning`, `realization`, `uncertainty`, `windup`.
+
+Items above version 1:
+
+- `freq-resp-lti-r3-q1` version 2
+- `gen-gain-phase#explainer` version 2
+- `linearization-r3-q2` version 2
+- `linearization#explainer` version 2
+- `lti-stability-r3-q3` version 2
+- `perf-specs-freq#explainer` version 2
+- `pid-impl#explainer` version 2
+- `pid-tuning-r2-q3` version 2
+- `realization-r1-q2` version 2
+- `uncertainty#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## NB1 — nlo-nb1
 
 Box: Nonlinear Optimization (nlo-tugraz).

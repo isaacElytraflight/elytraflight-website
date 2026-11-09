@@ -1,0 +1,29 @@
+{
+  "id": "freq-resp-lti",
+  "title": "Frequency response of a linear system",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 250\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>steady-state magnitude</title><line x1=\"54\" y1=\"108\" x2=\"300\" y2=\"108\"/><polygon points=\"300,108 293.6,110.7 293.6,105.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"108\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,35.7 91.1,42.9 136.8,64.4 283,100.3\" stroke-width=\"2.2\"/><text x=\"300\" y=\"124\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text><line x1=\"54\" y1=\"220\" x2=\"300\" y2=\"220\"/><polygon points=\"300,220 293.6,222.7 293.6,217.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"220\" x2=\"54\" y2=\"148\"/><polygon points=\"54,148 56.7,154.4 51.3,154.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"144\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">deg</text><polyline points=\"71,155 91.1,173.1 136.8,194.9 283,213\" stroke-width=\"2.2\"/><text x=\"300\" y=\"236\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Magnitude and phase curves versus frequency.",
+      "body_md": "A stable linear system answers a lasting sinusoid with a sinusoid of the same frequency. The amplitude is multiplied by \\(|G(j\\omega)|\\) and the wave is shifted by the angle of \\(G(j\\omega)\\). Nothing in that steady picture depends on the initial state, because every natural mode has already decayed.\n\nThe same complex number is what a Bode plot draws, what a Nyquist plot traces, and what a state-space model computes from \\(C(j\\omega I - A)^{-1}B + D\\). Transfer-function algebra and the resolvent are two ways to the same \\(G(j\\omega)\\). The formula is a property of the forced response. It is not a description of an unstable transient."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "For \\(G(s) = 1/(\\tau s + 1)\\), \\(|G(j\\omega)| = 1/\\sqrt{1 + \\omega^2\\tau^2}\\) and the phase is \\(-\\tan^{-1}(\\omega\\tau)\\). The bandwidth, where the magnitude is \\(1/\\sqrt{2}\\) of the DC value, sits at \\(\\omega = 1/\\tau\\).\n\nFor a state-space model,\n\\[\nG(j\\omega) = C(j\\omega I - A)^{-1}B + D.\n\\]\nThe angle of a quotient is the angle of the numerator minus the angle of the denominator. A real negative pole contributes lag. A real negative zero contributes lead."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(G(s) = 9/(s+3)\\) and a unit cosine at \\(\\omega = 3\\). Then \\(G(j3) = 9/(3+j3)\\). The magnitude is \\(9/\\sqrt{18} \\approx 2.121\\) and the phase is \\(-45^\\circ\\). After the transient \\(e^{-3t}\\) has died, the output is \\(2.121\\cos(3t - 45^\\circ)\\). The DC gain would have said 3, which is the answer only at \\(\\omega = 0\\)."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The formula does not apply while an unstable mode is still growing, and it does not apply at a pole on the imaginary axis, where the response contains a resonant term that the finite value \\(G(j\\omega)\\) cannot represent. Magnitude and phase are different numbers: a phase in degrees is not the modulus. Evaluating \\(G(0)\\) when the question names a nonzero \\(\\omega\\) drops the imaginary part. For a state-space model the feedthrough \\(D\\) is part of \\(G\\), so leaving it out shifts both the magnitude and the phase."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Time delay multiplies \\(G(j\\omega)\\) by a phase \\(-\\omega T\\) with no change in magnitude. Identification reads \\(G(j\\omega)\\) off measured sinusoids. Loop shaping then asks this same \\(G(j\\omega)\\) to be large at low frequency and small at high frequency, with a gentle phase near crossover."
+    }
+  ]
+}

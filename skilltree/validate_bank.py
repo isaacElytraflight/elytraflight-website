@@ -83,6 +83,13 @@ LEAF_PREVIEW_ALLOWED.update({
     "cruise-control": ["pid-tuning", "feedforward", "gain-scheduling"],
 })
 LEAF_PREVIEW_ALLOWED.update({
+    # ME132 B5 leaves: no dependents in the graph.
+    "gen-gain-phase": ["robust-stability", "lyapunov", "adaptive"],
+    "pid-impl": ["time-delay", "integral-action", "mpc"],
+    "pid-tuning": ["loop-shaping", "gain-scheduling", "robust-perf"],
+    "windup": ["integral-action", "mpc", "pid-impl"],
+})
+LEAF_PREVIEW_ALLOWED.update({
     # ME132 B4 skills: leaf skills with conceptual follow-ons
     "discrete-time": ["freq-resp-lti", "time-delay", "pid-impl"],
     "eig-modes": ["realization", "lin-algebra-review", "observability"],

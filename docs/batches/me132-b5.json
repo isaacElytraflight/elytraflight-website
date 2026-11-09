@@ -1,0 +1,36 @@
+{
+  "id": "me132-b5",
+  "label": "B5",
+  "box": "ME 132 (me132) and Feedback Systems (am08)",
+  "skills": [
+    "feedforward",
+    "freq-resp-lti",
+    "gen-gain-phase",
+    "linearization",
+    "lti-stability",
+    "perf-specs-freq",
+    "pid-impl",
+    "pid-tuning",
+    "realization",
+    "uncertainty",
+    "windup"
+  ],
+  "areas": {
+    "feedforward": ["feedback-loop", "feedforward"],
+    "freq-resp-lti": ["frequency-response", "state-space"],
+    "gen-gain-phase": ["describing-function", "frequency-response"],
+    "linearization": ["state-space", "linearization"],
+    "lti-stability": ["lti-stability", "state-space"],
+    "perf-specs-freq": ["performance-frequency", "loop-transfer-function"],
+    "pid-impl": ["pid-implementation", "discrete-time-systems"],
+    "pid-tuning": ["pid-tuning", "pid-control"],
+    "realization": ["realization-forms", "state-space"],
+    "uncertainty": ["uncertainty", "loop-transfer-function"],
+    "windup": ["windup", "pid-control"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/me132-content-batches.md",
+  "verifier": "skilltree/verify_me132_b5.py"
+}
