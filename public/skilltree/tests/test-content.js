@@ -47,14 +47,22 @@ function readJsonDir(dir) {
 
 console.log('\n=== Skillgrove content integrity ===\n');
 
-test('graph is version 3 with 170 live skills and 16 retired ids', () => {
+test('graph is version 3 with 265 live skills and 16 retired ids', () => {
   assert.strictEqual(graph.version, 3);
-  assert.strictEqual(skills.length, 170);
+  assert.strictEqual(skills.length, 265);
   assert.strictEqual(retiredIds.size, 16);
   assert.strictEqual(retired.margins, 'stability');
-  assert.strictEqual(new Set(skills.map(s => s.id)).size, 170, 'skill ids are unique');
+  assert.strictEqual(new Set(skills.map(s => s.id)).size, 265, 'skill ids are unique');
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 32, 'batch B4 ships 8 more skills and leaves 32 coming soon');
+  assert.strictEqual(soon.length, 119, 'NB1 ships 8 skills and leaves 87 new skills coming soon');
+  const byId = Object.fromEntries(skills.map(s => [s.id, s]));
+  assert.strictEqual(byId['lin-algebra-review'].name, 'Linear algebra review');
+  assert.strictEqual(byId['lin-algebra-review'].id, 'lin-algebra-review');
+  for (const id of ['rn-important-subsets', 'spectral-decomposition', 'positive-definite-matrices', 'singular-value-decomposition', 'rayleigh-quotient', 'inner-products', 'vector-norms-lp', 'cauchy-schwarz-inequality']) {
+    assert.strictEqual(byId[id].status, undefined, id + ' has a bank and is not coming soon');
+  }
+  assert.strictEqual(byId['backprop-neural-network'].status, 'coming-soon');
+  assert.strictEqual(byId['svm-quadratic-program'].status, 'coming-soon');
 });
 
 test('every retired id points at a live survivor and is not itself live', () => {
@@ -67,9 +75,9 @@ test('every retired id points at a live survivor and is not itself live', () => 
 
 test('playable skills have quiz banks and coming-soon skills do not', () => {
   const banks = readJsonDir(path.join(SRC, 'bank'));
-  assert.strictEqual(Object.keys(banks).length, 138);
+  assert.strictEqual(Object.keys(banks).length, 146);
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 32);
+  assert.strictEqual(soon.length, 119);
   for (const skill of skills) {
     const bank = banks[skill.id];
     if (skill.status === 'coming-soon') {
@@ -89,7 +97,7 @@ test('playable skills have quiz banks and coming-soon skills do not', () => {
 
 test('playable skills have explainers and coming-soon skills do not', () => {
   const explainers = readJsonDir(path.join(SRC, 'explainers'));
-  assert.strictEqual(Object.keys(explainers).length, 138);
+  assert.strictEqual(Object.keys(explainers).length, 146);
   for (const skill of skills) {
     const exp = explainers[skill.id];
     if (skill.status === 'coming-soon') {
@@ -178,7 +186,11 @@ test('collections reference no retired ids and every skill sits in a top-level b
 
   const tops = topLevelBoxes(collections.boxes);
   const topIds = tops.map(box => box.id);
-  assert.deepStrictEqual(topIds, ['ee105-ucb', 'me132', 'am08']);
+  assert.deepStrictEqual(topIds, ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz']);
+  const nlo = tops.find(box => box.id === 'nlo-tugraz');
+  assert.strictEqual(nlo.title, 'Nonlinear Optimization (TU Graz)');
+  assert.strictEqual(nlo.kind, 'course');
+  assert.strictEqual(nlo.children.length, 12);
   const me132 = tops.find(box => box.id === 'me132');
   const am08 = tops.find(box => box.id === 'am08');
   assert.strictEqual(me132.title, 'ME 132 (UC Berkeley)');
@@ -205,6 +217,9 @@ test('collections reference no retired ids and every skill sits in a top-level b
   for (const id of skillIds) assert(covered.has(id), 'skill missing from every top-level box: ' + id);
   assert.strictEqual(skillsInBox(me132, byId).size, 56);
   assert.strictEqual(skillsInBox(am08, byId).size, 71);
+  assert.strictEqual(skillsInBox(nlo, byId).size, 96);
+  const nloChapters = collections.boxes.filter(box => (box.skills || []).includes('lin-algebra-review')).map(box => box.id).sort();
+  assert.deepStrictEqual(nloChapters, ['am08/ch99', 'nlo-tugraz/l2']);
   for (const shared of ['tf', 'bode', 'fb-intro', 'stability']) {
     const boxes = collections.boxes.filter(box => (box.skills || []).includes(shared)).map(box => box.id);
     assert(boxes.some(id => id.startsWith('ee105-')), shared + ' should stay in EE 105');
@@ -285,9 +300,9 @@ test('no retired id is referenced by the built app payload', () => {
   const built = JSON.parse(fs.readFileSync(path.join(PUB, manifest.skills.file), 'utf8'));
   assert.deepStrictEqual(built.retired, retired);
   const builtIds = built.skills.map(s => s.id);
-  assert.strictEqual(builtIds.length, 170);
-  assert.strictEqual(Object.keys(built.banks).length, 138);
-  assert.strictEqual(Object.keys(built.explainers).length, 138);
+  assert.strictEqual(builtIds.length, 265);
+  assert.strictEqual(Object.keys(built.banks).length, 146);
+  assert.strictEqual(Object.keys(built.explainers).length, 146);
   for (const id of builtIds) {
     assert(!retiredIds.has(id), 'built graph still contains ' + id);
     const skill = built.skills.find(s => s.id === id);
@@ -309,7 +324,7 @@ test('no retired id is referenced by the built app payload', () => {
   const builtCollections = JSON.parse(fs.readFileSync(path.join(PUB, manifest.collections.file), 'utf8'));
   const builtById = Object.fromEntries(builtCollections.boxes.map(box => [box.id, box]));
   const builtTops = topLevelBoxes(builtCollections.boxes).map(box => box.id);
-  assert.deepStrictEqual(builtTops, ['ee105-ucb', 'me132', 'am08']);
+  assert.deepStrictEqual(builtTops, ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz']);
   const covered = new Set();
   for (const topId of builtTops) for (const sid of skillsInBox(builtById[topId], builtById)) covered.add(sid);
   for (const id of builtIds) assert(covered.has(id), 'built skill missing from top-level boxes: ' + id);

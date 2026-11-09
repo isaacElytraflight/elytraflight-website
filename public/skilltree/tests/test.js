@@ -732,6 +732,9 @@ async function test(name, fn) {
       return { id: tile.dataset.id, x: r.x + r.width / 2, y: r.y + r.height / 2, lights: window.__skillgrove.lights.mode() };
     });
     assert(target.lights, 'lights mode should be on');
+    // The learning-plan card overlaps this viewport. Its translucent border
+    // antialiases when a hover style recalc runs, which is not a tree repaint.
+    await p.evaluate(() => { document.getElementById('todoBook').style.visibility = 'hidden'; });
     const hit = await p.evaluate((x, y) => {
       const el = document.elementFromPoint(x, y);
       const tile = el && el.closest ? el.closest('.tile') : null;

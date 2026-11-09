@@ -1,0 +1,195 @@
+{
+  "skill_id": "rayleigh-quotient",
+  "version": 1,
+  "questions": [
+    {
+      "id": "rayleigh-quotient-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For a real symmetric matrix \\(A\\), the Rayleigh quotient \\(R(x) = x^T A x / x^T x\\) satisfies",
+      "explanation": "In the eigenbasis the quotient is a weighted average of the eigenvalues, so it lies between the smallest and the largest. It equals an extreme eigenvalue at the matching eigenvector, not beyond it. Scaling \\(x\\) cancels in the fraction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "options": [
+        "\\(\\lambda_{\\min} \\le R(x) \\le \\lambda_{\\max}\\) for every \\(x \\ne 0\\)",
+        "\\(R(x)\\) is larger than every eigenvalue",
+        "\\(R(x) = 0\\) for every unit vector",
+        "\\(R(x)\\) depends on the length of \\(x\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(A = \\begin{bmatrix} 4 & 0 \\\\ 0 & 1 \\end{bmatrix}\\). What is \\(R(1,1)\\)?",
+      "explanation": "\\(x^T A x = 4+1 = 5\\) and \\(x^T x = 2\\), so \\(R = 5/2 = 2.5\\). The larger eigenvalue 4 is the maximum, not the value at \\((1,1)\\). Forgetting to divide by \\(x^T x\\) leaves 5.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>arrows on the axes</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e2</text></svg>",
+      "figure_alt": "Two arrows point along the coordinate axes.",
+      "answer": 2.5,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "On a symmetric matrix, the upper bound \\(\\lambda_{\\max}\\) of the Rayleigh quotient is attained",
+      "explanation": "The weighted average of the eigenvalues equals the largest one only when all the weight sits on that eigenvalue, which is the corresponding eigenspace. The zero vector is excluded because the quotient divides by \\(x^T x\\). A generic unit vector lands strictly between the extremes when the eigenvalues differ.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two diagonal arrows</title><line x1=\"46\" y1=\"102\" x2=\"250\" y2=\"102\"/><polygon points=\"250,102 243.6,104.7 243.6,99.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"116\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"102\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 230.7,47 228.9,41.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"60.1\" y1=\"102\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 228.9,162.2 230.7,157\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"175.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">w</text></svg>",
+      "figure_alt": "Two arrows point along opposite diagonals.",
+      "options": [
+        "at every vector of length 1",
+        "at an eigenvector belonging to \\(\\lambda_{\\max}\\)",
+        "only at the zero vector",
+        "at a vector orthogonal to every eigenvector"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "What is the trace of \\(\\begin{bmatrix} 5 & 1 \\\\ 1 & 3 \\end{bmatrix}\\)? The trace equals the sum of the eigenvalues.",
+      "explanation": "The trace is \\(5+3 = 8\\). The off-diagonal entries cancel out of the trace. The determinant is \\(15-1 = 14\\), the product of the eigenvalues rather than their sum.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a symmetric matrix with trace equal to the sum of its diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">5   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   3</text></svg>",
+      "figure_alt": "A symmetric 2 by 2 matrix with diagonal entries 5 and 3.",
+      "answer": 8.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "For a symmetric matrix, the determinant equals",
+      "explanation": "The characteristic polynomial's constant term makes the determinant the product of the eigenvalues, while the trace is their sum. The Rayleigh quotient of one vector is a single weighted average, not the product.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>symmetric 2 by 2 matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">4   2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   4</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with equal diagonal entries and equal off-diagonal entries.",
+      "options": [
+        "the sum of the eigenvalues",
+        "the largest eigenvalue",
+        "the product of the eigenvalues",
+        "the Rayleigh quotient of the all-ones vector"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "What is \\(\\det \\begin{bmatrix} 2 & 1 \\\\ 1 & 2 \\end{bmatrix}\\)?",
+      "explanation": "\\(\\det = 4-1 = 3\\), the product of the eigenvalues 3 and 1. The trace is 4, the sum of those eigenvalues. The off-diagonal entry 1 is not the determinant.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a symmetric matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   2</text></svg>",
+      "figure_alt": "A symmetric 2 by 2 matrix with 2s on the diagonal.",
+      "answer": 3.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Replacing \\(x\\) by \\(3x\\) in the Rayleigh quotient",
+      "explanation": "Both \\(x^T A x\\) and \\(x^T x\\) scale by \\(9\\), so the ratio is invariant. Multiplying by 3 or by 9 would be right for the numerator or the denominator alone, not for the quotient.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from one origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"131.8\"/><polygon points=\"235.9,131.8 230,135.6 229.1,130.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"123.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"95.2\" y2=\"42.3\"/><polygon points=\"95.2,42.3 96,49.3 90.8,47.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"103.2\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure_alt": "Two arrows leave the origin with a gap between them.",
+      "options": [
+        "multiplies the quotient by 3",
+        "multiplies the quotient by 9",
+        "changes the sign",
+        "leaves the quotient unchanged"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Let \\(A = \\begin{bmatrix} 2 & 1 \\\\ 1 & 2 \\end{bmatrix}\\). What is \\(R(1,0)\\)?",
+      "explanation": "\\(A(1,0) = (2,1)\\), so \\(x^T A x = 2\\) and \\(x^T x = 1\\). The quotient is 2. The eigenvalues are 3 and 1, and this vector is neither eigenvector. The determinant 3 is the product of the eigenvalues.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>arrows on the axes</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e2</text></svg>",
+      "figure_alt": "Two arrows point along the coordinate axes.",
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r3-q3",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "For \\(A = \\begin{bmatrix} 4 & 0 \\\\ 0 & 1 \\end{bmatrix}\\), what is \\(\\lambda_{\\max} - \\lambda_{\\min}\\)?",
+      "explanation": "The eigenvalues are the diagonal entries 4 and 1, so the gap is 3. Their ratio is 4, and their sum is 5. The gap is the width of the interval that contains every Rayleigh quotient.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>arrows on the axes</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e2</text></svg>",
+      "figure_alt": "Two arrows point along the coordinate axes.",
+      "answer": 3.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "For a symmetric positive definite matrix the condition number in the 2-norm is \\(\\lambda_{\\max}/\\lambda_{\\min}\\). What is that ratio for eigenvalues 4 and 1?",
+      "explanation": "\\(4/1 = 4\\). The difference \\(3\\) is the gap, not the ratio used in the convergence bound for steepest descent. The trace 5 is the sum.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "preview": [
+        "condition-number-gradient-rate"
+      ],
+      "answer": 4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Power iteration on a symmetric matrix can be read as a method that",
+      "explanation": "Each multiplication by \\(A\\) emphasizes the largest-eigenvalue component, and the Rayleigh quotient of the resulting vector climbs toward \\(\\lambda_{\\max}\\). One product does not yield the determinant. The iteration looks for the leading direction, not a vector orthogonal to it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two diagonal arrows</title><line x1=\"46\" y1=\"102\" x2=\"250\" y2=\"102\"/><polygon points=\"250,102 243.6,104.7 243.6,99.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"116\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"102\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 230.7,47 228.9,41.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"60.1\" y1=\"102\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 228.9,162.2 230.7,157\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"175.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">w</text></svg>",
+      "figure_alt": "Two arrows point along opposite diagonals.",
+      "preview": [
+        "power-method-eigenvector"
+      ],
+      "options": [
+        "drives the Rayleigh quotient up toward \\(\\lambda_{\\max}\\)",
+        "computes the determinant in one matrix-vector product",
+        "returns a vector orthogonal to the leading eigenvector",
+        "applies only to matrices with a zero eigenvalue"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "rayleigh-quotient-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "On a strongly convex quadratic, a large spread of eigenvalues makes steepest descent slow. A method that avoids that zigzag by taking conjugate directions is",
+      "explanation": "Conjugate gradient builds directions that are conjugate in the Hessian inner product and finishes a quadratic in finitely many steps. One gradient step does not cancel the zigzag. The trace and the determinant summarize the eigenvalues but do not generate the directions.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from one origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"131.8\"/><polygon points=\"235.9,131.8 230,135.6 229.1,130.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"123.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"95.2\" y2=\"42.3\"/><polygon points=\"95.2,42.3 96,49.3 90.8,47.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"103.2\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure_alt": "Two arrows leave the origin with a gap between them.",
+      "preview": [
+        "conjugate-gradient-method"
+      ],
+      "options": [
+        "a single gradient step of fixed length",
+        "the conjugate gradient method",
+        "evaluation of the trace",
+        "replacement of the matrix by its determinant"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "rn-important-subsets",
+  "title": "Key subsets of R^n",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>segment between axis intercepts</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joins a positive intercept on each axis.",
+      "body_md": "A vector in \\(\\mathbb{R}^n\\) is an ordered list of \\(n\\) real numbers. An \\(m \\times n\\) matrix is a linear map that sends such a list to a list of length \\(m\\): the column count is the input dimension and the row count is the output dimension.\n\nOptimization builds its feasible sets from a short menu of these pieces. The nonnegative orthant keeps every coordinate nonnegative. A hyperplane is the solution set of one linear equation \\(a^T x = \\beta\\) with \\(a \\ne 0\\), so it has dimension \\(n-1\\). A closed half-space keeps one side of a hyperplane, including the boundary when the inequality is not strict. The line through two points lets a real parameter run without restriction. The segment stops that parameter at the endpoints. The unit simplex is the set of nonnegative vectors whose coordinates sum to 1. Those are the weights in a convex combination of \\(n\\) points."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The line through \\(a\\) and \\(b\\) is \\(a + t(b-a)\\) for \\(t \\in \\mathbb{R}\\). The closed segment uses \\(t \\in [0,1]\\). A hyperplane is \\(a^T x = \\beta\\). The matching closed half-space is \\(a^T x \\le \\beta\\). The unit simplex in \\(\\mathbb{R}^n\\) is\n\\[\n\\{x : x \\ge 0,\\ 1^T x = 1\\}.\n\\]\nThe nonnegative orthant drops the sum constraint and keeps only \\(x \\ge 0\\). A \\(2 \\times 3\\) matrix acts on column vectors in \\(\\mathbb{R}^3\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(a = (4, 8)\\) and \\(b = (10, 16)\\). The midpoint uses \\(t = 1/2\\), so it is the midpoint \\((7, 12)\\). The same formula with \\(t = 2\\) leaves the segment and lands at \\((16, 24)\\), which is on the line and not on the segment.\n\nThe point \\((7, 12)\\) is not on the unit simplex of \\(\\mathbb{R}^2\\), because its coordinates sum to 19 rather than 1. It does lie in the nonnegative orthant. The equation \\(x_1 + x_2 = 19\\) is a hyperplane, and the midpoint lies on it. The inequality \\(x_1 + x_2 \\le 19\\) is the closed half-space on one side of that hyperplane."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The unit simplex is not the whole orthant: the coordinates also have to sum to 1. A segment is not a line, because the parameter stops at the endpoints. A strict inequality defines an open half-space and leaves the boundary out. The shape of a matrix is not symmetric in the two dimensions: swapping rows and columns swaps the domain and the codomain. The simplex of vectors with \\(x \\ge 0\\) and \\(1^T x \\le 1\\) includes the origin, so it is a different set."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Norms turn the same geometry into unit balls: a diamond, a disk, or a square, depending on the norm. Convex sets are defined by keeping the whole segment between any two of their points, and half-spaces pass that test. Sublevel sets cut the space with a function value instead of a linear equation. Directional derivatives then walk along a segment and ask how a function changes."
+    }
+  ]
+}

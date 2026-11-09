@@ -1,0 +1,29 @@
+{
+  "id": "vector-norms-lp",
+  "title": "Vector norms and l_p norms",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested unit balls</title><line x1=\"28\" y1=\"112\" x2=\"256\" y2=\"112\"/><polygon points=\"256,112 249.6,114.7 249.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"200\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"24\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"72\" y=\"44\" width=\"136\" height=\"136\" stroke-dasharray=\"4 3\"/><circle cx=\"140\" cy=\"112\" r=\"68\"/><polygon points=\"208,112 140,44 72,112 140,180\"/><text x=\"158\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">inf</text><text x=\"162\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"156\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A diamond inside a disk inside a square, centered at the origin.",
+      "body_md": "A norm measures the size of a vector. Three rules define it. A nonzero vector has positive size. Scaling a vector by \\(c\\) scales the size by \\(\\lvert c \\rvert\\), so a negative scalar does not make the size negative. The triangle inequality says a sum is at most the sum of the sizes.\n\nThe usual \\(\\ell_p\\) family all satisfy those rules. The 1-norm adds the absolute coordinates. The 2-norm is the ordinary Euclidean length. The infinity-norm keeps only the largest absolute coordinate. The general \\(\\ell_p\\) norm takes the \\(p\\)-th root of the sum of \\(p\\)-th powers of the absolute coordinates. As \\(p\\) grows, that expression approaches the infinity-norm.\n\nThe unit ball, the set of vectors with norm at most 1, shows the difference in shape. The 1-norm ball is a diamond, the 2-norm ball is a disk, and the infinity-norm ball is a square. In finite dimension the shapes differ but the norms are equivalent: each is bounded by a constant times any other. The constants can grow with the dimension. Equivalence is not equality."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "For \\(x \\in \\mathbb{R}^n\\),\n\\[\n\\lVert x \\rVert_1 = \\sum_i \\lvert x_i \\rvert, \\qquad\n\\lVert x \\rVert_2 = \\sqrt{\\sum_i x_i^2}, \\qquad\n\\lVert x \\rVert_\\infty = \\max_i \\lvert x_i \\rvert.\n\\]\nUseful comparisons are \\(\\lVert x \\rVert_\\infty \\le \\lVert x \\rVert_2 \\le \\lVert x \\rVert_1 \\le \\sqrt{n}\\,\\lVert x \\rVert_2 \\le n\\,\\lVert x \\rVert_\\infty\\). The open ball of radius \\(r\\) about \\(x\\) is the strict inequality \\(\\lVert y - x \\rVert < r\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(x = (6, -8)\\). The absolute coordinates are 6 and 8. Their sum is 14, so the 1-norm is the sum of absolutes 14. The Euclidean length is \\(\\sqrt{36+64} = \\sqrt{100}\\), so the length is 10. The larger absolute coordinate is 8, so the infinity-norm is 8.\n\nThe ratio of the 1-norm to the infinity-norm is \\(14/8 = 1.75\\). In \\(\\mathbb{R}^2\\) that ratio cannot exceed 2, and this vector does not reach the bound because the two absolute coordinates are not equal. The 2-norm sits between them: \\(8 < 10 < 14\\)."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "A norm of a sum is not always the sum of the norms. That equality holds for the 1-norm only in special sign patterns, and for the 2-norm when the vectors are nonnegative multiples of one vector. Homogeneity uses the absolute value of the scalar. In infinite dimension, equivalence can fail; the finite-dimensional statement does not transfer unchanged. The unit ball of the infinity-norm is a square, not a disk, so drawing one ball for every norm misstates the geometry."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Cauchy-Schwarz is a statement about the 2-norm that comes from the dot product, and it is the step that proves the triangle inequality for that norm. Induced matrix norms measure how much a matrix can stretch a vector, using a vector norm in the definition. Open and closed sets are defined with balls of a norm, and equivalence of norms means they determine the same open sets."
+    }
+  ]
+}

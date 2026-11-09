@@ -15,7 +15,7 @@ _ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, os.path.join(_ROOT, "skilltree"))
 
 from figlib import (
-    b2b_arrow, b2b_axes, b2b_box, b2b_circle, b2b_curve, b2b_line, b2b_poly,
+    b2b_arrow, b2b_axes, b2b_box, b2b_circle, b2b_curve, b2b_dot, b2b_line, b2b_poly,
     b2b_rect, b2b_svg, b2b_text,
 )
 from figure_bounds import geometry_message
@@ -349,6 +349,105 @@ def nyquist(points, title):
     body += b2b_poly([(X(a), Y(b)) for a, b in points], sw=2.2)
     body += b2b_circle(X(-1), Y(0), 4)
     body += b2b_text(X(-1), Y(0) - 10, "\u22121", size=11)
+    return _guard(b2b_svg(w, h, body, title))
+
+
+def plane_vectors(vectors, title, xlabel="x1", ylabel="x2"):
+    """Arrows from the origin. Each vector is (x, y, label) in data units."""
+    w, h = 280, 210
+    pts = [(0.0, 0.0)]
+    for x, y, _lab in vectors:
+        pts.append((float(x), float(y)))
+    left, right, top, bottom = 46, 250, 28, 176
+    X, Y = _fit(pts, left, right, top, bottom)
+    body = b2b_arrow(left, Y(0), right, Y(0))
+    body += b2b_arrow(X(0), bottom, X(0), top)
+    body += b2b_text(right - 2, Y(0) + 14, xlabel, anchor="end", size=11)
+    body += b2b_text(X(0) + 6, top + 2, ylabel, anchor="start", size=11)
+    for x, y, lab in vectors:
+        body += b2b_arrow(X(0), Y(0), X(x), Y(y))
+        body += b2b_text(X(x) + (8 if x >= 0 else -8), Y(y) + (-8 if y >= 0 else 14), lab, size=11)
+    return _guard(b2b_svg(w, h, body, title))
+
+
+def norm_balls(title):
+    """Unit balls of the 1-norm (diamond), 2-norm (disk), and infinity-norm (square)."""
+    w, h = 280, 230
+    cx, cy, s = 140, 112, 68
+    body = b2b_arrow(28, cy, 256, cy)
+    body += b2b_arrow(cx, 200, cx, 28)
+    body += b2b_text(250, cy + 16, "x1", anchor="end", size=11)
+    body += b2b_text(cx + 8, 24, "x2", anchor="start", size=11)
+    body += b2b_rect(cx - s, cy - s, 2 * s, 2 * s, dash=True)
+    body += b2b_circle(cx, cy, s)
+    body += b2b_poly([(cx + s, cy), (cx, cy - s), (cx - s, cy), (cx, cy + s)], closed=True)
+    body += b2b_text(cx + 18, cy - s + 14, "inf", size=11)
+    body += b2b_text(cx + 22, cy - 36, "2", size=11)
+    body += b2b_text(cx + 16, cy - 12, "1", size=11)
+    return _guard(b2b_svg(w, h, body, title))
+
+
+def ellipse_axes(title, rx=86, ry=46):
+    """An axis-aligned ellipse, longer along the first coordinate."""
+    w, h = 280, 210
+    cx, cy = 140, 104
+    body = b2b_arrow(28, cy, 256, cy)
+    body += b2b_arrow(cx, 186, cx, 24)
+    body += b2b_text(250, cy + 16, "x1", anchor="end", size=11)
+    body += b2b_text(cx + 8, 20, "x2", anchor="start", size=11)
+    body += f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}"/>'
+    body += b2b_line(cx - rx, cy, cx + rx, cy, dash=True)
+    body += b2b_line(cx, cy - ry, cx, cy + ry, dash=True)
+    return _guard(b2b_svg(w, h, body, title))
+
+
+def halfspace_fig(title):
+    """A straight boundary with one side shaded."""
+    w, h = 280, 200
+    body = b2b_arrow(36, 168, 250, 168)
+    body += b2b_arrow(48, 184, 48, 22)
+    body += b2b_text(244, 184, "x1", anchor="end", size=11)
+    body += b2b_text(56, 18, "x2", anchor="start", size=11)
+    body += b2b_poly([(70, 150), (210, 40), (250, 40), (250, 170), (70, 170)], closed=True, fill="currentColor")
+    body += b2b_line(60, 158, 220, 30, sw=2.2)
+    return _guard(b2b_svg(w, h, body, title))
+
+
+def simplex_fig(title):
+    """The unit simplex in the plane: the segment between the two axis intercepts."""
+    w, h = 280, 200
+    body = b2b_arrow(40, 168, 250, 168)
+    body += b2b_arrow(48, 184, 48, 22)
+    body += b2b_text(244, 184, "x1", anchor="end", size=11)
+    body += b2b_text(56, 18, "x2", anchor="start", size=11)
+    body += b2b_line(188, 168, 48, 48, sw=2.4)
+    body += b2b_dot(188, 168)
+    body += b2b_dot(48, 48)
+    return _guard(b2b_svg(w, h, body, title))
+
+
+def segment_fig(title):
+    """A closed segment between two marked endpoints, with the line through them dashed."""
+    w, h = 280, 180
+    body = b2b_arrow(28, 150, 256, 150)
+    body += b2b_arrow(40, 164, 40, 20)
+    body += b2b_text(250, 166, "x1", anchor="end", size=11)
+    body += b2b_text(48, 16, "x2", anchor="start", size=11)
+    body += b2b_line(36, 132, 244, 36, dash=True)
+    body += b2b_line(70, 112, 190, 52, sw=2.4)
+    body += b2b_dot(70, 112)
+    body += b2b_dot(190, 52)
+    return _guard(b2b_svg(w, h, body, title))
+
+
+def orthant_fig(title):
+    """The closed first quadrant."""
+    w, h = 260, 200
+    body = b2b_arrow(48, 168, 236, 168)
+    body += b2b_arrow(48, 180, 48, 24)
+    body += b2b_text(230, 184, "x1", anchor="end", size=11)
+    body += b2b_text(56, 20, "x2", anchor="start", size=11)
+    body += b2b_rect(48, 48, 150, 120, fill=True)
     return _guard(b2b_svg(w, h, body, title))
 
 
