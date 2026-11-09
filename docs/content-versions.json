@@ -1328,7 +1328,7 @@
     },
     {
       "id": "freq-resp-lti-r3-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "freq-resp-lti-r3-q2",
@@ -1456,7 +1456,7 @@
     },
     {
       "id": "linearization#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "lti-stability-r1-q1",
@@ -1636,7 +1636,7 @@
     },
     {
       "id": "pid-tuning-r2-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "pid-tuning-r3-q1",
@@ -1672,7 +1672,7 @@
     },
     {
       "id": "realization-r1-q2",
-      "version": 1
+      "version": 2
     },
     {
       "id": "realization-r1-q3",

@@ -103,11 +103,15 @@ Skills: `feedforward`, `freq-resp-lti`, `gen-gain-phase`, `linearization`, `lti-
 
 Items above version 1:
 
+- `freq-resp-lti-r3-q1` version 2
 - `gen-gain-phase#explainer` version 2
 - `linearization-r3-q2` version 2
+- `linearization#explainer` version 2
 - `lti-stability-r3-q3` version 2
 - `perf-specs-freq#explainer` version 2
 - `pid-impl#explainer` version 2
+- `pid-tuning-r2-q3` version 2
+- `realization-r1-q2` version 2
 - `uncertainty#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.

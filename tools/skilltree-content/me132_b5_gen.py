@@ -220,8 +220,7 @@ def bank_freq_resp():
           r"\(C(j\omega I - A)^{-1}B + D\)",
           r"\(e^{At}\) evaluated at \(t = \omega\)"], 2,
          r"Substituting \(s = j\omega\) into \(C(sI-A)^{-1}B+D\) gives the frequency response. Adding the four matrices is not that formula. The eigenvalues are the natural modes, not the response at one frequency. The matrix exponential is the free-response operator in time, not \(G(j\omega)\).",
-         matrix_fig([["C", "(jwI-A)^-1", "B+D"]], "frequency response from state space"),
-         "A short matrix expression.")
+         bode_fig, bode_alt, version=2)
     b.num(3,
           r"\(G(s) = 20/(s^2 + 2s + 10)\). At \(\omega = 3\) rad/s the magnitude is",
           g3, "1",
@@ -523,11 +522,11 @@ The approximation is local. Far from the equilibrium the higher-order terms matt
 with both partial derivatives evaluated at \((x_e, u_e)\). For a scalar \(f\), \(A\) is one number, the ordinary derivative in \(x\).
 
 A pendulum \(\ddot\theta + (g/L)\sin\theta = 0\) becomes \(\ddot\theta + (g/L)\theta = 0\) near the bottom, so the natural frequency is \(\sqrt{g/L}\). Near the inverted position the same derivative flips sign and the linear model is unstable."""},
-        {"heading": "Worked example", "body_md": r"""Take \(\dot x = -x^2 + u\). It rests at \(x = 3\) when \(u = 9\), because \(9\) cancels \(-3^2\). The state derivative is \(\partial f/\partial x = -2x\), so at this equilibrium \(A = -6\) and \(B = 1\). A deviation of a few tenths decays about as \(e^{-6t}\). The same formula at \(x = 1\) would give \(A = -2\), which is a different operating point and a slower local mode."""},
+        {"heading": "Worked example", "body_md": r"""Take \(\dot x = -x^2 + 2u\). It rests at \(x = 4\) when \(2u = 16\), so \(u = 8\). The state derivative is \(\partial f/\partial x = -2x\), so at this equilibrium \(A = -8\) and \(B = 2\). A deviation of a few tenths decays about as \(e^{-8t}\). The same formula at \(x = 0.5\) would give \(A = -1\), which is a different operating point and a slower local mode."""},
         {"heading": "Common pitfalls", "body_md": r"""The equilibrium condition \(f(x_e, u_e) = 0\) has to be checked before the Jacobian is evaluated. Differentiating and then plugging in a point that is not an equilibrium describes a different expansion. For a product such as \(x - x^2\), the derivative is \(1 - 2x\), not \(1 - x\). A zero real-part eigenvalue means the linear test is silent. And \(B\) is the slope in \(u\), not the number \(u_e\)."""},
         {"heading": "Where this leads", "body_md": r"""Feedback linearization cancels the nonlinear terms with the input, instead of merely approximating them. Gain scheduling keeps a table of these Jacobians and interpolates the controller as the operating point moves. Both start from the same partial derivatives computed here."""},
     ]
-    save_explainer("linearization", "Linearization about an equilibrium", sections)
+    save_explainer("linearization", "Linearization about an equilibrium", sections, version=2)
     return words(sections)
 
 
@@ -950,8 +949,8 @@ def bank_pid_tuning():
     b.num(2,
           r"A plant fit has \(K = 2\), \(\tau = 6\) s, and delay \(L = 1.5\) s. With \(a = KL/\tau\) and the PID rule \(K_p = 1.2/a\), the proportional gain is",
           kp_pid, "1",
-          r"\(a = 2\cdot 1.5/6 = 0.5\), so \(K_p = 1.2/0.5 = " + show(kp_pid) + r"\). Using \(1.2\, a = 0.6\) inverts the rule. The PI coefficient 0.9 in place of 1.2 would give 1.8, which is the next question and not this one.",
-          step, step_alt)
+          r"\(a = 2\cdot 1.5/6 = 0.5\), so \(K_p = 1.2/0.5 = " + show(kp_pid) + r"\). Using \(1.2\, a = 0.6\) inverts the rule. Using the PI coefficient 0.9 in place of 1.2 is a different rule and a smaller gain.",
+          step, step_alt, version=2)
 
     b.mc(3,
          r"Lambda tuning of the same first-order-plus-delay plant is usually",
@@ -1045,7 +1044,8 @@ def bank_realization():
           r"\(G(s) = 8/(s+2)\) has no cancellation. A minimal realization uses this many states:",
           1.0, "1",
           r"The denominator degree is 1, so the minimal state dimension is " + show(1.0) + r". A two-state model would hide a cancelled mode. The numerator 8 is a gain, not a state count.",
-          poles, pole_alt)
+          splane([(-2, 0)], [], "one real pole"),
+          "One pole mark on the negative real axis.", version=2)
     b.num(1,
           r"\(G(s) = (s+3)/(s^2 + 7s + 10)\) has no cancellation. A minimal realization uses this many states:",
           2.0, "1",

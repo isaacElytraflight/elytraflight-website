@@ -1,7 +1,7 @@
 {
   "id": "linearization",
   "title": "Linearization about an equilibrium",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -15,7 +15,7 @@
     },
     {
       "heading": "Worked example",
-      "body_md": "Take \\(\\dot x = -x^2 + u\\). It rests at \\(x = 3\\) when \\(u = 9\\), because \\(9\\) cancels \\(-3^2\\). The state derivative is \\(\\partial f/\\partial x = -2x\\), so at this equilibrium \\(A = -6\\) and \\(B = 1\\). A deviation of a few tenths decays about as \\(e^{-6t}\\). The same formula at \\(x = 1\\) would give \\(A = -2\\), which is a different operating point and a slower local mode."
+      "body_md": "Take \\(\\dot x = -x^2 + 2u\\). It rests at \\(x = 4\\) when \\(2u = 16\\), so \\(u = 8\\). The state derivative is \\(\\partial f/\\partial x = -2x\\), so at this equilibrium \\(A = -8\\) and \\(B = 2\\). A deviation of a few tenths decays about as \\(e^{-8t}\\). The same formula at \\(x = 0.5\\) would give \\(A = -1\\), which is a different operating point and a slower local mode."
     },
     {
       "heading": "Common pitfalls",

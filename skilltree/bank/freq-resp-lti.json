@@ -94,8 +94,8 @@
       "type": "mc",
       "prompt": "For a state-space model the same frequency response is",
       "explanation": "Substituting \\(s = j\\omega\\) into \\(C(sI-A)^{-1}B+D\\) gives the frequency response. Adding the four matrices is not that formula. The eigenvalues are the natural modes, not the response at one frequency. The matrix exponential is the free-response operator in time, not \\(G(j\\omega)\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>frequency response from state space</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">C   (jwI-A)^-1   B+D</text></svg>",
-      "figure_alt": "A short matrix expression.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>magnitude versus frequency</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 86.3,47.9 130,75 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude curve that falls as frequency rises.",
       "options": [
         "\\(A + B + C + D\\)",
         "the eigenvalues of \\(A\\), plotted against \\(\\omega\\)",
@@ -103,7 +103,7 @@
         "\\(e^{At}\\) evaluated at \\(t = \\omega\\)"
       ],
       "correct_index": 2,
-      "version": 1
+      "version": 2
     },
     {
       "id": "freq-resp-lti-r3-q2",

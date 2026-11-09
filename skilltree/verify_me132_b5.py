@@ -208,7 +208,7 @@ def main():
         "feedforward": "0.286",
         "freq-resp-lti": "2.121",
         "gen-gain-phase": "3.82",
-        "linearization": "A = -6",
+        "linearization": "A = -8",
         "lti-stability": "= 60",
         "perf-specs-freq": "1.23",
         "pid-impl": "-12.5",

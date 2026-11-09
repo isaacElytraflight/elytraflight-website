@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-09T22:57:46.511795Z",
+  "generated": "2026-11-09T23:08:00.975816Z",
   "skills": {
-    "file": "skills.9a45f15c.json",
-    "hash": "9a45f15c"
+    "file": "skills.137a8c9d.json",
+    "hash": "137a8c9d"
   },
   "collections": {
     "file": "collections.4ee0faec.json",
@@ -824,8 +824,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "62eb6130",
-      "file": "banks/freq-resp-lti.62eb6130.json"
+      "hash": "3378e801",
+      "file": "banks/freq-resp-lti.3378e801.json"
     },
     "ft": {
       "version": 1,
@@ -1436,8 +1436,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "4f4211dc",
-      "file": "banks/pid-tuning.4f4211dc.json"
+      "hash": "f740502a",
+      "file": "banks/pid-tuning.f740502a.json"
     },
     "pid": {
       "version": 1,
@@ -1532,8 +1532,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "1e11692b",
-      "file": "banks/realization.1e11692b.json"
+      "hash": "fb990bbf",
+      "file": "banks/realization.fb990bbf.json"
     },
     "ref-gen": {
       "version": 1,
@@ -2334,10 +2334,10 @@
       "version": 2
     },
     "linearization": {
-      "hash": "f7383407",
-      "file": "explainers/linearization.f7383407.json",
+      "hash": "5ad04b95",
+      "file": "explainers/linearization.5ad04b95.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "loop-gain": {
       "hash": "c3797457",
