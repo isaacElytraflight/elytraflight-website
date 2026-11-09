@@ -55,6 +55,21 @@ Dedupe, no splits:
 
 `feedforward`, `freq-resp-lti`, `gen-gain-phase`, `linearization`, `lti-stability`, `perf-specs-freq`, `pid-impl`, `pid-tuning`, `realization`, `uncertainty`, `windup`
 
+Dedupe, no splits:
+
+- Ids already exist. No new slug, no retirement.
+- `feedforward` is not `sensitivity`. Sensitivity owns \(S\) and \(T\). Feedforward owns the extra path from a measured reference or disturbance.
+- `freq-resp-lti` is not `bode` and not `sinusoid-resp`. It owns \(G(j\omega)\) for a general transfer function or state-space model, and the steady sinusoid that follows when the system is stable.
+- `gen-gain-phase` is not `nyquist`. Nyquist owns encirclements of a linear loop. This skill owns the describing function and the small-gain idea.
+- `linearization` is not `equilibria`. Equilibria finds the resting point. This skill owns the Jacobian at that point.
+- `lti-stability` is not `stability` and not `eig-modes`. It owns the half-plane test, Routh-Hurwitz, and the gap between asymptotic and BIBO stability.
+- `perf-specs-freq` is not `step-specs` and not `sensitivity`. It turns bandwidth, crossover, and crossover sensitivity into design targets.
+- `pid-impl` is not `pid` and not `discrete-time`. It owns derivative filtering, setpoint weighting, and one sample of a discrete PID update.
+- `pid-tuning` is not `pid`. The three-term law is the earlier skill. This skill owns ultimate-gain numbers, the reaction-curve fit, and lambda tuning.
+- `realization` is not `ss-to-tf`. That skill goes from matrices to \(G(s)\). This skill builds a state-space model from \(G(s)\).
+- `uncertainty` is not `sensitivity`. It owns additive and multiplicative weights around a nominal plant.
+- `windup` is not `pid`. It owns actuator saturation of the integrator, and clamping or back-calculation.
+
 ## B6
 
 `loop-shaping`, `lyapunov`, `observability`, `reachability`, `robust-stability`, `root-locus`, `sys-id`, `time-delay`

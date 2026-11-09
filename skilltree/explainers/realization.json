@@ -1,0 +1,29 @@
+{
+  "id": "realization",
+  "title": "Realizations of a transfer function",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>controllable canonical form</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">-a0   -a1</text></svg>",
+      "figure_alt": "A companion matrix with symbols in the last row.",
+      "body_md": "Going from a transfer function back to state space is the opposite of the resolvent formula, and it does not have one answer. Any matrices whose input-output map equals \\(G(s)\\) are a realization. A change of coordinates produces another one, with a similar \\(A\\) and the same poles.\n\nThe useful normal forms put the denominator coefficients in a fixed place. Controllable canonical form writes them along the last row. Observable canonical form writes them down a column. Both are valid. A realization is minimal when nothing cancels, so the number of states equals the degree of \\(G\\) after common factors are removed."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "For \\(G(s) = (b_1 s + b_0)/(s^2 + a_1 s + a_0)\\), one controllable form is\n\\[\nA = \\begin{bmatrix} 0 & 1 \\\\ -a_0 & -a_1 \\end{bmatrix}, \\quad\nB = \\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}, \\quad\nC = \\begin{bmatrix} b_0 & b_1 \\end{bmatrix}.\n\\]\nThe characteristic polynomial is \\(\\det(sI - A) = s^2 + a_1 s + a_0\\). The DC gain of a strictly proper \\(G\\) is \\(b_0/a_0\\).\n\nIf a factor \\((s-z)\\) sits in both the numerator and the denominator, a minimal realization deletes it. The cancelled eigenvalue can still be placed in a larger non-minimal model, where it is unreachable or unobservable."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(G(s) = (6s + 24)/(s^2 + 13s + 16)\\). Then \\(a_0 = 16\\), \\(a_1 = 13\\), \\(b_0 = 24\\), and \\(b_1 = 6\\). The companion matrix has last row \\((-16,\\; -13)\\), and \\(C = (24,\\; 6)\\). The DC gain is \\(24/16 = 1.5\\). Nothing cancels, so two states are necessary and sufficient. A different basis would scramble the entries and leave \\(G(0) = 1.5\\) and the poles alone."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The bottom-left entry is \\(-a_0\\), not \\(a_0\\), and not \\(-a_1\\). Counting states from the written denominator, before cancellation, inflates a non-minimal model. DC gain is \\(b_0/a_0\\) for the form above, not the ratio of the highest coefficients. And similar matrices share eigenvalues, so a change of basis cannot move a pole, even though every entry of \\(A\\) may change."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Reachability asks whether the input can excite every state of this realization, and observability asks whether every state appears at the output. State feedback then places the eigenvalues of \\(A - BK\\), which is legal in the controllable form precisely because that form was built to be controllable when nothing has cancelled."
+    }
+  ]
+}

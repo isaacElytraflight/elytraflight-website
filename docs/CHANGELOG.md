@@ -93,3 +93,13 @@ Items above version 1:
 - `step-specs-r4-q1` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## B5 — me132-b5
+
+Box: ME 132 (me132) and Feedback Systems (am08).
+
+Skills: `feedforward`, `freq-resp-lti`, `gen-gain-phase`, `linearization`, `lti-stability`, `perf-specs-freq`, `pid-impl`, `pid-tuning`, `realization`, `uncertainty`, `windup`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

@@ -1,0 +1,29 @@
+{
+  "id": "lti-stability",
+  "title": "Stability of linear systems",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>stable eigenvalues</title><line x1=\"20\" y1=\"90\" x2=\"48\" y2=\"90\"/><line x1=\"76\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"118.6\" y1=\"52\" x2=\"128.6\" y2=\"62\" stroke-width=\"1.8\"/><line x1=\"118.6\" y1=\"62\" x2=\"128.6\" y2=\"52\" stroke-width=\"1.8\"/><line x1=\"118.6\" y1=\"118\" x2=\"128.6\" y2=\"128\" stroke-width=\"1.8\"/><line x1=\"118.6\" y1=\"128\" x2=\"128.6\" y2=\"118\" stroke-width=\"1.8\"/><line x1=\"57\" y1=\"85\" x2=\"67\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"57\" y1=\"95\" x2=\"67\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "Three pole marks in the open left half-plane.",
+      "body_md": "Asymptotic stability of \\(\\dot x = Ax\\) is a statement about every free response. Each mode behaves like \\(e^{\\lambda t}\\) for an eigenvalue \\(\\lambda\\). The mode decays if and only if the real part of \\(\\lambda\\) is negative. One unstable eigenvalue is enough to make some initial states run away, so the whole spectrum has to sit in the open left half-plane.\n\nBIBO stability asks a different question: does every bounded input produce a bounded output? For a minimal realization the two answers agree, because every eigenvalue is a pole of \\(G(s)\\). A cancelled mode is invisible at the output. If that hidden mode is unstable, the transfer function can look fine while the state does not."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "Asymptotic stability: \\(\\mathrm{Re}(\\lambda) < 0\\) for every eigenvalue of \\(A\\). A simple pair on the imaginary axis keeps the state bounded and is not asymptotic stability.\n\nFor the characteristic polynomial \\(s^3 + a s^2 + b s + c\\), the Routh-Hurwitz test says every root is in the open left half-plane when \\(a > 0\\), \\(b > 0\\), \\(c > 0\\), and \\(ab > c\\). The boundary \\(ab = c\\) is where a root crosses the imaginary axis.\n\nThe damping ratio of a pair \\(-\\sigma \\pm j\\omega\\) is \\(\\zeta = \\sigma/\\sqrt{\\sigma^2 + \\omega^2}\\). Small \\(\\zeta\\) is a slow decay compared with the oscillation, not a separate stability test."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "The polynomial \\(s^3 + 6s^2 + 11s + 6\\) factors as \\((s+1)(s+2)(s+3)\\). Every root is real and negative, so the system is asymptotically stable. The Routh quantity is \\(ab - c = 6\\cdot 11 - 6 = 60\\), comfortably positive, and \\(a\\), \\(b\\), and \\(c\\) are positive. The slowest time constant is \\(1\\), from the root at \\(-1\\). Moving the constant term past \\(66\\) would flip the sign of \\(ab - c\\) and create a right-half-plane root without anyone solving the cubic."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The trace being negative is only part of the test. A positive determinant condition, or the full Routh array, still has to hold. BIBO stability of \\(G(s)\\) does not see a cancelled unstable mode, so an internal check still looks at the eigenvalues of \\(A\\). Poles on the imaginary axis are not \"basically stable.\" And the eigenvalue closest to the axis, not the one with the largest magnitude, sets the slowest decay."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Root locus watches these eigenvalues move as a gain changes, and the crossing of the imaginary axis is the stability boundary the Routh quantity just computed. Lyapunov functions give a way to prove stability when the system is no longer linear and an eigenvalue test is not available."
+    }
+  ]
+}

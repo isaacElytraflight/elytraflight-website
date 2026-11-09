@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-06T23:44:23.447718Z",
+  "generated": "2026-11-09T22:22:59.497691Z",
   "skills": {
-    "file": "skills.314bea33.json",
-    "hash": "314bea33"
+    "file": "skills.93801366.json",
+    "hash": "93801366"
   },
   "collections": {
     "file": "collections.17ae963b.json",
@@ -743,6 +743,18 @@
       "hash": "3cf5d2c9",
       "file": "banks/fb-intro.3cf5d2c9.json"
     },
+    "feedforward": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b28f00fa",
+      "file": "banks/feedforward.b28f00fa.json"
+    },
     "first-order-sys": {
       "version": 1,
       "questionCount": 12,
@@ -791,6 +803,18 @@
       "hash": "263e5dd3",
       "file": "banks/freq-resp-circuits.263e5dd3.json"
     },
+    "freq-resp-lti": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "62eb6130",
+      "file": "banks/freq-resp-lti.62eb6130.json"
+    },
     "ft": {
       "version": 1,
       "questionCount": 12,
@@ -814,6 +838,18 @@
       },
       "hash": "b5c4c9b9",
       "file": "banks/gbw.b5c4c9b9.json"
+    },
+    "gen-gain-phase": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b9420142",
+      "file": "banks/gen-gain-phase.b9420142.json"
     },
     "gm": {
       "version": 1,
@@ -959,6 +995,18 @@
       "hash": "1113dbbb",
       "file": "banks/lin-algebra-review.1113dbbb.json"
     },
+    "linearization": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "4173119b",
+      "file": "banks/linearization.4173119b.json"
+    },
     "loop-gain": {
       "version": 3,
       "questionCount": 12,
@@ -1030,6 +1078,18 @@
       },
       "hash": "0f5f7238",
       "file": "banks/lti-mech.0f5f7238.json"
+    },
+    "lti-stability": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "eb0fc44e",
+      "file": "banks/lti-stability.eb0fc44e.json"
     },
     "miller": {
       "version": 1,
@@ -1307,6 +1367,18 @@
       "hash": "744eae46",
       "file": "banks/opamp-models.744eae46.json"
     },
+    "perf-specs-freq": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "c075e4b2",
+      "file": "banks/perf-specs-freq.c075e4b2.json"
+    },
     "phasors": {
       "version": 1,
       "questionCount": 12,
@@ -1318,6 +1390,30 @@
       },
       "hash": "99243278",
       "file": "banks/phasors.99243278.json"
+    },
+    "pid-impl": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d061c65d",
+      "file": "banks/pid-impl.d061c65d.json"
+    },
+    "pid-tuning": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "4f4211dc",
+      "file": "banks/pid-tuning.4f4211dc.json"
     },
     "pid": {
       "version": 1,
@@ -1378,6 +1474,18 @@
       },
       "hash": "b272765f",
       "file": "banks/rc-lpf.b272765f.json"
+    },
+    "realization": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "1e11692b",
+      "file": "banks/realization.1e11692b.json"
     },
     "ref-gen": {
       "version": 1,
@@ -1655,6 +1763,18 @@
       "hash": "041c0c0f",
       "file": "banks/two-port.041c0c0f.json"
     },
+    "uncertainty": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d61add01",
+      "file": "banks/uncertainty.d61add01.json"
+    },
     "vt": {
       "version": 1,
       "questionCount": 12,
@@ -1666,6 +1786,18 @@
       },
       "hash": "d7dce394",
       "file": "banks/vt.d7dce394.json"
+    },
+    "windup": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "985ffb42",
+      "file": "banks/windup.985ffb42.json"
     }
   },
   "explainers": {
@@ -1981,6 +2113,12 @@
       "file": "explainers/fb-intro.64704698.json",
       "sectionCount": 5
     },
+    "feedforward": {
+      "hash": "c6d5e010",
+      "file": "explainers/feedforward.c6d5e010.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "first-order-sys": {
       "hash": "c45495c2",
       "file": "explainers/first-order-sys.c45495c2.json",
@@ -2002,6 +2140,12 @@
       "file": "explainers/freq-resp-circuits.da02bdc0.json",
       "sectionCount": 5
     },
+    "freq-resp-lti": {
+      "hash": "e7f9839d",
+      "file": "explainers/freq-resp-lti.e7f9839d.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "ft": {
       "hash": "89419ce2",
       "file": "explainers/ft.89419ce2.json",
@@ -2011,6 +2155,12 @@
       "hash": "721abc00",
       "file": "explainers/gbw.721abc00.json",
       "sectionCount": 5
+    },
+    "gen-gain-phase": {
+      "hash": "61b09253",
+      "file": "explainers/gen-gain-phase.61b09253.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "gm": {
       "hash": "85315815",
@@ -2075,6 +2225,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "linearization": {
+      "hash": "f7383407",
+      "file": "explainers/linearization.f7383407.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "loop-gain": {
       "hash": "c3797457",
       "file": "explainers/loop-gain.c3797457.json",
@@ -2105,6 +2261,12 @@
       "hash": "fa3d616b",
       "file": "explainers/lti-mech.fa3d616b.json",
       "sectionCount": 5
+    },
+    "lti-stability": {
+      "hash": "8c0abff2",
+      "file": "explainers/lti-stability.8c0abff2.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "miller": {
       "hash": "e0b13d61",
@@ -2226,10 +2388,28 @@
       "file": "explainers/opamp-models.9944f627.json",
       "sectionCount": 5
     },
+    "perf-specs-freq": {
+      "hash": "e8d01a9f",
+      "file": "explainers/perf-specs-freq.e8d01a9f.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "phasors": {
       "hash": "d3c076c1",
       "file": "explainers/phasors.d3c076c1.json",
       "sectionCount": 5
+    },
+    "pid-impl": {
+      "hash": "924e2d00",
+      "file": "explainers/pid-impl.924e2d00.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "pid-tuning": {
+      "hash": "23886787",
+      "file": "explainers/pid-tuning.23886787.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "pid": {
       "hash": "84321696",
@@ -2256,6 +2436,12 @@
       "hash": "3ec1f979",
       "file": "explainers/rc-lpf.3ec1f979.json",
       "sectionCount": 5
+    },
+    "realization": {
+      "hash": "39928414",
+      "file": "explainers/realization.39928414.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "ref-gen": {
       "hash": "9ad542f1",
@@ -2378,10 +2564,22 @@
       "file": "explainers/two-port.43ead05f.json",
       "sectionCount": 5
     },
+    "uncertainty": {
+      "hash": "4e8c21b3",
+      "file": "explainers/uncertainty.4e8c21b3.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "vt": {
       "hash": "b85a8032",
       "file": "explainers/vt.b85a8032.json",
       "sectionCount": 5
+    },
+    "windup": {
+      "hash": "61d1b2f3",
+      "file": "explainers/windup.61d1b2f3.json",
+      "sectionCount": 5,
+      "version": 1
     }
   }
 }

@@ -1,0 +1,187 @@
+{
+  "skill_id": "linearization",
+  "version": 1,
+  "questions": [
+    {
+      "id": "linearization-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Linearization of \\(\\dot x = f(x, u)\\) about an equilibrium \\((x_e, u_e)\\) replaces \\(f\\) by",
+      "explanation": "The first-order Taylor expansion is \\(\\delta\\dot x = A\\,\\delta x + B\\,\\delta u\\), with \\(A\\) and \\(B\\) the partial derivatives at the equilibrium. \\(f(x_e, u_e)\\) is zero by the definition of equilibrium, so it does not describe the motion. The linear model is local, not exact on the whole state space. The second derivative is the next term, the one the linear model drops.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>jacobian entries</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">df/dx   df/du</text></svg>",
+      "figure_alt": "A row of two partial derivatives.",
+      "options": [
+        "its Jacobian in \\(x\\) and in \\(u\\), and is accurate for small deviations",
+        "the value \\(f(x_e, u_e)\\), which is the whole story for large deviations too",
+        "a linear model that is exact for every initial state",
+        "the second derivative only, ignoring the slope"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "linearization-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The scalar system is \\(\\dot x = -x^3 + u\\). It rests at \\(x = 2\\), which needs \\(u = 8\\). The linearized \\(A = \\partial f/\\partial x\\) there is",
+      "explanation": "\\(\\partial f/\\partial x = -3x^2\\). At \\(x = 2\\) that is \\(-12\\), so \\(A = -12\\). The value \\(-3x = -6\\) drops one factor of \\(x\\). The equilibrium input 8 is \\(u_e\\), not the Jacobian.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>jacobian entries</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">df/dx   df/du</text></svg>",
+      "figure_alt": "A row of two partial derivatives.",
+      "answer": -12.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "linearization-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "For the same \\(\\dot x = -x^3 + u\\), the input Jacobian \\(B = \\partial f/\\partial u\\) is",
+      "explanation": "The input enters as \\(+u\\), so \\(B = 1\\) at every state. Using \\(A = -12\\) as if it were \\(B\\) mixes the two partial derivatives. Using \\(u_e = 8\\) reports the equilibrium input instead of the slope in \\(u\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>jacobian entries</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">df/dx   df/du</text></svg>",
+      "figure_alt": "A row of two partial derivatives.",
+      "answer": 1.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "linearization-r2-q1",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A tank obeys \\(\\dot h = -2\\sqrt{h} + q\\). It rests at \\(h = 9\\). The linearized coefficient of \\(\\delta h\\) is",
+      "explanation": "The derivative of \\(-2 h^{1/2}\\) is \\(-h^{-1/2} = -1/3\\) at \\(h = 9\\), so \\(A = -0.333333\\). The outflow \\(-2\\sqrt{9} = -6\\) is the equilibrium flow, not the slope. Half of that slope, \\(-1/6\\), comes from differentiating \\(\\sqrt{h}\\) and forgetting the constant 2, or from differentiating and then dividing an extra time.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>mass, spring, and damper</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"70\" x2=\"48\" y2=\"70\"/><polyline points=\"48,70 56,58 66,82 76,58 86,82 96,58 106,82 116,70 140,70\"/><text x=\"90\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"30\" y1=\"112\" x2=\"78\" y2=\"112\"/><rect x=\"78\" y=\"100\" width=\"28\" height=\"24\"/><line x1=\"106\" y1=\"112\" x2=\"140\" y2=\"112\"/><text x=\"92\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
+      "figure_alt": "A mass connected to a spring and a damper, with an applied force.",
+      "answer": -0.333333,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "linearization-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "The equilibrium of a smooth nonlinear system is locally asymptotically stable when",
+      "explanation": "Local asymptotic stability follows when the linearization is asymptotically stable and no eigenvalue sits on the imaginary axis. One stable eigenvalue is not enough if another has a positive real part. The zero matrix is a critical case, not a stable one. A single equilibrium can still be unstable.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>local linear poles</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"41\" x2=\"133\" y2=\"51\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"51\" x2=\"133\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"129\" x2=\"133\" y2=\"139\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"139\" x2=\"133\" y2=\"129\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A complex pair of pole marks in the left half-plane.",
+      "options": [
+        "the Jacobian has at least one eigenvalue with a negative real part",
+        "every eigenvalue of the Jacobian has a negative real part",
+        "the Jacobian is the zero matrix",
+        "the nonlinear system has only one equilibrium in the whole state space"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "linearization-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A pendulum linearizes, near the bottom, to \\(\\ddot\\theta + (g/L)\\theta = 0\\) with \\(g/L = 10\\). The natural frequency of that small motion is",
+      "explanation": "The standard form is \\(\\ddot\\theta + \\omega_n^2\\theta = 0\\), so \\(\\omega_n = \\sqrt{g/L} = \\sqrt{10} = 3.16228\\). The ratio \\(g/L = 10\\) is \\(\\omega_n^2\\), not \\(\\omega_n\\). Half of 10 is not the square root.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>mass, spring, and damper</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"70\" x2=\"48\" y2=\"70\"/><polyline points=\"48,70 56,58 66,82 76,58 86,82 96,58 106,82 116,70 140,70\"/><text x=\"90\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"30\" y1=\"112\" x2=\"78\" y2=\"112\"/><rect x=\"78\" y=\"100\" width=\"28\" height=\"24\"/><line x1=\"106\" y1=\"112\" x2=\"140\" y2=\"112\"/><text x=\"92\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
+      "figure_alt": "A mass connected to a spring and a damper, with an applied force.",
+      "answer": 3.16228,
+      "unit": "rad/s",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "linearization-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "The Jacobian test is inconclusive when",
+      "explanation": "An eigenvalue with zero real part is the critical case: the linear terms do not decide stability, and the nonlinear terms can go either way. A full set of open-left-half-plane eigenvalues is conclusive and says locally stable. A zero input is just a choice of coordinates. Dimension 2 is ordinary and not a special case.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>eigenvalues on the imaginary axis</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"145\" y1=\"52\" x2=\"155\" y2=\"62\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"62\" x2=\"155\" y2=\"52\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"118\" x2=\"155\" y2=\"128\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"128\" x2=\"155\" y2=\"118\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A conjugate pair sitting on the imaginary axis.",
+      "options": [
+        "every eigenvalue has a negative real part",
+        "the equilibrium input is zero",
+        "an eigenvalue lies on the imaginary axis",
+        "the state dimension is 2"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "linearization-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Near the origin, \\(\\dot x_1 = x_2\\) and \\(\\dot x_2 = -2 x_1 + 0.5 x_2^2 + u\\). The determinant of the Jacobian \\(A\\) is",
+      "explanation": "The quadratic term \\(0.5 x_2^2\\) has zero derivative at the origin, so \\(A = \\begin{bmatrix} 0 & 1 \\\\ -2 & 0 \\end{bmatrix}\\). Its determinant is \\(2\\), stored as 2. The trace is 0, which is not the determinant. The entry \\(-2\\) is one corner of \\(A\\), not \\(\\det A\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>jacobian at the origin</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">-2   0</text></svg>",
+      "figure_alt": "A two-by-two Jacobian.",
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "linearization-r3-q3",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Return to \\(\\dot x = -x^3 + u\\), now at the equilibrium \\(x = 1.5\\). The state Jacobian \\(A\\) is",
+      "explanation": "\\(A = -3x^2 = -3\\cdot 2.25 = -6.75\\). The value at \\(x = 2\\), which is \\(-12\\), belongs to a different equilibrium. The equilibrium input \\(u = x^3 = 3.375\\) is not \\(A\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>jacobian entries</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">df/dx   df/du</text></svg>",
+      "figure_alt": "A row of two partial derivatives.",
+      "answer": -6.75,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "linearization-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "The system \\(\\dot x = x(1-x) + u\\) rests at \\(x = 3\\). The linearized \\(A\\) is",
+      "explanation": "\\(f = x - x^2 + u\\), so \\(A = 1 - 2x = 1 - 6 = -5\\). The factor \\(1 - x = -2\\) forgets the product rule and is not the derivative of \\(x - x^2\\). The equilibrium input, which is 6, is \\(u_e\\), not \\(A\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>local linear poles</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"41\" x2=\"133\" y2=\"51\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"51\" x2=\"133\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"129\" x2=\"133\" y2=\"139\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"139\" x2=\"133\" y2=\"129\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A complex pair of pole marks in the left half-plane.",
+      "preview": [
+        "fb-linearization"
+      ],
+      "answer": -5.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "linearization-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Gain scheduling uses linearization by",
+      "explanation": "Each equilibrium has its own Jacobian, so a scheduled controller carries several local models and interpolates among them. One model is ordinary linear control. Exact cancellation of the nonlinearity is feedback linearization, a different construction. The equilibria are exactly where each local model is built.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>mass, spring, and damper</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"70\" x2=\"48\" y2=\"70\"/><polyline points=\"48,70 56,58 66,82 76,58 86,82 96,58 106,82 116,70 140,70\"/><text x=\"90\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"30\" y1=\"112\" x2=\"78\" y2=\"112\"/><rect x=\"78\" y=\"100\" width=\"28\" height=\"24\"/><line x1=\"106\" y1=\"112\" x2=\"140\" y2=\"112\"/><text x=\"92\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
+      "figure_alt": "A mass connected to a spring and a damper, with an applied force.",
+      "preview": [
+        "gain-scheduling"
+      ],
+      "options": [
+        "building one linear model and using it at every operating point",
+        "cancelling every nonlinearity exactly, with no model error",
+        "ignoring equilibria and controlling the full nonlinear vector field",
+        "building a family of Jacobians along an operating curve and switching the controller as the state moves"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "linearization-r4-q3",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "The scalar system \\(\\dot x = x - x^3\\) has an equilibrium at \\(x = 1\\). The Jacobian there is",
+      "explanation": "\\(A = 1 - 3x^2\\). At \\(x = 1\\), \\(A = -2\\). At the origin the same formula gives \\(+1\\), which is the unstable equilibrium, not this one. The value \\(-3x = -3\\) drops a factor of \\(x\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a stable real pole of the linearization</title><line x1=\"20\" y1=\"90\" x2=\"92\" y2=\"90\"/><line x1=\"120\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"101\" y1=\"85\" x2=\"111\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"95\" x2=\"111\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "One pole mark on the negative real axis.",
+      "preview": [
+        "gain-scheduling"
+      ],
+      "answer": -2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    }
+  ]
+}

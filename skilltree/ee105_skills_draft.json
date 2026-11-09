@@ -1388,7 +1388,6 @@
    "prereqs": [
     "pid"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1408,7 +1407,6 @@
    "prereqs": [
     "pid"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1428,7 +1426,6 @@
    "prereqs": [
     "pid"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1507,7 +1504,6 @@
    "prereqs": [
     "ss-to-tf"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1528,7 +1524,6 @@
     "eig-modes",
     "pole-zero"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1549,7 +1544,6 @@
     "ss-to-tf",
     "sinusoid-resp"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1684,7 +1678,6 @@
    "prereqs": [
     "nyquist"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1723,7 +1716,6 @@
    "prereqs": [
     "sensitivity"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1784,7 +1776,6 @@
    "prereqs": [
     "sensitivity"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1805,7 +1796,6 @@
     "sensitivity",
     "step-specs"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -2072,7 +2062,6 @@
     "equilibria",
     "eig-modes"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
