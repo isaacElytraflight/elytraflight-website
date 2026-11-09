@@ -1,29 +1,17 @@
 # Elytraflight
 
-A 3D portfolio website where visitors fly through the clouds to explore portfolio sections on floating islands.
+Elytraflight is home to [Skillgrove](https://elytraflight.com/skilltree/), a mastery-based skill tree for undergraduate STEM courses.
 
 **Live:** [elytraflight.com](https://elytraflight.com)
 
-## Features
+The home page introduces Skillgrove and links to Isaac’s CS 180 project pages. Skillgrove and those project pages are standalone files in `public/` and are copied into the build as-is:
 
-- Sunset skyscape with volumetric clouds and fog
-- Three floating islands: About, Projects, Contact
-- Free-flight navigation with keyboard (desktop) or touch controls (mobile)
-- Proximity-based content panels when you reach each island
-
-## Controls
-
-**Desktop**
-- Click to start flying (pointer lock)
-- `WASD` — move
-- `Space` / `Shift` — ascend / descend
-- Mouse — look around
-- `Esc` — release pointer lock
-
-**Mobile**
-- Tap **Fly** to start
-- Left half of screen — move
-- Right half — drag to look
+- [`/skilltree/`](public/skilltree/)
+- [`/CS180Proj0/`](public/CS180Proj0/)
+- [`/CS180Proj1/`](public/CS180Proj1/)
+- [`/CS180Proj2/`](public/CS180Proj2/)
+- [`/CS180Proj3/`](public/CS180Proj3/)
+- [`/CS180Proj4A/`](public/CS180Proj4A/)
 
 ## Development
 
@@ -33,12 +21,6 @@ npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173).
-
-Static sub-pages (e.g. [`/CS180Proj0`](http://localhost:5173/CS180Proj0/), [`/CS180Proj1`](http://localhost:5173/CS180Proj1/)) live in `public/` as standalone HTML and are copied to the build output as-is.
-
-## Editing Content
-
-Island positions and copy live in [`src/data/sections.ts`](src/data/sections.ts). Update text, links, and project cards there without touching 3D code.
 
 ## Deployment
 
