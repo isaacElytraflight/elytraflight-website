@@ -99,6 +99,8 @@ LEAF_PREVIEW_ALLOWED.update({
 LEAF_PREVIEW_ALLOWED.update({
     # Cauchy-Schwarz has no dependents. Round 4 names later uses of the inequality.
     "cauchy-schwarz-inequality": ["induced-matrix-norms", "open-closed-sets", "convergence-rates"],
+    # Frobenius and Schatten norms have no dependents. Round 4 names later uses.
+    "frobenius-schatten-norms": ["induced-matrix-norms", "linear-least-squares"],
 })
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")

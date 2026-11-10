@@ -4,7 +4,8 @@ Every template fits its geometry inside the viewBox and checks that with the
 figure-bounds scanner before returning. Strokes use currentColor via figlib.
 
 Templates: s-plane, block diagram, mass-spring-damper, matrix, Bode
-magnitude/phase, step response, Nyquist, root locus, and a generic plot.
+magnitude/phase, step response, Nyquist, root locus, a generic plot,
+and plane figures for disks, contour ellipses, and a dented polygon.
 """
 import math
 import os
@@ -448,6 +449,66 @@ def orthant_fig(title):
     body += b2b_text(230, 184, "x1", anchor="end", size=11)
     body += b2b_text(56, 20, "x2", anchor="start", size=11)
     body += b2b_rect(48, 48, 150, 120, fill=True)
+    return _guard(b2b_svg(w, h, body, title))
+
+
+def _axes(cx, cy, right, bottom, top):
+    body = b2b_arrow(28, cy, right, cy)
+    body += b2b_arrow(cx, bottom, cx, top)
+    body += b2b_text(right - 6, cy + 16, "x1", anchor="end", size=11)
+    body += b2b_text(cx + 8, top + 4, "x2", anchor="start", size=11)
+    return body
+
+
+def disk_fig(title):
+    """A filled disk centered at the origin."""
+    w, h = 280, 220
+    cx, cy, r = 140, 112, 64
+    body = _axes(cx, cy, 252, 196, 28)
+    body += f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="currentColor" fill-opacity="0.12"/>'
+    body += b2b_dot(cx, cy)
+    return _guard(b2b_svg(w, h, body, title))
+
+
+def two_disks_fig(title):
+    """Two filled disks with a gap between them."""
+    w, h = 300, 200
+    body = b2b_arrow(24, 120, 276, 120)
+    body += b2b_arrow(36, 176, 36, 22)
+    body += b2b_text(270, 136, "x1", anchor="end", size=11)
+    body += b2b_text(44, 18, "x2", anchor="start", size=11)
+    for cx, r in ((96, 40), (214, 40)):
+        body += f'<circle cx="{cx}" cy="108" r="{r}" fill="currentColor" fill-opacity="0.12"/>'
+    return _guard(b2b_svg(w, h, body, title))
+
+
+def level_curves_fig(title):
+    """Three nested ellipses, a sketch of contour lines."""
+    w, h = 300, 230
+    cx, cy = 150, 118
+    body = _axes(cx, cy, 272, 204, 26)
+    for rx, ry in ((40, 24), (72, 44), (104, 62)):
+        body += f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}"/>'
+    return _guard(b2b_svg(w, h, body, title))
+
+
+def filled_ellipse_fig(title):
+    """A shaded axis-aligned elliptical disk."""
+    w, h = 280, 210
+    cx, cy, rx, ry = 140, 108, 88, 48
+    body = _axes(cx, cy, 256, 186, 24)
+    body += f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="currentColor" fill-opacity="0.12"/>'
+    return _guard(b2b_svg(w, h, body, title))
+
+
+def dented_quad_fig(title):
+    """A quadrilateral with one vertex pushed in, so one corner is reflex."""
+    w, h = 280, 200
+    body = b2b_arrow(24, 172, 260, 172)
+    body += b2b_arrow(36, 184, 36, 20)
+    body += b2b_text(254, 188, "x1", anchor="end", size=11)
+    body += b2b_text(44, 16, "x2", anchor="start", size=11)
+    body += b2b_poly([(50, 150), (230, 150), (210, 40), (140, 130)], closed=True, sw=2.0, fill="currentColor")
     return _guard(b2b_svg(w, h, body, title))
 
 

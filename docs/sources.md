@@ -40,6 +40,8 @@ Added for the nonlinear optimization skills. Course notes fix the scope. Wording
 
 NB1 uses `hefferon-linalg` and `wikibooks-linalg` for the linear-algebra facts, and `boyd-cvx` (appendix on matrices, norms, and singular values; chapter on convex sets) for the set and norm language. No section of those sources is quoted in the banks or explainers.
 
+NB2 uses the same three references for the next preliminaries layer. `boyd-cvx` supplies the scope for induced norms, the Frobenius and Schatten norms, open and closed sets, compactness in \(\mathbb{R}^n\), sublevel and contour sets, and convex sets. `hefferon-linalg` and `wikibooks-linalg` supply the open linear-algebra reading for singular values and entrywise lengths. No section is quoted, and no exercise or parameter set is reused.
+
 ## Errata
 
 No separate errata list was in the v3.1.5 front matter or the back-matter index. Nothing in those files changes the B1 facts (element laws, transform rules, rank and eigenvalues, or the minimum-phase conditions). No erratum was applied.

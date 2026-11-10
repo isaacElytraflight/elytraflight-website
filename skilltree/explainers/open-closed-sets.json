@@ -1,0 +1,29 @@
+{
+  "id": "open-closed-sets",
+  "title": "Open and closed sets in R^n",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>disk centered at the origin</title><line x1=\"28\" y1=\"112\" x2=\"252\" y2=\"112\"/><polygon points=\"252,112 245.6,114.7 245.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"196\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"246\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><circle cx=\"140\" cy=\"112\" r=\"64\" fill=\"currentColor\" fill-opacity=\"0.12\"/><circle cx=\"140\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A filled disk centered at the origin.",
+      "body_md": "Open and closed describe how a set sits relative to its edge. Fix a norm on \\(\\mathbb{R}^n\\). The open ball of radius \\(r > 0\\) about \\(x\\) is every point whose distance to \\(x\\) is strictly less than \\(r\\). The closed ball uses \\(\\le\\) and therefore includes the sphere.\n\nA point of a set is an interior point when some open ball about it lies entirely in the set. The set is open when every one of its points is interior. A limit point is a point that every ball meets the set in some other point. The set is closed when it contains all of its limit points. Equivalently, its complement is open, and equivalently it contains its boundary.\n\nThe boundary is the set of points where every ball meets both the set and the complement. The closure is the set with its boundary added. The empty set and the whole space are both open and closed. Plenty of sets are neither: a half-open interval contains one endpoint and misses the other."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "\\[\nB(x, r) = \\{y : \\lVert y - x \\rVert < r\\}, \\qquad \\overline{B}(x, r) = \\{y : \\lVert y - x \\rVert \\le r\\}.\n\\]\nThe interior of \\(S\\) is the largest open set contained in \\(S\\). The closure of \\(S\\) is the smallest closed set containing \\(S\\). A point \\(x\\) is interior to an open ball of radius \\(R\\) when the gap \\(R - \\lVert x - c \\rVert\\) is positive, and that gap is a legal radius for a test ball. In finite dimension, equivalent norms determine the same open sets."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take the open ball of radius 6 about \\((1, 2)\\), and the point \\((1, 5)\\). The distance between them is \\(\\lvert 5 - 2 \\rvert = 3\\). Subtracting that distance from the radius leaves the gap, so the gap is 3. Any point within distance strictly less than 3 of \\((1, 5)\\) stays inside the original ball, so \\((1, 5)\\) is interior.\n\nThe matching closed ball of radius 6 contains the sphere. A point at distance exactly 6 from \\((1, 2)\\) belongs to the closed ball and to no open ball inside it. The closed ball is closed, and it is not open. Replacing the radius 6 by a strict inequality drops that sphere and produces an open set."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "A ball that merely meets the set does not prove an interior point. The whole ball has to fit. Closed does not mean bounded: a line in the plane is closed and unbounded, and a closed half-space is too. Open does not mean the inequality that defines the set looks strict in every description. Finite unions of open sets are open, and so are arbitrary unions. An infinite intersection of open sets can be a single point, which is not open. In \\(\\mathbb{R}\\), a nonempty finite set is closed and not open."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Compactness in \\(\\mathbb{R}^n\\) asks for closed and bounded together, so an open ball is the standard bounded set that fails. A local minimizer is defined with a neighborhood, and a neighborhood is an open ball. Existence of a minimizer on an unbounded set needs a substitute for compactness, because the whole space is closed and still too large. The boundary and the closure are the language those arguments use."
+    }
+  ]
+}

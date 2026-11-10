@@ -1,0 +1,219 @@
+{
+  "skill_id": "frobenius-schatten-norms",
+  "version": 1,
+  "questions": [
+    {
+      "id": "frobenius-schatten-norms-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The Frobenius norm of a real matrix is",
+      "explanation": "Squaring, summing, and taking the square root is the Frobenius norm, and the same number is \\(\\sqrt{\\sum_i \\sigma_i^2}\\). A sum of absolute entries is not that root. The largest entry is not a norm of this family by itself. The product of the singular values is the absolute value of the determinant when the matrix is square, which is a different summary.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with mixed signs</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "options": [
+        "the square root of the sum of the squares of the entries",
+        "the sum of the absolute values of the entries",
+        "the largest absolute entry",
+        "the product of the singular values"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "frobenius-schatten-norms-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "What is the Frobenius norm of \\(A = \\begin{bmatrix} 3 & 0 \\\\ 0 & -4 \\end{bmatrix}\\)?",
+      "explanation": "The squares of the entries are 9 and 16, and \\(9+16 = 25\\). The Frobenius norm is \\(\\sqrt{25} = 5\\). The singular values are 3 and 4, and \\(\\sqrt{9+16}\\) is the same 5. Their sum 7 is the nuclear norm. The largest one, 4, is the spectral norm.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with mixed signs</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "answer": 5.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "frobenius-schatten-norms-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The Schatten 1-norm, also called the nuclear norm, equals",
+      "explanation": "Schatten norms are \\(\\ell_p\\) norms of the singular-value list. The case \\(p = 1\\) adds the singular values. The case \\(p = \\infty\\) keeps only the largest. Squaring that largest value, or multiplying the singular values together, is neither the sum nor the max.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with mixed signs</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "options": [
+        "the largest singular value",
+        "the square of the largest singular value",
+        "the product of the singular values",
+        "the sum of the singular values"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "frobenius-schatten-norms-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "Write the Frobenius norm of \\(\\begin{bmatrix} a & b \\\\ 0 & 0 \\end{bmatrix}\\) as an expression in the names a and b.",
+      "explanation": "The only nonzero entries are \\(a\\) and \\(b\\). The sum of squares is \\(a^2 + b^2\\), and the Frobenius norm is the square root of that sum. The same expression is the Euclidean length of the first row.\n• \\(a^2 + b^2\\) stops before the square root, so it is the square of the norm.\n• \\(\\lvert a \\rvert + \\lvert b \\rvert\\) is a sum of absolute values, the 1-norm of the first row, not the Frobenius norm.\n• \\(ab\\) multiplies the entries. The zero row does not cancel that mistake.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   b</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
+      "answer": "sqrt(a^2 + b^2)",
+      "variables": [
+        {
+          "name": "a",
+          "min": -4.0,
+          "max": 4.0
+        },
+        {
+          "name": "b",
+          "min": -4.0,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "sqrt(b^2 + a^2)",
+        "(a^2 + b^2)^(1/2)",
+        "sqrt((a^2) + (b^2))"
+      ],
+      "version": 1
+    },
+    {
+      "id": "frobenius-schatten-norms-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The singular values of \\(A = \\begin{bmatrix} 3 & 0 \\\\ 0 & -4 \\end{bmatrix}\\) are 3 and 4. What is the nuclear norm of \\(A\\)?",
+      "explanation": "The nuclear norm adds the singular values: \\(3+4 = 7\\). The sign on the diagonal entry was already removed when the singular value was formed, so adding \\(3+(-4)\\) is not the nuclear norm. The Frobenius norm is \\(\\sqrt{9+16} = 5\\), and the spectral norm is 4.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with mixed signs</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "answer": 7.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "frobenius-schatten-norms-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "What is the spectral norm of \\(A = \\begin{bmatrix} 0 & 5 \\\\ 12 & 0 \\end{bmatrix}\\)?",
+      "explanation": "\\(A^T A = \\mathrm{diag}(144, 25)\\), so the singular values are 12 and 5. The spectral norm is the Schatten \\(\\infty\\)-norm, the larger singular value, 12. It is also the induced 2-norm. The sum \\(12+5 = 17\\) is the nuclear norm, and \\(\\sqrt{144+25} = 13\\) is the Frobenius norm.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>off-diagonal matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   5</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">12   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose nonzero entries sit off the diagonal.",
+      "answer": 12.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "frobenius-schatten-norms-r3-q1",
+      "round": 3,
+      "type": "order",
+      "prompt": "Put these steps in the order you would use to compute a Frobenius norm from singular values.",
+      "explanation": "The Frobenius norm is \\(\\sqrt{\\sum_i \\sigma_i^2}\\). The singular values are already nonnegative, so the next operations are square, add, and root, in that order. Adding the singular values before squaring computes the nuclear norm instead. Taking the maximum and stopping computes the spectral norm. The root has to come after the sum: the square root of a sum is not the sum of the square roots.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>off-diagonal matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   5</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">12   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose nonzero entries sit off the diagonal.",
+      "steps": [
+        "List the singular values, all of them nonnegative.",
+        "Square each singular value.",
+        "Add those squares.",
+        "Take the square root of that sum."
+      ],
+      "version": 1
+    },
+    {
+      "id": "frobenius-schatten-norms-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "What is the Frobenius norm of \\(A = \\begin{bmatrix} 0 & 5 \\\\ 12 & 0 \\end{bmatrix}\\)?",
+      "explanation": "The squares of the entries are 25 and 144, and \\(25+144 = 169 = 13^2\\). The Frobenius norm is 13. The singular values 12 and 5 give the same root of the sum of squares. Their maximum is 12, the spectral norm, and their sum is 17, the nuclear norm.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>off-diagonal matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   5</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">12   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose nonzero entries sit off the diagonal.",
+      "answer": 13.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "frobenius-schatten-norms-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which quantities equal the Frobenius norm of every real matrix?",
+      "explanation": "Both entrywise and singular-value formulas define the Frobenius norm, so both are right for every real matrix. The sum of the singular values is the nuclear norm, and it agrees with the Frobenius norm only for special matrices, such as a rank-one matrix with a single nonzero singular value. The largest singular value is the spectral norm, which is at most the Frobenius norm and equal only when at most one singular value is positive.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with mixed signs</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "options": [
+        "the square root of the sum of the squares of the entries",
+        "the square root of the sum of the squares of the singular values",
+        "the sum of the singular values",
+        "the largest singular value"
+      ],
+      "correct_indices": [
+        0,
+        1
+      ],
+      "version": 1
+    },
+    {
+      "id": "frobenius-schatten-norms-r4-q1",
+      "round": 4,
+      "type": "error",
+      "prompt": "One of these steps is false. Select that step, and the reason it fails. The matrix is \\(A = \\begin{bmatrix} 3 & 0 \\\\ 0 & -4 \\end{bmatrix}\\).",
+      "explanation": "The singular values are 3 and 4, since a diagonal entry contributes its absolute value. The last step only evaluates the rule above it, so the false step is the identification of the Frobenius norm with that sum. The sum of the singular values is the nuclear norm, 7. The Frobenius norm is \\(\\sqrt{3^2 + 4^2} = 5\\). Putting the sign back onto 4 would describe neither norm. The product \\(3 \\cdot 4 = 12\\) is not the Frobenius norm either.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix with mixed signs</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -4</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix. One diagonal entry is negative.",
+      "preview": [
+        "linear-least-squares"
+      ],
+      "steps": [
+        "Let A be the diagonal matrix with diagonal entries 3 and -4.",
+        "The singular values of A are 3 and 4.",
+        "The Frobenius norm is the sum of the singular values.",
+        "Applying that rule to A produces the value 7."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The sum of the singular values is the nuclear norm. The Frobenius norm is the square root of the sum of their squares, which is 5 here.",
+        "The diagonal entry -4 should be added with its sign, so the norm is 3 plus -4.",
+        "The Frobenius norm multiplies the singular values, so the value is 12."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "frobenius-schatten-norms-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "The singular values of \\(A = \\begin{bmatrix} 0 & 5 \\\\ 12 & 0 \\end{bmatrix}\\) are 12 and 5. What is the sum of their squares?",
+      "explanation": "\\(12^2 + 5^2 = 144 + 25 = 169\\). That sum is the square of the Frobenius norm, and the Frobenius norm itself is 13. The larger singular value alone is 12, which is the induced 2-norm. The sum of the singular values, without squares, is 17.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>off-diagonal matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   5</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">12   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose nonzero entries sit off the diagonal.",
+      "preview": [
+        "induced-matrix-norms"
+      ],
+      "answer": 169.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "frobenius-schatten-norms-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "For every real matrix \\(A\\), how do the spectral norm and the Frobenius norm compare?",
+      "explanation": "The spectral norm is the largest singular value, and the Frobenius norm is the Euclidean norm of the whole list of singular values, so the largest one cannot exceed that Euclidean norm. Equality holds when every other singular value is zero, so the comparison is not always strict and the two norms are not always equal. The nuclear norm adds the singular values, so it is at least the spectral norm, not at most. The spectral norm is also the induced 2-norm, which is why this comparison bounds an operator norm by an entrywise one.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>off-diagonal matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   5</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">12   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose nonzero entries sit off the diagonal.",
+      "preview": [
+        "induced-matrix-norms"
+      ],
+      "options": [
+        "the Frobenius norm is always strictly smaller than the spectral norm",
+        "the two norms are equal for every matrix",
+        "the spectral norm is at most the Frobenius norm",
+        "the nuclear norm is at most the spectral norm"
+      ],
+      "correct_index": 2,
+      "version": 1
+    }
+  ]
+}

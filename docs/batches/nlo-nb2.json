@@ -1,0 +1,33 @@
+{
+  "id": "nlo-nb2",
+  "label": "NB2",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "induced-matrix-norms",
+    "frobenius-schatten-norms",
+    "open-closed-sets",
+    "compact-sets",
+    "level-sets-contours",
+    "convex-sets"
+  ],
+  "areas": {
+    "induced-matrix-norms": ["optimization", "linear-algebra"],
+    "frobenius-schatten-norms": ["optimization", "linear-algebra"],
+    "open-closed-sets": ["optimization"],
+    "compact-sets": ["optimization"],
+    "level-sets-contours": ["optimization"],
+    "convex-sets": ["optimization"]
+  },
+  "cores": [
+    "induced-matrix-norms",
+    "frobenius-schatten-norms",
+    "open-closed-sets",
+    "compact-sets",
+    "level-sets-contours",
+    "convex-sets"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/nlo-content-batches.md",
+  "verifier": "skilltree/verify_nlo_nb2.py"
+}

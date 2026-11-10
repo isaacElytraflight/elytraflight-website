@@ -13,6 +13,8 @@ Items above version 1:
 
 - `fb-concepts-r4-q1` version 2
 - `laplace#explainer` version 2
+- `lin-algebra-review-r1-q1` version 2
+- `lin-algebra-review-r3-q2` version 2
 - `lin-algebra-review-r3-q3` version 2
 - `lin-algebra-review-r4-q1` version 2
 - `lin-algebra-review-r4-q2` version 2
@@ -121,6 +123,16 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 Box: Nonlinear Optimization (nlo-tugraz).
 
 Skills: `rn-important-subsets`, `spectral-decomposition`, `positive-definite-matrices`, `singular-value-decomposition`, `rayleigh-quotient`, `inner-products`, `vector-norms-lp`, `cauchy-schwarz-inequality`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## NB2 — nlo-nb2
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `induced-matrix-norms`, `frobenius-schatten-norms`, `open-closed-sets`, `compact-sets`, `level-sets-contours`, `convex-sets`.
 
 Every item is version 1.
 

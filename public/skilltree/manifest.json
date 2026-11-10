@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-10T17:31:49.743409Z",
+  "generated": "2026-11-10T19:57:28.096371Z",
   "skills": {
-    "file": "skills.a8b7c175.json",
-    "hash": "a8b7c175"
+    "file": "skills.f3988837.json",
+    "hash": "f3988837"
   },
   "collections": {
     "file": "collections.4ee0faec.json",
@@ -311,6 +311,18 @@
       "hash": "649eaccd",
       "file": "banks/cmrr.649eaccd.json"
     },
+    "compact-sets": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d22519cb",
+      "file": "banks/compact-sets.d22519cb.json"
+    },
     "contact-pot": {
       "version": 1,
       "questionCount": 12,
@@ -334,6 +346,18 @@
       },
       "hash": "145277d2",
       "file": "banks/continuity.145277d2.json"
+    },
+    "convex-sets": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "557464a3",
+      "file": "banks/convex-sets.557464a3.json"
     },
     "cruise-control": {
       "version": 1,
@@ -827,6 +851,18 @@
       "hash": "3378e801",
       "file": "banks/freq-resp-lti.3378e801.json"
     },
+    "frobenius-schatten-norms": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "5c78becf",
+      "file": "banks/frobenius-schatten-norms.5c78becf.json"
+    },
     "ft": {
       "version": 1,
       "questionCount": 12,
@@ -923,6 +959,18 @@
       "hash": "1ad8c5f8",
       "file": "banks/impulse-conv.1ad8c5f8.json"
     },
+    "induced-matrix-norms": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "861447a9",
+      "file": "banks/induced-matrix-norms.861447a9.json"
+    },
     "inner-products": {
       "version": 1,
       "questionCount": 12,
@@ -994,6 +1042,18 @@
       },
       "hash": "a06a5fee",
       "file": "banks/led.a06a5fee.json"
+    },
+    "level-sets-contours": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "55ac4af9",
+      "file": "banks/level-sets-contours.55ac4af9.json"
     },
     "limit-cycles": {
       "version": 1,
@@ -1390,6 +1450,18 @@
       },
       "hash": "744eae46",
       "file": "banks/opamp-models.744eae46.json"
+    },
+    "open-closed-sets": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "9f9041c4",
+      "file": "banks/open-closed-sets.9f9041c4.json"
     },
     "perf-specs-freq": {
       "version": 1,
@@ -2025,6 +2097,12 @@
       "file": "explainers/cmrr.a7ada259.json",
       "sectionCount": 5
     },
+    "compact-sets": {
+      "hash": "e9c77079",
+      "file": "explainers/compact-sets.e9c77079.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "contact-pot": {
       "hash": "dd644a6e",
       "file": "explainers/contact-pot.dd644a6e.json",
@@ -2034,6 +2112,12 @@
       "hash": "7746acf7",
       "file": "explainers/continuity.7746acf7.json",
       "sectionCount": 5
+    },
+    "convex-sets": {
+      "hash": "883f0433",
+      "file": "explainers/convex-sets.883f0433.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "cruise-control": {
       "hash": "b8cc3878",
@@ -2248,6 +2332,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "frobenius-schatten-norms": {
+      "hash": "ba4a8202",
+      "file": "explainers/frobenius-schatten-norms.ba4a8202.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "ft": {
       "hash": "89419ce2",
       "file": "explainers/ft.89419ce2.json",
@@ -2289,6 +2379,12 @@
       "file": "explainers/impulse-conv.c4b7cff5.json",
       "sectionCount": 5
     },
+    "induced-matrix-norms": {
+      "hash": "f9c2d010",
+      "file": "explainers/induced-matrix-norms.f9c2d010.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "inner-products": {
       "hash": "c65190f0",
       "file": "explainers/inner-products.c65190f0.json",
@@ -2320,6 +2416,12 @@
       "hash": "da5c57e8",
       "file": "explainers/led.da5c57e8.json",
       "sectionCount": 5
+    },
+    "level-sets-contours": {
+      "hash": "1801a6d9",
+      "file": "explainers/level-sets-contours.1801a6d9.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "limit-cycles": {
       "hash": "783be767",
@@ -2495,6 +2597,12 @@
       "hash": "9944f627",
       "file": "explainers/opamp-models.9944f627.json",
       "sectionCount": 5
+    },
+    "open-closed-sets": {
+      "hash": "b41f9c8a",
+      "file": "explainers/open-closed-sets.b41f9c8a.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "perf-specs-freq": {
       "hash": "dcab8e68",
