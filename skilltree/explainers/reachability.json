@@ -1,0 +1,30 @@
+{
+  "id": "reachability",
+  "title": "Reachability and the input rank test",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>input image and one step under A</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"104\" y2=\"42.3\"/><polygon points=\"104,42.3 104.4,49.3 99.2,47.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"112\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"137.8\"/><polygon points=\"235.9,137.8 229.9,141.4 229.2,136\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"129.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">AB</text></svg>",
+      "figure_alt": "Two arrows from the origin in clearly different directions.",
+      "body_md": "Reachability asks whether the input can stir every state. For a linear system the answer is a rank. Line up \\(B\\), \\(AB\\), and so on until you have \\(n\\) blocks. If those columns span \\(\\mathbb{R}^n\\), some input takes any state to any other state in finite time. If the rank \\(r\\) is short, only an \\(r\\)-dimensional subspace can be steered. The missing directions are modes the actuator never touches.\n\nThe same test is often called controllability. For the continuous-time models in this graph the two words name one rank condition. A coordinate change with an invertible \\(T\\) multiplies the matrix by \\(T^{-1}\\) and does not change the rank.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>input image and one step under A</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"104\" y2=\"42.3\"/><polygon points=\"104,42.3 104.4,49.3 99.2,47.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"112\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"137.8\"/><polygon points=\"235.9,137.8 229.9,141.4 229.2,136\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"129.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">AB</text></svg>"
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The controllability matrix is\n\\[\n\\mathcal{C} = \\begin{bmatrix} B & AB & \\cdots & A^{n-1}B \\end{bmatrix}.\n\\]\nThe pair is reachable when \\(\\mathrm{rank}\\,\\mathcal{C} = n\\). For two states that is a nonzero determinant. In controllable canonical form the matrix is triangular and invertible, provided no factor was cancelled. A cancelled mode kept as an extra state is unreachable or unobservable."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(A = \\begin{bmatrix} 0 & 1 \\\\ -7.5 & -0.8 \\end{bmatrix}\\) and \\(B = \\begin{bmatrix} 0 \\\\ 1.6 \\end{bmatrix}\\). Then \\(AB = \\begin{bmatrix} 1.6 \\\\ -1.28 \\end{bmatrix}\\), and\n\\[\n\\mathcal{C} = \\begin{bmatrix} 0 & 1.6 \\\\ 1.6 & -1.28 \\end{bmatrix}.\n\\]\nThe determinant is \\(-2.56\\). The columns point in different directions, so the pair is reachable. The \\(1.6\\) in \\(B\\) scales both columns and does not, by itself, decide the rank. A zero in the top entry of \\(B\\) is the usual companion pattern, not a missing direction."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "A nonzero \\(B\\) is not full rank. Two proportional columns still leave a hole. The determinant test is only for a square controllability matrix. In larger systems you count the rank. An unreachable mode is not automatically unstable, and state feedback cannot move it. Coordinate changes do not repair a short rank. And building a canonical form from a transfer function, which an earlier skill does, is not the same as testing the rank of a model you already have."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "State feedback \\(u = -Kx\\) can place every eigenvalue of \\(A - BK\\) only when the pair is reachable. The gain is a row you solve for so that the closed-loop characteristic polynomial matches a polynomial you chose. If the rank is short, the unreachable eigenvalues stay where \\(A\\) put them, no matter what \\(K\\) you write down."
+    }
+  ]
+}

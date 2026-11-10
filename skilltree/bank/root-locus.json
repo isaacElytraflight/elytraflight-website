@@ -1,0 +1,222 @@
+{
+  "skill_id": "root-locus",
+  "version": 1,
+  "questions": [
+    {
+      "id": "root-locus-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For positive gain, a root-locus branch",
+      "explanation": "At \\(K = 0\\) the closed-loop poles are the open-loop poles, so each branch starts there. As \\(K\\) grows, a branch ends at a zero or, if there are more poles than zeros, runs to infinity along an asymptote. The opposite direction is the negative-gain locus. Branches are not confined to the imaginary axis, and zeros are allowed.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a real-axis branch between two poles</title><line x1=\"40\" y1=\"96\" x2=\"270\" y2=\"96\"/><polygon points=\"270,96 263.6,98.7 263.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"254.1\" y1=\"168\" x2=\"254.1\" y2=\"24\"/><polygon points=\"254.1,24 256.9,30.4 251.4,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"110\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"260.1\" y=\"26\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.1,96 155,96 55.9,96\" stroke-width=\"2.0\"/><line x1=\"249.1\" y1=\"91\" x2=\"259.1\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"249.1\" y1=\"101\" x2=\"259.1\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"91\" x2=\"60.9\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"101\" x2=\"60.9\" y2=\"91\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "A real-axis segment joining two pole marks, with the imaginary axis marked.",
+      "options": [
+        "starts at an open-loop pole and ends at an open-loop zero or at infinity",
+        "starts at an open-loop zero and ends at an open-loop pole",
+        "stays on the imaginary axis for every gain",
+        "exists only for systems with no zeros"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "root-locus-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The plant is \\(1/(s(s+6))\\). At the breakaway on the real axis, the positive gain \\(K\\) is",
+      "explanation": "The closed-loop equation is \\(s(s+6) + K = 0\\), so \\(K = -s(s+6)\\). Setting the derivative \\(-2s - 6\\) to zero puts the breakaway at \\(s = -3\\), and \\(K = 3 \\cdot 3 = 9\\). The point \\(-3\\) is the location, not the gain. The pole spacing 6 is not the gain either.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a real-axis branch between two poles</title><line x1=\"40\" y1=\"96\" x2=\"270\" y2=\"96\"/><polygon points=\"270,96 263.6,98.7 263.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"254.1\" y1=\"168\" x2=\"254.1\" y2=\"24\"/><polygon points=\"254.1,24 256.9,30.4 251.4,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"110\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"260.1\" y=\"26\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.1,96 155,96 55.9,96\" stroke-width=\"2.0\"/><line x1=\"249.1\" y1=\"91\" x2=\"259.1\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"249.1\" y1=\"101\" x2=\"259.1\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"91\" x2=\"60.9\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"101\" x2=\"60.9\" y2=\"91\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "A real-axis segment joining two pole marks, with the imaginary axis marked.",
+      "answer": 9.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "root-locus-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Open-loop poles sit at \\(-1\\), \\(-4\\), and \\(-7\\), with no zeros. The centroid of the asymptotes is",
+      "explanation": "With three poles and no zeros, the centroid is \\((-1-4-7)/3 = -4\\). The average of the two outer poles, \\((-1-7)/2 = -4\\), happens to match here, but the rule uses every pole and zero. The middle pole \\(-4\\) is one mark, not automatically the centroid.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>three real poles</title><line x1=\"40\" y1=\"96\" x2=\"270\" y2=\"96\"/><polygon points=\"270,96 263.6,98.7 263.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"254.1\" y1=\"168\" x2=\"254.1\" y2=\"24\"/><polygon points=\"254.1,24 256.9,30.4 251.4,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"110\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"260.1\" y=\"26\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"220.8\" y1=\"91\" x2=\"230.8\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"220.8\" y1=\"101\" x2=\"230.8\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"135.8\" y1=\"91\" x2=\"145.8\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"135.8\" y1=\"101\" x2=\"145.8\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"91\" x2=\"60.9\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"101\" x2=\"60.9\" y2=\"91\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "Three pole marks on the negative real axis.",
+      "answer": -4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "root-locus-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "Two real poles sit at the signed locations \\(p\\) and \\(q\\), and there are no zeros. Write the centroid of the asymptotes in the names p and q.",
+      "explanation": "The centroid is \\((\\sum p - \\sum z)/(n-m)\\). Here that is \\((p+q)/2\\). The difference \\(p-q\\) is the gap between the poles, not the center. The product \\(pq\\) is the constant term of the polynomial, not the centroid.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>three real poles</title><line x1=\"40\" y1=\"96\" x2=\"270\" y2=\"96\"/><polygon points=\"270,96 263.6,98.7 263.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"254.1\" y1=\"168\" x2=\"254.1\" y2=\"24\"/><polygon points=\"254.1,24 256.9,30.4 251.4,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"110\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"260.1\" y=\"26\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"220.8\" y1=\"91\" x2=\"230.8\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"220.8\" y1=\"101\" x2=\"230.8\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"135.8\" y1=\"91\" x2=\"145.8\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"135.8\" y1=\"101\" x2=\"145.8\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"91\" x2=\"60.9\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"101\" x2=\"60.9\" y2=\"91\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "Three pole marks on the negative real axis.",
+      "answer": "(p+q)/2",
+      "variables": [
+        {
+          "name": "p",
+          "min": -8.0,
+          "max": -0.2
+        },
+        {
+          "name": "q",
+          "min": -8.0,
+          "max": -0.2
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "0.5*(p+q)",
+        "(q+p)/2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "root-locus-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A positive-gain locus has three more poles than zeros. The smallest positive asymptote angle, in degrees, is",
+      "explanation": "The angles are \\((2q+1)180^\\circ/(n-m)\\). For \\(n-m = 3\\) the smallest positive one is \\(180/3 = 60\\) degrees. The even spacing \\(360/3 = 120\\) belongs to a different count. An angle of \\(90^\\circ\\) would be the first asymptote of a four-pole excess.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>three real poles</title><line x1=\"40\" y1=\"96\" x2=\"270\" y2=\"96\"/><polygon points=\"270,96 263.6,98.7 263.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"254.1\" y1=\"168\" x2=\"254.1\" y2=\"24\"/><polygon points=\"254.1,24 256.9,30.4 251.4,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"110\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"260.1\" y=\"26\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"220.8\" y1=\"91\" x2=\"230.8\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"220.8\" y1=\"101\" x2=\"230.8\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"135.8\" y1=\"91\" x2=\"145.8\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"135.8\" y1=\"101\" x2=\"145.8\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"91\" x2=\"60.9\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"101\" x2=\"60.9\" y2=\"91\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "Three pole marks on the negative real axis.",
+      "answer": 60.0,
+      "unit": "deg",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "root-locus-r2-q3",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order you would use to start a positive-gain root-locus sketch.",
+      "explanation": "The poles and zeros are the endpoints, so they come first. The real-axis rule uses those marks. Asymptotes need the same count of poles and zeros. Breakaways and departures are local refinements you add before you draw the branches. Drawing the branches before the endpoints have been marked has nothing to connect.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a real-axis branch between two poles</title><line x1=\"40\" y1=\"96\" x2=\"270\" y2=\"96\"/><polygon points=\"270,96 263.6,98.7 263.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"254.1\" y1=\"168\" x2=\"254.1\" y2=\"24\"/><polygon points=\"254.1,24 256.9,30.4 251.4,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"110\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"260.1\" y=\"26\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.1,96 155,96 55.9,96\" stroke-width=\"2.0\"/><line x1=\"249.1\" y1=\"91\" x2=\"259.1\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"249.1\" y1=\"101\" x2=\"259.1\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"91\" x2=\"60.9\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"101\" x2=\"60.9\" y2=\"91\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "A real-axis segment joining two pole marks, with the imaginary axis marked.",
+      "steps": [
+        "Mark the open-loop poles and zeros.",
+        "Mark the real-axis segments that have an odd count of real poles and zeros to their right.",
+        "Draw the asymptotes from the centroid at the odd multiples of 180 degrees over the pole excess.",
+        "Place breakaways and departure angles, then sketch each branch from its pole to a zero or to infinity."
+      ],
+      "version": 1
+    },
+    {
+      "id": "root-locus-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A sketch of a plant with poles at \\(0\\) and \\(-4\\), and no zeros, claims the following. One step is wrong.",
+      "explanation": "Two branches and a centroid at \\(-2\\) are right. Positive-gain asymptotes use odd multiples of \\(180^\\circ/(n-m)\\), so \\(90^\\circ\\) and \\(270^\\circ\\). The angles \\(0^\\circ\\) and \\(180^\\circ\\) are the even multiples, which belong to negative gain. The last step states the rule that the third step broke.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a real-axis branch between two poles</title><line x1=\"40\" y1=\"96\" x2=\"270\" y2=\"96\"/><polygon points=\"270,96 263.6,98.7 263.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"254.1\" y1=\"168\" x2=\"254.1\" y2=\"24\"/><polygon points=\"254.1,24 256.9,30.4 251.4,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"110\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"260.1\" y=\"26\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.1,96 155,96 55.9,96\" stroke-width=\"2.0\"/><line x1=\"249.1\" y1=\"91\" x2=\"259.1\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"249.1\" y1=\"101\" x2=\"259.1\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"91\" x2=\"60.9\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"101\" x2=\"60.9\" y2=\"91\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "A real-axis segment joining two pole marks, with the imaginary axis marked.",
+      "steps": [
+        "There are two poles and no zeros, so two branches run to infinity.",
+        "The centroid is \\((0 + (-4))/2 = -2\\).",
+        "For positive gain the asymptotes leave that centroid at \\(0^\\circ\\) and \\(180^\\circ\\).",
+        "The positive-gain angles are the odd multiples of \\(180^\\circ/(n-m)\\), which here are \\(90^\\circ\\) and \\(270^\\circ\\)."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "Positive-gain asymptotes are the odd multiples of 180 degrees over the pole excess, not 0 and 180.",
+        "A two-pole plant has one asymptote, so the first step is the flawed one.",
+        "The centroid of poles at 0 and -4 is 0, so the second step is the flawed one."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "root-locus-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A test point on the real axis lies on the positive-gain locus when",
+      "explanation": "Count real poles and real zeros strictly to the right of the test point. An odd count means the angle contribution is \\(180^\\circ\\), which is what positive gain needs. Poles to the left do not enter that count. The midpoint is a breakaway only when the gain derivative vanishes there. The right half-plane is not the rule.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>three poles and one zero</title><line x1=\"20\" y1=\"92\" x2=\"26\" y2=\"92\"/><line x1=\"54\" y1=\"92\" x2=\"129\" y2=\"92\"/><line x1=\"157\" y1=\"92\" x2=\"180.5\" y2=\"92\"/><line x1=\"208.5\" y1=\"92\" x2=\"232\" y2=\"92\"/><line x1=\"260\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"246\" y1=\"160\" x2=\"246\" y2=\"16\"/><polygon points=\"246,16 248.7,22.4 243.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"254\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"241\" y1=\"87\" x2=\"251\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"241\" y1=\"97\" x2=\"251\" y2=\"87\" stroke-width=\"1.8\"/><line x1=\"189.5\" y1=\"87\" x2=\"199.5\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"189.5\" y1=\"97\" x2=\"199.5\" y2=\"87\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"87\" x2=\"45\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"97\" x2=\"45\" y2=\"87\" stroke-width=\"1.8\"/><circle cx=\"143\" cy=\"92\" r=\"5\"/></svg>",
+      "figure_alt": "Three crosses and one circle on the real axis.",
+      "options": [
+        "every open-loop pole is to its left",
+        "the number of real poles and zeros to its right is odd",
+        "it is exactly halfway between two poles",
+        "the point is in the right half-plane"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "root-locus-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Poles are at \\(0\\), \\(-2\\), and \\(-8\\), and there is a zero at \\(-4\\). Which of these real points lie on the positive-gain locus?",
+      "explanation": "Count real poles and zeros to the right. At \\(-1\\) only the pole at 0 is to the right, an odd count, so it is on the locus. At \\(-3\\) the pole at 0 and the pole at \\(-2\\) give an even count. At \\(-6\\) those two poles plus the zero at \\(-4\\) give three, which is odd. At \\(-10\\) all four marks are to the right, an even count.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>three poles and one zero</title><line x1=\"20\" y1=\"92\" x2=\"26\" y2=\"92\"/><line x1=\"54\" y1=\"92\" x2=\"129\" y2=\"92\"/><line x1=\"157\" y1=\"92\" x2=\"180.5\" y2=\"92\"/><line x1=\"208.5\" y1=\"92\" x2=\"232\" y2=\"92\"/><line x1=\"260\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"246\" y1=\"160\" x2=\"246\" y2=\"16\"/><polygon points=\"246,16 248.7,22.4 243.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"254\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"241\" y1=\"87\" x2=\"251\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"241\" y1=\"97\" x2=\"251\" y2=\"87\" stroke-width=\"1.8\"/><line x1=\"189.5\" y1=\"87\" x2=\"199.5\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"189.5\" y1=\"97\" x2=\"199.5\" y2=\"87\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"87\" x2=\"45\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"97\" x2=\"45\" y2=\"87\" stroke-width=\"1.8\"/><circle cx=\"143\" cy=\"92\" r=\"5\"/></svg>",
+      "figure_alt": "Three crosses and one circle on the real axis.",
+      "options": [
+        "\\(-1\\)",
+        "\\(-3\\)",
+        "\\(-6\\)",
+        "\\(-10\\)"
+      ],
+      "correct_indices": [
+        0,
+        2
+      ],
+      "version": 1
+    },
+    {
+      "id": "root-locus-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "A complex pole sits at \\(-2+j2\\), its conjugate is the only other open-loop pole, and there are no zeros. The positive-gain departure angle from \\(-2+j2\\), in degrees, is",
+      "explanation": "The vector from the conjugate up to \\(-2+j2\\) is vertical, so its angle is \\(90^\\circ\\). Departure is \\(180^\\circ\\) minus the angles of the other poles, plus the angles of the zeros. With no zeros that is \\(180 - 90 = 90\\) degrees. Using \\(180 + 90\\) adds the conjugate instead of subtracting it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a complex conjugate pair</title><line x1=\"40\" y1=\"96\" x2=\"270\" y2=\"96\"/><polygon points=\"270,96 263.6,98.7 263.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"254.1\" y1=\"168\" x2=\"254.1\" y2=\"24\"/><polygon points=\"254.1,24 256.9,30.4 251.4,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"110\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"260.1\" y=\"26\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"50.9\" y1=\"32.9\" x2=\"60.9\" y2=\"42.9\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"42.9\" x2=\"60.9\" y2=\"32.9\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"149.1\" x2=\"60.9\" y2=\"159.1\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"159.1\" x2=\"60.9\" y2=\"149.1\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "Two pole marks, one above the real axis and one below, at the same real part.",
+      "preview": [
+        "loop-shaping"
+      ],
+      "answer": 90.0,
+      "unit": "deg",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "root-locus-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A branch that crosses the imaginary axis as gain increases",
+      "explanation": "Closed-loop poles in the right half-plane are unstable. The crossing is the gain where that pole's real part changes sign. Larger gain does not bring it back unless another rule says so. The branch can cross without ending on a zero, and a finite branch is allowed to be the one that crosses.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a complex conjugate pair</title><line x1=\"40\" y1=\"96\" x2=\"270\" y2=\"96\"/><polygon points=\"270,96 263.6,98.7 263.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"254.1\" y1=\"168\" x2=\"254.1\" y2=\"24\"/><polygon points=\"254.1,24 256.9,30.4 251.4,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"110\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"260.1\" y=\"26\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"50.9\" y1=\"32.9\" x2=\"60.9\" y2=\"42.9\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"42.9\" x2=\"60.9\" y2=\"32.9\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"149.1\" x2=\"60.9\" y2=\"159.1\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"159.1\" x2=\"60.9\" y2=\"149.1\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "Two pole marks, one above the real axis and one below, at the same real part.",
+      "preview": [
+        "fund-limits"
+      ],
+      "options": [
+        "stays stable for every larger gain",
+        "has met a zero, so it stops",
+        "marks a gain past which that closed-loop pole is unstable",
+        "is an asymptote and cannot be a finite branch"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "root-locus-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A root-locus sketch is the right picture when you want to see",
+      "explanation": "The locus is parameterized by that gain. Bode and Nyquist freeze the gain and sweep frequency. Delay margin is a frequency-domain number. The locus is the gain sweep of the closed-loop poles.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a real-axis branch between two poles</title><line x1=\"40\" y1=\"96\" x2=\"270\" y2=\"96\"/><polygon points=\"270,96 263.6,98.7 263.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"254.1\" y1=\"168\" x2=\"254.1\" y2=\"24\"/><polygon points=\"254.1,24 256.9,30.4 251.4,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"110\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"260.1\" y=\"26\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.1,96 155,96 55.9,96\" stroke-width=\"2.0\"/><line x1=\"249.1\" y1=\"91\" x2=\"259.1\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"249.1\" y1=\"101\" x2=\"259.1\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"91\" x2=\"60.9\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"101\" x2=\"60.9\" y2=\"91\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "A real-axis segment joining two pole marks, with the imaginary axis marked.",
+      "preview": [
+        "robust-stability"
+      ],
+      "options": [
+        "the Nyquist plot's encirclements of \\(-1\\)",
+        "the Bode phase at one frequency",
+        "the delay margin in seconds",
+        "how every closed-loop pole moves as one gain runs from zero to infinity"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

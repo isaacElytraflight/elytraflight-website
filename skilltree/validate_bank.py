@@ -102,6 +102,12 @@ LEAF_PREVIEW_ALLOWED.update({
     # Frobenius and Schatten norms have no dependents. Round 4 names later uses.
     "frobenius-schatten-norms": ["induced-matrix-norms", "linear-least-squares"],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # ME132 B6 leaves: no dependents in the graph.
+    "lyapunov": ["lqr", "fb-linearization", "adaptive"],
+    "root-locus": ["loop-shaping", "fund-limits", "robust-stability"],
+    "time-delay": ["fund-limits", "loop-shaping", "robust-stability"],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

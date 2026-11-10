@@ -1,0 +1,217 @@
+{
+  "skill_id": "robust-stability",
+  "version": 1,
+  "questions": [
+    {
+      "id": "robust-stability-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For \\(P = P_0(1 + W_m \\Delta)\\) with \\(\\|\\Delta\\|_\\infty \\le 1\\) and a stable nominal loop, a sufficient robust-stability test is",
+      "explanation": "The complementary sensitivity \\(T\\) maps a relative plant error into a loop perturbation. Keeping \\(|T W_m|\\) strictly below 1 at every frequency keeps that perturbation inside the small-gain disk. Sensitivity \\(S\\) is the other closed-loop map. Matching DC gains says nothing at crossover. A phase margin is a nominal number, not a disk test.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a loop magnitude used for a robust-stability check</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "options": [
+        "\\(|T W_m| < 1\\) at every frequency",
+        "\\(|S| < 1\\) at every frequency",
+        "the plant and the model have the same DC gain",
+        "the phase margin is at least \\(30^\\circ\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "robust-stability-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "\\(|T|\\) peaks at \\(1.6\\). The largest constant \\(|W_m|\\) that still passes the strict small-gain test is",
+      "explanation": "The product has to stay below 1, so \\(|W_m| < 1/1.6 = 0.625\\). The peak of \\(|T|\\) itself, 1.6, is already larger than 1 and would fail for any weight of that size. Allowing the product to equal 1 is the boundary the strict test does not accept.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a loop magnitude used for a robust-stability check</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "answer": 0.625,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "robust-stability-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "At one frequency, \\(|T| = 0.5\\) and \\(|W_m| = 1.4\\). The product \\(|T W_m|\\) there is",
+      "explanation": "The test multiplies the two magnitudes: \\(0.5 \\cdot 1.4 = 0.7\\). That is below 1, so this frequency passes. Adding the two numbers gives 1.9, which is not the small-gain product. Dividing them gives \\(1.4/0.5 = 2.8\\), the reciprocal of a different arrangement.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 354 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nominal plant with a weight in series</title><text x=\"24\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">in</text><line x1=\"42\" y1=\"56\" x2=\"78\" y2=\"56\"/><polygon points=\"78,56 71.6,58.7 71.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"78\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"120\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P0</text><line x1=\"162\" y1=\"56\" x2=\"198\" y2=\"56\"/><polygon points=\"198,56 191.6,58.7 191.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"198\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"240\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Wm</text><line x1=\"282\" y1=\"56\" x2=\"318\" y2=\"56\"/><polygon points=\"318,56 311.6,58.7 311.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"322\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">out</text></svg>",
+      "figure_alt": "A nominal plant block followed by a weight block.",
+      "answer": 0.7,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "robust-stability-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "\\(|T|\\) peaks at a positive number \\(t\\). Write the largest \\(|W_m|\\) that keeps the strict test \\(|T W_m| < 1\\), as an expression in t.",
+      "explanation": "A constant weight passes at every frequency only when it is smaller than \\(1/t\\). The product \\(t\\) itself is the peak of \\(|T|\\), not the allowed weight. The square \\(t^2\\) has no role in this bound.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a loop magnitude used for a robust-stability check</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "answer": "1/t",
+      "variables": [
+        {
+          "name": "t",
+          "min": 0.25,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "t^-1",
+        "1/(t)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "robust-stability-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Two frequencies give the products \\(0.3 \\cdot 2\\) and \\(0.9 \\cdot 0.5\\). The number the small-gain test compares with 1 is the larger one, which is",
+      "explanation": "The test is a peak over frequency. \\(0.3 \\cdot 2 = 0.6\\) and \\(0.9 \\cdot 0.5 = 0.45\\), so the peak is 0.6. The smaller product, 0.45, is a frequency that passes more easily. The average of the two products is not what \\(\\|\\cdot\\|_\\infty\\) reads.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a loop magnitude used for a robust-stability check</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "answer": 0.6,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "robust-stability-r2-q3",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order you would use to apply the multiplicative robust-stability test.",
+      "explanation": "An unstable nominal loop is already a failure, before any disk is drawn. \\(T\\) is the map the weight multiplies. The product is the quantity the small-gain theorem bounds. The last step is strict: a peak of exactly 1 is not a pass. Checking the weight before you know the loop is stable skips the hypothesis the theorem uses.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 354 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nominal plant with a weight in series</title><text x=\"24\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">in</text><line x1=\"42\" y1=\"56\" x2=\"78\" y2=\"56\"/><polygon points=\"78,56 71.6,58.7 71.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"78\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"120\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P0</text><line x1=\"162\" y1=\"56\" x2=\"198\" y2=\"56\"/><polygon points=\"198,56 191.6,58.7 191.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"198\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"240\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Wm</text><line x1=\"282\" y1=\"56\" x2=\"318\" y2=\"56\"/><polygon points=\"318,56 311.6,58.7 311.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"322\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">out</text></svg>",
+      "figure_alt": "A nominal plant block followed by a weight block.",
+      "steps": [
+        "Confirm that the nominal loop is stable.",
+        "Form the complementary sensitivity T of that nominal loop.",
+        "Multiply |T| by the multiplicative weight |W_m| at each frequency.",
+        "Pass the test only when that product stays strictly below 1 at every frequency."
+      ],
+      "version": 1
+    },
+    {
+      "id": "robust-stability-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note looks at a loop whose peak of \\(|T W_m|\\) is \\(1.2\\). One step is wrong.",
+      "explanation": "Failing a sufficient test does not prove the opposite. The peak above 1 says this particular certificate did not go through. It does not say every \\(\\Delta\\) destabilizes the loop. The setup and the arithmetic in the first two steps are right, and the last step is the correct reading of a failed sufficient condition.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a loop magnitude used for a robust-stability check</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "steps": [
+        "The nominal loop is stable, and \\(P = P_0(1 + W_m \\Delta)\\) with \\(\\|\\Delta\\|_\\infty \\le 1\\).",
+        "The peak product \\(1.2\\) is greater than 1, so the sufficient test does not pass.",
+        "Because the test fails, every plant in the disk is unstable.",
+        "A sufficient test that does not pass leaves the disk undecided: some plants in it may still be stable."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "A failed sufficient test is inconclusive. It does not prove every plant in the disk is unstable.",
+        "A peak of 1.2 still passes, because the test allows any finite product.",
+        "Nominal stability is not required before the product is formed."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "robust-stability-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "The small-gain test passes at low frequency and fails near crossover. The disk",
+      "explanation": "\\(\\|T W_m\\|_\\infty\\) is the peak over all \\(\\omega\\). One failing frequency rejects the certificate. Low-frequency success does not cover crossover. A small overshoot of the bound is still a failed strict test, and a failed test does not prove every plant is unstable.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a loop magnitude used for a robust-stability check</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "options": [
+        "is robustly stable, because the low-frequency gain is what sets the margins",
+        "has not been certified, because the test has to hold at every frequency",
+        "is robustly stable as long as the failure is only a few percent",
+        "is unstable at every plant inside it"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "robust-stability-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "The nominal loop is stable. Which of these peak products \\(|T W_m|\\) pass the strict small-gain test?",
+      "explanation": "The test asks for a peak strictly below 1. Both 0.7 and 0.95 pass. 1.4 fails. A peak of exactly 1 is the boundary the strict inequality does not include.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 354 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nominal plant with a weight in series</title><text x=\"24\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">in</text><line x1=\"42\" y1=\"56\" x2=\"78\" y2=\"56\"/><polygon points=\"78,56 71.6,58.7 71.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"78\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"120\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P0</text><line x1=\"162\" y1=\"56\" x2=\"198\" y2=\"56\"/><polygon points=\"198,56 191.6,58.7 191.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"198\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"240\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Wm</text><line x1=\"282\" y1=\"56\" x2=\"318\" y2=\"56\"/><polygon points=\"318,56 311.6,58.7 311.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"322\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">out</text></svg>",
+      "figure_alt": "A nominal plant block followed by a weight block.",
+      "options": [
+        "0.7",
+        "1.4",
+        "0.95",
+        "1"
+      ],
+      "correct_indices": [
+        0,
+        2
+      ],
+      "version": 1
+    },
+    {
+      "id": "robust-stability-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "The peak of \\(|T W_m|\\) is currently \\(0.5\\). The largest factor you can multiply \\(|W_m|\\) by, and still pass the strict test, is",
+      "explanation": "The product scales with the weight. It reaches 1 when the weight has grown by \\(1/0.5 = 2\\). The strict test wants a factor smaller than that. Doubling the weight once more, a factor of 4, would push the peak to 2.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a loop magnitude used for a robust-stability check</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "preview": [
+        "robust-perf"
+      ],
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "robust-stability-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The product \\(|T W_m|\\) stays below 1, but the nominal loop is unstable. The small-gain theorem",
+      "explanation": "The theorem starts from a stable nominal loop and a small enough perturbation. An unstable nominal loop has already failed, and a small product does not repair it. The test does not become necessary and sufficient just because the nominal loop is unstable.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 354 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nominal plant with a weight in series</title><text x=\"24\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">in</text><line x1=\"42\" y1=\"56\" x2=\"78\" y2=\"56\"/><polygon points=\"78,56 71.6,58.7 71.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"78\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"120\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P0</text><line x1=\"162\" y1=\"56\" x2=\"198\" y2=\"56\"/><polygon points=\"198,56 191.6,58.7 191.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"198\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"240\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Wm</text><line x1=\"282\" y1=\"56\" x2=\"318\" y2=\"56\"/><polygon points=\"318,56 311.6,58.7 311.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"322\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">out</text></svg>",
+      "figure_alt": "A nominal plant block followed by a weight block.",
+      "preview": [
+        "robust-perf"
+      ],
+      "options": [
+        "certifies every plant in the disk, because the product is what matters",
+        "certifies the nominal plant and nothing else",
+        "does not apply, because it assumes the nominal loop is stable",
+        "becomes a necessary and sufficient test in this case"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "robust-stability-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A robust-performance question, after robust stability is settled, asks whether",
+      "explanation": "Robust stability keeps every plant in the disk stable. Robust performance asks for the error bound on that whole set. Renaming poles is not a performance test. The phase margin is one nominal number, not the disk's tracking spec.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a loop magnitude used for a robust-stability check</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "preview": [
+        "robust-perf"
+      ],
+      "options": [
+        "the open-loop poles can be renamed",
+        "the Nyquist plot can be drawn without \\(T\\)",
+        "every plant in the disk has the same phase margin number",
+        "the tracking error stays inside its bound for every plant in the disk, not only for the nominal plant"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

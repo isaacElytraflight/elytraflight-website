@@ -1,0 +1,30 @@
+{
+  "id": "lyapunov",
+  "title": "Lyapunov functions and the Lyapunov equation",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>level curve of a quadratic Lyapunov function</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin.",
+      "body_md": "A Lyapunov function is a bowl sitting on the equilibrium. It is zero there and positive everywhere else. If every trajectory walks downhill, the state has nowhere to go but the bottom, and the equilibrium is asymptotically stable. You do not have to solve the differential equation. You only have to check the bowl and the sign of its derivative along the vector field.\n\nFor \\(\\dot{x} = Ax\\) the bowl can be a quadratic form \\(x^T P x\\). The matrix \\(P\\) is not the plant. It is a certificate you solve for. Positive definiteness of a symmetric matrix, the eigenvalue test and the ellipsoid picture, is the language of that certificate. This skill only asks you to use the test on \\(P\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>level curve of a quadratic Lyapunov function</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>"
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "Along \\(\\dot{x} = f(x)\\), the chain rule gives \\(\\dot{V} = (\\partial V/\\partial x) f(x)\\). Asymptotic stability follows when \\(V\\) is positive definite and \\(\\dot{V}\\) is negative definite. For the linear system, pick a positive definite \\(Q\\) and solve\n\\[\nA^T P + PA = -Q.\n\\]\nIf the solution \\(P\\) is positive definite, \\(V(x) = x^T P x\\) has derivative \\(-x^T Q x\\), and the origin is asymptotically stable. In the scalar case \\(2 a P = -q\\), so \\(P = -q/(2a)\\), which is positive only when \\(a\\) is negative."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(\\dot{x} = -0.8 x\\) and \\(q = 6\\). Then \\(2(-0.8)P = -6\\), so \\(1.6 P = 6\\) and \\(P = 3.75\\). The bowl \\(V = 3.75 x^2\\) is positive definite. Its derivative is \\(7.5 x \\cdot (-0.8 x) = -6 x^2\\), negative for every \\(x \\ne 0\\). The origin is asymptotically stable, which you can also see from the eigenvalue \\(-0.8\\), but the certificate did not need that shortcut."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "A positive definite \\(V\\) whose derivative is positive certifies nothing. The sign of \\(\\dot{V}\\) is the whole test. \\(\\dot{V} \\le 0\\) that is only semi-definite does not prove asymptotic stability. It allows motion that stays on a level set. Solving the linear equation and forgetting to check that \\(P\\) is positive definite accepts an unstable \\(A\\), because an unstable \\(A\\) still produces a symmetric solution. And \\(P\\) in this equation is not the plant gain from a block diagram."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The same quadratic bowl reappears as the value of an infinite-horizon quadratic regulator: the optimal cost decreases along the closed loop, which is why that gain is stabilizing. A feedback linearization is only as stable as the linear target you chose, and that target still needs a certificate. Adaptive updates are often derived so that a joint bowl in the state and the parameter error decreases."
+    }
+  ]
+}

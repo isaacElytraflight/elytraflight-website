@@ -1,0 +1,30 @@
+{
+  "id": "me132-b6",
+  "label": "B6",
+  "box": "ME 132 (me132) and Feedback Systems (am08)",
+  "skills": [
+    "loop-shaping",
+    "lyapunov",
+    "observability",
+    "reachability",
+    "robust-stability",
+    "root-locus",
+    "sys-id",
+    "time-delay"
+  ],
+  "areas": {
+    "loop-shaping": ["loop-shaping", "loop-transfer-function"],
+    "lyapunov": ["lyapunov", "lti-stability"],
+    "observability": ["observability", "state-space"],
+    "reachability": ["reachability", "state-space"],
+    "robust-stability": ["robust-stability", "uncertainty"],
+    "root-locus": ["root-locus", "loop-transfer-function"],
+    "sys-id": ["sys-id", "state-space"],
+    "time-delay": ["time-delay", "frequency-response"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/me132-content-batches.md",
+  "verifier": "skilltree/verify_me132_b6.py"
+}

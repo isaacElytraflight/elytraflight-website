@@ -1,0 +1,30 @@
+{
+  "id": "robust-stability",
+  "title": "Robust stability and the small-gain test",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>magnitude sketch for a robust-stability weight</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that starts shallow and then falls more steeply.",
+      "body_md": "Robust stability asks whether every plant in a set, not only the model you designed on, keeps the loop stable. The set used here is a disk around a nominal plant \\(P_0\\): \\(P = P_0(1 + W_m \\Delta)\\) with \\(\\|\\Delta\\|_\\infty \\le 1\\). The weight \\(W_m\\) says how large a relative error you are allowing at each frequency. It was built in an earlier skill. This skill uses it.\n\nThe test is sufficient. If it passes, every plant in the disk gives a stable loop. If it fails, you have not proved that some plant is unstable. You have only learned that this certificate was too coarse.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>magnitude sketch for a robust-stability weight</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>"
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "Let \\(T = L/(1+L)\\) be the complementary sensitivity of the nominal loop, and assume that loop is stable. Then\n\\[\n\\|T W_m\\|_\\infty < 1\n\\]\nis enough for robust stability. In words, \\(|T(j\\omega) W_m(j\\omega)| < 1\\) at every \\(\\omega\\). The largest constant weight that survives a peak of \\(|T|\\) equal to \\(t\\) is anything strictly below \\(1/t\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Suppose \\(|T|\\) peaks at 0.48 and, at that same frequency, the weight you are considering has magnitude 0.85. The product is \\(0.48 \\cdot 0.85 = 0.408\\), which is below 1. If every other frequency is no worse, the strict test passes and the disk is robustly stable. The same peak would cross 1 if the weight grew past \\(1/0.48\\). The test would then stop certifying the disk, without by itself proving that a plant inside it is unstable."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "A product of 1 is not a pass. The inequality is strict. A failure is not a proof that every plant is unstable. The theorem also refuses to start from an unstable nominal loop, no matter how small the weight is. And the peak is over every frequency: a comfortable margin at low frequency does not cancel a failure near crossover. Do not rebuild the weight here. Use the \\(W_m\\) you were given and test \\(T\\) against it."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Stability of every plant in the disk is the first half of a robust design. The next question is whether the tracking error, or another performance signal, stays inside its bound for every one of those plants. That is robust performance, and it uses a second weight on the error. A loop that is robustly stable can still miss that bound."
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "skill_id": "sys-id",
+  "version": 1,
+  "questions": [
+    {
+      "id": "sys-id-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A held step that has clearly settled identifies",
+      "explanation": "Once both records have stopped moving, their change ratio is the DC gain of a stable plant. A fast pole can finish long before the first sample you kept, so the step does not name it. Phase margin needs a loop. Many state-space models share one input-output gain.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a held step and its settling output</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,126.2 52,119.9 55.1,114.1 58.1,108.8 61.1,103.8 64.1,99.1 67.2,94.8 70.2,90.8 73.2,87.1 76.2,83.7 79.2,80.5 82.3,77.5 85.3,74.8 88.3,72.2 91.3,69.8 94.4,67.6 97.4,65.6 100.4,63.7 103.4,61.9 106.4,60.3 109.5,58.7 112.5,57.3 115.5,56 118.5,54.8 121.6,53.6 124.6,52.6 127.6,51.6 130.6,50.7 133.6,49.9 136.7,49.1 139.7,48.4 142.7,47.7 145.7,47 148.8,46.5 151.8,45.9 154.8,45.4 157.8,45 160.8,44.5 163.9,44.1 166.9,43.8 169.9,43.4 172.9,43.1 176,42.8 179,42.5 182,42.2 185,42 188,41.8 191.1,41.6 194.1,41.4 197.1,41.2 200.1,41 203.2,40.9 206.2,40.7 209.2,40.6 212.2,40.5 215.2,40.4 218.3,40.3 221.3,40.2 224.3,40.1 227.3,40 230.4,39.9 233.4,39.8 236.4,39.8 239.4,39.7 242.4,39.7 245.5,39.6 248.5,39.6 251.5,39.5 254.5,39.5 257.6,39.4 260.6,39.4 263.6,39.3 266.6,39.3 269.6,39.3 272.7,39.3 275.7,39.2 278.7,39.2 281.7,39.2 284.8,39.2 287.8,39.1 290.8,39.1 293.8,39.1 296.8,39.1 299.9,39.1 302.9,39.1 305.9,39.1 308.9,39 312,39 315,39 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A step in the input and an output that rises toward a constant.",
+      "options": [
+        "the DC gain, as the ratio of the two settled changes",
+        "every pole, including poles far above the length of the record",
+        "the phase margin of a loop you have not closed",
+        "a unique state-space realization"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "sys-id-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A held input step changes by 4, and the settled output changes by 10. The DC gain is",
+      "explanation": "The gain is the ratio of the settled changes, \\(10/4 = 2.5\\). The output change alone, 10, still has the input size in it. The sum \\(10+4 = 14\\) is not a gain.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a held step and its settling output</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,126.2 52,119.9 55.1,114.1 58.1,108.8 61.1,103.8 64.1,99.1 67.2,94.8 70.2,90.8 73.2,87.1 76.2,83.7 79.2,80.5 82.3,77.5 85.3,74.8 88.3,72.2 91.3,69.8 94.4,67.6 97.4,65.6 100.4,63.7 103.4,61.9 106.4,60.3 109.5,58.7 112.5,57.3 115.5,56 118.5,54.8 121.6,53.6 124.6,52.6 127.6,51.6 130.6,50.7 133.6,49.9 136.7,49.1 139.7,48.4 142.7,47.7 145.7,47 148.8,46.5 151.8,45.9 154.8,45.4 157.8,45 160.8,44.5 163.9,44.1 166.9,43.8 169.9,43.4 172.9,43.1 176,42.8 179,42.5 182,42.2 185,42 188,41.8 191.1,41.6 194.1,41.4 197.1,41.2 200.1,41 203.2,40.9 206.2,40.7 209.2,40.6 212.2,40.5 215.2,40.4 218.3,40.3 221.3,40.2 224.3,40.1 227.3,40 230.4,39.9 233.4,39.8 236.4,39.8 239.4,39.7 242.4,39.7 245.5,39.6 248.5,39.6 251.5,39.5 254.5,39.5 257.6,39.4 260.6,39.4 263.6,39.3 266.6,39.3 269.6,39.3 272.7,39.3 275.7,39.2 278.7,39.2 281.7,39.2 284.8,39.2 287.8,39.1 290.8,39.1 293.8,39.1 296.8,39.1 299.9,39.1 302.9,39.1 305.9,39.1 308.9,39 312,39 315,39 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A step in the input and an output that rises toward a constant.",
+      "answer": 2.5,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "sys-id-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Three pairs \\((u, y)\\) are \\((1, 2)\\), \\((2, 4)\\), and \\((3, 7)\\), and the model is \\(y = \\theta u\\) with no offset. The least-squares \\(\\theta\\) is",
+      "explanation": "The through-origin formula is \\(\\theta = \\sum uy / \\sum u^2\\). The numerator is \\(1\\cdot 2 + 2\\cdot 4 + 3\\cdot 7 = 31\\) and the denominator is \\(1+4+9 = 14\\), so \\(\\theta = 2.21429\\). Averaging the three ratios \\(2, 2, 7/3\\) weights the points differently. Dividing the sums \\(\\sum y / \\sum u = 13/6\\) is not the normal equation.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a held step and its settling output</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,126.2 52,119.9 55.1,114.1 58.1,108.8 61.1,103.8 64.1,99.1 67.2,94.8 70.2,90.8 73.2,87.1 76.2,83.7 79.2,80.5 82.3,77.5 85.3,74.8 88.3,72.2 91.3,69.8 94.4,67.6 97.4,65.6 100.4,63.7 103.4,61.9 106.4,60.3 109.5,58.7 112.5,57.3 115.5,56 118.5,54.8 121.6,53.6 124.6,52.6 127.6,51.6 130.6,50.7 133.6,49.9 136.7,49.1 139.7,48.4 142.7,47.7 145.7,47 148.8,46.5 151.8,45.9 154.8,45.4 157.8,45 160.8,44.5 163.9,44.1 166.9,43.8 169.9,43.4 172.9,43.1 176,42.8 179,42.5 182,42.2 185,42 188,41.8 191.1,41.6 194.1,41.4 197.1,41.2 200.1,41 203.2,40.9 206.2,40.7 209.2,40.6 212.2,40.5 215.2,40.4 218.3,40.3 221.3,40.2 224.3,40.1 227.3,40 230.4,39.9 233.4,39.8 236.4,39.8 239.4,39.7 242.4,39.7 245.5,39.6 248.5,39.6 251.5,39.5 254.5,39.5 257.6,39.4 260.6,39.4 263.6,39.3 266.6,39.3 269.6,39.3 272.7,39.3 275.7,39.2 278.7,39.2 281.7,39.2 284.8,39.2 287.8,39.1 290.8,39.1 293.8,39.1 296.8,39.1 299.9,39.1 302.9,39.1 305.9,39.1 308.9,39 312,39 315,39 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A step in the input and an output that rises toward a constant.",
+      "answer": 2.21429,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "sys-id-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "A first-order model has DC gain \\(k > 0\\) and time constant \\(\\tau > 0\\). Write its magnitude at frequency \\(w > 0\\), in the names k, w, and tau.",
+      "explanation": "The magnitude of \\(k/(\\tau s + 1)\\) on \\(s = jw\\) is \\(k/\\sqrt{1+(w\\tau)^2}\\). Dropping the square root leaves the square of the denominator and is not the modulus. The product \\(k w \\tau\\) is not a magnitude.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a measured magnitude that rolls off</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 92.7,58.9 147.1,89 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude curve that is flat at low frequency and then falls.",
+      "answer": "k/sqrt(1+(w*tau)^2)",
+      "variables": [
+        {
+          "name": "k",
+          "min": 0.3,
+          "max": 5.0
+        },
+        {
+          "name": "w",
+          "min": 0.2,
+          "max": 5.0
+        },
+        {
+          "name": "tau",
+          "min": 0.2,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "k/(1+(w*tau)^2)^0.5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "sys-id-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A one-pole model has DC gain 6, and at the frequency you measured, \\(\\omega \\tau = 2\\). The magnitude \\(|G(j\\omega)|\\) is",
+      "explanation": "\\(|G| = 6/\\sqrt{1+2^2} = 6/\\sqrt{5} = 2.68328\\). The DC gain 6 is the magnitude only at \\(\\omega = 0\\). Dividing by \\(1+2 = 3\\) gives 2, which drops the square and the square root.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a measured magnitude that rolls off</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 92.7,58.9 147.1,89 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude curve that is flat at low frequency and then falls.",
+      "answer": 2.68328,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "sys-id-r2-q3",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order you would use to fit a first-order model from a step and a frequency check.",
+      "explanation": "The settled step gives the gain only after the transient has died. The time constant comes next, from the shape or from the corner. A residual on the fitting record shows whether the model misses something systematic. A held-out record is the check that the fit was not just memorizing the first experiment. Reading a time constant before the record has settled mixes the gain into the transient.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a held step and its settling output</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,126.2 52,119.9 55.1,114.1 58.1,108.8 61.1,103.8 64.1,99.1 67.2,94.8 70.2,90.8 73.2,87.1 76.2,83.7 79.2,80.5 82.3,77.5 85.3,74.8 88.3,72.2 91.3,69.8 94.4,67.6 97.4,65.6 100.4,63.7 103.4,61.9 106.4,60.3 109.5,58.7 112.5,57.3 115.5,56 118.5,54.8 121.6,53.6 124.6,52.6 127.6,51.6 130.6,50.7 133.6,49.9 136.7,49.1 139.7,48.4 142.7,47.7 145.7,47 148.8,46.5 151.8,45.9 154.8,45.4 157.8,45 160.8,44.5 163.9,44.1 166.9,43.8 169.9,43.4 172.9,43.1 176,42.8 179,42.5 182,42.2 185,42 188,41.8 191.1,41.6 194.1,41.4 197.1,41.2 200.1,41 203.2,40.9 206.2,40.7 209.2,40.6 212.2,40.5 215.2,40.4 218.3,40.3 221.3,40.2 224.3,40.1 227.3,40 230.4,39.9 233.4,39.8 236.4,39.8 239.4,39.7 242.4,39.7 245.5,39.6 248.5,39.6 251.5,39.5 254.5,39.5 257.6,39.4 260.6,39.4 263.6,39.3 266.6,39.3 269.6,39.3 272.7,39.3 275.7,39.2 278.7,39.2 281.7,39.2 284.8,39.2 287.8,39.1 290.8,39.1 293.8,39.1 296.8,39.1 299.9,39.1 302.9,39.1 305.9,39.1 308.9,39 312,39 315,39 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A step in the input and an output that rises toward a constant.",
+      "steps": [
+        "Hold a step long enough that the output stops moving, and read the DC gain from the two settled changes.",
+        "Read a time constant from the rising record, or from the frequency where the magnitude has fallen by 3 dB.",
+        "Predict the record with that model and look at the residual.",
+        "Check the same model on a record you did not use to pick the numbers."
+      ],
+      "version": 1
+    },
+    {
+      "id": "sys-id-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A fit uses the pairs \\((1, 3)\\), \\((3, 7)\\), and \\((5, 9)\\) in the model \\(y = \\theta u\\). One step is wrong.",
+      "explanation": "The normal equation and the two sums are right: \\(35\\theta = 69\\), so \\(\\theta = 69/35\\), not \\(35/69\\). Inverting the fraction swaps the estimate with its reciprocal. The last step is the right definition of a residual and of a held-out check.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a held step and its settling output</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,126.2 52,119.9 55.1,114.1 58.1,108.8 61.1,103.8 64.1,99.1 67.2,94.8 70.2,90.8 73.2,87.1 76.2,83.7 79.2,80.5 82.3,77.5 85.3,74.8 88.3,72.2 91.3,69.8 94.4,67.6 97.4,65.6 100.4,63.7 103.4,61.9 106.4,60.3 109.5,58.7 112.5,57.3 115.5,56 118.5,54.8 121.6,53.6 124.6,52.6 127.6,51.6 130.6,50.7 133.6,49.9 136.7,49.1 139.7,48.4 142.7,47.7 145.7,47 148.8,46.5 151.8,45.9 154.8,45.4 157.8,45 160.8,44.5 163.9,44.1 166.9,43.8 169.9,43.4 172.9,43.1 176,42.8 179,42.5 182,42.2 185,42 188,41.8 191.1,41.6 194.1,41.4 197.1,41.2 200.1,41 203.2,40.9 206.2,40.7 209.2,40.6 212.2,40.5 215.2,40.4 218.3,40.3 221.3,40.2 224.3,40.1 227.3,40 230.4,39.9 233.4,39.8 236.4,39.8 239.4,39.7 242.4,39.7 245.5,39.6 248.5,39.6 251.5,39.5 254.5,39.5 257.6,39.4 260.6,39.4 263.6,39.3 266.6,39.3 269.6,39.3 272.7,39.3 275.7,39.2 278.7,39.2 281.7,39.2 284.8,39.2 287.8,39.1 290.8,39.1 293.8,39.1 296.8,39.1 299.9,39.1 302.9,39.1 305.9,39.1 308.9,39 312,39 315,39 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A step in the input and an output that rises toward a constant.",
+      "steps": [
+        "The normal equation for a line through the origin is \\(\\theta \\sum u^2 = \\sum uy\\).",
+        "Here \\(\\sum u^2 = 1+9+25 = 35\\) and \\(\\sum uy = 3+21+45 = 69\\).",
+        "Therefore \\(\\theta = 35/69\\).",
+        "A residual is the measured \\(y\\) minus \\(\\theta u\\), and a held-out pair can still reject this \\(\\theta\\)."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The normal equation gives theta = (sum u y) / (sum u squared), the reciprocal of the fraction in that step.",
+        "The sums 35 and 69 are swapped, so the second step is the flawed one.",
+        "A residual is theta times u, so the last step is the flawed one."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "sys-id-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A least-squares fit can hide a bad model when",
+      "explanation": "The fit minimizes the residual on the records it sees. A small fitting residual only says the model matched those rows. A held-out record that the model misses is the warning. Extra rows are what make the problem overdetermined, which is the usual case. Linearity in the parameters is what lets least squares apply. It is not a failure.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a held step and its settling output</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,126.2 52,119.9 55.1,114.1 58.1,108.8 61.1,103.8 64.1,99.1 67.2,94.8 70.2,90.8 73.2,87.1 76.2,83.7 79.2,80.5 82.3,77.5 85.3,74.8 88.3,72.2 91.3,69.8 94.4,67.6 97.4,65.6 100.4,63.7 103.4,61.9 106.4,60.3 109.5,58.7 112.5,57.3 115.5,56 118.5,54.8 121.6,53.6 124.6,52.6 127.6,51.6 130.6,50.7 133.6,49.9 136.7,49.1 139.7,48.4 142.7,47.7 145.7,47 148.8,46.5 151.8,45.9 154.8,45.4 157.8,45 160.8,44.5 163.9,44.1 166.9,43.8 169.9,43.4 172.9,43.1 176,42.8 179,42.5 182,42.2 185,42 188,41.8 191.1,41.6 194.1,41.4 197.1,41.2 200.1,41 203.2,40.9 206.2,40.7 209.2,40.6 212.2,40.5 215.2,40.4 218.3,40.3 221.3,40.2 224.3,40.1 227.3,40 230.4,39.9 233.4,39.8 236.4,39.8 239.4,39.7 242.4,39.7 245.5,39.6 248.5,39.6 251.5,39.5 254.5,39.5 257.6,39.4 260.6,39.4 263.6,39.3 266.6,39.3 269.6,39.3 272.7,39.3 275.7,39.2 278.7,39.2 281.7,39.2 284.8,39.2 287.8,39.1 290.8,39.1 293.8,39.1 296.8,39.1 299.9,39.1 302.9,39.1 305.9,39.1 308.9,39 312,39 315,39 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A step in the input and an output that rises toward a constant.",
+      "options": [
+        "the residual on the fitting record is large and systematic",
+        "the residual on the fitting record is small, but a held-out record is large",
+        "the regressor matrix has more rows than columns",
+        "the parameters appear linearly"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "sys-id-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which of these experiments can identify the DC gain of a stable plant?",
+      "explanation": "A settled step ratio is the DC gain, and so is the low-frequency magnitude when the phase is near zero and the plant is stable. One sample of a pulse still contains the transient. A resonant peak is a mid-band feature, not the gain at \\(\\omega = 0\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a measured magnitude that rolls off</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 92.7,58.9 147.1,89 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude curve that is flat at low frequency and then falls.",
+      "options": [
+        "A step held until the output settles, using the ratio of the two changes",
+        "One sample taken during a short pulse, before anything has settled",
+        "The low-frequency magnitude of a measured frequency response, where the phase is near zero",
+        "The height of a resonant peak"
+      ],
+      "correct_indices": [
+        0,
+        2
+      ],
+      "version": 1
+    },
+    {
+      "id": "sys-id-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "A model with gain \\(2.5\\) predicts \\(10\\) for an input of \\(4\\). The measured output is \\(11.4\\). The residual is",
+      "explanation": "The residual is measured minus predicted, \\(11.4 - 10 = 1.4\\). The prediction 10 is not the residual. The input 4 is the regressor, not the error.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a held step and its settling output</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,126.2 52,119.9 55.1,114.1 58.1,108.8 61.1,103.8 64.1,99.1 67.2,94.8 70.2,90.8 73.2,87.1 76.2,83.7 79.2,80.5 82.3,77.5 85.3,74.8 88.3,72.2 91.3,69.8 94.4,67.6 97.4,65.6 100.4,63.7 103.4,61.9 106.4,60.3 109.5,58.7 112.5,57.3 115.5,56 118.5,54.8 121.6,53.6 124.6,52.6 127.6,51.6 130.6,50.7 133.6,49.9 136.7,49.1 139.7,48.4 142.7,47.7 145.7,47 148.8,46.5 151.8,45.9 154.8,45.4 157.8,45 160.8,44.5 163.9,44.1 166.9,43.8 169.9,43.4 172.9,43.1 176,42.8 179,42.5 182,42.2 185,42 188,41.8 191.1,41.6 194.1,41.4 197.1,41.2 200.1,41 203.2,40.9 206.2,40.7 209.2,40.6 212.2,40.5 215.2,40.4 218.3,40.3 221.3,40.2 224.3,40.1 227.3,40 230.4,39.9 233.4,39.8 236.4,39.8 239.4,39.7 242.4,39.7 245.5,39.6 248.5,39.6 251.5,39.5 254.5,39.5 257.6,39.4 260.6,39.4 263.6,39.3 266.6,39.3 269.6,39.3 272.7,39.3 275.7,39.2 278.7,39.2 281.7,39.2 284.8,39.2 287.8,39.1 290.8,39.1 293.8,39.1 296.8,39.1 299.9,39.1 302.9,39.1 305.9,39.1 308.9,39 312,39 315,39 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A step in the input and an output that rises toward a constant.",
+      "preview": [
+        "adaptive"
+      ],
+      "answer": 1.4,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "sys-id-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A step test that looks first-order can still be wrong because",
+      "explanation": "A pole that is much faster than the sample interval finishes inside the first step of the record. The gain you read is real, and the missing pole is not. Least squares can fit the gain. A settled record is exactly where the DC gain lives. The normal equations do not ask for a sine wave.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a held step and its settling output</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,126.2 52,119.9 55.1,114.1 58.1,108.8 61.1,103.8 64.1,99.1 67.2,94.8 70.2,90.8 73.2,87.1 76.2,83.7 79.2,80.5 82.3,77.5 85.3,74.8 88.3,72.2 91.3,69.8 94.4,67.6 97.4,65.6 100.4,63.7 103.4,61.9 106.4,60.3 109.5,58.7 112.5,57.3 115.5,56 118.5,54.8 121.6,53.6 124.6,52.6 127.6,51.6 130.6,50.7 133.6,49.9 136.7,49.1 139.7,48.4 142.7,47.7 145.7,47 148.8,46.5 151.8,45.9 154.8,45.4 157.8,45 160.8,44.5 163.9,44.1 166.9,43.8 169.9,43.4 172.9,43.1 176,42.8 179,42.5 182,42.2 185,42 188,41.8 191.1,41.6 194.1,41.4 197.1,41.2 200.1,41 203.2,40.9 206.2,40.7 209.2,40.6 212.2,40.5 215.2,40.4 218.3,40.3 221.3,40.2 224.3,40.1 227.3,40 230.4,39.9 233.4,39.8 236.4,39.8 239.4,39.7 242.4,39.7 245.5,39.6 248.5,39.6 251.5,39.5 254.5,39.5 257.6,39.4 260.6,39.4 263.6,39.3 266.6,39.3 269.6,39.3 272.7,39.3 275.7,39.2 278.7,39.2 281.7,39.2 284.8,39.2 287.8,39.1 290.8,39.1 293.8,39.1 296.8,39.1 299.9,39.1 302.9,39.1 305.9,39.1 308.9,39 312,39 315,39 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A step in the input and an output that rises toward a constant.",
+      "preview": [
+        "adaptive"
+      ],
+      "options": [
+        "least squares cannot fit a gain",
+        "a settled record has no DC gain",
+        "a fast pole can die before the samples you kept, so the record never shows it",
+        "the normal equations require the output to be a sinusoid"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "sys-id-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "An adaptive update, once you have a model that is linear in its parameters,",
+      "explanation": "Adaptation is the same linear-in-parameters model with the fit allowed to move. New rows of the regressor keep arriving, and the parameter estimate is updated instead of being frozen after one batch. The plant can be dynamic. The residual is more than its sign, and the regressor is the object the update multiplies.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a measured magnitude that rolls off</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 92.7,58.9 147.1,89 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude curve that is flat at low frequency and then falls.",
+      "preview": [
+        "adaptive"
+      ],
+      "options": [
+        "replaces the experiment with a single offline matrix inverse and then freezes the parameters",
+        "needs the plant to be a static gain",
+        "throws away the regressor and keeps only the residual sign",
+        "can keep revising those parameters as new input and output samples arrive"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}
