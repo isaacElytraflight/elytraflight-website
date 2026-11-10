@@ -1,0 +1,211 @@
+{
+  "skill_id": "induced-matrix-norms",
+  "version": 1,
+  "questions": [
+    {
+      "id": "induced-matrix-norms-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The matrix norm induced by a vector norm is",
+      "explanation": "The induced norm is the operator norm: the greatest stretch of a unit vector, which is also \\(\\sup_{x \\ne 0} \\lVert Ax \\rVert / \\lVert x \\rVert\\). Adding every absolute entry is not that maximum, and neither is a product of singular values. A diagonal entry is one stretch only when the matching basis vector is a maximizer.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>positive diagonal matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">4   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   7</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix with positive diagonal entries.",
+      "options": [
+        "the largest value of \\(\\lVert Ax \\rVert\\) on the vectors with \\(\\lVert x \\rVert = 1\\)",
+        "the sum of the absolute values of the entries",
+        "the product of the singular values",
+        "the largest diagonal entry"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "induced-matrix-norms-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "What is the induced 1-norm of \\(A = \\begin{bmatrix} 1 & -4 \\\\ 2 & 3 \\end{bmatrix}\\)?",
+      "explanation": "Absolute column sums are \\(\\lvert 1 \\rvert + \\lvert 2 \\rvert = 3\\) and \\(\\lvert -4 \\rvert + \\lvert 3 \\rvert = 7\\). The induced 1-norm is the larger one, 7. The row sums are both 5, so 5 is the infinity-norm. The trace 4 and the largest entry 4 are not column sums.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>2 by 2 matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   -4</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   3</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with first row 1, -4 and second row 2, 3.",
+      "answer": 7.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "induced-matrix-norms-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The infinity-norm induced by the vector infinity-norm equals",
+      "explanation": "Rows are what the infinity-norm inspects: add absolute entries across each row and keep the largest sum. Column sums define the induced 1-norm. The largest singular value is the induced 2-norm. The Frobenius norm uses squares of entries instead of a single row.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>2 by 2 matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   -4</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   3</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with first row 1, -4 and second row 2, 3.",
+      "options": [
+        "the maximum absolute column sum",
+        "the maximum absolute row sum",
+        "the Frobenius norm",
+        "the largest singular value"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "induced-matrix-norms-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order you would use to compute an induced 1-norm.",
+      "explanation": "The induced 1-norm is a maximum of column sums of absolute values, so the absolute values come first, the sums second, and the maximum third. Reporting a row sum instead computes the infinity-norm. Taking the maximum entry before summing misses every column that has two nonzero numbers. The matrix in the figure is only a picture of a 2 by 2 array; the steps do not depend on its particular entries.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>2 by 2 matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   -4</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   3</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with first row 1, -4 and second row 2, 3.",
+      "steps": [
+        "Replace every entry by its absolute value.",
+        "Add the absolute values down each column.",
+        "Keep the largest of those column sums.",
+        "Report that largest sum as the induced 1-norm."
+      ],
+      "version": 1
+    },
+    {
+      "id": "induced-matrix-norms-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "What is the induced infinity-norm of \\(A = \\begin{bmatrix} 1 & -4 \\\\ 2 & 3 \\end{bmatrix}\\)?",
+      "explanation": "Absolute row sums are \\(\\lvert 1 \\rvert + \\lvert -4 \\rvert = 5\\) and \\(\\lvert 2 \\rvert + \\lvert 3 \\rvert = 5\\). The induced infinity-norm is 5. The larger column sum is 7, which is the 1-norm of this same matrix. The largest entry is 4, and that entry is not a row sum.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>2 by 2 matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   -4</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   3</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with first row 1, -4 and second row 2, 3.",
+      "answer": 5.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "induced-matrix-norms-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "What is the induced 2-norm of \\(A = \\begin{bmatrix} 3 & 0 \\\\ 0 & -5 \\end{bmatrix}\\)?",
+      "explanation": "The singular values of a diagonal matrix are the absolute values of the diagonal entries, here 3 and 5. The induced 2-norm is the larger singular value, 5. The signed entry \\(-5\\) is not a norm. The sum \\(3+5 = 8\\) is the nuclear norm, and the square root of \\(9+25\\) is the Frobenius norm.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -5</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix with diagonal entries 3 and -5.",
+      "answer": 5.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "induced-matrix-norms-r3-q1",
+      "round": 3,
+      "type": "symbolic",
+      "prompt": "Let \\(a > 0\\). Write the induced 1-norm of \\(\\begin{bmatrix} a & -a \\\\ 2a & 0 \\end{bmatrix}\\) as an expression in the name a.",
+      "explanation": "With \\(a > 0\\), the absolute column sums are \\(\\lvert a \\rvert + \\lvert 2a \\rvert = 3a\\) and \\(\\lvert -a \\rvert + 0 = a\\). The induced 1-norm is the larger sum, \\(3a\\).\n• \\(2a\\) is the common absolute row sum, so it is the infinity-norm of this matrix.\n• \\(4a\\) adds every absolute entry and does not discard the smaller column.\n• \\(a\\) keeps the smaller column and misses the column that holds both \\(a\\) and \\(2a\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>matrix depending on a parameter</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   -a</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2a   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose entries are written in a parameter a.",
+      "answer": "3*a",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.25,
+          "max": 6.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "a+a+a",
+        "(6*a)/2",
+        "3*(a)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "induced-matrix-norms-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "What is the induced 2-norm of \\(A = \\begin{bmatrix} 0 & -6 \\\\ 0 & 0 \\end{bmatrix}\\)?",
+      "explanation": "\\(A^T A = \\mathrm{diag}(0, 36)\\), so the singular values are 0 and 6. The induced 2-norm is 6. The only nonzero entry already has absolute value 6, which happens to match, but the matching reason is the singular value, not the rule that a norm equals its largest entry. A column sum gives the same 6 here and is the 1-norm, a different definition.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>matrix with a single nonzero entry</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -6</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with a single nonzero entry.",
+      "answer": 6.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "induced-matrix-norms-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "For an induced matrix norm, which relation holds for every vector \\(x\\)?",
+      "explanation": "The induced norm is defined as the maximum of \\(\\lVert Ax \\rVert / \\lVert x \\rVert\\), so the inequality points that way: the stretch of one particular \\(x\\) cannot exceed the maximum. The reverse inequality would say every vector attains the maximum. Adding the two norms is not a product bound. A sum on the right is a different estimate and is not the operator-norm inequality.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested unit balls</title><line x1=\"28\" y1=\"112\" x2=\"256\" y2=\"112\"/><polygon points=\"256,112 249.6,114.7 249.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"200\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"24\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"72\" y=\"44\" width=\"136\" height=\"136\" stroke-dasharray=\"4 3\"/><circle cx=\"140\" cy=\"112\" r=\"68\"/><polygon points=\"208,112 140,44 72,112 140,180\"/><text x=\"158\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">inf</text><text x=\"162\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"156\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A diamond inside a disk inside a square, centered at the origin.",
+      "options": [
+        "\\(\\lVert Ax \\rVert \\ge \\lVert A \\rVert \\, \\lVert x \\rVert\\)",
+        "\\(\\lVert Ax \\rVert = \\lVert A \\rVert + \\lVert x \\rVert\\)",
+        "\\(\\lVert Ax \\rVert \\le \\lVert A \\rVert \\, \\lVert x \\rVert\\)",
+        "\\(\\lVert Ax \\rVert \\le \\lVert A \\rVert + \\lVert x \\rVert\\)"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "induced-matrix-norms-r4-q1",
+      "round": 4,
+      "type": "error",
+      "prompt": "One of these steps is false. Select that step, and the reason it fails. The matrix is \\(A = \\begin{bmatrix} 1 & 1 \\\\ 1 & 1 \\end{bmatrix}\\).",
+      "explanation": "The largest entry really is 1, and the last step only applies the rule stated just above it. The false step is the rule. The induced 2-norm is the largest singular value. Here \\(A\\) is symmetric with eigenvalues 2 and 0, because \\(A(1,1) = (2,2)\\), so the 2-norm is 2 rather than 1. A column-sum formula would compute the 1-norm, which is also 2 for this matrix, and it is not what the flawed step claimed. Singular values are nonnegative, so a sign correction is not the issue.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>matrix of ones</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   1</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with every entry equal to 1.",
+      "preview": [
+        "lipschitz-gradient"
+      ],
+      "steps": [
+        "Let \\(A\\) be the \\(2 \\times 2\\) matrix whose four entries are all 1.",
+        "The largest absolute entry of \\(A\\) is 1.",
+        "The induced 2-norm of a matrix equals its largest absolute entry.",
+        "Applying that rule to \\(A\\) produces the value 1."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The induced 2-norm is the largest singular value, which is 2 for this matrix, not the largest entry.",
+        "Column sums define the infinity-norm, so the step should have added across a row.",
+        "Singular values of a symmetric matrix are allowed to be negative, and that is the missing sign."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "induced-matrix-norms-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "For symmetric \\(A\\), the gradient of \\(\\tfrac12 x^T A x\\) is \\(Ax\\), and its Lipschitz constant is the induced 2-norm of \\(A\\). What is that constant when \\(A = \\mathrm{diag}(4, 7)\\)?",
+      "explanation": "The singular values are the absolute eigenvalues 4 and 7, so the induced 2-norm is 7. That is the Lipschitz constant. The other eigenvalue 4 is a stretch in a different direction, not the worst one. The trace 11 adds the eigenvalues, and the determinant 28 multiplies them.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>positive diagonal matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">4   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   7</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix with positive diagonal entries.",
+      "preview": [
+        "lipschitz-gradient"
+      ],
+      "answer": 7.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "induced-matrix-norms-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "When \\(A\\) is real and symmetric, the induced 2-norm equals",
+      "explanation": "A real symmetric matrix has singular values equal to the absolute values of its eigenvalues, and the induced 2-norm keeps the largest of those. A negative eigenvalue still contributes its absolute value: \\(\\mathrm{diag}(1,-6)\\) has 2-norm 6, not \\(-6\\) and not 1. The trace adds every eigenvalue, and the largest entry need not be an eigenvalue at all. This extreme stretch is the curvature bound a descent argument spends.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -5</text></svg>",
+      "figure_alt": "A diagonal 2 by 2 matrix with diagonal entries 3 and -5.",
+      "preview": [
+        "descent-lemma"
+      ],
+      "options": [
+        "the trace of \\(A\\)",
+        "the smallest eigenvalue, keeping its sign",
+        "the largest entry of \\(A\\)",
+        "the largest of \\(\\lvert \\lambda \\rvert\\) over the eigenvalues of \\(A\\)"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

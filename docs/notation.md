@@ -263,3 +263,13 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | \(R(x)\) | Rayleigh quotient \(x^T A x / x^T x\) | |
 | \(U, \Sigma, V\) | singular-value factors | \(A = U \Sigma V^T\) |
 | PSD, PD | positive semidefinite, positive definite | \(x^T A x \ge 0\), or \(> 0\) for every \(x \ne 0\) |
+| \(\lVert A \rVert\) | matrix norm induced by a vector norm | \(\max_{\lVert x \rVert = 1} \lVert Ax \rVert\) |
+| \(\lVert A \rVert_1\) | induced 1-norm | maximum absolute column sum |
+| \(\lVert A \rVert_\infty\) | induced infinity-norm | maximum absolute row sum |
+| \(\lVert A \rVert_2\) | induced 2-norm | largest singular value, \(\sigma_{\max}(A)\) |
+| \(\lVert A \rVert_F\) | Frobenius norm | \(\sqrt{\sum_{ij} a_{ij}^2} = \sqrt{\sum_i \sigma_i^2}\) |
+| \(\lVert A \rVert_{S_p}\) | Schatten \(p\)-norm | \((\sum_i \sigma_i^p)^{1/p}\); \(p=1\) nuclear, \(p=\infty\) spectral |
+| \(B(x, r)\) | open ball | \(\{y : \lVert y - x \rVert < r\}\) |
+| \(\overline{B}(x, r)\) | closed ball | the same inequality with \(\le\) |
+| \(\mathrm{lev}(f, a)\) | sublevel set | \(\{x : f(x) \le a\}\) |
+| \(\mathrm{con}(f, a)\) | contour set | \(\{x : f(x) = a\}\) |

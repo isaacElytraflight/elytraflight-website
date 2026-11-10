@@ -1,0 +1,29 @@
+{
+  "id": "convex-sets",
+  "title": "Convex sets",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>segment lying on a dashed line</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment lies on a longer dashed line.",
+      "body_md": "A set is convex when it contains the segment between any two of its points. If \\(x\\) and \\(y\\) are in the set and \\(t\\) is between 0 and 1, the combination \\((1-t)x + ty\\) has to be in the set. The endpoints themselves are the cases \\(t = 0\\) and \\(t = 1\\). Nothing in the definition requires the origin, a bound, or an open interior.\n\nThe sets that pass are the ones optimization uses constantly. Every ball of every norm is convex, open or closed. Every half-space is convex, open or closed. Every affine set is convex: subspaces, lines, and hyperplanes. An intersection of any family of convex sets is convex, so a set cut out by several linear inequalities is convex. A union is not safe. Two disks with a gap between them are each convex, and their union is not, because a bridge across the gap leaves both disks.\n\nA finite convex combination stays in a convex set as well. Weights that are nonnegative and sum to 1, on any number of points of the set, produce another point of the set. The two-point definition is the one to check; the finite version follows from it."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "\\(C\\) is convex when \\(x, y \\in C\\) and \\(t \\in [0, 1]\\) imply \\((1-t)x + ty \\in C\\). For a closed half-space,\n\\[\na^T\\bigl((1-t)x + ty\\bigr) = (1-t)\\, a^T x + t\\, a^T y \\le (1-t)b + tb = b.\n\\]\nFor a ball of a norm, the same combination satisfies the triangle inequality, so the ball is convex. If every set in a family is convex, the intersection is convex."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Consider the half-space \\(x_1 + 3 x_2 \\le 12\\). The point \\((6, 0)\\) gives left-hand side 6. The point \\((0, 4)\\) gives 12. Both points belong. Their midpoint is \\((3, 2)\\), and\n\\[\n3 + 3 \\cdot 2 = 9.\n\\]\nThe left-hand side is 9, which is still at most 12. The same 9 is the average of 6 and 12, because the constraint is linear: the value at a midpoint is the midpoint of the values. A point such as \\((6, 4)\\) gives \\(6 + 12 = 18\\), which is outside. The segment from \\((6, 0)\\) to \\((0, 4)\\) never reaches that outside point."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "A union of convex sets need not be convex. The argument that each piece contains its own segments forgets segments that jump from one piece to the other. A circle, the boundary of a disk, is not convex: the chord cuts through the interior. Requiring the origin is a different property, and an affine line that misses the origin is still convex. An intersection preserves convexity even when infinitely many sets are involved. A quadratic constraint can destroy it. The disk \\(x^2 + y^2 \\le 1\\) is convex, while the outside \\(x^2 + y^2 \\ge 1\\) is not."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "A polyhedron is an intersection of finitely many half-spaces, hence convex, and its extreme points are the vertices a simplex method uses. The domain of a convex function has to be a convex set, because the chord definition evaluates the function along segments. Over a convex feasible set, a local minimizer of a convex objective is global, and the proof moves along the segment from the local minimizer to any other feasible point."
+    }
+  ]
+}

@@ -2451,8 +2451,7 @@
    "prereqs": [
     "vector-norms-lp",
     "singular-value-decomposition"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "frobenius-schatten-norms",
@@ -2461,8 +2460,7 @@
    "prereqs": [
     "vector-norms-lp",
     "singular-value-decomposition"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "open-closed-sets",
@@ -2470,8 +2468,7 @@
    "summary": "Tell open and closed sets apart using balls, interior points, boundary, and closure.",
    "prereqs": [
     "vector-norms-lp"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "compact-sets",
@@ -2479,8 +2476,7 @@
    "summary": "Use compactness in R^n as closed and bounded, and recognize standard sets that fail it.",
    "prereqs": [
     "open-closed-sets"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "level-sets-contours",
@@ -2488,8 +2484,7 @@
    "summary": "Sketch sublevel sets and level curves of a simple function of several variables.",
    "prereqs": [
     "rn-important-subsets"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "convex-sets",
@@ -2498,8 +2493,7 @@
    "prereqs": [
     "rn-important-subsets",
     "vector-norms-lp"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "directional-derivative",
