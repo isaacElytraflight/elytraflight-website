@@ -38,6 +38,9 @@ def main():
             assert q["id"] not in seen_q, f"duplicate question id {q['id']}"
             seen_q.add(q["id"])
             assert q["type"] in ("mc", "numeric", "symbolic", "order", "error", "multi"), q["id"]
+            # The quiz in template.html grades mc and numeric. Other types are
+            # packed for a rebuild, and that quiz skips them instead of
+            # treating a missing numeric answer as the key.
             assert q["round"] in (1, 2, 3, 4), q["id"]
             if q["type"] == "mc":
                 assert len(q["options"]) >= 2 and 0 <= q["correct_index"] < len(q["options"]), q["id"]

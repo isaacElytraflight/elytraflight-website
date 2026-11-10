@@ -1523,7 +1523,9 @@ function prepareQ(q) {
     p.perm = perm; p.opts = perm.map(i => q.options[i]);
     if (q.type === 'mc') p.ci = perm.indexOf(q.correct_index);
   } else if (q.type === 'order') {
-    p.perm = shuffle(q.steps.map((_, i) => i));
+    const perm = shuffle(q.steps.map((_, i) => i));
+    if (perm.length > 1 && perm.every((orig, i) => orig === i)) [perm[0], perm[1]] = [perm[1], perm[0]];
+    p.perm = perm;
   } else if (q.type === 'error' && q.reasons && q.reasons.length) {
     p.reasonPerm = shuffle(q.reasons.map((_, i) => i));
     p.reason = null;
@@ -1710,7 +1712,7 @@ function renderQuiz() {
     if (!it.done) {
       const names = q.variables.map(v => v.name).join(', ');
       const ranges = q.variables.map(v => `${v.name} from ${v.min} to ${v.max}`).join('; ');
-      card.append(el('div', { class: 'kv', style: 'margin-top:8px', text: `Use ${names}. + − * / ^ and parentheses. Functions: sqrt, abs, exp, ln, log, sin, cos, tan. pi and e are constants, and log is the natural log. Checked at random points (${ranges}).` }));
+      card.append(el('div', { class: 'kv', style: 'margin-top:8px', text: `Use ${names}. + − * / ^ and parentheses. Functions: sqrt, abs, exp, ln, log, sin, cos, tan. pi and e are constants, log is the natural log, and 2e-3 is a number. Checked at random points (${ranges}).` }));
       setTimeout(() => inp.focus(), 0);
     }
   } else if (q.type === 'numeric') {

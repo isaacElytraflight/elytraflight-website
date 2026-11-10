@@ -221,6 +221,8 @@ def check_symbolic(qid, q):
                 continue
             if name in FUNCS:
                 err(qid, f"variable {name} is a function name")
+            if name in ("e", "E"):
+                err(qid, f"variable {name} is reserved for the constant e and for scientific notation")
             if name in names:
                 err(qid, f"duplicate variable {name}")
             names.append(name)

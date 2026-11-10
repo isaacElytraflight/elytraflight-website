@@ -5,6 +5,7 @@ Covers the safe expression parser, SymPy key checks, schema acceptance and
 rejection, and the deep-type quota with grandfathering.
 """
 import json
+import math
 import os
 import shutil
 import subprocess
@@ -17,7 +18,7 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, "tools", "skilltree-content"))
 
 from banklib import DEEP_TYPES, deep_quota  # noqa: E402
-from expr import ExprError, evaluate, grade, parse  # noqa: E402
+from expr import ExprError, Parser, evaluate, grade, parse, tokenize  # noqa: E402
 from validator_domain import deep_quota_warnings  # noqa: E402
 from verify_harness import check_symbolic  # noqa: E402
 
@@ -50,6 +51,7 @@ def test_parser():
         "sqrt(4)": 2,
         "abs(-3)": 3,
         "1e-3": 0.001,
+        "2e+1": 20,
     }
     env = {"x": 3}
     check("2x", evaluate(parse("2x", ["x"]), env) == 6)
@@ -70,23 +72,40 @@ def test_parser():
     check("grade equivalent", grade(KEY, "(l - t)*l + d", VARS, 1e-3) is True)
     check("grade wrong", grade(KEY, "l^2 + t*l + d", VARS, 1e-3) is False)
     check("grade invalid", grade(KEY, "sin(", VARS, 1e-3) is None)
+    check("2*e+1 is the constant", abs(evaluate(parse("2*e+1", ["x"]), env) - (2 * math.e + 1)) < 1e-9)
+    for bad_name in (["e"], ["E"]):
+        try:
+            parse("2*e+1", bad_name)
+        except ExprError:
+            check("reject variable " + bad_name[0], True)
+        else:
+            check("reject variable " + bad_name[0], False)
+    bound = evaluate(Parser(tokenize("2e+1", {"e"})).parse(), {"e": 2})
+    check("bound e is not scientific notation", bound == 5)
 
 
 def test_node_parity():
     script = r"""
 const e = require('./public/skilltree/expr.js');
-const cases = ['2+3*4','(2+3)*4','2^3^2','-2^2','2x','2x^2','sin(pi/2)','ln(e)','2(3+1)','(1+2)(3+4)','sqrt(4)','abs(-3)','1e-3'];
+const cases = ['2+3*4','(2+3)*4','2^3^2','-2^2','2x','2x^2','sin(pi/2)','ln(e)','2(3+1)','(1+2)(3+4)','sqrt(4)','abs(-3)','1e-3','2e+1','2*e+1'];
 const out = {};
 for (const src of cases) {
   const names = src.includes('x') ? ['x'] : [];
   out[src] = e.evaluate(e.parse(src, names), {x: 3});
 }
+let rejected = false;
+try { e.parse('2*e+1', ['e']); } catch (err) { rejected = /reserved/.test(err.message); }
+const toks = e.tokenize('2e+1', new Set(['e']));
+out.__rejected = rejected;
+out.__bound = toks.map(t => (t[0] === 'num' || t[0] === 'name') ? t[1] : t[0]);
 process.stdout.write(JSON.stringify(out));
 """
     proc = subprocess.run(["node", "-e", script], cwd=ROOT, text=True, capture_output=True)
     if proc.returncode != 0:
         raise SystemExit(proc.stderr)
     got = json.loads(proc.stdout)
+    check("js rejects variable e", got.pop("__rejected") is True)
+    check("js bound e is not scientific notation", got.pop("__bound") == [2, "e", "+", 1])
     for src, js in got.items():
         names = ["x"] if "x" in src else []
         py = evaluate(parse(src, names), {"x": 3})
@@ -223,6 +242,11 @@ def test_schema():
     broken["answer"] = "l^2 + t*l + z"
     code, text = run_schema(bank_with("fixture", broken, (3, 2)))
     check("schema bad symbol", code != 0 and "unknown name" in text)
+    reserved = dict(symbolic)
+    reserved["answer"] = "2*e+1"
+    reserved["variables"] = [{"name": "e", "min": 1, "max": 3}]
+    code, text = run_schema(bank_with("fixture", reserved, (3, 2)))
+    check("schema rejects variable e", code != 0 and "reserved" in text)
     code, text = run_schema(bank_with("fixture", {"type": "mc", "prompt": "x", "explanation": "y" * 70, "options": ["a"], "correct_index": 0}))
     check("schema still rejects short mc", code != 0)
 

@@ -58,7 +58,7 @@ description: >-
 - Types, all auto-graded. Each one is simply correct or incorrect. Mastery thresholds do not change.
   - **Multiple choice:** 4 options, balanced positions, real-mistake distractors.
   - **Numeric:** non-zero answer, unit, relative tolerance (usually 1–3%).
-  - **Symbolic:** the learner types an expression in the declared variables. The app grades it by evaluating that expression and the key at several random points inside the declared ranges, within a relative tolerance. The parser does not use eval. List equivalent forms in `alternates`. The verifier checks the key and those forms with SymPy.
+  - **Symbolic:** the learner types an expression in the declared variables. The app grades it by evaluating that expression and the key at several random points inside the declared ranges, within a relative tolerance. The parser does not use eval. List equivalent forms in `alternates`. The verifier checks the key and those forms with SymPy. Variable names cannot be `e`, `E`, or a function name. `e` is the constant, and `2e-3` is scientific notation.
   - **Ordering:** shuffled steps of a derivation or procedure. The learner restores the correct order. All-or-nothing.
   - **Find-the-error:** a short derivation with exactly one flawed step. The learner picks that step, and a reason when reasons are given. All-or-nothing.
   - **Multi-select:** choose every correct option. All-or-nothing.

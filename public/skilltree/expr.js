@@ -26,7 +26,11 @@
   }
   ExprError.prototype = Object.create(Error.prototype);
 
-  function tokenize(src) {
+  function tokenize(src, bound) {
+    // e and E are not variables. 2e-3 is always a number. If a caller binds
+    // one of those names anyway, that letter is not an exponent, so 2e+1
+    // is 2*e+1 rather than 20.
+    const boundNames = bound || new Set();
     const toks = [];
     let i = 0;
     const n = src.length;
@@ -49,7 +53,7 @@
             while (i < n && /[0-9]/.test(src[i])) i++;
           }
         }
-        if (src[i] === 'e' || src[i] === 'E') {
+        if ((src[i] === 'e' || src[i] === 'E') && !boundNames.has(src[i])) {
           let k = i + 1;
           if (src[k] === '+' || src[k] === '-') k++;
           if (/[0-9]/.test(src[k] || '')) {
@@ -170,7 +174,8 @@
     const allowed = new Set(variables);
     const reserved = [...allowed].filter(name => Object.prototype.hasOwnProperty.call(FUNCS, name)).sort();
     if (reserved.length) throw new ExprError('function name used as a variable: ' + reserved.join(', '));
-    const ast = new Parser(tokenize(text)).parse();
+    if (allowed.has('e') || allowed.has('E')) throw new ExprError('e and E are reserved for the constant e and for scientific notation');
+    const ast = new Parser(tokenize(text, allowed)).parse();
     const unknown = [...freeNames(ast)].filter(name => !allowed.has(name) && !Object.prototype.hasOwnProperty.call(CONSTS, name)).sort();
     if (unknown.length) throw new ExprError('unknown name ' + unknown.join(', '));
     return ast;
@@ -237,5 +242,5 @@
     return { ok: hits >= samples, invalid: false };
   }
 
-  return { parse, evaluate, grade, freeNames, ExprError, FUNCS: Object.keys(FUNCS), CONSTS: Object.keys(CONSTS) };
+  return { parse, evaluate, grade, tokenize, freeNames, ExprError, FUNCS: Object.keys(FUNCS), CONSTS: Object.keys(CONSTS) };
 });

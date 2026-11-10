@@ -27,7 +27,13 @@ class ExprError(Exception):
     pass
 
 
-def tokenize(src):
+def tokenize(src, bound=()):
+    """bound is the set of declared variable names.
+
+    e and E are rejected as variables. If one is passed anyway, scientific
+    notation does not consume that letter, so 2e+1 is 2*e+1 rather than 20.
+    """
+    bound = set(bound)
     toks = []
     i = 0
     n = len(src)
@@ -65,7 +71,9 @@ def tokenize(src):
                     j += 1
                     while j < n and src[j].isdigit():
                         j += 1
-            if j < n and src[j] in "eE":
+            # 2e-3 is a number. e and E are not variables, so this never
+            # swallows a name: 2*e+1 is the constant, and 2e+1 is 20.
+            if j < n and src[j] in "eE" and src[j] not in bound:
                 k = j + 1
                 if k < n and src[k] in "+-":
                     k += 1
@@ -209,7 +217,10 @@ def parse(src, variables):
     reserved = sorted(name for name in allowed if name in FUNCS)
     if reserved:
         raise ExprError("function name used as a variable: " + ", ".join(reserved))
-    ast = Parser(tokenize(text)).parse()
+    collided = sorted(name for name in allowed if name in ("e", "E"))
+    if collided:
+        raise ExprError("e and E are reserved for the constant e and for scientific notation")
+    ast = Parser(tokenize(text, allowed)).parse()
     unknown = sorted(name for name in free_names(ast) if name not in allowed and name not in CONSTS)
     if unknown:
         raise ExprError("unknown name " + ", ".join(unknown))
