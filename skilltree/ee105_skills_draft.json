@@ -1609,7 +1609,6 @@
     "loop-tf",
     "lti-stability"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1649,7 +1648,6 @@
    "prereqs": [
     "freq-resp-lti"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1736,7 +1734,6 @@
     "uncertainty",
     "stability"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1816,7 +1813,6 @@
     "perf-specs-freq",
     "loop-margin-design"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1858,7 +1854,6 @@
     "realization",
     "lin-algebra-review"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1940,7 +1935,6 @@
     "realization",
     "lin-algebra-review"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -2082,7 +2076,6 @@
     "equilibria",
     "lti-stability"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -2164,7 +2157,6 @@
     "first-order-sys",
     "freq-resp-lti"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",

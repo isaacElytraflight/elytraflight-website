@@ -1,0 +1,222 @@
+{
+  "skill_id": "reachability",
+  "version": 1,
+  "questions": [
+    {
+      "id": "reachability-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A pair \\((A, B)\\) is reachable when",
+      "explanation": "Reachability is an input property: the columns \\(B, AB, \\ldots, A^{n-1}B\\) have to span the whole state space. Stability is a different test. Observability is the output test. A square \\(B\\) is neither necessary nor sufficient.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two input directions</title><line x1=\"46\" y1=\"127.6\" x2=\"250\" y2=\"127.6\"/><polygon points=\"250,127.6 243.6,130.3 243.6,124.9\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"141.6\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"127.6\" x2=\"92\" y2=\"42.3\"/><polygon points=\"92,42.3 92.3,49.3 87.2,47.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"60.1\" y1=\"127.6\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.1,163.1 230.1,157.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"175.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">AB</text></svg>",
+      "figure_alt": "Two arrows from the origin pointing in different directions.",
+      "options": [
+        "some input steers any state to any other state in finite time",
+        "every eigenvalue of \\(A\\) is stable",
+        "the output record determines the initial state",
+        "\\(B\\) is square"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "reachability-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "For \\(A = \\begin{bmatrix} 0 & 1 \\\\ -2 & -5 \\end{bmatrix}\\) and \\(B = \\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}\\), the absolute value of \\(\\det\\begin{bmatrix} B & AB \\end{bmatrix}\\) is",
+      "explanation": "\\(AB = \\begin{bmatrix} 1 \\\\ -5 \\end{bmatrix}\\), so the matrix is \\(\\begin{bmatrix} 0 & 1 \\\\ 1 & -5 \\end{bmatrix}\\) and the determinant is \\(-1\\). The absolute value is 1. A value of 0 would mean the columns are dependent. The trace of \\(A\\), \\(-5\\), is not this determinant.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a 2 by 2 controllability matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   -5</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with first row 0, 1 and second row 1, -5.",
+      "answer": 1.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "reachability-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "For \\(A = \\mathrm{diag}(-1, -3)\\) and \\(B = \\begin{bmatrix} 2 \\\\ 0 \\end{bmatrix}\\), the rank of \\(\\begin{bmatrix} B & AB \\end{bmatrix}\\) is",
+      "explanation": "\\(AB = \\begin{bmatrix} -2 \\\\ 0 \\end{bmatrix}\\), a multiple of \\(B\\). The second row is zero, so the rank is 1. The second mode is never driven. Rank 2 would need a nonzero entry in that mode. Rank 0 would need \\(B = 0\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a controllability matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   -2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
+      "answer": 1.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "reachability-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "Let \\(A = \\begin{bmatrix} 0 & a \\\\ 0 & 0 \\end{bmatrix}\\) and \\(B = \\begin{bmatrix} 0 \\\\ b \\end{bmatrix}\\). Write \\(\\det\\begin{bmatrix} B & AB \\end{bmatrix}\\) in the names a and b.",
+      "explanation": "\\(AB = \\begin{bmatrix} a b \\\\ 0 \\end{bmatrix}\\), so the determinant is \\(-a b^2\\). The sign flip \\(a b^2\\) is the other order of the columns. The product \\(ab\\) drops a factor of \\(b\\) and is not the determinant.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a 2 by 2 controllability matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   -5</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with first row 0, 1 and second row 1, -5.",
+      "answer": "-a*b^2",
+      "variables": [
+        {
+          "name": "a",
+          "min": -3.0,
+          "max": 3.0
+        },
+        {
+          "name": "b",
+          "min": 0.4,
+          "max": 3.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "-a*b*b",
+        "-(a*b^2)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "reachability-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "\\(A = \\mathrm{diag}(-2,-3,-4)\\) and \\(B\\) is the column \\((1, 0, 1)\\). How many states are unreachable?",
+      "explanation": "The columns are \\((1,0,1)\\), \\((-2,0,-4)\\), and \\((4,0,16)\\). The middle entry is always 0, and the first and third columns are independent, so the rank is 2. One state is unreachable. Reporting 3 treats the zero column-entry as a total loss. Reporting 0 treats a nonzero \\(B\\) as a full test.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a controllability matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   -2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
+      "answer": 1.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "reachability-r2-q3",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order you would use to test reachability.",
+      "explanation": "The columns are the directions the input can produce in one, two, and further steps. Side by side, they are the controllability matrix. The rank counts independent directions. Full rank is the test. Stopping at a nonzero \\(B\\) misses a mode that \\(B\\) never touches.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two input directions</title><line x1=\"46\" y1=\"127.6\" x2=\"250\" y2=\"127.6\"/><polygon points=\"250,127.6 243.6,130.3 243.6,124.9\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"141.6\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"127.6\" x2=\"92\" y2=\"42.3\"/><polygon points=\"92,42.3 92.3,49.3 87.2,47.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"60.1\" y1=\"127.6\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.1,163.1 230.1,157.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"175.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">AB</text></svg>",
+      "figure_alt": "Two arrows from the origin pointing in different directions.",
+      "steps": [
+        "Form the columns B, AB, and so on up to A to the n-1 times B.",
+        "Place those columns side by side in one matrix.",
+        "Compute the rank of that matrix.",
+        "Call the pair reachable only when the rank equals the number of states."
+      ],
+      "version": 1
+    },
+    {
+      "id": "reachability-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note treats \\(\\begin{bmatrix} 1 & 2 \\\\ 2 & 4 \\end{bmatrix}\\) as a controllability matrix. One step is wrong.",
+      "explanation": "A repeated column does not add a direction. The rank is 1, not 2, so one state cannot be steered. The dependence is real, the rank count in the second step is right, and the last step is why the shortage matters for pole placement.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a controllability matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   -2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
+      "steps": [
+        "The second column is twice the first, so the columns are dependent.",
+        "Dependent columns mean the rank is 1 for this two-column matrix.",
+        "Dependent columns mean the rank is 2, so the pair is reachable.",
+        "State feedback can move every eigenvalue only when the rank equals the number of states."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "Dependent columns leave the rank short of n, so the pair is not reachable.",
+        "A repeated column raises the rank, so the third step is correct.",
+        "Reachability does not care about rank once B is nonzero."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "reachability-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "After a coordinate change \\(z = T^{-1} x\\) with \\(T\\) invertible, reachability",
+      "explanation": "The new columns are \\(T^{-1} B\\), \\(T^{-1} AB\\), and so on, which is \\(T^{-1}\\) times the old matrix. An invertible factor preserves rank. It cannot create a direction that was missing, it does not move eigenvalues, and the rank test is not restricted to one coordinate system.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two input directions</title><line x1=\"46\" y1=\"127.6\" x2=\"250\" y2=\"127.6\"/><polygon points=\"250,127.6 243.6,130.3 243.6,124.9\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"141.6\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"127.6\" x2=\"92\" y2=\"42.3\"/><polygon points=\"92,42.3 92.3,49.3 87.2,47.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"60.1\" y1=\"127.6\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.1,163.1 230.1,157.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"175.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">AB</text></svg>",
+      "figure_alt": "Two arrows from the origin pointing in different directions.",
+      "options": [
+        "can appear even though the original pair was unreachable",
+        "is unchanged, because the new controllability matrix is \\(T^{-1}\\) times the old one",
+        "requires the eigenvalues of \\(A\\) to move",
+        "holds only in controllable canonical form"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "reachability-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which of these pairs are reachable?",
+      "explanation": "A diagonal pair is reachable only when \\(B\\) has a nonzero entry in every mode. The column \\((1,0)\\) misses the second mode, and \\((1,1)\\) hits both. The companion pair with \\(B\\) at the bottom is the controllable form, and its controllability matrix has determinant \\(-1\\). Driving only the position equation of a double integrator gives \\(AB = 0\\), so the rank is 1.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two input directions</title><line x1=\"46\" y1=\"127.6\" x2=\"250\" y2=\"127.6\"/><polygon points=\"250,127.6 243.6,130.3 243.6,124.9\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"141.6\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"127.6\" x2=\"92\" y2=\"42.3\"/><polygon points=\"92,42.3 92.3,49.3 87.2,47.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"60.1\" y1=\"127.6\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.1,163.1 230.1,157.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"175.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">AB</text></svg>",
+      "figure_alt": "Two arrows from the origin pointing in different directions.",
+      "options": [
+        "\\(A = \\mathrm{diag}(-1,-4)\\), \\(B = \\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix}\\)",
+        "\\(A = \\begin{bmatrix} 0 & 1 \\\\ -2 & -3 \\end{bmatrix}\\), \\(B = \\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}\\)",
+        "\\(A = \\mathrm{diag}(-1,-4)\\), \\(B = \\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix}\\)",
+        "\\(A = \\begin{bmatrix} 0 & 1 \\\\ 0 & 0 \\end{bmatrix}\\), \\(B = \\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix}\\)"
+      ],
+      "correct_indices": [
+        1,
+        2
+      ],
+      "version": 1
+    },
+    {
+      "id": "reachability-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "A mass has \\(A = \\begin{bmatrix} 0 & 1 \\\\ 0 & -0.4 \\end{bmatrix}\\) and \\(B = \\begin{bmatrix} 0 \\\\ 2.5 \\end{bmatrix}\\). The absolute value of \\(\\det\\begin{bmatrix} B & AB \\end{bmatrix}\\) is",
+      "explanation": "\\(AB = \\begin{bmatrix} 2.5 \\\\ -1 \\end{bmatrix}\\). The determinant is \\(-2.5 \\cdot 2.5 = -6.25\\), absolute value 6.25. A zero determinant would say the force cannot produce both position and velocity. Using only the 2.5 entry of \\(B\\) ignores \\(AB\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a 2 by 2 controllability matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   -5</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with first row 0, 1 and second row 1, -5.",
+      "preview": [
+        "state-feedback"
+      ],
+      "answer": 6.25,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "reachability-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "An unreachable mode, under any state feedback \\(u = -Kx\\),",
+      "explanation": "State feedback changes \\(A\\) only in the directions \\(B\\) can see. An unreachable eigenvalue is not among them, so it stays put. The desired polynomial cannot include a move you have no actuator for. The mode does not become observable, because observability is about \\(C\\), and \\(K\\) does not delete the row of \\(A\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a controllability matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   -2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
+      "preview": [
+        "state-feedback"
+      ],
+      "options": [
+        "moves to whatever eigenvalue you write into the desired polynomial",
+        "becomes observable",
+        "stays at its open-loop eigenvalue",
+        "is removed from \\(A\\) by the gain"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "reachability-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A transfer-function pole that was cancelled, then kept anyway as an extra state,",
+      "explanation": "Cancellation means that state does not appear in the input-output map. It is hidden from the input, from the output, or from both. Keeping it makes a non-minimal realization. It does not raise the controllability rank, and deleting it does not change the DC gain of the transfer function that remains.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a pole and a zero on top of each other</title><line x1=\"20\" y1=\"90\" x2=\"48\" y2=\"90\"/><line x1=\"76\" y1=\"90\" x2=\"114\" y2=\"90\"/><line x1=\"142\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"85\" x2=\"133\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"95\" x2=\"133\" y2=\"85\" stroke-width=\"1.8\"/><line x1=\"57\" y1=\"85\" x2=\"67\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"57\" y1=\"95\" x2=\"67\" y2=\"85\" stroke-width=\"1.8\"/><circle cx=\"62\" cy=\"90\" r=\"5\"/></svg>",
+      "figure_alt": "A cross and a circle at the same place on the negative real axis, plus another cross.",
+      "preview": [
+        "state-feedback"
+      ],
+      "options": [
+        "is always reachable from \\(B\\)",
+        "raises the rank of every controllability matrix to the unreduced degree",
+        "changes the DC gain",
+        "is unreachable or unobservable, so the realization is not minimal"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

@@ -273,3 +273,81 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | \(\overline{B}(x, r)\) | closed ball | the same inequality with \(\le\) |
 | \(\mathrm{lev}(f, a)\) | sublevel set | \(\{x : f(x) \le a\}\) |
 | \(\mathrm{con}(f, a)\) | contour set | \(\{x : f(x) = a\}\) |
+
+## loop-shaping
+
+Added in B6 for `loop-shaping`. \(L\) is the loop transfer from the loop-transfer-function area. \(\alpha\) here is not a plant pole.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| lead | zero closer to the origin than the pole, both in the open left half-plane | phase is positive between the corners |
+| lag | pole closer to the origin than the zero | high-frequency gain drops |
+| \(\alpha\) | lead ratio, pole magnitude over zero magnitude, \(\alpha > 1\) | |
+| \(\phi_m\) | peak lead, \(\arcsin((\alpha-1)/(\alpha+1))\) | at \(\omega_m = \sqrt{\|z\|\,\|p\|}\) |
+
+## lyapunov
+
+Added in B6 for `lyapunov`. \(P\) here is the certificate matrix, not the plant. \(Q\) is a chosen positive definite matrix, not a weight in a later regulator.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(V(x)\) | Lyapunov function, positive definite, with \(V(0) = 0\) | |
+| \(\dot{V}\) | derivative of \(V\) along the differential equation | negative definite for asymptotic stability |
+| \(A^T P + PA = -Q\) | Lyapunov equation for \(\dot{x} = Ax\) | \(P \succ 0\) and \(Q \succ 0\) certify asymptotic stability |
+
+## reachability
+
+Added in B6 for `reachability`. The same \([B\ AB\ \cdots]\) test is the controllability test for these continuous-time models.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(\mathcal{C}\) | controllability matrix \([B\ AB\ \cdots\ A^{n-1}B]\) | reachability matrix |
+| reachable | \(\mathrm{rank}\,\mathcal{C} = n\) | controllable |
+
+## observability
+
+Added in B6 for `observability`. Dual of reachability: \((A, C)\) is observable exactly when \((A^T, C^T)\) is reachable.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(\mathcal{O}\) | observability matrix with rows \(C, CA, \ldots, CA^{n-1}\) | |
+| observable | \(\mathrm{rank}\,\mathcal{O} = n\) | |
+
+## robust-stability
+
+Added in B6 for `robust-stability`. \(W_m\), \(P_0\), and \(\Delta\) stay as in the uncertainty area. \(T = L/(1+L)\).
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(\|T W_m\|_\infty < 1\) | sufficient robust stability for \(P = P_0(1 + W_m \Delta)\) with \(\|\Delta\|_\infty \le 1\), nominal loop stable | small-gain test on the complementary sensitivity |
+
+## root-locus
+
+Added in B6 for `root-locus`. Positive gain means \(1 + K G(s) = 0\) with \(K \ge 0\).
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(n - m\) | excess of poles over zeros | number of asymptotes |
+| centroid | \((\sum p - \sum z)/(n-m)\) | |
+| asymptote angles | \((2q+1)180^\circ/(n-m)\) for \(K > 0\) | even multiples of \(180^\circ/(n-m)\) are the negative-gain locus |
+| real-axis rule | a real test point is on the positive-gain locus when an odd number of real poles and zeros lie to its right | |
+
+## sys-id
+
+Added in B6 for `sys-id`. The data matrix is \(\Phi\), not the state matrix \(A\). The optimization area's least-squares \(A\) is a different object.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(K, \tau\) | DC gain and time constant of a first-order fit | read from a held step only after the record settles |
+| \(\theta\) | parameter vector in a model that is linear in \(\theta\) | |
+| \(\Phi\) | regressor matrix, one row per record | normal equations \(\Phi^T \Phi \theta = \Phi^T y\) |
+
+## time-delay
+
+Added in B6 for `time-delay`. \(T_d\) is a pure delay. The discrete-time area uses \(T\) for the sample period, and the feedback-loop area uses \(d\) for a disturbance. Do not reuse those letters for the delay.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(e^{-s T_d}\) | transfer function of a delay of \(T_d\) seconds | magnitude 1, phase \(-\omega T_d\) radians |
+| Padé, first order | \((1 - s T_d/2)/(1 + s T_d/2)\) | right-half-plane zero at \(2/T_d\), pole at \(-2/T_d\) |
+| delay margin | \(\mathrm{PM}/\omega_c\) with the margin in radians | seconds of delay until the phase margin is spent |

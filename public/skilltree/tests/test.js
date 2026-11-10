@@ -1411,7 +1411,7 @@ async function test(name, fn) {
       const fullIds = used(full);
       const meIds = used(me);
       const bookIds = used(book);
-      const soon = 'loop-shaping';
+      const soon = 'fund-limits';
       return {
         readySoon: ready.filter(id => !playable.has(id)),
         fullSoon: fullIds.filter(id => !playable.has(id)),
@@ -1439,17 +1439,17 @@ async function test(name, fn) {
     assert.strictEqual(result.meHasSoon, false);
     assert.strictEqual(result.readyHasSoon, false);
     assert.strictEqual(result.queueHasSoon, false, 'the recommender queue stays on playable skills');
-    assert.deepStrictEqual(result.meExtras, [], 'every playable prerequisite of an ME 132 skill sits inside ME 132: ' + result.meExtras.join(','));
+    assert.deepStrictEqual(result.meExtras, ['lin-algebra-review'], 'the only playable prerequisite of an ME 132 skill that stays outside the course box is lin-algebra-review: ' + result.meExtras.join(','));
 
-    await openSkill(p, 'loop-shaping');
+    await openSkill(p, 'fund-limits');
     const panel = await p.evaluate(() => ({
       text: document.getElementById('panel').textContent,
-      label: document.querySelector('#world .tile[data-id="loop-shaping"]').getAttribute('aria-label'),
-      title: document.querySelector('#world .tile[data-id="loop-shaping"]').title,
-      soon: document.querySelector('#world .tile[data-id="loop-shaping"]').classList.contains('soon'),
+      label: document.querySelector('#world .tile[data-id="fund-limits"]').getAttribute('aria-label'),
+      title: document.querySelector('#world .tile[data-id="fund-limits"]').title,
+      soon: document.querySelector('#world .tile[data-id="fund-limits"]').classList.contains('soon'),
       start: !!document.getElementById('startBtn')
     }));
-    assert(panel.soon, 'loop-shaping should use the coming-soon tile style');
+    assert(panel.soon, 'fund-limits should use the coming-soon tile style');
     assert(/Coming soon/.test(panel.text));
     assert(/coming soon/.test(panel.title));
     assert(/Coming soon, no questions yet/.test(panel.label));
@@ -1560,7 +1560,7 @@ async function test(name, fn) {
         tiles: ids.length,
         dupes,
         toggles: document.querySelectorAll('#world .toggle, #regions .toggle').length,
-        soon: document.querySelector('#world .tile[data-id="loop-shaping"] .tag').textContent
+        soon: document.querySelector('#world .tile[data-id="fund-limits"] .tag').textContent
       };
     });
     assert.strictEqual(tree.tiles, NSKILL);

@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-10T20:22:34.066374Z",
+  "generated": "2026-11-10T21:15:00.686249Z",
   "skills": {
-    "file": "skills.38373f8b.json",
-    "hash": "38373f8b"
+    "file": "skills.3e523044.json",
+    "hash": "3e523044"
   },
   "collections": {
     "file": "collections.4ee0faec.json",
@@ -1115,6 +1115,18 @@
       "hash": "582bb8fa",
       "file": "banks/loop-margin-design.582bb8fa.json"
     },
+    "loop-shaping": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "16af6431",
+      "file": "banks/loop-shaping.16af6431.json"
+    },
     "loop-tf": {
       "version": 1,
       "questionCount": 12,
@@ -1174,6 +1186,18 @@
       },
       "hash": "5c11b347",
       "file": "banks/lti-stability.5c11b347.json"
+    },
+    "lyapunov": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "cdbf7c0c",
+      "file": "banks/lyapunov.cdbf7c0c.json"
     },
     "miller": {
       "version": 1,
@@ -1378,6 +1402,18 @@
       },
       "hash": "25502bad",
       "file": "banks/nyquist.25502bad.json"
+    },
+    "observability": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "cabfd146",
+      "file": "banks/observability.cabfd146.json"
     },
     "octc": {
       "version": 2,
@@ -1595,6 +1631,18 @@
       "hash": "b272765f",
       "file": "banks/rc-lpf.b272765f.json"
     },
+    "reachability": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ab10d040",
+      "file": "banks/reachability.ab10d040.json"
+    },
     "realization": {
       "version": 1,
       "questionCount": 12,
@@ -1666,6 +1714,30 @@
       },
       "hash": "40e16726",
       "file": "banks/ro.40e16726.json"
+    },
+    "robust-stability": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "17a613bb",
+      "file": "banks/robust-stability.17a613bb.json"
+    },
+    "root-locus": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "777bab46",
+      "file": "banks/root-locus.777bab46.json"
     },
     "second-order-sys": {
       "version": 1,
@@ -1871,6 +1943,18 @@
       "hash": "6fe3095f",
       "file": "banks/step-specs.6fe3095f.json"
     },
+    "sys-id": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "59a45fdc",
+      "file": "banks/sys-id.59a45fdc.json"
+    },
     "tf": {
       "version": 3,
       "questionCount": 12,
@@ -1882,6 +1966,18 @@
       },
       "hash": "b4f1f843",
       "file": "banks/tf.b4f1f843.json"
+    },
+    "time-delay": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "e4b333b2",
+      "file": "banks/time-delay.e4b333b2.json"
     },
     "total-current": {
       "version": 1,
@@ -2451,6 +2547,12 @@
       "file": "explainers/loop-margin-design.300275d9.json",
       "sectionCount": 5
     },
+    "loop-shaping": {
+      "hash": "2de7e211",
+      "file": "explainers/loop-shaping.2de7e211.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "loop-tf": {
       "hash": "1cfc30db",
       "file": "explainers/loop-tf.1cfc30db.json",
@@ -2475,6 +2577,12 @@
     "lti-stability": {
       "hash": "8c0abff2",
       "file": "explainers/lti-stability.8c0abff2.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "lyapunov": {
+      "hash": "8b3cde31",
+      "file": "explainers/lyapunov.8b3cde31.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -2563,6 +2671,12 @@
     "nyquist": {
       "hash": "79c90f67",
       "file": "explainers/nyquist.79c90f67.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "observability": {
+      "hash": "37c1937b",
+      "file": "explainers/observability.37c1937b.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -2665,6 +2779,12 @@
       "file": "explainers/rc-lpf.3ec1f979.json",
       "sectionCount": 5
     },
+    "reachability": {
+      "hash": "fae8a99d",
+      "file": "explainers/reachability.fae8a99d.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "realization": {
       "hash": "39928414",
       "file": "explainers/realization.39928414.json",
@@ -2696,6 +2816,18 @@
       "hash": "d4271073",
       "file": "explainers/ro.d4271073.json",
       "sectionCount": 5
+    },
+    "robust-stability": {
+      "hash": "e8dbe76a",
+      "file": "explainers/robust-stability.e8dbe76a.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "root-locus": {
+      "hash": "dbf278c4",
+      "file": "explainers/root-locus.dbf278c4.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "second-order-sys": {
       "hash": "9f11ec3e",
@@ -2790,10 +2922,22 @@
       "sectionCount": 5,
       "version": 1
     },
+    "sys-id": {
+      "hash": "37849702",
+      "file": "explainers/sys-id.37849702.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "tf": {
       "hash": "a4b8b86c",
       "file": "explainers/tf.a4b8b86c.json",
       "sectionCount": 5
+    },
+    "time-delay": {
+      "hash": "5fd7bc04",
+      "file": "explainers/time-delay.5fd7bc04.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "total-current": {
       "hash": "efca8743",
