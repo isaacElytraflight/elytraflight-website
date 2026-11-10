@@ -134,6 +134,10 @@ Box: Nonlinear Optimization (nlo-tugraz).
 
 Skills: `induced-matrix-norms`, `frobenius-schatten-norms`, `open-closed-sets`, `compact-sets`, `level-sets-contours`, `convex-sets`.
 
-Every item is version 1.
+Items above version 1:
+
+- `frobenius-schatten-norms#explainer` version 2
+- `open-closed-sets-r2-q3` version 2
+- `level-sets-contours-r4-q2` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.

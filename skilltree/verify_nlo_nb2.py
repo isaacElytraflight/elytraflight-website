@@ -60,7 +60,7 @@ def main():
 
     expected["open-closed-sets-r1-q2"] = 7 - np.linalg.norm([2.0, 0.0])
     expected["open-closed-sets-r2-q2"] = min(4 - 1, 8 - 4)
-    expected["open-closed-sets-r2-q3"] = 3 + 1  # three given points, plus the limit 0
+    expected["open-closed-sets-r2-q3"] = 3  # finite set of isolated points is already closed
     expected["open-closed-sets-r3-q2"] = 4.0
     expected["open-closed-sets-r4-q2"] = float(np.dot([1.0, 2.0], [1.0, 2.0]))
 
@@ -74,7 +74,7 @@ def main():
     expected["level-sets-contours-r1-q2"] = math.sqrt(16)
     expected["level-sets-contours-r2-q2"] = math.sqrt(16 / 4)
     expected["level-sets-contours-r3-q2"] = 10 - 2 * 3
-    expected["level-sets-contours-r4-q2"] = math.sqrt(36 / 4)
+    expected["level-sets-contours-r4-q2"] = math.sqrt(36 / 4)  # largest y on the positive axis inside the sublevel set
 
     expected["convex-sets-r1-q2"] = (2 + 8) / 2
     expected["convex-sets-r2-q2"] = 0.25 * 12

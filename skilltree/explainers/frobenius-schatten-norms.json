@@ -1,7 +1,7 @@
 {
   "id": "frobenius-schatten-norms",
   "title": "Frobenius and Schatten norms",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -19,7 +19,7 @@
     },
     {
       "heading": "Common pitfalls",
-      "body_md": "The nuclear norm adds singular values. It does not add signed eigenvalues, and it does not add absolute entries of a matrix that is not already diagonal in a singular-vector basis. The spectral norm is not the spectral radius unless the matrix is symmetric, in which case the two agree after absolute values. For a nonsymmetric matrix the spectral radius can be smaller than every singular value. Leaving out the square root in the Frobenius formula produces the square of the norm."
+      "body_md": "The nuclear norm adds singular values. It does not add signed eigenvalues, and it does not add absolute entries of a matrix that is not already diagonal in a singular-vector basis. The spectral norm is not the spectral radius unless the matrix is symmetric, in which case the two agree after absolute values. For a nonsymmetric matrix the spectral radius can be strictly smaller than the largest singular value, and it is never smaller than the smallest singular value. Leaving out the square root in the Frobenius formula produces the square of the norm."
     },
     {
       "heading": "Where this leads",

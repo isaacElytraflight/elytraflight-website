@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-10T19:57:28.096371Z",
+  "generated": "2026-11-10T20:22:34.066374Z",
   "skills": {
-    "file": "skills.f3988837.json",
-    "hash": "f3988837"
+    "file": "skills.38373f8b.json",
+    "hash": "38373f8b"
   },
   "collections": {
     "file": "collections.4ee0faec.json",
@@ -1052,8 +1052,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "55ac4af9",
-      "file": "banks/level-sets-contours.55ac4af9.json"
+      "hash": "0d0fd1d3",
+      "file": "banks/level-sets-contours.0d0fd1d3.json"
     },
     "limit-cycles": {
       "version": 1,
@@ -1460,8 +1460,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "9f9041c4",
-      "file": "banks/open-closed-sets.9f9041c4.json"
+      "hash": "2b69e148",
+      "file": "banks/open-closed-sets.2b69e148.json"
     },
     "perf-specs-freq": {
       "version": 1,
@@ -2333,10 +2333,10 @@
       "version": 1
     },
     "frobenius-schatten-norms": {
-      "hash": "ba4a8202",
-      "file": "explainers/frobenius-schatten-norms.ba4a8202.json",
+      "hash": "71c23002",
+      "file": "explainers/frobenius-schatten-norms.71c23002.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "ft": {
       "hash": "89419ce2",

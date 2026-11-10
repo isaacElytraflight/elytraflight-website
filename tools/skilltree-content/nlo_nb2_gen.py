@@ -300,9 +300,9 @@ def bank_open():
           SEG, A_SEG)
     b.num(2,
           r"In \(\mathbb{R}\), how many points does the closure of the set \(\{1, 1/2, 1/3\}\) contain?",
-          4, "1",
-          r"The set already has the three points 1, \(1/2\), and \(1/3\). The sequence approaches 0, and 0 is not one of the three, so the closure adds 0 and contains 4 points. Counting only the original three misses the limit. Counting only 0 would replace the set by its missing limit instead of adding that limit.",
-          SEG, A_SEG)
+          3, "1",
+          r"The set is finite, and each of its three points is isolated: a small enough open interval about \(1/3\) contains no other point of the set. A finite set of isolated points already contains every limit point it has, so it is closed and the closure is the set itself. The count is 3. Adding 0 would be right for the infinite set \(\{1, 1/2, 1/3, \ldots\}\), whose missing limit is 0. That extra point is not a limit of these three points alone.",
+          SEG, A_SEG, version=2)
     b.multi(3,
             r"Which of these subsets of \(\mathbb{R}^2\) are open?",
             [r"\(\{x : \lVert x \rVert_2 < 2\}\)",
@@ -540,10 +540,10 @@ def bank_level():
          r"The drawing overlays contours of the objective on the feasible set and looks for the contour of best height that still touches the feasible set. A vertex is a candidate point, not the picture of the objective. A constraint normal describes the boundary of the feasible set. The empty set would mean there is nothing to draw. Contours are the picture a graphical solve actually uses.",
          LEVELS, A_LEVELS, ["graphical-2d-optimization"])
     b.num(4,
-          r"The sublevel set of \(f(x, y) = x^2 + 4 y^2\) at height 36 meets the positive \(y\)-axis at one point. What is that \(y\)-coordinate?",
+          r"The sublevel set of \(f(x, y) = x^2 + 4 y^2\) at height 36 meets the positive \(y\)-axis in a segment. What is the largest \(y\)-coordinate on that segment?",
           3, "1",
-          r"On the positive \(y\)-axis, \(x = 0\) and \(4 y^2 = 36\), so \(y^2 = 9\) and \(y = 3\). The positive \(x\)-intercept solves \(x^2 = 36\) and equals 6. The height 36 is not the coordinate. A sublevel set of a continuous coercive function is closed and bounded, which is the compactness a later existence argument uses.",
-          ELL, A_ELL, ["existence-of-minimizers"])
+          r"On the positive \(y\)-axis, \(x = 0\) and the sublevel inequality is \(4 y^2 \le 36\), so \(y^2 \le 9\) and \(0 \le y \le 3\). The largest coordinate is 3. The equality \(4 y^2 = 36\) describes the contour, which meets the ray at that same endpoint and nowhere else. The positive \(x\)-intercept of the contour solves \(x^2 = 36\) and equals 6. The height 36 is not the coordinate. The filled sublevel set is closed and bounded, which is the compactness a later existence argument uses.",
+          ELL, A_ELL, ["existence-of-minimizers"], version=2)
     b.mc(4,
          r"The contour set of \(f(x, y) = 3x - y\) at one fixed height is",
          ["a disk",
@@ -703,11 +703,11 @@ The Schatten \(p\)-norm is \(\bigl(\sum_i \sigma_i^p\bigr)^{1/p}\) for \(1 \le p
 
 The negative sign on the second diagonal entry never enters these three numbers. Using \(6 + (-8)\) would not be a Schatten norm. The gap between 8, 10, and 14 is the usual strict nesting for a matrix with two positive singular values."""},
         {"heading": "Common pitfalls",
-         "body_md": r"""The nuclear norm adds singular values. It does not add signed eigenvalues, and it does not add absolute entries of a matrix that is not already diagonal in a singular-vector basis. The spectral norm is not the spectral radius unless the matrix is symmetric, in which case the two agree after absolute values. For a nonsymmetric matrix the spectral radius can be smaller than every singular value. Leaving out the square root in the Frobenius formula produces the square of the norm."""},
+         "body_md": r"""The nuclear norm adds singular values. It does not add signed eigenvalues, and it does not add absolute entries of a matrix that is not already diagonal in a singular-vector basis. The spectral norm is not the spectral radius unless the matrix is symmetric, in which case the two agree after absolute values. For a nonsymmetric matrix the spectral radius can be strictly smaller than the largest singular value, and it is never smaller than the smallest singular value. Leaving out the square root in the Frobenius formula produces the square of the norm."""},
         {"heading": "Where this leads",
          "body_md": r"""A linear least-squares residual is a Euclidean length of a vector of errors, which is a Frobenius norm when the residual is written as a matrix. The induced 2-norm remains the operator size, and the comparison \(\lVert A \rVert_2 \le \lVert A \rVert_F\) lets an entrywise calculation stand in for that operator size when a rough bound is enough. The nuclear norm is the Schatten norm that penalizes every singular value, not only the largest."""},
     ]
-    save_explainer("frobenius-schatten-norms", "Frobenius and Schatten norms", sections)
+    save_explainer("frobenius-schatten-norms", "Frobenius and Schatten norms", sections, version=2)
 
 
 def expl_open():

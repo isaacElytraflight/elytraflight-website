@@ -8,11 +8,15 @@ Do not publish.
 
 - 6 skills, 72 questions (23 multiple choice, 49 numeric), 6 explainers.
 - 72 question figures.
-- Explainer words: `induced-matrix-norms` 420, `frobenius-schatten-norms` 416, `open-closed-sets` 489, `compact-sets` 419, `level-sets-contours` 452, `convex-sets` 467.
+- Explainer words: `induced-matrix-norms` 420, `frobenius-schatten-norms` 428, `open-closed-sets` 489, `compact-sets` 419, `level-sets-contours` 452, `convex-sets` 467.
 
 ## Versions
 
-Every item is version 1.
+Items above version 1:
+
+- `frobenius-schatten-norms#explainer` version 2
+- `open-closed-sets-r2-q3` version 2
+- `level-sets-contours-r4-q2` version 2
 
 The full list is `docs/content-versions.json`.
 
@@ -24,7 +28,7 @@ The full list is `docs/content-versions.json`.
 - PASS `domain`: 0 unwaived warnings
 - PASS `numeric`: 0 mismatches
 - PASS `figure-bounds`: figure-bounds: 30 warning(s), 0 on the batch; elsewhere amp-compensation, cascode-amp, cd-freq, cs-cascade-freq, noise-dist, octc, rev-bias, rlc, stability, vt
-- PASS `katex`: KaTeX: rendered 417 math chunks, 0 errors
+- PASS `katex`: KaTeX: rendered 418 math chunks, 0 errors
 - PASS `test-content`: 15 passed, 0 failed
 - PASS `test-merge`: 19 passed, 0 failed
 - PASS `test-migrate`: 22 passed, 0 failed
