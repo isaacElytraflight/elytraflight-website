@@ -16,7 +16,7 @@
     },
     {
       "heading": "Worked example",
-      "body_md": "Take poles at \\(-1.5\\) and \\(-8.5\\), and no zeros. They meet on the real axis at the midpoint \\(-5\\). The gain on \\(1/((s+1.5)(s+8.5))\\) is \\(K = -(s+1.5)(s+8.5)\\). At \\(s = -5\\) that product of distances is \\(3.5 \\cdot 3.5\\), so \\(K = 17.5\\). Past that gain the two branches leave the real axis as a complex pair. The centroid of the asymptotes is the same point, \\(-5\\), and the positive-gain asymptotes are the vertical lines through it."
+      "body_md": "Take poles at \\(-1.5\\) and \\(-8.5\\), and no zeros. They meet on the real axis at the midpoint \\(-5\\). The gain on \\(1/((s+1.5)(s+8.5))\\) is \\(K = -(s+1.5)(s+8.5)\\). At \\(s = -5\\) that product of distances is \\(3.5 \\cdot 3.5\\), so \\(K = 12.25\\). Past that gain the two branches leave the real axis as a complex pair. The centroid of the asymptotes is the same point, \\(-5\\), and the positive-gain asymptotes are the vertical lines through it."
     },
     {
       "heading": "Common pitfalls",

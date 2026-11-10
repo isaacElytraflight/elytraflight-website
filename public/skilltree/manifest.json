@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-10T21:03:57.355903Z",
+  "generated": "2026-11-10T21:15:00.686249Z",
   "skills": {
-    "file": "skills.6b5baf39.json",
-    "hash": "6b5baf39"
+    "file": "skills.3e523044.json",
+    "hash": "3e523044"
   },
   "collections": {
     "file": "collections.4ee0faec.json",
@@ -2824,8 +2824,8 @@
       "version": 1
     },
     "root-locus": {
-      "hash": "c365bfd8",
-      "file": "explainers/root-locus.c365bfd8.json",
+      "hash": "dbf278c4",
+      "file": "explainers/root-locus.dbf278c4.json",
       "sectionCount": 5,
       "version": 1
     },

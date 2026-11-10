@@ -113,7 +113,7 @@ def main():
         "observability": "0.35",
         "reachability": "-2.56",
         "robust-stability": "0.408",
-        "root-locus": "17.5",
+        "root-locus": "12.25",
         "sys-id": "0.15",
         "time-delay": "0.12",
     }
