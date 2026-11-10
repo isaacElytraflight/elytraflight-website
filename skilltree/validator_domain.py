@@ -11,10 +11,20 @@ Systems. Warnings:
 
 Usage: python3 validator_domain.py [collections.json] [skills.json]
 Prints "N domain-leak warnings" and exits 0 when every warning is waived.
+
+Also enforces the deep-type quota on banks that are not in
+deep_quota_grandfather.json. That list is the banks written before SG-062.
+Do not add ids to it. A rewritten bank should be removed; a later retrofit
+removes the rest. New banks need ceil(3n/12) questions of type symbolic,
+order, error, or multi.
 """
 import json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+_TOOLS = os.path.join(HERE, "..", "tools", "skilltree-content")
+if _TOOLS not in sys.path:
+    sys.path.insert(0, _TOOLS)
+from banklib import DEEP_TYPES, deep_quota
 COLLECTIONS = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "collections.json")
 SKILLS = sys.argv[2] if len(sys.argv) > 2 else os.path.join(HERE, "ee105_skills_draft.json")
 
@@ -46,6 +56,45 @@ def boxes_under(boxes, top):
             walk(child)
     walk(top)
     return out
+
+def deep_quota_warnings(bank_dir, grandfather):
+    """Quota misses for banks that are not grandfathered.
+
+    grandfather is a set of skill ids written before the quota. A listed id
+    with no bank file is also reported, so the list cannot drift.
+    """
+    warns = []
+    if not os.path.isdir(bank_dir):
+        return [f"question bank directory missing: {bank_dir}"]
+    seen = set()
+    for fn in sorted(os.listdir(bank_dir)):
+        if not fn.endswith(".json"):
+            continue
+        path = os.path.join(bank_dir, fn)
+        try:
+            bank = json.load(open(path, encoding="utf-8"))
+        except Exception as exc:
+            warns.append(f"{fn} is not valid JSON ({exc})")
+            continue
+        sid = bank.get("skill_id") or fn[:-5]
+        seen.add(sid)
+        if sid in grandfather:
+            continue
+        qs = bank.get("questions")
+        if not isinstance(qs, list):
+            warns.append(f"{sid} deep-type quota: questions are missing")
+            continue
+        found = sum(1 for q in qs if isinstance(q, dict) and q.get("type") in DEEP_TYPES)
+        need = deep_quota(len(qs))
+        if found < need:
+            warns.append(
+                f"{sid} deep-type quota: {found} deep question(s), need {need} "
+                f"in a {len(qs)}-question bank (symbolic, order, error, multi)"
+            )
+    for sid in sorted(set(grandfather) - seen):
+        warns.append(f"{sid} is on the deep-quota grandfather list but has no bank")
+    return warns
+
 
 def main():
     graph = json.load(open(SKILLS, encoding="utf-8"))
@@ -114,6 +163,19 @@ def main():
         if leak:
             where = "ME 132" if sid in me else "Feedback Systems"
             warn(f"{sid} ({where}) prerequisite closure contains EE-only {', '.join(leak)}")
+
+    grandfather = None
+    grand_path = os.path.join(HERE, "deep_quota_grandfather.json")
+    try:
+        gdata = json.load(open(grand_path, encoding="utf-8"))
+        if not isinstance(gdata.get("skills"), list) or not all(isinstance(x, str) for x in gdata["skills"]):
+            raise ValueError("skills must be a list of ids")
+        grandfather = set(gdata["skills"])
+    except Exception as exc:
+        warn(f"deep-quota grandfather list could not be read: {exc}")
+    if grandfather is not None:
+        for msg in deep_quota_warnings(os.path.join(HERE, "bank"), grandfather):
+            warn(msg)
 
     unwaived = [w for w in warns if w not in WAIVED]
     print(f"{len(warns)} domain-leak warnings")

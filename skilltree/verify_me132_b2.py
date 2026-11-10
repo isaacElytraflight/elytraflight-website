@@ -168,7 +168,7 @@ def main():
     if abs(float(xrest[0]) - 1) > 1e-6 or "x = 1" not in texts["state-space-model"]:
         mismatches.append(f"ss worked {xrest}")
 
-    finish(numeric, mismatches)
+    finish(numeric, mismatches, banks)
 
 
 if __name__ == "__main__":

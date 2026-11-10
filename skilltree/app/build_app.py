@@ -37,16 +37,29 @@ def main():
         for q in b["questions"]:
             assert q["id"] not in seen_q, f"duplicate question id {q['id']}"
             seen_q.add(q["id"])
-            assert q["type"] in ("mc", "numeric"), q["id"]
+            assert q["type"] in ("mc", "numeric", "symbolic", "order", "error", "multi"), q["id"]
+            # The quiz in template.html grades mc and numeric. Other types are
+            # packed for a rebuild, and that quiz skips them instead of
+            # treating a missing numeric answer as the key.
             assert q["round"] in (1, 2, 3, 4), q["id"]
             if q["type"] == "mc":
                 assert len(q["options"]) >= 2 and 0 <= q["correct_index"] < len(q["options"]), q["id"]
-            else:
+            elif q["type"] == "numeric":
                 assert isinstance(q["answer"], (int, float)), q["id"]
+            elif q["type"] == "symbolic":
+                assert isinstance(q.get("answer"), str) and q.get("variables"), q["id"]
+            elif q["type"] == "order":
+                assert isinstance(q.get("steps"), list) and len(q["steps"]) >= 3, q["id"]
+            elif q["type"] == "error":
+                assert isinstance(q.get("flaw_index"), int) and not isinstance(q.get("flaw_index"), bool), q["id"]
+            elif q["type"] == "multi":
+                assert q.get("options") and q.get("correct_indices"), q["id"]
             for p in q.get("preview", []) or []:
                 assert p in idset, f"{q['id']}: preview {p} unknown"
             keep = {k: q[k] for k in ("id", "round", "type", "prompt", "options", "correct_index",
-                                      "answer", "unit", "tolerance", "explanation", "preview", "figure", "figure_alt") if k in q}
+                                      "answer", "unit", "tolerance", "explanation", "preview", "figure", "figure_alt",
+                                      "variables", "alternates", "steps", "flaw_index", "reasons", "correct_reason",
+                                      "correct_indices") if k in q}
             qs.append(keep)
         bank[sid] = {"version": b.get("version", 1), "questions": qs}
     data = {

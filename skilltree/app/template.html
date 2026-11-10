@@ -1162,12 +1162,17 @@ function checkNumeric(q,txt){
   return Math.abs(x-a)<=tol*Math.abs(a)*(1+1e-9);
 }
 function fmtAns(a){
+  if(typeof a!=='number'||!Number.isFinite(a))return '';
   if(a===0)return '0';
   const ab=Math.abs(a);
   if(ab>=1e6||ab<1e-3){const [m,e]=a.toExponential(3).split('e');return m.replace(/\.?0+$/,'')+'×10^'+Number(e)}
   return String(Number(a.toPrecision(6)));
 }
-const answerLine=it=>it.q.type==='mc'?`Answer: ${'ABCD'[it.ci]}. ${it.opts[it.ci]}`:`Answer: ${fmtAns(it.q.answer)}${it.q.unit&&it.q.unit!=='(unitless)'?' '+it.q.unit:''}`;
+const answerLine=it=>{
+  if(it.q.type==='mc')return `Answer: ${'ABCD'[it.ci]}. ${it.opts[it.ci]}`;
+  if(it.q.type==='numeric')return `Answer: ${fmtAns(it.q.answer)}${it.q.unit&&it.q.unit!=='(unitless)'?' '+it.q.unit:''}`;
+  return 'This single-file demo grades multiple choice and numeric questions.';
+};
 function renderQuiz(){
   const Q=quiz;if(!Q)return;
   const s=byId[Q.id];quizEl.style.cssText=colorVars(s.chapter);quizEl.innerHTML='';
@@ -1193,12 +1198,15 @@ function renderQuiz(){
       box.append(el('button',{class:cls,type:'button',disabled:it.done,'data-i':i,'data-o':it.perm?it.perm[i]:i,onclick:()=>answerMC(i)},el('span',{class:'k',text:'ABCD'[i]}),el('span',{class:'ot',math:o})));
     });
     card.append(box);
-  }else{
+  }else if(q.type==='numeric'){
     const inp=el('input',{type:'text',id:'numIn',autocomplete:'off',spellcheck:'false',placeholder:'Type a number',disabled:it.done,'aria-label':'Your answer'+(q.unit?' in '+mathPlain(q.unit):'')});
     inp.value=it.text;inp.addEventListener('input',()=>it.text=inp.value);
     inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();answerNum()}});
     card.append(el('div',{class:'numrow'},inp,q.unit&&q.unit!=='(unitless)'?el('span',{class:'u',math:q.unit}):null,el('button',{class:'btn primary',id:'checkBtn',disabled:it.done,onclick:answerNum},'Check')));
     if(!it.done){card.append(el('div',{class:'kv',style:'margin-top:8px',text:`Plain numbers or scientific notation (like 2.5e-3) work. Accepted within ±${((q.tolerance!=null?q.tolerance:.02)*100).toFixed(0)}%.`}));setTimeout(()=>inp.focus(),0)}
+  }else{
+    card.append(el('div',{class:'note warn',text:'This single-file demo grades multiple choice and numeric questions. The current Skillgrove app grades this one.'}));
+    if(!it.done)card.append(el('div',{class:'numrow',style:'margin-top:12px'},el('button',{class:'btn',id:'checkBtn',onclick:()=>{const cur=quiz.items[quiz.i];cur.done=true;cur.correct=false;renderQuiz()}},'Skip this question')));
   }
   if(it.done){
     const ok=it.correct;

@@ -5,19 +5,18 @@
     {
       "id": "lin-algebra-review-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "The rank of a matrix is…",
-      "explanation": "Rank is the dimension of the column space, which equals the dimension of the row space. Duplicate rows do not add to it, so rank need not equal the row count. The product of the diagonal entries is not the determinant once there are off-diagonal terms, and it is not the rank. The largest entry is a size, not a count of independent directions.",
+      "type": "order",
+      "prompt": "Put these steps in the order you would use to find the rank of a matrix.",
+      "explanation": "Rank is the number of nonzero rows after the matrix is in echelon form, which is also the number of linearly independent columns. Write the matrix first, zeros included, so a blank is not mistaken for a missing column. Row-reduce next: subtracting a multiple of one row from another does not change the row space. Only then count the nonzero rows, and that count is the rank. Counting nonzero rows before reducing treats a copied row as a new direction. The figure shows three arrows of which only two point independently, so the rank is 2, not 3. Reporting the original row count makes the same mistake.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 220 150\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Three arrows from one point, one of them in the span of the others</title><line x1=\"30\" y1=\"120\" x2=\"150\" y2=\"40\"/><polygon points=\"150,40 146.1,45.8 143.1,41.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"156\" y=\"38\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">v1</text><line x1=\"30\" y1=\"120\" x2=\"160\" y2=\"110\"/><polygon points=\"160,110 153.8,113.2 153.4,107.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"166\" y=\"114\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">v2</text><line x1=\"30\" y1=\"120\" x2=\"118\" y2=\"78\"/><polygon points=\"118,78 113.4,83.2 111,78.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"124\" y=\"68\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">v3</text></svg>",
       "figure_alt": "Three arrows from a common origin. Two point in clearly different directions. The third lies between them.",
-      "options": [
-        "the number of linearly independent columns",
-        "always equal to the number of rows, even if two rows match",
-        "the product of the diagonal entries",
-        "the largest absolute value in the matrix"
+      "steps": [
+        "Write the matrix down, including every zero.",
+        "Row-reduce it to echelon form.",
+        "Count the nonzero rows that remain.",
+        "Report that count as the rank."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 2
     },
     {
       "id": "lin-algebra-review-r1-q2",
@@ -108,19 +107,36 @@
     {
       "id": "lin-algebra-review-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "A \\(2 \\times 2\\) matrix has trace \\(5\\) and determinant \\(6\\). Which polynomial is \\(\\det(A - \\lambda I)\\), up to the conventional sign that makes the leading term \\(+\\lambda^2\\)? More usefully: the characteristic polynomial \\(\\det(\\lambda I - A)\\) is…",
-      "explanation": "\\(\\det(\\lambda I - A) = \\lambda^2 - (\\mathrm{tr}\\, A)\\lambda + \\det(A)\\). With trace \\(5\\) and determinant \\(6\\) that is \\(\\lambda^2 - 5\\lambda + 6\\). A plus sign on the trace term flips every eigenvalue's sign. Swapping trace and determinant mixes the sum of the roots with their product. A minus on the determinant makes the product of the roots negative, which a positive determinant forbids.",
+      "type": "symbolic",
+      "prompt": "A \\(2 \\times 2\\) matrix has trace \\(t\\) and determinant \\(d\\). Write \\(\\det(\\lambda I - A)\\) as an expression in the names l, t, and d. Use l for \\(\\lambda\\).",
+      "explanation": "The characteristic polynomial is \\(\\det(\\lambda I - A) = \\lambda^2 - (\\mathrm{tr}\\, A)\\lambda + \\det A\\). With trace \\(t\\), determinant \\(d\\), and \\(l\\) standing in for \\(\\lambda\\), that is \\(l^2 - t l + d\\).\n• \\(l^2 + t l + d\\) flips the sign of the trace term and therefore the sign of every eigenvalue.\n• \\(l^2 - d l + t\\) swaps the trace and the determinant, mixing the sum of the roots with their product.\n• \\(l^2 - t l - d\\) makes the product of the roots negative.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 270 170\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Real axis where eigenvalues of a 2 by 2 matrix would be marked</title><line x1=\"30\" y1=\"90\" x2=\"250\" y2=\"90\"/><polygon points=\"250,90 243.6,92.7 243.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"150\" x2=\"140\" y2=\"20\"/><polygon points=\"140,20 142.7,26.4 137.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"246\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"148\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><text x=\"70\" y=\"80\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">×</text><text x=\"190\" y=\"80\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">×</text></svg>",
       "figure_alt": "Axes labeled real and imaginary, with the real axis drawn as the place eigenvalues can sit.",
-      "options": [
-        "\\(\\lambda^2 + 5\\lambda + 6\\)",
-        "\\(\\lambda^2 - 6\\lambda + 5\\)",
-        "\\(\\lambda^2 - 5\\lambda - 6\\)",
-        "\\(\\lambda^2 - 5\\lambda + 6\\)"
+      "answer": "l^2 - t*l + d",
+      "variables": [
+        {
+          "name": "l",
+          "min": -4.0,
+          "max": 4.0
+        },
+        {
+          "name": "t",
+          "min": -5.0,
+          "max": 5.0
+        },
+        {
+          "name": "d",
+          "min": -4.0,
+          "max": 4.0
+        }
       ],
-      "correct_index": 3,
-      "version": 1
+      "tolerance": 0.001,
+      "alternates": [
+        "l**2 - t*l + d",
+        "d + l^2 - t*l",
+        "(l - t)*l + d"
+      ],
+      "version": 2
     },
     {
       "id": "lin-algebra-review-r3-q3",

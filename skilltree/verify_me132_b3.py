@@ -172,7 +172,7 @@ def main():
     if "= 15" not in texts["app-examples"] or "= 3" not in texts["app-examples"]:
         mismatches.append("app-examples worked text")
 
-    finish(numeric, mismatches)
+    finish(numeric, mismatches, banks)
 
 
 if __name__ == "__main__":

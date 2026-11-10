@@ -46,6 +46,8 @@ for (const file of process.argv.slice(2)) {
     check(q.id, q.prompt);
     check(q.id, q.explanation);
     for (const opt of q.options || []) check(q.id, opt);
+    for (const step of q.steps || []) check(q.id, step);
+    for (const reason of q.reasons || []) check(q.id, reason);
     check(q.id, q.unit || '');
   }
   for (const section of data.sections || []) {

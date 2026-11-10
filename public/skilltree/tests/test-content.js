@@ -470,5 +470,29 @@ test('PID terms split from one signal and their outputs add', () => {
   assert.strictEqual(q.version, 3);
 });
 
+const expr = require('../expr.js');
+
+test('symbolic grader accepts equivalent expressions and rejects others', () => {
+  const q = {
+    answer: 'l^2 - t*l + d',
+    tolerance: 1e-3,
+    variables: [
+      { name: 'l', min: -4, max: 4 },
+      { name: 't', min: -5, max: 5 },
+      { name: 'd', min: -4, max: 4 }
+    ]
+  };
+  const rng = () => 0.37;
+  assert.strictEqual(expr.grade(q, 'l**2 - t*l + d', rng).ok, true);
+  assert.strictEqual(expr.grade(q, '(l - t)*l + d', rng).ok, true);
+  assert.strictEqual(expr.grade(q, '2*l', rng).ok, false);
+  assert.strictEqual(expr.grade(q, 'sin(', rng).invalid, true);
+  assert.strictEqual(expr.evaluate(expr.parse('sin(pi/2)', []), {}), 1);
+  assert.strictEqual(expr.evaluate(expr.parse('2x^2', ['x']), { x: 3 }), 18);
+  assert.strictEqual(expr.evaluate(expr.parse('-2^2', []), {}), -4);
+  assert.strictEqual(expr.evaluate(expr.parse('2^3^2', []), {}), 512);
+  assert.strictEqual(expr.evaluate(expr.parse('ln(e)', []), {}), 1);
+});
+
 console.log(`\n${passed} passed, ${failed} failed\n`);
 process.exit(failed > 0 ? 1 : 0);
