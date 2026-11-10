@@ -11,6 +11,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from banklib import Bank as SharedBank
 from me132_b1_figs import (
     bars, bode_slope, car, closed_loop, decay_shape, delay_blocks, eigen_plane,
     inductor_h, inverse_step, mass_spring, matrix_fig, open_loop, plot,
@@ -68,6 +69,12 @@ class Bank:
             json.dump({"skill_id": self.sid, "version": 1, "questions": self.qs},
                       f, indent=2, ensure_ascii=False)
             f.write("\n")
+
+
+Bank.sym = SharedBank.sym
+Bank.order = SharedBank.order
+Bank.find_error = SharedBank.find_error
+Bank.multi = SharedBank.multi
 
 
 def save_explainer(sid, title, sections, version=1):
@@ -491,18 +498,20 @@ def expl_laplace():
 
 def bank_lin():
     b = Bank("lin-algebra-review")
-    b.mc(1,
-         "The rank of a matrix is…",
-         [
-             "the number of linearly independent columns",
-             "always equal to the number of rows, even if two rows match",
-             "the product of the diagonal entries",
-             "the largest absolute value in the matrix",
-         ], 0,
-         "Rank is the dimension of the column space, which equals the dimension of the row space. Duplicate rows do not add to it, so rank need not equal the row count. "
-         "The product of the diagonal entries is not the determinant once there are off-diagonal terms, and it is not the rank. The largest entry is a size, not a count of independent directions.",
-         vectors("Three arrows from one point, one of them in the span of the others"),
-         "Three arrows from a common origin. Two point in clearly different directions. The third lies between them.")
+    b.order(1,
+            "Put these steps in the order you would use to find the rank of a matrix.",
+            [
+                "Write the matrix down, including every zero.",
+                "Row-reduce it to echelon form.",
+                "Count the nonzero rows that remain.",
+                "Report that count as the rank.",
+            ],
+            "Rank is the number of nonzero rows after the matrix is in echelon form, which is also the number of linearly independent columns. "
+            "Write the matrix first, zeros included, so a blank is not mistaken for a missing column. Row-reduce next: subtracting a multiple of one row from another does not change the row space. Only then count the nonzero rows, and that count is the rank. "
+            "Counting nonzero rows before reducing treats a copied row as a new direction. The figure shows three arrows of which only two point independently, so the rank is 2, not 3. Reporting the original row count makes the same mistake.",
+            vectors("Three arrows from one point, one of them in the span of the others"),
+            "Three arrows from a common origin. Two point in clearly different directions. The third lies between them.",
+            version=2)
     b.num(1,
           r"What is \(\det \begin{bmatrix} 2 & 1 \\ 0 & 3 \end{bmatrix}\)?",
           6.0, "1",
@@ -567,18 +576,23 @@ def bank_lin():
           "• \(4/2 = 2\) does the same with the other equation.",
           matrix_fig(["3   1", "1   2"], "Coefficient matrix of a 2 by 2 linear system"),
           "A 2 by 2 matrix with first row 3, 1 and second row 1, 2.")
-    b.mc(3,
-         r"A \(2 \times 2\) matrix has trace \(5\) and determinant \(6\). Which polynomial is \(\det(A - \lambda I)\), up to the conventional sign that makes the leading term \(+\lambda^2\)? More usefully: the characteristic polynomial \(\det(\lambda I - A)\) is…",
-         [
-             r"\(\lambda^2 + 5\lambda + 6\)",
-             r"\(\lambda^2 - 6\lambda + 5\)",
-             r"\(\lambda^2 - 5\lambda - 6\)",
-             r"\(\lambda^2 - 5\lambda + 6\)",
-         ], 3,
-         r"\(\det(\lambda I - A) = \lambda^2 - (\mathrm{tr}\, A)\lambda + \det(A)\). With trace \(5\) and determinant \(6\) that is \(\lambda^2 - 5\lambda + 6\). "
-         r"A plus sign on the trace term flips every eigenvalue's sign. Swapping trace and determinant mixes the sum of the roots with their product. A minus on the determinant makes the product of the roots negative, which a positive determinant forbids.",
-         eigen_plane("Real axis where eigenvalues of a 2 by 2 matrix would be marked"),
-         "Axes labeled real and imaginary, with the real axis drawn as the place eigenvalues can sit.")
+    b.sym(3,
+          r"A \(2 \times 2\) matrix has trace \(t\) and determinant \(d\). Write \(\det(\lambda I - A)\) as an expression in the names l, t, and d. Use l for \(\lambda\).",
+          "l^2 - t*l + d",
+          {"l": (-4, 4), "t": (-5, 5), "d": (-4, 4)},
+          r"The characteristic polynomial is \(\det(\lambda I - A) = \lambda^2 - (\mathrm{tr}\, A)\lambda + \det A\). "
+          r"With trace \(t\), determinant \(d\), and \(l\) standing in for \(\lambda\), that is \(l^2 - t l + d\)."
+          "\n"
+          r"• \(l^2 + t l + d\) flips the sign of the trace term and therefore the sign of every eigenvalue."
+          "\n"
+          r"• \(l^2 - d l + t\) swaps the trace and the determinant, mixing the sum of the roots with their product."
+          "\n"
+          r"• \(l^2 - t l - d\) makes the product of the roots negative.",
+          alternates=["l**2 - t*l + d", "d + l^2 - t*l", "(l - t)*l + d"],
+          tolerance=0.001,
+          fig=eigen_plane("Real axis where eigenvalues of a 2 by 2 matrix would be marked"),
+          alt="Axes labeled real and imaginary, with the real axis drawn as the place eigenvalues can sit.",
+          version=2)
     b.num(3,
           r"The eigenvalues of \(\begin{bmatrix} 0 & -2 \\ 1 & -3 \end{bmatrix}\) are real and negative. Which one is closer to zero?",
           -1.0, "1",

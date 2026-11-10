@@ -239,10 +239,12 @@ async function answerQuiz(p, skill, pattern) {
       assert(idx >= 0);
       const opts = await p.$$('.opt');
       await opts[idx].click();
-    } else {
+    } else if (q.type === 'numeric') {
       const val = ok ? String(q.answer) : String(q.answer * 3 + 7);
       await p.type('#numIn', val);
       await p.click('#checkBtn');
+    } else {
+      throw new Error('answerQuiz has no driver for ' + q.type + ' (' + q.id + ')');
     }
     await p.waitForSelector('#feedback', { timeout: 10000 });
     const fbOk = await p.$eval('#feedback', e => e.classList.contains('ok'));

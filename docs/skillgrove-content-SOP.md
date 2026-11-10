@@ -55,10 +55,15 @@ description: >-
   - middle rounds are spaced mastery challenges (pass at 2 of 3; failing never lowers a level)
   - the final round asks application questions with preview links to descendant skills
 - Explanations work the answer and say why tempting wrong answers fail. No option letters.
-- Types, all auto-graded:
+- Types, all auto-graded. Each one is simply correct or incorrect. Mastery thresholds do not change.
   - **Multiple choice:** 4 options, balanced positions, real-mistake distractors.
   - **Numeric:** non-zero answer, unit, relative tolerance (usually 1–3%).
-  - **Later:** multi-select, symbolic expressions graded by evaluating at random points, and step ordering.
+  - **Symbolic:** the learner types an expression in the declared variables. The app grades it by evaluating that expression and the key at several random points inside the declared ranges, within a relative tolerance. The parser does not use eval. List equivalent forms in `alternates`. The verifier checks the key and those forms with SymPy.
+  - **Ordering:** shuffled steps of a derivation or procedure. The learner restores the correct order. All-or-nothing.
+  - **Find-the-error:** a short derivation with exactly one flawed step. The learner picks that step, and a reason when reasons are given. All-or-nothing.
+  - **Multi-select:** choose every correct option. All-or-nothing.
+- **Deep-type quota.** A bank written from now on needs at least 3 questions of the deep types (symbolic, ordering, find-the-error, multi-select) per 12 questions. Other lengths scale by rounding up: `ceil(3n/12)`, which is `deep_quota(n)` in `banklib.py`. The domain gate enforces it. Banks in `skilltree/deep_quota_grandfather.json` are the ones written before this rule and are exempt until a later retrofit. Do not add ids to that list. When an old bank is rewritten, remove its id.
+- Author deep questions with `Bank.sym`, `Bank.order`, `Bank.find_error`, and `Bank.multi` in `tools/skilltree-content/banklib.py`. Do not hand-build those JSON fields.
 - Proofs and concepts become decisions: justify a step, find the flaw, pick a counterexample, trace the code.
 
 ## 6. Figures and math
@@ -82,7 +87,7 @@ description: >-
 - A coordinator splits the work into batches of 5–15 skills (one breadth-first layer of a box, prerequisites done) and reserves new ids up front.
 - Parallel writers get a fixed brief and own disjoint files; shared-file changes come back as patches.
 - **One fresh agent per batch.** Start each future batch in a new agent. Do not continue from another batch's transcript. Stay on subscription-included Grok-native models. Do not switch to Auto, a third-party model, paid fallback, extra reviewers, raised caps, or prepaid credits. If included usage cannot run the batch, stop and report that blocker.
-- **Shared writers, thin verifiers.** Do not paste a new copy of the bank writer or the numeric-check loop. `tools/skilltree-content/banklib.py` writes the bank and explainer (B1 keeps its own word counter). `skilltree/verify_harness.py` loads banks, checks every numeric answer against values computed in the batch file, and prints the usual `0 mismatches` line. The command stays `python3 skilltree/verify_me132_bN.py`. Answer formulas stay in that batch file and must not be imported from the generator. RK4 and the proportional-loop simulation live in the harness because B2 and B3 both used them as an independent method.
+- **Shared writers, thin verifiers.** Do not paste a new copy of the bank writer or the numeric-check loop. `tools/skilltree-content/banklib.py` writes the bank and explainer (B1 keeps its own word counter and copies `sym`, `order`, `find_error`, and `multi` off this class). `skilltree/verify_harness.py` loads banks, checks every numeric answer against values computed in the batch file, checks every symbolic key with SymPy, and prints the usual `0 mismatches` line. The command stays `python3 skilltree/verify_me132_bN.py`. Pass the loaded banks to `finish` so the symbolic check runs. Answer formulas stay in that batch file and must not be imported from the generator. RK4 and the proportional-loop simulation live in the harness because B2 and B3 both used them as an independent method.
 - The repeated block is that writer and that check loop. B2 and B3 are not a shared 1117-line program: the longest identical run is the writer (about 60 lines). Do not rewrite an already shipped bank just to share code. B1's verifier stays as it is; its checks are functions, not a table of expected numbers.
 - **Tests.** While fixing, run the batch verifier and any other check the edit can break. Run `python3 tools/skilltree-content/run_gates.py --batch <id> --docs` once on the candidate you intend to push. If a later edit can change schema, figures, math, or the browser suite, run the full command again. Do not report a gate result from an older commit.
 - **Bugbot.** Use the repository's existing review. Do not start a paid reviewer. Fix valid findings, then allow one more review of that head. If valid findings remain after that second review, stop and report them. Do not merge to get past them.
@@ -112,6 +117,7 @@ Every batch brief states:
 - the box, layer and reserved skill ids
 - the prerequisites, the registries to read, and the sources (with licenses) and sections
 - the bank and explainer specs, and the core/application split
+- the deep-type quota: at least `deep_quota(n)` questions among symbolic, ordering, find-the-error, and multi-select (`Bank.sym`, `Bank.order`, `Bank.find_error`, `Bank.multi` in `banklib.py`). Grandfathered banks are listed in `skilltree/deep_quota_grandfather.json` and are not a reason to skip the quota on a new bank
 - the gates
 - deliverables (content, generator, verifier, patches) and the generated report (counts, gate outputs, dedupe pointer)
 - "do not publish"

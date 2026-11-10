@@ -1516,11 +1516,17 @@ function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { co
 const POSITIONAL = /(all|none|both|neither) of the (above|these|options)|none of these|all of these/i;
 
 function prepareQ(q) {
-  const p = { q, chosen: null, text: '', correct: null, done: false };
-  if (q.type === 'mc') {
+  const p = { q, chosen: null, text: '', correct: null, done: false, picks: [] };
+  if (q.type === 'mc' || q.type === 'multi') {
     let perm = q.options.map((_, i) => i);
     if (!q.options.some(o => POSITIONAL.test(o))) perm = shuffle(perm);
-    p.perm = perm; p.opts = perm.map(i => q.options[i]); p.ci = perm.indexOf(q.correct_index);
+    p.perm = perm; p.opts = perm.map(i => q.options[i]);
+    if (q.type === 'mc') p.ci = perm.indexOf(q.correct_index);
+  } else if (q.type === 'order') {
+    p.perm = shuffle(q.steps.map((_, i) => i));
+  } else if (q.type === 'error' && q.reasons && q.reasons.length) {
+    p.reasonPerm = shuffle(q.reasons.map((_, i) => i));
+    p.reason = null;
   }
   return p;
 }
@@ -1592,7 +1598,26 @@ function fmtAns(a) {
   return String(Number(a.toPrecision(6)));
 }
 
-const answerLine = it => it.q.type === 'mc' ? `Answer: ${'ABCD'[it.ci]}. ${it.opts[it.ci]}` : `Answer: ${fmtAns(it.q.answer)}${it.q.unit && it.q.unit !== '(unitless)' ? ' ' + it.q.unit : ''}`;
+function answerLine(it) {
+  const q = it.q;
+  if (q.type === 'mc') return `Answer: ${'ABCD'[it.ci]}. ${it.opts[it.ci]}`;
+  if (q.type === 'numeric') return `Answer: ${fmtAns(q.answer)}${q.unit && q.unit !== '(unitless)' ? ' ' + q.unit : ''}`;
+  if (q.type === 'symbolic') {
+    const alt = q.alternates && q.alternates.length ? ` (also ${q.alternates.join(' or ')})` : '';
+    return `Answer: ${q.answer}${alt}`;
+  }
+  if (q.type === 'order') return 'Answer: ' + q.steps.map((s, i) => `${i + 1}. ${s}`).join('   ');
+  if (q.type === 'error') {
+    let line = `Answer: step ${q.flaw_index + 1}. ${q.steps[q.flaw_index]}`;
+    if (q.reasons && q.correct_reason != null) line += ` — ${q.reasons[q.correct_reason]}`;
+    return line;
+  }
+  if (q.type === 'multi') {
+    const texts = q.correct_indices.slice().sort((a, b) => a - b).map(i => q.options[i]);
+    return 'Answer: ' + texts.join('; ');
+  }
+  return 'Answer recorded.';
+}
 
 function renderQuiz() {
   const Q = quiz; if (!Q) return;
@@ -1624,12 +1649,78 @@ function renderQuiz() {
       box.append(el('button', { class: cls, type: 'button', disabled: it.done, 'data-i': i, 'data-o': it.perm ? it.perm[i] : i, onclick: () => answerMC(i) }, el('span', { class: 'k', text: 'ABCD'[i] }), el('span', { class: 'ot', math: o })));
     });
     card.append(box);
-  } else {
+  } else if (q.type === 'multi') {
+    const box = el('div', { class: 'opts', role: 'group', 'aria-labelledby': 'qPrompt' });
+    it.opts.forEach((o, i) => {
+      const orig = it.perm[i];
+      const picked = it.picks.includes(i);
+      const key = q.correct_indices.includes(orig);
+      let cls = 'opt';
+      if (it.done) { if (key && picked) cls += ' right'; else if (picked || key) cls += ' wrong'; }
+      else if (picked) cls += ' sel';
+      box.append(el('button', { class: cls, type: 'button', disabled: it.done, 'data-i': i, 'aria-pressed': String(picked), onclick: () => toggleMulti(i) }, el('span', { class: 'tick', text: (picked || (it.done && key)) ? '✓' : '' }), el('span', { class: 'ot', math: o })));
+    });
+    card.append(box);
+    if (!it.done) {
+      card.append(el('div', { class: 'numrow', style: 'margin-top:12px' }, el('button', { class: 'btn primary', id: 'checkBtn', onclick: answerMulti }, 'Check selection')));
+      card.append(el('div', { class: 'kv', style: 'margin-top:8px', text: 'Select every correct option. The question counts only when the set is exact.' }));
+    }
+  } else if (q.type === 'order') {
+    const box = el('div', { class: 'ord', role: 'list', 'aria-labelledby': 'qPrompt' });
+    it.perm.forEach((orig, i) => {
+      box.append(el('div', { class: 'ordrow', role: 'listitem' },
+        el('span', { class: 'n', text: String(i + 1) }),
+        el('span', { class: 'tx', math: q.steps[orig] }),
+        el('span', { class: 'mv' },
+          el('button', { class: 'btn small', type: 'button', disabled: it.done || i === 0, 'aria-label': 'Move step up', onclick: () => moveStep(i, -1) }, '↑'),
+          el('button', { class: 'btn small', type: 'button', disabled: it.done || i === it.perm.length - 1, 'aria-label': 'Move step down', onclick: () => moveStep(i, 1) }, '↓'))));
+    });
+    card.append(box);
+    if (!it.done) {
+      card.append(el('div', { class: 'numrow', style: 'margin-top:12px' }, el('button', { class: 'btn primary', id: 'checkBtn', onclick: answerOrder }, 'Check order')));
+      card.append(el('div', { class: 'kv', style: 'margin-top:8px', text: 'Arrange the steps from first to last. The whole order has to be right.' }));
+    }
+  } else if (q.type === 'error') {
+    const box = el('div', { class: 'opts', role: 'group', 'aria-labelledby': 'qPrompt' });
+    q.steps.forEach((step, i) => {
+      let cls = 'opt';
+      if (it.done) { if (i === q.flaw_index) cls += ' right'; else if (i === it.chosen) cls += ' wrong'; }
+      else if (i === it.chosen) cls += ' sel';
+      box.append(el('button', { class: cls, type: 'button', disabled: it.done, 'data-i': i, onclick: () => chooseErrorStep(i) }, el('span', { class: 'k', text: String(i + 1) }), el('span', { class: 'ot', math: step })));
+    });
+    card.append(box);
+    if (q.reasons && q.reasons.length) {
+      card.append(el('div', { class: 'kv', style: 'margin:12px 0 8px', text: 'Why is that step wrong?' }));
+      const reasons = el('div', { class: 'opts', role: 'group', 'aria-label': 'Reason' });
+      it.reasonPerm.forEach((orig, i) => {
+        let cls = 'opt';
+        if (it.done) { if (orig === q.correct_reason) cls += ' right'; else if (i === it.reason) cls += ' wrong'; }
+        else if (i === it.reason) cls += ' sel';
+        reasons.append(el('button', { class: cls, type: 'button', disabled: it.done, onclick: () => { if (!it.done) { it.reason = i; renderQuiz(); } } }, el('span', { class: 'k', text: 'ABCD'[i] || String(i + 1) }), el('span', { class: 'ot', math: q.reasons[orig] })));
+      });
+      card.append(reasons);
+      if (!it.done) card.append(el('div', { class: 'numrow', style: 'margin-top:12px' }, el('button', { class: 'btn primary', id: 'checkBtn', onclick: answerError }, 'Check')));
+    }
+  } else if (q.type === 'symbolic') {
+    const inp = el('input', { type: 'text', id: 'exprIn', autocomplete: 'off', spellcheck: 'false', placeholder: 'Type an expression', disabled: it.done, 'aria-label': 'Your expression' });
+    inp.value = it.text;
+    inp.addEventListener('input', () => it.text = inp.value);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); answerExpr(); } });
+    card.append(el('div', { class: 'numrow exprrow' }, inp, el('button', { class: 'btn primary', id: 'checkBtn', disabled: it.done, onclick: answerExpr }, 'Check')));
+    if (!it.done) {
+      const names = q.variables.map(v => v.name).join(', ');
+      const ranges = q.variables.map(v => `${v.name} from ${v.min} to ${v.max}`).join('; ');
+      card.append(el('div', { class: 'kv', style: 'margin-top:8px', text: `Use ${names}. + − * / ^ and parentheses. Functions: sqrt, abs, exp, ln, log, sin, cos, tan. pi and e are constants, and log is the natural log. Checked at random points (${ranges}).` }));
+      setTimeout(() => inp.focus(), 0);
+    }
+  } else if (q.type === 'numeric') {
     const inp = el('input', { type: 'text', id: 'numIn', autocomplete: 'off', spellcheck: 'false', placeholder: 'Type a number', disabled: it.done, 'aria-label': 'Your answer' + (q.unit ? ' in ' + mathPlain(q.unit) : '') });
     inp.value = it.text; inp.addEventListener('input', () => it.text = inp.value);
     inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); answerNum() } });
     card.append(el('div', { class: 'numrow' }, inp, q.unit && q.unit !== '(unitless)' ? el('span', { class: 'u', math: q.unit }) : null, el('button', { class: 'btn primary', id: 'checkBtn', disabled: it.done, onclick: answerNum }, 'Check')));
     if (!it.done) { card.append(el('div', { class: 'kv', style: 'margin-top:8px', text: `Plain numbers or scientific notation (like 2.5e-3) work. Accepted within ±${((q.tolerance != null ? q.tolerance : .02) * 100).toFixed(0)}%.` })); setTimeout(() => inp.focus(), 0) }
+  } else {
+    card.append(el('div', { class: 'note warn', text: 'This question type cannot be graded in this build.' }));
   }
   if (it.done) {
     const ok = it.correct;
@@ -1656,6 +1747,76 @@ function answerNum() {
   const r = checkNumeric(it.q, it.text);
   if (r === null) { const inp = $('numIn'); inp.setAttribute('aria-invalid', 'true'); toast('Enter a number first (like 12.5 or 1e-3).'); inp.focus(); return }
   it.done = true; it.correct = r; renderQuiz();
+}
+
+function lockAnswer(correct) {
+  const it = quiz.items[quiz.i];
+  if (it.done) return;
+  it.done = true; it.correct = !!correct; renderQuiz();
+}
+
+function toggleMulti(i) {
+  const it = quiz.items[quiz.i];
+  if (it.done) return;
+  const k = it.picks.indexOf(i);
+  if (k >= 0) it.picks.splice(k, 1); else it.picks.push(i);
+  renderQuiz();
+}
+
+function answerMulti() {
+  const it = quiz.items[quiz.i];
+  if (it.done) return;
+  if (!it.picks.length) { toast('Select at least one option.'); return; }
+  const selected = new Set(it.picks.map(i => it.perm[i]));
+  const key = new Set(it.q.correct_indices);
+  lockAnswer(selected.size === key.size && [...selected].every(i => key.has(i)));
+}
+
+function moveStep(i, dir) {
+  const it = quiz.items[quiz.i];
+  if (it.done) return;
+  const j = i + dir;
+  if (j < 0 || j >= it.perm.length) return;
+  const perm = it.perm.slice();
+  [perm[i], perm[j]] = [perm[j], perm[i]];
+  it.perm = perm;
+  renderQuiz();
+}
+
+function answerOrder() {
+  const it = quiz.items[quiz.i];
+  if (it.done) return;
+  lockAnswer(it.perm.every((orig, i) => orig === i));
+}
+
+function chooseErrorStep(i) {
+  const it = quiz.items[quiz.i];
+  if (it.done) return;
+  it.chosen = i;
+  if (it.q.reasons && it.q.reasons.length) renderQuiz();
+  else lockAnswer(i === it.q.flaw_index);
+}
+
+function answerError() {
+  const it = quiz.items[quiz.i];
+  if (it.done) return;
+  if (it.chosen == null) { toast('Pick the flawed step.'); return; }
+  if (it.reason == null) { toast('Pick a reason.'); return; }
+  lockAnswer(it.chosen === it.q.flaw_index && it.reasonPerm[it.reason] === it.q.correct_reason);
+}
+
+function answerExpr() {
+  const it = quiz.items[quiz.i];
+  if (it.done) return;
+  if (typeof SkillExpr === 'undefined') { toast('Expression grader failed to load.'); return; }
+  const r = SkillExpr.grade(it.q, it.text);
+  if (r.invalid) {
+    const inp = $('exprIn');
+    if (inp) { inp.setAttribute('aria-invalid', 'true'); inp.focus(); }
+    toast(r.message || 'Could not read that expression.');
+    return;
+  }
+  lockAnswer(r.ok);
 }
 
 function nextQ() {
@@ -1852,7 +2013,7 @@ function openHelp() {
   const ul = el('ul', {},
     el('li', {}, el('b', { text: 'Five tiers: ' }), "Unpracticed → Practiced → Level 1 → Level 2 → Mastered. Tiles fill with their chapter's color as you climb."),
     el('li', {}, el('b', { text: 'Round 1 ' }), 'is a short practice quiz (not a mastery challenge). Finish it to become Practiced.'),
-    el('li', {}, el('b', { text: 'Rounds 2–4 ' }), 'are mastery challenges: 3 questions, get at least 2 right to move up. Round 2 is harder, round 3 hunts for gotchas, round 4 applies the skill to what comes next.'),
+    el('li', {}, el('b', { text: 'Rounds 2–4 ' }), 'are mastery challenges: 3 questions, get at least 2 right to move up. Round 2 is harder, round 3 hunts for gotchas, round 4 applies the skill to what comes next. An expression, an ordering, a flawed step, or a select-all question is simply right or wrong.'),
     el('li', {}, 'Missing a challenge never costs a tier. Retry any time.'),
     el('li', {}, 'The mastery queue lists unmastered skills, least recently practiced first. Learn broadly first; come back for mastery.'),
     el('li', {}, el('b', { text: 'To-do list ' }), 'is your own ordered notebook of skills and mastery challenges. Add them from a skill, or queue the next learning session in the current scope. Each line shows the step that skill is on — 0 → P, P → 1, 1 → 2, or 2 → 👑 — and drops off once you finish that step. It is saved with your progress.'),

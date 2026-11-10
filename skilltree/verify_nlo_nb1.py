@@ -145,7 +145,7 @@ def main():
     need("cauchy-schwarz-inequality", f"inner product is {ip:.0f}")
     need("cauchy-schwarz-inequality", f"product of the lengths is {prod:.0f}")
 
-    finish(numeric, mismatches)
+    finish(numeric, mismatches, banks)
 
 
 if __name__ == "__main__":

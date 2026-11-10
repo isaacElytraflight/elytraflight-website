@@ -16,6 +16,8 @@ import sys
 
 import numpy as np
 
+from verify_harness import check_symbolic
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 BANK = os.path.join(HERE, "bank")
 EXP = os.path.join(HERE, "explainers")
@@ -309,7 +311,12 @@ def main():
     print(f"mc claim mismatches: {len(mc_bad)}")
     for w in mc_bad:
         print(" MC", w)
-    if bad or worked or mc_bad:
+    sym_bad = []
+    n_sym = check_symbolic(banks, sym_bad)
+    print(f"symbolic keys checked: {n_sym}; mismatches: {len(sym_bad)}")
+    for w in sym_bad:
+        print(" SYMBOLIC", w)
+    if bad or worked or mc_bad or sym_bad:
         sys.exit(1)
     print("0 mismatches")
 

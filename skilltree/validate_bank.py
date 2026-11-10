@@ -8,6 +8,7 @@ Figures whose circles, line endpoints, text anchors, or paths fall outside the v
 Usage: python3 validate_bank.py [bank_dir] [skills.json];  VALIDATE_SKILLS="a,b" limits the set (default ALL).
 Exit code 0 = all good."""
 import json, os, re, sys, math
+from expr import FUNCS, ExprError, free_names, parse as parse_expr
 
 _d = os.path.dirname(os.path.abspath(__file__))
 HERE = _d if os.path.isdir(os.path.join(_d, "bank")) else os.path.dirname(_d)   # works from gen/ or the repo root
@@ -123,7 +124,7 @@ def descendants(x):
     return out
 
 ids_seen = set()
-n_q = n_mc = n_num = 0
+n_q = n_mc = n_num = n_sym = n_order = n_errq = n_multi = 0
 pos_counts = [0]*4
 LATEX = re.compile(r"\$")   # '$' math delimiters are not allowed; use \( ... \) and \[ ... \]
 def check_delims(qid, field, v):
@@ -165,6 +166,137 @@ def check_figure(qid, q):
             if kl == "href": err(qid, "figure has href")
             if re.search(r"(https?:|//|javascript:|data:|url\()", str(v), re.I): err(qid, f"figure attribute {k} references external/URL content")
 LETTER_REF = re.compile(r"\b(option|choice|answer)\s+\(?[A-D]\)?\b|\(\s*[A-D]\s*\)\s*(is|are)|\bchoice\s+[A-D]\b", re.I)
+NAME_RE = re.compile(r"^[A-Za-z][A-Za-z0-9_]*$")
+COMMON_FIELDS = {"id", "round", "type", "prompt", "explanation", "figure", "figure_alt", "preview", "version"}
+TYPE_FIELDS = {
+    "mc": {"options", "correct_index"},
+    "numeric": {"answer", "unit", "tolerance"},
+    "symbolic": {"answer", "variables", "tolerance", "alternates"},
+    "order": {"steps"},
+    "error": {"steps", "flaw_index", "reasons", "correct_reason"},
+    "multi": {"options", "correct_indices"},
+}
+
+def is_int(v):
+    return isinstance(v, int) and not isinstance(v, bool)
+
+def check_text(qid, field, text):
+    if not isinstance(text, str) or not text.strip():
+        err(qid, f"empty {field}")
+        return False
+    if LATEX.search(text):
+        err(qid, f"'$' math delimiter in {field}")
+    check_delims(qid, field, text)
+    return True
+
+def check_string_list(qid, field, values, lo, hi, distinct=True):
+    if not (isinstance(values, list) and lo <= len(values) <= hi and all(isinstance(x, str) and x.strip() for x in values)):
+        err(qid, f"{field} needs {lo} to {hi} non-empty strings")
+        return False
+    for i, text in enumerate(values):
+        check_text(qid, f"{field}[{i}]", text)
+    if distinct and len(set(x.strip() for x in values)) != len(values):
+        err(qid, f"{field} entries are not distinct")
+    return True
+
+def check_symbolic(qid, q):
+    answer = q.get("answer")
+    if not (isinstance(answer, str) and answer.strip()):
+        err(qid, "symbolic needs a text answer")
+        answer = ""
+    elif "\\" in answer or "$" in answer:
+        err(qid, "symbolic answer must be a plain expression, not TeX")
+    specs = q.get("variables")
+    names = []
+    if not isinstance(specs, list) or not specs:
+        err(qid, "symbolic needs a non-empty variables list")
+    else:
+        for i, spec in enumerate(specs):
+            if not isinstance(spec, dict):
+                err(qid, f"variables[{i}] must be an object")
+                continue
+            name = spec.get("name")
+            if not (isinstance(name, str) and NAME_RE.fullmatch(name)):
+                err(qid, f"variables[{i}] has a bad name")
+                continue
+            if name in FUNCS:
+                err(qid, f"variable {name} is a function name")
+            if name in names:
+                err(qid, f"duplicate variable {name}")
+            names.append(name)
+            lo, hi = spec.get("min"), spec.get("max")
+            if not (isinstance(lo, (int, float)) and isinstance(hi, (int, float)) and not isinstance(lo, bool) and not isinstance(hi, bool) and math.isfinite(lo) and math.isfinite(hi) and lo < hi):
+                err(qid, f"variable {name} needs min < max")
+    tol = q.get("tolerance")
+    if not (isinstance(tol, (int, float)) and not isinstance(tol, bool) and 0 < tol <= 0.25):
+        err(qid, f"bad tolerance {tol}")
+    alts = q.get("alternates", [])
+    if alts is None:
+        alts = []
+    if not isinstance(alts, list) or not all(isinstance(x, str) and x.strip() for x in alts):
+        err(qid, "alternates must be a list of non-empty strings")
+        alts = []
+    seen = set()
+    if isinstance(answer, str):
+        seen.add(re.sub(r"\s+", "", answer))
+    for alt in alts:
+        if "\\" in alt or "$" in alt:
+            err(qid, "alternate must be a plain expression, not TeX")
+        key = re.sub(r"\s+", "", alt)
+        if key in seen:
+            err(qid, "alternate repeats the key or another alternate")
+        seen.add(key)
+    if names and isinstance(answer, str) and answer.strip() and "\\" not in answer and "$" not in answer:
+        try:
+            ast = parse_expr(answer, names)
+        except ExprError as exc:
+            err(qid, f"symbolic answer did not parse: {exc}")
+        else:
+            missing = [name for name in names if name not in free_names(ast)]
+            if missing:
+                err(qid, "symbolic answer does not use " + ", ".join(missing))
+        for alt in alts:
+            if "\\" in alt or "$" in alt:
+                continue
+            try:
+                parse_expr(alt, names)
+            except ExprError as exc:
+                err(qid, f"alternate did not parse: {exc}")
+
+def check_order(qid, q):
+    check_string_list(qid, "steps", q.get("steps"), 3, 6)
+
+def check_error(qid, q):
+    steps = q.get("steps")
+    ok = check_string_list(qid, "steps", steps, 3, 6)
+    flaw = q.get("flaw_index")
+    if not is_int(flaw):
+        err(qid, f"bad flaw_index {flaw}")
+    elif ok and not (0 <= flaw < len(steps)):
+        err(qid, f"flaw_index {flaw} is outside the steps")
+    if "reasons" not in q and "correct_reason" not in q:
+        return
+    reasons = q.get("reasons")
+    if not check_string_list(qid, "reasons", reasons, 2, 5):
+        return
+    cr = q.get("correct_reason")
+    if not (is_int(cr) and 0 <= cr < len(reasons)):
+        err(qid, f"bad correct_reason {cr}")
+
+def check_multi(qid, q):
+    options = q.get("options")
+    if not check_string_list(qid, "options", options, 3, 6):
+        return
+    idxs = q.get("correct_indices")
+    if not (isinstance(idxs, list) and idxs and all(is_int(i) for i in idxs)):
+        err(qid, "multi needs a non-empty correct_indices list")
+        return
+    if len(set(idxs)) != len(idxs):
+        err(qid, "correct_indices has duplicates")
+    if any(i < 0 or i >= len(options) for i in idxs):
+        err(qid, "correct_indices is outside the options")
+    if len(idxs) >= len(options):
+        err(qid, "multi needs at least one wrong option")
 
 for sid in BATCH:
     path = os.path.join(BANK, f"{sid}.json")
@@ -210,6 +342,11 @@ for sid in BATCH:
             warn(qid, "explanation may refer to options by letter")
         check_figure(qid, q)
         t = q.get("type")
+        if t not in TYPE_FIELDS:
+            err(qid, f"bad type {t}")
+        else:
+            for extra in sorted(k for k in q if k not in COMMON_FIELDS and k not in TYPE_FIELDS[t]):
+                err(qid, f"{t} has unexpected field '{extra}'")
         if t == "mc":
             n_mc += 1
             o = q.get("options")
@@ -218,24 +355,30 @@ for sid in BATCH:
             elif len(set(x.strip() for x in o)) != 4:
                 err(qid, "mc options are not distinct")
             ci = q.get("correct_index")
-            if not (isinstance(ci, int) and not isinstance(ci, bool) and 0 <= ci <= 3):
+            if not (is_int(ci) and 0 <= ci <= 3):
                 err(qid, f"bad correct_index {ci}")
             else:
                 pos_counts[ci] += 1
-            for bad in ("answer", "unit", "tolerance"):
-                if bad in q: err(qid, f"mc has numeric field '{bad}'")
         elif t == "numeric":
             n_num += 1
             a = q.get("answer")
             if not (isinstance(a, (int, float)) and not isinstance(a, bool) and math.isfinite(a)): err(qid, "numeric answer must be a finite number")
             if not (isinstance(q.get("unit"), str)): err(qid, "numeric needs a 'unit' string")
             tol = q.get("tolerance")
-            if not (isinstance(tol, (int, float)) and 0 < tol <= 0.25): err(qid, f"bad tolerance {tol}")
-            if isinstance(a, (int, float)) and a == 0: err(qid, "answer 0 with relative tolerance is ungradable")
-            for bad in ("options", "correct_index"):
-                if bad in q: err(qid, f"numeric has mc field '{bad}'")
-        else:
-            err(qid, f"bad type {t}")
+            if not (isinstance(tol, (int, float)) and not isinstance(tol, bool) and 0 < tol <= 0.25): err(qid, f"bad tolerance {tol}")
+            if isinstance(a, (int, float)) and not isinstance(a, bool) and a == 0: err(qid, "answer 0 with relative tolerance is ungradable")
+        elif t == "symbolic":
+            n_sym += 1
+            check_symbolic(qid, q)
+        elif t == "order":
+            n_order += 1
+            check_order(qid, q)
+        elif t == "error":
+            n_errq += 1
+            check_error(qid, q)
+        elif t == "multi":
+            n_multi += 1
+            check_multi(qid, q)
         if r == 4:
             pv = q.get("preview")
             if not (isinstance(pv, list) and pv and all(isinstance(x, str) for x in pv)):
@@ -253,7 +396,7 @@ for sid in BATCH:
     for r in (1, 2, 3, 4):
         if per_round[r] != 3: err(sid, f"round {r} has {per_round[r]} questions, expected 3")
 
-print(f"Checked {len(BATCH)} skills, {n_q} questions ({n_mc} mc, {n_num} numeric).")
+print(f"Checked {len(BATCH)} skills, {n_q} questions ({n_mc} mc, {n_num} numeric, {n_sym} symbolic, {n_order} order, {n_errq} find-the-error, {n_multi} multi).")
 print(f"mc correct_index distribution (0..3): {pos_counts}")
 seen_w = {}
 for w in warns:

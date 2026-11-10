@@ -31,11 +31,40 @@ EXPLAINERS_OUT = OUT / "explainers"
 def sha256_short(data: bytes, length: int = 8) -> str:
     return hashlib.sha256(data).hexdigest()[:length]
 
+QUESTION_TYPES = ("mc", "numeric", "symbolic", "order", "error", "multi")
+
 def normalize_bank_question(q: dict) -> dict:
     """Keep only the fields needed for the app."""
     keep = ("id", "version", "round", "type", "prompt", "options", "correct_index",
-            "answer", "unit", "tolerance", "explanation", "preview", "figure", "figure_alt")
+            "answer", "unit", "tolerance", "explanation", "preview", "figure", "figure_alt",
+            "variables", "alternates", "steps", "flaw_index", "reasons", "correct_reason",
+            "correct_indices")
     return {k: q[k] for k in keep if k in q}
+
+def assert_question(q: dict):
+    kind = q.get("type")
+    assert kind in QUESTION_TYPES, f"{q.get('id')}: invalid type"
+    assert q.get("round") in (1, 2, 3, 4), f"{q.get('id')}: invalid round"
+    if kind == "mc":
+        assert len(q.get("options", [])) >= 2, f"{q['id']}: mc needs options"
+        assert 0 <= q.get("correct_index", -1) < len(q["options"]), f"{q['id']}: invalid correct_index"
+    elif kind == "numeric":
+        assert isinstance(q.get("answer"), (int, float)), f"{q['id']}: numeric needs answer"
+    elif kind == "symbolic":
+        assert isinstance(q.get("answer"), str) and q["answer"].strip(), f"{q['id']}: symbolic needs an expression"
+        assert isinstance(q.get("variables"), list) and q["variables"], f"{q['id']}: symbolic needs variables"
+    elif kind == "order":
+        assert isinstance(q.get("steps"), list) and len(q["steps"]) >= 3, f"{q['id']}: order needs steps"
+    elif kind == "error":
+        steps = q.get("steps")
+        assert isinstance(steps, list) and len(steps) >= 3, f"{q['id']}: find-the-error needs steps"
+        flaw = q.get("flaw_index")
+        assert isinstance(flaw, int) and not isinstance(flaw, bool) and 0 <= flaw < len(steps), f"{q['id']}: bad flaw_index"
+    elif kind == "multi":
+        options = q.get("options") or []
+        idxs = q.get("correct_indices")
+        assert len(options) >= 2, f"{q['id']}: multi needs options"
+        assert isinstance(idxs, list) and idxs, f"{q['id']}: multi needs correct_indices"
 
 def clear_stale_outputs():
     """Drop previously hashed content so retired banks are not still served."""
@@ -97,13 +126,7 @@ def main():
         questions = [normalize_bank_question(q) for q in bank["questions"]]
         
         for q in questions:
-            assert q["type"] in ("mc", "numeric"), f"{q['id']}: invalid type"
-            assert q["round"] in (1, 2, 3, 4), f"{q['id']}: invalid round"
-            if q["type"] == "mc":
-                assert len(q.get("options", [])) >= 2, f"{q['id']}: mc needs options"
-                assert 0 <= q.get("correct_index", -1) < len(q["options"]), f"{q['id']}: invalid correct_index"
-            else:
-                assert isinstance(q.get("answer"), (int, float)), f"{q['id']}: numeric needs answer"
+            assert_question(q)
         
         bank_data = {
             "skill_id": sid,

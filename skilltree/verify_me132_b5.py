@@ -221,7 +221,7 @@ def main():
         if needle not in texts[sid]:
             mismatches.append(sid + " worked text missing " + needle)
 
-    finish(numeric, mismatches)
+    finish(numeric, mismatches, banks)
 
 
 if __name__ == "__main__":

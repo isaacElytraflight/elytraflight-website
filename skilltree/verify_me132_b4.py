@@ -163,7 +163,7 @@ def main():
     if "a = 2" not in texts["limit-cycles"]:
         mismatches.append("limit-cycles worked text")
 
-    finish(numeric, mismatches)
+    finish(numeric, mismatches, banks)
 
 
 if __name__ == "__main__":

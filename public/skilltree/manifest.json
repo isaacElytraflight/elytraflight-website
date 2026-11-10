@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-09T23:08:00.975816Z",
+  "generated": "2026-11-10T17:31:49.743409Z",
   "skills": {
-    "file": "skills.137a8c9d.json",
-    "hash": "137a8c9d"
+    "file": "skills.a8b7c175.json",
+    "hash": "a8b7c175"
   },
   "collections": {
     "file": "collections.4ee0faec.json",
@@ -1016,8 +1016,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "1113dbbb",
-      "file": "banks/lin-algebra-review.1113dbbb.json"
+      "hash": "67e9860a",
+      "file": "banks/lin-algebra-review.67e9860a.json"
     },
     "linearization": {
       "version": 1,
