@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T21:57:06.629649Z",
+  "generated": "2026-11-11T22:06:58.009946Z",
   "skills": {
-    "file": "skills.29560f43.json",
-    "hash": "29560f43"
+    "file": "skills.716dc273.json",
+    "hash": "716dc273"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -116,8 +116,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "bd4382b3",
-      "file": "banks/basic-feasible-solutions.bd4382b3.json"
+      "hash": "63e5b8a8",
+      "file": "banks/basic-feasible-solutions.63e5b8a8.json"
     },
     "bias-coupling": {
       "version": 1,
@@ -2060,8 +2060,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "9d9362fe",
-      "file": "banks/polyhedra-extreme-points.9d9362fe.json"
+      "hash": "fe77f2a9",
+      "file": "banks/polyhedra-extreme-points.fe77f2a9.json"
     },
     "positive-definite-matrices": {
       "version": 1,

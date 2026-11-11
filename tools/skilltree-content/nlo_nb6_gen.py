@@ -477,7 +477,7 @@ def bank_polyhedra():
     )
     b.find_error(
         3,
-        "A note argues that every polyhedron is convex. Exactly one step is false.",
+        "A note claims that a polyhedron need not be convex. Exactly one step is false.",
         [
             "A polyhedron is the intersection of finitely many half-spaces.",
             "Each half-space contains the segment between any two of its points.",
@@ -598,14 +598,14 @@ def bank_bfs():
     )
     b.order(
         2,
-        "Put these steps in the order used to build one basic feasible solution.",
+        "Put these steps in the order used to build one basic feasible solution. Each step uses the result of the step before it.",
         [
             "Choose as many independent columns as there are rows, and call that set the basis.",
-            "Solve the square system for the basic variables.",
-            "Set every variable outside the basis to zero.",
-            "Accept the point only when every basic variable is nonnegative.",
+            "With that basis chosen, set every variable outside it to zero.",
+            "Only after those nonbasic variables are zero, solve the square system for the basic variables.",
+            "Accept the point only after that solve, and only when every basic variable is nonnegative.",
         ],
-        r"A basis is a choice of independent columns, so the choice comes first. The square solve needs that basis. The nonbasic variables are then set to zero; doing that before the basis is chosen does not say which variables are nonbasic. Nonnegativity is the feasibility test, and it is applied to the solution just computed. Accepting a negative basic variable skips the last step and leaves the polyhedron.",
+        r"A basis is a choice of independent columns, so the choice comes first. The next step refers to that basis when it sets the other variables to zero, so the zeros cannot be assigned earlier. The square solve is stated to come only after those zeros, which is the same order as the construction: substitute the nonbasic zeros, then solve \(B x_B = b\). Nonnegativity is applied to the solution just computed. Accepting a negative basic variable skips the last step and leaves the polyhedron.",
         fig=SEG,
         alt=A_SEG,
     )
