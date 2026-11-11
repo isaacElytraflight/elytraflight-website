@@ -138,6 +138,14 @@ LEAF_PREVIEW_ALLOWED.update({
     "mpc": ["lqr", "robust-perf", "adaptive"],
     "kalman-optimal-observer": ["gen-controller", "lqr", "mpc"],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # NB5 leaf: classifying stationary points has no dependents.
+    "stationary-point-classification": [
+        "newton-method-optimization",
+        "lagrange-multiplier-equality",
+        "descent-directions",
+    ],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

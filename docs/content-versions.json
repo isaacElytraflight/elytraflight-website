@@ -4681,6 +4681,526 @@
     {
       "id": "backprop-neural-network#explainer",
       "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation#explainer",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization#explainer",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-classes#explainer",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "local-global-minima#explainer",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "existence-of-minimizers#explainer",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "first-order-optimality#explainer",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality#explainer",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "stationary-point-classification#explainer",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global#explainer",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization#explainer",
+      "version": 1
     }
   ]
 }

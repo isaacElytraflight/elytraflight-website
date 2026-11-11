@@ -1,0 +1,213 @@
+{
+  "skill_id": "graphical-2d-optimization",
+  "version": 1,
+  "questions": [
+    {
+      "id": "graphical-2d-optimization-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The level lines of the linear objective \\(x + 3y\\) are",
+      "explanation": "A level of \\(x + 3y\\) is the line \\(y = -x/3 + c/3\\), so the slope is \\(-1/3\\). The gradient \\((1, 3)\\) is perpendicular to those lines and points toward larger values. Circles are the levels of a squared distance. Parabolas are the levels of a quadratic that is not linear. The feasible set is drawn once. The level lines are a separate family that you slide across it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "options": [
+        "circles centered at the origin",
+        "the feasible set itself",
+        "straight lines of slope \\(-1/3\\)",
+        "parabolas opening upward"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Minimize \\(x + y\\) over the triangle with vertices \\((2, 1)\\), \\((6, 1)\\), and \\((2, 5)\\). What is the optimal value?",
+      "explanation": "The vertex values are \\(2 + 1 = 3\\), \\(6 + 1 = 7\\), and \\(2 + 5 = 7\\). A linear objective on a triangle attains its minimum at a vertex, so the optimal value is 3, at \\((2, 1)\\). Reporting 7 gives the maximum. Reporting 2 or 1 or 5 or 6 reports a coordinate of a vertex rather than the objective.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining the two axis intercepts.",
+      "answer": 3.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The contact point of the lowest level line that still meets the feasible set is",
+      "explanation": "Sliding the level in the direction that decreases the objective, and stopping at the last contact, selects a minimizer. The level at contact is the optimal value. The opposite slide selects a maximizer. The centroid is a special point of a triangle and need not lie on the supporting level. The last contact is feasible by construction. The next parallel line, the one that misses, is the one that has left the set.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested ellipses</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses centered at the origin.",
+      "options": [
+        "a maximizer",
+        "a minimizer, and the level is the optimal value",
+        "always the centroid of the feasible set",
+        "infeasible, because the line has just left the set"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order used to solve a planar problem from a sketch.",
+      "explanation": "The feasible set is the picture you are allowed to land on, so it is drawn first. A single level line shows the shape of the objective, and the decrease direction tells you which way to slide. The last contact is the candidate set. If that contact is one point, you have a unique minimizer. If the level lies along an edge, every point of that edge is a minimizer and they share one optimal value. Comparing coordinates before drawing the set has nothing to compare.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "steps": [
+        "Sketch the feasible set in the plane.",
+        "Draw one level line of the objective and mark the direction in which the objective decreases.",
+        "Slide that line in the decreasing direction until it is about to leave the feasible set.",
+        "Read a contact point as a candidate, and keep the whole contact set if the line lies along an edge."
+      ],
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "On the triangle with vertices \\((2, 1)\\), \\((6, 1)\\), and \\((2, 5)\\), which statements hold?",
+      "explanation": "The values of \\(y - x\\) are \\(1 - 2 = -1\\) at \\((2, 1)\\), \\(1 - 6 = -5\\) at \\((6, 1)\\), and \\(5 - 2 = 3\\) at \\((2, 5)\\). The smallest is \\(-5\\), at \\((6, 1)\\) only.\n• The values of \\(x - y\\) are \\(1\\), \\(5\\), and \\(-3\\). The smallest is \\(-3\\), at \\((2, 5)\\).\n• \\((2, 1)\\) is not a minimizer of \\(y - x\\), and the three vertices do not share one value of \\(y - x\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining the two axis intercepts.",
+      "options": [
+        "\\((6, 1)\\) minimizes \\(y - x\\).",
+        "\\((2, 1)\\) minimizes \\(y - x\\).",
+        "The optimal value of \\(y - x\\) is \\(-5\\).",
+        "\\((2, 5)\\) minimizes \\(x - y\\).",
+        "Every vertex minimizes \\(y - x\\)."
+      ],
+      "correct_indices": [
+        0,
+        2,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Maximize \\(x + y\\) over the triangle with vertices \\((2, 1)\\), \\((6, 1)\\), and \\((2, 5)\\). What is the optimal value?",
+      "explanation": "The vertex values are 3, 7, and 7. The largest is 7, attained at both \\((6, 1)\\) and \\((2, 5)\\), so the maximizer is not unique and the optimal value still is. Reporting 3 gives the minimum. Reporting 6, 2, or 5 reports a coordinate.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining the two axis intercepts.",
+      "answer": 7.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note claims that \\((6, 1)\\) minimizes \\(x + y\\) on the triangle with vertices \\((2, 1)\\), \\((6, 1)\\), and \\((2, 5)\\). Exactly one step is false.",
+      "explanation": "The levels really are the lines \\(x + y = c\\), and the gradient \\((1, 1)\\) points toward larger \\(c\\). A linear function on a triangle attains its minimum at a vertex. The false step is the comparison: the values are 3 at \\((2, 1)\\) and 7 at the other two vertices, so \\((6, 1)\\) is a maximizer, not the vertex with the smallest value.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining the two axis intercepts.",
+      "steps": [
+        "The level lines of \\(x + y\\) are the lines \\(x + y = c\\).",
+        "Increasing \\(c\\) moves the line in the direction of the gradient \\((1, 1)\\).",
+        "Among the three vertices, \\((6, 1)\\) gives the smallest value of \\(x + y\\).",
+        "A vertex where a linear objective is smallest is a minimizer on a triangle."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "\\((6, 1)\\) has objective 7, and \\((2, 1)\\) has objective 3, so \\((6, 1)\\) is not the smallest.",
+        "The level lines of \\(x + y\\) are not straight.",
+        "A linear objective on a triangle need not attain its minimum at a vertex."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Minimize \\(3x + y\\) over the rectangle with corners \\((1, 2)\\), \\((4, 2)\\), \\((4, 6)\\), and \\((1, 6)\\). What is the optimal value?",
+      "explanation": "The corner values are \\(3 + 2 = 5\\), \\(12 + 2 = 14\\), \\(12 + 6 = 18\\), and \\(3 + 6 = 9\\). A linear objective on a rectangle attains its minimum at a corner, so the optimal value is 5, at \\((1, 2)\\). Reporting 9 gives the other corner on the left edge. Reporting 18 gives the maximum. Reporting 1 or 2 reports a coordinate.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "answer": 5.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "When the decreasing level line comes to rest along an entire edge of a polygon,",
+      "explanation": "A linear objective is constant on a level line. If that line contains an edge, every point of the edge has the same objective value, and the neighboring feasible points are worse or equal, so the whole edge is optimal. The midpoint is one of those minimizers, not the only one. The edge is feasible, so the problem is not infeasible, and the minimizers exist.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "options": [
+        "only the midpoint of that edge is a minimizer",
+        "the problem is infeasible",
+        "no minimizer exists",
+        "every point of that edge is a minimizer"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Minimize \\(x + 2y\\) over the triangle with vertices \\((0, 2)\\), \\((3, 0)\\), and \\((4, 3)\\). What is the optimal value?",
+      "explanation": "The vertex values are \\(0 + 4 = 4\\), \\(3 + 0 = 3\\), and \\(4 + 6 = 10\\). The smallest is 3, at \\((3, 0)\\). Reporting 4 uses the vertical intercept. Reporting 10 uses the far vertex. Reporting 0 is a coordinate of a vertex, and the objective is not zero anywhere on this triangle.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining the two axis intercepts.",
+      "preview": [
+        "lp-graphical-solution"
+      ],
+      "answer": 3.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A linear objective on a nonempty polygon with finitely many vertices",
+      "explanation": "On a nonempty bounded polygon a linear function attains its minimum, and the minimum is attained at a vertex. If the level line happens to contain an edge, the minimizer is that whole edge, so uniqueness can fail. Boundedness prevents the objective from running off to \\(-\\infty\\). A nonempty polygon is feasible.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "preview": [
+        "lp-graphical-solution"
+      ],
+      "options": [
+        "is unbounded below whenever the polygon is bounded",
+        "attains its minimum at a vertex, and possibly along a whole edge",
+        "always has a unique minimizer",
+        "is infeasible"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "graphical-2d-optimization-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Minimize \\(-x\\) over the closed first quadrant \\(x \\ge 0\\), \\(y \\ge 0\\).",
+      "explanation": "The objective \\(-x\\) decreases without bound as \\(x\\) grows, and every large positive \\(x\\) is feasible. There is no lowest level line that still touches the quadrant, so there is no minimizer and the optimal value is \\(-\\infty\\). The origin gives the value 0, which is feasible and not a lower bound. The point \\(x = 1\\) gives \\(-1\\), which is worse than the origin and still not a minimum. The quadrant is nonempty.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "preview": [
+        "lp-graphical-solution"
+      ],
+      "options": [
+        "the minimizer is the origin and the optimal value is 0",
+        "the problem is infeasible",
+        "the problem is unbounded below and has no minimizer",
+        "the optimal value is 1, attained at \\(x = 1\\)"
+      ],
+      "correct_index": 2,
+      "version": 1
+    }
+  ]
+}

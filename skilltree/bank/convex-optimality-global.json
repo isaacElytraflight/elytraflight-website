@@ -1,0 +1,228 @@
+{
+  "skill_id": "convex-optimality-global",
+  "version": 1,
+  "questions": [
+    {
+      "id": "convex-optimality-global-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "If \\(f\\) is differentiable and convex, and the gradient at \\(x^\\star\\) is zero, then",
+      "explanation": "Convexity puts the graph above every tangent. A zero gradient makes the tangent the constant \\(f(x^\\star)\\), so every other point is at least that high. The stationary point is a global minimizer. It need not be a saddle, and the local-versus-global gap that nonconvex functions have is closed by convexity. A constant function is the special case in which every point is stationary, not a requirement.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"4.2,120.1 7.2,121.2 10.2,122.1 13.2,123.1 16.2,124 19.3,124.8 22.3,125.7 25.3,126.4 28.3,127.1 31.4,127.8 34.4,128.5 37.4,129.1 40.4,129.6 43.4,130.1 46.5,130.6 49.5,131 52.5,131.4 55.5,131.7 58.6,132 61.6,132.3 64.6,132.5 67.6,132.6 70.6,132.8 73.7,132.8 76.7,132.9 79.7,132.8 82.7,132.8 85.8,132.7 88.8,132.6 91.8,132.4 94.8,132.1 97.8,131.9 100.9,131.6 103.9,131.2 106.9,130.8 109.9,130.3 113,129.9 116,129.3 119,128.7 122,128.1 125,127.5 128.1,126.8 131.1,126 134.1,125.2 137.1,124.4 140.2,123.5 143.2,122.6 146.2,121.6 149.2,120.6 152.2,119.6 155.3,118.5 158.3,117.3 161.3,116.1 164.3,114.9 167.4,113.6 170.4,112.3 173.4,111 176.4,109.6 179.4,108.1 182.5,106.6 185.5,105.1 188.5,103.5 191.5,101.9 194.6,100.3 197.6,98.5 200.6,96.8 203.6,95 206.6,93.2 209.7,91.3 212.7,89.4 215.7,87.4 218.7,85.4 221.8,83.4 224.8,81.3 227.8,79.1 230.8,76.9 233.8,74.7 236.9,72.4 239.9,70.1 242.9,67.8 245.9,65.4 249,62.9 252,60.5 255,57.9 258,55.4 261,52.7 264.1,50.1 267.1,47.4 270.1,44.6 273.1,41.8 276.2,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "options": [
+        "\\(x^\\star\\) is a global minimizer",
+        "\\(x^\\star\\) is a saddle",
+        "\\(x^\\star\\) is a local minimizer that may fail to be global",
+        "\\(f\\) is constant"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(f(t) = t^2 - 6t + 10\\). What is the global minimum value?",
+      "explanation": "The derivative \\(2t - 6\\) vanishes at \\(t = 3\\). The value is \\(9 - 18 + 10 = 1\\). The second derivative is 2, so \\(f\\) is strictly convex and the stationary point is the unique global minimizer. Completing the square gives \\((t - 3)^2 + 1\\). Reporting 3 gives the minimizer. Reporting 10 gives the constant term. Reporting 6 gives the linear coefficient.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"4.2,120.1 7.2,121.2 10.2,122.1 13.2,123.1 16.2,124 19.3,124.8 22.3,125.7 25.3,126.4 28.3,127.1 31.4,127.8 34.4,128.5 37.4,129.1 40.4,129.6 43.4,130.1 46.5,130.6 49.5,131 52.5,131.4 55.5,131.7 58.6,132 61.6,132.3 64.6,132.5 67.6,132.6 70.6,132.8 73.7,132.8 76.7,132.9 79.7,132.8 82.7,132.8 85.8,132.7 88.8,132.6 91.8,132.4 94.8,132.1 97.8,131.9 100.9,131.6 103.9,131.2 106.9,130.8 109.9,130.3 113,129.9 116,129.3 119,128.7 122,128.1 125,127.5 128.1,126.8 131.1,126 134.1,125.2 137.1,124.4 140.2,123.5 143.2,122.6 146.2,121.6 149.2,120.6 152.2,119.6 155.3,118.5 158.3,117.3 161.3,116.1 164.3,114.9 167.4,113.6 170.4,112.3 173.4,111 176.4,109.6 179.4,108.1 182.5,106.6 185.5,105.1 188.5,103.5 191.5,101.9 194.6,100.3 197.6,98.5 200.6,96.8 203.6,95 206.6,93.2 209.7,91.3 212.7,89.4 215.7,87.4 218.7,85.4 221.8,83.4 224.8,81.3 227.8,79.1 230.8,76.9 233.8,74.7 236.9,72.4 239.9,70.1 242.9,67.8 245.9,65.4 249,62.9 252,60.5 255,57.9 258,55.4 261,52.7 264.1,50.1 267.1,47.4 270.1,44.6 273.1,41.8 276.2,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "answer": 1.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Strict convexity, together with one stationary point, gives",
+      "explanation": "A stationary point of a differentiable convex function is global. Strict convexity forbids a second point from tying the value, because a tie would put the chord on the graph. The argmin set has one point. A line of minimizers is the non-strict picture, as with a function that is flat in one direction. The stationary point cannot fail to be global, and it is a minimizer, so the set is not empty.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"4.2,120.1 7.2,121.2 10.2,122.1 13.2,123.1 16.2,124 19.3,124.8 22.3,125.7 25.3,126.4 28.3,127.1 31.4,127.8 34.4,128.5 37.4,129.1 40.4,129.6 43.4,130.1 46.5,130.6 49.5,131 52.5,131.4 55.5,131.7 58.6,132 61.6,132.3 64.6,132.5 67.6,132.6 70.6,132.8 73.7,132.8 76.7,132.9 79.7,132.8 82.7,132.8 85.8,132.7 88.8,132.6 91.8,132.4 94.8,132.1 97.8,131.9 100.9,131.6 103.9,131.2 106.9,130.8 109.9,130.3 113,129.9 116,129.3 119,128.7 122,128.1 125,127.5 128.1,126.8 131.1,126 134.1,125.2 137.1,124.4 140.2,123.5 143.2,122.6 146.2,121.6 149.2,120.6 152.2,119.6 155.3,118.5 158.3,117.3 161.3,116.1 164.3,114.9 167.4,113.6 170.4,112.3 173.4,111 176.4,109.6 179.4,108.1 182.5,106.6 185.5,105.1 188.5,103.5 191.5,101.9 194.6,100.3 197.6,98.5 200.6,96.8 203.6,95 206.6,93.2 209.7,91.3 212.7,89.4 215.7,87.4 218.7,85.4 221.8,83.4 224.8,81.3 227.8,79.1 230.8,76.9 233.8,74.7 236.9,72.4 239.9,70.1 242.9,67.8 245.9,65.4 249,62.9 252,60.5 255,57.9 258,55.4 261,52.7 264.1,50.1 267.1,47.4 270.1,44.6 273.1,41.8 276.2,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "options": [
+        "a whole line of minimizers",
+        "a unique global minimizer",
+        "a local minimizer that is not global",
+        "no minimizer"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order used to certify a global minimizer of a differentiable convex function.",
+      "explanation": "Convexity is the hypothesis that turns a tangent into a global underestimator, so it is checked first. A zero gradient is the point where that underestimator becomes a constant. The inequality then says the constant is a lower bound, which is global optimality. Uniqueness is a further conclusion and needs the strict inequality on chords. Skipping the convexity check leaves an ordinary stationary point, which may be a saddle.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "steps": [
+        "Check that the objective is convex on a convex domain.",
+        "Find a point where the gradient is zero.",
+        "Invoke the tangent inequality, which now says every point lies on or above that value.",
+        "If the function is strictly convex, conclude that no other point shares the value."
+      ],
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Which statements hold for a differentiable convex function on \\(\\mathbb{R}^n\\)?",
+      "explanation": "The tangent inequality turns a zero gradient into a global lower bound, so every stationary point is global. A local minimizer of a convex function is global even before differentiability is used. Strict convexity makes a tie impossible, so there is at most one global minimizer.\n• A convex function can be constant, or it can be constant along a line, so a stationary point need not be unique.\n• One positive definite Hessian controls a neighborhood. Convexity needs the Hessian test, or the tangent test, on the whole domain.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "options": [
+        "Every stationary point is a global minimizer.",
+        "Every local minimizer is global.",
+        "A stationary point is always unique.",
+        "If the function is strictly convex, there is at most one global minimizer.",
+        "A positive definite Hessian at one point makes the function convex."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Let \\(f(x, y) = x^2 + 3y^2 - 4x + 6y\\). What is the value at the stationary point?",
+      "explanation": "The gradient is \\((2x - 4,\\ 6y + 6)\\), so the stationary point is \\((2, -1)\\). The value is \\(4 + 3 - 8 - 6 = -7\\). The Hessian is \\(\\operatorname{diag}(2, 6)\\), which is positive definite, so \\(f\\) is strictly convex and this stationary point is the unique global minimizer. Reporting 2 or \\(-1\\) gives a coordinate. Reporting 7 drops the sign. Reporting 3 is the coefficient of \\(y^2\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "answer": -7.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r3-q1",
+      "round": 3,
+      "type": "symbolic",
+      "prompt": "For \\(a > 0\\), write the unique global minimizer of \\(\\tfrac12 a t^2 + b t + c\\) as an expression in a and b.",
+      "explanation": "The derivative is \\(a t + b\\), so the only stationary point is \\(t = -b/a\\). The second derivative \\(a\\) is positive, so the quadratic is strictly convex and the stationary point is the unique global minimizer. The constant \\(c\\) shifts the value and does not move the minimizer.\n• \\(b/a\\) misses the sign.\n• \\(-b\\) ignores the curvature.\n• \\(c - b/a\\) adds the constant into the location.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"4.2,120.1 7.2,121.2 10.2,122.1 13.2,123.1 16.2,124 19.3,124.8 22.3,125.7 25.3,126.4 28.3,127.1 31.4,127.8 34.4,128.5 37.4,129.1 40.4,129.6 43.4,130.1 46.5,130.6 49.5,131 52.5,131.4 55.5,131.7 58.6,132 61.6,132.3 64.6,132.5 67.6,132.6 70.6,132.8 73.7,132.8 76.7,132.9 79.7,132.8 82.7,132.8 85.8,132.7 88.8,132.6 91.8,132.4 94.8,132.1 97.8,131.9 100.9,131.6 103.9,131.2 106.9,130.8 109.9,130.3 113,129.9 116,129.3 119,128.7 122,128.1 125,127.5 128.1,126.8 131.1,126 134.1,125.2 137.1,124.4 140.2,123.5 143.2,122.6 146.2,121.6 149.2,120.6 152.2,119.6 155.3,118.5 158.3,117.3 161.3,116.1 164.3,114.9 167.4,113.6 170.4,112.3 173.4,111 176.4,109.6 179.4,108.1 182.5,106.6 185.5,105.1 188.5,103.5 191.5,101.9 194.6,100.3 197.6,98.5 200.6,96.8 203.6,95 206.6,93.2 209.7,91.3 212.7,89.4 215.7,87.4 218.7,85.4 221.8,83.4 224.8,81.3 227.8,79.1 230.8,76.9 233.8,74.7 236.9,72.4 239.9,70.1 242.9,67.8 245.9,65.4 249,62.9 252,60.5 255,57.9 258,55.4 261,52.7 264.1,50.1 267.1,47.4 270.1,44.6 273.1,41.8 276.2,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "answer": "-b/a",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.5,
+          "max": 4.0
+        },
+        {
+          "name": "b",
+          "min": -4.0,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "-(b/a)",
+        "-1*b/a"
+      ],
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r3-q2",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note claims that the stationary point of \\(f(t) = t^3\\) is a global minimizer. Exactly one step is false.",
+      "explanation": "The derivative really vanishes at the origin, a stationary point of a differentiable convex function really is global, and both hypotheses are required. The false step is the convexity claim. The second derivative \\(6t\\) is negative for negative \\(t\\), so \\(t^3\\) is not convex, and the origin is not a local minimizer: the function takes both signs in every neighborhood.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve with a rise and a dip</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"30.6,59 33.6,56.2 36.6,53.6 39.7,51.2 42.7,49.1 45.7,47.2 48.7,45.5 51.8,44 54.8,42.8 57.8,41.7 60.8,40.8 63.8,40.1 66.9,39.6 69.9,39.2 72.9,39 75.9,39 79,39.2 82,39.5 85,39.9 88,40.5 91,41.2 94.1,42.1 97.1,43.1 100.1,44.2 103.1,45.4 106.2,46.7 109.2,48.1 112.2,49.7 115.2,51.3 118.2,53 121.3,54.8 124.3,56.7 127.3,58.6 130.3,60.6 133.4,62.7 136.4,64.8 139.4,67 142.4,69.2 145.4,71.5 148.5,73.8 151.5,76.1 154.5,78.5 157.5,80.8 160.6,83.2 163.6,85.6 166.6,88 169.6,90.3 172.6,92.7 175.7,95.1 178.7,97.4 181.7,99.7 184.7,102 187.8,104.2 190.8,106.4 193.8,108.5 196.8,110.6 199.8,112.6 202.9,114.6 205.9,116.5 208.9,118.3 211.9,120.1 215,121.7 218,123.3 221,124.7 224,126.1 227,127.4 230.1,128.5 233.1,129.5 236.1,130.4 239.1,131.2 242.2,131.8 245.2,132.3 248.2,132.6 251.2,132.8 254.2,132.9 257.3,132.7 260.3,132.4 263.3,132 266.3,131.3 269.4,130.5 272.4,129.5 275.4,128.2 278.4,126.8 281.4,125.2 284.5,123.4 287.5,121.3 290.5,119 293.5,116.5 296.6,113.8 299.6,110.8 302.6,107.6\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "steps": [
+        "The derivative of \\(t^3\\) is \\(3t^2\\), which vanishes at the origin.",
+        "\\(t^3\\) is convex on the whole real line.",
+        "A stationary point of a differentiable convex function is a global minimizer.",
+        "The argument needs both stationarity and convexity."
+      ],
+      "flaw_index": 1,
+      "reasons": [
+        "The second derivative \\(6t\\) is negative for negative \\(t\\), so \\(t^3\\) is not convex on the line.",
+        "The derivative of \\(t^3\\) does not vanish at the origin.",
+        "A stationary point of a differentiable convex function need not be a global minimizer."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "For \\(f(x, y) = x^2\\), the stationary points are the \\(y\\)-axis. The right reading is that",
+      "explanation": "The gradient is \\((2x, 0)\\), so it vanishes on the whole line \\(x = 0\\). On that line the function equals 0, and elsewhere it is positive, so every such point is a global minimizer. The Hessian is \\(\\operatorname{diag}(2, 0)\\), positive semidefinite and singular, which matches convexity without strict convexity. A whole line of minimizers is exactly what fails strictness. The origin is one minimizer among many.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "options": [
+        "only the origin is a minimizer",
+        "there is no minimizer",
+        "every point \\((0, y)\\) is a global minimizer, and \\(f\\) is convex but not strictly convex",
+        "\\(f\\) is strictly convex"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A quadratic with a positive definite Hessian",
+      "explanation": "A positive definite Hessian is constant for a quadratic, so the function is strictly convex. The gradient equation is a linear system with an invertible matrix, so there is one stationary point. Strict convexity promotes it to the unique global minimizer. It is not a maximizer. A quadratic is a polynomial, so the gradient exists everywhere.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "preview": [
+        "quadratic-function-minimization"
+      ],
+      "options": [
+        "has a stationary point that is a maximizer",
+        "has a unique stationary point, and that point is the unique global minimizer",
+        "may fail to be convex",
+        "has no gradient"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Minimize \\((x - 2)^2 + (y - 2)^2\\) over the half-space \\(x \\le 0\\). What is the minimum value?",
+      "explanation": "The unconstrained minimizer is \\((2, 2)\\), which is not feasible. The objective is the squared distance to that point, and the closest feasible point is \\((0, 2)\\), where the value is 4. The feasible set is convex and the objective is strictly convex, so this closest point is the unique global minimizer even though the gradient there is \\((-4, 0)\\), not zero. Reporting 8 adds the two squared shifts as if both coordinates were blocked. Reporting 2 gives a coordinate. Reporting 0 is the unconstrained value and is not feasible.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "preview": [
+        "optimality-over-convex-set"
+      ],
+      "answer": 4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The solution of the normal equations for a linear least-squares objective is a global minimizer because",
+      "explanation": "The squared residual \\(\\lVert Ax - d \\rVert^2\\) has Hessian \\(2A^T A\\), which is positive semidefinite, so the objective is convex. The normal equations are the stationarity condition. Convexity promotes any solution of them to a global minimizer. A zero residual is the perfect-fit case. The Hessian is never indefinite, so the stationary point is not a saddle.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a symmetric array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   b</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   c</text></svg>",
+      "figure_alt": "A 2 by 2 array with matching off-diagonal labels.",
+      "preview": [
+        "linear-least-squares"
+      ],
+      "options": [
+        "a zero residual is required for optimality",
+        "least squares is nonconvex",
+        "that objective is a convex quadratic, so a stationary point is global",
+        "the normal equations describe a saddle"
+      ],
+      "correct_index": 2,
+      "version": 1
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "graphical-2d-optimization",
+  "title": "Solving 2-D problems graphically",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested ellipses</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses centered at the origin.",
+      "body_md": "A problem in two variables can be solved by drawing. The feasible set is a region in the plane. A level line of the objective is the curve on which the objective holds one fixed value. For a linear objective those curves are parallel straight lines, perpendicular to the gradient, and the gradient points toward larger values.\n\nYou draw one level line, mark the direction of decrease, and slide the line that way. The last position in which the line still touches the feasible set is the supporting level. Every contact point is a minimizer, and the level itself is the optimal value. If the contact is a single vertex, the minimizer is unique. If the level lies along an edge, the whole edge is optimal and the points share one value.\n\nThe picture also shows the failures. If the decreasing slide never loses contact, the objective is unbounded below and no minimizer exists. If the feasible set is empty, there is nothing to touch."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "A linear objective \\(c_1 x + c_2 y\\) has level lines \\(c_1 x + c_2 y = \\gamma\\) and gradient \\((c_1, c_2)\\). On a nonempty polygon the minimum and the maximum are attained, and each is attained at a vertex. The optimal value of a minimization is the smallest vertex value when the contact is a vertex, and it is that same number at every point of an optimal edge. Sliding to increase \\(\\gamma\\) solves the maximization."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "A depot serves the triangle with vertices \\((1, 5)\\), \\((7, 2)\\), and \\((3, 6)\\), and the cost to minimize is \\(x + 2y\\). The three vertex costs are \\(1 + 10 = 11\\), \\(7 + 4 = 11\\), and \\(3 + 12 = 15\\). The lowest vertex cost is shared by the first two vertices.\n\nThe level \\(x + 2y = 11\\) passes through both of those vertices, so it contains the edge that joins them. Every point of that edge is a minimizer. The depot level is 11. The third vertex is worse. The gradient \\((1, 2)\\) points into the triangle from that edge, which is the increasing side, so the picture agrees with the vertex comparison."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Sliding the level in the gradient direction finds a maximizer. The minimizer sits at the other end of the slide. A second mistake is to report a coordinate of the contact point when the question asks for the level, or to average the vertices and call the centroid optimal. A linear objective is constant on its level and is not improved by moving to the middle of the set. On an unbounded set the slide may never stop. The open segment between 0 and 1, with objective equal to the coordinate, has infimum 0 and no contact point, so the picture of a closed polygon does not apply."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The vertex conclusion is the geometric reason a linear program is searched at extreme points. The same picture classifies a linear program as having a unique solution, a whole edge of solutions, an empty feasible set, or an unbounded objective. Higher-dimensional linear programs keep the extreme-point fact and replace the drawing by algebra."
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "nlo-nb5",
+  "label": "NB5",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "optimization-problem-formulation",
+    "graphical-2d-optimization",
+    "optimization-problem-classes",
+    "local-global-minima",
+    "existence-of-minimizers",
+    "first-order-optimality",
+    "second-order-optimality",
+    "stationary-point-classification",
+    "convex-optimality-global",
+    "quadratic-function-minimization"
+  ],
+  "areas": {
+    "optimization-problem-formulation": ["optimization"],
+    "graphical-2d-optimization": ["optimization"],
+    "optimization-problem-classes": ["optimization", "linear-algebra"],
+    "local-global-minima": ["optimization"],
+    "existence-of-minimizers": ["optimization"],
+    "first-order-optimality": ["optimization"],
+    "second-order-optimality": ["optimization", "linear-algebra"],
+    "stationary-point-classification": ["optimization", "linear-algebra"],
+    "convex-optimality-global": ["optimization"],
+    "quadratic-function-minimization": ["optimization", "linear-algebra"]
+  },
+  "cores": [
+    "optimization-problem-formulation",
+    "graphical-2d-optimization",
+    "optimization-problem-classes",
+    "local-global-minima",
+    "existence-of-minimizers",
+    "first-order-optimality",
+    "second-order-optimality",
+    "stationary-point-classification",
+    "convex-optimality-global",
+    "quadratic-function-minimization"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/nlo-content-batches.md",
+  "verifier": "skilltree/verify_nlo_nb5.py"
+}

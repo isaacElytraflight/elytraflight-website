@@ -2345,8 +2345,7 @@
    "summary": "Name the decision variable, the objective, and the feasible set, and tell a minimizer from the optimal value.",
    "prereqs": [
     "rn-important-subsets"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "graphical-2d-optimization",
@@ -2355,8 +2354,7 @@
    "prereqs": [
     "optimization-problem-formulation",
     "level-sets-contours"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "optimization-problem-classes",
@@ -2365,8 +2363,7 @@
    "prereqs": [
     "optimization-problem-formulation",
     "convex-functions"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "svm-quadratic-program",
@@ -2653,8 +2650,7 @@
    "prereqs": [
     "optimization-problem-formulation",
     "open-closed-sets"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "existence-of-minimizers",
@@ -2664,8 +2660,7 @@
     "local-global-minima",
     "compact-sets",
     "level-sets-contours"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "first-order-optimality",
@@ -2674,8 +2669,7 @@
    "prereqs": [
     "local-global-minima",
     "gradient-partial-derivatives"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "second-order-optimality",
@@ -2685,8 +2679,7 @@
     "first-order-optimality",
     "positive-definite-matrices",
     "taylor-exact-mean-value"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "stationary-point-classification",
@@ -2695,8 +2688,7 @@
    "prereqs": [
     "second-order-optimality",
     "existence-of-minimizers"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "convex-optimality-global",
@@ -2705,8 +2697,7 @@
    "prereqs": [
     "first-order-optimality",
     "convexity-first-order"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "quadratic-function-minimization",
@@ -2716,8 +2707,7 @@
     "matrix-calculus-gradients",
     "second-order-optimality",
     "convex-optimality-global"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "lp-standard-form",
