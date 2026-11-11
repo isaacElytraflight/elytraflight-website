@@ -322,6 +322,17 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | residual Jacobian \(J_r(x)\) | derivatives of the residual vector | one row per residual, one column per parameter. Added in NB7 |
 | algebraic circle | \(x^2+y^2+cx+dy+e=0\) | linear in \((c,d,e)\). Center \((-c/2,-d/2)\), and \(r^2=c^2/4+d^2/4-e\). Added in NB7 |
 | geometric margin | \(y_i(w^T x_i+b)/\lVert w\rVert\) for a correctly signed point | normalizing the smallest functional margin to 1 yields minimize \(\tfrac12\lVert w\rVert^2\) subject to \(y_i(w^T x_i+b)\ge 1\). Added in NB7 |
+| descent direction | \(\nabla f(x)^T d < 0\) | a short enough step along \(d\) decreases \(f\). Added in NB8 |
+| scaled descent direction | \(d = -D\nabla f(x)\) with \(D\) symmetric positive definite | steepest descent is \(D = I\). Added in NB8 |
+| descent step | \(x^+ = x + t d\) with \(t > 0\) | direction, step length, and a stopping test are chosen separately. Added in NB8 |
+| Q-linear rate | successive error ratios tend to \(\mu \in (0, 1)\) | superlinear when the ratio tends to 0; quadratic when the ratio against the squared error stays bounded; sublinear when the errors go to 0 but the ratio tends to 1. Added in NB8 |
+| exact line-search step | \(t = -\nabla f(x)^T d / (d^T A d)\) | for \(f(x) = \tfrac12 x^T A x + b^T x\) with \(A\) symmetric positive definite and \(d \ne 0\). Added in NB8 |
+| Armijo | \(f(x + t d) \le f(x) + c\, t\, \nabla f(x)^T d\) | \(c \in (0, 1)\). Backtracking replaces a rejected \(t\) by \(\beta t\), \(\beta \in (0, 1)\). Added in NB8 |
+| gradient condition factor | \((( \kappa - 1)/(\kappa + 1))^2\) | \(\kappa = \lambda_{\max}(A)/\lambda_{\min}(A)\). This factor bounds the excess of steepest descent with exact line search. Added in NB8 |
+| \(L\)-smooth | \(\lVert\nabla f(y) - \nabla f(x)\rVert \le L \lVert y - x\rVert\) | a bound on the induced 2-norm of the Hessian is such an \(L\). Added in NB8 |
+| descent lemma | \(f(y) \le f(x) + \nabla f(x)^T(y - x) + \tfrac{L}{2}\lVert y - x\rVert^2\) | an upper bound from a Lipschitz gradient. Added in NB8 |
+| sufficient decrease | \(f(x) - f(x - t\nabla f(x)) \ge t(1 - Lt/2)\lVert\nabla f(x)\rVert^2\) | for \(0 < t < 2/L\). The step \(t = 1/L\) gives the coefficient \(1/(2L)\). Added in NB8 |
+| gradient-method rate | \(\min_{i < k}\lVert\nabla f(x_i)\rVert^2 \le 2L(f(x_0) - f^\star)/k\) | for the constant step \(t = 1/L\), when \(f\) is bounded below by \(f^\star\). Added in NB8 |
 
 ## loop-shaping
 

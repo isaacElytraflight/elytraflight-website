@@ -1,0 +1,238 @@
+{
+  "skill_id": "armijo-backtracking",
+  "version": 1,
+  "questions": [
+    {
+      "id": "armijo-backtracking-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The Armijo sufficient-decrease condition, for a step length \\(t > 0\\) and a parameter \\(c \\in (0, 1)\\), accepts \\(t\\) when",
+      "explanation": "Armijo asks the function to fall at least as far as the fraction \\(c\\) of the directional derivative predicts. Because that derivative is negative and \\(c < 1\\), the right-hand side lies above the tangent line and below \\(f(x)\\). The opposite inequality would accept steps that increase \\(f\\). Equality with the old value is only the boundary case \\(c = 0\\), which is not a useful test. The step length is not required to exceed 1.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "options": [
+        "\\(f(x + t d) \\le f(x) + c\\, t\\, \\nabla f(x)^T d\\)",
+        "\\(f(x + t d) \\ge f(x) + t\\, \\nabla f(x)^T d\\)",
+        "\\(f(x + t d) = f(x)\\)",
+        "\\(t\\) is larger than \\(1\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(f(u) = u^2\\), so \\(f'(u) = 2u\\). At \\(u = 2\\), with \\(d = -1\\), \\(c = 1/4\\), and trial step \\(t = 1\\), what is the Armijo right-hand side \\(f(u) + c\\, t\\, f'(u)\\, d\\)?",
+      "explanation": "Here \\(f(2) = 4\\) and the directional derivative is \\(4 \\cdot (-1) = -4\\). The right-hand side is \\(4 + (1/4) \\cdot 1 \\cdot (-4) = 3\\). The trial point is \\(u = 1\\), where \\(f = 1\\), and \\(1 \\le 3\\), so the step is accepted. The question asks for the right-hand side, not the new function value. Reporting \\(4\\) is the old value. Reporting \\(1\\) is \\(f\\) at the trial point. Reporting \\(-4\\) is the directional derivative.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "answer": 3.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Backtracking multiplies a rejected trial step by a fixed factor \\(\\beta \\in (0, 1)\\). For a descent direction, a short enough trial is accepted because",
+      "explanation": "The expansion is \\(f(x) + t \\nabla f^T d + o(t)\\). The Armijo line uses the same first-order term multiplied by \\(c < 1\\). With \\(\\nabla f^T d < 0\\), the function starts out below that shallower line, so a small \\(t\\) passes. No Hessian hypothesis enters this argument. The factor \\(\\beta\\) is smaller than 1, and the directional derivative of a descent direction is negative.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "options": [
+        "a positive definite Hessian is required before any trial can pass",
+        "the factor \\(\\beta\\) is larger than 1, so the trials grow",
+        "the directional derivative is positive",
+        "the first-order term dominates and \\(c < 1\\) makes the comparison slope strictly shallower than the tangent"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put the backtracking loop in the order it runs. Each step uses the result of the step before it.",
+      "explanation": "The first trial has to be chosen before it can be tested. The test is the Armijo comparison. Only a failure changes the trial, and the change is a multiplication by \\(\\beta\\). Acceptance is the comparison succeeding, so it cannot come before a comparison has been made. Shrinking the step before the first test would skip a trial that might already have been long enough.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "steps": [
+        "Set the trial step to an initial length \\(t_0 > 0\\), with parameters \\(c \\in (0, 1)\\) and \\(\\beta \\in (0, 1)\\).",
+        "Compare \\(f(x + t d)\\) with \\(f(x) + c\\, t\\, \\nabla f(x)^T d\\).",
+        "If the sufficient-decrease inequality fails, replace the trial step by \\(\\beta t\\).",
+        "Repeat the comparison until the inequality holds, then accept that trial."
+      ],
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Let \\(f(u) = u^2\\) at \\(u = 3\\), with \\(d = -1\\) and \\(c = 1/2\\). The directional derivative is \\(-6\\). Which trial steps satisfy the Armijo inequality?",
+      "explanation": "The right-hand side is \\(9 - 3t\\), and \\(f(3 - t) = (3 - t)^2\\). The inequality \\((3 - t)^2 \\le 9 - 3t\\) simplifies to \\(t(t - 3) \\le 0\\), so \\(t \\in [0, 3]\\).\n• The trials \\(1\\), \\(2\\), and \\(3\\) lie in that interval.\n• The trials \\(4\\) and \\(5\\) lie beyond it, so they are rejected.\nEquality at \\(t = 3\\) is allowed, because the test uses \\(\\le\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "options": [
+        "\\(t = 1\\)",
+        "\\(t = 4\\)",
+        "\\(t = 2\\)",
+        "\\(t = 5\\)",
+        "\\(t = 3\\)"
+      ],
+      "correct_indices": [
+        0,
+        2,
+        4
+      ],
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "The current value is \\(f_0\\), the Armijo parameter is \\(c\\), the trial step is \\(t\\), and the directional derivative \\(\\nabla f^T d\\) equals \\(s\\). The Armijo right-hand side equals",
+      "explanation": "The right-hand side is the current value plus \\(c\\) times the step times the directional derivative. All four names appear. Using \\(f_0 + t s\\) sets \\(c = 1\\) and demands the full linear prediction, which a curved function need not meet. Using \\(f_0 + c s\\) drops the step length. Subtracting \\(c t s\\) when \\(s\\) is already the signed derivative flips a decrease into an increase.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "answer": "f0+c*t*s",
+      "variables": [
+        {
+          "name": "f0",
+          "min": 1.0,
+          "max": 8.0
+        },
+        {
+          "name": "c",
+          "min": 0.05,
+          "max": 0.4
+        },
+        {
+          "name": "t",
+          "min": 0.2,
+          "max": 2.0
+        },
+        {
+          "name": "s",
+          "min": -5.0,
+          "max": -0.2
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "f0+t*c*s",
+        "f0+s*c*t"
+      ],
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note states the backtracking test. Exactly one step is a false claim.",
+      "explanation": "The parameter ranges and the trial point are the standard setup, and a rejection shrinks the step by \\(\\beta\\). The false step reverses the inequality. Sufficient decrease accepts the trial when the new value is at most the right-hand side. The reversed test would accept a step that failed to fall far enough, and it would reject a step that fell even more.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "steps": [
+        "The parameters satisfy \\(0 < c < 1\\) and \\(0 < \\beta < 1\\).",
+        "The trial point is \\(x + t d\\) with \\(d\\) a descent direction.",
+        "The trial is accepted when \\(f(x + t d)\\) is at least \\(f(x) + c\\, t\\, \\nabla f(x)^T d\\).",
+        "A rejected trial is replaced by \\(\\beta t\\)."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "Acceptance uses \\(\\le\\). The note required the function to sit above the comparison value.",
+        "The shrinkage factor \\(\\beta\\) is required to be larger than 1.",
+        "The direction in the trial point is required to be an ascent direction."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Continue \\(f(u) = u^2\\) at \\(u = 2\\), with \\(d = -1\\), \\(c = 1/4\\), and \\(\\beta = 1/2\\). Start at trial step \\(4\\), and backtrack until Armijo holds. What step length is accepted?",
+      "explanation": "The directional derivative is \\(-4\\), and \\(f(2) = 4\\). At \\(t = 4\\) the new value is \\(f(-2) = 4\\) and the right-hand side is \\(4 + (1/4) \\cdot 4 \\cdot (-4) = 0\\), so \\(4 \\le 0\\) fails. At \\(t = 2\\) the new value is \\(f(0) = 0\\) and the right-hand side is \\(4 - 2 = 2\\), so \\(0 \\le 2\\) holds. The accepted step is \\(2\\). Reporting \\(4\\) is the rejected start. Reporting \\(1\\) is the following trial, which also passes but is never tested. Reporting \\(0\\) is the point that was reached, not the step length.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Making the parameter \\(c\\) smaller, while keeping it positive, makes the Armijo test",
+      "explanation": "The right-hand side is \\(f(x) + c t \\nabla f^T d\\). With a negative directional derivative, a smaller positive \\(c\\) subtracts less, so the right-hand side is higher and more trials pass. A larger \\(c\\), closer to 1, demands a decrease closer to the full linear prediction and is harder. Exact line search asks for a zero derivative along the line, which is a different condition. The directional derivative is still the slope of the comparison.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping up</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,132.9 49,131.8 52,130.8 55.1,129.7 58.1,128.7 61.1,127.6 64.1,126.6 67.2,125.6 70.2,124.5 73.2,123.5 76.2,122.4 79.2,121.4 82.3,120.3 85.3,119.3 88.3,118.3 91.3,117.2 94.4,116.2 97.4,115.1 100.4,114.1 103.4,113 106.4,112 109.5,111 112.5,109.9 115.5,108.9 118.5,107.8 121.6,106.8 124.6,105.8 127.6,104.7 130.6,103.7 133.6,102.6 136.7,101.6 139.7,100.5 142.7,99.5 145.7,98.5 148.8,97.4 151.8,96.4 154.8,95.3 157.8,94.3 160.8,93.2 163.9,92.2 166.9,91.2 169.9,90.1 172.9,89.1 176,88 179,87 182,85.9 185,84.9 188,83.9 191.1,82.8 194.1,81.8 197.1,80.7 200.1,79.7 203.2,78.6 206.2,77.6 209.2,76.6 212.2,75.5 215.2,74.5 218.3,73.4 221.3,72.4 224.3,71.3 227.3,70.3 230.4,69.3 233.4,68.2 236.4,67.2 239.4,66.1 242.4,65.1 245.5,64 248.5,63 251.5,62 254.5,60.9 257.6,59.9 260.6,58.8 263.6,57.8 266.6,56.7 269.6,55.7 272.7,54.7 275.7,53.6 278.7,52.6 281.7,51.5 284.8,50.5 287.8,49.4 290.8,48.4 293.8,47.4 296.8,46.3 299.9,45.3 302.9,44.2 305.9,43.2 308.9,42.1 312,41.1 315,40.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping upward on labeled axes.",
+      "options": [
+        "harder, because the comparison line drops faster",
+        "easier, because the comparison line drops more slowly",
+        "equivalent to requiring an exact line search",
+        "independent of the directional derivative"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The same sufficient-decrease idea, applied to a pure gradient step \\(d = -\\nabla f\\), produces a decrease of size at least a positive multiple of \\(\\lVert\\nabla f\\rVert^2\\) when the step is shorter than",
+      "explanation": "If the gradient is Lipschitz with constant \\(L\\), a gradient step of length \\(t \\in (0, 2/L)\\) is guaranteed to decrease \\(f\\) by at least \\(t(1 - L t/2)\\lVert\\nabla f\\rVert^2\\). That upper limit on \\(t\\) is what makes the coefficient positive. The condition number governs a different, linear rate on quadratics. The objective value and the dimension do not set this step restriction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "preview": [
+        "sufficient-decrease-lemma"
+      ],
+      "options": [
+        "the objective value",
+        "the dimension of \\(x\\)",
+        "twice the reciprocal of a Lipschitz constant of the gradient",
+        "the condition number"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "At a scalar point, \\(f = 1\\), the directional derivative is \\(-5\\), \\(c = 1/5\\), and \\(t = 2\\). How far below \\(f\\) does the Armijo right-hand side sit? Report that positive gap.",
+      "explanation": "The right-hand side is \\(1 + (1/5) \\cdot 2 \\cdot (-5) = 1 - 2 = -1\\). It sits \\(1 - (-1) = 2\\) below the current value. Equivalently, the gap is \\(-c t\\) times the directional derivative, which is \\((1/5) \\cdot 2 \\cdot 5 = 2\\). Reporting \\(-1\\) gives the right-hand side itself. Reporting \\(1\\) is the current value. Reporting \\(5\\) is the absolute directional derivative.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "preview": [
+        "wolfe-conditions"
+      ],
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A Newton step that has been shortened by this backtracking loop is",
+      "explanation": "Backtracking does not change the direction. It only reduces \\(t\\) in \\(x + t d\\). When \\(d\\) is the Newton direction, the result is a damped Newton step. The Hessian was used to build \\(d\\). The simplex method is a different iteration. An exact line search would minimize the restriction, which backtracking does not claim to do.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a long ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "preview": [
+        "newton-globalization"
+      ],
+      "options": [
+        "no longer using the Hessian at all",
+        "a damped Newton iteration: the direction stays Newton and the step length is reduced until sufficient decrease holds",
+        "the simplex method",
+        "an exact line search on a nonquadratic model, with no further test"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}

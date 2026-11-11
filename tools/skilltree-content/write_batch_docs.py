@@ -146,7 +146,11 @@ def brief(spec, counts, boxes):
         "- Explainer: idea, key equations, worked example, pitfalls, where this leads. 250–500 words, at least one figure. The worked example uses none of that skill's quiz numbers.",
     ]
     if cores:
-        lines.append("- Cores: " + ", ".join(f"`{c}`" for c in cores) + ". The other skills in this batch are applications.")
+        rest = [sid for sid in spec["skills"] if sid not in set(cores)]
+        core_line = "- Cores: " + ", ".join(f"`{c}`" for c in cores) + "."
+        if rest:
+            core_line += " The other skills in this batch are applications."
+        lines.append(core_line)
     lines += [
         "",
         "## Gates",

@@ -1,0 +1,29 @@
+{
+  "id": "gradient-method-convergence",
+  "title": "Convergence of the gradient method",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a slowly falling curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">e</text><polyline points=\"46,39 49,43.1 52,46.9 55.1,50.5 58.1,53.8 61.1,57 64.1,60 67.2,62.8 70.2,65.5 73.2,68 76.2,70.4 79.2,72.7 82.3,74.9 85.3,77 88.3,79 91.3,80.9 94.4,82.7 97.4,84.4 100.4,86.1 103.4,87.7 106.4,89.2 109.5,90.7 112.5,92.1 115.5,93.5 118.5,94.8 121.6,96 124.6,97.2 127.6,98.4 130.6,99.6 133.6,100.7 136.7,101.7 139.7,102.7 142.7,103.7 145.7,104.7 148.8,105.6 151.8,106.5 154.8,107.4 157.8,108.2 160.8,109.1 163.9,109.8 166.9,110.6 169.9,111.4 172.9,112.1 176,112.8 179,113.5 182,114.2 185,114.8 188,115.5 191.1,116.1 194.1,116.7 197.1,117.3 200.1,117.9 203.2,118.4 206.2,119 209.2,119.5 212.2,120 215.2,120.6 218.3,121.1 221.3,121.5 224.3,122 227.3,122.5 230.4,122.9 233.4,123.4 236.4,123.8 239.4,124.3 242.4,124.7 245.5,125.1 248.5,125.5 251.5,125.9 254.5,126.3 257.6,126.6 260.6,127 263.6,127.4 266.6,127.7 269.6,128.1 272.7,128.4 275.7,128.8 278.7,129.1 281.7,129.4 284.8,129.7 287.8,130 290.8,130.3 293.8,130.6 296.8,130.9 299.9,131.2 302.9,131.5 305.9,131.8 308.9,132.1 312,132.3 315,132.6 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that drops at first and then flattens.",
+      "body_md": "Fix a step length in the open interval from zero to \\(2/L\\), and assume the objective is bounded from below. Every gradient step then removes at least a fixed positive multiple of the squared gradient norm from the function value. The function values are therefore monotonically nonincreasing. They cannot fall forever by fixed chunks unless those chunks shrink, and the only way for the chunks to shrink is for the gradient norms to shrink.\n\nSum the decreases. The function values telescope, and the whole sum is at most the gap from the starting value down to a lower bound. The sum of the squared gradient norms is therefore finite. A general term of a convergent series of nonnegative numbers tends to zero, so the gradient norms tend to zero. Spread the same sum across the first \\(k\\) steps and the smallest squared norm in that window is at most a constant over \\(k\\).\n\nThat \\(1/k\\) envelope is sublinear. A linear rate would multiply the error by a fixed factor strictly below one. The general smooth case gives neither that factor, nor finite termination, nor a quadratic excess. Those stronger rates need more structure. If the constant step is \\(1/L\\), the constant in the \\(1/k\\) bound is \\(2L\\) times the initial gap."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "For the step \\(t = 1/L\\) and a lower bound \\(f^\\star\\),\n\\[\n\\min_{i < k} \\lVert\\nabla f(x_i)\\rVert^2 \\le \\frac{2L\\bigl(f(x_0) - f^\\star\\bigr)}{k}.\n\\]\nAny fixed \\(t \\in (0, 2/L)\\) gives the same shape with a different constant. The gradient norms tend to zero."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(L = 5\\), a gap of \\(6\\) from the start down to a lower bound, and the step \\(t = 1/L\\). After \\(10\\) steps the bound on the smallest squared gradient norm is \\(2 \\cdot 5 \\cdot 6 / 10\\).\n\nThe trail bound is 6. Some earlier gradient may have been larger. The claim is only that the best one so far has squared norm at most \\(6\\). Doubling the number of steps would cut this particular upper bound in half. The bound is not a promise that the last gradient, rather than the smallest one, has already reached \\(6\\)."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Calling the \\(1/k\\) bound a linear rate confuses two definitions. Linear convergence is a constant factor strictly below one. A \\(1/k\\) envelope has ratios tending to one. A second slip is to quote the bound for a step longer than \\(2/L\\). At that length the decrease coefficient is no longer positive, and the scalar \\(u^2/2\\) with step \\(3\\) already diverges. A third is to read the bound as finite termination. A sum of many tiny decreases can stay finite while the iteration continues forever. A fourth is to claim quadratic convergence of the function gap from this summation alone. The summation does not square the error."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Momentum methods exist because this rate is slow when the Hessian is badly conditioned. The heavy-ball iteration adds a multiple of the previous step, and on a quadratic the multiple can be chosen from the condition number so that the linear factor beats steepest descent. Nesterov's scheme evaluates the gradient at an extrapolated point and, for convex objectives with a Lipschitz gradient, improves the function-gap guarantee from \\(1/k\\) to \\(1/k^2\\)."
+    }
+  ]
+}

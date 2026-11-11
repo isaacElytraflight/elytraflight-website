@@ -229,3 +229,13 @@ Skills: `lagrangian-duality-lower-bounds`, `lagrange-multiplier-equality`, `kkt-
 Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## NB8 — nlo-nb8
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `descent-directions`, `descent-method-framework`, `convergence-rates`, `exact-line-search-quadratic`, `armijo-backtracking`, `gradient-zigzag`, `condition-number-gradient-rate`, `lipschitz-gradient`, `descent-lemma`, `sufficient-decrease-lemma`, `gradient-method-convergence`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

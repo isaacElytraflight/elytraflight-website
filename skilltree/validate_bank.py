@@ -170,6 +170,13 @@ LEAF_PREVIEW_ALLOWED.update({
         "lagrange-multiplier-equality",
     ],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # NB8 leaf: zig-zag has no dependents. Round 4 names the rate and conjugacy that follow it.
+    "gradient-zigzag": [
+        "condition-number-gradient-rate",
+        "q-conjugate-directions",
+    ],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

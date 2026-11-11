@@ -52,6 +52,8 @@ NB6 uses the same references for linear programming. `boyd-cvx` supplies the sco
 
 NB7 uses the same references for multipliers, duality, and least squares. `boyd-cvx` supplies the scope for the Lagrangian, the dual function as a lower bound, weak duality, the KKT system, the dual of a standard-form linear program, projection onto an affine set and a half-space, and a maximum-margin linear separator written as a convex quadratic program. `nw-numopt` supplies the scope for equality-constrained stationarity and the failure of the multiplier rule without regularity, the normal equations, linear and nonlinear least squares, and an algebraic circle fit. No section is quoted, and no exercise or parameter set is reused.
 
+NB8 uses the same references for gradient methods. `boyd-cvx` supplies the scope for a Lipschitz gradient, the quadratic upper bound, sufficient decrease of a gradient step, and the sublinear guarantee obtained by summing those decreases. `nw-numopt` supplies the scope for descent directions, the general descent iteration, rates of convergence, exact line search on a quadratic, backtracking, the zig-zag of steepest descent, and the condition-number factor on a quadratic. No section is quoted, and no exercise or parameter set is reused.
+
 ## Section map for B7
 
 Scope only. The skill records already point at the sections. No wording, problems, parameter sets, or figures were taken from them. Learner-facing text does not name the works below.

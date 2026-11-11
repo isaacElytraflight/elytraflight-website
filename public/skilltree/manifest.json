@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T22:40:00.461655Z",
+  "generated": "2026-11-11T23:25:14.841227Z",
   "skills": {
-    "file": "skills.d56ce9f6.json",
-    "hash": "d56ce9f6"
+    "file": "skills.60fbd9ec.json",
+    "hash": "60fbd9ec"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -94,6 +94,18 @@
       },
       "hash": "ab4c1285",
       "file": "banks/app-examples.ab4c1285.json"
+    },
+    "armijo-backtracking": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "625a552f",
+      "file": "banks/armijo-backtracking.625a552f.json"
     },
     "backprop-neural-network": {
       "version": 1,
@@ -407,6 +419,18 @@
       "hash": "8e962bac",
       "file": "banks/computational-graphs.8e962bac.json"
     },
+    "condition-number-gradient-rate": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "233daf0d",
+      "file": "banks/condition-number-gradient-rate.233daf0d.json"
+    },
     "contact-pot": {
       "version": 1,
       "questionCount": 12,
@@ -430,6 +454,18 @@
       },
       "hash": "145277d2",
       "file": "banks/continuity.145277d2.json"
+    },
+    "convergence-rates": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "dfdb2ab0",
+      "file": "banks/convergence-rates.dfdb2ab0.json"
     },
     "convex-functions": {
       "version": 1,
@@ -622,6 +658,42 @@
       },
       "hash": "c3cb3a4e",
       "file": "banks/depl-approx.c3cb3a4e.json"
+    },
+    "descent-directions": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "403683e7",
+      "file": "banks/descent-directions.403683e7.json"
+    },
+    "descent-lemma": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ff71b640",
+      "file": "banks/descent-lemma.ff71b640.json"
+    },
+    "descent-method-framework": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "a63d59f6",
+      "file": "banks/descent-method-framework.a63d59f6.json"
     },
     "diff-dc": {
       "version": 1,
@@ -850,6 +922,18 @@
       },
       "hash": "74f7f18d",
       "file": "banks/equilibria.74f7f18d.json"
+    },
+    "exact-line-search-quadratic": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7486b7be",
+      "file": "banks/exact-line-search-quadratic.7486b7be.json"
     },
     "excess-carriers": {
       "version": 1,
@@ -1175,6 +1259,18 @@
       "hash": "4d1b5cdb",
       "file": "banks/gm.4d1b5cdb.json"
     },
+    "gradient-method-convergence": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "c4223b56",
+      "file": "banks/gradient-method-convergence.c4223b56.json"
+    },
     "gradient-partial-derivatives": {
       "version": 1,
       "questionCount": 12,
@@ -1186,6 +1282,18 @@
       },
       "hash": "b322e495",
       "file": "banks/gradient-partial-derivatives.b322e495.json"
+    },
+    "gradient-zigzag": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "dbed089e",
+      "file": "banks/gradient-zigzag.dbed089e.json"
     },
     "graphical-2d-optimization": {
       "version": 1,
@@ -1510,6 +1618,18 @@
       },
       "hash": "62729677",
       "file": "banks/linearization.62729677.json"
+    },
+    "lipschitz-gradient": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "1c2cfd7f",
+      "file": "banks/lipschitz-gradient.1c2cfd7f.json"
     },
     "local-global-minima": {
       "version": 1,
@@ -2627,6 +2747,18 @@
       "hash": "6fe3095f",
       "file": "banks/step-specs.6fe3095f.json"
     },
+    "sufficient-decrease-lemma": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "de513e64",
+      "file": "banks/sufficient-decrease-lemma.de513e64.json"
+    },
     "svm-quadratic-program": {
       "version": 1,
       "questionCount": 12,
@@ -2824,6 +2956,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "armijo-backtracking": {
+      "hash": "2d6a6f5d",
+      "file": "explainers/armijo-backtracking.2d6a6f5d.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "backprop-neural-network": {
       "hash": "48e1f54a",
       "file": "explainers/backprop-neural-network.48e1f54a.json",
@@ -2961,6 +3099,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "condition-number-gradient-rate": {
+      "hash": "a85cf1bd",
+      "file": "explainers/condition-number-gradient-rate.a85cf1bd.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "contact-pot": {
       "hash": "dd644a6e",
       "file": "explainers/contact-pot.dd644a6e.json",
@@ -2970,6 +3114,12 @@
       "hash": "7746acf7",
       "file": "explainers/continuity.7746acf7.json",
       "sectionCount": 5
+    },
+    "convergence-rates": {
+      "hash": "21161681",
+      "file": "explainers/convergence-rates.21161681.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "convex-functions": {
       "hash": "c478af95",
@@ -3056,6 +3206,24 @@
       "hash": "9f90eaf1",
       "file": "explainers/depl-approx.9f90eaf1.json",
       "sectionCount": 5
+    },
+    "descent-directions": {
+      "hash": "b07c1c0b",
+      "file": "explainers/descent-directions.b07c1c0b.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "descent-lemma": {
+      "hash": "b0602907",
+      "file": "explainers/descent-lemma.b0602907.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "descent-method-framework": {
+      "hash": "8002a2ea",
+      "file": "explainers/descent-method-framework.8002a2ea.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "diff-dc": {
       "hash": "584335fe",
@@ -3154,6 +3322,12 @@
     "equilibria": {
       "hash": "b7644146",
       "file": "explainers/equilibria.b7644146.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "exact-line-search-quadratic": {
+      "hash": "214a9ce6",
+      "file": "explainers/exact-line-search-quadratic.214a9ce6.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -3307,9 +3481,21 @@
       "file": "explainers/gm.85315815.json",
       "sectionCount": 5
     },
+    "gradient-method-convergence": {
+      "hash": "5f192db3",
+      "file": "explainers/gradient-method-convergence.5f192db3.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "gradient-partial-derivatives": {
       "hash": "6d744cb2",
       "file": "explainers/gradient-partial-derivatives.6d744cb2.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "gradient-zigzag": {
+      "hash": "8f23d0cc",
+      "file": "explainers/gradient-zigzag.8f23d0cc.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -3466,6 +3652,12 @@
       "file": "explainers/linearization.5ad04b95.json",
       "sectionCount": 5,
       "version": 2
+    },
+    "lipschitz-gradient": {
+      "hash": "a8f9a407",
+      "file": "explainers/lipschitz-gradient.a8f9a407.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "local-global-minima": {
       "hash": "b82440de",
@@ -3981,6 +4173,12 @@
     "step-specs": {
       "hash": "d25f0590",
       "file": "explainers/step-specs.d25f0590.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "sufficient-decrease-lemma": {
+      "hash": "8656eeb6",
+      "file": "explainers/sufficient-decrease-lemma.8656eeb6.json",
       "sectionCount": 5,
       "version": 1
     },

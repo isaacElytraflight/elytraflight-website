@@ -1,0 +1,29 @@
+{
+  "id": "convergence-rates",
+  "title": "Rates of convergence",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a falling curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">e</text><polyline points=\"46,39 49,41.9 52,44.8 55.1,47.5 58.1,50.2 61.1,52.8 64.1,55.3 67.2,57.7 70.2,60.1 73.2,62.4 76.2,64.6 79.2,66.8 82.3,68.9 85.3,71 88.3,73 91.3,74.9 94.4,76.8 97.4,78.6 100.4,80.4 103.4,82.1 106.4,83.8 109.5,85.4 112.5,87 115.5,88.5 118.5,90 121.6,91.4 124.6,92.8 127.6,94.2 130.6,95.5 133.6,96.8 136.7,98.1 139.7,99.3 142.7,100.4 145.7,101.6 148.8,102.7 151.8,103.8 154.8,104.8 157.8,105.8 160.8,106.8 163.9,107.8 166.9,108.7 169.9,109.6 172.9,110.5 176,111.4 179,112.2 182,113 185,113.8 188,114.5 191.1,115.3 194.1,116 197.1,116.7 200.1,117.4 203.2,118 206.2,118.7 209.2,119.3 212.2,119.9 215.2,120.5 218.3,121 221.3,121.6 224.3,122.1 227.3,122.6 230.4,123.1 233.4,123.6 236.4,124.1 239.4,124.6 242.4,125 245.5,125.4 248.5,125.9 251.5,126.3 254.5,126.7 257.6,127.1 260.6,127.4 263.6,127.8 266.6,128.2 269.6,128.5 272.7,128.8 275.7,129.2 278.7,129.5 281.7,129.8 284.8,130.1 287.8,130.4 290.8,130.7 293.8,130.9 296.8,131.2 299.9,131.5 302.9,131.7 305.9,132 308.9,132.2 312,132.4 315,132.6 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that falls toward the horizontal axis.",
+      "body_md": "A rate describes how fast a sequence of nonnegative errors tends to zero. The first measurement is the successive ratio, the next error divided by the current one. If those ratios tend to a limit strictly between zero and one, the convergence is linear: each error is eventually a fixed fraction of the one before it. On a plot of the logarithm of the error against the iteration count, that pattern is a straight line with negative slope.\n\nIf the successive ratios tend to zero, the convergence is superlinear. It is faster than every linear rate. The finer test divides the next error by the square of the current error. When that second family of ratios stays bounded, the convergence is quadratic. Quadratic convergence implies superlinear convergence, because a bounded ratio against the square forces the ordinary ratio to vanish with the error.\n\nIf the errors tend to zero but the successive ratios tend to one, the convergence is sublinear. The sequence \\(1/k\\) is the standard example. Its errors decrease at every step, and the ratio \\(k/(k+1)\\) still climbs to one. Decreasing is not, by itself, a linear rate. A ratio bigger than one would be growth, not convergence."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "For an error sequence \\(e_k \\to 0\\), the names line up with the limits\n\\[\n\\frac{e_{k+1}}{e_k} \\to \\mu \\in (0, 1), \\qquad \\frac{e_{k+1}}{e_k} \\to 0, \\qquad \\frac{e_{k+1}}{e_k^2} \\text{ bounded}.\n\\]\nThose are linear, superlinear, and quadratic. A ratio limit of \\(1\\) is sublinear."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Suppose two successive errors are \\(0.64\\) and \\(0.08\\), and the same ratio continues. Divide the later error by the earlier one.\n\nThe beacon ratio is 0.125. A constant ratio strictly between zero and one is a linear rate. The next error would be \\(0.08 \\cdot 0.125 = 0.01\\). The ratio against the square is \\(0.08 / 0.64^2 = 0.08 / 0.4096\\), which grows as the errors shrink if the ordinary ratio stays constant, so this sequence is not quadratic. A quadratic sequence such as repeated squaring drives the ordinary ratio to zero."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Calling every decreasing sequence linear is the common overstatement. Linear convergence needs the ratio to settle strictly below one. A second slip is to call a constant ratio quadratic. The quadratic test puts the previous error squared in the denominator, and a pure geometric sequence fails that test. A third is to forget that quadratic convergence is also superlinear. Once the squared ratio is bounded and the error tends to zero, the ordinary ratio tends to zero. A fourth is to read a horizontal line on the log plot as a fast rate. A horizontal line is a constant error."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Steepest descent on a quadratic has a linear guarantee whose factor is built from the condition number of the Hessian. The general gradient method, with only a Lipschitz gradient and a lower bound on the objective, has a sublinear guarantee: the best squared gradient norm seen in the first \\(k\\) steps is on the order of \\(1/k\\). Newton's method, near a minimizer with a positive definite Hessian, is the algorithm whose local rate is quadratic."
+    }
+  ]
+}
