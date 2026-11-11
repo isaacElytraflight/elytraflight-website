@@ -29,6 +29,10 @@ services:
         source: /skilltree
         destination: /skilltree/
         status: 301
+      - type: redirect
+        source: /CS180Proj4
+        destination: /CS180Proj4/
+        status: 301
       - type: rewrite
         source: /*
         destination: /index.html
