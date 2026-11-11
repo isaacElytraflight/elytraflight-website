@@ -310,6 +310,18 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | reduced cost \(\bar{c}_j\) | \(c_j - c_B^T B^{-1} A_j\) | for minimization, a negative value means the objective falls as that nonbasic variable increases. Added in NB6 |
 | ratio \(\theta\) | \(\min_i\{\bar{b}_i/\bar{a}_{ij}:\bar{a}_{ij}>0\}\) | longest step that keeps the basic variables nonnegative. No positive entry means an unbounded ray. Added in NB6 |
 | phase I | minimize the sum of artificial variables on \(Ax+a=b\), \(x\ge 0\), \(a\ge 0\), after making \(b\ge 0\) | optimal value 0 if and only if the original standard-form system is feasible. Added in NB6 |
+| \(L(x,\lambda,\nu)\) | Lagrangian | \(f(x)+\lambda^T h(x)+\nu^T g(x)\) for equalities \(h(x)=0\) and inequalities \(g(x)\le 0\). Added in NB7 |
+| dual function \(\theta(\lambda,\nu)\) | infimum of the Lagrangian over \(x\), multipliers held fixed | a dual-feasible value is a lower bound on the primal optimal value. Added in NB7 |
+| weak duality | \(\theta(\lambda,\nu)\le p^\star\) when \(\nu\ge 0\) and the infimum is finite | the dual maximizes \(\theta\). Added in NB7 |
+| regularity | constraint gradients at the point are linearly independent | also called a constraint qualification for the multiplier rule. Added in NB7 |
+| KKT | stationarity, primal feasibility, nonnegative inequality multipliers, and complementary slackness | equality multipliers stay free. Added in NB7 |
+| complementary slackness | \(\nu_i g_i(x)=0\) | a positive multiplier forces the inequality to be active. Added in NB7 |
+| LP dual | maximize \(b^T y\) subject to \(A^T y \le c\) | dual of minimize \(c^T x\) subject to \(Ax=b\), \(x\ge 0\). Added in NB7 |
+| half-space projection | \(z-a(a^T z-\beta)/(a^T a)\) when \(a^T z>\beta\), and \(z\) itself when \(a^T z\le \beta\) | from the KKT system of \(\tfrac12\lVert x-z\rVert^2\). Added in NB7 |
+| normal equations | \(A^T A x = A^T b\) | unique when \(A\) has full column rank. The solution is \((A^T A)^{-1} A^T b\). Added in NB7 |
+| residual Jacobian \(J_r(x)\) | derivatives of the residual vector | one row per residual, one column per parameter. Added in NB7 |
+| algebraic circle | \(x^2+y^2+cx+dy+e=0\) | linear in \((c,d,e)\). Center \((-c/2,-d/2)\), and \(r^2=c^2/4+d^2/4-e\). Added in NB7 |
+| geometric margin | \(y_i(w^T x_i+b)/\lVert w\rVert\) for a correctly signed point | normalizing the smallest functional margin to 1 yields minimize \(\tfrac12\lVert w\rVert^2\) subject to \(y_i(w^T x_i+b)\ge 1\). Added in NB7 |
 
 ## loop-shaping
 

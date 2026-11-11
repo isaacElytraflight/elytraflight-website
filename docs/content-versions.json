@@ -5565,6 +5565,526 @@
     {
       "id": "simplex-phase-one#explainer",
       "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lagrangian-duality-lower-bounds#explainer",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lagrange-multiplier-equality#explainer",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions#explainer",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt#explainer",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "projection-affine-halfspace-kkt#explainer",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares#explainer",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting#explainer",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares#explainer",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "circle-fitting-least-squares#explainer",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "svm-quadratic-program#explainer",
+      "version": 1
     }
   ]
 }

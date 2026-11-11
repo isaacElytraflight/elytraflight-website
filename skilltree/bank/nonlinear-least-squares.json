@@ -1,0 +1,228 @@
+{
+  "skill_id": "nonlinear-least-squares",
+  "version": 1,
+  "questions": [
+    {
+      "id": "nonlinear-least-squares-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A nonlinear least-squares problem minimizes",
+      "explanation": "The objective is a sum of squares. The nonlinearity is in how the residuals depend on the parameters. A residual that is linear in the parameters is ordinary linear least squares. The 1-norm is a different fitting criterion. One linear equation is not a sum of squares and need not be overdetermined.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "options": [
+        "one linear equation in one unknown",
+        "a sum of squares of residuals that depend nonlinearly on the parameters",
+        "a residual that is linear in the parameters",
+        "the residual vector in the 1-norm"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(r(u, v) = (u^2 + v - 3,\\ u + v^2 - 5)\\). What is \\(\\lVert r(1, 1)\\rVert^2\\)?",
+      "explanation": "The residual is \\((1 + 1 - 3,\\ 1 + 1 - 5) = (-1, -3)\\). The sum of squares is \\(1 + 9 = 10\\). Reporting \\(4\\) adds the two residual entries. Reporting \\(3\\) or \\(1\\) gives one absolute entry. The Jacobian is not needed for the objective value. It would be needed for a step that linearizes \\(r\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "answer": 10.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The residual Jacobian is shaped as",
+      "explanation": "Each residual gets a row, and each parameter gets a column, matching the derivative of that residual with respect to that parameter. Swapping the shape confuses it with the Gram matrix \\(J^T J\\). The Jacobian is square only when there are as many residuals as parameters. Its entries are derivatives, not the residual values themselves.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "options": [
+        "one row per parameter and one column per residual",
+        "a square matrix for every problem",
+        "one row per residual and one column per parameter",
+        "a matrix whose entries are the residual values"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order that prepares a nonlinear least-squares problem at a current parameter vector. Each step uses the previous result.",
+      "explanation": "The residuals are the functions being differentiated, so they come first. The derivatives are then arranged so that row \\(i\\) belongs to residual \\(i\\). Evaluation is last because the Jacobian of a nonlinear residual depends on the point. Evaluating before the stacking has no matrix. Replacing the derivatives by the residual values produces a vector, not a Jacobian.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "steps": [
+        "Write one residual per measurement, as a function of the parameters.",
+        "Differentiate each residual with respect to each parameter.",
+        "Stack those derivatives into a Jacobian whose rows follow the residuals.",
+        "Evaluate that Jacobian at the current parameter vector."
+      ],
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Which residuals are nonlinear in the parameters? Inputs and measured values are fixed numbers.",
+      "explanation": "A residual is nonlinear in a parameter when that parameter sits inside a nonlinear function.\n• The exponential of \\(a t\\), the squared distance with unknown center, and the sine of \\(a t\\) are nonlinear.\n• \\(a + b t - y\\) is affine in \\((a, b)\\).\n• \\(a \\sin t + b \\cos t - y\\) is affine in \\((a, b)\\), because \\(\\sin t\\) and \\(\\cos t\\) are fixed columns.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"104\" y1=\"176\" x2=\"104\" y2=\"28\"/><polygon points=\"104,28 106.8,34.4 101.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"110\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"104\" y1=\"161.7\" x2=\"235.9\" y2=\"136.6\"/><polygon points=\"235.9,136.6 230.1,140.4 229.1,135.1\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"128.6\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">c</text><line x1=\"104\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 64.9,47.4 59.7,49.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "options": [
+        "\\(e^{a t} - y\\), parameter \\(a\\).",
+        "\\(a + b t - y\\), parameters \\(a\\) and \\(b\\).",
+        "\\((x - a)^2 + (y - b)^2 - R^2\\), parameters \\(a\\), \\(b\\), and \\(R\\).",
+        "\\(a \\sin t + b \\cos t - y\\), parameters \\(a\\) and \\(b\\).",
+        "\\(\\sin(a t) - y\\), parameter \\(a\\)."
+      ],
+      "correct_indices": [
+        0,
+        2,
+        4
+      ],
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "One residual is \\(p^2 - s\\). Its square, the term it contributes to the least-squares objective, equals",
+      "explanation": "The objective adds the square of each residual, so this term is \\((p^2 - s)^2\\). Both names appear. On the declared ranges \\(p^2 > s\\), and the square is positive. The unsquared residual \\(p^2 - s\\) is not yet the objective term. Squaring only \\(p\\), or only \\(s\\), drops the subtraction inside the residual.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "answer": "(p*p-s)**2",
+      "variables": [
+        {
+          "name": "p",
+          "min": 2.0,
+          "max": 4.0
+        },
+        {
+          "name": "s",
+          "min": 0.2,
+          "max": 0.8
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "(p**2-s)**2",
+        "(p*p-s)*(p*p-s)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note writes the Jacobian of \\(r(u, v) = (u^2 + v - 3,\\ u + v^2 - 5)\\). Exactly one step is a false claim.",
+      "explanation": "The first residual \\(u^2 + v - 3\\) really does have derivatives \\(2u\\) and \\(1\\). The second residual \\(u + v^2 - 5\\) has derivative \\(1\\) in \\(u\\) and \\(2v\\) in \\(v\\). The false step copies \\(2u\\) onto the second residual. That residual is linear in \\(u\\), so its \\(u\\)-derivative is \\(1\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "steps": [
+        "The derivative of the first residual with respect to \\(u\\) is \\(2u\\).",
+        "The derivative of the first residual with respect to \\(v\\) is \\(1\\).",
+        "The derivative of the second residual with respect to \\(u\\) is \\(2u\\).",
+        "The derivative of the second residual with respect to \\(v\\) is \\(2v\\)."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The second residual is linear in \\(u\\), so that derivative is \\(1\\), not \\(2u\\).",
+        "The first residual's derivative in \\(v\\) is \\(2v\\).",
+        "The second residual's derivative in \\(v\\) is \\(1\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Using \\(r(u, v) = (u^2 + v - 3,\\ u + v^2 - 5)\\), what is \\(\\lVert r(2, 1)\\rVert^2\\)?",
+      "explanation": "The residual is \\((4 + 1 - 3,\\ 2 + 1 - 5) = (2, -2)\\). The sum of squares is \\(4 + 4 = 8\\). Reporting \\(2\\) gives one absolute entry. Reporting \\(0\\) would mean a root, and neither entry vanishes. Reporting \\(16\\) squares the sum of the entries instead of summing the squares. The Jacobian at this point is \\(\\begin{bmatrix} 4 & 1 \\\\ 1 & 2 \\end{bmatrix}\\), which is not the objective.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "answer": 8.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "If every residual is affine in the parameters, the nonlinear least-squares problem",
+      "explanation": "An affine residual has a constant Jacobian, and the objective is an ordinary squared linear residual plus a constant shift that can be absorbed into \\(b\\). The Jacobian exists. It is that constant matrix. The normal equations apply to it. A zero residual still requires \\(b\\) to lie in the column space. Affinity does not grant that.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping up</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,132.9 49,131.8 52,130.8 55.1,129.7 58.1,128.7 61.1,127.6 64.1,126.6 67.2,125.6 70.2,124.5 73.2,123.5 76.2,122.4 79.2,121.4 82.3,120.3 85.3,119.3 88.3,118.3 91.3,117.2 94.4,116.2 97.4,115.1 100.4,114.1 103.4,113 106.4,112 109.5,111 112.5,109.9 115.5,108.9 118.5,107.8 121.6,106.8 124.6,105.8 127.6,104.7 130.6,103.7 133.6,102.6 136.7,101.6 139.7,100.5 142.7,99.5 145.7,98.5 148.8,97.4 151.8,96.4 154.8,95.3 157.8,94.3 160.8,93.2 163.9,92.2 166.9,91.2 169.9,90.1 172.9,89.1 176,88 179,87 182,85.9 185,84.9 188,83.9 191.1,82.8 194.1,81.8 197.1,80.7 200.1,79.7 203.2,78.6 206.2,77.6 209.2,76.6 212.2,75.5 215.2,74.5 218.3,73.4 221.3,72.4 224.3,71.3 227.3,70.3 230.4,69.3 233.4,68.2 236.4,67.2 239.4,66.1 242.4,65.1 245.5,64 248.5,63 251.5,62 254.5,60.9 257.6,59.9 260.6,58.8 263.6,57.8 266.6,56.7 269.6,55.7 272.7,54.7 275.7,53.6 278.7,52.6 281.7,51.5 284.8,50.5 287.8,49.4 290.8,48.4 293.8,47.4 296.8,46.3 299.9,45.3 302.9,44.2 305.9,43.2 308.9,42.1 312,41.1 315,40.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping upward on labeled axes.",
+      "options": [
+        "reduces to linear least squares",
+        "has no Jacobian",
+        "cannot use a normal equation",
+        "always has a zero residual"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "One step that linearizes the residual at the current parameters replaces \\(r(x + d)\\) by",
+      "explanation": "The first-order model of a vector residual is the residual plus the Jacobian times the step. Multiplying by the residual itself is not a derivative. Keeping every second derivative of \\(r\\) is Newton's method on the objective, a different model. Dropping \\(r(x)\\) asks the step to fit zero instead of the current residual, which solves the wrong linear least-squares problem.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "preview": [
+        "gauss-newton-method"
+      ],
+      "options": [
+        "\\(r(x) + r(x)\\, d\\)",
+        "the full second-derivative model of the objective, with every second derivative of \\(r\\) kept",
+        "\\(J(x)\\, d\\), dropping \\(r(x)\\)",
+        "\\(r(x) + J(x)\\, d\\)"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "A residual for a circle of radius \\(\\rho\\), centered at \\((1, 1)\\), at the data point \\((4, 1)\\), is \\((4 - 1)^2 + (1 - 1)^2 - \\rho^2\\). At \\(\\rho = 2\\), what is that residual?",
+      "explanation": "The squared distance from the center to the point is \\(9 + 0 = 9\\). Subtract \\(\\rho^2 = 4\\). The residual is \\(5\\). Reporting \\(9\\) forgets the radius term. Reporting \\(4\\) gives \\(\\rho^2\\). Reporting \\(3\\) gives the horizontal gap. The residual is not the Euclidean distance minus \\(\\rho\\). It is the algebraic gap of the squared radius, and at this number it equals \\(5\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a dented quadrilateral</title><line x1=\"24\" y1=\"172\" x2=\"260\" y2=\"172\"/><polygon points=\"260,172 253.6,174.7 253.6,169.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"36\" y1=\"184\" x2=\"36\" y2=\"20\"/><polygon points=\"36,20 38.7,26.4 33.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"254\" y=\"188\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"44\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"50,150 230,150 210,40 140,130\" stroke-width=\"2.0\" fill=\"currentColor\" fill-opacity=\"0.15\"/></svg>",
+      "figure_alt": "A four-sided region with one corner pushed in.",
+      "preview": [
+        "circle-fitting-least-squares"
+      ],
+      "answer": 5.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "nonlinear-least-squares-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "If the residual Jacobian at the current point has full column rank, then",
+      "explanation": "Full column rank makes \\(J^T J\\) positive definite, so the linear least-squares model in the step has one minimizer. The Jacobian can still be tall. Full column rank does not make it square. The residual can be nonlinear. That is why \\(J\\) had to be evaluated at a point. A constant Jacobian is the affine case, not a consequence of rank.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"104\" y1=\"176\" x2=\"104\" y2=\"28\"/><polygon points=\"104,28 106.8,34.4 101.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"110\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"104\" y1=\"161.7\" x2=\"235.9\" y2=\"136.6\"/><polygon points=\"235.9,136.6 230.1,140.4 229.1,135.1\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"128.6\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">c</text><line x1=\"104\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 64.9,47.4 59.7,49.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "preview": [
+        "incremental-gradient-methods"
+      ],
+      "options": [
+        "the Jacobian does not depend on the parameters",
+        "the linearized least-squares model in the step has a positive definite Gram matrix",
+        "every Jacobian is square",
+        "the residual itself must be linear"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}

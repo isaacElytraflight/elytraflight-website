@@ -1,0 +1,243 @@
+{
+  "skill_id": "lp-duality-kkt",
+  "version": 1,
+  "questions": [
+    {
+      "id": "lp-duality-kkt-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The dual of minimizing \\(c^T x\\) subject to \\(Ax = b\\) and \\(x \\ge 0\\) is",
+      "explanation": "Stationarity of the Lagrangian solves the inequality multiplier as \\(s = c - A^T y\\). Dual feasibility \\(s \\ge 0\\) is \\(A^T y \\le c\\). After that substitution the Lagrangian equals \\(b^T y\\), and the dual maximizes it. Minimizing \\(b^T y\\) runs in the wrong direction. Swapping \\(b\\) and \\(c\\), or reversing the inequality, describes a different program.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "options": [
+        "minimize \\(b^T y\\) subject to \\(A^T y \\le c\\)",
+        "maximize \\(c^T y\\) subject to \\(Ay = b\\)",
+        "maximize \\(b^T y\\) subject to \\(A^T y \\ge c\\)",
+        "maximize \\(b^T y\\) subject to \\(A^T y \\le c\\)"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Minimize \\(-3x\\) subject to \\(x + s = 7\\) with \\(x, s \\ge 0\\). The dual is maximize \\(7y\\) subject to \\(y \\le -3\\) and \\(y \\le 0\\). What is the optimal dual value?",
+      "explanation": "The tighter constraint is \\(y \\le -3\\). Maximizing \\(7y\\) pushes \\(y\\) up to \\(-3\\), and the value is \\(7 \\cdot (-3) = -21\\). The primal attains the same number at \\(x = 7\\), \\(s = 0\\). Reporting \\(21\\) drops the sign. Reporting \\(-3\\) or \\(7\\) reports the multiplier or the right-hand side. Reporting \\(0\\) is \\(7y\\) at \\(y = 0\\), and that multiplier is dual infeasible because it violates \\(y \\le -3\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "answer": -21.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In this standard-form KKT system, the dual slack on column \\(j\\) is",
+      "explanation": "Stationarity rearranges to a nonnegative slack \\(s_j = c_j - (A^T y)_j\\). That slack is not the primal variable. Complementary slackness ties them together by a product, and they are different numbers. The primal residual \\(Ax - b\\) is zero at a feasible point. It is not the dual slack. A negative dual slack fails dual feasibility.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "options": [
+        "the primal variable \\(x_j\\)",
+        "the residual \\((Ax - b)_j\\)",
+        "\\(c_j - (A^T y)_j\\), required to be nonnegative",
+        "allowed to be negative at a KKT point"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order that derives the dual of \\(\\min c^T x\\) subject to \\(Ax = b\\), \\(x \\ge 0\\). Each step uses the previous result.",
+      "explanation": "The Lagrangian is the object being differentiated, so it comes first. Stationarity produces the slack formula. Dual feasibility is the sign restriction on that slack, and it is the dual constraint. Only after the coefficient of \\(x\\) has been eliminated does the Lagrangian collapse to \\(b^T y\\), which the dual maximizes. Maximizing before eliminating \\(x\\) is not yet a problem in \\(y\\) alone. Reversing \\(s \\ge 0\\) would produce the opposite dual inequality.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "steps": [
+        "Write the Lagrangian \\(c^T x + y^T(b - Ax)\\) and introduce a nonnegative multiplier for each \\(x_j \\ge 0\\).",
+        "Set the derivative in \\(x\\) to zero and solve it, obtaining the slack identity \\(s = c - A^T y\\).",
+        "Impose \\(s \\ge 0\\), which is the dual constraint \\(A^T y \\le c\\).",
+        "Substitute that stationarity relation back into the Lagrangian to obtain the dual objective \\(b^T y\\), then maximize it."
+      ],
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "For minimize \\(-3x\\) subject to \\(x + s = 7\\), \\(x, s \\ge 0\\), consider the dual multiplier \\(y = -3\\). Which claims hold?",
+      "explanation": "Both dual inequalities hold at \\(y = -3\\), and \\(7 \\cdot (-3) = -21\\).\n• \\(y = 0\\) violates \\(y \\le -3\\), so it is dual infeasible and cannot be optimal.\n• \\(y = -1\\) violates \\(y \\le -3\\), so it is not dual feasible.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "options": [
+        "The dual constraint on \\(x\\) holds: \\(y \\le -3\\).",
+        "The dual constraint on \\(s\\) holds: \\(y \\le 0\\).",
+        "The dual objective equals \\(-21\\).",
+        "\\(y = 0\\) is dual optimal.",
+        "\\(y = -1\\) is dual feasible."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "A standard-form column with entries \\(a\\) and \\(b\\) and cost \\(p\\) has dual multiplier \\((y, z)\\). The dual slack of that column equals",
+      "explanation": "The dual inequality is \\(a y + b z \\le p\\), so the slack that complementary slackness multiplies by the primal variable is \\(p - a y - b z\\). Every name appears: the two column entries, the two multipliers, and the cost. On the declared ranges the slack is positive. Adding the linear form to \\(p\\) measures the wrong side of the inequality. Omitting one column entry drops part of \\(A^T y\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "answer": "p-a*y-b*z",
+      "variables": [
+        {
+          "name": "a",
+          "min": 1.0,
+          "max": 2.0
+        },
+        {
+          "name": "b",
+          "min": 1.0,
+          "max": 2.0
+        },
+        {
+          "name": "y",
+          "min": 0.2,
+          "max": 0.5
+        },
+        {
+          "name": "z",
+          "min": 0.2,
+          "max": 0.5
+        },
+        {
+          "name": "p",
+          "min": 8.0,
+          "max": 12.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "p-(a*y+b*z)",
+        "-a*y-b*z+p"
+      ],
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note derives the dual of \\(\\min c^T x\\) subject to \\(Ax = b\\), \\(x \\ge 0\\). Exactly one step is a false claim.",
+      "explanation": "The equality multiplier is free, and stationarity really does write \\(s = c - A^T y\\). Substituting a feasible multiplier into the Lagrangian leaves \\(b^T y\\), which is maximized. The false step reverses the inequality. Nonnegative \\(s\\) means \\(c - A^T y \\ge 0\\), that is \\(A^T y \\le c\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "steps": [
+        "The equality \\(Ax = b\\) is given a free multiplier \\(y\\).",
+        "Stationarity produces the slack identity \\(s = c - A^T y\\).",
+        "Dual feasibility is the inequality \\(A^T y \\ge c\\).",
+        "The dual maximizes \\(b^T y\\)."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "Nonnegative slack means \\(A^T y \\le c\\), the opposite inequality.",
+        "The equality multiplier should have been nonnegative.",
+        "The dual minimizes \\(b^T y\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Minimize \\(-6x - 2y\\) subject to \\(x + y + s = 5\\) and \\(2x + y + t = 8\\), with all four variables nonnegative. What is the optimal value?",
+      "explanation": "The dual maximizes \\(5 y_1 + 8 y_2\\) subject to \\(y_1 + 2 y_2 \\le -6\\), \\(y_1 + y_2 \\le -2\\), \\(y_1 \\le 0\\), and \\(y_2 \\le 0\\). The point \\(y_1 = 0\\), \\(y_2 = -3\\) is feasible and has value \\(-24\\). The primal point \\(x = 4\\), \\(y = 0\\), \\(s = 1\\), \\(t = 0\\) has the same cost, so both are optimal. Reporting \\(24\\) drops the sign. Reporting \\(-12\\) is the cost of the feasible but suboptimal point \\(x = 2\\), \\(y = 0\\). Reporting \\(-3\\) is one dual coordinate.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "answer": -24.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Weak duality for this standard-form pair says that for every primal-feasible \\(x\\) and dual-feasible \\(y\\),",
+      "explanation": "A feasible pair cannot put the dual objective above the primal cost. The difference \\(c^T x - b^T y\\) equals the sum of complementary products, which is nonnegative. Equality needs those products to vanish. It is not automatic. A feasible primal makes the dual bounded above, by that same inequality. It does not make the dual unbounded.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "options": [
+        "\\(b^T y \\le c^T x\\)",
+        "\\(b^T y \\ge c^T x\\)",
+        "the two objectives are equal even when complementary slackness fails",
+        "the dual is unbounded whenever the primal is feasible"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A proposed primal point has cost \\(-18\\), and a proposed dual point has value \\(-10\\). For a minimization primal,",
+      "explanation": "Weak duality requires the dual value to be at most the primal cost. Here \\(-10 > -18\\), so the inequality is the wrong way around. At least one of the two points is infeasible. Optimality would need a feasible pair with equal values. Neither number alone is a certificate, because the comparison already forbids the pair.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "preview": [
+        "affine-scaling-method"
+      ],
+      "options": [
+        "the pair proves optimality",
+        "the primal point is optimal",
+        "the dual point is optimal",
+        "the two points cannot both be feasible"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "In the program of minimizing \\(-6x - 2y\\) subject to \\(x + y + s = 5\\) and \\(2x + y + t = 8\\), the point \\((x, y, s, t) = (2, 0, 3, 4)\\) is primal feasible and \\((y_1, y_2) = (0, -3)\\) is dual feasible. The duality gap is the primal cost minus the dual objective. What is that gap?",
+      "explanation": "The primal cost is \\(-6 \\cdot 2 + (-2) \\cdot 0 = -12\\). The dual objective is \\(5 \\cdot 0 + 8 \\cdot (-3) = -24\\). The gap is \\(-12 - (-24) = 12\\). Reporting \\(-12\\) or \\(-24\\) gives one objective and not the difference. Reporting \\(36\\) adds the absolute values. The gap is positive, so this primal point is not optimal, even though the dual point happens to be.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "preview": [
+        "primal-dual-interior-point"
+      ],
+      "answer": 12.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lp-duality-kkt-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "At an optimal standard-form basis, complementary slackness says",
+      "explanation": "The product of each primal variable with its dual slack is zero, so a positive variable forces that slack to vanish. The other dual slacks may be positive. Those belong to primal zeros. The equality \\(Ax = b\\) is primal feasibility, not something slackness removes. Equality multipliers are free in the Lagrangian. Nonnegativity is for the inequality slacks, not for \\(y\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"104\" y1=\"176\" x2=\"104\" y2=\"28\"/><polygon points=\"104,28 106.8,34.4 101.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"110\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"104\" y1=\"161.7\" x2=\"235.9\" y2=\"136.6\"/><polygon points=\"235.9,136.6 230.1,140.4 229.1,135.1\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"128.6\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">c</text><line x1=\"104\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 64.9,47.4 59.7,49.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "preview": [
+        "affine-scaling-method"
+      ],
+      "options": [
+        "the equality \\(Ax = b\\) may be dropped",
+        "each positive primal variable has zero dual slack",
+        "the equality multipliers must be nonnegative",
+        "every dual slack is positive"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}

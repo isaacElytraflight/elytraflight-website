@@ -2372,8 +2372,7 @@
    "prereqs": [
     "optimization-problem-classes",
     "quadratic-function-minimization"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "rn-important-subsets",
@@ -2775,8 +2774,7 @@
    "prereqs": [
     "first-order-optimality",
     "quadratic-function-minimization"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "lagrange-multiplier-equality",
@@ -2786,8 +2784,7 @@
     "first-order-optimality",
     "jacobian-chain-rule",
     "lin-algebra-review"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "kkt-conditions",
@@ -2796,8 +2793,7 @@
    "prereqs": [
     "lagrange-multiplier-equality",
     "lagrangian-duality-lower-bounds"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "lp-duality-kkt",
@@ -2806,8 +2802,7 @@
    "prereqs": [
     "kkt-conditions",
     "lp-standard-form"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "projection-affine-halfspace-kkt",
@@ -2815,8 +2810,7 @@
    "summary": "Project a point onto an affine set or a half-space with a short KKT calculation.",
    "prereqs": [
     "kkt-conditions"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "linear-least-squares",
@@ -2825,8 +2819,7 @@
    "prereqs": [
     "quadratic-function-minimization",
     "singular-value-decomposition"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "least-squares-data-fitting",
@@ -2834,8 +2827,7 @@
    "summary": "Fit a model that is linear in its parameters, and count how many points the fit needs.",
    "prereqs": [
     "linear-least-squares"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "nonlinear-least-squares",
@@ -2844,8 +2836,7 @@
    "prereqs": [
     "linear-least-squares",
     "jacobian-chain-rule"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "circle-fitting-least-squares",
@@ -2854,8 +2845,7 @@
    "prereqs": [
     "nonlinear-least-squares",
     "least-squares-data-fitting"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "descent-directions",

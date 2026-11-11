@@ -1,0 +1,29 @@
+{
+  "id": "projection-affine-halfspace-kkt",
+  "title": "Projection onto affine sets and half-spaces",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "body_md": "The Euclidean projection of a point \\(z\\) onto a closed set is the nearest point of the set. For an affine set \\(\\{x : Ax = b\\}\\) and for a half-space \\(\\{x : a^T x \\le \\beta\\}\\), the nearest-point problem is small enough that its KKT system is a formula.\n\nUse the objective \\(\\tfrac12\\lVert x - z\\rVert^2\\), so the gradient is \\(x - z\\) with no extra factor of \\(2\\). On an affine set, stationarity says \\(x - z\\) is a linear combination of the rows of \\(A\\). The combination's coefficients are the multipliers, and they are free because the constraints are equalities. Substituting into \\(Ax = b\\) produces a square linear system in the multipliers. That system is invertible when \\(A\\) has full row rank, which is the regularity condition for these equalities. The resulting point is the projection.\n\nA half-space has one inequality. If \\(z\\) is already inside, the projection is \\(z\\) and the multiplier is zero. If \\(z\\) is outside, the inequality is active, the multiplier is positive, and the projection is the same point one would have computed on the bounding hyperplane. The residual \\(z - x\\) then points along the outward normal."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "Onto \\(a^T x = \\beta\\) with \\(a \\ne 0\\),\n\\[\n\\nu = \\frac{a^T z - \\beta}{a^T a}, \\qquad x = z - \\nu a.\n\\]\nOnto \\(a^T x \\le \\beta\\), use that same point when \\(a^T z > \\beta\\), and use \\(x = z\\) otherwise. Full row rank of a general \\(A\\) makes \\(AA^T\\) the invertible matrix in the same role."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Project \\((9, 4)\\) onto the half-space \\(x \\le 3\\). The first coordinate is \\(9 > 3\\), so the point is outside and the bound is active. The normal is \\((1, 0)\\).\n\nThe ramp gap is 36. The projection is \\((3, 4)\\), the multiplier is \\(6\\), and the squared distance is \\(6^2 = 36\\). The second coordinate never moves, because the normal has a zero there. Stationarity reads \\((3, 4) - (9, 4) + 6(1, 0) = 0\\). Had the first coordinate been at most \\(3\\), the multiplier would have been zero and the gap would have been zero."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Projecting an interior point onto the boundary is the common miss. The interior point is already feasible, and the distance is already zero. A second miss is a negative multiplier when the point is outside an inequality. The step \\(z - \\nu a\\) uses a positive \\(\\nu\\) to come back to the hyperplane. A negative \\(\\nu\\) walks further out. A third is to use the equality formula on a half-space without checking which side \\(z\\) is on. A fourth is to invert \\(AA^T\\) when a row of \\(A\\) is zero. The rank condition is the difference between a formula and a singular matrix."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "A general closed convex set still has a nearest point, and the nearest-point relation becomes an inequality about angles rather than a linear formula. The half-space case is the model for that inequality: the residual makes a non-acute angle with every feasible direction. Gradient methods that cannot take a free step replace the trial point by this projection, onto a half-space or onto a more complicated convex set, and the multiplier computed here is the same multiplier the KKT system would have produced."
+    }
+  ]
+}
