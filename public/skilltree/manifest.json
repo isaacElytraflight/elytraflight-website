@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T23:25:14.841227Z",
+  "generated": "2026-11-11T23:38:23.275876Z",
   "skills": {
-    "file": "skills.60fbd9ec.json",
-    "hash": "60fbd9ec"
+    "file": "skills.8b5b3984.json",
+    "hash": "8b5b3984"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -428,8 +428,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "233daf0d",
-      "file": "banks/condition-number-gradient-rate.233daf0d.json"
+      "hash": "0f2ac832",
+      "file": "banks/condition-number-gradient-rate.0f2ac832.json"
     },
     "contact-pot": {
       "version": 1,

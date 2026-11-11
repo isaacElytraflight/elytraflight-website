@@ -1260,7 +1260,7 @@ def bank_condition():
             r"ignoring the Hessian entirely",
         ],
         0,
-        r"The steepest-descent factor approaches \(1\) like \(1 - 2/\kappa\). Conjugate gradients use an inner product built from the Hessian and have a contraction that behaves like \(((\sqrt{\kappa} - 1)/(\sqrt{\kappa} + 1))^2\), which is much closer to zero for large \(\kappa\). Squaring \(\kappa\) inside the steepest factor would make the bound worse. The step length is not \(\kappa\). The Hessian is exactly what the conjugacy uses.",
+        r"The factor on the excess is \(((\kappa - 1)/(\kappa + 1))^2\). For large \(\kappa\) that square approaches \(1\) like \(1 - 4/\kappa\). The unsquared quotient approaches \(1\) like \(1 - 2/\kappa\), and that quotient bounds the error in the \(A\)-norm rather than the excess. Conjugate gradients use an inner product built from the Hessian. Their excess factor behaves like \(((\sqrt{\kappa} - 1)/(\sqrt{\kappa} + 1))^2\), which approaches \(1\) like \(1 - 4/\sqrt{\kappa}\) and is smaller than the steepest factor for the same large \(\kappa\). Squaring \(\kappa\) inside the steepest factor would make the bound worse. The step length is not \(\kappa\). The Hessian is exactly what the conjugacy uses.",
         fig=ELL,
         alt=A_ELL,
         preview=P_CG,
