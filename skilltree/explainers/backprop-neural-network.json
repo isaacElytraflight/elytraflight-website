@@ -1,0 +1,29 @@
+{
+  "id": "backprop-neural-network",
+  "title": "Backpropagation for a small neural network",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four network steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">lin</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">ramp</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">out</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">loss</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
+      "figure_alt": "Four blocks in a row, from a linear step to a loss.",
+      "body_md": "A small neural network is a computational graph with a scalar loss at the end and the weights among the inputs. Backpropagation is reverse-mode automatic differentiation on that graph. One backward sweep returns the partial derivative of the loss with respect to every weight and bias.\n\nConsider a two-layer map with a positive-part activation in the hidden layer. The first affine step produces a pre-activation. The activation leaves it unchanged when it is positive and replaces it by zero when it is negative. A second affine step produces the prediction. The loss used here is half the square of the prediction minus the target, so the adjoint of the prediction is the residual.\n\nThe positive-part function has local derivative \\(1\\) on a positive pre-activation and local derivative \\(0\\) on a negative one. A zero local derivative blocks the adjoint before it reaches the first-layer weights. The output bias is upstream of that gate and still receives a gradient."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "Write \\(z = w_1 t + b_1\\), \\(h = \\max(z, 0)\\), and \\(\\hat y = w_2 h + b_2\\). With \\(L = \\tfrac12 (\\hat y - y)^2\\),\n\\[\n\\bar{\\hat y} = \\hat y - y, \\quad \\frac{\\partial L}{\\partial w_2} = \\bar{\\hat y}\\, h, \\quad \\bar h = \\bar{\\hat y}\\, w_2.\n\\]\nIf \\(z > 0\\), then \\(\\partial L/\\partial w_1 = \\bar h\\, t\\) and \\(\\partial L/\\partial b_1 = \\bar h\\). If \\(z < 0\\), both of those first-layer derivatives are zero, while \\(\\partial L/\\partial b_2 = \\bar{\\hat y}\\) remains."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take input \\(8\\), first weight \\(1\\), first bias \\(-1\\), output weight \\(3\\), output bias \\(-5\\), and target \\(4\\). The pre-activation is \\(7\\), so the hidden value is \\(7\\) and the prediction is \\(3\\cdot 7 - 5 = 16\\). The residual is \\(12\\). The output weight receives \\(12\\cdot 7 = 84\\). The hidden adjoint is \\(12\\cdot 3 = 36\\). The activation derivative is \\(1\\), and the first-layer gradient is 288, from \\(36\\cdot 8\\). The first bias receives \\(36\\). Had the first bias been \\(-10\\), the pre-activation would have been negative, the hidden value would have been zero, and both layer weights would have received no gradient from this example."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Using the square without the one half doubles every adjoint, because the residual is then multiplied by two. Forgetting a second use of a weight drops part of its gradient. Treating a positive pre-activation as a blocked unit sets the wrong local derivative: the derivative is \\(1\\) on that side and \\(0\\) on the other side. The output weight's factor is the stored hidden value, which is a different zero from the activation derivative. One sweep does not produce the Hessian and does not update the weights. It only fills the gradient."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The gradient this sweep returns is the one a descent method consumes. A sum of losses over many examples is the same sweep on each example, or one sweep on the summed graph. Nonlinear least squares is the same square loss with a residual that need not come from a network. Hessian-vector products, built by differentiating this gradient in one direction, are what a second-order step would ask for next."
+    }
+  ]
+}

@@ -176,3 +176,13 @@ Skills: `directional-derivative`, `gradient-partial-derivatives`, `differentiabi
 Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## NB4 — nlo-nb4
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `convex-functions`, `convexity-first-order`, `convexity-second-order`, `finite-difference-derivatives`, `computational-graphs`, `ad-forward-mode`, `ad-reverse-mode`, `hessian-vector-products-ad`, `backprop-neural-network`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

@@ -1,0 +1,219 @@
+{
+  "skill_id": "finite-difference-derivatives",
+  "version": 1,
+  "questions": [
+    {
+      "id": "finite-difference-derivatives-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The forward difference of a scalar function at \\(x\\) with step \\(h > 0\\) is",
+      "explanation": "The forward difference uses one neighbor on the positive side and divides by the step. Dividing by \\(2h\\) belongs to the central difference, and the central difference also samples the other neighbor. Omitting the division leaves a change in value, not a slope. The central numerator over a single \\(h\\) is twice a slope.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a sampled curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.8 64.1,132.8 67.2,132.8 70.2,132.8 73.2,132.8 76.2,132.7 79.2,132.7 82.3,132.6 85.3,132.6 88.3,132.5 91.3,132.4 94.4,132.3 97.4,132.2 100.4,132.1 103.4,132 106.4,131.8 109.5,131.7 112.5,131.5 115.5,131.3 118.5,131.1 121.6,130.9 124.6,130.6 127.6,130.3 130.6,130 133.6,129.7 136.7,129.4 139.7,129 142.7,128.6 145.7,128.2 148.8,127.8 151.8,127.3 154.8,126.9 157.8,126.3 160.8,125.8 163.9,125.2 166.9,124.6 169.9,124 172.9,123.3 176,122.6 179,121.9 182,121.1 185,120.3 188,119.5 191.1,118.6 194.1,117.7 197.1,116.8 200.1,115.8 203.2,114.8 206.2,113.7 209.2,112.6 212.2,111.4 215.2,110.3 218.3,109 221.3,107.7 224.3,106.4 227.3,105.1 230.4,103.6 233.4,102.2 236.4,100.7 239.4,99.1 242.4,97.5 245.5,95.9 248.5,94.1 251.5,92.4 254.5,90.6 257.6,88.7 260.6,86.8 263.6,84.8 266.6,82.8 269.6,80.7 272.7,78.6 275.7,76.4 278.7,74.1 281.7,71.8 284.8,69.4 287.8,67 290.8,64.4 293.8,61.9 296.8,59.3 299.9,56.6 302.9,53.8 305.9,51 308.9,48.1 312,45.1 315,42.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "options": [
+        "\\(\\bigl(f(x + h) - f(x)\\bigr) / h\\)",
+        "\\(\\bigl(f(x + h) - f(x - h)\\bigr) / h\\)",
+        "\\(\\bigl(f(x + h) - f(x)\\bigr) / (2h)\\)",
+        "\\(f(x + h) - f(x)\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(f(t) = t^3\\). At \\(t = 2\\) with step \\(h = 0.1\\), what is the forward difference?",
+      "explanation": "\\(f(2) = 8\\) and \\(f(2.1) = 9.261\\). The quotient is \\(1.261 / 0.1 = 12.61\\). The true derivative \\(3t^2\\) at \\(2\\) is \\(12\\). The difference is larger by the leading truncation \\((h/2) f''(2) = 0.6\\), plus a smaller third-derivative term \\(0.01\\). Reporting \\(12\\) is the exact derivative. Reporting \\(1.261\\) forgets to divide by the step.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a sampled curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.8 64.1,132.8 67.2,132.8 70.2,132.8 73.2,132.8 76.2,132.7 79.2,132.7 82.3,132.6 85.3,132.6 88.3,132.5 91.3,132.4 94.4,132.3 97.4,132.2 100.4,132.1 103.4,132 106.4,131.8 109.5,131.7 112.5,131.5 115.5,131.3 118.5,131.1 121.6,130.9 124.6,130.6 127.6,130.3 130.6,130 133.6,129.7 136.7,129.4 139.7,129 142.7,128.6 145.7,128.2 148.8,127.8 151.8,127.3 154.8,126.9 157.8,126.3 160.8,125.8 163.9,125.2 166.9,124.6 169.9,124 172.9,123.3 176,122.6 179,121.9 182,121.1 185,120.3 188,119.5 191.1,118.6 194.1,117.7 197.1,116.8 200.1,115.8 203.2,114.8 206.2,113.7 209.2,112.6 212.2,111.4 215.2,110.3 218.3,109 221.3,107.7 224.3,106.4 227.3,105.1 230.4,103.6 233.4,102.2 236.4,100.7 239.4,99.1 242.4,97.5 245.5,95.9 248.5,94.1 251.5,92.4 254.5,90.6 257.6,88.7 260.6,86.8 263.6,84.8 266.6,82.8 269.6,80.7 272.7,78.6 275.7,76.4 278.7,74.1 281.7,71.8 284.8,69.4 287.8,67 290.8,64.4 293.8,61.9 296.8,59.3 299.9,56.6 302.9,53.8 305.9,51 308.9,48.1 312,45.1 315,42.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "answer": 12.61,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The leading truncation error of the central difference is",
+      "explanation": "Adding the expansions of \\(f(x+h)\\) and subtracting \\(f(x-h)\\) cancels the even powers. The first surviving error is the third-derivative term, and dividing by \\(2h\\) leaves a factor \\(h^2\\). The second-derivative term is the one the central difference cancels; it is the leading error of the forward difference. Round-off is a separate contribution that grows as the step shrinks. The error is zero for polynomials of degree at most \\(2\\), not for every smooth function.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a sampled curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.8 64.1,132.8 67.2,132.8 70.2,132.8 73.2,132.8 76.2,132.7 79.2,132.7 82.3,132.6 85.3,132.6 88.3,132.5 91.3,132.4 94.4,132.3 97.4,132.2 100.4,132.1 103.4,132 106.4,131.8 109.5,131.7 112.5,131.5 115.5,131.3 118.5,131.1 121.6,130.9 124.6,130.6 127.6,130.3 130.6,130 133.6,129.7 136.7,129.4 139.7,129 142.7,128.6 145.7,128.2 148.8,127.8 151.8,127.3 154.8,126.9 157.8,126.3 160.8,125.8 163.9,125.2 166.9,124.6 169.9,124 172.9,123.3 176,122.6 179,121.9 182,121.1 185,120.3 188,119.5 191.1,118.6 194.1,117.7 197.1,116.8 200.1,115.8 203.2,114.8 206.2,113.7 209.2,112.6 212.2,111.4 215.2,110.3 218.3,109 221.3,107.7 224.3,106.4 227.3,105.1 230.4,103.6 233.4,102.2 236.4,100.7 239.4,99.1 242.4,97.5 245.5,95.9 248.5,94.1 251.5,92.4 254.5,90.6 257.6,88.7 260.6,86.8 263.6,84.8 266.6,82.8 269.6,80.7 272.7,78.6 275.7,76.4 278.7,74.1 281.7,71.8 284.8,69.4 287.8,67 290.8,64.4 293.8,61.9 296.8,59.3 299.9,56.6 302.9,53.8 305.9,51 308.9,48.1 312,45.1 315,42.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "options": [
+        "proportional to \\(h\\), from the second derivative",
+        "proportional to \\(1/h\\), from round-off",
+        "exactly zero for every smooth function",
+        "proportional to \\(h^2\\), from the third derivative"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "Let \\(a\\) and \\(h\\) be real, with \\(h\\) nonzero. The forward difference of \\(a t^2\\) at \\(t = 3\\), using step \\(h\\), is an expression in the names a and h. Write that expression.",
+      "explanation": "The values are \\(9a\\) and \\(a(3 + h)^2\\). Their difference, divided by \\(h\\), simplifies to \\(a(6 + h)\\).\n• \\(6a\\) is the exact derivative, missing the truncation \\(a h\\).\n• \\(a(3 + h)^2\\) is the shifted function value, not a quotient.\n• \\(6a + h\\) drops the factor \\(a\\) on the truncation term.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.8 52,132.8 55.1,132.8 58.1,132.7 61.1,132.6 64.1,132.4 67.2,132.3 70.2,132.1 73.2,131.9 76.2,131.7 79.2,131.5 82.3,131.2 85.3,130.9 88.3,130.6 91.3,130.3 94.4,129.9 97.4,129.5 100.4,129.1 103.4,128.7 106.4,128.2 109.5,127.8 112.5,127.3 115.5,126.7 118.5,126.2 121.6,125.6 124.6,125 127.6,124.4 130.6,123.8 133.6,123.1 136.7,122.4 139.7,121.7 142.7,121 145.7,120.2 148.8,119.5 151.8,118.7 154.8,117.8 157.8,117 160.8,116.1 163.9,115.2 166.9,114.3 169.9,113.4 172.9,112.4 176,111.4 179,110.4 182,109.4 185,108.3 188,107.3 191.1,106.2 194.1,105 197.1,103.9 200.1,102.7 203.2,101.5 206.2,100.3 209.2,99.1 212.2,97.8 215.2,96.5 218.3,95.2 221.3,93.9 224.3,92.5 227.3,91.2 230.4,89.8 233.4,88.3 236.4,86.9 239.4,85.4 242.4,83.9 245.5,82.4 248.5,80.9 251.5,79.3 254.5,77.7 257.6,76.1 260.6,74.5 263.6,72.8 266.6,71.1 269.6,69.4 272.7,67.7 275.7,65.9 278.7,64.2 281.7,62.4 284.8,60.6 287.8,58.7 290.8,56.8 293.8,55 296.8,53 299.9,51.1 302.9,49.2 305.9,47.2 308.9,45.2 312,43.1 315,41.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "answer": "6*a+a*h",
+      "variables": [
+        {
+          "name": "a",
+          "min": -4.0,
+          "max": 4.0
+        },
+        {
+          "name": "h",
+          "min": 0.1,
+          "max": 2.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "a*(6+h)",
+        "6*a+h*a"
+      ],
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Let \\(f(t) = t^3\\). At \\(t = 2\\) with step \\(h = 0.1\\), what is the central difference?",
+      "explanation": "\\(f(2.1) = 9.261\\) and \\(f(1.9) = 6.859\\). The central quotient divides the difference \\(2.402\\) by \\(0.2\\), which is \\(12.01\\). The exact derivative is \\(12\\). The forward difference with the same step is \\(12.61\\), whose error is about sixty times larger. Reporting \\(2.402\\) forgets the division. Reporting \\(12\\) is the exact slope.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a sampled curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.8 64.1,132.8 67.2,132.8 70.2,132.8 73.2,132.8 76.2,132.7 79.2,132.7 82.3,132.6 85.3,132.6 88.3,132.5 91.3,132.4 94.4,132.3 97.4,132.2 100.4,132.1 103.4,132 106.4,131.8 109.5,131.7 112.5,131.5 115.5,131.3 118.5,131.1 121.6,130.9 124.6,130.6 127.6,130.3 130.6,130 133.6,129.7 136.7,129.4 139.7,129 142.7,128.6 145.7,128.2 148.8,127.8 151.8,127.3 154.8,126.9 157.8,126.3 160.8,125.8 163.9,125.2 166.9,124.6 169.9,124 172.9,123.3 176,122.6 179,121.9 182,121.1 185,120.3 188,119.5 191.1,118.6 194.1,117.7 197.1,116.8 200.1,115.8 203.2,114.8 206.2,113.7 209.2,112.6 212.2,111.4 215.2,110.3 218.3,109 221.3,107.7 224.3,106.4 227.3,105.1 230.4,103.6 233.4,102.2 236.4,100.7 239.4,99.1 242.4,97.5 245.5,95.9 248.5,94.1 251.5,92.4 254.5,90.6 257.6,88.7 260.6,86.8 263.6,84.8 266.6,82.8 269.6,80.7 272.7,78.6 275.7,76.4 278.7,74.1 281.7,71.8 284.8,69.4 287.8,67 290.8,64.4 293.8,61.9 296.8,59.3 299.9,56.6 302.9,53.8 305.9,51 308.9,48.1 312,45.1 315,42.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "answer": 12.01,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r2-q3",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order used to choose a finite-difference step.",
+      "explanation": "Truncation falls as the step shrinks, and round-off of a difference quotient grows. The useful step is near where those two contributions meet. Shrinking past that point makes the computed slope worse. Evaluating the function once, with no error model, does not choose a step.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a sampled curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.8 64.1,132.8 67.2,132.8 70.2,132.8 73.2,132.8 76.2,132.7 79.2,132.7 82.3,132.6 85.3,132.6 88.3,132.5 91.3,132.4 94.4,132.3 97.4,132.2 100.4,132.1 103.4,132 106.4,131.8 109.5,131.7 112.5,131.5 115.5,131.3 118.5,131.1 121.6,130.9 124.6,130.6 127.6,130.3 130.6,130 133.6,129.7 136.7,129.4 139.7,129 142.7,128.6 145.7,128.2 148.8,127.8 151.8,127.3 154.8,126.9 157.8,126.3 160.8,125.8 163.9,125.2 166.9,124.6 169.9,124 172.9,123.3 176,122.6 179,121.9 182,121.1 185,120.3 188,119.5 191.1,118.6 194.1,117.7 197.1,116.8 200.1,115.8 203.2,114.8 206.2,113.7 209.2,112.6 212.2,111.4 215.2,110.3 218.3,109 221.3,107.7 224.3,106.4 227.3,105.1 230.4,103.6 233.4,102.2 236.4,100.7 239.4,99.1 242.4,97.5 245.5,95.9 248.5,94.1 251.5,92.4 254.5,90.6 257.6,88.7 260.6,86.8 263.6,84.8 266.6,82.8 269.6,80.7 272.7,78.6 275.7,76.4 278.7,74.1 281.7,71.8 284.8,69.4 287.8,67 290.8,64.4 293.8,61.9 296.8,59.3 299.9,56.6 302.9,53.8 305.9,51 308.9,48.1 312,45.1 315,42.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "steps": [
+        "Write the truncation error as a power of the step.",
+        "Estimate round-off as unit roundoff times a scale of f, divided by the step.",
+        "Balance the truncation contribution against the round-off contribution.",
+        "Stop shrinking the step once round-off would dominate."
+      ],
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r3-q1",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Let \\(f(t) = t^3\\). At \\(t = 2\\) with step \\(h = 0.1\\), what is the absolute error of the forward difference against the exact derivative?",
+      "explanation": "The forward difference is \\(12.61\\) and the exact derivative is \\(12\\), so the absolute error is \\(0.61\\). The leading term \\((h/2)\\cdot 12 = 0.6\\) accounts for most of it, and \\((h^2/6)\\cdot 6 = 0.01\\) accounts for the rest. The central difference with this step has absolute error \\(0.01\\), not \\(0.61\\). Reporting \\(12.61\\) is the difference itself.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a sampled curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.8 64.1,132.8 67.2,132.8 70.2,132.8 73.2,132.8 76.2,132.7 79.2,132.7 82.3,132.6 85.3,132.6 88.3,132.5 91.3,132.4 94.4,132.3 97.4,132.2 100.4,132.1 103.4,132 106.4,131.8 109.5,131.7 112.5,131.5 115.5,131.3 118.5,131.1 121.6,130.9 124.6,130.6 127.6,130.3 130.6,130 133.6,129.7 136.7,129.4 139.7,129 142.7,128.6 145.7,128.2 148.8,127.8 151.8,127.3 154.8,126.9 157.8,126.3 160.8,125.8 163.9,125.2 166.9,124.6 169.9,124 172.9,123.3 176,122.6 179,121.9 182,121.1 185,120.3 188,119.5 191.1,118.6 194.1,117.7 197.1,116.8 200.1,115.8 203.2,114.8 206.2,113.7 209.2,112.6 212.2,111.4 215.2,110.3 218.3,109 221.3,107.7 224.3,106.4 227.3,105.1 230.4,103.6 233.4,102.2 236.4,100.7 239.4,99.1 242.4,97.5 245.5,95.9 248.5,94.1 251.5,92.4 254.5,90.6 257.6,88.7 260.6,86.8 263.6,84.8 266.6,82.8 269.6,80.7 272.7,78.6 275.7,76.4 278.7,74.1 281.7,71.8 284.8,69.4 287.8,67 290.8,64.4 293.8,61.9 296.8,59.3 299.9,56.6 302.9,53.8 305.9,51 308.9,48.1 312,45.1 315,42.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "answer": 0.61,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "If the leading truncation term dominates and the step is halved, the forward-difference error",
+      "explanation": "The leading forward truncation is proportional to \\(h\\). Halving a step that is still in the truncation regime halves that error. A factor of four is the central difference, whose leading term carries \\(h^2\\). The exact derivative is independent of the step, but the error of the approximation is not. The error grows when the step grows, not when it is halved, as long as round-off is still negligible.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a sampled curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.8 64.1,132.8 67.2,132.8 70.2,132.8 73.2,132.8 76.2,132.7 79.2,132.7 82.3,132.6 85.3,132.6 88.3,132.5 91.3,132.4 94.4,132.3 97.4,132.2 100.4,132.1 103.4,132 106.4,131.8 109.5,131.7 112.5,131.5 115.5,131.3 118.5,131.1 121.6,130.9 124.6,130.6 127.6,130.3 130.6,130 133.6,129.7 136.7,129.4 139.7,129 142.7,128.6 145.7,128.2 148.8,127.8 151.8,127.3 154.8,126.9 157.8,126.3 160.8,125.8 163.9,125.2 166.9,124.6 169.9,124 172.9,123.3 176,122.6 179,121.9 182,121.1 185,120.3 188,119.5 191.1,118.6 194.1,117.7 197.1,116.8 200.1,115.8 203.2,114.8 206.2,113.7 209.2,112.6 212.2,111.4 215.2,110.3 218.3,109 221.3,107.7 224.3,106.4 227.3,105.1 230.4,103.6 233.4,102.2 236.4,100.7 239.4,99.1 242.4,97.5 245.5,95.9 248.5,94.1 251.5,92.4 254.5,90.6 257.6,88.7 260.6,86.8 263.6,84.8 266.6,82.8 269.6,80.7 272.7,78.6 275.7,76.4 278.7,74.1 281.7,71.8 284.8,69.4 287.8,67 290.8,64.4 293.8,61.9 296.8,59.3 299.9,56.6 302.9,53.8 305.9,51 308.9,48.1 312,45.1 315,42.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "options": [
+        "drops by a factor of about four",
+        "drops by a factor of about two",
+        "stays the same, because the derivative does not depend on the step",
+        "grows by a factor of about two"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r3-q3",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note claims that the forward difference of \\(f(t) = t^2\\) is exact for every positive step. Exactly one step is false.",
+      "explanation": "The derivatives are \\(2t\\) and \\(2\\), and a quadratic has no third or higher derivative, so the forward difference really equals \\(f' + (h/2) f''\\). The false step says that second derivative is zero. It is the constant \\(2\\), so the forward difference is \\(2t + h\\), which depends on the step. The central difference of a quadratic is exact, because it cancels that second-derivative term. The forward difference is not.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.8 52,132.8 55.1,132.8 58.1,132.7 61.1,132.6 64.1,132.4 67.2,132.3 70.2,132.1 73.2,131.9 76.2,131.7 79.2,131.5 82.3,131.2 85.3,130.9 88.3,130.6 91.3,130.3 94.4,129.9 97.4,129.5 100.4,129.1 103.4,128.7 106.4,128.2 109.5,127.8 112.5,127.3 115.5,126.7 118.5,126.2 121.6,125.6 124.6,125 127.6,124.4 130.6,123.8 133.6,123.1 136.7,122.4 139.7,121.7 142.7,121 145.7,120.2 148.8,119.5 151.8,118.7 154.8,117.8 157.8,117 160.8,116.1 163.9,115.2 166.9,114.3 169.9,113.4 172.9,112.4 176,111.4 179,110.4 182,109.4 185,108.3 188,107.3 191.1,106.2 194.1,105 197.1,103.9 200.1,102.7 203.2,101.5 206.2,100.3 209.2,99.1 212.2,97.8 215.2,96.5 218.3,95.2 221.3,93.9 224.3,92.5 227.3,91.2 230.4,89.8 233.4,88.3 236.4,86.9 239.4,85.4 242.4,83.9 245.5,82.4 248.5,80.9 251.5,79.3 254.5,77.7 257.6,76.1 260.6,74.5 263.6,72.8 266.6,71.1 269.6,69.4 272.7,67.7 275.7,65.9 278.7,64.2 281.7,62.4 284.8,60.6 287.8,58.7 290.8,56.8 293.8,55 296.8,53 299.9,51.1 302.9,49.2 305.9,47.2 308.9,45.2 312,43.1 315,41.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "steps": [
+        "The first derivative of t squared is 2t, and the second derivative is 2.",
+        "For this quadratic, the forward difference equals the first derivative plus (h/2) times the second derivative.",
+        "The second derivative of a quadratic is zero.",
+        "Therefore the forward difference of this quadratic is exact."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "A quadratic has a constant nonzero second derivative, so the forward difference keeps a term in h.",
+        "The first derivative of t squared is not 2t.",
+        "The forward difference does not involve the second derivative."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Let \\(f(t) = t^4\\). At \\(t = 1\\) with step \\(h = 0.5\\), what is the central difference?",
+      "explanation": "\\(f(1.5) = 5.0625\\) and \\(f(0.5) = 0.0625\\). The central quotient divides \\(5\\) by \\(2\\cdot 0.5\\), which is \\(5\\). The exact derivative \\(4t^3\\) at \\(1\\) is \\(4\\). The forward difference \\((5.0625 - 1) / 0.5 = 8.125\\) is much farther from \\(4\\). Reporting \\(4\\) is the exact derivative. Reporting \\(5.0625\\) is a function value.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a sampled curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.8 64.1,132.8 67.2,132.8 70.2,132.8 73.2,132.8 76.2,132.7 79.2,132.7 82.3,132.6 85.3,132.6 88.3,132.5 91.3,132.4 94.4,132.3 97.4,132.2 100.4,132.1 103.4,132 106.4,131.8 109.5,131.7 112.5,131.5 115.5,131.3 118.5,131.1 121.6,130.9 124.6,130.6 127.6,130.3 130.6,130 133.6,129.7 136.7,129.4 139.7,129 142.7,128.6 145.7,128.2 148.8,127.8 151.8,127.3 154.8,126.9 157.8,126.3 160.8,125.8 163.9,125.2 166.9,124.6 169.9,124 172.9,123.3 176,122.6 179,121.9 182,121.1 185,120.3 188,119.5 191.1,118.6 194.1,117.7 197.1,116.8 200.1,115.8 203.2,114.8 206.2,113.7 209.2,112.6 212.2,111.4 215.2,110.3 218.3,109 221.3,107.7 224.3,106.4 227.3,105.1 230.4,103.6 233.4,102.2 236.4,100.7 239.4,99.1 242.4,97.5 245.5,95.9 248.5,94.1 251.5,92.4 254.5,90.6 257.6,88.7 260.6,86.8 263.6,84.8 266.6,82.8 269.6,80.7 272.7,78.6 275.7,76.4 278.7,74.1 281.7,71.8 284.8,69.4 287.8,67 290.8,64.4 293.8,61.9 296.8,59.3 299.9,56.6 302.9,53.8 305.9,51 308.9,48.1 312,45.1 315,42.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "preview": [
+        "heavy-ball-method"
+      ],
+      "answer": 5.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Taking the step extremely small makes a finite difference worse because",
+      "explanation": "Unit roundoff in the function values, divided by the step, grows like \\(1/h\\). Past the balancing step, that growth beats the improvement in truncation. Truncation itself gets smaller as the step shrinks. The exact derivative does not depend on a numerical step. The central formula is defined for every nonzero step; the trouble is accuracy, not existence.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a sampled curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.8 64.1,132.8 67.2,132.8 70.2,132.8 73.2,132.8 76.2,132.7 79.2,132.7 82.3,132.6 85.3,132.6 88.3,132.5 91.3,132.4 94.4,132.3 97.4,132.2 100.4,132.1 103.4,132 106.4,131.8 109.5,131.7 112.5,131.5 115.5,131.3 118.5,131.1 121.6,130.9 124.6,130.6 127.6,130.3 130.6,130 133.6,129.7 136.7,129.4 139.7,129 142.7,128.6 145.7,128.2 148.8,127.8 151.8,127.3 154.8,126.9 157.8,126.3 160.8,125.8 163.9,125.2 166.9,124.6 169.9,124 172.9,123.3 176,122.6 179,121.9 182,121.1 185,120.3 188,119.5 191.1,118.6 194.1,117.7 197.1,116.8 200.1,115.8 203.2,114.8 206.2,113.7 209.2,112.6 212.2,111.4 215.2,110.3 218.3,109 221.3,107.7 224.3,106.4 227.3,105.1 230.4,103.6 233.4,102.2 236.4,100.7 239.4,99.1 242.4,97.5 245.5,95.9 248.5,94.1 251.5,92.4 254.5,90.6 257.6,88.7 260.6,86.8 263.6,84.8 266.6,82.8 269.6,80.7 272.7,78.6 275.7,76.4 278.7,74.1 281.7,71.8 284.8,69.4 287.8,67 290.8,64.4 293.8,61.9 296.8,59.3 299.9,56.6 302.9,53.8 305.9,51 308.9,48.1 312,45.1 315,42.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "preview": [
+        "nesterov-accelerated-gradient"
+      ],
+      "options": [
+        "truncation grows as the step shrinks",
+        "the exact derivative changes with the step",
+        "subtracting two nearly equal function values loses digits, and dividing by a tiny step amplifies that loss",
+        "a central difference is undefined for small steps"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "For a forward difference limited by round-off of size unit roundoff over the step, the step that balances a first-order truncation scales like",
+      "explanation": "Set a constant times \\(h\\) equal to unit roundoff over \\(h\\). The balance is a step on the order of the square root of unit roundoff. The cube root is the analogous balance for a central difference, whose truncation carries \\(h^2\\). Using unit roundoff with no square root is far too small for a forward difference, and the reciprocal is enormous. With unit roundoff \\(10^{-8}\\), the forward scale is \\(10^{-4}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a sampled curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.8 64.1,132.8 67.2,132.8 70.2,132.8 73.2,132.8 76.2,132.7 79.2,132.7 82.3,132.6 85.3,132.6 88.3,132.5 91.3,132.4 94.4,132.3 97.4,132.2 100.4,132.1 103.4,132 106.4,131.8 109.5,131.7 112.5,131.5 115.5,131.3 118.5,131.1 121.6,130.9 124.6,130.6 127.6,130.3 130.6,130 133.6,129.7 136.7,129.4 139.7,129 142.7,128.6 145.7,128.2 148.8,127.8 151.8,127.3 154.8,126.9 157.8,126.3 160.8,125.8 163.9,125.2 166.9,124.6 169.9,124 172.9,123.3 176,122.6 179,121.9 182,121.1 185,120.3 188,119.5 191.1,118.6 194.1,117.7 197.1,116.8 200.1,115.8 203.2,114.8 206.2,113.7 209.2,112.6 212.2,111.4 215.2,110.3 218.3,109 221.3,107.7 224.3,106.4 227.3,105.1 230.4,103.6 233.4,102.2 236.4,100.7 239.4,99.1 242.4,97.5 245.5,95.9 248.5,94.1 251.5,92.4 254.5,90.6 257.6,88.7 260.6,86.8 263.6,84.8 266.6,82.8 269.6,80.7 272.7,78.6 275.7,76.4 278.7,74.1 281.7,71.8 284.8,69.4 287.8,67 290.8,64.4 293.8,61.9 296.8,59.3 299.9,56.6 302.9,53.8 305.9,51 308.9,48.1 312,45.1 315,42.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "preview": [
+        "heavy-ball-method"
+      ],
+      "options": [
+        "the square root of unit roundoff",
+        "unit roundoff itself",
+        "the cube root of unit roundoff",
+        "the reciprocal of unit roundoff"
+      ],
+      "correct_index": 0,
+      "version": 1
+    }
+  ]
+}
