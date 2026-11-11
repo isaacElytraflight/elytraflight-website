@@ -2965,6 +2965,474 @@
     {
       "id": "convex-sets#explainer",
       "version": 1
+    },
+    {
+      "id": "directional-derivative-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "directional-derivative-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "directional-derivative-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "directional-derivative-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "directional-derivative-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "directional-derivative-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "directional-derivative-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "directional-derivative-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "directional-derivative-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "directional-derivative-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "directional-derivative-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "directional-derivative-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "directional-derivative#explainer",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-partial-derivatives#explainer",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "differentiability-multivariable#explainer",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "hessian-matrix#explainer",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "jacobian-chain-rule#explainer",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "matrix-calculus-gradients#explainer",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "fundamental-theorem-along-segment#explainer",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable#explainer",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "taylor-exact-mean-value#explainer",
+      "version": 1
     }
   ]
 }

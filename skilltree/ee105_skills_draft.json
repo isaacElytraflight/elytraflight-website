@@ -2493,8 +2493,7 @@
    "summary": "Compute a directional derivative from its one-sided limit along a line.",
    "prereqs": [
     "rn-important-subsets"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "gradient-partial-derivatives",
@@ -2502,8 +2501,7 @@
    "summary": "Build the gradient from partial derivatives and use it as the direction of steepest increase.",
    "prereqs": [
     "directional-derivative"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "differentiability-multivariable",
@@ -2511,8 +2509,7 @@
    "summary": "Use the linear-approximation definition of differentiability and separate it from the existence of partial derivatives.",
    "prereqs": [
     "gradient-partial-derivatives"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "hessian-matrix",
@@ -2520,8 +2517,7 @@
    "summary": "Assemble second partial derivatives into the Hessian and use symmetry of mixed partials.",
    "prereqs": [
     "gradient-partial-derivatives"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "jacobian-chain-rule",
@@ -2529,8 +2525,7 @@
    "summary": "Multiply Jacobians to differentiate a composition, including the gradient of a scalar composition.",
    "prereqs": [
     "gradient-partial-derivatives"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "matrix-calculus-gradients",
@@ -2539,8 +2534,7 @@
    "prereqs": [
     "hessian-matrix",
     "jacobian-chain-rule"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "fundamental-theorem-along-segment",
@@ -2548,8 +2542,7 @@
    "summary": "Write a function increment and a gradient increment as integrals along the segment between two points.",
    "prereqs": [
     "hessian-matrix"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "taylor-approximation-multivariable",
@@ -2557,8 +2550,7 @@
    "summary": "Build the linear and quadratic models of a function from its gradient and Hessian.",
    "prereqs": [
     "hessian-matrix"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "taylor-exact-mean-value",
@@ -2567,8 +2559,7 @@
    "prereqs": [
     "taylor-approximation-multivariable",
     "fundamental-theorem-along-segment"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "convex-functions",

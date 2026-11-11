@@ -1,0 +1,6 @@
+# Generated hashed Skillgrove outputs. Ripgrep reads this file by default.
+# Search the source banks in skilltree/bank and skilltree/explainers instead.
+public/skilltree/banks/
+public/skilltree/explainers/
+public/skilltree/skills.*.json
+public/skilltree/collections.*.json

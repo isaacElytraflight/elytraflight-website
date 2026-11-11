@@ -132,6 +132,7 @@ def brief(spec, counts, boxes):
     lines += [
         "",
         f"Read `{spec['notation']}` before writing. Read `{spec['sources']}` for licenses and sections.",
+        "Read `docs/batch-starter.md` for the read order, helpers, gates, and efficiency rules.",
         "No source or textbook name in learner-facing content: stems, choices, explanations, explainers, figures, alt text, or the skill panel.",
         "",
         "## Bank, explainer, core or application",

@@ -1,0 +1,42 @@
+{
+  "id": "nlo-nb3",
+  "label": "NB3",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "directional-derivative",
+    "gradient-partial-derivatives",
+    "differentiability-multivariable",
+    "hessian-matrix",
+    "jacobian-chain-rule",
+    "matrix-calculus-gradients",
+    "fundamental-theorem-along-segment",
+    "taylor-approximation-multivariable",
+    "taylor-exact-mean-value"
+  ],
+  "areas": {
+    "directional-derivative": ["optimization"],
+    "gradient-partial-derivatives": ["optimization"],
+    "differentiability-multivariable": ["optimization"],
+    "hessian-matrix": ["optimization", "linear-algebra"],
+    "jacobian-chain-rule": ["optimization", "linear-algebra"],
+    "matrix-calculus-gradients": ["optimization", "linear-algebra"],
+    "fundamental-theorem-along-segment": ["optimization"],
+    "taylor-approximation-multivariable": ["optimization"],
+    "taylor-exact-mean-value": ["optimization"]
+  },
+  "cores": [
+    "directional-derivative",
+    "gradient-partial-derivatives",
+    "differentiability-multivariable",
+    "hessian-matrix",
+    "jacobian-chain-rule",
+    "matrix-calculus-gradients",
+    "fundamental-theorem-along-segment",
+    "taylor-approximation-multivariable",
+    "taylor-exact-mean-value"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/nlo-content-batches.md",
+  "verifier": "skilltree/verify_nlo_nb3.py"
+}

@@ -151,3 +151,13 @@ Items above version 1:
 - `level-sets-contours-r4-q2` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## NB3 — nlo-nb3
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `directional-derivative`, `gradient-partial-derivatives`, `differentiability-multivariable`, `hessian-matrix`, `jacobian-chain-rule`, `matrix-calculus-gradients`, `fundamental-theorem-along-segment`, `taylor-approximation-multivariable`, `taylor-exact-mean-value`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

@@ -1,0 +1,29 @@
+{
+  "id": "gradient-partial-derivatives",
+  "title": "Partial derivatives and the gradient",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"101.4\" y1=\"176\" x2=\"101.4\" y2=\"28\"/><polygon points=\"101.4,28 104.2,34.4 98.7,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"107.4\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"101.4\" y1=\"161.7\" x2=\"235.9\" y2=\"125\"/><polygon points=\"235.9,125 230.4,129.3 229,124\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"117\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g</text><line x1=\"101.4\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 64.8,47.5 59.6,49.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "body_md": "A partial derivative holds every coordinate fixed except one, and it differentiates in the remaining coordinate. Do that once for each coordinate and stack the results. The column you get is the gradient.\n\nThe gradient is the direction in which the first-order increase is largest. On a unit vector the inner product of the gradient with that vector is at most the length of the gradient, and the bound is attained when the unit vector points along the gradient. The opposite unit vector is the direction of steepest decrease, with slope equal to the negative of that length.\n\nWhere the function is differentiable, the directional derivative in an arbitrary direction is the inner product of the gradient with that direction. A direction orthogonal to the gradient has directional derivative zero. In the plane, those directions are tangent to the level curve through the point."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "In coordinates,\n\\[\n\\nabla f(x) = \\Bigl( \\frac{\\partial f}{\\partial x_1},\\ \\ldots,\\ \\frac{\\partial f}{\\partial x_n} \\Bigr)^{T}.\n\\]\nThe directional-derivative identity and the steepest-slope fact are\n\\[\nf'(x; d) = \\nabla f(x)^{T} d, \\qquad \\max_{\\lVert d \\rVert = 1} \\nabla f(x)^{T} d = \\lVert \\nabla f(x) \\rVert.\n\\]\nThe Jacobian of a scalar function is the row \\(\\nabla f(x)^{T}\\). The column is the form used when the next sentence dots the gradient with a direction."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Let \\(f(x, y) = x^2 + y^2\\) at the point \\((8, 15)\\). The partial derivatives are \\(2x\\) and \\(2y\\), so the gradient is \\((16, 30)\\). Its squared length is \\(256 + 900 = 1156\\), and\n\\[\n\\sqrt{1156} = 34.\n\\]\nThe length 34 is the steepest unit slope at this point. The inner product with \\((1, 0)\\) is only 16, the ordinary partial derivative in \\(x\\). The direction \\((-15, 8)\\) is orthogonal to \\((16, 30)\\) after a short check of the cross-multiples, so the directional derivative in that direction is 0. That direction stays on the level circle through the point, to first order."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The gradient is not automatically a unit vector. Dividing by its length is a second step, used only when a unit direction is required. The sum of the partial derivatives is the directional derivative in the all-ones direction, which usually has length greater than 1, so that sum is larger than the steepest unit slope. A single partial derivative is the full directional derivative only for a coordinate direction. One vanishing directional derivative means orthogonality, not a zero gradient."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The Hessian is the Jacobian of this gradient, entry by entry. A first-order necessary condition for an interior minimum sets the gradient to zero. A descent direction is any vector whose inner product with the gradient is negative, and the negative gradient itself is the steepest such direction among unit vectors."
+    }
+  ]
+}

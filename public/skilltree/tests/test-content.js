@@ -54,11 +54,11 @@ test('graph is version 3 with 265 live skills and 16 retired ids', () => {
   assert.strictEqual(retired.margins, 'stability');
   assert.strictEqual(new Set(skills.map(s => s.id)).size, 265, 'skill ids are unique');
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 94, 'NB1, NB2, B5, and B6 together leave 94 skills coming soon');
+  assert.strictEqual(soon.length, 85, 'NB1 through NB3, B5, and B6 together leave 85 skills coming soon');
   const byId = Object.fromEntries(skills.map(s => [s.id, s]));
   assert.strictEqual(byId['lin-algebra-review'].name, 'Linear algebra review');
   assert.strictEqual(byId['lin-algebra-review'].id, 'lin-algebra-review');
-  for (const id of ['rn-important-subsets', 'spectral-decomposition', 'positive-definite-matrices', 'singular-value-decomposition', 'rayleigh-quotient', 'inner-products', 'vector-norms-lp', 'cauchy-schwarz-inequality', 'induced-matrix-norms', 'frobenius-schatten-norms', 'open-closed-sets', 'compact-sets', 'level-sets-contours', 'convex-sets']) {
+  for (const id of ['rn-important-subsets', 'spectral-decomposition', 'positive-definite-matrices', 'singular-value-decomposition', 'rayleigh-quotient', 'inner-products', 'vector-norms-lp', 'cauchy-schwarz-inequality', 'induced-matrix-norms', 'frobenius-schatten-norms', 'open-closed-sets', 'compact-sets', 'level-sets-contours', 'convex-sets', 'directional-derivative', 'gradient-partial-derivatives', 'differentiability-multivariable', 'hessian-matrix', 'jacobian-chain-rule', 'matrix-calculus-gradients', 'fundamental-theorem-along-segment', 'taylor-approximation-multivariable', 'taylor-exact-mean-value']) {
     assert.strictEqual(byId[id].status, undefined, id + ' has a bank and is not coming soon');
   }
   for (const id of ['feedforward', 'freq-resp-lti', 'gen-gain-phase', 'linearization', 'lti-stability', 'perf-specs-freq', 'pid-impl', 'pid-tuning', 'realization', 'uncertainty', 'windup']) {
@@ -82,9 +82,9 @@ test('every retired id points at a live survivor and is not itself live', () => 
 
 test('playable skills have quiz banks and coming-soon skills do not', () => {
   const banks = readJsonDir(path.join(SRC, 'bank'));
-  assert.strictEqual(Object.keys(banks).length, 171);
+  assert.strictEqual(Object.keys(banks).length, 180);
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 94);
+  assert.strictEqual(soon.length, 85);
   for (const skill of skills) {
     const bank = banks[skill.id];
     if (skill.status === 'coming-soon') {
@@ -104,7 +104,7 @@ test('playable skills have quiz banks and coming-soon skills do not', () => {
 
 test('playable skills have explainers and coming-soon skills do not', () => {
   const explainers = readJsonDir(path.join(SRC, 'explainers'));
-  assert.strictEqual(Object.keys(explainers).length, 171);
+  assert.strictEqual(Object.keys(explainers).length, 180);
   for (const skill of skills) {
     const exp = explainers[skill.id];
     if (skill.status === 'coming-soon') {
@@ -308,8 +308,8 @@ test('no retired id is referenced by the built app payload', () => {
   assert.deepStrictEqual(built.retired, retired);
   const builtIds = built.skills.map(s => s.id);
   assert.strictEqual(builtIds.length, 265);
-  assert.strictEqual(Object.keys(built.banks).length, 171);
-  assert.strictEqual(Object.keys(built.explainers).length, 171);
+  assert.strictEqual(Object.keys(built.banks).length, 180);
+  assert.strictEqual(Object.keys(built.explainers).length, 180);
   for (const id of builtIds) {
     assert(!retiredIds.has(id), 'built graph still contains ' + id);
     const skill = built.skills.find(s => s.id === id);

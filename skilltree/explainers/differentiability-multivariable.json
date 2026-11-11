@@ -1,0 +1,29 @@
+{
+  "id": "differentiability-multivariable",
+  "title": "Differentiability in several variables",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested ellipses</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses centered at the origin.",
+      "body_md": "Differentiability in several variables is a statement about a linear approximation, not merely about the existence of partial derivatives. At a point \\(x\\) there must be a linear map \\(L\\) such that the error in \\(f(x) + L(h)\\) is little-o of the step length. Dividing that error by \\(\\lVert h \\rVert\\) has to produce a quotient that tends to 0 as \\(h\\) tends to 0, from every direction at once.\n\nIf this happens, the partial derivatives exist and equal \\(L\\) on the coordinate directions, and every directional derivative exists and equals \\(L(d)\\). The linear map is then the inner product with the gradient. Continuous partial derivatives on a neighborhood are enough to guarantee the little-o condition, so they are a convenient sufficient test.\n\nThe converses fail. Partials can exist at a point while the quotient does not tend to 0. Directional derivatives can exist in every direction and still refuse to line up as one linear map. Either failure means the function is not differentiable at the point, even if it is continuous there."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The definition asks for a linear \\(L\\) with\n\\[\nf(x + h) = f(x) + L(h) + r(h), \\qquad \\frac{r(h)}{\\lVert h \\rVert} \\to 0 \\text{ as } h \\to 0.\n\\]\nWhen \\(f\\) is differentiable, \\(L(h) = \\nabla f(x)^{T} h\\). Continuous partial derivatives near \\(x\\) imply that such an \\(L\\) exists. Differentiability implies existence of the partial derivatives. Existence of the partial derivatives does not imply differentiability."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Use checkpoint (2, 7) for \\(f(x, y) = x^2 + x y\\). The value is \\(4 + 14 = 18\\). The gradient is \\((2x + y,\\ x) = (11, 2)\\). For the step \\((0.3, 0.6)\\),\n\\[\nf(2.3,\\ 7.6) = 5.29 + 17.48 = 22.77.\n\\]\nThe linear prediction is \\(18 + 11 \\cdot 0.3 + 2 \\cdot 0.6 = 22.5\\). The absolute remainder is \\(0.27\\). The step length is \\(\\sqrt{0.45}\\), about \\(0.67\\), and the quotient of remainder over length is about \\(0.40\\). Shrinking the step by a factor of ten would shrink a quadratic remainder by about a factor of one hundred, which is the little-o pattern. The partial derivatives here are continuous, so the definition is satisfied even though this particular quotient is not yet small."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Checking the two partial derivatives at the point is not the full test. Axis continuity is not the full test either. A directional derivative in one direction, or even in every direction, can exist while the remainder fails to be little-o, or while the map on directions fails to be linear. The quotient that must tend to 0 uses the remainder after the linear term has been removed. Dividing the function change by the step length still contains the derivative and does not go to 0."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The first-order Taylor model is this linear approximation, and its error statement is the little-o condition written again. A first-order necessary condition for a minimum needs a genuine gradient, so it needs differentiability rather than partials alone. The tangent inequality for a convex function is the same linear model, promoted from a local approximation to a global lower bound."
+    }
+  ]
+}
