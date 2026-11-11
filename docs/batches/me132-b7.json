@@ -1,0 +1,24 @@
+{
+  "id": "me132-b7",
+  "label": "B7",
+  "box": "ME 132 (me132) and Feedback Systems (am08)",
+  "skills": [
+    "adaptive",
+    "fund-limits",
+    "observer",
+    "robust-perf",
+    "state-feedback"
+  ],
+  "areas": {
+    "adaptive": ["adaptive-control", "sys-id", "pid-control"],
+    "fund-limits": ["fundamental-limitations", "loop-transfer-function", "frequency-response"],
+    "observer": ["observer", "state-space", "observability"],
+    "robust-perf": ["robust-performance", "robust-stability", "uncertainty"],
+    "state-feedback": ["state-feedback", "reachability", "second-order-systems"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/me132-content-batches.md",
+  "verifier": "skilltree/verify_me132_b7.py"
+}

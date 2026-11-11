@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T18:09:29.332955Z",
+  "generated": "2026-11-11T18:39:39.697440Z",
   "skills": {
-    "file": "skills.34d32385.json",
-    "hash": "34d32385"
+    "file": "skills.73d4da60.json",
+    "hash": "73d4da60"
   },
   "collections": {
     "file": "collections.4ee0faec.json",
@@ -22,6 +22,18 @@
       },
       "hash": "5a770724",
       "file": "banks/ac-power.5a770724.json"
+    },
+    "adaptive": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "34794f9a",
+      "file": "banks/adaptive.34794f9a.json"
     },
     "amp-choice": {
       "version": 1,
@@ -899,6 +911,18 @@
       "hash": "36d27dc2",
       "file": "banks/ft.36d27dc2.json"
     },
+    "fund-limits": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "12355ac1",
+      "file": "banks/fund-limits.12355ac1.json"
+    },
     "fundamental-theorem-along-segment": {
       "version": 1,
       "questionCount": 12,
@@ -1499,6 +1523,18 @@
       "hash": "cabfd146",
       "file": "banks/observability.cabfd146.json"
     },
+    "observer": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "3d45151f",
+      "file": "banks/observer.3d45151f.json"
+    },
     "octc": {
       "version": 2,
       "questionCount": 12,
@@ -1799,6 +1835,18 @@
       "hash": "40e16726",
       "file": "banks/ro.40e16726.json"
     },
+    "robust-perf": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "fba3f599",
+      "file": "banks/robust-perf.fba3f599.json"
+    },
     "robust-stability": {
       "version": 1,
       "questionCount": 12,
@@ -1991,6 +2039,18 @@
       "hash": "9702f1d0",
       "file": "banks/stability.9702f1d0.json"
     },
+    "state-feedback": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "16a29c8c",
+      "file": "banks/state-feedback.16a29c8c.json"
+    },
     "state-space-model": {
       "version": 1,
       "questionCount": 12,
@@ -2177,6 +2237,12 @@
       "hash": "d5440289",
       "file": "explainers/ac-power.d5440289.json",
       "sectionCount": 5
+    },
+    "adaptive": {
+      "hash": "864e75bf",
+      "file": "explainers/adaptive.864e75bf.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "amp-choice": {
       "hash": "0a449253",
@@ -2559,6 +2625,12 @@
       "file": "explainers/ft.89419ce2.json",
       "sectionCount": 5
     },
+    "fund-limits": {
+      "hash": "3917f630",
+      "file": "explainers/fund-limits.3917f630.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "fundamental-theorem-along-segment": {
       "hash": "f507f9f4",
       "file": "explainers/fundamental-theorem-along-segment.f507f9f4.json",
@@ -2830,6 +2902,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "observer": {
+      "hash": "21e3a36b",
+      "file": "explainers/observer.21e3a36b.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "octc": {
       "hash": "ed6fb74f",
       "file": "explainers/octc.ed6fb74f.json",
@@ -2967,6 +3045,12 @@
       "file": "explainers/ro.d4271073.json",
       "sectionCount": 5
     },
+    "robust-perf": {
+      "hash": "ef4d293e",
+      "file": "explainers/robust-perf.ef4d293e.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "robust-stability": {
       "hash": "e8dbe76a",
       "file": "explainers/robust-stability.e8dbe76a.json",
@@ -3054,6 +3138,12 @@
       "hash": "d39a35e7",
       "file": "explainers/stability.d39a35e7.json",
       "sectionCount": 5
+    },
+    "state-feedback": {
+      "hash": "9c4c0632",
+      "file": "explainers/state-feedback.9c4c0632.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "state-space-model": {
       "hash": "b51a5868",

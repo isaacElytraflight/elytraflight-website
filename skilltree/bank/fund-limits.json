@@ -1,0 +1,218 @@
+{
+  "skill_id": "fund-limits",
+  "version": 1,
+  "questions": [
+    {
+      "id": "fund-limits-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The open loop is stable and \\(|L|\\) falls at least as fast as \\(1/\\omega^2\\). The integral \\(\\int_0^{\\infty} \\ln|S(j\\omega)|\\,d\\omega\\) is then",
+      "explanation": "With no right-half-plane poles and a roll-off of two or more, the signed areas of \\(\\ln|S|\\) cancel. Pushing \\(|S|\\) below 1 on a band forces it above 1 somewhere else. The integral is not a delay and not a DC gain, and it is not negative for every stable loop: a loop with \\(|S| < 1\\) everywhere would make the integral negative, which this hypothesis forbids.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity magnitude, a dip then a hump</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,129.2 83.7,129.2 101.8,77.5 138,38.8 283,77.5\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude curve that sits below the axis, crosses up, and comes back.",
+      "options": [
+        "zero, so a band where \\(|S| < 1\\) is paid for by a band where \\(|S| > 1\\)",
+        "always negative, so feedback reduces \\(|S|\\) at every frequency",
+        "equal to the time delay in seconds",
+        "equal to the DC loop gain"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "fund-limits-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "On a stable loop with the integral equal to zero, \\(|S| = 1/4\\) on a band of width 2 rad/s, and \\(|S|\\) is a constant greater than 1 on the next 4 rad/s, and \\(|S| = 1\\) after that. The constant value on that hump is",
+      "explanation": "The negative area is \\(\\ln 4 \\times 2\\). Spread over width 4 it has height \\((\\ln 4)/2 = \\ln 2\\), so the hump is 2. Reporting 4 uses the reciprocal of \\(1/4\\) and ignores the two widths. Reporting \\(1/4\\) repeats the dip. Reporting 8 treats the width ratio 2 as a factor on the dip height instead of on the log height.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity magnitude, a dip then a hump</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,129.2 83.7,129.2 101.8,77.5 138,38.8 283,77.5\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude curve that sits below the axis, crosses up, and comes back.",
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "fund-limits-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The loop has real right-half-plane poles at 1.5 and 3.5 rad/s, the closed loop is stable, and \\(|L|\\) falls at least as fast as \\(1/\\omega^2\\). The integral \\(\\int_0^{\\infty} \\ln|S(j\\omega)|\\,d\\omega\\) equals",
+      "explanation": "The integral equals \\(\\pi\\) times the sum of the real parts, \\(\\pi(1.5+3.5) = 15.708\\). The sum 5 is the factor in front of \\(\\pi\\), not the integral. Twice that sum, 10, would be right for a different constant than \\(\\pi\\). A stable open loop would make the integral 0, and these two poles are what remove that case.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a right-half-plane pole and a right-half-plane zero</title><line x1=\"20\" y1=\"92\" x2=\"82.2\" y2=\"92\"/><line x1=\"110.2\" y1=\"92\" x2=\"232\" y2=\"92\"/><line x1=\"260\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"160\" x2=\"40\" y2=\"16\"/><polygon points=\"40,16 42.7,22.4 37.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"48\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"91.2\" y1=\"87\" x2=\"101.2\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"91.2\" y1=\"97\" x2=\"101.2\" y2=\"87\" stroke-width=\"1.8\"/><circle cx=\"246\" cy=\"92\" r=\"5\"/></svg>",
+      "figure_alt": "A cross and an open circle, both on the positive real axis, the circle farther out.",
+      "answer": 15.708,
+      "unit": "rad/s",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "fund-limits-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "The open loop has one real right-half-plane pole at p rad/s, the closed loop is stable, and \\(|L|\\) falls at least as fast as \\(1/\\omega^2\\). Write \\(\\int_0^{\\infty} \\ln|S(j\\omega)|\\,d\\omega\\) in the name p. Use pi for \\(\\pi\\).",
+      "explanation": "One real right-half-plane pole contributes its real part times \\(\\pi\\). The integral is \\(\\pi p\\). The product \\(2\\pi p\\) is a full turn, not this integral. The pole alone, \\(p\\), drops the factor \\(\\pi\\). A right-half-plane zero does not add a term of this kind.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a right-half-plane pole and a right-half-plane zero</title><line x1=\"20\" y1=\"92\" x2=\"82.2\" y2=\"92\"/><line x1=\"110.2\" y1=\"92\" x2=\"232\" y2=\"92\"/><line x1=\"260\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"160\" x2=\"40\" y2=\"16\"/><polygon points=\"40,16 42.7,22.4 37.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"48\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"91.2\" y1=\"87\" x2=\"101.2\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"91.2\" y1=\"97\" x2=\"101.2\" y2=\"87\" stroke-width=\"1.8\"/><circle cx=\"246\" cy=\"92\" r=\"5\"/></svg>",
+      "figure_alt": "A cross and an open circle, both on the positive real axis, the circle farther out.",
+      "answer": "pi*p",
+      "variables": [
+        {
+          "name": "p",
+          "min": 0.4,
+          "max": 6.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "p*pi"
+      ],
+      "version": 1
+    },
+    {
+      "id": "fund-limits-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The integral of \\(\\ln|S|\\) is zero. \\(|S| = 1/2\\) on a band of width 9 rad/s, and the recovering hump has height \\(|S| = 8\\). The width of that hump, in rad/s, is",
+      "explanation": "\\(\\ln(1/2) = -\\ln 2\\) and \\(\\ln 8 = 3\\ln 2\\). The areas cancel when \\(9\\ln 2 = 3\\ln 2 \\cdot W\\), so \\(W = 3\\). Reporting 9 copies the dip width. Reporting 8 copies the hump height. Reporting \\(9/2 = 4.5\\) uses the dip's factor of 2 and forgets that a height of 8 is three factors of 2 in the log.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity magnitude, a dip then a hump</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,129.2 83.7,129.2 101.8,77.5 138,38.8 283,77.5\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude curve that sits below the axis, crosses up, and comes back.",
+      "answer": 3.0,
+      "unit": "rad/s",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "fund-limits-r2-q3",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order you would use them while choosing a crossover.",
+      "explanation": "You cannot place a crossover until you know which bounds point up and which point down. The pole is a floor and the zero is a ceiling, so both are checked before the area argument. The integral is the bill for whatever dip you still want. The last step is the case where the floor is above the ceiling and no frequency satisfies both.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a right-half-plane pole and a right-half-plane zero</title><line x1=\"20\" y1=\"92\" x2=\"82.2\" y2=\"92\"/><line x1=\"110.2\" y1=\"92\" x2=\"232\" y2=\"92\"/><line x1=\"260\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"160\" x2=\"40\" y2=\"16\"/><polygon points=\"40,16 42.7,22.4 37.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"48\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"91.2\" y1=\"87\" x2=\"101.2\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"91.2\" y1=\"97\" x2=\"101.2\" y2=\"87\" stroke-width=\"1.8\"/><circle cx=\"246\" cy=\"92\" r=\"5\"/></svg>",
+      "figure_alt": "A cross and an open circle, both on the positive real axis, the circle farther out.",
+      "steps": [
+        "Mark the right-half-plane poles, the right-half-plane zeros, and any time delay.",
+        "Keep the intended crossover above the right-half-plane poles, so the loop gain is large enough to stabilize them.",
+        "Keep the intended crossover below the right-half-plane zeros, with room before their phase is spent.",
+        "Check the sensitivity integral: a deep dip in one band needs a peak in another.",
+        "If the lowest right-half-plane zero sits below the highest right-half-plane pole, stop: the two bounds leave no crossover."
+      ],
+      "version": 1
+    },
+    {
+      "id": "fund-limits-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "The open loop is stable and rolls off at least as fast as \\(1/\\omega^2\\). One step of this sensitivity argument is wrong.",
+      "explanation": "A zero total with a negative piece forces a positive piece. Keeping \\(|S|\\) at \\(0.5\\) everywhere would make the whole integral negative, which the roll-off and the stable open loop do not allow. The integral statement, the sign of the dip, and the need for a peak are the right steps.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity magnitude, a dip then a hump</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,129.2 83.7,129.2 101.8,77.5 138,38.8 283,77.5\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude curve that sits below the axis, crosses up, and comes back.",
+      "steps": [
+        "The integral of \\(\\ln|S(j\\omega)|\\) from 0 to \\(\\infty\\) is 0.",
+        "Holding \\(|S|\\) at \\(0.5\\) from 0 to \\(5\\ \\mathrm{rad/s}\\) contributes a negative area.",
+        "Because the total area is 0, \\(|S|\\) may stay at \\(0.5\\) at every higher frequency as well.",
+        "The negative area has to be balanced by a band where \\(|S| > 1\\)."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "A negative piece of a zero-area integral forces a band where |S| is above 1.",
+        "A stable open loop makes the integral equal to the delay, not zero.",
+        "Holding |S| at 0.5 on a finite band makes every closed loop unstable."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "fund-limits-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A right-half-plane zero of the plant, left uncancelled so the closed loop can be internally stable,",
+      "explanation": "An uncancelled right-half-plane zero of the loop is a point where \\(L(z) = 0\\), so \\(S(z) = 1\\). Cancelling it with a compensator pole hides an unstable mode. The \\(\\pi\\) term in the integral belongs to right-half-plane poles, not zeros. The zero is a ceiling on crossover, not a floor.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a right-half-plane pole and a right-half-plane zero</title><line x1=\"20\" y1=\"92\" x2=\"82.2\" y2=\"92\"/><line x1=\"110.2\" y1=\"92\" x2=\"232\" y2=\"92\"/><line x1=\"260\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"160\" x2=\"40\" y2=\"16\"/><polygon points=\"40,16 42.7,22.4 37.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"48\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"91.2\" y1=\"87\" x2=\"101.2\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"91.2\" y1=\"97\" x2=\"101.2\" y2=\"87\" stroke-width=\"1.8\"/><circle cx=\"246\" cy=\"92\" r=\"5\"/></svg>",
+      "figure_alt": "A cross and an open circle, both on the positive real axis, the circle farther out.",
+      "options": [
+        "is removed by a matching right-half-plane pole in the compensator, and the bandwidth limit goes with it",
+        "forces \\(S(z) = 1\\) at that zero, so sensitivity cannot be small there",
+        "adds \\(\\pi z\\) to the sensitivity integral of an open-loop-stable plant",
+        "forces the crossover to sit above the zero"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "fund-limits-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which statements hold for these limitations?",
+      "explanation": "The zero-area case is the waterbed: the dip is paid for by a peak. Right-half-plane poles add \\(\\pi\\) times their real parts. A right-half-plane zero does not add that term; it constrains \\(S\\) by interpolation instead. Delay spends phase in proportion to frequency, which shrinks the crossover you can still afford.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a magnitude that falls, then falls more steeply</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch with two downward slopes.",
+      "options": [
+        "If the sensitivity integral is zero, a band with \\(|S| < 1\\) forces another band with \\(|S| > 1\\).",
+        "A right-half-plane pole of the loop increases \\(\\int \\ln|S|\\,d\\omega\\).",
+        "A right-half-plane zero of a stable loop adds that same \\(\\pi\\) term to the integral.",
+        "A time delay makes the high-frequency phase more negative, so the same crossover budget gets tighter."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "fund-limits-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Use the design window \\(\\omega_c \\ge 2p\\) and \\(\\omega_c \\le z/2\\), with a real right-half-plane pole at \\(p = 2.5\\ \\mathrm{rad/s}\\) and a real right-half-plane zero at \\(z = 20\\ \\mathrm{rad/s}\\). The width of the allowed crossover interval, in rad/s, is",
+      "explanation": "The floor is \\(2 \\times 2.5 = 5\\) and the ceiling is \\(20/2 = 10\\), so the width is 5. Reporting 10 returns the ceiling alone. Reporting 2.5 returns the pole. Reporting 20 returns the zero. The window is the gap between the floor and the ceiling, and it is nonempty here.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a right-half-plane pole and a right-half-plane zero</title><line x1=\"20\" y1=\"92\" x2=\"82.2\" y2=\"92\"/><line x1=\"110.2\" y1=\"92\" x2=\"232\" y2=\"92\"/><line x1=\"260\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"160\" x2=\"40\" y2=\"16\"/><polygon points=\"40,16 42.7,22.4 37.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"48\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"91.2\" y1=\"87\" x2=\"101.2\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"91.2\" y1=\"97\" x2=\"101.2\" y2=\"87\" stroke-width=\"1.8\"/><circle cx=\"246\" cy=\"92\" r=\"5\"/></svg>",
+      "figure_alt": "A cross and an open circle, both on the positive real axis, the circle farther out.",
+      "preview": [
+        "robust-perf"
+      ],
+      "answer": 5.0,
+      "unit": "rad/s",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "fund-limits-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The right-half-plane pole sits at a higher frequency than the right-half-plane zero. A crossover that stabilizes the pole and still respects the zero",
+      "explanation": "The pole is a floor and the zero is a ceiling. When the floor is above the ceiling, the two inequalities have no common frequency. The integral does not change sign to remove that geometry, and cancelling either singularity with the compensator leaves an unstable hidden mode. The origin is below the pole, so it fails the floor.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a right-half-plane pole and a right-half-plane zero</title><line x1=\"20\" y1=\"92\" x2=\"82.2\" y2=\"92\"/><line x1=\"110.2\" y1=\"92\" x2=\"232\" y2=\"92\"/><line x1=\"260\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"160\" x2=\"40\" y2=\"16\"/><polygon points=\"40,16 42.7,22.4 37.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"48\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"91.2\" y1=\"87\" x2=\"101.2\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"91.2\" y1=\"97\" x2=\"101.2\" y2=\"87\" stroke-width=\"1.8\"/><circle cx=\"246\" cy=\"92\" r=\"5\"/></svg>",
+      "figure_alt": "A cross and an open circle, both on the positive real axis, the circle farther out.",
+      "preview": [
+        "robust-stability"
+      ],
+      "options": [
+        "exists, because the integral turns negative and cancels the conflict",
+        "exists as soon as the two singularities are cancelled by the compensator",
+        "does not exist: the pole wants the crossover above it and the zero wants the crossover below it",
+        "exists at the origin, where both bounds are silent"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "fund-limits-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A performance weight asks \\(|S|\\) to be small on a wide band. The sensitivity integral says that spec",
+      "explanation": "The integral fixes the signed area of \\(\\ln|S|\\). A weight that demands a deep, wide dip asks for more negative area than a stable proper loop can spend, and no gain schedule creates that area. Raising the gain everywhere moves the peak; it does not delete it. Robust stability is a test on \\(T\\) and the uncertainty weight, which is a different inequality.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the loop whose sensitivity is 1 over 1 plus L</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">L</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A forward block L with unity feedback subtracted.",
+      "preview": [
+        "robust-perf"
+      ],
+      "options": [
+        "can always be met by raising the loop gain at every frequency",
+        "is the same statement as the robust-stability test",
+        "is automatically met by any stable open loop",
+        "can be impossible for a stable proper loop, when the demanded dip has more area than the integral allows"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

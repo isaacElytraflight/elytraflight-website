@@ -128,6 +128,21 @@ Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## B7 — me132-b7
+
+Box: ME 132 (me132) and Feedback Systems (am08).
+
+Skills: `adaptive`, `fund-limits`, `observer`, `robust-perf`, `state-feedback`.
+
+Items above version 1:
+
+- `observer-r4-q1` version 2
+- `robust-perf-r2-q3` version 2
+- `robust-perf-r3-q1` version 2
+- `state-feedback-r1-q3` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## NB1 — nlo-nb1
 
 Box: Nonlinear Optimization (nlo-tugraz).

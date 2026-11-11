@@ -1753,7 +1753,6 @@
    "prereqs": [
     "robust-stability"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1833,7 +1832,6 @@
     "loop-shaping",
     "min-phase"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1874,7 +1872,6 @@
     "reachability",
     "second-order-sys"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1954,7 +1951,6 @@
    "prereqs": [
     "observability"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -2198,7 +2194,6 @@
     "sys-id",
     "pid"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",

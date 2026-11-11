@@ -44,6 +44,18 @@ NB2 uses the same three references for the next preliminaries layer. `boyd-cvx` 
 
 NB3 uses the same references for derivatives. `boyd-cvx` supplies the scope for the gradient, the Hessian, the chain rule, and the Taylor model. `nw-numopt` supplies the scope for the mean-value form and the remainder bound. No section is quoted, and no exercise or parameter set is reused.
 
+## Section map for B7
+
+Scope only. The skill records already point at the sections. No wording, problems, parameter sets, or figures were taken from them. Learner-facing text does not name the works below.
+
+| skill | scope used |
+|---|---|
+| `state-feedback` | state feedback \(u = -Kx\), the closed-loop matrix \(A-BK\), and the single-input gain solve |
+| `observer` | the correction \(L(y-C\hat{x})\) and the error matrix \(A-LC\) |
+| `fund-limits` | the sensitivity integral, right-half-plane poles and zeros, and the bandwidth conflict |
+| `robust-perf` | nominal performance, robust stability, and the combined weighted-\(S\) and weighted-\(T\) bound |
+| `adaptive` | an online parameter update inserted into the controller. The skill record's pointer is outside the main text and was used only to bound the topic. |
+
 ## Errata
 
 No separate errata list was in the v3.1.5 front matter or the back-matter index. Nothing in those files changes the B1 facts (element laws, transform rules, rank and eigenvalues, or the minimum-phase conditions). No erratum was applied.
