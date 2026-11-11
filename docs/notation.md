@@ -301,6 +301,15 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | LP | linear program | affine objective and affine constraints. Added in NB5 |
 | QP | quadratic program | quadratic objective and affine constraints. Convex when the Hessian is positive semidefinite. Added in NB5 |
 | quadratic objective | \(\tfrac12 x^T A x + b^T x + c\) with \(A\) symmetric | gradient \(Ax+b\). Unique minimizer \(x=-A^{-1}b\) when \(A\) is positive definite. This \(A\) is not the LQR state matrix, and \(b\) is not a control vector. Added in NB5 |
+| standard form | minimize \(c^T x\) subject to \(Ax=b\), \(x\ge 0\) | a maximization is rewritten by minimizing \(-c^T x\). Added in NB6 |
+| slack | nonnegative \(s\) with \(a^T x + s = \beta\) | replaces \(a^T x \le \beta\). Added in NB6 |
+| surplus | nonnegative \(s\) with \(a^T x - s = \beta\) | replaces \(a^T x \ge \beta\). Added in NB6 |
+| free split | \(x = x^+ - x^-\) with both parts nonnegative | replaces a variable that may be negative. An absolute value \(\lvert x\rvert\) becomes \(x^+ + x^-\) together with that split. Added in NB6 |
+| basis \(B\) | an invertible set of \(m\) columns of \(A\) | the other columns are nonbasic. Added in NB6 |
+| basic solution | \(x_B = B^{-1}b\), \(x_N = 0\) | a basic feasible solution when \(x_B \ge 0\). Added in NB6 |
+| reduced cost \(\bar{c}_j\) | \(c_j - c_B^T B^{-1} A_j\) | for minimization, a negative value means the objective falls as that nonbasic variable increases. Added in NB6 |
+| ratio \(\theta\) | \(\min_i\{\bar{b}_i/\bar{a}_{ij}:\bar{a}_{ij}>0\}\) | longest step that keeps the basic variables nonnegative. No positive entry means an unbounded ray. Added in NB6 |
+| phase I | minimize the sum of artificial variables on \(Ax+a=b\), \(x\ge 0\), \(a\ge 0\), after making \(b\ge 0\) | optimal value 0 if and only if the original standard-form system is feasible. Added in NB6 |
 
 ## loop-shaping
 

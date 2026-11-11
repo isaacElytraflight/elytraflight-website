@@ -209,3 +209,13 @@ Skills: `optimization-problem-formulation`, `graphical-2d-optimization`, `optimi
 Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## NB6 — nlo-nb6
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `lp-standard-form`, `lp-graphical-solution`, `polyhedra-extreme-points`, `basic-feasible-solutions`, `simplex-feasible-directions`, `simplex-method-iteration`, `simplex-phase-one`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

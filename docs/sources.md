@@ -48,6 +48,8 @@ NB4 uses the same references for convex functions and for computing derivatives.
 
 NB5 uses the same references for problem formulation and unconstrained optimality. `boyd-cvx` supplies the scope for the decision variable, the objective, the feasible set, the optimal value, local and global minimizers, and the classes LP, QP, and convex programs. `nw-numopt` supplies the scope for existence on compact or coercive problems, the first- and second-order necessary and sufficient conditions, classification of stationary points, the convex case in which stationarity is global, and minimization of a quadratic. No section is quoted, and no exercise or parameter set is reused.
 
+NB6 uses the same references for linear programming. `boyd-cvx` supplies the scope for polyhedra, extreme points, and the geometry of a linear objective on a convex set. `nw-numopt` supplies the scope for standard form, basic feasible solutions, reduced costs, the ratio test, one simplex iteration, and the auxiliary problem that finds a first basis. No section is quoted, and no exercise or parameter set is reused.
+
 ## Section map for B7
 
 Scope only. The skill records already point at the sections. No wording, problems, parameter sets, or figures were taken from them. Learner-facing text does not name the works below.

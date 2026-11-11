@@ -5201,6 +5201,370 @@
     {
       "id": "quadratic-function-minimization#explainer",
       "version": 1
+    },
+    {
+      "id": "lp-standard-form-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lp-standard-form-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lp-standard-form-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lp-standard-form-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lp-standard-form-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lp-standard-form-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lp-standard-form-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lp-standard-form-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lp-standard-form-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lp-standard-form-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lp-standard-form-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lp-standard-form-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lp-standard-form#explainer",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lp-graphical-solution#explainer",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points#explainer",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions#explainer",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "simplex-feasible-directions#explainer",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration#explainer",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "simplex-phase-one#explainer",
+      "version": 1
     }
   ]
 }
