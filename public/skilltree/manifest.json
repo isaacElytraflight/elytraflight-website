@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T18:05:21.786848Z",
+  "generated": "2026-11-11T18:09:29.332955Z",
   "skills": {
-    "file": "skills.f0161ef4.json",
-    "hash": "f0161ef4"
+    "file": "skills.34d32385.json",
+    "hash": "34d32385"
   },
   "collections": {
     "file": "collections.4ee0faec.json",
@@ -1076,8 +1076,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "1a35ffcc",
-      "file": "banks/jacobian-chain-rule.1a35ffcc.json"
+      "hash": "1e4f292b",
+      "file": "banks/jacobian-chain-rule.1e4f292b.json"
     },
     "junction-cap": {
       "version": 1,

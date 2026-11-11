@@ -458,7 +458,7 @@ def bank_jacobian():
             "Put these lines of a chain-rule calculation in the only order that makes each line usable.",
             ["Evaluate the inner map at the input, and name that image y.",
              "Evaluate the outer Jacobian at y.",
-             "Left-multiply that outer Jacobian by the inner Jacobian at the original input."],
+             "Form the product with that outer Jacobian on the left and the inner Jacobian, at the original input, on the right."],
             r"The outer Jacobian is evaluated at the image, so the image has to be known before that line can be written. The product uses that evaluated outer Jacobian, so it is last, with the outer factor on the left. The inner Jacobian is taken at the original input and appears only as the right-hand factor; it does not wait for the image, which is why it is not a separate line. Swapping the factors computes a different matrix whenever the sizes differ. Adding the factors is the rule for a sum, not a composition.",
             JAC, A_JAC)
     b.num(2,

@@ -60,7 +60,7 @@
       "steps": [
         "Evaluate the inner map at the input, and name that image y.",
         "Evaluate the outer Jacobian at y.",
-        "Left-multiply that outer Jacobian by the inner Jacobian at the original input."
+        "Form the product with that outer Jacobian on the left and the inner Jacobian, at the original input, on the right."
       ],
       "version": 1
     },
