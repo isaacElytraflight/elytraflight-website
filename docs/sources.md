@@ -54,6 +54,8 @@ NB7 uses the same references for multipliers, duality, and least squares. `boyd-
 
 NB8 uses the same references for gradient methods. `boyd-cvx` supplies the scope for a Lipschitz gradient, the quadratic upper bound, sufficient decrease of a gradient step, and the sublinear guarantee obtained by summing those decreases. `nw-numopt` supplies the scope for descent directions, the general descent iteration, rates of convergence, exact line search on a quadratic, backtracking, the zig-zag of steepest descent, and the condition-number factor on a quadratic. No section is quoted, and no exercise or parameter set is reused.
 
+NB9 uses the same references for Gauss-Newton, damping, block updates, and Newton on a nonlinear equation. `nw-numopt` supplies the scope for a Gauss-Newton step, a damped step, and a Newton iteration for a root. `nlo-notes` supplies the scope for cycling through data blocks and for reading one linear least-squares update as the measurement step of a Kalman filter. `boyd-cvx` supplies the scope for the least-squares objective those steps minimize. No section is quoted, and no exercise or parameter set is reused. The linear filter recursion stays in the Kalman core and is not rewritten here.
+
 ## Section map for B7
 
 Scope only. The skill records already point at the sections. No wording, problems, parameter sets, or figures were taken from them. Learner-facing text does not name the works below.

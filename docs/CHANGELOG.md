@@ -239,3 +239,13 @@ Skills: `descent-directions`, `descent-method-framework`, `convergence-rates`, `
 Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## NB9 — nlo-nb9
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `gauss-newton-method`, `levenberg-marquardt`, `incremental-gradient-methods`, `kalman-recursive-least-squares`, `extended-kalman-filter`, `newton-root-finding`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

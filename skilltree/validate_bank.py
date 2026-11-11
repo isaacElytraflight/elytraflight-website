@@ -177,6 +177,15 @@ LEAF_PREVIEW_ALLOWED.update({
         "q-conjugate-directions",
     ],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # NB9 leaves: nothing in the graph lists these as prerequisites.
+    "levenberg-marquardt": [
+        "newton-globalization",
+    ],
+    "extended-kalman-filter": [
+        "newton-root-finding",
+    ],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

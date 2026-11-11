@@ -333,6 +333,11 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | descent lemma | \(f(y) \le f(x) + \nabla f(x)^T(y - x) + \tfrac{L}{2}\lVert y - x\rVert^2\) | an upper bound from a Lipschitz gradient. Added in NB8 |
 | sufficient decrease | \(f(x) - f(x - t\nabla f(x)) \ge t(1 - Lt/2)\lVert\nabla f(x)\rVert^2\) | for \(0 < t < 2/L\). The step \(t = 1/L\) gives the coefficient \(1/(2L)\). Added in NB8 |
 | gradient-method rate | \(\min_{i < k}\lVert\nabla f(x_i)\rVert^2 \le 2L(f(x_0) - f^\star)/k\) | for the constant step \(t = 1/L\), when \(f\) is bounded below by \(f^\star\). Added in NB8 |
+| Gauss-Newton step | \((J_r^T J_r)\, d = -J_r^T r\) | minimizer of the linearized residual \(r + J_r d\). The true Hessian of \(\tfrac12\lVert r\rVert^2\) also has \(\sum_i r_i \nabla^2 r_i\). Added in NB9 |
+| \(\mu\) | Levenberg-Marquardt damping | \((J_r^T J_r + \mu I)\, d = -J_r^T r\) with \(\mu > 0\). Not an eigenvalue and not a Lagrange multiplier. Some texts write this shift as \(\lambda\). Added in NB9 |
+| incremental pass | \(x := x - t \nabla f_i(x)\) on one block at a time, using the updated point | a batch step sums every block gradient at the same point. Added in NB9 |
+| \(J_h(\hat x)\) | Jacobian of a nonlinear measurement \(h\), evaluated at the current estimate | plays the role of \(C\) in one linear update. Not the Hessian \(H_f\). Added in NB9 |
+| Newton root step | \(J_F(x)\, d = -F(x)\) | one tangent solve for a root of a map \(F\). A singular Jacobian leaves the step undefined. Added in NB9 |
 
 ## loop-shaping
 
@@ -483,7 +488,7 @@ Added in B8 for `kalman`. The model is discrete. \(L_k\) is the filter gain. It 
 | \(Q, R\) | covariances of \(w_k\) and \(v_k\) | |
 | predict | \(\hat{x}_{k|k-1} = A \hat{x}_{k-1|k-1}\), \(P_{k|k-1} = A P_{k-1|k-1} A^T + Q\) | a known input is added to the state predict and does not enter \(P\) |
 | \(L_k\) | filter gain \(P_{k|k-1} C^T (C P_{k|k-1} C^T + R)^{-1}\) | alias \(K_k\). Not the state-feedback row |
-| update | \(\hat{x}_{k|k} = \hat{x}_{k|k-1} + L_k (y_k - C \hat{x}_{k|k-1})\), \(P_{k|k} = (I - L_k C) P_{k|k-1}\) | the simplified covariance update uses this \(L_k\) |
+| update | \(\hat{x}_{k|k} = \hat{x}_{k|k-1} + L_k (y_k - C \hat{x}_{k|k-1})\), \(P_{k|k} = (I - L_k C) P_{k|k-1}\) | the simplified covariance update uses this \(L_k\). The recursive least-squares reading uses this same update and does not introduce a second gain symbol. Added in NB9 |
 
 ## lqr
 

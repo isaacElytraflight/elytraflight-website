@@ -6657,6 +6657,318 @@
     {
       "id": "gradient-method-convergence#explainer",
       "version": 1
+    },
+    {
+      "id": "gauss-newton-method-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "gauss-newton-method-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "gauss-newton-method-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "gauss-newton-method-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "gauss-newton-method-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "gauss-newton-method-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "gauss-newton-method-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "gauss-newton-method-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "gauss-newton-method-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "gauss-newton-method-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "gauss-newton-method-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "gauss-newton-method-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "gauss-newton-method#explainer",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "levenberg-marquardt#explainer",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "incremental-gradient-methods#explainer",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "kalman-recursive-least-squares#explainer",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter#explainer",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding#explainer",
+      "version": 1
     }
   ]
 }

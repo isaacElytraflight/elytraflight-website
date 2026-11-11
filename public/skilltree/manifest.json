@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T23:38:23.275876Z",
+  "generated": "2026-11-11T23:55:55.839969Z",
   "skills": {
-    "file": "skills.8b5b3984.json",
-    "hash": "8b5b3984"
+    "file": "skills.d55a1f6a.json",
+    "hash": "d55a1f6a"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -959,6 +959,18 @@
       "hash": "414bd3ca",
       "file": "banks/existence-of-minimizers.414bd3ca.json"
     },
+    "extended-kalman-filter": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "281df45b",
+      "file": "banks/extended-kalman-filter.281df45b.json"
+    },
     "fb-amp-errors": {
       "version": 1,
       "questionCount": 12,
@@ -1199,6 +1211,18 @@
       "hash": "d462eaf2",
       "file": "banks/gain-scheduling.d462eaf2.json"
     },
+    "gauss-newton-method": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "6cf2653f",
+      "file": "banks/gauss-newton-method.6cf2653f.json"
+    },
     "gaussian-random-vectors": {
       "version": 1,
       "questionCount": 12,
@@ -1379,6 +1403,18 @@
       "hash": "1ad8c5f8",
       "file": "banks/impulse-conv.1ad8c5f8.json"
     },
+    "incremental-gradient-methods": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "e77059b7",
+      "file": "banks/incremental-gradient-methods.e77059b7.json"
+    },
     "induced-matrix-norms": {
       "version": 1,
       "questionCount": 12,
@@ -1475,6 +1511,18 @@
       "hash": "19df4335",
       "file": "banks/kalman-optimal-observer.19df4335.json"
     },
+    "kalman-recursive-least-squares": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "6d94a17f",
+      "file": "banks/kalman-recursive-least-squares.6d94a17f.json"
+    },
     "kalman": {
       "version": 1,
       "questionCount": 12,
@@ -1570,6 +1618,18 @@
       },
       "hash": "0d0fd1d3",
       "file": "banks/level-sets-contours.0d0fd1d3.json"
+    },
+    "levenberg-marquardt": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "441ed664",
+      "file": "banks/levenberg-marquardt.441ed664.json"
     },
     "limit-cycles": {
       "version": 1,
@@ -1978,6 +2038,18 @@
       },
       "hash": "63e6b023",
       "file": "banks/mpc.63e6b023.json"
+    },
+    "newton-root-finding": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "592db9d5",
+      "file": "banks/newton-root-finding.592db9d5.json"
     },
     "nl-cap": {
       "version": 1,
@@ -3342,6 +3414,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "extended-kalman-filter": {
+      "hash": "af467b6b",
+      "file": "explainers/extended-kalman-filter.af467b6b.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "fb-amp-errors": {
       "hash": "9955c4aa",
       "file": "explainers/fb-amp-errors.9955c4aa.json",
@@ -3453,6 +3531,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "gauss-newton-method": {
+      "hash": "cc9f6138",
+      "file": "explainers/gauss-newton-method.cc9f6138.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "gaussian-random-vectors": {
       "hash": "dabef68b",
       "file": "explainers/gaussian-random-vectors.dabef68b.json",
@@ -3537,6 +3621,12 @@
       "file": "explainers/impulse-conv.c4b7cff5.json",
       "sectionCount": 5
     },
+    "incremental-gradient-methods": {
+      "hash": "21add20d",
+      "file": "explainers/incremental-gradient-methods.21add20d.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "induced-matrix-norms": {
       "hash": "f9c2d010",
       "file": "explainers/induced-matrix-norms.f9c2d010.json",
@@ -3579,6 +3669,12 @@
     "kalman-optimal-observer": {
       "hash": "98716f80",
       "file": "explainers/kalman-optimal-observer.98716f80.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "kalman-recursive-least-squares": {
+      "hash": "5d9cc46c",
+      "file": "explainers/kalman-recursive-least-squares.5d9cc46c.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -3626,6 +3722,12 @@
     "level-sets-contours": {
       "hash": "1801a6d9",
       "file": "explainers/level-sets-contours.1801a6d9.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "levenberg-marquardt": {
+      "hash": "66a1bd37",
+      "file": "explainers/levenberg-marquardt.66a1bd37.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -3814,6 +3916,12 @@
     "mpc": {
       "hash": "189bf22f",
       "file": "explainers/mpc.189bf22f.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "newton-root-finding": {
+      "hash": "4a7a79c0",
+      "file": "explainers/newton-root-finding.4a7a79c0.json",
       "sectionCount": 5,
       "version": 1
     },

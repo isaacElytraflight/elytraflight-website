@@ -2952,8 +2952,7 @@
     "nonlinear-least-squares",
     "descent-method-framework",
     "taylor-approximation-multivariable"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "levenberg-marquardt",
@@ -2961,8 +2960,7 @@
    "summary": "Damp a Gauss-Newton step so that it bends toward steepest descent when the linear model is poor.",
    "prereqs": [
     "gauss-newton-method"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "incremental-gradient-methods",
@@ -2971,8 +2969,7 @@
    "prereqs": [
     "descent-method-framework",
     "nonlinear-least-squares"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "kalman-recursive-least-squares",
@@ -2983,8 +2980,7 @@
     "incremental-gradient-methods",
     "linear-least-squares",
     "gauss-newton-method"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "extended-kalman-filter",
@@ -2992,8 +2988,7 @@
    "summary": "Relinearize a nonlinear measurement model on each new block.",
    "prereqs": [
     "kalman-recursive-least-squares"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "newton-root-finding",
@@ -3001,8 +2996,7 @@
    "summary": "Solve a nonlinear equation by repeatedly linearizing it, and see the role of the start point.",
    "prereqs": [
     "jacobian-chain-rule"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "newton-method-optimization",

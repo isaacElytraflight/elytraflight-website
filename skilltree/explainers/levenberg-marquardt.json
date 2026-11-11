@@ -1,0 +1,29 @@
+{
+  "id": "levenberg-marquardt",
+  "title": "Levenberg-Marquardt method",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a slowly falling curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">e</text><polyline points=\"46,39 49,43.1 52,46.9 55.1,50.5 58.1,53.8 61.1,57 64.1,60 67.2,62.8 70.2,65.5 73.2,68 76.2,70.4 79.2,72.7 82.3,74.9 85.3,77 88.3,79 91.3,80.9 94.4,82.7 97.4,84.4 100.4,86.1 103.4,87.7 106.4,89.2 109.5,90.7 112.5,92.1 115.5,93.5 118.5,94.8 121.6,96 124.6,97.2 127.6,98.4 130.6,99.6 133.6,100.7 136.7,101.7 139.7,102.7 142.7,103.7 145.7,104.7 148.8,105.6 151.8,106.5 154.8,107.4 157.8,108.2 160.8,109.1 163.9,109.8 166.9,110.6 169.9,111.4 172.9,112.1 176,112.8 179,113.5 182,114.2 185,114.8 188,115.5 191.1,116.1 194.1,116.7 197.1,117.3 200.1,117.9 203.2,118.4 206.2,119 209.2,119.5 212.2,120 215.2,120.6 218.3,121.1 221.3,121.5 224.3,122 227.3,122.5 230.4,122.9 233.4,123.4 236.4,123.8 239.4,124.3 242.4,124.7 245.5,125.1 248.5,125.5 251.5,125.9 254.5,126.3 257.6,126.6 260.6,127 263.6,127.4 266.6,127.7 269.6,128.1 272.7,128.4 275.7,128.8 278.7,129.1 281.7,129.4 284.8,129.7 287.8,130 290.8,130.3 293.8,130.6 296.8,130.9 299.9,131.2 302.9,131.5 305.9,131.8 308.9,132.1 312,132.3 315,132.6 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that drops at first and then flattens.",
+      "body_md": "Levenberg-Marquardt keeps the Gauss-Newton model and adds a positive multiple of the identity to the Gram matrix before solving. The shift is called the damping. It does not change the right-hand side, which is still the negative gradient of the sum of squares. What changes is the matrix that converts that gradient into a step.\n\nTwo limits explain the blend. As the damping tends to zero, the equation returns to the ordinary Gauss-Newton equation, provided the Gram matrix is invertible. As the damping grows, the inverse of the shifted matrix behaves like the identity divided by the damping. The step then points along the negative gradient, and its length shrinks like one over the damping. Between those limits the direction is a compromise: closer to the least-squares step when the damping is small, and closer to steepest descent when the damping is large.\n\nThe shift also repairs a singular Jacobian. The Gram matrix is only positive semidefinite. Adding a positive multiple of the identity makes every nonzero vector see a positive quadratic form, so the matrix is positive definite and the step exists.\n\nThe size of the damping is chosen by comparing the linear model with the true residual. A step whose true decrease is a healthy fraction of the decrease the model predicted is accepted, and the damping is reduced so the next step can look more like Gauss-Newton. A step that fails that comparison is rejected, and the damping is increased so the next trial is shorter."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The damped equation is\n\\[\n(J_r^T J_r + \\mu I)\\, d = -J_r^T r, \\qquad \\mu > 0.\n\\]\nFor large \\(\\mu\\), \\(d \\approx -(J_r^T r)/\\mu\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take a scalar parameter whose Jacobian column is \\((2,\\ 1)\\) and whose residual is \\((1,\\ 1)\\). The Gram entry is \\(5\\) and the gradient entry is \\(3\\). With damping \\(1\\) the shifted entry is \\(6\\), and the step is \\(-3/6\\).\n\nThe cleat step is -0.5. The undamped step would have been \\(-3/5\\), longer and in the same direction. Raising the damping further shortens the step and does not reverse it. The directional derivative is the gradient times this negative step, so it is negative."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Accepting a bad model and then decreasing the damping does the opposite of the comparison. A rejected step is the one that should increase the damping. A second slip is to put the damping on the right-hand side instead of on the Gram matrix. That changes the gradient rather than the conditioning of the step. A third is to allow a negative damping. The positive-definite guarantee uses a positive shift, and a negative shift can make the matrix indefinite. A fourth is to treat a large damping as a long step. The length falls as the damping rises."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The same diagonal shift is how a Newton step for minimization is forced to be a descent direction when the Hessian is indefinite. There the matrix being shifted is the Hessian rather than a Gram matrix, and a line search can replace the damping test. Both are ways to keep a tangent step inside the region where the model still deserves trust."
+    }
+  ]
+}

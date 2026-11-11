@@ -1,0 +1,234 @@
+{
+  "skill_id": "newton-root-finding",
+  "version": 1,
+  "questions": [
+    {
+      "id": "newton-root-finding-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "One Newton step for a root of a map \\(F\\)",
+      "explanation": "The tangent equation is \\(F(x) + J_F(x)\\, d = 0\\). The next point is \\(x + d\\), and the tangent is rebuilt there. A fixed step along \\(F\\) is not the root of the tangent. Minimizing \\(\\tfrac12\\lVert F\\rVert^2\\) without linearizing is a different algorithm; when \\(J_F\\) is square and invertible the Gauss-Newton step on that square happens to match this tangent step. A start is a root only when \\(F\\) is already zero.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "options": [
+        "steps by a fixed length along \\(F\\) without a derivative",
+        "squares \\(F\\) and minimizes the square with no linearization",
+        "declares every start a root",
+        "replaces \\(F\\) by its tangent and solves that linear equation"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(g(t) = t^2 - 2\\). Starting at \\(t = 2\\), what is the next Newton iterate?",
+      "explanation": "Here \\(g(2) = 2\\) and \\(g'(2) = 4\\), so the next point is \\(2 - 2/4 = 1.5\\). Reporting \\(2\\) stays at the start. Reporting \\(0.5\\) is the size of the correction, not the new point. Reporting \\(-1.5\\) flips the sign of a positive start; the negative root is reached from a negative start, not from this one.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "answer": 1.5,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "If the derivative at the current point is zero, the Newton update",
+      "explanation": "The step divides by the derivative. A zero derivative is a horizontal tangent, and division by zero leaves no step. A horizontal tangent is not evidence that the point is a root unless the function value is also zero. Stepping by the function value ignores the failed division. Averaging with zero is a different recurrence.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "options": [
+        "steps by the value of the function",
+        "averages the current point with zero",
+        "is undefined, because the tangent does not meet the axis at one point",
+        "stays at the current point and calls it a root"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put one Newton iteration for \\(F(x) = 0\\) in order. Each step uses the result of the step before it.",
+      "explanation": "The tangent is built from the value and the Jacobian, so those come first. The step is the solution of that tangent equation. The point moves only after the step exists. The next iteration needs a new tangent at the new point; reusing the old Jacobian is a frozen linear model.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "steps": [
+        "Evaluate \\(F\\) and its Jacobian \\(J_F\\) at the current point.",
+        "Solve the tangent equation \\(J_F\\, d = -F\\).",
+        "Replace the point by the point plus \\(d\\).",
+        "Rebuild \\(F\\) and \\(J_F\\) at the new point before the next solve."
+      ],
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Which statements about the starting point of Newton's method hold?",
+      "explanation": "For \\(g(t) = t^2 - 2\\), the start \\(2\\) goes toward the positive root and the start \\(-4\\) goes toward the negative root.\n• A zero derivative makes the tangent horizontal, so the step is undefined.\n• For \\(g(t) = t^3 - t\\), the start \\(1/2\\) has value \\(-3/8\\) and derivative \\(-1/4\\), and the next point is \\(1/2 - (-3/8)/(-1/4) = -1\\). The roots are \\(-1\\), \\(0\\), and \\(1\\). The nearest roots to \\(1/2\\) are \\(0\\) and \\(1\\), each at distance \\(1/2\\), and the step landed on \\(-1\\).\n• That same step shows a single iteration need not reach the nearest root.\n• For \\(g(t) = 2t - 6\\) the update is \\(t - (2t - 6)/2 = 3\\) from every start.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two nearly perpendicular arrows</title><line x1=\"46\" y1=\"58.6\" x2=\"250\" y2=\"58.6\"/><polygon points=\"250,58.6 243.6,61.3 243.6,55.9\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"72.6\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"58.6\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 229.8,45.6 229.3,40.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"60.1\" y1=\"58.6\" x2=\"92\" y2=\"161.7\"/><polygon points=\"92,161.7 87.5,156.3 92.7,154.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"175.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n</text></svg>",
+      "figure_alt": "Two arrows leave the origin in different directions.",
+      "options": [
+        "Two starts can converge to different roots.",
+        "A start where the derivative is zero has no Newton step.",
+        "A start can move to a root that is not the nearest one.",
+        "Every start reaches the nearest root in one step.",
+        "An affine map with a nonzero slope is solved in one step from every start."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "At the scalar point \\(u\\) the map equals \\(v\\) and the derivative equals \\(p\\). The next Newton iterate equals",
+      "explanation": "The tangent is \\(v + p(t - u) = 0\\), so \\(t = u - v/p\\). Every name appears. Adding \\(v/p\\) walks the wrong way along the tangent. Using \\(u - p/v\\) swaps the value and the derivative. Dropping \\(u\\) returns only the correction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "answer": "u-v/p",
+      "variables": [
+        {
+          "name": "u",
+          "min": -2.0,
+          "max": 4.0
+        },
+        {
+          "name": "v",
+          "min": -3.0,
+          "max": 3.0
+        },
+        {
+          "name": "p",
+          "min": 1.0,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "(u*p-v)/p",
+        "u+(-v)/p"
+      ],
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note takes one Newton step on \\(g(t) = t^2 - 2\\) at \\(t = 2\\). Exactly one step is a false claim.",
+      "explanation": "The value \\(4 - 2 = 2\\) is correct, and the derivative \\(2t\\) equals \\(4\\) at \\(t = 2\\). Dividing by that derivative produces \\(2 - 1/2 = 3/2\\). The false step replaces \\(2t\\) by \\(2\\), which is the derivative of \\(t^2\\) with the factor \\(t\\) dropped. The update \\(1\\) belongs to that wrong derivative.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   b</text></svg>",
+      "figure_alt": "A two-by-two array with labels on the diagonal.",
+      "steps": [
+        "The value \\(g(2)\\) equals \\(2\\).",
+        "The derivative of \\(t^2 - 2\\) is \\(2t\\), so \\(g'(2) = 4\\).",
+        "Using the derivative \\(2\\) in place of \\(4\\) is valid, and the update is \\(2 - 2/2 = 1\\).",
+        "The derivative \\(4\\) produces the update \\(2 - 2/4 = 3/2\\)."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The derivative of \\(t^2\\) is \\(2t\\), so at \\(t = 2\\) it equals \\(4\\), not \\(2\\).",
+        "The value \\(g(2)\\) is not \\(2\\).",
+        "Dividing by the derivative \\(4\\) does not produce \\(3/2\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Let \\(F(x, y) = (x^2 - 2,\\ y - 3)\\) at \\((2,\\ 1)\\). The Jacobian is diagonal with entries \\(4\\) and \\(1\\). What is the first component of the Newton step?",
+      "explanation": "The value is \\((2,\\ -2)\\). The first tangent equation is \\(4\\, d_1 = -2\\), so \\(d_1 = -1/2\\). The second equation is \\(d_2 = 2\\), and the new point is \\((1.5,\\ 3)\\). Reporting \\(1.5\\) is the new first coordinate, not the step. Reporting \\(2\\) is the second component of the step. Reporting \\(0.5\\) drops the sign.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"138.7\" y1=\"176\" x2=\"138.7\" y2=\"28\"/><polygon points=\"138.7,28 141.5,34.4 136,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"144.7\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"138.7\" y1=\"161.7\" x2=\"235.9\" y2=\"118.3\"/><polygon points=\"235.9,118.3 231.2,123.4 228.9,118.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"110.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g</text><line x1=\"138.7\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 65.9,46.2 61.3,49.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "answer": -0.5,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "For a square invertible Jacobian, the Newton step on \\(F(x) = 0\\) and the Gauss-Newton step on \\(\\tfrac12\\lVert F\\rVert^2\\)",
+      "explanation": "Gauss-Newton solves \\(J^T J\\, d = -J^T F\\). If \\(J\\) is square and invertible, multiply by \\((J^T)^{-1}\\) and then by \\(J^{-1}\\) to get \\(d = -J^{-1} F\\), the Newton root step. A singular \\(J\\) is the case where the root step is undefined and the least-squares step may still exist. The factor \\(\\lVert F\\rVert\\) does not appear once \\(J\\) is canceled. Orthogonality of \\(F\\) to the columns would mean \\(J^T F = 0\\), so both steps would be zero only in that special case, not in general.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a long ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "options": [
+        "agree only when \\(F\\) is orthogonal to every column of \\(J\\)",
+        "are the same step, because \\(J^T J\\, d = -J^T F\\) reduces to \\(J\\, d = -F\\)",
+        "agree only when \\(J\\) is singular",
+        "differ by the factor \\(\\lVert F\\rVert\\) for every invertible \\(J\\)"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Applying the same tangent step to the equation \\(\\nabla f(x) = 0\\) is",
+      "explanation": "The gradient equation is a root-finding problem whose Jacobian is the Hessian of \\(f\\). One tangent step on that equation is the Newton step for minimization. Steepest descent uses only the gradient. Gauss-Newton drops second derivatives of a residual; the minimization Newton step keeps the Hessian. Armijo accepts or rejects a step length after a direction has been chosen.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested contours</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses around the origin.",
+      "preview": [
+        "newton-method-optimization"
+      ],
+      "options": [
+        "Newton's method for minimization",
+        "a steepest-descent step with no Hessian",
+        "a Gauss-Newton step that drops every second derivative",
+        "an Armijo test"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Let \\(g(t) = t^2 - 2\\). Starting at \\(t = -4\\), what is the next Newton iterate?",
+      "explanation": "Here \\(g(-4) = 14\\) and \\(g'(-4) = -8\\), so the next point is \\(-4 - 14/(-8) = -4 + 1.75 = -2.25\\). The start is negative and the iterate stays negative, toward the negative root. Reporting \\(2.25\\) drops the sign. Reporting \\(-4\\) stays at the start. Reporting \\(1.75\\) is the correction, not the new point. The positive start \\(2\\) produced \\(1.5\\), a different basin.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "preview": [
+        "newton-method-optimization"
+      ],
+      "answer": -2.25,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "newton-root-finding-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A primal-dual interior-point step on a perturbed KKT system is a Newton step on a root. The system being solved is",
+      "explanation": "The perturbed complementarity conditions are nonlinear. One interior-point iteration linearizes that system and solves the tangent equation, which is a Newton step on a root. A simplex pivot is a different method for a linear program. Steepest descent does not form the KKT root. An eigenvalue problem is not the perturbed complementarity system.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "preview": [
+        "primal-dual-interior-point"
+      ],
+      "options": [
+        "a linear program solved by one simplex pivot",
+        "a steepest-descent step on the original inequality constraints alone",
+        "an eigenvalue problem for the constraint matrix",
+        "a nonlinear equation in the primal and dual variables, rebuilt at the current point"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}
