@@ -77,6 +77,8 @@ def bank_gaussian():
     disk_alt = "A shaded ellipse centered at the origin of two axes."
     mat = matrix_fig([["3", "0"], ["0", "5"]], "a diagonal covariance")
     mat_alt = "A 2 by 2 matrix with 3 and 5 on the diagonal and zeros off it."
+    pair = matrix_fig([["2", "0"], ["0", "5"]], "two independent component variances")
+    pair_alt = "A 2 by 2 matrix with 2 and 5 on the diagonal and zeros off it."
     img = plane_vectors([(3, 0, "e1"), (0, 2, "e2")], "two axis directions before a linear map")
     img_alt = "Two arrows from the origin, one along each axis."
     cov = matrix_fig([["4", "1"], ["1", "9"]], "a covariance with a nonzero cross term")
@@ -105,7 +107,7 @@ def bank_gaussian():
           r"Two components are independent, with variances \(2\) and \(5\). The variance of \(x_1 + 2 x_2\) is",
           var_lin, "m2",
           r"Independence kills the cross term, so the variance is \(1^2 \times 2 + 2^2 \times 5 = " + show(var_lin) + r"\). Using the coefficients without squares gives \(2 + 2 \times 5 = 12\). Adding the variances with no coefficients gives \(7\). The product \(2 \times 5 = 10\) is neither term.",
-          mat, mat_alt)
+          pair, pair_alt, version=2)
 
     b.sym(2,
           r"A scalar Gaussian \(z\) has variance \(v\). Write the variance of \(c z\) in the names \(c\) and \(v\).",

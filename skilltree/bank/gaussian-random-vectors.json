@@ -38,12 +38,12 @@
       "type": "numeric",
       "prompt": "Two components are independent, with variances \\(2\\) and \\(5\\). The variance of \\(x_1 + 2 x_2\\) is",
       "explanation": "Independence kills the cross term, so the variance is \\(1^2 \\times 2 + 2^2 \\times 5 = 22\\). Using the coefficients without squares gives \\(2 + 2 \\times 5 = 12\\). Adding the variances with no coefficients gives \\(7\\). The product \\(2 \\times 5 = 10\\) is neither term.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal covariance</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   5</text></svg>",
-      "figure_alt": "A 2 by 2 matrix with 3 and 5 on the diagonal and zeros off it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two independent component variances</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   5</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with 2 and 5 on the diagonal and zeros off it.",
       "answer": 22.0,
       "unit": "m2",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "gaussian-random-vectors-r2-q1",

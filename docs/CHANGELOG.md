@@ -150,7 +150,9 @@ Box: ME 132 (me132), Feedback Systems (am08), and Nonlinear Optimization (nlo-tu
 
 Skills: `fb-linearization`, `gain-scheduling`, `gen-controller`, `integral-action`, `gaussian-random-vectors`, `kalman`, `kalman-optimal-observer`, `lqr`, `mpc`, `separation`.
 
-Every item is version 1.
+Items above version 1:
+
+- `gaussian-random-vectors-r1-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
