@@ -1,0 +1,234 @@
+{
+  "skill_id": "robust-perf",
+  "version": 1,
+  "questions": [
+    {
+      "id": "robust-perf-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Robust performance, for a set of plants around a nominal model, means",
+      "explanation": "Nominal stability and a single-frequency reading of \\(|T|\\) can both hold while a plant inside the uncertainty set misses the spec. Robust performance is the spec on that whole set. Zero weights would make the spec empty, which is not a performance requirement.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop under a multiplicative weight</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C</text></svg>",
+      "figure_alt": "A plant block with a controller returned and subtracted.",
+      "options": [
+        "the tracking or disturbance spec holds for every plant in the set, not only the nominal one",
+        "the nominal loop is stable",
+        "\\(|T|\\) is below 1 at a single frequency",
+        "every weight in the spec is zero"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "robust-perf-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "At one frequency, \\(|W_s S| = 0.40\\) and \\(|W_m T| = 0.35\\). The robust-performance quantity \\(|W_s S| + |W_m T|\\) is",
+      "explanation": "The two nonnegative terms add: \\(0.40 + 0.35 = 0.75\\). Their product \\(0.14\\) is not the test. The larger term alone, \\(0.40\\), is a piece of the sum, and passing each piece is a weaker statement than passing the sum. The difference \\(0.05\\) has no role in the test.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a weight that is large at low frequency</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 88.3,38.8 131.6,77.5 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude that is high at low frequency and then falls.",
+      "answer": 0.75,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "robust-perf-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "On the nominal plant, \\(|S| = 0.5\\) and the performance weight is \\(|W_s| = 1.2\\). The nominal-performance quantity \\(|W_s S|\\) is",
+      "explanation": "Nominal performance at this frequency is the product \\(1.2 \\times 0.5 = 0.6\\). The sum \\(1.7\\) adds a weight to a sensitivity as if they were the same kind of number. The ratio \\(1.2 / 0.5 = 2.4\\) inverts the sensitivity. Reporting \\(0.5\\) drops the weight that defines the spec.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a weight that is large at low frequency</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 88.3,38.8 131.6,77.5 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude that is high at low frequency and then falls.",
+      "answer": 0.6,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "robust-perf-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "At one frequency the magnitudes are ws, sm, wm, and tm, in that order: performance weight, sensitivity, multiplicative weight, complementary sensitivity. Write \\(|W_s S| + |W_m T|\\) in the names ws, sm, wm, and tm.",
+      "explanation": "Each weight multiplies its own sensitivity. The robust-performance quantity is \\(w_s s_m + w_m t_m\\). The product of all four is a different expression. Adding the weights to the sensitivities, instead of multiplying, mixes units the test does not add. Swapping partners, \\(w_s t_m + w_m s_m\\), puts each weight on the wrong function.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a weight that is large at low frequency</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 88.3,38.8 131.6,77.5 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude that is high at low frequency and then falls.",
+      "answer": "ws*sm+wm*tm",
+      "variables": [
+        {
+          "name": "ws",
+          "min": 0.15,
+          "max": 1.8
+        },
+        {
+          "name": "sm",
+          "min": 0.15,
+          "max": 1.8
+        },
+        {
+          "name": "wm",
+          "min": 0.15,
+          "max": 1.8
+        },
+        {
+          "name": "tm",
+          "min": 0.15,
+          "max": 1.8
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "wm*tm+ws*sm",
+        "sm*ws+tm*wm"
+      ],
+      "version": 1
+    },
+    {
+      "id": "robust-perf-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "At the frequency you are checking, \\(|W_s| = 0.5\\), \\(|S| = 0.9\\), \\(|W_m| = 0.4\\), and \\(|T| = 1.1\\). The quantity \\(|W_s S| + |W_m T|\\) is",
+      "explanation": "\\(0.5 \\times 0.9 = 0.45\\) and \\(0.4 \\times 1.1 = 0.44\\). The sum is 0.89. Adding the four numbers, \\(2.9\\), treats weights and sensitivities as terms rather than factors. The larger product alone, \\(0.45\\), drops the uncertainty term. Because \\(0.89 < 1\\), this one frequency passes; the infinity-norm test still has to hold at every frequency.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity falling while complementary sensitivity rises</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,129.2 86.3,93 130,56.9 283,38.8\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude curve that starts below the axis and finishes above it.",
+      "answer": 0.89,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "robust-perf-r2-q3",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these checks in the order you would run them for multiplicative uncertainty.",
+      "explanation": "An unstable nominal loop makes the later peaks meaningless, so stability is first. Nominal performance and robust stability are the two separate bills. The sum is a stricter bill than either one, so it comes after you know which of the pieces already failed. Raising the gain everywhere is the last resort, and it is often the wrong one, because it shrinks \\(S\\) and grows \\(T\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop under a multiplicative weight</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C</text></svg>",
+      "figure_alt": "A plant block with a controller returned and subtracted.",
+      "steps": [
+        "Confirm the nominal loop is stable.",
+        "Check nominal performance, the peak of |W_s S| below 1.",
+        "Check robust stability, the peak of |W_m T| below 1.",
+        "Check robust performance, the peak of |W_s S| + |W_m T| below 1.",
+        "If the sum fails, loosen the performance weight or shrink the uncertainty before raising the loop gain at every frequency."
+      ],
+      "version": 1
+    },
+    {
+      "id": "robust-perf-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "Multiplicative uncertainty, and a performance weight on \\(S\\). One step is wrong.",
+      "explanation": "Each piece below 1 does not put the sum below 1. Here the pieces are \\(0.7\\) and \\(0.5\\), and \\(1.2 > 1\\), so robust performance fails while robust stability and nominal performance pass. The first two readings are the right separate tests, and the last step is the repair.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity falling while complementary sensitivity rises</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,129.2 86.3,93 130,56.9 283,38.8\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude curve that starts below the axis and finishes above it.",
+      "steps": [
+        "The peak of \\(|W_m T|\\) is \\(0.7\\), so the robust-stability test passes.",
+        "The peak of \\(|W_s S|\\) is \\(0.5\\), so nominal performance passes.",
+        "The sum of those peaks is \\(1.2\\), and the robust-performance test still passes because each piece passed.",
+        "Robust performance needs the sum itself below 1, so \\(1.2\\) fails it."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "Each piece below 1 does not make the sum below 1, and 1.2 fails the sum.",
+        "A robust-stability pass cancels the performance weight.",
+        "Nominal performance is checked on T, not on S."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "robust-perf-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Because \\(S + T = 1\\) at each frequency,",
+      "explanation": "\\(S + T = 1\\) means the two complex values add to 1. They cannot both have small magnitude at the same frequency, so a weight on \\(S\\) and a weight on \\(T\\) at that frequency are asking for two things the identity will not give. The sum of the magnitudes is not identically 1. A high gain drives \\(S\\) toward 0 and \\(T\\) toward 1, not both toward 0.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop under a multiplicative weight</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C</text></svg>",
+      "figure_alt": "A plant block with a controller returned and subtracted.",
+      "options": [
+        "\\(|S|\\) and \\(|T|\\) can both be set to 0 by a high gain",
+        "a large performance weight and a large uncertainty weight at the same frequency fight each other",
+        "\\(|S| + |T|\\) is always exactly 1",
+        "the identity removes the need for an uncertainty weight"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "robust-perf-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which statements hold for the multiplicative robust-performance test?",
+      "explanation": "The sum of two nonnegative functions is at least as large as either one, so a sum below 1 forces each piece below 1, while either piece can sit below 1 with the sum above 1. Raising the loop gain shrinks \\(S\\) and pushes \\(T\\) toward 1, so it does not shrink both.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a weight that is large at low frequency</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 88.3,38.8 131.6,77.5 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude that is high at low frequency and then falls.",
+      "options": [
+        "Nominal performance can pass while robust performance fails.",
+        "Robust stability can pass while robust performance fails.",
+        "If the peak of \\(|W_s S| + |W_m T|\\) is below 1, then the peaks of \\(|W_s S|\\) and of \\(|W_m T|\\) are also below 1.",
+        "Raising the loop gain at every frequency makes both \\(S\\) and \\(T\\) smaller."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1
+    },
+    {
+      "id": "robust-perf-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "At the frequency where \\(|W_s S| + |W_m T|\\) is largest, the two terms are \\(0.55\\) and \\(0.30\\). How far below 1 is that sum?",
+      "explanation": "The sum is \\(0.85\\), and the room under the bound is \\(1 - 0.85 = 0.15\\). Reporting \\(0.85\\) returns the sum rather than the gap. Reporting \\(0.55\\) returns one term. Reporting \\(0.45\\), which is \\(1 - 0.55\\), is the room under the larger term alone and ignores the \\(0.30\\) that is also in the sum.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity falling while complementary sensitivity rises</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,129.2 86.3,93 130,56.9 283,38.8\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A magnitude curve that starts below the axis and finishes above it.",
+      "preview": [
+        "loop-shaping"
+      ],
+      "answer": 0.15,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "robust-perf-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The combined bound fails only near the gain crossover. The useful next move is to",
+      "explanation": "Near crossover, \\(|S|\\) and \\(|T|\\) are both order one, so the two weights are active together. Moving the crossover, or shaping the slope there, is how you separate them. A right-half-plane cancellation would hide an unstable mode. A failed sum is not a proof that the nominal loop is unstable. Dropping \\(S\\) drops the performance spec the test was written to protect.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop under a multiplicative weight</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C</text></svg>",
+      "figure_alt": "A plant block with a controller returned and subtracted.",
+      "preview": [
+        "loop-shaping"
+      ],
+      "options": [
+        "cancel a right-half-plane zero of the plant",
+        "declare the nominal plant unstable",
+        "trade the crossover in the loop shape, where the performance weight and the uncertainty weight overlap",
+        "delete the sensitivity and keep only the complementary sensitivity"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "robust-perf-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The uncertainty is a slow drift of one parameter, not a fixed set you must cover with one controller. Compared with enlarging \\(W_m\\) until the combined test barely passes,",
+      "explanation": "A fixed controller that works for every value in a wide set has to satisfy the sum bound for the whole set, which shrinks the performance you can ask for. If the parameter actually drifts and can be estimated while the loop runs, updating the controller from that estimate is a different design, and it is not the same as inflating \\(W_m\\). A larger weight makes the test harder. The spec does not forbid feedback.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the nominal closed-loop pole</title><line x1=\"20\" y1=\"90\" x2=\"114\" y2=\"90\"/><line x1=\"142\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"85\" x2=\"133\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"95\" x2=\"133\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A single cross on the negative real axis.",
+      "preview": [
+        "adaptive"
+      ],
+      "options": [
+        "a larger \\(W_m\\) makes the performance spec easier",
+        "robust performance forbids feedback",
+        "the estimate should be reset to zero at every sample",
+        "an online update of that parameter can be less conservative than one controller built for the whole set"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

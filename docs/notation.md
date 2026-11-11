@@ -357,3 +357,53 @@ Added in B6 for `time-delay`. \(T_d\) is a pure delay. The discrete-time area us
 | \(e^{-s T_d}\) | transfer function of a delay of \(T_d\) seconds | magnitude 1, phase \(-\omega T_d\) radians |
 | Padé, first order | \((1 - s T_d/2)/(1 + s T_d/2)\) | right-half-plane zero at \(2/T_d\), pole at \(-2/T_d\) |
 | delay margin | \(\mathrm{PM}/\omega_c\) with the margin in radians | seconds of delay until the phase margin is spent |
+
+## state-feedback
+
+Added in B7 for `state-feedback`. \(K\) is the state-feedback row. It is not the proportional gain \(K_p\), and it is not the DC gain \(K\) of a first-order fit in the sys-id area. The sentence says state feedback.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(u = -Kx\) | state feedback | |
+| \(A - BK\) | closed-loop state matrix | |
+| Ackermann | the single-input formula for \(K\) from the desired characteristic polynomial, when the pair is reachable | |
+
+## observer
+
+Added in B7 for `observer`. \(L\) here is the observer gain, not the loop transfer. The estimation error is \(\tilde{x} = x - \hat{x}\), not the tracking error \(e = r - y\).
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(\hat{x}\) | state estimate | |
+| \(L\) | observer gain | |
+| \(\tilde{x}\) | estimation error \(x - \hat{x}\) | |
+| \(A - LC\) | estimation-error matrix | \(\dot{\tilde{x}} = (A - LC)\tilde{x}\) when the model matches |
+
+## fundamental-limitations
+
+Added in B7 for `fund-limits`. \(S\) and \(T\) stay as in the loop-transfer-function area. \(z\) here is a right-half-plane zero, not the discrete-time variable.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| Bode integral | \(\int_0^{\infty} \ln|S(j\omega)|\,d\omega = \pi \sum \mathrm{Re}(p_k)\) over the right-half-plane poles of a loop that rolls off at least as \(1/\omega^2\). The sum is empty, and the integral is 0, when the open loop is stable. | waterbed |
+| interpolation | an uncancelled right-half-plane zero \(z\) of the loop satisfies \(S(z) = 1\) | |
+
+## robust-performance
+
+Added in B7 for `robust-perf`. \(W_m\) stays as in the uncertainty area. \(S\) and \(T\) stay as in the loop-transfer-function area.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(W_s\) | weight on sensitivity in a performance spec | |
+| robust performance | \(\||W_s S| + |W_m T|\|_\infty < 1\) for multiplicative uncertainty | stricter than nominal performance and stricter than robust stability |
+
+## adaptive-control
+
+Added in B7 for `adaptive`. \(\gamma\) is the adaptation gain, not a lead ratio. \(\varepsilon\) is the prediction error, not the tracking error \(e = r - y\). \(\hat{\theta}\) is a parameter estimate, not the state estimate \(\hat{x}\).
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(\hat{\theta}\) | parameter estimate used inside the controller | |
+| \(\gamma\) | adaptation gain | |
+| \(\varepsilon\) | prediction error \(y - \hat{y}\) | |
+| certainty equivalence | build the control law from \(\hat{\theta}\) as if the estimate were the true parameter | |

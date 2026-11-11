@@ -116,6 +116,12 @@ LEAF_PREVIEW_ALLOWED.update({
         "convexity-first-order",
     ],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # ME132 B7 leaves: no dependents in the graph.
+    "adaptive": ["gain-scheduling", "robust-perf", "mpc"],
+    "fund-limits": ["robust-perf", "robust-stability", "time-delay"],
+    "robust-perf": ["loop-shaping", "fund-limits", "adaptive"],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

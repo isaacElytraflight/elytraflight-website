@@ -78,6 +78,15 @@ Dedupe, no splits:
 
 `adaptive`, `fund-limits`, `observer`, `robust-perf`, `state-feedback`
 
+Dedupe, no splits and no new edges:
+
+- Ids already exist. No new slug, no retirement. `kalman` is left for B8.
+- `state-feedback` is not `reachability` and not `second-order-sys`. Reachability owns the rank test. The second-order skill owns \(\omega_n\) and \(\zeta\). This skill owns the gain \(K\) that assigns the eigenvalues of \(A-BK\).
+- `observer` is not `kalman` and not `kalman-recursive-least-squares`. This skill owns a pole-placed \(L\) and the error matrix \(A-LC\). `kalman` will own the gain chosen from noise intensities. The optimization skill owns the least-squares derivation. No edge is added between them.
+- `fund-limits` is not `sensitivity`, not `bode`, and not `min-phase`. Sensitivity owns \(S\) and \(T\). Bode owns magnitude and phase sketches. Minimum phase owns the slope-to-phase tie. This skill owns the integral of \(\ln|S|\) and the crossover conflict from right-half-plane poles and zeros.
+- `robust-perf` is not `uncertainty` and not `robust-stability`. Uncertainty owns the weights. Robust stability owns \(\|W_m T\|_\infty < 1\). This skill owns the combined bound \(\||W_s S| + |W_m T|\|_\infty < 1\).
+- `adaptive` is not `sys-id` and not `gain-scheduling`. System identification owns a fit on a record. Gain scheduling, in B8, will own a measured schedule. This skill owns a parameter updated from the prediction error while the loop runs.
+
 ## B8
 
 Write `separation` before `gen-controller`. The other six do not depend on either of those two.
