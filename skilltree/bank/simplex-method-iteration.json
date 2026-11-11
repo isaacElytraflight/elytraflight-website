@@ -1,0 +1,225 @@
+{
+  "skill_id": "simplex-method-iteration",
+  "version": 1,
+  "questions": [
+    {
+      "id": "simplex-method-iteration-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "One simplex iteration, when it pivots, changes the basis by",
+      "explanation": "The basis size stays equal to the number of rows. The leaving variable drops out and the entering variable takes its place. Replacing every column would throw away a feasible basis that only needed one update. Adding a column without removing one makes the block rectangular. A slack that is already basic is not a new entering column.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "options": [
+        "replacing every basic column",
+        "adding the entering column and keeping every old basic column",
+        "replacing the leaving column by the entering column",
+        "replacing the entering column by a slack that was already basic"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Minimize \\(-3x_1 - 4x_2\\) subject to \\(x_1 + x_2 + x_3 = 6\\) and \\(x_1 + 2x_2 + x_4 = 8\\), with \\(x \\ge 0\\). At the slack basis, what is the most negative reduced cost?",
+      "explanation": "The slack basis has basic cost zero, so the reduced costs are the cost coefficients \\(-3\\) and \\(-4\\). The more negative one is \\(-4\\), on \\(x_2\\). Reporting \\(-3\\) gives the other reduced cost, which is also improving and is not the most negative. Reporting 4 drops the sign. Reporting 8 gives a right-hand side.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "answer": -4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For a minimization, a basis is optimal when",
+      "explanation": "If every reduced cost is nonnegative, no nonbasic increase can decrease the objective, and the current basic feasible solution is optimal. All-negative reduced costs mean every nonbasic column is still improving. A zero basic variable is degeneracy, not optimality. A column with no positive entry, paired with a negative reduced cost, is the unbounded-ray test.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "options": [
+        "every nonbasic reduced cost is nonnegative",
+        "every nonbasic reduced cost is negative",
+        "some basic variable is zero",
+        "the entering column has no positive entry"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order of one simplex iteration for a minimization.",
+      "explanation": "Reduced costs are the slopes, so they are computed first. The optimality test uses those slopes and comes before any entering choice; the next step says otherwise. The entering variable is then one negative reduced cost. The column test comes next: no positive entry is an unbounded ray, and a positive entry produces the ratio that names the leaving variable. The pivot is the update, and it needs that leaving index. Pivoting before the ratio test does not know which row to use.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "steps": [
+        "Compute a reduced cost for every nonbasic variable.",
+        "If every reduced cost is nonnegative, stop; this basis is optimal.",
+        "Otherwise select one entering variable with a negative reduced cost.",
+        "If the entering column has no positive entry, stop and report an unbounded ray. Otherwise choose a leaving variable by the minimum ratio.",
+        "Replace the leaving column by the entering column and update the basic solution."
+      ],
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "At the slack basis of \\(x_1 + x_2 + x_3 = 6\\), \\(x_1 + 2x_2 + x_4 = 8\\), minimizing \\(-3x_1 - 4x_2\\), which statements hold?",
+      "explanation": "Both structural reduced costs are negative, so the basis is not optimal, and either column may enter. The column of \\(x_1\\) is \\((1, 1)\\) and the column of \\(x_2\\) is \\((1, 2)\\). Each has a positive entry, so the ratio test returns a finite step from this basis.\n• A negative reduced cost is an improving direction, so the optimality test fails.\n• An unbounded ray needs an improving column with no positive entry. Neither structural column is of that kind here.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"104\" y1=\"176\" x2=\"104\" y2=\"28\"/><polygon points=\"104,28 106.8,34.4 101.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"110\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"104\" y1=\"161.7\" x2=\"235.9\" y2=\"136.6\"/><polygon points=\"235.9,136.6 230.1,140.4 229.1,135.1\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"128.6\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">c</text><line x1=\"104\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 64.9,47.4 59.7,49.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "options": [
+        "\\(x_1\\) has reduced cost \\(-3\\).",
+        "\\(x_2\\) has reduced cost \\(-4\\).",
+        "The basis is already optimal.",
+        "Entering \\(x_1\\) and entering \\(x_2\\) are both legal descent steps.",
+        "The program is unbounded from this basis."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "One basic variable has value \\(p\\), and the entering column has a single positive entry \\(r\\) in that row. The ratio test returns",
+      "explanation": "The step that drives this basic variable to zero is \\(p/r\\). With only one positive entry there is nothing else to compare, so the minimum ratio is that single number. Several positive entries would replace it by the smallest of those ratios. Using \\(r/p\\) inverts the ratio and is not a step in the units of the entering variable. Using \\(p - r\\) subtracts a column entry from a basic value.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "answer": "p/r",
+      "variables": [
+        {
+          "name": "p",
+          "min": 2.0,
+          "max": 12.0
+        },
+        {
+          "name": "r",
+          "min": 0.5,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "(p/r)",
+        "p*(1/r)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note pivots on \\(x_2\\) at the slack basis of \\(x_1 + x_2 + x_3 = 6\\), \\(x_1 + 2x_2 + x_4 = 8\\), minimizing \\(-3x_1 - 4x_2\\). Exactly one step is false.",
+      "explanation": "The reduced cost, the column, and both ratios are right. The minimum of 6 and 4 is 4, so \\(x_4\\) leaves and the step is 4. The new point is \\((0, 4, 2, 0)\\). Calling 6 the minimum drives the second basic variable to \\(8 - 2 \\cdot 6 = -4\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "steps": [
+        "\\(x_2\\) has reduced cost \\(-4\\), so it may enter.",
+        "The entering column is \\((1, 2)\\).",
+        "The two ratios are \\(6/1 = 6\\) and \\(8/2 = 4\\).",
+        "The minimum ratio is 6, so \\(x_3\\) leaves."
+      ],
+      "flaw_index": 3,
+      "reasons": [
+        "The minimum of 6 and 4 is 4, so \\(x_4\\) leaves.",
+        "\\(x_2\\) has a positive reduced cost and must not enter.",
+        "The column of \\(x_2\\) is \\((1, 1)\\), not \\((1, 2)\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "From that slack basis, enter \\(x_1\\) instead and take the ratio-test step. What is the new objective value?",
+      "explanation": "The column of \\(x_1\\) is \\((1, 1)\\), and the ratios are \\(6/1\\) and \\(8/1\\). The step is 6, \\(x_3\\) leaves, and the new point is \\((6, 0, 0, 2)\\). The objective is \\(-3 \\cdot 6 = -18\\). The same figure is the change \\(6 \\cdot (-3)\\). Reporting \\(-4\\) gives the other reduced cost. Reporting 6 gives the step. Reporting \\(-3\\) gives the reduced cost of \\(x_1\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "answer": -18.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "On this slack basis the most-negative rule enters \\(x_2\\), while another rule may enter \\(x_1\\). Both rules",
+      "explanation": "Each rule selects a negative reduced cost, so each step has negative slope and the objective falls. They need not select the same column: \\(-4\\) and \\(-3\\) are both legal. Neither test says the basis is optimal, and neither column is an unbounded ray. The freedom is in the path. A later pivot can still be required after either choice.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"104\" y1=\"176\" x2=\"104\" y2=\"28\"/><polygon points=\"104,28 106.8,34.4 101.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"110\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"104\" y1=\"161.7\" x2=\"235.9\" y2=\"136.6\"/><polygon points=\"235.9,136.6 230.1,140.4 229.1,135.1\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"128.6\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">c</text><line x1=\"104\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 64.9,47.4 59.7,49.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "options": [
+        "declare the basis optimal",
+        "declare the program unbounded",
+        "are required to enter the same column",
+        "produce a step on which the objective does not rise"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Continue from the slack basis of \\(x_1 + x_2 + x_3 = 6\\), \\(x_1 + 2x_2 + x_4 = 8\\), minimizing \\(-3x_1 - 4x_2\\), until every reduced cost is nonnegative. What is the optimal value?",
+      "explanation": "One improving path enters \\(x_1\\) first and reaches \\((6, 0, 0, 2)\\) with value \\(-18\\). There the reduced cost of \\(x_2\\) is \\(-1\\), the ratios are 6 and 2, and the step 2 reaches \\((4, 2, 0, 0)\\) with value \\(-20\\). The slack reduced costs at that basis are positive, so it is optimal. Entering \\(x_2\\) first reaches value \\(-16\\) and still needs another pivot; the optimal value does not depend on that choice. Reporting \\(-18\\) or \\(-16\\) stops one pivot early. Reporting \\(-12\\) is \\(-3 \\cdot 4\\) and drops the \\(x_2\\) term.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "preview": [
+        "simplex-phase-one"
+      ],
+      "answer": -20.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Minimize \\(-2x\\) subject to \\(x - y + s = 5\\) and \\(x, y, s \\ge 0\\). From the slack basis, enter \\(x\\) and take the ratio-test step. What is the objective at the new point?",
+      "explanation": "The slack basis has \\(s = 5\\). The column of \\(x\\) is \\(1\\), so the step is 5 and the new point is \\(x = 5\\), \\(y = 0\\), \\(s = 0\\). The objective is \\(-2 \\cdot 5 = -10\\). Reporting 5 gives the step. Reporting \\(-2\\) gives the reduced cost. Reporting 0 is the value before the pivot.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "preview": [
+        "simplex-phase-one"
+      ],
+      "answer": -10.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "simplex-method-iteration-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "At that new point \\(x = 5\\), the reduced cost of \\(y\\) is \\(-2\\) and the updated column of \\(y\\) is \\(-1\\). The program is",
+      "explanation": "A negative reduced cost with no positive column entry is an unbounded ray: increasing \\(y\\) increases \\(x\\) at the same rate, the slack stays zero, and the objective \\(-2x\\) falls forever. A single pivot does not certify optimality. A nonbasic zero is the usual basic pattern and is feasible. The reduced cost is a slope, not the optimal value. The value after the first pivot is \\(-10\\), and it is not optimal.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping up</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,132.9 49,131.8 52,130.8 55.1,129.7 58.1,128.7 61.1,127.6 64.1,126.6 67.2,125.6 70.2,124.5 73.2,123.5 76.2,122.4 79.2,121.4 82.3,120.3 85.3,119.3 88.3,118.3 91.3,117.2 94.4,116.2 97.4,115.1 100.4,114.1 103.4,113 106.4,112 109.5,111 112.5,109.9 115.5,108.9 118.5,107.8 121.6,106.8 124.6,105.8 127.6,104.7 130.6,103.7 133.6,102.6 136.7,101.6 139.7,100.5 142.7,99.5 145.7,98.5 148.8,97.4 151.8,96.4 154.8,95.3 157.8,94.3 160.8,93.2 163.9,92.2 166.9,91.2 169.9,90.1 172.9,89.1 176,88 179,87 182,85.9 185,84.9 188,83.9 191.1,82.8 194.1,81.8 197.1,80.7 200.1,79.7 203.2,78.6 206.2,77.6 209.2,76.6 212.2,75.5 215.2,74.5 218.3,73.4 221.3,72.4 224.3,71.3 227.3,70.3 230.4,69.3 233.4,68.2 236.4,67.2 239.4,66.1 242.4,65.1 245.5,64 248.5,63 251.5,62 254.5,60.9 257.6,59.9 260.6,58.8 263.6,57.8 266.6,56.7 269.6,55.7 272.7,54.7 275.7,53.6 278.7,52.6 281.7,51.5 284.8,50.5 287.8,49.4 290.8,48.4 293.8,47.4 296.8,46.3 299.9,45.3 302.9,44.2 305.9,43.2 308.9,42.1 312,41.1 315,40.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping upward on labeled axes.",
+      "preview": [
+        "simplex-phase-one"
+      ],
+      "options": [
+        "optimal, because a pivot has already been taken",
+        "unbounded below, because the improving column has no positive entry",
+        "infeasible, because \\(y\\) is still zero",
+        "optimal at objective \\(-2\\), the reduced cost"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}

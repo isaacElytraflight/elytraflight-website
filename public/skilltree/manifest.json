@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T21:32:09.062560Z",
+  "generated": "2026-11-11T22:06:58.009946Z",
   "skills": {
-    "file": "skills.bcbdae35.json",
-    "hash": "bcbdae35"
+    "file": "skills.716dc273.json",
+    "hash": "716dc273"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -106,6 +106,18 @@
       },
       "hash": "97ca0d80",
       "file": "banks/backprop-neural-network.97ca0d80.json"
+    },
+    "basic-feasible-solutions": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "63e5b8a8",
+      "file": "banks/basic-feasible-solutions.63e5b8a8.json"
     },
     "bias-coupling": {
       "version": 1,
@@ -1487,6 +1499,30 @@
       "hash": "95abcc9a",
       "file": "banks/loop-tf.95abcc9a.json"
     },
+    "lp-graphical-solution": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "31322207",
+      "file": "banks/lp-graphical-solution.31322207.json"
+    },
+    "lp-standard-form": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d2354fca",
+      "file": "banks/lp-standard-form.d2354fca.json"
+    },
     "lqr": {
       "version": 1,
       "questionCount": 12,
@@ -2015,6 +2051,18 @@
       "hash": "4659fd9e",
       "file": "banks/pole-zero.4659fd9e.json"
     },
+    "polyhedra-extreme-points": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "fe77f2a9",
+      "file": "banks/polyhedra-extreme-points.fe77f2a9.json"
+    },
     "positive-definite-matrices": {
       "version": 1,
       "questionCount": 12,
@@ -2254,6 +2302,42 @@
       },
       "hash": "f8d1d852",
       "file": "banks/si-props.f8d1d852.json"
+    },
+    "simplex-feasible-directions": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ff35ba99",
+      "file": "banks/simplex-feasible-directions.ff35ba99.json"
+    },
+    "simplex-method-iteration": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "91629136",
+      "file": "banks/simplex-method-iteration.91629136.json"
+    },
+    "simplex-phase-one": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "6970f147",
+      "file": "banks/simplex-phase-one.6970f147.json"
     },
     "singular-value-decomposition": {
       "version": 1,
@@ -2623,6 +2707,12 @@
     "backprop-neural-network": {
       "hash": "48e1f54a",
       "file": "explainers/backprop-neural-network.48e1f54a.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "basic-feasible-solutions": {
+      "hash": "a5de2e82",
+      "file": "explainers/basic-feasible-solutions.a5de2e82.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -3249,6 +3339,18 @@
       "sectionCount": 5,
       "version": 1
     },
+    "lp-graphical-solution": {
+      "hash": "e3a10a1f",
+      "file": "explainers/lp-graphical-solution.e3a10a1f.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "lp-standard-form": {
+      "hash": "743a3faf",
+      "file": "explainers/lp-standard-form.743a3faf.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "lqr": {
       "hash": "2ef96f37",
       "file": "explainers/lqr.2ef96f37.json",
@@ -3488,6 +3590,12 @@
       "file": "explainers/pole-zero.f60b27a0.json",
       "sectionCount": 5
     },
+    "polyhedra-extreme-points": {
+      "hash": "ac670b68",
+      "file": "explainers/polyhedra-extreme-points.ac670b68.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "positive-definite-matrices": {
       "hash": "86938907",
       "file": "explainers/positive-definite-matrices.86938907.json",
@@ -3600,6 +3708,24 @@
       "hash": "22932f16",
       "file": "explainers/si-props.22932f16.json",
       "sectionCount": 5
+    },
+    "simplex-feasible-directions": {
+      "hash": "7a6c77c7",
+      "file": "explainers/simplex-feasible-directions.7a6c77c7.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "simplex-method-iteration": {
+      "hash": "b3d92474",
+      "file": "explainers/simplex-method-iteration.b3d92474.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "simplex-phase-one": {
+      "hash": "b67e05df",
+      "file": "explainers/simplex-phase-one.b67e05df.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "singular-value-decomposition": {
       "hash": "355bc863",

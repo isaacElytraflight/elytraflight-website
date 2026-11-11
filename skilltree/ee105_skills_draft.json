@@ -2715,8 +2715,7 @@
    "summary": "Rewrite a linear program with slack variables, split free variables, and clear absolute values.",
    "prereqs": [
     "optimization-problem-classes"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "lp-graphical-solution",
@@ -2725,8 +2724,7 @@
    "prereqs": [
     "lp-standard-form",
     "graphical-2d-optimization"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "polyhedra-extreme-points",
@@ -2735,8 +2733,7 @@
    "prereqs": [
     "convex-sets",
     "lp-standard-form"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "basic-feasible-solutions",
@@ -2745,8 +2742,7 @@
    "prereqs": [
     "polyhedra-extreme-points",
     "lin-algebra-review"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "simplex-feasible-directions",
@@ -2754,8 +2750,7 @@
    "summary": "Build a feasible edge step from reduced costs and the largest step that stays nonnegative.",
    "prereqs": [
     "basic-feasible-solutions"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "simplex-method-iteration",
@@ -2763,8 +2758,7 @@
    "summary": "Run one simplex iteration, including the tests for optimality and an unbounded ray.",
    "prereqs": [
     "simplex-feasible-directions"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "simplex-phase-one",
@@ -2772,8 +2766,7 @@
    "summary": "Build the auxiliary problem that either returns a basic feasible solution or proves infeasibility.",
    "prereqs": [
     "simplex-method-iteration"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "lagrangian-duality-lower-bounds",

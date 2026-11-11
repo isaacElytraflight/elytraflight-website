@@ -1,0 +1,230 @@
+{
+  "skill_id": "polyhedra-extreme-points",
+  "version": 1,
+  "questions": [
+    {
+      "id": "polyhedra-extreme-points-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A point of a set is an extreme point when",
+      "explanation": "An extreme point is one that never sits strictly between two other points of the set. If \\(x = (1 - t) y + t z\\) with \\(y, z\\) in the set, \\(y \\ne z\\), and \\(t\\) strictly between 0 and 1, then \\(x\\) is not extreme. A midpoint of a segment in the set is the opposite situation. An interior point of a full-dimensional polyhedron can be averaged in many directions. The norm test describes a different geometric idea and fails for a vertex far from the origin as easily as it fails for one near the origin.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a dented quadrilateral</title><line x1=\"24\" y1=\"172\" x2=\"260\" y2=\"172\"/><polygon points=\"260,172 253.6,174.7 253.6,169.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"36\" y1=\"184\" x2=\"36\" y2=\"20\"/><polygon points=\"36,20 38.7,26.4 33.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"254\" y=\"188\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"44\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"50,150 230,150 210,40 140,130\" stroke-width=\"2.0\" fill=\"currentColor\" fill-opacity=\"0.15\"/></svg>",
+      "figure_alt": "A four-sided region with one corner pushed in.",
+      "options": [
+        "it is the midpoint of some segment that stays inside the set",
+        "it lies in the interior of the set",
+        "it cannot be written as a convex combination of two other points of the set",
+        "every nearby point of the set has a larger Euclidean norm"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The point \\((4, 0)\\) lies on the segment from \\((0, 0)\\) to \\((8, 0)\\). What weight on \\((8, 0)\\) writes \\((4, 0)\\) as a convex combination of the endpoints?",
+      "explanation": "The combination \\((1 - t) (0, 0) + t (8, 0)\\) equals \\((8t, 0)\\). Matching the first coordinate gives \\(8t = 4\\), so \\(t = 1/2\\). Reporting 4 or 8 reports a coordinate. Reporting 2 would be the weight if the segment had been parameterized by a different speed. The weight is the fraction of the way from the first endpoint to the second.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "answer": 0.5,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A polyhedron, cut out by finitely many linear inequalities, is convex because",
+      "explanation": "Each linear inequality describes a half-space, and a half-space contains the segment between any two of its points. An intersection of convex sets is convex, so the polyhedron is convex. A polyhedron can be unbounded, so boundedness is not the reason. The union of convex sets need not be convex. A polyhedron is not in general a finite set: the edges and the interior, when there is one, are part of the set. The vertices are the extreme points, not the whole set.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "options": [
+        "it is a finite set of vertices",
+        "it is the intersection of half-spaces, and each half-space is convex",
+        "the union of convex sets is always convex",
+        "every polyhedron is bounded"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order used to test whether a candidate in the plane is a vertex of a polyhedron.",
+      "explanation": "The active set is the data of the test, so it is listed first. Independence of two normals is what makes the active set define a single point rather than a line, and the next step solves that square system. Uniqueness is checked before the unused inequalities, because a point that is not even the unique solution of the active equalities is not a vertex. The unused inequalities are the feasibility check, and they come last. Skipping independence can accept a whole edge as if it were a vertex.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "steps": [
+        "List the inequalities that hold with equality at the candidate.",
+        "Check that those active normals include two independent vectors.",
+        "Solve that square system and confirm the candidate is its only solution.",
+        "Check that the candidate satisfies every inequality that was not used in the square system."
+      ],
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Let \\(P\\) be the polygon \\(x \\ge 0\\), \\(y \\ge 0\\), \\(x + y \\le 8\\), \\(y \\le 5\\). Which points are extreme points of \\(P\\)?",
+      "explanation": "The vertices are the corners \\((0, 0)\\), \\((8, 0)\\), \\((3, 5)\\), and \\((0, 5)\\). Each is the unique solution of two tight independent inequalities, and each satisfies the remaining inequalities.\n• \\((4, 0)\\) is the midpoint of the bottom edge, so it is a convex combination of \\((0, 0)\\) and \\((8, 0)\\).\n• \\((4, 4)\\) lies on the edge from \\((3, 5)\\) to \\((8, 0)\\), strictly between those vertices.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "options": [
+        "\\((0, 0)\\)",
+        "\\((8, 0)\\)",
+        "\\((4, 0)\\)",
+        "\\((3, 5)\\)",
+        "\\((4, 4)\\)",
+        "\\((0, 5)\\)"
+      ],
+      "correct_indices": [
+        0,
+        1,
+        3,
+        5
+      ],
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "For a polyhedron \\(\\{x : Ax = b,\\ x \\ge 0\\}\\) whose rows are independent, the extreme points are",
+      "explanation": "With independent rows, a point of this polyhedron is extreme exactly when it is a basic feasible solution: some invertible set of columns carries \\(B^{-1} b \\ge 0\\), and the other variables are zero. A fully positive point is not basic unless there are as many variables as rows. Dropping nonnegativity keeps the affine set, whose points are not extreme. Midpoints of edges are convex combinations, so they are the points that fail the extreme-point test.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "options": [
+        "exactly the basic feasible solutions",
+        "exactly the points where every variable is positive",
+        "exactly the points where \\(Ax = b\\), with no sign restriction",
+        "the midpoints of the edges"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note claims that a polyhedron need not be convex. Exactly one step is false.",
+      "explanation": "The first step is the definition used here. Each half-space is convex, and the intersection of any family of convex sets is convex: a segment that lives in every piece lives in the intersection. The definition of convexity is exactly that segment property. The false step claims the intersection can lose the segment. That claim is the one that fails, and it is what the note uses to deny convexity.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "steps": [
+        "A polyhedron is the intersection of finitely many half-spaces.",
+        "Each half-space contains the segment between any two of its points.",
+        "The intersection of convex sets can miss that segment, so the polyhedron need not be convex.",
+        "A set that contains every such segment is convex."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The intersection of convex sets contains every segment that its pieces contain.",
+        "A half-space can fail to contain the segment between two of its points.",
+        "A polyhedron is not an intersection of half-spaces."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "How many extreme points does the polygon \\(x \\ge 0\\), \\(y \\ge 0\\), \\(x + y \\le 8\\), \\(y \\le 5\\) have?",
+      "explanation": "The corners are \\((0, 0)\\), \\((8, 0)\\), \\((3, 5)\\), and \\((0, 5)\\). Each pair of tight independent inequalities picks one of them, and no other point is extreme: every other feasible point lies on a segment inside the polygon. Reporting 3 drops a corner. Reporting 5 counts an edge point such as \\((4, 0)\\). Reporting 8 reports a coordinate of a corner.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "answer": 4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r3-q3",
+      "round": 3,
+      "type": "symbolic",
+      "prompt": "The point \\((s, 0)\\) lies on the segment from \\((0, 0)\\) to \\((p, 0)\\) with \\(0 < s < p\\). The weight on \\((p, 0)\\) is",
+      "explanation": "The combination \\((1 - w) (0, 0) + w (p, 0)\\) equals \\((w p, 0)\\). Matching the first coordinate gives \\(w = s/p\\). On the declared ranges that weight sits strictly between 0 and 1, so the point is not an endpoint. Using \\(p/s\\) inverts the fraction and is larger than 1 on these ranges, which is not a convex weight. Using \\(s - p\\) is a distance, not a weight.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "answer": "s/p",
+      "variables": [
+        {
+          "name": "s",
+          "min": 1.0,
+          "max": 3.0
+        },
+        {
+          "name": "p",
+          "min": 4.0,
+          "max": 9.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "s*(1/p)",
+        "(s/p)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Maximize \\(x + 2y\\) on the polygon \\(x \\ge 0\\), \\(y \\ge 0\\), \\(x + y \\le 8\\), \\(y \\le 5\\). What is the optimal value?",
+      "explanation": "The extreme values are 0 at \\((0, 0)\\), 8 at \\((8, 0)\\), \\(3 + 10 = 13\\) at \\((3, 5)\\), and 10 at \\((0, 5)\\). A linear objective on a nonempty polygon attains its maximum at an extreme point, so the optimal value is 13. Reporting 10 or 8 gives another vertex. Reporting 0 gives the minimum. Reporting 5 gives the upper bound on \\(y\\), not the objective.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping up</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,132.9 49,131.8 52,130.8 55.1,129.7 58.1,128.7 61.1,127.6 64.1,126.6 67.2,125.6 70.2,124.5 73.2,123.5 76.2,122.4 79.2,121.4 82.3,120.3 85.3,119.3 88.3,118.3 91.3,117.2 94.4,116.2 97.4,115.1 100.4,114.1 103.4,113 106.4,112 109.5,111 112.5,109.9 115.5,108.9 118.5,107.8 121.6,106.8 124.6,105.8 127.6,104.7 130.6,103.7 133.6,102.6 136.7,101.6 139.7,100.5 142.7,99.5 145.7,98.5 148.8,97.4 151.8,96.4 154.8,95.3 157.8,94.3 160.8,93.2 163.9,92.2 166.9,91.2 169.9,90.1 172.9,89.1 176,88 179,87 182,85.9 185,84.9 188,83.9 191.1,82.8 194.1,81.8 197.1,80.7 200.1,79.7 203.2,78.6 206.2,77.6 209.2,76.6 212.2,75.5 215.2,74.5 218.3,73.4 221.3,72.4 224.3,71.3 227.3,70.3 230.4,69.3 233.4,68.2 236.4,67.2 239.4,66.1 242.4,65.1 245.5,64 248.5,63 251.5,62 254.5,60.9 257.6,59.9 260.6,58.8 263.6,57.8 266.6,56.7 269.6,55.7 272.7,54.7 275.7,53.6 278.7,52.6 281.7,51.5 284.8,50.5 287.8,49.4 290.8,48.4 293.8,47.4 296.8,46.3 299.9,45.3 302.9,44.2 305.9,43.2 308.9,42.1 312,41.1 315,40.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping upward on labeled axes.",
+      "preview": [
+        "basic-feasible-solutions"
+      ],
+      "answer": 13.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The point \\((4, 4)\\) on the edge from \\((3, 5)\\) to \\((8, 0)\\) of the polygon \\(x \\ge 0\\), \\(y \\ge 0\\), \\(x + y \\le 8\\), \\(y \\le 5\\) is",
+      "explanation": "The point sits strictly between two vertices of an edge, so it is a convex combination of feasible points and is not extreme. Being on the boundary is not enough: every edge point is on the boundary. It satisfies \\(y = 4 \\le 5\\) and \\(x + y = 8\\), so it is feasible. A linear objective that is constant on the edge is maximized at every point of the edge, not only at this one, and a linear objective that increases along the edge is maximized at a vertex.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "preview": [
+        "frank-wolfe-conditional-gradient"
+      ],
+      "options": [
+        "an extreme point, because it lies on the boundary",
+        "infeasible, because it fails \\(y \\le 5\\)",
+        "the only maximizer of every linear objective",
+        "a convex combination of two other feasible points, hence not extreme"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "polyhedra-extreme-points-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "For \\(x_1 + x_2 + x_3 = 6\\) with \\(x \\ge 0\\), which point is a basic feasible solution?",
+      "explanation": "One equation in three nonnegative variables has basic solutions with a single basic variable equal to 6 and the others zero. The point \\((6, 0, 0)\\) is one of them, and it is nonnegative. The point \\((2, 2, 2)\\) meets the equation and has three positive variables, so it is not basic. The point \\((3, 3, 0)\\) has two positive variables. The point with a negative coordinate is a basic pattern that fails feasibility.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "preview": [
+        "simplex-feasible-directions"
+      ],
+      "options": [
+        "\\((2, 2, 2)\\)",
+        "\\((6, 0, 0)\\)",
+        "\\((3, 3, 0)\\)",
+        "\\((4, 4, -2)\\)"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}

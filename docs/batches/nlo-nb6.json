@@ -1,0 +1,36 @@
+{
+  "id": "nlo-nb6",
+  "label": "NB6",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "lp-standard-form",
+    "lp-graphical-solution",
+    "polyhedra-extreme-points",
+    "basic-feasible-solutions",
+    "simplex-feasible-directions",
+    "simplex-method-iteration",
+    "simplex-phase-one"
+  ],
+  "areas": {
+    "lp-standard-form": ["optimization"],
+    "lp-graphical-solution": ["optimization"],
+    "polyhedra-extreme-points": ["optimization"],
+    "basic-feasible-solutions": ["optimization", "linear-algebra"],
+    "simplex-feasible-directions": ["optimization", "linear-algebra"],
+    "simplex-method-iteration": ["optimization", "linear-algebra"],
+    "simplex-phase-one": ["optimization"]
+  },
+  "cores": [
+    "lp-standard-form",
+    "lp-graphical-solution",
+    "polyhedra-extreme-points",
+    "basic-feasible-solutions",
+    "simplex-feasible-directions",
+    "simplex-method-iteration",
+    "simplex-phase-one"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/nlo-content-batches.md",
+  "verifier": "skilltree/verify_nlo_nb6.py"
+}

@@ -146,6 +146,19 @@ LEAF_PREVIEW_ALLOWED.update({
         "descent-directions",
     ],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # NB6 leaves: no dependents in the graph.
+    "lp-graphical-solution": [
+        "polyhedra-extreme-points",
+        "basic-feasible-solutions",
+        "simplex-method-iteration",
+    ],
+    "simplex-phase-one": [
+        "lp-duality-kkt",
+        "affine-scaling-method",
+        "primal-dual-interior-point",
+    ],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

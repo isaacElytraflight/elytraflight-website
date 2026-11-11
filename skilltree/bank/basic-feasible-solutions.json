@@ -1,0 +1,240 @@
+{
+  "skill_id": "basic-feasible-solutions",
+  "version": 1,
+  "questions": [
+    {
+      "id": "basic-feasible-solutions-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A basic feasible solution of \\(Ax = b\\), \\(x \\ge 0\\), with \\(A\\) of full row rank, is obtained by",
+      "explanation": "The basis is an invertible block of columns. The nonbasic variables are set to zero, and the square system \\(B x_B = b\\) is solved. The result is feasible only when \\(x_B \\ge 0\\). A negative basic variable is a basic solution and not a feasible one. Copying the right-hand side onto every variable ignores the columns. Zeroing the basic variables and solving for the others reverses the definition.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "options": [
+        "setting every variable equal to the matching right-hand side entry",
+        "choosing an invertible basis, setting the other variables to zero, and solving, provided the basic variables are nonnegative",
+        "choosing any invertible basis and accepting the solution even when a basic variable is negative",
+        "setting the basic variables to zero and solving for the nonbasic ones"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "For \\(x_1 + x_2 + x_3 = 6\\) and \\(x_1 + 2x_2 + x_4 = 10\\), with all variables nonnegative, the basis of columns 1 and 2 gives basic variables \\(x_1\\) and \\(x_2\\). What is \\(x_2\\)?",
+      "explanation": "The basis matrix is \\(\\begin{bmatrix} 1 & 1 \\\\ 1 & 2 \\end{bmatrix}\\), with determinant 1. Solving gives \\(x_1 = 2\\) and \\(x_2 = 4\\), and both are nonnegative, so the point \\((2, 4, 0, 0)\\) is feasible. Check: \\(2 + 4 = 6\\) and \\(2 + 8 = 10\\). Reporting 2 gives \\(x_1\\). Reporting 6 or 10 gives a right-hand side. Reporting 0 gives a nonbasic variable.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "answer": 4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For the same system, columns 1 and 3 produce \\(x_1 = 10\\) and \\(x_3 = -4\\). That basis is",
+      "explanation": "Independence makes the solution basic: the nonbasic variables are zero and the square system has one solution. Feasibility also needs every variable nonnegative. Here \\(x_3 = -4\\), so the point is not in the polyhedron. The equalities do hold; that is what the square solve enforces. Optimality is a statement about a cost, and this point is not even feasible.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "options": [
+        "a basic feasible solution, because the columns are independent",
+        "optimal for every linear objective",
+        "infeasible as a point of the original system, because it ignores the equalities",
+        "a basic solution that is not feasible, because a basic variable is negative"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order used to build one basic feasible solution. Each step uses the result of the step before it.",
+      "explanation": "A basis is a choice of independent columns, so the choice comes first. The next step refers to that basis when it sets the other variables to zero, so the zeros cannot be assigned earlier. The square solve is stated to come only after those zeros, which is the same order as the construction: substitute the nonbasic zeros, then solve \\(B x_B = b\\). Nonnegativity is applied to the solution just computed. Accepting a negative basic variable skips the last step and leaves the polyhedron.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "steps": [
+        "Choose as many independent columns as there are rows, and call that set the basis.",
+        "With that basis chosen, set every variable outside it to zero.",
+        "Only after those nonbasic variables are zero, solve the square system for the basic variables.",
+        "Accept the point only after that solve, and only when every basic variable is nonnegative."
+      ],
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "For \\(x_1 + x_2 + x_3 = 6\\) and \\(x_1 + 2x_2 + x_4 = 10\\), with \\(x \\ge 0\\), which points are basic feasible solutions?",
+      "explanation": "The feasible bases are columns \\(\\{1, 2\\}\\), \\(\\{1, 4\\}\\), \\(\\{2, 3\\}\\), and \\(\\{3, 4\\}\\), with points \\((2, 4, 0, 0)\\), \\((6, 0, 0, 4)\\), \\((0, 5, 1, 0)\\), and \\((0, 0, 6, 10)\\).\n• \\((10, 0, -4, 0)\\) solves the equalities with columns 1 and 3, and \\(x_3\\) is negative.\n• \\((3, 3, 0, 1)\\) satisfies both equalities and has three positive variables, so it is not a basic solution.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "options": [
+        "\\((2, 4, 0, 0)\\)",
+        "\\((6, 0, 0, 4)\\)",
+        "\\((10, 0, -4, 0)\\)",
+        "\\((0, 5, 1, 0)\\)",
+        "\\((3, 3, 0, 1)\\)",
+        "\\((0, 0, 6, 10)\\)"
+      ],
+      "correct_indices": [
+        0,
+        1,
+        3,
+        5
+      ],
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "A diagonal basis has entries \\(a\\) and \\(d\\), and the right-hand side is \\((p, q)\\), with every name positive. The sum of the two basic variables is",
+      "explanation": "The square system separates: the first basic variable is \\(p/a\\) and the second is \\(q/d\\). Their sum is \\(p/a + q/d\\). On the declared ranges both terms are positive, so the basis is feasible. Adding \\(a\\) and \\(d\\) in the numerator swaps the roles of data and basis entries. Using \\(p/a + q/a\\) reuses the first pivot for the second row.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "answer": "p/a+q/d",
+      "variables": [
+        {
+          "name": "a",
+          "min": 1.0,
+          "max": 4.0
+        },
+        {
+          "name": "d",
+          "min": 1.0,
+          "max": 4.0
+        },
+        {
+          "name": "p",
+          "min": 1.0,
+          "max": 8.0
+        },
+        {
+          "name": "q",
+          "min": 1.0,
+          "max": 8.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "q/d+p/a",
+        "p/a+(q/d)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note treats columns 2 and 4 of \\(x_1 + x_2 + x_3 = 6\\), \\(x_1 + 2x_2 + x_4 = 10\\) as a basic feasible solution. Exactly one step is false.",
+      "explanation": "Column 2 is \\((1, 2)\\) and column 4 is \\((0, 1)\\), so the matrix and its determinant are right. The solve gives \\(x_2 = 6\\) and \\(x_4 = -2\\), with the other variables zero. Invertibility is what makes the solution basic. Feasibility fails because \\(x_4\\) is negative. The last step treats independence as if it included the sign check.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "steps": [
+        "The basis matrix is \\(\\begin{bmatrix} 1 & 0 \\\\ 2 & 1 \\end{bmatrix}\\).",
+        "Its determinant is 1, so the columns are independent.",
+        "The basic variables are \\(x_2 = 6\\) and \\(x_4 = -2\\).",
+        "Because the basis is invertible, this solution is a basic feasible solution."
+      ],
+      "flaw_index": 3,
+      "reasons": [
+        "\\(x_4 = -2\\), so the solution is basic and not feasible.",
+        "The determinant of that basis matrix is 0.",
+        "The computed \\(x_2\\) is not 6."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "For \\(x_1 + x_2 + x_3 = 6\\) and \\(x_1 + 2x_2 + x_4 = 10\\), the slack basis uses columns 3 and 4. What is the sum of the basic variables?",
+      "explanation": "Columns 3 and 4 are the identity, so the basic variables are the right-hand side itself: \\(x_3 = 6\\) and \\(x_4 = 10\\). Both are nonnegative. Their sum is 16. Reporting 6 or 10 reports one slack. Reporting 4 reports a basic variable from a different basis. The sum is a convenient check that both slacks were kept.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "answer": 16.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A standard-form linear program that is feasible, and whose objective is bounded below, attains its optimal value",
+      "explanation": "The feasible set is a nonempty polyhedron with at least one extreme point, and a linear objective that is bounded below attains its minimum at an extreme point. Those extreme points are the basic feasible solutions. A strictly positive point is not needed, and an optimum on an edge can sit at a vertex of that edge. The relative interior is where a nonconstant linear function is never minimal. A basic solution with a negative entry is outside the feasible set, so it cannot be optimal.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "options": [
+        "at a basic feasible solution",
+        "only at a point where every variable is positive",
+        "only in the relative interior of the feasible set",
+        "at a basic solution that is allowed to have negative entries"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "For \\(x_1 + x_2 + x_3 = 9\\) and \\(4x_1 + x_2 + x_4 = 12\\), with \\(x \\ge 0\\), the basis of columns 1 and 2 is feasible. What is the sum of its basic variables?",
+      "explanation": "The basis matrix is \\(\\begin{bmatrix} 1 & 1 \\\\ 4 & 1 \\end{bmatrix}\\). Solving gives \\(x_1 = 1\\) and \\(x_2 = 8\\), both nonnegative, and the slacks are zero. The sum is 9. Check: \\(1 + 8 = 9\\) and \\(4 + 8 = 12\\). Reporting 1 or 8 reports one coordinate. Reporting 12 reports a right-hand side. Reporting 21 adds a right-hand side to a coordinate.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "preview": [
+        "simplex-feasible-directions"
+      ],
+      "answer": 9.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A basic feasible solution in which some basic variable equals zero is",
+      "explanation": "Nonnegativity allows zeros. A basic variable that lands on zero is still a feasible point, and the basis is called degenerate: more than one basis can describe it, and a later ratio test can take a step of length zero. The basis matrix was chosen invertible, and a zero in the solution does not change that determinant. Degeneracy does not by itself decide optimality.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "preview": [
+        "simplex-method-iteration"
+      ],
+      "options": [
+        "infeasible, because a zero violates \\(x \\ge 0\\)",
+        "not basic, because the basis matrix became singular",
+        "feasible, and called degenerate",
+        "the unique optimum of every linear objective"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "basic-feasible-solutions-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The slack basis of \\(Ax + s = b\\), \\(x \\ge 0\\), \\(s \\ge 0\\), with the slacks as the basic variables, is a basic feasible solution when",
+      "explanation": "The slack columns form an identity basis, so the basic solution is \\(s = b\\) and \\(x = 0\\). It is feasible exactly when \\(b \\ge 0\\). A negative entry of \\(b\\) makes that slack negative. The zero vector is the special case \\(b = 0\\), not the only feasible case. Free original variables would leave the standard form; the test here is only the sign of \\(b\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "preview": [
+        "simplex-phase-one"
+      ],
+      "options": [
+        "\\(b\\) has at least one negative entry",
+        "\\(b \\ge 0\\)",
+        "\\(b = 0\\) only",
+        "the original variables are free"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}
