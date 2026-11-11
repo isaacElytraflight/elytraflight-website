@@ -2855,8 +2855,7 @@
     "gradient-partial-derivatives",
     "positive-definite-matrices",
     "taylor-approximation-multivariable"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "descent-method-framework",
@@ -2864,8 +2863,7 @@
    "summary": "Separate the choice of direction, the step length, and the stopping test in a descent iteration.",
    "prereqs": [
     "descent-directions"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "convergence-rates",
@@ -2873,8 +2871,7 @@
    "summary": "Classify linear, superlinear, sublinear, and quadratic convergence from a sequence of errors.",
    "prereqs": [
     "vector-norms-lp"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "exact-line-search-quadratic",
@@ -2883,8 +2880,7 @@
    "prereqs": [
     "descent-method-framework",
     "quadratic-function-minimization"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "armijo-backtracking",
@@ -2893,8 +2889,7 @@
    "prereqs": [
     "descent-method-framework",
     "taylor-approximation-multivariable"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "gradient-zigzag",
@@ -2902,8 +2897,7 @@
    "summary": "See why exact line search makes successive steepest-descent steps orthogonal, and why a large condition number zigzags.",
    "prereqs": [
     "exact-line-search-quadratic"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "condition-number-gradient-rate",
@@ -2913,8 +2907,7 @@
     "exact-line-search-quadratic",
     "convergence-rates",
     "rayleigh-quotient"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "lipschitz-gradient",
@@ -2923,8 +2916,7 @@
    "prereqs": [
     "induced-matrix-norms",
     "fundamental-theorem-along-segment"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "descent-lemma",
@@ -2932,8 +2924,7 @@
    "summary": "Use the quadratic upper bound on a function with a Lipschitz gradient.",
    "prereqs": [
     "lipschitz-gradient"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "sufficient-decrease-lemma",
@@ -2942,8 +2933,7 @@
    "prereqs": [
     "descent-lemma",
     "armijo-backtracking"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "gradient-method-convergence",
@@ -2952,8 +2942,7 @@
    "prereqs": [
     "sufficient-decrease-lemma",
     "convergence-rates"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "gauss-newton-method",

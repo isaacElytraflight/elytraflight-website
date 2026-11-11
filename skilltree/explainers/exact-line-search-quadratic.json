@@ -1,0 +1,29 @@
+{
+  "id": "exact-line-search-quadratic",
+  "title": "Exact line search on quadratics",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a long ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "body_md": "Restrict a quadratic to a line and the objective becomes a parabola in one variable. Write \\(f(x) = \\tfrac12 x^T A x + b^T x\\) with \\(A\\) symmetric, and set \\(\\varphi(t) = f(x + t d)\\). Differentiating under the quadratic gives \\(\\varphi'(t) = \\nabla f(x)^T d + t\\, d^T A d\\). The gradient that appears here is \\(A x + b\\), and the curvature along \\(d\\) is the same matrix \\(A\\) that is the Hessian.\n\nIf \\(A\\) is positive definite and \\(d\\) is not zero, the curvature \\(d^T A d\\) is positive, so the parabola opens upward and the critical point is a minimum. Set the derivative to zero and solve for the step. The result is the negative directional derivative divided by the curvature. For a descent direction the directional derivative is negative, so the step that comes out is positive. The formula does not ask the direction to be steepest. Any fixed \\(d\\) has its own exact step.\n\nWhen the direction is the negative gradient, the numerator becomes the squared gradient norm and the denominator becomes \\(\\nabla f^T A \\nabla f\\). After the step is taken, the derivative of the restriction is zero. That is the same statement as the new gradient being orthogonal to \\(d\\)."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The exact step and its steepest special case are\n\\[\nt = -\\frac{\\nabla f(x)^T d}{d^T A d}, \\qquad t = \\frac{\\lVert\\nabla f(x)\\rVert^2}{\\nabla f(x)^T A \\nabla f(x)}.\n\\]\nThe second formula is the first one with \\(d = -\\nabla f(x)\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(A\\) equal to the identity, the gradient \\((3, 0)\\), and the direction \\((-1, 0)\\). The directional derivative is \\(-3\\). The curvature is \\(1\\). The exact step is \\(3\\).\n\nThe winch step is 3. The new point moves three units along \\((-1, 0)\\). The line derivative \\(-3 + t\\) is zero at that step, and it is negative for every shorter positive step. A step of \\(4\\) would already have passed the bottom of the parabola. The same arithmetic with a steeper curvature would have produced a shorter step."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Forgetting the minus sign in front of the directional derivative sends the step backward along a descent direction. The directional derivative is already negative, and the leading minus turns it positive. A second slip is to divide by \\(d^T d\\) when the Hessian is not the identity. The curvature is \\(d^T A d\\). A third is to report a negative step after the algebra has produced a positive root. A fourth is to expect the new gradient to vanish in every coordinate. Exact line search only makes the new gradient orthogonal to \\(d\\). The rest of the gradient can still be large, which is why the iteration continues."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Orthogonality of the new gradient to the step is the geometric reason steepest descent zigzags on a long ellipse: the next negative gradient is perpendicular to the one just used. The size of that zigzag is governed by the condition number of \\(A\\). Conjugate directions keep an exact line search and replace Euclidean orthogonality by \\(d_i^T A d_j = 0\\), which is what produces finite termination on a quadratic."
+    }
+  ]
+}

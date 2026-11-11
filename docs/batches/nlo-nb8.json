@@ -1,0 +1,48 @@
+{
+  "id": "nlo-nb8",
+  "label": "NB8",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "descent-directions",
+    "descent-method-framework",
+    "convergence-rates",
+    "exact-line-search-quadratic",
+    "armijo-backtracking",
+    "gradient-zigzag",
+    "condition-number-gradient-rate",
+    "lipschitz-gradient",
+    "descent-lemma",
+    "sufficient-decrease-lemma",
+    "gradient-method-convergence"
+  ],
+  "areas": {
+    "descent-directions": ["optimization"],
+    "descent-method-framework": ["optimization"],
+    "convergence-rates": ["optimization"],
+    "exact-line-search-quadratic": ["optimization", "linear-algebra"],
+    "armijo-backtracking": ["optimization"],
+    "gradient-zigzag": ["optimization", "linear-algebra"],
+    "condition-number-gradient-rate": ["optimization", "linear-algebra"],
+    "lipschitz-gradient": ["optimization", "linear-algebra"],
+    "descent-lemma": ["optimization"],
+    "sufficient-decrease-lemma": ["optimization"],
+    "gradient-method-convergence": ["optimization"]
+  },
+  "cores": [
+    "descent-directions",
+    "descent-method-framework",
+    "convergence-rates",
+    "exact-line-search-quadratic",
+    "armijo-backtracking",
+    "gradient-zigzag",
+    "condition-number-gradient-rate",
+    "lipschitz-gradient",
+    "descent-lemma",
+    "sufficient-decrease-lemma",
+    "gradient-method-convergence"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/nlo-content-batches.md",
+  "verifier": "skilltree/verify_nlo_nb8.py"
+}

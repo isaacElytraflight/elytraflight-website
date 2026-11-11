@@ -1,0 +1,234 @@
+{
+  "skill_id": "descent-method-framework",
+  "version": 1,
+  "questions": [
+    {
+      "id": "descent-method-framework-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A general descent iteration updates the point by",
+      "explanation": "The iteration separates three choices: a descent direction, a positive step length, and a stopping test. The update that uses the first two is \\(x^+ = x + t d\\). Replacing \\(x\\) by the gradient changes the meaning of the vector. Leaving \\(x\\) fixed does not move. Adding a positive multiple of the gradient walks uphill.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "options": [
+        "\\(x^+ = x + t d\\) with a step length \\(t > 0\\) and a descent direction \\(d\\)",
+        "\\(x^+ = \\nabla f(x)\\)",
+        "\\(x^+ = x\\) whenever the gradient is nonzero",
+        "\\(x^+ = t\\, \\nabla f(x)\\) with \\(t > 0\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Take \\(x = (2, 1)\\), \\(d = (-4, 2)\\), and step length \\(t = 1/2\\). What is the squared Euclidean length of the displacement \\(t d\\)?",
+      "explanation": "The displacement is \\((1/2)(-4, 2) = (-2, 1)\\). Its squared length is \\(4 + 1 = 5\\). Equivalently, \\(t^2 \\lVert d\\rVert^2 = (1/4)(16 + 4) = 5\\). Reporting \\(20\\) is \\(\\lVert d\\rVert^2\\) before the step length. Reporting \\(2\\) is the absolute value of one component. Reporting \\(\\sqrt{5}\\) is the length, not the squared length.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"138.7\" y1=\"176\" x2=\"138.7\" y2=\"28\"/><polygon points=\"138.7,28 141.5,34.4 136,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"144.7\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"138.7\" y1=\"161.7\" x2=\"235.9\" y2=\"118.3\"/><polygon points=\"235.9,118.3 231.2,123.4 228.9,118.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"110.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g</text><line x1=\"138.7\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 65.9,46.2 61.3,49.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "answer": 5.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A typical stopping test for this iteration is",
+      "explanation": "The direction is built so that the directional derivative is negative. That is an input to the step, not a reason to stop. Stopping looks at progress: a small gradient norm means the first-order model has nowhere useful to go. The step length is a positive real number. Replacing the objective by a constraint changes the problem.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a slowly falling curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">e</text><polyline points=\"46,39 49,43.1 52,46.9 55.1,50.5 58.1,53.8 61.1,57 64.1,60 67.2,62.8 70.2,65.5 73.2,68 76.2,70.4 79.2,72.7 82.3,74.9 85.3,77 88.3,79 91.3,80.9 94.4,82.7 97.4,84.4 100.4,86.1 103.4,87.7 106.4,89.2 109.5,90.7 112.5,92.1 115.5,93.5 118.5,94.8 121.6,96 124.6,97.2 127.6,98.4 130.6,99.6 133.6,100.7 136.7,101.7 139.7,102.7 142.7,103.7 145.7,104.7 148.8,105.6 151.8,106.5 154.8,107.4 157.8,108.2 160.8,109.1 163.9,109.8 166.9,110.6 169.9,111.4 172.9,112.1 176,112.8 179,113.5 182,114.2 185,114.8 188,115.5 191.1,116.1 194.1,116.7 197.1,117.3 200.1,117.9 203.2,118.4 206.2,119 209.2,119.5 212.2,120 215.2,120.6 218.3,121.1 221.3,121.5 224.3,122 227.3,122.5 230.4,122.9 233.4,123.4 236.4,123.8 239.4,124.3 242.4,124.7 245.5,125.1 248.5,125.5 251.5,125.9 254.5,126.3 257.6,126.6 260.6,127 263.6,127.4 266.6,127.7 269.6,128.1 272.7,128.4 275.7,128.8 278.7,129.1 281.7,129.4 284.8,129.7 287.8,130 290.8,130.3 293.8,130.6 296.8,130.9 299.9,131.2 302.9,131.5 305.9,131.8 308.9,132.1 312,132.3 315,132.6 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that drops at first and then flattens.",
+      "options": [
+        "the chosen direction fails \\(\\nabla f^T d < 0\\)",
+        "the step length is required to be an integer",
+        "the objective is replaced by a constraint",
+        "the gradient norm is small"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put one iteration in the order a descent method carries it out. Each step uses the result of the step before it.",
+      "explanation": "The gradient is the raw material for the direction, so it comes first. The step length is a distance along a direction that already exists. The update can be formed only after both are known, and the stopping test looks at the point that update produced. Testing for a stop before the gradient exists has nothing to measure. Choosing the step length before the direction does not define the ray.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "steps": [
+        "Compute the gradient at the current point.",
+        "Build a descent direction from that gradient.",
+        "Select a positive step length along the direction.",
+        "Replace the point by the point plus the step length times the direction.",
+        "Apply a stopping test, such as a small gradient norm at the new point."
+      ],
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "The gradient at the current point is nonzero. Which of these are legitimate descent directions for the iteration?",
+      "explanation": "Each legitimate choice has a negative directional derivative.\n• \\(d = -\\nabla f\\) gives \\(-\\lVert\\nabla f\\rVert^2 < 0\\).\n• Newton with a positive definite Hessian gives \\(-\\nabla f^T H^{-1} \\nabla f < 0\\).\n• A positive definite scaling \\(D\\) gives \\(-\\nabla f^T D \\nabla f < 0\\).\n• \\(d = \\nabla f\\) gives \\(\\lVert\\nabla f\\rVert^2 > 0\\), an ascent direction.\n• The zero vector has directional derivative \\(0\\), so it is not a descent direction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a long ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "options": [
+        "Steepest descent, \\(d = -\\nabla f(x)\\).",
+        "The gradient itself, \\(d = \\nabla f(x)\\).",
+        "A Newton direction \\(d = -H^{-1} \\nabla f(x)\\) when the Hessian \\(H\\) is positive definite.",
+        "The zero vector.",
+        "A scaled direction \\(d = -D \\nabla f(x)\\) with \\(D\\) symmetric positive definite."
+      ],
+      "correct_indices": [
+        0,
+        2,
+        4
+      ],
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "The current first coordinate is \\(a\\), the step length is \\(t\\), and the first component of the direction is \\(b\\). The next first coordinate equals",
+      "explanation": "The update is componentwise. The first coordinate of \\(x + t d\\) is \\(a + t b\\). All three names appear: the old coordinate, the step length, and the direction component. Subtracting \\(t b\\) walks against the direction. Replacing the product by a sum \\(a + t + b\\) adds quantities that do not share a meaning. Using \\(a \\cdot t\\) drops the direction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "answer": "a+t*b",
+      "variables": [
+        {
+          "name": "a",
+          "min": -2.0,
+          "max": 4.0
+        },
+        {
+          "name": "t",
+          "min": 0.2,
+          "max": 2.0
+        },
+        {
+          "name": "b",
+          "min": -3.0,
+          "max": -0.2
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "a+b*t",
+        "t*b+a"
+      ],
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note takes one steepest-descent step from \\(x = (4, 1)\\) where \\(\\nabla f(x) = (2, -2)\\). Exactly one step is a false claim.",
+      "explanation": "The gradient is given as \\((2, -2)\\). Steepest descent negates it, so \\(d = (-2, 2)\\). The directional derivative is \\(2 \\cdot (-2) + (-2) \\cdot 2 = -8\\). The false step adds the gradient instead of the steepest direction. The point \\(x + 1 \\cdot d\\) is \\((4, 1) + (-2, 2) = (2, 3)\\), not \\((6, -1)\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two nearly perpendicular arrows</title><line x1=\"46\" y1=\"58.6\" x2=\"250\" y2=\"58.6\"/><polygon points=\"250,58.6 243.6,61.3 243.6,55.9\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"72.6\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"58.6\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 229.8,45.6 229.3,40.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"60.1\" y1=\"58.6\" x2=\"92\" y2=\"161.7\"/><polygon points=\"92,161.7 87.5,156.3 92.7,154.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"175.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n</text></svg>",
+      "figure_alt": "Two arrows leave the origin in different directions.",
+      "steps": [
+        "The gradient at the current point is \\((2, -2)\\).",
+        "Steepest descent uses the direction \\(d = -\\nabla f(x) = (-2, 2)\\).",
+        "With step length \\(1\\), the next point is \\((4, 1) + (2, -2) = (6, -1)\\).",
+        "The directional derivative of this steepest direction is \\(-8\\), which is negative."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The update added the gradient. The steepest step adds the negative gradient.",
+        "Steepest descent should have used \\(d = \\nabla f(x)\\).",
+        "The directional derivative of \\(-\\nabla f\\) is positive here."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A stopping rule looks at \\(\\nabla f(x) = (3, 4)\\). What is the Euclidean norm of this gradient?",
+      "explanation": "The squared norm is \\(9 + 16 = 25\\), so the norm is \\(5\\). Reporting \\(25\\) stops at the square. Reporting \\(7\\) adds the components. Reporting \\(12\\) is their product. The test compares this norm with a tolerance. The value \\(5\\) is what gets compared.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>three unit balls</title><line x1=\"28\" y1=\"112\" x2=\"256\" y2=\"112\"/><polygon points=\"256,112 249.6,114.7 249.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"200\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"24\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"72\" y=\"44\" width=\"136\" height=\"136\" stroke-dasharray=\"4 3\"/><circle cx=\"140\" cy=\"112\" r=\"68\"/><polygon points=\"208,112 140,44 72,112 140,180\"/><text x=\"158\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">inf</text><text x=\"162\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"156\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A diamond, a disk, and a square centered at the origin.",
+      "answer": 5.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "The Gauss-Newton direction and the Newton direction differ in what they invert:",
+      "explanation": "Newton builds \\(d = -H_f(x)^{-1} \\nabla f(x)\\) from the Hessian of the objective. Gauss-Newton is aimed at a sum of squares. It linearizes the residual and inverts the Gram matrix of the residual Jacobian, which is the Hessian of the least-squares objective with the second-derivative term left out. Both directions still use the gradient. Steepest descent is the method that uses no matrix.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   b</text></svg>",
+      "figure_alt": "A two-by-two array with labels on the diagonal.",
+      "options": [
+        "Gauss-Newton inverts the Hessian, while Newton uses the negative gradient with no matrix",
+        "neither uses the gradient",
+        "Gauss-Newton inverts a residual Gram matrix, while Newton inverts the Hessian of \\(f\\)",
+        "both invert the same Hessian of \\(f\\)"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "On a smooth quadratic with a positive definite Hessian, the exact step length along a fixed direction is",
+      "explanation": "Restricting a quadratic to the line \\(x + t d\\) produces a parabola in the scalar \\(t\\). The exact step length is the \\(t\\) that minimizes that parabola. It equals 1 only for special directions, such as a pure Newton step on a quadratic. The reciprocal of the gradient norm is a different normalization. A quadratic is exactly the case where the line search has a closed form.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a long ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "preview": [
+        "exact-line-search-quadratic"
+      ],
+      "options": [
+        "always equal to 1",
+        "the minimizer of the objective restricted to that line",
+        "the reciprocal of the gradient norm, for every direction",
+        "illegal, because a quadratic has no line search"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "From \\(x = (0, 5)\\), take \\(d = (-2, -1)\\) and \\(t = 3\\). What is the squared Euclidean length of the displacement?",
+      "explanation": "The displacement is \\(3(-2, -1) = (-6, -3)\\). Its squared length is \\(36 + 9 = 45\\). Equivalently, \\(t^2 \\lVert d\\rVert^2 = 9 \\cdot 5 = 45\\). Reporting \\(5\\) is \\(\\lVert d\\rVert^2\\). Reporting \\(9\\) is \\(t^2\\). Reporting \\(-6\\) is one component of the displacement, and the squared length is positive.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "preview": [
+        "armijo-backtracking"
+      ],
+      "answer": 45.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A Gauss-Newton step fits into this framework as",
+      "explanation": "The framework keeps the update \\(x^+ = x + t d\\). Gauss-Newton supplies a particular \\(d\\), by solving a linear least-squares model of the residual. The step length is still free, and a stopping test is still applied. The condition number is not the step length. The objective stays a sum of squares.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested contours</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses around the origin.",
+      "preview": [
+        "gauss-newton-method"
+      ],
+      "options": [
+        "one choice of descent direction, built from a linearized residual",
+        "a requirement that the step length equal the condition number",
+        "a replacement for the objective by a linear program",
+        "a stopping test that ignores the residual"
+      ],
+      "correct_index": 0,
+      "version": 1
+    }
+  ]
+}

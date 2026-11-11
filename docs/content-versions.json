@@ -6085,6 +6085,578 @@
     {
       "id": "svm-quadratic-program#explainer",
       "version": 1
+    },
+    {
+      "id": "descent-directions-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "descent-directions#explainer",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "descent-method-framework#explainer",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "convergence-rates#explainer",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "exact-line-search-quadratic#explainer",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "armijo-backtracking#explainer",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-zigzag#explainer",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "condition-number-gradient-rate#explainer",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lipschitz-gradient#explainer",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "descent-lemma#explainer",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma#explainer",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-method-convergence#explainer",
+      "version": 1
     }
   ]
 }

@@ -1,0 +1,29 @@
+{
+  "id": "descent-lemma",
+  "title": "The descent lemma",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested contours</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses around the origin.",
+      "body_md": "The descent lemma is a global upper bound for a function whose gradient is Lipschitz with constant \\(L\\). It says that \\(f(y)\\) sits at or below the tangent model at \\(x\\), plus a quadratic penalty \\((L/2)\\) times the squared distance from \\(x\\) to \\(y\\). Convexity, when it holds, gives a lower bound by the tangent alone. The descent lemma runs the other way and needs no convexity. Its hypothesis is the Lipschitz gradient.\n\nThe proof starts from the fundamental theorem along the segment. The difference \\(f(y) - f(x)\\) is the integral of the directional derivative of \\(f\\) at the intermediate points. Split that derivative into the gradient at \\(x\\) plus the change in the gradient. The change is at most \\(L\\) times the distance already traveled along the segment, which contributes a factor of the integration variable \\(t\\). Integrating \\(t\\) from zero to one produces one-half, and that one-half is the coefficient in the lemma.\n\nWhen the Hessian is the constant \\(L\\) in one dimension, the inequality is an equality. The quadratic penalty is then exactly the remainder of the Taylor expansion. A larger constant still gives a valid upper bound. A smaller constant does not, and a single pair of points is enough to see the failure."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The bound is\n\\[\nf(y) \\le f(x) + \\nabla f(x)^T(y - x) + \\frac{L}{2}\\lVert y - x\\rVert^2.\n\\]\nThe integral of \\(t\\) from \\(0\\) to \\(1\\) is what produces the factor \\(1/2\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Let \\(f(t) = t^2\\), so \\(L = 2\\), and compare the point \\(t = 1\\) with the point \\(t = 4\\). The value at the start is \\(1\\), the derivative is \\(2\\), and the step is \\(3\\). The bound is \\(1 + 2 \\cdot 3 + (2/2) \\cdot 9 = 1 + 6 + 9\\).\n\nThe loft bound is 16. The true value at \\(t = 4\\) is \\(16\\), so the bound is sharp for this \\(L\\). From \\(t = 0\\) to \\(t = 2\\) with the constant replaced by \\(1\\), the bound falls to \\(2\\) while \\(f(2) = 4\\), so the inequality fails. The factor one-half is doing real work in the quadratic term."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Writing \\(L\\) instead of \\(L/2\\) is the error the integral is designed to prevent. The integrand carries a factor \\(t\\), and the average of \\(t\\) on the unit interval is one-half. A second slip is to reverse the inequality and treat the lemma as a convexity statement. Convexity has no \\(L\\) and points the other way. A third is to drop the linear term. That is legal only at a stationary point. A fourth is to apply the bound with a constant smaller than the induced norm of the Hessian. The lemma inherits whatever gap the Lipschitz constant had."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Substitute a gradient step \\(x - t \\nabla f(x)\\) into the upper bound and the linear and quadratic terms combine into a decrease of size \\(t(1 - L t/2)\\) times the squared gradient norm. That is the sufficient-decrease lemma, and it is positive for steps shorter than \\(2/L\\). The same upper bound picks step lengths for an accelerated gradient iteration and for a conditional-gradient step over a compact convex set."
+    }
+  ]
+}

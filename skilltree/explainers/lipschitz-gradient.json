@@ -1,0 +1,29 @@
+{
+  "id": "lipschitz-gradient",
+  "title": "Lipschitz-continuous gradients",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "body_md": "A gradient is Lipschitz continuous with constant \\(L\\) when it cannot change faster than \\(L\\) times the distance between the points. The inequality bounds the norm of the difference of gradients by \\(L\\) times the norm of the difference of the points. Any larger number is also a valid constant. A smaller number than the best one is not.\n\nFor a twice differentiable objective the Hessian is the derivative of the gradient. On a convex domain, if the induced 2-norm of the Hessian is at most \\(L\\) everywhere, the fundamental theorem along the segment turns that matrix bound into the Lipschitz inequality for the gradient. For a symmetric Hessian the induced 2-norm is the largest absolute eigenvalue. A constant Hessian therefore contributes its spectral radius, and every larger number works as well.\n\nLeast squares fits the same pattern. The objective \\(\\tfrac12 \\lVert A x - b\\rVert^2\\) has Hessian \\(A^T A\\). The eigenvalues of that Gram matrix are the squares of the singular values of \\(A\\), so a sharp Lipschitz constant is the square of the largest singular value, which is \\(\\lVert A\\rVert_2^2\\). The vector \\(b\\) moves the residual and does not appear in the Hessian."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The definition and the Hessian test are\n\\[\n\\lVert\\nabla f(y) - \\nabla f(x)\\rVert \\le L \\lVert y - x\\rVert, \\qquad L \\ge \\sup_x \\lVert H_f(x)\\rVert_2.\n\\]\nFor \\(f(x) = \\tfrac12 \\lVert A x - b\\rVert^2\\), a sharp constant is \\(\\lVert A\\rVert_2^2\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Let \\(f(t) = 6 t^2\\). The derivative is \\(12 t\\), and the second derivative is the constant \\(12\\). The difference of derivatives between two points, divided by the distance, equals \\(12\\) every time.\n\nThe cable constant is 12. A candidate constant of \\(9\\) would fail, because the derivative changes twelve times as fast as the input. A candidate of \\(20\\) would succeed, and it would be loose. The same reading on a diagonal Hessian uses the larger diagonal entry, not the smaller one and not their sum."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Using the smallest eigenvalue as the Lipschitz constant is the reversal of the induced norm. The induced 2-norm takes the largest absolute eigenvalue, because that is the greatest stretch. A second slip is to forget the square for least squares and report a singular value. The Hessian is \\(A^T A\\), so the singular value is squared. A third is to treat a valid constant as unique. Every larger number is valid. The sharp one is the smallest number that works. A fourth is to divide by the distance and then call the quotient a function value. The quotient bounds the gradient, not \\(f\\)."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The descent lemma turns this constant into a quadratic upper bound on \\(f\\), with coefficient \\(L/2\\) in front of the squared step. That upper bound is the tool behind every later guarantee for the gradient method. A local quadratic rate for Newton's method asks the same Lipschitz idea of the Hessian itself, so that the Newton correction cannot change too fast near the minimizer."
+    }
+  ]
+}

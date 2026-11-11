@@ -1,0 +1,234 @@
+{
+  "skill_id": "sufficient-decrease-lemma",
+  "version": 1,
+  "questions": [
+    {
+      "id": "sufficient-decrease-lemma-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For a gradient step of length \\(t\\) and a gradient Lipschitz constant \\(L\\), the sufficient-decrease lemma gives",
+      "explanation": "Insert \\(y = x - t \\nabla f\\) into the descent lemma. The linear term contributes \\(-t \\lVert\\nabla f\\rVert^2\\) and the quadratic term contributes \\((L/2) t^2 \\lVert\\nabla f\\rVert^2\\). The difference is \\(t(1 - L t/2)\\lVert\\nabla f\\rVert^2\\), which is positive for \\(t \\in (0, 2/L)\\). A longer step can make the coefficient negative. The function value is not frozen.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "options": [
+        "an increase of size \\(t \\lVert\\nabla f(x)\\rVert^2\\) for every \\(t > 0\\)",
+        "\\(f(x - t \\nabla f(x)) = f(x)\\) for every \\(t\\)",
+        "a decrease only when \\(t > 2/L\\)",
+        "\\(f(x) - f(x - t \\nabla f(x)) \\ge t(1 - L t/2)\\lVert\\nabla f(x)\\rVert^2\\) when \\(0 < t < 2/L\\)"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(L = 4\\), \\(t = 1/4\\), and \\(\\lVert\\nabla f\\rVert^2 = 16\\). What decrease does the lemma guarantee?",
+      "explanation": "The coefficient is \\(t(1 - L t/2) = (1/4)(1 - 4 \\cdot (1/4) / 2) = (1/4)(1 - 1/2) = 1/8\\). Then \\((1/8) \\cdot 16 = 2\\). Reporting \\(16\\) is the squared gradient norm. Reporting \\(4\\) is \\(L\\). Reporting \\(1/8\\) is the coefficient before it multiplies the squared norm.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Among constant steps, the coefficient \\(t(1 - L t/2)\\) is largest at",
+      "explanation": "The map \\(t \\mapsto t - (L/2) t^2\\) is a downward parabola. Its vertex is at \\(t = 1/L\\), and the value there is \\(1/(2L)\\). At \\(t = 2/L\\) the coefficient is zero, so the lemma guarantees nothing. The step \\(t = L\\) is far past \\(2/L\\) whenever \\(L > \\sqrt{2}\\), and it is not the vertex in any case. At \\(t = 0\\) the coefficient is zero.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested contours</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses around the origin.",
+      "options": [
+        "\\(t = L\\), where the coefficient equals \\(L\\)",
+        "\\(t = 0\\), where the coefficient equals \\(1\\)",
+        "\\(t = 1/L\\), where the coefficient equals \\(1/(2L)\\)",
+        "\\(t = 2/L\\), where the coefficient equals \\(1/L\\)"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order that derives the sufficient decrease of a gradient step. Each step uses the result of the step before it.",
+      "explanation": "The descent lemma is the inequality being specialized, so the gradient step has to be substituted first. The linear term and then the quadratic term are what that substitution produces. Factoring collects them, and the sign of the collected coefficient is the last reading. Declaring a range for \\(t\\) before the coefficient exists has nothing to sign.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "steps": [
+        "Insert \\(y = x - t \\nabla f(x)\\) into the descent lemma.",
+        "Simplify the linear term to \\(-t \\lVert\\nabla f(x)\\rVert^2\\).",
+        "Simplify the quadratic term to \\((L/2) t^2 \\lVert\\nabla f(x)\\rVert^2\\).",
+        "Factor the decrease as \\(t(1 - L t/2)\\lVert\\nabla f(x)\\rVert^2\\).",
+        "Conclude that the decrease is positive when \\(0 < t < 2/L\\)."
+      ],
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Let \\(L = 4\\). Which step lengths make the lemma guarantee a strict decrease of a gradient step with nonzero gradient?",
+      "explanation": "The coefficient \\(t(1 - 4 t/2) = t(1 - 2t)\\) is positive for \\(0 < t < 1/2\\).\n• The steps \\(1/4\\), \\(1/10\\), and \\(2/5\\) lie in that open interval.\n• The step \\(1/2\\) equals \\(2/L\\), so the guaranteed decrease is zero.\n• The step \\(1\\) is larger than \\(1/2\\), so the coefficient is negative and the lemma gives no decrease.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "options": [
+        "\\(t = 1/4\\)",
+        "\\(t = 1/2\\)",
+        "\\(t = 1\\)",
+        "\\(t = 1/10\\)",
+        "\\(t = 2/5\\)"
+      ],
+      "correct_indices": [
+        0,
+        3,
+        4
+      ],
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "The step length is \\(t\\), the Lipschitz constant is \\(\\mathrm{ell}\\), and the squared gradient norm is \\(s\\). The decrease guaranteed by the lemma equals",
+      "explanation": "The factored decrease is \\(t(1 - \\mathrm{ell}\\, t/2)\\) times the squared gradient norm. All three names appear. Dropping the term \\(\\mathrm{ell}\\, t/2\\) leaves the pure linear prediction \\(t s\\), which the quadratic remainder can spoil. Using \\(t(1 + \\mathrm{ell}\\, t/2) s\\) adds the remainder instead of subtracting it. Dividing by \\(s\\) reports a coefficient rather than a decrease.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   b</text></svg>",
+      "figure_alt": "A two-by-two array with labels on the diagonal.",
+      "answer": "t*(1-ell*t/2)*s",
+      "variables": [
+        {
+          "name": "t",
+          "min": 0.05,
+          "max": 0.4
+        },
+        {
+          "name": "ell",
+          "min": 1.0,
+          "max": 3.0
+        },
+        {
+          "name": "s",
+          "min": 0.5,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "(t-ell*t*t/2)*s",
+        "s*t*(1-ell*t/2)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note derives the decrease of a gradient step from the descent lemma. Exactly one step is a false claim.",
+      "explanation": "The substitution into an upper bound is the right starting point, the linear contribution is \\(-t \\lVert\\nabla f\\rVert^2\\), and the quadratic contribution is \\((L/2) t^2 \\lVert\\nabla f\\rVert^2\\). Subtracting the new upper bound from \\(f(x)\\) produces \\(t \\lVert\\nabla f\\rVert^2 - (L/2) t^2 \\lVert\\nabla f\\rVert^2\\), which factors as \\(t(1 - L t/2)\\lVert\\nabla f\\rVert^2\\). The false step adds the quadratic term instead of subtracting it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "steps": [
+        "The descent lemma supplies an upper bound on \\(f(x - t \\nabla f)\\).",
+        "The linear term contributes \\(-t \\lVert\\nabla f\\rVert^2\\).",
+        "The quadratic term contributes \\((L/2) t^2 \\lVert\\nabla f\\rVert^2\\).",
+        "The guaranteed decrease is therefore \\(t(1 + L t/2)\\lVert\\nabla f\\rVert^2\\)."
+      ],
+      "flaw_index": 3,
+      "reasons": [
+        "The quadratic term is subtracted. The factor is \\(1 - L t/2\\), not \\(1 + L t/2\\).",
+        "The linear term contributes \\(+t \\lVert\\nabla f\\rVert^2\\).",
+        "The descent lemma is a lower bound on the new value."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Let \\(L = 5\\), \\(t = 1/5\\), and \\(\\lVert\\nabla f\\rVert^2 = 10\\). What decrease does the lemma guarantee?",
+      "explanation": "The coefficient is \\((1/5)(1 - 5 \\cdot (1/5) / 2) = (1/5)(1/2) = 1/10\\). Then \\((1/10) \\cdot 10 = 1\\). This is the step \\(t = 1/L\\), whose coefficient is \\(1/(2L) = 1/10\\). Reporting \\(10\\) is the squared norm. Reporting \\(5\\) is \\(L\\). Reporting \\(1/10\\) is the coefficient alone.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "answer": 1.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "For the direction \\(d = -\\nabla f\\), the descent-lemma decrease implies the Armijo test with parameter \\(c \\in (0, 1)\\) whenever",
+      "explanation": "Armijo along \\(d = -\\nabla f\\) asks for a decrease of at least \\(c t \\lVert\\nabla f\\rVert^2\\). The lemma supplies \\(t(1 - L t/2)\\lVert\\nabla f\\rVert^2\\). The lemma's coefficient is at least \\(c t\\) when \\(1 - L t/2 \\ge c\\), which rearranges to \\(t \\le 2(1 - c)/L\\). A step past \\(2/L\\) is outside the lemma's decrease regime. The parameter \\(c\\) stays below 1. The gradient norm is not \\(c\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "options": [
+        "the gradient norm equals \\(c\\)",
+        "\\(t \\le 2(1 - c)/L\\)",
+        "\\(t \\ge 2/L\\)",
+        "\\(c > 1\\)"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Summing this decrease along a sequence of gradient steps is the start of",
+      "explanation": "Each step removes at least a fixed multiple of \\(\\lVert\\nabla f\\rVert^2\\) from the function value. If \\(f\\) is bounded below, the sum of those decreases is finite, so the sum of the squared gradient norms is finite. That is the opening of the convergence argument. It does not force the step length to grow. The ratio test and an indefinite Hessian are different subjects.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a slowly falling curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">e</text><polyline points=\"46,39 49,43.1 52,46.9 55.1,50.5 58.1,53.8 61.1,57 64.1,60 67.2,62.8 70.2,65.5 73.2,68 76.2,70.4 79.2,72.7 82.3,74.9 85.3,77 88.3,79 91.3,80.9 94.4,82.7 97.4,84.4 100.4,86.1 103.4,87.7 106.4,89.2 109.5,90.7 112.5,92.1 115.5,93.5 118.5,94.8 121.6,96 124.6,97.2 127.6,98.4 130.6,99.6 133.6,100.7 136.7,101.7 139.7,102.7 142.7,103.7 145.7,104.7 148.8,105.6 151.8,106.5 154.8,107.4 157.8,108.2 160.8,109.1 163.9,109.8 166.9,110.6 169.9,111.4 172.9,112.1 176,112.8 179,113.5 182,114.2 185,114.8 188,115.5 191.1,116.1 194.1,116.7 197.1,117.3 200.1,117.9 203.2,118.4 206.2,119 209.2,119.5 212.2,120 215.2,120.6 218.3,121.1 221.3,121.5 224.3,122 227.3,122.5 230.4,122.9 233.4,123.4 236.4,123.8 239.4,124.3 242.4,124.7 245.5,125.1 248.5,125.5 251.5,125.9 254.5,126.3 257.6,126.6 260.6,127 263.6,127.4 266.6,127.7 269.6,128.1 272.7,128.4 275.7,128.8 278.7,129.1 281.7,129.4 284.8,129.7 287.8,130 290.8,130.3 293.8,130.6 296.8,130.9 299.9,131.2 302.9,131.5 305.9,131.8 308.9,132.1 312,132.3 315,132.6 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that drops at first and then flattens.",
+      "preview": [
+        "gradient-method-convergence"
+      ],
+      "options": [
+        "a convergence argument: the sum of the squared gradient norms stays bounded",
+        "a proof that the step length must grow",
+        "the simplex ratio test",
+        "a proof that the Hessian is indefinite"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Let \\(L = 5\\). What is \\(2/L\\), the step length at which the lemma's guaranteed decrease drops to zero?",
+      "explanation": "Divide \\(2\\) by \\(5\\). The threshold is \\(0.4\\). For every \\(t \\in (0, 0.4)\\) the coefficient \\(t(1 - L t/2)\\) is positive, and at \\(t = 0.4\\) it is zero. Reporting \\(5\\) is \\(L\\). Reporting \\(0.2\\) is \\(1/L\\), the step that maximizes the coefficient rather than the step that kills it. Reporting \\(2.5\\) is \\(L/2\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "preview": [
+        "gradient-projection-method"
+      ],
+      "answer": 0.4,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "sufficient-decrease-lemma-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A projected gradient step keeps this decrease when the projection is",
+      "explanation": "The sufficient-decrease algebra uses the length of the step that was actually taken. A Euclidean projection does not increase distances, so a projected step is no longer than the unprojected gradient step it came from, and the same \\(L\\) still closes the estimate. A map that stretches distances would need a new argument. Newton and the simplex method are different iterations.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "preview": [
+        "gradient-projection-method"
+      ],
+      "options": [
+        "allowed to increase distances without any change to the proof",
+        "replaced by an unconstrained Newton step",
+        "computed from a simplex basis of a linear program",
+        "nonexpansive, so the same Lipschitz argument still controls the accepted step"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

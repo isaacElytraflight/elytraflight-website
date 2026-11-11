@@ -1,0 +1,233 @@
+{
+  "skill_id": "descent-directions",
+  "version": 1,
+  "questions": [
+    {
+      "id": "descent-directions-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "At a point where \\(f\\) is differentiable, a vector \\(d\\) is a descent direction when",
+      "explanation": "The directional derivative is the dot product \\(\\nabla f(x)^T d\\). A strict negative value means the first-order model decreases along \\(d\\), which is the definition of a descent direction. A zero dot product is a tangent direction of the model, and a positive dot product is an ascent direction. Being a multiple of the all-ones vector says nothing about \\(f\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "options": [
+        "\\(\\nabla f(x)^T d < 0\\)",
+        "\\(\\nabla f(x)^T d = 0\\)",
+        "\\(\\nabla f(x)^T d > 0\\)",
+        "\\(d\\) is a multiple of the all-ones vector"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(\\nabla f(x) = (3, 1)\\) and \\(d = (-2, 1)\\). What is the directional derivative \\(\\nabla f(x)^T d\\)?",
+      "explanation": "The dot product is \\(3 \\cdot (-2) + 1 \\cdot 1 = -6 + 1 = -5\\). The value is negative, so \\(d\\) is a descent direction, but the question asks for the derivative itself. Reporting \\(5\\) drops the sign. Reporting \\(-6\\) stops after the first term. Reporting \\(1\\) is the second component of \\(d\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"138.7\" y1=\"176\" x2=\"138.7\" y2=\"28\"/><polygon points=\"138.7,28 141.5,34.4 136,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"144.7\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"138.7\" y1=\"161.7\" x2=\"235.9\" y2=\"118.3\"/><polygon points=\"235.9,118.3 231.2,123.4 228.9,118.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"110.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g</text><line x1=\"138.7\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 65.9,46.2 61.3,49.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "answer": -5.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "If \\(\\nabla f(x)^T d < 0\\), the first-order expansion implies that",
+      "explanation": "Write \\(f(x + t d) = f(x) + t\\, \\nabla f(x)^T d + o(t)\\). The linear term is negative and dominates the remainder when \\(t > 0\\) is small enough, so the function drops. A long step can turn back up, so the decrease is not guaranteed for every positive \\(t\\). A negative directional derivative means \\(x\\) is not a local minimizer. The Hessian is not involved in this first-order argument.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "options": [
+        "\\(f(x + t d) < f(x)\\) for every \\(t > 0\\)",
+        "\\(f(x + t d) < f(x)\\) for all sufficiently small \\(t > 0\\)",
+        "\\(x\\) is a local minimizer",
+        "the Hessian at \\(x\\) is positive definite"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order that proves a negative directional derivative produces a decrease for a short step. Each step uses the result of the step before it.",
+      "explanation": "The expansion has to be written before it can be divided by the step. The divided form is what the little-o term no longer hides, so the sign of the directional derivative can be read off only after that division. The function decrease is the difference quotient multiplied back by the positive step, which preserves the inequality. Multiplying before the sign is known does not yet prove a decrease.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "steps": [
+        "Expand \\(f(x + t d) = f(x) + t\\, \\nabla f(x)^T d + o(t)\\) as \\(t \\to 0\\).",
+        "Divide the change in \\(f\\) by \\(t > 0\\), leaving \\(\\nabla f(x)^T d + o(1)\\).",
+        "For small \\(t > 0\\) the negative directional derivative dominates, so the difference quotient is negative.",
+        "Multiply that negative quotient by \\(t > 0\\) to conclude \\(f(x + t d) < f(x)\\)."
+      ],
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Let \\(\\nabla f(x) = (1, -2)\\). Which of these vectors are descent directions at \\(x\\)?",
+      "explanation": "A descent direction needs a strictly negative dot product with \\((1, -2)\\).\n• \\((-1, 0)\\) gives \\(-1\\).\n• \\((1, 1)\\) gives \\(1 - 2 = -1\\).\n• \\((-3, -1)\\) gives \\(-3 + 2 = -1\\).\n• \\((2, 1)\\) gives \\(2 - 2 = 0\\), which is not strict.\n• \\((4, 1)\\) gives \\(4 - 2 = 2\\), an ascent direction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"138.7\" y1=\"176\" x2=\"138.7\" y2=\"28\"/><polygon points=\"138.7,28 141.5,34.4 136,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"144.7\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"138.7\" y1=\"161.7\" x2=\"235.9\" y2=\"118.3\"/><polygon points=\"235.9,118.3 231.2,123.4 228.9,118.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"110.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g</text><line x1=\"138.7\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 65.9,46.2 61.3,49.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "options": [
+        "\\(d = (-1, 0)\\)",
+        "\\(d = (2, 1)\\)",
+        "\\(d = (1, 1)\\)",
+        "\\(d = (4, 1)\\)",
+        "\\(d = (-3, -1)\\)"
+      ],
+      "correct_indices": [
+        0,
+        2,
+        4
+      ],
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "The gradient is \\((p, q)\\) and the direction is \\((-p, r)\\). The directional derivative equals",
+      "explanation": "The dot product is \\(p \\cdot (-p) + q \\cdot r = -p^2 + q r\\). Every declared name appears: \\(p\\) from the first components, and \\(q\\) and \\(r\\) from the second. Dropping the minus sign turns the square into an ascent contribution. Using \\(p \\cdot r\\) instead of \\(q \\cdot r\\) pairs the wrong components. Replacing \\(r\\) by \\(-p\\) computes the steepest-descent derivative \\(-p^2 - q^2\\), which is a different direction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "answer": "-p*p+q*r",
+      "variables": [
+        {
+          "name": "p",
+          "min": 1.0,
+          "max": 3.0
+        },
+        {
+          "name": "q",
+          "min": 1.0,
+          "max": 3.0
+        },
+        {
+          "name": "r",
+          "min": -2.0,
+          "max": 2.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "q*r-p*p",
+        "q*r-p**2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note checks \\(d = (1, -1)\\) for \\(f(x_1, x_2) = x_1^2 + 2 x_2\\) at \\((1, 0)\\). Exactly one step is a false claim.",
+      "explanation": "The partial derivatives of \\(x_1^2 + 2 x_2\\) are \\((2 x_1, 2)\\), and at \\((1, 0)\\) that is \\((2, 2)\\). The dot product with \\((1, -1)\\) is \\(2 - 2 = 0\\). The negative gradient \\((-2, -2)\\) dots with \\((2, 2)\\) to give \\(-8 < 0\\), so that direction does descend. The false step is the reading of the zero: a descent direction requires a strictly negative directional derivative. Zero means the first-order model is flat along \\(d\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "steps": [
+        "The gradient is \\((2 x_1, 2)\\), so it equals \\((2, 2)\\) at \\((1, 0)\\).",
+        "The directional derivative is \\(2 \\cdot 1 + 2 \\cdot (-1) = 0\\).",
+        "A directional derivative of zero means \\(d\\) is a descent direction.",
+        "The direction \\(-\\nabla f = (-2, -2)\\) has directional derivative \\(-8\\), so it is a descent direction."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "A zero directional derivative is not the strict inequality that defines a descent direction.",
+        "The gradient at \\((1, 0)\\) is not \\((2, 2)\\).",
+        "The dot product \\(2 - 2\\) is not zero."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Let \\(\\nabla f(x) = (1, -2)\\) and let \\(D = \\mathrm{diag}(2, 3)\\), which is positive definite. For \\(d = -D \\nabla f(x)\\), what is \\(\\nabla f(x)^T d\\)?",
+      "explanation": "First \\(D \\nabla f = (2, -6)\\), so \\(d = (-2, 6)\\). The directional derivative is \\(1 \\cdot (-2) + (-2) \\cdot 6 = -2 - 12 = -14\\). The same number is \\(-\\nabla f^T D \\nabla f = -(2 + 12)\\). Reporting \\(14\\) drops the minus that makes the direction a descent direction. Reporting \\(-2\\) is only the first term. Reporting \\(6\\) is a component of \\(d\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   b</text></svg>",
+      "figure_alt": "A two-by-two array with labels on the diagonal.",
+      "answer": -14.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "If \\(D\\) is symmetric positive definite and \\(\\nabla f(x) \\ne 0\\), the vector \\(d = -D \\nabla f(x)\\) is a descent direction because",
+      "explanation": "Substitute the direction: the directional derivative equals \\(-\\nabla f^T D \\nabla f\\). Positive definiteness makes that quadratic form positive whenever the gradient is nonzero, so the directional derivative is negative. A positive definite matrix has positive eigenvalues and a nonzero determinant. The direction \\(-D \\nabla f\\) is orthogonal to the gradient only in special cases, not in general.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a long ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "options": [
+        "\\(d\\) is orthogonal to the gradient",
+        "every positive definite matrix has negative eigenvalues",
+        "\\(D\\) has determinant zero",
+        "\\(\\nabla f(x)^T d = -\\nabla f(x)^T D \\nabla f(x) < 0\\)"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Once a descent direction has been chosen, the next decision in a descent iteration is",
+      "explanation": "A descent direction says which way a short move decreases the first-order model. The iteration still has to choose how far to go. That choice is the step length. Setting the gradient to zero is the optimality condition at a minimizer, not the next algorithmic step. A simplex basis is a construction for a linear program. The Hessian may be used later to build a different direction, and it does not replace the step-length decision.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "preview": [
+        "descent-method-framework"
+      ],
+      "options": [
+        "to discard the direction and use a simplex basis instead",
+        "to replace the gradient by the Hessian and stop",
+        "to choose a step length along that direction",
+        "to set the gradient to zero by hand"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Let \\(\\nabla f(x) = (6, 1)\\) and \\(d = (-1, 2)\\). What is \\(\\nabla f(x)^T d\\)?",
+      "explanation": "The dot product is \\(6 \\cdot (-1) + 1 \\cdot 2 = -6 + 2 = -4\\). The negative value says \\(d\\) is a descent direction. Reporting \\(4\\) drops the sign. Reporting \\(-6\\) ignores the second term. Reporting \\(8\\) is the product of the two second components with the wrong sign pattern, \\(1 \\cdot 2\\) added to \\(6\\) instead of subtracted.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "preview": [
+        "exact-line-search-quadratic"
+      ],
+      "answer": -4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "descent-directions-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A line-search rule such as a sufficient-decrease test is applied",
+      "explanation": "The sufficient-decrease test compares function values along a ray \\(x + t d\\). That ray exists only after \\(d\\) has been chosen. The gradient is an input to the direction, so it is computed first. An indefinite Hessian can still leave a descent direction available, and the line search does not wait for that case. The line search does not replace the sign check: the sign check is what makes a small enough step able to pass.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "preview": [
+        "armijo-backtracking"
+      ],
+      "options": [
+        "before the gradient is computed",
+        "to a direction that has already been chosen",
+        "only when the Hessian is indefinite",
+        "in place of checking that the directional derivative is negative"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}
