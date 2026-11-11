@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T22:28:23.883490Z",
+  "generated": "2026-11-11T22:40:00.461655Z",
   "skills": {
-    "file": "skills.c6ad5185.json",
-    "hash": "c6ad5185"
+    "file": "skills.d56ce9f6.json",
+    "hash": "d56ce9f6"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -1496,8 +1496,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b0fb6cfc",
-      "file": "banks/linear-least-squares.b0fb6cfc.json"
+      "hash": "9e83b115",
+      "file": "banks/linear-least-squares.9e83b115.json"
     },
     "linearization": {
       "version": 1,
@@ -1580,8 +1580,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "867b03ef",
-      "file": "banks/lp-duality-kkt.867b03ef.json"
+      "hash": "d4a718b5",
+      "file": "banks/lp-duality-kkt.d4a718b5.json"
     },
     "lp-graphical-solution": {
       "version": 1,

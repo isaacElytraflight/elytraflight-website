@@ -599,7 +599,7 @@ def bank_lpdual():
         r"Minimize \(-3x\) subject to \(x + s = 7\) with \(x, s \ge 0\). The dual is maximize \(7y\) subject to \(y \le -3\) and \(y \le 0\). What is the optimal dual value?",
         -21,
         "1",
-        r"The tighter constraint is \(y \le -3\). Maximizing \(7y\) pushes \(y\) up to \(-3\), and the value is \(7 \cdot (-3) = -21\). The primal attains the same number at \(x = 7\), \(s = 0\). Reporting \(21\) drops the sign. Reporting \(-3\) or \(7\) reports the multiplier or the right-hand side. Reporting \(0\) is the dual value at the infeasible-looking but actually feasible point \(y = 0\), which is worse.",
+        r"The tighter constraint is \(y \le -3\). Maximizing \(7y\) pushes \(y\) up to \(-3\), and the value is \(7 \cdot (-3) = -21\). The primal attains the same number at \(x = 7\), \(s = 0\). Reporting \(21\) drops the sign. Reporting \(-3\) or \(7\) reports the multiplier or the right-hand side. Reporting \(0\) is \(7y\) at \(y = 0\), and that multiplier is dual infeasible because it violates \(y \le -3\).",
         fig=FALL,
         alt=A_FALL,
     )
@@ -643,7 +643,7 @@ def bank_lpdual():
         [0, 1, 2],
         r"Both dual inequalities hold at \(y = -3\), and \(7 \cdot (-3) = -21\)."
         "\n"
-        r"• \(y = 0\) is feasible and has objective \(0\), which is worse than \(-21\)."
+        r"• \(y = 0\) violates \(y \le -3\), so it is dual infeasible and cannot be optimal."
         "\n"
         r"• \(y = -1\) violates \(y \le -3\), so it is not dual feasible.",
         fig=FALL,
@@ -1020,7 +1020,7 @@ def bank_lls():
     )
     b.num(
         3,
-        r"With the same \(A\) and \(b = (3, 5, 2, 6)\), and with the least-squares solution \((4, 4)\), what is the squared residual \(\lVert Ax - b\rVert^2\)?",
+        r"Let \(A\) have rows \((1, 0)\), \((1, 0)\), \((0, 1)\), \((0, 1)\), and let \(b = (3, 5, 2, 6)\). The least-squares solution is \((4, 4)\). What is the squared residual \(\lVert Ax - b\rVert^2\)?",
         10,
         "1",
         r"The fitted vector is \((4, 4, 4, 4)\). The residual is \((-1, 1, -2, 2)\), and the sum of squares is \(1 + 1 + 4 + 4 = 10\). Reporting \(4\) gives a coordinate of the solution. Reporting \(8\) is \(A^T b\)'s common entry. Reporting \(0\) would be an exact fit, and these four numbers are not constant on each column. The normal equation already fixed the solution. This number is only the objective at that solution.",
