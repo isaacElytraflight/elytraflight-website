@@ -53,15 +53,14 @@
       "id": "jacobian-chain-rule-r2-q1",
       "round": 2,
       "type": "order",
-      "prompt": "Put these steps in the order used to apply the chain rule.",
-      "explanation": "The outer Jacobian cannot be evaluated until the image is known, so the inner value comes first and the outer Jacobian comes next. The inner Jacobian uses the original input. The product is last, with the outer factor on the left. Swapping the factors computes a different matrix whenever the sizes differ. Adding the factors is the rule for a sum, not a composition.",
+      "prompt": "Put these lines of a chain-rule calculation in the only order that makes each line usable.",
+      "explanation": "The outer Jacobian is evaluated at the image, so the image has to be known before that line can be written. The product uses that evaluated outer Jacobian, so it is last, with the outer factor on the left. The inner Jacobian is taken at the original input and appears only as the right-hand factor; it does not wait for the image, which is why it is not a separate line. Swapping the factors computes a different matrix whenever the sizes differ. Adding the factors is the rule for a sum, not a composition.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>jacobian positions</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">J11   J12</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">J21   J22</text></svg>",
       "figure_alt": "A 2 by 2 array labeled as a Jacobian.",
       "steps": [
-        "Evaluate the inner map at the input point.",
-        "Build the outer Jacobian at that image.",
-        "Build the inner Jacobian at the input point.",
-        "Multiply the outer Jacobian by the inner Jacobian."
+        "Evaluate the inner map at the input, and name that image y.",
+        "Evaluate the outer Jacobian at y.",
+        "Left-multiply that outer Jacobian by the inner Jacobian at the original input."
       ],
       "version": 1
     },

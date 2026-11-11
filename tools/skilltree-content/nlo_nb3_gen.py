@@ -455,12 +455,11 @@ def bank_jacobian():
          r"The outer derivative is taken at the inner value, and it stands on the left of the product. Adding Jacobians is the rule for a sum of maps. Swapping the order, or evaluating the outer map at \(x\) instead of at \(G(x)\), uses the wrong point and the wrong multiplication. An entrywise product is not matrix multiplication.",
          JAC, A_JAC)
     b.order(2,
-            "Put these steps in the order used to apply the chain rule.",
-            ["Evaluate the inner map at the input point.",
-             "Build the outer Jacobian at that image.",
-             "Build the inner Jacobian at the input point.",
-             "Multiply the outer Jacobian by the inner Jacobian."],
-            r"The outer Jacobian cannot be evaluated until the image is known, so the inner value comes first and the outer Jacobian comes next. The inner Jacobian uses the original input. The product is last, with the outer factor on the left. Swapping the factors computes a different matrix whenever the sizes differ. Adding the factors is the rule for a sum, not a composition.",
+            "Put these lines of a chain-rule calculation in the only order that makes each line usable.",
+            ["Evaluate the inner map at the input, and name that image y.",
+             "Evaluate the outer Jacobian at y.",
+             "Left-multiply that outer Jacobian by the inner Jacobian at the original input."],
+            r"The outer Jacobian is evaluated at the image, so the image has to be known before that line can be written. The product uses that evaluated outer Jacobian, so it is last, with the outer factor on the left. The inner Jacobian is taken at the original input and appears only as the right-hand factor; it does not wait for the image, which is why it is not a separate line. Swapping the factors computes a different matrix whenever the sizes differ. Adding the factors is the rule for a sum, not a composition.",
             JAC, A_JAC)
     b.num(2,
           r"Let \(g(t) = (t^2, 3t)\) and \(f(x, y) = x + y^2\). What is the derivative of \(f(g(t))\) at \(t = 2\)?",
@@ -539,7 +538,7 @@ def bank_matrix():
     b.num(1,
           r"Let \(A = \begin{bmatrix} 1 & 3 \\ 0 & 2 \end{bmatrix}\) and \(f(x) = x^{T} A x\). At \(x = (1, 1)\), what is the first entry of \(\nabla f\)?",
           5, "1",
-          r"Expanding gives \(x_1^2 + 3 x_1 x_2 + 2 x_2^2\). The partial derivative in \(x_1\) is \(2 x_1 + 3 x_2\), which equals 5 at \((1, 1)\). The formula \((A + A^{T}) x\) gives the same vector \((5, 7)\). Using \(2 A x\) instead, as if \(A\) were symmetric, gives \((10, 6)\), and the first entry of that vector is 10.",
+          r"Expanding gives \(x_1^2 + 3 x_1 x_2 + 2 x_2^2\). The partial derivative in \(x_1\) is \(2 x_1 + 3 x_2\), which equals 5 at \((1, 1)\). The formula \((A + A^{T}) x\) gives the same vector \((5, 7)\). Using \(2 A x\) instead, as if \(A\) were symmetric, gives \((8, 4)\), and the first entry of that vector is 8.",
           QUAD, A_QUAD)
     b.mc(1,
          r"For a square \(A\) that is not assumed symmetric, \(\nabla (x^{T} A x)\) equals",
@@ -566,7 +565,7 @@ def bank_matrix():
     b.num(2,
           r"Let \(A = \begin{bmatrix} 1 & 3 \\ 0 & 2 \end{bmatrix}\) and \(f(x) = x^{T} A x\). At \(x = (1, 1)\), what is the second entry of \(\nabla f\)?",
           7, "1",
-          r"The partial derivative in the second coordinate is \(3 x_1 + 4 x_2\), which equals 7. It is the second entry of \((A + A^{T}) x\). The first entry is 5. The second entry of \(2 A x\) is 6, which is the symmetric-formula mistake. The function value is \(1 + 3 + 2 = 6\), not a partial derivative.",
+          r"The partial derivative in the second coordinate is \(3 x_1 + 4 x_2\), which equals 7. It is the second entry of \((A + A^{T}) x\). The first entry is 5. The second entry of \(2 A x\) is 4, which is the symmetric-formula mistake. The function value is \(1 + 3 + 2 = 6\), not a partial derivative.",
           QUAD, A_QUAD)
     b.num(2,
           r"Let \(A = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}\), \(b = (1, 0)\), and \(x = (2, 1)\). For \(f(x) = \lVert A x - b \rVert^2\), what is the first entry of \(\nabla f\)?",
