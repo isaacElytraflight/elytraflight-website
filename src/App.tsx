@@ -95,8 +95,8 @@ const PROJECTS = [
     title: 'Fun with Flow Models',
   },
   {
-    href: '/CS180Proj4A/',
-    kicker: 'Project 4A',
+    href: '/CS180Proj4/',
+    kicker: 'Project 4',
     title: 'Image Warping and Mosaicing',
   },
 ] as const
