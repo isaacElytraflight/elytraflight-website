@@ -151,15 +151,15 @@
       "id": "backprop-neural-network-r3-q3",
       "round": 3,
       "type": "mc",
-      "prompt": "If the pre-activation is negative, the positive-part activation blocks the gradient of",
-      "explanation": "A negative pre-activation has local derivative \\(0\\), so the adjoint that reaches the hidden unit is multiplied by zero before it touches the first weight and the first bias. The output weight's local factor is the hidden value, which is also zero, so that weight's partial derivative is zero too, but for a different reason: the stored hidden value, not the activation derivative. The output bias has local factor \\(1\\) and still receives the prediction adjoint. The claim that every parameter is blocked forgets the output bias.",
+      "prompt": "The pre-activation is negative, and the prediction differs from the target. Which partial derivative of the half-square loss is nonzero?",
+      "explanation": "A negative pre-activation has local derivative \\(0\\) and hidden value \\(0\\). The first weight and the first bias are multiplied by that local derivative, so both partial derivatives are \\(0\\). The output weight is multiplied by the hidden value, so its partial derivative is \\(0\\) as well, for that different reason. The output bias has local factor \\(1\\) on the prediction. Its partial derivative is the prediction adjoint, which is nonzero because the prediction differs from the target.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four network steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">lin</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">ramp</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">out</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">loss</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
       "figure_alt": "Four blocks in a row, from a linear step to a loss.",
       "options": [
-        "the output bias only",
-        "the output weight only",
-        "every weight, including the output weight",
-        "the first-layer weights, while the output layer still sees a zero hidden value"
+        "the first weight",
+        "the first bias",
+        "the output weight",
+        "the output bias"
       ],
       "correct_index": 3,
       "version": 1

@@ -180,6 +180,7 @@ def main():
             "dw2": residual * h,
             "dw1": hidden * gate * x,
             "db1": hidden * gate,
+            "db2": residual,
         }
 
     first = backprop(3.0, 2.0, -1.0, 4.0, 1.0, 11.0)
@@ -188,9 +189,19 @@ def main():
     expected["backprop-neural-network-r3-q1"] = first["db1"]
     second = backprop(2.0, 3.0, 0.0, -1.0, 8.0, -4.0)
     expected["backprop-neural-network-r4-q1"] = second["dw1"]
-    # A negative pre-activation blocks the first weight. This is a cross-check, not a bank answer.
+    # Negative pre-activation: hidden value and activation derivative are both 0.
+    # Every weight gradient is 0. The output bias still equals the residual.
     blocked = backprop(1.0, -2.0, -1.0, 4.0, 1.0, 5.0)
     require_close(mismatches, "blocked first weight", blocked["dw1"], 0.0, tol=0.0)
+    require_close(mismatches, "blocked first bias", blocked["db1"], 0.0, tol=0.0)
+    require_close(mismatches, "blocked output weight", blocked["dw2"], 0.0, tol=0.0)
+    require_close(mismatches, "open output bias", blocked["db2"], 1.0 - 5.0, tol=0.0)
+    blocked_q = next(
+        q for q in banks["backprop-neural-network"]["questions"]
+        if q["id"] == "backprop-neural-network-r3-q3"
+    )
+    if blocked_q["options"][blocked_q["correct_index"]] != "the output bias":
+        mismatches.append("backprop-neural-network-r3-q3 marks a zero partial derivative")
 
     numeric = check_expected(banks, expected, mismatches)
 

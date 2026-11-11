@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T19:23:01.108906Z",
+  "generated": "2026-11-11T19:58:33.573054Z",
   "skills": {
-    "file": "skills.667ee607.json",
-    "hash": "667ee607"
+    "file": "skills.d013c6f5.json",
+    "hash": "d013c6f5"
   },
   "collections": {
     "file": "collections.4ee0faec.json",
@@ -104,8 +104,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "cf65495c",
-      "file": "banks/backprop-neural-network.cf65495c.json"
+      "hash": "97ca0d80",
+      "file": "banks/backprop-neural-network.97ca0d80.json"
     },
     "bias-coupling": {
       "version": 1,
