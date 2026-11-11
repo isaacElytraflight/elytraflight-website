@@ -289,6 +289,18 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | \(\dot v\) | forward-mode tangent of a node | directional derivative of that node. Added in NB4 |
 | \(\bar v\) | reverse-mode adjoint of a node | partial derivative of the scalar output with respect to that node. Added in NB4 |
 | \(H_f(x)\, d\) | Hessian-vector product | forward-over-reverse, or reverse-over-forward with \(d\) held fixed. Added in NB4 |
+| \(\mathcal{X}\) | feasible set | a subset of \(\mathbb{R}^n\). Added in NB5 |
+| \(p^\star\) | optimal value | \(\inf_{x\in\mathcal{X}} f(x)\). Finite values need not be attained. Added in NB5 |
+| \(x^\star\), \(\operatorname{argmin}\) | a minimizer, and the set of them | \(f(x^\star)=p^\star\) with \(x^\star\in\mathcal{X}\). Added in NB5 |
+| local minimizer | \(f(x^\star)\le f(x)\) for feasible \(x\) in some ball about \(x^\star\) | strict when the inequality is strict for every other such point. Added in NB5 |
+| global minimizer | the same inequality for every feasible \(x\) | strict when no other feasible point ties the value. Added in NB5 |
+| stationary point | \(\nabla f(x)=0\) | Fermat: an interior local minimizer of a differentiable \(f\) is stationary. Added in NB5 |
+| second-order necessary | \(H_f(x^\star)\) positive semidefinite at an interior local minimizer | not sufficient. Added in NB5 |
+| second-order sufficient | \(\nabla f(x^\star)=0\) and \(H_f(x^\star)\) positive definite | strict local minimizer. A zero eigenvalue is inconclusive. Added in NB5 |
+| coercive | \(f(x)\to +\infty\) as \(\lVert x\rVert\to\infty\) | a continuous coercive function on a nonempty closed set attains a minimum. Added in NB5 |
+| LP | linear program | affine objective and affine constraints. Added in NB5 |
+| QP | quadratic program | quadratic objective and affine constraints. Convex when the Hessian is positive semidefinite. Added in NB5 |
+| quadratic objective | \(\tfrac12 x^T A x + b^T x + c\) with \(A\) symmetric | gradient \(Ax+b\). Unique minimizer \(x=-A^{-1}b\) when \(A\) is positive definite. This \(A\) is not the LQR state matrix, and \(b\) is not a control vector. Added in NB5 |
 
 ## loop-shaping
 

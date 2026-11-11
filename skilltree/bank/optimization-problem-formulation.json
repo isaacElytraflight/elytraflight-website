@@ -1,0 +1,217 @@
+{
+  "skill_id": "optimization-problem-formulation",
+  "version": 1,
+  "questions": [
+    {
+      "id": "optimization-problem-formulation-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "An optimization problem is named by",
+      "explanation": "The decision vector is what you may choose, the objective is the quantity you compare, and the feasible set is the choices that are allowed. An objective with no set is not yet a problem: the set might be all of space, a discrete grid, or a region cut out by constraints. A constraint list without an objective has no ranking of the feasible points. The optimal value is a result of the problem, not one of the three pieces that define it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "options": [
+        "a decision vector, an objective, and a feasible set",
+        "the objective alone, because the domain is always all of real space",
+        "a constraint list with no objective",
+        "the optimal value alone"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Each crate uses 3 fasteners and 2 labels. You have 18 fasteners and 10 labels, and you want as many crates as possible. What is the largest whole number of crates?",
+      "explanation": "Fasteners allow at most \\(18/3 = 6\\) crates, and labels allow at most \\(10/2 = 5\\). Both resources have to hold, so the feasible whole numbers stop at 5. That number is the optimal value of the maximization. Reporting 6 uses only the fasteners. Reporting 18 or 10 reports a stock level, which is data, not the objective. Reporting 0 is feasible and is the worst, not the best.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "answer": 5.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Maximizing a function \\(f\\) is the same problem as minimizing",
+      "explanation": "The values of \\(-f\\) are the values of \\(f\\) with the order reversed, so a maximizer of \\(f\\) is a minimizer of \\(-f\\) and the optimal values are negatives of each other. The reciprocal does not reverse order on the whole line, and it is undefined at zero. Keeping \\(f\\) and switching the word from max to min searches for the other end of the range. Changing the feasible set and keeping the objective is a different problem.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a decreasing curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "options": [
+        "\\(1/f\\), whenever \\(f\\) is never zero",
+        "\\(f\\) itself, because a maximizer is always a minimizer",
+        "\\(-f\\)",
+        "the feasible set, leaving the objective unchanged"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order used to write a maximization as a minimization.",
+      "explanation": "The variables come first, because both the objective and the constraints are statements about them. The sign flip turns a maximization into a minimization before the constraints are attached. The feasible set is then the part of the variable space that survives every restriction. Only after that split does it make sense to ask which feasible points attain the best value, and what that value is. Starting from the optimal value has nothing to compute yet.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "steps": [
+        "Name the decision variables and the set they are drawn from.",
+        "Write the goal as a function of those variables and replace it by its negative.",
+        "Describe the feasible set by every restriction the variables must satisfy.",
+        "Keep the optimal value separate from the set of solutions that attain it."
+      ],
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "You minimize \\(x^2 + y^2\\) over the line \\(x + y = 4\\). Which statements hold?",
+      "explanation": "The unknown is a pair \\((x, y)\\), so the decision variable lives in the plane. The optimal value is the best number the objective reaches, and a solution is a feasible pair that reaches it. Minimizing \\(-(x^2 + y^2)\\) is the same search as maximizing \\(x^2 + y^2\\).\n• The equality \\(x + y = 4\\) removes most of the plane, so the problem is constrained.\n• On that line the squared distance from the origin is not constant. The point \\((2, 2)\\) is the closest, and \\((0, 4)\\) is farther, so not every feasible point is a solution.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested ellipses</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses centered at the origin.",
+      "options": [
+        "The decision variable is a vector in the plane.",
+        "The problem is unconstrained.",
+        "The optimal value is a number, and a solution is a point.",
+        "Minimizing the negative of the objective is maximizing \\(x^2 + y^2\\).",
+        "Every feasible point is a solution."
+      ],
+      "correct_indices": [
+        0,
+        2,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "An unconstrained problem whose decision variable lies in \\(\\mathbb{R}^n\\) has feasible set",
+      "explanation": "Unconstrained means the only restriction is the space the variable already lives in. For a real vector of length \\(n\\), that space is \\(\\mathbb{R}^n\\). Linear inequalities cut out a polyhedron and make the problem constrained. An integer restriction makes it discrete. The empty set is an infeasible problem, which is a different failure.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "options": [
+        "a polyhedron cut out by linear inequalities",
+        "all of \\(\\mathbb{R}^n\\)",
+        "a discrete subset of the integers",
+        "the empty set"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note formulates a price \\(p \\ge 0\\) that maximizes revenue \\(r(p) = 12p - 3p^2\\). Exactly one step is false.",
+      "explanation": "The price is the decision variable, and \\(p \\ge 0\\) is the feasible set. When a maximizer exists, the optimal value is the revenue there and the solution is that price. The false step is the claim that maximizing \\(r\\) is minimizing \\(r\\). Those two searches run in opposite directions. The minimization with the same solutions is the minimization of \\(-r\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a decreasing curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "steps": [
+        "The decision variable is the price \\(p\\).",
+        "The feasible set is the nonnegative reals.",
+        "Maximizing \\(r\\) is the same problem as minimizing \\(r\\), because the maximizer and the minimizer coincide.",
+        "A solution is a feasible price, and the optimal value is the revenue at that price."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "Maximizing \\(r\\) is minimizing \\(-r\\), and those two objectives are not the same function.",
+        "The price is not the decision variable.",
+        "The feasible set includes negative prices."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Minimize \\((x - 4)^2 + (y + 1)^2 + 5\\) with no constraints. What is the first coordinate of a minimizer?",
+      "explanation": "The added 5 does not depend on the decision, so it cannot move the minimizer. Each square is nonnegative and equals zero at \\(x = 4\\) and \\(y = -1\\), so that point is the unique minimizer and the optimal value is 5. Reporting \\(-1\\) gives the second coordinate. Reporting 5 gives the optimal value, which is not a coordinate. Reporting 0 is the squared distance at the minimizer, again not a coordinate.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"4.2,120.1 7.2,121.2 10.2,122.1 13.2,123.1 16.2,124 19.3,124.8 22.3,125.7 25.3,126.4 28.3,127.1 31.4,127.8 34.4,128.5 37.4,129.1 40.4,129.6 43.4,130.1 46.5,130.6 49.5,131 52.5,131.4 55.5,131.7 58.6,132 61.6,132.3 64.6,132.5 67.6,132.6 70.6,132.8 73.7,132.8 76.7,132.9 79.7,132.8 82.7,132.8 85.8,132.7 88.8,132.6 91.8,132.4 94.8,132.1 97.8,131.9 100.9,131.6 103.9,131.2 106.9,130.8 109.9,130.3 113,129.9 116,129.3 119,128.7 122,128.1 125,127.5 128.1,126.8 131.1,126 134.1,125.2 137.1,124.4 140.2,123.5 143.2,122.6 146.2,121.6 149.2,120.6 152.2,119.6 155.3,118.5 158.3,117.3 161.3,116.1 164.3,114.9 167.4,113.6 170.4,112.3 173.4,111 176.4,109.6 179.4,108.1 182.5,106.6 185.5,105.1 188.5,103.5 191.5,101.9 194.6,100.3 197.6,98.5 200.6,96.8 203.6,95 206.6,93.2 209.7,91.3 212.7,89.4 215.7,87.4 218.7,85.4 221.8,83.4 224.8,81.3 227.8,79.1 230.8,76.9 233.8,74.7 236.9,72.4 239.9,70.1 242.9,67.8 245.9,65.4 249,62.9 252,60.5 255,57.9 258,55.4 261,52.7 264.1,50.1 267.1,47.4 270.1,44.6 273.1,41.8 276.2,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "answer": 4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A problem whose decision variable is required to be an integer is",
+      "explanation": "An integer restriction puts the decision in a discrete set. Dropping it produces a different, usually larger, feasible set, so the optimal value can only improve or stay the same, and a solution of the relaxed problem need not be a solution of the integer problem. A linear objective does not make an integer problem infeasible. A continuous unconstrained problem allows every real vector.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining the two axis intercepts.",
+      "options": [
+        "continuous and unconstrained",
+        "infeasible whenever the objective is linear",
+        "the same problem as the one with the integer restriction dropped",
+        "discrete"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Minimize \\(x + 2y\\) over the triangle with vertices \\((0, 0)\\), \\((6, 0)\\), and \\((0, 3)\\). A minimizer is",
+      "explanation": "The objective values at the three vertices are \\(0\\), \\(6\\), and \\(6\\). A linear function on a triangle attains its minimum at a vertex, so the minimizer is \\((0, 0)\\) and the optimal value is \\(0\\). The other two vertices tie for the maximum. The centroid \\((2, 1)\\) has value \\(4\\), which sits strictly between the minimum and the maximum, so it is not a solution.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining the two axis intercepts.",
+      "preview": [
+        "graphical-2d-optimization"
+      ],
+      "options": [
+        "\\((0, 0)\\)",
+        "\\((6, 0)\\)",
+        "\\((0, 3)\\)",
+        "\\((2, 1)\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Minimize \\(3x + 4\\) over the feasible set \\(\\{1, 2, 5\\}\\). What is the optimal value?",
+      "explanation": "The three feasible values are \\(3\\cdot 1 + 4 = 7\\), \\(10\\), and \\(19\\). The smallest is 7, attained at \\(x = 1\\). That number is the optimal value. The point \\(x = 1\\) is a solution, not the value. The number 19 is the largest feasible value, which would be the answer to the maximization. The number 4 is the constant term, not a feasible objective value.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "preview": [
+        "optimization-problem-classes"
+      ],
+      "answer": 7.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "optimization-problem-formulation-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "For \\(f(t) = e^{t}\\) on the whole real line, the minimization of \\(f\\)",
+      "explanation": "Every value \\(e^{t}\\) is positive, and the values get arbitrarily close to 0 as \\(t\\) goes to \\(-\\infty\\), so the infimum is 0. No real \\(t\\) makes the exponential equal 0, so the argmin set is empty: there is an optimal value and no minimizer. The point \\(t = 0\\) gives the value 1, which is not the infimum. The domain is nonempty, so the problem is feasible.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a rising curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.4 52,132 55.1,131.6 58.1,131.1 61.1,130.7 64.1,130.2 67.2,129.8 70.2,129.3 73.2,128.8 76.2,128.3 79.2,127.8 82.3,127.3 85.3,126.8 88.3,126.3 91.3,125.7 94.4,125.2 97.4,124.6 100.4,124.1 103.4,123.5 106.4,122.9 109.5,122.3 112.5,121.7 115.5,121.1 118.5,120.4 121.6,119.8 124.6,119.1 127.6,118.5 130.6,117.8 133.6,117.1 136.7,116.4 139.7,115.7 142.7,114.9 145.7,114.2 148.8,113.4 151.8,112.6 154.8,111.9 157.8,111.1 160.8,110.2 163.9,109.4 166.9,108.6 169.9,107.7 172.9,106.8 176,105.9 179,105 182,104.1 185,103.1 188,102.2 191.1,101.2 194.1,100.2 197.1,99.2 200.1,98.2 203.2,97.1 206.2,96 209.2,94.9 212.2,93.8 215.2,92.7 218.3,91.5 221.3,90.4 224.3,89.2 227.3,88 230.4,86.7 233.4,85.5 236.4,84.2 239.4,82.9 242.4,81.5 245.5,80.2 248.5,78.8 251.5,77.4 254.5,76 257.6,74.5 260.6,73 263.6,71.5 266.6,70 269.6,68.4 272.7,66.8 275.7,65.2 278.7,63.5 281.7,61.8 284.8,60.1 287.8,58.4 290.8,56.6 293.8,54.8 296.8,52.9 299.9,51 302.9,49.1 305.9,47.2 308.9,45.2 312,43.2 315,41.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "preview": [
+        "local-global-minima"
+      ],
+      "options": [
+        "has a solution at \\(t = 0\\)",
+        "is infeasible",
+        "has optimal value 0 and has no solution",
+        "has optimal value 1, attained at \\(t = 0\\)"
+      ],
+      "correct_index": 2,
+      "version": 1
+    }
+  ]
+}

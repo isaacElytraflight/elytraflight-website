@@ -1,0 +1,29 @@
+{
+  "id": "optimization-problem-classes",
+  "title": "LP, QP, convex and nonlinear programs",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a symmetric array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   b</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   c</text></svg>",
+      "figure_alt": "A 2 by 2 array with matching off-diagonal labels.",
+      "body_md": "Not every optimization problem is the same kind of object. A linear program has an affine objective and affine constraints. A quadratic program keeps the affine constraints and allows a quadratic objective. A convex program is the wider class in which the objective is a convex function and the feasible set is a convex set. Anything else is a general nonlinear program.\n\nThe quadratic case needs one algebraic cleanup. A square matrix and its symmetric part define the same quadratic form, because the skew part contributes nothing to \\(x^T Q x\\). Eigenvalue tests are run on the symmetric part. If that matrix is positive semidefinite, the quadratic objective is convex. If it is indefinite, the quadratic program is not a convex program, even when every constraint is linear.\n\nConvexity is what makes a local solution enough. On a convex problem every local minimizer is global, so an algorithm that stops at a local solution has solved the problem. A nonconvex quadratic can bend up in one direction and down in another, and a point that is best nearby need not be best on the whole feasible set."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The symmetric part of \\(Q\\) is \\((Q + Q^T)/2\\), and \\(x^T Q x = x^T ((Q + Q^T)/2) x\\). The form \\(a x^2 + b xy + c y^2\\) belongs to the symmetric matrix with diagonal entries \\(a\\) and \\(c\\) and off-diagonal entries \\(b/2\\). Its determinant is \\(ac - b^2/4\\). A quadratic objective with a positive semidefinite Hessian, and a convex feasible set, is a convex program. Affine inequalities define a convex set, so a quadratic program is convex exactly when its Hessian is positive semidefinite."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take the form \\(4x^2 + 14 xy + 9y^2\\). The cross term is \\(14xy\\), so the symmetric matrix has off-diagonal entries \\(7\\) and diagonal entries \\(4\\) and \\(9\\). The symmetrized corner is 7. The determinant of that matrix is \\(4\\cdot 9 - 49 = -13\\), which is negative, so the form is indefinite.\n\nThe same expression with the cross term removed, \\(4x^2 + 9y^2\\), has a diagonal Hessian of second derivatives with positive entries, and it is strictly convex. The cross term is the whole difference between a convex quadratic and an indefinite one. Symmetrizing did not create that difference. It only put the form into a matrix whose eigenvalues are allowed to decide."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "A linear objective with a quadratic constraint is not a quadratic program. The quadratic piece has to sit in the objective, and the constraints have to stay affine. Reading eigenvalues of an unsymmetrized matrix answers a different question, because those eigenvalues need not even be real. A positive diagonal is not positive semidefiniteness: the matrix with diagonal entries \\(2\\) and \\(2\\) and off-diagonal entries \\(3\\) has a negative determinant. Calling a problem convex because the objective is a square misses the feasible set. The complement of a disk is not convex."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Linear programs are rewritten in a standard form and then searched at basic feasible solutions. Convex quadratic programs include least-squares fits and the training problem of a linear classifier with a squared-norm objective. The second-order test for a local minimizer uses the same Hessian, and for a convex objective that local test becomes a global one."
+    }
+  ]
+}

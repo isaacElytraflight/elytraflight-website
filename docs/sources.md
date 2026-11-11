@@ -46,6 +46,8 @@ NB3 uses the same references for derivatives. `boyd-cvx` supplies the scope for 
 
 NB4 uses the same references for convex functions and for computing derivatives. `boyd-cvx` supplies the scope for the chord definition and the first- and second-order characterizations. `nw-numopt` supplies the scope for finite-difference truncation and round-off, and for automatic differentiation: computational graphs, forward mode, reverse mode, and Hessian-vector products. The small-network skill is reverse mode applied to a two-layer loss. No section is quoted, and no exercise, weight set, or parameter set is reused.
 
+NB5 uses the same references for problem formulation and unconstrained optimality. `boyd-cvx` supplies the scope for the decision variable, the objective, the feasible set, the optimal value, local and global minimizers, and the classes LP, QP, and convex programs. `nw-numopt` supplies the scope for existence on compact or coercive problems, the first- and second-order necessary and sufficient conditions, classification of stationary points, the convex case in which stationarity is global, and minimization of a quadratic. No section is quoted, and no exercise or parameter set is reused.
+
 ## Section map for B7
 
 Scope only. The skill records already point at the sections. No wording, problems, parameter sets, or figures were taken from them. Learner-facing text does not name the works below.

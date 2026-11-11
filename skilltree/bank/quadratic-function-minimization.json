@@ -1,0 +1,243 @@
+{
+  "skill_id": "quadratic-function-minimization",
+  "version": 1,
+  "questions": [
+    {
+      "id": "quadratic-function-minimization-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For \\(f(x) = \\tfrac12 x^T A x + b^T x + c\\) with \\(A\\) symmetric, the gradient is",
+      "explanation": "The quadratic term contributes \\(A x\\) when \\(A\\) is symmetric, and the linear term contributes \\(b\\). The constant disappears. Keeping the one half in the gradient double-counts the bookkeeping that the one half was invented to cancel. Dropping \\(b\\) ignores the linear term. A row \\(x^T A\\) is the transpose of \\(A x\\) only in the scalar sense of a dot product, and it is not the column gradient, and \\(c\\) does not belong in it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a symmetric array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   b</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   c</text></svg>",
+      "figure_alt": "A 2 by 2 array with matching off-diagonal labels.",
+      "options": [
+        "\\(A x + b\\)",
+        "\\(A x\\)",
+        "\\(\\tfrac12 A x + b\\)",
+        "\\(x^T A + c\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(A = \\operatorname{diag}(2, 4)\\), \\(b = (-2, -8)\\), and \\(c = 5\\), and let \\(f(x) = \\tfrac12 x^T A x + b^T x + c\\). What is the minimum value?",
+      "explanation": "The stationarity equation \\(A x = -b\\) is \\((2x, 4y) = (2, 8)\\), so the minimizer is \\((1, 2)\\). Because \\(A\\) is positive definite this critical point is the unique global minimizer. The value is \\(1^2 + 2\\cdot 2^2 - 2\\cdot 1 - 8\\cdot 2 + 5 = 1 + 8 - 2 - 16 + 5 = -4\\). The same number is \\(c - \\tfrac12 b^T A^{-1} b = 5 - 9\\). Reporting 5 gives the constant term. Reporting 1 or 2 gives a coordinate. Reporting 4 drops the sign.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "answer": -4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "If the symmetric matrix \\(A\\) is positive definite, the quadratic has",
+      "explanation": "Positive definiteness makes \\(A\\) invertible and the function strictly convex and coercive. The gradient equation \\(A x + b = 0\\) has one solution, and that solution is the unique global minimizer for every \\(b\\), including a nonzero \\(b\\). The function tends to infinity at infinity, so it is bounded below. A whole space of minimizers would require a singular Hessian.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "options": [
+        "a minimizer only when \\(b = 0\\)",
+        "exactly one minimizer, the solution of \\(A x = -b\\)",
+        "no lower bound",
+        "every point as a minimizer"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "For \\(a > 0\\), write the global minimum value of \\(\\tfrac12 a t^2 + b t + c\\) as an expression in a, b, and c.",
+      "explanation": "The minimizer is \\(t = -b/a\\). Substituting and simplifying gives \\(c - b^2/(2a)\\). The same identity is \\(c + \\tfrac12 b t^\\star\\), because \\(\\tfrac12 a (t^\\star)^2 + b t^\\star = \\tfrac12 b t^\\star\\) once \\(a t^\\star = -b\\).\n• \\(c - b^2/a\\) forgets the one half.\n• \\(c + b^2/(2a)\\) has the wrong sign: the linear term lowers a positive definite bowl.\n• \\(-b/a\\) is the minimizer, not the minimum value.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"4.2,120.1 7.2,121.2 10.2,122.1 13.2,123.1 16.2,124 19.3,124.8 22.3,125.7 25.3,126.4 28.3,127.1 31.4,127.8 34.4,128.5 37.4,129.1 40.4,129.6 43.4,130.1 46.5,130.6 49.5,131 52.5,131.4 55.5,131.7 58.6,132 61.6,132.3 64.6,132.5 67.6,132.6 70.6,132.8 73.7,132.8 76.7,132.9 79.7,132.8 82.7,132.8 85.8,132.7 88.8,132.6 91.8,132.4 94.8,132.1 97.8,131.9 100.9,131.6 103.9,131.2 106.9,130.8 109.9,130.3 113,129.9 116,129.3 119,128.7 122,128.1 125,127.5 128.1,126.8 131.1,126 134.1,125.2 137.1,124.4 140.2,123.5 143.2,122.6 146.2,121.6 149.2,120.6 152.2,119.6 155.3,118.5 158.3,117.3 161.3,116.1 164.3,114.9 167.4,113.6 170.4,112.3 173.4,111 176.4,109.6 179.4,108.1 182.5,106.6 185.5,105.1 188.5,103.5 191.5,101.9 194.6,100.3 197.6,98.5 200.6,96.8 203.6,95 206.6,93.2 209.7,91.3 212.7,89.4 215.7,87.4 218.7,85.4 221.8,83.4 224.8,81.3 227.8,79.1 230.8,76.9 233.8,74.7 236.9,72.4 239.9,70.1 242.9,67.8 245.9,65.4 249,62.9 252,60.5 255,57.9 258,55.4 261,52.7 264.1,50.1 267.1,47.4 270.1,44.6 273.1,41.8 276.2,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "answer": "c-b^2/(2*a)",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.5,
+          "max": 4.0
+        },
+        {
+          "name": "b",
+          "min": -4.0,
+          "max": 4.0
+        },
+        {
+          "name": "c",
+          "min": -4.0,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "c-(b*b)/(2*a)",
+        "c-b**2/(2*a)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r2-q2",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order used to minimize a quadratic written with a possibly unsymmetric matrix.",
+      "explanation": "The symmetric part is the Hessian the derivative formula uses, and it does not change the function. Stationarity is the linear equation \\(A x + b = 0\\). Positive definiteness gives existence, uniqueness, and an algorithm: solve the system. Semidefiniteness leaves an existence question, and the system is solvable exactly when \\(-b\\) is in the column space. Solving before symmetrizing uses a matrix the gradient does not see.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a symmetric array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   b</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   c</text></svg>",
+      "figure_alt": "A 2 by 2 array with matching off-diagonal labels.",
+      "steps": [
+        "Replace the quadratic matrix by its symmetric part.",
+        "Set the gradient, \\(A x + b\\), equal to zero.",
+        "If \\(A\\) is positive definite, solve the linear system \\(A x = -b\\).",
+        "If \\(A\\) is only semidefinite, check that \\(-b\\) lies in the column space before claiming a minimizer."
+      ],
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Let \\(f(x, y) = x^2 - 4x + 3\\), which is the quadratic with Hessian \\(\\operatorname{diag}(2, 0)\\) and linear term \\((-4, 0)\\). What is the minimum value?",
+      "explanation": "The gradient in \\(x\\) is \\(2x - 4\\), and the gradient in \\(y\\) is 0. Stationarity holds for \\(x = 2\\) and every \\(y\\). The value is \\(4 - 8 + 3 = -1\\), and it does not depend on \\(y\\). The Hessian is positive semidefinite and \\(-b = (4, 0)\\) lies in its column space, so minimizers exist and they are not unique. Reporting 2 gives the constrained coordinate. Reporting 3 gives the constant term. Reporting \\(-4\\) gives the linear coefficient.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "answer": -1.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r3-q1",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which of these quadratics, written with a symmetric Hessian \\(A\\), have a unique global minimizer?",
+      "explanation": "The identity is positive definite, so \\(A x = -b\\) has one solution and it is the unique minimizer. The matrix with eigenvalues 3 and 1 is positive definite as well, and \\(b = 0\\) puts the minimizer at the origin.\n• A zero Hessian and a zero linear term is the constant 4. Every point is a minimizer.\n• With \\(A = \\operatorname{diag}(2, 0)\\) and \\(b = (0, 1)\\), the partial derivative in the second coordinate is 1 and never vanishes, so there is no minimizer.\n• Eigenvalues 1 and \\(-1\\) make an indefinite quadratic, unbounded below, with a saddle at the origin.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a symmetric array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   b</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   c</text></svg>",
+      "figure_alt": "A 2 by 2 array with matching off-diagonal labels.",
+      "options": [
+        "\\(A = I\\) and \\(b = (1, -2)\\).",
+        "\\(A = 0\\), \\(b = 0\\), and \\(c = 4\\).",
+        "\\(A = \\operatorname{diag}(2, 0)\\) and \\(b = (0, 1)\\).",
+        "\\(A = \\begin{bmatrix} 2 & 1 \\\\ 1 & 2 \\end{bmatrix}\\) and \\(b = 0\\).",
+        "\\(A = \\operatorname{diag}(1, -1)\\) and \\(b = 0\\)."
+      ],
+      "correct_indices": [
+        0,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r3-q2",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note claims that \\(f(x, y) = \\tfrac12 x^2 + y\\) has a minimizer because its Hessian is positive semidefinite. Exactly one step is false.",
+      "explanation": "The Hessian is positive semidefinite, a positive semidefinite Hessian makes a quadratic convex, and the partial derivative in \\(y\\) really is 1. The false step is the existence claim. Convexity gives a lower bound by any tangent, and it does not guarantee that the bound is attained. Here the linear term \\((0, 1)\\) is outside the column space, the gradient never vanishes, and sending \\(y\\) to \\(-\\infty\\) drives \\(f\\) to \\(-\\infty\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a decreasing curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "steps": [
+        "The Hessian is diagonal with entries 1 and 0, so it is positive semidefinite.",
+        "Positive semidefiniteness makes the quadratic convex.",
+        "Every convex quadratic attains a minimizer, whether or not the linear term lies in the range of the Hessian.",
+        "The partial derivative with respect to \\(y\\) equals 1 and never vanishes."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "A convex quadratic attains a minimizer only when the linear term lies in the column space of the Hessian.",
+        "The Hessian of this function is not positive semidefinite.",
+        "The partial derivative in \\(y\\) does vanish."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A quadratic with symmetric Hessian \\(A\\) is coercive exactly when",
+      "explanation": "Positive definiteness gives a uniform lower bound \\(x^T A x \\ge \\lambda_{\\min} \\lVert x \\rVert^2\\) with \\(\\lambda_{\\min} > 0\\), which beats any linear term at infinity. Positive semidefiniteness still allows a direction of zero curvature, and a linear term along that direction, or even a zero linear term, keeps the function from tending to infinity in that direction. The vectors \\(b\\) and the constant \\(c\\) never create coercivity on their own.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"4.2,120.1 7.2,121.2 10.2,122.1 13.2,123.1 16.2,124 19.3,124.8 22.3,125.7 25.3,126.4 28.3,127.1 31.4,127.8 34.4,128.5 37.4,129.1 40.4,129.6 43.4,130.1 46.5,130.6 49.5,131 52.5,131.4 55.5,131.7 58.6,132 61.6,132.3 64.6,132.5 67.6,132.6 70.6,132.8 73.7,132.8 76.7,132.9 79.7,132.8 82.7,132.8 85.8,132.7 88.8,132.6 91.8,132.4 94.8,132.1 97.8,131.9 100.9,131.6 103.9,131.2 106.9,130.8 109.9,130.3 113,129.9 116,129.3 119,128.7 122,128.1 125,127.5 128.1,126.8 131.1,126 134.1,125.2 137.1,124.4 140.2,123.5 143.2,122.6 146.2,121.6 149.2,120.6 152.2,119.6 155.3,118.5 158.3,117.3 161.3,116.1 164.3,114.9 167.4,113.6 170.4,112.3 173.4,111 176.4,109.6 179.4,108.1 182.5,106.6 185.5,105.1 188.5,103.5 191.5,101.9 194.6,100.3 197.6,98.5 200.6,96.8 203.6,95 206.6,93.2 209.7,91.3 212.7,89.4 215.7,87.4 218.7,85.4 221.8,83.4 224.8,81.3 227.8,79.1 230.8,76.9 233.8,74.7 236.9,72.4 239.9,70.1 242.9,67.8 245.9,65.4 249,62.9 252,60.5 255,57.9 258,55.4 261,52.7 264.1,50.1 267.1,47.4 270.1,44.6 273.1,41.8 276.2,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "options": [
+        "\\(A\\) is positive semidefinite",
+        "\\(b\\) is zero",
+        "\\(A\\) is positive definite",
+        "\\(c\\) is positive"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Minimize \\((x - 1)^2 + (x - 3)^2\\) over the real line. What is the minimum value?",
+      "explanation": "Expanding gives \\(2x^2 - 8x + 10\\). The derivative \\(4x - 8\\) vanishes at \\(x = 2\\), and the second derivative is positive. The value is \\((2 - 1)^2 + (2 - 3)^2 = 2\\). This is a one-parameter least-squares fit of the two numbers 1 and 3, and the normal equation \\(2x = 4\\) is the same stationarity condition. Reporting 4 gives the sum of squares at \\(x = 0\\). Reporting 8 gives the linear coefficient. Reporting 1 or 3 gives a data value.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"4.2,120.1 7.2,121.2 10.2,122.1 13.2,123.1 16.2,124 19.3,124.8 22.3,125.7 25.3,126.4 28.3,127.1 31.4,127.8 34.4,128.5 37.4,129.1 40.4,129.6 43.4,130.1 46.5,130.6 49.5,131 52.5,131.4 55.5,131.7 58.6,132 61.6,132.3 64.6,132.5 67.6,132.6 70.6,132.8 73.7,132.8 76.7,132.9 79.7,132.8 82.7,132.8 85.8,132.7 88.8,132.6 91.8,132.4 94.8,132.1 97.8,131.9 100.9,131.6 103.9,131.2 106.9,130.8 109.9,130.3 113,129.9 116,129.3 119,128.7 122,128.1 125,127.5 128.1,126.8 131.1,126 134.1,125.2 137.1,124.4 140.2,123.5 143.2,122.6 146.2,121.6 149.2,120.6 152.2,119.6 155.3,118.5 158.3,117.3 161.3,116.1 164.3,114.9 167.4,113.6 170.4,112.3 173.4,111 176.4,109.6 179.4,108.1 182.5,106.6 185.5,105.1 188.5,103.5 191.5,101.9 194.6,100.3 197.6,98.5 200.6,96.8 203.6,95 206.6,93.2 209.7,91.3 212.7,89.4 215.7,87.4 218.7,85.4 221.8,83.4 224.8,81.3 227.8,79.1 230.8,76.9 233.8,74.7 236.9,72.4 239.9,70.1 242.9,67.8 245.9,65.4 249,62.9 252,60.5 255,57.9 258,55.4 261,52.7 264.1,50.1 267.1,47.4 270.1,44.6 273.1,41.8 276.2,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "preview": [
+        "linear-least-squares"
+      ],
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r4-q2",
+      "round": 4,
+      "type": "symbolic",
+      "prompt": "Along a line, a quadratic restricts to \\(\\tfrac12 a t^2 + g t\\) with \\(a > 0\\). Write the step \\(t\\) that minimizes it, as an expression in g and a.",
+      "explanation": "The derivative in the step is \\(a t + g\\). It vanishes at \\(t = -g/a\\). The second derivative \\(a\\) is positive, so the critical step is a minimum. In several variables the same ratio is \\(-g_{\\mathrm{dir}} / a_{\\mathrm{dir}}\\), with \\(g_{\\mathrm{dir}}\\) the directional derivative and \\(a_{\\mathrm{dir}}\\) the directional second derivative.\n• \\(g/a\\) steps uphill.\n• \\(-g\\) ignores the curvature along the line.\n• \\(-a/g\\) inverts the ratio.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "preview": [
+        "exact-line-search-quadratic"
+      ],
+      "answer": "-g/a",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.5,
+          "max": 4.0
+        },
+        {
+          "name": "g",
+          "min": -4.0,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "-(g/a)",
+        "-1*g/a"
+      ],
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The map \\(w \\mapsto \\tfrac12 \\lVert w \\rVert^2\\) is",
+      "explanation": "The Hessian is the identity, which is positive definite, so the function is strictly convex and coercive. The gradient is \\(w\\), which vanishes only at the origin, and that point is the unique global minimizer. The function is a squared norm, not a linear function, and it is bounded below by zero. The identity is invertible, so the Hessian is not singular.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "preview": [
+        "svm-quadratic-program"
+      ],
+      "options": [
+        "unbounded below",
+        "linear",
+        "strictly convex, with a unique minimizer at the origin",
+        "singular in its Hessian"
+      ],
+      "correct_index": 2,
+      "version": 1
+    }
+  ]
+}

@@ -199,3 +199,13 @@ Skills: `convex-functions`, `convexity-first-order`, `convexity-second-order`, `
 Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## NB5 — nlo-nb5
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `optimization-problem-formulation`, `graphical-2d-optimization`, `optimization-problem-classes`, `local-global-minima`, `existence-of-minimizers`, `first-order-optimality`, `second-order-optimality`, `stationary-point-classification`, `convex-optimality-global`, `quadratic-function-minimization`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

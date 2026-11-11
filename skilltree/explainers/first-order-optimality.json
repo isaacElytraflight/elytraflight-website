@@ -1,0 +1,29 @@
+{
+  "id": "first-order-optimality",
+  "title": "First-order necessary condition",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "body_md": "A differentiable function cannot have a local minimizer at an interior point where the gradient is nonzero. The negative gradient is a descent direction, and a short step in that direction stays inside the feasible set and lowers the value. The necessary condition is Fermat's rule: at an interior local minimizer the gradient is the zero vector.\n\nA point where the gradient vanishes is called stationary. The rule says every interior local minimizer is stationary. It does not say every stationary point is a minimizer. A stationary point may be a local maximizer or a saddle, and a local minimizer need not be global. The rule is a filter. It produces a list of candidates, and some other test has to sort the list.\n\nThe interior hypothesis is doing real work. On a closed interval the minimum of a linear function sits at an endpoint, where the derivative need not vanish. The descent direction points out of the set, so the feasible points nearby are not lower. Constrained problems replace the zero-gradient equation by a balance against the constraint gradients. Forcing the objective gradient to vanish anyway is the unconstrained test applied in the wrong place."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "If \\(x^\\star\\) is an interior local minimizer and \\(f\\) is differentiable there, then \\(\\nabla f(x^\\star) = 0\\). In one variable this is \\(f'(t^\\star) = 0\\). A point is stationary when that equation holds. If \\(\\nabla f(x) \\ne 0\\) and \\(x\\) is interior, then \\(x\\) is not a local minimizer. For \\(f(x) = \\tfrac12 x^T A x + b^T x\\) with \\(A\\) symmetric, stationarity is the linear equation \\(A x + b = 0\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Let \\(f(t) = (t - 5)^2 + 9\\). The derivative is \\(2(t - 5)\\), which vanishes at \\(t = 5\\) and nowhere else. The interior slope vanishes at height 9, because \\(f(5) = 9\\). The second derivative is the positive constant 2, so the stationary point is a strict local minimizer. The function is a square plus a constant, so the same point is the unique global minimizer and the minimum value is 9.\n\nA different base point, say \\(t = 1\\), has derivative \\(2(1 - 5) = -8\\), which is not zero. That point is interior and is not a minimizer. Moving a little to the right decreases the function. The constant 9 never enters the derivative, so it cannot create or destroy stationarity."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Setting the derivative to zero at a boundary point can miss the minimizer, as with \\(f(t) = t\\) on \\([0, 1]\\), whose minimum is at 0 and whose derivative is 1. The opposite mistake is to treat every stationary point as a minimizer. The cubic \\(t^3 - 3t\\) is stationary at \\(t = \\pm 1\\), and only one of those points is a local minimizer, and that one is not global. A third mistake is to solve the derivative equation and report a coordinate when the question asks for the function value, or the reverse."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The second-order test reads the Hessian at each stationary point and sorts minimizers, maximizers, and saddles. For a convex function the first-order condition is already sufficient for a global minimizer. On an equality constraint the same idea becomes a linear dependence between the objective gradient and the constraint gradients."
+    }
+  ]
+}
