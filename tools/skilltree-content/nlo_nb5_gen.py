@@ -436,7 +436,7 @@ def bank_local():
             "\n"
             r"• At \(t = 0\) the value is 1, and nearby points toward \(\pm 1\) have smaller values, so \(t = 0\) is not a local minimizer."
             "\n"
-            r"• At \(t = 2\) the value is 9, and \(t = 1\) is already smaller, so \(t = 2\) is not a local minimizer.",
+            r"• At \(t = 2\) the value is 9. A small step \(h\) to the left gives \(f(2 - h) = (3 - 4h + h^2)^2\), and for every \(0 < h < 4\) that square is strictly less than 9. Every ball around \(t = 2\) contains such a step, so \(t = 2\) is not a local minimizer. The smaller value at the distant point \(t = 1\) is a global comparison and is not the reason.",
             WIGGLE, A_WIGGLE)
     b.order(2,
             "Put these steps in the order used to certify a strict global minimizer.",

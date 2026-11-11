@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T21:21:53.263253Z",
+  "generated": "2026-11-11T21:32:09.062560Z",
   "skills": {
-    "file": "skills.f36f0582.json",
-    "hash": "f36f0582"
+    "file": "skills.bcbdae35.json",
+    "hash": "bcbdae35"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -1436,8 +1436,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "43f837a5",
-      "file": "banks/local-global-minima.43f837a5.json"
+      "hash": "c2b237f2",
+      "file": "banks/local-global-minima.c2b237f2.json"
     },
     "loop-gain": {
       "version": 3,
