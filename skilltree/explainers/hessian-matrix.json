@@ -1,0 +1,29 @@
+{
+  "id": "hessian-matrix",
+  "title": "Second derivatives and the Hessian",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-derivative positions</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">xx   xy</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">yx   yy</text></svg>",
+      "figure_alt": "A 2 by 2 array labeled by second-derivative positions.",
+      "body_md": "The gradient records first derivatives. Differentiate it again and the result is a matrix. The entry in row \\(i\\) and column \\(j\\) is the partial derivative of the \\(i\\)-th partial derivative with respect to the \\(j\\)-th coordinate. That matrix is the Hessian.\n\nWhen the second partial derivatives are continuous, the order of differentiation does not matter, so the Hessian is symmetric. A polynomial has continuous derivatives of every order, and its mixed partials agree. There are functions whose mixed partials exist at a point and disagree, so the continuity hypothesis is not decorative.\n\nThe Hessian measures curvature. For a direction \\(d\\), the second derivative of the slice \\(t \\mapsto f(x + t d)\\) at \\(t = 0\\) is the quadratic form \\(d^{T} H d\\). A positive value means the slice is convex upward along that line. The trace and the determinant summarize the matrix, but the quadratic form is the number the slice actually feels."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The entries and the slice curvature are\n\\[\n(H_f)_{ij} = \\frac{\\partial^2 f}{\\partial x_i \\partial x_j}, \\qquad \\frac{d^2}{dt^2} f(x + t d)\\Big|_{t=0} = d^{T} H_f(x)\\, d.\n\\]\nIf the second partials are continuous, then \\(H_f(x)^{T} = H_f(x)\\). The Hessian is the Jacobian of the gradient map. A linear function has Hessian equal to the zero matrix."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "At the sample point (7, 9), let \\(f(x, y) = x^2 y\\). The first partials are \\(2 x y = 126\\) and \\(x^2 = 49\\). Differentiating again, the pure second partial in \\(x\\) is \\(2y = 18\\), the mixed partial is \\(2x = 14\\), and the pure second partial in \\(y\\) is 0. The Hessian is\n\\[\n\\begin{bmatrix} 18 & 14 \\\\ 14 & 0 \\end{bmatrix}.\n\\]\nOn \\(v = (1, 1)\\) the quadratic form is \\(18 + 14 + 14 + 0 = 46\\). Both differentiation orders produced the mixed entry 14."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The gradient is not the Hessian. The trace is not the quadratic form on an arbitrary vector; it is the sum of the quadratic forms on the coordinate directions. Forgetting a factor from a product rule makes mixed partials look unequal when the function is a polynomial and they are equal. A linear function has second derivatives equal to zero, so its Hessian is the zero matrix rather than the identity. The determinant's sign says whether the quadratic form is indefinite, and dropping the minus in the \\(2 \\times 2\\) determinant formula loses that sign."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The second-order Taylor model uses this quadratic form, with a factor one half. The fundamental theorem along a segment writes a gradient increment as an integral of the Hessian times the direction. Matrix calculus then specializes the Hessian for \\(x^{T} A x\\), where symmetry of \\(A\\) decides whether the factor in the gradient is \\(2A\\) or \\(A + A^{T}\\)."
+    }
+  ]
+}

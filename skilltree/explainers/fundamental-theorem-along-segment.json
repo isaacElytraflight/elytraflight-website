@@ -1,0 +1,29 @@
+{
+  "id": "fundamental-theorem-along-segment",
+  "title": "Fundamental theorem of calculus along a segment",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>segment on a dashed line</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment lies on a longer dashed line.",
+      "body_md": "The ordinary fundamental theorem says that a derivative integrated from one end of an interval to the other recovers the increment of the function. The same fact applies to a function of several variables once the domain of integration is reduced to a segment.\n\nParametrize the segment from \\(x\\) to \\(y\\) by \\(x + t(y - x)\\), with \\(t\\) running from 0 to 1. The composition of \\(f\\) with that parametrization is an ordinary function of \\(t\\). Its derivative, by the chain rule, is the gradient at the moving point dotted with the fixed vector \\(y - x\\). Integrating that derivative from 0 to 1 recovers \\(f(y) - f(x)\\).\n\nApply the same argument to each component of the gradient. The derivative of the gradient is the Hessian, so the integrand becomes the Hessian at the moving point times \\(y - x\\). The integral recovers the gradient increment. Nothing in the parametrization requires the segment to be parallel to an axis."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "With the gradient continuous on the segment,\n\\[\nf(y) - f(x) = \\int_0^1 \\nabla f\\bigl(x + t(y - x)\\bigr)^{T} (y - x)\\, dt.\n\\]\nWith the Hessian continuous on the segment,\n\\[\n\\nabla f(y) - \\nabla f(x) = \\int_0^1 H_f\\bigl(x + t(y - x)\\bigr)\\, (y - x)\\, dt.\n\\]\nIf the integrand is constant, the integral collapses to that constant. A linear \\(f\\) makes the first integrand constant. A quadratic \\(f\\) makes the second integrand constant."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(f(x, y) = x + y^2\\) along the vertical segment at x = 8, from height 6 to height 11. The endpoints give\n\\[\nf(8, 11) - f(8, 6) = (8 + 121) - (8 + 36) = 85.\n\\]\nThe direction is \\((0, 5)\\) and the gradient is \\((1, 2y)\\). Their inner product is \\(10 y\\). Along the segment, \\(y = 6 + 5t\\), so the integrand is \\(10(6 + 5t) = 60 + 50 t\\). Integrating from 0 to 1 gives \\(60 + 25 = 85\\), matching the increment. The first coordinate cancelled because the segment does not move in \\(x\\)."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The integrand is not \\(f\\) itself, and it is not the gradient alone. The direction \\(y - x\\) stays outside the gradient as a dot factor. Evaluating the gradient only at the endpoints gives a mean-value statement after an extra argument; it is not this integral identity. A gradient increment needs the Hessian in the integrand. An axis-aligned picture is only a picture: the same algebra covers a slanted segment."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The exact Taylor expansion with an intermediate Hessian is what you get by writing the remainder of the linear model through this integral and then applying the mean value theorem. A Lipschitz gradient is the case where the Hessian factor is bounded, so the integral produces a quadratic upper bound. A secant equation asks a constant matrix to reproduce the integrated gradient change."
+    }
+  ]
+}

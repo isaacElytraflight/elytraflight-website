@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-10T21:15:00.686249Z",
+  "generated": "2026-11-11T17:46:41.108293Z",
   "skills": {
-    "file": "skills.3e523044.json",
-    "hash": "3e523044"
+    "file": "skills.138990df.json",
+    "hash": "138990df"
   },
   "collections": {
     "file": "collections.4ee0faec.json",
@@ -515,6 +515,18 @@
       "hash": "3ef02c4a",
       "file": "banks/diff-intro.3ef02c4a.json"
     },
+    "differentiability-multivariable": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d6cd7984",
+      "file": "banks/differentiability-multivariable.d6cd7984.json"
+    },
     "diffusion": {
       "version": 1,
       "questionCount": 12,
@@ -586,6 +598,18 @@
       },
       "hash": "8c449146",
       "file": "banks/direct-h.8c449146.json"
+    },
+    "directional-derivative": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "afa383cb",
+      "file": "banks/directional-derivative.afa383cb.json"
     },
     "discrete-time": {
       "version": 1,
@@ -875,6 +899,18 @@
       "hash": "36d27dc2",
       "file": "banks/ft.36d27dc2.json"
     },
+    "fundamental-theorem-along-segment": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d82810de",
+      "file": "banks/fundamental-theorem-along-segment.d82810de.json"
+    },
     "gbw": {
       "version": 3,
       "questionCount": 12,
@@ -911,6 +947,18 @@
       "hash": "4d1b5cdb",
       "file": "banks/gm.4d1b5cdb.json"
     },
+    "gradient-partial-derivatives": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b322e495",
+      "file": "banks/gradient-partial-derivatives.b322e495.json"
+    },
     "half-circuit": {
       "version": 1,
       "questionCount": 12,
@@ -922,6 +970,18 @@
       },
       "hash": "d6384010",
       "file": "banks/half-circuit.d6384010.json"
+    },
+    "hessian-matrix": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "06548f67",
+      "file": "banks/hessian-matrix.06548f67.json"
     },
     "high-load": {
       "version": 1,
@@ -1006,6 +1066,18 @@
       },
       "hash": "891e27f3",
       "file": "banks/inverting.891e27f3.json"
+    },
+    "jacobian-chain-rule": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d83e22a9",
+      "file": "banks/jacobian-chain-rule.d83e22a9.json"
     },
     "junction-cap": {
       "version": 1,
@@ -1198,6 +1270,18 @@
       },
       "hash": "cdbf7c0c",
       "file": "banks/lyapunov.cdbf7c0c.json"
+    },
+    "matrix-calculus-gradients": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "6250e062",
+      "file": "banks/matrix-calculus-gradients.6250e062.json"
     },
     "miller": {
       "version": 1,
@@ -1955,6 +2039,30 @@
       "hash": "59a45fdc",
       "file": "banks/sys-id.59a45fdc.json"
     },
+    "taylor-approximation-multivariable": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7f703a36",
+      "file": "banks/taylor-approximation-multivariable.7f703a36.json"
+    },
+    "taylor-exact-mean-value": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "387836cc",
+      "file": "banks/taylor-exact-mean-value.387836cc.json"
+    },
     "tf": {
       "version": 3,
       "questionCount": 12,
@@ -2281,6 +2389,12 @@
       "file": "explainers/diff-intro.83b587a8.json",
       "sectionCount": 5
     },
+    "differentiability-multivariable": {
+      "hash": "a8142dc9",
+      "file": "explainers/differentiability-multivariable.a8142dc9.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "diffusion": {
       "hash": "5c7c0cac",
       "file": "explainers/diffusion.5c7c0cac.json",
@@ -2310,6 +2424,12 @@
       "hash": "655321a2",
       "file": "explainers/direct-h.655321a2.json",
       "sectionCount": 5
+    },
+    "directional-derivative": {
+      "hash": "3d337f4e",
+      "file": "explainers/directional-derivative.3d337f4e.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "discrete-time": {
       "hash": "8c80d752",
@@ -2439,6 +2559,12 @@
       "file": "explainers/ft.89419ce2.json",
       "sectionCount": 5
     },
+    "fundamental-theorem-along-segment": {
+      "hash": "f507f9f4",
+      "file": "explainers/fundamental-theorem-along-segment.f507f9f4.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "gbw": {
       "hash": "721abc00",
       "file": "explainers/gbw.721abc00.json",
@@ -2455,10 +2581,22 @@
       "file": "explainers/gm.85315815.json",
       "sectionCount": 5
     },
+    "gradient-partial-derivatives": {
+      "hash": "6d744cb2",
+      "file": "explainers/gradient-partial-derivatives.6d744cb2.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "half-circuit": {
       "hash": "8239d389",
       "file": "explainers/half-circuit.8239d389.json",
       "sectionCount": 5
+    },
+    "hessian-matrix": {
+      "hash": "ad50efed",
+      "file": "explainers/hessian-matrix.ad50efed.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "high-load": {
       "hash": "cb6669ca",
@@ -2496,6 +2634,12 @@
       "hash": "9f1721ff",
       "file": "explainers/inverting.9f1721ff.json",
       "sectionCount": 5
+    },
+    "jacobian-chain-rule": {
+      "hash": "c0ffdd0b",
+      "file": "explainers/jacobian-chain-rule.c0ffdd0b.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "junction-cap": {
       "hash": "424f0c83",
@@ -2583,6 +2727,12 @@
     "lyapunov": {
       "hash": "8b3cde31",
       "file": "explainers/lyapunov.8b3cde31.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "matrix-calculus-gradients": {
+      "hash": "7b046901",
+      "file": "explainers/matrix-calculus-gradients.7b046901.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -2925,6 +3075,18 @@
     "sys-id": {
       "hash": "37849702",
       "file": "explainers/sys-id.37849702.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "taylor-approximation-multivariable": {
+      "hash": "085ee2a4",
+      "file": "explainers/taylor-approximation-multivariable.085ee2a4.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "taylor-exact-mean-value": {
+      "hash": "4025ce6e",
+      "file": "explainers/taylor-exact-mean-value.4025ce6e.json",
       "sectionCount": 5,
       "version": 1
     },

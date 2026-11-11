@@ -42,6 +42,8 @@ NB1 uses `hefferon-linalg` and `wikibooks-linalg` for the linear-algebra facts, 
 
 NB2 uses the same three references for the next preliminaries layer. `boyd-cvx` supplies the scope for induced norms, the Frobenius and Schatten norms, open and closed sets, compactness in \(\mathbb{R}^n\), sublevel and contour sets, and convex sets. `hefferon-linalg` and `wikibooks-linalg` supply the open linear-algebra reading for singular values and entrywise lengths. No section is quoted, and no exercise or parameter set is reused.
 
+NB3 uses the same references for derivatives. `boyd-cvx` supplies the scope for the gradient, the Hessian, the chain rule, and the Taylor model. `nw-numopt` supplies the scope for the mean-value form and the remainder bound. No section is quoted, and no exercise or parameter set is reused.
+
 ## Errata
 
 No separate errata list was in the v3.1.5 front matter or the back-matter index. Nothing in those files changes the B1 facts (element laws, transform rules, rank and eigenvalues, or the minimum-phase conditions). No erratum was applied.

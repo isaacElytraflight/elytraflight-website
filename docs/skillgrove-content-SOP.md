@@ -113,6 +113,7 @@ description: >-
 - Never put secrets in briefs or repos.
 
 ## 12. Brief template
+Start from `docs/batch-starter.md`. It is the read order, the helper APIs (`banklib` and `verify_harness`), the gate command, where generated files live, the deep-type quota, the review procedure, and the efficiency rules.
 Every batch brief states:
 - the box, layer and reserved skill ids
 - the prerequisites, the registries to read, and the sources (with licenses) and sections

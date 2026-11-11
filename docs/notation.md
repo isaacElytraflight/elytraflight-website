@@ -273,6 +273,12 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | \(\overline{B}(x, r)\) | closed ball | the same inequality with \(\le\) |
 | \(\mathrm{lev}(f, a)\) | sublevel set | \(\{x : f(x) \le a\}\) |
 | \(\mathrm{con}(f, a)\) | contour set | \(\{x : f(x) = a\}\) |
+| \(f'(x; d)\) | directional derivative | one-sided limit of \([f(x+td)-f(x)]/t\) as \(t \downarrow 0\). Added in NB3 |
+| \(\nabla f(x)\) | gradient, a column of partial derivatives | \(\partial f/\partial x\). The Jacobian of a scalar \(f\) is the row \(\nabla f(x)^T\). Added in NB3 |
+| \(H_f(x)\), \(\nabla^2 f(x)\) | Hessian of second partials | symmetric when the second partials are continuous. Added in NB3 |
+| \(J_F(x)\) | Jacobian of a map \(F\) | rows are gradients of the components; shape is outputs by inputs. Added in NB3 |
+| \(o(\lVert h \rVert)\) | little-o remainder | the remainder divided by \(\lVert h \rVert\) tends to 0. Added in NB3 |
+| \(T_1\), \(T_2\) | first- and second-order Taylor models | \(T_1\) uses \(\nabla f\); \(T_2\) adds \(\tfrac12 h^T H_f h\). Added in NB3 |
 
 ## loop-shaping
 

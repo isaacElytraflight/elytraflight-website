@@ -108,6 +108,14 @@ LEAF_PREVIEW_ALLOWED.update({
     "root-locus": ["loop-shaping", "fund-limits", "robust-stability"],
     "time-delay": ["fund-limits", "loop-shaping", "robust-stability"],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # Differentiability has no dependents. Round 4 names later uses of the linear approximation.
+    "differentiability-multivariable": [
+        "taylor-approximation-multivariable",
+        "first-order-optimality",
+        "convexity-first-order",
+    ],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")
