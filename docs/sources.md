@@ -44,6 +44,8 @@ NB2 uses the same three references for the next preliminaries layer. `boyd-cvx` 
 
 NB3 uses the same references for derivatives. `boyd-cvx` supplies the scope for the gradient, the Hessian, the chain rule, and the Taylor model. `nw-numopt` supplies the scope for the mean-value form and the remainder bound. No section is quoted, and no exercise or parameter set is reused.
 
+NB4 uses the same references for convex functions and for computing derivatives. `boyd-cvx` supplies the scope for the chord definition and the first- and second-order characterizations. `nw-numopt` supplies the scope for finite-difference truncation and round-off, and for automatic differentiation: computational graphs, forward mode, reverse mode, and Hessian-vector products. The small-network skill is reverse mode applied to a two-layer loss. No section is quoted, and no exercise, weight set, or parameter set is reused.
+
 ## Section map for B7
 
 Scope only. The skill records already point at the sections. No wording, problems, parameter sets, or figures were taken from them. Learner-facing text does not name the works below.

@@ -1,0 +1,224 @@
+{
+  "skill_id": "convex-functions",
+  "version": 1,
+  "questions": [
+    {
+      "id": "convex-functions-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A function \\(f\\) is convex when, for every weight \\(t\\) between 0 and 1,",
+      "explanation": "Convexity puts the graph on or under the chord. The function of a mixture is at most the mixture of the function values. The opposite inequality is concavity. Equality for every pair is what affine functions do, and that is a special case, not the definition of every convex function. Checking the endpoints alone never sees the chord.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>segment between two points</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "options": [
+        "\\(f\\) at a mixture of two points is at most the same mixture of the values",
+        "\\(f\\) at a mixture of two points is at least the same mixture of the values",
+        "\\(f\\) at a mixture of two points equals the same mixture of the values, for every \\(f\\)",
+        "\\(f\\) needs to be checked only at the two endpoints"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(f(t) = t^2\\). On the chord from \\(t = 1\\) to \\(t = 5\\), what is the height of the chord at the midpoint?",
+      "explanation": "The values are \\(1\\) and \\(25\\). The midpoint of the chord is their average, \\(13\\). The function at the midpoint \\(t = 3\\) is \\(9\\), which lies under the chord, as convexity requires. Using \\(9\\) reports the function instead of the chord. The gap \\(13 - 9 = 4\\) is neither height.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.8 52,132.8 55.1,132.8 58.1,132.7 61.1,132.6 64.1,132.4 67.2,132.3 70.2,132.1 73.2,131.9 76.2,131.7 79.2,131.5 82.3,131.2 85.3,130.9 88.3,130.6 91.3,130.3 94.4,129.9 97.4,129.5 100.4,129.1 103.4,128.7 106.4,128.2 109.5,127.8 112.5,127.3 115.5,126.7 118.5,126.2 121.6,125.6 124.6,125 127.6,124.4 130.6,123.8 133.6,123.1 136.7,122.4 139.7,121.7 142.7,121 145.7,120.2 148.8,119.5 151.8,118.7 154.8,117.8 157.8,117 160.8,116.1 163.9,115.2 166.9,114.3 169.9,113.4 172.9,112.4 176,111.4 179,110.4 182,109.4 185,108.3 188,107.3 191.1,106.2 194.1,105 197.1,103.9 200.1,102.7 203.2,101.5 206.2,100.3 209.2,99.1 212.2,97.8 215.2,96.5 218.3,95.2 221.3,93.9 224.3,92.5 227.3,91.2 230.4,89.8 233.4,88.3 236.4,86.9 239.4,85.4 242.4,83.9 245.5,82.4 248.5,80.9 251.5,79.3 254.5,77.7 257.6,76.1 260.6,74.5 263.6,72.8 266.6,71.1 269.6,69.4 272.7,67.7 275.7,65.9 278.7,64.2 281.7,62.4 284.8,60.6 287.8,58.7 290.8,56.8 293.8,55 296.8,53 299.9,51.1 302.9,49.2 305.9,47.2 308.9,45.2 312,43.1 315,41.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "answer": 13.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Every norm on a real vector space is",
+      "explanation": "The triangle inequality and absolute homogeneity give the chord inequality, so every norm is convex. It is not strict: along the ray from the origin to a nonzero vector the norm is linear, so the chord sits on the graph. Restricting attention to the unit ball is a statement about a set, not about the function. A sphere failing to be a convex set does not decide whether the norm, which is a function, is convex.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "options": [
+        "strictly convex",
+        "convex, and not strictly convex",
+        "convex only inside the unit ball",
+        "not convex, because a sphere fails to contain its chords"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r2-q1",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Which of these functions are convex on the whole real line?",
+      "explanation": "An absolute value is convex, and adding a linear function keeps convexity. An affine function meets the chord definition with equality, so it is convex. The positive-part function is the maximum of the convex functions \\(0\\) and \\(t\\), and a pointwise maximum of convex functions is convex.\n• \\(-t^2\\) bends the other way: its chords lie under the graph.\n• \\(t^3\\) has second derivative \\(6t\\), which is negative for negative \\(t\\). It is not convex on the whole line, even though the restriction to nonnegative \\(t\\) is convex.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.8 52,132.8 55.1,132.8 58.1,132.7 61.1,132.6 64.1,132.4 67.2,132.3 70.2,132.1 73.2,131.9 76.2,131.7 79.2,131.5 82.3,131.2 85.3,130.9 88.3,130.6 91.3,130.3 94.4,129.9 97.4,129.5 100.4,129.1 103.4,128.7 106.4,128.2 109.5,127.8 112.5,127.3 115.5,126.7 118.5,126.2 121.6,125.6 124.6,125 127.6,124.4 130.6,123.8 133.6,123.1 136.7,122.4 139.7,121.7 142.7,121 145.7,120.2 148.8,119.5 151.8,118.7 154.8,117.8 157.8,117 160.8,116.1 163.9,115.2 166.9,114.3 169.9,113.4 172.9,112.4 176,111.4 179,110.4 182,109.4 185,108.3 188,107.3 191.1,106.2 194.1,105 197.1,103.9 200.1,102.7 203.2,101.5 206.2,100.3 209.2,99.1 212.2,97.8 215.2,96.5 218.3,95.2 221.3,93.9 224.3,92.5 227.3,91.2 230.4,89.8 233.4,88.3 236.4,86.9 239.4,85.4 242.4,83.9 245.5,82.4 248.5,80.9 251.5,79.3 254.5,77.7 257.6,76.1 260.6,74.5 263.6,72.8 266.6,71.1 269.6,69.4 272.7,67.7 275.7,65.9 278.7,64.2 281.7,62.4 284.8,60.6 287.8,58.7 290.8,56.8 293.8,55 296.8,53 299.9,51.1 302.9,49.2 305.9,47.2 308.9,45.2 312,43.1 315,41.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "options": [
+        "\\(f(t) = \\lvert t \\rvert + 2t\\)",
+        "\\(f(t) = -t^2\\)",
+        "\\(f(t) = 4t - 7\\)",
+        "\\(f(t) = t^3\\)",
+        "\\(f(t) = \\max(t,\\ 0)\\)"
+      ],
+      "correct_indices": [
+        0,
+        2,
+        4
+      ],
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Let \\(f(x, y) = \\lvert x \\rvert + 2\\lvert y \\rvert\\). For the points \\((2, -4)\\) and \\((-6, 2)\\) and the weight \\(t = 1/4\\) on the second point, what is the right-hand side of the chord inequality?",
+      "explanation": "The function values are \\(2 + 8 = 10\\) and \\(6 + 4 = 10\\). The combination with weights \\(3/4\\) and \\(1/4\\) is \\(10\\). The mixed point is \\((0, -5/2)\\), where \\(f\\) equals \\(5\\), which is the left-hand side and is smaller. Reporting \\(5\\) uses the function at the mixture. Reporting \\(0\\) would treat the two equal values as cancelling.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>segment between two points</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "answer": 10.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r2-q3",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order used to test the chord definition on one pair of points.",
+      "explanation": "The definition starts from a pair and a weight, builds one point on the segment, and only then compares function values. Evaluating the function before the mixture exists has nothing to evaluate. Comparing the endpoints with each other never tests the interior of the chord.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>segment between two points</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "steps": [
+        "Choose two points in the domain and a weight between 0 and 1.",
+        "Form the weighted mixture of the two points.",
+        "Evaluate the function at that mixture.",
+        "Compare it with the same weights applied to the two function values."
+      ],
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r3-q1",
+      "round": 3,
+      "type": "symbolic",
+      "prompt": "Let \\(a\\) and \\(b\\) be real. For \\(f(t) = a t^2 + b t\\), the chord from \\(0\\) to \\(2\\) has a height at the midpoint. Write that height as an expression in the names a and b.",
+      "explanation": "The endpoint values are \\(f(0) = 0\\) and \\(f(2) = 4a + 2b\\). Their average is \\(2a + b\\).\n• \\(a + b\\) is the function at the midpoint \\(t = 1\\), not the chord.\n• \\(4a + 2b\\) is the value at the right endpoint.\n• \\(2a\\) drops the linear term.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.8 52,132.8 55.1,132.8 58.1,132.7 61.1,132.6 64.1,132.4 67.2,132.3 70.2,132.1 73.2,131.9 76.2,131.7 79.2,131.5 82.3,131.2 85.3,130.9 88.3,130.6 91.3,130.3 94.4,129.9 97.4,129.5 100.4,129.1 103.4,128.7 106.4,128.2 109.5,127.8 112.5,127.3 115.5,126.7 118.5,126.2 121.6,125.6 124.6,125 127.6,124.4 130.6,123.8 133.6,123.1 136.7,122.4 139.7,121.7 142.7,121 145.7,120.2 148.8,119.5 151.8,118.7 154.8,117.8 157.8,117 160.8,116.1 163.9,115.2 166.9,114.3 169.9,113.4 172.9,112.4 176,111.4 179,110.4 182,109.4 185,108.3 188,107.3 191.1,106.2 194.1,105 197.1,103.9 200.1,102.7 203.2,101.5 206.2,100.3 209.2,99.1 212.2,97.8 215.2,96.5 218.3,95.2 221.3,93.9 224.3,92.5 227.3,91.2 230.4,89.8 233.4,88.3 236.4,86.9 239.4,85.4 242.4,83.9 245.5,82.4 248.5,80.9 251.5,79.3 254.5,77.7 257.6,76.1 260.6,74.5 263.6,72.8 266.6,71.1 269.6,69.4 272.7,67.7 275.7,65.9 278.7,64.2 281.7,62.4 284.8,60.6 287.8,58.7 290.8,56.8 293.8,55 296.8,53 299.9,51.1 302.9,49.2 305.9,47.2 308.9,45.2 312,43.1 315,41.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "answer": "2*a+b",
+      "variables": [
+        {
+          "name": "a",
+          "min": -4.0,
+          "max": 4.0
+        },
+        {
+          "name": "b",
+          "min": -4.0,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "b+2*a",
+        "2*(a)+b"
+      ],
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Let \\(f(t) = t^2\\). On the chord from \\(0\\) to \\(4\\), with weight \\(1/4\\) on the right endpoint, by how much does the chord sit above the function?",
+      "explanation": "The mixture point is \\(1\\), and \\(f(1) = 1\\). The chord height is \\((3/4)\\cdot 0 + (1/4)\\cdot 16 = 4\\). The gap is \\(4 - 1 = 3\\). A strictly convex function has a positive gap like this one whenever the points differ and the weight is strictly between 0 and 1. Reporting \\(4\\) is the chord alone. Reporting \\(1\\) is the function alone.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.8 52,132.8 55.1,132.8 58.1,132.7 61.1,132.6 64.1,132.4 67.2,132.3 70.2,132.1 73.2,131.9 76.2,131.7 79.2,131.5 82.3,131.2 85.3,130.9 88.3,130.6 91.3,130.3 94.4,129.9 97.4,129.5 100.4,129.1 103.4,128.7 106.4,128.2 109.5,127.8 112.5,127.3 115.5,126.7 118.5,126.2 121.6,125.6 124.6,125 127.6,124.4 130.6,123.8 133.6,123.1 136.7,122.4 139.7,121.7 142.7,121 145.7,120.2 148.8,119.5 151.8,118.7 154.8,117.8 157.8,117 160.8,116.1 163.9,115.2 166.9,114.3 169.9,113.4 172.9,112.4 176,111.4 179,110.4 182,109.4 185,108.3 188,107.3 191.1,106.2 194.1,105 197.1,103.9 200.1,102.7 203.2,101.5 206.2,100.3 209.2,99.1 212.2,97.8 215.2,96.5 218.3,95.2 221.3,93.9 224.3,92.5 227.3,91.2 230.4,89.8 233.4,88.3 236.4,86.9 239.4,85.4 242.4,83.9 245.5,82.4 248.5,80.9 251.5,79.3 254.5,77.7 257.6,76.1 260.6,74.5 263.6,72.8 266.6,71.1 269.6,69.4 272.7,67.7 275.7,65.9 278.7,64.2 281.7,62.4 284.8,60.6 287.8,58.7 290.8,56.8 293.8,55 296.8,53 299.9,51.1 302.9,49.2 305.9,47.2 308.9,45.2 312,43.1 315,41.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "answer": 3.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r3-q3",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note claims that \\(t^3\\) is convex on the whole real line. Exactly one step is false.",
+      "explanation": "The second derivative of \\(t^3\\) really is \\(6t\\), and a nonnegative second derivative on an open interval really does imply convexity. The false step is the claim that \\(6t\\) never goes negative. It is negative for every negative \\(t\\), so the hypothesis of the second-derivative test is not met on the whole line, and the closing sentence does not follow. On the nonnegative half-line the same derivative is nonnegative and the restriction is convex.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.8 52,132.8 55.1,132.8 58.1,132.7 61.1,132.6 64.1,132.4 67.2,132.3 70.2,132.1 73.2,131.9 76.2,131.7 79.2,131.5 82.3,131.2 85.3,130.9 88.3,130.6 91.3,130.3 94.4,129.9 97.4,129.5 100.4,129.1 103.4,128.7 106.4,128.2 109.5,127.8 112.5,127.3 115.5,126.7 118.5,126.2 121.6,125.6 124.6,125 127.6,124.4 130.6,123.8 133.6,123.1 136.7,122.4 139.7,121.7 142.7,121 145.7,120.2 148.8,119.5 151.8,118.7 154.8,117.8 157.8,117 160.8,116.1 163.9,115.2 166.9,114.3 169.9,113.4 172.9,112.4 176,111.4 179,110.4 182,109.4 185,108.3 188,107.3 191.1,106.2 194.1,105 197.1,103.9 200.1,102.7 203.2,101.5 206.2,100.3 209.2,99.1 212.2,97.8 215.2,96.5 218.3,95.2 221.3,93.9 224.3,92.5 227.3,91.2 230.4,89.8 233.4,88.3 236.4,86.9 239.4,85.4 242.4,83.9 245.5,82.4 248.5,80.9 251.5,79.3 254.5,77.7 257.6,76.1 260.6,74.5 263.6,72.8 266.6,71.1 269.6,69.4 272.7,67.7 275.7,65.9 278.7,64.2 281.7,62.4 284.8,60.6 287.8,58.7 290.8,56.8 293.8,55 296.8,53 299.9,51.1 302.9,49.2 305.9,47.2 308.9,45.2 312,43.1 315,41.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "steps": [
+        "The second derivative of t cubed is 6t.",
+        "That second derivative is nonnegative at every real t.",
+        "A nonnegative second derivative on an open interval implies convexity there.",
+        "Therefore t cubed is convex on the whole real line."
+      ],
+      "flaw_index": 1,
+      "reasons": [
+        "The second derivative is negative for negative t, so it is not nonnegative everywhere.",
+        "The formula for the second derivative of t cubed is wrong.",
+        "A nonnegative second derivative does not imply convexity."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "An affine function is",
+      "explanation": "An affine function meets the chord identity with equality, so both the convex inequality and the concave inequality hold. A zero slope is still affine, and still both. Equality on every chord is the opposite of strict convexity, which demands a strict inequality for distinct points and an interior weight. A convex program may use an affine objective; the feasible set then decides the geometry.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>segment between two points</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "preview": [
+        "optimization-problem-classes"
+      ],
+      "options": [
+        "convex only when its slope vector is nonzero",
+        "neither convex nor concave",
+        "both convex and concave",
+        "strictly convex"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Let \\(f\\) be the Euclidean norm on the plane. On the chord from \\((3, 0)\\) to \\((0, 4)\\), by how much does the chord sit above \\(f\\) at the midpoint?",
+      "explanation": "The endpoint norms are \\(3\\) and \\(4\\), so the chord height is \\(3.5\\). The midpoint is \\((1.5, 2)\\), and its Euclidean norm is \\(2.5\\). The gap is \\(1\\). Reporting \\(2.5\\) is the function. Reporting \\(3.5\\) is the chord. The norm is convex, so the gap cannot be negative. It is not strictly convex on the whole plane, but this particular chord does leave a gap because the two vectors are not nonnegative multiples of one vector.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "preview": [
+        "convexity-first-order"
+      ],
+      "answer": 1.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The pointwise maximum of a family of convex functions is",
+      "explanation": "At a mixture, each function sits under its own chord, and the maximum of those values sits under the maximum of the chords. A corner, as in a maximum of linear functions, is allowed. Strict convexity of the pieces is not required: the maximum of two affine functions is convex and not strictly convex. The pointwise minimum can fail, and that is a different operation.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested ellipses</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses centered at the origin.",
+      "preview": [
+        "convexity-second-order"
+      ],
+      "options": [
+        "concave",
+        "convex only when every function in the family is strictly convex",
+        "not convex, because a maximum introduces a corner",
+        "convex"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

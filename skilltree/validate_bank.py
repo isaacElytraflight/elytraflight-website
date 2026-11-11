@@ -122,6 +122,12 @@ LEAF_PREVIEW_ALLOWED.update({
     "fund-limits": ["robust-perf", "robust-stability", "time-delay"],
     "robust-perf": ["loop-shaping", "fund-limits", "adaptive"],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # NB4 leaves: no dependents in the graph.
+    "convexity-second-order": ["second-order-optimality", "quadratic-function-minimization", "convex-optimality-global"],
+    "hessian-vector-products-ad": ["newton-method-optimization", "conjugate-gradient-method", "second-order-optimality"],
+    "backprop-neural-network": ["nonlinear-least-squares", "descent-directions", "incremental-gradient-methods"],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

@@ -1,0 +1,29 @@
+{
+  "id": "convexity-second-order",
+  "title": "Second-order convexity test",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-derivative positions</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">xx   xy</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">yx   yy</text></svg>",
+      "figure_alt": "A 2 by 2 array labeled by second-derivative positions.",
+      "body_md": "For a function with continuous second partial derivatives, convexity can be read from the Hessian. On an open convex domain the function is convex exactly when that matrix is positive semidefinite at every point, and strictly convex when the matrix is positive definite at every point.\n\nIn one variable this is the familiar second-derivative test: the second derivative is nonnegative everywhere. In several variables an eigenvalue can hide off the diagonal, so checking the diagonal entries is not enough. The quadratic form of the Hessian has to be nonnegative in every direction.\n\nA quadratic function has a constant Hessian. Its linear term and its constant term do not appear there, so they do not affect convexity. A least-squares objective \\(\\lVert Ax - b \\rVert^2\\) has Hessian \\(2A^{T}A\\), which is positive semidefinite for every real \\(A\\). Every linear least-squares problem is a convex quadratic."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "On an open convex set, a \\(C^2\\) function is convex if and only if \\(v^{T} H_f(x)\\, v \\ge 0\\) for every point \\(x\\) and every direction \\(v\\). It is strictly convex if \\(v^{T} H_f(x)\\, v > 0\\) whenever \\(v \\ne 0\\). For \\(f(x) = \\tfrac12 x^{T} A x + b^{T} x + c\\) with \\(A\\) symmetric, the Hessian is \\(A\\), so convexity is positive semidefiniteness of \\(A\\). The gradient \\(Ax + b\\) does not enter that test."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(f(x, y) = 7x^2 + 9y^2\\). Differentiating twice gives the constant Hessian with Hessian entries 14 and 18 on the diagonal and zeros off it. Both eigenvalues are positive, so the Hessian is positive definite and \\(f\\) is strictly convex. Adding a linear function such as \\(3x - y\\) does not change either second derivative. The new function is still strictly convex, and its minimizer moves, but the second-order test does not need the new linear coefficients."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "One positive definite Hessian is not the test. A function can bend up at the origin and bend down far away. The matrix has to be checked on the whole domain. A positive determinant, or a positive trace, is not semidefiniteness: the matrix with diagonal entries \\(2\\) and \\(-2\\) has negative determinant and is indefinite, and a matrix with eigenvalues \\(3\\) and \\(-1\\) has positive trace and is still indefinite. Positive semidefiniteness allows a zero eigenvalue. The function is then convex and not strictly convex, like a square of one linear form in the plane."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "At an interior local minimizer the same matrix is positive semidefinite, as a necessary condition, and positive definiteness together with a zero gradient is sufficient for a strict local minimizer. For a convex function those local facts become global. Quadratic objectives are minimized by solving one linear system when the Hessian is positive definite, and the second-order test is what justifies that solve."
+    }
+  ]
+}

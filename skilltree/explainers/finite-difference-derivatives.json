@@ -1,0 +1,29 @@
+{
+  "id": "finite-difference-derivatives",
+  "title": "Finite-difference derivatives",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a sampled curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.8 64.1,132.8 67.2,132.8 70.2,132.8 73.2,132.8 76.2,132.7 79.2,132.7 82.3,132.6 85.3,132.6 88.3,132.5 91.3,132.4 94.4,132.3 97.4,132.2 100.4,132.1 103.4,132 106.4,131.8 109.5,131.7 112.5,131.5 115.5,131.3 118.5,131.1 121.6,130.9 124.6,130.6 127.6,130.3 130.6,130 133.6,129.7 136.7,129.4 139.7,129 142.7,128.6 145.7,128.2 148.8,127.8 151.8,127.3 154.8,126.9 157.8,126.3 160.8,125.8 163.9,125.2 166.9,124.6 169.9,124 172.9,123.3 176,122.6 179,121.9 182,121.1 185,120.3 188,119.5 191.1,118.6 194.1,117.7 197.1,116.8 200.1,115.8 203.2,114.8 206.2,113.7 209.2,112.6 212.2,111.4 215.2,110.3 218.3,109 221.3,107.7 224.3,106.4 227.3,105.1 230.4,103.6 233.4,102.2 236.4,100.7 239.4,99.1 242.4,97.5 245.5,95.9 248.5,94.1 251.5,92.4 254.5,90.6 257.6,88.7 260.6,86.8 263.6,84.8 266.6,82.8 269.6,80.7 272.7,78.6 275.7,76.4 278.7,74.1 281.7,71.8 284.8,69.4 287.8,67 290.8,64.4 293.8,61.9 296.8,59.3 299.9,56.6 302.9,53.8 305.9,51 308.9,48.1 312,45.1 315,42.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of one variable, drawn on labeled axes.",
+      "body_md": "A derivative is a limit of difference quotients. A finite difference stops at one small step and uses the quotient as an approximation. The forward difference looks only to the right. The central difference looks the same distance to the right and to the left and averages the two slopes.\n\nTaylor's theorem with remainder says what that approximation misses. The forward difference of a smooth function equals the derivative plus a term proportional to the step times the second derivative, plus higher powers of the step. The central difference cancels that second-derivative term. Its first error is proportional to the square of the step times the third derivative.\n\nShrinking the step therefore cuts truncation. It also subtracts two function values that are closer and closer, then divides by a smaller number. Floating-point round-off, divided by the step, grows. A useful step balances the falling truncation against the rising round-off. Past that balance, a smaller step makes the computed slope worse."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "With step \\(h > 0\\),\n\\[\n\\delta_+ f(x) = \\frac{f(x + h) - f(x)}{h}, \\qquad \\delta_c f(x) = \\frac{f(x + h) - f(x - h)}{2h}.\n\\]\nThe forward truncation begins with \\((h/2) f''(x)\\). The central truncation begins with \\((h^2/6) f'''(x)\\). Round-off of either quotient is on the order of \\(\\varepsilon_{\\mathrm{mach}}\\) times a scale of \\(f\\), divided by \\(h\\). Balancing \\(h\\) against \\(\\varepsilon_{\\mathrm{mach}}/h\\) puts the forward step near \\(\\sqrt{\\varepsilon_{\\mathrm{mach}}}\\). Balancing \\(h^2\\) against \\(\\varepsilon_{\\mathrm{mach}}/h\\) puts the central step near the cube root of unit roundoff."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(f(t) = t^3\\) at \\(t = 4\\) with step \\(0.2\\). The exact derivative is \\(48\\). The forward sample \\(f(4.2) = 74.088\\) gives the quotient \\(50.44\\). The left sample \\(f(3.8) = 54.872\\), and the central value is 48.04, from \\((74.088 - 54.872) / 0.4\\). The forward error is \\(2.44\\), most of it the predicted \\((h/2) f''(4) = 2.4\\). The central error is \\(0.04\\), matching \\((h^2/6)\\) times the constant third derivative \\(6\\). Halving this step would roughly halve the forward error and cut the central error by about four, until round-off takes over."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Dividing a central numerator by \\(h\\) instead of \\(2h\\) doubles the slope. Forgetting to divide at all reports a change in value. The forward difference of a quadratic is not exact: the second derivative is a nonzero constant, so a term proportional to the step remains. The central difference of a quadratic is exact. A smaller step is not automatically a better step. When the two function values agree to every stored digit, the quotient is noise."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Finite differences are the numeric way to get a derivative when the formula is available only as a subroutine. They are also the truncation analysis behind some accelerated gradient updates that mix a step with a previous step. Automatic differentiation later removes the truncation by applying the chain rule to each elementary operation, and the round-off that remains is ordinary floating-point round-off rather than a difference of nearly equal values."
+    }
+  ]
+}

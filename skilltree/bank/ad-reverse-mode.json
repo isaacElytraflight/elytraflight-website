@@ -1,0 +1,228 @@
+{
+  "skill_id": "ad-reverse-mode",
+  "version": 1,
+  "questions": [
+    {
+      "id": "ad-reverse-mode-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Reverse-mode automatic differentiation computes a gradient by",
+      "explanation": "After the forward values are known, each node receives an adjoint, the partial derivative of the scalar output with respect to that node. The adjoint is sent back to the parents through the local derivative. One forward tangent is forward mode. Central differences are numeric differentiation. Hand cancellation is symbolic differentiation.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "options": [
+        "accumulating adjoints from the output back toward the inputs",
+        "pushing one tangent from the inputs all the way to the output, once",
+        "replacing each node by a central difference",
+        "forming the symbolic derivative and then canceling terms by hand"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(f(x, y) = (xy + 3)^2 + x\\). At \\((2, 4)\\), what is the reverse-mode adjoint of the input \\(x\\)?",
+      "explanation": "The output adjoint is \\(1\\). The square \\(s^2\\) with \\(s = 11\\) sends adjoint \\(22\\) back to \\(s\\), and that adjoint reaches the product \\(xy\\). The product sends \\(22 \\cdot y = 88\\) to \\(x\\), and the final addition of \\(x\\) sends another \\(1\\). The total is \\(89\\), which is \\(\\partial f/\\partial x\\). Reporting \\(88\\) keeps only the path through the product. Reporting \\(22\\) stops at the adjoint of the sum.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "answer": 89.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The adjoint \\(\\bar v\\) of a node \\(v\\) means",
+      "explanation": "By definition the adjoint is how the output changes when that node is nudged, with the graph otherwise fixed. The forward tangent is a different seed, propagating in the other direction. The primal value is what the forward pass stored. The parent count is the shape of the graph, not a derivative.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "options": [
+        "the forward tangent of \\(v\\)",
+        "the primal value of \\(v\\)",
+        "the partial derivative of the scalar output with respect to \\(v\\)",
+        "the number of parents of \\(v\\)"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order of a reverse sweep for a scalar output.",
+      "explanation": "Reverse mode needs the primal values, then a unit adjoint on the output, then a backward topological order. Each visit distributes the adjoint to the parents. Seeding the output before the forward values exist leaves the local derivatives without numbers. Visiting in forward order is the tangent sweep.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "steps": [
+        "Run the forward evaluation and store each node value.",
+        "Seed the output adjoint with 1.",
+        "Visit nodes from the output back toward the inputs.",
+        "Add each local derivative times the node adjoint into the adjoints of the parents."
+      ],
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Let \\(f(x, y) = (xy + 3)^2 + x\\). At \\((2, 4)\\), what is the reverse-mode adjoint of the input \\(y\\)?",
+      "explanation": "The sum \\(s = 11\\) has adjoint \\(2\\cdot 11\\cdot 1 = 22\\). The product \\(xy\\) sends \\(22\\cdot x = 44\\) to \\(y\\). There is no other edge into \\(y\\), so the adjoint is \\(44\\), matching \\(\\partial f/\\partial y\\). The adjoint of \\(x\\) is \\(89\\), because \\(x\\) also appears in the final addition. Reporting \\(22\\) stops one node too early.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "answer": 44.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "For \\(f(x, y) = (xy + a)^2\\), the reverse-mode adjoint of the input \\(x\\) is an expression in the names x, y, and a. Write that expression.",
+      "explanation": "The inside \\(s = xy + a\\) has adjoint \\(2s\\) when the output adjoint is \\(1\\). The product then multiplies that adjoint by \\(y\\) on the way to \\(x\\).\n• \\(2(xy + a)x\\) is the adjoint of \\(y\\), not of \\(x\\).\n• \\(2(xy + a)\\) stops before the product rule sends the adjoint onto an input.\n• \\((xy + a)^2\\) is the primal value.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "answer": "2*(x*y+a)*y",
+      "variables": [
+        {
+          "name": "x",
+          "min": -3.0,
+          "max": 3.0
+        },
+        {
+          "name": "y",
+          "min": -3.0,
+          "max": 3.0
+        },
+        {
+          "name": "a",
+          "min": -3.0,
+          "max": 3.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "2*y*(x*y+a)",
+        "y*2*(x*y+a)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r3-q1",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Let \\(f(x, y) = (xy + 3)^2 + x\\). At \\((1, 2)\\), what is the reverse-mode adjoint of the input \\(y\\)?",
+      "explanation": "The sum \\(s = xy + 3\\) equals \\(5\\), so its adjoint is \\(2\\cdot 5 = 10\\). The product sends \\(10\\cdot x = 10\\) to \\(y\\). The same number is \\(\\partial f/\\partial y = 2sx = 10\\). The adjoint of \\(x\\) at this point is \\(2\\cdot 5\\cdot 2 + 1 = 21\\). Reporting \\(5\\) is the primal sum.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "answer": 10.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r3-q2",
+      "round": 3,
+      "type": "error",
+      "prompt": "A reverse sweep of \\(f = (xy + 3)^2 + x\\) at \\((2, 4)\\) is written out below. Exactly one step is false.",
+      "explanation": "The forward sum, the adjoint \\(22\\), and the contribution \\(88\\) through the product are all correct. The false step says \\(x\\) appears only in the product. The output also adds \\(x\\), and that edge contributes \\(1\\). The adjoint of \\(x\\) is \\(89\\). Dropping a path is the usual reverse-mode mistake when a variable is used twice.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "steps": [
+        "The forward value of the sum s = xy + 3 is 11.",
+        "The adjoint of s is 2 * 11 * 1 = 22.",
+        "The product sends 22 * y = 88 into the adjoint of x.",
+        "The final adjoint of x is 88, because x appears only in the product."
+      ],
+      "flaw_index": 3,
+      "reasons": [
+        "x is also added at the output, so its adjoint is 89 rather than 88.",
+        "The adjoint of a square is not twice the inside value.",
+        "The forward value of the sum is not 11."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "The practical cost of reverse mode, compared with a single function evaluation, is that",
+      "explanation": "The backward sweep is a small constant times one function evaluation, once the forward values are available for the local derivatives. Storing them is the memory cost. Recomputing them is the time alternative. A factor of \\(n\\) is the forward-mode price of a full gradient. A square factor is not the reverse-mode price. The local derivatives are numbers computed from the forward values, so those values cannot be skipped.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "options": [
+        "it needs about n extra full evaluations for n inputs",
+        "it needs one backward sweep and storage, or recomputation, of the forward values",
+        "it needs no forward values at all",
+        "it costs about n squared function evaluations"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Let \\(f(x, y) = (xy + 3)^2 + x\\). At \\((2, 4)\\), what is the adjoint of the intermediate sum \\(s = xy + 3\\)?",
+      "explanation": "The output adjoint is \\(1\\), and \\(s\\) is squared, so the adjoint of \\(s\\) is \\(2\\cdot 11\\cdot 1 = 22\\). That adjoint later splits into \\(88\\) for \\(x\\) through the product and \\(44\\) for \\(y\\). The adjoint of \\(x\\) is \\(89\\), not \\(22\\). The primal sum is \\(11\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "preview": [
+        "hessian-vector-products-ad"
+      ],
+      "answer": 22.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Reverse mode is the cheaper route to a full gradient when",
+      "explanation": "One reverse sweep returns every partial derivative of one scalar. Many inputs and one output is the case where that beats \\(n\\) forward sweeps. Many outputs with one input favor forward mode, which differentiates every output in one tangent. A single directional derivative is one forward seed. A single multiplication is too small for the choice to matter.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"125.4\"/><polygon points=\"235.9,125.4 230.2,129.3 229.1,124\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"117.4\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g</text><line x1=\"60.1\" y1=\"161.7\" x2=\"98.3\" y2=\"42.3\"/><polygon points=\"98.3,42.3 98.9,49.3 93.7,47.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"106.3\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "preview": [
+        "backprop-neural-network"
+      ],
+      "options": [
+        "the map has many outputs and one input",
+        "only one directional derivative is required",
+        "the function is a single multiplication",
+        "one scalar depends on many inputs"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r4-q3",
+      "round": 4,
+      "type": "multi",
+      "prompt": "Which statements hold for reverse-mode automatic differentiation of a scalar output?",
+      "explanation": "The sweep returns the full gradient, it needs the primal trace, and each adjoint is distributed to the parents through the local derivative.\n• With a single input the two modes do essentially the same work. Reverse mode is not universally cheaper. It wins when the output is a scalar and the input is wide.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "preview": [
+        "backprop-neural-network"
+      ],
+      "options": [
+        "One reverse sweep yields every partial derivative of that output.",
+        "The forward values have to be stored or recomputed.",
+        "Reverse mode is always cheaper than forward mode, including a function of one input.",
+        "Adjoints move from a node back to its parents."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1
+    }
+  ]
+}

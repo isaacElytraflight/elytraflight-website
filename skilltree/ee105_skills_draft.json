@@ -2562,8 +2562,7 @@
    "summary": "Use the chord definition of convexity, including strict convexity, for norms and affine maps.",
    "prereqs": [
     "convex-sets"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "convexity-first-order",
@@ -2572,8 +2571,7 @@
    "prereqs": [
     "convex-functions",
     "gradient-partial-derivatives"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "convexity-second-order",
@@ -2584,8 +2582,7 @@
     "positive-definite-matrices",
     "matrix-calculus-gradients",
     "taylor-exact-mean-value"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "finite-difference-derivatives",
@@ -2594,8 +2591,7 @@
    "prereqs": [
     "gradient-partial-derivatives",
     "taylor-approximation-multivariable"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "computational-graphs",
@@ -2603,8 +2599,7 @@
    "summary": "Break a formula into elementary steps and compare symbolic, numeric, and automatic differentiation.",
    "prereqs": [
     "jacobian-chain-rule"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "ad-forward-mode",
@@ -2613,8 +2608,7 @@
    "prereqs": [
     "computational-graphs",
     "directional-derivative"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "ad-reverse-mode",
@@ -2622,8 +2616,7 @@
    "summary": "Sweep adjoints backward to get a full gradient at a cost close to one function evaluation.",
    "prereqs": [
     "computational-graphs"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "hessian-vector-products-ad",
@@ -2633,8 +2626,7 @@
     "ad-forward-mode",
     "ad-reverse-mode",
     "hessian-matrix"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "backprop-neural-network",
@@ -2642,8 +2634,7 @@
    "summary": "Apply reverse-mode differentiation to the weights of a two-layer classifier loss.",
    "prereqs": [
     "ad-reverse-mode"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "local-global-minima",

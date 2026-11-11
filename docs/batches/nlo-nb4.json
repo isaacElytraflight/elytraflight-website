@@ -1,0 +1,41 @@
+{
+  "id": "nlo-nb4",
+  "label": "NB4",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "convex-functions",
+    "convexity-first-order",
+    "convexity-second-order",
+    "finite-difference-derivatives",
+    "computational-graphs",
+    "ad-forward-mode",
+    "ad-reverse-mode",
+    "hessian-vector-products-ad",
+    "backprop-neural-network"
+  ],
+  "areas": {
+    "convex-functions": ["optimization"],
+    "convexity-first-order": ["optimization"],
+    "convexity-second-order": ["optimization", "linear-algebra"],
+    "finite-difference-derivatives": ["optimization"],
+    "computational-graphs": ["optimization"],
+    "ad-forward-mode": ["optimization"],
+    "ad-reverse-mode": ["optimization"],
+    "hessian-vector-products-ad": ["optimization", "linear-algebra"],
+    "backprop-neural-network": ["optimization"]
+  },
+  "cores": [
+    "convex-functions",
+    "convexity-first-order",
+    "convexity-second-order",
+    "finite-difference-derivatives",
+    "computational-graphs",
+    "ad-forward-mode",
+    "ad-reverse-mode",
+    "hessian-vector-products-ad"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/nlo-content-batches.md",
+  "verifier": "skilltree/verify_nlo_nb4.py"
+}

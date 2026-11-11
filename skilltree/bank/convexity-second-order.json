@@ -1,0 +1,229 @@
+{
+  "skill_id": "convexity-second-order",
+  "version": 1,
+  "questions": [
+    {
+      "id": "convexity-second-order-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "On an open convex set, a twice continuously differentiable function is convex if and only if",
+      "explanation": "The second-order test is positive semidefiniteness of the Hessian everywhere on the open convex domain. A constant gradient means the function is affine, which is the zero-Hessian case only. Polynomials need not be convex. Invertibility is positive definiteness or negative definiteness or a mixture, and negative eigenvalues destroy convexity.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-derivative positions</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">xx   xy</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">yx   yy</text></svg>",
+      "figure_alt": "A 2 by 2 array labeled by second-derivative positions.",
+      "options": [
+        "the gradient is constant",
+        "the function is a polynomial",
+        "the Hessian is positive semidefinite at every point",
+        "the Hessian is invertible at every point"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(f(x, y) = 3x^2 + 5y^2\\). What is the smaller eigenvalue of its Hessian?",
+      "explanation": "The Hessian is the diagonal matrix with entries \\(6\\) and \\(10\\). Both eigenvalues are those diagonal entries, and the smaller one is \\(6\\). The larger one is \\(10\\). The function coefficients \\(3\\) and \\(5\\) are half of the second derivatives, because differentiating a square brings a factor \\(2\\). A positive smaller eigenvalue means the Hessian is positive definite, so \\(f\\) is strictly convex.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "answer": 6.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For a quadratic function, the linear term and the constant term",
+      "explanation": "The Hessian of a quadratic ignores the linear term and the constant. Positive semidefiniteness of that Hessian is the whole test. A linear function is the case of a zero Hessian, and it is convex. Requiring the linear term to vanish would throw out every affine function.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-derivative positions</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">xx   xy</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">yx   yy</text></svg>",
+      "figure_alt": "A 2 by 2 array labeled by second-derivative positions.",
+      "options": [
+        "can destroy convexity even when the Hessian is positive semidefinite",
+        "have no effect on whether the quadratic is convex",
+        "must both be zero for the quadratic to be convex",
+        "decide convexity, and the Hessian does not"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "The Hessian of \\(a x^2 + b x y + c y^2\\) is constant. Its quadratic form on the vector \\((1, 1)\\) is an expression in the names a, b, and c. Write that expression.",
+      "explanation": "The second derivatives are \\(f_{xx} = 2a\\), \\(f_{xy} = b\\), and \\(f_{yy} = 2c\\). On \\((1, 1)\\) the form is \\(2a + 2b + 2c\\).\n• \\(a + b + c\\) forgets the factor \\(2\\) on the pure second derivatives.\n• \\(2a + 2c\\) drops the mixed term.\n• \\(a x^2 + b x y + c y^2\\) is the function, and it still contains the point.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-derivative positions</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">xx   xy</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">yx   yy</text></svg>",
+      "figure_alt": "A 2 by 2 array labeled by second-derivative positions.",
+      "answer": "2*a+2*b+2*c",
+      "variables": [
+        {
+          "name": "a",
+          "min": -3.0,
+          "max": 3.0
+        },
+        {
+          "name": "b",
+          "min": -3.0,
+          "max": 3.0
+        },
+        {
+          "name": "c",
+          "min": -3.0,
+          "max": 3.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "2*(a+b+c)",
+        "2*c+2*b+2*a"
+      ],
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Let \\(H = \\begin{bmatrix} 2 & -1 \\\\ -1 & 2 \\end{bmatrix}\\). This is the Hessian of a quadratic. What is its smaller eigenvalue?",
+      "explanation": "The trace is \\(4\\) and the determinant is \\(4 - 1 = 3\\). The eigenvalues are the roots of \\(\\lambda^2 - 4\\lambda + 3 = 0\\), so \\(\\lambda = 1\\) and \\(\\lambda = 3\\). The smaller one is \\(1\\). Both are positive, so the Hessian is positive definite and the quadratic is strictly convex. The trace \\(4\\) is the sum, not the smaller root. The off-diagonal entry \\(-1\\) is not an eigenvalue.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-derivative positions</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">xx   xy</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">yx   yy</text></svg>",
+      "figure_alt": "A 2 by 2 array labeled by second-derivative positions.",
+      "answer": 1.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r2-q3",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order used to apply the second-order convexity test.",
+      "explanation": "The entries come first, the matrix second, the semidefinite test third, and the convexity conclusion last. A single positive-definite Hessian does not finish the test, because a later point could introduce a negative eigenvalue. Checking the gradient is the first-order characterization, and it is not one of these steps.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-derivative positions</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">xx   xy</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">yx   yy</text></svg>",
+      "figure_alt": "A 2 by 2 array labeled by second-derivative positions.",
+      "steps": [
+        "Compute the second partial derivatives.",
+        "Assemble them into the Hessian, using symmetry of the mixed partials.",
+        "Test whether that Hessian is positive semidefinite at every point of the open convex domain.",
+        "Conclude convexity when the test passes everywhere, and reject it when some Hessian has a negative eigenvalue."
+      ],
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note claims that \\(f(x, y) = x^2 - y^2\\) is convex on the plane. Exactly one step is false.",
+      "explanation": "The Hessian of \\(x^2 - y^2\\) is diagonal with entries \\(2\\) and \\(-2\\). A diagonal matrix with positive diagonal entries is positive definite, and a positive definite Hessian everywhere does imply strict convexity. The false step is the claim that both diagonal entries are positive. The entry \\(-2\\) is a negative eigenvalue, so the Hessian is indefinite and the function is not convex. Along \\(y\\) the function is a downward parabola.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "steps": [
+        "The Hessian is diagonal, with diagonal entries 2 and -2.",
+        "Both diagonal entries are positive.",
+        "A diagonal matrix with positive diagonal entries is positive definite.",
+        "A positive definite Hessian at every point implies strict convexity."
+      ],
+      "flaw_index": 1,
+      "reasons": [
+        "One diagonal entry is negative, so the Hessian is not positive semidefinite.",
+        "The Hessian is not diagonal.",
+        "A positive definite Hessian does not imply strict convexity."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Let \\(f(x, y) = (x + 2y - 1)^2\\). What is the off-diagonal entry of its Hessian?",
+      "explanation": "Expanding gives \\(x^2 + 4xy + 4y^2 - 2x - 4y + 1\\). Differentiating twice, \\(f_{xx} = 2\\), \\(f_{xy} = 4\\), and \\(f_{yy} = 8\\). The off-diagonal entry is \\(4\\). The Hessian \\(\\begin{bmatrix} 2 & 4 \\\\ 4 & 8 \\end{bmatrix}\\) has eigenvalues \\(0\\) and \\(10\\), so it is positive semidefinite and \\(f\\) is convex, but not strictly convex. Reporting \\(2\\) or \\(8\\) names a diagonal entry. The linear coefficients do not appear in the Hessian.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-derivative positions</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">xx   xy</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">yx   yy</text></svg>",
+      "figure_alt": "A 2 by 2 array labeled by second-derivative positions.",
+      "answer": 4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "If the Hessian is positive definite at every point of an open convex domain, then the function is",
+      "explanation": "Positive definiteness is stronger than semidefiniteness, and the second-order theorem upgrades the conclusion from convex to strictly convex. An affine function has a zero Hessian, which is semidefinite and not definite. Many strictly convex functions are not sums of squares of affine functions; a square of a nonlinear smooth map can be strictly convex on a region as well. Semidefiniteness alone allows flat directions.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "options": [
+        "convex, but never strictly convex",
+        "strictly convex",
+        "affine",
+        "a sum of squares of linear functions, and nothing else"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r4-q1",
+      "round": 4,
+      "type": "multi",
+      "prompt": "Which of these functions are convex on the whole plane?",
+      "explanation": "The Hessian of \\(2x^2 + 3y^2\\) is diagonal with entries \\(4\\) and \\(6\\), both positive. The Hessian of \\((x + y)^2\\) is \\(\\begin{bmatrix} 2 & 2 \\\\ 2 & 2 \\end{bmatrix}\\), which is positive semidefinite of rank one, so the function is convex. The linear function has Hessian zero, which is positive semidefinite.\n• \\(x^2 - y^2\\) is indefinite.\n• \\(-x^2 - y^2\\) is negative definite, so it is concave and not convex.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested ellipses</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses centered at the origin.",
+      "preview": [
+        "second-order-optimality"
+      ],
+      "options": [
+        "\\(2x^2 + 3y^2\\)",
+        "\\(x^2 - y^2\\)",
+        "\\((x + y)^2\\)",
+        "\\(-x^2 - y^2\\)",
+        "\\(5x + 7y\\)"
+      ],
+      "correct_indices": [
+        0,
+        2,
+        4
+      ],
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Let \\(f(x) = \\lVert Ax - b \\rVert^2\\) with \\(A = \\begin{bmatrix} 1 & 0 \\\\ 0 & 2 \\\\ 1 & 1 \\end{bmatrix}\\). The Hessian is \\(2A^{T}A\\). What is the bottom-right entry of that Hessian?",
+      "explanation": "The product \\(A^{T}A\\) equals \\(\\begin{bmatrix} 2 & 1 \\\\ 1 & 5 \\end{bmatrix}\\), because the second column of \\(A\\) has squared length \\(0 + 4 + 1 = 5\\) and inner product \\(0 + 0 + 1 = 1\\) with the first column. Twice that matrix has bottom-right entry \\(10\\). The top-left entry of the Hessian is \\(4\\). A least-squares objective of this form always has a positive semidefinite Hessian, so it is convex whether or not this particular entry is the one you read.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-derivative positions</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">xx   xy</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">yx   yy</text></svg>",
+      "figure_alt": "A 2 by 2 array labeled by second-derivative positions.",
+      "preview": [
+        "quadratic-function-minimization"
+      ],
+      "answer": 10.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A least-squares objective \\(\\lVert Ax - b \\rVert^2\\) is convex because",
+      "explanation": "For every real matrix, \\(v^{T}(A^{T}A)v = \\lVert Av \\rVert^2 \\ge 0\\), so \\(A^{T}A\\) and \\(2A^{T}A\\) are positive semidefinite. Rank of \\(A\\) decides whether the Hessian is definite and whether the minimizer is unique, not whether the function is convex. The objective is quadratic, not linear. The vector \\(b\\) moves the linear term and does not change the Hessian.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
+      "preview": [
+        "convex-optimality-global"
+      ],
+      "options": [
+        "\\(b\\) is the zero vector",
+        "\\(A\\) has full column rank",
+        "the objective is linear in \\(x\\)",
+        "its Hessian \\(2A^{T}A\\) is positive semidefinite for every real \\(A\\)"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

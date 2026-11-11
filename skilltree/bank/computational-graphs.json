@@ -1,0 +1,224 @@
+{
+  "skill_id": "computational-graphs",
+  "version": 1,
+  "questions": [
+    {
+      "id": "computational-graphs-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A computational graph for a scalar formula is",
+      "explanation": "Each node is one elementary step, such as an addition or a product, and edges record which values that step reads. The graph is acyclic because a value is computed from earlier values. Level sets are a picture of the function, not of the arithmetic. The Hessian is a matrix of second derivatives. Sample points belong to a numerical check, not to the graph.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "options": [
+        "a picture of the level sets of the formula",
+        "a directed acyclic graph whose nodes are elementary operations",
+        "the Hessian of the formula",
+        "a list of random sample points"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Break \\(f(x, y) = (xy + 3)^2 + x\\) into the product \\(p = xy\\), the sum \\(s = p + 3\\), the square \\(q = s^2\\), and \\(f = q + x\\). At \\((2, 4)\\), what is \\(f\\)?",
+      "explanation": "The product is \\(8\\), the sum is \\(11\\), and the square is \\(121\\). Adding the first input gives \\(121 + 2 = 123\\). Stopping at the square reports \\(121\\). Stopping at the sum reports \\(11\\). The product \\(8\\) is only the first node.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "answer": 123.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Symbolic differentiation, numeric differentiation, and automatic differentiation differ in that",
+      "explanation": "Symbolic differentiation rewrites the expression and can suffer expression swell. Numeric differentiation only evaluates the function, then forms a difference quotient, and it carries truncation and round-off. Automatic differentiation keeps the graph, evaluates it, and applies the local derivative of each node, so the result is exact up to round-off of the arithmetic. All three can handle a product. The chain rule is the engine of the symbolic and automatic routes, not of a bare difference quotient.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "options": [
+        "only numeric differentiation uses the chain rule",
+        "only symbolic differentiation can be applied to a product",
+        "symbolic builds an expression, numeric samples the function, and automatic applies the chain rule on the evaluated graph",
+        "automatic differentiation replaces every operation by a finite difference"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order used to evaluate \\(f = (xy + 3)^2 + x\\) from its graph.",
+      "explanation": "Each node reads values that earlier nodes have already produced, so the order is a topological order of the graph. Squaring before the addition would square the product and compute a different function. Adding the first input at the beginning would not match this graph either.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "steps": [
+        "Multiply the two inputs.",
+        "Add 3 to that product.",
+        "Square the sum.",
+        "Add the first input to the square."
+      ],
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Using the same graph \\(f = (xy + 3)^2 + x\\), what is \\(f(2, 5)\\)?",
+      "explanation": "The product is \\(10\\), the sum is \\(13\\), and the square is \\(169\\). Adding the first input gives \\(171\\). The value at \\((2, 4)\\) was \\(123\\), which is this function at a different point. The square \\(169\\) forgets the final addition. The sum \\(13\\) is an intermediate node.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "answer": 171.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A node may be evaluated when",
+      "explanation": "Forward evaluation respects the arrows: a node waits for its inputs. The nodes that read it are downstream and have to wait for it. The output is the last value, not a prerequisite of the first node. Local derivatives are a later pass. They need the primal values, so they do not come first.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "options": [
+        "every node that it reads has already been evaluated",
+        "every node that reads it has already been evaluated",
+        "the output value is already known",
+        "its local derivative has already been computed"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r3-q1",
+      "round": 3,
+      "type": "symbolic",
+      "prompt": "The output of the graph 'multiply x by y, add a, square the sum, then add x' is an expression in the names x, y, and a. Write that expression.",
+      "explanation": "The product plus \\(a\\), squared, plus the first input, is \\((xy + a)^2 + x\\).\n• \\((xy + a)^2\\) stops before the final addition of \\(x\\).\n• \\(xy + a + x\\) never squares.\n• \\((x + y + a)^2 + x\\) adds the inputs before multiplying them.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "answer": "(x*y+a)*(x*y+a)+x",
+      "variables": [
+        {
+          "name": "x",
+          "min": -3.0,
+          "max": 3.0
+        },
+        {
+          "name": "y",
+          "min": -3.0,
+          "max": 3.0
+        },
+        {
+          "name": "a",
+          "min": -3.0,
+          "max": 3.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "(x*y+a)**2+x",
+        "x+(x*y+a)**2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Using the graph \\(f = (xy + 3)^2 + x\\), what is the intermediate sum \\(s = xy + 3\\) at \\((1, 7)\\)?",
+      "explanation": "The product is \\(7\\), and adding \\(3\\) gives \\(10\\). The square of that sum is \\(100\\), and the output is \\(101\\). The question asks for the sum, not the output. Reporting \\(7\\) stops at the product. Reporting \\(101\\) runs the whole graph.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "answer": 10.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Expression swell is a reason to prefer automatic differentiation when",
+      "explanation": "The graph stays about as large as the original formula, while the expanded derivative of a long composition can be huge. A single addition has a trivial derivative either way. A bare function value needs no differentiation method. A short polynomial in one variable is cheap symbolically. The advantage shows up when the chain is long.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "options": [
+        "the function is already a single addition",
+        "only one function value is required, and no derivative",
+        "the formula is a low-degree polynomial in one variable",
+        "the expanded symbolic derivative would be much larger than the graph"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r4-q1",
+      "round": 4,
+      "type": "error",
+      "prompt": "Someone evaluates the graph of \\(f = (xy + 3)^2 + x\\) at a generic input. Exactly one step does not match the graph.",
+      "explanation": "The graph squares the sum \\(s = xy + 3\\), not the product. The product, the addition of \\(3\\), and the final addition of the first input all match the formula. Squaring \\(p\\) computes \\((xy)^2 + x\\), which drops the cross terms that the binomial expansion of \\((xy + 3)^2\\) would have kept.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "preview": [
+        "ad-forward-mode"
+      ],
+      "steps": [
+        "Multiply the two inputs and call the product p.",
+        "Add 3 to p and call the sum s.",
+        "Square p and call the result q.",
+        "Add the first input to q and call the result f."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The square should be applied to the sum, not to the product.",
+        "The product of the inputs is the wrong first operation.",
+        "The graph does not add the first input at the end."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Using the graph \\(f = (xy + 3)^2 + x\\), what is \\(f(1, 7)\\)?",
+      "explanation": "The sum \\(xy + 3\\) equals \\(10\\), its square is \\(100\\), and adding the first input gives \\(101\\). The intermediate sum \\(10\\) is not the output. The square \\(100\\) forgets the final addition. At \\((2, 4)\\) the same graph produced \\(123\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "preview": [
+        "ad-reverse-mode"
+      ],
+      "answer": 101.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Once a formula is a computational graph, a derivative can be obtained by",
+      "explanation": "Each elementary operation has a small derivative, and the multivariable chain rule multiplies those local factors along the graph. That is the step automatic differentiation takes. A level-set picture does not encode the arithmetic. The node count is not a derivative. The output value alone, with the intermediates thrown away, is enough for a finite difference and not enough for an exact chain-rule sweep.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "preview": [
+        "hessian-vector-products-ad"
+      ],
+      "options": [
+        "replacing the graph with its level-set picture",
+        "attaching the local derivative of each elementary node and combining them by the chain rule",
+        "counting the nodes",
+        "evaluating the output and ignoring the intermediate nodes"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}

@@ -3693,6 +3693,474 @@
     {
       "id": "taylor-exact-mean-value#explainer",
       "version": 1
+    },
+    {
+      "id": "convex-functions-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-functions-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-functions#explainer",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "convexity-first-order#explainer",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "convexity-second-order#explainer",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "finite-difference-derivatives#explainer",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "computational-graphs#explainer",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "ad-forward-mode#explainer",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "ad-reverse-mode#explainer",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "hessian-vector-products-ad#explainer",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "backprop-neural-network#explainer",
+      "version": 1
     }
   ]
 }

@@ -1,0 +1,29 @@
+{
+  "id": "ad-reverse-mode",
+  "title": "Reverse-mode automatic differentiation",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>four elementary steps</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">xy</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ c</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sq</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"420\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"462\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+ x</text><line x1=\"504\" y1=\"56\" x2=\"540\" y2=\"56\"/><polygon points=\"540,56 533.6,58.7 533.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"544\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "Four blocks in a row, ending at a scalar output.",
+      "body_md": "Reverse-mode automatic differentiation computes the gradient of a scalar by walking a computational graph backward. The forward pass is run first, and every node value is stored. The output then receives adjoint \\(1\\), meaning the derivative of the output with respect to itself. Each node pushes its adjoint back to its parents, multiplied by the local partial derivative.\n\nIf a parent is used by several nodes, the contributions add. A variable that appears twice in the formula gets an adjoint from every use. When the sweep reaches the inputs, their adjoints are the partial derivatives of the output. One sweep produces all of them.\n\nThe arithmetic is a small constant times one function evaluation. The extra cost is memory for the forward trace, or extra time if those values are recomputed. For one scalar that depends on many inputs, this is much cheaper than one forward sweep per input."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The adjoint of a node \\(v\\) is \\(\\bar v = \\partial f / \\partial v\\). The output is seeded with \\(\\bar f = 1\\). A sum sends its adjoint unchanged to each summand. A product \\(p = uv\\) sends \\(\\bar p\\, v\\) to \\(u\\) and \\(\\bar p\\, u\\) to \\(v\\). A square \\(q = s^2\\) sends \\(2s\\, \\bar q\\) to \\(s\\). If \\(x\\) is used in two places, the two contributions to \\(\\bar x\\) are added. At the end, \\(\\bar x_i = \\partial f / \\partial x_i\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take \\(f(x, y) = x^2 + xy + 5\\) at \\((8, -2)\\). The forward values are \\(x^2 = 64\\) and \\(xy = -16\\). Seed the output with adjoint \\(1\\). The square sends \\(2\\cdot 8\\cdot 1 = 16\\) toward \\(x\\). The product sends \\(y\\cdot 1 = -2\\) toward \\(x\\) and \\(x\\cdot 1 = 8\\) toward \\(y\\). Adding the two contributions to \\(x\\) gives the adjoint pair 14 and 8: \\(\\partial f/\\partial x = 16 - 2 = 14\\), and \\(\\partial f/\\partial y = 8\\). Dropping the product's contribution to \\(x\\) would have left \\(16\\), which is only the square."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The sweep cannot start until the forward values exist, because the local factors \\(2s\\), \\(u\\), and \\(v\\) are primal numbers. Forgetting one path into a variable that is used twice drops part of the partial derivative. Seeding the output with the output value, instead of with \\(1\\), scales the whole gradient by that value. Reverse mode is not automatically cheaper than forward mode for a function of one input. The two modes do about the same work in that case. Reverse mode wins when the input is wide and the output is a scalar."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Training a model is this sweep on a scalar loss: the weights are the wide input, and the loss is the scalar output. Applying forward mode to the reverse-mode gradient, with a direction \\(d\\), returns the Hessian times \\(d\\) without forming the Hessian. That product is the next tool when a second-order method needs curvature and the parameter vector is long."
+    }
+  ]
+}

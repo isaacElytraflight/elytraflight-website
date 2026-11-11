@@ -279,6 +279,16 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | \(J_F(x)\) | Jacobian of a map \(F\) | rows are gradients of the components; shape is outputs by inputs. Added in NB3 |
 | \(o(\lVert h \rVert)\) | little-o remainder | the remainder divided by \(\lVert h \rVert\) tends to 0. Added in NB3 |
 | \(T_1\), \(T_2\) | first- and second-order Taylor models | \(T_1\) uses \(\nabla f\); \(T_2\) adds \(\tfrac12 h^T H_f h\). Added in NB3 |
+| convex \(f\) | chord inequality | \(f((1-t)x+ty)\le (1-t)f(x)+tf(y)\) for \(t\in[0,1]\). Strict when the inequality is strict for \(t\in(0,1)\) and \(x\ne y\). Added in NB4 |
+| first-order convexity | tangent underestimator | \(f(y)\ge f(x)+\nabla f(x)^T(y-x)\). Added in NB4 |
+| second-order convexity | Hessian test on an open convex set | \(H_f(x)\) positive semidefinite at every point. Added in NB4 |
+| \(\delta_+ f\) | forward difference | \([f(x+h)-f(x)]/h\), truncation \(O(h)\). Added in NB4 |
+| \(\delta_c f\) | central difference | \([f(x+h)-f(x-h)]/(2h)\), truncation \(O(h^2)\). Added in NB4 |
+| \(\varepsilon_{\mathrm{mach}}\) | unit roundoff | round-off of a difference quotient grows like \(\varepsilon_{\mathrm{mach}}/h\). Added in NB4 |
+| computational graph | elementary operations as nodes | values computed in topological order. Added in NB4 |
+| \(\dot v\) | forward-mode tangent of a node | directional derivative of that node. Added in NB4 |
+| \(\bar v\) | reverse-mode adjoint of a node | partial derivative of the scalar output with respect to that node. Added in NB4 |
+| \(H_f(x)\, d\) | Hessian-vector product | forward-over-reverse, or reverse-over-forward with \(d\) held fixed. Added in NB4 |
 
 ## loop-shaping
 
