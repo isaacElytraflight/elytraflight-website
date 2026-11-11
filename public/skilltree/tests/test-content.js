@@ -47,14 +47,14 @@ function readJsonDir(dir) {
 
 console.log('\n=== Skillgrove content integrity ===\n');
 
-test('graph is version 3 with 265 live skills and 16 retired ids', () => {
+test('graph is version 3 with 267 live skills and 16 retired ids', () => {
   assert.strictEqual(graph.version, 3);
-  assert.strictEqual(skills.length, 265);
+  assert.strictEqual(skills.length, 267);
   assert.strictEqual(retiredIds.size, 16);
   assert.strictEqual(retired.margins, 'stability');
-  assert.strictEqual(new Set(skills.map(s => s.id)).size, 265, 'skill ids are unique');
+  assert.strictEqual(new Set(skills.map(s => s.id)).size, 267, 'skill ids are unique');
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 71, 'NB1 through NB4 and B5 through B7 together leave 71 skills coming soon');
+  assert.strictEqual(soon.length, 63, 'NB1 through NB4 and B5 through B8 together leave 63 skills coming soon');
   const byId = Object.fromEntries(skills.map(s => [s.id, s]));
   assert.strictEqual(byId['lin-algebra-review'].name, 'Linear algebra review');
   assert.strictEqual(byId['lin-algebra-review'].id, 'lin-algebra-review');
@@ -71,7 +71,17 @@ test('graph is version 3 with 265 live skills and 16 retired ids', () => {
   for (const id of ['adaptive', 'fund-limits', 'observer', 'robust-perf', 'state-feedback']) {
     assert.strictEqual(byId[id].status, undefined, id + ' has a bank and is not coming soon');
   }
-  assert.strictEqual(byId['separation'].status, 'coming-soon');
+  for (const id of ['fb-linearization', 'gain-scheduling', 'gen-controller', 'integral-action', 'kalman', 'kalman-optimal-observer', 'lqr', 'mpc', 'separation', 'gaussian-random-vectors']) {
+    assert.strictEqual(byId[id].status, undefined, id + ' has a bank and is not coming soon');
+  }
+  assert.strictEqual(byId['kalman'].name, 'Kalman filter');
+  assert.deepStrictEqual(byId['kalman'].prereqs, ['lin-algebra-review', 'gaussian-random-vectors']);
+  assert.deepStrictEqual(byId['gaussian-random-vectors'].prereqs, ['lin-algebra-review']);
+  assert.deepStrictEqual(byId['kalman-optimal-observer'].prereqs, ['kalman', 'observer']);
+  assert.ok(byId['kalman-recursive-least-squares'].prereqs.includes('kalman'));
+  assert.strictEqual(byId['kalman-recursive-least-squares'].status, 'coming-soon');
+  assert.deepStrictEqual(byId['extended-kalman-filter'].prereqs, ['kalman-recursive-least-squares']);
+  assert.strictEqual(byId['extended-kalman-filter'].status, 'coming-soon');
 });
 
 test('every retired id points at a live survivor and is not itself live', () => {
@@ -84,9 +94,9 @@ test('every retired id points at a live survivor and is not itself live', () => 
 
 test('playable skills have quiz banks and coming-soon skills do not', () => {
   const banks = readJsonDir(path.join(SRC, 'bank'));
-  assert.strictEqual(Object.keys(banks).length, 194);
+  assert.strictEqual(Object.keys(banks).length, 204);
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 71);
+  assert.strictEqual(soon.length, 63);
   for (const skill of skills) {
     const bank = banks[skill.id];
     if (skill.status === 'coming-soon') {
@@ -106,7 +116,7 @@ test('playable skills have quiz banks and coming-soon skills do not', () => {
 
 test('playable skills have explainers and coming-soon skills do not', () => {
   const explainers = readJsonDir(path.join(SRC, 'explainers'));
-  assert.strictEqual(Object.keys(explainers).length, 194);
+  assert.strictEqual(Object.keys(explainers).length, 204);
   for (const skill of skills) {
     const exp = explainers[skill.id];
     if (skill.status === 'coming-soon') {
@@ -224,9 +234,9 @@ test('collections reference no retired ids and every skill sits in a top-level b
     for (const sid of members) covered.add(sid);
   }
   for (const id of skillIds) assert(covered.has(id), 'skill missing from every top-level box: ' + id);
-  assert.strictEqual(skillsInBox(me132, byId).size, 56);
-  assert.strictEqual(skillsInBox(am08, byId).size, 71);
-  assert.strictEqual(skillsInBox(nlo, byId).size, 96);
+  assert.strictEqual(skillsInBox(me132, byId).size, 58);
+  assert.strictEqual(skillsInBox(am08, byId).size, 72);
+  assert.strictEqual(skillsInBox(nlo, byId).size, 98);
   const nloChapters = collections.boxes.filter(box => (box.skills || []).includes('lin-algebra-review')).map(box => box.id).sort();
   assert.deepStrictEqual(nloChapters, ['am08/ch99', 'nlo-tugraz/l2']);
   for (const shared of ['tf', 'bode', 'fb-intro', 'stability']) {
@@ -309,9 +319,9 @@ test('no retired id is referenced by the built app payload', () => {
   const built = JSON.parse(fs.readFileSync(path.join(PUB, manifest.skills.file), 'utf8'));
   assert.deepStrictEqual(built.retired, retired);
   const builtIds = built.skills.map(s => s.id);
-  assert.strictEqual(builtIds.length, 265);
-  assert.strictEqual(Object.keys(built.banks).length, 194);
-  assert.strictEqual(Object.keys(built.explainers).length, 194);
+  assert.strictEqual(builtIds.length, 267);
+  assert.strictEqual(Object.keys(built.banks).length, 204);
+  assert.strictEqual(Object.keys(built.explainers).length, 204);
   for (const id of builtIds) {
     assert(!retiredIds.has(id), 'built graph still contains ' + id);
     const skill = built.skills.find(s => s.id === id);

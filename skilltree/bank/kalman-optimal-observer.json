@@ -1,0 +1,229 @@
+{
+  "skill_id": "kalman-optimal-observer",
+  "version": 1,
+  "questions": [
+    {
+      "id": "kalman-optimal-observer-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Among corrections of the form \\(\\hat{x} + L(y - C\\hat{x})\\), the filter gain is the one that",
+      "explanation": "This skill's claim is the minimum-variance one: the gain from \\(P\\) and \\(R\\) is the linear correction with the smallest updated error variance. Pole placement is a different design and can be a worse variance. The updated covariance is not \\(R\\), and \\(Q\\) is a model of the noise, not a quantity the gain minimizes.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>observer correction from a noise model</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">model</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">xhat</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
+      "figure_alt": "A model block with a gain L returned and subtracted.",
+      "options": [
+        "minimizes the variance of the updated state error",
+        "places the eigenvalues of \\(A - L C\\) at a polynomial you wrote down first",
+        "makes the updated covariance equal to \\(R\\)",
+        "minimizes the process variance \\(Q\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A scalar predicted variance is \\(8\\) and the measurement variance is \\(2\\), with \\(c = 1\\). The minimum updated variance is",
+      "explanation": "The minimizing gain is \\(8/(8+2) = 0.8\\), and the updated variance is \\((1 - L) \\times 8 = 1.6\\). Reporting the gain \\(0.8\\) answers a different question. Leaving the variance at \\(8\\) skips the update. Using \\(R = 2\\) as the updated variance forgets the prior.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>an error cloud before the best linear correction</title><line x1=\"28\" y1=\"108\" x2=\"256\" y2=\"108\"/><polygon points=\"256,108 249.6,110.7 249.6,105.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"124\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"108\" rx=\"88\" ry=\"48\" fill=\"currentColor\" fill-opacity=\"0.12\"/></svg>",
+      "figure_alt": "A shaded ellipse centered at the origin.",
+      "answer": 1.6,
+      "unit": "m2",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The same numbers, predicted variance \\(8\\) and measurement variance \\(2\\), make the innovation variance \\(c^2 P + R\\) equal to",
+      "explanation": "With \\(c = 1\\) the innovation variance is \\(P + R = 10\\). That sum is the denominator of the gain, not the gain and not the posterior. The posterior is \\(1.6\\). The ratio \\(P/R = 4\\) is neither.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>process and measurement intensities</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">Q   R</text></svg>",
+      "figure_alt": "A row of two labels, Q and R.",
+      "answer": 10.0,
+      "unit": "m2",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "A scalar predicted variance is \\(p\\), the output coefficient is \\(c\\), and the measurement variance is \\(r\\). Write the gain that minimizes the updated variance, in the names \\(p\\), \\(c\\), and \\(r\\).",
+      "explanation": "Differentiate \\((1 - L c)^2 p + L^2 r\\) and set the derivative to zero. The critical point is \\(L = p c / (c^2 p + r)\\). The form \\(p / r\\) drops both \\(c\\) and the prior in the denominator. The form \\(c / r\\) drops \\(p\\). The numerator is the prior times \\(c\\), not \\(c\\) alone.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>process and measurement intensities</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">Q   R</text></svg>",
+      "figure_alt": "A row of two labels, Q and R.",
+      "answer": "p*c/(c*c*p+r)",
+      "variables": [
+        {
+          "name": "p",
+          "min": 0.4,
+          "max": 4.0
+        },
+        {
+          "name": "c",
+          "min": 0.4,
+          "max": 2.5
+        },
+        {
+          "name": "r",
+          "min": 0.4,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "(p*c)/(c**2*p+r)",
+        "c*p/(p*c*c+r)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Predicted variance \\(5\\), measurement variance \\(5\\), \\(c = 1\\). A hand-picked gain \\(0.2\\) is compared with the minimizing gain, using \\((1-Lc)^2 P + L^2 R\\) for both. How much larger is the hand-picked variance?",
+      "explanation": "The minimizing gain is \\(5/(5+5) = 0.5\\), with variance 2.5. The hand-picked gain has variance \\(0.8^2 \\times 5 + 0.2^2 \\times 5 = 3.4\\). The difference is 0.9. The simplified product \\((1-Lc)P\\) is the variance only for the minimizing gain, so using it on \\(L = 0.2\\) understates that variance. Reporting either variance alone misses the comparison.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>an error cloud before the best linear correction</title><line x1=\"28\" y1=\"108\" x2=\"256\" y2=\"108\"/><polygon points=\"256,108 249.6,110.7 249.6,105.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"124\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"108\" rx=\"88\" ry=\"48\" fill=\"currentColor\" fill-opacity=\"0.12\"/></svg>",
+      "figure_alt": "A shaded ellipse centered at the origin.",
+      "answer": 0.9,
+      "unit": "m2",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r2-q3",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order of a scalar minimum-variance calculation.",
+      "explanation": "The error expression comes first, because the variance is its second moment. The derivative is how you locate the minimum, and it has to be taken before you can solve for \\(L\\). Substituting back is the last step: it reports the minimum value, and it is not how you find \\(L\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>observer correction from a noise model</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">model</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">xhat</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
+      "figure_alt": "A model block with a gain L returned and subtracted.",
+      "steps": [
+        "Write the updated error as one minus L c times the predicted error, plus L times the measurement noise.",
+        "Write the updated variance, including the term L squared times R.",
+        "Differentiate that variance with respect to L and set the derivative to zero.",
+        "Solve the resulting equation for L.",
+        "Substitute that L back into the variance."
+      ],
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "Someone is comparing a noise-chosen gain with a pole-placed gain. One step is wrong.",
+      "explanation": "Stability says the error decays. It does not say how large the error is while the noise is acting. The variance still depends on the gain, which is why a pole-placed \\(L\\) and the filter gain are different designs. The other three steps are the comparison this skill is for.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two real marks, one farther left</title><line x1=\"20\" y1=\"92\" x2=\"26\" y2=\"92\"/><line x1=\"54\" y1=\"92\" x2=\"186.2\" y2=\"92\"/><line x1=\"214.2\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"246\" y1=\"160\" x2=\"246\" y2=\"16\"/><polygon points=\"246,16 248.7,22.4 243.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"254\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"195.2\" y1=\"87\" x2=\"205.2\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"195.2\" y1=\"97\" x2=\"205.2\" y2=\"87\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"87\" x2=\"45\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"97\" x2=\"45\" y2=\"87\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "Two crosses on the negative real axis, one farther from the origin.",
+      "steps": [
+        "The filter gain minimizes the updated error variance among linear corrections.",
+        "A different gain can move the error poles and still produce a larger variance.",
+        "Every stable observer gain has the same error variance, because stability is the only requirement.",
+        "The steady filter gain is the observer gain you would use if you wanted the minimum-variance correction."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "Stability fixes the decay of the error, not the variance under noise. The variance still depends on the gain.",
+        "A stable gain is automatically the minimum-variance gain.",
+        "The process variance Q is zero whenever the error poles are stable."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "The steady filter, run until the predicted variance stops changing, is",
+      "explanation": "At equilibrium the recursion is an observer with one fixed \\(L\\), and that \\(L\\) is still the minimizer built from \\(Q\\) and \\(R\\). The Lyapunov equation has no measurement update. The control gain uses a different \\(R\\), the control weight. Dropping \\(R\\) would be the zero-measurement-noise limit, not the general steady filter.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>observer correction from a noise model</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">model</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">xhat</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
+      "figure_alt": "A model block with a gain L returned and subtracted.",
+      "options": [
+        "the Lyapunov equation \\(A^T P + P A = -Q\\), with no measurement",
+        "an observer whose gain is frozen at the variance-minimizing value",
+        "a state-feedback gain \\(K = R^{-1} B^T P\\)",
+        "a design that no longer depends on \\(R\\)"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which statements hold for the minimum-variance correction?",
+      "explanation": "The scalar formula is the derivative condition. The observer structure is the same correction \\(L(y - C\\hat{x})\\), with this choice of \\(L\\). A larger \\(Q\\) feeds the predicted variance and moves the steady gain. Unreachable modes belong to a control rank test, not to this variance.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>process and measurement intensities</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">Q   R</text></svg>",
+      "figure_alt": "A row of two labels, Q and R.",
+      "options": [
+        "The scalar gain is \\(p c / (c^2 p + r)\\).",
+        "That gain can be dropped into an observer in place of a hand-chosen polynomial.",
+        "A larger process intensity leaves the steady gain unchanged.",
+        "The gain is computed from the unreachable modes of the pair \\((A, B)\\)."
+      ],
+      "correct_indices": [
+        0,
+        1
+      ],
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "A steady scalar filter has \\(a = 1\\), \\(c = 1\\), process variance \\(4\\), and measurement variance \\(3\\). The minimum steady updated variance is",
+      "explanation": "The steady predicted variance solves \\(P^2 - 4P - 12 = 0\\), so \\(P = 6\\). The gain is \\(P/(P+3) = 0.666667\\), and the updated variance is \\((1-L)P = 2\\). Reporting the predicted variance \\(6\\) stops one step early. Reporting the process variance \\(4\\) reports \\(q\\), which equals \\(L P\\) and is not the posterior. Reporting \\(3\\) reports the measurement variance.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>an error cloud before the best linear correction</title><line x1=\"28\" y1=\"108\" x2=\"256\" y2=\"108\"/><polygon points=\"256,108 249.6,110.7 249.6,105.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"124\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"108\" rx=\"88\" ry=\"48\" fill=\"currentColor\" fill-opacity=\"0.12\"/></svg>",
+      "figure_alt": "A shaded ellipse centered at the origin.",
+      "preview": [
+        "gen-controller"
+      ],
+      "answer": 2.0,
+      "unit": "m2",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A regulator gain \\(K\\) has already been chosen. The variance-minimizing \\(L\\) from this skill",
+      "explanation": "The two gains answer different questions. \\(K\\) places or optimizes the control, and \\(L\\) minimizes the error variance. They meet later, in one loop, without being forced equal. Copying \\(K\\) into the observer is a particular choice, not a requirement of this variance.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two real marks, one farther left</title><line x1=\"20\" y1=\"92\" x2=\"26\" y2=\"92\"/><line x1=\"54\" y1=\"92\" x2=\"186.2\" y2=\"92\"/><line x1=\"214.2\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"246\" y1=\"160\" x2=\"246\" y2=\"16\"/><polygon points=\"246,16 248.7,22.4 243.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"254\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"195.2\" y1=\"87\" x2=\"205.2\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"195.2\" y1=\"97\" x2=\"205.2\" y2=\"87\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"87\" x2=\"45\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"97\" x2=\"45\" y2=\"87\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "Two crosses on the negative real axis, one farther from the origin.",
+      "preview": [
+        "gen-controller",
+        "lqr"
+      ],
+      "options": [
+        "must equal \\(K\\), or the loop is inconsistent",
+        "replaces \\(K\\), because one gain can do both jobs",
+        "is chosen from \\(Q\\) and \\(R\\), and it does not have to equal \\(K\\)",
+        "is undefined until \\(K\\) is copied into the observer"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A bound on the command is added, and the linear error variance is no longer the quantity you can freely minimize. The design that takes the bound into the optimization at each sample is",
+      "explanation": "A hard bound is a constraint, not a quadratic weight. Raising \\(R\\) discourages large inputs and still allows them. Pole placement does not see the bound. Replacing the state by the measurement abandons the model. A receding horizon is the later design that keeps the constraint inside the problem.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>observer correction from a noise model</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">model</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">xhat</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
+      "figure_alt": "A model block with a gain L returned and subtracted.",
+      "preview": [
+        "mpc"
+      ],
+      "options": [
+        "a longer pole-placement polynomial",
+        "a larger \\(R\\), which is the same thing as a hard bound",
+        "dropping the observer and using the measurement as the state",
+        "a finite-horizon problem that enforces the bound and applies one input"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "gaussian-random-vectors",
+  "title": "Gaussian random vectors",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>covariance level curve of a two-component vector</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered on two axes, longer along the first coordinate.",
+      "body_md": "A Gaussian random vector is summarized by a mean and a covariance. The mean is where the cloud sits. The covariance is the expected outer product of the centered vector, so it is symmetric, its diagonal entries are variances, and a negative diagonal entry is impossible. For a Gaussian, a zero cross term is stronger than it is for a general random vector: the components are independent, not merely uncorrelated.\n\nA fixed matrix acts on this summary in a definite way. If \\(y = A x + d\\), the shift \\(d\\) moves the mean and does nothing to the covariance. The matrix hits the covariance from both sides, because the outer product has a factor of \\(x\\) on each side. The image is still Gaussian.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>covariance level curve of a two-component vector</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>"
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "With \\(\\mu = \\mathbb{E}[x]\\) and \\(P = \\mathbb{E}[(x-\\mu)(x-\\mu)^T]\\),\n\\[\n\\mathbb{E}[A x + d] = A\\mu + d, \\qquad \\mathrm{Cov}(A x + d) = A P A^T.\n\\]\nA scalar scale is the same rule: the variance of \\(c z\\) is \\(c^2\\) times the variance of \\(z\\). A sum of independent components adds the weighted variances and has no cross term. The trace of \\(P\\) is the sum of the component variances, in any coordinate, because a trace is invariant under a cyclic swap and the diagonal is what you read off after you have formed \\(A P A^T\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take a zero-mean scalar whose variance is \\(0.4\\), and form \\(1.7\\) times it. The variance of the product is \\(1.7^2 \\times 0.4 = 1.156\\). Shifting the result by \\(0.9\\) leaves \\(1.156\\) alone and moves the mean to \\(0.9\\). The same arithmetic in two dimensions is the congruence: a diagonal \\(P\\) is stretched by the squares of the row entries of \\(A\\), and a nonzero off-diagonal of \\(A\\) mixes the two original variances into both new ones."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The scale factor is squared. Using it once is the rule for the mean, not for the covariance. Dropping the transpose in \\(A P A^T\\) is the same mistake in matrix form, and it is still a mistake when \\(A\\) is square. A constant is not noise: its outer product does not get added to \\(P\\). And a zero cross term means independence only in the Gaussian case. Outside that family it means the linear correlation is zero, which is a weaker sentence."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "A linear predictor multiplies a covariance by \\(A\\) on the left and by \\(A^T\\) on the right, then adds the covariance of whatever noise entered the step. That is the predict half of a recursive filter. The update half will shrink the same matrix when a measurement arrives. Both steps are the identity on this page, applied to a running estimate of \\(P\\) rather than to a single random draw."
+    }
+  ]
+}

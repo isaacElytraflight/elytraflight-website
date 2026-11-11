@@ -417,3 +417,92 @@ Added in B7 for `adaptive`. \(\gamma\) is the adaptation gain, not a lead ratio.
 | \(\gamma\) | adaptation gain | |
 | \(\varepsilon\) | prediction error \(y - \hat{y}\) | |
 | certainty equivalence | build the control law from \(\hat{\theta}\) as if the estimate were the true parameter | |
+
+## gaussian-vectors
+
+Added in B8 for `gaussian-random-vectors`. \(x\) here is a random vector. In state-space, \(x\) is the state. A sentence that uses both says which.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(\mu\) | mean \(\mathbb{E}[x]\) | |
+| \(P\) | covariance \(\mathbb{E}[(x-\mu)(x-\mu)^T]\) | this \(P\) is not the plant and not the Lyapunov certificate |
+| \(A P A^T\) | covariance of \(A x\) when \(A\) is deterministic | a constant shift of \(x\) does not change \(P\) |
+
+## kalman-filter
+
+Added in B8 for `kalman`. The model is discrete. \(L_k\) is the filter gain. It is not the observer polynomial gain, and it is not the loop transfer. \(Q\) and \(R\) are noise covariances, not the regulator weights in the LQR area. \(P_{k|k-1}\) is the predicted error covariance.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(x_{k+1} = A x_k + w_k\) | state model | \(w_k\) is process noise |
+| \(y_k = C x_k + v_k\) | measurement model | \(v_k\) is measurement noise |
+| \(Q, R\) | covariances of \(w_k\) and \(v_k\) | |
+| predict | \(\hat{x}_{k|k-1} = A \hat{x}_{k-1|k-1}\), \(P_{k|k-1} = A P_{k-1|k-1} A^T + Q\) | a known input is added to the state predict and does not enter \(P\) |
+| \(L_k\) | filter gain \(P_{k|k-1} C^T (C P_{k|k-1} C^T + R)^{-1}\) | alias \(K_k\). Not the state-feedback row |
+| update | \(\hat{x}_{k|k} = \hat{x}_{k|k-1} + L_k (y_k - C \hat{x}_{k|k-1})\), \(P_{k|k} = (I - L_k C) P_{k|k-1}\) | the simplified covariance update uses this \(L_k\) |
+
+## lqr
+
+Added in B8 for `lqr`. \(Q\) and \(R\) are cost weights. They are not the noise covariances in the Kalman area. \(P\) is the solution of the algebraic Riccati equation, not the Lyapunov certificate, though the two equations share a shape. \(K\) is the state-feedback row from that \(P\).
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(\int_0^{\infty} (x^T Q x + u^T R u)\, dt\) | infinite-horizon quadratic cost | |
+| \(A^T P + P A - P B R^{-1} B^T P + Q = 0\) | algebraic Riccati equation | |
+| \(K = R^{-1} B^T P\) | optimal gain | |
+
+## mpc
+
+Added in B8 for `mpc`. \(N\) is the horizon in samples. \(T\) in this area is the sample period only when a sentence is computing a look-ahead time; the discrete-time area also uses \(T\).
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(N\) | number of steps in the horizon | |
+| receding horizon | apply the first computed input, then build the problem again at the next sample | |
+| \(u_{\min}, u_{\max}\) | bounds on the command inside that finite problem | |
+
+## separation
+
+Added in B8 for `separation`. \(K\) and \(L\) keep the meanings from state-feedback and observer.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(u = -K \hat{x}\) | output feedback through an estimate | |
+| eigenvalue split | the joint eigenvalues are those of \(A-BK\) and those of \(A-LC\), when the observer model matches the plant | separation |
+
+## integral-action
+
+Added in B8 for `integral-action`. \(\xi\) is the integrator state. It is not a schedule variable and not a damping ratio.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(\dot{\xi} = r - y\) | integrator on the tracking error | |
+| \(u = -K x + k_i \xi\) | state feedback plus the integrator gain | \(k_i > 0\) raises the command when \(\xi\) has accumulated a positive error on a positive-gain plant |
+
+## feedback-linearization
+
+Added in B8 for `fb-linearization`. This is not the Jacobian in the linearization area.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(\dot{x} = f(x) + g(x) u\) | control-affine model | |
+| \(u = (v - f(x))/g(x)\) | input that leaves \(\dot{x} = v\), where \(g(x) \neq 0\) | |
+| \(v\) | new input, designed as a linear state feedback | |
+
+## gain-scheduling
+
+Added in B8 for `gain-scheduling`. \(\rho\) is the measured schedule. It is not the adaptation gain \(\gamma\).
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(\rho\) | measured schedule variable | |
+| \(K(\rho)\) | controller gain interpolated from designs at fixed values of \(\rho\) | frozen at one \(\rho\), this is one linear controller |
+
+## two-degree-of-freedom
+
+Added in B8 for `gen-controller`. \(F\) is the feedforward gain from the reference. The feedforward area uses the same letter for a prefilter.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(u = F r - K \hat{x}\) | command with a reference term and an estimate term | two degrees of freedom |
+| \(F\) | gain chosen so a constant reference is matched in steady state | does not move the eigenvalues of \(A-BK\) |

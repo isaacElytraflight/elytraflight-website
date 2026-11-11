@@ -1,0 +1,34 @@
+{
+  "id": "me132-b8",
+  "label": "B8",
+  "box": "ME 132 (me132), Feedback Systems (am08), and Nonlinear Optimization (nlo-tugraz) for the shared Kalman core",
+  "skills": [
+    "fb-linearization",
+    "gain-scheduling",
+    "gen-controller",
+    "integral-action",
+    "gaussian-random-vectors",
+    "kalman",
+    "kalman-optimal-observer",
+    "lqr",
+    "mpc",
+    "separation"
+  ],
+  "areas": {
+    "fb-linearization": ["feedback-linearization", "linearization", "state-feedback"],
+    "gain-scheduling": ["gain-scheduling", "linearization", "adaptive-control"],
+    "gen-controller": ["two-degree-of-freedom", "feedforward", "separation"],
+    "integral-action": ["integral-action", "state-feedback", "pid-control"],
+    "gaussian-random-vectors": ["gaussian-vectors", "linear-algebra"],
+    "kalman": ["kalman-filter", "gaussian-vectors", "state-space"],
+    "kalman-optimal-observer": ["kalman-filter", "observer"],
+    "lqr": ["lqr", "state-feedback"],
+    "mpc": ["mpc", "discrete-time-systems", "state-feedback"],
+    "separation": ["separation", "state-feedback", "observer"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/me132-content-batches.md",
+  "verifier": "skilltree/verify_me132_b8.py"
+}

@@ -1,0 +1,228 @@
+{
+  "skill_id": "kalman",
+  "version": 1,
+  "questions": [
+    {
+      "id": "kalman-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For \\(x_{k+1} = A x_k + w_k\\) and \\(y_k = C x_k + v_k\\), the predict step",
+      "explanation": "Predict uses the state model only. The measurement enters in the update, through the innovation. Replacing the covariance by \\(R\\) throws away both \\(A\\) and \\(Q\\). A gain of \\(1\\) is not a predict step.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a model copy with a correction gain</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">model</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">xhat</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
+      "figure_alt": "A model block with a gain L returned and subtracted.",
+      "options": [
+        "multiplies the estimate by \\(A\\) and replaces the covariance by \\(A P A^T + Q\\), without using \\(y_k\\)",
+        "subtracts \\(y_k\\) from the estimate before \\(A\\) is applied",
+        "replaces the covariance by \\(R\\) and leaves the estimate fixed",
+        "sets the gain to \\(1\\) and skips the covariance"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "kalman-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A scalar predict uses \\(a = 0.5\\), a previous variance \\(4\\), and process variance \\(1\\). The predicted variance is",
+      "explanation": "\\(a^2 P + Q = 0.25 \\times 4 + 1 = 2\\). Using \\(a\\) instead of \\(a^2\\) gives \\(3\\). Forgetting \\(Q\\) leaves \\(1\\). Adding \\(a\\) to \\(Q\\) gives \\(1.5\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a covariance ellipse before a measurement update</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"78\" ry=\"40\"/><line x1=\"62\" y1=\"104\" x2=\"218\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"64\" x2=\"140\" y2=\"144\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered on the axes, longer along the first coordinate.",
+      "answer": 2.0,
+      "unit": "m2",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "kalman-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The predicted variance is \\(2\\), \\(c = 1\\), and the measurement variance is \\(2\\). The filter gain is",
+      "explanation": "\\(L = P c / (c^2 P + R) = 2 / (2 + 2) = 0.5\\). Using \\(P / R = 1\\) drops the predicted variance from the denominator. Using \\(R / P = 1\\) inverts the fraction. Subtracting \\(R\\) from \\(P\\) gives \\(0\\), which is not a gain.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the four matrices of a linear filter</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">A   Q</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">C   R</text></svg>",
+      "figure_alt": "A 2 by 2 arrangement of the labels A, Q, C, and R.",
+      "answer": 0.5,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "kalman-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "A scalar predict maps a variance \\(p\\) through a coefficient \\(a\\) and then adds a process variance \\(q\\). Write the predicted variance in the names \\(a\\), \\(p\\), and \\(q\\).",
+      "explanation": "The state scale hits the variance twice, and the process noise is independent of the previous error, so the variances add: \\(a^2 p + q\\). The form \\(a p + q\\) drops a factor of \\(a\\). The form \\(a^2 p\\) forgets the process noise. Adding \\(a\\) itself is not a variance.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a covariance ellipse before a measurement update</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"78\" ry=\"40\"/><line x1=\"62\" y1=\"104\" x2=\"218\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"64\" x2=\"140\" y2=\"144\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered on the axes, longer along the first coordinate.",
+      "answer": "a*a*p+q",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.2,
+          "max": 1.5
+        },
+        {
+          "name": "p",
+          "min": 0.4,
+          "max": 4.0
+        },
+        {
+          "name": "q",
+          "min": 0.2,
+          "max": 3.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "a**2*p+q",
+        "q+p*a*a"
+      ],
+      "version": 1
+    },
+    {
+      "id": "kalman-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Continue the scalar update: predicted variance \\(2\\), gain \\(0.5\\), and \\(c = 1\\). The updated variance, using \\((1 - L c)\\) times the predicted variance, is",
+      "explanation": "\\((1 - 0.5 \\times 1) \\times 2 = 1\\). This simplified product is the one that matches the longer Joseph form when \\(L\\) is the filter gain. Leaving the variance at \\(2\\) skips the update. Multiplying by the gain alone gives \\(1\\), which happens to match here but is the gain, not a general rule. Adding \\(R = 2\\) to the result gives \\(3\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a model copy with a correction gain</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">model</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">xhat</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
+      "figure_alt": "A model block with a gain L returned and subtracted.",
+      "answer": 1.0,
+      "unit": "m2",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "kalman-r2-q3",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put the scalar filter steps in the order they are used when a new measurement arrives.",
+      "explanation": "The measurement is not available to the predict, so the estimate and the variance move through \\(a\\) first and the process noise joins the variance there. The gain needs that predicted variance. Only then does the innovation correct the estimate, and the same gain shrinks the variance. Updating before the predict uses a measurement against the wrong prediction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a model copy with a correction gain</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">model</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">xhat</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
+      "figure_alt": "A model block with a gain L returned and subtracted.",
+      "steps": [
+        "Propagate the estimate through the state coefficient a.",
+        "Replace the variance by a squared times the old variance, plus the process variance.",
+        "Form the gain from the predicted variance, c, and the measurement variance.",
+        "Add the gain times the innovation to the predicted estimate.",
+        "Multiply the predicted variance by one minus the gain times c."
+      ],
+      "version": 1
+    },
+    {
+      "id": "kalman-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A scalar filter has just produced a predicted estimate and a predicted variance. One step of the update is wrong.",
+      "explanation": "The correction multiplies the innovation, not the raw measurement. The gain formula, the innovation, and the simplified variance update are the matching trio. Using \\(y\\) alone would credit the filter for a measurement it had already expected.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the four matrices of a linear filter</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">A   Q</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">C   R</text></svg>",
+      "figure_alt": "A 2 by 2 arrangement of the labels A, Q, C, and R.",
+      "steps": [
+        "The gain is the predicted variance times c, divided by c squared times that variance plus R.",
+        "The innovation is the measurement minus c times the predicted estimate.",
+        "The estimate is corrected by the gain times the raw measurement, with no predicted output removed.",
+        "With that gain, the updated variance is one minus L c times the predicted variance."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The correction has to remove the predicted output. The raw measurement is not the innovation.",
+        "The predict step is where the measurement is subtracted.",
+        "The variance update adds R a second time after the gain is applied."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "kalman-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "In the scalar gain \\(L = P/(P+R)\\) with \\(c = 1\\), sending the measurement variance \\(R\\) to a very large value",
+      "explanation": "A huge \\(R\\) dominates the denominator, so \\(L\\) vanishes and the filter trusts the prediction. Copying the measurement is the opposite limit, \\(R \\to 0\\). The gain is \\(1/2\\) only when \\(R = P\\). The predicted variance was already fixed before this gain was formed, and it stays nonnegative.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a covariance ellipse before a measurement update</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"78\" ry=\"40\"/><line x1=\"62\" y1=\"104\" x2=\"218\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"64\" x2=\"140\" y2=\"144\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An ellipse centered on the axes, longer along the first coordinate.",
+      "options": [
+        "sends the gain to \\(1\\), so the estimate copies the measurement",
+        "sends the gain to \\(0\\), so the update barely moves the estimate",
+        "leaves the gain at \\(1/2\\) for every \\(P\\)",
+        "makes the predicted variance negative"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "kalman-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which statements hold for the recursion \\(x_{k+1} = A x_k + w_k\\), \\(y_k = C x_k + v_k\\)?",
+      "explanation": "Predict needs \\(A\\), \\(Q\\), and the previous posterior. It does not need \\(y_k\\). Process noise enters with the state propagation. The gain formula has \\(R\\) in the denominator, so a larger \\(R\\) shrinks \\(L\\). Subtracting the measurement is the update, and only after a predicted output has been removed.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a model copy with a correction gain</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">model</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">xhat</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
+      "figure_alt": "A model block with a gain L returned and subtracted.",
+      "options": [
+        "The predict step can be computed before the new measurement arrives.",
+        "Adding \\(Q\\) during the update, and not during the predict, is the same recursion.",
+        "A larger measurement variance, at the same predicted covariance, produces a smaller gain.",
+        "The predict step subtracts the measurement from the estimate."
+      ],
+      "correct_indices": [
+        0,
+        2
+      ],
+      "version": 1
+    },
+    {
+      "id": "kalman-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "A scalar steady filter has \\(a = 1\\), \\(c = 1\\), process variance \\(2\\), and measurement variance \\(4\\). The steady predicted variance is",
+      "explanation": "At steady state \\(L P = q\\) and \\(L = P/(P+R)\\), so \\(P^2 - q P - q R = 0\\). The positive root is \\((2 + \\sqrt{4 + 32})/2 = 4\\). The measurement variance \\(4\\) is \\(R\\), not this predicted variance. The process variance \\(2\\) is what \\(L P\\) equals, not \\(P\\). Half of \\(R\\) is \\(2\\), which is the check \\(L P = q\\) once \\(L = 1/2\\), and it is not \\(P\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one mark on the negative real axis</title><line x1=\"20\" y1=\"90\" x2=\"114\" y2=\"90\"/><line x1=\"142\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"85\" x2=\"133\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"95\" x2=\"133\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A single cross on the negative real axis.",
+      "preview": [
+        "kalman-optimal-observer"
+      ],
+      "answer": 4.0,
+      "unit": "m2",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "kalman-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The same update can be derived later by fitting linear least-squares blocks one at a time. In this skill, that derivation",
+      "explanation": "This skill stops at the recursion: predict, gain, update, covariance. A least-squares derivation of the same algebra is a later reading, and so is the claim that the gain minimizes the error variance. Neither one sets \\(Q\\) from one sample, and neither one deletes the predict step.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the four matrices of a linear filter</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">A   Q</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">C   R</text></svg>",
+      "figure_alt": "A 2 by 2 arrangement of the labels A, Q, C, and R.",
+      "preview": [
+        "kalman-recursive-least-squares"
+      ],
+      "options": [
+        "is already the proof that the gain has minimum variance",
+        "replaces \\(A\\) by an identity, so the predict step disappears",
+        "is not required. The recursion and the gain formula stand without it",
+        "is what fixes the process variance \\(Q\\) from a single sample"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "kalman-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A known command \\(B u_k\\) is added inside the predict. It changes",
+      "explanation": "A known input is a constant shift of the state prediction, and a shift does not change a covariance. The covariance predict stays \\(A P A^T + Q\\). The command is not noise, so it does not join \\(R\\) or \\(Q\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a model copy with a correction gain</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">model</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">xhat</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
+      "figure_alt": "A model block with a gain L returned and subtracted.",
+      "preview": [
+        "kalman-optimal-observer"
+      ],
+      "options": [
+        "the predicted covariance, by the outer product \\(B u_k u_k^T B^T\\)",
+        "the measurement variance \\(R\\)",
+        "both the estimate and the covariance",
+        "the predicted estimate, and not the predicted covariance"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}
