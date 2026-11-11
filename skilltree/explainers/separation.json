@@ -1,0 +1,30 @@
+{
+  "id": "separation",
+  "title": "Output feedback and the separation principle",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>block-triangular joint matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">A-BK   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">*   A-LC</text></svg>",
+      "figure_alt": "A block matrix with two diagonal blocks and a zero in the upper right.",
+      "body_md": "Output feedback through an estimate uses the control law \\(u = -K\\hat{x}\\), while a copy of the model produces \\(\\hat{x}\\) from the applied command and the measured output. When that copy uses the same \\(A\\), \\(B\\), and \\(C\\) as the plant, the joint system is block triangular in the coordinates \\((x, x-\\hat{x})\\).\n\nOne diagonal block is \\(A - BK\\). The other is \\(A - LC\\). The eigenvalues are the union of the two sets, so each gain can be designed as if the other did not exist. That is the split. It is a statement about eigenvalues, not a statement that every signal in the loop shows both sets.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>block-triangular joint matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">A-BK   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">*   A-LC</text></svg>"
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "With a matching model and \\(u = -K\\hat{x}\\),\n\\[\n\\frac{d}{dt}\\begin{bmatrix} x \\\\ \\tilde{x} \\end{bmatrix}\n=\n\\begin{bmatrix} A-BK & BK \\\\ 0 & A-LC \\end{bmatrix}\n\\begin{bmatrix} x \\\\ \\tilde{x} \\end{bmatrix}\n\\]\nplus a reference term that enters the first block only, when the reference is added the same way in the plant and in the copy. The characteristic polynomial is \\(\\det(sI - (A-BK))\\) times \\(\\det(sI - (A-LC))\\). A scalar plant makes the two eigenvalues \\(a - b k\\) and \\(a - l c\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Place a regulator eigenvalue at \\(-1.15\\) and an observer eigenvalue at \\(-3.55\\). The joint characteristic polynomial is \\((s+1.15)(s+3.55)\\). The sum of the real parts is \\(-1.15-3.55 = -4.70\\), which is just the sum of the two numbers you placed. Nothing in that arithmetic asks the two marks to sit on top of each other. A second design that moved only the observer mark would change one factor and leave the regulator factor where it was."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The transfer function from the reference to the output, started from a zero estimation error, does not contain the observer poles. They cancel. A nonzero initial estimation error does show them in the output, because the error drives the state through \\(BK\\). Saying that the observer poles \"appear in the step response\" without saying which initial condition is the usual mix-up.\n\nThe split also fails quietly when the observer is built from a different \\(A\\) or \\(C\\). The error equation then has a driving term, and the characteristic polynomial does not factor into the two designs you wrote down."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The two gains fix the transient. A constant reference still needs a coefficient in front of it if the steady output is supposed to equal that reference. Adding that coefficient, and leaving the estimate in the command, is the two-degree-of-freedom structure. The eigenvalues you placed here do not move when that coefficient changes, because it enters as an input rather than as a change to \\(K\\) or \\(L\\)."
+    }
+  ]
+}

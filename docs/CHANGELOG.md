@@ -137,9 +137,22 @@ Skills: `adaptive`, `fund-limits`, `observer`, `robust-perf`, `state-feedback`.
 Items above version 1:
 
 - `observer-r4-q1` version 2
+- `observer-r4-q3` version 2
 - `robust-perf-r2-q3` version 2
 - `robust-perf-r3-q1` version 2
 - `state-feedback-r1-q3` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## B8 — me132-b8
+
+Box: ME 132 (me132), Feedback Systems (am08), and Nonlinear Optimization (nlo-tugraz) for the shared Kalman core.
+
+Skills: `fb-linearization`, `gain-scheduling`, `gen-controller`, `integral-action`, `gaussian-random-vectors`, `kalman`, `kalman-optimal-observer`, `lqr`, `mpc`, `separation`.
+
+Items above version 1:
+
+- `gaussian-random-vectors-r1-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 

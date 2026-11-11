@@ -58,6 +58,25 @@ Scope only. The skill records already point at the sections. No wording, problem
 | `robust-perf` | nominal performance, robust stability, and the combined weighted-\(S\) and weighted-\(T\) bound |
 | `adaptive` | an online parameter update inserted into the controller. The skill record's pointer is outside the main text and was used only to bound the topic. |
 
+## Section map for B8
+
+Scope only. No wording, problems, parameter sets, or figures were taken from the works below. Learner-facing text does not name them.
+
+| skill | scope used |
+|---|---|
+| `gaussian-random-vectors` | mean, covariance, and the covariance of an affine image of a Gaussian vector |
+| `kalman` | the predict and update recursion, the gain, and the covariance update for a linear model with process and measurement noise. No optimality proof |
+| `kalman-optimal-observer` | the same gain as the linear correction of minimum error variance, including the scalar derivative and the steady filter |
+| `separation` | the joint eigenvalues of state feedback and an observer, and what a reference does and does not excite |
+| `gen-controller` | a command with a reference feedforward term and feedback from an estimate |
+| `integral-action` | an extra state that integrates the tracking error inside state feedback |
+| `lqr` | a quadratic cost, the algebraic Riccati equation, and the constant gain it produces |
+| `mpc` | a finite horizon, constraints, and applying only the first computed input |
+| `fb-linearization` | an input map that cancels a known nonlinearity where the input coefficient is nonzero |
+| `gain-scheduling` | linear designs at several operating points, interpolated from a measured schedule |
+
+The open readings for the covariance facts are Hefferon and the Wikibooks linear-algebra notes already registered above, used only for the matrix identities. The filter and regulator facts use the same control references already registered for B7, as scope only.
+
 ## Errata
 
 No separate errata list was in the v3.1.5 front matter or the back-matter index. Nothing in those files changes the B1 facts (element laws, transform rules, rank and eigenvalues, or the minimum-phase conditions). No erratum was applied.

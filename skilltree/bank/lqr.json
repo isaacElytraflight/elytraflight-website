@@ -1,0 +1,222 @@
+{
+  "skill_id": "lqr",
+  "version": 1,
+  "questions": [
+    {
+      "id": "lqr-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A linear quadratic regulator chooses the gain \\(K\\) by",
+      "explanation": "The design starts from the cost, and the gain is whatever that cost selects. Copying the open-loop eigenvalues does nothing. \\(K = B\\) ignores both weights. Cancelling \\(A\\) entrywise is not the Riccati solution, even though the closed loop does move the eigenvalues.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>state feedback from a quadratic cost</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">K</text></svg>",
+      "figure_alt": "A plant block with a gain K returned and subtracted.",
+      "options": [
+        "minimizing a quadratic cost in the state and the command",
+        "copying the open-loop eigenvalues",
+        "setting \\(K = B\\), with no weights",
+        "cancelling every entry of \\(A\\) by hand"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "lqr-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "For \\(\\dot{x} = u\\), state weight \\(4\\), and control weight \\(1\\), the regulator gain is",
+      "explanation": "The scalar integrator has \\(K = \\sqrt{q/r} = \\sqrt{4/1} = 2\\). The ratio \\(q/r = 4\\) without the square root is the square of the gain. The reciprocal \\(\\sqrt{r/q} = 0.5\\) inverts the weights. The sum \\(4+1 = 5\\) is neither weight's job.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a state weight beside a control weight</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">Q   R</text></svg>",
+      "figure_alt": "A row of two labels, Q and R.",
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lqr-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "For the same integrator \\(\\dot{x} = u\\), state weight \\(9\\), and control weight \\(4\\), the gain is",
+      "explanation": "\\(K = \\sqrt{9/4} = 1.5\\). The Riccati solution \\(P = \\sqrt{q r} = 6\\) is not the gain; dividing by \\(r\\) is what turns it into \\(K\\). Reporting \\(9\\) or \\(4\\) reports a weight.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a cheap-control response settling quickly</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,127.8 52,122.9 55.1,118.4 58.1,114 61.1,109.9 64.1,106.1 67.2,102.4 70.2,99 73.2,95.7 76.2,92.6 79.2,89.7 82.3,86.9 85.3,84.3 88.3,81.8 91.3,79.4 94.4,77.2 97.4,75.1 100.4,73.1 103.4,71.3 106.4,69.5 109.5,67.8 112.5,66.2 115.5,64.7 118.5,63.3 121.6,61.9 124.6,60.7 127.6,59.5 130.6,58.3 133.6,57.2 136.7,56.2 139.7,55.3 142.7,54.3 145.7,53.5 148.8,52.7 151.8,51.9 154.8,51.2 157.8,50.5 160.8,49.8 163.9,49.2 166.9,48.6 169.9,48.1 172.9,47.5 176,47 179,46.6 182,46.1 185,45.7 188,45.3 191.1,44.9 194.1,44.6 197.1,44.3 200.1,43.9 203.2,43.6 206.2,43.4 209.2,43.1 212.2,42.8 215.2,42.6 218.3,42.4 221.3,42.1 224.3,41.9 227.3,41.7 230.4,41.6 233.4,41.4 236.4,41.2 239.4,41.1 242.4,40.9 245.5,40.8 248.5,40.7 251.5,40.5 254.5,40.4 257.6,40.3 260.6,40.2 263.6,40.1 266.6,40 269.6,39.9 272.7,39.8 275.7,39.8 278.7,39.7 281.7,39.6 284.8,39.6 287.8,39.5 290.8,39.4 293.8,39.4 296.8,39.3 299.9,39.3 302.9,39.2 305.9,39.2 308.9,39.1 312,39.1 315,39.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that rises and levels off.",
+      "answer": 1.5,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lqr-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "For \\(\\dot{x} = u\\), write the regulator gain in the names \\(q\\) and \\(r\\), the state weight and the control weight.",
+      "explanation": "The Riccati solution is \\(\\sqrt{q r}\\) and the gain divides by \\(r\\), leaving \\(\\sqrt{q/r}\\). The ratio \\(q/r\\) misses the root. The reciprocal root \\(\\sqrt{r/q}\\) swaps the weights. The product \\(q r\\) is the square of \\(P\\), not the gain.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a state weight beside a control weight</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">Q   R</text></svg>",
+      "figure_alt": "A row of two labels, Q and R.",
+      "answer": "sqrt(q/r)",
+      "variables": [
+        {
+          "name": "q",
+          "min": 0.4,
+          "max": 4.0
+        },
+        {
+          "name": "r",
+          "min": 0.4,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "(q/r)**(1/2)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "lqr-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "For \\(\\dot{x} = x + u\\), state weight \\(3\\), and control weight \\(1\\), the positive Riccati solution gives the gain",
+      "explanation": "The scalar equation is \\(p^2 - 2p - 3 = 0\\), so the positive solution is \\(p = 3\\) and \\(K = 3\\). The negative root \\(-1\\) is not a positive cost matrix. Reporting the state weight \\(3\\) happens to match \\(K\\) here because \\(b = r = 1\\), and the check is the closed-loop eigenvalue \\(1 - 3 = -2\\), not the weight. Using \\(K = a = 1\\) only cancels the open-loop term and leaves a pole at \\(0\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a closed-loop pole on the negative real axis</title><line x1=\"20\" y1=\"90\" x2=\"92\" y2=\"90\"/><line x1=\"120\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"101\" y1=\"85\" x2=\"111\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"95\" x2=\"111\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "One cross on the negative real axis.",
+      "answer": 3.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lqr-r2-q3",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these regulator steps in the order you would do them.",
+      "explanation": "The weights define the cost, so they come before the equation. The Riccati solution is the matrix the gain formula consumes. The stability check is the property that solution is supposed to deliver. Reading the weight is how you explain the number you got, and it is not a substitute for the solve.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>state feedback from a quadratic cost</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">K</text></svg>",
+      "figure_alt": "A plant block with a gain K returned and subtracted.",
+      "steps": [
+        "Choose the state weight and the control weight.",
+        "Solve the algebraic Riccati equation for the cost matrix.",
+        "Set the gain to the inverse of the control weight times B transpose times that matrix.",
+        "Check that A minus B K is stable.",
+        "Read a larger control weight as a reason to use less command, not more."
+      ],
+      "version": 1
+    },
+    {
+      "id": "lqr-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A reachable pair and positive weights are already in hand. One step is wrong.",
+      "explanation": "A larger \\(R\\) penalizes the command, so the minimizer uses less of it and the gain gets smaller. The cost, the formula, and the stability claim are the design. The third step has the comparative static backwards.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a state weight beside a control weight</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">Q   R</text></svg>",
+      "figure_alt": "A row of two labels, Q and R.",
+      "steps": [
+        "The cost weights the state with \\(Q\\) and the command with \\(R\\).",
+        "The gain is \\(R^{-1} B^T P\\), with \\(P\\) from the Riccati equation.",
+        "Increasing \\(R\\) makes the command more expensive, so the optimal gain gets larger.",
+        "The closed loop is \\(A-BK\\), and the positive solution makes it stable under the usual definiteness conditions."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "A larger control weight penalizes the command, so the minimizing gain gets smaller.",
+        "A larger R increases Q by the same factor.",
+        "The Riccati equation does not involve R."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "lqr-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "On an infinite horizon with no explicit constraint, the regulator gain is",
+      "explanation": "Time-invariant weights and an infinite horizon make the gain constant. Recomputing on a shrinking horizon is a finite-horizon problem. The gain is not \\(A\\). A single sample is a one-step problem, not this limit.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a cheap-control response settling quickly</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,127.8 52,122.9 55.1,118.4 58.1,114 61.1,109.9 64.1,106.1 67.2,102.4 70.2,99 73.2,95.7 76.2,92.6 79.2,89.7 82.3,86.9 85.3,84.3 88.3,81.8 91.3,79.4 94.4,77.2 97.4,75.1 100.4,73.1 103.4,71.3 106.4,69.5 109.5,67.8 112.5,66.2 115.5,64.7 118.5,63.3 121.6,61.9 124.6,60.7 127.6,59.5 130.6,58.3 133.6,57.2 136.7,56.2 139.7,55.3 142.7,54.3 145.7,53.5 148.8,52.7 151.8,51.9 154.8,51.2 157.8,50.5 160.8,49.8 163.9,49.2 166.9,48.6 169.9,48.1 172.9,47.5 176,47 179,46.6 182,46.1 185,45.7 188,45.3 191.1,44.9 194.1,44.6 197.1,44.3 200.1,43.9 203.2,43.6 206.2,43.4 209.2,43.1 212.2,42.8 215.2,42.6 218.3,42.4 221.3,42.1 224.3,41.9 227.3,41.7 230.4,41.6 233.4,41.4 236.4,41.2 239.4,41.1 242.4,40.9 245.5,40.8 248.5,40.7 251.5,40.5 254.5,40.4 257.6,40.3 260.6,40.2 263.6,40.1 266.6,40 269.6,39.9 272.7,39.8 275.7,39.8 278.7,39.7 281.7,39.6 284.8,39.6 287.8,39.5 290.8,39.4 293.8,39.4 296.8,39.3 299.9,39.3 302.9,39.2 305.9,39.2 308.9,39.1 312,39.1 315,39.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that rises and levels off.",
+      "options": [
+        "recomputed from scratch at every time, with a shrinking horizon",
+        "a constant matrix, from one algebraic Riccati equation",
+        "equal to the open-loop \\(A\\)",
+        "defined only for a single sample"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "lqr-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which statements hold for the infinite-horizon regulator?",
+      "explanation": "Both weights enter the gain. Penalizing a state more is what a larger \\(Q\\) does. The Riccati equation is the Lyapunov equation plus the term that contains the gain, so deleting that term is a different equation. A larger control weight shrinks the gain.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>state feedback from a quadratic cost</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">K</text></svg>",
+      "figure_alt": "A plant block with a gain K returned and subtracted.",
+      "options": [
+        "The gain depends on both the state weight and the control weight.",
+        "A larger state weight pushes the design to keep that state smaller.",
+        "The algebraic Riccati equation is the Lyapunov equation with the quadratic gain term removed and nothing put in its place.",
+        "The optimal gain grows when the control weight grows."
+      ],
+      "correct_indices": [
+        0,
+        1
+      ],
+      "version": 1
+    },
+    {
+      "id": "lqr-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "For \\(\\dot{x} = u\\), state weight \\(36\\), and control weight \\(4\\), the gain is",
+      "explanation": "\\(K = \\sqrt{36/4} = 3\\). The root of the product \\(\\sqrt{36 \\times 4} = 12\\) is \\(P\\), and the gain is \\(P/R = 3\\). Reporting \\(36\\) or \\(4\\) reports a weight. The difference \\(36 - 4 = 32\\) is not a gain.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a state weight beside a control weight</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">Q   R</text></svg>",
+      "figure_alt": "A row of two labels, Q and R.",
+      "preview": [
+        "mpc"
+      ],
+      "answer": 3.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lqr-r4-q2",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A hard limit on the command is required, and a quadratic weight is not a substitute for it. The design that enforces the limit is",
+      "explanation": "A weight makes large commands expensive and still allows them. A constraint removes the illegal values from the problem, which a receding horizon can do at each sample. The Lyapunov equation does not choose \\(K\\). Leaving \\(A\\) unchanged applies no control.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a cheap-control response settling quickly</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,127.8 52,122.9 55.1,118.4 58.1,114 61.1,109.9 64.1,106.1 67.2,102.4 70.2,99 73.2,95.7 76.2,92.6 79.2,89.7 82.3,86.9 85.3,84.3 88.3,81.8 91.3,79.4 94.4,77.2 97.4,75.1 100.4,73.1 103.4,71.3 106.4,69.5 109.5,67.8 112.5,66.2 115.5,64.7 118.5,63.3 121.6,61.9 124.6,60.7 127.6,59.5 130.6,58.3 133.6,57.2 136.7,56.2 139.7,55.3 142.7,54.3 145.7,53.5 148.8,52.7 151.8,51.9 154.8,51.2 157.8,50.5 160.8,49.8 163.9,49.2 166.9,48.6 169.9,48.1 172.9,47.5 176,47 179,46.6 182,46.1 185,45.7 188,45.3 191.1,44.9 194.1,44.6 197.1,44.3 200.1,43.9 203.2,43.6 206.2,43.4 209.2,43.1 212.2,42.8 215.2,42.6 218.3,42.4 221.3,42.1 224.3,41.9 227.3,41.7 230.4,41.6 233.4,41.4 236.4,41.2 239.4,41.1 242.4,40.9 245.5,40.8 248.5,40.7 251.5,40.5 254.5,40.4 257.6,40.3 260.6,40.2 263.6,40.1 266.6,40 269.6,39.9 272.7,39.8 275.7,39.8 278.7,39.7 281.7,39.6 284.8,39.6 287.8,39.5 290.8,39.4 293.8,39.4 296.8,39.3 299.9,39.3 302.9,39.2 305.9,39.2 308.9,39.1 312,39.1 315,39.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that rises and levels off.",
+      "preview": [
+        "mpc"
+      ],
+      "options": [
+        "a larger control weight, which is the same as a hard stop",
+        "the Lyapunov equation with \\(Q\\) set to zero",
+        "a finite-horizon problem that treats the limit as a constraint",
+        "the open-loop matrix, left unchanged"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "lqr-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The same plant is augmented with an integrator of the tracking error before the cost is written. The regulator then",
+      "explanation": "The cost is written on whatever state you hand it, including the integrator state, and the gain has one entry per state. An eigenvalue at \\(0\\) in the open loop is allowed when the pair stays reachable and the weights keep the solution positive. The control weight is not itself the integrator gain.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a closed-loop pole on the negative real axis</title><line x1=\"20\" y1=\"90\" x2=\"92\" y2=\"90\"/><line x1=\"120\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"101\" y1=\"85\" x2=\"111\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"95\" x2=\"111\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "One cross on the negative real axis.",
+      "preview": [
+        "integral-action"
+      ],
+      "options": [
+        "drops the integrator, because a quadratic cost cannot see an extra state",
+        "uses the control weight as the integrator gain with no solve",
+        "is undefined, because the augmented \\(A\\) has an eigenvalue at \\(0\\)",
+        "returns a gain that includes an entry for the integrator state"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

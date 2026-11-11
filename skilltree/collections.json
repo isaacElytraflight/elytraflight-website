@@ -451,7 +451,9 @@
       "kind": "chapter",
       "children": [],
       "skills": [
+        "gaussian-random-vectors",
         "kalman",
+        "kalman-optimal-observer",
         "sys-id",
         "mpc",
         "adaptive"
@@ -663,6 +665,7 @@
       "children": [],
       "skills": [
         "lin-algebra-review",
+        "gaussian-random-vectors",
         "gain-scheduling",
         "mpc",
         "adaptive"
@@ -711,6 +714,7 @@
       "children": [],
       "skills": [
         "lin-algebra-review",
+        "gaussian-random-vectors",
         "rn-important-subsets",
         "spectral-decomposition",
         "positive-definite-matrices",
@@ -843,6 +847,7 @@
         "gauss-newton-method",
         "levenberg-marquardt",
         "incremental-gradient-methods",
+        "kalman",
         "kalman-recursive-least-squares",
         "extended-kalman-filter"
       ],

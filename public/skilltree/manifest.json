@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "generated": "2026-11-11T19:58:33.573054Z",
+  "generated": "2026-11-11T20:52:58.594259Z",
   "skills": {
-    "file": "skills.d013c6f5.json",
-    "hash": "d013c6f5"
+    "file": "skills.fbfb9d23.json",
+    "hash": "fbfb9d23"
   },
   "collections": {
-    "file": "collections.4ee0faec.json",
-    "hash": "4ee0faec",
+    "file": "collections.9a806ec1.json",
+    "hash": "9a806ec1",
     "boxCount": 56
   },
   "banks": {
@@ -899,6 +899,18 @@
       "hash": "3cf5d2c9",
       "file": "banks/fb-intro.3cf5d2c9.json"
     },
+    "fb-linearization": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "9090717b",
+      "file": "banks/fb-linearization.9090717b.json"
+    },
     "feedforward": {
       "version": 1,
       "questionCount": 12,
@@ -1031,6 +1043,30 @@
       "hash": "d82810de",
       "file": "banks/fundamental-theorem-along-segment.d82810de.json"
     },
+    "gain-scheduling": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d462eaf2",
+      "file": "banks/gain-scheduling.d462eaf2.json"
+    },
+    "gaussian-random-vectors": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "4c28170b",
+      "file": "banks/gaussian-random-vectors.4c28170b.json"
+    },
     "gbw": {
       "version": 3,
       "questionCount": 12,
@@ -1042,6 +1078,18 @@
       },
       "hash": "b5c4c9b9",
       "file": "banks/gbw.b5c4c9b9.json"
+    },
+    "gen-controller": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7319bb84",
+      "file": "banks/gen-controller.7319bb84.json"
     },
     "gen-gain-phase": {
       "version": 1,
@@ -1175,6 +1223,18 @@
       "hash": "fd081a64",
       "file": "banks/inner-products.fd081a64.json"
     },
+    "integral-action": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ba861962",
+      "file": "banks/integral-action.ba861962.json"
+    },
     "intrinsic": {
       "version": 1,
       "questionCount": 12,
@@ -1222,6 +1282,30 @@
       },
       "hash": "fa289381",
       "file": "banks/junction-cap.fa289381.json"
+    },
+    "kalman-optimal-observer": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "19df4335",
+      "file": "banks/kalman-optimal-observer.19df4335.json"
+    },
+    "kalman": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "a3f1909d",
+      "file": "banks/kalman.a3f1909d.json"
     },
     "laplace": {
       "version": 1,
@@ -1342,6 +1426,18 @@
       },
       "hash": "95abcc9a",
       "file": "banks/loop-tf.95abcc9a.json"
+    },
+    "lqr": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "9d500205",
+      "file": "banks/lqr.9d500205.json"
     },
     "lti-circuits": {
       "version": 1,
@@ -1571,6 +1667,18 @@
       "hash": "c0b56236",
       "file": "banks/mosfet-struct.c0b56236.json"
     },
+    "mpc": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "63e6b023",
+      "file": "banks/mpc.63e6b023.json"
+    },
     "nl-cap": {
       "version": 1,
       "questionCount": 12,
@@ -1640,8 +1748,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3d45151f",
-      "file": "banks/observer.3d45151f.json"
+      "hash": "b34b47cf",
+      "file": "banks/observer.b34b47cf.json"
     },
     "octc": {
       "version": 2,
@@ -2002,6 +2110,18 @@
       },
       "hash": "61a4812e",
       "file": "banks/sensitivity.61a4812e.json"
+    },
+    "separation": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "1b6cb270",
+      "file": "banks/separation.1b6cb270.json"
     },
     "sheet-res": {
       "version": 1,
@@ -2731,6 +2851,12 @@
       "file": "explainers/fb-intro.64704698.json",
       "sectionCount": 5
     },
+    "fb-linearization": {
+      "hash": "062f0b97",
+      "file": "explainers/fb-linearization.062f0b97.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "feedforward": {
       "hash": "c6d5e010",
       "file": "explainers/feedforward.c6d5e010.json",
@@ -2793,10 +2919,28 @@
       "sectionCount": 5,
       "version": 1
     },
+    "gain-scheduling": {
+      "hash": "a6e354e8",
+      "file": "explainers/gain-scheduling.a6e354e8.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "gaussian-random-vectors": {
+      "hash": "dabef68b",
+      "file": "explainers/gaussian-random-vectors.dabef68b.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "gbw": {
       "hash": "721abc00",
       "file": "explainers/gbw.721abc00.json",
       "sectionCount": 5
+    },
+    "gen-controller": {
+      "hash": "baf4c692",
+      "file": "explainers/gen-controller.baf4c692.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "gen-gain-phase": {
       "hash": "ffe73887",
@@ -2859,6 +3003,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "integral-action": {
+      "hash": "a4fe347c",
+      "file": "explainers/integral-action.a4fe347c.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "intrinsic": {
       "hash": "8bed791c",
       "file": "explainers/intrinsic.8bed791c.json",
@@ -2879,6 +3029,18 @@
       "hash": "424f0c83",
       "file": "explainers/junction-cap.424f0c83.json",
       "sectionCount": 5
+    },
+    "kalman-optimal-observer": {
+      "hash": "98716f80",
+      "file": "explainers/kalman-optimal-observer.98716f80.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "kalman": {
+      "hash": "362f1fbd",
+      "file": "explainers/kalman.362f1fbd.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "laplace": {
       "hash": "6756fc0b",
@@ -2934,6 +3096,12 @@
     "loop-tf": {
       "hash": "1cfc30db",
       "file": "explainers/loop-tf.1cfc30db.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "lqr": {
+      "hash": "2ef96f37",
+      "file": "explainers/lqr.2ef96f37.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -3036,6 +3204,12 @@
       "hash": "e05c7470",
       "file": "explainers/mosfet-struct.e05c7470.json",
       "sectionCount": 5
+    },
+    "mpc": {
+      "hash": "189bf22f",
+      "file": "explainers/mpc.189bf22f.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "nl-cap": {
       "hash": "67aeb041",
@@ -3236,6 +3410,12 @@
       "file": "explainers/sensitivity.bfeb9c28.json",
       "sectionCount": 5,
       "version": 2
+    },
+    "separation": {
+      "hash": "09fb5616",
+      "file": "explainers/separation.09fb5616.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "sheet-res": {
       "hash": "01703bc3",

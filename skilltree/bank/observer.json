@@ -214,7 +214,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two real marks in the open left half-plane</title><line x1=\"20\" y1=\"92\" x2=\"26\" y2=\"92\"/><line x1=\"54\" y1=\"92\" x2=\"108.4\" y2=\"92\"/><line x1=\"136.4\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"246\" y1=\"160\" x2=\"246\" y2=\"16\"/><polygon points=\"246,16 248.7,22.4 243.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"254\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"117.4\" y1=\"87\" x2=\"127.4\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"117.4\" y1=\"97\" x2=\"127.4\" y2=\"87\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"87\" x2=\"45\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"97\" x2=\"45\" y2=\"87\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "Two cross marks on the negative real axis, one farther left than the other.",
       "preview": [
-        "kalman"
+        "kalman-optimal-observer"
       ],
       "options": [
         "that later gain does not use the output",
@@ -223,7 +223,7 @@
         "this skill picks \\(L\\) by placing error poles, and the later skill picks \\(L\\) from the noise intensities"
       ],
       "correct_index": 3,
-      "version": 1
+      "version": 2
     }
   ]
 }

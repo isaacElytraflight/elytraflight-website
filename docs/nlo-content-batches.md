@@ -11,14 +11,14 @@ Approved skill graph for the course box `nlo-tugraz`. A skill is eligible for a 
 | box | title | skills |
 |---|---|---|
 | `nlo-tugraz/l1` | Problem formulation | `optimization-problem-formulation`, `graphical-2d-optimization`, `optimization-problem-classes`, `svm-quadratic-program` |
-| `nlo-tugraz/l2` | Mathematical preliminaries | `lin-algebra-review`, NB1 (8 skills), NB2 (6 skills) |
+| `nlo-tugraz/l2` | Mathematical preliminaries | `lin-algebra-review`, `gaussian-random-vectors`, NB1 (8 skills), NB2 (6 skills) |
 | `nlo-tugraz/l3` | Derivatives and automatic differentiation | NB3 (9 skills), NB4 (9 skills) |
 | `nlo-tugraz/l4` | Optimality conditions | the seven optimality skills in NB5 |
 | `nlo-tugraz/l5` | Linear programming and the simplex method | NB6 (7 skills) |
 | `nlo-tugraz/l6` | Lagrange multipliers and duality | `lagrangian-duality-lower-bounds`, `lagrange-multiplier-equality`, `kkt-conditions`, `lp-duality-kkt`, `projection-affine-halfspace-kkt` |
 | `nlo-tugraz/l7` | Least squares | `linear-least-squares`, `least-squares-data-fitting`, `nonlinear-least-squares`, `circle-fitting-least-squares` |
 | `nlo-tugraz/l8` | Gradient methods | NB8 (11 skills) |
-| `nlo-tugraz/l9` | Gauss-Newton and incremental methods | NB9 except `newton-root-finding` |
+| `nlo-tugraz/l9` | Gauss-Newton and incremental methods | `kalman`, NB9 except `newton-root-finding` |
 | `nlo-tugraz/l10` | Newton and quasi-Newton methods | `newton-root-finding`, NB10 (6 skills) |
 | `nlo-tugraz/l11` | Accelerated gradient methods | NB11 (5 skills) |
 | `nlo-tugraz/l12` | Optimization over a convex set | NB12 (8 skills) |
@@ -50,12 +50,21 @@ The course materials are **inspiration and scope only**.
 ## Dedupe against the existing graph (170 skills)
 - **Reused:** `lin-algebra-review` covers rank, null space, eigenvalues and eigenvectors, trace and determinant, and similarity. It is already a neutral core with no prerequisites. It becomes a prerequisite of `spectral-decomposition`, `inner-products`, `basic-feasible-solutions`, `lagrange-multiplier-equality` and `linear-least-squares`. Add it to the NLO course box. Its display title, "Linear algebra for state space", is control-flavored (see open questions).
 - **Related, kept separate (no prerequisite edge):**
-  - `kalman` (ME132) teaches the observer and control view. The new `kalman-recursive-least-squares` teaches the optimization view. Linking them either way would leak domains.
   - `linearization` (ME132, about equilibria) is separate from `taylor-approximation-multivariable`.
   - `eig-modes` covers eigenvalues of dynamics, not spectral decomposition.
-  - `lqr` and `sys-id` are untouched.
-- Every new id was checked for collisions against all 170 existing ids: none collide. All new skills are neutral math or optimization cores. Only `backprop-neural-network` and `svm-quadratic-program` are domain applications (ML), and they sit only in the NLO box.
+  - `lqr` and `sys-id` are untouched. `lqr` is not given an edge to `quadratic-function-minimization` or `positive-definite-matrices`.
+- Every new id was checked for collisions against all 170 existing ids: none collide. All new skills are neutral math or optimization cores. Only `backprop-neural-network` and `svm-quadratic-program` are domain applications (ML), and they sit only in the NLO box. `gaussian-random-vectors` was added later, with SG-056, and does not collide.
 - The graph is acyclic (checked) and every batch is prerequisite-closed (checked). Some skills depend on others in the same batch; writers handle those in the listed order.
+
+## SG-056 Kalman core
+
+`kalman` is a course-neutral core, shared by the ME 132 and NLO boxes (and kept in Feedback Systems). It teaches the predict/update recursion, the gain, and the covariance. The model \(x_{k+1}=A x_k+w_k\), \(y_k=C x_k+v_k\) is part of that skill. There is no optimality proof in the core.
+
+- New skill `gaussian-random-vectors` (Gaussian random vectors and covariance, including \(A P A^T\)). Prerequisite: `lin-algebra-review`. It sits in the NLO preliminaries chapter, in ME 132, and in Feedback Systems. Both it and `kalman` are written with ME 132 batch B8, not in an NB batch.
+- `kalman` prerequisites are `lin-algebra-review` and `gaussian-random-vectors`. The old edge from `observer` is removed so an optimization learner is not sent through a control-only skill.
+- `kalman` is an added prerequisite of `kalman-recursive-least-squares`. That skill stays coming soon and still owns the least-squares derivation.
+- `extended-kalman-filter` stays NLO-only, with the single prerequisite `kalman-recursive-least-squares`.
+- The minimum-variance reading is the ME 132 skill `kalman-optimal-observer`. It is not in the NLO box.
 
 ## Skills
 P = mathematical preliminary.
@@ -178,7 +187,7 @@ P = mathematical preliminary.
 | `gauss-newton-method` | Gauss-Newton method | Linearize residuals, solve a linear LS subproblem each step, relation to Newton | `nonlinear-least-squares`, `descent-method-framework`, `taylor-approximation-multivariable` |  |
 | `levenberg-marquardt` | Levenberg-Marquardt method | Damped Gauss-Newton, blending toward gradient descent, choosing the damping | `gauss-newton-method` |  |
 | `incremental-gradient-methods` | Incremental gradient methods | Cycle through data blocks instead of full gradients; step-size behavior vs batch | `descent-method-framework`, `nonlinear-least-squares` |  |
-| `kalman-recursive-least-squares` | Kalman filter as recursive least squares | Incremental Gauss-Newton on linear LS blocks yields the Kalman update recursion | `incremental-gradient-methods`, `linear-least-squares`, `gauss-newton-method` |  |
+| `kalman-recursive-least-squares` | Kalman filter as recursive least squares | Incremental Gauss-Newton on linear LS blocks yields the Kalman update recursion. `kalman` is already playable from ME 132 B8; this row still does not write it | `kalman`, `incremental-gradient-methods`, `linear-least-squares`, `gauss-newton-method` |  |
 | `extended-kalman-filter` | Extended Kalman filter | Relinearize nonlinear measurement models at each block; localization-style use | `kalman-recursive-least-squares` |  |
 | `newton-root-finding` | Newton's method for root finding | Solve g(x)=0 by repeated linearization, 1-D picture, starting-point sensitivity | `jacobian-chain-rule` |  |
 

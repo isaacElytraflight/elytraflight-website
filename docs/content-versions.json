@@ -2388,7 +2388,7 @@
     },
     {
       "id": "observer-r4-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "observer#explainer",
@@ -2496,6 +2496,526 @@
     },
     {
       "id": "state-feedback#explainer",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "fb-linearization#explainer",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "gain-scheduling#explainer",
+      "version": 1
+    },
+    {
+      "id": "gen-controller-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "gen-controller-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "gen-controller-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "gen-controller-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "gen-controller-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "gen-controller-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "gen-controller-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "gen-controller-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "gen-controller-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "gen-controller-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "gen-controller-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "gen-controller-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "gen-controller#explainer",
+      "version": 1
+    },
+    {
+      "id": "integral-action-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "integral-action-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "integral-action-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "integral-action-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "integral-action-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "integral-action-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "integral-action-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "integral-action-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "integral-action-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "integral-action-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "integral-action-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "integral-action-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "integral-action#explainer",
+      "version": 1
+    },
+    {
+      "id": "gaussian-random-vectors-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "gaussian-random-vectors-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "gaussian-random-vectors-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "gaussian-random-vectors-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "gaussian-random-vectors-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "gaussian-random-vectors-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "gaussian-random-vectors-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "gaussian-random-vectors-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "gaussian-random-vectors-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "gaussian-random-vectors-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "gaussian-random-vectors-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "gaussian-random-vectors-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "gaussian-random-vectors#explainer",
+      "version": 1
+    },
+    {
+      "id": "kalman-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "kalman-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "kalman-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "kalman-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "kalman-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "kalman-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "kalman-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "kalman-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "kalman-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "kalman-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "kalman-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "kalman-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "kalman#explainer",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "kalman-optimal-observer#explainer",
+      "version": 1
+    },
+    {
+      "id": "lqr-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lqr-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lqr-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lqr-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lqr-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lqr-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lqr-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lqr-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lqr-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lqr-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lqr-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lqr-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lqr#explainer",
+      "version": 1
+    },
+    {
+      "id": "mpc-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "mpc-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "mpc-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "mpc-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "mpc-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "mpc-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "mpc-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "mpc-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "mpc-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "mpc-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "mpc-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "mpc-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "mpc#explainer",
+      "version": 1
+    },
+    {
+      "id": "separation-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "separation-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "separation-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "separation-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "separation-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "separation-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "separation-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "separation-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "separation-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "separation-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "separation-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "separation-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "separation#explainer",
       "version": 1
     },
     {

@@ -1411,7 +1411,7 @@ async function test(name, fn) {
       const fullIds = used(full);
       const meIds = used(me);
       const bookIds = used(book);
-      const soon = 'lqr';
+      const soon = 'kalman-recursive-least-squares';
       return {
         readySoon: ready.filter(id => !playable.has(id)),
         fullSoon: fullIds.filter(id => !playable.has(id)),
@@ -1439,17 +1439,17 @@ async function test(name, fn) {
     assert.strictEqual(result.meHasSoon, false);
     assert.strictEqual(result.readyHasSoon, false);
     assert.strictEqual(result.queueHasSoon, false, 'the recommender queue stays on playable skills');
-    assert.deepStrictEqual(result.meExtras, ['lin-algebra-review'], 'the only playable prerequisite of an ME 132 skill that stays outside the course box is lin-algebra-review: ' + result.meExtras.join(','));
+    assert.deepStrictEqual(result.meExtras, ['lin-algebra-review', 'discrete-time'], 'playable prerequisites of an ME 132 skill that stay outside the course box are lin-algebra-review and discrete-time: ' + result.meExtras.join(','));
 
-    await openSkill(p, 'lqr');
+    await openSkill(p, 'kalman-recursive-least-squares');
     const panel = await p.evaluate(() => ({
       text: document.getElementById('panel').textContent,
-      label: document.querySelector('#world .tile[data-id="lqr"]').getAttribute('aria-label'),
-      title: document.querySelector('#world .tile[data-id="lqr"]').title,
-      soon: document.querySelector('#world .tile[data-id="lqr"]').classList.contains('soon'),
+      label: document.querySelector('#world .tile[data-id="kalman-recursive-least-squares"]').getAttribute('aria-label'),
+      title: document.querySelector('#world .tile[data-id="kalman-recursive-least-squares"]').title,
+      soon: document.querySelector('#world .tile[data-id="kalman-recursive-least-squares"]').classList.contains('soon'),
       start: !!document.getElementById('startBtn')
     }));
-    assert(panel.soon, 'lqr should use the coming-soon tile style');
+    assert(panel.soon, 'kalman-recursive-least-squares should use the coming-soon tile style');
     assert(/Coming soon/.test(panel.text));
     assert(/coming soon/.test(panel.title));
     assert(/Coming soon, no questions yet/.test(panel.label));
@@ -1509,7 +1509,7 @@ async function test(name, fn) {
       const view = await p.evaluate(scope => {
         const sg = window.__skillgrove;
         const tiles = [...document.querySelectorAll('#world .tile')];
-        const soon = tiles.filter(t => t.classList.contains('soon')).length;
+        const soon = tiles.filter(t => t.classList.contains('soon') && !t.classList.contains('boxdim')).length;
         const bright = tiles.filter(t => !t.classList.contains('boxdim')).length;
         return {
           scope: sg.collections.scope(),
@@ -1540,8 +1540,7 @@ async function test(name, fn) {
         assert.strictEqual(view.textbook, 1);
         assert.strictEqual(view.chapters, 0, 'unselected chapters are not drawn');
       }
-      assert(view.soon > 0, scope + ' should show coming-soon skills');
-      assert.strictEqual(view.soonLabel, 'SOON');
+      assert.strictEqual(view.soon, 0, scope + ' coming-soon skills are playable after B8');
       await p.screenshot({ path: path.join(SHOTS_DIR, file), fullPage: false });
     };
     await shoot('me132', '20_me132_scope.png');
@@ -1560,7 +1559,7 @@ async function test(name, fn) {
         tiles: ids.length,
         dupes,
         toggles: document.querySelectorAll('#world .toggle, #regions .toggle').length,
-        soon: document.querySelector('#world .tile[data-id="lqr"] .tag').textContent
+        soon: document.querySelector('#world .tile[data-id="kalman-recursive-least-squares"] .tag').textContent
       };
     });
     assert.strictEqual(tree.tiles, NSKILL);

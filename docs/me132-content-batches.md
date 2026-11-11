@@ -89,6 +89,27 @@ Dedupe, no splits and no new edges:
 
 ## B8
 
-Write `separation` before `gen-controller`. The other six do not depend on either of those two.
+Write `separation` before `gen-controller`. The other skills in the original list do not depend on either of those two.
 
 `fb-linearization`, `gain-scheduling`, `gen-controller`, `integral-action`, `kalman`, `lqr`, `mpc`, `separation`
+
+SG-056, written in this batch:
+
+| id | role | prerequisites | boxes |
+|---|---|---|---|
+| `gaussian-random-vectors` | new core | `lin-algebra-review` | `me132`, `nlo-tugraz`, `am08` |
+| `kalman` | existing id, now the course-neutral core | `lin-algebra-review`, `gaussian-random-vectors` | `me132`, `nlo-tugraz`, `am08` |
+| `kalman-optimal-observer` | new ME 132 application | `kalman`, `observer` | `me132` |
+
+`kalman` teaches the predict/update recursion, the gain, and the covariance for \(x_{k+1} = A x_k + w_k\), \(y_k = C x_k + v_k\). It does not contain an optimality proof. `gaussian-random-vectors` also sits in the Feedback Systems box so that copy of the core does not depend on a skill outside the book. `kalman` is an added prerequisite of `kalman-recursive-least-squares`. `extended-kalman-filter` stays on top of that skill and stays in the optimization box only.
+
+Dedupe, no other new edges:
+
+- `fb-linearization` is not `linearization`. Linearization owns the Jacobian at an equilibrium. This skill owns an input map that cancels a known nonlinearity exactly where the input coefficient is nonzero.
+- `gain-scheduling` is not `adaptive`. Adaptive owns a parameter updated from the prediction error. This skill owns gains interpolated from a measured schedule.
+- `integral-action` is not `pid` and not `windup`. PID owns the three-term output law. Windup owns saturation of an integrator. This skill owns the extra state in state feedback.
+- `lqr` is not `quadratic-function-minimization` and not `positive-definite-matrices`. Those skills own an unconstrained quadratic and the definiteness test. This skill owns the state-feedback gain from a quadratic cost.
+- `mpc` is not `optimization-problem-formulation`. That skill owns the names of a decision, an objective, and a constraint. This skill owns the receding horizon on a model.
+- `separation` is not `observer` and not `state-feedback`. Those skills each place one gain. This skill owns the joint eigenvalues.
+- `gen-controller` is not `feedforward` and not `separation`. Feedforward owns the extra path. Separation owns the eigenvalue split. This skill owns the two-degree-of-freedom command that uses both.
+- `kalman-optimal-observer` is not `observer` and not `kalman`. The observer skill places \(L\) from a polynomial. The core owns the recursion without a variance proof. This skill owns the minimum-variance reading of that gain.

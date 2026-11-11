@@ -1891,7 +1891,6 @@
    "prereqs": [
     "state-feedback"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1911,7 +1910,6 @@
    "prereqs": [
     "state-feedback"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1971,7 +1969,6 @@
     "observer",
     "state-feedback"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -1985,13 +1982,21 @@
    ]
   },
   {
-   "id": "kalman",
-   "name": "Kalman filtering",
-   "summary": "Estimate states optimally under process and sensor noise.",
+   "id": "gaussian-random-vectors",
+   "name": "Gaussian random vectors",
+   "summary": "Mean and covariance of a Gaussian vector, and the covariance of a linear image.",
    "prereqs": [
-    "observer"
+    "lin-algebra-review"
+   ]
+  },
+  {
+   "id": "kalman",
+   "name": "Kalman filter",
+   "summary": "Predict and update a linear state estimate and its covariance for a model with process and measurement noise.",
+   "prereqs": [
+    "lin-algebra-review",
+    "gaussian-random-vectors"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -2005,6 +2010,15 @@
    ]
   },
   {
+   "id": "kalman-optimal-observer",
+   "name": "Kalman filter as an optimal observer",
+   "summary": "Choose the linear correction that minimizes the variance of the state error.",
+   "prereqs": [
+    "kalman",
+    "observer"
+   ]
+  },
+  {
    "id": "gen-controller",
    "name": "General controller structure",
    "summary": "Combine feedforward, state feedback and estimation into a 2-DOF structure.",
@@ -2012,7 +2026,6 @@
     "separation",
     "feedforward"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -2111,7 +2124,6 @@
     "linearization",
     "state-feedback"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -2132,7 +2144,6 @@
     "linearization",
     "state-feedback"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -2173,7 +2184,6 @@
     "state-feedback",
     "discrete-time"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -3007,6 +3017,7 @@
    "name": "Kalman filter as recursive least squares",
    "summary": "Derive the Kalman update as incremental Gauss-Newton on linear least-squares blocks.",
    "prereqs": [
+    "kalman",
     "incremental-gradient-methods",
     "linear-least-squares",
     "gauss-newton-method"

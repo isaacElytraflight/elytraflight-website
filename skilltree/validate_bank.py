@@ -128,6 +128,16 @@ LEAF_PREVIEW_ALLOWED.update({
     "hessian-vector-products-ad": ["newton-method-optimization", "conjugate-gradient-method", "second-order-optimality"],
     "backprop-neural-network": ["nonlinear-least-squares", "descent-directions", "incremental-gradient-methods"],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # ME132 B8 leaves: no dependents in the graph.
+    "fb-linearization": ["gain-scheduling", "mpc", "lyapunov"],
+    "gain-scheduling": ["adaptive", "mpc", "robust-perf"],
+    "gen-controller": ["integral-action", "lqr", "mpc"],
+    "integral-action": ["gen-controller", "lqr", "mpc"],
+    "lqr": ["mpc", "integral-action", "kalman"],
+    "mpc": ["lqr", "robust-perf", "adaptive"],
+    "kalman-optimal-observer": ["gen-controller", "lqr", "mpc"],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

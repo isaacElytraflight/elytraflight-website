@@ -295,7 +295,7 @@ def bank_observer():
           "the error dynamics stop being linear",
           r"this skill picks \(L\) by placing error poles, and the later skill picks \(L\) from the noise intensities"], 3,
          r"Both designs correct a model with a gain times the output residual. Here the numbers in \(L\) come from a polynomial you chose. The later design computes those numbers from the two noise intensities, and that calculation is not the same as an arbitrary pole list. The error system stays linear for a linear plant. The output is still the signal the correction uses.",
-         poles, poles_alt, ["kalman"])
+         poles, poles_alt, ["kalman-optimal-observer"], version=2)
     b.save()
 
 
