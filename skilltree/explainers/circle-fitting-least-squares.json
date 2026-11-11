@@ -1,0 +1,29 @@
+{
+  "id": "circle-fitting-least-squares",
+  "title": "Circle fitting by least squares",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a dented quadrilateral</title><line x1=\"24\" y1=\"172\" x2=\"260\" y2=\"172\"/><polygon points=\"260,172 253.6,174.7 253.6,169.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"36\" y1=\"184\" x2=\"36\" y2=\"20\"/><polygon points=\"36,20 38.7,26.4 33.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"254\" y=\"188\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"44\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"50,150 230,150 210,40 140,130\" stroke-width=\"2.0\" fill=\"currentColor\" fill-opacity=\"0.15\"/></svg>",
+      "figure_alt": "A four-sided region with one corner pushed in.",
+      "body_md": "A circle in the plane is determined by a center and a radius. Asking those three numbers to match a list of points, in the geometric sense, produces a residual equal to the distance from each point to the center, minus the radius. The center appears inside a square root, or inside a square, and the problem is nonlinear least squares.\n\nAlgebra offers a different residual that vanishes on exactly the same circles. Expand \\((x - a)^2 + (y - b)^2 - r^2 = 0\\). The result is \\(x^2 + y^2\\) plus a term in \\(x\\), a term in \\(y\\), and a constant. Rename the coefficient of \\(x\\) as \\(c\\), the coefficient of \\(y\\) as \\(d\\), and the constant as \\(e\\). The equation becomes \\(x^2 + y^2 + c x + d y + e = 0\\). The new unknowns \\((c, d, e)\\) appear linearly. The squares of the coordinates are data, and they move to the right-hand side of a linear least-squares problem.\n\nThe two objectives agree about which circles pass through the points. They disagree about the cost of a near miss. The algebraic fit is still the right tool when a linear problem is what is wanted, and the geometric fit remains available when the residual must be a length."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The rename is \\(c = -2a\\), \\(d = -2b\\), and \\(e = a^2 + b^2 - r^2\\). The center is \\((-c/2, -d/2)\\), and\n\\[\nr^2 = \\frac{c^2}{4} + \\frac{d^2}{4} - e.\n\\]\nThe design row of a point \\((x, y)\\) is \\((x, y, 1)\\), and the right-hand side entry is \\(-(x^2 + y^2)\\). Three independent rows are the minimum for a unique \\((c, d, e)\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take the point \\((6, 2)\\) and the parameters \\(c = -2\\), \\(d = -6\\), \\(e = 5\\). The squares are \\(36 + 4 = 40\\). The rest is \\(-2 \\cdot 6 + (-6) \\cdot 2 + 5 = -12 - 12 + 5 = -19\\).\n\nThe hoop residual is 21. The center decoded from these parameters is \\((1, 3)\\), and the squared radius is \\(1 + 9 - 5 = 5\\). The algebraic residual is not zero, so the point is not on that circle. A geometric residual would subtract \\(\\sqrt{5}\\) from the distance between \\((6, 2)\\) and \\((1, 3)\\). Those two misfit numbers are not equal."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Putting a plus in front of \\(r^2\\) inside \\(e\\) is the expansion error. The geometric equation subtracts \\(r^2\\), so \\(e = a^2 + b^2 - r^2\\). A second error is to read the center as \\((c, d)\\) instead of \\((-c/2, -d/2)\\). The factor \\(-2\\) is the derivative of \\((x - a)^2\\) in \\(a\\), moved to the other side. A third is to treat the algebraic objective as the sum of squared distances. The two criteria share their zero set and not their values. A fourth is to insist on exactly three points. More points are a rectangular linear least-squares problem."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "If the residual has to be the geometric distance, the parameters \\((a, b, r)\\) stay nonlinear and the Jacobian of that residual is the starting point of a Gauss-Newton iteration. A damped version of the same iteration is available when the linear model of the residual is not trusted. The algebraic route is the one that stays inside linear least squares, with a design matrix whose rows are the point coordinates and a column of ones."
+    }
+  ]
+}

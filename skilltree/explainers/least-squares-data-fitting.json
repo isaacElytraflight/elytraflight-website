@@ -1,0 +1,29 @@
+{
+  "id": "least-squares-data-fitting",
+  "title": "Least-squares data fitting",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping up</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,132.9 49,131.8 52,130.8 55.1,129.7 58.1,128.7 61.1,127.6 64.1,126.6 67.2,125.6 70.2,124.5 73.2,123.5 76.2,122.4 79.2,121.4 82.3,120.3 85.3,119.3 88.3,118.3 91.3,117.2 94.4,116.2 97.4,115.1 100.4,114.1 103.4,113 106.4,112 109.5,111 112.5,109.9 115.5,108.9 118.5,107.8 121.6,106.8 124.6,105.8 127.6,104.7 130.6,103.7 133.6,102.6 136.7,101.6 139.7,100.5 142.7,99.5 145.7,98.5 148.8,97.4 151.8,96.4 154.8,95.3 157.8,94.3 160.8,93.2 163.9,92.2 166.9,91.2 169.9,90.1 172.9,89.1 176,88 179,87 182,85.9 185,84.9 188,83.9 191.1,82.8 194.1,81.8 197.1,80.7 200.1,79.7 203.2,78.6 206.2,77.6 209.2,76.6 212.2,75.5 215.2,74.5 218.3,73.4 221.3,72.4 224.3,71.3 227.3,70.3 230.4,69.3 233.4,68.2 236.4,67.2 239.4,66.1 242.4,65.1 245.5,64 248.5,63 251.5,62 254.5,60.9 257.6,59.9 260.6,58.8 263.6,57.8 266.6,56.7 269.6,55.7 272.7,54.7 275.7,53.6 278.7,52.6 281.7,51.5 284.8,50.5 287.8,49.4 290.8,48.4 293.8,47.4 296.8,46.3 299.9,45.3 302.9,44.2 305.9,43.2 308.9,42.1 312,41.1 315,40.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping upward on labeled axes.",
+      "body_md": "Data fitting, in the linear case, chooses a model whose prediction at each input is a dot product of a parameter vector with a feature vector. The feature vector may be a nonlinear function of the input. Linearity is required of the parameters. A quadratic polynomial in \\(t\\) bends as a curve, and it is still linear in the three coefficients of \\(1\\), \\(t\\), and \\(t^2\\).\n\nThe design matrix has one row per measurement and one column per parameter. The row is the feature vector. The right-hand side is the list of measured values. Solving the normal equations of that pair is the fit. The columns are independent when the features, evaluated on the inputs, are independent. For a polynomial of degree \\(d\\), that happens as soon as there are \\(d + 1\\) distinct inputs. Fewer inputs leave a nontrivial combination of columns at zero, and the coefficient vector is then not unique.\n\nExtra measurements are welcome. They make the system overdetermined, which is the usual least-squares situation. A repeated input copies a row. It can change the right-hand side's influence, and it cannot raise the rank."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "A line has rows \\((1, t_i)\\). A quadratic has rows \\((1, t_i, t_i^2)\\). The prediction of a line at a new input \\(t\\) is \\(a + b t\\). Through the origin, with rows that are just the inputs, the slope fit to two points \\((p, u)\\) and \\((q, v)\\) is \\((p u + q v)/(p^2 + q^2)\\). The minimum number of distinct inputs for a unique polynomial of degree \\(d\\) is \\(d + 1\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Fit \\(y = b t\\), a line through the origin, to the two points \\((t, y) = (1, 6)\\) and \\((2, 12)\\). There is one parameter. The normal equation is \\((1 + 4) b = 6 + 24\\).\n\nThe chalk slope is 6. Both points lie on \\(y = 6 t\\), so the residual is zero and the fit is an exact interpolation. A third point off that line would keep the same one-column design and would move the slope. The model stays linear in \\(b\\) either way. The input \\(t\\) is not a parameter."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Calling a model nonlinear because the curve bends is the usual mix-up. Bend is about the input. Linearity is about the coefficients. A second miss is a design row that contains the unknown coefficients. The row is built from the input only. A third is to square the input in the wrong slot: at \\(t = 2\\) the quadratic row is \\((1, 2, 4)\\), not \\((1, 2, 2)\\). A fourth is to believe that more parameters can be identified than the number of distinct rows. Rank cannot exceed the number of independent rows."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "A circle in center-and-radius form is nonlinear in those three numbers. Expanding the circle equation and renaming the collected coefficients produces a model that is linear in a different parameter vector, with rows built from the point coordinates. That algebraic fit is ordinary linear least squares of the kind written here. Keeping the geometric distance as the residual leaves a nonlinear least-squares problem instead."
+    }
+  ]
+}

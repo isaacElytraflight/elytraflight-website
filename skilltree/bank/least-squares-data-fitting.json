@@ -1,0 +1,233 @@
+{
+  "skill_id": "least-squares-data-fitting",
+  "version": 1,
+  "questions": [
+    {
+      "id": "least-squares-data-fitting-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A model is linear in its parameters when, at each fixed input,",
+      "explanation": "Linearity is in the parameters, not in the input. A quadratic polynomial in \\(t\\) is nonlinear as a curve and still linear in its coefficients, because each coefficient multiplies a column that does not depend on the coefficients. An exponential of a parameter is nonlinear in that parameter. An exact residual is interpolation, not the definition of linearity.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping up</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,132.9 49,131.8 52,130.8 55.1,129.7 58.1,128.7 61.1,127.6 64.1,126.6 67.2,125.6 70.2,124.5 73.2,123.5 76.2,122.4 79.2,121.4 82.3,120.3 85.3,119.3 88.3,118.3 91.3,117.2 94.4,116.2 97.4,115.1 100.4,114.1 103.4,113 106.4,112 109.5,111 112.5,109.9 115.5,108.9 118.5,107.8 121.6,106.8 124.6,105.8 127.6,104.7 130.6,103.7 133.6,102.6 136.7,101.6 139.7,100.5 142.7,99.5 145.7,98.5 148.8,97.4 151.8,96.4 154.8,95.3 157.8,94.3 160.8,93.2 163.9,92.2 166.9,91.2 169.9,90.1 172.9,89.1 176,88 179,87 182,85.9 185,84.9 188,83.9 191.1,82.8 194.1,81.8 197.1,80.7 200.1,79.7 203.2,78.6 206.2,77.6 209.2,76.6 212.2,75.5 215.2,74.5 218.3,73.4 221.3,72.4 224.3,71.3 227.3,70.3 230.4,69.3 233.4,68.2 236.4,67.2 239.4,66.1 242.4,65.1 245.5,64 248.5,63 251.5,62 254.5,60.9 257.6,59.9 260.6,58.8 263.6,57.8 266.6,56.7 269.6,55.7 272.7,54.7 275.7,53.6 278.7,52.6 281.7,51.5 284.8,50.5 287.8,49.4 290.8,48.4 293.8,47.4 296.8,46.3 299.9,45.3 302.9,44.2 305.9,43.2 308.9,42.1 312,41.1 315,40.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping upward on labeled axes.",
+      "options": [
+        "the prediction is a linear function of the input",
+        "every parameter sits inside an exponential",
+        "the prediction is a linear function of the parameter vector",
+        "the residual is required to be zero"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The model \\(y = a + b t + c t^2\\) is fit by least squares. At least how many distinct input values does it need for the design matrix to have full column rank?",
+      "explanation": "There are three coefficients, so the design matrix has three columns: \\(1\\), \\(t\\), and \\(t^2\\). A Vandermonde matrix on distinct inputs has full column rank once there are three of them. Two distinct inputs leave the three columns dependent. Reporting \\(2\\) counts a line, not a quadratic. Reporting \\(1\\) is a single parameter. Reporting \\(6\\) doubles the count. More than three points is allowed and is the usual overdetermined fit. Three is the minimum for a unique coefficient vector.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "answer": 3.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For the model \\(a + b t + c t^2\\), the design-matrix row at an input \\(t\\) is",
+      "explanation": "The prediction is the dot product of \\((a, b, c)\\) with \\((1, t, t^2)\\). The row is built from the input alone. Putting the parameters in the row would make the matrix depend on the unknown. Repeating \\(t\\) three times, or writing a row of ones, describes a different model. At \\(t = 2\\) the correct row is \\((1, 2, 4)\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "options": [
+        "\\((1, 1, 1)\\)",
+        "\\((a, b, c)\\)",
+        "\\((t, t, t)\\)",
+        "\\((1, t, t^2)\\)"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order of one linear least-squares fit of a line to a list of points. Each step uses the previous result.",
+      "explanation": "The parameter vector decides what a row means, so it comes first. The rows are then filled from the inputs. Stacking produces the matrix and the right-hand side that the normal equation uses. Solving before the matrix exists has no system. Putting the measured \\(y\\) into the row would mix the data into \\(A\\) and leave \\(b\\) empty.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "steps": [
+        "Choose the parameter vector as intercept and slope.",
+        "Build one row \\((1, t_i)\\) for each point, using that parameterization.",
+        "Stack the rows into \\(A\\) and stack the measured values into \\(b\\).",
+        "Solve the normal equations \\(A^T A x = A^T b\\)."
+      ],
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Which models are linear in their parameters? The input is \\(t\\), and the parameters are the named coefficients.",
+      "explanation": "A prediction that is a dot product of the parameter vector with a vector built only from \\(t\\) is linear in the parameters.\n• The line, the quadratic polynomial, and the sine-cosine combination all have that form.\n• \\(a e^{b t}\\) is nonlinear in \\(b\\).\n• \\(e^{a + b t}\\) is nonlinear in both \\(a\\) and \\(b\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"104\" y1=\"176\" x2=\"104\" y2=\"28\"/><polygon points=\"104,28 106.8,34.4 101.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"110\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"104\" y1=\"161.7\" x2=\"235.9\" y2=\"136.6\"/><polygon points=\"235.9,136.6 230.1,140.4 229.1,135.1\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"128.6\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">c</text><line x1=\"104\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 64.9,47.4 59.7,49.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "options": [
+        "\\(y = a + b t\\).",
+        "\\(y = a + b t + c t^2\\).",
+        "\\(y = a e^{b t}\\), parameters \\(a\\) and \\(b\\).",
+        "\\(y = a \\sin t + b \\cos t\\).",
+        "\\(y = e^{a + b t}\\)."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "A model that is linear in its parameters predicts \\(a + b t\\) at the input \\(t\\). That prediction equals",
+      "explanation": "The prediction is the dot product of \\((a, b)\\) with \\((1, t)\\), which is \\(a + b t\\). All three names appear. On the declared ranges the value is positive. The product \\(a b t\\) would be bilinear in a way this model is not. The quotient \\(a/t + b\\) swaps the role of the input. The expression \\(a + b + t\\) treats the input as another parameter.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping up</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,132.9 49,131.8 52,130.8 55.1,129.7 58.1,128.7 61.1,127.6 64.1,126.6 67.2,125.6 70.2,124.5 73.2,123.5 76.2,122.4 79.2,121.4 82.3,120.3 85.3,119.3 88.3,118.3 91.3,117.2 94.4,116.2 97.4,115.1 100.4,114.1 103.4,113 106.4,112 109.5,111 112.5,109.9 115.5,108.9 118.5,107.8 121.6,106.8 124.6,105.8 127.6,104.7 130.6,103.7 133.6,102.6 136.7,101.6 139.7,100.5 142.7,99.5 145.7,98.5 148.8,97.4 151.8,96.4 154.8,95.3 157.8,94.3 160.8,93.2 163.9,92.2 166.9,91.2 169.9,90.1 172.9,89.1 176,88 179,87 182,85.9 185,84.9 188,83.9 191.1,82.8 194.1,81.8 197.1,80.7 200.1,79.7 203.2,78.6 206.2,77.6 209.2,76.6 212.2,75.5 215.2,74.5 218.3,73.4 221.3,72.4 224.3,71.3 227.3,70.3 230.4,69.3 233.4,68.2 236.4,67.2 239.4,66.1 242.4,65.1 245.5,64 248.5,63 251.5,62 254.5,60.9 257.6,59.9 260.6,58.8 263.6,57.8 266.6,56.7 269.6,55.7 272.7,54.7 275.7,53.6 278.7,52.6 281.7,51.5 284.8,50.5 287.8,49.4 290.8,48.4 293.8,47.4 296.8,46.3 299.9,45.3 302.9,44.2 305.9,43.2 308.9,42.1 312,41.1 315,40.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping upward on labeled axes.",
+      "answer": "a+b*t",
+      "variables": [
+        {
+          "name": "a",
+          "min": 1.0,
+          "max": 3.0
+        },
+        {
+          "name": "b",
+          "min": 1.0,
+          "max": 3.0
+        },
+        {
+          "name": "t",
+          "min": 1.0,
+          "max": 3.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "b*t+a",
+        "a+t*b"
+      ],
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note builds the design matrix of \\(y = a + b t + c t^2\\). Exactly one step is a false claim.",
+      "explanation": "Three parameters give three entries, and at \\(t = 1\\) the powers \\(1, t, t^2\\) really are \\((1, 1, 1)\\). Three distinct inputs make a Vandermonde matrix invertible for this polynomial. The false row is the one at \\(t = 2\\): \\(2^2 = 4\\), so the row is \\((1, 2, 4)\\). Writing \\(2\\) in the last slot repeats the middle column's entry and is not \\(t^2\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
+      "figure_alt": "A small array with two short rows of labels.",
+      "steps": [
+        "The model has three parameters, so each row has three entries.",
+        "The row at \\(t = 1\\) is \\((1, 1, 1)\\).",
+        "The row at \\(t = 2\\) is \\((1, 2, 2)\\).",
+        "For columns \\(1\\), \\(t\\), and \\(t^2\\), three distinct inputs make those columns independent."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "At \\(t = 2\\) the row is \\((1, 2, 4)\\), because the last entry is \\(t^2\\).",
+        "The row at \\(t = 1\\) should have been \\((1, 1, 2)\\).",
+        "Three distinct inputs leave these three columns dependent."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Fit \\(y = a + b t\\) to \\((t, y) = (0, 1),\\ (1, 2),\\ (2, 5)\\). What is the slope \\(b\\)?",
+      "explanation": "The normal matrix is \\(\\begin{bmatrix} 3 & 3 \\\\ 3 & 5 \\end{bmatrix}\\) and the right-hand side is \\((8, 12)\\). Subtracting the equations \\(3a + 3b = 8\\) and \\(3a + 5b = 12\\) gives \\(2b = 4\\), so \\(b = 2\\). The intercept is \\(2/3\\). Reporting \\(2/3\\) gives the intercept. Reporting \\(5\\) or \\(1\\) gives a data value. The slope is the coefficient of the column \\((0, 1, 2)\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Adding another point whose input \\(t\\) copies an input already in the design matrix",
+      "explanation": "A repeated input repeats a row, or repeats it with a different measured value. A repeated row is in the span of the existing rows, so the column rank does not rise. The fit becomes exact only if the new measurement agrees with a prediction that was already perfect. The parameter count is a property of the model, not of one extra row. Repeating an input does not move a parameter inside a nonlinear function.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "options": [
+        "does not increase the rank of the design matrix",
+        "always makes the fit exact",
+        "removes one parameter",
+        "makes the model nonlinear in its parameters"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The geometric circle \\((x - a)^2 + (y - b)^2 = r^2\\), with parameters \\((a, b, r)\\), compares with an algebraic rewrite as follows.",
+      "explanation": "Expanding the geometric equation produces \\(x^2 + y^2\\) plus terms linear in new coefficients built from \\(a\\), \\(b\\), and \\(r^2\\). Those new coefficients are what a linear fit estimates. The original \\((a, b, r)\\) still enter the squared distance nonlinearly. The fit is possible. The design matrix is square only when the number of points equals the number of algebraic parameters. Extra points are the usual case.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a dented quadrilateral</title><line x1=\"24\" y1=\"172\" x2=\"260\" y2=\"172\"/><polygon points=\"260,172 253.6,174.7 253.6,169.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"36\" y1=\"184\" x2=\"36\" y2=\"20\"/><polygon points=\"36,20 38.7,26.4 33.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"254\" y=\"188\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"44\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"50,150 230,150 210,40 140,130\" stroke-width=\"2.0\" fill=\"currentColor\" fill-opacity=\"0.15\"/></svg>",
+      "figure_alt": "A four-sided region with one corner pushed in.",
+      "preview": [
+        "circle-fitting-least-squares"
+      ],
+      "options": [
+        "Both forms are linear in \\((a, b, r)\\).",
+        "A circle cannot be fit by least squares at all.",
+        "The geometric form is nonlinear in \\((a, b, r)\\), and a rewritten form can be linear in a different parameter vector.",
+        "The design matrix of a circle is always square."
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "A model \\(y = a + b t + c \\sin t + d \\cos t\\) is linear in its parameters. How many parameters does it have?",
+      "explanation": "The columns are \\(1\\), \\(t\\), \\(\\sin t\\), and \\(\\cos t\\). That is four coefficients. Full column rank therefore needs at least four points whose rows are independent, and a sine and a cosine of the same \\(t\\) are different columns. Reporting \\(2\\) counts only the trigonometric terms. Reporting \\(3\\) drops one of them. Reporting \\(8\\) doubles the list. The input \\(t\\) is not a parameter.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"104\" y1=\"176\" x2=\"104\" y2=\"28\"/><polygon points=\"104,28 106.8,34.4 101.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"110\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"104\" y1=\"161.7\" x2=\"235.9\" y2=\"136.6\"/><polygon points=\"235.9,136.6 230.1,140.4 229.1,135.1\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"128.6\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">c</text><line x1=\"104\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 64.9,47.4 59.7,49.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "preview": [
+        "circle-fitting-least-squares"
+      ],
+      "answer": 4.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "least-squares-data-fitting-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Once a circle has been rewritten so the unknowns appear linearly, fitting those unknowns is",
+      "explanation": "The squares \\(x^2 + y^2\\) are computed from the data before the fit. They move to the right-hand side. What remains is linear in the new coefficients, so the normal equations apply. The problem is not a linear program: the objective is a sum of squares, not a linear cost. Points off the circle are allowed. They are why the residual is a sum of squares rather than a square system.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "preview": [
+        "circle-fitting-least-squares"
+      ],
+      "options": [
+        "still nonlinear, because \\(x^2 + y^2\\) is quadratic",
+        "a linear program",
+        "possible only when every point already lies on one common circle",
+        "a linear least-squares problem"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

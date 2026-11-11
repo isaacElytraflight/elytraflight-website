@@ -219,3 +219,13 @@ Skills: `lp-standard-form`, `lp-graphical-solution`, `polyhedra-extreme-points`,
 Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## NB7 — nlo-nb7
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `lagrangian-duality-lower-bounds`, `lagrange-multiplier-equality`, `kkt-conditions`, `lp-duality-kkt`, `projection-affine-halfspace-kkt`, `linear-least-squares`, `least-squares-data-fitting`, `nonlinear-least-squares`, `circle-fitting-least-squares`, `svm-quadratic-program`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

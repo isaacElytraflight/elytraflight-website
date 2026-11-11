@@ -1,0 +1,29 @@
+{
+  "id": "nonlinear-least-squares",
+  "title": "Nonlinear least-squares problems",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "body_md": "Some residuals depend on the parameters through a nonlinear function: an exponential of a rate, a sine of a frequency, a squared distance to an unknown center. The fitting criterion can still be a sum of squares. The problem is then nonlinear least squares. There is no single normal equation that finishes the job, because the design matrix itself moves when the parameters move.\n\nWhat replaces the design matrix, at a chosen parameter vector, is the residual Jacobian. It has one row per residual and one column per parameter, and the entry is the partial derivative of that residual. Evaluating it is a calculus step, not an optimization step. Once it is in hand, the first-order model of the residual at a nearby parameter is the current residual plus the Jacobian times the step. That model is linear in the step, so it can be handed to an ordinary linear least-squares solver. Building the model is part of stating the problem. Iterating it is a later method.\n\nIf every residual happens to be affine, the Jacobian is constant and the problem really is linear least squares. The nonlinear name is reserved for the cases where the derivatives still depend on the point."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The objective is \\(\\lVert r(x)\\rVert^2\\). The Jacobian \\(J_r(x)\\) has entries \\(\\partial r_i / \\partial x_j\\). The linear model of a step \\(d\\) is \\(r(x) + J_r(x)\\, d\\). A single residual \\(p^2 - s\\) contributes \\((p^2 - s)^2\\) to the objective. Full column rank of \\(J_r(x)\\) makes \\(J_r(x)^T J_r(x)\\) positive definite."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take the scalar residual pair \\(r(w) = (w^2 - 2,\\ w - 4)\\), and evaluate it at \\(w = 3\\). The residual vector is \\((7, -1)\\).\n\nThe coil residual is 50. That is \\(49 + 1\\). The Jacobian is the column \\((2w, 1) = (6, 1)\\) at this point. It depends on \\(w\\) through the first entry, which is the sign that the residual is nonlinear. A linear model of a step \\(d\\) would be \\((7, -1) + d(6, 1)\\). Solving that small least-squares problem for \\(d\\) is a later algorithm. The number \\(50\\) is only the objective."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Copying one residual's derivative onto the next residual is the calculus error. Each row is its own function. A second error is to put parameters down the rows and residuals across the columns. The shape is residuals by parameters, because that is how a Jacobian of a vector map is written. A third is to put the residual values into the Jacobian. Those values belong in \\(r(x)\\). The Jacobian holds derivatives. A fourth is to drop \\(r(x)\\) from the linear model and fit \\(J d\\) to zero. That asks the step to ignore the current misfit."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "A method that repeatedly solves the linearized least-squares model is Gauss-Newton. Adding a multiple of the identity to the Gram matrix damps that step when the linear model is a poor local description. A circle can be left in geometric form, with a residual equal to the distance from a point to the center minus the radius. That residual is nonlinear in the center and the radius, and its Jacobian is the one this skill builds. An algebraic rewrite avoids the Jacobian by changing the parameters."
+    }
+  ]
+}

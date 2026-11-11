@@ -1,0 +1,44 @@
+{
+  "id": "nlo-nb7",
+  "label": "NB7",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "lagrangian-duality-lower-bounds",
+    "lagrange-multiplier-equality",
+    "kkt-conditions",
+    "lp-duality-kkt",
+    "projection-affine-halfspace-kkt",
+    "linear-least-squares",
+    "least-squares-data-fitting",
+    "nonlinear-least-squares",
+    "circle-fitting-least-squares",
+    "svm-quadratic-program"
+  ],
+  "areas": {
+    "lagrangian-duality-lower-bounds": ["optimization"],
+    "lagrange-multiplier-equality": ["optimization", "linear-algebra"],
+    "kkt-conditions": ["optimization"],
+    "lp-duality-kkt": ["optimization", "linear-algebra"],
+    "projection-affine-halfspace-kkt": ["optimization", "linear-algebra"],
+    "linear-least-squares": ["optimization", "linear-algebra"],
+    "least-squares-data-fitting": ["optimization", "linear-algebra"],
+    "nonlinear-least-squares": ["optimization", "linear-algebra"],
+    "circle-fitting-least-squares": ["optimization", "linear-algebra"],
+    "svm-quadratic-program": ["optimization"]
+  },
+  "cores": [
+    "lagrangian-duality-lower-bounds",
+    "lagrange-multiplier-equality",
+    "kkt-conditions",
+    "lp-duality-kkt",
+    "projection-affine-halfspace-kkt",
+    "linear-least-squares",
+    "least-squares-data-fitting",
+    "nonlinear-least-squares",
+    "circle-fitting-least-squares"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/nlo-content-batches.md",
+  "verifier": "skilltree/verify_nlo_nb7.py"
+}

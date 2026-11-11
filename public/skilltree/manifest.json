@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T22:06:58.009946Z",
+  "generated": "2026-11-11T22:28:23.883490Z",
   "skills": {
-    "file": "skills.716dc273.json",
-    "hash": "716dc273"
+    "file": "skills.c6ad5185.json",
+    "hash": "c6ad5185"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -358,6 +358,18 @@
       },
       "hash": "cea73a13",
       "file": "banks/cg.cea73a13.json"
+    },
+    "circle-fitting-least-squares": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "653dac0d",
+      "file": "banks/circle-fitting-least-squares.653dac0d.json"
     },
     "cmrr": {
       "version": 1,
@@ -1367,6 +1379,42 @@
       "hash": "a3f1909d",
       "file": "banks/kalman.a3f1909d.json"
     },
+    "kkt-conditions": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "1d61e3ff",
+      "file": "banks/kkt-conditions.1d61e3ff.json"
+    },
+    "lagrange-multiplier-equality": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "bc844234",
+      "file": "banks/lagrange-multiplier-equality.bc844234.json"
+    },
+    "lagrangian-duality-lower-bounds": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "0573d3fc",
+      "file": "banks/lagrangian-duality-lower-bounds.0573d3fc.json"
+    },
     "laplace": {
       "version": 1,
       "questionCount": 12,
@@ -1378,6 +1426,18 @@
       },
       "hash": "a0d30342",
       "file": "banks/laplace.a0d30342.json"
+    },
+    "least-squares-data-fitting": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "6e01049b",
+      "file": "banks/least-squares-data-fitting.6e01049b.json"
     },
     "led": {
       "version": 1,
@@ -1426,6 +1486,18 @@
       },
       "hash": "67e9860a",
       "file": "banks/lin-algebra-review.67e9860a.json"
+    },
+    "linear-least-squares": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b0fb6cfc",
+      "file": "banks/linear-least-squares.b0fb6cfc.json"
     },
     "linearization": {
       "version": 1,
@@ -1498,6 +1570,18 @@
       },
       "hash": "95abcc9a",
       "file": "banks/loop-tf.95abcc9a.json"
+    },
+    "lp-duality-kkt": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "867b03ef",
+      "file": "banks/lp-duality-kkt.867b03ef.json"
     },
     "lp-graphical-solution": {
       "version": 1,
@@ -1811,6 +1895,18 @@
       "hash": "89c6c06a",
       "file": "banks/noise-dist.89c6c06a.json"
     },
+    "nonlinear-least-squares": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "a07e50ba",
+      "file": "banks/nonlinear-least-squares.a07e50ba.json"
+    },
     "nyquist": {
       "version": 1,
       "questionCount": 12,
@@ -2074,6 +2170,18 @@
       },
       "hash": "d4b57805",
       "file": "banks/positive-definite-matrices.d4b57805.json"
+    },
+    "projection-affine-halfspace-kkt": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "72c5d4fd",
+      "file": "banks/projection-affine-halfspace-kkt.72c5d4fd.json"
     },
     "quadratic-function-minimization": {
       "version": 1,
@@ -2519,6 +2627,18 @@
       "hash": "6fe3095f",
       "file": "banks/step-specs.6fe3095f.json"
     },
+    "svm-quadratic-program": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d59b023b",
+      "file": "banks/svm-quadratic-program.d59b023b.json"
+    },
     "sys-id": {
       "version": 1,
       "questionCount": 12,
@@ -2817,6 +2937,12 @@
       "hash": "115301be",
       "file": "explainers/cg.115301be.json",
       "sectionCount": 5
+    },
+    "circle-fitting-least-squares": {
+      "hash": "962f660a",
+      "file": "explainers/circle-fitting-least-squares.962f660a.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "cmrr": {
       "hash": "a7ada259",
@@ -3276,11 +3402,35 @@
       "sectionCount": 5,
       "version": 1
     },
+    "kkt-conditions": {
+      "hash": "8359dfe5",
+      "file": "explainers/kkt-conditions.8359dfe5.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "lagrange-multiplier-equality": {
+      "hash": "d477d06e",
+      "file": "explainers/lagrange-multiplier-equality.d477d06e.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "lagrangian-duality-lower-bounds": {
+      "hash": "4d038597",
+      "file": "explainers/lagrangian-duality-lower-bounds.4d038597.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "laplace": {
       "hash": "6756fc0b",
       "file": "explainers/laplace.6756fc0b.json",
       "sectionCount": 5,
       "version": 2
+    },
+    "least-squares-data-fitting": {
+      "hash": "fb67e175",
+      "file": "explainers/least-squares-data-fitting.fb67e175.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "led": {
       "hash": "da5c57e8",
@@ -3304,6 +3454,12 @@
       "file": "explainers/lin-algebra-review.e799a9ba.json",
       "sectionCount": 5,
       "version": 2
+    },
+    "linear-least-squares": {
+      "hash": "be1f2024",
+      "file": "explainers/linear-least-squares.be1f2024.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "linearization": {
       "hash": "5ad04b95",
@@ -3336,6 +3492,12 @@
     "loop-tf": {
       "hash": "1cfc30db",
       "file": "explainers/loop-tf.1cfc30db.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "lp-duality-kkt": {
+      "hash": "cb83ec48",
+      "file": "explainers/lp-duality-kkt.cb83ec48.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -3478,6 +3640,12 @@
       "file": "explainers/noise-dist.b17d1272.json",
       "sectionCount": 5
     },
+    "nonlinear-least-squares": {
+      "hash": "43f2fde6",
+      "file": "explainers/nonlinear-least-squares.43f2fde6.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "nyquist": {
       "hash": "79c90f67",
       "file": "explainers/nyquist.79c90f67.json",
@@ -3599,6 +3767,12 @@
     "positive-definite-matrices": {
       "hash": "86938907",
       "file": "explainers/positive-definite-matrices.86938907.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "projection-affine-halfspace-kkt": {
+      "hash": "291feb06",
+      "file": "explainers/projection-affine-halfspace-kkt.291feb06.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -3807,6 +3981,12 @@
     "step-specs": {
       "hash": "d25f0590",
       "file": "explainers/step-specs.d25f0590.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "svm-quadratic-program": {
+      "hash": "421f0e6c",
+      "file": "explainers/svm-quadratic-program.421f0e6c.json",
       "sectionCount": 5,
       "version": 1
     },

@@ -1,0 +1,229 @@
+{
+  "skill_id": "kkt-conditions",
+  "version": 1,
+  "questions": [
+    {
+      "id": "kkt-conditions-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Complementary slackness for an inequality \\(g(x) \\le 0\\) with multiplier \\(\\nu\\) says",
+      "explanation": "The product \\(\\nu\\, g(x)\\) is zero, so at least one factor vanishes. Both may vanish. Requiring a positive multiplier and a strict inequality at once is the combination the product forbids. The multiplier is zero only on the inactive branch. A zero constraint gradient is a regularity question, not slackness.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "options": [
+        "both \\(\\nu > 0\\) and \\(g(x) < 0\\)",
+        "the multiplier is always zero",
+        "the constraint gradient is zero",
+        "\\(\\nu = 0\\) or \\(g(x) = 0\\), or both"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Minimize \\((x - 4)^2\\) subject to \\(x \\le 1\\). The Lagrangian is \\((x - 4)^2 + \\nu(x - 1)\\) with \\(\\nu \\ge 0\\). What is \\(\\nu\\) at the KKT point?",
+      "explanation": "Stationarity is \\(2(x - 4) + \\nu = 0\\). The branch \\(\\nu = 0\\) forces \\(x = 4\\), which violates \\(x \\le 1\\). The active branch \\(x = 1\\) gives \\(\\nu = 6\\), and \\(6 \\ge 0\\). The objective at that point is \\(9\\), which is not the multiplier. Reporting \\(1\\) or \\(4\\) gives a coordinate. Reporting \\(9\\) gives the objective. Reporting \\(0\\) is the discarded branch.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "answer": 6.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Dual feasibility for an inequality written as \\(g(x) \\le 0\\) means",
+      "explanation": "The Lagrangian term is \\(\\nu\\, g(x)\\). At a feasible point \\(g(x) \\le 0\\), a nonnegative \\(\\nu\\) makes that term nonpositive, which is the lower-bound direction. A free multiplier is the equality case. A nonpositive multiplier would reward a violated constraint. The multiplier is not the objective value.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "options": [
+        "the multiplier is free",
+        "the multiplier is nonpositive",
+        "the multiplier is nonnegative",
+        "the multiplier equals the objective"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order that solves the KKT system for \\(\\min (x - 3)^2\\) subject to \\(x \\le 1\\). Each step uses the previous result.",
+      "explanation": "Stationarity is the equation both cases must obey, so it is written first. Complementary slackness is what splits the cases. The inactive case is tested against primal feasibility and fails. The active case is the one that remains, and dual feasibility is the last sign check on the multiplier it produces. Checking the sign before solving for \\(\\nu\\) does not yet have a number. Keeping \\(x = 3\\) would accept an infeasible point.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "steps": [
+        "Write stationarity: \\(2(x - 3) + \\nu = 0\\).",
+        "Split on complementary slackness into the case \\(\\nu = 0\\) and the case \\(x = 1\\).",
+        "Discard \\(\\nu = 0\\), because the stationarity equation then puts \\(x\\) at \\(3\\), which violates \\(x \\le 1\\).",
+        "On the remaining case \\(x = 1\\), solve stationarity for \\(\\nu\\) and check \\(\\nu \\ge 0\\)."
+      ],
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "For \\(\\min (x - 3)^2\\) subject to \\(x \\le 1\\), the candidate is \\(x = 1\\), \\(\\nu = 4\\). Which KKT conditions hold?",
+      "explanation": "All four KKT conditions hold at this candidate.\n• Stationarity is \\(-4 + 4 = 0\\).\n• The bound holds with equality, so the point is feasible and the product with \\(\\nu\\) is zero.\n• The multiplier \\(4\\) is nonnegative.\n• The multiplier is not zero. The constraint is active, so slackness does not ask it to be.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "options": [
+        "Stationarity: \\(2(1 - 3) + 4 = 0\\).",
+        "Primal feasibility: \\(1 \\le 1\\).",
+        "Dual feasibility: \\(4 \\ge 0\\).",
+        "Complementary slackness: \\(4 \\cdot (1 - 1) = 0\\).",
+        "The multiplier is zero."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "Minimize \\((x - a)^2\\) subject to \\(x \\le b\\), and suppose the bound is active. Stationarity \\(2(x - a) + \\nu = 0\\) at \\(x = b\\) gives the multiplier",
+      "explanation": "Set \\(x = b\\) in \\(2(x - a) + \\nu = 0\\) and solve: \\(\\nu = 2(a - b)\\). Both names are required because the multiplier measures how far the unconstrained minimizer \\(a\\) sits beyond the bound \\(b\\). On the declared ranges \\(a > b\\), so the multiplier is positive, which is the feasible sign. The opposite sign \\(2(b - a)\\) would describe a lower bound instead of this upper bound. Forgetting the \\(2\\) drops the derivative of the square.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "answer": "2*(a-b)",
+      "variables": [
+        {
+          "name": "a",
+          "min": 4.0,
+          "max": 7.0
+        },
+        {
+          "name": "b",
+          "min": 1.0,
+          "max": 3.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "2*a-2*b",
+        "(a-b)*2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note runs the KKT cases for \\(\\min (x - 3)^2\\) subject to \\(x \\le 1\\). Exactly one step is a false claim.",
+      "explanation": "Stationarity is right, and the inactive case really does force \\(x = 3\\). The active case really does give \\(\\nu = 4 \\ge 0\\). The false claim is that \\(x = 3\\) satisfies the inequality. It does not, so that branch is not a KKT point. The surviving point is \\(x = 1\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a dented quadrilateral</title><line x1=\"24\" y1=\"172\" x2=\"260\" y2=\"172\"/><polygon points=\"260,172 253.6,174.7 253.6,169.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"36\" y1=\"184\" x2=\"36\" y2=\"20\"/><polygon points=\"36,20 38.7,26.4 33.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"254\" y=\"188\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"44\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"50,150 230,150 210,40 140,130\" stroke-width=\"2.0\" fill=\"currentColor\" fill-opacity=\"0.15\"/></svg>",
+      "figure_alt": "A four-sided region with one corner pushed in.",
+      "steps": [
+        "Stationarity says \\(2(x - 3) + \\nu = 0\\).",
+        "Complementary slackness allows the case \\(\\nu = 0\\), which forces \\(x = 3\\).",
+        "The point \\(x = 3\\) satisfies \\(x \\le 1\\), so it is the KKT point, with \\(\\nu = 0\\).",
+        "The other case \\(x = 1\\) gives \\(\\nu = 4\\), which is nonnegative."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "\\(x = 3\\) violates \\(x \\le 1\\), so the inactive branch is not primal feasible.",
+        "Stationarity is the false line.",
+        "\\(\\nu = 4\\) is negative, so the active branch fails."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Minimize \\(x^2 + y^2\\) subject to \\(x + y \\ge 4\\). The Lagrangian is \\(x^2 + y^2 + \\nu(4 - x - y)\\) with \\(\\nu \\ge 0\\). What is the objective at the KKT point?",
+      "explanation": "Stationarity gives \\(x = y = \\nu/2\\). The branch \\(\\nu = 0\\) is the origin, and \\(0 \\ge 4\\) fails. The active branch \\(x + y = 4\\) with \\(x = y\\) gives \\(x = y = 2\\) and \\(\\nu = 4\\). The objective is \\(4 + 4 = 8\\). Reporting \\(2\\) or \\(4\\) gives a coordinate or the multiplier. Reporting \\(0\\) is the discarded branch. Complementary slackness holds because the constraint is active.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded.",
+      "answer": 8.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A point where \\(\\nu > 0\\) and \\(g(x) < 0\\)",
+      "explanation": "Complementary slackness sets the product to zero. A positive multiplier and a strict inequality make the product nonzero, so the point fails KKT. It is not required. It does not say anything about the objective being unbounded. Calling the inequality an equality does not relax the product. The active branch is the one a positive multiplier is allowed to sit on.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "options": [
+        "is allowed when the inequality is an equality in disguise",
+        "cannot be a KKT point",
+        "is required at every KKT point",
+        "means the objective is unbounded below"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Minimize \\((x - 1)^2\\) subject to \\(0 \\le x \\le 2\\). The unconstrained minimizer \\(x = 1\\) lies strictly inside the interval. The two inequality multipliers there are",
+      "explanation": "The point \\(x = 1\\) is primal feasible and the objective gradient is zero, so stationarity holds with both multipliers equal to zero. Complementary slackness agrees, because neither bound is active. A positive multiplier would require the matching bound to be active. A negative multiplier fails dual feasibility. Bounds are inequalities, so they do have multipliers. Here both multipliers happen to vanish.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "preview": [
+        "lp-duality-kkt"
+      ],
+      "options": [
+        "both zero",
+        "both positive",
+        "one positive and one negative",
+        "undefined, because a bound cannot have a multiplier"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Minimize \\((x - 5)^2\\) subject to \\(x \\le 2\\), with Lagrangian \\((x - 5)^2 + \\nu(x - 2)\\) and \\(\\nu \\ge 0\\). What is the objective value at the KKT point?",
+      "explanation": "The inactive branch \\(\\nu = 0\\) gives \\(x = 5\\), outside the half-line. The active point is \\(x = 2\\), and stationarity gives \\(\\nu = 6 \\ge 0\\). The objective is \\((2 - 5)^2 = 9\\). Reporting \\(6\\) gives the multiplier. Reporting \\(2\\) or \\(5\\) gives a coordinate. The same active point is the projection of \\(5\\) onto the half-line \\(x \\le 2\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "preview": [
+        "projection-affine-halfspace-kkt"
+      ],
+      "answer": 9.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "kkt-conditions-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "For \\(\\min (x - 3)^2\\) subject to \\(x \\le 1\\), the candidate \\(x = 3\\), \\(\\nu = 0\\) fails KKT because",
+      "explanation": "Stationarity holds: the derivative of \\((x - 3)^2\\) is zero at \\(x = 3\\), and the multiplier is zero. The product \\(\\nu\\, g(x)\\) is zero, so slackness holds. The multiplier is nonnegative. The point fails because \\(3 \\le 1\\) is false. A KKT point has to be feasible before the other three conditions can certify it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a dented quadrilateral</title><line x1=\"24\" y1=\"172\" x2=\"260\" y2=\"172\"/><polygon points=\"260,172 253.6,174.7 253.6,169.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"36\" y1=\"184\" x2=\"36\" y2=\"20\"/><polygon points=\"36,20 38.7,26.4 33.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"254\" y=\"188\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"44\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"50,150 230,150 210,40 140,130\" stroke-width=\"2.0\" fill=\"currentColor\" fill-opacity=\"0.15\"/></svg>",
+      "figure_alt": "A four-sided region with one corner pushed in.",
+      "preview": [
+        "primal-dual-interior-point"
+      ],
+      "options": [
+        "stationarity fails",
+        "complementary slackness fails",
+        "primal feasibility fails",
+        "dual feasibility fails"
+      ],
+      "correct_index": 2,
+      "version": 1
+    }
+  ]
+}

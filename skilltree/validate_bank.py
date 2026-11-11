@@ -159,6 +159,17 @@ LEAF_PREVIEW_ALLOWED.update({
         "primal-dual-interior-point",
     ],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # NB7 leaves: no dependents in the graph.
+    "circle-fitting-least-squares": [
+        "gauss-newton-method",
+        "levenberg-marquardt",
+    ],
+    "svm-quadratic-program": [
+        "kkt-conditions",
+        "lagrange-multiplier-equality",
+    ],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")
