@@ -175,15 +175,15 @@
       "type": "numeric",
       "prompt": "Let \\(A = \\begin{bmatrix} 0 & 1 \\\\ -6 & -1 \\end{bmatrix}\\) and \\(C = \\begin{bmatrix} 0 & 1 \\end{bmatrix}\\). The desired error polynomial is \\(s^2 + 12s + 35\\). The gain entry that multiplies the residual into the second state is",
       "explanation": "\\(A - LC = \\begin{bmatrix} 0 & 1 - l_1 \\\\ -6 & -1 - l_2 \\end{bmatrix}\\). The coefficient of \\(s\\) is \\(1 + l_2\\), so \\(l_2 = 11\\). The constant term \\(6 - 6 l_1\\) fixes the other entry, \\(l_1 = -29/6\\), which is not this question. Adding the desired coefficient to the open-loop 1, getting 13, counts that 1 twice. Using the constant term 35 as a gain ignores the open-loop \\(-6\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a 2-state model matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">-4   -3</text></svg>",
-      "figure_alt": "A 2 by 2 matrix with a 0 and a 1 on the first row.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the model matrix with bottom row -6 and -1</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">-6   -1</text></svg>",
+      "figure_alt": "A 2 by 2 matrix whose bottom row is -6 and -1.",
       "preview": [
         "separation"
       ],
       "answer": 11.0,
       "unit": "1",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "observer-r4-q2",

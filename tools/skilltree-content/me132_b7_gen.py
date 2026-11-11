@@ -42,8 +42,8 @@ def bank_state_feedback():
     b = Bank("state-feedback")
     fb = loop(["P"], "state feedback around the plant", fb="K")
     fb_alt = "A plant block with a gain K returned and subtracted."
-    poles = splane([(-2, 1.2), (-2, -1.2)], [], "a conjugate pair in the open left half-plane")
-    poles_alt = "Two cross marks left of the imaginary axis, mirror images of each other."
+    poles = splane([(-2, 0), (-8, 0)], [], "two real poles in the open left half-plane")
+    poles_alt = "Two cross marks on the negative real axis, one farther from the origin than the other."
     companion = matrix_fig([["0", "1"], ["-3", "-1"]], "controllable companion matrix")
     companion_alt = "A 2 by 2 matrix with a 0 and a 1 on the first row."
     mass = mass_spring("mass, spring, damper, and an applied force")
@@ -71,7 +71,7 @@ def bank_state_feedback():
           r"The desired poles are \(-2\) and \(-8\). In the monic polynomial \((s+2)(s+8)\), the coefficient of \(s\) is",
           coeff, "rad/s",
           r"\((s+2)(s+8) = s^2 + 10s + 16\). The coefficient of \(s\) is the sum of the pole magnitudes, " + show(coeff) + r". The product 16 is the constant term. The difference \(8-2 = 6\) is neither coefficient. Leaving the polynomial unexpanded does not change the sum.",
-          poles, poles_alt)
+          poles, poles_alt, version=2)
 
     b.sym(2,
           r"A scalar plant is \(\dot{x} = a x + b u\) with \(u = -k x\). Write the closed-loop eigenvalue in the names a, b, and k.",
@@ -193,6 +193,8 @@ def bank_observer():
     poles_alt = "Two cross marks on the negative real axis, one farther left than the other."
     mat = matrix_fig([["0", "1"], ["-4", "-3"]], "a 2-state model matrix")
     mat_alt = "A 2 by 2 matrix with a 0 and a 1 on the first row."
+    mat_fast = matrix_fig([["0", "1"], ["-6", "-1"]], "the model matrix with bottom row -6 and -1")
+    mat_fast_alt = "A 2 by 2 matrix whose bottom row is -6 and -1."
     dual = matrix_fig([["1", "0"]], "an output row that reads the first state")
     dual_alt = "A row matrix with entries 1 and 0."
 
@@ -277,7 +279,7 @@ def bank_observer():
           r"Let \(A = \begin{bmatrix} 0 & 1 \\ -6 & -1 \end{bmatrix}\) and \(C = \begin{bmatrix} 0 & 1 \end{bmatrix}\). The desired error polynomial is \(s^2 + 12s + 35\). The gain entry that multiplies the residual into the second state is",
           l2, "1",
           r"\(A - LC = \begin{bmatrix} 0 & 1 - l_1 \\ -6 & -1 - l_2 \end{bmatrix}\). The coefficient of \(s\) is \(1 + l_2\), so \(l_2 = " + show(l2) + r"\). The constant term \(6 - 6 l_1\) fixes the other entry, \(l_1 = -29/6\), which is not this question. Adding the desired coefficient to the open-loop 1, getting 13, counts that 1 twice. Using the constant term 35 as a gain ignores the open-loop \(-6\).",
-          mat, mat_alt, ["separation"])
+          mat_fast, mat_fast_alt, ["separation"], version=2)
     b.mc(4,
          r"State feedback \(u = -K\hat{x}\) is built from this estimate. The eigenvalues of the combined loop are",
          [r"only the eigenvalues of \(A - BK\)",
@@ -526,24 +528,25 @@ def bank_robust_perf():
             ["Confirm the nominal loop is stable.",
              "Check nominal performance, the peak of |W_s S| below 1.",
              "Check robust stability, the peak of |W_m T| below 1.",
-             "Check robust performance, the peak of |W_s S| + |W_m T| below 1.",
+             "Check robust performance: the peak, over frequency, of the sum |W_s S| + |W_m T| is below 1.",
              "If the sum fails, loosen the performance weight or shrink the uncertainty before raising the loop gain at every frequency."],
             r"An unstable nominal loop makes the later peaks meaningless, so stability is first. Nominal performance and robust stability are the two separate bills. The sum is a stricter bill than either one, so it comes after you know which of the pieces already failed. Raising the gain everywhere is the last resort, and it is often the wrong one, because it shrinks \(S\) and grows \(T\).",
-            loopfig, loop_alt)
+            loopfig, loop_alt, version=2)
 
     b.find_error(3,
                  r"Multiplicative uncertainty, and a performance weight on \(S\). One step is wrong.",
-                 [r"The peak of \(|W_m T|\) is \(0.7\), so the robust-stability test passes.",
-                  r"The peak of \(|W_s S|\) is \(0.5\), so nominal performance passes.",
-                  r"The sum of those peaks is \(1.2\), and the robust-performance test still passes because each piece passed.",
-                  r"Robust performance needs the sum itself below 1, so \(1.2\) fails it."],
+                 [r"At \(4\ \mathrm{rad/s}\), \(|W_m T| = 0.7\), and that is its largest value, so robust stability passes.",
+                  r"At that same frequency, \(|W_s S| = 0.5\), and that is its largest value, so nominal performance passes.",
+                  r"Their sum at \(4\ \mathrm{rad/s}\) is \(1.2\), but robust performance still passes because each piece passed on its own.",
+                  r"Robust performance uses \(|W_s S| + |W_m T|\) at each frequency, so \(1.2\) at this frequency fails the test."],
                  2,
-                 r"Each piece below 1 does not put the sum below 1. Here the pieces are \(0.7\) and \(0.5\), and \(1.2 > 1\), so robust performance fails while robust stability and nominal performance pass. The first two readings are the right separate tests, and the last step is the repair.",
-                 reasons=["Each piece below 1 does not make the sum below 1, and 1.2 fails the sum.",
+                 r"Both readings are taken at \(4\ \mathrm{rad/s}\), so the robust-performance quantity there is \(0.7 + 0.5 = 1.2\). That is not a sum of peaks from two different frequencies. Each piece below 1 does not put the sum below 1, so robust stability and nominal performance pass while robust performance fails. The first two readings are the right separate tests, and the last step is the repair.",
+                 reasons=["At one frequency, each piece below 1 does not make |W_s S| + |W_m T| below 1.",
                           "A robust-stability pass cancels the performance weight.",
                           "Nominal performance is checked on T, not on S."],
                  correct_reason=0,
-                 fig=both, alt=both_alt)
+                 fig=both, alt=both_alt,
+                 version=2)
     b.mc(3,
          r"Because \(S + T = 1\) at each frequency,",
          [r"\(|S|\) and \(|T|\) can both be set to 0 by a high gain",

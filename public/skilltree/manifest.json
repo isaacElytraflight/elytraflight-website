@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T18:25:40.489111Z",
+  "generated": "2026-11-11T18:39:39.697440Z",
   "skills": {
-    "file": "skills.f0ce9bb7.json",
-    "hash": "f0ce9bb7"
+    "file": "skills.73d4da60.json",
+    "hash": "73d4da60"
   },
   "collections": {
     "file": "collections.4ee0faec.json",
@@ -1532,8 +1532,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "1c668c28",
-      "file": "banks/observer.1c668c28.json"
+      "hash": "3d45151f",
+      "file": "banks/observer.3d45151f.json"
     },
     "octc": {
       "version": 2,
@@ -1844,8 +1844,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "34334107",
-      "file": "banks/robust-perf.34334107.json"
+      "hash": "fba3f599",
+      "file": "banks/robust-perf.fba3f599.json"
     },
     "robust-stability": {
       "version": 1,
@@ -2048,8 +2048,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8043bf8d",
-      "file": "banks/state-feedback.8043bf8d.json"
+      "hash": "16a29c8c",
+      "file": "banks/state-feedback.16a29c8c.json"
     },
     "state-space-model": {
       "version": 1,
