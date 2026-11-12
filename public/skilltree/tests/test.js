@@ -451,6 +451,7 @@ async function test(name, fn) {
     
     exp.skills['lti-def'] = { tier: 3, lastPracticed: now - 1 * DAY, history: [] };
     exp.skills.bode.tier = 1;
+    exp.scope = { v: 2, boxes: ['ee105-ucb'] };
     
     const p2 = await newPage(T({ bode: { tier: 2, lastPracticed: now - 2 * DAY, history: [] } }));
     await p2.evaluate(data => {
@@ -469,6 +470,14 @@ async function test(name, fn) {
     const s = await store(p2);
     assert.strictEqual(s.skills.bode.tier, 2);
     assert.strictEqual(s.skills['lti-def'].tier, 3);
+    const importedFocus = await p2.evaluate(() => ({
+      hidden: document.getElementById('focusPrompt').hidden,
+      focus: new URLSearchParams(location.search).get('focus'),
+      scope: window.__skillgrove.collections.scope()
+    }));
+    assert.strictEqual(importedFocus.hidden, true, 'a scoped import hides the pick-courses prompt');
+    assert.strictEqual(importedFocus.focus, 'ee105');
+    assert.deepStrictEqual(importedFocus.scope, ['ee105-ucb']);
     
     await p._ctx.close();
     await p2._ctx.close();

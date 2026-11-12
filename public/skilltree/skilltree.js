@@ -2521,6 +2521,9 @@ function afterImport(msg) {
   }
   if (world) { computeGroupedLayout(); updateBlobsDOM(); legendBuild(); showLayout(layoutMode, false); }
   refreshAll();
+  if (selectedBoxes.size === 0) scopePanelOpen = true;
+  syncScopePicker();
+  syncFocusPrompt();
   if (selected) renderPanel();
   toast(msg);
 }
