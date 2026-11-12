@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-12T00:29:17.878286Z",
+  "generated": "2026-11-12T00:40:43.458021Z",
   "skills": {
-    "file": "skills.ef3f7f10.json",
-    "hash": "ef3f7f10"
+    "file": "skills.d0525e48.json",
+    "hash": "d0525e48"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -2072,8 +2072,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b2e86881",
-      "file": "banks/newton-local-quadratic-convergence.b2e86881.json"
+      "hash": "67d94391",
+      "file": "banks/newton-local-quadratic-convergence.67d94391.json"
     },
     "newton-method-optimization": {
       "version": 1,
@@ -4004,8 +4004,8 @@
       "version": 1
     },
     "newton-local-quadratic-convergence": {
-      "hash": "4202e2d0",
-      "file": "explainers/newton-local-quadratic-convergence.4202e2d0.json",
+      "hash": "46537920",
+      "file": "explainers/newton-local-quadratic-convergence.46537920.json",
       "sectionCount": 5,
       "version": 1
     },

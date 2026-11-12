@@ -23,7 +23,7 @@
     },
     {
       "heading": "Where this leads",
-      "body_md": "The squared local rate is special to Newton near a nondegenerate minimizer. A conjugate-direction method on a positive definite quadratic finishes in finitely many steps instead, one per dimension in the worst case. Momentum and extrapolated gradient steps keep a global rate on smooth convex problems and do not need the start to lie in a Newton basin. Those rates are slower than a squared error, and they ask for less curvature information."
+      "body_md": "The squared local rate is special to Newton near a nondegenerate minimizer. A conjugate-direction method on a positive definite quadratic finishes in finitely many steps instead, one per dimension in the worst case. Momentum and extrapolated gradient steps keep a global bound on the function gap for smooth convex problems and do not need the start to lie in a Newton basin. That gap bound is slower than a local squared-error guarantee, and those methods ask for less curvature information."
     }
   ]
 }
