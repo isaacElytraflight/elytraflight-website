@@ -156,6 +156,16 @@ Items above version 1:
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## NLO intro — nlo-intro
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `calculus-of-variations`, `largest-inscribed-ellipsoid`, `trajectory-optimization`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## NB1 — nlo-nb1
 
 Box: Nonlinear Optimization (nlo-tugraz).

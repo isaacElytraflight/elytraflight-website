@@ -703,7 +703,10 @@
         "optimization-problem-formulation",
         "graphical-2d-optimization",
         "optimization-problem-classes",
-        "svm-quadratic-program"
+        "svm-quadratic-program",
+        "calculus-of-variations",
+        "largest-inscribed-ellipsoid",
+        "trajectory-optimization"
       ],
       "color_index": 41
     },

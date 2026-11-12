@@ -224,6 +224,21 @@ LEAF_PREVIEW_ALLOWED.update({
         "singular-value-decomposition",
     ],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # Optional NLO introduction leaves: nothing in the graph lists these as prerequisites.
+    # Previews name later skills that specialize the same idea, without an edge.
+    "calculus-of-variations": [
+        "lqr",
+        "mpc",
+    ],
+    "largest-inscribed-ellipsoid": [
+        "primal-dual-interior-point",
+    ],
+    "trajectory-optimization": [
+        "mpc",
+        "lqr",
+    ],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")
