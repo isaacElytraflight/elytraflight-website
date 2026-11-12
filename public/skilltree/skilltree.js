@@ -168,6 +168,7 @@ let playable = [];
 
 /* ====================== storage ====================== */
 let storageOK = true, memStore = null, progress = { version: 1, skills: {} };
+let leaderboardRows = null, leaderboardReady = false, profileLoadGen = 0;
 
 function probeStorage() { try { const k = 'skilltree.__probe'; localStorage.setItem(k, '1'); localStorage.removeItem(k); return true } catch (e) { return false } }
 
@@ -201,7 +202,7 @@ function applyRetirement(p) {
 
 function loadProgress() {
   storageOK = probeStorage();
-  if (!storageOK) { showWarn('Browser storage is unavailable here, so progress will be lost when you close this tab. Use Export in Settings to save a backup file.'); return }
+  if (!storageOK) { showWarn('Browser storage is unavailable here, so progress will be lost when you close this tab. Use Export on your profile to save a backup file.'); return }
   let raw = null;
   try { raw = localStorage.getItem(KEY) } catch (e) { storageOK = false }
   if (!raw) return;
@@ -220,8 +221,9 @@ function loadProgress() {
 
 function saveProgress() {
   progress.savedAt = Date.now();
+  refreshProfileStats();
   if (storageOK) {
-    try { localStorage.setItem(KEY, JSON.stringify(progress)); flashSaved(); return true } catch (e) { storageOK = false; showWarn('Could not save to browser storage. Progress is kept in memory only — open Settings and Export a backup now.') }
+    try { localStorage.setItem(KEY, JSON.stringify(progress)); flashSaved(); return true } catch (e) { storageOK = false; showWarn('Could not save to browser storage. Progress is kept in memory only — open your profile and Export a backup now.') }
   }
   memStore = JSON.stringify(progress);
   return false;
@@ -2130,7 +2132,7 @@ function renderResult(wrap) {
   if (Q.mode === 'practice' && R.correct < need(R.n)) card.append(el('div', { class: 'kv', text: 'Practiced is about showing up — but the explanations below are worth another look before you try a mastery challenge.' }));
   if (Q.mode !== 'review') {
     card.append(el('div', { class: 'tu' }, el('span', { class: 'tierchip', text: TIERS[R.before] }), up ? [el('span', { text: '→' }), el('span', { class: 'tierchip', id: 'newTier', text: TIERS[R.after] })] : el('span', { style: 'font-weight:600;color:var(--ink2)', text: '(unchanged)' })));
-    card.append(el('div', { class: 'kv', text: storageOK ? 'Progress saved on this device ✓' : 'Progress kept in memory only (storage unavailable) — open Settings and Export a backup.' }));
+    card.append(el('div', { class: 'kv', text: storageOK ? 'Progress saved on this device ✓' : 'Progress kept in memory only (storage unavailable) — open your profile and Export a backup.' }));
   }
   const recap = el('div', { class: 'recap' });
   Q.items.forEach((it, i) => recap.append(el('div', {}, el('span', { class: 'm ' + (it.correct ? 'ok' : 'no'), text: it.correct ? '✓' : '✗' }), el('span', { math: `Q${i + 1}: ` + shortMath(it.q.prompt, 150) }))));
@@ -2303,8 +2305,8 @@ function openHelp() {
     el('li', {}, el('b', { text: 'Courses ' }), 'is select-all-that-apply. The address bar focus parameter is that list (for example ?focus=me132,nlo). A link with focus uses that list, and a visit with no focus parameter restores your last choice. A new profile starts with nothing focused. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
     el('li', {}, el('b', { text: 'Group by course ' }), 'is on when you have not chosen a layout. It draws each selected course and chapter as a colored region around its skills. Regions overlap where boxes share skills, and Ungroup returns to one prerequisite tree. A layout you choose is remembered on this device.'),
     el('li', {}, el('b', { text: 'Flag a question ' }), 'if the answer seems wrong, the wording is unclear, there is a typo, or the figure is off. A comment is optional.'),
-    el('li', {}, el('b', { text: 'Usage measurement ' }), 'counts which skills and courses you open and how quizzes go. It uses a random id on this device, not a third-party tracker. Turn it off in Settings. A browser Do Not Track signal turns it off too.'),
-    el('li', {}, 'Progress autosaves in this browser after every quiz. Open Settings (the gear) to Export a backup you can Import later, or on another device.'),
+    el('li', {}, el('b', { text: 'Usage measurement ' }), 'counts which skills and courses you open and how quizzes go. It uses a random id on this device, not a third-party tracker. Turn it off in Profile. A browser Do Not Track signal turns it off too.'),
+    el('li', {}, 'Progress autosaves in this browser after every quiz. Open Profile to Export a backup you can Import later, or on another device.'),
     el('li', {}, 'Skills are organized into courses and chapters. Some skills have questions; the rest say "coming soon".'));
   openModal({ title: 'How Skillgrove works', body: ul, actions: [{ label: 'Got it', kind: 'primary' }] });
 }
@@ -3317,17 +3319,455 @@ function renderTodo() {
   host.append(head, spiral);
   if (examsEl) host.append(examsEl);
   host.append(paper, actions);
+  appendLeaderboard(host);
 }
 
-/* ====================== settings menu ====================== */
-let settingsOpen = false;
-function syncSettings() {
-  const panel = $('settingsPanel'), btn = $('btnSettings');
-  if (!panel || !btn) return;
-  panel.hidden = !settingsOpen;
-  btn.setAttribute('aria-expanded', String(settingsOpen));
+/* ====================== profile ====================== */
+const PROFILE_KEY = 'skilltree.profile.v1';
+const USERNAME_RE = /^[a-z0-9](?:[a-z0-9_-]{1,30}[a-z0-9])$/;
+const RESERVED_USERNAMES = { admin: 1, api: 1, me: 1, null: 1, profile: 1, profiles: 1, settings: 1, skilltree: 1, undefined: 1 };
+
+function sanitizeUsername(raw) {
+  return String(raw == null ? '' : raw).trim().toLowerCase().replace(/[\u0000-\u001f\u007f]/g, '');
 }
-function closeSettings() { settingsOpen = false; syncSettings(); }
+function usernameError(name) {
+  if (!name) return 'Choose a username.';
+  if (!USERNAME_RE.test(name)) return 'Use 3–32 letters, numbers, underscores, or hyphens. Start and end with a letter or number.';
+  if (RESERVED_USERNAMES[name]) return 'That username is reserved.';
+  return '';
+}
+function sanitizeBio(raw) {
+  let s = String(raw == null ? '' : raw).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, '');
+  s = s.replace(/[\u200b-\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g, '').replace(/\r\n?/g, '\n').trim();
+  return s.length > 500 ? s.slice(0, 500) : s;
+}
+function skillsCompleted() {
+  const map = progress && progress.skills;
+  if (!map || typeof map !== 'object') return 0;
+  let n = 0;
+  for (const id in map) {
+    const tier = map[id] && map[id].tier;
+    if (typeof tier === 'number' && tier >= 4) n += 1;
+  }
+  return n;
+}
+function refreshProfileStats() {
+  const el = $('profileSkills');
+  if (el) el.textContent = String(skillsCompleted());
+}
+function formatJoinDate(value) {
+  if (!value) return '—';
+  const d = new Date(value);
+  if (!Number.isFinite(d.getTime())) return '—';
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+}
+function currentUser() {
+  const auth = window.SkillgroveAuth;
+  return auth && auth.getUser ? auth.getUser() : null;
+}
+function profileStorageKey() {
+  const user = currentUser();
+  return user && user.id ? PROFILE_KEY + '.' + user.id : PROFILE_KEY;
+}
+function readStoredProfile(key) {
+  const blank = { username: '', bio: '', isPublic: true };
+  try {
+    const raw = JSON.parse(localStorage.getItem(key) || 'null');
+    if (!raw || typeof raw !== 'object') return blank;
+    const username = sanitizeUsername(raw.username);
+    return {
+      username: usernameError(username) ? '' : username,
+      bio: sanitizeBio(raw.bio),
+      isPublic: raw.isPublic !== false
+    };
+  } catch (e) {
+    return blank;
+  }
+}
+function profileHasDraft(profile) {
+  return !!(profile && (profile.username || profile.bio));
+}
+function readLocalProfile() {
+  return readStoredProfile(profileStorageKey());
+}
+function currentFormDraft() {
+  const username = sanitizeUsername($('profileUsername') && $('profileUsername').value);
+  return {
+    username: usernameError(username) ? '' : username,
+    bio: sanitizeBio($('profileBio') && $('profileBio').value),
+    isPublic: !($('profilePublic') && $('profilePublic').checked === false)
+  };
+}
+function writeLocalProfile(profile) {
+  if (!storageOK) return;
+  try {
+    localStorage.setItem(profileStorageKey(), JSON.stringify({
+      v: 1,
+      username: profile.username,
+      bio: profile.bio,
+      isPublic: profile.isPublic !== false
+    }));
+  } catch (e) { }
+}
+function publicProfileHref(username) {
+  return '/profile/' + encodeURIComponent(username);
+}
+function safeDecode(s) {
+  try { return decodeURIComponent(s); } catch (e) { return s; }
+}
+function readRouteProfile() {
+  const path = location.pathname || '/';
+  const match = path.match(/\/profile\/([^/]+)\/?$/);
+  if (match) {
+    const seg = safeDecode(match[1]);
+    if (seg && seg.toLowerCase() !== 'index.html') return seg;
+  }
+  if (/\/profile\/?$/.test(path)) {
+    const q = new URLSearchParams(location.search).get('u');
+    if (q) return q;
+  }
+  return null;
+}
+function isUuid(s) {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(String(s || ''));
+}
+function profileSchemaMissing(status, body) {
+  const code = String((body && body.code) || '');
+  const message = String((body && body.message) || '').toLowerCase();
+  return status === 404 || code === 'PGRST202' || code === 'PGRST205' || code === 'PGRST204' || code === '42P01' || code === '42883'
+    || message.includes('schema cache') || message.includes('does not exist') || message.includes('could not find');
+}
+function profileNameTaken(status, body) {
+  const code = String((body && body.code) || '');
+  const message = String((body && body.message) || '').toLowerCase();
+  return status === 409 || code === '23505' || message.includes('duplicate key') || message.includes('unique constraint');
+}
+async function profileRequest(path, options) {
+  const cfg = window.SKILLTREE_CONFIG && window.SKILLTREE_CONFIG.supabase;
+  if (!cfg || !cfg.url || !cfg.anonKey) return { ok: false, missing: true };
+  let token = cfg.anonKey;
+  try {
+    const sb = window.SkillgroveAuth && window.SkillgroveAuth.client && window.SkillgroveAuth.client();
+    if (sb) {
+      const session = await sb.auth.getSession();
+      const access = session && session.data && session.data.session && session.data.session.access_token;
+      if (access) token = access;
+    }
+  } catch (e) { }
+  const headers = {
+    apikey: cfg.anonKey,
+    Authorization: 'Bearer ' + token,
+    Accept: 'application/json'
+  };
+  if (options && options.headers) {
+    for (const key in options.headers) headers[key] = options.headers[key];
+  }
+  let res;
+  try {
+    res = await fetch(String(cfg.url).replace(/\/$/, '') + path, {
+      method: (options && options.method) || 'GET',
+      headers,
+      body: options && options.body
+    });
+  } catch (e) {
+    return { ok: false, network: true };
+  }
+  const text = await res.text();
+  let body = null;
+  if (text) { try { body = JSON.parse(text); } catch (e) { body = null; } }
+  if (profileSchemaMissing(res.status, body || {})) return { ok: false, missing: true, status: res.status, body };
+  return { ok: res.ok, status: res.status, body };
+}
+async function fetchLeaderboard() {
+  const result = await profileRequest('/rest/v1/rpc/public_leaderboard', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ p_limit: 5 })
+  });
+  if (!result.ok) return { ok: false, missing: !!result.missing, network: !!result.network };
+  return { ok: true, rows: Array.isArray(result.body) ? result.body : [] };
+}
+async function fetchOwnProfile(userId) {
+  if (!isUuid(userId)) return { ok: false };
+  const result = await profileRequest('/rest/v1/profiles?user_id=eq.' + encodeURIComponent(userId) + '&select=username,bio,is_public,created_at', { method: 'GET' });
+  if (!result.ok) return { ok: false, missing: !!result.missing, network: !!result.network };
+  const rows = Array.isArray(result.body) ? result.body : [];
+  return { ok: true, row: rows[0] || null };
+}
+async function upsertProfile(row) {
+  const result = await profileRequest('/rest/v1/profiles?on_conflict=user_id', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=representation' },
+    body: JSON.stringify(row)
+  });
+  if (result.missing) return { ok: false, missing: true };
+  if (result.network) return { ok: false, network: true };
+  if (profileNameTaken(result.status, result.body)) return { ok: false, taken: true };
+  if (!result.ok) return { ok: false };
+  const returned = Array.isArray(result.body) ? result.body[0] : result.body;
+  return { ok: true, row: returned && typeof returned === 'object' ? returned : null };
+}
+async function lookupProfile(username) {
+  const result = await profileRequest('/rest/v1/rpc/profile_lookup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ p_username: username })
+  });
+  if (result.missing) return { ok: false, missing: true };
+  if (result.network) return { ok: false, network: true };
+  if (!result.ok || !result.body || typeof result.body !== 'object' || Array.isArray(result.body)) return { ok: false };
+  return { ok: true, profile: result.body };
+}
+function setProfileNote(text) {
+  const el = $('profileNote');
+  if (!el) return;
+  el.textContent = text || '';
+  el.hidden = !text;
+}
+function setUsernameError(text) {
+  const el = $('profileUsernameError');
+  if (!el) return;
+  el.textContent = text || '';
+  el.hidden = !text;
+}
+function syncProfileAuthChrome() {
+  const user = currentUser();
+  const signedOut = $('profileSignedOut');
+  const signedIn = $('profileSignedIn');
+  const btn = $('profileSignIn');
+  if (signedOut) signedOut.hidden = !!user;
+  if (signedIn) signedIn.hidden = !user;
+  if (btn) btn.hidden = !!user;
+}
+function fillProfileForm(profile, joined) {
+  const username = $('profileUsername');
+  const bio = $('profileBio');
+  const pub = $('profilePublic');
+  if (username) username.value = profile.username || '';
+  if (bio) bio.value = profile.bio || '';
+  if (pub) pub.checked = profile.isPublic !== false;
+  const joinedEl = $('profileJoined');
+  if (joinedEl) joinedEl.textContent = formatJoinDate(joined);
+  refreshProfileStats();
+  setUsernameError('');
+}
+async function loadOwnProfile() {
+  const gen = ++profileLoadGen;
+  const btn = $('profileSave');
+  if (btn) btn.disabled = true;
+  try {
+    const user = currentUser();
+    syncProfileAuthChrome();
+    if (!user) {
+      fillProfileForm(readLocalProfile(), null);
+      setProfileNote('');
+      return;
+    }
+    const result = await fetchOwnProfile(user.id);
+    if (gen !== profileLoadGen) return;
+    if (result.ok && result.row) {
+      const profile = {
+        username: sanitizeUsername(result.row.username),
+        bio: sanitizeBio(result.row.bio),
+        isPublic: result.row.is_public !== false
+      };
+      if (usernameError(profile.username)) profile.username = '';
+      writeLocalProfile(profile);
+      fillProfileForm(profile, result.row.created_at || user.created_at || null);
+      setProfileNote('');
+      return;
+    }
+    if (result.ok || result.missing) {
+      const typed = currentFormDraft();
+      const guest = readStoredProfile(PROFILE_KEY);
+      const draft = profileHasDraft(typed) ? typed : guest;
+      if (profileHasDraft(draft)) writeLocalProfile(draft);
+      fillProfileForm(profileHasDraft(draft) ? draft : readLocalProfile(), user.created_at || null);
+      setProfileNote('');
+      return;
+    }
+    const typed = currentFormDraft();
+    fillProfileForm(profileHasDraft(typed) ? typed : readLocalProfile(), user.created_at || null);
+    setProfileNote('');
+  } finally {
+    if (gen === profileLoadGen && btn) btn.disabled = false;
+  }
+}
+async function saveProfile() {
+  const gen = ++profileLoadGen;
+  const btn = $('profileSave');
+  const username = sanitizeUsername($('profileUsername') && $('profileUsername').value);
+  const bio = sanitizeBio($('profileBio') && $('profileBio').value);
+  const isPublic = !($('profilePublic') && $('profilePublic').checked === false);
+  const err = usernameError(username);
+  if ($('profileUsername')) $('profileUsername').value = username;
+  if ($('profileBio')) $('profileBio').value = bio;
+  if (err) { setUsernameError(err); setProfileNote(''); if (btn) btn.disabled = false; return; }
+  setUsernameError('');
+  const profile = { username, bio, isPublic };
+  const user = currentUser();
+  if (!user) {
+    writeLocalProfile(profile);
+    setProfileNote('Saved on this device. Sign in to publish it.');
+    toast('Profile saved on this device.');
+    return;
+  }
+  if (!isUuid(user.id)) {
+    setProfileNote('Saved on this device. Sign in again to publish it.');
+    return;
+  }
+  if (btn) btn.disabled = true;
+  try {
+    const result = await upsertProfile({ user_id: user.id, username, bio, is_public: isPublic });
+    if (gen !== profileLoadGen) return;
+    if (result.missing) {
+      writeLocalProfile(profile);
+      setProfileNote("Profiles aren't on the server yet. This copy stays on this device.");
+      toast('Profile saved on this device.');
+      return;
+    }
+    if (result.network) {
+      writeLocalProfile(profile);
+      setProfileNote("Couldn't reach the server. This copy stays on this device.");
+      return;
+    }
+    if (result.taken) {
+      setUsernameError('That username is taken.');
+      setProfileNote('');
+      return;
+    }
+    if (!result.ok) {
+      writeLocalProfile(profile);
+      setProfileNote("Couldn't save to the server. This copy stays on this device.");
+      return;
+    }
+    writeLocalProfile(profile);
+    const joined = result.row && result.row.created_at ? result.row.created_at : (user.created_at || null);
+    fillProfileForm(profile, joined);
+    setProfileNote(isPublic ? 'Public profile saved.' : 'Private profile saved.');
+    toast('Profile saved.');
+    loadLeaderboard();
+  } finally {
+    if (gen === profileLoadGen && btn) btn.disabled = false;
+  }
+}
+function showProfileLayer(mode) {
+  const page = $('profilePage');
+  if (!page) return;
+  page.hidden = false;
+  document.body.style.overflow = 'hidden';
+  const editor = $('profileEditor');
+  const view = $('profilePublicView');
+  if (editor) editor.hidden = mode !== 'edit';
+  if (view) view.hidden = mode !== 'public';
+}
+function clearPublicView() {
+  const priv = $('profilePrivateOnly');
+  const body = $('profilePublicBody');
+  const missing = $('profileMissing');
+  const title = $('profilePublicTitle');
+  if (priv) priv.hidden = true;
+  if (body) body.hidden = true;
+  if (missing) { missing.hidden = true; missing.textContent = ''; }
+  if (title) title.hidden = false;
+  ['profilePublicName', 'profilePublicBio', 'profilePublicJoined', 'profilePublicSkills'].forEach(id => {
+    const el = $(id);
+    if (el) el.textContent = '';
+  });
+}
+function openProfileEditor() {
+  showProfileLayer('edit');
+  syncProfileAuthChrome();
+  const user = currentUser();
+  fillProfileForm(readLocalProfile(), user && user.created_at);
+  loadOwnProfile();
+  const box = $('profileUsername');
+  if (box) box.focus();
+}
+function closeProfilePage() {
+  const editor = $('profileEditor');
+  if (readRouteProfile() && editor && editor.hidden) {
+    location.assign('/skilltree/');
+    return;
+  }
+  const page = $('profilePage');
+  if (page) page.hidden = true;
+  document.body.style.overflow = '';
+}
+async function openPublicProfile(username) {
+  showProfileLayer('public');
+  clearPublicView();
+  const clean = sanitizeUsername(username);
+  const missing = $('profileMissing');
+  if (usernameError(clean)) {
+    if (missing) { missing.hidden = false; missing.textContent = 'No profile with that username.'; }
+    return;
+  }
+  const result = await lookupProfile(clean);
+  if (result.missing) {
+    if (missing) { missing.hidden = false; missing.textContent = "Profiles aren't available yet."; }
+    return;
+  }
+  if (result.network || !result.ok || !result.profile || result.profile.status === 'missing') {
+    if (missing) { missing.hidden = false; missing.textContent = result.network ? "Couldn't open that profile. Please try again." : 'No profile with that username.'; }
+    return;
+  }
+  if (result.profile.status === 'private') {
+    const title = $('profilePublicTitle');
+    const priv = $('profilePrivateOnly');
+    if (title) title.hidden = true;
+    if (priv) priv.hidden = false;
+    return;
+  }
+  if (result.profile.status !== 'public') {
+    if (missing) { missing.hidden = false; missing.textContent = 'No profile with that username.'; }
+    return;
+  }
+  const name = sanitizeUsername(result.profile.username) || clean;
+  const nameEl = $('profilePublicName');
+  const bioEl = $('profilePublicBio');
+  const joinedEl = $('profilePublicJoined');
+  const skillsEl = $('profilePublicSkills');
+  const body = $('profilePublicBody');
+  if (nameEl) nameEl.textContent = name;
+  if (bioEl) bioEl.textContent = sanitizeBio(result.profile.bio);
+  if (joinedEl) joinedEl.textContent = formatJoinDate(result.profile.joined_at);
+  if (skillsEl) skillsEl.textContent = String(Math.max(0, Math.round(Number(result.profile.skills_completed) || 0)));
+  if (body) body.hidden = false;
+}
+function appendLeaderboard(host) {
+  if (!leaderboardRows) return;
+  const board = el('section', { class: 'todo-board', id: 'todoBoard', 'aria-label': 'Leaderboard' });
+  board.append(el('div', { class: 'todo-board-title', text: 'Leaderboard' }));
+  const list = el('ol', { class: 'todo-board-list' });
+  leaderboardRows.slice(0, 5).forEach((row, i) => {
+    const name = sanitizeUsername(row && row.username);
+    if (usernameError(name)) return;
+    const score = Math.max(0, Math.round(Number(row.skills_completed) || 0));
+    const link = el('a', { class: 'todo-board-link', href: publicProfileHref(name) });
+    link.append(
+      el('span', { class: 'todo-board-rank', text: String(i + 1) }),
+      el('span', { class: 'todo-board-name', text: name }),
+      el('span', { class: 'todo-board-score', text: String(score) })
+    );
+    link.setAttribute('aria-label', name + ', ' + score + ' skills completed');
+    list.append(el('li', {}, link));
+  });
+  if (!list.childNodes.length) board.append(el('p', { class: 'todo-board-empty', text: 'No public profiles yet.' }));
+  else board.append(list);
+  host.append(board);
+}
+async function loadLeaderboard() {
+  const result = await fetchLeaderboard();
+  leaderboardReady = true;
+  if (!result.ok) {
+    leaderboardRows = null;
+    if ($('todoBoard')) renderTodo();
+    return;
+  }
+  leaderboardRows = result.rows.slice(0, 5);
+  renderTodo();
+}
 
 /* ====================== feedback ====================== */
 const APP_VERSION = (window.SKILLTREE_CONFIG && window.SKILLTREE_CONFIG.app && window.SKILLTREE_CONFIG.app.version) || '1';
@@ -3434,7 +3874,6 @@ async function submitFeedback() {
 }
 
 function openFeedback() {
-  closeSettings();
   const ta = el('textarea', { id: 'fbMessage', rows: '5', maxlength: String(FEEDBACK_MAX), placeholder: 'What happened, or what would help?' });
   const cat = el('select', { id: 'fbCategory', 'aria-label': 'Category, optional' },
     el('option', { value: '', text: 'No category' }),
@@ -3463,7 +3902,7 @@ function setupKeyboard() {
       if (mb.classList.contains('open')) closeModal();
       else if (openFlag && window.SkillgroveTelemetry && window.SkillgroveTelemetry.dismissFlag) window.SkillgroveTelemetry.dismissFlag(openFlag);
       else if (openFlag) openFlag.hidden = true;
-      else if (settingsOpen) closeSettings();
+      else if ($('profilePage') && !$('profilePage').hidden) closeProfilePage();
       else if (quizOpen) leaveQuiz();
       else if (panelOpen()) closePanel();
       return;
@@ -3526,15 +3965,16 @@ async function init() {
   setupPanZoom();
   setupKeyboard();
   
-  $('btnSettings').onclick = e => { e.stopPropagation(); settingsOpen = !settingsOpen; syncSettings(); };
-  document.addEventListener('click', e => {
-    if (settingsOpen && !(e.target.closest && e.target.closest('#settingsMenu'))) closeSettings();
-  });
-  $('btnExport').onclick = () => { closeSettings(); exportProgress(); };
-  $('btnImport').onclick = () => { closeSettings(); $('fileIn').click(); };
+  $('btnProfile').onclick = () => openProfileEditor();
+  $('profileClose').onclick = () => closeProfilePage();
+  $('profilePage').addEventListener('mousedown', e => { if (e.target === $('profilePage')) closeProfilePage(); });
+  $('profileSignIn').onclick = () => { if (window.SkillgroveAuth) window.SkillgroveAuth.openSignIn(); };
+  $('profileSave').onclick = () => { saveProfile(); };
+  $('btnExport').onclick = () => exportProgress();
+  $('btnImport').onclick = () => $('fileIn').click();
   $('fileIn').onchange = e => { const f = e.target.files[0]; if (f) importFile(f); e.target.value = '' };
   $('btnPlan').onclick = openPlan;
-  $('btnReset').onclick = () => { closeSettings(); resetProgress(); };
+  $('btnReset').onclick = () => resetProgress();
   $('btnQueue').onclick = openQueue;
   $('btnHelp').onclick = openHelp;
   $('btnFeedback').onclick = openFeedback;
@@ -3570,13 +4010,26 @@ async function init() {
       quiz: () => (quiz && !quiz.result) ? { skill_id: quiz.id, round: quiz.round, mode: quiz.mode, q_index: quiz.i, q_count: quiz.items.length } : null
     },
     exams: { list: examsNow, add: addExamRecord, update: updateExamRecord, remove: removeExam, view: (id, today) => { const exam = examsNow().find(e => e.id === id); return exam ? examView(exam, today) : null } },
-    openModal, toast, reloadProgress, reloadTiming: loadTiming, refreshAll, toggleGroup
+    openModal, toast, reloadProgress, reloadTiming: loadTiming, refreshAll, toggleGroup,
+    onAuthChange: () => {
+      const page = $('profilePage');
+      const editor = $('profileEditor');
+      if (page && !page.hidden && editor && !editor.hidden) loadOwnProfile();
+    },
+    profile: {
+      ready: () => leaderboardReady,
+      skillsCompleted,
+      href: publicProfileHref
+    }
   };
   
   if (window.SkillgroveAuth) {
     window.SkillgroveAuth.init();
   }
   try { window.SkillgroveTelemetry && window.SkillgroveTelemetry.start(); } catch (e) { }
+  await loadLeaderboard();
+  const routedName = readRouteProfile();
+  if (routedName) await openPublicProfile(routedName);
 }
 
 init();

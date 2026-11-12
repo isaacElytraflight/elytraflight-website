@@ -531,15 +531,14 @@ function onPrivacyChange() {
 }
 
 function ensurePrivacyControl() {
-  const panel = document.getElementById('settingsPanel');
-  if (!panel || document.getElementById('usageMeasure')) {
+  const host = document.querySelector('#profileEditor .profile-tools');
+  if (!host || document.getElementById('usageMeasure')) {
     syncPrivacyControl();
     return;
   }
   const label = document.createElement('label');
   label.className = 'menu-check';
   label.id = 'usageOptLabel';
-  label.setAttribute('role', 'menuitemcheckbox');
   const input = document.createElement('input');
   input.type = 'checkbox';
   input.id = 'usageMeasure';
@@ -549,7 +548,8 @@ function ensurePrivacyControl() {
   const note = document.createElement('p');
   note.className = 'menu-note';
   note.id = 'usageNote';
-  panel.append(label, note);
+  host.insertAdjacentElement('afterend', note);
+  host.insertAdjacentElement('afterend', label);
   input.addEventListener('change', onPrivacyChange);
   syncPrivacyControl();
 }

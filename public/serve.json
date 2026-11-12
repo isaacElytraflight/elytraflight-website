@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/profile/*", "destination": "/skilltree/index.html" },
+    { "source": "/skilltree/profile", "destination": "/skilltree/index.html" },
+    { "source": "/skilltree/profile/*", "destination": "/skilltree/index.html" }
+  ]
+}
