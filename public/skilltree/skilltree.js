@@ -1603,6 +1603,7 @@ function setScope(ids, opts) {
   syncScopePicker();
   syncFocusPrompt();
   if (opts && opts.focus && filter.view === 'tree') focusScope();
+  sgEmit('focus', { all: selectionIsAll(), boxes: selectionIsAll() ? [] : selectedInOrder() });
 }
 
 function refreshAll() {
@@ -1654,12 +1655,14 @@ function short(s, n) { return s.length > n ? s.slice(0, n - 1) + '…' : s }
 
 /* ====================== skill panel ====================== */
 function selectSkill(id, focus) {
+  const opened = selected !== id;
   selected = id;
   document.querySelectorAll('.tile[data-id]').forEach(refreshTile);
   placePanel(); panel.classList.add('open'); panel.setAttribute('aria-hidden', 'false');
   renderPanel(); applyEdgeHighlight();
   if (focus && filter.view === 'tree') focusTile(id);
   if (focus && filter.view === 'grid') { const t = document.querySelector(`#gridView .tile[data-id="${id}"]`); t && t.scrollIntoView({ block: 'center', behavior: 'smooth' }) }
+  if (opened) sgEmit('skill_open', { skill_id: id });
 }
 
 function placePanel() { panel.style.top = quizOpen ? '0px' : document.querySelector('main').getBoundingClientRect().top + 'px' }
@@ -1737,6 +1740,14 @@ function renderPanel() {
   panel.scrollTop = 0;
 }
 
+/* Optional listener for usage measurement. A missing listener is a no-op. */
+const sgListeners = [];
+function sgEmit(type, detail) {
+  for (let i = 0; i < sgListeners.length; i++) {
+    try { sgListeners[i](type, detail || {}); } catch (err) { }
+  }
+}
+
 /* ====================== quiz (with lazy bank loading) ====================== */
 let quizEl;
 let quiz = null;
@@ -1801,6 +1812,7 @@ function startQuiz(id, round, mode, qs) {
   quizOpen = true; quizEl.classList.add('open'); document.body.style.overflow = 'hidden';
   closeModal(); renderPanel(); renderQuiz();
   if (panelOpen()) { panel.classList.remove('open'); panel.setAttribute('aria-hidden', 'true') }
+  sgEmit('quiz_start', { skill_id: id, round: round, mode: mode, q_count: qs.length });
 }
 
 function parseNum(s) {
@@ -1871,6 +1883,7 @@ function renderQuiz() {
   const card = el('div', { class: 'qcard' });
   const fig = figureNode(q);
   card.append(el('div', { class: 'qn', text: `Question ${Q.i + 1} of ${n}` }));
+  if (window.SkillgroveTelemetry && window.SkillgroveTelemetry.flagControl) card.append(window.SkillgroveTelemetry.flagControl(q.id, Q.id, true));
   if (fig) card.append(fig);
   card.append(el('p', { class: 'qp', math: q.prompt, id: 'qPrompt', 'data-qid': q.id }));
   if (q.type === 'mc') {
@@ -1969,22 +1982,40 @@ function renderQuiz() {
   if (it.done) { const nb = $('nextBtn'); nb && nb.focus({ preventScroll: true }); setTimeout(() => { const f = card.querySelector('.fb'); f && f.scrollIntoView({ block: 'nearest', behavior: 'smooth' }) }, 50) }
 }
 
+function gradedPayload(it) {
+  const q = it.q;
+  const detail = {
+    skill_id: quiz.id,
+    question_id: q.id,
+    round: quiz.round,
+    mode: quiz.mode,
+    correct: !!it.correct,
+    q_index: quiz.i,
+    q_count: quiz.items.length
+  };
+  if (q.type === 'mc' && it.chosen != null) detail.choice = it.perm ? it.perm[it.chosen] : it.chosen;
+  else if (q.type === 'error' && it.chosen != null) detail.choice = it.chosen;
+  else if (q.type === 'multi' && it.picks && it.picks.length && it.perm) detail.choices = it.picks.map(i => it.perm[i]);
+  return detail;
+}
+function noteGraded(it) { sgEmit('quiz_answer', gradedPayload(it)); }
+
 function answerMC(i) {
   const it = quiz.items[quiz.i]; if (it.done) return;
-  it.chosen = i; it.done = true; it.correct = (i === it.ci); renderQuiz();
+  it.chosen = i; it.done = true; it.correct = (i === it.ci); noteGraded(it); renderQuiz();
 }
 
 function answerNum() {
   const it = quiz.items[quiz.i]; if (it.done) return;
   const r = checkNumeric(it.q, it.text);
   if (r === null) { const inp = $('numIn'); inp.setAttribute('aria-invalid', 'true'); toast('Enter a number first (like 12.5 or 1e-3).'); inp.focus(); return }
-  it.done = true; it.correct = r; renderQuiz();
+  it.done = true; it.correct = r; noteGraded(it); renderQuiz();
 }
 
 function lockAnswer(correct) {
   const it = quiz.items[quiz.i];
   if (it.done) return;
-  it.done = true; it.correct = !!correct; renderQuiz();
+  it.done = true; it.correct = !!correct; noteGraded(it); renderQuiz();
 }
 
 function toggleMulti(i) {
@@ -2059,6 +2090,7 @@ function nextQ() {
 function finishQuiz() {
   const Q = quiz, n = Q.items.length, correct = Q.items.filter(i => i.correct).length;
   const passed = Q.round === 1 ? true : correct >= need(n);
+  sgEmit('quiz_finish', { skill_id: Q.id, round: Q.round, mode: Q.mode, score: correct, n_total: n, passed: !!passed });
   const before = tierOf(Q.id); let after = before;
   if (Q.mode !== 'review') {
     const rec = sk(Q.id), now = Date.now();
@@ -2109,11 +2141,15 @@ function renderResult(wrap) {
   wrap.append(card);
   const ex = el('div', { style: 'margin-top:18px' });
   ex.append(el('h3', { style: 'margin:0 0 8px;font-size:14px;color:var(--ink2)', text: 'Explanations' }));
-  Q.items.forEach((it, i) => ex.append(el('details', { style: 'background:#fff;border-radius:14px;padding:10px 14px;margin:8px 0;border:2px solid var(--line)', open: it.correct ? null : true },
-    el('summary', { style: 'cursor:pointer;font-weight:650' }, `${it.correct ? '✓' : '✗'} Q${i + 1}`),
-    figureNode(it.q, 'small'), el('p', { class: 'qp', style: 'font-size:14px;margin:8px 0', math: it.q.prompt }),
-    el('div', { style: 'font-weight:700', math: answerLine(it) }),
-    el('div', { class: 'ex', style: 'white-space:pre-wrap;font-size:13.5px', math: it.q.explanation || '' }))));
+  Q.items.forEach((it, i) => {
+    const block = el('details', { style: 'background:#fff;border-radius:14px;padding:10px 14px;margin:8px 0;border:2px solid var(--line)', open: it.correct ? null : true },
+      el('summary', { style: 'cursor:pointer;font-weight:650' }, `${it.correct ? '✓' : '✗'} Q${i + 1}`),
+      figureNode(it.q, 'small'), el('p', { class: 'qp', style: 'font-size:14px;margin:8px 0', math: it.q.prompt }),
+      el('div', { style: 'font-weight:700', math: answerLine(it) }),
+      el('div', { class: 'ex', style: 'white-space:pre-wrap;font-size:13.5px', math: it.q.explanation || '' }));
+    if (window.SkillgroveTelemetry && window.SkillgroveTelemetry.flagControl) block.append(window.SkillgroveTelemetry.flagControl(it.q.id, Q.id, false));
+    ex.append(block);
+  });
   wrap.append(ex);
 }
 
@@ -2122,7 +2158,10 @@ function exitQuiz(id) { closeQuizUI(); selectSkill(id, true) }
 
 function leaveQuiz() {
   if (quiz && quiz.result) { exitQuiz(quiz.id); return }
-  openModal({ title: 'Leave this quiz?', body: el('p', { text: "Your answers in this attempt won't be saved, and your tier stays as it is." }), actions: [{ label: 'Keep going' }, { label: 'Leave quiz', kind: 'danger', id: 'confirmLeave', onClick: () => { const id = quiz.id; closeQuizUI(); selectSkill(id, false) } }] });
+  openModal({ title: 'Leave this quiz?', body: el('p', { text: "Your answers in this attempt won't be saved, and your tier stays as it is." }), actions: [{ label: 'Keep going' }, { label: 'Leave quiz', kind: 'danger', id: 'confirmLeave', onClick: () => {
+    if (quiz && !quiz.result) sgEmit('quiz_leave', { skill_id: quiz.id, q_index: quiz.i, q_count: quiz.items.length, round: quiz.round, mode: quiz.mode });
+    const id = quiz.id; closeQuizUI(); selectSkill(id, false);
+  } }] });
 }
 
 function confetti() {
@@ -2254,6 +2293,8 @@ function openHelp() {
     el('li', {}, el('b', { text: 'Learning plan ' }), 'simulates sessions (practice every ready skill, one mastery challenge per unmastered skill) to estimate how many sessions and how much time it takes to master everything playable. It learns how fast you are from your own timed quizzes.'),
     el('li', {}, el('b', { text: 'Courses ' }), 'is select-all-that-apply. The address bar focus parameter is that list (for example ?focus=me132,nlo). A link with focus uses that list, and a visit with no focus parameter restores your last choice. A new profile starts with nothing focused. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
     el('li', {}, el('b', { text: 'Group by course ' }), 'draws each selected course and chapter as a colored region around its skills. Regions overlap where boxes share skills, and Ungroup returns to one prerequisite tree.'),
+    el('li', {}, el('b', { text: 'Flag a question ' }), 'if the answer seems wrong, the wording is unclear, there is a typo, or the figure is off. A comment is optional.'),
+    el('li', {}, el('b', { text: 'Usage measurement ' }), 'counts which skills and courses you open and how quizzes go. It uses a random id on this device, not a third-party tracker. Turn it off in Settings. A browser Do Not Track signal turns it off too.'),
     el('li', {}, 'Progress autosaves in this browser after every quiz. Open Settings (the gear) to Export a backup you can Import later, or on another device.'),
     el('li', {}, 'Skills are organized into courses and chapters. Some skills have questions; the rest say "coming soon".'));
   openModal({ title: 'How Skillgrove works', body: ul, actions: [{ label: 'Got it', kind: 'primary' }] });
@@ -3126,12 +3167,16 @@ function openFeedback() {
 function setupKeyboard() {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
+      const openFlag = document.querySelector('.qflag-form:not([hidden])');
       if (mb.classList.contains('open')) closeModal();
+      else if (openFlag) openFlag.hidden = true;
       else if (settingsOpen) closeSettings();
       else if (quizOpen) leaveQuiz();
       else if (panelOpen()) closePanel();
       return;
     }
+    const tag = e.target && e.target.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
     if (quiz && !quiz.result && !mb.classList.contains('open')) {
       const it = quiz.items[quiz.i];
       if (it.q.type === 'mc' && !it.done && /^[1-4a-dA-D]$/.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey) { const i = '1234'.includes(e.key) ? +e.key - 1 : 'abcd'.indexOf(e.key.toLowerCase()); if (i < it.opts.length) answerMC(i) }
@@ -3216,12 +3261,17 @@ async function init() {
     },
     queue,
     todo: { list: todoList, add: addTodo, remove: removeTodo, move: moveTodo, queueSession: queueNextSession },
+    telemetry: {
+      on: fn => { if (typeof fn === 'function') sgListeners.push(fn); },
+      quiz: () => (quiz && !quiz.result) ? { skill_id: quiz.id, round: quiz.round, mode: quiz.mode, q_index: quiz.i, q_count: quiz.items.length } : null
+    },
     openModal, toast, reloadProgress, reloadTiming: loadTiming, refreshAll, toggleGroup
   };
   
   if (window.SkillgroveAuth) {
     window.SkillgroveAuth.init();
   }
+  try { window.SkillgroveTelemetry && window.SkillgroveTelemetry.start(); } catch (e) { }
 }
 
 init();

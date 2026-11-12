@@ -77,6 +77,56 @@ async function panTo(p, selector) {
   assert(box.w >= 20 && box.h >= 20, 'control should be on screen at full size, got ' + box.w + 'x' + box.h);
 }
 
+const MEASURE_CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS, GET',
+  'Access-Control-Allow-Headers': 'apikey, authorization, content-type, prefer, accept',
+  'Access-Control-Max-Age': '600'
+};
+
+function handleMeasure(req, page) {
+  const url = req.url();
+  const hit = url.includes('/rest/v1/analytics_events') || url.includes('/rest/v1/analytics_flags') || url.includes('/rest/v1/rpc/analytics_dashboard');
+  if (!hit) return false;
+  if (req.method() === 'OPTIONS') {
+    req.respond({ status: 204, headers: MEASURE_CORS, body: '' });
+    return true;
+  }
+  const record = { method: req.method(), url, body: req.postData(), headers: req.headers() };
+  if (url.includes('/rest/v1/analytics_events')) {
+    if (page && page._eventPosts) page._eventPosts.push(record);
+    if (page && page._eventsMode === 'missing') {
+      req.respond({
+        status: 404,
+        contentType: 'application/json',
+        headers: MEASURE_CORS,
+        body: JSON.stringify({ code: 'PGRST205', message: "Could not find the table 'public.analytics_events' in the schema cache" })
+      });
+      return true;
+    }
+    req.respond({ status: 201, contentType: 'application/json', headers: MEASURE_CORS, body: '' });
+    return true;
+  }
+  if (url.includes('/rest/v1/analytics_flags')) {
+    if (page && page._flagPosts) page._flagPosts.push(record);
+    if (page && page._flagsMode === 'missing') {
+      req.respond({
+        status: 404,
+        contentType: 'application/json',
+        headers: MEASURE_CORS,
+        body: JSON.stringify({ code: 'PGRST205', message: "Could not find the table 'public.analytics_flags' in the schema cache" })
+      });
+      return true;
+    }
+    req.respond({ status: 201, contentType: 'application/json', headers: MEASURE_CORS, body: '' });
+    return true;
+  }
+  if (page && page._dashboardPosts) page._dashboardPosts.push(record);
+  const dash = page && page._dashboardBody ? page._dashboardBody : { ok: false };
+  req.respond({ status: 200, contentType: 'application/json', headers: MEASURE_CORS, body: JSON.stringify(dash) });
+  return true;
+}
+
 async function newPage(seed, opts = {}) {
   const ctx = await browser.createBrowserContext();
   const p = await ctx.newPage();
@@ -84,11 +134,26 @@ async function newPage(seed, opts = {}) {
   p.on('console', m => { if (['error', 'warning'].includes(m.type())) errs.push(m.type() + ': ' + m.text()) });
   p.on('pageerror', e => errs.push('PAGEERR ' + e.message));
   if (opts.noStorage) await p.evaluateOnNewDocument(() => { Storage.prototype.setItem = function() { throw new DOMException('denied', 'SecurityError') } });
+  if (opts.dnt) {
+    await p.evaluateOnNewDocument(() => {
+      const get = () => '1';
+      try { Object.defineProperty(Navigator.prototype, 'doNotTrack', { configurable: true, get }); } catch (e) { }
+      try { Object.defineProperty(navigator, 'doNotTrack', { configurable: true, get }); } catch (e) { }
+      try { Object.defineProperty(window, 'doNotTrack', { configurable: true, get }); } catch (e) { }
+    });
+  }
   
   p._feedbackPosts = [];
   p._feedbackMode = opts.feedbackMode || 'ok';
+  p._eventPosts = [];
+  p._flagPosts = [];
+  p._dashboardPosts = [];
+  p._eventsMode = opts.eventsMode || 'ok';
+  p._flagsMode = opts.flagsMode || 'ok';
+  p._dashboardBody = opts.dashboardBody || null;
   await p.setRequestInterception(true);
   p.on('request', req => {
+    if (handleMeasure(req, p)) return;
     if (req.url().includes('/rest/v1/feedback')) {
       const cors = {
         'Access-Control-Allow-Origin': '*',
@@ -254,6 +319,21 @@ async function answerQuiz(p, skill, pattern) {
   }
 }
 
+async function flushMeasure(p) {
+  await p.evaluate(() => window.SkillgroveTelemetry && window.SkillgroveTelemetry.flush());
+  await sleep(80);
+}
+function eventRows(p) {
+  const rows = [];
+  for (const post of p._eventPosts) {
+    if (!post.body) continue;
+    const parsed = JSON.parse(post.body);
+    if (Array.isArray(parsed)) rows.push(...parsed);
+    else rows.push(parsed);
+  }
+  return rows;
+}
+
 async function test(name, fn) {
   const before = errs.length;
   try {
@@ -272,6 +352,13 @@ async function test(name, fn) {
 }
 
 (async () => {
+  const analyticsSql = fs.readFileSync(path.join(__dirname, '..', '..', '..', 'skilltree', 'supabase', 'migrations', '20261112160000_analytics.sql'), 'utf8');
+  assert(analyticsSql.includes('function public.is_skillgrove_admin()'), 'reusable admin check');
+  assert(/enable row level security/i.test(analyticsSql), 'analytics tables enable rls');
+  assert(!/create table[^;]*\bprofiles\b/i.test(analyticsSql), 'analytics migration does not create profiles');
+  assert(analyticsSql.includes('analytics_events') && analyticsSql.includes('analytics_flags'));
+  try { fs.mkdirSync('/opt/cursor/artifacts', { recursive: true }); } catch (e) { }
+
   if (!fs.existsSync(SHOTS_DIR)) fs.mkdirSync(SHOTS_DIR, { recursive: true });
   
   browser = await puppeteer.launch({
@@ -551,6 +638,7 @@ async function test(name, fn) {
     
     await p.setRequestInterception(true);
     p.on('request', req => {
+      if (handleMeasure(req, p)) return;
       if (req.url().includes('supabase.min.js')) {
         req.respond({ status: 200, contentType: 'application/javascript', body: `window.supabase={createClient:()=>window.__supabaseMock};` });
       } else req.continue();
@@ -597,6 +685,7 @@ async function test(name, fn) {
     
     await p.setRequestInterception(true);
     p.on('request', req => {
+      if (handleMeasure(req, p)) return;
       if (req.url().includes('supabase.min.js')) {
         req.respond({ status: 200, contentType: 'application/javascript', body: `window.supabase={createClient:()=>window.__supabaseMock};` });
       } else req.continue();
@@ -2971,6 +3060,314 @@ async function test(name, fn) {
     assert.strictEqual(dropped.skill, false);
     assert.strictEqual(dropped.open, false);
     await p._ctx.close();
+  });
+
+  await test('question flag and batched usage events stay anonymous', async () => {
+    const p = await newPage();
+    await flushMeasure(p);
+    p._eventPosts.length = 0;
+    await p.evaluate(() => window.__skillgrove.collections.setSelected(['ee105-ucb']));
+    await openSkill(p, 'bode');
+    await flushMeasure(p);
+    const rows = eventRows(p);
+    assert(rows.length >= 3, 'focus, course, and skill open batch together, got ' + rows.map(r => r.kind).join(','));
+    assert.strictEqual(p._eventPosts.length, 1, 'those events share one request');
+    const anon = await p.evaluate(() => window.SKILLTREE_CONFIG.supabase.anonKey);
+    const post = p._eventPosts[0];
+    assert.strictEqual(post.method, 'POST');
+    assert.strictEqual(post.headers.apikey, anon);
+    assert.strictEqual(post.headers.authorization, 'Bearer ' + anon);
+    assert(/return=minimal/.test(post.headers.prefer));
+    assert(!/service_role/i.test(post.body + JSON.stringify(post.headers)));
+    rows.forEach(row => {
+      assert(/^[0-9a-f-]{36}$/i.test(row.install_id), row.install_id);
+      assert.strictEqual(row.user_id, null);
+      assert.strictEqual(row.user_agent, undefined);
+      assert.strictEqual(row.ip, undefined);
+      assert.strictEqual(row.email, undefined);
+    });
+    const skill = rows.find(r => r.kind === 'skill_open');
+    assert.strictEqual(skill.skill_id, 'bode');
+    assert.strictEqual(skill.box_id, 'ee105-ucb');
+    assert.strictEqual(rows.find(r => r.kind === 'focus').box_id, 'ee105-ucb');
+    assert.strictEqual(rows.find(r => r.kind === 'course_open').box_id, 'ee105-ucb');
+
+    await p.click('#startBtn');
+    await p.waitForSelector('#flagBtn', { timeout: 10000 });
+    await p.click('#flagBtn');
+    await p.waitForSelector('.qflag-form:not([hidden])');
+    const bounds = await p.evaluate(() => {
+      const r = document.querySelector('.qflag-form').getBoundingClientRect();
+      return { left: r.left, right: r.right, vw: window.innerWidth };
+    });
+    assert(bounds.left >= -1 && bounds.right <= bounds.vw + 1, 'flag form stays in the viewport');
+    await p.click('.qflag-form input[value="typo"]');
+    await p.type('#flagComment', 'The axis label is cramped.');
+    if (fs.existsSync('/opt/cursor/artifacts')) {
+      await p.screenshot({ path: '/opt/cursor/artifacts/skillgrove-flag-question.png' });
+    }
+    await p.click('#flagSend');
+    await sleep(250);
+    assert.strictEqual(p._flagPosts.length, 1);
+    const flagBody = JSON.parse(p._flagPosts[0].body);
+    const flagRow = Array.isArray(flagBody) ? flagBody[0] : flagBody;
+    assert.strictEqual(flagRow.reason, 'typo');
+    assert.strictEqual(flagRow.comment, 'The axis label is cramped.');
+    assert.strictEqual(flagRow.question_id, 'bode-r1-q1');
+    assert.strictEqual(flagRow.skill_id, 'bode');
+    assert.strictEqual(flagRow.user_id, null);
+    assert.strictEqual(flagRow.install_id, skill.install_id);
+    assert.strictEqual(await p.$eval('#flagBtn', e => e.textContent), 'Flagged');
+
+    p._eventPosts.length = 0;
+    const picked = await p.evaluate(() => {
+      const btn = [...document.querySelectorAll('#quiz .opt')].find(b => b.dataset.o === '2');
+      const qid = document.getElementById('qPrompt').dataset.qid;
+      btn.click();
+      return { choice: Number(btn.dataset.o), qid };
+    });
+    await p.waitForSelector('#feedback');
+    await p.click('#qLeave');
+    await p.waitForSelector('#confirmLeave');
+    await p.click('#confirmLeave');
+    await sleep(200);
+    await flushMeasure(p);
+    const quizRows = eventRows(p);
+    const answer = quizRows.find(r => r.kind === 'quiz_answer');
+    const leave = quizRows.find(r => r.kind === 'quiz_leave');
+    const started = quizRows.find(r => r.kind === 'quiz_start');
+    assert(started && started.skill_id === 'bode' && started.q_count > 0);
+    assert(answer, 'quiz answer was recorded');
+    assert.strictEqual(answer.question_id, picked.qid);
+    assert.strictEqual(answer.choice, picked.choice);
+    assert.strictEqual(answer.correct, false);
+    assert.strictEqual(answer.q_index, 0);
+    assert(leave, 'leaving early is a drop-off');
+    assert.strictEqual(leave.skill_id, 'bode');
+    assert.strictEqual(leave.q_index, 0);
+    const resultsFlags = await p.evaluate(() => document.querySelectorAll('.qflag-block').length);
+    assert(resultsFlags === 0, 'leaving the quiz closes it');
+    await p._ctx.close();
+  });
+
+  await test('usage opt-out and Do Not Track stop events but not an explicit flag', async () => {
+    const p = await newPage();
+    await flushMeasure(p);
+    p._eventPosts.length = 0;
+    await p.click('#btnSettings');
+    await p.waitForSelector('#usageMeasure');
+    assert.strictEqual(await p.$eval('#usageMeasure', e => e.checked), true);
+    assert(/No third-party trackers/.test(await p.$eval('#usageNote', e => e.textContent)));
+    if (fs.existsSync('/opt/cursor/artifacts')) {
+      await p.screenshot({ path: '/opt/cursor/artifacts/skillgrove-usage-setting.png' });
+    }
+    await p.click('#usageMeasure');
+    await sleep(80);
+    assert.strictEqual(await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.privacy.v1')).usage), false);
+    await openSkill(p, 'bode');
+    await p.click('#startBtn');
+    await p.waitForSelector('#quiz .opt', { timeout: 10000 });
+    await p.evaluate(() => document.querySelector('#quiz .opt').click());
+    await p.waitForSelector('#feedback');
+    await flushMeasure(p);
+    assert.strictEqual(p._eventPosts.length, 0, 'opt-out sends no usage events');
+    await p.click('#flagBtn');
+    await p.click('.qflag-form input[value="figure"]');
+    await p.click('#flagSend');
+    await sleep(250);
+    assert.strictEqual(p._flagPosts.length, 1);
+    assert.strictEqual(JSON.parse(p._flagPosts[0].body)[0].reason, 'figure');
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(300);
+    await p.click('#btnSettings');
+    await p.waitForSelector('#usageMeasure');
+    assert.strictEqual(await p.$eval('#usageMeasure', e => e.checked), false);
+    await p._ctx.close();
+
+    const dnt = await newPage(null, { dnt: true });
+    await dnt.click('#btnSettings');
+    await dnt.waitForSelector('#usageMeasure');
+    const state = await dnt.evaluate(() => ({
+      checked: document.getElementById('usageMeasure').checked,
+      disabled: document.getElementById('usageMeasure').disabled,
+      note: document.getElementById('usageNote').textContent
+    }));
+    assert.strictEqual(state.checked, false);
+    assert.strictEqual(state.disabled, true);
+    assert(/not to be tracked/i.test(state.note));
+    await openSkill(dnt, 'bode');
+    await flushMeasure(dnt);
+    assert.strictEqual(dnt._eventPosts.length, 0);
+    await dnt._ctx.close();
+  });
+
+  await test('flags and events stay quiet when the tables are missing', async () => {
+    const p = await newPage(null, { eventsMode: 'missing', flagsMode: 'missing' });
+    await openSkill(p, 'bode');
+    await p.click('#startBtn');
+    await p.waitForSelector('#flagBtn', { timeout: 10000 });
+    await p.click('#flagBtn');
+    await p.click('.qflag-form input[value="wrong"]');
+    await p.click('#flagSend');
+    await sleep(250);
+    assert.strictEqual(await p.$eval('#flagBtn', e => e.textContent), 'Flagged');
+    assert(!/schema cache|isn't set up|could not find the table/i.test(await p.evaluate(() => document.body.innerText)));
+    const queuedFlag = await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.flags.q.v1') || '[]'));
+    assert(queuedFlag.some(row => row.reason === 'wrong' && row.question_id === 'bode-r1-q1'));
+    await flushMeasure(p);
+    const afterFirst = p._eventPosts.length;
+    assert(afterFirst >= 1, 'the missing table is tried');
+    await flushMeasure(p);
+    assert.strictEqual(p._eventPosts.length, afterFirst, 'a missing events table is not retried in a loop');
+    await p.evaluate(() => document.querySelector('#quiz .opt').click());
+    await p.waitForSelector('#feedback');
+    assert(await p.$('#nextBtn'));
+    await p._ctx.close();
+  });
+
+  await test('signed-in events and flags use that user id', async () => {
+    const session = {
+      access_token: 'user-access-token',
+      user: { id: '11111111-1111-4111-8111-111111111111', email: 'ada@example.com' }
+    };
+    const p = await newPage(null, { session });
+    await openSkill(p, 'bode');
+    await flushMeasure(p);
+    const rows = eventRows(p);
+    const skill = rows.find(r => r.kind === 'skill_open');
+    assert(skill, 'skill open was sent');
+    assert.strictEqual(skill.user_id, session.user.id);
+    const posted = p._eventPosts.find(item => item.body && item.body.includes('skill_open'));
+    assert.strictEqual(posted.headers.authorization, 'Bearer user-access-token');
+    const anon = await p.evaluate(() => window.SKILLTREE_CONFIG.supabase.anonKey);
+    assert.strictEqual(posted.headers.apikey, anon);
+    await p.click('#startBtn');
+    await p.waitForSelector('#flagBtn', { timeout: 10000 });
+    await p.click('#flagBtn');
+    await p.click('.qflag-form input[value="unclear"]');
+    await p.click('#flagSend');
+    await sleep(250);
+    const flag = JSON.parse(p._flagPosts[0].body)[0];
+    assert.strictEqual(flag.user_id, session.user.id);
+    assert.strictEqual(flag.reason, 'unclear');
+    assert.strictEqual(p._flagPosts[0].headers.authorization, 'Bearer user-access-token');
+    await p._ctx.close();
+  });
+
+  await test('flag form fits a phone width', async () => {
+    const p = await newPage(null, { viewport: { width: 390, height: 844, isMobile: true, hasTouch: true } });
+    await openSkill(p, 'bode');
+    await p.click('#startBtn');
+    await p.waitForSelector('#flagBtn', { timeout: 10000 });
+    await p.click('#flagBtn');
+    await p.waitForSelector('.qflag-form:not([hidden])');
+    const box = await p.evaluate(() => {
+      const r = document.querySelector('.qflag-form').getBoundingClientRect();
+      return { left: r.left, right: r.right, top: r.top, vw: window.innerWidth, vh: window.innerHeight };
+    });
+    assert(box.left >= -1 && box.right <= box.vw + 1, 'flag form overflows the phone: ' + JSON.stringify(box));
+    assert(box.top >= 0 && box.top < box.vh);
+    await p._ctx.close();
+  });
+
+  const ADMIN_URL = BASE_URL.replace(/skilltree\/?$/, 'skilltree/admin.html');
+  const dashFixture = {
+    ok: true,
+    thresholds: { min_attempts_difficulty: 20, hard_below: 0.2, easy_above: 0.95, min_attempts_distractor: 15, many_flags: 5 },
+    usage: {
+      installs: 12,
+      signed_in_users: 4,
+      returning_installs: 3,
+      sessions: 20,
+      quiz_starts: 9,
+      quiz_finishes: 6,
+      quiz_leaves: 3,
+      answers: 40,
+      answer_accuracy: 0.725,
+      courses: [{ id: 'ee105-ucb', opens: 5 }],
+      skills: [{ id: 'bode', opens: 4 }],
+      focus: [{ id: 'me132', sets: 2 }, { id: 'all', sets: 1 }],
+      skill_dropoff: [{ skill_id: 'bode', question_index: 1, leaves: 2 }],
+      course_stops: [{ box_id: 'ee105-ucb', skill_id: 'phasors', learners: 2 }]
+    },
+    questions: [{
+      question_id: 'bode-r1-q1',
+      skill_id: 'bode',
+      attempts: 30,
+      correct: 4,
+      p_correct: 0.1333,
+      flags: 6,
+      flag_rate: 0.2,
+      flag_reasons: { wrong: 4, unclear: 1, typo: 1, figure: 0, other: 0 },
+      choices: [
+        { choice: 0, picks: 4, correct_picks: 4 },
+        { choice: 2, picks: 18, correct_picks: 0 }
+      ],
+      alerts: ['distractor', 'too_hard', 'many_flags']
+    }],
+    alerts: [{
+      question_id: 'bode-r1-q1',
+      skill_id: 'bode',
+      attempts: 30,
+      correct: 4,
+      p_correct: 0.1333,
+      flags: 6,
+      flag_rate: 0.2,
+      flag_reasons: { wrong: 4, unclear: 1, typo: 1, figure: 0, other: 0 },
+      choices: [
+        { choice: 0, picks: 4, correct_picks: 4 },
+        { choice: 2, picks: 18, correct_picks: 0 }
+      ],
+      alerts: ['distractor', 'too_hard', 'many_flags'],
+      comments: ['The figure label is easy to miss.']
+    }]
+  };
+
+  await test('admin page shows analytics only to the owner', async () => {
+    const guest = await newPage();
+    guest._dashboardBody = dashFixture;
+    await guest.goto(ADMIN_URL, { waitUntil: 'networkidle0' });
+    await guest.waitForSelector('#sgSign');
+    assert.strictEqual(await guest.$('#sgDash'), null);
+    assert(!/bode-r1-q1|Question alerts/.test(await guest.evaluate(() => document.body.innerText)));
+    assert.strictEqual(guest._dashboardPosts.length, 0);
+    await guest._ctx.close();
+
+    const session = {
+      access_token: 'user-access-token',
+      user: { id: '22222222-2222-4222-8222-222222222222', email: 'ada@example.com' }
+    };
+    const stranger = await newPage(null, { session });
+    stranger._dashboardBody = { ok: false };
+    await stranger.goto(ADMIN_URL, { waitUntil: 'networkidle0' });
+    await stranger.waitForSelector('#sgEmpty');
+    const strangerText = await stranger.evaluate(() => document.body.innerText);
+    assert(/Nothing to show/.test(strangerText));
+    assert(!/Question alerts|bode-r1-q1|Returning/.test(strangerText));
+    assert.strictEqual(stranger._dashboardPosts.length, 1);
+    assert.strictEqual(stranger._dashboardPosts[0].method, 'POST');
+    assert.strictEqual(stranger._dashboardPosts[0].headers.authorization, 'Bearer user-access-token');
+    await stranger._ctx.close();
+
+    const owner = await newPage(null, { session });
+    owner._dashboardBody = dashFixture;
+    await owner.goto(ADMIN_URL, { waitUntil: 'networkidle0' });
+    await owner.waitForSelector('#sgDash');
+    await owner.waitForSelector('#sgAlerts');
+    const text = await owner.evaluate(() => document.body.innerText);
+    assert(/Usage and question alerts/.test(text));
+    assert(/A distractor is picked more often than the key/.test(text));
+    assert(/Very hard/.test(text));
+    assert(/Many flags/.test(text));
+    assert(/bode-r1-q1/.test(text));
+    assert(/Choice 2 · 18 picks · distractor/.test(text));
+    assert(/The figure label is easy to miss/.test(text));
+    assert(/Returning/.test(text));
+    assert(/Bode plots/.test(text));
+    if (fs.existsSync('/opt/cursor/artifacts')) {
+      await owner.screenshot({ path: '/opt/cursor/artifacts/skillgrove-admin-dashboard.png', fullPage: true });
+    }
+    await owner._ctx.close();
   });
 
   await browser.close();
