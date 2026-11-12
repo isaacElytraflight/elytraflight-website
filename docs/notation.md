@@ -355,6 +355,21 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | heavy-ball parameters | \(\alpha = 4/(\sqrt{L}+\sqrt{\mu})^2\), \(\beta = \big((\sqrt{L}-\sqrt{\mu})/(\sqrt{L}+\sqrt{\mu})\big)^2\) | for Hessian eigenvalues in \([\mu, L]\). The distance factor is \((\sqrt{\kappa}-1)/(\sqrt{\kappa}+1)\) with \(\kappa = L/\mu\). Added in NB11 |
 | Nesterov extrapolation | \(y = x + \beta (x - x_{\mathrm{prev}})\), then \(x_+ = y - \alpha \nabla f(y)\) | the gradient is read at \(y\). Heavy ball reads it at \(x\). Added in NB11 |
 | Nesterov gap | \(f(x_k) - f^\star = O(1/k^2)\) | a bound on the function gap for smooth convex \(f\), not a bound on \(\lVert x_k - x^\star\rVert\). Added in NB11 |
+| variational inequality | \(\nabla f(x^\star)^T (x - x^\star) \ge 0\) for every feasible \(x\) | necessary for a local minimizer on a convex set. Sufficient for a global minimizer when \(f\) is also convex. An interior point forces \(\nabla f(x^\star) = 0\). Added in NB12 |
+| \(P_{\mathcal{C}}(z)\) | Euclidean projection of \(z\) onto a nonempty closed convex set \(\mathcal{C}\) | the unique nearest point. Characterized by \((z - p)^T (x - p) \le 0\) for every \(x \in \mathcal{C}\). Added in NB12 |
+| box projection | clip each coordinate of \(z\) to its interval | the Euclidean projection onto an axis-aligned box. Added in NB12 |
+| ball projection | \(c + r (z - c)/\lVert z - c\rVert\) when \(z\) is outside the closed ball of radius \(r\) about \(c\), and \(z\) itself when \(z\) is inside | Added in NB12 |
+| scaled projection | nearest point in the norm \(\lVert v\rVert_H = \sqrt{v^T H v}\), \(H\) symmetric positive definite | \((z - p)^T H (x - p) \le 0\). Added in NB12 |
+| projected gradient step | \(x_+ = P_{\mathcal{X}}(x - t \nabla f(x))\) | fixed-point form of stationarity: \(x = P_{\mathcal{X}}(x - t \nabla f(x))\). Added in NB12 |
+| projected-gradient gap | \(f(x_k) - f^\star \le \lVert x_0 - x^\star\rVert^2 / (2 t k)\) | for convex \(f\) with \(L\)-Lipschitz gradient and constant step \(0 < t \le 1/L\). A bound on the function gap, not on \(\lVert x_k - x^\star\rVert\). Added in NB12 |
+| scaled trial point | \(x - t H^{-1} \nabla f(x)\), then project in the \(H\)-norm | projected Newton uses the Hessian for \(H\) and \(t = 1\). On a box with diagonal \(H\), clip \(x_i - t g_i/H_{ii}\). Added in NB12 |
+| affine-scaling direction | \(d = -X^2 (c - A^T y)\) with \(X = \mathrm{diag}(x)\) and \(A X^2 A^T y = A X^2 c\) | primal step for \(\min c^T x\) subject to \(Ax = b\), \(x > 0\). The step length is a fraction of the way to the boundary. Added in NB12 |
+| perturbed complementarity | \(x_i s_i = \mu\) with \(\mu > 0\), \(x > 0\), \(s > 0\) | replaces \(x_i s_i = 0\) in the KKT system of a standard-form linear program. Added in NB12 |
+| central path | solutions of the perturbed KKT system as \(\mu\) varies | on the path the duality gap equals \(x^T s = n\mu\). Added in NB12 |
+| Frank-Wolfe step | \(x_+ = (1 - \gamma) x + \gamma s\), where \(s\) minimizes \(\nabla f(x)^T s\) over the set | schedule \(\gamma_k = 2/(k+2)\) for \(k\) counting from 0. Added in NB12 |
+| Frank-Wolfe gap | \(f(x_k) - f^\star = O(1/k)\) | a bound on the function gap for smooth convex \(f\) on a compact convex set, not a bound on \(\lVert x_k - x^\star\rVert\). With curvature constant \(C_f\) and \(\gamma_k = 2/(k+2)\), the gap is at most \(2 C_f/(k+2)\). Added in NB12 |
+| power iteration | \(x_+ = A x / \lVert A x\rVert\) | the linear maximizer of \(x^T A x\) on the unit sphere, \(A\) symmetric. The sphere is not convex, so the step replaces the vector. Conditional gradient minimizes the linear model and returns the normalization of \(-A x\). Added in NB12 |
+| power-method factor | \(\lvert\lambda_2/\lambda_1\rvert\) multiplies the second-mode coefficient, and thus governs the angle with the top eigenvector | the Rayleigh-quotient error scales with the square of that factor. Requires \(\lvert\lambda_1\rvert > \lvert\lambda_2\rvert\). Added in NB12 |
 
 ## loop-shaping
 

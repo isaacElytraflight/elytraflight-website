@@ -1,0 +1,29 @@
+{
+  "id": "projection-onto-convex-set",
+  "title": "Projection onto a convex set",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a shaded quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The first quadrant is shaded.",
+      "body_md": "The projection of a point \\(z\\) onto a nonempty closed convex set is the nearest point of the set. Closedness gives a nearest point, and convexity makes it unique. The useful form of that fact is an angle test, not a search over the set.\n\nLet \\(p\\) be the candidate. The vector from \\(p\\) to \\(z\\) has to make an obtuse or right angle with the vector from \\(p\\) to every other point of the set. If some feasible point formed an acute angle, moving from \\(p\\) toward that point would get closer to \\(z\\). The test is the variational inequality for the squared distance, whose gradient at \\(p\\) is \\(p - z\\).\n\nOn an axis-aligned box the squared distance separates by coordinate, and so does the box. Each coordinate of \\(z\\) is replaced by the nearest endpoint of its interval, or kept when it is already inside. On a closed ball, a point inside is its own projection. A point outside is pulled to the sphere along the ray from the center, at a distance equal to the radius.\n\nA different inner product changes the nearest point. If the squared length is \\(v^T H v\\) with \\(H\\) symmetric positive definite, the angle test uses that product. On a box, a diagonal \\(H\\) still clips coordinate by coordinate. On a half-space the correction follows \\(H^{-1} a\\), not the Euclidean normal."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "With \\(p\\) the Euclidean projection of \\(z\\),\n\\[\n(z - p)^T (x - p) \\le 0 \\qquad \\text{for every feasible } x.\n\\]\nOnto the ball of radius \\(r\\) about \\(c\\), an outside point lands at \\(c + r (z - c)/\\lVert z - c\\rVert\\). In the \\(H\\)-norm the inequality is \\((z - p)^T H (x - p) \\le 0\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Project \\(z = (7,\\ 2)\\) onto the box \\([1,\\ 4] \\times [0,\\ 5]\\). The first coordinate \\(7\\) lies above \\(4\\), so it clips to \\(4\\). The second coordinate \\(2\\) already lies between \\(0\\) and \\(5\\), so it stays. The projection is \\((4,\\ 2)\\).\n\nThe peg coordinate is 4. The squared distance is \\((7 - 4)^2 = 9\\). Clipping the second coordinate as well would move a feasible coordinate and increase the distance. Against a disk, both coordinates of an outside point scale together. A box does not do that."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The angle inequality runs opposite the general variational inequality, because the gradient of the squared distance is \\(p - z\\). Averaging coordinates is not a box projection. Clipping is coordinatewise. Scaling onto a sphere by the squared length, instead of the length, is a third slip. An open ball need not contain its nearest boundary point. After the metric changes to \\(H\\), a half-space correction follows \\(H^{-1} a\\)."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "A projected gradient step subtracts a multiple of the gradient and then applies this projection. The fixed point of that map is stationarity on the set. When the metric is a Hessian rather than the identity, the same projection is a projected Newton step. The conditional-gradient method never forms this nearest point. It minimizes a linear model instead."
+    }
+  ]
+}

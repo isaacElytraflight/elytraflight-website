@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-12T00:58:25.721582Z",
+  "generated": "2026-11-12T01:45:44.519215Z",
   "skills": {
-    "file": "skills.5a1a3114.json",
-    "hash": "5a1a3114"
+    "file": "skills.964639cb.json",
+    "hash": "964639cb"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -58,6 +58,18 @@
       },
       "hash": "34794f9a",
       "file": "banks/adaptive.34794f9a.json"
+    },
+    "affine-scaling-method": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "6f1193c4",
+      "file": "banks/affine-scaling-method.6f1193c4.json"
     },
     "amp-choice": {
       "version": 1,
@@ -1127,6 +1139,18 @@
       "hash": "19741cfb",
       "file": "banks/first-order-sys.19741cfb.json"
     },
+    "frank-wolfe-conditional-gradient": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d193db0f",
+      "file": "banks/frank-wolfe-conditional-gradient.d193db0f.json"
+    },
     "freq-basics": {
       "version": 1,
       "questionCount": 12,
@@ -1330,6 +1354,18 @@
       },
       "hash": "b322e495",
       "file": "banks/gradient-partial-derivatives.b322e495.json"
+    },
+    "gradient-projection-method": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "662b451e",
+      "file": "banks/gradient-projection-method.662b451e.json"
     },
     "gradient-zigzag": {
       "version": 1,
@@ -2315,6 +2351,18 @@
       "hash": "2b69e148",
       "file": "banks/open-closed-sets.2b69e148.json"
     },
+    "optimality-over-convex-set": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "48fbebc0",
+      "file": "banks/optimality-over-convex-set.48fbebc0.json"
+    },
     "optimization-problem-classes": {
       "version": 1,
       "questionCount": 12,
@@ -2459,6 +2507,30 @@
       "hash": "d4b57805",
       "file": "banks/positive-definite-matrices.d4b57805.json"
     },
+    "power-method-eigenvector": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "62e9b919",
+      "file": "banks/power-method-eigenvector.62e9b919.json"
+    },
+    "primal-dual-interior-point": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "036c7ddf",
+      "file": "banks/primal-dual-interior-point.036c7ddf.json"
+    },
     "projection-affine-halfspace-kkt": {
       "version": 1,
       "questionCount": 12,
@@ -2470,6 +2542,18 @@
       },
       "hash": "72c5d4fd",
       "file": "banks/projection-affine-halfspace-kkt.72c5d4fd.json"
+    },
+    "projection-onto-convex-set": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "14bbca4e",
+      "file": "banks/projection-onto-convex-set.14bbca4e.json"
     },
     "q-conjugate-directions": {
       "version": 1,
@@ -2650,6 +2734,18 @@
       },
       "hash": "777bab46",
       "file": "banks/root-locus.777bab46.json"
+    },
+    "scaled-gradient-projection": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "5ade58f8",
+      "file": "banks/scaled-gradient-projection.5ade58f8.json"
     },
     "second-order-optimality": {
       "version": 1,
@@ -3144,6 +3240,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "affine-scaling-method": {
+      "hash": "5b8c6d3b",
+      "file": "explainers/affine-scaling-method.5b8c6d3b.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "amp-choice": {
       "hash": "0a449253",
       "file": "explainers/amp-choice.0a449253.json",
@@ -3625,6 +3727,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "frank-wolfe-conditional-gradient": {
+      "hash": "fd053220",
+      "file": "explainers/frank-wolfe-conditional-gradient.fd053220.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "freq-basics": {
       "hash": "991e6953",
       "file": "explainers/freq-basics.991e6953.json",
@@ -3718,6 +3826,12 @@
     "gradient-partial-derivatives": {
       "hash": "6d744cb2",
       "file": "explainers/gradient-partial-derivatives.6d744cb2.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "gradient-projection-method": {
+      "hash": "865195a2",
+      "file": "explainers/gradient-projection-method.865195a2.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -4182,6 +4296,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "optimality-over-convex-set": {
+      "hash": "2badfdbd",
+      "file": "explainers/optimality-over-convex-set.2badfdbd.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "optimization-problem-classes": {
       "hash": "d1e537b2",
       "file": "explainers/optimization-problem-classes.d1e537b2.json",
@@ -4250,9 +4370,27 @@
       "sectionCount": 5,
       "version": 1
     },
+    "power-method-eigenvector": {
+      "hash": "71e66244",
+      "file": "explainers/power-method-eigenvector.71e66244.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "primal-dual-interior-point": {
+      "hash": "6d5e8146",
+      "file": "explainers/primal-dual-interior-point.6d5e8146.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "projection-affine-halfspace-kkt": {
       "hash": "291feb06",
       "file": "explainers/projection-affine-halfspace-kkt.291feb06.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "projection-onto-convex-set": {
+      "hash": "9d0a4cf5",
+      "file": "explainers/projection-onto-convex-set.9d0a4cf5.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -4338,6 +4476,12 @@
     "root-locus": {
       "hash": "dbf278c4",
       "file": "explainers/root-locus.dbf278c4.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "scaled-gradient-projection": {
+      "hash": "5a4d84e5",
+      "file": "explainers/scaled-gradient-projection.5a4d84e5.json",
       "sectionCount": 5,
       "version": 1
     },

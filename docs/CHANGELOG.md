@@ -186,6 +186,16 @@ Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## NB12 — nlo-nb12
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `optimality-over-convex-set`, `projection-onto-convex-set`, `gradient-projection-method`, `scaled-gradient-projection`, `affine-scaling-method`, `primal-dual-interior-point`, `frank-wolfe-conditional-gradient`, `power-method-eigenvector`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## NB2 — nlo-nb2
 
 Box: Nonlinear Optimization (nlo-tugraz).

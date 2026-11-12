@@ -54,11 +54,11 @@ test('graph is version 3 with 267 live skills and 16 retired ids', () => {
   assert.strictEqual(retired.margins, 'stability');
   assert.strictEqual(new Set(skills.map(s => s.id)).size, 267, 'skill ids are unique');
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 8, 'NB1 through NB11 and B5 through B8 together leave 8 skills coming soon');
+  assert.strictEqual(soon.length, 0, 'NB1 through NB12 and B5 through B8 leave no skills coming soon');
   const byId = Object.fromEntries(skills.map(s => [s.id, s]));
   assert.strictEqual(byId['lin-algebra-review'].name, 'Linear algebra review');
   assert.strictEqual(byId['lin-algebra-review'].id, 'lin-algebra-review');
-  for (const id of ['rn-important-subsets', 'spectral-decomposition', 'positive-definite-matrices', 'singular-value-decomposition', 'rayleigh-quotient', 'inner-products', 'vector-norms-lp', 'cauchy-schwarz-inequality', 'induced-matrix-norms', 'frobenius-schatten-norms', 'open-closed-sets', 'compact-sets', 'level-sets-contours', 'convex-sets', 'directional-derivative', 'gradient-partial-derivatives', 'differentiability-multivariable', 'hessian-matrix', 'jacobian-chain-rule', 'matrix-calculus-gradients', 'fundamental-theorem-along-segment', 'taylor-approximation-multivariable', 'taylor-exact-mean-value', 'convex-functions', 'convexity-first-order', 'convexity-second-order', 'finite-difference-derivatives', 'computational-graphs', 'ad-forward-mode', 'ad-reverse-mode', 'hessian-vector-products-ad', 'backprop-neural-network', 'optimization-problem-formulation', 'graphical-2d-optimization', 'optimization-problem-classes', 'local-global-minima', 'existence-of-minimizers', 'first-order-optimality', 'second-order-optimality', 'stationary-point-classification', 'convex-optimality-global', 'quadratic-function-minimization', 'lp-standard-form', 'lp-graphical-solution', 'polyhedra-extreme-points', 'basic-feasible-solutions', 'simplex-feasible-directions', 'simplex-method-iteration', 'simplex-phase-one', 'lagrangian-duality-lower-bounds', 'lagrange-multiplier-equality', 'kkt-conditions', 'lp-duality-kkt', 'projection-affine-halfspace-kkt', 'linear-least-squares', 'least-squares-data-fitting', 'nonlinear-least-squares', 'circle-fitting-least-squares', 'svm-quadratic-program', 'descent-directions', 'descent-method-framework', 'convergence-rates', 'exact-line-search-quadratic', 'armijo-backtracking', 'gradient-zigzag', 'condition-number-gradient-rate', 'lipschitz-gradient', 'descent-lemma', 'sufficient-decrease-lemma', 'gradient-method-convergence', 'gauss-newton-method', 'levenberg-marquardt', 'incremental-gradient-methods', 'kalman-recursive-least-squares', 'extended-kalman-filter', 'newton-root-finding', 'newton-method-optimization', 'newton-local-quadratic-convergence', 'newton-globalization', 'wolfe-conditions', 'quasi-newton-secant', 'bfgs-update', 'gram-schmidt-orthogonalization', 'q-conjugate-directions', 'conjugate-gradient-method', 'heavy-ball-method', 'nesterov-accelerated-gradient']) {
+  for (const id of ['rn-important-subsets', 'spectral-decomposition', 'positive-definite-matrices', 'singular-value-decomposition', 'rayleigh-quotient', 'inner-products', 'vector-norms-lp', 'cauchy-schwarz-inequality', 'induced-matrix-norms', 'frobenius-schatten-norms', 'open-closed-sets', 'compact-sets', 'level-sets-contours', 'convex-sets', 'directional-derivative', 'gradient-partial-derivatives', 'differentiability-multivariable', 'hessian-matrix', 'jacobian-chain-rule', 'matrix-calculus-gradients', 'fundamental-theorem-along-segment', 'taylor-approximation-multivariable', 'taylor-exact-mean-value', 'convex-functions', 'convexity-first-order', 'convexity-second-order', 'finite-difference-derivatives', 'computational-graphs', 'ad-forward-mode', 'ad-reverse-mode', 'hessian-vector-products-ad', 'backprop-neural-network', 'optimization-problem-formulation', 'graphical-2d-optimization', 'optimization-problem-classes', 'local-global-minima', 'existence-of-minimizers', 'first-order-optimality', 'second-order-optimality', 'stationary-point-classification', 'convex-optimality-global', 'quadratic-function-minimization', 'lp-standard-form', 'lp-graphical-solution', 'polyhedra-extreme-points', 'basic-feasible-solutions', 'simplex-feasible-directions', 'simplex-method-iteration', 'simplex-phase-one', 'lagrangian-duality-lower-bounds', 'lagrange-multiplier-equality', 'kkt-conditions', 'lp-duality-kkt', 'projection-affine-halfspace-kkt', 'linear-least-squares', 'least-squares-data-fitting', 'nonlinear-least-squares', 'circle-fitting-least-squares', 'svm-quadratic-program', 'descent-directions', 'descent-method-framework', 'convergence-rates', 'exact-line-search-quadratic', 'armijo-backtracking', 'gradient-zigzag', 'condition-number-gradient-rate', 'lipschitz-gradient', 'descent-lemma', 'sufficient-decrease-lemma', 'gradient-method-convergence', 'gauss-newton-method', 'levenberg-marquardt', 'incremental-gradient-methods', 'kalman-recursive-least-squares', 'extended-kalman-filter', 'newton-root-finding', 'newton-method-optimization', 'newton-local-quadratic-convergence', 'newton-globalization', 'wolfe-conditions', 'quasi-newton-secant', 'bfgs-update', 'gram-schmidt-orthogonalization', 'q-conjugate-directions', 'conjugate-gradient-method', 'heavy-ball-method', 'nesterov-accelerated-gradient', 'optimality-over-convex-set', 'projection-onto-convex-set', 'gradient-projection-method', 'scaled-gradient-projection', 'affine-scaling-method', 'primal-dual-interior-point', 'frank-wolfe-conditional-gradient', 'power-method-eigenvector']) {
     assert.strictEqual(byId[id].status, undefined, id + ' has a bank and is not coming soon');
   }
   for (const id of ['feedforward', 'freq-resp-lti', 'gen-gain-phase', 'linearization', 'lti-stability', 'perf-specs-freq', 'pid-impl', 'pid-tuning', 'realization', 'uncertainty', 'windup']) {
@@ -93,9 +93,9 @@ test('every retired id points at a live survivor and is not itself live', () => 
 
 test('playable skills have quiz banks and coming-soon skills do not', () => {
   const banks = readJsonDir(path.join(SRC, 'bank'));
-  assert.strictEqual(Object.keys(banks).length, 259);
+  assert.strictEqual(Object.keys(banks).length, 267);
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 8, 'NB1 through NB11 and B5 through B8 together leave 8 skills coming soon');
+  assert.strictEqual(soon.length, 0, 'NB1 through NB12 and B5 through B8 leave no skills coming soon');
   for (const skill of skills) {
     const bank = banks[skill.id];
     if (skill.status === 'coming-soon') {
@@ -115,7 +115,7 @@ test('playable skills have quiz banks and coming-soon skills do not', () => {
 
 test('playable skills have explainers and coming-soon skills do not', () => {
   const explainers = readJsonDir(path.join(SRC, 'explainers'));
-  assert.strictEqual(Object.keys(explainers).length, 259);
+  assert.strictEqual(Object.keys(explainers).length, 267);
   for (const skill of skills) {
     const exp = explainers[skill.id];
     if (skill.status === 'coming-soon') {
@@ -319,8 +319,8 @@ test('no retired id is referenced by the built app payload', () => {
   assert.deepStrictEqual(built.retired, retired);
   const builtIds = built.skills.map(s => s.id);
   assert.strictEqual(builtIds.length, 267);
-  assert.strictEqual(Object.keys(built.banks).length, 259);
-  assert.strictEqual(Object.keys(built.explainers).length, 259);
+  assert.strictEqual(Object.keys(built.banks).length, 267);
+  assert.strictEqual(Object.keys(built.explainers).length, 267);
   for (const id of builtIds) {
     assert(!retiredIds.has(id), 'built graph still contains ' + id);
     const skill = built.skills.find(s => s.id === id);

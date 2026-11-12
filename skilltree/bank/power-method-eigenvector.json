@@ -1,0 +1,232 @@
+{
+  "skill_id": "power-method-eigenvector",
+  "version": 1,
+  "questions": [
+    {
+      "id": "power-method-eigenvector-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "One power iteration on a symmetric matrix",
+      "explanation": "The iteration is \\(x_+ = A x / \\lVert A x\\rVert\\). The largest-magnitude eigenvalue dominates the product. The smallest eigenvector is what an inverse iteration, or a shift, is aimed at. Adding the identity changes the eigenvalues. A projected gradient step on a box is a different algorithm. The linear maximizer of \\(x^T A x\\) on the unit sphere returns this same normalization. Conditional gradient minimizes the linear model, so its oracle returns \\(-A x\\) normalized. That is the same line as \\(A x\\), with a sign flip, and the sphere is not a convex set for a convex-combination update.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "options": [
+        "minimizes the Rayleigh quotient by projecting a gradient step onto a box",
+        "replaces the vector by the matrix times the vector, then divides by the Euclidean length",
+        "replaces the vector by its component along the smallest eigenvector",
+        "adds the identity and stops"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(A = \\mathrm{diag}(5,\\ 1)\\), and start at \\((1,\\ 1)\\). After one multiplication by \\(A\\), what is the ratio of the second component to the first?",
+      "explanation": "\\(A (1,\\ 1) = (5,\\ 1)\\). The ratio of the second component to the first is \\(1/5\\). Normalization would divide both components by the same length, so the ratio is unchanged. This ratio equals \\(|\\lambda_2 / \\lambda_1|\\). It is the factor by which the second-mode coefficient shrinks. It is not the error in the Rayleigh quotient, which scales with the square of this factor. Reporting \\(5\\) inverts the ratio. Reporting \\(1\\) is the old ratio.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a column of two labels</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b</text></svg>",
+      "figure_alt": "A column of two labels.",
+      "answer": 0.2,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For the objective \\(x^T A x\\) on the unit sphere, the direction that maximizes the linear model is",
+      "explanation": "The gradient of \\(x^T A x\\) points along \\(A x\\). Maximizing the linear model over the sphere aligns the direction with \\(A x\\) and then normalizes. Conditional gradient minimizes that model, so its answer is the normalization of \\(-A x\\), the same line with a sign flip. The sphere is not convex, so the power step replaces the vector rather than taking a convex combination. Returning \\(x\\) ignores \\(A\\). A coordinate vector is the oracle on a simplex. One step does not finish at the smallest eigenvector.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a disk at the origin</title><line x1=\"28\" y1=\"112\" x2=\"252\" y2=\"112\"/><polygon points=\"252,112 245.6,114.7 245.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"196\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"246\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><circle cx=\"140\" cy=\"112\" r=\"64\" fill=\"currentColor\" fill-opacity=\"0.12\"/><circle cx=\"140\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A filled disk centered at the origin.",
+      "options": [
+        "the normalization of \\(A x\\)",
+        "the normalization of \\(x\\), with \\(A\\) unused",
+        "a coordinate vector, for every symmetric \\(A\\)",
+        "the eigenvector of the smallest eigenvalue, in one step, from every start"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order of one power iteration aimed at the top eigenvector. Each step uses the result of the step before it.",
+      "explanation": "The product uses the starting vector, so the start comes first. The length uses the product. The division uses both the product and the length. A start orthogonal to the top eigenvector never grows that component, so the later steps cannot create it. Dividing before the product exists is not a reordering of this list.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "steps": [
+        "Choose a nonzero starting vector that is not orthogonal to the top eigenvector.",
+        "Multiply that vector by the symmetric matrix.",
+        "Compute the Euclidean length of the product.",
+        "Divide the product by that length to get the next direction."
+      ],
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "For \\(A = \\mathrm{diag}(4,\\ 1)\\), the top eigenvector is along \\((1,\\ 0)\\). Which starting vectors are orthogonal to it, so power iteration stays off that eigenvector?",
+      "explanation": "Orthogonality to \\((1,\\ 0)\\) means the first component is zero.\n• \\((0,\\ 1)\\), \\((0,\\ 3)\\), and \\((0,\\ -2)\\) all have first component \\(0\\). They are multiples of the second eigenvector, and \\(A\\) keeps them there.\n• \\((2,\\ -1)\\) has first component \\(2\\).\n• \\((1,\\ 1)\\) has first component \\(1\\).\nA nonzero first component is what the factor \\(|\\lambda_2 / \\lambda_1|\\) then shrinks, relative to the top mode.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"138.9\"/><polygon points=\"235.9,138.9 229.9,142.5 229.2,137.1\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"130.9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"60.1\" y1=\"161.7\" x2=\"118.7\" y2=\"42.3\"/><polygon points=\"118.7,42.3 118.3,49.3 113.4,46.9\" fill=\"currentColor\" stroke=\"none\"/><text x=\"126.7\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "options": [
+        "\\((0,\\ 1)\\)",
+        "\\((0,\\ 3)\\)",
+        "\\((2,\\ -1)\\)",
+        "\\((0,\\ -2)\\)",
+        "\\((1,\\ 1)\\)"
+      ],
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "For \\(A = \\mathrm{diag}(p,\\ q)\\) and the vector \\((1,\\ s)\\), the Rayleigh quotient equals",
+      "explanation": "The quotient is \\(x^T A x / x^T x\\). The numerator is \\(p \\cdot 1 + q s^2\\), and the denominator is \\(1 + s^2\\). Every name appears. Using \\(p + q\\) drops the vector. Using \\(p + q s\\) forgets the square on the second component. Swapping \\(p\\) and \\(q\\) assigns each eigenvalue to the wrong component.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">p   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   q</text></svg>",
+      "figure_alt": "A two-by-two array with labels on the diagonal.",
+      "answer": "(p+q*s*s)/(1+s*s)",
+      "variables": [
+        {
+          "name": "p",
+          "min": 1.0,
+          "max": 4.0
+        },
+        {
+          "name": "q",
+          "min": 1.0,
+          "max": 4.0
+        },
+        {
+          "name": "s",
+          "min": 0.5,
+          "max": 2.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "(p+q*s^2)/(1+s^2)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note describes power iteration on \\(A = \\mathrm{diag}(6,\\ 2)\\). Exactly one step is a false claim.",
+      "explanation": "The diagonal entries are the eigenvalues, and \\(|6| > |2|\\). The second coefficient is multiplied by \\(\\lambda_2 / \\lambda_1 = 1/3\\) at each step, so three steps multiply it by \\(1/27\\). The Rayleigh quotient sits between the eigenvalues, and its error is quadratic in the size of the second component. Three steps multiply that error by \\((1/3)^6 = 1/729\\), not by \\(1/27\\). The angle and the eigenvalue error are different measures.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a falling curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">e</text><polyline points=\"46,39 49,41.9 52,44.8 55.1,47.5 58.1,50.2 61.1,52.8 64.1,55.3 67.2,57.7 70.2,60.1 73.2,62.4 76.2,64.6 79.2,66.8 82.3,68.9 85.3,71 88.3,73 91.3,74.9 94.4,76.8 97.4,78.6 100.4,80.4 103.4,82.1 106.4,83.8 109.5,85.4 112.5,87 115.5,88.5 118.5,90 121.6,91.4 124.6,92.8 127.6,94.2 130.6,95.5 133.6,96.8 136.7,98.1 139.7,99.3 142.7,100.4 145.7,101.6 148.8,102.7 151.8,103.8 154.8,104.8 157.8,105.8 160.8,106.8 163.9,107.8 166.9,108.7 169.9,109.6 172.9,110.5 176,111.4 179,112.2 182,113 185,113.8 188,114.5 191.1,115.3 194.1,116 197.1,116.7 200.1,117.4 203.2,118 206.2,118.7 209.2,119.3 212.2,119.9 215.2,120.5 218.3,121 221.3,121.6 224.3,122.1 227.3,122.6 230.4,123.1 233.4,123.6 236.4,124.1 239.4,124.6 242.4,125 245.5,125.4 248.5,125.9 251.5,126.3 254.5,126.7 257.6,127.1 260.6,127.4 263.6,127.8 266.6,128.2 269.6,128.5 272.7,128.8 275.7,129.2 278.7,129.5 281.7,129.8 284.8,130.1 287.8,130.4 290.8,130.7 293.8,130.9 296.8,131.2 299.9,131.5 302.9,131.7 305.9,132 308.9,132.2 312,132.4 315,132.6 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that falls toward the horizontal axis.",
+      "steps": [
+        "The eigenvalues are \\(6\\) and \\(2\\), and \\(6\\) is the one of larger magnitude.",
+        "Each iteration multiplies the second-mode coefficient by \\(|2/6| = 1/3\\).",
+        "After three iterations that coefficient ratio has been multiplied by \\(1/27\\).",
+        "The Rayleigh-quotient error is multiplied by \\(1/27\\) as well."
+      ],
+      "flaw_index": 3,
+      "reasons": [
+        "The Rayleigh error scales with the square of the second-mode factor, so three steps multiply it by \\(1/729\\), not by \\(1/27\\).",
+        "The second-mode factor is not \\(1/3\\).",
+        "Three factors of \\(1/3\\) do not multiply to \\(1/27\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "For \\(A = \\begin{pmatrix} 2 & 1 \\\\ 1 & 2 \\end{pmatrix}\\) and the vector \\((2,\\ 1)\\), what is the Rayleigh quotient?",
+      "explanation": "\\(A (2,\\ 1) = (5,\\ 4)\\). The numerator is \\((2,\\ 1) \\cdot (5,\\ 4) = 14\\). The denominator is \\(4 + 1 = 5\\). The quotient is \\(14/5 = 2.8\\). The eigenvalues of \\(A\\) are \\(3\\) and \\(1\\), and \\(2.8\\) lies between them. Reporting \\(14\\) stops before the division. Reporting \\(5\\) is the squared length. Reporting \\(3\\) is the top eigenvalue, which this vector has not reached. The quotient error and the eigenvector angle are different: this value is the quotient itself.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">p   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   q</text></svg>",
+      "figure_alt": "A two-by-two array with labels on the diagonal.",
+      "answer": 2.8,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "When \\(|\\lambda_1| > |\\lambda_2|\\), the factor \\(|\\lambda_2 / \\lambda_1|\\) governs",
+      "explanation": "Writing the start in the eigenbasis, each step multiplies the coefficient of \\(v_j\\) by \\(\\lambda_j\\). Relative to the top coefficient, the second coefficient is multiplied by \\(\\lambda_2 / \\lambda_1\\). That ratio controls the angle. The Rayleigh quotient equals \\(\\lambda_1\\) plus a term quadratic in the second coefficient, so its error uses the square of the factor. Projected gradient and a Hessian condition number are different rates.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a falling curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">e</text><polyline points=\"46,39 49,41.9 52,44.8 55.1,47.5 58.1,50.2 61.1,52.8 64.1,55.3 67.2,57.7 70.2,60.1 73.2,62.4 76.2,64.6 79.2,66.8 82.3,68.9 85.3,71 88.3,73 91.3,74.9 94.4,76.8 97.4,78.6 100.4,80.4 103.4,82.1 106.4,83.8 109.5,85.4 112.5,87 115.5,88.5 118.5,90 121.6,91.4 124.6,92.8 127.6,94.2 130.6,95.5 133.6,96.8 136.7,98.1 139.7,99.3 142.7,100.4 145.7,101.6 148.8,102.7 151.8,103.8 154.8,104.8 157.8,105.8 160.8,106.8 163.9,107.8 166.9,108.7 169.9,109.6 172.9,110.5 176,111.4 179,112.2 182,113 185,113.8 188,114.5 191.1,115.3 194.1,116 197.1,116.7 200.1,117.4 203.2,118 206.2,118.7 209.2,119.3 212.2,119.9 215.2,120.5 218.3,121 221.3,121.6 224.3,122.1 227.3,122.6 230.4,123.1 233.4,123.6 236.4,124.1 239.4,124.6 242.4,125 245.5,125.4 248.5,125.9 251.5,126.3 254.5,126.7 257.6,127.1 260.6,127.4 263.6,127.8 266.6,128.2 269.6,128.5 272.7,128.8 275.7,129.2 278.7,129.5 281.7,129.8 284.8,130.1 287.8,130.4 290.8,130.7 293.8,130.9 296.8,131.2 299.9,131.5 302.9,131.7 305.9,132 308.9,132.2 312,132.4 315,132.6 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that falls toward the horizontal axis.",
+      "options": [
+        "the Rayleigh-quotient error with that same power, rather than its square",
+        "the function-gap bound of projected gradient",
+        "the condition number of a Hessian that this iteration does not form",
+        "how fast the second-mode coefficient, and thus the angle with the top eigenvector, shrinks"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The error in the Rayleigh quotient, measured against the top eigenvalue, shrinks like",
+      "explanation": "If the second coefficient is \\(\\varepsilon\\), the quotient's gap from \\(\\lambda_1\\) is on the order of \\(\\varepsilon^2\\). Each power step multiplies \\(\\varepsilon\\) by \\(|\\lambda_2 / \\lambda_1|\\), so the quotient gap is multiplied by the square of that factor. Using the unsquared factor describes the angle, not the eigenvalue error. The reciprocal factor is larger than \\(1\\) and would describe a growing component. The quotient does improve when the top eigenvalue is strictly dominant.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve that flattens</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">gap</text><polyline points=\"46,39 49,39.1 52,39.3 55.1,39.7 58.1,40.2 61.1,40.9 64.1,41.6 67.2,42.6 70.2,43.6 73.2,44.8 76.2,46 79.2,47.4 82.3,48.8 85.3,50.3 88.3,51.9 91.3,53.6 94.4,55.3 97.4,57.1 100.4,58.9 103.4,60.7 106.4,62.6 109.5,64.4 112.5,66.3 115.5,68.2 118.5,70 121.6,71.9 124.6,73.7 127.6,75.5 130.6,77.4 133.6,79.1 136.7,80.9 139.7,82.6 142.7,84.3 145.7,86 148.8,87.6 151.8,89.2 154.8,90.7 157.8,92.3 160.8,93.7 163.9,95.2 166.9,96.6 169.9,97.9 172.9,99.3 176,100.6 179,101.8 182,103.1 185,104.2 188,105.4 191.1,106.5 194.1,107.6 197.1,108.7 200.1,109.7 203.2,110.7 206.2,111.6 209.2,112.6 212.2,113.5 215.2,114.4 218.3,115.2 221.3,116 224.3,116.8 227.3,117.6 230.4,118.4 233.4,119.1 236.4,119.8 239.4,120.5 242.4,121.2 245.5,121.8 248.5,122.4 251.5,123.1 254.5,123.7 257.6,124.2 260.6,124.8 263.6,125.3 266.6,125.9 269.6,126.4 272.7,126.9 275.7,127.3 278.7,127.8 281.7,128.3 284.8,128.7 287.8,129.1 290.8,129.6 293.8,130 296.8,130.4 299.9,130.8 302.9,131.1 305.9,131.5 308.9,131.9 312,132.2 315,132.5 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that drops at first and then flattens.",
+      "preview": [
+        "singular-value-decomposition"
+      ],
+      "options": [
+        "a constant, so the quotient never improves",
+        "\\(|\\lambda_1 / \\lambda_2|\\), which is larger than \\(1\\)",
+        "the square of the second-mode factor, because the quotient is quadratic in that contamination",
+        "the first power of \\(|\\lambda_2 / \\lambda_1|\\), the same measure as the angle"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Continue \\(A = \\mathrm{diag}(5,\\ 1)\\) from \\((1,\\ 1)\\). After two multiplications by \\(A\\), what is the ratio of the second component to the first?",
+      "explanation": "One multiplication produces \\((5,\\ 1)\\). The second produces \\((25,\\ 1)\\). The ratio is \\(1/25 = 0.04\\). That is \\((|\\lambda_2 / \\lambda_1|)^2\\), the second-mode factor applied twice. Normalization does not change the ratio. Reporting \\(0.2\\) stops after one multiplication. Reporting \\(0.008\\) squares the factor an extra time, which is the Rayleigh scaling rather than the component ratio. This number tracks the eigenvector contamination, not the Rayleigh error.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a column of two labels</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b</text></svg>",
+      "figure_alt": "A column of two labels.",
+      "preview": [
+        "singular-value-decomposition"
+      ],
+      "answer": 0.04,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The same normalization of a matrix-vector product, applied to \\(A^T A\\), produces",
+      "explanation": "The eigenvalues of the symmetric matrix \\(A^T A\\) are the squares of the singular values of \\(A\\), and the eigenvectors are the right singular vectors. Power iteration on \\(A^T A\\) therefore approaches a singular vector for the largest singular value. The left singular vectors are the eigenvectors of \\(A A^T\\). One step does not extract the smallest eigenvalue. The iteration aligns with the leading direction. It does not stay orthogonal to it, unless it was started that way.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a long ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "preview": [
+        "singular-value-decomposition"
+      ],
+      "options": [
+        "a vector orthogonal to the leading right singular direction",
+        "a direction that approaches a top right singular vector of \\(A\\)",
+        "a top left singular vector, without using \\(A^T\\)",
+        "the smallest eigenvalue of every indefinite matrix in one step"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}
