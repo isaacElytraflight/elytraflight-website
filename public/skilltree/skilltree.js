@@ -3179,6 +3179,8 @@ function openExamEditor(existing) {
     err,
     save);
   openModal({ title: existing ? 'Edit exam date' : 'Add exam date', body, actions: [{ label: 'Cancel' }] });
+  const name = $('examLabel');
+  if (name) name.focus();
 }
 function commitExam(id) {
   const skillsMode = $('examModeSkills').checked;

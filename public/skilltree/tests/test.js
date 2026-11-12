@@ -3025,6 +3025,9 @@ async function test(name, fn) {
     await p.click('#todoAddExam');
     await sleep(200);
     assert.strictEqual(await p.$eval('#modal h2', e => e.textContent), 'Add exam date');
+    assert.strictEqual(await p.evaluate(() => document.activeElement && document.activeElement.id), 'examLabel');
+    await p.keyboard.press('Enter');
+    assert.strictEqual(await p.$eval('#modal h2', e => e.textContent), 'Add exam date', 'Enter in the name field keeps the editor open');
     await p.select('#examBox', 'me132');
     await p.type('#examLabel', 'Checkpoint');
     await p.$eval('#examDate', (el, v) => { el.value = v; }, when.course);
@@ -3066,6 +3069,8 @@ async function test(name, fn) {
     assert.deepStrictEqual(course.dom, course.today.map(k => { const [type, id] = k.split('\0'); return { type, id }; }));
     const manual = await p.evaluate(() => window.__skillgrove.todo.list());
     assert.deepStrictEqual(manual, [], 'assigning an exam does not write the to-do list');
+    const examMax = await p.evaluate(() => getComputedStyle(document.getElementById('todoExams')).maxHeight);
+    assert(/^\d+(\.\d+)?px$/.test(examMax) && parseFloat(examMax) <= 240, 'exam list has a real height cap: ' + examMax);
     await p.screenshot({ path: '/opt/cursor/artifacts/exam-date-today.png' });
 
     await p.click('.todo-exam-edit');
