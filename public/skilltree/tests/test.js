@@ -93,6 +93,112 @@ async function panTo(p, selector) {
   assert(box.w >= 20 && box.h >= 20, 'control should be on screen at full size, got ' + box.w + 'x' + box.h);
 }
 
+function profileCors() {
+  return {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PATCH, OPTIONS',
+    'Access-Control-Allow-Headers': 'apikey, authorization, content-type, prefer, accept',
+    'Access-Control-Max-Age': '600'
+  };
+}
+function isProfileRequest(url) {
+  return url.includes('/rest/v1/rpc/public_leaderboard')
+    || url.includes('/rest/v1/rpc/profile_lookup')
+    || url.includes('/rest/v1/profiles');
+}
+function respondProfile(req, p) {
+  const cors = profileCors();
+  if (req.method() === 'OPTIONS') {
+    req.respond({ status: 204, headers: cors, body: '' });
+    return;
+  }
+  const call = { method: req.method(), url: req.url(), body: req.postData() || '', headers: req.headers() };
+  p._profileCalls.push(call);
+  const send = (status, body) => req.respond({
+    status,
+    contentType: 'application/json',
+    headers: cors,
+    body: body == null ? '' : JSON.stringify(body)
+  });
+  if (p._profileMode !== 'ready' && p._profileMode !== 'own-down') {
+    send(404, { code: 'PGRST202', message: "Could not find the function public.public_leaderboard(p_limit) in the schema cache" });
+    return;
+  }
+  if (p._profileMode === 'own-down' && req.method() === 'GET' && call.url.includes('/rest/v1/profiles')) {
+    send(500, { message: 'db down' });
+    return;
+  }
+  if (call.url.includes('/rest/v1/rpc/public_leaderboard')) {
+    let limit = 5;
+    try { limit = JSON.parse(call.body || '{}').p_limit || 5; } catch (e) { limit = 5; }
+    limit = Math.max(1, Math.min(20, Number(limit) || 5));
+    const rows = p._profiles.filter(r => r.is_public).slice().sort((a, b) => (
+      (b.skills_completed - a.skills_completed)
+      || String(a.created_at).localeCompare(String(b.created_at))
+      || a.username.localeCompare(b.username)
+    )).slice(0, limit).map(r => ({
+      username: r.username,
+      skills_completed: r.skills_completed,
+      joined_at: r.created_at
+    }));
+    send(200, rows);
+    return;
+  }
+  if (call.url.includes('/rest/v1/rpc/profile_lookup')) {
+    let name = '';
+    try { name = String(JSON.parse(call.body || '{}').p_username || '').toLowerCase(); } catch (e) { name = ''; }
+    const row = p._profiles.find(r => r.username === name);
+    if (!row) send(200, { status: 'missing' });
+    else if (!row.is_public) send(200, { status: 'private' });
+    else send(200, {
+      status: 'public',
+      username: row.username,
+      bio: row.bio,
+      joined_at: row.created_at,
+      skills_completed: row.skills_completed
+    });
+    return;
+  }
+  if (req.method() === 'GET') {
+    const id = (new URL(call.url).searchParams.get('user_id') || '').replace(/^eq\./, '');
+    send(200, p._profiles.filter(r => r.user_id === id).map(r => ({
+      username: r.username,
+      bio: r.bio,
+      is_public: r.is_public,
+      created_at: r.created_at
+    })));
+    return;
+  }
+  if (req.method() === 'POST') {
+    let body = {};
+    try { body = JSON.parse(call.body || '{}'); } catch (e) { body = {}; }
+    const clash = p._profiles.some(r => r.username === body.username && r.user_id !== body.user_id);
+    if (clash) {
+      send(409, { code: '23505', message: 'duplicate key value violates unique constraint "profiles_username_key"' });
+      return;
+    }
+    let row = p._profiles.find(r => r.user_id === body.user_id);
+    if (!row) {
+      row = {
+        user_id: body.user_id,
+        username: body.username,
+        bio: body.bio || '',
+        is_public: body.is_public !== false,
+        created_at: '2024-06-01T00:00:00.000Z',
+        skills_completed: 0
+      };
+      p._profiles.push(row);
+    } else {
+      row.username = body.username;
+      row.bio = body.bio || '';
+      row.is_public = body.is_public !== false;
+    }
+    send(201, [row]);
+    return;
+  }
+  send(405, { message: 'method not allowed' });
+}
+
 async function newPage(seed, opts = {}) {
   const ctx = await browser.createBrowserContext();
   const p = await ctx.newPage();
@@ -103,8 +209,15 @@ async function newPage(seed, opts = {}) {
   
   p._feedbackPosts = [];
   p._feedbackMode = opts.feedbackMode || 'ok';
+  p._profileMode = opts.profileMode || 'missing';
+  p._profiles = (opts.profiles || []).map(row => Object.assign({}, row));
+  p._profileCalls = [];
   await p.setRequestInterception(true);
   p.on('request', req => {
+    if (isProfileRequest(req.url())) {
+      respondProfile(req, p);
+      return;
+    }
     if (req.url().includes('/rest/v1/feedback')) {
       const cors = {
         'Access-Control-Allow-Origin': '*',
@@ -282,7 +395,9 @@ async function test(name, fn) {
   const newErrs = errs.slice(before).filter(e => 
     !e.includes('favicon') && 
     !e.includes('404') && 
-    !e.includes('blob:fake')
+    !e.includes('blob:fake') &&
+    !e.includes('status of 409') &&
+    !e.includes('status of 500')
   );
   if (newErrs.length > 0) results.push(['FAIL', name + ' :: console errors ' + newErrs.join(' | ')]);
 }
@@ -2671,14 +2786,14 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
-  await test('settings menu keeps export, import, and the reset confirm', async () => {
+  await test('profile page keeps export, import, and the reset confirm', async () => {
     const p = await newPage(T({ bode: { tier: 2, lastPracticed: now - DAY, history: [] } }));
-    assert.strictEqual(await p.$eval('#settingsPanel', e => e.hidden), true);
+    assert.strictEqual(await p.$('#btnSettings'), null);
+    assert.strictEqual(await p.$eval('#profilePage', e => e.hidden), true);
     assert.strictEqual(await p.$('#hrow #btnExport, header > .hrow > #btnExport'), null);
-    await p.click('#btnSettings');
+    await p.click('#btnProfile');
     await sleep(100);
-    assert.strictEqual(await p.$eval('#settingsPanel', e => e.hidden), false);
-    assert.strictEqual(await p.$eval('#btnSettings', e => e.getAttribute('aria-expanded')), 'true');
+    assert.strictEqual(await p.$eval('#profilePage', e => e.hidden), false);
     for (const id of ['#btnExport', '#btnImport', '#btnReset']) assert(await p.$(id), id);
     await p.click('#btnReset');
     await sleep(150);
@@ -2686,8 +2801,7 @@ async function test(name, fn) {
     await p.keyboard.press('Escape');
     await sleep(100);
     assert.strictEqual((await store(p)).skills.bode.tier, 2);
-    await p.click('#btnSettings');
-    await sleep(80);
+    assert.strictEqual(await p.$eval('#profilePage', e => e.hidden), false);
     await p.click('#btnReset');
     await sleep(150);
     await p.click('#confirmReset');
@@ -2780,7 +2894,7 @@ async function test(name, fn) {
     await p.evaluate(() => { const t = document.getElementById('toast'); if (t) t.classList.remove('show'); });
     await p.screenshot({ path: path.join(UI_DIR, name) });
   }
-  await test('screenshots of the top bar, feedback modal, and settings menu', async () => {
+  await test('screenshots of the top bar, feedback modal, and profile page', async () => {
     for (const vp of [
       { name: 'desktop', viewport: { width: 1280, height: 800 } },
       { name: 'mobile', viewport: { width: 390, height: 844, isMobile: true, hasTouch: true } }
@@ -2797,10 +2911,10 @@ async function test(name, fn) {
       await shootUi(p, `feedback-${vp.name}.png`);
       await p.keyboard.press('Escape');
       await sleep(150);
-      await p.click('#btnSettings');
-      await p.waitForSelector('#settingsPanel:not([hidden])');
+      await p.click('#btnProfile');
+      await p.waitForSelector('#profilePage:not([hidden])');
       await sleep(100);
-      await shootUi(p, `settings-${vp.name}.png`);
+      await shootUi(p, `profile-${vp.name}.png`);
       await p._ctx.close();
     }
   });
@@ -3009,6 +3123,278 @@ async function test(name, fn) {
     assert.strictEqual(dropped.skill, false);
     assert.strictEqual(dropped.open, false);
     await p._ctx.close();
+  });
+
+  await test('signed-out profile offers sign-in and stores a local username', async () => {
+    const p = await newPage(T({
+      bode: { tier: 4, lastPracticed: now, history: [] },
+      'lti-def': { tier: 4, lastPracticed: now, history: [] }
+    }));
+    await p.waitForFunction(() => window.__skillgrove.profile.ready());
+    assert.strictEqual(await p.$('#todoBoard'), null);
+    assert.strictEqual(await p.$eval('#btnProfile', e => e.textContent.trim()), 'Profile');
+    await p.click('#btnProfile');
+    await p.waitForSelector('#profilePage:not([hidden]) #profileSignIn');
+    assert.strictEqual(await p.$eval('#profilePublic', e => e.checked), true);
+    assert.strictEqual(await p.$eval('#profileSkills', e => e.textContent), '2');
+    assert.strictEqual(await p.$eval('#profileJoined', e => e.textContent), '—');
+    await p.click('#profileSignIn');
+    await p.waitForSelector('#authEmail');
+    await p.keyboard.press('Escape');
+    await sleep(80);
+    assert(await p.$('#btnExport') && await p.$('#btnImport') && await p.$('#btnReset'));
+    await p.click('#profileSave');
+    await sleep(50);
+    assert(/Choose a username/.test(await p.$eval('#profileUsernameError', e => e.textContent)));
+    await p.type('#profileUsername', 'Bad name');
+    await p.click('#profileSave');
+    await sleep(50);
+    assert(/letters, numbers/.test(await p.$eval('#profileUsernameError', e => e.textContent)));
+    assert.strictEqual(p._profileCalls.filter(c => c.method === 'POST' && c.url.includes('/rest/v1/profiles')).length, 0);
+    await p.$eval('#profileUsername', el => { el.value = ''; });
+    await p.type('#profileUsername', 'Ada');
+    await p.type('#profileBio', '<img src=x onerror="window.__xss=1">');
+    await p.click('#profileSave');
+    await sleep(80);
+    const saved = await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.profile.v1')));
+    assert.strictEqual(saved.username, 'ada');
+    assert.strictEqual(saved.isPublic, true);
+    assert.ok(saved.bio.includes('<img'));
+    assert.strictEqual(await p.evaluate(() => window.__xss || null), null);
+    assert(/this device/i.test(await p.$eval('#profileNote', e => e.textContent)));
+    await p._ctx.close();
+  });
+
+  await test('a username saved while signed out is still there after sign-in', async () => {
+    const p = await newPage(null, { profileMode: 'ready' });
+    await p.evaluate(() => localStorage.setItem('skilltree.profile.v1', JSON.stringify({
+      v: 1, username: 'ada_local', bio: 'From this device', isPublic: false
+    })));
+    const session = {
+      access_token: 'user-access-token',
+      user: {
+        id: '11111111-1111-4111-8111-111111111111',
+        email: 'ada@example.com',
+        created_at: '2024-05-02T00:00:00.000Z'
+      }
+    };
+    await p.evaluateOnNewDocument((next) => {
+      const auth = window.__supabaseMock && window.__supabaseMock.auth;
+      if (auth) auth.getSession = async () => ({ data: { session: next } });
+    }, session);
+    await p.reload({ waitUntil: 'networkidle0', timeout: 30000 });
+    await p.waitForFunction(() => document.getElementById('btnSignOut'));
+    await p.click('#btnProfile');
+    await p.waitForFunction(() => {
+      const save = document.getElementById('profileSave');
+      const name = document.getElementById('profileUsername');
+      return save && !save.disabled && name && name.value === 'ada_local';
+    });
+    assert.strictEqual(await p.$eval('#profileUsername', e => e.value), 'ada_local');
+    assert.strictEqual(await p.$eval('#profileBio', e => e.value), 'From this device');
+    assert.strictEqual(await p.$eval('#profilePublic', e => e.checked), false);
+    assert.strictEqual(await p.$eval('#profileSignIn', e => e.hidden), true);
+    const copied = await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.profile.v1.11111111-1111-4111-8111-111111111111')));
+    assert.strictEqual(copied.username, 'ada_local');
+    assert.strictEqual(copied.bio, 'From this device');
+    assert.strictEqual(copied.isPublic, false);
+    await p._ctx.close();
+  });
+
+  await test('a failed profile fetch does not store a signed-out draft on the account', async () => {
+    const session = {
+      access_token: 'user-access-token',
+      user: {
+        id: '11111111-1111-4111-8111-111111111111',
+        email: 'ada@example.com',
+        created_at: '2024-05-02T00:00:00.000Z'
+      }
+    };
+    const p = await newPage(null, {
+      session,
+      profileMode: 'own-down',
+      profiles: [{
+        user_id: session.user.id,
+        username: 'ada_real',
+        bio: 'Server bio',
+        is_public: true,
+        created_at: '2024-06-01T00:00:00.000Z'
+      }]
+    });
+    await p.evaluate(() => localStorage.setItem('skilltree.profile.v1', JSON.stringify({
+      v: 1, username: 'ada_local', bio: 'From this device', isPublic: true
+    })));
+    await p.click('#btnProfile');
+    await p.waitForFunction(() => document.getElementById('profileSave') && !document.getElementById('profileSave').disabled);
+    assert.strictEqual(await p.$eval('#profileUsername', e => e.value), '');
+    assert.strictEqual(await p.$eval('#profileBio', e => e.value), '');
+    const copied = await p.evaluate(id => localStorage.getItem('skilltree.profile.v1.' + id), session.user.id);
+    assert.strictEqual(copied, null);
+    await p._ctx.close();
+  });
+
+  const PROFILE_FIXTURES = [
+    { user_id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', username: 'ada', bio: 'Hello <img src=x onerror="window.__xss=1">', is_public: true, created_at: '2020-01-01T00:00:00.000Z', skills_completed: 10 },
+    { user_id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', username: 'bea', bio: 'Second', is_public: true, created_at: '2021-01-01T00:00:00.000Z', skills_completed: 10 },
+    { user_id: 'cccccccc-cccc-4ccc-8ccc-cccccccccccc', username: 'ham', bio: 'Third', is_public: true, created_at: '2022-01-01T00:00:00.000Z', skills_completed: 8 },
+    { user_id: 'dddddddd-dddd-4ddd-8ddd-dddddddddddd', username: 'cyan', bio: 'Fourth', is_public: true, created_at: '2022-06-01T00:00:00.000Z', skills_completed: 7 },
+    { user_id: 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee', username: 'dee', bio: 'Fifth', is_public: true, created_at: '2023-01-01T00:00:00.000Z', skills_completed: 3 },
+    { user_id: 'ffffffff-ffff-4fff-8fff-ffffffffffff', username: 'ed', bio: 'Sixth', is_public: true, created_at: '2023-06-01T00:00:00.000Z', skills_completed: 1 },
+    { user_id: '99999999-9999-4999-8999-999999999999', username: 'gio', bio: 'secret bio', is_public: false, created_at: '2019-01-01T00:00:00.000Z', skills_completed: 100 }
+  ];
+
+  await test('signed-in profile saves a validated username and does not send a skill count', async () => {
+    const session = {
+      access_token: 'user-access-token',
+      user: {
+        id: '11111111-1111-4111-8111-111111111111',
+        email: 'ada@example.com',
+        created_at: '2024-05-02T00:00:00.000Z'
+      }
+    };
+    const p = await newPage(T({ bode: { tier: 4, lastPracticed: now, history: [] } }), {
+      session,
+      profileMode: 'ready',
+      profiles: PROFILE_FIXTURES.map(row => Object.assign({}, row))
+    });
+    await p.click('#btnProfile');
+    await p.waitForFunction(() => document.getElementById('profilePage') && !document.getElementById('profilePage').hidden && !document.getElementById('profileSave').disabled);
+    assert.strictEqual(await p.$eval('#profileSignIn', e => e.hidden), true);
+    assert.strictEqual(await p.$eval('#profileJoined', e => e.textContent), 'May 2, 2024');
+    assert.strictEqual(await p.$eval('#profileSkills', e => e.textContent), '1');
+    assert.strictEqual(await p.$eval('#profilePublic', e => e.checked), true);
+    await p.type('#profileUsername', 'admin');
+    await p.click('#profileSave');
+    await sleep(40);
+    assert(/reserved/.test(await p.$eval('#profileUsernameError', e => e.textContent)));
+    await p.$eval('#profileUsername', el => { el.value = ''; });
+    await p.type('#profileUsername', 'Ada_1');
+    await p.type('#profileBio', 'Learning trees');
+    await p.click('#profileSave');
+    await p.waitForFunction(() => !document.getElementById('profileSave').disabled && /saved/i.test(document.getElementById('profileNote').textContent));
+    const posts = p._profileCalls.filter(c => c.method === 'POST' && c.url.includes('/rest/v1/profiles?'));
+    assert.strictEqual(posts.length, 1);
+    const row = JSON.parse(posts[0].body);
+    const anon = await p.evaluate(() => window.SKILLTREE_CONFIG.supabase.anonKey);
+    assert.strictEqual(posts[0].headers.apikey, anon);
+    assert.strictEqual(posts[0].headers.authorization, 'Bearer user-access-token');
+    assert(!/service_role/i.test(posts[0].body + JSON.stringify(posts[0].headers)));
+    assert.strictEqual(row.user_id, session.user.id);
+    assert.strictEqual(row.username, 'ada_1');
+    assert.strictEqual(row.bio, 'Learning trees');
+    assert.strictEqual(row.is_public, true);
+    assert.strictEqual(Object.prototype.hasOwnProperty.call(row, 'skills_completed'), false);
+    assert.strictEqual(await p.$eval('#profileJoined', e => e.textContent), 'June 1, 2024');
+    await p.click('#profilePublic');
+    await p.click('#profileSave');
+    await p.waitForFunction(() => /Private profile saved/.test(document.getElementById('profileNote').textContent));
+    const again = p._profileCalls.filter(c => c.method === 'POST' && c.url.includes('/rest/v1/profiles?'));
+    assert.strictEqual(again.length, 2);
+    assert.strictEqual(JSON.parse(again[1].body).is_public, false);
+    await p.$eval('#profileUsername', el => { el.value = 'ada'; });
+    await p.click('#profileSave');
+    await sleep(150);
+    assert(/taken/.test(await p.$eval('#profileUsernameError', e => e.textContent)));
+    fs.mkdirSync('/opt/cursor/artifacts', { recursive: true });
+    await p.evaluate(() => {
+      const t = document.getElementById('toast');
+      if (t) t.classList.remove('show');
+      const err = document.getElementById('profileUsernameError');
+      if (err) err.textContent = '';
+      document.getElementById('profileUsername').value = 'ada_1';
+      document.getElementById('profilePublic').checked = true;
+    });
+    await sleep(400);
+    await p.screenshot({ path: '/opt/cursor/artifacts/profile-editor.png' });
+    await p._ctx.close();
+  });
+
+  await test('public profiles, private profiles, and the top-5 leaderboard', async () => {
+    const p = await newPage(null, {
+      profileMode: 'ready',
+      profiles: PROFILE_FIXTURES.map(row => Object.assign({}, row))
+    });
+    await p.waitForSelector('#todoBoard');
+    const board = await p.$$eval('#todoBoard a', links => links.map(a => ({
+      name: a.querySelector('.todo-board-name').textContent,
+      score: a.querySelector('.todo-board-score').textContent,
+      href: a.getAttribute('href')
+    })));
+    assert.deepStrictEqual(board.map(r => r.name), ['ada', 'bea', 'ham', 'cyan', 'dee']);
+    assert.deepStrictEqual(board.map(r => r.score), ['10', '10', '8', '7', '3']);
+    assert.strictEqual(board.some(r => r.name === 'gio' || r.name === 'ed'), false);
+    assert.deepStrictEqual(board.map(r => r.href), ['/profile/ada', '/profile/bea', '/profile/ham', '/profile/cyan', '/profile/dee']);
+    const clip = await p.$eval('#todoBook', el => {
+      const r = el.getBoundingClientRect();
+      return { x: Math.max(0, r.x), y: Math.max(0, r.y), width: Math.ceil(r.width), height: Math.ceil(r.height) };
+    });
+    fs.mkdirSync('/opt/cursor/artifacts', { recursive: true });
+    await p.screenshot({ path: '/opt/cursor/artifacts/profile-leaderboard.png', clip });
+    await Promise.all([
+      p.waitForNavigation({ waitUntil: 'networkidle0', timeout: 30000 }),
+      p.click('#todoBoard a')
+    ]);
+    await sleep(300);
+    const pub = await p.evaluate(() => ({
+      name: document.getElementById('profilePublicName').textContent,
+      bio: document.getElementById('profilePublicBio').textContent,
+      html: document.getElementById('profilePublicBio').innerHTML,
+      imgs: document.querySelectorAll('#profilePublicView img, #profilePublicView script').length,
+      xss: window.__xss || null,
+      skills: document.getElementById('profilePublicSkills').textContent,
+      joined: document.getElementById('profilePublicJoined').textContent,
+      editorHidden: document.getElementById('profileEditor').hidden
+    }));
+    assert.strictEqual(pub.name, 'ada');
+    assert.ok(pub.bio.includes('<img'));
+    assert.strictEqual(pub.html.includes('<img'), false);
+    assert.strictEqual(pub.imgs, 0);
+    assert.strictEqual(pub.xss, null);
+    assert.strictEqual(pub.skills, '10');
+    assert.strictEqual(pub.joined, 'January 1, 2020');
+    assert.strictEqual(pub.editorHidden, true);
+    await p.goto(new URL('/profile/bea', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    assert.strictEqual(await p.$eval('#profilePublicName', e => e.textContent), 'bea');
+    assert.strictEqual(await p.$eval('#profilePublicBio', e => e.textContent), 'Second');
+    await p.evaluate(() => {
+      const panel = document.getElementById('scopePanel');
+      if (panel) panel.hidden = true;
+    });
+    await p.screenshot({ path: '/opt/cursor/artifacts/profile-public.png' });
+
+    await p.goto(BASE_URL + 'profile/?u=ada', { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    assert.strictEqual(await p.$eval('#profilePublicName', e => e.textContent), 'ada');
+    assert.strictEqual(await p.$eval('#profilePublicSkills', e => e.textContent), '10');
+
+    await p.goto(new URL('/profile/gio', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    const priv = await p.evaluate(() => ({
+      text: document.getElementById('profilePrivateOnly').textContent,
+      hidden: document.getElementById('profilePrivateOnly').hidden,
+      bodyHidden: document.getElementById('profilePublicBody').hidden,
+      titleHidden: document.getElementById('profilePublicTitle').hidden,
+      page: document.getElementById('profilePublicView').innerText
+    }));
+    assert.strictEqual(priv.hidden, false);
+    assert.strictEqual(priv.text, 'This profile is private');
+    assert.strictEqual(priv.bodyHidden, true);
+    assert.strictEqual(priv.titleHidden, true);
+    assert.strictEqual(priv.page.includes('secret'), false);
+    assert.strictEqual(priv.page.includes('100'), false);
+
+    await p.goto(new URL('/profile/nobody', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    assert.strictEqual(await p.$eval('#profileMissing', e => e.textContent), 'No profile with that username.');
+    await p._ctx.close();
+
+    const missing = await newPage();
+    await missing.goto(new URL('/profile/ada', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    assert.strictEqual(await missing.$eval('#profileMissing', e => e.textContent), "Profiles aren't available yet.");
+    assert.strictEqual(await missing.$('#todoBoard'), null);
+    await missing._ctx.close();
   });
 
   await test('exam dates spread today across the days before the exam', async () => {

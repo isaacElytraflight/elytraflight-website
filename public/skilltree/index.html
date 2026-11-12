@@ -11,6 +11,10 @@
   if (p.indexOf('/skilltree') === 0 && !p.match(/\/skilltree\/($|\?|#)/)) {
     var base = p.replace(/\/skilltree\/?.*/, '/skilltree/');
     document.write('<base href="' + base + '">');
+    return;
+  }
+  if (p === '/profile' || p.indexOf('/profile/') === 0) {
+    document.write('<base href="/skilltree/">');
   }
 })();
 </script>
@@ -40,16 +44,7 @@
     <span id="saveInd" aria-live="polite">Saved ✓</span>
     <button class="btn hot" id="btnQueue">Mastery challenges <span class="badge" id="qCount">0</span></button>
     <button class="btn" id="btnPlan" title="Simulate how many learning sessions it takes to master everything that is playable">Learning plan <span class="badge pl" id="planCount">–</span></button>
-    <div class="menu" id="settingsMenu">
-      <button class="btn icon" id="btnSettings" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsPanel" title="Settings" aria-label="Settings">
-        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.2 7.2 0 0 0-1.63-.94l-.36-2.54A.5.5 0 0 0 13.9 2h-3.8a.5.5 0 0 0-.49.42l-.36 2.54c-.59.22-1.14.54-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.71 8.48a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.31.6.22l2.39-.96c.49.4 1.04.72 1.63.94l.36 2.54c.05.24.25.42.49.42h3.8c.24 0 .44-.18.49-.42l.36-2.54c.59-.22 1.14-.54 1.63-.94l2.39.96c.22.09.47 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>
-      </button>
-      <div class="menu-panel" id="settingsPanel" role="menu" aria-label="Settings" hidden>
-        <button class="btn menu-item" id="btnExport" type="button" role="menuitem" title="Download your progress as a JSON backup">Export</button>
-        <button class="btn menu-item" id="btnImport" type="button" role="menuitem" title="Load progress from a JSON backup">Import</button>
-        <button class="btn menu-item danger" id="btnReset" type="button" role="menuitem">Reset</button>
-      </div>
-    </div>
+    <button class="btn" id="btnProfile" type="button" aria-haspopup="dialog" aria-controls="profilePage">Profile</button>
     <button class="btn" id="btnHelp" aria-label="How it works">?</button>
     <input type="file" id="fileIn" accept=".json,application/json" class="sr" tabindex="-1" aria-label="Import progress file">
   </div>
@@ -70,6 +65,52 @@
 <div id="quiz" role="dialog" aria-modal="true" aria-label="Quiz"></div>
 <div id="modalBack"><div class="modal" role="dialog" aria-modal="true" id="modal"></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
+<div id="profilePage" hidden>
+  <div class="profile-card" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+    <button type="button" class="profile-close" id="profileClose" aria-label="Close profile">×</button>
+    <div id="profileEditor">
+      <h2 id="profileTitle">Profile</h2>
+      <p id="profileSignedOut" class="profile-lead">Sign in to publish a public profile. Import, export, and reset stay on this device.</p>
+      <p id="profileSignedIn" class="profile-lead" hidden>This profile is saved with your account. Public profiles appear on the leaderboard.</p>
+      <button type="button" class="btn primary" id="profileSignIn">Sign in</button>
+      <label for="profileUsername">Username</label>
+      <input id="profileUsername" type="text" maxlength="32" autocomplete="username" spellcheck="false" autocapitalize="off">
+      <p id="profileUsernameError" class="auth-msg error" hidden></p>
+      <label for="profileBio">Bio</label>
+      <textarea id="profileBio" maxlength="500" rows="4"></textarea>
+      <div class="profile-facts">
+        <p>Joined <b id="profileJoined">—</b></p>
+        <p>Skills completed <b id="profileSkills">0</b></p>
+      </div>
+      <p class="profile-hint">A completed skill is one you have mastered.</p>
+      <label class="profile-public" for="profilePublic">
+        <input type="checkbox" id="profilePublic" checked>
+        Public profile
+      </label>
+      <p class="profile-hint">Public is the default. A private profile shows only "This profile is private."</p>
+      <button type="button" class="btn primary" id="profileSave">Save profile</button>
+      <p id="profileNote" class="profile-hint" hidden></p>
+      <h3>Progress on this device</h3>
+      <div class="profile-tools">
+        <button class="btn" id="btnExport" type="button" title="Download your progress as a JSON backup">Export</button>
+        <button class="btn" id="btnImport" type="button" title="Load progress from a JSON backup">Import</button>
+        <button class="btn danger" id="btnReset" type="button">Reset</button>
+      </div>
+    </div>
+    <div id="profilePublicView" hidden>
+      <h2 id="profilePublicTitle">Profile</h2>
+      <p id="profilePrivateOnly" hidden>This profile is private</p>
+      <div id="profilePublicBody" hidden>
+        <p class="profile-name" id="profilePublicName"></p>
+        <p class="profile-bio" id="profilePublicBio"></p>
+        <p>Joined <b id="profilePublicJoined"></b></p>
+        <p>Skills completed <b id="profilePublicSkills"></b></p>
+      </div>
+      <p id="profileMissing" hidden></p>
+      <p class="profile-home"><a id="profileHome" href="/skilltree/">Back to the tree</a></p>
+    </div>
+  </div>
+</div>
 
 <script src="config.js"></script>
 <script src="supabase.min.js"></script>

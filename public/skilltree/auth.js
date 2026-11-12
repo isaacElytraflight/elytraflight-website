@@ -43,9 +43,7 @@ function getAuthUI() {
 
 function updateAuthUI() {
   const ui = getAuthUI();
-  if (!ui) return;
-  
-  if (currentUser) {
+  if (ui && currentUser) {
     const email = currentUser.email || 'User';
     ui.innerHTML = `
       <span id="syncStatus" class="sync-status ${syncStatus}"></span>
@@ -54,11 +52,12 @@ function updateAuthUI() {
     `;
     document.getElementById('btnSignOut').onclick = signOut;
     setSyncStatus(syncStatus === 'signed_out' ? 'synced' : syncStatus);
-  } else {
+  } else if (ui) {
     ui.innerHTML = `<button class="btn" id="btnSignIn">Sign in</button>`;
     document.getElementById('btnSignIn').onclick = openSignInModal;
     setSyncStatus('signed_out');
   }
+  if (window.__skillgrove && window.__skillgrove.onAuthChange) window.__skillgrove.onAuthChange();
 }
 
 function openSignInModal() {
