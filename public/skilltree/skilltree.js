@@ -3036,10 +3036,10 @@ function profileStorageKey() {
   const user = currentUser();
   return user && user.id ? PROFILE_KEY + '.' + user.id : PROFILE_KEY;
 }
-function readLocalProfile() {
+function readStoredProfile(key) {
   const blank = { username: '', bio: '', isPublic: true };
   try {
-    const raw = JSON.parse(localStorage.getItem(profileStorageKey()) || 'null');
+    const raw = JSON.parse(localStorage.getItem(key) || 'null');
     if (!raw || typeof raw !== 'object') return blank;
     const username = sanitizeUsername(raw.username);
     return {
@@ -3050,6 +3050,26 @@ function readLocalProfile() {
   } catch (e) {
     return blank;
   }
+}
+function profileHasDraft(profile) {
+  return !!(profile && (profile.username || profile.bio));
+}
+function readLocalProfile() {
+  const own = readStoredProfile(profileStorageKey());
+  const user = currentUser();
+  if (user && user.id && !profileHasDraft(own)) {
+    const guest = readStoredProfile(PROFILE_KEY);
+    if (profileHasDraft(guest)) return guest;
+  }
+  return own;
+}
+function currentFormDraft() {
+  const username = sanitizeUsername($('profileUsername') && $('profileUsername').value);
+  return {
+    username: usernameError(username) ? '' : username,
+    bio: sanitizeBio($('profileBio') && $('profileBio').value),
+    isPublic: !($('profilePublic') && $('profilePublic').checked === false)
+  };
 }
 function writeLocalProfile(profile) {
   if (!storageOK) return;
@@ -3219,7 +3239,10 @@ async function loadOwnProfile() {
     const result = await fetchOwnProfile(user.id);
     if (gen !== profileLoadGen) return;
     if (!result.ok || !result.row) {
-      fillProfileForm(readLocalProfile(), user.created_at || null);
+      const typed = currentFormDraft();
+      const draft = profileHasDraft(typed) ? typed : readLocalProfile();
+      if (profileHasDraft(draft)) writeLocalProfile(draft);
+      fillProfileForm(draft, user.created_at || null);
       setProfileNote('');
       return;
     }

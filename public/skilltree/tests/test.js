@@ -3122,6 +3122,42 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('a username saved while signed out is still there after sign-in', async () => {
+    const p = await newPage(null, { profileMode: 'ready' });
+    await p.evaluate(() => localStorage.setItem('skilltree.profile.v1', JSON.stringify({
+      v: 1, username: 'ada_local', bio: 'From this device', isPublic: false
+    })));
+    const session = {
+      access_token: 'user-access-token',
+      user: {
+        id: '11111111-1111-4111-8111-111111111111',
+        email: 'ada@example.com',
+        created_at: '2024-05-02T00:00:00.000Z'
+      }
+    };
+    await p.evaluateOnNewDocument((next) => {
+      const auth = window.__supabaseMock && window.__supabaseMock.auth;
+      if (auth) auth.getSession = async () => ({ data: { session: next } });
+    }, session);
+    await p.reload({ waitUntil: 'networkidle0', timeout: 30000 });
+    await p.waitForFunction(() => document.getElementById('btnSignOut'));
+    await p.click('#btnProfile');
+    await p.waitForFunction(() => {
+      const save = document.getElementById('profileSave');
+      const name = document.getElementById('profileUsername');
+      return save && !save.disabled && name && name.value === 'ada_local';
+    });
+    assert.strictEqual(await p.$eval('#profileUsername', e => e.value), 'ada_local');
+    assert.strictEqual(await p.$eval('#profileBio', e => e.value), 'From this device');
+    assert.strictEqual(await p.$eval('#profilePublic', e => e.checked), false);
+    assert.strictEqual(await p.$eval('#profileSignIn', e => e.hidden), true);
+    const copied = await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.profile.v1.11111111-1111-4111-8111-111111111111')));
+    assert.strictEqual(copied.username, 'ada_local');
+    assert.strictEqual(copied.bio, 'From this device');
+    assert.strictEqual(copied.isPublic, false);
+    await p._ctx.close();
+  });
+
   const PROFILE_FIXTURES = [
     { user_id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', username: 'ada', bio: 'Hello <img src=x onerror="window.__xss=1">', is_public: true, created_at: '2020-01-01T00:00:00.000Z', skills_completed: 10 },
     { user_id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', username: 'bea', bio: 'Second', is_public: true, created_at: '2021-01-01T00:00:00.000Z', skills_completed: 10 },
