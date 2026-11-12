@@ -3173,6 +3173,34 @@
     "frank-wolfe-conditional-gradient",
     "rayleigh-quotient"
    ]
+  },
+  {
+   "id": "calculus-of-variations",
+   "name": "Brachistochrone and calculus of variations",
+   "summary": "Optional motivation, not required for later skills. A functional scores a curve, the Euler-Lagrange equation is the stationarity test, and the brachistochrone is a cycloid.",
+   "prereqs": [
+    "first-order-optimality",
+    "gradient-partial-derivatives"
+   ]
+  },
+  {
+   "id": "largest-inscribed-ellipsoid",
+   "name": "Largest inscribed ellipsoid",
+   "summary": "Optional motivation, not required for later skills. An ellipsoid is a linear image of the unit ball, it lies in a polytope when a support inequality holds for every face, and maximizing log det of the shape is a convex problem.",
+   "prereqs": [
+    "convex-sets",
+    "positive-definite-matrices",
+    "optimization-problem-formulation"
+   ]
+  },
+  {
+   "id": "trajectory-optimization",
+   "name": "Trajectory planning as optimization",
+   "summary": "Optional motivation, not required for later skills. Discretize a path or a control sequence, score time, energy, or smoothness, and see why an obstacle makes the feasible set nonconvex.",
+   "prereqs": [
+    "optimization-problem-formulation",
+    "optimization-problem-classes"
+   ]
   }
  ],
  "retired": {

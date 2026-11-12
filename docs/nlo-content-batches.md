@@ -10,7 +10,7 @@ Approved skill graph for the course box `nlo-tugraz`. A skill is eligible for a 
 
 | box | title | skills |
 |---|---|---|
-| `nlo-tugraz/l1` | Problem formulation | `optimization-problem-formulation`, `graphical-2d-optimization`, `optimization-problem-classes`, `svm-quadratic-program` |
+| `nlo-tugraz/l1` | Problem formulation | `optimization-problem-formulation`, `graphical-2d-optimization`, `optimization-problem-classes`, `svm-quadratic-program`, plus the three optional introduction skills below |
 | `nlo-tugraz/l2` | Mathematical preliminaries | `lin-algebra-review`, `gaussian-random-vectors`, NB1 (8 skills), NB2 (6 skills) |
 | `nlo-tugraz/l3` | Derivatives and automatic differentiation | NB3 (9 skills), NB4 (9 skills) |
 | `nlo-tugraz/l4` | Optimality conditions | the seven optimality skills in NB5 |
@@ -224,3 +224,27 @@ P = mathematical preliminary.
 | `primal-dual-interior-point` | Primal-dual interior-point methods | Perturbed KKT system for LP solved by Newton steps, central path idea | `affine-scaling-method`, `newton-root-finding` |  |
 | `frank-wolfe-conditional-gradient` | Conditional gradient (Frank-Wolfe) method | Linear minimization oracle over l1 ball / simplex, step-size rules, sublinear convergence | `optimality-over-convex-set`, `polyhedra-extreme-points`, `descent-lemma` |  |
 | `power-method-eigenvector` | Power method for the top eigenvector | Power iteration as conditional gradient on the Rayleigh quotient | `frank-wolfe-conditional-gradient`, `rayleigh-quotient` |  |
+
+## Optional introduction (SG-055)
+
+Three skills in `nlo-tugraz/l1`, written as batch `nlo-intro`. They are motivating examples, not prerequisites of any later skill. The skill schema has no optional flag, so each summary says the skill is optional motivation and is not required for later skills. No other skill lists them as prerequisites.
+
+`state-space-model` and `discrete-time` were considered as prerequisites of the trajectory skill and were not used. `state-space-model` sits in ME 132 and Feedback Systems and requires `ode-model`. `discrete-time` sits only in Feedback Systems and requires `ss-solution`. Either edge would send an optimization learner through control-only material. The trajectory skill writes the discrete dynamics constraint itself.
+
+| id | title | scope | prereqs |
+|---|---|---|---|
+| `calculus-of-variations` | Brachistochrone and calculus of variations | Optimizing over curves, the functional, the Euler-Lagrange equation at an intuitive level, the cycloid | `first-order-optimality`, `gradient-partial-derivatives` |
+| `largest-inscribed-ellipsoid` | Largest inscribed ellipsoid | Ellipsoid \(\{Bu+d:\lVert u\rVert\le 1\}\), containment \(\lVert B a_i\rVert+a_i^T d\le b_i\), maximize \(\log\det B\) | `convex-sets`, `positive-definite-matrices`, `optimization-problem-formulation` |
+| `trajectory-optimization` | Trajectory planning as optimization | Discretize a path or a control sequence; cost (time, energy, smoothness); dynamics and obstacle constraints; obstacles make the set nonconvex | `optimization-problem-formulation`, `optimization-problem-classes` |
+
+Overlap, kept separate. Each line is a candidate and a proposed neutral core. No edge was added except the new skills' own prerequisites.
+
+- `calculus-of-variations` vs `lagrange-multiplier-equality`. Core for the new skill: stationarity of a functional of a curve. Core for the existing skill: the multiplier rule for finitely many equality constraints. The shared word "Lagrange" is not the same object.
+- `calculus-of-variations` vs `lqr`. Core for the new skill: a free curve and the Euler-Lagrange equation. Core for `lqr`: an infinite-horizon quadratic cost on a linear state equation, reduced to a Riccati gain. Preview only.
+- `calculus-of-variations` vs `cx-exp`. Core for `cx-exp`: Euler's formula for the complex exponential. Not the Euler-Lagrange equation.
+- `largest-inscribed-ellipsoid` vs `positive-definite-matrices`. Core for the new skill: the convex program that fits the largest ellipsoid in a polytope. Core for the existing skill: the eigenvalue test, and a quadratic-form level set drawn as an ellipse. The existing skill stays a prerequisite.
+- `largest-inscribed-ellipsoid` vs `spectral-decomposition`. Core for the existing skill: orthonormal eigenpairs of a symmetric matrix. The axes of \(B\) are a consequence, not this skill.
+- `trajectory-optimization` vs `mpc`. Core for the new skill: one open-loop transcription of a whole grid. Core for `mpc`: replan at each sample and apply only the first input. Preview only.
+- `trajectory-optimization` vs `lqr`. Core for `lqr`: the Riccati gain. No grid, no obstacle, no nonconvex set.
+- `trajectory-optimization` vs `discrete-time`. Core for `discrete-time`: sampling, difference equations, and the unit circle. Not a prerequisite, for the box reason above.
+- `trajectory-optimization` vs `state-space-model`. Core for `state-space-model`: \(\dot x=Ax+Bu\) for a plant. Not a prerequisite, for the box reason above.
