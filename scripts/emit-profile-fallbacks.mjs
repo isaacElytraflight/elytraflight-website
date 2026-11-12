@@ -21,26 +21,20 @@ export const PROFILE_FALLBACKS = [
   'profile/index.html',
 ]
 
-/** Local files the shell loads with relative URLs. The published /skilltree/index.html keeps those relative URLs. Copies do not: a browser preload scan resolves them against the nested URL before the base tag runs, so /skilltree/profile/skilltree.js 404s. */
-const RELATIVE_ASSETS = [
-  'favicon.svg',
-  'skilltree.css',
-  'config.js',
-  'supabase.min.js',
-  'simcore.js',
-  'migrate.js',
-  'auth.js',
-  'expr.js',
-  'skilltree.js',
-]
-
+/**
+ * Point local src/href values at /skilltree/. The published shell keeps
+ * relative URLs, which are correct at /skilltree/. Copies do not: the preload
+ * scan resolves them against the nested page before the base tag runs.
+ * Tag attributes only, so the base-href script is left alone.
+ */
 export function profileFallbackHtml(html) {
-  let out = String(html)
-  for (const name of RELATIVE_ASSETS) {
-    out = out.replaceAll(`href="${name}"`, `href="/skilltree/${name}"`)
-    out = out.replaceAll(`src="${name}"`, `src="/skilltree/${name}"`)
-  }
-  return out
+  return String(html).replace(/<(link|script|img|a)\b[^>]*>/gi, (tag) => tag.replace(
+    /\b(href|src)="([^"]*)"/gi,
+    (attr, key, value) => {
+      if (!value || /^(?:https?:|\/\/|\/|#|data:|mailto:)/i.test(value)) return attr
+      return `${key}="/skilltree/${value.replace(/^\.\//, '')}"`
+    }
+  ))
 }
 
 export function emitProfileFallbacks(buildDir) {

@@ -86,6 +86,7 @@ function publishFixture() {
   fs.writeFileSync(path.join(root, 'skilltree', 'skilltree.js'), '/* skilltree */')
   fs.writeFileSync(path.join(root, 'skilltree', 'skilltree.css'), '/* css */')
   fs.writeFileSync(path.join(root, 'skilltree', 'favicon.svg'), '<svg xmlns="http://www.w3.org/2000/svg"/>')
+  fs.writeFileSync(path.join(root, 'skilltree', 'telemetry.js'), '/* telemetry */')
   emitProfileFallbacks(root)
   return root
 }
@@ -106,7 +107,13 @@ test('build copies the shell onto the two directory indexes with root-absolute a
   assert.notStrictEqual(expected, shell)
   assert.match(expected, /src="\/skilltree\/skilltree\.js"/)
   assert.match(expected, /href="\/skilltree\/skilltree\.css"/)
-  assert.doesNotMatch(expected, /(?:src|href)="(?:favicon\.svg|skilltree\.css|config\.js|supabase\.min\.js|simcore\.js|migrate\.js|auth\.js|expr\.js|skilltree\.js)"/)
+  assert.match(expected, /src="\/skilltree\/telemetry\.js"/)
+  assert.match(shell, /src="telemetry\.js"/)
+  for (const tag of expected.match(/<(?:link|script|img|a)\b[^>]*>/gi) || []) {
+    for (const attr of tag.matchAll(/\b(?:href|src)="([^"]*)"/gi)) {
+      assert.match(attr[1], /^(?:https?:|\/\/|\/|#)/, tag)
+    }
+  }
   assert.match(expected, /id="profilePage"/)
   for (const rel of ['skilltree/profile/index.html', 'profile/index.html']) {
     const file = path.join(root, rel)
@@ -185,7 +192,7 @@ await testAsync('a static host serves both profile directory URLs and 404s /prof
     const nestedJs = await fetch(origin + '/skilltree/profile/skilltree.js')
     assert.strictEqual(nestedJs.status, 404, 'the nested directory must not shadow /skilltree/skilltree.js')
 
-    for (const asset of ['/skilltree/skilltree.js', '/skilltree/skilltree.css', '/skilltree/favicon.svg']) {
+    for (const asset of ['/skilltree/skilltree.js', '/skilltree/skilltree.css', '/skilltree/favicon.svg', '/skilltree/telemetry.js']) {
       const res = await fetch(origin + asset)
       assert.strictEqual(res.status, 200, asset)
     }
