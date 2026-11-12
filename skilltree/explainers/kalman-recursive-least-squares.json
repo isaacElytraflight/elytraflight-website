@@ -1,0 +1,29 @@
+{
+  "id": "kalman-recursive-least-squares",
+  "title": "Kalman filter as recursive least squares",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "body_md": "A growing linear least-squares fit does not have to be solved from scratch when one measurement arrives. The measurements already in hand leave a quadratic cost. That cost is summarized by the current estimate and by a variance: the estimate is the minimizer, and the variance is the reciprocal of the curvature. A new linear measurement adds one more squared residual. The stacked cost is still quadratic, so one Gauss-Newton step is exact.\n\nWrite the step out and it is a gain times an innovation. The innovation is the new reading minus the reading the current estimate would have produced. The gain is the prior variance times the measurement row, divided by the innovation variance, which is the row times the prior variance times the row, plus the measurement variance. The estimate moves by the gain times the innovation. The variance shrinks by the factor that the gain and the row determine. Those two formulas are the measurement update of the Kalman filter. This skill does not derive them a second time as a filter. It shows that they are the exact minimizer of the growing least-squares cost.\n\nThe predict step is a different piece. Propagating the estimate through a state matrix, and inflating the variance by process noise, is not a least-squares block of the kind solved here. That recursion stays with the Kalman filter."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "For a scalar row \\(c\\), prior variance \\(P\\), and measurement variance \\(R\\),\n\\[\nL = \\frac{P c}{c^2 P + R}.\n\\]\nThe estimate adds \\(L\\) times the innovation. The variance becomes \\((1 - L c) P\\). This \\(L\\) is the scalar form of the Kalman gain."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Start from the estimate \\(8\\) with variance \\(9\\), and take a measurement \\(5\\) with row \\(1\\) and variance \\(3\\). The gain is \\(9/(9 + 3) = 3/4\\). The innovation is \\(5 - 8 = -3\\). The correction is \\(3/4\\) times \\(-3\\), which equals \\(-9/4\\).\n\nThe buoy estimate is 5.75. The updated variance is \\(1/4\\) of \\(9\\), so \\(9/4\\). A smaller measurement variance would have raised the gain and pulled the estimate closer to \\(5\\). The predict step that might have produced the prior \\(8\\) is not part of this arithmetic."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Subtracting the correction instead of adding it walks away from the measurement. The innovation is already a difference, and the gain is nonnegative for a positive variance and a positive row, so the correction has the sign of the innovation. A second slip is to add the variances to get the new variance. New information shrinks the variance. A third is to re-derive the predict step from this block. The block has no state matrix and no process noise. A fourth is to treat a nonlinear measurement as finished by this same linear step. A curved measurement has to be linearized first."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "When the new measurement is nonlinear, the residual is no longer an affine function of the estimate. One Gauss-Newton step is then only the step for the linear model built at the current estimate. Rebuilding that model on every block, with the Jacobian in place of the measurement row and with the innovation measured from the nonlinear map, is the extended update."
+    }
+  ]
+}

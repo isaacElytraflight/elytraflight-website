@@ -1,0 +1,234 @@
+{
+  "skill_id": "extended-kalman-filter",
+  "version": 1,
+  "questions": [
+    {
+      "id": "extended-kalman-filter-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "One extended measurement update does which of the following?",
+      "explanation": "The nonlinear map \\(h\\) is replaced by \\(h(\\hat x) + J_h(\\hat x)\\,(x - \\hat x)\\). The innovation is the reading minus \\(h(\\hat x)\\), and the gain uses \\(J_h(\\hat x)\\) where a linear update would use the measurement row. A map with no derivative has no linear model to update. A frozen Jacobian ignores the move of the estimate. The prior variance enters the gain, not the innovation.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "options": [
+        "Linearize the measurement at the current estimate, then apply one linear gain update with that Jacobian",
+        "Use the measurement map with no derivative",
+        "Keep the Jacobian from the first estimate for every later block",
+        "Replace the innovation by the prior variance"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A position estimate is \\(3\\), and the sensor reads the square of position. What is the measurement Jacobian at that estimate?",
+      "explanation": "The map is \\(u^2\\), so its derivative is \\(2u\\). At \\(u = 3\\) the Jacobian is \\(6\\). Reporting \\(3\\) uses the estimate in place of the derivative. Reporting \\(9\\) is the map \\(3^2\\), which belongs in the innovation, not in the gain as the Jacobian. Reporting \\(2\\) is the factor in \\(2u\\) with the estimate left out.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a column of two labels</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">p</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">q</text></svg>",
+      "figure_alt": "A column of two labels.",
+      "answer": 6.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The innovation of a sensor that reads \\(u^2\\), at an estimate of \\(3\\), with a reading of \\(15\\), is",
+      "explanation": "The innovation subtracts the nonlinear map at the estimate: \\(3^2 = 9\\), so \\(15 - 9 = 6\\). Subtracting the Jacobian \\(6\\) treats the derivative as if it were the predicted reading. Subtracting the estimate treats the sensor as the identity. The Jacobian enters the gain and the variance, not as a substitute for the predicted reading.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"138.7\" y1=\"176\" x2=\"138.7\" y2=\"28\"/><polygon points=\"138.7,28 141.5,34.4 136,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"144.7\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"138.7\" y1=\"161.7\" x2=\"235.9\" y2=\"118.3\"/><polygon points=\"235.9,118.3 231.2,123.4 228.9,118.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"110.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g</text><line x1=\"138.7\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 65.9,46.2 61.3,49.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "options": [
+        "\\(15 - 6 = 9\\), using the Jacobian in place of the map",
+        "\\(15 - 3 = 12\\), subtracting the estimate itself",
+        "the Jacobian \\(6\\) itself, leaving the reading unused",
+        "\\(15 - 9 = 6\\)"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put one extended measurement update in order. Each step uses the result of the step before it.",
+      "explanation": "The map has to be known before the innovation can subtract it. The correction is the gain times that innovation, so the product cannot be formed until the innovation exists. The estimate then moves by that product, and the variance formula uses the gain inside it. The gain by itself does not need the innovation, which is why the later step is the product, not the gain alone. Linearizing again at the corrected point is the next block.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "steps": [
+        "Evaluate the nonlinear measurement and its Jacobian at the current estimate.",
+        "Form the innovation as the reading minus that measurement value.",
+        "Multiply that innovation by the gain built from the same Jacobian and the two variances.",
+        "Add that product to the estimate. The variance update uses this same gain and Jacobian."
+      ],
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Which statements about an extended measurement update hold?",
+      "explanation": "The linear model is the map plus the Jacobian times the displacement, so the innovation subtracts the map, and the Jacobian is taken where the model was built.\n• An affine map has a constant Jacobian, and the map minus that Jacobian times the estimate is the linear residual. The update is then the ordinary linear one.\n• For the square sensor at estimate \\(3\\), prior variance \\(1\\), reading \\(15\\), and measurement variance \\(12\\), the update lands at \\(3.75\\). The derivative of the true nonlinear cost \\(\\tfrac12(u-3)^2 + \\tfrac1{24}(15-u^2)^2\\) there is \\(21/128\\), not zero, so the nonlinear cost is not minimized.\n• The Jacobian of \\(u^2\\) at \\(3.75\\) is \\(7.5\\), not the \\(6\\) used for the step. The next block has to be linearized again.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested contours</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses around the origin.",
+      "options": [
+        "The innovation is the reading minus the measurement map at the estimate.",
+        "The Jacobian is evaluated at the current estimate.",
+        "If the measurement map is affine, the update matches the linear measurement update.",
+        "One update exactly minimizes the true nonlinear least-squares cost.",
+        "After the estimate moves, the next block needs a new linearization."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "The prior variance is \\(p\\), the measurement Jacobian is \\(j\\), and the measurement variance is \\(r\\). The extended gain equals",
+      "explanation": "The Jacobian takes the place of the measurement row. The gain is \\(p j / (j^2 p + r)\\). Every name appears. Using the reading in place of \\(j\\) would mix the innovation into the gain. Dropping \\(j\\) from the numerator is the linear gain only for a row equal to \\(1\\). Adding \\(j\\) instead of squaring it is the wrong innovation variance.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   b</text></svg>",
+      "figure_alt": "A two-by-two array with labels on the diagonal.",
+      "answer": "p*j/(j*j*p+r)",
+      "variables": [
+        {
+          "name": "p",
+          "min": 0.5,
+          "max": 4.0
+        },
+        {
+          "name": "j",
+          "min": 0.5,
+          "max": 2.0
+        },
+        {
+          "name": "r",
+          "min": 0.5,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "(p*j)/(p*j*j+r)",
+        "j*p/(p*j**2+r)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note updates a square-of-position sensor at the estimate \\(3\\), with prior variance \\(1\\), reading \\(15\\), and measurement variance \\(12\\). Exactly one step is a false claim.",
+      "explanation": "The map \\(9\\) and the innovation \\(6\\) are correct, and \\(2u\\) at \\(3\\) is \\(6\\). The innovation variance is \\(6^2\\cdot 1 + 12 = 48\\), so the gain is \\(6/48 = 1/8\\). Using the estimate \\(3\\) as the Jacobian is the false step. That substitution builds the gain from the wrong linear model.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a column of two labels</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">p</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">q</text></svg>",
+      "figure_alt": "A column of two labels.",
+      "steps": [
+        "The map at \\(3\\) is \\(9\\), so the innovation for the reading \\(15\\) is \\(6\\).",
+        "The derivative of \\(u^2\\) is \\(2u\\), so the Jacobian at \\(3\\) is \\(6\\).",
+        "The gain may be computed with Jacobian \\(3\\), the estimate itself.",
+        "With Jacobian \\(6\\), prior variance \\(1\\), and measurement variance \\(12\\), the gain is \\(6/48 = 1/8\\)."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The derivative of \\(u^2\\) is \\(2u\\), so the Jacobian at \\(3\\) is \\(6\\), not \\(3\\).",
+        "The innovation for the reading \\(15\\) is not \\(6\\).",
+        "With Jacobian \\(6\\) the gain is not \\(1/8\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Estimate \\(3\\), prior variance \\(1\\), square sensor, reading \\(15\\), measurement variance \\(12\\). The gain is \\(1/8\\) and the innovation is \\(6\\). What is the updated position?",
+      "explanation": "The correction is the gain times the innovation: \\(\\tfrac18\\cdot 6 = 0.75\\). Added to the estimate, the position is \\(3.75\\). Reporting \\(0.75\\) stops at the correction. Reporting \\(6\\) is the innovation. Reporting \\(15\\) keeps the reading as if it were a position. The variance update is \\(0.25\\), which is a different quantity.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping up</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,132.9 49,131.8 52,130.8 55.1,129.7 58.1,128.7 61.1,127.6 64.1,126.6 67.2,125.6 70.2,124.5 73.2,123.5 76.2,122.4 79.2,121.4 82.3,120.3 85.3,119.3 88.3,118.3 91.3,117.2 94.4,116.2 97.4,115.1 100.4,114.1 103.4,113 106.4,112 109.5,111 112.5,109.9 115.5,108.9 118.5,107.8 121.6,106.8 124.6,105.8 127.6,104.7 130.6,103.7 133.6,102.6 136.7,101.6 139.7,100.5 142.7,99.5 145.7,98.5 148.8,97.4 151.8,96.4 154.8,95.3 157.8,94.3 160.8,93.2 163.9,92.2 166.9,91.2 169.9,90.1 172.9,89.1 176,88 179,87 182,85.9 185,84.9 188,83.9 191.1,82.8 194.1,81.8 197.1,80.7 200.1,79.7 203.2,78.6 206.2,77.6 209.2,76.6 212.2,75.5 215.2,74.5 218.3,73.4 221.3,72.4 224.3,71.3 227.3,70.3 230.4,69.3 233.4,68.2 236.4,67.2 239.4,66.1 242.4,65.1 245.5,64 248.5,63 251.5,62 254.5,60.9 257.6,59.9 260.6,58.8 263.6,57.8 266.6,56.7 269.6,55.7 272.7,54.7 275.7,53.6 278.7,52.6 281.7,51.5 284.8,50.5 287.8,49.4 290.8,48.4 293.8,47.4 296.8,46.3 299.9,45.3 302.9,44.2 305.9,43.2 308.9,42.1 312,41.1 315,40.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping upward on labeled axes.",
+      "answer": 3.75,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "The variance update \\((1 - K J_h)P\\) uses the measurement Jacobian. Replacing \\(J_h\\) by \\(1\\) is valid when",
+      "explanation": "The factor \\(1\\) is the derivative of the identity map. A sensor that reads position has that Jacobian, and the linear variance update \\((1 - K)P\\) is the special case. The square sensor has Jacobian \\(2u\\), which equals \\(1\\) only at \\(u = 1/2\\). A positive gain does not make the Jacobian equal \\(1\\). A zero innovation leaves the estimate unmoved and does not change which Jacobian the variance formula uses.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   b</text></svg>",
+      "figure_alt": "A two-by-two array with labels on the diagonal.",
+      "options": [
+        "the gain is positive",
+        "the innovation is zero",
+        "the measurement row really is \\(1\\), as in a linear sensor that reads position itself",
+        "the sensor reads the square of position"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Solving \\(F(x) = 0\\) by rebuilding a tangent at every new point is the same linearization idea as an extended update. That root iteration is",
+      "explanation": "Newton replaces \\(F\\) by \\(F(x) + J_F(x)\\, d\\) and solves the linear equation for \\(d\\). An extended update does the same to a measurement map and then blends the result with the prior. A batch gradient sums block gradients at one point. A simplex pivot changes a basis. A predict step propagates a state; it does not solve a tangent equation for a root.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "preview": [
+        "newton-root-finding"
+      ],
+      "options": [
+        "a predict step that adds process noise",
+        "Newton's method for a nonlinear equation",
+        "a batch gradient with a constant step",
+        "a simplex pivot"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "For the square sensor at estimate \\(3\\), with prior variance \\(1\\), gain \\(1/8\\), and Jacobian \\(6\\), what is the updated variance?",
+      "explanation": "The variance update is \\((1 - K J_h)P = (1 - \\tfrac18\\cdot 6)\\cdot 1 = 1 - 0.75 = 0.25\\). Using \\((1 - K)P = 7/8\\) pretends the Jacobian is \\(1\\). Reporting \\(1\\) keeps the prior variance. Reporting \\(0.75\\) is the amount removed, not the variance that remains.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a long ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "preview": [
+        "newton-root-finding"
+      ],
+      "answer": 0.25,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "extended-kalman-filter-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A Newton root iteration and an extended measurement update share which sensitivity?",
+      "explanation": "The next point is where the tangent hits the target. If the tangent is a poor picture of the map, that hit can sit far from a root. Neither method finishes a general nonlinear equation in one step: the square sensor's update at \\(3.75\\) is not a root of the nonlinear stationarity condition. Both methods use the derivative. The measurement variance shapes the gain of the filter update; Newton's method for a root has no measurement variance.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two nearly perpendicular arrows</title><line x1=\"46\" y1=\"58.6\" x2=\"250\" y2=\"58.6\"/><polygon points=\"250,58.6 243.6,61.3 243.6,55.9\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"72.6\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"58.6\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 229.8,45.6 229.3,40.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"60.1\" y1=\"58.6\" x2=\"92\" y2=\"161.7\"/><polygon points=\"92,161.7 87.5,156.3 92.7,154.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"175.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n</text></svg>",
+      "figure_alt": "Two arrows leave the origin in different directions.",
+      "preview": [
+        "newton-root-finding"
+      ],
+      "options": [
+        "A tangent built at a poor point can send the next guess far from a root of the nonlinear map.",
+        "Both methods finish every nonlinear equation in one step.",
+        "Both ignore the derivative.",
+        "Both require the measurement variance to be zero."
+      ],
+      "correct_index": 0,
+      "version": 1
+    }
+  ]
+}

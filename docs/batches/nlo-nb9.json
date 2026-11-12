@@ -1,0 +1,33 @@
+{
+  "id": "nlo-nb9",
+  "label": "NB9",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "gauss-newton-method",
+    "levenberg-marquardt",
+    "incremental-gradient-methods",
+    "kalman-recursive-least-squares",
+    "extended-kalman-filter",
+    "newton-root-finding"
+  ],
+  "areas": {
+    "gauss-newton-method": ["optimization"],
+    "levenberg-marquardt": ["optimization"],
+    "incremental-gradient-methods": ["optimization"],
+    "kalman-recursive-least-squares": ["optimization", "kalman-filter"],
+    "extended-kalman-filter": ["optimization", "kalman-filter"],
+    "newton-root-finding": ["optimization"]
+  },
+  "cores": [
+    "gauss-newton-method",
+    "levenberg-marquardt",
+    "incremental-gradient-methods",
+    "kalman-recursive-least-squares",
+    "extended-kalman-filter",
+    "newton-root-finding"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/nlo-content-batches.md",
+  "verifier": "skilltree/verify_nlo_nb9.py"
+}
