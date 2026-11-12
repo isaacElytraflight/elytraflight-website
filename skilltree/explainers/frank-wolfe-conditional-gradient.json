@@ -23,7 +23,7 @@
     },
     {
       "heading": "Where this leads",
-      "body_md": "Minimizing the linear model of \\(x^T A x\\) on the unit sphere returns the normalization of \\(-A x\\), a step toward a bottom eigenvector. The power method normalizes \\(A x\\) instead. The sphere is not convex, so that step replaces the vector rather than taking a convex combination. The second-mode coefficient contracts by \\(|\\lambda_2 / \\lambda_1|\\), and the Rayleigh error uses the square of that factor."
+      "body_md": "Minimizing the linear model of \\(x^T A x\\) on the unit sphere returns the normalization of \\(-A x\\). That is \\(A x\\) with a sign flip, so it is the dominant eigen-direction the power method tracks by normalizing \\(A x\\). The sphere is not convex, so the step replaces the vector rather than taking a convex combination. The second-mode coefficient contracts by \\(|\\lambda_2 / \\lambda_1|\\), and the Rayleigh error uses the square of that factor."
     }
   ]
 }

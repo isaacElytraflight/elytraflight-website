@@ -1293,7 +1293,7 @@ def bank_power():
             r"minimizes the Rayleigh quotient by projecting a gradient step onto a box",
         ],
         0,
-        r"The iteration is \(x_+ = A x / \lVert A x\rVert\). The largest-magnitude eigenvalue dominates the product. The smallest eigenvector is what an inverse iteration, or a shift, is aimed at. Adding the identity changes the eigenvalues. A projected gradient step on a box is a different algorithm. The linear maximizer of \(x^T A x\) on the unit sphere returns this same normalization. Conditional gradient minimizes the linear model, so its oracle points along \(-A x\), and the sphere is not a convex set for a convex-combination update.",
+        r"The iteration is \(x_+ = A x / \lVert A x\rVert\). The largest-magnitude eigenvalue dominates the product. The smallest eigenvector is what an inverse iteration, or a shift, is aimed at. Adding the identity changes the eigenvalues. A projected gradient step on a box is a different algorithm. The linear maximizer of \(x^T A x\) on the unit sphere returns this same normalization. Conditional gradient minimizes the linear model, so its oracle returns \(-A x\) normalized. That is the same line as \(A x\), with a sign flip, and the sphere is not a convex set for a convex-combination update.",
         fig=ARR,
         alt=A_ARR,
     )
@@ -1316,7 +1316,7 @@ def bank_power():
             r"the eigenvector of the smallest eigenvalue, in one step, from every start",
         ],
         0,
-        r"The gradient of \(x^T A x\) points along \(A x\). Maximizing the linear model over the sphere aligns the direction with \(A x\) and then normalizes. Conditional gradient minimizes that model, so its answer is the normalization of \(-A x\). The sphere is not convex, so the power step replaces the vector rather than taking a convex combination. Returning \(x\) ignores \(A\). A coordinate vector is the oracle on a simplex. One step does not finish at the smallest eigenvector.",
+        r"The gradient of \(x^T A x\) points along \(A x\). Maximizing the linear model over the sphere aligns the direction with \(A x\) and then normalizes. Conditional gradient minimizes that model, so its answer is the normalization of \(-A x\), the same line with a sign flip. The sphere is not convex, so the power step replaces the vector rather than taking a convex combination. Returning \(x\) ignores \(A\). A coordinate vector is the oracle on a simplex. One step does not finish at the smallest eigenvector.",
         fig=DISK,
         alt=A_DISK,
     )
@@ -1662,7 +1662,7 @@ The kite weight is 0.4. The new second coordinate is \(\tfrac35 \cdot 4/5 + \tfr
 
 The fraction \(2/5\) is not the value of \(2/(k+2)\) at \(k = 0\), which is \(1\). The decreasing schedule bounds the function gap.""",
             r"""Selecting the largest gradient component maximizes the linear model. The oracle minimizes it. A second slip is to describe the \(O(1/k)\) result as a bound on \(\lVert x_k - x^\star\rVert\). The inequality bounds the function gap. A third is to project the gradient step and call the result a conditional-gradient step. The subproblem here is linear, not a nearest-point problem. A fourth is to take a fraction larger than \(1\). The combination would leave the segment and can leave the set. A tie for the smallest component makes the whole minimizing face optimal, not a single vertex.""",
-            r"""Minimizing the linear model of \(x^T A x\) on the unit sphere returns the normalization of \(-A x\), a step toward a bottom eigenvector. The power method normalizes \(A x\) instead. The sphere is not convex, so that step replaces the vector rather than taking a convex combination. The second-mode coefficient contracts by \(|\lambda_2 / \lambda_1|\), and the Rayleigh error uses the square of that factor.""",
+            r"""Minimizing the linear model of \(x^T A x\) on the unit sphere returns the normalization of \(-A x\). That is \(A x\) with a sign flip, so it is the dominant eigen-direction the power method tracks by normalizing \(A x\). The sphere is not convex, so the step replaces the vector rather than taking a convex combination. The second-mode coefficient contracts by \(|\lambda_2 / \lambda_1|\), and the Rayleigh error uses the square of that factor.""",
             SIMP,
             A_SIMP,
         ),
@@ -1674,7 +1674,7 @@ def expl_power():
         "power-method-eigenvector",
         "Power method for the top eigenvector",
         _sec(
-            r"""The power method finds a dominant eigenvector of a symmetric matrix by repeating one multiplication. Start with a nonzero vector that is not orthogonal to the top eigenvector, multiply by the matrix, and divide by the Euclidean length. The same normalization is the linear maximizer of \(x^T A x\) on the unit sphere, because the gradient points along \(A x\). Conditional gradient minimizes that model and returns the opposite direction. The sphere is not convex, so the power step replaces the vector instead of taking a convex combination.
+            r"""The power method finds a dominant eigenvector of a symmetric matrix by repeating one multiplication. Start with a nonzero vector that is not orthogonal to the top eigenvector, multiply by the matrix, and divide by the Euclidean length. The same normalization is the linear maximizer of \(x^T A x\) on the unit sphere, because the gradient points along \(A x\). Conditional gradient minimizes that model and returns \(-A x\) normalized, the same line with a sign flip. The sphere is not convex, so the power step replaces the vector instead of taking a convex combination.
 
 Write the start in an orthonormal eigenbasis. Multiplication by \(A\) multiplies the coefficient of each eigenvector by its eigenvalue. Dividing by the length does not change the ratios of those coefficients. If the top eigenvalue is strictly larger in magnitude than the second, the top coefficient pulls ahead. The ratio of the second coefficient to the first is multiplied by \(|\lambda_2 / \lambda_1|\) at every step. That factor governs the angle between the iterate and the top eigenvector.
 
