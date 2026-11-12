@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "generated": "2026-11-12T01:45:44.519215Z",
+  "generated": "2026-11-12T02:01:30.632745Z",
   "skills": {
-    "file": "skills.964639cb.json",
-    "hash": "964639cb"
+    "file": "skills.8a29a3e5.json",
+    "hash": "8a29a3e5"
   },
   "collections": {
-    "file": "collections.9a806ec1.json",
-    "hash": "9a806ec1",
+    "file": "collections.65fe3172.json",
+    "hash": "65fe3172",
     "boxCount": 56
   },
   "banks": {
@@ -286,6 +286,18 @@
       },
       "hash": "02cd517d",
       "file": "banks/body-effect.02cd517d.json"
+    },
+    "calculus-of-variations": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "35e2258b",
+      "file": "banks/calculus-of-variations.35e2258b.json"
     },
     "carrier-pot": {
       "version": 1,
@@ -1666,6 +1678,18 @@
       },
       "hash": "a0d30342",
       "file": "banks/laplace.a0d30342.json"
+    },
+    "largest-inscribed-ellipsoid": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7e7f20f9",
+      "file": "banks/largest-inscribed-ellipsoid.7e7f20f9.json"
     },
     "least-squares-data-fitting": {
       "version": 1,
@@ -3131,6 +3155,18 @@
       "hash": "37d31a72",
       "file": "banks/total-current.37d31a72.json"
     },
+    "trajectory-optimization": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "c8a5ebe6",
+      "file": "banks/trajectory-optimization.c8a5ebe6.json"
+    },
     "triode": {
       "version": 1,
       "questionCount": 12,
@@ -3341,6 +3377,12 @@
       "hash": "8725e4b4",
       "file": "explainers/body-effect.8725e4b4.json",
       "sectionCount": 5
+    },
+    "calculus-of-variations": {
+      "hash": "226557a3",
+      "file": "explainers/calculus-of-variations.226557a3.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "carrier-pot": {
       "hash": "e99034dc",
@@ -3977,6 +4019,12 @@
       "file": "explainers/laplace.6756fc0b.json",
       "sectionCount": 5,
       "version": 2
+    },
+    "largest-inscribed-ellipsoid": {
+      "hash": "c08d4b2c",
+      "file": "explainers/largest-inscribed-ellipsoid.c08d4b2c.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "least-squares-data-fitting": {
       "hash": "fb67e175",
@@ -4665,6 +4713,12 @@
       "hash": "efca8743",
       "file": "explainers/total-current.efca8743.json",
       "sectionCount": 5
+    },
+    "trajectory-optimization": {
+      "hash": "d1a7ea3a",
+      "file": "explainers/trajectory-optimization.d1a7ea3a.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "triode": {
       "hash": "264646f7",

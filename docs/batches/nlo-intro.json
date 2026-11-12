@@ -1,0 +1,24 @@
+{
+  "id": "nlo-intro",
+  "label": "NLO intro",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "calculus-of-variations",
+    "largest-inscribed-ellipsoid",
+    "trajectory-optimization"
+  ],
+  "areas": {
+    "calculus-of-variations": ["optimization"],
+    "largest-inscribed-ellipsoid": ["optimization"],
+    "trajectory-optimization": ["optimization"]
+  },
+  "cores": [
+    "calculus-of-variations",
+    "largest-inscribed-ellipsoid",
+    "trajectory-optimization"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/nlo-content-batches.md",
+  "verifier": "skilltree/verify_nlo_intro.py"
+}

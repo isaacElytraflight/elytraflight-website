@@ -27,9 +27,15 @@ header{padding:10px 18px 8px;background:rgba(255,255,255,.82);backdrop-filter:bl
 .scope-quick{display:flex;gap:6px;margin-bottom:6px}
 .scope-quick button{border:1px solid var(--line);background:#f6f7fb;border-radius:8px;padding:3px 10px;font-weight:700;font-size:12px}
 .scope-list{display:flex;flex-direction:column}
-.scope-row{display:flex;gap:8px;align-items:flex-start;padding:3px 4px;font-size:12.5px;font-weight:600;cursor:pointer}
+.scope-row{display:flex;gap:6px;align-items:flex-start;padding:3px 4px;font-size:12.5px;font-weight:600}
+.scope-row label{display:flex;gap:8px;align-items:flex-start;cursor:pointer;flex:1}
 .scope-row.depth{padding-left:22px}
 .scope-row input{margin-top:2px;flex:none}
+.scope-expand{flex:none;width:22px;height:22px;margin-top:1px;border:1px solid var(--line);background:#f6f7fb;border-radius:6px;padding:0;font:inherit;font-weight:700;line-height:20px;cursor:pointer}
+.scope-chapters{display:flex;flex-direction:column}
+.scope-chapters[hidden]{display:none !important}
+.focus-prompt{margin:0 0 8px;padding:6px 8px;background:#fff4d6;border:1px solid #e7c56a;border-radius:8px;font-size:12.5px;font-weight:750;color:#6a4b00}
+.focus-prompt[hidden]{display:none !important}
 .btn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:7px 12px;font-weight:650;display:inline-flex;gap:6px;align-items:center;transition:transform .12s, box-shadow .12s, background .12s}
 .btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 4px 10px rgba(40,50,90,.12)}
 .btn:disabled{opacity:.5;cursor:not-allowed}

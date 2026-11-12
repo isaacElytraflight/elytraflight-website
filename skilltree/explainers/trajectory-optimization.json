@@ -1,0 +1,29 @@
+{
+  "id": "trajectory-optimization",
+  "title": "Trajectory planning as optimization",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"102\" x2=\"250\" y2=\"102\"/><polygon points=\"250,102 243.6,104.7 243.6,99.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"116\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"102\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 230.7,47 228.9,41.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">a</text><line x1=\"60.1\" y1=\"102\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 228.9,162.2 230.7,157\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"175.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">b</text></svg>",
+      "figure_alt": "Two arrows leave the origin, one above the axis and one below.",
+      "body_md": "A path is a curve, and a control sequence is a function of time. The transcription replaces either one by a finite list: a position at each sample, and a control on each interval if the controls stay free. That list is the decision variable. The objective is a sum over the samples. The constraints link one sample to the next and keep the path off whatever it must not touch.\n\nA time cost, on a grid with a fixed interval count and a free step \\(h\\), is the duration. An energy cost is the sum of the squared controls. A smoothness cost is the sum of the squared steps between consecutive positions.\n\nDynamics are constraints. A simple link says the next position equals this position plus the step times the control. A feasible list has to satisfy the link on every interval.\n\nAn obstacle is different. Staying outside a disk means the distance from the sample to the center is at least the radius. Two points can sit on opposite sides, both clear, while the segment between them runs through the disk. The feasible set is then not convex, even when the cost is a sum of squares and the dynamics are linear."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "One transcription is\n\\[\n\\begin{aligned}\n& \\text{minimize} && \\sum_k \\lVert u_k\\rVert^2 \\\\\n& \\text{subject to} && x_{k+1} = x_k + h u_k, \\\\\n&&& \\lVert x_k - c\\rVert \\ge r.\n\\end{aligned}\n\\]\nThe same pattern with \\(\\sum_k \\lVert x_{k+1} - x_k\\rVert^2\\) is a smoothness cost. With a free step \\(h\\) and a fixed interval count \\(N\\), a time cost is \\(N h\\). The outside of the disk is the constraint that makes the feasible set nonconvex."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take positions \\((8,\\ 0)\\), \\((16,\\ 0)\\), and \\((16,\\ 7)\\). The steps are \\((8,\\ 0)\\) and \\((0,\\ 7)\\). The squared lengths are \\(64\\) and \\(49\\).\n\nThe anchor smoothness is 113. Starting at \\(8\\) and adding a control \\(7\\) lands at \\(15\\).\n\nThe anchor landing is 15. A disk of radius \\(3\\) at \\((8,\\ 0)\\) leaves the samples \\((8,\\ 7)\\) and \\((8,\\ -7)\\) clear, since each is \\(7\\) units from the center. Their midpoint is the center. The anchor gap is 7, and the averaged sample does not clear the disk."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Leaving the decision as a free function, after the grid is chosen, mixes this transcription with a problem in the calculus of variations. Calling a sum of squares nonconvex puts the defect in the wrong place. A sum of squares is convex. The obstacle is what fails the segment test. A linear dynamics link is an affine constraint, hence convex. Averaging two feasible paths and expecting the average to stay feasible is the test the obstacle fails. Time and energy are different objectives until a sentence says how they combine."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Applying only the first control, then building the problem again at the next sample, is a receding-horizon controller. This transcription is one open-loop plan for the whole grid. A quadratic cost on a linear model, with no obstacle, reduces further to a feedback gain. Later skills do not require the transcription."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "calculus-of-variations",
+  "title": "Brachistochrone and calculus of variations",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve that drops</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,39 49,39 52,39.1 55.1,39.1 58.1,39.2 61.1,39.3 64.1,39.4 67.2,39.6 70.2,39.8 73.2,40 76.2,40.2 79.2,40.4 82.3,40.7 85.3,41 88.3,41.3 91.3,41.6 94.4,42 97.4,42.4 100.4,42.8 103.4,43.2 106.4,43.6 109.5,44.1 112.5,44.6 115.5,45.1 118.5,45.7 121.6,46.3 124.6,46.8 127.6,47.5 130.6,48.1 133.6,48.8 136.7,49.4 139.7,50.1 142.7,50.9 145.7,51.6 148.8,52.4 151.8,53.2 154.8,54 157.8,54.9 160.8,55.7 163.9,56.6 166.9,57.6 169.9,58.5 172.9,59.5 176,60.4 179,61.4 182,62.5 185,63.5 188,64.6 191.1,65.7 194.1,66.8 197.1,68 200.1,69.2 203.2,70.3 206.2,71.6 209.2,72.8 212.2,74.1 215.2,75.3 218.3,76.7 221.3,78 224.3,79.3 227.3,80.7 230.4,82.1 233.4,83.6 236.4,85 239.4,86.5 242.4,88 245.5,89.5 248.5,91 251.5,92.6 254.5,94.2 257.6,95.8 260.6,97.4 263.6,99.1 266.6,100.8 269.6,102.5 272.7,104.2 275.7,105.9 278.7,107.7 281.7,109.5 284.8,111.3 287.8,113.2 290.8,115 293.8,116.9 296.8,118.8 299.9,120.8 302.9,122.7 305.9,124.7 308.9,126.7 312,128.7 315,130.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that falls as the horizontal coordinate grows.",
+      "body_md": "An ordinary problem picks a finite list of numbers. This problem picks a curve, and the score is one number for the whole curve. That score is a functional.\n\nA bead starts from rest and slides under gravity from a fixed point to a lower fixed point. The shortest wire is the straight line, and it is admissible. It is not the fastest. Speed grows only as the bead loses height, and the time is distance divided by speed, added along the wire. A wire that drops steeply at first pays extra length and then runs faster. The wire that wins is a cycloid, traced by a point on a circle as the circle rolls along a straight line.\n\nStationarity is the first-order idea moved from a point to a curve. A stationary curve cannot be improved by a small wiggle that keeps the endpoints fixed. Arc length and a bending energy are the same kind of score, with different integrands."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "Write the score as an integral of an integrand \\(L\\) that may depend on the coordinate \\(x\\), the height \\(y\\), and the slope \\(y^{\\prime}\\). A stationary curve satisfies the Euler-Lagrange equation\n\\[\n\\frac{d}{dx}\\frac{\\partial L}{\\partial y^{\\prime}} = \\frac{\\partial L}{\\partial y}\n\\]\nat every interior point. If \\(L\\) does not depend on \\(y\\), the right-hand side is zero, so \\(\\partial L/\\partial y^{\\prime}\\) is constant along the curve. The cycloid from a circle of radius \\(r\\), with height measured downward, is \\(x = r(\\theta - \\sin\\theta)\\) and \\(y = r(1 - \\cos\\theta)\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take the integrand to be half the square of the slope, minus \\(9\\) times the height. The partial derivative with respect to the slope is the slope itself. Differentiating that along the curve produces the second derivative. The partial derivative with respect to the height is \\(-9\\). The Euler-Lagrange equation says the second derivative equals \\(-9\\).\n\nThe anchor curvature is -9. A straight line has second derivative zero, so it is not stationary for this integrand.\n\nA cycloid from a circle of radius \\(10\\), a quarter turn from the start, drops a height equal to that radius. The bead drop is 10. Length does not settle the time comparison with the straight line."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Setting an ordinary derivative to zero at one point misses an equation that has to hold along the graph. Minimizing length and calling the result the fastest wire mixes two functionals. The least-length curve is the straight line. Comparing the two partial derivatives without differentiating the slope partial skips the total derivative. Some integrands have no stationary curve: a height partial that is a nonzero constant cannot match a slope partial that does not depend on the slope."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "A quadratic cost on a linear motion, over an infinite horizon, replaces the free curve by a feedback gain. A finite grid of positions is an open-loop transcription of the same stationarity idea, and rebuilding that grid at every sample is a receding-horizon controller. Later skills do not require the cycloid."
+    }
+  ]
+}
