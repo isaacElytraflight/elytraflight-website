@@ -897,6 +897,26 @@ async function test(name, fn) {
     return { n, pixels: A.width * A.height };
   }
 
+  function pixelDiffInside(a, b, rects, css) {
+    const A = decodePNG(a), B = decodePNG(b);
+    assert.strictEqual(A.width, B.width);
+    assert.strictEqual(A.height, B.height);
+    const sx = A.width / css.w;
+    const sy = A.height / css.h;
+    const hit = (r, x, y) => x >= r.x * sx && x < (r.x + r.w) * sx && y >= r.y * sy && y < (r.y + r.h) * sy;
+    let n = 0, seen = 0;
+    for (let y = 0; y < A.height; y++) {
+      for (let x = 0; x < A.width; x++) {
+        if (!rects.some(r => r.w > 2 && r.h > 2 && hit(r, x, y))) continue;
+        seen++;
+        const i = (y * A.width + x) * 4;
+        if (Math.abs(A.data[i] - B.data[i]) + Math.abs(A.data[i + 1] - B.data[i + 1]) + Math.abs(A.data[i + 2] - B.data[i + 2]) > 12) n++;
+      }
+    }
+    assert(seen > 1000, 'card interiors should be on screen');
+    return { n, pixels: seen };
+  }
+
   await test('zoomed-in hover lifts the card without repainting the tree layer', async () => {
     const p = await newPage();
     await p.evaluate(() => {
@@ -1092,6 +1112,73 @@ async function test(name, fn) {
     assert(settled.drift < 2, 'home animation should finish, drift ' + settled.drift);
     assert.strictEqual(settled.uncovered, 0, 'settled mask missed ' + settled.uncovered + ' cards');
     assert.strictEqual(settled.matched, settled.paths, 'settled highlight left the edges, worst delta ' + settled.worst);
+    await p._ctx.close();
+  });
+
+  await test('focus URL changes keep highlight strokes behind the cards', async () => {
+    const p = await newPage();
+    await p.evaluate(() => window.__skillgrove.collections.setSelected(['ee105-ucb']));
+    await sleep(200);
+    const target = await p.evaluate(() => {
+      const world = document.getElementById('world');
+      const tv = document.getElementById('treeView');
+      world.classList.remove('anim');
+      world.style.transition = 'none';
+      const tile = document.querySelector('#world .tile[data-id="ss-model"]');
+      const wx = parseFloat(tile.style.left) + 84;
+      const wy = parseFloat(tile.style.top) + 36;
+      const vr = tv.getBoundingClientRect();
+      world.style.transform = `translate(${vr.width / 2 - wx}px,${vr.height / 2 - wy}px) scale(1)`;
+      const r = tile.getBoundingClientRect();
+      return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+    });
+    const tree = await p.$('#treeView');
+    const before = await tree.screenshot({ type: 'png' });
+    await p.mouse.move(target.x, target.y);
+    await sleep(80);
+    const state = await p.evaluate(() => {
+      const g = document.querySelector('#edgeHi g');
+      const maskUrl = new URL(location.href);
+      maskUrl.hash = 'edgeHiMask';
+      const origin = document.getElementById('treeView').getBoundingClientRect();
+      const rel = (el, pad) => {
+        const r = el.getBoundingClientRect();
+        return { x: r.x - origin.x - pad, y: r.y - origin.y - pad, w: r.width + pad * 2, h: r.height + pad * 2 };
+      };
+      const tile = document.querySelector('#world .tile:hover');
+      const allow = [];
+      if (tile) allow.push(rel(tile, 36));
+      document.querySelectorAll('#edgeHi path, #edgeHi circle').forEach(el => allow.push(rel(el, 8)));
+      const block = [...document.querySelectorAll('#world .tile')].filter(t => t !== tile).map(t => rel(t, -4)).filter(r => r.w > 2 && r.h > 2);
+      return {
+        mask: g && g.getAttribute('mask'),
+        expected: 'url("' + maskUrl.href + '")',
+        focus: new URLSearchParams(location.search).get('focus'),
+        overlay: document.querySelectorAll('#edgeHi path').length,
+        allow, block,
+        css: { w: origin.width, h: origin.height }
+      };
+    });
+    assert.strictEqual(state.focus, 'ee105');
+    assert.strictEqual(state.mask, state.expected, 'mask should point at the focus URL');
+    assert(state.overlay > 0, 'hover should draw connected edges after the focus URL is set');
+    const during = await tree.screenshot({ type: 'png' });
+    // Scope dimming fades edges in the gaps. Only the card interiors say whether
+    // the mask is still punching the strokes out.
+    const covered = pixelDiffInside(before, during, state.block, state.css);
+    assert.strictEqual(covered.n, 0, 'highlight covered ' + covered.n + ' pixels on other cards');
+    await p.evaluate(() => history.replaceState(history.state, '', location.pathname + '?focus=ee105,me132'));
+    await sleep(40);
+    const moved = await p.evaluate(() => {
+      const g = document.querySelector('#edgeHi g');
+      const maskUrl = new URL(location.href);
+      maskUrl.hash = 'edgeHiMask';
+      return { mask: g && g.getAttribute('mask'), expected: 'url("' + maskUrl.href + '")' };
+    });
+    assert.strictEqual(moved.mask, moved.expected, 'mask should follow a later focus URL');
+    const after = await tree.screenshot({ type: 'png' });
+    const still = pixelDiffInside(before, after, state.block, state.css);
+    assert.strictEqual(still.n, 0, 'after the URL change, highlight covered ' + still.n + ' pixels on other cards');
     await p._ctx.close();
   });
 

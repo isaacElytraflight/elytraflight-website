@@ -1173,6 +1173,17 @@ function mapPath(d, s, tx, ty) {
   });
 }
 
+// A <base href> makes url(#id) miss the mask, so the reference is this document's
+// own URL. Focus links rewrite that URL with replaceState; a baked copy then
+// points at the previous address and the mask stops punching out the cards.
+function syncEdgeHiMask() {
+  if (!edgeHiG) return;
+  const maskUrl = new URL(location.href);
+  maskUrl.hash = 'edgeHiMask';
+  const next = 'url("' + maskUrl.href + '")';
+  if (edgeHiG.getAttribute('mask') !== next) edgeHiG.setAttribute('mask', next);
+}
+
 function setupEdgeHi() {
   const NS = 'http://www.w3.org/2000/svg';
   edgeHiSvg = $('edgeHi');
@@ -1184,11 +1195,19 @@ function setupEdgeHi() {
   edgeHiMask.setAttribute('maskContentUnits', 'userSpaceOnUse');
   defs.append(edgeHiMask);
   edgeHiG = document.createElementNS(NS, 'g');
-  // A <base href> makes url(#id) miss the mask. Point at this document.
-  const maskUrl = new URL(location.href);
-  maskUrl.hash = 'edgeHiMask';
-  edgeHiG.setAttribute('mask', 'url("' + maskUrl.href + '")');
+  syncEdgeHiMask();
   edgeHiSvg.append(defs, edgeHiG);
+  if (!history.replaceState.edgeHiBound) {
+    const orig = history.replaceState.bind(history);
+    const wrapped = function() {
+      const ret = orig.apply(this, arguments);
+      syncEdgeHiMask();
+      return ret;
+    };
+    wrapped.edgeHiBound = true;
+    history.replaceState = wrapped;
+  }
+  window.addEventListener('popstate', syncEdgeHiMask);
   world.addEventListener('transitionend', e => {
     if (e.target === world && e.propertyName === 'transform') { refreshEdgeHi(); return; }
     if (e.propertyName !== 'transform' && e.propertyName !== 'box-shadow') return;
@@ -1199,6 +1218,7 @@ function setupEdgeHi() {
 
 function drawEdgeHi(id) {
   if (!edgeHiG) return;
+  syncEdgeHiMask();
   const NS = 'http://www.w3.org/2000/svg';
   const w = tv.clientWidth, h = tv.clientHeight;
   edgeHiSvg.setAttribute('width', w);
