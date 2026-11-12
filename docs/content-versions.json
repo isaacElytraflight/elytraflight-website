@@ -4007,6 +4007,422 @@
       "version": 1
     },
     {
+      "id": "optimality-over-convex-set-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "optimality-over-convex-set-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "optimality-over-convex-set-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "optimality-over-convex-set-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "optimality-over-convex-set-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "optimality-over-convex-set-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "optimality-over-convex-set-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "optimality-over-convex-set-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "optimality-over-convex-set-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "optimality-over-convex-set-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "optimality-over-convex-set-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "optimality-over-convex-set-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "optimality-over-convex-set#explainer",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "projection-onto-convex-set#explainer",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-projection-method#explainer",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection#explainer",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "affine-scaling-method#explainer",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "primal-dual-interior-point#explainer",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "frank-wolfe-conditional-gradient#explainer",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "power-method-eigenvector#explainer",
+      "version": 1
+    },
+    {
       "id": "induced-matrix-norms-r1-q1",
       "version": 1
     },

@@ -1,0 +1,39 @@
+{
+  "id": "nlo-nb12",
+  "label": "NB12",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "optimality-over-convex-set",
+    "projection-onto-convex-set",
+    "gradient-projection-method",
+    "scaled-gradient-projection",
+    "affine-scaling-method",
+    "primal-dual-interior-point",
+    "frank-wolfe-conditional-gradient",
+    "power-method-eigenvector"
+  ],
+  "areas": {
+    "optimality-over-convex-set": ["optimization"],
+    "projection-onto-convex-set": ["optimization"],
+    "gradient-projection-method": ["optimization"],
+    "scaled-gradient-projection": ["optimization"],
+    "affine-scaling-method": ["optimization"],
+    "primal-dual-interior-point": ["optimization"],
+    "frank-wolfe-conditional-gradient": ["optimization"],
+    "power-method-eigenvector": ["optimization"]
+  },
+  "cores": [
+    "optimality-over-convex-set",
+    "projection-onto-convex-set",
+    "gradient-projection-method",
+    "scaled-gradient-projection",
+    "affine-scaling-method",
+    "primal-dual-interior-point",
+    "frank-wolfe-conditional-gradient",
+    "power-method-eigenvector"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/nlo-content-batches.md",
+  "verifier": "skilltree/verify_nlo_nb12.py"
+}

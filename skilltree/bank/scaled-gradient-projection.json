@@ -1,0 +1,238 @@
+{
+  "skill_id": "scaled-gradient-projection",
+  "version": 1,
+  "questions": [
+    {
+      "id": "scaled-gradient-projection-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A scaled projected step with symmetric positive definite \\(H\\) builds the trial point",
+      "explanation": "The quadratic model \\(\\nabla f(x)^T (y - x) + \\tfrac{1}{2t} (y - x)^T H (y - x)\\) is the squared \\(H\\)-distance from \\(y\\) to \\(x - t H^{-1} \\nabla f(x)\\), up to a constant. Multiplying by \\(H\\) instead of \\(H^{-1}\\) is a different direction. Adding the scaled gradient steps uphill. Minimizing the linear model is a conditional-gradient step, which does not use \\(H\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a long ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "options": [
+        "the minimizer of the linear model \\(\\nabla f(x)^T s\\) over the set",
+        "\\(x - t H^{-1} \\nabla f(x)\\), and then projects it onto the set in the \\(H\\)-norm",
+        "\\(x - t H \\nabla f(x)\\), and then projects it in the Euclidean norm",
+        "\\(x + t H^{-1} \\nabla f(x)\\)"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Take \\(H = \\mathrm{diag}(2,\\ 4)\\), gradient \\((8,\\ 4)\\), step size \\(1\\), and the current point \\((3,\\ 4)\\). The set is the box \\([0,\\ 5] \\times [0,\\ 5]\\). What is the second coordinate of the scaled projected step?",
+      "explanation": "\\(H^{-1} \\nabla f = (8/2,\\ 4/4) = (4,\\ 1)\\). The trial point is \\((3,\\ 4) - (4,\\ 1) = (-1,\\ 3)\\). Clipping to the box gives \\((0,\\ 3)\\). The second coordinate is \\(3\\). Reporting \\(-1\\) is the unclipped first coordinate. Reporting \\(4\\) is the old second coordinate. Reporting \\(1\\) is the scaled gradient's second entry. Because \\(H\\) is diagonal and the set is a box, each coordinate clips separately.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a shaded quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The first quadrant is shaded.",
+      "answer": 3.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Projected Newton is the scaled projected step in which",
+      "explanation": "The Newton trial point is \\(x - \\nabla^2 f(x)^{-1} \\nabla f(x)\\). Projecting that point in the Hessian norm is one scaled projected step with \\(t = 1\\). The identity scaling is ordinary projected gradient. A positive definite Hessian makes the model convex, but the trial point can still leave the set, so the projection remains. Skipping it would accept an infeasible Newton point.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">p   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   q</text></svg>",
+      "figure_alt": "A two-by-two array with labels on the diagonal.",
+      "options": [
+        "\\(H\\) is the Hessian, or a positive definite modification of it, and the step size is \\(1\\)",
+        "\\(H\\) is the identity and the step size is \\(1/L\\)",
+        "the Hessian is ignored and the step is a pure gradient step",
+        "the projection is skipped whenever the Hessian is positive definite"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order of one scaled projected iteration on a box, with a diagonal positive definite scaling. Each step uses the result of the step before it.",
+      "explanation": "The divisions use the gradient components, so the gradient comes first. The trial point subtracts the scaled vector, so that vector has to exist. Clipping uses the trial point. For a diagonal scaling and a box the \\(H\\)-norm projection is this coordinatewise clip. Clipping the gradient before the division is a different algorithm.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">p   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   q</text></svg>",
+      "figure_alt": "A two-by-two array with labels on the diagonal.",
+      "steps": [
+        "Evaluate the gradient at the current point.",
+        "Divide each component of that gradient by the matching diagonal entry of the scaling, then multiply by the step size.",
+        "Subtract the resulting vector from the current point to get the trial point.",
+        "Clip each coordinate of that trial point to the box."
+      ],
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Which of these matrices can be the scaling \\(H\\) in a scaled projected step?",
+      "explanation": "The scaling has to be symmetric positive definite, so the model has a unique minimizer and \\(H^{-1}\\) exists.\n• \\(\\mathrm{diag}(2,\\ 3)\\) has positive diagonal entries.\n• \\(\\mathrm{diag}(2,\\ 0)\\) is singular.\n• The matrix with \\(2\\) on the diagonal and \\(1\\) off it has eigenvalues \\(3\\) and \\(1\\).\n• \\(\\mathrm{diag}(2,\\ -1)\\) has a negative eigenvalue.\n• \\(4 I\\) is a positive multiple of the identity.\nA zero or negative eigenvalue is not a legal scaling.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">p   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   q</text></svg>",
+      "figure_alt": "A two-by-two array with labels on the diagonal.",
+      "options": [
+        "\\(\\mathrm{diag}(2,\\ 3)\\)",
+        "\\(\\mathrm{diag}(2,\\ 0)\\)",
+        "\\(\\begin{pmatrix} 2 & 1 \\\\ 1 & 2 \\end{pmatrix}\\)",
+        "\\(\\mathrm{diag}(2,\\ -1)\\)",
+        "\\(4 I\\)"
+      ],
+      "correct_indices": [
+        0,
+        2,
+        4
+      ],
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "With a diagonal scaling, one coordinate has value \\(x\\), gradient component \\(g\\), scaling entry \\(h\\), and step size \\(s\\). The trial value of that coordinate, before clipping, equals",
+      "explanation": "The corresponding entry of \\(H^{-1} \\nabla f\\) is \\(g/h\\). The trial coordinate subtracts \\(s\\) times that entry from \\(x\\). Every name appears. Multiplying by \\(h\\) instead of dividing is the action of \\(H\\), not of \\(H^{-1}\\). Dropping \\(s\\) forces a unit step. Adding \\(s g / h\\) steps uphill.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a column of two labels</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b</text></svg>",
+      "figure_alt": "A column of two labels.",
+      "answer": "x-s*g/h",
+      "variables": [
+        {
+          "name": "x",
+          "min": 1.0,
+          "max": 3.0
+        },
+        {
+          "name": "g",
+          "min": 1.0,
+          "max": 3.0
+        },
+        {
+          "name": "h",
+          "min": 1.0,
+          "max": 4.0
+        },
+        {
+          "name": "s",
+          "min": 0.2,
+          "max": 0.8
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "x-(s*g)/h",
+        "(h*x-s*g)/h"
+      ],
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note runs projected Newton for \\(\\tfrac32 x^2\\) on the interval \\([1,\\ 4]\\), starting at \\(2\\). Exactly one step is a false claim.",
+      "explanation": "The derivative of \\(\\tfrac32 x^2\\) is \\(3x\\), so the value at \\(2\\) is \\(6\\), and the second derivative is \\(3\\). The Newton point is \\(2 - 6/3 = 0\\). That point is outside the interval. In one dimension every positive scaling clips to the same place, so the projection of \\(0\\) onto \\([1,\\ 4]\\) is \\(1\\). Reporting \\(0\\) leaves an infeasible point as the answer.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "steps": [
+        "At \\(x = 2\\) the derivative is \\(6\\) and the second derivative is \\(3\\).",
+        "The Newton point is \\(2 - 6/3 = 0\\).",
+        "The Newton point \\(0\\) lies outside \\([1,\\ 4]\\).",
+        "The projected Newton point is \\(0\\)."
+      ],
+      "flaw_index": 3,
+      "reasons": [
+        "The projection of \\(0\\) onto \\([1,\\ 4]\\) is \\(1\\), not \\(0\\).",
+        "The derivative of \\(\\tfrac32 x^2\\) at \\(2\\) is not \\(6\\).",
+        "The Newton point \\(2 - 6/3\\) is not \\(0\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Using \\(H = \\mathrm{diag}(4,\\ 1)\\), project \\(z = (8,\\ 4)\\) onto the half-space \\(x_1 + x_2 \\le 2\\). What is the first coordinate of the projection?",
+      "explanation": "The excess \\(a^T z - 2\\) equals \\(10\\), and \\(a^T H^{-1} a = 5/4\\), so the multiplier is \\(8\\). Then \\(8 H^{-1} a = (2,\\ 8)\\), and \\((8,\\ 4) - (2,\\ 8) = (6,\\ -4)\\). The first coordinate is \\(6\\). The correction follows \\(H^{-1} a\\), not the Euclidean normal \\((1,\\ 1)\\). Reporting \\(8\\) keeps the infeasible first coordinate. Reporting \\(2\\) is the size of the first correction, not the landing coordinate.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a shaded half-plane</title><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"70,150 210,40 250,40 250,170 70,170\" fill=\"currentColor\" fill-opacity=\"0.15\"/><line x1=\"60\" y1=\"158\" x2=\"220\" y2=\"30\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight boundary with one side shaded.",
+      "answer": 6.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "When \\(H\\) is diagonal and the set is an axis-aligned box, the scaled projected step",
+      "explanation": "A diagonal \\(H\\)-norm separates, and a box separates, so the nearest point clips each coordinate of the trial vector. Off-diagonal entries would couple the coordinates. A positive diagonal is invertible. If a trial coordinate falls outside its interval, clipping moves it to the endpoint. The unclipped Newton point is kept only when it already lies in the box.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a shaded quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The first quadrant is shaded.",
+      "options": [
+        "mixes the coordinates through an off-diagonal product before clipping",
+        "is undefined, because a diagonal matrix has no inverse",
+        "returns the Newton point even when that point lies outside the box",
+        "clips each trial coordinate \\(x_i - t g_i / H_{ii}\\) to its interval"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "If the Newton point lies inside the feasible set, projected Newton",
+      "explanation": "The projection of a feasible point is itself, in every norm. An interior Newton point is therefore accepted unchanged. Projecting the gradient is a different operation. The step is zero only when the gradient is already zero. The full Hessian, not only its diagonal, defines this trial point.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested contours</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses around the origin.",
+      "preview": [
+        "affine-scaling-method"
+      ],
+      "options": [
+        "takes a zero step",
+        "replaces the Hessian by the diagonal of its inverse",
+        "returns that Newton point, the same step unconstrained Newton would take",
+        "returns the projection of the gradient onto the boundary"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "For \\(2x^2 - 2x\\) on the interval \\([0,\\ 1]\\), start at \\(2\\). The derivative there is \\(6\\) and the second derivative is \\(4\\). What is the projected Newton iterate?",
+      "explanation": "The Newton point is \\(2 - 6/4 = 1/2\\). The value \\(1/2\\) lies in \\([0,\\ 1]\\), so the projection leaves it unchanged. Reporting \\(2\\) skips the step. Reporting \\(6/4\\) is the length of the Newton step, not the landing point. Reporting \\(0\\) clips to the wrong end of the interval. Because the Newton point is feasible, projected Newton and unconstrained Newton agree on this step.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "preview": [
+        "affine-scaling-method"
+      ],
+      "answer": 0.5,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "scaled-gradient-projection-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "With a fixed positive definite scaling, the usual sublinear guarantee of projected gradient still bounds",
+      "explanation": "A fixed positive definite scaling changes the inner product in which the projection is taken. The same decrease argument still bounds \\(f(x_k) - f^\\star\\) by a constant over \\(k\\), for a smooth convex objective and a short enough step. It does not by itself bound a duality gap, and \\(\\lVert H\\rVert\\) is data, not a rate. Projected Newton lets \\(H\\) change with the iterate, which is a different guarantee.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve that flattens</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">gap</text><polyline points=\"46,39 49,39.1 52,39.3 55.1,39.7 58.1,40.2 61.1,40.9 64.1,41.6 67.2,42.6 70.2,43.6 73.2,44.8 76.2,46 79.2,47.4 82.3,48.8 85.3,50.3 88.3,51.9 91.3,53.6 94.4,55.3 97.4,57.1 100.4,58.9 103.4,60.7 106.4,62.6 109.5,64.4 112.5,66.3 115.5,68.2 118.5,70 121.6,71.9 124.6,73.7 127.6,75.5 130.6,77.4 133.6,79.1 136.7,80.9 139.7,82.6 142.7,84.3 145.7,86 148.8,87.6 151.8,89.2 154.8,90.7 157.8,92.3 160.8,93.7 163.9,95.2 166.9,96.6 169.9,97.9 172.9,99.3 176,100.6 179,101.8 182,103.1 185,104.2 188,105.4 191.1,106.5 194.1,107.6 197.1,108.7 200.1,109.7 203.2,110.7 206.2,111.6 209.2,112.6 212.2,113.5 215.2,114.4 218.3,115.2 221.3,116 224.3,116.8 227.3,117.6 230.4,118.4 233.4,119.1 236.4,119.8 239.4,120.5 242.4,121.2 245.5,121.8 248.5,122.4 251.5,123.1 254.5,123.7 257.6,124.2 260.6,124.8 263.6,125.3 266.6,125.9 269.6,126.4 272.7,126.9 275.7,127.3 278.7,127.8 281.7,128.3 284.8,128.7 287.8,129.1 290.8,129.6 293.8,130 296.8,130.4 299.9,130.8 302.9,131.1 305.9,131.5 308.9,131.9 312,132.2 315,132.5 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that drops at first and then flattens.",
+      "preview": [
+        "affine-scaling-method"
+      ],
+      "options": [
+        "\\(\\lVert H\\rVert\\), independently of the iterates",
+        "the function gap, after the metric is used to define the step",
+        "only the angle between successive gradients",
+        "the duality gap of a linear program"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}

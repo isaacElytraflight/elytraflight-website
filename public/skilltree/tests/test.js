@@ -1449,11 +1449,11 @@ async function test(name, fn) {
       soon: document.querySelector('#world .tile[data-id="optimality-over-convex-set"]').classList.contains('soon'),
       start: !!document.getElementById('startBtn')
     }));
-    assert(panel.soon, 'optimality-over-convex-set should use the coming-soon tile style');
-    assert(/Coming soon/.test(panel.text));
-    assert(/coming soon/.test(panel.title));
-    assert(/Coming soon, no questions yet/.test(panel.label));
-    assert.strictEqual(panel.start, false);
+    assert.strictEqual(panel.soon, false, 'optimality-over-convex-set is playable after NB12');
+    assert(!/Coming soon/.test(panel.text));
+    assert(!/coming soon/.test(panel.title));
+    assert(!/Coming soon, no questions yet/.test(panel.label));
+    assert.strictEqual(panel.start, true);
     await p._ctx.close();
   });
 
@@ -1559,13 +1559,15 @@ async function test(name, fn) {
         tiles: ids.length,
         dupes,
         toggles: document.querySelectorAll('#world .toggle, #regions .toggle').length,
-        soon: document.querySelector('#world .tile[data-id="optimality-over-convex-set"] .tag').textContent
+        soon: document.querySelector('#world .tile[data-id="optimality-over-convex-set"] .tag').textContent,
+        soonClass: document.querySelector('#world .tile[data-id="optimality-over-convex-set"]').classList.contains('soon')
       };
     });
     assert.strictEqual(tree.tiles, NSKILL);
     assert.deepStrictEqual(tree.dupes, []);
     assert.strictEqual(tree.toggles, 0, 'collapse arrows are gone');
-    assert.strictEqual(tree.soon, 'SOON');
+    assert.strictEqual(tree.soon, '');
+    assert.strictEqual(tree.soonClass, false);
     await p.click('#btnGroup');
     await sleep(700);
     const grouped = await p.evaluate(() => {
@@ -1952,7 +1954,8 @@ async function test(name, fn) {
 
   await test('queue next session appends skills then challenges, skips dupes and coming-soon', async () => {
     const p = await newPage(T({ bode: { tier: 1, lastPracticed: now - DAY, history: [] } }));
-    const soonId = await p.$eval('#world .tile.soon', e => e.dataset.id);
+    const soonTiles = await p.$$eval('#world .tile.soon', els => els.map(e => e.dataset.id));
+    const soonId = soonTiles[0] || 'power-method-eigenvector';
     await openSkill(p, soonId);
     await p.$eval('#addTodoSkill', e => e.scrollIntoView({ block: 'center' }));
     await p.click('#addTodoSkill');
@@ -1982,7 +1985,7 @@ async function test(name, fn) {
     const appended = plain(after).slice(2);
     assert.deepStrictEqual(appended, plan.items.filter(it => !(it.type === anchor.type && it.id === anchor.id)));
     assert(after.every(it => Number.isInteger(it.from) && it.from >= 0 && it.from <= 4), 'queued lines remember their starting tier');
-    assert(after.filter(it => it.id === soonId).length === 1, 'a coming-soon skill is not queued again');
+    assert(after.filter(it => it.id === soonId).length === 1, 'the manually added skill is not queued again');
     assert(appended.every(it => playable.has(it.id)), 'queued items are playable');
     assert.strictEqual(after.filter(it => it.type === anchor.type && it.id === anchor.id).length, 1);
     await p.click('#todoQueueSession');

@@ -213,6 +213,17 @@ LEAF_PREVIEW_ALLOWED.update({
         "frank-wolfe-conditional-gradient",
     ],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # NB12 leaves: nothing in the graph lists these as prerequisites.
+    # Primal-dual sits beside Frank-Wolfe in the same chapter, without an edge.
+    # Power iteration on A^T A is the same normalization, applied to a top singular vector.
+    "primal-dual-interior-point": [
+        "frank-wolfe-conditional-gradient",
+    ],
+    "power-method-eigenvector": [
+        "singular-value-decomposition",
+    ],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

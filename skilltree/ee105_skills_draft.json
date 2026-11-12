@@ -3108,8 +3108,7 @@
     "convex-sets",
     "first-order-optimality",
     "convex-optimality-global"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "projection-onto-convex-set",
@@ -3118,8 +3117,7 @@
    "prereqs": [
     "optimality-over-convex-set",
     "projection-affine-halfspace-kkt"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "gradient-projection-method",
@@ -3128,8 +3126,7 @@
    "prereqs": [
     "projection-onto-convex-set",
     "sufficient-decrease-lemma"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "scaled-gradient-projection",
@@ -3138,8 +3135,7 @@
    "prereqs": [
     "gradient-projection-method",
     "newton-method-optimization"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "affine-scaling-method",
@@ -3148,8 +3144,7 @@
    "prereqs": [
     "scaled-gradient-projection",
     "lp-duality-kkt"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "primal-dual-interior-point",
@@ -3158,8 +3153,7 @@
    "prereqs": [
     "affine-scaling-method",
     "newton-root-finding"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "frank-wolfe-conditional-gradient",
@@ -3169,8 +3163,7 @@
     "optimality-over-convex-set",
     "polyhedra-extreme-points",
     "descent-lemma"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "power-method-eigenvector",
@@ -3179,8 +3172,7 @@
    "prereqs": [
     "frank-wolfe-conditional-gradient",
     "rayleigh-quotient"
-   ],
-   "status": "coming-soon"
+   ]
   }
  ],
  "retired": {
