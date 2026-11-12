@@ -964,6 +964,101 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('edge highlight stays on the moving cards during a view animation', async () => {
+    const p = await newPage();
+    await p.evaluate(() => {
+      const world = document.getElementById('world');
+      const tv = document.getElementById('treeView');
+      world.classList.remove('anim');
+      world.style.transition = 'none';
+      const tile = document.querySelector('#world .tile[data-id="ss-model"]');
+      const wx = parseFloat(tile.style.left) + 84;
+      const wy = parseFloat(tile.style.top) + 36;
+      const vr = tv.getBoundingClientRect();
+      world.style.transform = `translate(${vr.width / 2 - wx}px,${vr.height / 2 - wy}px) scale(1)`;
+      void world.offsetWidth;
+      tile.click();
+      world.style.transition = '';
+    });
+    await p.evaluate(() => document.getElementById('zHome').click());
+    await sleep(180);
+    const paused = await p.evaluate(() => {
+      const anims = document.getAnimations().filter(a => a.effect && a.effect.target && a.effect.target.id === 'world');
+      anims.forEach(a => a.pause());
+      return anims.length;
+    });
+    assert(paused > 0, 'home should animate the world transform');
+    await sleep(80);
+    const measure = () => p.evaluate(() => {
+      const tv = document.getElementById('treeView');
+      const world = document.getElementById('world');
+      const origin = tv.getBoundingClientRect();
+      const box = el => {
+        const r = el.getBoundingClientRect();
+        return { x: r.x - origin.x, y: r.y - origin.y, w: r.width, h: r.height };
+      };
+      const hi = [...document.querySelectorAll('#edgeHi path')];
+      const base = [...document.querySelectorAll('#edges path')].filter(el => getComputedStyle(el).display !== 'none');
+      let worst = 0, matched = 0;
+      hi.forEach(path => {
+        const a = box(path);
+        let best = Infinity;
+        base.forEach(b => {
+          const c = box(b);
+          const d = Math.abs(a.x - c.x) + Math.abs(a.y - c.y) + Math.abs(a.w - c.w) + Math.abs(a.h - c.h);
+          if (d < best) best = d;
+        });
+        if (best < 24) matched++;
+        if (best > worst) worst = best;
+      });
+      const holes = [...document.querySelectorAll('#edgeHiMask rect')].slice(1);
+      const tiles = [...document.querySelectorAll('#world .tile')].filter(t => t.offsetWidth > 0);
+      let uncovered = 0;
+      tiles.forEach(t => {
+        const r = t.getBoundingClientRect();
+        const cx = r.x - origin.x + r.width / 2;
+        const cy = r.y - origin.y + r.height / 2;
+        const hit = holes.some(h => {
+          const x = parseFloat(h.getAttribute('x')), y = parseFloat(h.getAttribute('y'));
+          const w = parseFloat(h.getAttribute('width')), hh = parseFloat(h.getAttribute('height'));
+          return cx >= x && cx <= x + w && cy >= y && cy <= y + hh;
+        });
+        if (!hit) uncovered++;
+      });
+      const sm = /translate\(([-\d.]+)px,\s*([-\d.]+)px\)\s*scale\(([-\d.]+)\)/.exec(world.style.transform || '');
+      const mm = /matrix\(([^)]+)\)/.exec(getComputedStyle(world).transform || '');
+      const parts = mm ? mm[1].split(',').map(s => parseFloat(s)) : [];
+      const drift = sm && parts.length === 6
+        ? Math.hypot(parseFloat(sm[1]) - parts[4], parseFloat(sm[2]) - parts[5]) + Math.abs(parseFloat(sm[3]) - parts[0]) * 400
+        : 0;
+      return {
+        paths: hi.length,
+        matched,
+        worst,
+        uncovered,
+        tiles: tiles.length,
+        drift,
+        active: document.getElementById('edges').classList.contains('active')
+      };
+    });
+    const mid = await measure();
+    assert(mid.paths > 0, 'selected skill should keep its highlight during the move');
+    assert(mid.drift > 40, 'measurement should land mid-animation, drift ' + mid.drift);
+    assert.strictEqual(mid.uncovered, 0, mid.uncovered + ' of ' + mid.tiles + ' cards were not punched out of the highlight');
+    assert.strictEqual(mid.matched, mid.paths, 'highlight strokes left the moving edges, worst delta ' + mid.worst);
+    assert(mid.worst < 24, 'highlight strokes drifted ' + mid.worst + 'px from the edges');
+    assert.strictEqual(mid.active, false, 'the base edge layer stays inactive');
+    const tree = await p.$('#treeView');
+    await tree.screenshot({ path: path.join(SHOTS_DIR, '13b_hover_during_home.png') });
+    await p.evaluate(() => document.getAnimations().forEach(a => a.play()));
+    await sleep(700);
+    const settled = await measure();
+    assert(settled.drift < 2, 'home animation should finish, drift ' + settled.drift);
+    assert.strictEqual(settled.uncovered, 0, 'settled mask missed ' + settled.uncovered + ' cards');
+    assert.strictEqual(settled.matched, settled.paths, 'settled highlight left the edges, worst delta ' + settled.worst);
+    await p._ctx.close();
+  });
+
   await test('lights mode shows every prerequisite as a static thin stroke', async () => {
     const p = await newPage();
     await sleep(200);

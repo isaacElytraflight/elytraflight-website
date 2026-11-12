@@ -1097,10 +1097,65 @@ function toggleGroup() {
 
 function highlightId() { return lightsMode ? null : (hoverId || selected) }
 
+let edgeHiFollow = 0;
+
+// #world.anim eases style.transform for 450ms. The specified matrix jumps to the
+// destination on the first frame, so the overlay has to be mapped from a card's
+// on-screen box (the value the CSS transition is actually painting).
 function worldView() {
+  const origin = tv.getBoundingClientRect();
+  const tiles = world.querySelectorAll('.tile');
+  for (let i = 0; i < tiles.length; i++) {
+    const tile = tiles[i];
+    if (tile.matches(':hover')) continue;
+    const wx = parseFloat(tile.style.left), wy = parseFloat(tile.style.top);
+    const lw = tile.offsetWidth, lh = tile.offsetHeight;
+    if (!isFinite(wx) || !isFinite(wy) || lw < 1 || lh < 1) continue;
+    if (getComputedStyle(tile).transform !== 'none') continue;
+    const r = tile.getBoundingClientRect();
+    if (r.width < 1 || r.height < 1) continue;
+    const s = r.width / lw;
+    return { s, x: (r.left - origin.left) - wx * s, y: (r.top - origin.top) - wy * s };
+  }
   const m = /translate\(([-\d.]+)px,\s*([-\d.]+)px\)\s*scale\(([-\d.]+)\)/.exec(world.style.transform || '');
   if (!m) return { x: view.x, y: view.y, s: view.s };
   return { x: parseFloat(m[1]), y: parseFloat(m[2]), s: parseFloat(m[3]) };
+}
+
+function worldTransformAnim() {
+  if (typeof document.getAnimations !== 'function') return false;
+  const anims = document.getAnimations();
+  for (let i = 0; i < anims.length; i++) {
+    const a = anims[i];
+    if (!a.effect || a.effect.target !== world) continue;
+    if (a.playState === 'finished' || a.playState === 'idle') continue;
+    if (a.transitionProperty === 'transform') return true;
+  }
+  return false;
+}
+
+function viewAnimating() {
+  // Follow the transition itself. .anim is removed on a 500ms timer, which can
+  // be before the transform ease has landed (and a paused transition outlives
+  // the class), so the class alone is not the end of the move.
+  if (worldTransformAnim()) return true;
+  if (!world.classList.contains('anim')) return false;
+  const d = getComputedStyle(world).transitionDuration || '';
+  return d.split(',').some(part => parseFloat(part) > 0);
+}
+
+function followEdgeHi() {
+  if (edgeHiFollow || !viewAnimating()) return;
+  const step = () => {
+    edgeHiFollow = 0;
+    if (!viewAnimating()) { refreshEdgeHi(); return; }
+    const id = highlightId();
+    if (!id) {
+      if (edgeHiG && (edgeHiG.childNodes.length || (edgeHiMask && edgeHiMask.childNodes.length))) drawEdgeHi(null);
+    } else drawEdgeHi(id);
+    if (viewAnimating()) edgeHiFollow = requestAnimationFrame(step);
+  };
+  edgeHiFollow = requestAnimationFrame(step);
 }
 
 function mapPath(d, s, tx, ty) {
@@ -1131,6 +1186,7 @@ function setupEdgeHi() {
   edgeHiG.setAttribute('mask', 'url("' + maskUrl.href + '")');
   edgeHiSvg.append(defs, edgeHiG);
   world.addEventListener('transitionend', e => {
+    if (e.target === world && e.propertyName === 'transform') { refreshEdgeHi(); return; }
     if (e.propertyName !== 'transform' && e.propertyName !== 'box-shadow') return;
     if (!e.target.classList || !e.target.classList.contains('tile')) return;
     if (highlightId()) drawEdgeHi(highlightId());
@@ -1193,9 +1249,10 @@ function refreshEdgeHi() {
   const id = highlightId();
   if (!id) {
     if (edgeHiG && (edgeHiG.childNodes.length || (edgeHiMask && edgeHiMask.childNodes.length))) drawEdgeHi(null);
-    return;
-  }
-  drawEdgeHi(id);
+  } else drawEdgeHi(id);
+  // Home, focus, and group-fit interpolate #world for 450ms. One snapshot leaves
+  // the strokes at the destination and the mask holes on the old cards.
+  followEdgeHi();
 }
 
 function applyEdgeHighlight() {
@@ -1214,6 +1271,7 @@ function applyEdgeHighlight() {
     if (e.dot.classList.contains('fdim') !== fd) e.dot.classList.toggle('fdim', fd);
   });
   drawEdgeHi(id);
+  followEdgeHi();
 }
 
 const LIGHTS_THRESHOLD = 0.38;
