@@ -90,12 +90,22 @@ main{flex:1;position:relative;min-height:0}
 .region-label{position:absolute;z-index:7;pointer-events:none;font:800 11px/1.15 system-ui,sans-serif;padding:1px 5px;border:1.5px solid;border-radius:8px;background:rgba(255,255,255,.94);white-space:nowrap}
 #edges path{fill:none;stroke:#9aa3b8;stroke-width:1.6;opacity:.38;transition:opacity .2s}
 #edges circle{fill:#9aa3b8;opacity:.45}
+/* .active is not applied on hover anymore: it repaints the scaled world layer. */
 #edges.active path{opacity:.07}
 #edges.active circle{opacity:.07}
 #edges.active path.in{stroke:#2f7bff;stroke-width:3;opacity:1}
 #edges.active path.out{stroke:#ff7a59;stroke-width:3;opacity:1}
 #edges.active circle.in{fill:#2f7bff;opacity:1}
 #edges.active circle.out{fill:#ff7a59;opacity:1}
+/* Screen-sized highlight layer. It is not inside the scaled #world, so drawing
+   the hovered skill's edges does not repaint that layer. A mask punches out
+   every card so the strokes still run behind the tiles. */
+#edgeHi{position:absolute;left:0;top:0;width:100%;height:100%;z-index:4;pointer-events:none;overflow:hidden}
+#edgeHi path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+#edgeHi path.in{stroke:#2f7bff}
+#edgeHi path.out{stroke:#ff7a59}
+#edgeHi circle.in{fill:#2f7bff}
+#edgeHi circle.out{fill:#ff7a59}
 .blob{position:absolute;border-radius:30px;background:var(--bg);border:2.5px solid var(--cb);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .6s, visibility 0s .6s}
 .blob.on{opacity:1;visibility:visible;transition:opacity .6s}
 .blob.on.dim{opacity:.28}
@@ -121,7 +131,11 @@ main{flex:1;position:relative;min-height:0}
 .blob .ct{font-size:12px;font-weight:700;color:var(--ink2);white-space:nowrap;flex:none;padding-top:5px}
 .tile{position:absolute;width:168px;height:72px;border-radius:14px;border:2.5px solid var(--c);background:#fff;overflow:hidden;text-align:left;padding:7px 9px 6px;
   display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 2px 0 rgba(0,0,0,.07);transition:transform .15s, box-shadow .15s, opacity .3s;color:var(--ink)}
-.tile:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 8px 18px rgba(40,50,90,.2);z-index:5}
+/* Each card is its own layer, so the hover lift repaints the card and not #world.
+   Do not set z-index here: a stacking change invalidates the scaled world layer
+   and Chrome re-rasters it (the clip grows as 1/scale and the tree flashes). */
+#world .tile{will-change:transform}
+.tile:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 8px 18px rgba(40,50,90,.2)}
 .tile .fill{position:absolute;left:0;right:0;bottom:0;height:var(--fill,0%);background:var(--cs);transition:height .9s cubic-bezier(.3,1.4,.5,1)}
 .tile>*:not(.fill){position:relative;z-index:1}
 .tile .nm{font-size:11.3px;line-height:1.2;font-weight:650;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -360,6 +374,7 @@ figure.qfig.small svg{max-height:200px}
    full zoom-out. 9.6px is about one screen pixel at scale .12 and stays thin up near the threshold. */
 #world.lights-view #edges path{stroke:var(--edge,#9aa3b8);stroke-width:9.6px;stroke-opacity:.42;stroke-linecap:round;stroke-linejoin:round;transition:none}
 #world.lights-view #edges circle{display:none}
+#world.lights-view ~ #edgeHi{visibility:hidden}
 
 /* Nested boxes / collections */
 .blob.course,.blob.textbook{background:rgba(255,255,255,.15);border-width:3px;border-style:solid}
