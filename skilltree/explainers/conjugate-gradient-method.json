@@ -1,0 +1,29 @@
+{
+  "id": "conjugate-gradient-method",
+  "title": "Conjugate gradient method",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a falling curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">e</text><polyline points=\"46,39 49,41.9 52,44.8 55.1,47.5 58.1,50.2 61.1,52.8 64.1,55.3 67.2,57.7 70.2,60.1 73.2,62.4 76.2,64.6 79.2,66.8 82.3,68.9 85.3,71 88.3,73 91.3,74.9 94.4,76.8 97.4,78.6 100.4,80.4 103.4,82.1 106.4,83.8 109.5,85.4 112.5,87 115.5,88.5 118.5,90 121.6,91.4 124.6,92.8 127.6,94.2 130.6,95.5 133.6,96.8 136.7,98.1 139.7,99.3 142.7,100.4 145.7,101.6 148.8,102.7 151.8,103.8 154.8,104.8 157.8,105.8 160.8,106.8 163.9,107.8 166.9,108.7 169.9,109.6 172.9,110.5 176,111.4 179,112.2 182,113 185,113.8 188,114.5 191.1,115.3 194.1,116 197.1,116.7 200.1,117.4 203.2,118 206.2,118.7 209.2,119.3 212.2,119.9 215.2,120.5 218.3,121 221.3,121.6 224.3,122.1 227.3,122.6 230.4,123.1 233.4,123.6 236.4,124.1 239.4,124.6 242.4,125 245.5,125.4 248.5,125.9 251.5,126.3 254.5,126.7 257.6,127.1 260.6,127.4 263.6,127.8 266.6,128.2 269.6,128.5 272.7,128.8 275.7,129.2 278.7,129.5 281.7,129.8 284.8,130.1 287.8,130.4 290.8,130.7 293.8,130.9 296.8,131.2 299.9,131.5 302.9,131.7 305.9,132 308.9,132.2 312,132.4 315,132.6 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that falls toward the horizontal axis.",
+      "body_md": "Conjugate gradient keeps the exact line search of the conjugate-direction method and manufactures the directions as it goes. The first direction is the negative gradient. After a step, the new direction is the negative of the new gradient, plus a multiple of the direction just used. The multiple is chosen so the new direction is \\(Q\\)-conjugate to the previous one.\n\nFor a quadratic, that multiple is the ratio of successive squared gradient lengths. The new squared length goes in the numerator. The old squared length goes in the denominator. The first iteration has no previous direction, so there is nothing to multiply and the formula is not used.\n\nEach iteration's expensive work is one product of \\(Q\\) with a vector. A few vector additions finish the update. The Hessian is never factored. In exact arithmetic a positive definite quadratic of dimension \\(n\\) is finished in at most \\(n\\) iterations, because each iteration contributes one new conjugate direction and \\(n\\) of them span the space.\n\nThe condition number \\(\\kappa\\) still describes the shape. The bound on the \\(Q\\)-norm of the error after \\(k\\) steps carries the factor \\(2\\big((\\sqrt{\\kappa}-1)/(\\sqrt{\\kappa}+1)\\big)^k\\). The square root is the improvement over a factor built from \\(\\kappa\\) itself. Steepest descent's guarantee is a different sentence: it bounds the function gap by a square of \\((\\kappa-1)/(\\kappa+1)\\)."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "With \\(g\\) the gradient at the current point and \\(g_+\\) the gradient after the step,\n\\[\n\\beta = \\frac{\\lVert g_+\\rVert^2}{\\lVert g\\rVert^2}, \\qquad d_+ = -g_+ + \\beta d.\n\\]\nThe first direction is \\(d = -g\\). The \\(Q\\)-norm error bound uses the base \\((\\sqrt{\\kappa}-1)/(\\sqrt{\\kappa}+1)\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take an old gradient \\((2,\\ 2)\\) and a new gradient \\((1,\\ 2)\\). The new squared length is \\(1 + 4 = 5\\). The old squared length is \\(4 + 4 = 8\\). The ratio is \\(5/8\\).\n\nThe cleat weight is 0.625. The previous direction, if it was the negative of the old gradient, is \\((-2,\\ -2)\\). The new direction is \\(-(1,\\ 2) + 0.625\\cdot(-2,\\ -2)\\). The ratio uses squared lengths. Dividing the square roots of those lengths would be a different number."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Inverting the squared-norm ratio puts the old gradient on top and produces a multiple that does not cancel the \\(Q\\)-product. A second slip is to add the multiple of the old gradient instead of the multiple of the old direction. On the first iteration those two vectors are opposites, so the sign of the carried term flips. A third is to quote the steepest-descent factor \\(((\\kappa-1)/(\\kappa+1))^2\\) as if it were the conjugate-gradient factor. The conjugate-gradient base takes a square root before the subtraction, and it multiplies a \\(Q\\)-norm error, with a leading \\(2\\). A fourth is to expect termination in \\(n\\) steps on a nonquadratic objective. The proof used one fixed Hessian. A changing Hessian removes the finite count, which is why a nonlinear run is often restarted."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Heavy ball spends the same wish for a faster ill-conditioned rate on a different mechanism: a fraction of the previous displacement, with the gradient read at the current point. The extrapolated scheme reads the gradient after the momentum shift. Neither one builds a conjugate direction. Both are aimed at the slow factor that steepest descent suffers when \\(\\kappa\\) is large."
+    }
+  ]
+}

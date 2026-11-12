@@ -176,6 +176,16 @@ Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## NB11 — nlo-nb11
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `gram-schmidt-orthogonalization`, `q-conjugate-directions`, `conjugate-gradient-method`, `heavy-ball-method`, `nesterov-accelerated-gradient`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## NB2 — nlo-nb2
 
 Box: Nonlinear Optimization (nlo-tugraz).

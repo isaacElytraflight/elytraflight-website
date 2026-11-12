@@ -1,0 +1,30 @@
+{
+  "id": "nlo-nb11",
+  "label": "NB11",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "gram-schmidt-orthogonalization",
+    "q-conjugate-directions",
+    "conjugate-gradient-method",
+    "heavy-ball-method",
+    "nesterov-accelerated-gradient"
+  ],
+  "areas": {
+    "gram-schmidt-orthogonalization": ["optimization"],
+    "q-conjugate-directions": ["optimization"],
+    "conjugate-gradient-method": ["optimization"],
+    "heavy-ball-method": ["optimization"],
+    "nesterov-accelerated-gradient": ["optimization"]
+  },
+  "cores": [
+    "gram-schmidt-orthogonalization",
+    "q-conjugate-directions",
+    "conjugate-gradient-method",
+    "heavy-ball-method",
+    "nesterov-accelerated-gradient"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/nlo-content-batches.md",
+  "verifier": "skilltree/verify_nlo_nb11.py"
+}

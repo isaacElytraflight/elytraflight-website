@@ -346,6 +346,15 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | secant equation | \(B s = y\) | \(B\) approximates the Hessian. This \(B\) is not an LP basis. Added in NB10 |
 | \(W\) | inverse Hessian approximation | BFGS inverse update \(W_+ = (I - \rho s y^T) W (I - \rho y s^T) + \rho s s^T\), with \(\rho = 1/(y^T s)\). Not the Hessian \(H_f\). Added in NB10 |
 | superlinear | successive error ratios tend to \(0\) | the local BFGS claim. Quadratic convergence is the stronger squared-error bound above. Added in NB10 |
+| Gram-Schmidt coefficient | \(\langle v, u \rangle / \langle u, u \rangle\) | the factor of an accepted vector subtracted from the next input. The same formula uses \(x^T Q y\) when that is the inner product. Added in NB11 |
+| \(Q\)-conjugacy | \(d_i^T Q d_j = 0\) for \(i \ne j\), with \(Q\) symmetric positive definite | \(Q\) is the Hessian of the quadratic, the same role as \(A\) in the quadratic-objective row. Not an LQR weight. Added in NB11 |
+| conjugate-direction step | \(t = -\nabla f(x)^T d / (d^T Q d)\) | exact line search. A full set of \(Q\)-conjugate directions finishes a positive definite quadratic in at most \(n\) steps. Added in NB11 |
+| CG direction | \(d_+ = -\nabla f(x_+) + \beta d\) | \(\beta = \lVert\nabla f(x_+)\rVert^2 / \lVert\nabla f(x)\rVert^2\). The first direction is \(d = -\nabla f(x)\). Added in NB11 |
+| CG rate factor | \(2 \big((\sqrt{\kappa}-1)/(\sqrt{\kappa}+1)\big)^k\) on the \(Q\)-norm of the error | \(\kappa = \lambda_{\max}(Q)/\lambda_{\min}(Q)\). The factor \(((\kappa-1)/(\kappa+1))^2\) is a different bound, on the function gap of steepest descent. Added in NB11 |
+| heavy-ball update | \(x_+ = x - \alpha \nabla f(x) + \beta (x - x_{\mathrm{prev}})\) | a discretization of \(\ddot x + \gamma \dot x + \nabla f(x) = 0\). Not the damping ratio \(\zeta\) of a linear plant. Added in NB11 |
+| heavy-ball parameters | \(\alpha = 4/(\sqrt{L}+\sqrt{\mu})^2\), \(\beta = \big((\sqrt{L}-\sqrt{\mu})/(\sqrt{L}+\sqrt{\mu})\big)^2\) | for Hessian eigenvalues in \([\mu, L]\). The distance factor is \((\sqrt{\kappa}-1)/(\sqrt{\kappa}+1)\) with \(\kappa = L/\mu\). Added in NB11 |
+| Nesterov extrapolation | \(y = x + \beta (x - x_{\mathrm{prev}})\), then \(x_+ = y - \alpha \nabla f(y)\) | the gradient is read at \(y\). Heavy ball reads it at \(x\). Added in NB11 |
+| Nesterov gap | \(f(x_k) - f^\star = O(1/k^2)\) | a bound on the function gap for smooth convex \(f\), not a bound on \(\lVert x_k - x^\star\rVert\). Added in NB11 |
 
 ## loop-shaping
 
