@@ -35,13 +35,13 @@ services:
         status: 301
       - type: rewrite
         source: /profile/*
-        destination: /skilltree/index.html
+        destination: /profile/index.html
       - type: rewrite
         source: /skilltree/profile
-        destination: /skilltree/index.html
+        destination: /skilltree/profile/index.html
       - type: rewrite
         source: /skilltree/profile/*
-        destination: /skilltree/index.html
+        destination: /skilltree/profile/index.html
       - type: rewrite
         source: /*
         destination: /index.html
