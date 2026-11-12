@@ -1,0 +1,233 @@
+{
+  "skill_id": "newton-local-quadratic-convergence",
+  "version": 1,
+  "questions": [
+    {
+      "id": "newton-local-quadratic-convergence-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Quadratic convergence of the error means that, eventually,",
+      "explanation": "The quadratic pattern is a bound by a constant times the squared error. A fixed fraction of the current error is Q-linear convergence. An additive drop is not a rate on the error ratio. A reciprocal of the iteration count, with successive ratios tending to \\(1\\), is sublinear.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a falling curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">e</text><polyline points=\"46,39 49,41.9 52,44.8 55.1,47.5 58.1,50.2 61.1,52.8 64.1,55.3 67.2,57.7 70.2,60.1 73.2,62.4 76.2,64.6 79.2,66.8 82.3,68.9 85.3,71 88.3,73 91.3,74.9 94.4,76.8 97.4,78.6 100.4,80.4 103.4,82.1 106.4,83.8 109.5,85.4 112.5,87 115.5,88.5 118.5,90 121.6,91.4 124.6,92.8 127.6,94.2 130.6,95.5 133.6,96.8 136.7,98.1 139.7,99.3 142.7,100.4 145.7,101.6 148.8,102.7 151.8,103.8 154.8,104.8 157.8,105.8 160.8,106.8 163.9,107.8 166.9,108.7 169.9,109.6 172.9,110.5 176,111.4 179,112.2 182,113 185,113.8 188,114.5 191.1,115.3 194.1,116 197.1,116.7 200.1,117.4 203.2,118 206.2,118.7 209.2,119.3 212.2,119.9 215.2,120.5 218.3,121 221.3,121.6 224.3,122.1 227.3,122.6 230.4,123.1 233.4,123.6 236.4,124.1 239.4,124.6 242.4,125 245.5,125.4 248.5,125.9 251.5,126.3 254.5,126.7 257.6,127.1 260.6,127.4 263.6,127.8 266.6,128.2 269.6,128.5 272.7,128.8 275.7,129.2 278.7,129.5 281.7,129.8 284.8,130.1 287.8,130.4 290.8,130.7 293.8,130.9 296.8,131.2 299.9,131.5 302.9,131.7 305.9,132 308.9,132.2 312,132.4 315,132.6 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that falls toward the horizontal axis.",
+      "options": [
+        "the next error is a fixed fraction of the current error, with the fraction in \\((0, 1)\\)",
+        "the error drops by the same additive amount at every iteration",
+        "the error is the reciprocal of the iteration count and the ratio of successive errors tends to \\(1\\)",
+        "the next error is at most a constant times the square of the current error"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Let \\(f'(t) = t(t - 2)\\) and \\(f''(t) = 2t - 2\\), with a minimizer at \\(t = 2\\). Starting at \\(t = 3\\), what is the absolute error \\(\\lvert t_+ - 2\\rvert\\) after one Newton step?",
+      "explanation": "At \\(t = 3\\) the derivative is \\(3\\) and the second derivative is \\(4\\). The step is \\(-3/4\\), so the next point is \\(3 - 3/4 = 9/4\\). The absolute error is \\(\\lvert 9/4 - 2\\rvert = 1/4\\). Reporting \\(3/4\\) is the length of the step, not the distance to \\(2\\). Reporting \\(1\\) is the error before the step. Reporting \\(3\\) is the derivative.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "answer": 0.25,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The local quadratic bound for Newton's method needs which hypothesis at the minimizer, besides a Lipschitz Hessian nearby?",
+      "explanation": "Positive definiteness makes the minimizer a strict local minimizer and keeps the Hessian invertible, so the Newton step exists and the inverse that multiplies the remainder stays bounded nearby. A singular Hessian leaves the step undefined and the bound, which divides by that curvature, does not apply. A nonzero gradient would mean the point is not stationary. A linear objective has a zero Hessian, which is the singular case.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a long ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
+      "options": [
+        "The gradient at the minimizer is nonzero.",
+        "The objective is linear.",
+        "The Hessian at the minimizer is positive definite.",
+        "The Hessian at the minimizer is singular."
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put this proof sketch of the local Newton bound in order. Each step uses the result of the step before it.",
+      "explanation": "Stationarity removes the gradient at the minimizer, so the integral of the Hessian equals the gradient at the current point. That integral has to be in hand before it can be subtracted from the Hessian times the error. The rearrangement uses the Newton formula and that subtraction. The Lipschitz bound is applied to the difference that the rearrangement isolated. The squared factor appears only after that estimate.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "steps": [
+        "Use stationarity to set the gradient at the minimizer to zero.",
+        "Write the gradient at the current point as the integral of the Hessian along the segment from the minimizer.",
+        "Rearrange the Newton update so the next error equals the inverse Hessian times the integral of the Hessian differences along that segment.",
+        "Bound those Hessian differences by the Lipschitz constant, which produces a constant times the squared error."
+      ],
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Which statements belong to the local quadratic theorem for Newton's method on a smooth objective?",
+      "explanation": "Positive definiteness at the minimizer gives a strict local minimizer and an invertible Hessian.\n• A Lipschitz Hessian turns the remainder of the tangent model into a term controlled by the squared distance.\n• Those two facts produce a neighborhood in which the next error is at most a constant times the squared error, and the iterates stay in that neighborhood.\n• A start outside that neighborhood can diverge or run toward a different stationary point. Smoothness alone does not put every start inside the basin.\n• A singular Hessian at the minimizer makes the Newton step undefined there, so the bound, which uses the inverse Hessian, does not apply. For \\(f'(t) = t(t-2)\\) the second derivative vanishes at \\(t = 1\\), and no real Newton step exists at that point.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested contours</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses around the origin.",
+      "options": [
+        "The Hessian at the minimizer is positive definite.",
+        "The Hessian is Lipschitz in a neighborhood of the minimizer.",
+        "Inside a small enough neighborhood, the next error is at most a constant times the square of the current error.",
+        "The same squared bound holds at every starting point of every smooth function.",
+        "The bound still holds when the Hessian at the minimizer is singular."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "A scalar error of size \\(z\\), a Hessian Lipschitz constant \\(L\\), and a second derivative \\(h\\) give the local bound \\((L/(2h)) z^2\\). That bound equals",
+      "explanation": "The integral of a Lipschitz change in the second derivative contributes a factor \\(L/2\\) times \\(z^2\\). Dividing by the second derivative \\(h\\) produces \\((L z^2)/(2h)\\). Every declared name appears. Using \\(L z / h\\) is a linear bound, not a squared one. Dropping the \\(2\\) doubles the estimate. Placing \\(h\\) in the numerator, as in \\(L h z^2 / 2\\), inverts the curvature factor.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a slowly falling curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">e</text><polyline points=\"46,39 49,43.1 52,46.9 55.1,50.5 58.1,53.8 61.1,57 64.1,60 67.2,62.8 70.2,65.5 73.2,68 76.2,70.4 79.2,72.7 82.3,74.9 85.3,77 88.3,79 91.3,80.9 94.4,82.7 97.4,84.4 100.4,86.1 103.4,87.7 106.4,89.2 109.5,90.7 112.5,92.1 115.5,93.5 118.5,94.8 121.6,96 124.6,97.2 127.6,98.4 130.6,99.6 133.6,100.7 136.7,101.7 139.7,102.7 142.7,103.7 145.7,104.7 148.8,105.6 151.8,106.5 154.8,107.4 157.8,108.2 160.8,109.1 163.9,109.8 166.9,110.6 169.9,111.4 172.9,112.1 176,112.8 179,113.5 182,114.2 185,114.8 188,115.5 191.1,116.1 194.1,116.7 197.1,117.3 200.1,117.9 203.2,118.4 206.2,119 209.2,119.5 212.2,120 215.2,120.6 218.3,121.1 221.3,121.5 224.3,122 227.3,122.5 230.4,122.9 233.4,123.4 236.4,123.8 239.4,124.3 242.4,124.7 245.5,125.1 248.5,125.5 251.5,125.9 254.5,126.3 257.6,126.6 260.6,127 263.6,127.4 266.6,127.7 269.6,128.1 272.7,128.4 275.7,128.8 278.7,129.1 281.7,129.4 284.8,129.7 287.8,130 290.8,130.3 293.8,130.6 296.8,130.9 299.9,131.2 302.9,131.5 305.9,131.8 308.9,132.1 312,132.3 315,132.6 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that drops at first and then flattens.",
+      "answer": "(L*z*z)/(2*h)",
+      "variables": [
+        {
+          "name": "L",
+          "min": 0.5,
+          "max": 3.0
+        },
+        {
+          "name": "z",
+          "min": 0.2,
+          "max": 2.0
+        },
+        {
+          "name": "h",
+          "min": 1.0,
+          "max": 5.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "L*z**2/(2*h)",
+        "(L/(2*h))*z*z"
+      ],
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note treats \\(t = 1\\) for \\(f'(t) = t(t-2)\\) and \\(f''(t) = 2t-2\\). Exactly one step is a false claim.",
+      "explanation": "At \\(t = 1\\) the derivative is \\(1 \\cdot (1-2) = -1\\), and the second derivative is \\(2-2 = 0\\). Dividing by that second derivative is undefined, so there is no real Newton step. Replacing \\(0\\) by \\(1\\) is a different algorithm. The local bound really does divide by the curvature: the factor in front of the squared error contains the reciprocal of the second derivative. That factor is not available where the second derivative vanishes.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping up</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,132.9 49,131.8 52,130.8 55.1,129.7 58.1,128.7 61.1,127.6 64.1,126.6 67.2,125.6 70.2,124.5 73.2,123.5 76.2,122.4 79.2,121.4 82.3,120.3 85.3,119.3 88.3,118.3 91.3,117.2 94.4,116.2 97.4,115.1 100.4,114.1 103.4,113 106.4,112 109.5,111 112.5,109.9 115.5,108.9 118.5,107.8 121.6,106.8 124.6,105.8 127.6,104.7 130.6,103.7 133.6,102.6 136.7,101.6 139.7,100.5 142.7,99.5 145.7,98.5 148.8,97.4 151.8,96.4 154.8,95.3 157.8,94.3 160.8,93.2 163.9,92.2 166.9,91.2 169.9,90.1 172.9,89.1 176,88 179,87 182,85.9 185,84.9 188,83.9 191.1,82.8 194.1,81.8 197.1,80.7 200.1,79.7 203.2,78.6 206.2,77.6 209.2,76.6 212.2,75.5 215.2,74.5 218.3,73.4 221.3,72.4 224.3,71.3 227.3,70.3 230.4,69.3 233.4,68.2 236.4,67.2 239.4,66.1 242.4,65.1 245.5,64 248.5,63 251.5,62 254.5,60.9 257.6,59.9 260.6,58.8 263.6,57.8 266.6,56.7 269.6,55.7 272.7,54.7 275.7,53.6 278.7,52.6 281.7,51.5 284.8,50.5 287.8,49.4 290.8,48.4 293.8,47.4 296.8,46.3 299.9,45.3 302.9,44.2 305.9,43.2 308.9,42.1 312,41.1 315,40.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping upward on labeled axes.",
+      "steps": [
+        "The derivative at \\(t = 1\\) equals \\(-1\\).",
+        "The second derivative at \\(t = 1\\) equals \\(0\\).",
+        "The Newton step is defined and equals \\(1\\), because a zero second derivative is replaced by \\(1\\).",
+        "The local error bound divides by the second derivative, so it does not apply at a point where that derivative is \\(0\\)."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "A zero second derivative leaves the Newton step undefined. It is not replaced by \\(1\\).",
+        "The derivative at \\(t = 1\\) is not \\(-1\\).",
+        "The second derivative at \\(t = 1\\) is not \\(0\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "With the same derivatives \\(f'(t) = t(t-2)\\) and \\(f''(t) = 2t-2\\), start at \\(t = 4\\). The minimizer is \\(t = 2\\). What is the absolute error \\(\\lvert t_+ - 2\\rvert\\) after one Newton step?",
+      "explanation": "At \\(t = 4\\) the derivative is \\(8\\) and the second derivative is \\(6\\). The step is \\(-8/6 = -4/3\\), so the next point is \\(4 - 4/3 = 8/3\\). The absolute error is \\(\\lvert 8/3 - 2\\rvert = 2/3\\). Reporting \\(4/3\\) is the step length. Reporting \\(2\\) is the error before the step. Reporting \\(8/3\\) is the next point, not its distance to \\(2\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a column of two labels</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">p</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">q</text></svg>",
+      "figure_alt": "A column of two labels.",
+      "answer": 0.666667,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "An iteration produces errors \\(0.2\\), then \\(0.01\\). The new error divided by the square of the old error equals \\(1/4\\), and that pattern continues with a bounded constant. The rate is",
+      "explanation": "A bounded ratio of the new error to the square of the old error is the quadratic pattern. Becoming smaller is also true of linear and sublinear sequences, so the decrease alone does not name the rate. The successive ratio \\(0.01/0.2 = 1/20\\) would describe a linear rate only if that ratio tended to a positive limit rather than the squared comparison staying bounded. A positive constant in front of the squared error is part of the quadratic bound. Divergence would mean the error fails to go to zero.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a falling curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">e</text><polyline points=\"46,39 49,41.9 52,44.8 55.1,47.5 58.1,50.2 61.1,52.8 64.1,55.3 67.2,57.7 70.2,60.1 73.2,62.4 76.2,64.6 79.2,66.8 82.3,68.9 85.3,71 88.3,73 91.3,74.9 94.4,76.8 97.4,78.6 100.4,80.4 103.4,82.1 106.4,83.8 109.5,85.4 112.5,87 115.5,88.5 118.5,90 121.6,91.4 124.6,92.8 127.6,94.2 130.6,95.5 133.6,96.8 136.7,98.1 139.7,99.3 142.7,100.4 145.7,101.6 148.8,102.7 151.8,103.8 154.8,104.8 157.8,105.8 160.8,106.8 163.9,107.8 166.9,108.7 169.9,109.6 172.9,110.5 176,111.4 179,112.2 182,113 185,113.8 188,114.5 191.1,115.3 194.1,116 197.1,116.7 200.1,117.4 203.2,118 206.2,118.7 209.2,119.3 212.2,119.9 215.2,120.5 218.3,121 221.3,121.6 224.3,122.1 227.3,122.6 230.4,123.1 233.4,123.6 236.4,124.1 239.4,124.6 242.4,125 245.5,125.4 248.5,125.9 251.5,126.3 254.5,126.7 257.6,127.1 260.6,127.4 263.6,127.8 266.6,128.2 269.6,128.5 272.7,128.8 275.7,129.2 278.7,129.5 281.7,129.8 284.8,130.1 287.8,130.4 290.8,130.7 293.8,130.9 296.8,131.2 299.9,131.5 302.9,131.7 305.9,132 308.9,132.2 312,132.4 315,132.6 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that falls toward the horizontal axis.",
+      "options": [
+        "divergent, because the constant \\(1/4\\) is not zero",
+        "quadratic",
+        "only linear, because the errors became smaller",
+        "sublinear, because the ratio of the successive errors is \\(1/20\\)"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A method that reaches the minimizer of a positive definite quadratic in at most \\(n\\) steps, rather than by a local squared-error bound, is",
+      "explanation": "Conjugate directions finish a positive definite quadratic in at most as many steps as the dimension, using conjugacy rather than a local squared-error estimate. The local Newton bound needs an invertible Hessian, so it does not start from a singular one. A sublinear gradient guarantee does not claim finite termination. One failed line-search trial is not a method for the quadratic.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A segment joining two marked points on the axes.",
+      "preview": [
+        "conjugate-gradient-method"
+      ],
+      "options": [
+        "a conjugate-direction method",
+        "a repeat of the local Newton bound at a singular Hessian",
+        "a sublinear gradient guarantee with no curvature",
+        "a line search that stops after one failed trial"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "The second derivative is \\(f''(t) = 2t - 2\\). What is the difference quotient \\(\\lvert f''(5) - f''(2)\\rvert / \\lvert 5 - 2\\rvert\\)?",
+      "explanation": "\\(f''(5) = 8\\) and \\(f''(2) = 2\\), so the absolute difference is \\(6\\). Dividing by the distance \\(3\\) gives \\(2\\). That quotient is the Lipschitz constant of this second derivative, because the second derivative is linear with slope \\(2\\). Reporting \\(6\\) skips the division. Reporting \\(3\\) is the distance between the sample points. Reporting \\(8\\) is \\(f''(5)\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "preview": [
+        "heavy-ball-method"
+      ],
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A later first-order scheme keeps a global rate on smooth convex problems and does not need a start inside the Newton basin. That scheme is",
+      "explanation": "The extrapolated scheme builds the next point from a gradient step at a shifted location, and on smooth convex objectives its error is bounded by a constant over the square of the iteration count. That is slower than a local squared-error bound, and it does not ask the start to lie in a Newton basin. A bare Newton step from an arbitrary start can leave the region where the quadratic model is faithful. Stopping at the first positive definite Hessian does not produce a rate. One gradient evaluation is a single step, not a rate.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a slowly falling curve</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">e</text><polyline points=\"46,39 49,43.1 52,46.9 55.1,50.5 58.1,53.8 61.1,57 64.1,60 67.2,62.8 70.2,65.5 73.2,68 76.2,70.4 79.2,72.7 82.3,74.9 85.3,77 88.3,79 91.3,80.9 94.4,82.7 97.4,84.4 100.4,86.1 103.4,87.7 106.4,89.2 109.5,90.7 112.5,92.1 115.5,93.5 118.5,94.8 121.6,96 124.6,97.2 127.6,98.4 130.6,99.6 133.6,100.7 136.7,101.7 139.7,102.7 142.7,103.7 145.7,104.7 148.8,105.6 151.8,106.5 154.8,107.4 157.8,108.2 160.8,109.1 163.9,109.8 166.9,110.6 169.9,111.4 172.9,112.1 176,112.8 179,113.5 182,114.2 185,114.8 188,115.5 191.1,116.1 194.1,116.7 197.1,117.3 200.1,117.9 203.2,118.4 206.2,119 209.2,119.5 212.2,120 215.2,120.6 218.3,121.1 221.3,121.5 224.3,122 227.3,122.5 230.4,122.9 233.4,123.4 236.4,123.8 239.4,124.3 242.4,124.7 245.5,125.1 248.5,125.5 251.5,125.9 254.5,126.3 257.6,126.6 260.6,127 263.6,127.4 266.6,127.7 269.6,128.1 272.7,128.4 275.7,128.8 278.7,129.1 281.7,129.4 284.8,129.7 287.8,130 290.8,130.3 293.8,130.6 296.8,130.9 299.9,131.2 302.9,131.5 305.9,131.8 308.9,132.1 312,132.3 315,132.6 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that drops at first and then flattens.",
+      "preview": [
+        "nesterov-accelerated-gradient"
+      ],
+      "options": [
+        "a Newton step taken from an arbitrary start with no line search",
+        "a method that stops when the Hessian is positive definite",
+        "a single gradient evaluation with no further updates",
+        "an extrapolated gradient step whose error can decay like one over the square of the iteration count"
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

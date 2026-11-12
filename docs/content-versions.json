@@ -3435,6 +3435,318 @@
       "version": 1
     },
     {
+      "id": "newton-method-optimization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-method-optimization-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-method-optimization-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-method-optimization-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-method-optimization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-method-optimization-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-method-optimization-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-method-optimization-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-method-optimization-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-method-optimization-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-method-optimization-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-method-optimization-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-method-optimization#explainer",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-local-quadratic-convergence#explainer",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "newton-globalization#explainer",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "wolfe-conditions#explainer",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "quasi-newton-secant#explainer",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "bfgs-update#explainer",
+      "version": 1
+    },
+    {
       "id": "induced-matrix-norms-r1-q1",
       "version": 1
     },

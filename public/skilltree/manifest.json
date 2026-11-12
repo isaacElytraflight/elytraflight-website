@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-12T00:11:17.453549Z",
+  "generated": "2026-11-12T00:29:17.878286Z",
   "skills": {
-    "file": "skills.0512adfe.json",
-    "hash": "0512adfe"
+    "file": "skills.ef3f7f10.json",
+    "hash": "ef3f7f10"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -130,6 +130,18 @@
       },
       "hash": "63e5b8a8",
       "file": "banks/basic-feasible-solutions.63e5b8a8.json"
+    },
+    "bfgs-update": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7be9a9e5",
+      "file": "banks/bfgs-update.7be9a9e5.json"
     },
     "bias-coupling": {
       "version": 1,
@@ -2039,6 +2051,42 @@
       "hash": "63e6b023",
       "file": "banks/mpc.63e6b023.json"
     },
+    "newton-globalization": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "66eed1cd",
+      "file": "banks/newton-globalization.66eed1cd.json"
+    },
+    "newton-local-quadratic-convergence": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b2e86881",
+      "file": "banks/newton-local-quadratic-convergence.b2e86881.json"
+    },
+    "newton-method-optimization": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "1631cced",
+      "file": "banks/newton-method-optimization.1631cced.json"
+    },
     "newton-root-finding": {
       "version": 1,
       "questionCount": 12,
@@ -2386,6 +2434,18 @@
       },
       "hash": "3f63dde6",
       "file": "banks/quadratic-function-minimization.3f63dde6.json"
+    },
+    "quasi-newton-secant": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "4df0eeee",
+      "file": "banks/quasi-newton-secant.4df0eeee.json"
     },
     "rayleigh-quotient": {
       "version": 1,
@@ -2986,6 +3046,18 @@
       },
       "hash": "985ffb42",
       "file": "banks/windup.985ffb42.json"
+    },
+    "wolfe-conditions": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "5d381032",
+      "file": "banks/wolfe-conditions.5d381032.json"
     }
   },
   "explainers": {
@@ -3043,6 +3115,12 @@
     "basic-feasible-solutions": {
       "hash": "a5de2e82",
       "file": "explainers/basic-feasible-solutions.a5de2e82.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "bfgs-update": {
+      "hash": "7a2a853d",
+      "file": "explainers/bfgs-update.7a2a853d.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -3919,6 +3997,24 @@
       "sectionCount": 5,
       "version": 1
     },
+    "newton-globalization": {
+      "hash": "6eb73b2d",
+      "file": "explainers/newton-globalization.6eb73b2d.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "newton-local-quadratic-convergence": {
+      "hash": "4202e2d0",
+      "file": "explainers/newton-local-quadratic-convergence.4202e2d0.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "newton-method-optimization": {
+      "hash": "8a6cc91d",
+      "file": "explainers/newton-method-optimization.8a6cc91d.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "newton-root-finding": {
       "hash": "4a7a79c0",
       "file": "explainers/newton-root-finding.4a7a79c0.json",
@@ -4079,6 +4175,12 @@
     "quadratic-function-minimization": {
       "hash": "1e887a40",
       "file": "explainers/quadratic-function-minimization.1e887a40.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "quasi-newton-secant": {
+      "hash": "b85d24ef",
+      "file": "explainers/quasi-newton-secant.b85d24ef.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -4360,6 +4462,12 @@
     "windup": {
       "hash": "61d1b2f3",
       "file": "explainers/windup.61d1b2f3.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "wolfe-conditions": {
+      "hash": "919be9e5",
+      "file": "explainers/wolfe-conditions.919be9e5.json",
       "sectionCount": 5,
       "version": 1
     }

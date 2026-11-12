@@ -56,6 +56,8 @@ NB8 uses the same references for gradient methods. `boyd-cvx` supplies the scope
 
 NB9 uses the same references for Gauss-Newton, damping, block updates, and Newton on a nonlinear equation. `nw-numopt` supplies the scope for a Gauss-Newton step, a damped step, and a Newton iteration for a root. `nlo-notes` supplies the scope for cycling through data blocks and for reading one linear least-squares update as the measurement step of a Kalman filter. `boyd-cvx` supplies the scope for the least-squares objective those steps minimize. No section is quoted, and no exercise or parameter set is reused. The linear filter recursion stays in the Kalman core and is not rewritten here.
 
+NB10 uses the same references for Newton on an objective and for quasi-Newton updates. `nw-numopt` supplies the scope for the Newton step from a quadratic model, local quadratic convergence under a Lipschitz Hessian, diagonal shifts and line searches that restore descent, the Wolfe conditions and the curvature consequence \(y^T s > 0\), the secant equation, and the BFGS inverse update. `boyd-cvx` supplies the scope for the gradient and Hessian of a smooth objective and for positive definite quadratic models. `nlo-notes` supplies the scope for affine invariance and for the attraction of an unmodified Newton step to a maximum or a saddle. No section is quoted, and no exercise or parameter set is reused.
+
 ## Section map for B7
 
 Scope only. The skill records already point at the sections. No wording, problems, parameter sets, or figures were taken from them. Learner-facing text does not name the works below.

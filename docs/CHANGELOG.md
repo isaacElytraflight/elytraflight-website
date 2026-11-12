@@ -166,6 +166,16 @@ Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## NB10 — nlo-nb10
+
+Box: Nonlinear Optimization (nlo-tugraz).
+
+Skills: `newton-method-optimization`, `newton-local-quadratic-convergence`, `newton-globalization`, `wolfe-conditions`, `quasi-newton-secant`, `bfgs-update`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## NB2 — nlo-nb2
 
 Box: Nonlinear Optimization (nlo-tugraz).
