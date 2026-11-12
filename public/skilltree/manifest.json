@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-12T00:07:16.291293Z",
+  "generated": "2026-11-12T00:11:17.453549Z",
   "skills": {
-    "file": "skills.70b0a878.json",
-    "hash": "70b0a878"
+    "file": "skills.0512adfe.json",
+    "hash": "0512adfe"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -3622,8 +3622,8 @@
       "sectionCount": 5
     },
     "incremental-gradient-methods": {
-      "hash": "e31a8d74",
-      "file": "explainers/incremental-gradient-methods.e31a8d74.json",
+      "hash": "251f59e1",
+      "file": "explainers/incremental-gradient-methods.251f59e1.json",
       "sectionCount": 5,
       "version": 1
     },
