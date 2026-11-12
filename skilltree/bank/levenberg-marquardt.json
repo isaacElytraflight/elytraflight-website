@@ -53,15 +53,15 @@
       "id": "levenberg-marquardt-r2-q1",
       "round": 2,
       "type": "order",
-      "prompt": "Put this damping update in order. Each step uses the result of the step before it.",
-      "explanation": "The trial step has to exist before its true decrease can be compared with the model. The comparison is what decides the damping. A rejected step increases \\(\\mu\\) and is not added to the point. An accepted step decreases \\(\\mu\\) only after the point has moved. Reversing those two damping changes fights the comparison.",
+      "prompt": "Put an accepted damping update in order. Each step uses the result of the step before it.",
+      "explanation": "The trial step has to exist before its decrease can be compared with the model. Acceptance uses that comparison: the step is kept only when the true decrease is a large enough fraction of the prediction. The damping falls only after that acceptance. A rejected step is the other branch of the same test, and it raises \\(\\mu\\) instead of lowering it. The two branches are alternatives, not successive steps.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
       "figure_alt": "A solid segment joins two marked points on a dashed line.",
       "steps": [
         "Solve \\((J_r^T J_r + \\mu I)\\, d = -J_r^T r\\) at the current damping.",
         "Compare the true decrease in \\(\\tfrac12\\lVert r\\rVert^2\\) with the decrease predicted by the linear model.",
-        "If the true decrease is too small beside that prediction, reject the step and increase \\(\\mu\\).",
-        "If the true decrease is large enough, accept the point plus \\(d\\) and decrease \\(\\mu\\)."
+        "Accept the point plus \\(d\\) because that true decrease is large enough.",
+        "Decrease \\(\\mu\\) for the next iteration after the step has been accepted."
       ],
       "version": 1
     },

@@ -54,14 +54,14 @@
       "round": 2,
       "type": "order",
       "prompt": "Put one extended measurement update in order. Each step uses the result of the step before it.",
-      "explanation": "The map and the Jacobian are the linear model, so they come first. The innovation uses the map. The gain uses the Jacobian and the two variances, and it needs the innovation only when the correction is applied. The variance update uses that gain and the same Jacobian. Linearizing at the corrected point is the next block, not this one.",
+      "explanation": "The map has to be known before the innovation can subtract it. The correction is the gain times that innovation, so the product cannot be formed until the innovation exists. The estimate then moves by that product, and the variance formula uses the gain inside it. The gain by itself does not need the innovation, which is why the later step is the product, not the gain alone. Linearizing again at the corrected point is the next block.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
       "figure_alt": "A solid segment joins two marked points on a dashed line.",
       "steps": [
         "Evaluate the nonlinear measurement and its Jacobian at the current estimate.",
         "Form the innovation as the reading minus that measurement value.",
-        "Compute the gain from the Jacobian, the estimate variance, and the measurement variance.",
-        "Add the gain times the innovation, and update the variance with the same Jacobian."
+        "Multiply that innovation by the gain built from the same Jacobian and the two variances.",
+        "Add that product to the estimate. The variance update uses this same gain and Jacobian."
       ],
       "version": 1
     },

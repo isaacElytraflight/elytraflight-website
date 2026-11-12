@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-11T23:55:55.839969Z",
+  "generated": "2026-11-12T00:07:16.291293Z",
   "skills": {
-    "file": "skills.d55a1f6a.json",
-    "hash": "d55a1f6a"
+    "file": "skills.70b0a878.json",
+    "hash": "70b0a878"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -968,8 +968,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "281df45b",
-      "file": "banks/extended-kalman-filter.281df45b.json"
+      "hash": "eb52295d",
+      "file": "banks/extended-kalman-filter.eb52295d.json"
     },
     "fb-amp-errors": {
       "version": 1,
@@ -1220,8 +1220,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "6cf2653f",
-      "file": "banks/gauss-newton-method.6cf2653f.json"
+      "hash": "bdaa86c6",
+      "file": "banks/gauss-newton-method.bdaa86c6.json"
     },
     "gaussian-random-vectors": {
       "version": 1,
@@ -1412,8 +1412,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e77059b7",
-      "file": "banks/incremental-gradient-methods.e77059b7.json"
+      "hash": "a0d43662",
+      "file": "banks/incremental-gradient-methods.a0d43662.json"
     },
     "induced-matrix-norms": {
       "version": 1,
@@ -1628,8 +1628,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "441ed664",
-      "file": "banks/levenberg-marquardt.441ed664.json"
+      "hash": "1cf35639",
+      "file": "banks/levenberg-marquardt.1cf35639.json"
     },
     "limit-cycles": {
       "version": 1,
@@ -3622,8 +3622,8 @@
       "sectionCount": 5
     },
     "incremental-gradient-methods": {
-      "hash": "21add20d",
-      "file": "explainers/incremental-gradient-methods.21add20d.json",
+      "hash": "e31a8d74",
+      "file": "explainers/incremental-gradient-methods.e31a8d74.json",
       "sectionCount": 5,
       "version": 1
     },

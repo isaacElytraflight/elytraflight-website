@@ -8,7 +8,7 @@ Do not publish.
 
 - 6 skills, 72 questions (30 multiple choice, 42 numeric), 6 explainers.
 - 72 question figures.
-- Explainer words: `gauss-newton-method` 496, `levenberg-marquardt` 496, `incremental-gradient-methods` 494, `kalman-recursive-least-squares` 497, `extended-kalman-filter` 473, `newton-root-finding` 497.
+- Explainer words: `gauss-newton-method` 496, `levenberg-marquardt` 496, `incremental-gradient-methods` 495, `kalman-recursive-least-squares` 497, `extended-kalman-filter` 473, `newton-root-finding` 497.
 
 ## Versions
 

@@ -23,7 +23,7 @@
     },
     {
       "heading": "Where this leads",
-      "body_md": "If each block is a linear least-squares term, the natural step is not a fixed fraction of the gradient. It is the exact minimizer of that block, which is one Gauss-Newton step and has no free length left. Chaining those exact block steps is recursive least squares. When a later block is nonlinear, the same idea rebuilds the Jacobian at the updated estimate before taking the step."
+      "body_md": "Recursive least squares does not minimize each new block by itself. On the quadratics with centers \\(2\\) and \\(6\\), that pass of length \\(1\\) ends at \\(6\\), not at the joint minimizer \\(4\\). The recursive step minimizes the old quadratic together with the new block, and one Gauss-Newton step is exact because the stacked cost is quadratic. A nonlinear block is linearized at the current estimate before that stacked step."
     }
   ]
 }

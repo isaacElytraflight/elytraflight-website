@@ -225,7 +225,7 @@ def bank_gn():
     )
     b.mc(
         4,
-        r"On a residual that is already affine, one Gauss-Newton step is exact. Taking that exact step on one new linear block at a time, starting from the previous fit, is the optimization view of",
+        r"On a residual that is already affine, one Gauss-Newton step is exact. Applying that step to the old quadratic plus one new linear block is the optimization view of",
         [
             r"the measurement update of a linear recursive least-squares fit",
             r"a phase-one simplex iteration",
@@ -233,7 +233,7 @@ def bank_gn():
             r"a power iteration for the largest eigenvalue",
         ],
         0,
-        r"A linear block has a constant Jacobian, so Gauss-Newton finishes that block in one step. Appending one block at a time and restarting from the previous minimizer is recursive least squares, and the resulting gain is the Kalman measurement update. A phase-one iteration introduces artificial variables for a linear program. Armijo is a sufficient-decrease test on a step that has already been chosen. Power iteration multiplies by a matrix to find an eigenvector.",
+        r"A linear residual makes one Gauss-Newton step exact for the cost it is given. Recursive least squares gives it the old quadratic plus the new block, not the new block by itself, and that step is the Kalman measurement update. A phase-one iteration introduces artificial variables for a linear program. Armijo is a sufficient-decrease test on a step that has already been chosen. Power iteration multiplies by a matrix to find an eigenvector.",
         fig=SIMP,
         alt=A_SIMP,
         preview=P_RLS,
@@ -282,14 +282,14 @@ def bank_lm():
     )
     b.order(
         2,
-        r"Put this damping update in order. Each step uses the result of the step before it.",
+        r"Put an accepted damping update in order. Each step uses the result of the step before it.",
         [
             r"Solve \((J_r^T J_r + \mu I)\, d = -J_r^T r\) at the current damping.",
             r"Compare the true decrease in \(\tfrac12\lVert r\rVert^2\) with the decrease predicted by the linear model.",
-            r"If the true decrease is too small beside that prediction, reject the step and increase \(\mu\).",
-            r"If the true decrease is large enough, accept the point plus \(d\) and decrease \(\mu\).",
+            r"Accept the point plus \(d\) because that true decrease is large enough.",
+            r"Decrease \(\mu\) for the next iteration after the step has been accepted.",
         ],
-        r"The trial step has to exist before its true decrease can be compared with the model. The comparison is what decides the damping. A rejected step increases \(\mu\) and is not added to the point. An accepted step decreases \(\mu\) only after the point has moved. Reversing those two damping changes fights the comparison.",
+        r"The trial step has to exist before its decrease can be compared with the model. Acceptance uses that comparison: the step is kept only when the true decrease is a large enough fraction of the prediction. The damping falls only after that acceptance. A rejected step is the other branch of the same test, and it raises \(\mu\) instead of lowering it. The two branches are alternatives, not successive steps.",
         fig=SEG,
         alt=A_SEG,
     )
@@ -540,15 +540,15 @@ def bank_inc():
     )
     b.mc(
         4,
-        r"When each block is a linear least-squares term and the step minimizes that block exactly, the pass becomes",
+        r"Recursive least squares, unlike an incremental pass that minimizes each block alone, minimizes",
         [
-            r"a recursive least-squares update, with no free step length left to choose",
-            r"a backtracking line search on the full gradient",
+            r"the old quadratic plus the new linear block, in one Gauss-Newton step",
+            r"only the newest block, forgetting every earlier block",
+            r"the full gradient with a constant step and no least-squares solve",
             r"a spectral decomposition of the data matrix",
-            r"one batch gradient step with a constant length",
         ],
         0,
-        r"An exact minimization of one linear block is one Gauss-Newton step, and it is exact because the block is quadratic. Chaining those exact steps is recursive least squares. There is no remaining step length: the block step is the minimizer. Backtracking shortens a direction that was already chosen from a full gradient. A spectral decomposition reads singular values. A batch step waits for every block and then uses one shared length.",
+        r"The recursive step keeps every earlier block as a quadratic and appends the new linear residual. One Gauss-Newton step finishes that stacked cost. Minimizing only the newest block is a different pass: on \(\tfrac12(u-2)^2\) and \(\tfrac12(u-6)^2\), length \(1\) ends at \(6\), while the joint minimizer is \(4\). A constant-length gradient step is the incremental method itself. A spectral decomposition reads singular values.",
         fig=COL,
         alt=A_COL,
         preview=P_RLS,
@@ -795,10 +795,10 @@ def bank_ekf():
         [
             r"Evaluate the nonlinear measurement and its Jacobian at the current estimate.",
             r"Form the innovation as the reading minus that measurement value.",
-            r"Compute the gain from the Jacobian, the estimate variance, and the measurement variance.",
-            r"Add the gain times the innovation, and update the variance with the same Jacobian.",
+            r"Multiply that innovation by the gain built from the same Jacobian and the two variances.",
+            r"Add that product to the estimate. The variance update uses this same gain and Jacobian.",
         ],
-        r"The map and the Jacobian are the linear model, so they come first. The innovation uses the map. The gain uses the Jacobian and the two variances, and it needs the innovation only when the correction is applied. The variance update uses that gain and the same Jacobian. Linearizing at the corrected point is the next block, not this one.",
+        r"The map has to be known before the innovation can subtract it. The correction is the gain times that innovation, so the product cannot be formed until the innovation exists. The estimate then moves by that product, and the variance formula uses the gain inside it. The gain by itself does not need the innovation, which is why the later step is the product, not the gain alone. Linearizing again at the corrected point is the next block.",
         fig=SEG,
         alt=A_SEG,
     )
@@ -1173,7 +1173,7 @@ and the next block sees the new \(x\). A batch step uses \(\sum_i \nabla f_i\) a
 
 The crate reading is 14.8. The full gradient there is \(1.6\), not zero. A batch step would have summed both gradients at \(14\) before moving, and it would not have produced this point. Another pass, started at \(14.8\), evaluates its first gradient at \(14.8\) rather than at \(14\).""",
             r"""Evaluating every later block at the original point is a batch step written one term at a time. The incremental pass is defined by the update in between. A second slip is to expect a constant length to land on the minimizer of the sum. The endpoint of a repeated pass can sit where the full gradient is not zero. A third is to enlarge the length in the hope that one pass will finish the problem. A longer constant step can sit even farther from a stationary point. A fourth is to forget that the order of the blocks changes the intermediate points whenever the length is finite.""",
-            r"""If each block is a linear least-squares term, the natural step is not a fixed fraction of the gradient. It is the exact minimizer of that block, which is one Gauss-Newton step and has no free length left. Chaining those exact block steps is recursive least squares. When a later block is nonlinear, the same idea rebuilds the Jacobian at the updated estimate before taking the step.""",
+            r"""Recursive least squares does not minimize each new block by itself. On the quadratics with centers \(2\) and \(6\), that pass of length \(1\) ends at \(6\), not at the joint minimizer \(4\). The recursive step minimizes the old quadratic together with the new block, and one Gauss-Newton step is exact because the stacked cost is quadratic. A nonlinear block is linearized at the current estimate before that stacked step.""",
             SEG,
             A_SEG,
         ),
