@@ -42,6 +42,22 @@ const NBLOB = NBOX;
 let browser, results = [], errs = [];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+async function showGrouped(p) {
+  const on = await p.$eval('#btnGroup', b => b.getAttribute('aria-pressed') === 'true');
+  if (!on) {
+    await p.click('#btnGroup');
+    await sleep(800);
+  }
+}
+
+async function showTree(p) {
+  const grouped = await p.$eval('#btnGroup', b => b.getAttribute('aria-pressed') === 'true');
+  if (!grouped) return;
+  await p.evaluate(() => localStorage.setItem('skilltree.layout.v1', 'tree'));
+  await p.reload({ waitUntil: 'networkidle0' });
+  await sleep(500);
+}
+
 async function pickBoxes(p, ids) {
   await p.evaluate(ids => {
     const panel = document.getElementById('scopePanel');
@@ -546,8 +562,10 @@ async function test(name, fn) {
     });
     const exp = JSON.parse(exported);
     assert.strictEqual(exp.skills.bode.tier, 2);
+    assert.ok(Array.isArray(exp.exams));
     
     exp.skills['lti-def'] = { tier: 3, lastPracticed: now - 1 * DAY, history: [] };
+    exp.exams = [{ id: 'ex-import', date: '2026-12-01', box: 'me132' }];
     exp.skills.bode.tier = 1;
     exp.scope = { v: 2, boxes: ['ee105-ucb'] };
     
@@ -568,6 +586,7 @@ async function test(name, fn) {
     const s = await store(p2);
     assert.strictEqual(s.skills.bode.tier, 2);
     assert.strictEqual(s.skills['lti-def'].tier, 3);
+    assert.deepStrictEqual(s.exams, [{ id: 'ex-import', date: '2026-12-01', box: 'me132' }]);
     const importedFocus = await p2.evaluate(() => ({
       hidden: document.getElementById('focusPrompt').hidden,
       focus: new URLSearchParams(location.search).get('focus'),
@@ -597,29 +616,46 @@ async function test(name, fn) {
     const emptied = await p2.evaluate(() => ({
       prompt: document.getElementById('focusPrompt').hidden,
       panel: document.getElementById('scopePanel').hidden,
-      focus: new URLSearchParams(location.search).get('focus')
+      focus: new URLSearchParams(location.search).get('focus'),
+      exams: window.__skillgrove.exams.list()
     }));
     assert.strictEqual(emptied.prompt, false, 'an empty-focus import shows the pick-courses prompt');
     assert.strictEqual(emptied.panel, false, 'the course checklist stays open after the import click');
     assert.strictEqual(emptied.focus, '');
+    assert.deepStrictEqual(emptied.exams, [], 'replacing progress drops exam dates that were only on this device');
     
     await p._ctx.close();
     await p2._ctx.close();
   });
 
-  await test('layout toggle grouped <-> tree persists and animates', async () => {
+  await test('group by course is the default and a saved layout choice sticks', async () => {
     const p = await newPage();
-    assert.strictEqual(await p.$eval('#btnGroup', e => e.getAttribute('aria-pressed')), 'false');
+    assert.strictEqual(await p.$eval('#btnGroup', e => e.getAttribute('aria-pressed')), 'true');
+    assert.strictEqual(await p.$eval('#btnGroup .t', e => e.textContent), 'Ungroup');
+    assert.strictEqual(await p.evaluate(() => document.getElementById('world').dataset.layout), 'grouped');
+    assert.strictEqual(await p.evaluate(() => localStorage.getItem('skilltree.layout.v1')), null, 'a new profile has no saved layout');
+    await p.screenshot({ path: path.join(SHOTS_DIR, '07_grouped.png') });
+
     await p.click('#btnGroup');
     await sleep(700);
-    assert.strictEqual(await p.$eval('#btnGroup', e => e.getAttribute('aria-pressed')), 'true');
-    const grouped = await p.evaluate(() => localStorage.getItem('skilltree.layout.v1'));
-    assert.strictEqual(grouped, 'grouped');
-    await p.screenshot({ path: path.join(SHOTS_DIR, '07_grouped.png') });
-    
-    await p.reload();
+    assert.strictEqual(await p.$eval('#btnGroup', e => e.getAttribute('aria-pressed')), 'false');
+    assert.strictEqual(await p.$eval('#btnGroup .t', e => e.textContent), 'Group by course');
+    assert.strictEqual(await p.evaluate(() => localStorage.getItem('skilltree.layout.v1')), 'tree');
+    assert.strictEqual(await p.evaluate(() => document.getElementById('world').dataset.layout), 'tree');
+    await p.reload({ waitUntil: 'networkidle0' });
     await sleep(500);
-    assert.strictEqual(await p.$eval('#btnGroup', e => e.getAttribute('aria-pressed')), 'true');
+    assert.strictEqual(await p.evaluate(() => document.getElementById('world').dataset.layout), 'tree', 'an explicit tree choice stays tree');
+    assert.strictEqual(await p.$eval('#btnGroup', e => e.getAttribute('aria-pressed')), 'false');
+
+    await p.evaluate(() => localStorage.setItem('skilltree.layout.v1', 'grouped'));
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    assert.strictEqual(await p.evaluate(() => document.getElementById('world').dataset.layout), 'grouped', 'an explicit grouped choice stays grouped');
+
+    await p.evaluate(() => localStorage.removeItem('skilltree.layout.v1'));
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    assert.strictEqual(await p.evaluate(() => document.getElementById('world').dataset.layout), 'grouped', 'clearing the choice returns to group by course');
     await p._ctx.close();
   });
 
@@ -805,8 +841,10 @@ async function test(name, fn) {
     const threshold = await p.evaluate(() => window.__skillgrove.lights.threshold);
     assert(typeof threshold === 'number', 'threshold should be a number');
     
+    await p.evaluate(() => window.__skillgrove.lights.setScale(0.8));
+    await sleep(50);
     let lightsOn = await p.evaluate(() => window.__skillgrove.lights.mode());
-    assert(!lightsOn, 'lights mode should be off at normal zoom');
+    assert(!lightsOn, 'lights mode should be off above the threshold');
     
     await p.evaluate(() => window.__skillgrove.lights.setScale(0.25));
     await sleep(100);
@@ -1122,6 +1160,7 @@ async function test(name, fn) {
 
   await test('edge highlight stays on the moving cards during a view animation', async () => {
     const p = await newPage();
+    await showTree(p);
     await p.evaluate(() => {
       const world = document.getElementById('world');
       const tv = document.getElementById('treeView');
@@ -1217,8 +1256,10 @@ async function test(name, fn) {
 
   await test('focus URL changes keep highlight strokes behind the cards', async () => {
     const p = await newPage();
+    await showTree(p);
     await p.evaluate(() => window.__skillgrove.collections.setSelected(['ee105-ucb']));
-    await sleep(200);
+    await p.evaluate(() => document.getAnimations().forEach(a => { try { a.finish(); } catch (e) { } }));
+    await sleep(50);
     const target = await p.evaluate(() => {
       const world = document.getElementById('world');
       const tv = document.getElementById('treeView');
@@ -1438,7 +1479,7 @@ async function test(name, fn) {
     assert(/one node at a time/i.test(header.sub), 'subtitle should have tagline');
     assert(/Skillgrove/i.test(header.title), 'page title should mention Skillgrove');
     assert(/STEM/i.test(header.metaDesc), 'meta description should mention STEM');
-    assert(/Group by course/i.test(header.btnGroup), 'group button should say "Group by course"');
+    assert.strictEqual(header.btnGroup, 'Ungroup', 'group by course is on by default');
     
     await p.screenshot({ path: path.join(SHOTS_DIR, '13_rebranded_header.png') });
     await p._ctx.close();
@@ -1447,8 +1488,7 @@ async function test(name, fn) {
   await test('nested grouped view: course box contains chapter boxes', async () => {
     const p = await newPage();
     await p.evaluate(() => document.getElementById('scopeAll').click());
-    await p.click('#btnGroup');
-    await sleep(700);
+    await showGrouped(p);
     
     const layout = await p.evaluate(() => {
       const sg = window.__skillgrove;
@@ -1642,8 +1682,7 @@ async function test(name, fn) {
       'phasors': { tier: 4, lastPracticed: now - 2 * DAY, history: [] }
     }));
     
-    await p.click('#btnGroup');
-    await sleep(700);
+    await showGrouped(p);
     
     await p.evaluate(() => window.__skillgrove.lights.setScale(0.25));
     await sleep(100);
@@ -1933,8 +1972,7 @@ async function test(name, fn) {
     const p = await newPage(T({
       bode: { tier: 4, lastPracticed: now - DAY, history: [] }
     }));
-    await p.click('#btnGroup');
-    await sleep(700);
+    await showGrouped(p);
     const shared = await p.evaluate(() => {
       const tiles = [...document.querySelectorAll('#world .tile[data-id="bode"]')];
       const stored = JSON.parse(localStorage.getItem('skilltree.progress.v1')).skills;
@@ -2040,6 +2078,7 @@ async function test(name, fn) {
     assert.strictEqual(tree.toggles, 0, 'collapse arrows are gone');
     assert.strictEqual(tree.soon, '');
     assert.strictEqual(tree.soonClass, false);
+    assert.strictEqual(await p.evaluate(() => document.getElementById('world').dataset.layout), 'grouped');
     await p.click('#btnGroup');
     await sleep(700);
     const grouped = await p.evaluate(() => {
@@ -2055,10 +2094,11 @@ async function test(name, fn) {
     assert.strictEqual(grouped.tiles, NSKILL);
     assert.deepStrictEqual(grouped.dupes, []);
     assert.strictEqual(grouped.bode, 1);
+    assert.strictEqual(await p.evaluate(() => document.querySelector('#world').dataset.layout), 'tree', 'Ungroup restores the prerequisite tree');
     await p.click('#btnGroup');
     await sleep(400);
     const back = await p.evaluate(() => document.querySelector('#world').dataset.layout);
-    assert.strictEqual(back, 'tree', 'Ungroup restores the prerequisite tree');
+    assert.strictEqual(back, 'grouped');
     await p._ctx.close();
   });
 
@@ -2066,8 +2106,7 @@ async function test(name, fn) {
     const p = await newPage();
     await p.setViewport({ width: 1440, height: 900 });
     await p.evaluate(() => document.getElementById('scopeAll').click());
-    await p.click('#btnGroup');
-    await sleep(800);
+    await showGrouped(p);
 
     const geometry = () => p.evaluate(() => {
       const world = document.getElementById('world');
@@ -2203,8 +2242,7 @@ async function test(name, fn) {
 
   await test('multi-select drives the drawn regions and the plan union', async () => {
     const p = await newPage();
-    await p.click('#btnGroup');
-    await sleep(700);
+    await showGrouped(p);
     await pickBoxes(p, ['ee105-ucb', 'me132']);
     const drawn = await p.evaluate(() => ({
       regions: [...document.querySelectorAll('#regions .blob')].map(b => b.dataset.box).sort(),
@@ -3415,6 +3453,163 @@ async function test(name, fn) {
       await owner.screenshot({ path: '/opt/cursor/artifacts/skillgrove-admin-dashboard.png', fullPage: true });
     }
     await owner._ctx.close();
+  });
+
+  await test('exam dates spread today across the days before the exam', async () => {
+    fs.mkdirSync('/opt/cursor/artifacts', { recursive: true });
+    const p = await newPage(T({
+      bode: { tier: 1, lastPracticed: now - 5 * DAY, history: [] },
+      tf: { tier: 1, lastPracticed: now - DAY, history: [] }
+    }));
+    const when = await p.evaluate(() => {
+      const Sim = window.SkillSim;
+      const today = Sim.localISODate(new Date());
+      return { today, course: Sim.addISODays(today, 6), soon: Sim.addISODays(today, 1) };
+    });
+    await p.click('#todoAddExam');
+    await sleep(200);
+    assert.strictEqual(await p.$eval('#modal h2', e => e.textContent), 'Add exam date');
+    assert.strictEqual(await p.evaluate(() => document.activeElement && document.activeElement.id), 'examLabel');
+    await p.keyboard.press('Enter');
+    assert.strictEqual(await p.$eval('#modal h2', e => e.textContent), 'Add exam date', 'Enter in the name field keeps the editor open');
+    await p.select('#examBox', 'me132');
+    await p.type('#examLabel', 'Checkpoint');
+    await p.$eval('#examDate', (el, v) => { el.value = v; }, when.course);
+    await p.screenshot({ path: '/opt/cursor/artifacts/exam-date-form.png' });
+    await p.click('#examSave');
+    await sleep(300);
+    const course = await p.evaluate(date => {
+      const sg = window.__skillgrove;
+      const Sim = window.SkillSim;
+      const exam = sg.exams.list()[0];
+      const view = sg.exams.view(exam.id);
+      const plan = sg.plan(false, 'me132');
+      const dayCount = Sim.studyDayCount(Sim.localISODate(new Date()), date);
+      const indexes = Sim.sessionsOnDay(plan.rows.length, dayCount, 0);
+      const fromPlan = new Set();
+      indexes.forEach(i => {
+        plan.rows[i].practiced.forEach(id => fromPlan.add('skill\0' + id));
+        plan.rows[i].challenges.forEach(c => fromPlan.add('challenge\0' + c.id));
+      });
+      const fromView = view.today.map(it => it.type + '\0' + it.id);
+      const dom = [...document.querySelectorAll('#todoExams .todo-exam-skill')].map(b => ({ type: b.dataset.type, id: b.dataset.id }));
+      return {
+        exam, countdown: view.countdown, days: view.days, sessions: view.sessions,
+        today: fromView, dom, planSessions: plan.rows.length, dayCount, indexes,
+        sameSet: fromView.length === fromPlan.size && fromView.every(k => fromPlan.has(k))
+      };
+    }, when.course);
+    assert.strictEqual(course.exam.label, 'Checkpoint');
+    assert.strictEqual(course.exam.box, 'me132');
+    assert.strictEqual(course.exam.date, when.course);
+    assert.strictEqual(course.exam.skills, undefined);
+    assert.strictEqual(course.countdown, 'Exam in 6 days');
+    assert.strictEqual(await p.$eval('.todo-exam-count', e => e.textContent), 'Exam in 6 days');
+    assert.strictEqual(await p.$eval('.todo-exam-name', e => e.textContent), 'Checkpoint');
+    assert.strictEqual(course.dayCount, 6);
+    assert(course.sessions > 1, 'the course plan has more than one session');
+    assert(course.today.length > 0, 'today is assigned at least one skill');
+    assert.strictEqual(course.sameSet, true, 'today is the learning-plan sessions placed on the first study day');
+    assert.deepStrictEqual(course.dom, course.today.map(k => { const [type, id] = k.split('\0'); return { type, id }; }));
+    const manual = await p.evaluate(() => window.__skillgrove.todo.list());
+    assert.deepStrictEqual(manual, [], 'assigning an exam does not write the to-do list');
+    const examMax = await p.evaluate(() => getComputedStyle(document.getElementById('todoExams')).maxHeight);
+    assert(/^\d+(\.\d+)?px$/.test(examMax) && parseFloat(examMax) <= 240, 'exam list has a real height cap: ' + examMax);
+    await p.screenshot({ path: '/opt/cursor/artifacts/exam-date-today.png' });
+
+    await p.click('.todo-exam-edit');
+    await sleep(200);
+    assert.strictEqual(await p.$eval('#examLabel', e => e.value), 'Checkpoint');
+    assert.strictEqual(await p.$eval('#examBox', e => e.value), 'me132');
+    await p.$eval('#examDate', (el, v) => { el.value = v; }, when.soon);
+    await p.click('#examSave');
+    await sleep(300);
+    const edited = await p.evaluate(before => {
+      const view = window.__skillgrove.exams.view(window.__skillgrove.exams.list()[0].id);
+      const keys = new Set(view.today.map(it => it.type + '\0' + it.id));
+      return {
+        countdown: view.countdown,
+        days: view.days,
+        n: view.today.length,
+        covers: before.every(k => keys.has(k))
+      };
+    }, course.today);
+    assert.strictEqual(edited.countdown, 'Exam tomorrow');
+    assert.strictEqual(edited.days, 1);
+    assert(edited.n >= course.today.length, 'a nearer date packs at least as much into today');
+    assert.strictEqual(edited.covers, true, 'today still includes the skills that were already due');
+
+    await p.click('#todoAddExam');
+    await sleep(200);
+    await p.evaluate(() => {
+      const r = document.getElementById('examModeSkills');
+      r.checked = true;
+      r.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    await p.type('#examSkillFilter', 'bode');
+    await p.click('#examSkillList input[value="bode"]');
+    await p.evaluate(() => {
+      const box = document.getElementById('examSkillFilter');
+      box.value = '';
+      box.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    await p.type('#examSkillFilter', 'transfer');
+    await p.click('#examSkillList input[value="tf"]');
+    await p.$eval('#examDate', (el, v) => { el.value = v; }, when.soon);
+    await p.click('#examSave');
+    await sleep(300);
+    assert.strictEqual(await p.$$eval('.todo-exam', els => els.length), 2, 'more than one exam can be saved');
+    const skillsExam = await p.evaluate(() => {
+      const list = window.__skillgrove.exams.list();
+      const exam = list[1];
+      const view = window.__skillgrove.exams.view(exam.id);
+      const challenges = [...document.querySelectorAll('.todo-exam:last-child .todo-exam-skill[data-type="challenge"]')].map(b => b.dataset.id);
+      return { skills: exam.skills, challenges, countdown: view.countdown };
+    });
+    assert.deepStrictEqual(skillsExam.skills, ['bode', 'tf']);
+    assert.strictEqual(skillsExam.countdown, 'Exam tomorrow');
+    assert(skillsExam.challenges.includes('bode') && skillsExam.challenges.includes('tf'), skillsExam.challenges.join(','));
+    assert(skillsExam.challenges.indexOf('bode') < skillsExam.challenges.indexOf('tf'), 'the less recent skill comes first');
+
+    await p.click('.todo-exam-remove');
+    await sleep(200);
+    assert.strictEqual(await p.$$eval('.todo-exam', els => els.length), 1);
+    assert.deepStrictEqual((await p.evaluate(() => window.__skillgrove.exams.list())).map(e => e.skills), [['bode', 'tf']]);
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.exams.list().map(e => e.skills)), [['bode', 'tf']]);
+    await p.click('.todo-exam-skill');
+    await sleep(300);
+    assert.strictEqual(await p.$eval('#panel', e => e.classList.contains('open')), true, 'a today skill opens that skill');
+
+    await p.evaluate(() => {
+      window.__skillgrove.todo.add('skill', 'lti-def');
+      window.__skillgrove.collections.setSelected(['nlo-tugraz']);
+    });
+    await sleep(200);
+    const keptExam = await p.evaluate(() => window.__skillgrove.exams.view(window.__skillgrove.exams.list()[0].id).today.map(it => it.id));
+    assert(keptExam.includes('bode') || keptExam.includes('tf') || keptExam.length > 0);
+    const added = await p.evaluate(() => window.__skillgrove.todo.queueSession());
+    const after = await p.evaluate(() => window.__skillgrove.todo.list());
+    assert.strictEqual(after[0].id, 'lti-def', 'a focus change does not remove to-do items');
+    assert(added > 0, 'queueing still follows the focused course');
+    const planIds = await p.evaluate(() => {
+      const row = window.__skillgrove.plan(false).rows[0];
+      return row.practiced.concat(row.challenges.map(c => c.id));
+    });
+    after.slice(1).forEach(it => assert(planIds.includes(it.id), it.id + ' should come from the focused plan'));
+    assert.strictEqual(await p.evaluate(() => window.__skillgrove.exams.list().length), 1, 'queueing does not drop exam dates');
+    await p._ctx.close();
+  });
+
+  await test('a saved exam follows retired skill ids', async () => {
+    const seed = T({ bode: { tier: 0, lastPracticed: null, history: [] } });
+    seed.exams = [{ id: 'ex-old', date: '2026-12-01', skills: ['saturation', 'bode'] }];
+    const p = await newPage(seed);
+    assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.exams.list()), [
+      { id: 'ex-old', date: '2026-12-01', skills: ['square-law', 'bode'] }
+    ]);
+    await p._ctx.close();
   });
 
   await browser.close();
