@@ -28,6 +28,7 @@ let listening = false;
 let sessionSent = false;
 let memInstall = null;
 let live = null;
+let flagDraft = null;
 
 function storageGet(key) {
   try { return localStorage.getItem(key); } catch (e) { return null; }
@@ -236,10 +237,10 @@ async function postTable(table, rows, opts) {
   const code = String(body.code || '');
   const message = String(body.message || body.details || '').toLowerCase();
   if (res.status === 409 || code === '23505') return { ok: false, kind: 'duplicate' };
+  if (code === '54000' || message.includes('rate limit')) return { ok: false, kind: 'rate' };
   const missing = res.status === 404 || code === 'PGRST205' || code === '42P01' || code === 'PGRST204'
     || message.includes('schema cache') || message.includes('does not exist') || message.includes('could not find the table');
   if (missing) return { ok: false, kind: 'missing' };
-  if (code === '54000' || message.includes('rate limit')) return { ok: false, kind: 'rate' };
   return { ok: false, kind: 'error' };
 }
 
@@ -268,18 +269,17 @@ async function flushNow(opts) {
   stamp(batch);
   persistEvents();
   const result = await postTable('analytics_events', batch, opts);
-  if (result.ok) {
+  if (result.ok || result.kind === 'duplicate') {
     if (queue.length) schedule(400);
     return;
   }
-  if (result.kind === 'missing' || result.kind === 'network' || result.kind === 'unavailable') {
-    queue = batch.concat(queue).slice(-EVENT_CAP);
-    persistEvents();
-    if (result.kind === 'missing' || result.kind === 'unavailable') serverOff = true;
-    else schedule(20000);
+  queue = batch.concat(queue).slice(-EVENT_CAP);
+  persistEvents();
+  if (result.kind === 'missing' || result.kind === 'unavailable') {
+    serverOff = true;
     return;
   }
-  persistEvents();
+  schedule(result.kind === 'rate' ? 60000 : 20000);
 }
 
 function flush(opts) {
@@ -337,12 +337,9 @@ async function submitFlag(partial) {
   }
   const result = await postTable('analytics_flags', [row]);
   if (result.ok || result.kind === 'duplicate') return 'sent';
-  if (result.kind === 'missing' || result.kind === 'network' || result.kind === 'unavailable') {
-    rememberFlag(row);
-    if (result.kind === 'missing' || result.kind === 'unavailable') flagsOff = true;
-    return 'queued';
-  }
-  return 'drop';
+  rememberFlag(row);
+  if (result.kind === 'missing' || result.kind === 'unavailable') flagsOff = true;
+  return 'queued';
 }
 
 function boxes() {
@@ -476,21 +473,26 @@ function currentQuiz() {
   } catch (e) { return null; }
 }
 
-function onHide() {
-  if (live && trackingAllowed()) {
-    const fresh = currentQuiz();
-    const src = fresh || live;
-    enqueue({
-      kind: 'quiz_leave',
-      skill_id: src.skill_id,
-      round: src.round,
-      mode: src.mode,
-      q_index: src.q_index,
-      q_count: src.q_count
-    });
-    live = null;
-  }
+function noteQuizLeave() {
+  if (!live || !trackingAllowed()) return;
+  const fresh = currentQuiz();
+  const src = fresh || live;
+  enqueue({
+    kind: 'quiz_leave',
+    skill_id: src.skill_id,
+    round: src.round,
+    mode: src.mode,
+    q_index: src.q_index,
+    q_count: src.q_count
+  });
+  live = null;
+}
+function onPageHide() {
+  noteQuizLeave();
   flush({ keepalive: true }).catch(function() {});
+}
+function onVisibility() {
+  if (document.visibilityState === 'hidden') flush({ keepalive: true }).catch(function() {});
 }
 
 function privacyNote(el) {
@@ -552,13 +554,25 @@ function ensurePrivacyControl() {
   syncPrivacyControl();
 }
 
+function rememberFlagDraft(questionId, form, btn, area) {
+  const picked = form.querySelector('input[type="radio"]:checked');
+  flagDraft = {
+    questionId: questionId,
+    open: !form.hidden,
+    reason: picked ? picked.value : '',
+    comment: area.value,
+    flagged: !!btn.disabled
+  };
+}
 function flagControl(questionId, skillId, primary) {
   const wrap = document.createElement('div');
   wrap.className = 'qflag-block';
+  const saved = flagDraft && flagDraft.questionId === questionId ? flagDraft : null;
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'btn small qflag-btn';
-  btn.textContent = 'Flag question';
+  btn.textContent = saved && saved.flagged ? 'Flagged' : 'Flag question';
+  btn.disabled = !!(saved && saved.flagged);
   btn.setAttribute('aria-expanded', 'false');
   if (primary) btn.id = 'flagBtn';
   const form = document.createElement('div');
@@ -588,6 +602,15 @@ function flagControl(questionId, skillId, primary) {
   area.placeholder = 'Optional note';
   area.setAttribute('aria-label', 'Optional note');
   if (primary) area.id = 'flagComment';
+  if (saved && !saved.flagged) {
+    form.hidden = !saved.open;
+    btn.setAttribute('aria-expanded', saved.open ? 'true' : 'false');
+    if (saved.reason) {
+      const radios = reasons.querySelectorAll('input[type="radio"]');
+      for (let i = 0; i < radios.length; i++) if (radios[i].value === saved.reason) radios[i].checked = true;
+    }
+    area.value = saved.comment || '';
+  }
   const row = document.createElement('div');
   row.className = 'qflag-row';
   const status = document.createElement('span');
@@ -603,11 +626,14 @@ function flagControl(questionId, skillId, primary) {
     if (btn.disabled) return;
     form.hidden = !form.hidden;
     btn.setAttribute('aria-expanded', form.hidden ? 'false' : 'true');
+    rememberFlagDraft(questionId, form, btn, area);
     if (!form.hidden) {
       const first = form.querySelector('input[type="radio"]');
       if (first) first.focus();
     }
   });
+  reasons.addEventListener('change', () => rememberFlagDraft(questionId, form, btn, area));
+  area.addEventListener('input', () => rememberFlagDraft(questionId, form, btn, area));
   send.addEventListener('click', async () => {
     const picked = form.querySelector('input[type="radio"]:checked');
     if (!picked) {
@@ -638,6 +664,7 @@ function flagControl(questionId, skillId, primary) {
     btn.disabled = true;
     btn.textContent = 'Flagged';
     btn.setAttribute('aria-expanded', 'false');
+    flagDraft = { questionId: questionId, open: false, reason: '', comment: '', flagged: true };
   });
   wrap.append(btn, form);
   return wrap;
@@ -656,14 +683,15 @@ function attachApp() {
 
 function start() {
   ensurePrivacyControl();
+  const first = !started;
+  if (first) {
+    started = true;
+    loadQueue();
+    window.addEventListener('pagehide', onPageHide);
+    document.addEventListener('visibilitychange', onVisibility);
+  }
   attachApp();
-  if (started) return;
-  started = true;
-  loadQueue();
-  window.addEventListener('pagehide', onHide);
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') onHide();
-  });
+  if (!first) return;
   if (!trackingAllowed()) {
     queue = [];
     persistEvents();

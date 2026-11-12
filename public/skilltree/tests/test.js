@@ -104,6 +104,16 @@ function handleMeasure(req, page) {
       });
       return true;
     }
+    if (page && page._eventsFailLeft > 0) {
+      page._eventsFailLeft -= 1;
+      req.respond({
+        status: 404,
+        contentType: 'application/json',
+        headers: MEASURE_CORS,
+        body: JSON.stringify({ code: '54000', message: 'rate limit' })
+      });
+      return true;
+    }
     req.respond({ status: 201, contentType: 'application/json', headers: MEASURE_CORS, body: '' });
     return true;
   }
@@ -149,6 +159,7 @@ async function newPage(seed, opts = {}) {
   p._flagPosts = [];
   p._dashboardPosts = [];
   p._eventsMode = opts.eventsMode || 'ok';
+  p._eventsFailLeft = opts.eventsFail || 0;
   p._flagsMode = opts.flagsMode || 'ok';
   p._dashboardBody = opts.dashboardBody || null;
   await p.setRequestInterception(true);
@@ -3039,6 +3050,7 @@ async function test(name, fn) {
     await p.keyboard.press('Space');
     await sleep(50);
     assert.strictEqual(await p.$eval('#scopeChapters-ee105-ucb', e => e.hidden), true);
+    p._eventPosts.length = 0;
     await p.goto(BASE_URL + '?skill=bode&focus=ee105', { waitUntil: 'networkidle0' });
     await sleep(400);
     const deep = await p.evaluate(() => ({
@@ -3051,6 +3063,9 @@ async function test(name, fn) {
     assert(/Bode plots/.test(deep.title));
     assert.strictEqual(deep.focus, 'ee105');
     assert.strictEqual(deep.skill, 'bode');
+    await flushMeasure(p);
+    const linked = eventRows(p).filter(r => r.kind === 'skill_open' && r.skill_id === 'bode');
+    assert(linked.length >= 1, 'a ?skill= link is counted after measurement starts');
     await p.goto(BASE_URL + '?skill=not-a-skill', { waitUntil: 'networkidle0' });
     await sleep(400);
     const dropped = await p.evaluate(() => ({
@@ -3103,6 +3118,15 @@ async function test(name, fn) {
     assert(bounds.left >= -1 && bounds.right <= bounds.vw + 1, 'flag form stays in the viewport');
     await p.click('.qflag-form input[value="typo"]');
     await p.type('#flagComment', 'The axis label is cramped.');
+    await p.evaluate(() => window.__skillgrove.qa.renderQuiz());
+    const kept = await p.evaluate(() => ({
+      hidden: document.querySelector('.qflag-form').hidden,
+      reason: (document.querySelector('.qflag-form input[type="radio"]:checked') || {}).value,
+      note: document.getElementById('flagComment').value
+    }));
+    assert.strictEqual(kept.hidden, false, 'redrawing the question keeps the flag form open');
+    assert.strictEqual(kept.reason, 'typo');
+    assert.strictEqual(kept.note, 'The axis label is cramped.');
     if (fs.existsSync('/opt/cursor/artifacts')) {
       await p.screenshot({ path: '/opt/cursor/artifacts/skillgrove-flag-question.png' });
     }
@@ -3118,7 +3142,6 @@ async function test(name, fn) {
     assert.strictEqual(flagRow.user_id, null);
     assert.strictEqual(flagRow.install_id, skill.install_id);
     assert.strictEqual(await p.$eval('#flagBtn', e => e.textContent), 'Flagged');
-
     p._eventPosts.length = 0;
     const picked = await p.evaluate(() => {
       const btn = [...document.querySelectorAll('#quiz .opt')].find(b => b.dataset.o === '2');
@@ -3127,6 +3150,17 @@ async function test(name, fn) {
       return { choice: Number(btn.dataset.o), qid };
     });
     await p.waitForSelector('#feedback');
+    assert.strictEqual(await p.$eval('#flagBtn', e => e.textContent), 'Flagged', 'answering keeps the sent flag');
+    await p.evaluate(() => {
+      const proto = Document.prototype;
+      const prev = Object.getOwnPropertyDescriptor(proto, 'visibilityState');
+      Object.defineProperty(proto, 'visibilityState', { configurable: true, get: () => 'hidden' });
+      document.dispatchEvent(new Event('visibilitychange'));
+      if (prev) Object.defineProperty(proto, 'visibilityState', prev);
+      else delete proto.visibilityState;
+    });
+    await flushMeasure(p);
+    assert(!eventRows(p).some(r => r.kind === 'quiz_leave'), 'hiding the tab is not a drop-off');
     await p.click('#qLeave');
     await p.waitForSelector('#confirmLeave');
     await p.click('#confirmLeave');
@@ -3222,6 +3256,19 @@ async function test(name, fn) {
     await p.evaluate(() => document.querySelector('#quiz .opt').click());
     await p.waitForSelector('#feedback');
     assert(await p.$('#nextBtn'));
+    await p._ctx.close();
+  });
+
+  await test('a rate-limited usage batch stays queued and is sent again', async () => {
+    const p = await newPage(null, { eventsFail: 1 });
+    await flushMeasure(p);
+    assert.strictEqual(p._eventPosts.length, 1, 'the rate-limited attempt is the first post');
+    const kept = await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.events.q.v1') || '[]'));
+    assert(kept.length >= 1, 'the failed batch is still on this device');
+    await flushMeasure(p);
+    assert.strictEqual(p._eventPosts.length, 2, 'the next flush retries that batch');
+    const after = await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.events.q.v1') || '[]'));
+    assert.strictEqual(after.length, 0, 'a successful retry clears the queue');
     await p._ctx.close();
   });
 

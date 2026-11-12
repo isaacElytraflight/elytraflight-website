@@ -1740,11 +1740,18 @@ function renderPanel() {
   panel.scrollTop = 0;
 }
 
-/* Optional listener for usage measurement. A missing listener is a no-op. */
+/* Optional listener for usage measurement. Events before the listener attaches are kept and replayed once. */
 const sgListeners = [];
+const sgPending = [];
 function sgEmit(type, detail) {
+  const payload = detail || {};
+  if (!sgListeners.length) {
+    sgPending.push({ type: type, detail: payload });
+    if (sgPending.length > 30) sgPending.shift();
+    return;
+  }
   for (let i = 0; i < sgListeners.length; i++) {
-    try { sgListeners[i](type, detail || {}); } catch (err) { }
+    try { sgListeners[i](type, payload); } catch (err) { }
   }
 }
 
@@ -2407,16 +2414,15 @@ function bootFocus() {
     applyFocusSelection(resolveFocusParam(params.get('focus') || ''));
     savePlanScope();
     writeFocusUrl();
-    return;
+  } else {
+    const saved = readSavedScope();
+    if (saved) {
+      applyFocusSelection(saved);
+      savePlanScope();
+      writeFocusUrl();
+    } else selectedBoxes = new Set();
   }
-  const saved = readSavedScope();
-  if (saved) {
-    applyFocusSelection(saved);
-    savePlanScope();
-    writeFocusUrl();
-    return;
-  }
-  selectedBoxes = new Set();
+  sgEmit('focus', { all: selectionIsAll(), boxes: selectionIsAll() ? [] : selectedInOrder() });
 }
 function openSkillFromUrl() {
   const params = new URLSearchParams(location.search);
@@ -3262,7 +3268,14 @@ async function init() {
     queue,
     todo: { list: todoList, add: addTodo, remove: removeTodo, move: moveTodo, queueSession: queueNextSession },
     telemetry: {
-      on: fn => { if (typeof fn === 'function') sgListeners.push(fn); },
+      on: fn => {
+        if (typeof fn !== 'function') return;
+        const first = !sgListeners.length;
+        sgListeners.push(fn);
+        if (!first || !sgPending.length) return;
+        const queued = sgPending.splice(0, sgPending.length);
+        queued.forEach(item => { try { fn(item.type, item.detail); } catch (err) { } });
+      },
       quiz: () => (quiz && !quiz.result) ? { skill_id: quiz.id, round: quiz.round, mode: quiz.mode, q_index: quiz.i, q_count: quiz.items.length } : null
     },
     openModal, toast, reloadProgress, reloadTiming: loadTiming, refreshAll, toggleGroup
