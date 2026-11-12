@@ -185,6 +185,7 @@ function normalizeProgress(raw) {
   for (const id of Object.keys(raw.skills)) { const n = normalizeSkill(raw.skills[id]); if (n) out.skills[id] = n; }
   if (Array.isArray(raw.todo)) out.todo = raw.todo;
   if (raw.scope != null) out.scope = raw.scope;
+  if (raw.exams != null) out.exams = raw.exams;
   if (raw.savedAt != null && Number.isFinite(Number(raw.savedAt))) out.savedAt = Number(raw.savedAt);
   return out;
 }
@@ -2248,12 +2249,13 @@ function openHelp() {
     el('li', {}, el('b', { text: 'Rounds 2–4 ' }), 'are mastery challenges: 3 questions, get at least 2 right to move up. Round 2 is harder, round 3 hunts for gotchas, round 4 applies the skill to what comes next. An expression, an ordering, a flawed step, or a select-all question is simply right or wrong.'),
     el('li', {}, 'Missing a challenge never costs a tier. Retry any time.'),
     el('li', {}, 'The mastery queue lists unmastered skills, least recently practiced first. Learn broadly first; come back for mastery.'),
-    el('li', {}, el('b', { text: 'To-do list ' }), 'is your own ordered notebook of skills and mastery challenges. Add them from a skill, or queue the next learning session in the current scope. Each line shows the step that skill is on — 0 → P, P → 1, 1 → 2, or 2 → 👑 — and drops off once you finish that step. It is saved with your progress.'),
+    el('li', {}, el('b', { text: 'To-do list ' }), 'is your own ordered notebook of skills and mastery challenges. Add them from a skill, or queue the next learning session in the current scope. Each line shows the step that skill is on — 0 → P, P → 1, 1 → 2, or 2 → 👑 — and drops off once you finish that step. Lines stay until you remove them, including when you change which courses are focused. It is saved with your progress.'),
+    el('li', {}, el('b', { text: 'Exam dates ' }), 'spread the remaining learning-plan sessions for one course, or for skills you choose, across the days before that date. The notebook shows the countdown and the skills assigned to today. You can keep more than one date, and edit or remove any of them. Queueing the next session still follows the courses in the address bar.'),
     el('li', {}, 'Prerequisites are guidance, not locks. A new skill glows "ready" once all its prerequisites are at Level 2 or Mastered (prerequisites that are still coming soon are ignored). Lines show what leads to what; click a tile to highlight them.'),
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
     el('li', {}, el('b', { text: 'Learning plan ' }), 'simulates sessions (practice every ready skill, one mastery challenge per unmastered skill) to estimate how many sessions and how much time it takes to master everything playable. It learns how fast you are from your own timed quizzes.'),
     el('li', {}, el('b', { text: 'Courses ' }), 'is select-all-that-apply. The address bar focus parameter is that list (for example ?focus=me132,nlo). A link with focus uses that list, and a visit with no focus parameter restores your last choice. A new profile starts with nothing focused. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
-    el('li', {}, el('b', { text: 'Group by course ' }), 'draws each selected course and chapter as a colored region around its skills. Regions overlap where boxes share skills, and Ungroup returns to one prerequisite tree.'),
+    el('li', {}, el('b', { text: 'Group by course ' }), 'is on when you have not chosen a layout. It draws each selected course and chapter as a colored region around its skills. Regions overlap where boxes share skills, and Ungroup returns to one prerequisite tree. A layout you choose is remembered on this device.'),
     el('li', {}, 'Progress autosaves in this browser after every quiz. Open Settings (the gear) to Export a backup you can Import later, or on another device.'),
     el('li', {}, 'Skills are organized into courses and chapters. Some skills have questions; the rest say "coming soon".'));
   openModal({ title: 'How Skillgrove works', body: ul, actions: [{ label: 'Got it', kind: 'primary' }] });
@@ -2643,6 +2645,7 @@ function exportProgress() {
     skills: progress.skills,
     todo: Array.isArray(progress.todo) ? progress.todo : [],
     scope: progress.scope || scopePayloadFromSelection(),
+    exams: examsNow(),
     timing: { practice: timing.practice, challenge: timing.challenge }
   };
   const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
@@ -2686,6 +2689,8 @@ function importFile(file) {
           const merged = window.SkillgroveMigrate.mergeProgress(progress, p);
           progress.skills = merged.skills;
           if (Array.isArray(merged.todo)) progress.todo = merged.todo;
+          if (Array.isArray(merged.exams)) progress.exams = merged.exams;
+          else delete progress.exams;
           if (merged.scope) {
             progress.scope = merged.scope;
             applyScopeValue(merged.scope);
@@ -2723,7 +2728,7 @@ function afterImport(msg) {
 
 function resetProgress() {
   openModal({
-    title: 'Reset all progress?', body: el('p', { text: 'This erases every tier on this device. Tip: Export first if you might want it back.' }),
+    title: 'Reset all progress?', body: el('p', { text: 'This erases every tier and any exam dates on this device. Tip: Export first if you might want them back.' }),
     actions: [{ label: 'Cancel' }, { label: 'Export first', onClick: exportProgress }, { label: 'Reset everything', kind: 'danger', id: 'confirmReset', onClick: () => {
       const scope = progress.scope;
       progress = { version: 1, skills: {}, todo: [] };
@@ -2921,6 +2926,276 @@ function bindTodoGrip(grip, from) {
     grip.addEventListener('pointercancel', up);
   });
 }
+/* Exam dates live on the progress object so they sync with everything else.
+   The notebook shows each countdown and the skills assigned to today. Those
+   lines are computed from the learning plan; they are not written into the
+   to-do list, so a focus change cannot clear them or the lines you added. */
+function newExamId() {
+  return 'ex-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+}
+function examsNow() {
+  const Mig = window.SkillgroveMigrate;
+  const list = Mig && Mig.normalizeExams ? Mig.normalizeExams(progress.exams) : null;
+  return list || [];
+}
+function saveExam(exam) {
+  const list = examsNow();
+  const i = list.findIndex(e => e.id === exam.id);
+  if (i >= 0) list[i] = exam;
+  else list.push(exam);
+  progress.exams = list;
+  saveProgress();
+  renderTodo();
+}
+function addExamRecord(spec) {
+  const exam = window.SkillgroveMigrate.normalizeExam(Object.assign({ id: newExamId() }, spec || {}));
+  if (!exam) return null;
+  saveExam(exam);
+  return exam.id;
+}
+function updateExamRecord(id, spec) {
+  const cur = examsNow().find(e => e.id === id);
+  if (!cur) return false;
+  const exam = window.SkillgroveMigrate.normalizeExam(Object.assign({}, cur, spec || {}, { id }));
+  if (!exam) return false;
+  saveExam(exam);
+  return true;
+}
+function removeExam(id) {
+  const next = examsNow().filter(e => e.id !== id);
+  if (next.length === examsNow().length) return false;
+  progress.exams = next;
+  saveProgress();
+  renderTodo();
+  toast('Exam date removed.');
+  return true;
+}
+function examTitle(exam) {
+  if (exam.label) return exam.label;
+  if (exam.box) {
+    const box = boxById[exam.box];
+    return (box && box.title) || exam.box;
+  }
+  const n = (exam.skills || []).length;
+  return n === 1 ? '1 skill' : n + ' skills';
+}
+function formatExamDate(iso) {
+  const dt = Sim.parseISODate(iso);
+  if (!dt) return iso || '';
+  const opts = { month: 'short', day: 'numeric' };
+  if (dt.getFullYear() !== new Date().getFullYear()) opts.year = 'numeric';
+  return dt.toLocaleDateString([], opts);
+}
+function soonIdSet() {
+  const out = new Set();
+  skills.forEach(s => { if (!isPlayable(s.id)) out.add(s.id); });
+  return out;
+}
+function graphForSkillIds(targetIds) {
+  const inSet = new Set(targetIds);
+  const extras = new Set();
+  const need = id => {
+    if (!byId[id]) return;
+    byId[id].prereqs.filter(p => isPlayable(p) && !inSet.has(p)).forEach(p => {
+      if (!extras.has(p)) { extras.add(p); need(p); }
+    });
+  };
+  targetIds.forEach(need);
+  const ids = targetIds.filter(id => byId[id]).concat([...extras]);
+  const prereqs = {}, maxTier = {};
+  ids.forEach(id => {
+    prereqs[id] = byId[id].prereqs.filter(p => ids.includes(p));
+    let t = 0;
+    while (hasRound(id, t + 1)) t++;
+    maxTier[id] = extras.has(id) ? Math.min(READY_TIER, t) : t;
+  });
+  return { ids, prereqs, maxTier, extras: [...extras] };
+}
+function examPlan(exam) {
+  if (exam.box) {
+    if (!boxById[exam.box]) return { ok: true, rows: [], sessions: 0, missing: true, extras: [] };
+    const result = runPlan(false, exam.box);
+    result.missing = false;
+    return result;
+  }
+  const ids = (exam.skills || []).filter(id => byId[id] && isPlayable(id));
+  const g = graphForSkillIds(ids);
+  const start = {};
+  g.ids.forEach(id => { start[id] = tierOf(id); });
+  const est = planEstimates();
+  const result = Sim.simulate(g, start, { practiceMin: est.practice.used, challengeMin: est.challenge.used });
+  result.extras = g.extras || [];
+  result.missing = false;
+  return result;
+}
+function dedupeTodoItems(items) {
+  const seen = new Set();
+  const out = [];
+  items.forEach(it => {
+    const key = it.type + '\0' + it.id;
+    if (seen.has(key)) return;
+    seen.add(key);
+    out.push(it);
+  });
+  return out;
+}
+function examView(exam, today) {
+  today = today || Sim.localISODate(new Date());
+  const plan = examPlan(exam);
+  const rows = (plan && plan.rows) || [];
+  const dayCount = Sim.studyDayCount(today, exam.date);
+  const count = Sim.examCountdown(today, exam.date);
+  const lastMap = {};
+  skills.forEach(s => { lastMap[s.id] = lastOf(s.id) || 0; });
+  const soon = soonIdSet();
+  const itemsFor = indexes => {
+    const items = [];
+    indexes.forEach(i => {
+      const raw = window.SkillgroveMigrate.sessionTodoItems(rows[i], soon);
+      Sim.orderSessionItems(raw, lastMap).forEach(it => { if (byId[it.id]) items.push(it); });
+    });
+    return dedupeTodoItems(items);
+  };
+  const todayItems = dayCount ? itemsFor(Sim.sessionsOnDay(rows.length, dayCount, 0)) : [];
+  const nextDay = Sim.nextSessionDay(rows.length, dayCount, 0);
+  let next = null;
+  if (nextDay > 0) {
+    const nextItems = itemsFor(Sim.sessionsOnDay(rows.length, dayCount, nextDay));
+    if (nextItems.length) next = { date: Sim.addISODays(today, nextDay), items: nextItems };
+  }
+  return {
+    id: exam.id,
+    label: examTitle(exam),
+    date: exam.date,
+    box: exam.box || null,
+    countdown: count.text,
+    days: count.days,
+    sessions: rows.length,
+    today: todayItems,
+    next,
+    missing: !!(plan && plan.missing),
+    ok: !!(plan && plan.ok)
+  };
+}
+function renderExamCard(exam) {
+  const view = examView(exam);
+  const card = el('div', { class: 'todo-exam', 'data-exam': exam.id, 'data-days': String(view.days), 'data-today': String(view.today.length) });
+  card.append(el('div', { class: 'todo-exam-top' },
+    el('span', { class: 'todo-exam-name', text: view.label, title: view.label }),
+    el('span', { class: 'todo-exam-count', text: view.countdown })));
+  const when = formatExamDate(exam.date);
+  const left = view.sessions ? view.sessions + ' session' + (view.sessions === 1 ? '' : 's') + ' left' : 'nothing left';
+  card.append(el('div', { class: 'todo-exam-meta', text: (when ? when + ' · ' : '') + left }));
+  const today = el('div', { class: 'todo-exam-today' });
+  if (view.today.length) {
+    today.append(el('span', { class: 'todo-exam-k', text: 'Today' }));
+    view.today.forEach(it => {
+      const skill = byId[it.id];
+      const name = skill ? skill.name : it.id;
+      const kind = it.type === 'challenge' ? 'Mastery challenge' : 'Practice';
+      today.append(el('button', {
+        type: 'button', class: 'todo-exam-skill', 'data-id': it.id, 'data-type': it.type,
+        title: kind + ': ' + name,
+        onclick: () => openTodoItem(it)
+      }, name));
+    });
+  } else {
+    let text = 'Nothing left before this exam.';
+    if (view.missing) text = 'That course is not on the tree.';
+    else if (view.next) {
+      const names = view.next.items.slice(0, 3).map(it => (byId[it.id] && byId[it.id].name) || it.id);
+      text = 'Rest day. Next: ' + names.join(', ') + (view.next.items.length > names.length ? '…' : '');
+    }
+    today.append(el('span', { class: 'todo-exam-rest', text: text }));
+  }
+  card.append(today);
+  card.append(el('div', { class: 'todo-exam-actions' },
+    el('button', { type: 'button', class: 'todo-exam-edit', onclick: () => openExamEditor(exam) }, 'Edit'),
+    el('button', { type: 'button', class: 'todo-exam-remove', 'aria-label': 'Remove ' + view.label, onclick: () => removeExam(exam.id) }, 'Remove')));
+  return card;
+}
+function openExamEditor(existing) {
+  const id = existing ? existing.id : newExamId();
+  const skillsMode = !!(existing && !existing.box && existing.skills && existing.skills.length);
+  const boxWrap = el('label', { class: 'exam-field', id: 'examBoxWrap', hidden: skillsMode }, 'Course');
+  const boxSel = el('select', { id: 'examBox', 'aria-label': 'Course' }, el('option', { value: '', text: 'Choose a course' }));
+  const seenBox = new Set();
+  topLevelBoxes().forEach(box => {
+    seenBox.add(box.id);
+    const opt = el('option', { value: box.id, text: box.title || box.id });
+    if (existing && existing.box === box.id) opt.selected = true;
+    boxSel.append(opt);
+  });
+  if (existing && existing.box && !seenBox.has(existing.box)) {
+    const box = boxById[existing.box];
+    const opt = el('option', { value: existing.box, text: (box && box.title) || existing.box, selected: true });
+    boxSel.append(opt);
+  }
+  boxWrap.append(boxSel);
+  const picked = new Set((existing && existing.skills) || []);
+  const skillWrap = el('div', { id: 'examSkillsWrap', hidden: !skillsMode });
+  const filter = el('input', { type: 'text', id: 'examSkillFilter', placeholder: 'Filter skills', 'aria-label': 'Filter skills' });
+  const skillList = el('div', { class: 'exam-skills', id: 'examSkillList' });
+  const rows = playable.slice().sort((a, b) => a.name.localeCompare(b.name));
+  (existing && existing.skills || []).forEach(sid => {
+    if (!rows.some(s => s.id === sid) && byId[sid]) rows.push(byId[sid]);
+  });
+  rows.forEach(s => {
+    const input = el('input', { type: 'checkbox', value: s.id });
+    if (picked.has(s.id)) input.checked = true;
+    const lab = el('label', { 'data-name': s.name.toLowerCase() }, input, el('span', { text: s.name }));
+    skillList.append(lab);
+  });
+  filter.addEventListener('input', () => {
+    const q = filter.value.trim().toLowerCase();
+    skillList.querySelectorAll('label').forEach(lab => {
+      const on = lab.querySelector('input').checked;
+      lab.hidden = !!(q && !on && (lab.dataset.name || '').indexOf(q) === -1);
+    });
+  });
+  skillWrap.append(el('label', { class: 'exam-field', for: 'examSkillFilter', text: 'Skills' }), filter, skillList);
+  const modeBox = el('input', { type: 'radio', name: 'examMode', id: 'examModeBox', value: 'box' });
+  const modeSkills = el('input', { type: 'radio', name: 'examMode', id: 'examModeSkills', value: 'skills' });
+  modeBox.checked = !skillsMode;
+  modeSkills.checked = skillsMode;
+  const syncMode = () => {
+    const on = modeSkills.checked;
+    boxWrap.hidden = on;
+    skillWrap.hidden = !on;
+  };
+  modeBox.addEventListener('change', syncMode);
+  modeSkills.addEventListener('change', syncMode);
+  const err = el('p', { id: 'examError', class: 'auth-msg error', hidden: true });
+  const save = el('button', { type: 'button', class: 'btn primary', id: 'examSave', onclick: () => commitExam(id) }, 'Save exam date');
+  const body = el('div', { class: 'exam-form' },
+    el('p', { class: 'pintro', text: 'Pick a course, or the skills you want ready for the exam. The notebook spreads the remaining learning-plan sessions across the days before that date and lists what is assigned today. Lines you add yourself stay until you remove them.' }),
+    el('label', { class: 'exam-field', text: 'Name (optional)' }, el('input', { type: 'text', id: 'examLabel', maxlength: '80', value: (existing && existing.label) || '' })),
+    el('div', { class: 'exam-modes', role: 'radiogroup', 'aria-label': 'What the exam covers' },
+      el('label', {}, modeBox, 'A course'),
+      el('label', {}, modeSkills, 'Chosen skills')),
+    boxWrap,
+    skillWrap,
+    el('label', { class: 'exam-field', text: 'Exam date' }, el('input', { type: 'date', id: 'examDate', value: (existing && existing.date) || '', required: true })),
+    err,
+    save);
+  openModal({ title: existing ? 'Edit exam date' : 'Add exam date', body, actions: [{ label: 'Cancel' }] });
+}
+function commitExam(id) {
+  const skillsMode = $('examModeSkills').checked;
+  const spec = { id, date: $('examDate').value, label: $('examLabel').value };
+  if (skillsMode) spec.skills = [...document.querySelectorAll('#examSkillList input:checked')].map(inp => inp.value);
+  else spec.box = $('examBox').value;
+  const exam = window.SkillgroveMigrate.normalizeExam(spec);
+  const err = $('examError');
+  if (!exam) {
+    err.hidden = false;
+    err.textContent = skillsMode ? 'Enter a date and pick at least one skill.' : 'Enter a date and pick a course.';
+    return;
+  }
+  saveExam(exam);
+  closeModal();
+  toast('Exam date saved.');
+}
 function renderTodo() {
   const host = $('todoBook');
   if (!host || !host.isConnected) return;
@@ -2981,9 +3256,18 @@ function renderTodo() {
   });
   const blanks = Math.max(0, 4 - Math.max(items.length, 1));
   for (let i = 0; i < blanks; i++) paper.append(el('div', { class: 'todo-blank', 'aria-hidden': 'true' }));
+  const examList = examsNow();
+  let examsEl = null;
+  if (examList.length) {
+    examsEl = el('div', { class: 'todo-exams', id: 'todoExams' });
+    examList.forEach(exam => examsEl.append(renderExamCard(exam)));
+  }
   const actions = el('div', { class: 'todo-actions' },
+    el('button', { type: 'button', class: 'btn todo-queue', id: 'todoAddExam', onclick: () => openExamEditor(null) }, 'Add exam date'),
     el('button', { type: 'button', class: 'btn todo-queue', id: 'todoQueueSession', onclick: queueNextSession }, 'Queue up next learning session'));
-  host.append(head, spiral, paper, actions);
+  host.append(head, spiral);
+  if (examsEl) host.append(examsEl);
+  host.append(paper, actions);
 }
 
 /* ====================== settings menu ====================== */
@@ -3175,7 +3459,11 @@ async function init() {
   syncFocusPrompt();
   
   try { const u = JSON.parse(localStorage.getItem(UIKEY) || 'null'); if (u && u.view === 'grid') filter.view = 'grid' } catch (e) { }
-  let startMode = 'tree'; try { if (localStorage.getItem(LAYKEY) === 'grouped') startMode = 'grouped' } catch (e) { }
+  let startMode = 'grouped';
+  try {
+    const savedLayout = localStorage.getItem(LAYKEY);
+    if (savedLayout === 'tree' || savedLayout === 'grouped') startMode = savedLayout;
+  } catch (e) { }
   showLayout(startMode, false);
   refreshAll(); setView(filter.view);
   goHome(false);
@@ -3216,6 +3504,7 @@ async function init() {
     },
     queue,
     todo: { list: todoList, add: addTodo, remove: removeTodo, move: moveTodo, queueSession: queueNextSession },
+    exams: { list: examsNow, add: addExamRecord, update: updateExamRecord, remove: removeExam, view: (id, today) => { const exam = examsNow().find(e => e.id === id); return exam ? examView(exam, today) : null } },
     openModal, toast, reloadProgress, reloadTiming: loadTiming, refreshAll, toggleGroup
   };
   

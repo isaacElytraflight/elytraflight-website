@@ -1,4 +1,4 @@
-/* Skillgrove progress migration for retired skill ids, to-do items, and scope.
+/* Skillgrove progress migration for retired skill ids, to-do items, scope, and exam dates.
    Works in the browser (window.SkillgroveMigrate) and in Node (module.exports).
    Retired progress moves onto the survivor: higher mastery tier, later practice
    time, and the union of attempt history.    To-do entries follow the same map and,
@@ -192,6 +192,142 @@
     return changed ? { changed: true, todo: out } : { changed: false };
   }
 
+  /** One exam date. A course exam stores `box`. A skill exam stores `skills`. */
+  function normalizeExam(raw) {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+    let id = typeof raw.id === 'string' ? raw.id.trim() : '';
+    if (!id) return null;
+    id = id.slice(0, 80);
+    const date = typeof raw.date === 'string' ? raw.date : '';
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+    const parts = date.split('-');
+    const y = +parts[0], mo = +parts[1], d = +parts[2];
+    const dt = new Date(y, mo - 1, d);
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
+    const label = typeof raw.label === 'string' ? raw.label.trim().slice(0, 80) : '';
+    const box = typeof raw.box === 'string' ? raw.box.trim().slice(0, 120) : '';
+    const out = { id, date };
+    if (label) out.label = label;
+    if (box) { out.box = box; return out; }
+    const skills = [];
+    const seen = new Set();
+    if (Array.isArray(raw.skills)) {
+      for (const sid of raw.skills) {
+        if (typeof sid !== 'string') continue;
+        const s = sid.trim();
+        if (!s || s.length > 120 || seen.has(s)) continue;
+        if (skills.length >= 400) break;
+        seen.add(s);
+        skills.push(s);
+      }
+    }
+    if (!skills.length) return null;
+    out.skills = skills;
+    return out;
+  }
+
+  function normalizeExams(list) {
+    if (list == null) return null;
+    if (!Array.isArray(list)) return [];
+    const out = [];
+    const seen = new Set();
+    for (const raw of list) {
+      const ex = normalizeExam(raw);
+      if (!ex || seen.has(ex.id)) continue;
+      if (out.length >= 30) break;
+      seen.add(ex.id);
+      out.push(ex);
+    }
+    return out;
+  }
+
+  function examShapeChanged(raw, next) {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return true;
+    const keys = Object.keys(raw);
+    const want = Object.keys(next);
+    if (keys.length !== want.length) return true;
+    for (let i = 0; i < keys.length; i++) {
+      if (keys[i] !== want[i]) return true;
+      const rv = raw[keys[i]], sv = next[keys[i]];
+      if (keys[i] === 'skills') {
+        if (!Array.isArray(rv) || rv.length !== sv.length) return true;
+        for (let j = 0; j < sv.length; j++) if (rv[j] !== sv[j]) return true;
+      } else if (rv !== sv) return true;
+    }
+    return false;
+  }
+
+  /**
+   * Map retired skill ids on chosen-skill exams and drop entries that are no
+   * longer a live skill when `knownIds` is provided. Course exams keep `box`.
+   */
+  function migrateExamField(exams, retired, knownIds) {
+    if (exams == null) return { changed: false };
+    if (!Array.isArray(exams)) return { changed: true, exams: [] };
+    const map = retired && typeof retired === 'object' ? retired : {};
+    const known = knownIds == null ? null : (knownIds instanceof Set ? knownIds : new Set(knownIds));
+    const out = [];
+    const seenId = new Set();
+    let changed = false;
+    for (const raw of exams) {
+      const ex = normalizeExam(raw);
+      if (!ex || seenId.has(ex.id)) { changed = true; continue; }
+      seenId.add(ex.id);
+      if (ex.skills) {
+        const skills = [];
+        const seen = new Set();
+        for (const sid of ex.skills) {
+          const id = resolveSurvivor(sid, map);
+          if (id !== sid) changed = true;
+          if (known && !known.has(id)) { changed = true; continue; }
+          if (seen.has(id)) { changed = true; continue; }
+          seen.add(id);
+          skills.push(id);
+        }
+        if (!skills.length) { changed = true; continue; }
+        ex.skills = skills;
+      }
+      if (examShapeChanged(raw, ex)) changed = true;
+      if (out.length >= 30) { changed = true; break; }
+      out.push(ex);
+    }
+    if (out.length !== exams.length) changed = true;
+    if (!changed) return { changed: false };
+    return { changed: true, exams: out };
+  }
+
+  /**
+   * Union exam dates by id. Local order, then new remote ids.
+   * The later save wins when both devices have the same id.
+   */
+  function mergeExams(localList, remoteList, localAt, remoteAt) {
+    const local = normalizeExams(localList);
+    const remote = normalizeExams(remoteList);
+    if (local == null && remote == null) return null;
+    const l = local || [];
+    const r = remote || [];
+    if (!l.length && !r.length) return null;
+    const remoteNewer = (Number(remoteAt) || 0) > (Number(localAt) || 0);
+    const chosen = new Map();
+    l.forEach(ex => chosen.set(ex.id, ex));
+    r.forEach(ex => {
+      if (!chosen.has(ex.id) || remoteNewer) chosen.set(ex.id, ex);
+    });
+    const out = [];
+    const seen = new Set();
+    l.forEach(ex => {
+      if (seen.has(ex.id)) return;
+      seen.add(ex.id);
+      out.push(chosen.get(ex.id));
+    });
+    r.forEach(ex => {
+      if (seen.has(ex.id)) return;
+      seen.add(ex.id);
+      out.push(chosen.get(ex.id));
+    });
+    return out.length ? out.slice(0, 30) : null;
+  }
+
   /** Move progress off retired ids. Does not mutate `progress`.
       Pass `knownIds` (array or Set of live skill ids) to drop to-do entries
       whose ids were removed. Omit it to keep unknown ids. */
@@ -217,10 +353,12 @@
     }
 
     const todoMig = migrateTodoField(progress.todo, map, knownIds);
-    if (!changed && !todoMig.changed) return { progress, changed: false };
+    const examMig = migrateExamField(progress.exams, map, knownIds);
+    if (!changed && !todoMig.changed && !examMig.changed) return { progress, changed: false };
     const next = { ...progress };
     if (changed) next.skills = skills;
     if (todoMig.changed) next.todo = todoMig.todo;
+    if (examMig.changed) next.exams = examMig.exams;
     return { progress: next, changed: true };
   }
 
@@ -244,6 +382,8 @@
     }
     const scope = mergeScope(local, remote);
     if (scope) merged.scope = scope;
+    const exams = mergeExams(local.exams, remote.exams, local.savedAt, remote.savedAt);
+    if (exams) merged.exams = exams;
     const lt = Number(local.savedAt);
     const rt = Number(remote.savedAt);
     if (Number.isFinite(lt) || Number.isFinite(rt)) {
@@ -269,6 +409,7 @@
 
   return {
     mergeSkillRecords, migrateRetiredProgress, combineMigratedProgress,
-    normalizeTodoItem, normalizeScope, mergeScope, mergeProgress, appendTodo, sessionTodoItems
+    normalizeTodoItem, normalizeScope, mergeScope, mergeProgress, appendTodo, sessionTodoItems,
+    normalizeExam, normalizeExams, mergeExams
   };
 });
