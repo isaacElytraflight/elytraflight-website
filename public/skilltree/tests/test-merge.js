@@ -4,7 +4,8 @@
  * Run: node test-merge.js
  */
 const assert = require('assert');
-const { mergeSkillRecords: mergeSkill, mergeProgress, appendTodo, sessionTodoItems, normalizeScope, mergeScope } = require('../migrate.js');
+const { mergeSkillRecords: mergeSkill, mergeProgress, appendTodo, sessionTodoItems, normalizeScope, mergeScope, normalizeExam, mergeExams } = require('../migrate.js');
+const Sim = require('../simcore.js');
 
 const mergeTiming = (local, remote) => {
   if (!local) return remote;
@@ -145,6 +146,7 @@ test('mergeProgress: keeps an older save that has no todo or scope', () => {
   const result = mergeProgress(local, remote);
   assert.strictEqual(result.todo, undefined);
   assert.strictEqual(result.scope, undefined);
+  assert.strictEqual(result.exams, undefined);
   assert.strictEqual(result.skills.bode.tier, 1);
   assert.strictEqual(result.skills.tf.tier, 2);
 });
@@ -212,6 +214,63 @@ test('appendTodo keeps the higher starting tier when the same line is merged', (
   ]);
   const junk = [{ type: 'skill', id: 'bode', from: 1.5, extra: true }];
   assert.deepStrictEqual(appendTodo([], junk).todo, [{ type: 'skill', id: 'bode' }]);
+});
+
+test('mergeExams keeps both devices and lets the later save win the same id', () => {
+  const local = [{ id: 'a', date: '2026-12-01', box: 'me132' }, { id: 'b', date: '2026-12-02', skills: ['bode'] }];
+  const remote = [{ id: 'a', date: '2026-12-15', label: 'Final', skills: ['tf'] }, { id: 'c', date: '2026-11-20', skills: ['tf', 'tf'] }];
+  const merged = mergeExams(local, remote, 1, 2);
+  assert.deepStrictEqual(merged, [
+    { id: 'a', date: '2026-12-15', label: 'Final', skills: ['tf'] },
+    { id: 'b', date: '2026-12-02', skills: ['bode'] },
+    { id: 'c', date: '2026-11-20', skills: ['tf'] }
+  ]);
+  assert.deepStrictEqual(mergeExams(local, remote, 5, 2)[0], { id: 'a', date: '2026-12-01', box: 'me132' });
+  const withSkills = { version: 1, savedAt: 2, skills: { bode: { tier: 1, lastPracticed: now, history: [] } }, exams: remote };
+  const kept = mergeProgress(
+    { version: 1, savedAt: 1, skills: { bode: { tier: 1, lastPracticed: now, history: [] } }, exams: local },
+    withSkills
+  );
+  assert.strictEqual(kept.exams[0].date, '2026-12-15');
+  assert.strictEqual(mergeProgress(
+    { version: 1, skills: { bode: { tier: 1, lastPracticed: now, history: [] } }, exams: local },
+    { version: 1, skills: { bode: { tier: 1, lastPracticed: now, history: [] } } }
+  ).exams.length, 2);
+  assert.strictEqual(normalizeExam({ id: 'x', date: '2026-02-31', box: 'me132' }), null);
+  assert.strictEqual(mergeExams(null, null, 0, 0), null);
+});
+
+test('study days stop before the exam and sessions spread across them', () => {
+  assert.deepStrictEqual(Sim.studyDates('2026-11-12', '2026-11-19'), [
+    '2026-11-12', '2026-11-13', '2026-11-14', '2026-11-15', '2026-11-16', '2026-11-17', '2026-11-18'
+  ]);
+  assert.deepStrictEqual(Sim.studyDates('2026-11-12', '2026-11-13'), ['2026-11-12']);
+  assert.deepStrictEqual(Sim.studyDates('2026-11-12', '2026-11-12'), ['2026-11-12']);
+  assert.deepStrictEqual(Sim.studyDates('2026-11-12', '2026-11-10'), ['2026-11-12']);
+  assert.strictEqual(Sim.studyDayCount('2026-01-01', '2040-01-01'), Sim.MAX_STUDY_DAYS);
+  assert.strictEqual(Sim.examCountdown('2026-11-12', '2026-11-18').text, 'Exam in 6 days');
+  assert.strictEqual(Sim.examCountdown('2026-11-12', '2026-11-13').text, 'Exam tomorrow');
+  assert.strictEqual(Sim.examCountdown('2026-11-12', '2026-11-12').text, 'Exam today');
+  assert.strictEqual(Sim.examCountdown('2026-11-12', '2026-11-11').text, 'Exam was yesterday');
+  assert.strictEqual(Sim.examCountdown('2026-11-12', '2026-11-10').text, 'Exam was 2 days ago');
+  assert.deepStrictEqual(Sim.spreadSessionIndexes(3, 7), [[0], [], [], [1], [], [], [2]]);
+  assert.deepStrictEqual(Sim.spreadSessionIndexes(4, 2), [[0, 1], [2, 3]]);
+  assert.deepStrictEqual(Sim.spreadSessionIndexes(1, 5), [[0], [], [], [], []]);
+  assert.deepStrictEqual(Sim.spreadSessionIndexes(0, 3), [[], [], []]);
+  assert.strictEqual(Sim.nextSessionDay(3, 7, 0), 3);
+  const items = [
+    { type: 'skill', id: 'a' },
+    { type: 'challenge', id: 'c' },
+    { type: 'challenge', id: 'b' },
+    { type: 'skill', id: 'd' }
+  ];
+  assert.deepStrictEqual(Sim.orderSessionItems(items, { b: 10, c: 50 }), [
+    { type: 'skill', id: 'a' },
+    { type: 'skill', id: 'd' },
+    { type: 'challenge', id: 'b' },
+    { type: 'challenge', id: 'c' }
+  ]);
+  assert.deepStrictEqual(Sim.orderSessionItems(items, {}).filter(it => it.type === 'challenge').map(it => it.id), ['c', 'b']);
 });
 
 test('mergeTiming: limits to 50 entries per category', () => {

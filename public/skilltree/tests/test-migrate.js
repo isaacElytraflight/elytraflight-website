@@ -342,6 +342,63 @@ test('sync merge keeps todo order across devices and the newer scope', () => {
   assert.deepStrictEqual(twice.progress.scope, once.progress.scope);
 });
 
+test('exam dates follow retired skill ids and a clean exam is left alone', () => {
+  const clean = progress({ bode: skill(1, now, []) });
+  clean.exams = [{ id: 'ex', date: '2026-05-01', box: 'me132' }];
+  const untouched = migrateRetiredProgress(clean, RETIRED);
+  assert.strictEqual(untouched.changed, false);
+  assert.strictEqual(untouched.progress, clean);
+
+  const input = progress({ bode: skill(1, now, []) });
+  input.exams = [
+    { id: 'ex1', date: '2026-12-01', skills: ['saturation', 'bode', 'saturation'] },
+    { id: 'ex2', date: '2026-12-02', box: 'me132', label: '  Quiz  ' },
+    { nope: true },
+    { id: 'ex1', date: '2026-01-01', skills: ['bode'] }
+  ];
+  const known = new Set(['square-law', 'bode']);
+  const snapshot = JSON.parse(JSON.stringify(input));
+  const { progress: out, changed } = migrateRetiredProgress(input, RETIRED, known);
+  assert.strictEqual(changed, true);
+  assert.deepStrictEqual(input, snapshot);
+  assert.deepStrictEqual(out.exams, [
+    { id: 'ex1', date: '2026-12-01', skills: ['square-law', 'bode'] },
+    { id: 'ex2', date: '2026-12-02', label: 'Quiz', box: 'me132' }
+  ]);
+  const again = migrateRetiredProgress(out, RETIRED, known);
+  assert.strictEqual(again.changed, false);
+  assert.strictEqual(again.progress, out);
+
+  const unknown = progress({ bode: skill(2, now, []) });
+  unknown.exams = [{ id: 'ex', date: '2026-05-01', skills: ['clm', 'future-skill'] }];
+  const kept = migrateRetiredProgress(unknown, RETIRED);
+  assert.deepStrictEqual(kept.progress.exams, [
+    { id: 'ex', date: '2026-05-01', skills: ['ro', 'future-skill'] }
+  ]);
+});
+
+test('sync merges exam dates and keeps a side that has none from wiping the other', () => {
+  const local = progress({ bode: skill(1, now, []) });
+  local.savedAt = now - DAY;
+  local.exams = [{ id: 'a', date: '2026-12-01', box: 'me132' }];
+  const remote = progress({ bode: skill(2, now, []) });
+  remote.savedAt = now;
+  remote.exams = [{ id: 'a', date: '2026-12-20', skills: ['bode'] }, { id: 'b', date: '2026-12-21', skills: ['saturation'] }];
+  const once = combineMigratedProgress(local, remote, RETIRED, mergeProgress);
+  assert.deepStrictEqual(once.progress.exams, [
+    { id: 'a', date: '2026-12-20', skills: ['bode'] },
+    { id: 'b', date: '2026-12-21', skills: ['square-law'] }
+  ]);
+  const onlyLocal = progress({ bode: skill(1, now, []) });
+  onlyLocal.exams = [{ id: 'a', date: '2026-12-01', box: 'me132' }];
+  const noExams = progress({ bode: skill(1, now, []) });
+  const kept = mergeProgress(onlyLocal, noExams);
+  assert.deepStrictEqual(kept.exams, [{ id: 'a', date: '2026-12-01', box: 'me132' }]);
+  const twice = combineMigratedProgress(once.progress, once.progress, RETIRED, mergeProgress);
+  assert.strictEqual(twice.changed, false);
+  assert.deepStrictEqual(twice.progress.exams, once.progress.exams);
+});
+
 test('sync does not wipe a survivor when the other device only has a lower retired tier', () => {
   const local = progress({ mirror: skill(4, now - 2 * DAY, [{ t: 1, passed: true }]) });
   const remote = progress({ 'mirror-ro': skill(1, now, [{ t: 2, passed: false }]) });
