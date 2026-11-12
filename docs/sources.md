@@ -58,6 +58,8 @@ NB9 uses the same references for Gauss-Newton, damping, block updates, and Newto
 
 NB10 uses the same references for Newton on an objective and for quasi-Newton updates. `nw-numopt` supplies the scope for the Newton step from a quadratic model, local quadratic convergence under a Lipschitz Hessian, diagonal shifts and line searches that restore descent, the Wolfe conditions and the curvature consequence \(y^T s > 0\), the secant equation, and the BFGS inverse update. `boyd-cvx` supplies the scope for the gradient and Hessian of a smooth objective and for positive definite quadratic models. `nlo-notes` supplies the scope for affine invariance and for the attraction of an unmodified Newton step to a maximum or a saddle. No section is quoted, and no exercise or parameter set is reused.
 
+NB11 uses the same references for conjugate directions and acceleration. `nw-numopt` supplies the scope for orthogonalizing a list in a \(Q\)-inner product, \(Q\)-conjugacy and finite termination, the conjugate-gradient direction update, its rate in the condition number, heavy-ball momentum, and an extrapolate-then-step acceleration. `boyd-cvx` supplies the scope for a smooth convex function gap and for the quadratic upper bound an accelerated step relies on. `nlo-notes` supplies the scope for reading the momentum update as a finite-difference discretization of a damped second-order equation. No section is quoted, and no exercise or parameter set is reused. The \(O(1/k^2)\) claim is a bound on \(f(x_k) - f^\star\), not on the distance to a minimizer.
+
 ## Section map for B7
 
 Scope only. The skill records already point at the sections. No wording, problems, parameter sets, or figures were taken from them. Learner-facing text does not name the works below.

@@ -3061,8 +3061,7 @@
    "prereqs": [
     "inner-products",
     "positive-definite-matrices"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "q-conjugate-directions",
@@ -3071,8 +3070,7 @@
    "prereqs": [
     "gram-schmidt-orthogonalization",
     "exact-line-search-quadratic"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "conjugate-gradient-method",
@@ -3081,8 +3079,7 @@
    "prereqs": [
     "q-conjugate-directions",
     "condition-number-gradient-rate"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "heavy-ball-method",
@@ -3092,8 +3089,7 @@
     "gradient-method-convergence",
     "condition-number-gradient-rate",
     "finite-difference-derivatives"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "nesterov-accelerated-gradient",
@@ -3102,8 +3098,7 @@
    "prereqs": [
     "heavy-ball-method",
     "descent-lemma"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "optimality-over-convex-set",

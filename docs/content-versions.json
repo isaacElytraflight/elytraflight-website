@@ -3747,6 +3747,266 @@
       "version": 1
     },
     {
+      "id": "gram-schmidt-orthogonalization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "gram-schmidt-orthogonalization-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "gram-schmidt-orthogonalization-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "gram-schmidt-orthogonalization-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "gram-schmidt-orthogonalization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "gram-schmidt-orthogonalization-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "gram-schmidt-orthogonalization-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "gram-schmidt-orthogonalization-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "gram-schmidt-orthogonalization-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "gram-schmidt-orthogonalization-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "gram-schmidt-orthogonalization-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "gram-schmidt-orthogonalization-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "gram-schmidt-orthogonalization#explainer",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "q-conjugate-directions#explainer",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "conjugate-gradient-method#explainer",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "heavy-ball-method#explainer",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient#explainer",
+      "version": 1
+    },
+    {
       "id": "induced-matrix-norms-r1-q1",
       "version": 1
     },

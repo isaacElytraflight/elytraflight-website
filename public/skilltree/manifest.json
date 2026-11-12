@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-12T00:40:43.458021Z",
+  "generated": "2026-11-12T00:58:25.721582Z",
   "skills": {
-    "file": "skills.d0525e48.json",
-    "hash": "d0525e48"
+    "file": "skills.5a1a3114.json",
+    "hash": "5a1a3114"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -442,6 +442,18 @@
       },
       "hash": "0f2ac832",
       "file": "banks/condition-number-gradient-rate.0f2ac832.json"
+    },
+    "conjugate-gradient-method": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "3a1ccdca",
+      "file": "banks/conjugate-gradient-method.3a1ccdca.json"
     },
     "contact-pot": {
       "version": 1,
@@ -1331,6 +1343,18 @@
       "hash": "dbed089e",
       "file": "banks/gradient-zigzag.dbed089e.json"
     },
+    "gram-schmidt-orthogonalization": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7e714a12",
+      "file": "banks/gram-schmidt-orthogonalization.7e714a12.json"
+    },
     "graphical-2d-optimization": {
       "version": 1,
       "questionCount": 12,
@@ -1354,6 +1378,18 @@
       },
       "hash": "d6384010",
       "file": "banks/half-circuit.d6384010.json"
+    },
+    "heavy-ball-method": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b3703c5b",
+      "file": "banks/heavy-ball-method.b3703c5b.json"
     },
     "hessian-matrix": {
       "version": 1,
@@ -2051,6 +2087,18 @@
       "hash": "63e6b023",
       "file": "banks/mpc.63e6b023.json"
     },
+    "nesterov-accelerated-gradient": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "238c8929",
+      "file": "banks/nesterov-accelerated-gradient.238c8929.json"
+    },
     "newton-globalization": {
       "version": 1,
       "questionCount": 12,
@@ -2422,6 +2470,18 @@
       },
       "hash": "72c5d4fd",
       "file": "banks/projection-affine-halfspace-kkt.72c5d4fd.json"
+    },
+    "q-conjugate-directions": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "468d6749",
+      "file": "banks/q-conjugate-directions.468d6749.json"
     },
     "quadratic-function-minimization": {
       "version": 1,
@@ -3255,6 +3315,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "conjugate-gradient-method": {
+      "hash": "72c7de47",
+      "file": "explainers/conjugate-gradient-method.72c7de47.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "contact-pot": {
       "hash": "dd644a6e",
       "file": "explainers/contact-pot.dd644a6e.json",
@@ -3661,6 +3727,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "gram-schmidt-orthogonalization": {
+      "hash": "192ed748",
+      "file": "explainers/gram-schmidt-orthogonalization.192ed748.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "graphical-2d-optimization": {
       "hash": "2a82b781",
       "file": "explainers/graphical-2d-optimization.2a82b781.json",
@@ -3671,6 +3743,12 @@
       "hash": "8239d389",
       "file": "explainers/half-circuit.8239d389.json",
       "sectionCount": 5
+    },
+    "heavy-ball-method": {
+      "hash": "227c0348",
+      "file": "explainers/heavy-ball-method.227c0348.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "hessian-matrix": {
       "hash": "ad50efed",
@@ -3997,6 +4075,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "nesterov-accelerated-gradient": {
+      "hash": "c3c63cdc",
+      "file": "explainers/nesterov-accelerated-gradient.c3c63cdc.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "newton-globalization": {
       "hash": "6eb73b2d",
       "file": "explainers/newton-globalization.6eb73b2d.json",
@@ -4169,6 +4253,12 @@
     "projection-affine-halfspace-kkt": {
       "hash": "291feb06",
       "file": "explainers/projection-affine-halfspace-kkt.291feb06.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "q-conjugate-directions": {
+      "hash": "b5dbdf4e",
+      "file": "explainers/q-conjugate-directions.b5dbdf4e.json",
       "sectionCount": 5,
       "version": 1
     },

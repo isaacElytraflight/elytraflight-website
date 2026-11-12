@@ -1,0 +1,233 @@
+{
+  "skill_id": "nesterov-accelerated-gradient",
+  "version": 1,
+  "questions": [
+    {
+      "id": "nesterov-accelerated-gradient-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "One Nesterov step does which of the following?",
+      "explanation": "The extrapolated point is \\(y = x + \\beta(x - x_{\\mathrm{prev}})\\). The gradient is \\(\\nabla f(y)\\), and the next point is \\(y - \\alpha \\nabla f(y)\\). Evaluating the gradient at \\(x\\) and then adding momentum is heavy ball. A Hessian solve is Newton. A projection is a later method for a constrained set. It is not this step.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v</text></svg>",
+      "figure_alt": "One arrow leaves the origin in the plane.",
+      "options": [
+        "Extrapolate from the previous displacement, evaluate the gradient there, and step from that extrapolated point.",
+        "Evaluate the gradient at the current point, then add the momentum term.",
+        "Solve the Hessian against the gradient at the current point.",
+        "Project the current point onto a constraint set before any gradient is computed."
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The current point is \\((4,\\ 2)\\), the previous point is \\((0,\\ 2)\\), and the momentum coefficient is \\(3/4\\). What is the first component of the extrapolated point, before the gradient is evaluated?",
+      "explanation": "The displacement is \\((4,\\ 0)\\). Three quarters of it is \\((3,\\ 0)\\). The extrapolated point is \\((4,\\ 2) + (3,\\ 0) = (7,\\ 2)\\). The first component is \\(7\\). Reporting \\(4\\) stops at the current point. Reporting \\(3\\) is the momentum contribution, not the extrapolated coordinate. Reporting \\(2\\) is the second component, which the displacement does not change.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "answer": 7.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Heavy ball and Nesterov's update both use a momentum coefficient. The distinction is that Nesterov",
+      "explanation": "Write heavy ball as \\(x + \\beta(x - x_{\\mathrm{prev}}) - \\alpha \\nabla f(x)\\). The same extrapolation appears, and the gradient is still \\(\\nabla f(x)\\). Nesterov puts \\(\\nabla f\\) at the extrapolated point instead. The momentum term is present in both. The previous point is used to form the displacement. It is not the point where this gradient is read. The Hessian is not part of either update.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"138.9\"/><polygon points=\"235.9,138.9 229.9,142.5 229.2,137.1\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"130.9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"60.1\" y1=\"161.7\" x2=\"118.7\" y2=\"42.3\"/><polygon points=\"118.7,42.3 118.3,49.3 113.4,46.9\" fill=\"currentColor\" stroke=\"none\"/><text x=\"126.7\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v</text></svg>",
+      "figure_alt": "Two arrows leave the origin.",
+      "options": [
+        "drops the momentum term and keeps only a gradient step",
+        "evaluates the gradient at the previous point, before the current point is known",
+        "replaces the gradient by the Hessian times the displacement",
+        "evaluates the gradient at the extrapolated point, while heavy ball evaluates it at the current point"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps of one Nesterov iteration in order. Each step uses the result of the step before it.",
+      "explanation": "The extrapolated point is the current point plus a multiple of the displacement, so the displacement comes first. The gradient is evaluated at the extrapolated point, so that point has to exist. The subtraction that produces the next point uses that gradient, so it is last. Evaluating the gradient at the current point would be heavy ball, and it is not a reordering of these four steps.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "steps": [
+        "Subtract the previous point from the current point to obtain the displacement.",
+        "Add the momentum coefficient times that displacement to the current point. Call the sum the extrapolated point.",
+        "Evaluate the gradient at that extrapolated point.",
+        "Subtract the step size times that gradient from the extrapolated point to obtain the next point."
+      ],
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r2-q2",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Which claims about Nesterov's \\(O(1/k^2)\\) guarantee are true?",
+      "explanation": "The classical guarantee controls how far the value is above the minimum, and that gap is at most a constant times \\(1/k^2\\).\n• The same sentence is not a bound on the distance to a minimizer. Distance can behave differently from the gap.\n• The argument uses a convex function, so the graph sits above its tangents, and a Lipschitz gradient, so a quadratic upper bound is available.\n• A positive definite Hessian is a stronger curvature assumption than this gap bound uses. The \\(O(1/k^2)\\) result does not assume it. Strong convexity is what produces a linear rate instead.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve that flattens</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">gap</text><polyline points=\"46,39 49,39.1 52,39.3 55.1,39.7 58.1,40.2 61.1,40.9 64.1,41.6 67.2,42.6 70.2,43.6 73.2,44.8 76.2,46 79.2,47.4 82.3,48.8 85.3,50.3 88.3,51.9 91.3,53.6 94.4,55.3 97.4,57.1 100.4,58.9 103.4,60.7 106.4,62.6 109.5,64.4 112.5,66.3 115.5,68.2 118.5,70 121.6,71.9 124.6,73.7 127.6,75.5 130.6,77.4 133.6,79.1 136.7,80.9 139.7,82.6 142.7,84.3 145.7,86 148.8,87.6 151.8,89.2 154.8,90.7 157.8,92.3 160.8,93.7 163.9,95.2 166.9,96.6 169.9,97.9 172.9,99.3 176,100.6 179,101.8 182,103.1 185,104.2 188,105.4 191.1,106.5 194.1,107.6 197.1,108.7 200.1,109.7 203.2,110.7 206.2,111.6 209.2,112.6 212.2,113.5 215.2,114.4 218.3,115.2 221.3,116 224.3,116.8 227.3,117.6 230.4,118.4 233.4,119.1 236.4,119.8 239.4,120.5 242.4,121.2 245.5,121.8 248.5,122.4 251.5,123.1 254.5,123.7 257.6,124.2 260.6,124.8 263.6,125.3 266.6,125.9 269.6,126.4 272.7,126.9 275.7,127.3 278.7,127.8 281.7,128.3 284.8,128.7 287.8,129.1 290.8,129.6 293.8,130 296.8,130.4 299.9,130.8 302.9,131.1 305.9,131.5 308.9,131.9 312,132.2 315,132.5 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that drops at first and then flattens.",
+      "options": [
+        "It bounds the function gap \\(f(x_k) - f^\\star\\).",
+        "The bound is of order \\(1/k^2\\).",
+        "It bounds the distance \\(\\lVert x_k - x^\\star\\rVert\\) by a constant over \\(k^2\\).",
+        "It uses convexity of \\(f\\) and a Lipschitz gradient.",
+        "It requires the Hessian to be positive definite at every point."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r2-q3",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "The current position is the scalar \\(a\\), the previous position is \\(b\\), and the momentum coefficient is \\(m\\). The extrapolated position, before the gradient step, equals",
+      "explanation": "Add the coefficient times the displacement \\(a - b\\) to the current position. Every declared name appears. The gradient step has not been applied yet, so a gradient symbol does not belong in this expression. Subtracting \\(m(a - b)\\) extrapolates in the opposite direction. The heavy-ball position \\(a - s g + m(a - b)\\) already includes a gradient term, and \\(g\\) is not one of the declared names here.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a column of two labels</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b</text></svg>",
+      "figure_alt": "A column of two labels.",
+      "answer": "a+m*(a-b)",
+      "variables": [
+        {
+          "name": "a",
+          "min": -2.0,
+          "max": 2.0
+        },
+        {
+          "name": "b",
+          "min": -2.0,
+          "max": 2.0
+        },
+        {
+          "name": "m",
+          "min": 0.2,
+          "max": 0.8
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "(1+m)*a-m*b",
+        "a*(1+m)-b*m"
+      ],
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note runs one Nesterov step from position \\(5\\), with previous position \\(1\\), momentum coefficient \\(1/2\\), and step size \\(1\\). The gradient at the current position is \\(2\\), and the gradient at the extrapolated position is \\(4\\). Exactly one step is a false claim.",
+      "explanation": "The displacement is \\(4\\), half of it is \\(2\\), and the extrapolated position is \\(7\\). The gradient there is \\(4\\), and the step size is \\(1\\), so the next position is \\(7 - 4 = 3\\). Subtracting \\(2\\) uses the gradient at the current position, which is the heavy-ball reading. The arithmetic \\(7 - 2 = 5\\) is that other update. It is not this one.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "steps": [
+        "The extrapolated position is \\(5 + \\tfrac12(5 - 1) = 7\\).",
+        "The gradient at that extrapolated position equals \\(4\\).",
+        "The step subtracts \\(1\\) times the gradient at the extrapolated position.",
+        "The next position is \\(7 - 2 = 5\\)."
+      ],
+      "flaw_index": 3,
+      "reasons": [
+        "The gradient at the extrapolated position is \\(4\\), so the next position is \\(7 - 4 = 3\\). Subtracting \\(2\\) reads the gradient at the current position.",
+        "The extrapolated position is not \\(7\\).",
+        "The gradient at the extrapolated position is not \\(4\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "The gap bound used here is \\(2 L \\lVert x_0 - x^\\star\\rVert^2 / (k+1)^2\\). With \\(L = 5\\), \\(\\lVert x_0 - x^\\star\\rVert^2 = 4\\), and \\(k = 4\\), what is the bound?",
+      "explanation": "The numerator is \\(2\\cdot 5\\cdot 4 = 40\\). The denominator is \\((4+1)^2 = 25\\). The bound is \\(40/25 = 1.6\\). This number bounds the function gap \\(f(x_4) - f^\\star\\). It is not a bound on the distance. The squared distance \\(4\\) was an input, not the value of the bound. Reporting \\(40\\) drops the denominator. Reporting \\(4\\) repeats that squared distance. Reporting \\(2.5\\) uses \\(k^2 = 16\\) in the denominator instead of \\((k+1)^2 = 25\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve that flattens</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">gap</text><polyline points=\"46,39 49,39.1 52,39.3 55.1,39.7 58.1,40.2 61.1,40.9 64.1,41.6 67.2,42.6 70.2,43.6 73.2,44.8 76.2,46 79.2,47.4 82.3,48.8 85.3,50.3 88.3,51.9 91.3,53.6 94.4,55.3 97.4,57.1 100.4,58.9 103.4,60.7 106.4,62.6 109.5,64.4 112.5,66.3 115.5,68.2 118.5,70 121.6,71.9 124.6,73.7 127.6,75.5 130.6,77.4 133.6,79.1 136.7,80.9 139.7,82.6 142.7,84.3 145.7,86 148.8,87.6 151.8,89.2 154.8,90.7 157.8,92.3 160.8,93.7 163.9,95.2 166.9,96.6 169.9,97.9 172.9,99.3 176,100.6 179,101.8 182,103.1 185,104.2 188,105.4 191.1,106.5 194.1,107.6 197.1,108.7 200.1,109.7 203.2,110.7 206.2,111.6 209.2,112.6 212.2,113.5 215.2,114.4 218.3,115.2 221.3,116 224.3,116.8 227.3,117.6 230.4,118.4 233.4,119.1 236.4,119.8 239.4,120.5 242.4,121.2 245.5,121.8 248.5,122.4 251.5,123.1 254.5,123.7 257.6,124.2 260.6,124.8 263.6,125.3 266.6,125.9 269.6,126.4 272.7,126.9 275.7,127.3 278.7,127.8 281.7,128.3 284.8,128.7 287.8,129.1 290.8,129.6 293.8,130 296.8,130.4 299.9,130.8 302.9,131.1 305.9,131.5 308.9,131.9 312,132.2 315,132.5 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that drops at first and then flattens.",
+      "answer": 1.6,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "With the coefficient \\((k-1)/(k+2)\\) at iteration \\(k\\), the first iteration \\(k = 1\\)",
+      "explanation": "Substitute \\(k = 1\\): the numerator is \\(0\\) and the denominator is \\(3\\), so the coefficient is \\(0\\). The extrapolated point equals the current point, and the update subtracts the step size times the gradient there. A coefficient of \\(1\\) would require \\(k - 1 = k + 2\\). The value \\(1/2\\) is \\((k-1)/(k+2)\\) at \\(k = 4\\), not at \\(k = 1\\). The denominator \\(3\\) is not zero.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping up</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,132.9 49,131.8 52,130.8 55.1,129.7 58.1,128.7 61.1,127.6 64.1,126.6 67.2,125.6 70.2,124.5 73.2,123.5 76.2,122.4 79.2,121.4 82.3,120.3 85.3,119.3 88.3,118.3 91.3,117.2 94.4,116.2 97.4,115.1 100.4,114.1 103.4,113 106.4,112 109.5,111 112.5,109.9 115.5,108.9 118.5,107.8 121.6,106.8 124.6,105.8 127.6,104.7 130.6,103.7 133.6,102.6 136.7,101.6 139.7,100.5 142.7,99.5 145.7,98.5 148.8,97.4 151.8,96.4 154.8,95.3 157.8,94.3 160.8,93.2 163.9,92.2 166.9,91.2 169.9,90.1 172.9,89.1 176,88 179,87 182,85.9 185,84.9 188,83.9 191.1,82.8 194.1,81.8 197.1,80.7 200.1,79.7 203.2,78.6 206.2,77.6 209.2,76.6 212.2,75.5 215.2,74.5 218.3,73.4 221.3,72.4 224.3,71.3 227.3,70.3 230.4,69.3 233.4,68.2 236.4,67.2 239.4,66.1 242.4,65.1 245.5,64 248.5,63 251.5,62 254.5,60.9 257.6,59.9 260.6,58.8 263.6,57.8 266.6,56.7 269.6,55.7 272.7,54.7 275.7,53.6 278.7,52.6 281.7,51.5 284.8,50.5 287.8,49.4 290.8,48.4 293.8,47.4 296.8,46.3 299.9,45.3 302.9,44.2 305.9,43.2 308.9,42.1 312,41.1 315,40.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping upward on labeled axes.",
+      "options": [
+        "has coefficient \\(1/2\\), for every later schedule as well",
+        "is undefined, because the denominator \\(k+2\\) is zero",
+        "has coefficient \\(0\\), so the extrapolated point is the current point and the step is an ordinary gradient step",
+        "has coefficient \\(1\\), so the step skips the gradient"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r4-q1",
+      "round": 4,
+      "type": "mc",
+      "prompt": "For a smooth convex objective, the gap after \\(k\\) Nesterov steps is \\(O(1/k^2)\\). The matching guarantee for plain gradient descent, from summing decrease inequalities, is",
+      "explanation": "Summing a decrease of order \\(\\lVert\\nabla f\\rVert^2\\) produces a function-gap bound of order \\(1/k\\) for gradient descent. Nesterov's argument improves the exponent on that gap to \\(2\\). Neither of those sentences is a bound on distance of order \\(1/k^2\\). A squared-error bound is local Newton. Finite termination in \\(n\\) steps is the conjugate-direction fact for a positive definite quadratic, not a claim about every smooth convex function.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve that flattens</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">k</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">gap</text><polyline points=\"46,39 49,39.1 52,39.3 55.1,39.7 58.1,40.2 61.1,40.9 64.1,41.6 67.2,42.6 70.2,43.6 73.2,44.8 76.2,46 79.2,47.4 82.3,48.8 85.3,50.3 88.3,51.9 91.3,53.6 94.4,55.3 97.4,57.1 100.4,58.9 103.4,60.7 106.4,62.6 109.5,64.4 112.5,66.3 115.5,68.2 118.5,70 121.6,71.9 124.6,73.7 127.6,75.5 130.6,77.4 133.6,79.1 136.7,80.9 139.7,82.6 142.7,84.3 145.7,86 148.8,87.6 151.8,89.2 154.8,90.7 157.8,92.3 160.8,93.7 163.9,95.2 166.9,96.6 169.9,97.9 172.9,99.3 176,100.6 179,101.8 182,103.1 185,104.2 188,105.4 191.1,106.5 194.1,107.6 197.1,108.7 200.1,109.7 203.2,110.7 206.2,111.6 209.2,112.6 212.2,113.5 215.2,114.4 218.3,115.2 221.3,116 224.3,116.8 227.3,117.6 230.4,118.4 233.4,119.1 236.4,119.8 239.4,120.5 242.4,121.2 245.5,121.8 248.5,122.4 251.5,123.1 254.5,123.7 257.6,124.2 260.6,124.8 263.6,125.3 266.6,125.9 269.6,126.4 272.7,126.9 275.7,127.3 278.7,127.8 281.7,128.3 284.8,128.7 287.8,129.1 290.8,129.6 293.8,130 296.8,130.4 299.9,130.8 302.9,131.1 305.9,131.5 308.9,131.9 312,132.2 315,132.5 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that drops at first and then flattens.",
+      "preview": [
+        "gradient-projection-method"
+      ],
+      "options": [
+        "finite termination in \\(n\\) steps for every smooth convex function",
+        "\\(O(1/k)\\) on the function gap",
+        "\\(O(1/k^2)\\) on the distance to the minimizer",
+        "a squared-error bound, as in Newton near a nondegenerate minimizer"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "The momentum coefficient \\((k-1)/(k+2)\\) at iteration \\(k = 7\\) equals",
+      "explanation": "The numerator is \\(6\\) and the denominator is \\(9\\), so the coefficient is \\(2/3\\). Reporting \\(7/9\\) uses \\(k\\) in the numerator. Reporting \\(6/7\\) uses \\(k\\) in the denominator. Reporting \\(0\\) is the coefficient at \\(k = 1\\), where the numerator vanishes. The coefficient changes with \\(k\\). A constant momentum coefficient is a different choice.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping up</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,132.9 49,131.8 52,130.8 55.1,129.7 58.1,128.7 61.1,127.6 64.1,126.6 67.2,125.6 70.2,124.5 73.2,123.5 76.2,122.4 79.2,121.4 82.3,120.3 85.3,119.3 88.3,118.3 91.3,117.2 94.4,116.2 97.4,115.1 100.4,114.1 103.4,113 106.4,112 109.5,111 112.5,109.9 115.5,108.9 118.5,107.8 121.6,106.8 124.6,105.8 127.6,104.7 130.6,103.7 133.6,102.6 136.7,101.6 139.7,100.5 142.7,99.5 145.7,98.5 148.8,97.4 151.8,96.4 154.8,95.3 157.8,94.3 160.8,93.2 163.9,92.2 166.9,91.2 169.9,90.1 172.9,89.1 176,88 179,87 182,85.9 185,84.9 188,83.9 191.1,82.8 194.1,81.8 197.1,80.7 200.1,79.7 203.2,78.6 206.2,77.6 209.2,76.6 212.2,75.5 215.2,74.5 218.3,73.4 221.3,72.4 224.3,71.3 227.3,70.3 230.4,69.3 233.4,68.2 236.4,67.2 239.4,66.1 242.4,65.1 245.5,64 248.5,63 251.5,62 254.5,60.9 257.6,59.9 260.6,58.8 263.6,57.8 266.6,56.7 269.6,55.7 272.7,54.7 275.7,53.6 278.7,52.6 281.7,51.5 284.8,50.5 287.8,49.4 290.8,48.4 293.8,47.4 296.8,46.3 299.9,45.3 302.9,44.2 305.9,43.2 308.9,42.1 312,41.1 315,40.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping upward on labeled axes.",
+      "preview": [
+        "frank-wolfe-conditional-gradient"
+      ],
+      "answer": 0.666667,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "nesterov-accelerated-gradient-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "The step size \\(1/L\\) in the smooth convex gap argument is tied to the descent lemma because",
+      "explanation": "A Lipschitz gradient with constant \\(L\\) puts \\(f\\) under the quadratic \\(f(y) + \\nabla f(y)^T(z-y) + (L/2)\\lVert z-y\\rVert^2\\). The minimizer of that quadratic in \\(z\\) is the step \\(y - (1/L)\\nabla f(y)\\). The gap proof uses that upper bound. The lemma does not ask the Hessian to be singular. \\(L\\) is a curvature constant, not the scheduled momentum coefficient. The \\(O(1/k^2)\\) conclusion of the full argument is a bound on the function gap, not a distance bound read off the lemma alone.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested contours</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
+      "figure_alt": "Three nested ellipses around the origin.",
+      "preview": [
+        "gradient-projection-method"
+      ],
+      "options": [
+        "the lemma supplies a quadratic upper bound of curvature \\(L\\), and \\(1/L\\) is the exact step on that upper bound",
+        "the lemma requires the Hessian to be singular",
+        "\\(L\\) is the momentum coefficient \\((k-1)/(k+2)\\)",
+        "the lemma bounds the distance \\(\\lVert x_k - x^\\star\\rVert\\) by \\(1/k^2\\) directly"
+      ],
+      "correct_index": 0,
+      "version": 1
+    }
+  ]
+}
