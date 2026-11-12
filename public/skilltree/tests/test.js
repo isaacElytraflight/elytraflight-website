@@ -478,6 +478,32 @@ async function test(name, fn) {
     assert.strictEqual(importedFocus.hidden, true, 'a scoped import hides the pick-courses prompt');
     assert.strictEqual(importedFocus.focus, 'ee105');
     assert.deepStrictEqual(importedFocus.scope, ['ee105-ucb']);
+
+    const emptyFile = JSON.stringify({
+      version: 1,
+      skills: { bode: { tier: 2, lastPracticed: now, history: [] } },
+      scope: { v: 2, boxes: [] }
+    });
+    await p2.evaluate(data => {
+      const blob = new Blob([data], { type: 'application/json' });
+      const file = new File([blob], 'empty-focus.json', { type: 'application/json' });
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      const input = document.getElementById('fileIn');
+      input.files = dt.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }, emptyFile);
+    await sleep(400);
+    await p2.click('#impReplace');
+    await sleep(50);
+    const emptied = await p2.evaluate(() => ({
+      prompt: document.getElementById('focusPrompt').hidden,
+      panel: document.getElementById('scopePanel').hidden,
+      focus: new URLSearchParams(location.search).get('focus')
+    }));
+    assert.strictEqual(emptied.prompt, false, 'an empty-focus import shows the pick-courses prompt');
+    assert.strictEqual(emptied.panel, false, 'the course checklist stays open after the import click');
+    assert.strictEqual(emptied.focus, '');
     
     await p._ctx.close();
     await p2._ctx.close();

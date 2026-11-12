@@ -2521,9 +2521,16 @@ function afterImport(msg) {
   }
   if (world) { computeGroupedLayout(); updateBlobsDOM(); legendBuild(); showLayout(layoutMode, false); }
   refreshAll();
-  if (selectedBoxes.size === 0) scopePanelOpen = true;
-  syncScopePicker();
   syncFocusPrompt();
+  // The import button's click is still bubbling. Opening the checklist in this
+  // turn lets the outside-click listener close it again, which hides the prompt.
+  if (selectedBoxes.size === 0) {
+    setTimeout(() => {
+      if (selectedBoxes.size !== 0) return;
+      scopePanelOpen = true;
+      syncScopePicker();
+    }, 0);
+  }
   if (selected) renderPanel();
   toast(msg);
 }
