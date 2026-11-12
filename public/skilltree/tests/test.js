@@ -130,6 +130,26 @@ function handleMeasure(req, page) {
       });
       return true;
     }
+    if (page && page._eventsMode === 'split') {
+      let rows = [];
+      try {
+        const parsed = JSON.parse(req.postData() || 'null');
+        rows = Array.isArray(parsed) ? parsed : (parsed ? [parsed] : []);
+      } catch (e) { rows = []; }
+      const poison = rows.some(row => row && row.kind === 'poison');
+      const flaky = rows.length === 1 && rows[0] && rows[0].kind === 'flaky';
+      if (poison || flaky) {
+        req.respond({
+          status: poison ? 400 : 500,
+          contentType: 'application/json',
+          headers: MEASURE_CORS,
+          body: JSON.stringify(poison
+            ? { code: '23514', message: 'new row violates check constraint analytics_events_kind' }
+            : { message: 'db down' })
+        });
+        return true;
+      }
+    }
     req.respond({ status: 201, contentType: 'application/json', headers: MEASURE_CORS, body: '' });
     return true;
   }
@@ -487,7 +507,9 @@ async function test(name, fn) {
     !e.includes('favicon') && 
     !e.includes('404') && 
     !e.includes('blob:fake') &&
+    !e.includes('status of 400') &&
     !e.includes('status of 409') &&
+    !e.includes('status of 422') &&
     !e.includes('status of 500')
   );
   if (newErrs.length > 0) results.push(['FAIL', name + ' :: console errors ' + newErrs.join(' | ')]);
@@ -3473,6 +3495,110 @@ async function test(name, fn) {
     assert.strictEqual(p._eventPosts.length, 2, 'the next flush retries that batch');
     const after = await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.events.q.v1') || '[]'));
     assert.strictEqual(after.length, 0, 'a successful retry clears the queue');
+    await p._ctx.close();
+  });
+
+  await test('a queued mixed batch sends one key set and a poison row does not block it', async () => {
+    const p = await newPage();
+    await flushMeasure(p);
+    const install = await p.evaluate(() => localStorage.getItem('skilltree.install.v1'));
+    assert(/^[0-9a-f-]{36}$/i.test(install), install);
+    const eventCols = ['kind', 'install_id', 'user_id', 'skill_id', 'box_id', 'question_id', 'mode', 'round', 'choice', 'q_index', 'q_count', 'score', 'n_total', 'correct', 'passed', 'choices'];
+    const flagCols = ['install_id', 'user_id', 'skill_id', 'question_id', 'reason', 'comment'];
+    p._eventPosts.length = 0;
+    p._flagPosts.length = 0;
+    await p.evaluate(installId => {
+      localStorage.setItem('skilltree.events.q.v1', JSON.stringify([
+        { kind: 'session', install_id: installId, user_id: null },
+        { kind: 'focus', install_id: installId, user_id: null, box_id: 'ee105-ucb', mode: 'all' },
+        { kind: 'quiz_answer', install_id: installId, user_id: null, skill_id: 'bode', question_id: 'bode-r1-q1', correct: true, choice: 2, choices: [2, 0] }
+      ]));
+      localStorage.setItem('skilltree.flags.q.v1', JSON.stringify([
+        { skill_id: 'bode', question_id: 'bode-r1-q1', reason: 'typo', comment: 'note' },
+        { skill_id: 'bode', question_id: 'bode-r1-q2', reason: 'wrong', comment: '' },
+        { skill_id: 'bode', question_id: 'bode-r1-q3', reason: 'other', comment: '   ' }
+      ]));
+    }, install);
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(400);
+    for (let i = 0; i < 20 && p._flagPosts.length === 0; i++) await sleep(50);
+    await flushMeasure(p);
+    assert.strictEqual(p._flagPosts.length, 1, 'queued flags share one request');
+    const flags = JSON.parse(p._flagPosts[0].body);
+    assert.strictEqual(flags.length, 3);
+    flags.forEach(row => assert.deepStrictEqual(Object.keys(row), flagCols));
+    assert.strictEqual(flags[0].comment, 'note');
+    assert.strictEqual(flags[1].comment, null);
+    assert.strictEqual(flags[2].comment, null);
+    assert.strictEqual(flags[0].install_id, install);
+    assert.strictEqual(flags[1].user_id, null);
+    const bodies = p._eventPosts.map(post => JSON.parse(post.body));
+    const mixed = bodies.find(rows => Array.isArray(rows) && rows.some(r => r.kind === 'quiz_answer' && r.question_id === 'bode-r1-q1') && rows.some(r => r.kind === 'session') && rows.some(r => r.kind === 'focus' && r.mode === 'all'));
+    assert(mixed, 'sparse queued rows flush together');
+    mixed.forEach(row => assert.deepStrictEqual(Object.keys(row), eventCols));
+    const session = mixed.find(r => r.kind === 'session');
+    const focus = mixed.find(r => r.kind === 'focus' && r.mode === 'all');
+    const answer = mixed.find(r => r.kind === 'quiz_answer' && r.question_id === 'bode-r1-q1');
+    eventCols.forEach(key => {
+      if (key !== 'kind' && key !== 'install_id' && key !== 'user_id') assert.strictEqual(session[key], null, 'session ' + key);
+    });
+    assert.strictEqual(session.install_id, install);
+    assert.strictEqual(session.user_id, null);
+    assert.strictEqual(focus.box_id, 'ee105-ucb');
+    assert.strictEqual(focus.mode, 'all');
+    assert.strictEqual(focus.skill_id, null);
+    assert.strictEqual(focus.choices, null);
+    assert.strictEqual(answer.correct, true);
+    assert.strictEqual(answer.choice, 2);
+    assert.deepStrictEqual(answer.choices, [2, 0]);
+    assert.strictEqual(answer.box_id, null);
+    assert.strictEqual(answer.score, null);
+    assert.strictEqual(answer.passed, null);
+    const cleared = await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.events.q.v1') || '[]'));
+    assert(!cleared.some(r => r.question_id === 'bode-r1-q1' || (r.kind === 'focus' && r.mode === 'all')), 'flushed rows leave the device queue');
+
+    await p.evaluate(installId => {
+      localStorage.setItem('skilltree.events.q.v1', JSON.stringify([
+        { kind: 'session', install_id: installId, user_id: null },
+        { kind: 'quiz_answer', install_id: installId, user_id: null, skill_id: 'bode', question_id: 'bode-r1-q9', correct: false, choice: 1 },
+        { kind: 'poison', install_id: installId, user_id: null },
+        { kind: 'flaky', install_id: installId, user_id: null, skill_id: 'bode' }
+      ]));
+    }, install);
+    p._eventsMode = 'split';
+    p._eventPosts.length = 0;
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(400);
+    await flushMeasure(p);
+    const splitBodies = p._eventPosts.map(post => JSON.parse(post.body));
+    const poisonBatch = splitBodies.find(rows => Array.isArray(rows) && rows.length > 1 && rows.some(r => r.kind === 'poison'));
+    assert(poisonBatch, 'the poison row is sent with the rest of the batch');
+    poisonBatch.forEach(row => assert.deepStrictEqual(Object.keys(row), eventCols));
+    const singles = splitBodies.filter(rows => Array.isArray(rows) && rows.length === 1).map(rows => rows[0]);
+    const saved = singles.find(r => r.kind === 'quiz_answer' && r.question_id === 'bode-r1-q9');
+    assert(saved, 'a good row is retried on its own');
+    assert.deepStrictEqual(Object.keys(saved), eventCols);
+    assert.strictEqual(saved.correct, false);
+    assert.strictEqual(saved.choice, 1);
+    assert.strictEqual(saved.box_id, null);
+    assert.strictEqual(saved.choices, null);
+    assert(singles.some(r => r.kind === 'poison'), 'the poison row is retried once');
+    assert(singles.some(r => r.kind === 'flaky'), 'a 5xx row is retried once');
+    const left = await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.events.q.v1') || '[]'));
+    assert(!left.some(r => r.kind === 'poison'), 'a 4xx row is dropped');
+    assert(!left.some(r => r.question_id === 'bode-r1-q9'), 'a saved row is not stuck behind the poison row');
+    assert(left.some(r => r.kind === 'flaky'), 'a 5xx row stays queued');
+    const before = p._eventPosts.length;
+    await flushMeasure(p);
+    const again = p._eventPosts.slice(before).map(post => JSON.parse(post.body));
+    assert(again.length >= 1, 'the kept row is sent again');
+    again.forEach(rows => {
+      const list = Array.isArray(rows) ? rows : [rows];
+      assert(!list.some(r => r.kind === 'poison'), 'the poison row is not sent again');
+    });
+    const still = await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.events.q.v1') || '[]'));
+    assert(still.some(r => r.kind === 'flaky'));
+    assert(!still.some(r => r.kind === 'poison'));
     await p._ctx.close();
   });
 

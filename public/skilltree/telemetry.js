@@ -231,17 +231,17 @@ async function postTable(table, rows, opts) {
   } catch (e) {
     return { ok: false, kind: 'network' };
   }
-  if (res.ok) return { ok: true };
+  if (res.ok) return { ok: true, status: res.status };
   let body = {};
   try { body = await res.json(); } catch (e) { body = {}; }
   const code = String(body.code || '');
   const message = String(body.message || body.details || '').toLowerCase();
-  if (res.status === 409 || code === '23505') return { ok: false, kind: 'duplicate' };
-  if (code === '54000' || message.includes('rate limit')) return { ok: false, kind: 'rate' };
+  if (res.status === 409 || code === '23505') return { ok: false, kind: 'duplicate', status: res.status };
+  if (code === '54000' || message.includes('rate limit')) return { ok: false, kind: 'rate', status: res.status };
   const missing = res.status === 404 || code === 'PGRST205' || code === '42P01' || code === 'PGRST204'
     || message.includes('schema cache') || message.includes('does not exist') || message.includes('could not find the table');
-  if (missing) return { ok: false, kind: 'missing' };
-  return { ok: false, kind: 'error' };
+  if (missing) return { ok: false, kind: 'missing', status: res.status };
+  return { ok: false, kind: 'error', status: res.status };
 }
 
 function schedule(ms) {
@@ -258,6 +258,44 @@ function stamp(rows) {
   });
 }
 
+// PostgREST rejects a bulk insert unless every object has the same keys.
+// These are the insertable columns from analytics_events / analytics_flags
+// (id and created_at stay server-generated). Absent values are null, which
+// the check constraints and before-insert triggers allow.
+const EVENT_COLS = [
+  'kind', 'install_id', 'user_id', 'skill_id', 'box_id', 'question_id',
+  'mode', 'round', 'choice', 'q_index', 'q_count', 'score', 'n_total',
+  'correct', 'passed', 'choices'
+];
+const FLAG_COLS = ['install_id', 'user_id', 'skill_id', 'question_id', 'reason', 'comment'];
+
+function normalizeEvents(rows) {
+  return rows.map(row => {
+    const out = {};
+    EVENT_COLS.forEach(key => { out[key] = row[key] == null ? null : row[key]; });
+    return out;
+  });
+}
+function normalizeFlag(row) {
+  const out = {};
+  FLAG_COLS.forEach(key => {
+    if (key === 'comment') {
+      const text = row.comment == null ? '' : String(row.comment).trim();
+      out.comment = text ? text : null;
+    } else out[key] = row[key] == null ? null : row[key];
+  });
+  return out;
+}
+function clientReject(result) {
+  return !!result && !result.ok && (result.status === 400 || result.status === 422)
+    && result.kind !== 'missing' && result.kind !== 'rate' && result.kind !== 'duplicate';
+}
+function keepFailed(result) {
+  if (!result || result.ok || result.kind === 'duplicate') return false;
+  if (result.kind === 'network' || result.kind === 'unavailable' || result.kind === 'rate' || result.kind === 'missing') return true;
+  return !(result.status >= 400 && result.status < 500);
+}
+
 async function flushNow(opts) {
   if (!trackingAllowed()) {
     queue = [];
@@ -267,10 +305,32 @@ async function flushNow(opts) {
   if (serverOff || !queue.length) return;
   const batch = queue.splice(0, BATCH);
   stamp(batch);
+  const rows = normalizeEvents(batch);
   persistEvents();
-  const result = await postTable('analytics_events', batch, opts);
+  const result = await postTable('analytics_events', rows, opts);
   if (result.ok || result.kind === 'duplicate') {
     if (queue.length) schedule(400);
+    return;
+  }
+  if (clientReject(result)) {
+    const keep = [];
+    let rate = false;
+    let missing = false;
+    for (let i = 0; i < rows.length; i++) {
+      const one = rows.length === 1 ? result : await postTable('analytics_events', [rows[i]], opts);
+      if (one.ok || one.kind === 'duplicate') continue;
+      if (one.kind === 'missing' || one.kind === 'unavailable') missing = true;
+      if (one.kind === 'rate') rate = true;
+      if (keepFailed(one)) keep.push(batch[i]);
+    }
+    if (keep.length) queue = keep.concat(queue).slice(-EVENT_CAP);
+    persistEvents();
+    if (missing) {
+      serverOff = true;
+      return;
+    }
+    if (keep.length) schedule(rate ? 60000 : 20000);
+    else if (queue.length) schedule(400);
     return;
   }
   queue = batch.concat(queue).slice(-EVENT_CAP);
@@ -318,7 +378,7 @@ async function flushFlags() {
   if (flagsOff || !flagQueue.length) return;
   const batch = flagQueue.slice();
   stamp(batch);
-  const result = await postTable('analytics_flags', batch);
+  const result = await postTable('analytics_flags', batch.map(normalizeFlag));
   if (result.ok || result.kind === 'duplicate') {
     const sent = new Set(batch.map(row => row.question_id));
     flagQueue = flagQueue.filter(row => !sent.has(row.question_id));
@@ -335,7 +395,7 @@ async function submitFlag(partial) {
     rememberFlag(row);
     return 'queued';
   }
-  const result = await postTable('analytics_flags', [row]);
+  const result = await postTable('analytics_flags', [normalizeFlag(row)]);
   if (result.ok || result.kind === 'duplicate') return 'sent';
   rememberFlag(row);
   if (result.kind === 'missing' || result.kind === 'unavailable') flagsOff = true;
