@@ -128,6 +128,10 @@ async function fetchExplainer(skillId) {
 /* ====================== constants & helpers ====================== */
 const KEY='skilltree.progress.v1', UIKEY='skilltree.ui.v1';
 const PLAN_SCOPE_KEY='skilltree.planscope.v1';
+/* Short aliases for course boxes whose ids are longer than the link token.
+   me132 and am08 are already short, so they round-trip as their box ids.
+   Chapters keep their box ids (including ids that contain a slash). */
+const FOCUS_SHORT_TO_ID = { ee105: 'ee105-ucb', nlo: 'nlo-tugraz' };
 const TIERS=['Unpracticed','Practiced','Level 1','Level 2','Mastered'];
 const FILL=[0,30,55,80,100];
 const PALETTE=['#ff6b6b','#ff9f43','#f4b400','#8bc34a','#2ed47a','#14c1a8','#22b8e6','#4c8dff','#7c6cff','#b15cff','#e25ce0','#ff5c9d','#f2784b','#6fae2e','#1fa39a','#5a7bef','#9a63d9','#d9588a'];
@@ -1256,7 +1260,7 @@ function scopeOptionLabel(box, depth) {
 function scopeButtonText() {
   const n = selectedBoxes.size, all = allBoxIds().length;
   if (!all || n === all) return 'All boxes';
-  if (n === 0) return 'None';
+  if (n === 0) return 'Pick courses';
   const ids = selectedInOrder();
   if (n === 1) return (boxById[ids[0]] && boxById[ids[0]].title) || ids[0];
   if (n === 2) return ids.map(id => (boxById[id] && boxById[id].title) || id).join(' + ');
@@ -1268,17 +1272,49 @@ function syncScopePicker() {
   if (!btn) return;
   document.querySelectorAll('#scopePicker input[type=checkbox]').forEach(inp => { inp.checked = selectedBoxes.has(inp.value); });
   btn.textContent = scopeButtonText();
+  if (selectedBoxes.size === 0) btn.title = 'Pick courses to focus the tree';
+  else btn.removeAttribute('title');
   const panel = $('scopePanel');
   if (panel) panel.hidden = !scopePanelOpen;
   btn.setAttribute('aria-expanded', String(scopePanelOpen));
 }
 
+function syncFocusPrompt() {
+  const note = $('focusPrompt');
+  if (note) note.hidden = selectedBoxes.size > 0;
+}
+
 function buildControls() {
   const hc = $('hctl'); hc.innerHTML = '';
-  const list = el('div', { class: 'scope-list', role: 'group', 'aria-label': 'Scope, select all that apply' });
+  const list = el('div', { class: 'scope-list', role: 'group', 'aria-label': 'Courses, select all that apply' });
   const childIds = new Set();
   (COLLECTIONS && COLLECTIONS.boxes || []).forEach(b => (b.children || []).forEach(id => childIds.add(id)));
-  const walk = (box, depth) => {
+  const appendBox = (box, depth, parentEl) => {
+    const kids = (box.children || []).map(cid => boxById[cid]).filter(Boolean);
+    const row = el('div', { class: 'scope-row' + (depth ? ' depth' : '') });
+    let chapters = null;
+    if (kids.length) {
+      const cid = 'scopeChapters-' + String(box.id).replace(/[^A-Za-z0-9_-]/g, '-');
+      chapters = el('div', { class: 'scope-chapters', id: cid, hidden: true });
+      const title = box.title || box.id;
+      const toggle = el('button', {
+        type: 'button',
+        class: 'scope-expand',
+        'aria-expanded': 'false',
+        'aria-controls': cid,
+        'aria-label': 'Show chapters of ' + title,
+        onclick: e => {
+          e.preventDefault();
+          e.stopPropagation();
+          const open = !!chapters.hidden;
+          chapters.hidden = !open;
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          toggle.setAttribute('aria-label', (open ? 'Hide chapters of ' : 'Show chapters of ') + title);
+          toggle.textContent = open ? '▾' : '▸';
+        }
+      }, '▸');
+      row.append(toggle);
+    }
     const input = el('input', { type: 'checkbox', value: box.id });
     input.checked = selectedBoxes.has(box.id);
     input.addEventListener('change', () => {
@@ -1286,18 +1322,23 @@ function buildControls() {
       if (input.checked) next.add(box.id); else next.delete(box.id);
       setScope([...next]);
     });
-    list.append(el('label', { class: 'scope-row' + (depth ? ' depth' : '') }, input, el('span', { text: scopeOptionLabel(box, depth) })));
-    (box.children || []).forEach(cid => { const child = boxById[cid]; if (child) walk(child, depth + 1); });
+    row.append(el('label', {}, input, el('span', { text: scopeOptionLabel(box, depth) })));
+    parentEl.append(row);
+    if (chapters) {
+      kids.forEach(child => appendBox(child, depth + 1, chapters));
+      parentEl.append(chapters);
+    }
   };
-  (COLLECTIONS && COLLECTIONS.boxes || []).filter(b => !childIds.has(b.id)).forEach(b => walk(b, 0));
+  (COLLECTIONS && COLLECTIONS.boxes || []).filter(b => !childIds.has(b.id)).forEach(b => appendBox(b, 0, list));
   const panel = el('div', { class: 'scope-panel', id: 'scopePanel' });
   panel.hidden = true;
   panel.append(
+    el('p', { id: 'focusPrompt', class: 'focus-prompt', hidden: selectedBoxes.size > 0, text: 'Pick the courses you want to study. Nothing is focused until you do.' }),
     el('div', { class: 'scope-quick' },
       el('button', { type: 'button', id: 'scopeAll', onclick: e => { e.preventDefault(); setScope(null); } }, 'All'),
       el('button', { type: 'button', id: 'scopeNone', onclick: e => { e.preventDefault(); setScope([]); } }, 'None')),
     list);
-  const toggle = el('button', { type: 'button', id: 'scopeToggle', class: 'scope-toggle', 'aria-haspopup': 'true', 'aria-expanded': 'false',
+  const toggle = el('button', { type: 'button', id: 'scopeToggle', class: 'scope-toggle', 'aria-haspopup': 'true', 'aria-expanded': 'false', 'aria-controls': 'scopePanel',
     onclick: e => { e.stopPropagation(); scopePanelOpen = !scopePanelOpen; syncScopePicker(); } }, scopeButtonText());
   const chk = el('input', { type: 'checkbox', id: 'onlyPlay' });
   chk.checked = filter.playable;
@@ -1306,7 +1347,7 @@ function buildControls() {
     el('div', { class: 'seg', role: 'group', 'aria-label': 'View' },
       el('button', { id: 'vTree', 'aria-pressed': String(filter.view === 'tree'), onclick: () => setView('tree') }, 'Tree'),
       el('button', { id: 'vGrid', 'aria-pressed': String(filter.view === 'grid'), onclick: () => setView('grid') }, 'Grid')),
-    el('span', { class: 'scope-label', id: 'scopeLabel', text: 'Scope' }),
+    el('span', { class: 'scope-label', id: 'scopeLabel', text: 'Courses' }),
     el('div', { class: 'scope-multi', id: 'scopePicker' }, toggle, panel),
     el('label', { class: 'chk' }, chk, 'Playable only'));
   if (!buildControls.bound) {
@@ -1316,6 +1357,7 @@ function buildControls() {
     buildControls.bound = true;
   }
   syncScopePicker();
+  syncFocusPrompt();
 }
 
 function unionSkillIds(scope) {
@@ -1365,6 +1407,7 @@ function setScope(ids, opts) {
     selectedBoxes = next;
   }
   savePlanScope();
+  writeFocusUrl();
   computeGroupedLayout();
   updateBlobsDOM();
   legendBuild();
@@ -1372,6 +1415,7 @@ function setScope(ids, opts) {
   refreshAll();
   refreshOpenPlan();
   syncScopePicker();
+  syncFocusPrompt();
   if (opts && opts.focus && filter.view === 'tree') focusScope();
 }
 
@@ -2022,7 +2066,7 @@ function openHelp() {
     el('li', {}, 'Prerequisites are guidance, not locks. A new skill glows "ready" once all its prerequisites are at Level 2 or Mastered (prerequisites that are still coming soon are ignored). Lines show what leads to what; click a tile to highlight them.'),
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
     el('li', {}, el('b', { text: 'Learning plan ' }), 'simulates sessions (practice every ready skill, one mastery challenge per unmastered skill) to estimate how many sessions and how much time it takes to master everything playable. It learns how fast you are from your own timed quizzes.'),
-    el('li', {}, el('b', { text: 'Scope ' }), 'is select-all-that-apply: choose any courses or chapters. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
+    el('li', {}, el('b', { text: 'Courses ' }), 'is select-all-that-apply. The address bar focus parameter is that list (for example ?focus=me132,nlo). A link with focus uses that list, and a visit with no focus parameter restores your last choice. A new profile starts with nothing focused. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
     el('li', {}, el('b', { text: 'Group by course ' }), 'draws each selected course and chapter as a colored region around its skills. Regions overlap where boxes share skills, and Ungroup returns to one prerequisite tree.'),
     el('li', {}, 'Progress autosaves in this browser after every quiz. Open Settings (the gear) to Export a backup you can Import later, or on another device.'),
     el('li', {}, 'Skills are organized into courses and chapters. Some skills have questions; the rest say "coming soon".'));
@@ -2048,46 +2092,140 @@ const planState = { scratch: false, open: null };
 function scopePayloadFromSelection() {
   return (selectionIsAll() || !allBoxIds().length) ? { v: 2, all: true } : { v: 2, boxes: selectedInOrder() };
 }
+function applyFocusSelection(norm) {
+  if (!norm) { selectedBoxes = new Set(); return; }
+  if (norm.all) { selectedBoxes = new Set(allBoxIds()); return; }
+  const next = new Set();
+  (norm.boxes || []).forEach(id => { if (boxById[id]) next.add(id); });
+  selectedBoxes = next;
+}
 function applyScopeValue(norm) {
   if (!norm) return false;
-  if (norm.all) selectedBoxes = new Set(allBoxIds());
-  else {
-    const next = new Set();
-    (norm.boxes || []).forEach(id => { if (boxById[id]) next.add(id); });
-    selectedBoxes = next;
-  }
+  applyFocusSelection(norm);
   return true;
 }
-function loadPlanScope() {
+function shortForBox(id) {
+  for (const short in FOCUS_SHORT_TO_ID) if (FOCUS_SHORT_TO_ID[short] === id) return short;
+  return id;
+}
+function resolveFocusToken(tok) {
+  if (!tok) return null;
+  if (boxById[tok]) return tok;
+  const full = FOCUS_SHORT_TO_ID[tok];
+  if (full && boxById[full]) return full;
+  return null;
+}
+function resolveFocusParam(raw) {
+  const tokens = String(raw == null ? '' : raw).split(',').map(s => s.trim()).filter(Boolean);
+  if (tokens.indexOf('all') !== -1) return { v: 2, all: true };
+  const boxes = [];
+  tokens.forEach(tok => {
+    const id = resolveFocusToken(tok);
+    if (id && boxes.indexOf(id) === -1) boxes.push(id);
+  });
+  return { v: 2, boxes };
+}
+function focusQueryValue() {
+  if (selectionIsAll()) return 'all';
+  return selectedInOrder().map(shortForBox).join(',');
+}
+function encodeFocusToken(tok) {
+  return encodeURIComponent(tok).replace(/%2F/gi, '/');
+}
+function scopePayloadEqual(a, b) {
   const Mig = window.SkillgroveMigrate;
-  const fromProgress = (progress.scope != null && Mig) ? Mig.normalizeScope(progress.scope) : null;
-  if (fromProgress && applyScopeValue(fromProgress)) return;
-  selectedBoxes = new Set(allBoxIds());
+  if (!Mig) return JSON.stringify(a) === JSON.stringify(b);
+  return JSON.stringify(Mig.normalizeScope(a)) === JSON.stringify(Mig.normalizeScope(b));
+}
+/* Last focus lives in progress.scope (and the planscope mirror). Missing both
+   means a new profile: nothing is focused. A saved value, including the older
+   single-id string, is migrated into {v:2, all:true} or {v:2, boxes:[...]}. */
+function readSavedScope() {
+  const Mig = window.SkillgroveMigrate;
+  if (progress && progress.scope != null && Mig) {
+    const norm = Mig.normalizeScope(progress.scope);
+    if (norm) return norm;
+  }
   let raw = null;
-  try { raw = localStorage.getItem(PLAN_SCOPE_KEY); } catch (e) { return; }
-  if (!raw) return;
+  try { raw = localStorage.getItem(PLAN_SCOPE_KEY); } catch (e) { return null; }
+  if (!raw) return null;
   let parsed = null;
   try { parsed = JSON.parse(raw); } catch (e) { parsed = null; }
-  if (parsed && typeof parsed === 'object' && parsed.v === 2) {
-    if (parsed.all) return;
-    const next = new Set();
-    (Array.isArray(parsed.boxes) ? parsed.boxes : []).forEach(id => { if (boxById[id]) next.add(id); });
-    selectedBoxes = next;
+  if (Mig) {
+    const norm = Mig.normalizeScope(parsed != null ? parsed : raw);
+    if (norm) return norm;
+  }
+  if (typeof raw === 'string' && raw) return { v: 2, boxes: [raw] };
+  return null;
+}
+function writeFocusUrl() {
+  const cur = new URLSearchParams(location.search);
+  const value = focusQueryValue();
+  const parts = ['focus=' + (value ? value.split(',').map(encodeFocusToken).join(',') : '')];
+  if (cur.has('skill')) {
+    const id = (cur.get('skill') || '').trim();
+    if (byId && byId[id]) parts.push('skill=' + encodeURIComponent(id));
+  }
+  cur.delete('focus');
+  cur.delete('skill');
+  const rest = cur.toString();
+  if (rest) parts.push(rest);
+  const next = location.pathname + '?' + parts.join('&') + location.hash;
+  const nowUrl = location.pathname + location.search + location.hash;
+  if (next !== nowUrl) history.replaceState(history.state, '', next);
+}
+function bootFocus() {
+  const params = new URLSearchParams(location.search);
+  if (params.has('focus')) {
+    applyFocusSelection(resolveFocusParam(params.get('focus') || ''));
+    savePlanScope();
+    writeFocusUrl();
     return;
   }
-  const legacy = typeof parsed === 'string' ? parsed : raw;
-  if (typeof legacy === 'string' && boxById[legacy]) selectedBoxes = new Set([legacy]);
+  const saved = readSavedScope();
+  if (saved) {
+    applyFocusSelection(saved);
+    savePlanScope();
+    writeFocusUrl();
+    return;
+  }
+  selectedBoxes = new Set();
+}
+function openSkillFromUrl() {
+  const params = new URLSearchParams(location.search);
+  if (!params.has('skill')) return;
+  const id = (params.get('skill') || '').trim();
+  if (byId[id]) { selectSkill(id, true); return; }
+  params.delete('skill');
+  const parts = [];
+  if (params.has('focus')) parts.push('focus=' + (params.get('focus') || '').split(',').map(s => encodeFocusToken(s.trim())).filter(Boolean).join(','));
+  params.delete('focus');
+  const rest = params.toString();
+  if (rest) parts.push(rest);
+  const next = location.pathname + (parts.length ? '?' + parts.join('&') : '') + location.hash;
+  const nowUrl = location.pathname + location.search + location.hash;
+  if (next !== nowUrl) history.replaceState(history.state, '', next);
 }
 function savePlanScope() {
   const payload = scopePayloadFromSelection();
+  const changed = !scopePayloadEqual(progress.scope, payload);
   progress.scope = payload;
-  if (!storageOK) return;
-  saveProgress();
-  try { localStorage.setItem(PLAN_SCOPE_KEY, JSON.stringify(payload)); } catch (e) { }
+  let mirror = null;
+  try { mirror = localStorage.getItem(PLAN_SCOPE_KEY); } catch (e) { }
+  const mirrorText = JSON.stringify(payload);
+  if (changed) saveProgress();
+  if (mirror !== mirrorText && storageOK) {
+    try { localStorage.setItem(PLAN_SCOPE_KEY, mirrorText); } catch (e) { }
+  }
 }
 function reloadProgress() {
   loadProgress();
-  loadPlanScope();
+  const saved = readSavedScope();
+  if (saved) {
+    applyFocusSelection(saved);
+    savePlanScope();
+    writeFocusUrl();
+  }
   renderTodo();
   if (!world) return;
   computeGroupedLayout();
@@ -2095,6 +2233,7 @@ function reloadProgress() {
   legendBuild();
   showLayout(layoutMode, false);
   refreshAll();
+  syncFocusPrompt();
   if (selected) { if (byId[selected]) renderPanel(); else closePanel(); }
 }
 
@@ -2376,9 +2515,22 @@ function importFile(file) {
 
 function afterImport(msg) {
   saveProgress();
-  if (progress.scope) { try { localStorage.setItem(PLAN_SCOPE_KEY, JSON.stringify(scopePayloadFromSelection())); } catch (e) { } }
+  if (progress.scope) {
+    try { localStorage.setItem(PLAN_SCOPE_KEY, JSON.stringify(scopePayloadFromSelection())); } catch (e) { }
+    writeFocusUrl();
+  }
   if (world) { computeGroupedLayout(); updateBlobsDOM(); legendBuild(); showLayout(layoutMode, false); }
   refreshAll();
+  syncFocusPrompt();
+  // The import button's click is still bubbling. Opening the checklist in this
+  // turn lets the outside-click listener close it again, which hides the prompt.
+  if (selectedBoxes.size === 0) {
+    setTimeout(() => {
+      if (selectedBoxes.size !== 0) return;
+      scopePanelOpen = true;
+      syncScopePicker();
+    }, 0);
+  }
   if (selected) renderPanel();
   toast(msg);
 }
@@ -2511,7 +2663,7 @@ function openTodoItem(item) {
 }
 function queueNextSession() {
   const scope = scopeForPlan();
-  if (Array.isArray(scope) && scope.length === 0) { toast('Choose at least one box in Scope before queueing a session.'); return 0; }
+  if (Array.isArray(scope) && scope.length === 0) { toast('Pick at least one course before queueing a session.'); return 0; }
   const plan = runPlan(false, scope);
   const row = plan && plan.ok && plan.rows && plan.rows[0];
   if (!row) { toast('Nothing left to queue in this learning plan.'); return 0; }
@@ -2828,15 +2980,19 @@ async function init() {
   
   loadProgress();
   loadTiming();
-  loadPlanScope();
+  bootFocus();
   $('playableNote').textContent = `${playable.length} of ${skills.length} skills ready`;
   buildTree(); buildGrid(); legendBuild(); buildControls();
+  if (selectedBoxes.size === 0) scopePanelOpen = true;
+  syncScopePicker();
+  syncFocusPrompt();
   
   try { const u = JSON.parse(localStorage.getItem(UIKEY) || 'null'); if (u && u.view === 'grid') filter.view = 'grid' } catch (e) { }
   let startMode = 'tree'; try { if (localStorage.getItem(LAYKEY) === 'grouped') startMode = 'grouped' } catch (e) { }
   showLayout(startMode, false);
   refreshAll(); setView(filter.view);
   goHome(false);
+  openSkillFromUrl();
   
   setupPanZoom();
   setupKeyboard();
@@ -2868,6 +3024,7 @@ async function init() {
       data: () => COLLECTIONS, boxById: () => boxById, skillToBoxes: () => skillToBoxes, getSkillBox, getSkillColorIndex,
       selected: () => selectedInOrder(), setSelected: (ids, opts) => setScope(ids, opts),
       filter: () => scopeForPlan(), setFilter: ids => setScope(ids), scope: () => scopeForPlan(),
+      focus: () => focusQueryValue(), aliases: () => Object.assign({}, FOCUS_SHORT_TO_ID),
       getBoxSkills, getBoxDescendantSkills, skillInBox
     },
     queue,

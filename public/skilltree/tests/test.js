@@ -294,10 +294,10 @@ async function test(name, fn) {
       paths: document.querySelectorAll('#edges path').length,
       title: document.querySelector('h1').textContent
     }));
-    assert.deepStrictEqual([r.tree, r.grid, r.soon, r.blobs, r.paths], [NSKILL, GRID, NSOON, NBLOB, EDGES]);
-    assert.strictEqual(r.courseBlobs, NCOURSE, 'should have one blob per course');
-    assert.strictEqual(r.textbookBlobs, NTEXTBOOK, 'Feedback Systems is its own textbook blob');
-    assert.strictEqual(r.chapterBlobs, NCHAPTER, 'should have one blob per chapter');
+    assert.deepStrictEqual([r.tree, r.grid, r.soon, r.blobs, r.paths], [NSKILL, GRID, NSOON, 0, EDGES]);
+    assert.strictEqual(r.courseBlobs, 0, 'a new profile focuses nothing, so no course regions are drawn');
+    assert.strictEqual(r.textbookBlobs, 0, 'a new profile focuses nothing, so no textbook regions are drawn');
+    assert.strictEqual(r.chapterBlobs, 0, 'a new profile focuses nothing, so no chapter regions are drawn');
     assert.deepStrictEqual(r.ready, ROOTS);
     assert.strictEqual(r.title, 'Skillgrove');
     await p.screenshot({ path: path.join(SHOTS_DIR, '01_tree_home.png') });
@@ -451,6 +451,7 @@ async function test(name, fn) {
     
     exp.skills['lti-def'] = { tier: 3, lastPracticed: now - 1 * DAY, history: [] };
     exp.skills.bode.tier = 1;
+    exp.scope = { v: 2, boxes: ['ee105-ucb'] };
     
     const p2 = await newPage(T({ bode: { tier: 2, lastPracticed: now - 2 * DAY, history: [] } }));
     await p2.evaluate(data => {
@@ -469,6 +470,40 @@ async function test(name, fn) {
     const s = await store(p2);
     assert.strictEqual(s.skills.bode.tier, 2);
     assert.strictEqual(s.skills['lti-def'].tier, 3);
+    const importedFocus = await p2.evaluate(() => ({
+      hidden: document.getElementById('focusPrompt').hidden,
+      focus: new URLSearchParams(location.search).get('focus'),
+      scope: window.__skillgrove.collections.scope()
+    }));
+    assert.strictEqual(importedFocus.hidden, true, 'a scoped import hides the pick-courses prompt');
+    assert.strictEqual(importedFocus.focus, 'ee105');
+    assert.deepStrictEqual(importedFocus.scope, ['ee105-ucb']);
+
+    const emptyFile = JSON.stringify({
+      version: 1,
+      skills: { bode: { tier: 2, lastPracticed: now, history: [] } },
+      scope: { v: 2, boxes: [] }
+    });
+    await p2.evaluate(data => {
+      const blob = new Blob([data], { type: 'application/json' });
+      const file = new File([blob], 'empty-focus.json', { type: 'application/json' });
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      const input = document.getElementById('fileIn');
+      input.files = dt.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }, emptyFile);
+    await sleep(400);
+    await p2.click('#impReplace');
+    await sleep(50);
+    const emptied = await p2.evaluate(() => ({
+      prompt: document.getElementById('focusPrompt').hidden,
+      panel: document.getElementById('scopePanel').hidden,
+      focus: new URLSearchParams(location.search).get('focus')
+    }));
+    assert.strictEqual(emptied.prompt, false, 'an empty-focus import shows the pick-courses prompt');
+    assert.strictEqual(emptied.panel, false, 'the course checklist stays open after the import click');
+    assert.strictEqual(emptied.focus, '');
     
     await p._ctx.close();
     await p2._ctx.close();
@@ -495,6 +530,7 @@ async function test(name, fn) {
       'cx-exp': { tier: 1, lastPracticed: now - 1 * DAY, history: [] },
       'lti-def': { tier: 2, lastPracticed: now - 2 * DAY, history: [] }
     }));
+    await p.evaluate(() => document.getElementById('scopeAll').click());
     await p.click('#btnPlan');
     await sleep(500);
     assert(await p.$('#planSessions'));
@@ -977,7 +1013,7 @@ async function test(name, fn) {
 
   await test('nested grouped view: course box contains chapter boxes', async () => {
     const p = await newPage();
-    
+    await p.evaluate(() => document.getElementById('scopeAll').click());
     await p.click('#btnGroup');
     await sleep(700);
     
@@ -1027,6 +1063,9 @@ async function test(name, fn) {
     assert.strictEqual(controls.oldBox, false, 'the old box filter should be gone');
     assert.strictEqual(controls.oldPlan, false);
     assert(controls.all && controls.none, 'All and None shortcuts should be present');
+
+    await p.evaluate(() => document.getElementById('scopeAll').click());
+    await sleep(150);
 
     const options = await p.$$eval('#scopePicker .scope-row', rows => rows.map(row => ({
       value: row.querySelector('input').value,
@@ -1593,6 +1632,7 @@ async function test(name, fn) {
   await test('selected regions contain their members and labels stay clear', async () => {
     const p = await newPage();
     await p.setViewport({ width: 1440, height: 900 });
+    await p.evaluate(() => document.getElementById('scopeAll').click());
     await p.click('#btnGroup');
     await sleep(800);
 
@@ -1685,7 +1725,7 @@ async function test(name, fn) {
     };
 
     let geo = await geometry();
-    assert.strictEqual(geo.selected, NBOX, 'everything starts selected');
+    assert.strictEqual(geo.selected, NBOX, 'All selects every box');
     assert.strictEqual(geo.regions, NBOX);
     assert.strictEqual(geo.outsideCount, 0, 'member outside its region: ' + geo.outside.join(', '));
     assert.strictEqual(geo.labelHitCount, 0, 'label collision: ' + geo.labelHits.join(', '));
@@ -1811,7 +1851,8 @@ async function test(name, fn) {
     assert.deepStrictEqual(migrated.scope, ['ee105-ch2']);
     assert.deepStrictEqual(migrated.drawn, ['ee105-ch2']);
     assert(migrated.dimmed > 0);
-    assert.strictEqual(migrated.stored, 'ee105-ch2', 'the old value is kept until the selection changes');
+    assert.deepStrictEqual(JSON.parse(migrated.stored), { v: 2, boxes: ['ee105-ch2'] }, 'an old single-scope value migrates into last focus');
+    assert.strictEqual(await p.evaluate(() => new URLSearchParams(location.search).get('focus')), 'ee105-ch2');
 
     await p.reload({ waitUntil: 'networkidle0' });
     await sleep(400);
@@ -1954,6 +1995,7 @@ async function test(name, fn) {
 
   await test('queue next session appends skills then challenges, skips dupes and coming-soon', async () => {
     const p = await newPage(T({ bode: { tier: 1, lastPracticed: now - DAY, history: [] } }));
+    await p.evaluate(() => document.getElementById('scopeAll').click());
     const soonTiles = await p.$$eval('#world .tile.soon', els => els.map(e => e.dataset.id));
     const soonId = soonTiles[0] || 'power-method-eigenvector';
     await openSkill(p, soonId);
@@ -2223,6 +2265,7 @@ async function test(name, fn) {
     assert.strictEqual(await p.$eval('#todoBook', e => e.classList.contains('collapsed')), false);
     assert(/Nothing here yet/.test(await p.$eval('#todoPaper', e => e.textContent)));
     await shot(p, 'todo_mobile_empty.png');
+    await p.evaluate(() => document.getElementById('scopeAll').click());
     await p.click('#todoQueueSession');
     await sleep(300);
     const n = await p.evaluate(() => window.__skillgrove.todo.list().length);
@@ -2389,6 +2432,212 @@ async function test(name, fn) {
       await shootUi(p, `settings-${vp.name}.png`);
       await p._ctx.close();
     }
+  });
+
+  await test('bare URL restores saved focus, and a new profile asks you to pick courses', async () => {
+    const saved = T({ bode: { tier: 1, lastPracticed: now - DAY, history: [] } });
+    saved.scope = { v: 2, boxes: ['me132', 'nlo-tugraz'] };
+    const p = await newPage(saved);
+    const restored = await p.evaluate(() => ({
+      focus: new URLSearchParams(location.search).get('focus'),
+      scope: window.__skillgrove.collections.scope(),
+      checked: [...document.querySelectorAll('#scopePicker input:checked')].map(i => i.value),
+      stored: JSON.parse(localStorage.getItem('skilltree.progress.v1')).scope
+    }));
+    assert.strictEqual(restored.focus, 'me132,nlo');
+    assert.deepStrictEqual(restored.scope, ['me132', 'nlo-tugraz']);
+    assert.deepStrictEqual(restored.checked, ['me132', 'nlo-tugraz']);
+    assert.deepStrictEqual(restored.stored, { v: 2, boxes: ['me132', 'nlo-tugraz'] });
+
+    const fresh = await newPage();
+    const empty = await fresh.evaluate(() => {
+      const prompt = document.getElementById('focusPrompt');
+      const panel = document.getElementById('scopePanel');
+      return {
+        focus: new URLSearchParams(location.search).get('focus'),
+        scope: window.__skillgrove.collections.scope(),
+        dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+        tiles: document.querySelectorAll('#world .tile').length,
+        prompt: prompt && !prompt.hidden && prompt.textContent,
+        open: panel && !panel.hidden,
+        button: document.getElementById('scopeToggle').textContent,
+        saved: localStorage.getItem('skilltree.progress.v1')
+      };
+    });
+    assert.strictEqual(empty.focus, null, 'a new profile does not invent a focus parameter');
+    assert.deepStrictEqual(empty.scope, []);
+    assert.strictEqual(empty.dimmed, empty.tiles);
+    assert.strictEqual(empty.tiles, NSKILL);
+    assert(empty.open, 'the course checklist opens when nothing is focused');
+    assert(/pick the courses/i.test(empty.prompt), empty.prompt);
+    assert.strictEqual(empty.button, 'Pick courses');
+    assert.strictEqual(empty.saved, null, 'nothing focused is not written as "show everything"');
+    await fresh._ctx.close();
+    await p._ctx.close();
+  });
+
+  await test('checklist updates the focus URL in place and saves last focus', async () => {
+    const p = await newPage();
+    const before = await p.evaluate(() => {
+      window.__navStamp = 'stay';
+      return history.length;
+    });
+    await p.evaluate(() => document.querySelector('#scopePicker input[value="ee105-ucb"]').click());
+    await sleep(150);
+    const after = await p.evaluate(() => ({
+      stamp: window.__navStamp,
+      hist: history.length,
+      focus: new URLSearchParams(location.search).get('focus'),
+      scope: JSON.parse(localStorage.getItem('skilltree.progress.v1')).scope,
+      mirror: JSON.parse(localStorage.getItem('skilltree.planscope.v1'))
+    }));
+    assert.strictEqual(after.stamp, 'stay', 'changing focus does not reload the page');
+    assert.strictEqual(after.hist, before, 'replaceState does not add a history entry');
+    assert.strictEqual(after.focus, 'ee105');
+    assert.deepStrictEqual(after.scope, { v: 2, boxes: ['ee105-ucb'] });
+    assert.deepStrictEqual(after.mirror, after.scope);
+    await p._ctx.close();
+  });
+
+  await test('unknown focus ids are dropped and an explicit focus link wins', async () => {
+    const p = await newPage();
+    await p.goto(BASE_URL + '?focus=me132,not-a-course,ee105-ucb', { waitUntil: 'networkidle0' });
+    await sleep(400);
+    const cleaned = await p.evaluate(() => ({
+      focus: new URLSearchParams(location.search).get('focus'),
+      scope: window.__skillgrove.collections.scope(),
+      stored: JSON.parse(localStorage.getItem('skilltree.progress.v1')).scope
+    }));
+    assert.strictEqual(cleaned.focus, 'ee105,me132');
+    assert.deepStrictEqual(cleaned.scope, ['ee105-ucb', 'me132']);
+    assert.deepStrictEqual(cleaned.stored.boxes, ['ee105-ucb', 'me132']);
+
+    await p.goto(BASE_URL + '?focus=', { waitUntil: 'networkidle0' });
+    await sleep(400);
+    const blank = await p.evaluate(() => ({
+      focus: new URLSearchParams(location.search).get('focus'),
+      scope: window.__skillgrove.collections.scope(),
+      stored: JSON.parse(localStorage.getItem('skilltree.progress.v1')).scope,
+      dimmed: document.querySelectorAll('#world .tile.boxdim').length
+    }));
+    assert.strictEqual(blank.focus, '');
+    assert.deepStrictEqual(blank.scope, []);
+    assert.deepStrictEqual(blank.stored, { v: 2, boxes: [] });
+    assert.strictEqual(blank.dimmed, NSKILL, 'an explicit empty focus does not fall back to everything');
+
+    await p.goto(BASE_URL + '?focus=nlo,ee105-ch2,me132/m1', { waitUntil: 'networkidle0' });
+    await sleep(400);
+    const chapters = await p.evaluate(() => ({
+      focus: new URLSearchParams(location.search).get('focus'),
+      scope: window.__skillgrove.collections.scope()
+    }));
+    assert.strictEqual(chapters.focus, 'ee105-ch2,me132/m1,nlo');
+    assert.deepStrictEqual(chapters.scope, ['ee105-ch2', 'me132/m1', 'nlo-tugraz']);
+
+    const oldAll = T({ bode: { tier: 1, lastPracticed: now - DAY, history: [] } });
+    oldAll.scope = { v: 2, all: true };
+    const legacy = await newPage(oldAll);
+    assert.strictEqual(await legacy.evaluate(() => new URLSearchParams(location.search).get('focus')), 'all');
+    assert.strictEqual(await legacy.evaluate(() => window.__skillgrove.collections.scope()), null);
+    assert.deepStrictEqual((await store(legacy)).scope, { v: 2, all: true });
+    await legacy._ctx.close();
+    await p._ctx.close();
+  });
+
+  await test('to-do items survive a focus change and queueing follows the URL focus', async () => {
+    const p = await newPage(T({ bode: { tier: 1, lastPracticed: now - DAY, history: [] } }));
+    await p.evaluate(() => {
+      window.__skillgrove.todo.add('skill', 'lti-def');
+      window.__skillgrove.collections.setSelected(['me132']);
+    });
+    await sleep(150);
+    const kept = await p.evaluate(() => window.__skillgrove.todo.list().map(it => it.id));
+    assert.deepStrictEqual(kept, ['lti-def']);
+    assert.strictEqual(await p.evaluate(() => new URLSearchParams(location.search).get('focus')), 'me132');
+    const added = await p.evaluate(() => window.__skillgrove.todo.queueSession());
+    const after = await p.evaluate(() => window.__skillgrove.todo.list());
+    assert(added > 0, 'queueing uses the focused course');
+    assert.strictEqual(after[0].id, 'lti-def', 'a focus change does not remove to-do items');
+    const planIds = await p.evaluate(() => {
+      const row = window.__skillgrove.plan(false).rows[0];
+      return row.practiced.concat(row.challenges.map(c => c.id));
+    });
+    after.slice(1).forEach(it => assert(planIds.includes(it.id), it.id + ' should come from the focused plan'));
+    await p._ctx.close();
+  });
+
+  await test('course chapters start collapsed and the course checkbox still selects the course', async () => {
+    const p = await newPage();
+    const closed = await p.evaluate(() => {
+      const ids = ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz'];
+      return {
+        rows: ids.map(id => {
+          const box = document.getElementById('scopeChapters-' + id);
+          const btn = document.querySelector('button[aria-controls="scopeChapters-' + id + '"]');
+          return {
+            id,
+            hidden: !!(box && box.hidden),
+            expanded: btn && btn.getAttribute('aria-expanded'),
+            label: btn && btn.getAttribute('aria-label')
+          };
+        })
+      };
+    });
+    closed.rows.forEach(row => {
+      assert.strictEqual(row.hidden, true, row.id + ' chapters should start collapsed');
+      assert.strictEqual(row.expanded, 'false', row.id);
+      assert(/show chapters/i.test(row.label), row.label);
+    });
+    await p.evaluate(() => document.querySelector('#scopePicker input[value="ee105-ucb"]').click());
+    await sleep(100);
+    const checked = await p.evaluate(() => ({
+      scope: window.__skillgrove.collections.scope(),
+      stillHidden: document.getElementById('scopeChapters-ee105-ucb').hidden,
+      focus: new URLSearchParams(location.search).get('focus')
+    }));
+    assert.deepStrictEqual(checked.scope, ['ee105-ucb']);
+    assert.strictEqual(checked.stillHidden, true);
+    assert.strictEqual(checked.focus, 'ee105');
+    await p.focus('button[aria-controls="scopeChapters-ee105-ucb"]');
+    await p.keyboard.press('Enter');
+    await sleep(50);
+    const opened = await p.evaluate(() => {
+      const box = document.getElementById('scopeChapters-ee105-ucb');
+      const btn = document.querySelector('button[aria-controls="scopeChapters-ee105-ucb"]');
+      const chapter = box.querySelector('input[value="ee105-ch2"]');
+      return {
+        hidden: box.hidden,
+        expanded: btn.getAttribute('aria-expanded'),
+        visible: !!(chapter && chapter.offsetParent)
+      };
+    });
+    assert.strictEqual(opened.hidden, false);
+    assert.strictEqual(opened.expanded, 'true');
+    assert.strictEqual(opened.visible, true, 'an expanded chapter checkbox is on screen');
+    await p.keyboard.press('Space');
+    await sleep(50);
+    assert.strictEqual(await p.$eval('#scopeChapters-ee105-ucb', e => e.hidden), true);
+    await p.goto(BASE_URL + '?skill=bode&focus=ee105', { waitUntil: 'networkidle0' });
+    await sleep(400);
+    const deep = await p.evaluate(() => ({
+      open: document.getElementById('panel').classList.contains('open'),
+      title: document.getElementById('panelTitle').textContent,
+      focus: new URLSearchParams(location.search).get('focus'),
+      skill: new URLSearchParams(location.search).get('skill')
+    }));
+    assert.strictEqual(deep.open, true);
+    assert(/Bode plots/.test(deep.title));
+    assert.strictEqual(deep.focus, 'ee105');
+    assert.strictEqual(deep.skill, 'bode');
+    await p.goto(BASE_URL + '?skill=not-a-skill', { waitUntil: 'networkidle0' });
+    await sleep(400);
+    const dropped = await p.evaluate(() => ({
+      skill: new URLSearchParams(location.search).has('skill'),
+      open: document.getElementById('panel').classList.contains('open')
+    }));
+    assert.strictEqual(dropped.skill, false);
+    assert.strictEqual(dropped.open, false);
+    await p._ctx.close();
   });
 
   await browser.close();
