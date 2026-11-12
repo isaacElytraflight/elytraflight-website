@@ -3,6 +3,30 @@ import react from '@vitejs/plugin-react'
 
 type DevRequest = { url?: string }
 
+/** Serve the Skillgrove app for /profile/:username and /skilltree/profile. */
+function skilltreeProfiles(): Plugin {
+  return {
+    name: 'skilltree-profiles',
+    configureServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        const request = req as DevRequest
+        const url = request.url ?? ''
+        const path = url.split('?')[0] ?? ''
+        const query = url.includes('?') ? url.slice(url.indexOf('?')) : ''
+        if (
+          path === '/profile' ||
+          path.startsWith('/profile/') ||
+          path === '/skilltree/profile' ||
+          path.startsWith('/skilltree/profile/')
+        ) {
+          request.url = `/skilltree/index.html${query}`
+        }
+        next()
+      })
+    },
+  }
+}
+
 /** Serve public/CS180ProjN/index.html for /CS180ProjN and /CS180ProjN/ in dev. */
 function cs180StaticPages(): Plugin {
   return {
@@ -24,7 +48,7 @@ function cs180StaticPages(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [cs180StaticPages(), react()],
+  plugins: [skilltreeProfiles(), cs180StaticPages(), react()],
   build: {
     outDir: 'build',
   },
