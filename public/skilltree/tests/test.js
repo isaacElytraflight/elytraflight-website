@@ -841,11 +841,344 @@ async function test(name, fn) {
     await sleep(50);
     const highlighted = await p.evaluate(() => ({
       active: document.getElementById('edges').classList.contains('active'),
-      marked: document.querySelectorAll('#edges path.in, #edges path.out').length
+      marked: document.querySelectorAll('#edges path.in, #edges path.out').length,
+      overlay: document.querySelectorAll('#edgeHi path.in, #edgeHi path.out').length
     }));
-    assert.strictEqual(highlighted.active, true, 'zoomed-in hover should still highlight edges');
-    assert(highlighted.marked > 0, 'zoomed-in hover should mark the connected edges');
+    assert.strictEqual(highlighted.active, false, 'zoomed-in hover should not restyle the base edge layer');
+    assert.strictEqual(highlighted.marked, 0, 'base edges stay unmarked');
+    assert(highlighted.overlay > 0, 'zoomed-in hover should draw the connected edges on the overlay');
 
+    await p._ctx.close();
+  });
+
+  function paintFaults(traceBuf) {
+    const events = JSON.parse(Buffer.from(traceBuf).toString('utf8')).traceEvents;
+    const faults = [];
+    let buttonPaints = 0;
+    for (const e of events) {
+      if (e.name !== 'Paint' || !e.args || !e.args.data || !e.args.data.clip) continue;
+      const node = e.args.data.nodeName || '';
+      if (node === '#document') continue;
+      const clip = e.args.data.clip;
+      const xs = clip.length >= 8 ? [clip[0], clip[2], clip[4], clip[6]] : [clip[0], clip[2]];
+      const ys = clip.length >= 8 ? [clip[1], clip[3], clip[5], clip[7]] : [clip[1], clip[3]];
+      const w = Math.max(...xs) - Math.min(...xs);
+      const h = Math.max(...ys) - Math.min(...ys);
+      // Chrome's full-invalidation sentinel (±2^23) means "repaint this layer",
+      // not a multi-megapixel raster. The hovered card's own layer is ~168px.
+      const sentinel = w > 1e7 || h > 1e7;
+      if (sentinel) {
+        if (!/^BUTTON/.test(node)) faults.push(node + ' sentinel');
+        else buttonPaints++;
+        continue;
+      }
+      if (w > 8000 || h > 8000) faults.push(node + ' ' + Math.round(w) + 'x' + Math.round(h));
+    }
+    return { faults, buttonPaints };
+  }
+
+  function pixelDiffOutside(a, b, allow, block, css) {
+    const A = decodePNG(a), B = decodePNG(b);
+    assert.strictEqual(A.width, B.width);
+    assert.strictEqual(A.height, B.height);
+    const sx = A.width / css.w;
+    const sy = A.height / css.h;
+    const hit = (r, x, y) => x >= r.x * sx && x < (r.x + r.w) * sx && y >= r.y * sy && y < (r.y + r.h) * sy;
+    let n = 0;
+    for (let y = 0; y < A.height; y++) {
+      for (let x = 0; x < A.width; x++) {
+        const covered = block.some(r => r.w > 2 && r.h > 2 && hit(r, x, y));
+        const ok = !covered && allow.some(r => r.w > 0 && r.h > 0 && hit(r, x, y));
+        if (ok) continue;
+        const i = (y * A.width + x) * 4;
+        if (Math.abs(A.data[i] - B.data[i]) + Math.abs(A.data[i + 1] - B.data[i + 1]) + Math.abs(A.data[i + 2] - B.data[i + 2]) > 12) n++;
+      }
+    }
+    return { n, pixels: A.width * A.height };
+  }
+
+  function pixelDiffInside(a, b, rects, css) {
+    const A = decodePNG(a), B = decodePNG(b);
+    assert.strictEqual(A.width, B.width);
+    assert.strictEqual(A.height, B.height);
+    const sx = A.width / css.w;
+    const sy = A.height / css.h;
+    const hit = (r, x, y) => x >= r.x * sx && x < (r.x + r.w) * sx && y >= r.y * sy && y < (r.y + r.h) * sy;
+    let n = 0, seen = 0;
+    for (let y = 0; y < A.height; y++) {
+      for (let x = 0; x < A.width; x++) {
+        if (!rects.some(r => r.w > 2 && r.h > 2 && hit(r, x, y))) continue;
+        seen++;
+        const i = (y * A.width + x) * 4;
+        if (Math.abs(A.data[i] - B.data[i]) + Math.abs(A.data[i + 1] - B.data[i + 1]) + Math.abs(A.data[i + 2] - B.data[i + 2]) > 12) n++;
+      }
+    }
+    assert(seen > 1000, 'card interiors should be on screen');
+    return { n, pixels: seen };
+  }
+
+  await test('zoomed-in hover lifts the card without repainting the tree layer', async () => {
+    const p = await newPage();
+    await p.evaluate(() => {
+      document.getElementById('todoBook').style.visibility = 'hidden';
+      document.querySelector('.hint').style.visibility = 'hidden';
+    });
+    const scales = [1, 0.55, 0.4];
+    for (const scale of scales) {
+      await p.mouse.move(3, 3);
+      await sleep(80);
+      const target = await p.evaluate((scale) => {
+        const world = document.getElementById('world');
+        const tv = document.getElementById('treeView');
+        world.classList.remove('anim');
+        world.style.transition = 'none';
+        window.__skillgrove.lights.setScale(scale);
+        const tile = document.querySelector('#world .tile[data-id="ss-model"]');
+        const wx = parseFloat(tile.style.left) + 84;
+        const wy = parseFloat(tile.style.top) + 36;
+        const vr = tv.getBoundingClientRect();
+        world.style.transform = `translate(${vr.width / 2 - wx * scale}px,${vr.height / 2 - wy * scale}px) scale(${scale})`;
+        document.getAnimations().forEach(a => a.pause());
+        const r = tile.getBoundingClientRect();
+        window.__treeMut = [];
+        if (window.__treeMo) window.__treeMo.disconnect();
+        window.__treeMo = new MutationObserver(recs => {
+          for (const rec of recs) {
+            window.__treeMut.push({
+              type: rec.type,
+              target: rec.target.id || rec.target.className || rec.target.nodeName,
+              attr: rec.attributeName
+            });
+          }
+        });
+        window.__treeMo.observe(world, { subtree: true, attributes: true, childList: true });
+        return {
+          id: 'ss-model',
+          x: r.x + r.width / 2,
+          y: r.y + r.height / 2,
+          lights: window.__skillgrove.lights.mode()
+        };
+      }, scale);
+      assert.strictEqual(target.lights, false, 'scale ' + scale + ' is zoomed in');
+      await p.mouse.move(target.x, target.y);
+      await sleep(220);
+      await p.mouse.move(3, 3);
+      await sleep(220);
+      await p.evaluate(() => { window.__treeMut.length = 0; });
+
+      const tree = await p.$('#treeView');
+      const before = await tree.screenshot({ type: 'png' });
+      await p.tracing.start({ categories: ['devtools.timeline'] });
+      await p.mouse.move(target.x, target.y);
+      await sleep(40);
+      const during = await tree.screenshot({ type: 'png' });
+      await sleep(280);
+      const traceBuf = await p.tracing.stop();
+      const after = await tree.screenshot({ type: 'png' });
+      fs.writeFileSync(path.join(SHOTS_DIR, '13_zoom_hover_' + String(scale).replace('.', '') + '.png'), after);
+
+      const paint = paintFaults(traceBuf);
+      assert.deepStrictEqual(paint.faults, [], 'scale ' + scale + ' hover repainted a huge layer: ' + paint.faults.join(', '));
+      assert(paint.buttonPaints < 40, 'scale ' + scale + ' repainted ' + paint.buttonPaints + ' card layers');
+
+      const state = await p.evaluate(() => {
+        const tile = document.querySelector('#world .tile:hover');
+        const cs = tile ? getComputedStyle(tile) : null;
+        const origin = document.getElementById('treeView').getBoundingClientRect();
+        const rel = (el, pad) => {
+          const r = el.getBoundingClientRect();
+          return { x: r.x - origin.x - pad, y: r.y - origin.y - pad, w: r.width + pad * 2, h: r.height + pad * 2 };
+        };
+        const allow = [];
+        if (tile) allow.push(rel(tile, 36));
+        document.querySelectorAll('#edgeHi path, #edgeHi circle').forEach(el => allow.push(rel(el, 8)));
+        const block = [...document.querySelectorAll('#world .tile')].filter(t => t !== tile).map(t => rel(t, -4)).filter(r => r.w > 2 && r.h > 2);
+        return {
+          active: document.getElementById('edges').classList.contains('active'),
+          marked: document.querySelectorAll('#edges path.in, #edges path.out').length,
+          overlay: document.querySelectorAll('#edgeHi path.in, #edgeHi path.out').length,
+          transform: cs && cs.transform,
+          z: cs && cs.zIndex,
+          lights: window.__skillgrove.lights.mode(),
+          allow, block,
+          css: { w: origin.width, h: origin.height }
+        };
+      });
+      assert.strictEqual(state.lights, false);
+      assert.strictEqual(state.active, false, 'base edge layer stays inactive');
+      assert.strictEqual(state.marked, 0);
+      assert(state.overlay > 0, 'connected edges are drawn at scale ' + scale);
+      assert.strictEqual(state.transform, 'matrix(1.03, 0, 0, 1.03, 0, -2)', 'card still lifts');
+      assert.strictEqual(state.z, 'auto', 'hover must not raise the card z-index');
+      const mut = await p.evaluate(() => window.__treeMut);
+      assert.deepStrictEqual(mut, [], 'hover should not restyle the tree at scale ' + scale + ': ' + JSON.stringify(mut.slice(0, 6)));
+      const mid = pixelDiffOutside(before, during, state.allow, state.block, state.css);
+      const end = pixelDiffOutside(before, after, state.allow, state.block, state.css);
+      assert.strictEqual(mid.n, 0, 'scale ' + scale + ' mid-hover changed ' + mid.n + ' pixels outside the card and its edges');
+      assert.strictEqual(end.n, 0, 'scale ' + scale + ' settled hover changed ' + end.n + ' pixels outside the card and its edges');
+    }
+    await p._ctx.close();
+  });
+
+  await test('edge highlight stays on the moving cards during a view animation', async () => {
+    const p = await newPage();
+    await p.evaluate(() => {
+      const world = document.getElementById('world');
+      const tv = document.getElementById('treeView');
+      world.classList.remove('anim');
+      world.style.transition = 'none';
+      const tile = document.querySelector('#world .tile[data-id="ss-model"]');
+      const wx = parseFloat(tile.style.left) + 84;
+      const wy = parseFloat(tile.style.top) + 36;
+      const vr = tv.getBoundingClientRect();
+      world.style.transform = `translate(${vr.width / 2 - wx}px,${vr.height / 2 - wy}px) scale(1)`;
+      void world.offsetWidth;
+      tile.click();
+      world.style.transition = '';
+    });
+    await p.evaluate(() => document.getElementById('zHome').click());
+    await sleep(180);
+    const paused = await p.evaluate(() => {
+      const anims = document.getAnimations().filter(a => a.effect && a.effect.target && a.effect.target.id === 'world');
+      anims.forEach(a => a.pause());
+      return anims.length;
+    });
+    assert(paused > 0, 'home should animate the world transform');
+    await sleep(80);
+    const measure = () => p.evaluate(() => {
+      const tv = document.getElementById('treeView');
+      const world = document.getElementById('world');
+      const origin = tv.getBoundingClientRect();
+      const box = el => {
+        const r = el.getBoundingClientRect();
+        return { x: r.x - origin.x, y: r.y - origin.y, w: r.width, h: r.height };
+      };
+      const hi = [...document.querySelectorAll('#edgeHi path')];
+      const base = [...document.querySelectorAll('#edges path')].filter(el => getComputedStyle(el).display !== 'none');
+      let worst = 0, matched = 0;
+      hi.forEach(path => {
+        const a = box(path);
+        let best = Infinity;
+        base.forEach(b => {
+          const c = box(b);
+          const d = Math.abs(a.x - c.x) + Math.abs(a.y - c.y) + Math.abs(a.w - c.w) + Math.abs(a.h - c.h);
+          if (d < best) best = d;
+        });
+        if (best < 24) matched++;
+        if (best > worst) worst = best;
+      });
+      const holes = [...document.querySelectorAll('#edgeHiMask rect')].slice(1);
+      const tiles = [...document.querySelectorAll('#world .tile')].filter(t => t.offsetWidth > 0);
+      let uncovered = 0;
+      tiles.forEach(t => {
+        const r = t.getBoundingClientRect();
+        const cx = r.x - origin.x + r.width / 2;
+        const cy = r.y - origin.y + r.height / 2;
+        const hit = holes.some(h => {
+          const x = parseFloat(h.getAttribute('x')), y = parseFloat(h.getAttribute('y'));
+          const w = parseFloat(h.getAttribute('width')), hh = parseFloat(h.getAttribute('height'));
+          return cx >= x && cx <= x + w && cy >= y && cy <= y + hh;
+        });
+        if (!hit) uncovered++;
+      });
+      const sm = /translate\(([-\d.]+)px,\s*([-\d.]+)px\)\s*scale\(([-\d.]+)\)/.exec(world.style.transform || '');
+      const mm = /matrix\(([^)]+)\)/.exec(getComputedStyle(world).transform || '');
+      const parts = mm ? mm[1].split(',').map(s => parseFloat(s)) : [];
+      const drift = sm && parts.length === 6
+        ? Math.hypot(parseFloat(sm[1]) - parts[4], parseFloat(sm[2]) - parts[5]) + Math.abs(parseFloat(sm[3]) - parts[0]) * 400
+        : 0;
+      return {
+        paths: hi.length,
+        matched,
+        worst,
+        uncovered,
+        tiles: tiles.length,
+        drift,
+        active: document.getElementById('edges').classList.contains('active')
+      };
+    });
+    const mid = await measure();
+    assert(mid.paths > 0, 'selected skill should keep its highlight during the move');
+    assert(mid.drift > 40, 'measurement should land mid-animation, drift ' + mid.drift);
+    assert.strictEqual(mid.uncovered, 0, mid.uncovered + ' of ' + mid.tiles + ' cards were not punched out of the highlight');
+    assert.strictEqual(mid.matched, mid.paths, 'highlight strokes left the moving edges, worst delta ' + mid.worst);
+    assert(mid.worst < 24, 'highlight strokes drifted ' + mid.worst + 'px from the edges');
+    assert.strictEqual(mid.active, false, 'the base edge layer stays inactive');
+    const tree = await p.$('#treeView');
+    await tree.screenshot({ path: path.join(SHOTS_DIR, '13b_hover_during_home.png') });
+    await p.evaluate(() => document.getAnimations().forEach(a => a.play()));
+    await sleep(700);
+    const settled = await measure();
+    assert(settled.drift < 2, 'home animation should finish, drift ' + settled.drift);
+    assert.strictEqual(settled.uncovered, 0, 'settled mask missed ' + settled.uncovered + ' cards');
+    assert.strictEqual(settled.matched, settled.paths, 'settled highlight left the edges, worst delta ' + settled.worst);
+    await p._ctx.close();
+  });
+
+  await test('focus URL changes keep highlight strokes behind the cards', async () => {
+    const p = await newPage();
+    await p.evaluate(() => window.__skillgrove.collections.setSelected(['ee105-ucb']));
+    await sleep(200);
+    const target = await p.evaluate(() => {
+      const world = document.getElementById('world');
+      const tv = document.getElementById('treeView');
+      world.classList.remove('anim');
+      world.style.transition = 'none';
+      const tile = document.querySelector('#world .tile[data-id="ss-model"]');
+      const wx = parseFloat(tile.style.left) + 84;
+      const wy = parseFloat(tile.style.top) + 36;
+      const vr = tv.getBoundingClientRect();
+      world.style.transform = `translate(${vr.width / 2 - wx}px,${vr.height / 2 - wy}px) scale(1)`;
+      const r = tile.getBoundingClientRect();
+      return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+    });
+    const tree = await p.$('#treeView');
+    const before = await tree.screenshot({ type: 'png' });
+    await p.mouse.move(target.x, target.y);
+    await sleep(80);
+    const state = await p.evaluate(() => {
+      const g = document.querySelector('#edgeHi g');
+      const maskUrl = new URL(location.href);
+      maskUrl.hash = 'edgeHiMask';
+      const origin = document.getElementById('treeView').getBoundingClientRect();
+      const rel = (el, pad) => {
+        const r = el.getBoundingClientRect();
+        return { x: r.x - origin.x - pad, y: r.y - origin.y - pad, w: r.width + pad * 2, h: r.height + pad * 2 };
+      };
+      const tile = document.querySelector('#world .tile:hover');
+      const allow = [];
+      if (tile) allow.push(rel(tile, 36));
+      document.querySelectorAll('#edgeHi path, #edgeHi circle').forEach(el => allow.push(rel(el, 8)));
+      const block = [...document.querySelectorAll('#world .tile')].filter(t => t !== tile).map(t => rel(t, -4)).filter(r => r.w > 2 && r.h > 2);
+      return {
+        mask: g && g.getAttribute('mask'),
+        expected: 'url("' + maskUrl.href + '")',
+        focus: new URLSearchParams(location.search).get('focus'),
+        overlay: document.querySelectorAll('#edgeHi path').length,
+        allow, block,
+        css: { w: origin.width, h: origin.height }
+      };
+    });
+    assert.strictEqual(state.focus, 'ee105');
+    assert.strictEqual(state.mask, state.expected, 'mask should point at the focus URL');
+    assert(state.overlay > 0, 'hover should draw connected edges after the focus URL is set');
+    const during = await tree.screenshot({ type: 'png' });
+    // Scope dimming fades edges in the gaps. Only the card interiors say whether
+    // the mask is still punching the strokes out.
+    const covered = pixelDiffInside(before, during, state.block, state.css);
+    assert.strictEqual(covered.n, 0, 'highlight covered ' + covered.n + ' pixels on other cards');
+    await p.evaluate(() => history.replaceState(history.state, '', location.pathname + '?focus=ee105,me132'));
+    await sleep(40);
+    const moved = await p.evaluate(() => {
+      const g = document.querySelector('#edgeHi g');
+      const maskUrl = new URL(location.href);
+      maskUrl.hash = 'edgeHiMask';
+      return { mask: g && g.getAttribute('mask'), expected: 'url("' + maskUrl.href + '")' };
+    });
+    assert.strictEqual(moved.mask, moved.expected, 'mask should follow a later focus URL');
+    const after = await tree.screenshot({ type: 'png' });
+    const still = pixelDiffInside(before, after, state.block, state.css);
+    assert.strictEqual(still.n, 0, 'after the URL change, highlight covered ' + still.n + ' pixels on other cards');
     await p._ctx.close();
   });
 

@@ -718,7 +718,7 @@ function computeGroupedLayout() {
 function computeLayouts() { computeTreeLayout(); computeGroupedLayout() }
 
 /* ====================== tree rendering ====================== */
-let world, tv, edgesSvg, panel;
+let world, tv, edgesSvg, edgeHiSvg, edgeHiG, edgeHiMask, panel;
 const panelOpen = () => panel && panel.classList.contains('open');
 let view = { x: 20, y: 20, s: 1 }, selected = null, hoverId = null, quizOpen = false;
 let layoutMode = 'tree', curPos = {}, morphRaf = 0;
@@ -1069,6 +1069,7 @@ function showLayout(mode, animated) {
     drawEdges(true);
     edgesSvg.classList.remove('morph'); world.classList.remove('morphing'); world.dataset.morphing = '0';
     applyBoxFilter();
+    refreshEdgeHi();
   };
   if (!animated || reducedMotion()) { finish(); return }
   world.classList.add('morphing'); world.dataset.morphing = '1'; edgesSvg.classList.add('morph');
@@ -1081,6 +1082,7 @@ function showLayout(mode, animated) {
     });
     placeTiles(curPos);
     drawEdges(false);
+    refreshEdgeHi();
     if (k < 1) morphRaf = requestAnimationFrame(step); else finish();
   };
   morphRaf = requestAnimationFrame(step);
@@ -1097,19 +1099,203 @@ function toggleGroup() {
   if (selected && curL().nodes[selected]) focusTile(selected); else goFit();
 }
 
-function applyEdgeHighlight() {
-  // #world is one scaled composited layer in lights mode. Restyling edge paint
-  // from a hover invalidates that entire layer (exploded paint, white flash).
-  // Lights-mode strokes stay a static tint; the highlight returns when zoomed in.
-  const id = lightsMode ? null : (hoverId || selected);
-  edgesSvg.classList.toggle('active', !!id);
-  edgeEls.forEach(e => {
-    const inn = !!id && e.to === id, out = !!id && e.from === id;
-    e.path.classList.toggle('in', inn); e.path.classList.toggle('out', out);
-    e.dot.classList.toggle('in', inn); e.dot.classList.toggle('out', out);
-    const fd = selectedBoxes.size > 0 && !selectionIsAll() && !skillInSelection(e.from) && !skillInSelection(e.to);
-    e.path.classList.toggle('fdim', fd); e.dot.classList.toggle('fdim', fd);
+function highlightId() { return lightsMode ? null : (hoverId || selected) }
+
+let edgeHiFollow = 0;
+
+// #world.anim eases style.transform for 450ms. The specified matrix jumps to the
+// destination on the first frame, so the overlay has to be mapped from a card's
+// on-screen box (the value the CSS transition is actually painting).
+function worldView() {
+  const origin = tv.getBoundingClientRect();
+  const tiles = world.querySelectorAll('.tile');
+  for (let i = 0; i < tiles.length; i++) {
+    const tile = tiles[i];
+    if (tile.matches(':hover')) continue;
+    const wx = parseFloat(tile.style.left), wy = parseFloat(tile.style.top);
+    const lw = tile.offsetWidth, lh = tile.offsetHeight;
+    if (!isFinite(wx) || !isFinite(wy) || lw < 1 || lh < 1) continue;
+    if (getComputedStyle(tile).transform !== 'none') continue;
+    const r = tile.getBoundingClientRect();
+    if (r.width < 1 || r.height < 1) continue;
+    const s = r.width / lw;
+    return { s, x: (r.left - origin.left) - wx * s, y: (r.top - origin.top) - wy * s };
+  }
+  const m = /translate\(([-\d.]+)px,\s*([-\d.]+)px\)\s*scale\(([-\d.]+)\)/.exec(world.style.transform || '');
+  if (!m) return { x: view.x, y: view.y, s: view.s };
+  return { x: parseFloat(m[1]), y: parseFloat(m[2]), s: parseFloat(m[3]) };
+}
+
+function worldTransformAnim() {
+  if (typeof document.getAnimations !== 'function') return false;
+  const anims = document.getAnimations();
+  for (let i = 0; i < anims.length; i++) {
+    const a = anims[i];
+    if (!a.effect || a.effect.target !== world) continue;
+    if (a.playState === 'finished' || a.playState === 'idle') continue;
+    if (a.transitionProperty === 'transform') return true;
+  }
+  return false;
+}
+
+function viewAnimating() {
+  // Follow the transition itself. .anim is removed on a 500ms timer, which can
+  // be before the transform ease has landed (and a paused transition outlives
+  // the class), so the class alone is not the end of the move.
+  if (worldTransformAnim()) return true;
+  if (!world.classList.contains('anim')) return false;
+  const d = getComputedStyle(world).transitionDuration || '';
+  return d.split(',').some(part => parseFloat(part) > 0);
+}
+
+function followEdgeHi() {
+  if (edgeHiFollow || !viewAnimating()) return;
+  const step = () => {
+    edgeHiFollow = 0;
+    if (!viewAnimating()) { refreshEdgeHi(); return; }
+    const id = highlightId();
+    if (!id) {
+      if (edgeHiG && (edgeHiG.childNodes.length || (edgeHiMask && edgeHiMask.childNodes.length))) drawEdgeHi(null);
+    } else drawEdgeHi(id);
+    if (viewAnimating()) edgeHiFollow = requestAnimationFrame(step);
+  };
+  edgeHiFollow = requestAnimationFrame(step);
+}
+
+function mapPath(d, s, tx, ty) {
+  let i = 0;
+  const nums = d.match(/-?\d*\.?\d+/g) || [];
+  return d.replace(/-?\d*\.?\d+/g, () => {
+    const n = parseFloat(nums[i]);
+    const v = i % 2 === 0 ? n * s + tx : n * s + ty;
+    i++;
+    return (Math.round(v * 100) / 100).toString();
   });
+}
+
+// A <base href> makes url(#id) miss the mask, so the reference is this document's
+// own URL. Focus links rewrite that URL with replaceState; a baked copy then
+// points at the previous address and the mask stops punching out the cards.
+function syncEdgeHiMask() {
+  if (!edgeHiG) return;
+  const maskUrl = new URL(location.href);
+  maskUrl.hash = 'edgeHiMask';
+  const next = 'url("' + maskUrl.href + '")';
+  if (edgeHiG.getAttribute('mask') !== next) edgeHiG.setAttribute('mask', next);
+}
+
+function setupEdgeHi() {
+  const NS = 'http://www.w3.org/2000/svg';
+  edgeHiSvg = $('edgeHi');
+  if (!edgeHiSvg) return;
+  const defs = document.createElementNS(NS, 'defs');
+  edgeHiMask = document.createElementNS(NS, 'mask');
+  edgeHiMask.id = 'edgeHiMask';
+  edgeHiMask.setAttribute('maskUnits', 'userSpaceOnUse');
+  edgeHiMask.setAttribute('maskContentUnits', 'userSpaceOnUse');
+  defs.append(edgeHiMask);
+  edgeHiG = document.createElementNS(NS, 'g');
+  syncEdgeHiMask();
+  edgeHiSvg.append(defs, edgeHiG);
+  if (!history.replaceState.edgeHiBound) {
+    const orig = history.replaceState.bind(history);
+    const wrapped = function() {
+      const ret = orig.apply(this, arguments);
+      syncEdgeHiMask();
+      return ret;
+    };
+    wrapped.edgeHiBound = true;
+    history.replaceState = wrapped;
+  }
+  window.addEventListener('popstate', syncEdgeHiMask);
+  world.addEventListener('transitionend', e => {
+    if (e.target === world && e.propertyName === 'transform') { refreshEdgeHi(); return; }
+    if (e.propertyName !== 'transform' && e.propertyName !== 'box-shadow') return;
+    if (!e.target.classList || !e.target.classList.contains('tile')) return;
+    if (highlightId()) drawEdgeHi(highlightId());
+  });
+}
+
+function drawEdgeHi(id) {
+  if (!edgeHiG) return;
+  syncEdgeHiMask();
+  const NS = 'http://www.w3.org/2000/svg';
+  const w = tv.clientWidth, h = tv.clientHeight;
+  edgeHiSvg.setAttribute('width', w);
+  edgeHiSvg.setAttribute('height', h);
+  edgeHiSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+  edgeHiMask.replaceChildren();
+  edgeHiG.replaceChildren();
+  if (!id || w < 2 || h < 2) return;
+  const sheet = document.createElementNS(NS, 'rect');
+  sheet.setAttribute('x', '0'); sheet.setAttribute('y', '0');
+  sheet.setAttribute('width', w); sheet.setAttribute('height', h);
+  sheet.setAttribute('fill', 'white');
+  edgeHiMask.append(sheet);
+  const origin = tv.getBoundingClientRect();
+  const hole = (el, pad) => {
+    const r = el.getBoundingClientRect();
+    if (r.width < 1 || r.height < 1) return;
+    const rect = document.createElementNS(NS, 'rect');
+    rect.setAttribute('x', (r.x - origin.x - pad).toFixed(2));
+    rect.setAttribute('y', (r.y - origin.y - pad).toFixed(2));
+    rect.setAttribute('width', (r.width + pad * 2).toFixed(2));
+    rect.setAttribute('height', (r.height + pad * 2).toFixed(2));
+    rect.setAttribute('fill', 'black');
+    edgeHiMask.append(rect);
+  };
+  world.querySelectorAll('.tile').forEach(t => hole(t, 1));
+  if (labelLayer && getComputedStyle(labelLayer).visibility !== 'hidden')
+    labelLayer.querySelectorAll('.region-label').forEach(el => hole(el, 1));
+  const v = worldView();
+  const sw = (3 * v.s).toFixed(2);
+  const rr = (3.2 * v.s).toFixed(2);
+  edgeEls.forEach(e => {
+    if (e.path.classList.contains('collapsed-hide')) return;
+    const kind = e.to === id ? 'in' : e.from === id ? 'out' : '';
+    if (!kind) return;
+    const d = e.path.getAttribute('d');
+    if (!d) return;
+    const path = document.createElementNS(NS, 'path');
+    path.setAttribute('d', mapPath(d, v.s, v.x, v.y));
+    path.setAttribute('class', kind);
+    path.setAttribute('stroke-width', sw);
+    const dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('cx', (parseFloat(e.dot.getAttribute('cx')) * v.s + v.x).toFixed(2));
+    dot.setAttribute('cy', (parseFloat(e.dot.getAttribute('cy')) * v.s + v.y).toFixed(2));
+    dot.setAttribute('r', rr);
+    dot.setAttribute('class', kind);
+    edgeHiG.append(path, dot);
+  });
+}
+
+function refreshEdgeHi() {
+  const id = highlightId();
+  if (!id) {
+    if (edgeHiG && (edgeHiG.childNodes.length || (edgeHiMask && edgeHiMask.childNodes.length))) drawEdgeHi(null);
+  } else drawEdgeHi(id);
+  // Home, focus, and group-fit interpolate #world for 450ms. One snapshot leaves
+  // the strokes at the destination and the mask holes on the old cards.
+  followEdgeHi();
+}
+
+function applyEdgeHighlight() {
+  // #world is one scaled composited layer. Toggling #edges.active and painting
+  // stroke / stroke-width / opacity on its paths invalidates that whole layer.
+  // The paint clip is larger than the tree and grows as 1/scale, so Chrome
+  // drops the layer and the tree flashes. Lights mode draws nothing. Zoomed in,
+  // the connected edges go on #edgeHi (a screen-sized overlay) and the base
+  // strokes stay as they are. Scope dimming still toggles .fdim, and only when
+  // that bit actually changes.
+  const id = highlightId();
+  const scopeOn = selectedBoxes.size > 0 && !selectionIsAll();
+  edgeEls.forEach(e => {
+    const fd = scopeOn && !skillInSelection(e.from) && !skillInSelection(e.to);
+    if (e.path.classList.contains('fdim') !== fd) e.path.classList.toggle('fdim', fd);
+    if (e.dot.classList.contains('fdim') !== fd) e.dot.classList.toggle('fdim', fd);
+  });
+  drawEdgeHi(id);
+  followEdgeHi();
 }
 
 const LIGHTS_THRESHOLD = 0.38;
@@ -1123,7 +1309,7 @@ function applyView() {
     world.classList.toggle('lights-view', lightsMode);
     world.querySelectorAll('.tile').forEach(t => t.classList.toggle('light-mode', lightsMode));
     applyEdgeHighlight();
-  }
+  } else refreshEdgeHi();
 }
 function animateView(fn) { world.classList.add('anim'); fn(); clearTimeout(animateView.t); animateView.t = setTimeout(() => world.classList.remove('anim'), 500) }
 const MINS = .1;
@@ -2973,6 +3159,7 @@ async function init() {
   world = $('world');
   tv = $('treeView');
   edgesSvg = $('edges');
+  setupEdgeHi();
   panel = $('panel');
   quizEl = $('quiz');
   mb = $('modalBack');
@@ -3010,7 +3197,7 @@ async function init() {
   $('btnHelp').onclick = openHelp;
   $('btnFeedback').onclick = openFeedback;
   mb.addEventListener('mousedown', e => { if (e.target === mb) closeModal() });
-  window.addEventListener('resize', () => { if (panelOpen()) placePanel() });
+  window.addEventListener('resize', () => { if (panelOpen()) placePanel(); refreshEdgeHi() });
   
   window.__skillgrove = {
     version: APP_VERSION, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode, timing: () => timing,
