@@ -338,6 +338,14 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | incremental pass | \(x := x - t \nabla f_i(x)\) on one block at a time, using the updated point | a batch step sums every block gradient at the same point. Added in NB9 |
 | \(J_h(\hat x)\) | Jacobian of a nonlinear measurement \(h\), evaluated at the current estimate | plays the role of \(C\) in one linear update. Not the Hessian \(H_f\). Added in NB9 |
 | Newton root step | \(J_F(x)\, d = -F(x)\) | one tangent solve for a root of a map \(F\). A singular Jacobian leaves the step undefined. Added in NB9 |
+| Newton minimization step | \(\nabla^2 f(x)\, d = -\nabla f(x)\) | the same tangent step applied to \(\nabla f(x) = 0\). The Jacobian of the gradient is the Hessian. Added in NB10 |
+| quadratic Newton error | \(\lVert e_+\rVert \le \tfrac{L}{2}\lVert\nabla^2 f(x)^{-1}\rVert\, \lVert e\rVert^2\) | when the Hessian is Lipschitz with constant \(L\) and invertible at the current point. The basin is a neighborhood where this contraction stays inside itself. Added in NB10 |
+| Newton shift \(\mu\) | \((\nabla^2 f(x) + \mu I)\, d = -\nabla f(x)\) with \(\mu > 0\) large enough that the shifted Hessian is positive definite | the same symbol as the Levenberg-Marquardt shift. Here it is added to the objective Hessian, not to a Gram matrix. Added in NB10 |
+| Wolfe pair \(c_1, c_2\) | \(f(x+td) \le f(x) + c_1 t \nabla f(x)^T d\) and \(\nabla f(x+td)^T d \ge c_2 \nabla f(x)^T d\) | \(0 < c_1 < c_2 < 1\). The Armijo parameter \(c\) is this \(c_1\). Added in NB10 |
+| \(s, y\) | quasi-Newton step and gradient change | \(s = x_+ - x\), \(y = \nabla f(x_+) - \nabla f(x)\). This \(s\) is not a slack variable. Added in NB10 |
+| secant equation | \(B s = y\) | \(B\) approximates the Hessian. This \(B\) is not an LP basis. Added in NB10 |
+| \(W\) | inverse Hessian approximation | BFGS inverse update \(W_+ = (I - \rho s y^T) W (I - \rho y s^T) + \rho s s^T\), with \(\rho = 1/(y^T s)\). Not the Hessian \(H_f\). Added in NB10 |
+| superlinear | successive error ratios tend to \(0\) | the local BFGS claim. Quadratic convergence is the stronger squared-error bound above. Added in NB10 |
 
 ## loop-shaping
 

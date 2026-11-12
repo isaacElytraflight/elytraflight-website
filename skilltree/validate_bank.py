@@ -186,6 +186,22 @@ LEAF_PREVIEW_ALLOWED.update({
         "newton-root-finding",
     ],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # NB10 leaves: nothing in the graph lists these as prerequisites.
+    "newton-local-quadratic-convergence": [
+        "conjugate-gradient-method",
+        "heavy-ball-method",
+        "nesterov-accelerated-gradient",
+    ],
+    "newton-globalization": [
+        "scaled-gradient-projection",
+        "primal-dual-interior-point",
+    ],
+    "bfgs-update": [
+        "conjugate-gradient-method",
+        "scaled-gradient-projection",
+    ],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

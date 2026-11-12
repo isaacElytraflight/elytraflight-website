@@ -1411,7 +1411,7 @@ async function test(name, fn) {
       const fullIds = used(full);
       const meIds = used(me);
       const bookIds = used(book);
-      const soon = 'newton-method-optimization';
+      const soon = 'gram-schmidt-orthogonalization';
       return {
         readySoon: ready.filter(id => !playable.has(id)),
         fullSoon: fullIds.filter(id => !playable.has(id)),
@@ -1441,15 +1441,15 @@ async function test(name, fn) {
     assert.strictEqual(result.queueHasSoon, false, 'the recommender queue stays on playable skills');
     assert.deepStrictEqual(result.meExtras, ['lin-algebra-review', 'discrete-time'], 'playable prerequisites of an ME 132 skill that stay outside the course box are lin-algebra-review and discrete-time: ' + result.meExtras.join(','));
 
-    await openSkill(p, 'newton-method-optimization');
+    await openSkill(p, 'gram-schmidt-orthogonalization');
     const panel = await p.evaluate(() => ({
       text: document.getElementById('panel').textContent,
-      label: document.querySelector('#world .tile[data-id="newton-method-optimization"]').getAttribute('aria-label'),
-      title: document.querySelector('#world .tile[data-id="newton-method-optimization"]').title,
-      soon: document.querySelector('#world .tile[data-id="newton-method-optimization"]').classList.contains('soon'),
+      label: document.querySelector('#world .tile[data-id="gram-schmidt-orthogonalization"]').getAttribute('aria-label'),
+      title: document.querySelector('#world .tile[data-id="gram-schmidt-orthogonalization"]').title,
+      soon: document.querySelector('#world .tile[data-id="gram-schmidt-orthogonalization"]').classList.contains('soon'),
       start: !!document.getElementById('startBtn')
     }));
-    assert(panel.soon, 'newton-method-optimization should use the coming-soon tile style');
+    assert(panel.soon, 'gram-schmidt-orthogonalization should use the coming-soon tile style');
     assert(/Coming soon/.test(panel.text));
     assert(/coming soon/.test(panel.title));
     assert(/Coming soon, no questions yet/.test(panel.label));
@@ -1559,7 +1559,7 @@ async function test(name, fn) {
         tiles: ids.length,
         dupes,
         toggles: document.querySelectorAll('#world .toggle, #regions .toggle').length,
-        soon: document.querySelector('#world .tile[data-id="newton-method-optimization"] .tag').textContent
+        soon: document.querySelector('#world .tile[data-id="gram-schmidt-orthogonalization"] .tag').textContent
       };
     });
     assert.strictEqual(tree.tiles, NSKILL);

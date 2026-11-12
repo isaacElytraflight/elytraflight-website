@@ -3006,8 +3006,7 @@
     "newton-root-finding",
     "descent-method-framework",
     "taylor-approximation-multivariable"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "newton-local-quadratic-convergence",
@@ -3017,8 +3016,7 @@
     "newton-method-optimization",
     "convergence-rates",
     "lipschitz-gradient"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "newton-globalization",
@@ -3028,8 +3026,7 @@
     "newton-method-optimization",
     "armijo-backtracking",
     "positive-definite-matrices"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "wolfe-conditions",
@@ -3037,8 +3034,7 @@
    "summary": "Pair sufficient decrease with a curvature condition so that the step satisfies a positive secant curvature.",
    "prereqs": [
     "armijo-backtracking"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "quasi-newton-secant",
@@ -3047,8 +3043,7 @@
    "prereqs": [
     "newton-method-optimization",
     "fundamental-theorem-along-segment"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "bfgs-update",
@@ -3057,8 +3052,7 @@
    "prereqs": [
     "quasi-newton-secant",
     "wolfe-conditions"
-   ],
-   "status": "coming-soon"
+   ]
   },
   {
    "id": "gram-schmidt-orthogonalization",

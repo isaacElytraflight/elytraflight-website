@@ -1,0 +1,33 @@
+{
+  "id": "nlo-nb10",
+  "label": "NB10",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "newton-method-optimization",
+    "newton-local-quadratic-convergence",
+    "newton-globalization",
+    "wolfe-conditions",
+    "quasi-newton-secant",
+    "bfgs-update"
+  ],
+  "areas": {
+    "newton-method-optimization": ["optimization"],
+    "newton-local-quadratic-convergence": ["optimization"],
+    "newton-globalization": ["optimization"],
+    "wolfe-conditions": ["optimization"],
+    "quasi-newton-secant": ["optimization"],
+    "bfgs-update": ["optimization"]
+  },
+  "cores": [
+    "newton-method-optimization",
+    "newton-local-quadratic-convergence",
+    "newton-globalization",
+    "wolfe-conditions",
+    "quasi-newton-secant",
+    "bfgs-update"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/nlo-content-batches.md",
+  "verifier": "skilltree/verify_nlo_nb10.py"
+}
