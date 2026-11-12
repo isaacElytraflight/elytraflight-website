@@ -451,10 +451,29 @@ figure.qfig.small svg{max-height:200px}
 .todo-remove:hover{background:#ffe0ea}
 .todo-line.dragging{opacity:.45}
 .todo-line.drop-target{box-shadow:inset 0 2px 0 #7a4db8}
-.todo-actions{flex:none;padding-top:8px}
+.todo-actions{flex:none;display:flex;flex-direction:column;gap:6px;padding-top:8px}
 .todo-queue{width:100%;white-space:normal;text-align:center;line-height:1.25;font-size:12px;padding:6px 8px;background:rgba(255,255,255,.92);color:#6d2044;border-color:#e7b3c6}
+.todo-exams{flex:none;display:flex;flex-direction:column;gap:6px;margin:2px 0 4px;max-height:min(240px,36vh);overflow:auto}
+.todo-exam{background:rgba(255,255,255,.92);border-radius:10px;padding:6px 8px;color:#4a2033}
+.todo-exam-top{display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+.todo-exam-name{font-weight:800;font-size:12.5px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.todo-exam-count{flex:none;font-size:11px;font-weight:800;color:#9d2450}
+.todo-exam-meta{font-size:11px;color:#7a4a5c;margin-top:1px}
+.todo-exam-today{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;max-height:88px;overflow:auto}
+.todo-exam-k{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#9d2450;align-self:center}
+.todo-exam-skill{max-width:100%;border:0;background:#ffe3ee;color:#6d2044;border-radius:999px;font:700 11px/1.2 Palatino,"Palatino Linotype",Georgia,serif;padding:2px 7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.todo-exam-rest{font:italic 12px/1.3 Palatino,"Palatino Linotype",Georgia,serif;color:#7a4a5c}
+.todo-exam-actions{display:flex;gap:10px;margin-top:4px}
+.todo-exam-actions button{border:0;background:transparent;color:#6d2044;font-weight:800;font-size:11px;padding:0}
+.exam-form{display:flex;flex-direction:column;gap:8px}
+.exam-form label.exam-field{font-size:12.5px;font-weight:750;color:var(--ink2);display:flex;flex-direction:column;gap:4px}
+.exam-form input[type=text],.exam-form input[type=date],.exam-form select{font:inherit;width:100%;border:2px solid var(--line);border-radius:12px;padding:8px 10px;background:#fff;color:var(--ink)}
+.exam-modes{display:flex;gap:14px;font-size:13px;font-weight:650}
+.exam-skills{max-height:220px;overflow:auto;border:2px solid var(--line);border-radius:12px;padding:6px 8px;background:#fff}
+.exam-skills label{display:flex;gap:6px;align-items:flex-start;font-weight:550;color:var(--ink);padding:2px 0}
 #todoBook.collapsed .todo-paper,
 #todoBook.collapsed .todo-actions,
+#todoBook.collapsed .todo-exams,
 #todoBook.collapsed .todo-edit{display:none}
 @media (max-width:720px){
   header{padding:10px 12px 8px}
