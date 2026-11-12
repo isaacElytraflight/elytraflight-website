@@ -368,7 +368,7 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | central path | solutions of the perturbed KKT system as \(\mu\) varies | on the path the duality gap equals \(x^T s = n\mu\). Added in NB12 |
 | Frank-Wolfe step | \(x_+ = (1 - \gamma) x + \gamma s\), where \(s\) minimizes \(\nabla f(x)^T s\) over the set | schedule \(\gamma_k = 2/(k+2)\) for \(k\) counting from 0. Added in NB12 |
 | Frank-Wolfe gap | \(f(x_k) - f^\star = O(1/k)\) | a bound on the function gap for smooth convex \(f\) on a compact convex set, not a bound on \(\lVert x_k - x^\star\rVert\). With curvature constant \(C_f\) and \(\gamma_k = 2/(k+2)\), the gap is at most \(2 C_f/(k+2)\). Added in NB12 |
-| power iteration | \(x_+ = A x / \lVert A x\rVert\) | one conditional-gradient step for \(x^T A x\) on the unit sphere, \(A\) symmetric. Added in NB12 |
+| power iteration | \(x_+ = A x / \lVert A x\rVert\) | the linear maximizer of \(x^T A x\) on the unit sphere, \(A\) symmetric. The sphere is not convex, so the step replaces the vector. Conditional gradient minimizes the linear model and returns the normalization of \(-A x\). Added in NB12 |
 | power-method factor | \(\lvert\lambda_2/\lambda_1\rvert\) multiplies the second-mode coefficient, and thus governs the angle with the top eigenvector | the Rayleigh-quotient error scales with the square of that factor. Requires \(\lvert\lambda_1\rvert > \lvert\lambda_2\rvert\). Added in NB12 |
 
 ## loop-shaping

@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-12T01:31:12.371942Z",
+  "generated": "2026-11-12T01:41:50.196518Z",
   "skills": {
-    "file": "skills.88b9d2b7.json",
-    "hash": "88b9d2b7"
+    "file": "skills.4dde394e.json",
+    "hash": "4dde394e"
   },
   "collections": {
     "file": "collections.9a806ec1.json",
@@ -2516,8 +2516,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "786c94d4",
-      "file": "banks/power-method-eigenvector.786c94d4.json"
+      "hash": "09f6c435",
+      "file": "banks/power-method-eigenvector.09f6c435.json"
     },
     "primal-dual-interior-point": {
       "version": 1,
@@ -3728,8 +3728,8 @@
       "version": 1
     },
     "frank-wolfe-conditional-gradient": {
-      "hash": "de61af4e",
-      "file": "explainers/frank-wolfe-conditional-gradient.de61af4e.json",
+      "hash": "f698cc4b",
+      "file": "explainers/frank-wolfe-conditional-gradient.f698cc4b.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -4371,8 +4371,8 @@
       "version": 1
     },
     "power-method-eigenvector": {
-      "hash": "0878c280",
-      "file": "explainers/power-method-eigenvector.0878c280.json",
+      "hash": "b9a54149",
+      "file": "explainers/power-method-eigenvector.b9a54149.json",
       "sectionCount": 5,
       "version": 1
     },

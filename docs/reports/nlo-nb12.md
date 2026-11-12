@@ -8,7 +8,7 @@ Do not publish.
 
 - 8 skills, 96 questions (40 multiple choice, 56 numeric), 8 explainers.
 - 96 question figures.
-- Explainer words: `optimality-over-convex-set` 441, `projection-onto-convex-set` 436, `gradient-projection-method` 391, `scaled-gradient-projection` 495, `affine-scaling-method` 490, `primal-dual-interior-point` 493, `frank-wolfe-conditional-gradient` 492, `power-method-eigenvector` 465.
+- Explainer words: `optimality-over-convex-set` 441, `projection-onto-convex-set` 436, `gradient-projection-method` 391, `scaled-gradient-projection` 495, `affine-scaling-method` 490, `primal-dual-interior-point` 493, `frank-wolfe-conditional-gradient` 490, `power-method-eigenvector` 478.
 
 ## Versions
 

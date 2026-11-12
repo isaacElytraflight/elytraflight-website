@@ -23,7 +23,7 @@
     },
     {
       "heading": "Where this leads",
-      "body_md": "The same linear oracle on the unit sphere, for the objective \\(x^T A x\\), returns the normalization of \\(A x\\). That is one step of the power method. The quantity that contracts is the second-mode coefficient, by the factor \\(|\\lambda_2 / \\lambda_1|\\). The Rayleigh quotient's error uses the square of that factor. Those are eigenvector and eigenvalue measures, not the function-gap bound of this section."
+      "body_md": "Minimizing the linear model of \\(x^T A x\\) on the unit sphere returns the normalization of \\(-A x\\), a step toward a bottom eigenvector. The power method normalizes \\(A x\\) instead. The sphere is not convex, so that step replaces the vector rather than taking a convex combination. The second-mode coefficient contracts by \\(|\\lambda_2 / \\lambda_1|\\), and the Rayleigh error uses the square of that factor."
     }
   ]
 }
