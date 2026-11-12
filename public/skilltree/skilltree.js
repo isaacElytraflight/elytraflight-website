@@ -3461,6 +3461,7 @@ function setupKeyboard() {
     if (e.key === 'Escape') {
       const openFlag = document.querySelector('.qflag-form:not([hidden])');
       if (mb.classList.contains('open')) closeModal();
+      else if (openFlag && window.SkillgroveTelemetry && window.SkillgroveTelemetry.dismissFlag) window.SkillgroveTelemetry.dismissFlag(openFlag);
       else if (openFlag) openFlag.hidden = true;
       else if (settingsOpen) closeSettings();
       else if (quizOpen) leaveQuiz();

@@ -3149,6 +3149,12 @@ async function test(name, fn) {
     await p.waitForSelector('#flagBtn', { timeout: 10000 });
     await p.click('#flagBtn');
     await p.waitForSelector('.qflag-form:not([hidden])');
+    await p.keyboard.press('Escape');
+    await p.evaluate(() => window.__skillgrove.qa.renderQuiz());
+    assert.strictEqual(await p.$eval('.qflag-form', e => e.hidden), true, 'Escape stays closed after a redraw');
+    assert.strictEqual(await p.$eval('#flagBtn', e => e.getAttribute('aria-expanded')), 'false');
+    await p.click('#flagBtn');
+    await p.waitForSelector('.qflag-form:not([hidden])');
     const bounds = await p.evaluate(() => {
       const r = document.querySelector('.qflag-form').getBoundingClientRect();
       return { left: r.left, right: r.right, vw: window.innerWidth };
@@ -3270,6 +3276,23 @@ async function test(name, fn) {
     await openSkill(dnt, 'bode');
     await flushMeasure(dnt);
     assert.strictEqual(dnt._eventPosts.length, 0);
+    await dnt._ctx.close();
+  });
+
+  await test('a queued flag still sends when usage measurement is off', async () => {
+    const dnt = await newPage(null, { dnt: true });
+    await dnt.evaluate(() => {
+      localStorage.setItem('skilltree.flags.q.v1', JSON.stringify([{
+        skill_id: 'bode', question_id: 'bode-r1-q1', reason: 'typo', comment: 'queued'
+      }]));
+    });
+    dnt._flagPosts.length = 0;
+    dnt._eventPosts.length = 0;
+    await dnt.reload({ waitUntil: 'networkidle0' });
+    for (let i = 0; i < 20 && dnt._flagPosts.length === 0; i++) await sleep(50);
+    assert.strictEqual(dnt._flagPosts.length, 1, 'a queued flag is retried with measurement off');
+    assert.strictEqual(JSON.parse(dnt._flagPosts[0].body)[0].question_id, 'bode-r1-q1');
+    assert.strictEqual(dnt._eventPosts.length, 0, 'usage events stay off');
     await dnt._ctx.close();
   });
 

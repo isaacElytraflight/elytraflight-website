@@ -554,6 +554,18 @@ function ensurePrivacyControl() {
   syncPrivacyControl();
 }
 
+function dismissFlag(form) {
+  if (!form) return;
+  form.hidden = true;
+  const block = form.closest('.qflag-block');
+  const btn = block && block.querySelector('.qflag-btn');
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+  const radio = form.querySelector('input[type="radio"]');
+  const qid = radio && radio.name ? radio.name.replace(/^flagReason-/, '') : '';
+  if (!flagDraft || flagDraft.flagged) return;
+  const saved = String(flagDraft.questionId == null ? '' : flagDraft.questionId).replace(/[^A-Za-z0-9_-]/g, '');
+  if (saved === qid) flagDraft.open = false;
+}
 function rememberFlagDraft(questionId, form, btn, area) {
   const picked = form.querySelector('input[type="radio"]:checked');
   flagDraft = {
@@ -691,14 +703,19 @@ function start() {
     document.addEventListener('visibilitychange', onVisibility);
   }
   attachApp();
-  if (!first) return;
+  const sendFlags = () => { flushFlags().catch(function() {}); };
+  if (!first) {
+    sendFlags();
+    return;
+  }
   if (!trackingAllowed()) {
     queue = [];
     persistEvents();
+    sendFlags();
     return;
   }
   ensureSession();
-  flushFlags().catch(function() {});
+  sendFlags();
 }
 
 ensurePrivacyControl();
@@ -707,6 +724,7 @@ window.SkillgroveTelemetry = {
   start: start,
   flush: flush,
   flagControl: flagControl,
+  dismissFlag: dismissFlag,
   trackingAllowed: trackingAllowed
 };
 
