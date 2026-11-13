@@ -103,7 +103,12 @@ Items above version 1:
 - `sensitivity#explainer` version 2
 - `ss-to-tf-r2-q1` version 2
 - `ss-to-tf-r3-q1` version 2
+- `step-specs-r1-q2` version 2
+- `step-specs-r1-q3` version 2
+- `step-specs-r2-q1` version 3
+- `step-specs-r3-q1` version 2
 - `step-specs-r4-q1` version 2
+- `step-specs-r4-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -191,6 +196,7 @@ Items above version 1:
 - `rn-important-subsets-r1-q1` version 2
 - `rn-important-subsets-r1-q2` version 2
 - `rn-important-subsets-r2-q1` version 2
+- `rn-important-subsets-r3-q3` version 2
 - `rn-important-subsets-r4-q1` version 2
 - `rn-important-subsets-r4-q3` version 2
 - `rn-important-subsets#explainer` version 2
@@ -204,7 +210,9 @@ Box: Nonlinear Optimization (nlo-tugraz).
 
 Skills: `newton-method-optimization`, `newton-local-quadratic-convergence`, `newton-globalization`, `wolfe-conditions`, `quasi-newton-secant`, `bfgs-update`.
 
-Every item is version 1.
+Items above version 1:
+
+- `newton-method-optimization-r4-q2` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -294,6 +302,7 @@ Skills: `lp-standard-form`, `lp-graphical-solution`, `polyhedra-extreme-points`,
 
 Items above version 1:
 
+- `lp-graphical-solution#explainer` version 2
 - `polyhedra-extreme-points-r2-q3` version 2
 - `simplex-feasible-directions#explainer` version 2
 

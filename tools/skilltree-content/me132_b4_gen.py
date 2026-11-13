@@ -121,22 +121,22 @@ def bank_step_specs():
     b.num(1,
           r"A second-order system has \(\zeta = 0.5\) and \(\omega_n = 4\) rad/s. The percent overshoot is",
           overshoot_pct(z1), "%",
-          r"Percent overshoot is \(100 e^{-\pi\zeta/\sqrt{1-\zeta^2}}\). With \(\zeta = 0.5\), that is \(100 e^{-\pi \times 0.5/0.866} = 16.3\%\). The damping ratio 0.5 is not the overshoot. Leaving out the 100 gives the fractional overshoot.",
+          r"Only \(\zeta\) enters the overshoot formula, so \(\omega_n = 4\) does not change the percentage. For \(\zeta = 0.5\), \(\sqrt{1-\zeta^2} = 0.866\) and the exponent is \(-\pi \times 0.5/0.866\), which makes \(100\) times that exponential equal \(16.3\). Reporting \(0.5\) confuses the damping ratio with the percentage. Reporting \(0.163\) forgot to turn the fraction into a percent.",
           second_order_step(z1, wn1, 1, 4),
-          step_fig)
+          step_fig, version=2)
     b.num(1,
           r"Same system, \(\zeta = 0.5\), \(\omega_n = 4\). The approximate 2% settling time is",
           settling_time_2pct(z1, wn1), "s",
-          r"The rule of thumb is \(t_s \approx 4/(\zeta\omega_n)\). With \(\zeta = 0.5\) and \(\omega_n = 4\), that is \(4/2 = 2\) s. Using 5 instead of 4 gives the 1% rule. Using \(\omega_n\) alone gives \(4/4 = 1\), which drops the damping ratio.",
+          r"A 2% envelope is about four time constants, and the time constant here is \(1/(\zeta\omega_n)\). The product \(\zeta\omega_n = 0.5 \times 4 = 2\), so the estimate is \(4/2 = 2\) s. Swapping in a factor of 5 is the tighter 1% estimate. Dividing 4 by \(\omega_n\) alone ignores damping and returns 1 s.",
           second_order_step(z1, wn1, 1, 4),
-          step_fig)
+          step_fig, version=2)
 
     b.num(2,
           r"For \(\zeta = 0.4\) and \(\omega_n = 5\) rad/s, the time to the first peak is",
           time_to_peak(z2, wn2), "s",
-          r"\(t_p = \pi/\omega_d\). With \(\omega_d = 5 \times 0.917 = 4.58\), the peak time is \(\pi/4.58 = 0.685\) s. Using \(\omega_n\) instead of \(\omega_d\) gives \(\pi/5 = 0.628\), which is the wrong frequency.",
+          r"The first peak is half a cycle of the damped ringing: \(t_p = \pi/\omega_d\). With \(\zeta = 0.4\), \(\omega_d = 5 \times 0.917 = 4.58\), and \(\pi/4.58 = 0.685\) s. Dividing by the natural frequency instead gives \(\pi/5 = 0.628\) s, which is half a period of the undamped system.",
           second_order_step(z2, wn2, 1, 3),
-          step_fig)
+          step_fig, version=3)
     b.num(2,
           r"Same system, \(\zeta = 0.4\), \(\omega_n = 5\). The damped frequency is",
           wn2 * math.sqrt(1 - z2**2), "rad/s",
@@ -156,9 +156,9 @@ def bank_step_specs():
     b.num(3,
           r"A system has \(\zeta = 0.6\) and \(\omega_n = 3\) rad/s. The percent overshoot is",
           overshoot_pct(z3), "%",
-          r"Percent overshoot is \(100 e^{-\pi \times 0.6 / 0.8} = 9.48\%\). The formula involves \(\zeta\) but not \(\omega_n\) directly. Using \(\omega_n\) in the exponent mixes the two parameters.",
+          r"Overshoot depends on damping alone: \(100\exp(-\pi\zeta/\sqrt{1-\zeta^2})\). With \(\zeta = 0.6\), \(\sqrt{1-0.36} = 0.8\), and \(100\exp(-\pi\times 0.6/0.8) = 9.48\%\). The natural frequency 3 never enters. Putting \(\omega_n\) into that exponent mixes a time scale into a percentage.",
           second_order_step(z3, wn3, 1, 5),
-          step_fig)
+          step_fig, version=2)
     b.num(3,
           r"Same system. The approximate 2% settling time is",
           settling_time_2pct(z3, wn3), "s",
@@ -188,13 +188,13 @@ def bank_step_specs():
           splane([(-3, 4), (-3, -4)], [], "closed-loop poles"),
           pole_fig, ["perf-specs-freq"])
     b.mc(4,
-         r"PID tuning often aims for a closed-loop damping ratio around 0.7. Such a loop",
+         r"A designer picks \(\zeta \approx 0.7\) as a step-response target. The step response of that loop",
          ["never overshoots",
           "overshoots by about 50%",
           "oscillates forever",
           "overshoots by about 5% and settles quickly"], 3,
-         r"\(\zeta = 0.7\) gives about 4.6% overshoot, which is close to 5%. It is underdamped, so there is some overshoot. 50% overshoot is around \(\zeta = 0.16\). Infinite oscillation is \(\zeta = 0\).",
-          second_order_step(0.7, 3, 1, 4), step_fig, ["perf-specs-freq"])
+         r"At \(\zeta \approx 0.7\) the overshoot formula returns roughly 5%, and the transient still rings once before it dies. A loop that never overshoots would need \(\zeta \ge 1\). A 50% overshoot belongs near \(\zeta \approx 0.2\). A response that never stops oscillating is the undamped case \(\zeta = 0\).",
+          second_order_step(0.7, 3, 1, 4), step_fig, ["perf-specs-freq"], version=2)
     b.save()
 
 

@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-13T02:08:05.706360Z",
+  "generated": "2026-11-13T03:29:59.734170Z",
   "skills": {
-    "file": "skills.4aefbfc2.json",
-    "hash": "4aefbfc2"
+    "file": "skills.7d612250.json",
+    "hash": "7d612250"
   },
   "collections": {
     "file": "collections.6c18ba13.json",
@@ -2192,8 +2192,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "1631cced",
-      "file": "banks/newton-method-optimization.1631cced.json"
+      "hash": "4ff457ce",
+      "file": "banks/newton-method-optimization.4ff457ce.json"
     },
     "newton-root-finding": {
       "version": 1,
@@ -2708,8 +2708,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8a2dd8db",
-      "file": "banks/rn-important-subsets.8a2dd8db.json"
+      "hash": "03df9379",
+      "file": "banks/rn-important-subsets.03df9379.json"
     },
     "ro": {
       "version": 2,
@@ -3056,8 +3056,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "6fe3095f",
-      "file": "banks/step-specs.6fe3095f.json"
+      "hash": "f506e436",
+      "file": "banks/step-specs.f506e436.json"
     },
     "sufficient-decrease-lemma": {
       "version": 1,
@@ -4122,10 +4122,10 @@
       "version": 1
     },
     "lp-graphical-solution": {
-      "hash": "e3a10a1f",
-      "file": "explainers/lp-graphical-solution.e3a10a1f.json",
+      "hash": "31b53eb4",
+      "file": "explainers/lp-graphical-solution.31b53eb4.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "lp-standard-form": {
       "hash": "743a3faf",

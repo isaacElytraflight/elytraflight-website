@@ -24,39 +24,39 @@
       "round": 1,
       "type": "numeric",
       "prompt": "A second-order system has \\(\\zeta = 0.5\\) and \\(\\omega_n = 4\\) rad/s. The percent overshoot is",
-      "explanation": "Percent overshoot is \\(100 e^{-\\pi\\zeta/\\sqrt{1-\\zeta^2}}\\). With \\(\\zeta = 0.5\\), that is \\(100 e^{-\\pi \\times 0.5/0.866} = 16.3\\%\\). The damping ratio 0.5 is not the overshoot. Leaving out the 100 gives the fractional overshoot.",
+      "explanation": "Only \\(\\zeta\\) enters the overshoot formula, so \\(\\omega_n = 4\\) does not change the percentage. For \\(\\zeta = 0.5\\), \\(\\sqrt{1-\\zeta^2} = 0.866\\) and the exponent is \\(-\\pi \\times 0.5/0.866\\), which makes \\(100\\) times that exponential equal \\(16.3\\). Reporting \\(0.5\\) confuses the damping ratio with the percentage. Reporting \\(0.163\\) forgot to turn the fraction into a percent.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-order step</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,131.7 52,128.4 55.1,123.4 58.1,117.2 61.1,110.1 64.1,102.5 67.2,94.7 70.2,86.9 73.2,79.4 76.2,72.3 79.2,65.8 82.3,60 85.3,54.9 88.3,50.5 91.3,46.9 94.4,44 97.4,41.9 100.4,40.4 103.4,39.4 106.4,39 109.5,39.1 112.5,39.5 115.5,40.2 118.5,41.1 121.6,42.2 124.6,43.4 127.6,44.7 130.6,46 133.6,47.2 136.7,48.4 139.7,49.5 142.7,50.5 145.7,51.4 148.8,52.1 151.8,52.8 154.8,53.3 157.8,53.7 160.8,54 163.9,54.2 166.9,54.3 169.9,54.3 172.9,54.2 176,54.1 179,54 182,53.8 185,53.6 188,53.4 191.1,53.2 194.1,53 197.1,52.8 200.1,52.6 203.2,52.5 206.2,52.3 209.2,52.2 212.2,52.1 215.2,52 218.3,51.9 221.3,51.9 224.3,51.8 227.3,51.8 230.4,51.8 233.4,51.8 236.4,51.8 239.4,51.8 242.4,51.9 245.5,51.9 248.5,51.9 251.5,51.9 254.5,52 257.6,52 260.6,52 263.6,52.1 266.6,52.1 269.6,52.1 272.7,52.1 275.7,52.2 278.7,52.2 281.7,52.2 284.8,52.2 287.8,52.2 290.8,52.2 293.8,52.2 296.8,52.2 299.9,52.2 302.9,52.2 305.9,52.2 308.9,52.2 312,52.2 315,52.2 318,52.2\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "A curve that rises, overshoots, and then settles.",
       "answer": 16.3034,
       "unit": "%",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "step-specs-r1-q3",
       "round": 1,
       "type": "numeric",
       "prompt": "Same system, \\(\\zeta = 0.5\\), \\(\\omega_n = 4\\). The approximate 2% settling time is",
-      "explanation": "The rule of thumb is \\(t_s \\approx 4/(\\zeta\\omega_n)\\). With \\(\\zeta = 0.5\\) and \\(\\omega_n = 4\\), that is \\(4/2 = 2\\) s. Using 5 instead of 4 gives the 1% rule. Using \\(\\omega_n\\) alone gives \\(4/4 = 1\\), which drops the damping ratio.",
+      "explanation": "A 2% envelope is about four time constants, and the time constant here is \\(1/(\\zeta\\omega_n)\\). The product \\(\\zeta\\omega_n = 0.5 \\times 4 = 2\\), so the estimate is \\(4/2 = 2\\) s. Swapping in a factor of 5 is the tighter 1% estimate. Dividing 4 by \\(\\omega_n\\) alone ignores damping and returns 1 s.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-order step</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,131.7 52,128.4 55.1,123.4 58.1,117.2 61.1,110.1 64.1,102.5 67.2,94.7 70.2,86.9 73.2,79.4 76.2,72.3 79.2,65.8 82.3,60 85.3,54.9 88.3,50.5 91.3,46.9 94.4,44 97.4,41.9 100.4,40.4 103.4,39.4 106.4,39 109.5,39.1 112.5,39.5 115.5,40.2 118.5,41.1 121.6,42.2 124.6,43.4 127.6,44.7 130.6,46 133.6,47.2 136.7,48.4 139.7,49.5 142.7,50.5 145.7,51.4 148.8,52.1 151.8,52.8 154.8,53.3 157.8,53.7 160.8,54 163.9,54.2 166.9,54.3 169.9,54.3 172.9,54.2 176,54.1 179,54 182,53.8 185,53.6 188,53.4 191.1,53.2 194.1,53 197.1,52.8 200.1,52.6 203.2,52.5 206.2,52.3 209.2,52.2 212.2,52.1 215.2,52 218.3,51.9 221.3,51.9 224.3,51.8 227.3,51.8 230.4,51.8 233.4,51.8 236.4,51.8 239.4,51.8 242.4,51.9 245.5,51.9 248.5,51.9 251.5,51.9 254.5,52 257.6,52 260.6,52 263.6,52.1 266.6,52.1 269.6,52.1 272.7,52.1 275.7,52.2 278.7,52.2 281.7,52.2 284.8,52.2 287.8,52.2 290.8,52.2 293.8,52.2 296.8,52.2 299.9,52.2 302.9,52.2 305.9,52.2 308.9,52.2 312,52.2 315,52.2 318,52.2\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "A curve that rises, overshoots, and then settles.",
       "answer": 2.0,
       "unit": "s",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "step-specs-r2-q1",
       "round": 2,
       "type": "numeric",
       "prompt": "For \\(\\zeta = 0.4\\) and \\(\\omega_n = 5\\) rad/s, the time to the first peak is",
-      "explanation": "\\(t_p = \\pi/\\omega_d\\). With \\(\\omega_d = 5 \\times 0.917 = 4.58\\), the peak time is \\(\\pi/4.58 = 0.685\\) s. Using \\(\\omega_n\\) instead of \\(\\omega_d\\) gives \\(\\pi/5 = 0.628\\), which is the wrong frequency.",
+      "explanation": "The first peak is half a cycle of the damped ringing: \\(t_p = \\pi/\\omega_d\\). With \\(\\zeta = 0.4\\), \\(\\omega_d = 5 \\times 0.917 = 4.58\\), and \\(\\pi/4.58 = 0.685\\) s. Dividing by the natural frequency instead gives \\(\\pi/5 = 0.628\\) s, which is half a period of the undamped system.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-order step</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,131.9 52,129.1 55.1,124.8 58.1,119.3 61.1,112.9 64.1,105.9 67.2,98.5 70.2,91 73.2,83.6 76.2,76.4 79.2,69.6 82.3,63.4 85.3,57.9 88.3,53 91.3,48.8 94.4,45.4 97.4,42.8 100.4,40.9 103.4,39.7 106.4,39.1 109.5,39 112.5,39.5 115.5,40.4 118.5,41.6 121.6,43.1 124.6,44.8 127.6,46.6 130.6,48.5 133.6,50.4 136.7,52.3 139.7,54.1 142.7,55.7 145.7,57.2 148.8,58.6 151.8,59.7 154.8,60.7 157.8,61.5 160.8,62.1 163.9,62.5 166.9,62.7 169.9,62.8 172.9,62.8 176,62.6 179,62.3 182,62 185,61.6 188,61.1 191.1,60.7 194.1,60.2 197.1,59.7 200.1,59.2 203.2,58.8 206.2,58.4 209.2,58 212.2,57.7 215.2,57.4 218.3,57.2 221.3,57 224.3,56.9 227.3,56.8 230.4,56.8 233.4,56.8 236.4,56.8 239.4,56.8 242.4,56.9 245.5,57 248.5,57.1 251.5,57.2 254.5,57.3 257.6,57.5 260.6,57.6 263.6,57.7 266.6,57.8 269.6,57.9 272.7,58 275.7,58.1 278.7,58.1 281.7,58.2 284.8,58.2 287.8,58.3 290.8,58.3 293.8,58.3 296.8,58.3 299.9,58.3 302.9,58.3 305.9,58.2 308.9,58.2 312,58.2 315,58.2 318,58.1\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "A curve that rises, overshoots, and then settles.",
       "answer": 0.685552,
       "unit": "s",
       "tolerance": 0.02,
-      "version": 1
+      "version": 3
     },
     {
       "id": "step-specs-r2-q2",
@@ -93,13 +93,13 @@
       "round": 3,
       "type": "numeric",
       "prompt": "A system has \\(\\zeta = 0.6\\) and \\(\\omega_n = 3\\) rad/s. The percent overshoot is",
-      "explanation": "Percent overshoot is \\(100 e^{-\\pi \\times 0.6 / 0.8} = 9.48\\%\\). The formula involves \\(\\zeta\\) but not \\(\\omega_n\\) directly. Using \\(\\omega_n\\) in the exponent mixes the two parameters.",
+      "explanation": "Overshoot depends on damping alone: \\(100\\exp(-\\pi\\zeta/\\sqrt{1-\\zeta^2})\\). With \\(\\zeta = 0.6\\), \\(\\sqrt{1-0.36} = 0.8\\), and \\(100\\exp(-\\pi\\times 0.6/0.8) = 9.48\\%\\). The natural frequency 3 never enters. Putting \\(\\omega_n\\) into that exponent mixes a time scale into a percentage.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-order step</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,131.7 52,128.7 55.1,124.2 58.1,118.5 61.1,112.1 64.1,105.2 67.2,98.1 70.2,91 73.2,84.1 76.2,77.5 79.2,71.4 82.3,65.7 85.3,60.6 88.3,56.1 91.3,52.2 94.4,48.9 97.4,46.1 100.4,43.8 103.4,42.1 106.4,40.8 109.5,39.9 112.5,39.3 115.5,39 118.5,39 121.6,39.2 124.6,39.6 127.6,40 130.6,40.6 133.6,41.2 136.7,41.9 139.7,42.6 142.7,43.2 145.7,43.9 148.8,44.5 151.8,45.1 154.8,45.6 157.8,46 160.8,46.4 163.9,46.8 166.9,47.1 169.9,47.3 172.9,47.5 176,47.7 179,47.8 182,47.8 185,47.9 188,47.9 191.1,47.9 194.1,47.9 197.1,47.8 200.1,47.8 203.2,47.7 206.2,47.7 209.2,47.6 212.2,47.5 215.2,47.5 218.3,47.4 221.3,47.3 224.3,47.3 227.3,47.2 230.4,47.2 233.4,47.2 236.4,47.1 239.4,47.1 242.4,47.1 245.5,47.1 248.5,47.1 251.5,47.1 254.5,47.1 257.6,47 260.6,47 263.6,47 266.6,47.1 269.6,47.1 272.7,47.1 275.7,47.1 278.7,47.1 281.7,47.1 284.8,47.1 287.8,47.1 290.8,47.1 293.8,47.1 296.8,47.1 299.9,47.1 302.9,47.1 305.9,47.1 308.9,47.1 312,47.1 315,47.1 318,47.1\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "A curve that rises, overshoots, and then settles.",
       "answer": 9.47802,
       "unit": "%",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "step-specs-r3-q2",
@@ -167,8 +167,8 @@
       "id": "step-specs-r4-q3",
       "round": 4,
       "type": "mc",
-      "prompt": "PID tuning often aims for a closed-loop damping ratio around 0.7. Such a loop",
-      "explanation": "\\(\\zeta = 0.7\\) gives about 4.6% overshoot, which is close to 5%. It is underdamped, so there is some overshoot. 50% overshoot is around \\(\\zeta = 0.16\\). Infinite oscillation is \\(\\zeta = 0\\).",
+      "prompt": "A designer picks \\(\\zeta \\approx 0.7\\) as a step-response target. The step response of that loop",
+      "explanation": "At \\(\\zeta \\approx 0.7\\) the overshoot formula returns roughly 5%, and the transient still rings once before it dies. A loop that never overshoots would need \\(\\zeta \\ge 1\\). A 50% overshoot belongs near \\(\\zeta \\approx 0.2\\). A response that never stops oscillating is the undamped case \\(\\zeta = 0\\).",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>second-order step</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,132.1 52,130.1 55.1,126.9 58.1,123 61.1,118.4 64.1,113.4 67.2,108.1 70.2,102.7 73.2,97.2 76.2,91.8 79.2,86.5 82.3,81.4 85.3,76.6 88.3,72 91.3,67.8 94.4,63.8 97.4,60.2 100.4,57 103.4,54.1 106.4,51.4 109.5,49.2 112.5,47.2 115.5,45.4 118.5,44 121.6,42.7 124.6,41.7 127.6,40.9 130.6,40.2 133.6,39.8 136.7,39.4 139.7,39.2 142.7,39.1 145.7,39 148.8,39.1 151.8,39.1 154.8,39.3 157.8,39.5 160.8,39.7 163.9,39.9 166.9,40.2 169.9,40.4 172.9,40.7 176,40.9 179,41.1 182,41.4 185,41.6 188,41.8 191.1,42 194.1,42.2 197.1,42.4 200.1,42.5 203.2,42.6 206.2,42.8 209.2,42.9 212.2,43 215.2,43 218.3,43.1 221.3,43.2 224.3,43.2 227.3,43.2 230.4,43.3 233.4,43.3 236.4,43.3 239.4,43.3 242.4,43.3 245.5,43.3 248.5,43.3 251.5,43.3 254.5,43.3 257.6,43.3 260.6,43.3 263.6,43.3 266.6,43.3 269.6,43.3 272.7,43.3 275.7,43.2 278.7,43.2 281.7,43.2 284.8,43.2 287.8,43.2 290.8,43.2 293.8,43.2 296.8,43.2 299.9,43.2 302.9,43.2 305.9,43.2 308.9,43.2 312,43.1 315,43.1 318,43.1\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "A curve that rises, overshoots, and then settles.",
       "preview": [
@@ -181,7 +181,7 @@
         "overshoots by about 5% and settles quickly"
       ],
       "correct_index": 3,
-      "version": 1
+      "version": 2
     }
   ]
 }

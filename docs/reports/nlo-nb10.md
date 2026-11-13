@@ -12,23 +12,28 @@ Do not publish.
 
 ## Versions
 
-Every item is version 1.
+Items above version 1:
+
+- `newton-method-optimization-r4-q2` version 2
 
 The full list is `docs/content-versions.json`.
 
 ## Gates
 
 - PASS `build`: content files written
-- PASS `schema`: OK: all checks passed (298 warning(s))
-- PASS `graph`: graph ok: 267 skills, acyclic, every skill in a top-level box
+- PASS `schema`: OK: all checks passed (325 warning(s))
+- PASS `reference`: OK: reference gate, 0 hits
+- PASS `graph`: graph ok: 270 skills, acyclic, every skill in a top-level box
 - PASS `domain`: 0 unwaived warnings
+- PASS `deep-quota`: OK: deep-quota gate, 0 banks under 25% (157 legacy banks pending SG-063)
+- PASS `dedupe`: OK: dedupe gate, 0 unresolved overlaps (6 skills checked)
 - PASS `numeric`: 0 mismatches
 - PASS `figure-bounds`: figure-bounds: 30 warning(s), 0 on the batch; elsewhere amp-compensation, cascode-amp, cd-freq, cs-cascade-freq, noise-dist, octc, rev-bias, rlc, stability, vt
-- PASS `katex`: KaTeX: rendered 912 math chunks, 0 errors
-- PASS `test-content`: 15 passed, 0 failed
-- PASS `test-merge`: 19 passed, 0 failed
-- PASS `test-migrate`: 22 passed, 0 failed
-- PASS `puppeteer`: 50 passed, 0 failed
+- PASS `katex`: KaTeX: rendered 910 math chunks, 0 errors
+- PASS `test-content`: 16 passed, 0 failed
+- PASS `test-merge`: 21 passed, 0 failed
+- PASS `test-migrate`: 24 passed, 0 failed
+- PASS `puppeteer`: 79 passed, 0 failed
 
 Overall: pass.
 
