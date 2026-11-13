@@ -366,3 +366,29 @@ Items above version 1:
 - `freq-resp-circuits-r2-q1` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 EE 105 AC circuits — sg063-ee105-ch2
+
+Box: EE 105 (ee105-ucb), AC Circuits and AC Analysis.
+
+Skills: `tf`, `phasors`, `direct-h`, `pole-zero`, `rlc`, `bode`, `ac-power`, `bode-circuits`.
+
+Items above version 1:
+
+- `phasors-r3-q1` version 2
+- `phasors-r1-q1` version 2
+- `direct-h-r1-q1` version 2
+- `direct-h-r1-q2` version 2
+- `rlc-r2-q1` version 2
+- `rlc-r2-q3` version 2
+- `rlc-r4-q1` version 2
+- `rlc-r4-q3` version 2
+- `rlc-r1-q1` version 2
+- `rlc-r1-q2` version 2
+- `rlc-r3-q1` version 2
+- `ac-power-r1-q1` version 2
+- `ac-power-r3-q1` version 2
+- `ac-power#explainer` version 2
+- `bode-circuits-r3-q1` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

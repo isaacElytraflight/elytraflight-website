@@ -1,37 +1,51 @@
 {
   "skill_id": "phasors",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "phasors-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "What is the impedance of an ideal capacitor C at angular frequency \\(\\omega\\)?",
-      "options": [
-        "\\(Z_{C}=1/(j\\omega C)\\)",
-        "\\(Z_{C}=j\\omega C\\)",
-        "\\(Z_{C}=-j\\omega C\\)",
-        "\\(Z_{C}=C/(j\\omega)\\)"
+      "type": "symbolic",
+      "prompt": "An ideal capacitor \\(C\\) is used at angular frequency \\(\\omega\\). Write the magnitude of its impedance using the name \\(w\\) for \\(\\omega\\) and the name \\(C\\) for the capacitance.",
+      "explanation": "The impedance is \\(1/(j\\omega C)\\). The factor \\(j\\) has magnitude 1, so the magnitude is \\(1/(\\omega C)\\). Multiplying by \\(\\omega C\\) is the admittance magnitude. A resistor's impedance does not depend on frequency.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Impedance magnitude</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">f</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|Z|</text><polyline points=\"46,39 49,49.3 52,57.8 55.1,64.8 58.1,70.8 61.1,75.9 64.1,80.3 67.2,84.2 70.2,87.6 73.2,90.6 76.2,93.3 79.2,95.8 82.3,98 85.3,100 88.3,101.9 91.3,103.5 94.4,105.1 97.4,106.5 100.4,107.8 103.4,109.1 106.4,110.2 109.5,111.3 112.5,112.3 115.5,113.2 118.5,114.1 121.6,114.9 124.6,115.7 127.6,116.4 130.6,117.1 133.6,117.8 136.7,118.4 139.7,119 142.7,119.6 145.7,120.1 148.8,120.6 151.8,121.1 154.8,121.6 157.8,122 160.8,122.5 163.9,122.9 166.9,123.3 169.9,123.7 172.9,124 176,124.4 179,124.7 182,125 185,125.4 188,125.7 191.1,125.9 194.1,126.2 197.1,126.5 200.1,126.8 203.2,127 206.2,127.3 209.2,127.5 212.2,127.7 215.2,128 218.3,128.2 221.3,128.4 224.3,128.6 227.3,128.8 230.4,129 233.4,129.2 236.4,129.3 239.4,129.5 242.4,129.7 245.5,129.9 248.5,130 251.5,130.2 254.5,130.3 257.6,130.5 260.6,130.6 263.6,130.8 266.6,130.9 269.6,131.1 272.7,131.2 275.7,131.3 278.7,131.4 281.7,131.6 284.8,131.7 287.8,131.8 290.8,131.9 293.8,132 296.8,132.1 299.9,132.3 302.9,132.4 305.9,132.5 308.9,132.6 312,132.7 315,132.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A smooth curve of impedance magnitude that falls as frequency increases.",
+      "answer": "1/(w*C)",
+      "variables": [
+        {
+          "name": "w",
+          "min": 0.2,
+          "max": 20.0
+        },
+        {
+          "name": "C",
+          "min": 0.05,
+          "max": 5.0
+        }
       ],
-      "correct_index": 0,
-      "explanation": "From I \\(=j\\omega C\\cdot V\\), \\(Z_{C}=V/I=1/(j\\omega C)=-j/(\\omega C)\\). It is purely imaginary, with magnitude \\(1/(\\omega C)\\) that shrinks as frequency rises.\n• \\(j\\omega C\\) is the ADMITTANCE \\(Y_{C}\\), not the impedance.\n• \\(-j\\omega C\\) has the wrong dependence on \\(\\omega\\) (it would grow with frequency).\n• \\(C/(j\\omega)\\) has wrong units.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "1/(C*w)"
+      ],
+      "version": 1,
+      "id": "phasors-r1-q4"
     },
     {
-      "id": "phasors-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "In sinusoidal steady state, how do an ideal capacitor and an ideal inductor behave as \\(\\omega\\to 0\\) (near DC)?",
+      "type": "multi",
+      "prompt": "Select every statement that is true as the angular frequency \\(\\omega\\) approaches 0.",
+      "explanation": "A capacitor's impedance magnitude is \\(1/(\\omega C)\\), which grows as \\(\\omega\\) falls, so the capacitor approaches an open circuit. An inductor's impedance magnitude is \\(\\omega L\\), which vanishes at DC, so the inductor approaches a short. The two elements trade roles at high frequency, not at DC.",
       "options": [
-        "The capacitor acts like a short circuit; the inductor acts like an open circuit",
-        "Both act like short circuits",
-        "Both act like open circuits",
-        "The capacitor acts like an open circuit; the inductor acts like a short circuit"
+        "The magnitude of an ideal capacitor's impedance grows without bound.",
+        "The magnitude of an ideal inductor's impedance grows without bound.",
+        "The magnitude of an ideal inductor's impedance approaches 0.",
+        "An ideal capacitor approaches a short circuit."
       ],
-      "correct_index": 3,
-      "explanation": "\\(|Z_{C}|=1/(\\omega C)\\to\\infty\\) as \\(\\omega\\to 0\\) (open circuit), and \\(|Z_{L}|=\\omega L\\to 0\\) (short circuit). At very high frequency the roles reverse: the capacitor shorts and the inductor opens.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 216 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>L and C at low frequency</title><line x1=\"46\" y1=\"46\" x2=\"46\" y2=\"74\"/><line x1=\"46\" y1=\"98\" x2=\"46\" y2=\"126\"/><circle cx=\"46\" cy=\"86\" r=\"12\"/><text x=\"46\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"46\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"29\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vₛ</text><line x1=\"46\" y1=\"126\" x2=\"46\" y2=\"132\"/><line x1=\"37\" y1=\"132\" x2=\"55\" y2=\"132\"/><line x1=\"41\" y1=\"136\" x2=\"51\" y2=\"136\"/><line x1=\"44.5\" y1=\"140\" x2=\"47.5\" y2=\"140\"/><line x1=\"46\" y1=\"46\" x2=\"64\" y2=\"46\"/><path d=\"M64,46 h15 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 h15\"/><text x=\"99\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">L</text><line x1=\"134\" y1=\"46\" x2=\"156\" y2=\"46\"/><circle cx=\"156\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"156\" y1=\"56\" x2=\"156\" y2=\"81\"/><line x1=\"156\" y1=\"91\" x2=\"156\" y2=\"116\"/><line x1=\"147\" y1=\"81\" x2=\"165\" y2=\"81\"/><line x1=\"147\" y1=\"91\" x2=\"165\" y2=\"91\"/><text x=\"170\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"156\" y1=\"46\" x2=\"156\" y2=\"56\"/><line x1=\"156\" y1=\"116\" x2=\"156\" y2=\"126\"/><line x1=\"156\" y1=\"126\" x2=\"156\" y2=\"132\"/><line x1=\"147\" y1=\"132\" x2=\"165\" y2=\"132\"/><line x1=\"151\" y1=\"136\" x2=\"161\" y2=\"136\"/><line x1=\"154.5\" y1=\"140\" x2=\"157.5\" y2=\"140\"/><line x1=\"156\" y1=\"46\" x2=\"170\" y2=\"46\"/><line x1=\"170\" y1=\"46\" x2=\"186\" y2=\"46\"/><circle cx=\"189\" cy=\"46\" r=\"3\"/><text x=\"196\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text></svg>",
-      "figure_alt": "A source driving an inductor in series and a capacitor to ground."
+      "correct_indices": [
+        0,
+        2
+      ],
+      "version": 1,
+      "id": "phasors-r1-q5"
     },
     {
       "id": "phasors-r1-q3",
@@ -109,18 +123,18 @@
       "explanation": "Phasor: I \\(=j\\omega C\\cdot V=j(1000)(10\\times 10^{-6})(20)=j0.2\\) A \\(=0.2\\angle 90^{\\circ}\\) A. So \\(i(t)=0.2\\cos(1000t+90^{\\circ})=-0.2\\ \\sin(1000t)\\) A.\nAt \\(t=1\\ \\mathrm{ms}\\): \\(\\omega t=1\\ \\mathrm{rad}\\), so \\(i=-0.2\\ \\sin(1\\ \\mathrm{rad})=-0.2\\times 0.8415=-168.3\\ \\mathrm{mA}\\).\n(Check with the time-domain relation \\(i=C\\ dv/dt=10\\ \\mu\\mathrm{F}\\times(-20000\\ \\sin(1000t))=-0.2\\ \\sin(1000t)\\) A ✔.)\nCommon mistakes: working in degrees \\((\\sin 1^{\\circ}=0.0175)\\) or dropping the 90° phase lead \\((0.2\\cos(1)=+108\\ \\mathrm{mA})\\)."
     },
     {
-      "id": "phasors-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Using a cosine reference, which phasor represents \\(v(t)=10\\sin(\\omega t+30^{\\circ})\\ \\mathrm{V}\\)?",
-      "options": [
-        "\\(10\\angle-60^{\\circ}\\ \\mathrm{V}\\)",
-        "\\(10\\angle 30^{\\circ}\\ \\mathrm{V}\\)",
-        "\\(10\\angle 120^{\\circ}\\ \\mathrm{V}\\)",
-        "\\(10\\angle 60^{\\circ}\\ \\mathrm{V}\\)"
+      "type": "order",
+      "prompt": "Phasors use a cosine reference and peak values. Order the conversion of \\(A\\sin(\\omega t+\\phi)\\) into its phasor. Each step after the first uses the result of the step before it.",
+      "explanation": "A sine is a cosine delayed by a quarter cycle, so \\(\\theta\\) has to exist before the cosine can be written. The amplitude and the phase are read from that cosine, and the phasor is the pair that was read. Keeping the original sine phase reports a phasor \\(90^\\circ\\) too high. Adding \\(90^\\circ\\) instead of subtracting it points the other way.",
+      "steps": [
+        "Subtract \\(90^\\circ\\) from the sine phase \\(\\phi\\). Call the result \\(\\theta\\).",
+        "Rewrite the waveform as \\(A\\cos(\\omega t+\\theta)\\) using that \\(\\theta\\).",
+        "Read the amplitude \\(A\\) and the phase \\(\\theta\\) from that cosine.",
+        "The peak phasor is the pair just read."
       ],
-      "correct_index": 0,
-      "explanation": "Phasors are defined relative to \\(\\cos(\\omega t+\\phi)\\). Convert: \\(\\sin(x)=\\cos(x-90^{\\circ})\\), so \\(10\\sin(\\omega t+30^{\\circ})=10\\cos(\\omega t+30^{\\circ}-90^{\\circ})=10\\cos(\\omega t-60^{\\circ})\\). The phasor is \\(10\\angle-60^{\\circ}\\).\n• \\(10\\angle 30^{\\circ}\\) treats the sine as a cosine (no conversion).\n• \\(10\\angle 120^{\\circ}\\) adds 90° instead of subtracting it (that would represent \\(-\\sin\\)).\n• \\(10\\angle 60^{\\circ}\\) flips the sign of the correct phase."
+      "version": 1,
+      "id": "phasors-r3-q4"
     },
     {
       "id": "phasors-r4-q1",
@@ -164,6 +178,55 @@
       ],
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 362 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Series RLC</title><line x1=\"46\" y1=\"46\" x2=\"46\" y2=\"74\"/><line x1=\"46\" y1=\"98\" x2=\"46\" y2=\"126\"/><circle cx=\"46\" cy=\"86\" r=\"12\"/><text x=\"46\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"46\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"29\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vₛ</text><line x1=\"46\" y1=\"126\" x2=\"46\" y2=\"132\"/><line x1=\"37\" y1=\"132\" x2=\"55\" y2=\"132\"/><line x1=\"41\" y1=\"136\" x2=\"51\" y2=\"136\"/><line x1=\"44.5\" y1=\"140\" x2=\"47.5\" y2=\"140\"/><line x1=\"46\" y1=\"46\" x2=\"64\" y2=\"46\"/><polyline points=\"64,46 81,46 84,40 89,52 94,40 99,52 104,40 109,52 117,46 134,46\"/><text x=\"99\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">50 Ω</text><line x1=\"134\" y1=\"46\" x2=\"148\" y2=\"46\"/><path d=\"M148,46 h15 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 h15\"/><text x=\"183\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">10 mH</text><line x1=\"218\" y1=\"46\" x2=\"232\" y2=\"46\"/><line x1=\"232\" y1=\"46\" x2=\"262\" y2=\"46\"/><line x1=\"272\" y1=\"46\" x2=\"302\" y2=\"46\"/><line x1=\"262\" y1=\"37\" x2=\"262\" y2=\"55\"/><line x1=\"272\" y1=\"37\" x2=\"272\" y2=\"55\"/><text x=\"267\" y=\"32\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">1 µF</text><line x1=\"302\" y1=\"46\" x2=\"316\" y2=\"46\"/><line x1=\"316\" y1=\"46\" x2=\"332\" y2=\"46\"/><circle cx=\"335\" cy=\"46\" r=\"3\"/><text x=\"342\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text></svg>",
       "figure_alt": "Series RLC: 50 ohms, 10 millihenries, 1 microfarad."
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "phasors-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What is the impedance of an ideal capacitor C at angular frequency \\(\\omega\\)?",
+      "options": [
+        "\\(Z_{C}=1/(j\\omega C)\\)",
+        "\\(Z_{C}=j\\omega C\\)",
+        "\\(Z_{C}=-j\\omega C\\)",
+        "\\(Z_{C}=C/(j\\omega)\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "From I \\(=j\\omega C\\cdot V\\), \\(Z_{C}=V/I=1/(j\\omega C)=-j/(\\omega C)\\). It is purely imaginary, with magnitude \\(1/(\\omega C)\\) that shrinks as frequency rises.\n• \\(j\\omega C\\) is the ADMITTANCE \\(Y_{C}\\), not the impedance.\n• \\(-j\\omega C\\) has the wrong dependence on \\(\\omega\\) (it would grow with frequency).\n• \\(C/(j\\omega)\\) has wrong units.",
+      "version": 2
+    },
+    {
+      "id": "phasors-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In sinusoidal steady state, how do an ideal capacitor and an ideal inductor behave as \\(\\omega\\to 0\\) (near DC)?",
+      "options": [
+        "The capacitor acts like a short circuit; the inductor acts like an open circuit",
+        "Both act like short circuits",
+        "Both act like open circuits",
+        "The capacitor acts like an open circuit; the inductor acts like a short circuit"
+      ],
+      "correct_index": 3,
+      "explanation": "\\(|Z_{C}|=1/(\\omega C)\\to\\infty\\) as \\(\\omega\\to 0\\) (open circuit), and \\(|Z_{L}|=\\omega L\\to 0\\) (short circuit). At very high frequency the roles reverse: the capacitor shorts and the inductor opens.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 216 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>L and C at low frequency</title><line x1=\"46\" y1=\"46\" x2=\"46\" y2=\"74\"/><line x1=\"46\" y1=\"98\" x2=\"46\" y2=\"126\"/><circle cx=\"46\" cy=\"86\" r=\"12\"/><text x=\"46\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"46\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"29\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vₛ</text><line x1=\"46\" y1=\"126\" x2=\"46\" y2=\"132\"/><line x1=\"37\" y1=\"132\" x2=\"55\" y2=\"132\"/><line x1=\"41\" y1=\"136\" x2=\"51\" y2=\"136\"/><line x1=\"44.5\" y1=\"140\" x2=\"47.5\" y2=\"140\"/><line x1=\"46\" y1=\"46\" x2=\"64\" y2=\"46\"/><path d=\"M64,46 h15 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 a5.0,5.0 0 0 1 10.0,0 h15\"/><text x=\"99\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">L</text><line x1=\"134\" y1=\"46\" x2=\"156\" y2=\"46\"/><circle cx=\"156\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"156\" y1=\"56\" x2=\"156\" y2=\"81\"/><line x1=\"156\" y1=\"91\" x2=\"156\" y2=\"116\"/><line x1=\"147\" y1=\"81\" x2=\"165\" y2=\"81\"/><line x1=\"147\" y1=\"91\" x2=\"165\" y2=\"91\"/><text x=\"170\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"156\" y1=\"46\" x2=\"156\" y2=\"56\"/><line x1=\"156\" y1=\"116\" x2=\"156\" y2=\"126\"/><line x1=\"156\" y1=\"126\" x2=\"156\" y2=\"132\"/><line x1=\"147\" y1=\"132\" x2=\"165\" y2=\"132\"/><line x1=\"151\" y1=\"136\" x2=\"161\" y2=\"136\"/><line x1=\"154.5\" y1=\"140\" x2=\"157.5\" y2=\"140\"/><line x1=\"156\" y1=\"46\" x2=\"170\" y2=\"46\"/><line x1=\"170\" y1=\"46\" x2=\"186\" y2=\"46\"/><circle cx=\"189\" cy=\"46\" r=\"3\"/><text x=\"196\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text></svg>",
+      "figure_alt": "A source driving an inductor in series and a capacitor to ground.",
+      "version": 1
+    },
+    {
+      "id": "phasors-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Using a cosine reference, which phasor represents \\(v(t)=10\\sin(\\omega t+30^{\\circ})\\ \\mathrm{V}\\)?",
+      "options": [
+        "\\(10\\angle-60^{\\circ}\\ \\mathrm{V}\\)",
+        "\\(10\\angle 30^{\\circ}\\ \\mathrm{V}\\)",
+        "\\(10\\angle 120^{\\circ}\\ \\mathrm{V}\\)",
+        "\\(10\\angle 60^{\\circ}\\ \\mathrm{V}\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "Phasors are defined relative to \\(\\cos(\\omega t+\\phi)\\). Convert: \\(\\sin(x)=\\cos(x-90^{\\circ})\\), so \\(10\\sin(\\omega t+30^{\\circ})=10\\cos(\\omega t+30^{\\circ}-90^{\\circ})=10\\cos(\\omega t-60^{\\circ})\\). The phasor is \\(10\\angle-60^{\\circ}\\).\n• \\(10\\angle 30^{\\circ}\\) treats the sine as a cosine (no conversion).\n• \\(10\\angle 120^{\\circ}\\) adds 90° instead of subtracting it (that would represent \\(-\\sin\\)).\n• \\(10\\angle 60^{\\circ}\\) flips the sign of the correct phase.",
+      "version": 1
     }
   ]
 }
