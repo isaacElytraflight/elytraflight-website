@@ -1,6 +1,6 @@
 {
   "skill_id": "sinusoid-resp",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "id": "sinusoid-resp-r1-q1",
@@ -19,18 +19,30 @@
       "figure_alt": "Block diagram: cos(omega t) into an LTI block, output unknown."
     },
     {
-      "id": "sinusoid-resp-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "What is \\(d/dt\\) of the complex exponential \\(e^{j\\omega t}\\)?",
-      "options": [
-        "\\(e^{j\\omega t}/(j\\omega)\\)",
-        "\\(\\omega\\cdot e^{j\\omega t}\\)",
-        "\\(j\\omega\\cdot e^{j\\omega t}\\)",
-        "\\(-j\\omega\\cdot e^{-j\\omega t}\\)"
+      "type": "symbolic",
+      "prompt": "A first-order lag has \\(H(j\\omega) = 1/(1+j\\omega\\tau)\\). Write \\(|H(j\\omega)|\\) using the name \\(w\\) for \\(\\omega\\) and the name \\(tau\\) for \\(\\tau\\).",
+      "explanation": "The numerator has magnitude 1. The denominator \\(1+j\\omega\\tau\\) has magnitude \\(\\sqrt{1+(\\omega\\tau)^2}\\). Dropping the 1 under the square root is the high-frequency approximation, not the exact magnitude. The phase \\(-\\arctan(\\omega\\tau)\\) is a different function and is not this magnitude.",
+      "answer": "1/sqrt(1+(w*tau)^2)",
+      "variables": [
+        {
+          "name": "w",
+          "min": 0.2,
+          "max": 20.0
+        },
+        {
+          "name": "tau",
+          "min": 0.05,
+          "max": 5.0
+        }
       ],
-      "correct_index": 2,
-      "explanation": "\\(d/dt\\ e^{j\\omega t}=j\\omega\\ e^{j\\omega t}\\). That is why derivatives become multiplications by \\(j\\omega\\) and integrals become divisions by \\(j\\omega\\).\n• \\(e^{j\\omega t}/(j\\omega)\\) is the INTEGRAL.\n• Dropping the j loses the 90° rotation.\n• \\(-j\\omega\\ e^{-j\\omega t}\\) is the derivative of \\(e^{-j\\omega t}\\), not \\(e^{j\\omega t}\\)."
+      "tolerance": 0.001,
+      "alternates": [
+        "1/sqrt(1+w^2*tau^2)",
+        "(1+(w*tau)^2)^(-0.5)"
+      ],
+      "version": 1,
+      "id": "sinusoid-resp-r1-q4"
     },
     {
       "id": "sinusoid-resp-r1-q3",
@@ -65,18 +77,18 @@
       "explanation": "\\(\\omega=2\\pi\\cdot 250=1570.8\\ \\mathrm{rad}/\\mathrm{s}\\), so \\(\\omega\\tau=1570.8\\times 0.002=3.142\\).\n\\(\\angle H=-\\tan^{-1}(\\omega\\tau)=-\\tan^{-1}(3.142)=-72.34^{\\circ}\\).\nCommon mistake: using f instead of \\(\\omega\\ (\\omega\\tau=0.5\\) gives −26.6°), forgetting the \\(2\\pi\\)."
     },
     {
-      "id": "sinusoid-resp-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "A system obeys \\(d^{2}y/dt^{2}+3\\cdot dy/dt+2y=x(t)\\). Using complex exponentials, which expression is \\(H(j\\omega)=Y/X\\)?",
-      "options": [
-        "\\(1/((2+\\omega^{2})+j3\\omega)\\)",
-        "\\(1/((2-\\omega^{2})+j3\\omega)\\)",
-        "\\(1/((2-\\omega^{2})+3\\omega)\\)",
-        "\\(1/(2+j3\\omega-j\\omega^{2})\\)"
+      "type": "order",
+      "prompt": "Order the substitution that turns a constant-coefficient linear differential equation into \\(H(j\\omega)\\).",
+      "explanation": "The exponential is an eigenfunction, so it is substituted before derivatives become algebra. Each derivative brings one factor \\(j\\omega\\), and a second derivative brings \\(-\\omega^2\\). The ratio is \\(H(j\\omega)\\). Magnitude and angle are applied to the real drive only after that ratio exists. The procedure never solves for a new frequency: a linear constant-coefficient equation does not create one.",
+      "steps": [
+        "Replace the input by the complex exponential \\(e^{j\\omega t}\\).",
+        "Replace every derivative by one factor of \\(j\\omega\\).",
+        "Cancel the common exponential and solve for the ratio of output amplitude to input amplitude.",
+        "Read the steady sinusoid from the magnitude and angle of that ratio."
       ],
-      "correct_index": 1,
-      "explanation": "Substitute \\(x=Xe^{j\\omega t}\\), \\(y=Ye^{j\\omega t}\\): \\(d/dt\\to j\\omega\\) and \\(d^{2}/dt^{2}\\to(j\\omega)^{2}=-\\omega^{2}\\). Then \\((-\\omega^{2}+j3\\omega+2)Y=X\\), so \\(H=1/((2-\\omega^{2})+j3\\omega)\\).\n• \\((j\\omega)^{2}=-\\omega^{2}\\), not \\(+\\omega^{2}\\) (first wrong choice).\n• The first-derivative term keeps its j (second wrong choice dropped it).\n• The second derivative gives \\(-\\omega^{2}\\), which is REAL; it is not \\(-j\\omega^{2}\\) (third wrong choice)."
+      "version": 1,
+      "id": "sinusoid-resp-r2-q4"
     },
     {
       "id": "sinusoid-resp-r3-q1",
@@ -107,18 +119,24 @@
       "figure_alt": "Input waveform: a 2 cosine riding on a 5 DC level."
     },
     {
-      "id": "sinusoid-resp-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "A system described by a real-coefficient differential equation has \\(H(j\\omega_0)=0.5\\angle-40^\\circ\\). What is its steady-state response to \\(x(t)=\\sin(\\omega_0t)\\)?",
-      "options": [
-        "\\(0.5\\cos(\\omega_0t-40^\\circ)\\)",
-        "\\(0.5\\sin(\\omega_0t-40^\\circ)\\)",
-        "\\(0.5\\sin(\\omega_0t+40^\\circ)\\)",
-        "\\(-0.5\\sin(\\omega_0t-40^\\circ)\\)"
+      "type": "error",
+      "prompt": "\\(H(j\\omega_0) = 0.8\\angle -25^\\circ\\), and the input is \\(4\\sin(\\omega_0 t)\\). A student finds the steady output. Exactly one step is wrong.",
+      "explanation": "A lag is added to the angle the input already has. The sine is a cosine delayed by \\(90^\\circ\\), and the system delays by another \\(25^\\circ\\), so the cosine's angle is \\(-115^\\circ\\). The value \\(-65^\\circ\\) is \\(-90^\\circ+25^\\circ\\), which would be a lead. The amplitude 3.2 is the right product. The same output is \\(3.2\\sin(\\omega_0 t-25^\\circ)\\).",
+      "steps": [
+        "Write \\(\\sin(\\omega_0 t) = \\cos(\\omega_0 t - 90^\\circ)\\).",
+        "Multiply the amplitude by \\(|H|\\): \\(4 \\times 0.8 = 3.2\\).",
+        "Add \\(\\angle H = -25^\\circ\\) to the cosine's \\(-90^\\circ\\).",
+        "The steady output is \\(3.2\\cos(\\omega_0 t - 65^\\circ)\\)."
       ],
-      "correct_index": 1,
-      "explanation": "A sine is just a cosine shifted by \\(-90^\\circ\\), and the same scaling and phase shift apply to it: the output is the input with amplitude times \\(|H|\\) and \\(\\angle H\\) added to its phase. Real coefficients guarantee \\(H(-j\\omega)=\\overline{H(j\\omega)}\\), which is why the real-part trick works for sines too.\n• Switching to cosine changes the waveform by 90°.\n• \\(+40^\\circ\\) flips the sign of the phase shift.\n• The extra minus sign would be an additional 180° shift that H does not contain."
+      "flaw_index": 3,
+      "reasons": [
+        "Adding \\(-25^\\circ\\) to \\(-90^\\circ\\) gives \\(-115^\\circ\\), so the cosine is \\(\\cos(\\omega_0 t-115^\\circ)\\).",
+        "The amplitude should stay 4, because a sine already has unit peak in its own formula."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "sinusoid-resp-r3-q4"
     },
     {
       "id": "sinusoid-resp-r4-q1",
@@ -169,6 +187,53 @@
       ],
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Two cascaded poles</title><line x1=\"52\" y1=\"164\" x2=\"320\" y2=\"164\"/><polygon points=\"320,164 313.6,166.7 313.6,161.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"52\" y1=\"164\" x2=\"52\" y2=\"14\"/><polygon points=\"52,14 54.7,20.4 49.3,20.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"192\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω (rad/s)</text><text x=\"56\" y=\"10\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><line x1=\"49\" y1=\"164\" x2=\"55\" y2=\"164\"/><text x=\"46\" y=\"167\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-80</text><line x1=\"49\" y1=\"131.1\" x2=\"55\" y2=\"131.1\"/><text x=\"46\" y=\"134.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-60</text><line x1=\"49\" y1=\"98.1\" x2=\"55\" y2=\"98.1\"/><text x=\"46\" y=\"101.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-40</text><line x1=\"49\" y1=\"65.2\" x2=\"55\" y2=\"65.2\"/><text x=\"46\" y=\"68.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-20</text><line x1=\"49\" y1=\"32.2\" x2=\"55\" y2=\"32.2\"/><text x=\"46\" y=\"35.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"52\" y1=\"32.2\" x2=\"312\" y2=\"32.2\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"52\" y1=\"161\" x2=\"52\" y2=\"167\"/><text x=\"52\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"104\" y1=\"161\" x2=\"104\" y2=\"167\"/><text x=\"104\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"156\" y1=\"161\" x2=\"156\" y2=\"167\"/><text x=\"156\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"208\" y1=\"161\" x2=\"208\" y2=\"167\"/><text x=\"208\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"260\" y1=\"161\" x2=\"260\" y2=\"167\"/><text x=\"260\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"312\" y1=\"161\" x2=\"312\" y2=\"167\"/><text x=\"312\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><polyline points=\"52,32.2 156,32.2 260,98.1 312,164\" stroke-width=\"2.2\"/><circle cx=\"208\" cy=\"65.2\" r=\"3\" fill=\"currentColor\"/><text x=\"214\" y=\"59.2\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω = 10⁴</text></svg>",
       "figure_alt": "Asymptotic Bode magnitude with poles at 10^3 and 10^5 rad/s; the slope is minus 20 dB per decade between them."
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "sinusoid-resp-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What is \\(d/dt\\) of the complex exponential \\(e^{j\\omega t}\\)?",
+      "options": [
+        "\\(e^{j\\omega t}/(j\\omega)\\)",
+        "\\(\\omega\\cdot e^{j\\omega t}\\)",
+        "\\(j\\omega\\cdot e^{j\\omega t}\\)",
+        "\\(-j\\omega\\cdot e^{-j\\omega t}\\)"
+      ],
+      "correct_index": 2,
+      "explanation": "\\(d/dt\\ e^{j\\omega t}=j\\omega\\ e^{j\\omega t}\\). That is why derivatives become multiplications by \\(j\\omega\\) and integrals become divisions by \\(j\\omega\\).\n• \\(e^{j\\omega t}/(j\\omega)\\) is the INTEGRAL.\n• Dropping the j loses the 90° rotation.\n• \\(-j\\omega\\ e^{-j\\omega t}\\) is the derivative of \\(e^{-j\\omega t}\\), not \\(e^{j\\omega t}\\).",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A system obeys \\(d^{2}y/dt^{2}+3\\cdot dy/dt+2y=x(t)\\). Using complex exponentials, which expression is \\(H(j\\omega)=Y/X\\)?",
+      "options": [
+        "\\(1/((2+\\omega^{2})+j3\\omega)\\)",
+        "\\(1/((2-\\omega^{2})+j3\\omega)\\)",
+        "\\(1/((2-\\omega^{2})+3\\omega)\\)",
+        "\\(1/(2+j3\\omega-j\\omega^{2})\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "Substitute \\(x=Xe^{j\\omega t}\\), \\(y=Ye^{j\\omega t}\\): \\(d/dt\\to j\\omega\\) and \\(d^{2}/dt^{2}\\to(j\\omega)^{2}=-\\omega^{2}\\). Then \\((-\\omega^{2}+j3\\omega+2)Y=X\\), so \\(H=1/((2-\\omega^{2})+j3\\omega)\\).\n• \\((j\\omega)^{2}=-\\omega^{2}\\), not \\(+\\omega^{2}\\) (first wrong choice).\n• The first-derivative term keeps its j (second wrong choice dropped it).\n• The second derivative gives \\(-\\omega^{2}\\), which is REAL; it is not \\(-j\\omega^{2}\\) (third wrong choice).",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A system described by a real-coefficient differential equation has \\(H(j\\omega_0)=0.5\\angle-40^\\circ\\). What is its steady-state response to \\(x(t)=\\sin(\\omega_0t)\\)?",
+      "options": [
+        "\\(0.5\\cos(\\omega_0t-40^\\circ)\\)",
+        "\\(0.5\\sin(\\omega_0t-40^\\circ)\\)",
+        "\\(0.5\\sin(\\omega_0t+40^\\circ)\\)",
+        "\\(-0.5\\sin(\\omega_0t-40^\\circ)\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "A sine is just a cosine shifted by \\(-90^\\circ\\), and the same scaling and phase shift apply to it: the output is the input with amplitude times \\(|H|\\) and \\(\\angle H\\) added to its phase. Real coefficients guarantee \\(H(-j\\omega)=\\overline{H(j\\omega)}\\), which is why the real-part trick works for sines too.\n• Switching to cosine changes the waveform by 90°.\n• \\(+40^\\circ\\) flips the sign of the phase shift.\n• The extra minus sign would be an additional 180° shift that H does not contain.",
+      "version": 1
     }
   ]
 }

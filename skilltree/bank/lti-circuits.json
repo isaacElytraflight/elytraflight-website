@@ -1,23 +1,42 @@
 {
   "skill_id": "lti-circuits",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "lti-circuits-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A voltage step (0 V to \\(V_{s}\\) at \\(t=0\\)) is applied to an RC low-pass filter with the capacitor initially discharged. What is the output \\(v_{o}(t)\\) for t > 0?",
-      "options": [
-        "\\(v_{o}(t)=V_{s}\\cdot e^{-t/\\tau}\\)",
-        "\\(v_{o}(t)=V_{s}(1-e^{-t/\\tau})\\)",
-        "\\(v_{o}(t)=V_{s}(1-e^{-t\\tau})\\)",
-        "\\(v_{o}(t)=V_{s}\\) immediately, with no delay"
+      "type": "symbolic",
+      "prompt": "A series resistor \\(R\\) feeds an uncharged capacitor \\(C\\). At \\(t=0\\) the source steps to a constant \\(V_s\\). Write \\(v_o(t)\\) for \\(t\\ge 0\\), using the names \\(V_s\\), \\(t\\), \\(R\\), and \\(C\\). Use a name \\(Vs\\) for \\(V_s\\).",
+      "explanation": "The capacitor starts at 0 and the open-circuit final value is the source, because a settled capacitor draws no current through \\(R\\). The time constant is \\(RC\\). A falling exponential from \\(V_s\\) is the discharge that happens when the source is replaced by a short, not this step.",
+      "answer": "Vs*(1-exp(-t/(R*C)))",
+      "variables": [
+        {
+          "name": "Vs",
+          "min": 0.5,
+          "max": 9.0
+        },
+        {
+          "name": "t",
+          "min": 0.01,
+          "max": 2.0
+        },
+        {
+          "name": "R",
+          "min": 1.0,
+          "max": 20.0
+        },
+        {
+          "name": "C",
+          "min": 0.05,
+          "max": 2.0
+        }
       ],
-      "correct_index": 1,
-      "explanation": "The step response is \\(V_{s}(1-e^{-t/\\tau})\\): it starts at 0 and rises exponentially toward \\(V_{s}\\).\n• \\(V_{s}\\ e^{-t/\\tau}\\) is a decay starting at \\(V_{s}\\) (the response of a charged capacitor discharging, or the impulse response shape).\n• The exponent must be \\(-t/\\tau\\) (dimensionless), not \\(-t\\tau\\).\n• A capacitor voltage cannot change instantly through a resistor, so the output smooths the step.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 279 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>RC low-pass with a step input</title><line x1=\"95\" y1=\"46\" x2=\"95\" y2=\"74\"/><line x1=\"95\" y1=\"98\" x2=\"95\" y2=\"126\"/><circle cx=\"95\" cy=\"86\" r=\"12\"/><text x=\"95\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"95\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"78\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">step 0 → Vₛ</text><line x1=\"95\" y1=\"126\" x2=\"95\" y2=\"132\"/><line x1=\"86\" y1=\"132\" x2=\"104\" y2=\"132\"/><line x1=\"90\" y1=\"136\" x2=\"100\" y2=\"136\"/><line x1=\"93.5\" y1=\"140\" x2=\"96.5\" y2=\"140\"/><line x1=\"95\" y1=\"46\" x2=\"113\" y2=\"46\"/><polyline points=\"113,46 130,46 133,40 138,52 143,40 148,52 153,40 158,52 166,46 183,46\"/><text x=\"148\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><line x1=\"183\" y1=\"46\" x2=\"205\" y2=\"46\"/><circle cx=\"205\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"205\" y1=\"56\" x2=\"205\" y2=\"81\"/><line x1=\"205\" y1=\"91\" x2=\"205\" y2=\"116\"/><line x1=\"196\" y1=\"81\" x2=\"214\" y2=\"81\"/><line x1=\"196\" y1=\"91\" x2=\"214\" y2=\"91\"/><text x=\"219\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"205\" y1=\"46\" x2=\"205\" y2=\"56\"/><line x1=\"205\" y1=\"116\" x2=\"205\" y2=\"126\"/><line x1=\"205\" y1=\"126\" x2=\"205\" y2=\"132\"/><line x1=\"196\" y1=\"132\" x2=\"214\" y2=\"132\"/><line x1=\"200\" y1=\"136\" x2=\"210\" y2=\"136\"/><line x1=\"203.5\" y1=\"140\" x2=\"206.5\" y2=\"140\"/><line x1=\"205\" y1=\"46\" x2=\"219\" y2=\"46\"/><line x1=\"219\" y1=\"46\" x2=\"235\" y2=\"46\"/><circle cx=\"238\" cy=\"46\" r=\"3\"/><text x=\"245\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><text x=\"238\" y=\"68\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"238\" y=\"124\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text></svg>",
-      "figure_alt": "RC low-pass filter driven by a step from 0 to Vs.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "Vs-Vs*exp(-t/(R*C))",
+        "Vs*(1-e**(-t/(R*C)))"
+      ],
+      "version": 1,
+      "id": "lti-circuits-r1-q4"
     },
     {
       "id": "lti-circuits-r1-q2",
@@ -58,20 +77,18 @@
       "figure_alt": "A 5 V, 2 ms input pulse (solid) and the RC output (dashed) rising then decaying."
     },
     {
-      "id": "lti-circuits-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "An RC low-pass filter has time constant \\(\\tau\\) and starts discharged. A 2 V step is applied at \\(t=t_{0}\\) (not at \\(t=0\\)). What is \\(v_{o}(t)\\) for \\(t>t_{0}\\)?",
-      "options": [
-        "\\(2(1-e^{-t/\\tau})\\)",
-        "\\((1-e^{-(t-t_{0})/\\tau})\\)",
-        "\\(2(1-e^{-(t-t_{0})\\tau})\\)",
-        "\\(2(1-e^{-(t-t_{0})/\\tau})\\)"
+      "type": "order",
+      "prompt": "An RC low-pass filter is at rest. A constant input of height \\(V_s\\) turns on at time \\(t_0\\), not at time 0. Order the reasoning for the output after \\(t_0\\).",
+      "explanation": "A time-invariant circuit does not care that the clock read 0 at some earlier moment. The transient starts when the input changes. Using \\(t\\) rather than \\(t-t_0\\) in the exponent pretends the step happened at 0, so the output would already have risen by \\(t_0\\). The final value is still the input, because the capacitor current dies out.",
+      "steps": [
+        "Before \\(t_0\\) the input is still 0, so the output stays 0.",
+        "After \\(t_0\\) the final value is \\(V_s\\).",
+        "Measure the exponent from the switching instant, so the elapsed time is \\(t-t_0\\).",
+        "For \\(t>t_0\\), write \\(v_o(t) = V_s\\left(1-e^{-(t-t_0)/\\tau}\\right)\\)."
       ],
-      "correct_index": 3,
-      "explanation": "Time invariance: delaying the input by \\(t_{0}\\) delays the output by \\(t_{0}\\), so t is replaced by \\(t-t_{0}\\) in the exponent. Linearity scales the unit-step response by 2.\n• \\(2(1-e^{-t/\\tau})\\) forgets the delay (the output would start rising before the step arrives).\n• Dropping the factor of 2 is the response to a 1 V step.\n• The exponent needs division by \\(\\tau\\), not multiplication.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"Delayed step\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v (V)</text><line x1=\"140.6\" y1=\"187.0\" x2=\"140.6\" y2=\"193.0\" stroke-width=\"1.2\"/><text x=\"140.6\" y=\"206.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">t₀</text><polyline points=\"56.0,190.0 140.6,190.0 140.6,60.8 338.0,60.8\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"270.3\" y=\"47.8\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v<tspan font-size=\"7\" dy=\"3.1\">s</tspan><tspan dy=\"-3.1\"></tspan></text></svg>",
-      "figure_alt": "A 2 V step that begins at t = t0 instead of t = 0."
+      "version": 1,
+      "id": "lti-circuits-r2-q4"
     },
     {
       "id": "lti-circuits-r2-q3",
@@ -100,20 +117,24 @@
       "figure_alt": "A narrow 5 V input pulse, very short compared with the time constant."
     },
     {
-      "id": "lti-circuits-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "An RC low-pass filter's capacitor starts at 2 V when a step input of 5 V is applied \\((\\tau=RC)\\). What is \\(v_{o}(t)\\) for \\(t\\ge 0\\)?",
-      "options": [
-        "\\(5(1-e^{-t/\\tau})\\)",
-        "\\(5-3e^{-t/\\tau}\\)",
-        "\\(5-2e^{-t/\\tau}\\)",
-        "\\(2+5(1-e^{-t/\\tau})\\)"
+      "type": "error",
+      "prompt": "A capacitor sits at 1.5 V. At \\(t=0\\) the input steps to 6 V and stays there. The time constant is \\(\\tau\\). A student writes the output. Exactly one step is wrong.",
+      "explanation": "The waveform is the final value plus the initial gap times a decaying exponential: \\(6 + (1.5-6)e^{-t/\\tau} = 6 - 4.5e^{-t/\\tau}\\). It starts at 1.5 V, because the capacitor voltage is continuous, and it settles at 6 V. The expression \\(6e^{-t/\\tau}\\) starts at 6 V and settles at 0, which is a discharge into a shorted source. The 4.5 V gap is the right subtraction.",
+      "steps": [
+        "The final value is the new input, 6 V.",
+        "The initial value is the stored capacitor voltage, 1.5 V.",
+        "The gap that must close is \\(6 - 1.5 = 4.5\\) V.",
+        "Therefore \\(v_o(t) = 6e^{-t/\\tau}\\)."
       ],
-      "correct_index": 1,
-      "explanation": "General first-order response: \\(v(t)=v_{\\mathrm{final}}+(v_{\\mathrm{initial}}-v_{\\mathrm{final}})e^{-t/\\tau}=5+(2-5)e^{-t/\\tau}=5-3e^{-t/\\tau}\\). It starts at 2 V and approaches 5 V.\n• \\(5(1-e^{-t/\\tau})\\) starts at 0 V (assumes the capacitor was discharged).\n• \\(5-2e^{-t/\\tau}\\) uses the initial voltage rather than the initial DISTANCE to the final value (starts at 3 V).\n• \\(2+5(1-e^{-t/\\tau})\\) heads to 7 V: the step contributes only the 3 V difference, not the full 5 V.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"Starting from 2 V\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t / τ</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v (V)</text><line x1=\"56.0\" y1=\"40.0\" x2=\"338.0\" y2=\"40.0\" stroke-width=\"1\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.7\"/><text x=\"338.0\" y=\"36.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">5 V</text><polyline points=\"56.0,130.0 58.8,125.6 61.6,121.4 64.5,117.5 67.3,113.7 70.1,110.1 72.9,106.7 75.7,103.4 78.6,100.3 81.4,97.4 84.2,94.6 87.0,91.9 89.8,89.4 92.7,87.0 95.5,84.7 98.3,82.5 101.1,80.4 103.9,78.5 106.8,76.6 109.6,74.8 112.4,73.1 115.2,71.5 118.0,70.0 120.9,68.5 123.7,67.1 126.5,65.8 129.3,64.5 132.1,63.3 135.0,62.2 137.8,61.1 140.6,60.1 143.4,59.1 146.2,58.2 149.1,57.3 151.9,56.4 154.7,55.6 157.5,54.9 160.3,54.2 163.2,53.5 166.0,52.8 168.8,52.2 171.6,51.6 174.4,51.0 177.3,50.5 180.1,50.0 182.9,49.5 185.7,49.0 188.5,48.6 191.4,48.2 194.2,47.8 197.0,47.4 199.8,47.0 202.6,46.7 205.5,46.4 208.3,46.0 211.1,45.8 213.9,45.5 216.7,45.2 219.6,45.0 222.4,44.7 225.2,44.5 228.0,44.3 230.8,44.1 233.7,43.9 236.5,43.7 239.3,43.5 242.1,43.3 244.9,43.2 247.8,43.0 250.6,42.9 253.4,42.7 256.2,42.6 259.0,42.5 261.9,42.3 264.7,42.2 267.5,42.1 270.3,42.0 273.1,41.9 276.0,41.8 278.8,41.7 281.6,41.6 284.4,41.6 287.2,41.5 290.1,41.4 292.9,41.3 295.7,41.3 298.5,41.2 301.3,41.2 304.2,41.1 307.0,41.1 309.8,41.0 312.6,41.0 315.4,40.9 318.3,40.9 321.1,40.8 323.9,40.8 326.7,40.7 329.5,40.7 332.4,40.7 335.2,40.6 338.0,40.6\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"225.2\" y=\"52.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v<tspan font-size=\"7\" dy=\"3.1\">o</tspan><tspan dy=\"-3.1\"></tspan></text><circle cx=\"56.0\" cy=\"130.0\" r=\"3.2\" fill=\"currentColor\" stroke-width=\"1.5\"/><text x=\"62.0\" y=\"142.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2 V at t = 0</text></svg>",
-      "figure_alt": "Capacitor voltage starting at 2 V and rising toward 5 V."
+      "flaw_index": 3,
+      "reasons": [
+        "The exponential multiplies the gap, so \\(v_o(t) = 6 - 4.5e^{-t/\\tau}\\), which starts at 1.5 V.",
+        "The capacitor voltage jumps to 6 V at the instant the input steps."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "lti-circuits-r3-q4"
     },
     {
       "id": "lti-circuits-r3-q3",
@@ -169,6 +190,59 @@
       ],
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"Settling to 1%\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t / τ</text><line x1=\"56.0\" y1=\"45.4\" x2=\"338.0\" y2=\"45.4\" stroke-width=\"1\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.7\"/><text x=\"338.0\" y=\"41.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">99%</text><polyline points=\"56.0,190.0 58.8,181.5 61.6,173.5 64.5,165.9 67.3,158.8 70.1,152.1 72.9,145.8 75.7,139.9 78.6,134.3 81.4,129.0 84.2,124.1 87.0,119.4 89.8,115.0 92.7,110.9 95.5,107.0 98.3,103.3 101.1,99.8 103.9,96.6 106.8,93.5 109.6,90.6 112.4,87.9 115.2,85.4 118.0,82.9 120.9,80.7 123.7,78.5 126.5,76.5 129.3,74.6 132.1,72.8 135.0,71.1 137.8,69.6 140.6,68.1 143.4,66.7 146.2,65.3 149.1,64.1 151.9,62.9 154.7,61.8 157.5,60.8 160.3,59.8 163.2,58.9 166.0,58.0 168.8,57.2 171.6,56.4 174.4,55.7 177.3,55.0 180.1,54.3 182.9,53.7 185.7,53.2 188.5,52.6 191.4,52.1 194.2,51.6 197.0,51.2 199.8,50.8 202.6,50.4 205.5,50.0 208.3,49.6 211.1,49.3 213.9,49.0 216.7,48.7 219.6,48.4 222.4,48.2 225.2,47.9 228.0,47.7 230.8,47.5 233.7,47.2 236.5,47.1 239.3,46.9 242.1,46.7 244.9,46.5 247.8,46.4 250.6,46.2 253.4,46.1 256.2,46.0 259.0,45.9 261.9,45.7 264.7,45.6 267.5,45.5 270.3,45.4 273.1,45.4 276.0,45.3 278.8,45.2 281.6,45.1 284.4,45.0 287.2,45.0 290.1,44.9 292.9,44.9 295.7,44.8 298.5,44.8 301.3,44.7 304.2,44.7 307.0,44.6 309.8,44.6 312.6,44.5 315.4,44.5 318.3,44.5 321.1,44.4 323.9,44.4 326.7,44.4 329.5,44.3 332.4,44.3 335.2,44.3 338.0,44.3\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"197.0\" y=\"65.8\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v<tspan font-size=\"7\" dy=\"3.1\">out</tspan><tspan dy=\"-3.1\"></tspan></text></svg>",
       "figure_alt": "Normalized step response approaching 1 with a dashed line at 99 percent."
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "lti-circuits-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A voltage step (0 V to \\(V_{s}\\) at \\(t=0\\)) is applied to an RC low-pass filter with the capacitor initially discharged. What is the output \\(v_{o}(t)\\) for t > 0?",
+      "options": [
+        "\\(v_{o}(t)=V_{s}\\cdot e^{-t/\\tau}\\)",
+        "\\(v_{o}(t)=V_{s}(1-e^{-t/\\tau})\\)",
+        "\\(v_{o}(t)=V_{s}(1-e^{-t\\tau})\\)",
+        "\\(v_{o}(t)=V_{s}\\) immediately, with no delay"
+      ],
+      "correct_index": 1,
+      "explanation": "The step response is \\(V_{s}(1-e^{-t/\\tau})\\): it starts at 0 and rises exponentially toward \\(V_{s}\\).\n• \\(V_{s}\\ e^{-t/\\tau}\\) is a decay starting at \\(V_{s}\\) (the response of a charged capacitor discharging, or the impulse response shape).\n• The exponent must be \\(-t/\\tau\\) (dimensionless), not \\(-t\\tau\\).\n• A capacitor voltage cannot change instantly through a resistor, so the output smooths the step.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 279 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>RC low-pass with a step input</title><line x1=\"95\" y1=\"46\" x2=\"95\" y2=\"74\"/><line x1=\"95\" y1=\"98\" x2=\"95\" y2=\"126\"/><circle cx=\"95\" cy=\"86\" r=\"12\"/><text x=\"95\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"95\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"78\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">step 0 → Vₛ</text><line x1=\"95\" y1=\"126\" x2=\"95\" y2=\"132\"/><line x1=\"86\" y1=\"132\" x2=\"104\" y2=\"132\"/><line x1=\"90\" y1=\"136\" x2=\"100\" y2=\"136\"/><line x1=\"93.5\" y1=\"140\" x2=\"96.5\" y2=\"140\"/><line x1=\"95\" y1=\"46\" x2=\"113\" y2=\"46\"/><polyline points=\"113,46 130,46 133,40 138,52 143,40 148,52 153,40 158,52 166,46 183,46\"/><text x=\"148\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><line x1=\"183\" y1=\"46\" x2=\"205\" y2=\"46\"/><circle cx=\"205\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"205\" y1=\"56\" x2=\"205\" y2=\"81\"/><line x1=\"205\" y1=\"91\" x2=\"205\" y2=\"116\"/><line x1=\"196\" y1=\"81\" x2=\"214\" y2=\"81\"/><line x1=\"196\" y1=\"91\" x2=\"214\" y2=\"91\"/><text x=\"219\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"205\" y1=\"46\" x2=\"205\" y2=\"56\"/><line x1=\"205\" y1=\"116\" x2=\"205\" y2=\"126\"/><line x1=\"205\" y1=\"126\" x2=\"205\" y2=\"132\"/><line x1=\"196\" y1=\"132\" x2=\"214\" y2=\"132\"/><line x1=\"200\" y1=\"136\" x2=\"210\" y2=\"136\"/><line x1=\"203.5\" y1=\"140\" x2=\"206.5\" y2=\"140\"/><line x1=\"205\" y1=\"46\" x2=\"219\" y2=\"46\"/><line x1=\"219\" y1=\"46\" x2=\"235\" y2=\"46\"/><circle cx=\"238\" cy=\"46\" r=\"3\"/><text x=\"245\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><text x=\"238\" y=\"68\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"238\" y=\"124\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text></svg>",
+      "figure_alt": "RC low-pass filter driven by a step from 0 to Vs.",
+      "version": 2
+    },
+    {
+      "id": "lti-circuits-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "An RC low-pass filter has time constant \\(\\tau\\) and starts discharged. A 2 V step is applied at \\(t=t_{0}\\) (not at \\(t=0\\)). What is \\(v_{o}(t)\\) for \\(t>t_{0}\\)?",
+      "options": [
+        "\\(2(1-e^{-t/\\tau})\\)",
+        "\\((1-e^{-(t-t_{0})/\\tau})\\)",
+        "\\(2(1-e^{-(t-t_{0})\\tau})\\)",
+        "\\(2(1-e^{-(t-t_{0})/\\tau})\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "Time invariance: delaying the input by \\(t_{0}\\) delays the output by \\(t_{0}\\), so t is replaced by \\(t-t_{0}\\) in the exponent. Linearity scales the unit-step response by 2.\n• \\(2(1-e^{-t/\\tau})\\) forgets the delay (the output would start rising before the step arrives).\n• Dropping the factor of 2 is the response to a 1 V step.\n• The exponent needs division by \\(\\tau\\), not multiplication.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"Delayed step\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v (V)</text><line x1=\"140.6\" y1=\"187.0\" x2=\"140.6\" y2=\"193.0\" stroke-width=\"1.2\"/><text x=\"140.6\" y=\"206.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">t₀</text><polyline points=\"56.0,190.0 140.6,190.0 140.6,60.8 338.0,60.8\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"270.3\" y=\"47.8\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v<tspan font-size=\"7\" dy=\"3.1\">s</tspan><tspan dy=\"-3.1\"></tspan></text></svg>",
+      "figure_alt": "A 2 V step that begins at t = t0 instead of t = 0.",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "An RC low-pass filter's capacitor starts at 2 V when a step input of 5 V is applied \\((\\tau=RC)\\). What is \\(v_{o}(t)\\) for \\(t\\ge 0\\)?",
+      "options": [
+        "\\(5(1-e^{-t/\\tau})\\)",
+        "\\(5-3e^{-t/\\tau}\\)",
+        "\\(5-2e^{-t/\\tau}\\)",
+        "\\(2+5(1-e^{-t/\\tau})\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "General first-order response: \\(v(t)=v_{\\mathrm{final}}+(v_{\\mathrm{initial}}-v_{\\mathrm{final}})e^{-t/\\tau}=5+(2-5)e^{-t/\\tau}=5-3e^{-t/\\tau}\\). It starts at 2 V and approaches 5 V.\n• \\(5(1-e^{-t/\\tau})\\) starts at 0 V (assumes the capacitor was discharged).\n• \\(5-2e^{-t/\\tau}\\) uses the initial voltage rather than the initial DISTANCE to the final value (starts at 3 V).\n• \\(2+5(1-e^{-t/\\tau})\\) heads to 7 V: the step contributes only the 3 V difference, not the full 5 V.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 230\" role=\"img\" aria-label=\"Starting from 2 V\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"190.0\" x2=\"338.0\" y2=\"190.0\" stroke-width=\"1.5\"/><polygon points=\"338.0,190.0 331.6,192.7 331.6,187.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"190.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"338.0\" y=\"220.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t / τ</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v (V)</text><line x1=\"56.0\" y1=\"40.0\" x2=\"338.0\" y2=\"40.0\" stroke-width=\"1\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.7\"/><text x=\"338.0\" y=\"36.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">5 V</text><polyline points=\"56.0,130.0 58.8,125.6 61.6,121.4 64.5,117.5 67.3,113.7 70.1,110.1 72.9,106.7 75.7,103.4 78.6,100.3 81.4,97.4 84.2,94.6 87.0,91.9 89.8,89.4 92.7,87.0 95.5,84.7 98.3,82.5 101.1,80.4 103.9,78.5 106.8,76.6 109.6,74.8 112.4,73.1 115.2,71.5 118.0,70.0 120.9,68.5 123.7,67.1 126.5,65.8 129.3,64.5 132.1,63.3 135.0,62.2 137.8,61.1 140.6,60.1 143.4,59.1 146.2,58.2 149.1,57.3 151.9,56.4 154.7,55.6 157.5,54.9 160.3,54.2 163.2,53.5 166.0,52.8 168.8,52.2 171.6,51.6 174.4,51.0 177.3,50.5 180.1,50.0 182.9,49.5 185.7,49.0 188.5,48.6 191.4,48.2 194.2,47.8 197.0,47.4 199.8,47.0 202.6,46.7 205.5,46.4 208.3,46.0 211.1,45.8 213.9,45.5 216.7,45.2 219.6,45.0 222.4,44.7 225.2,44.5 228.0,44.3 230.8,44.1 233.7,43.9 236.5,43.7 239.3,43.5 242.1,43.3 244.9,43.2 247.8,43.0 250.6,42.9 253.4,42.7 256.2,42.6 259.0,42.5 261.9,42.3 264.7,42.2 267.5,42.1 270.3,42.0 273.1,41.9 276.0,41.8 278.8,41.7 281.6,41.6 284.4,41.6 287.2,41.5 290.1,41.4 292.9,41.3 295.7,41.3 298.5,41.2 301.3,41.2 304.2,41.1 307.0,41.1 309.8,41.0 312.6,41.0 315.4,40.9 318.3,40.9 321.1,40.8 323.9,40.8 326.7,40.7 329.5,40.7 332.4,40.7 335.2,40.6 338.0,40.6\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"225.2\" y=\"52.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v<tspan font-size=\"7\" dy=\"3.1\">o</tspan><tspan dy=\"-3.1\"></tspan></text><circle cx=\"56.0\" cy=\"130.0\" r=\"3.2\" fill=\"currentColor\" stroke-width=\"1.5\"/><text x=\"62.0\" y=\"142.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2 V at t = 0</text></svg>",
+      "figure_alt": "Capacitor voltage starting at 2 V and rising toward 5 V.",
+      "version": 1
     }
   ]
 }

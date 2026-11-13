@@ -51,8 +51,12 @@ def batch_items(spec, skills):
         expl = load_json(os.path.join(ROOT, "skilltree", "explainers", sid + ".json"))
         qs = bank["questions"]
         n_mc = sum(1 for q in qs if q.get("type") == "mc")
+        n_num = sum(1 for q in qs if q.get("type") == "numeric")
+        n_deep = sum(1 for q in qs if q.get("type") in ("symbolic", "order", "error", "multi"))
         n_fig = sum(1 for q in qs if q.get("figure"))
         for q in qs:
+            items.append({"id": q["id"], "version": int(q.get("version") or 1)})
+        for q in bank.get("retired_questions") or []:
             items.append({"id": q["id"], "version": int(q.get("version") or 1)})
         items.append({"id": sid + "#explainer", "version": int(expl.get("version") or 1)})
         counts.append({
@@ -60,7 +64,8 @@ def batch_items(spec, skills):
             "prereqs": by_id[sid].get("prereqs") or [],
             "questions": len(qs),
             "mc": n_mc,
-            "numeric": len(qs) - n_mc,
+            "numeric": n_num,
+            "deep": n_deep,
             "figures": n_fig,
             "words": words(expl.get("sections") or []),
             "explainer_version": int(expl.get("version") or 1),
@@ -170,6 +175,8 @@ def brief(spec, counts, boxes):
 def report(spec, counts, items, gate):
     n_q = sum(c["questions"] for c in counts)
     n_mc = sum(c["mc"] for c in counts)
+    n_num = sum(c["numeric"] for c in counts)
+    n_deep = sum(c.get("deep", 0) for c in counts)
     n_fig = sum(c["figures"] for c in counts)
     lines = [
         f"# Report: {spec['label']}",
@@ -180,7 +187,7 @@ def report(spec, counts, items, gate):
         "",
         "## Counts",
         "",
-        f"- {len(counts)} skills, {n_q} questions ({n_mc} multiple choice, {n_q - n_mc} numeric), {len(counts)} explainers.",
+        f"- {len(counts)} skills, {n_q} questions ({n_mc} multiple choice, {n_num} numeric, {n_deep} symbolic, ordering, find-the-error, or multi-select), {len(counts)} explainers.",
         f"- {n_fig} question figures.",
         "- Explainer words: " + ", ".join(f"`{c['id']}` {c['words']}" for c in counts) + ".",
         "",

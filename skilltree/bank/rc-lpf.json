@@ -1,38 +1,56 @@
 {
   "skill_id": "rc-lpf",
-  "version": 3,
+  "version": 5,
   "questions": [
     {
-      "id": "rc-lpf-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A source drives a series resistor R, and the output is taken across a capacitor C to ground (the RC low-pass filter). What is its time constant \\(\\tau\\)?",
-      "options": [
-        "\\(\\tau=R/C\\)",
-        "\\(\\tau=RC\\)",
-        "\\(\\tau=1/(RC)\\)",
-        "\\(\\tau=R+C\\)"
+      "type": "symbolic",
+      "prompt": "A capacitor starts at voltage \\(V_i\\) and a constant source settles it at \\(V_f\\). The time constant is \\(\\tau\\). For \\(t>0\\), write \\(v_o(t)\\) using the name \\(Vf\\) for \\(V_f\\), the name \\(Vi\\) for \\(V_i\\), the name \\(t\\) for time, and the name \\(tau\\) for \\(\\tau\\).",
+      "explanation": "The stored voltage closes the gap \\(V_i-V_f\\) by the factor \\(e^{-t/\\tau}\\), so \\(v_o = V_f + (V_i-V_f)e^{-t/\\tau}\\). Writing \\(V_f e^{-t/\\tau}\\) drops the settled value and decays toward 0. Writing \\(V_i(1-e^{-t/\\tau})\\) is only the special case that starts at 0 and ends at \\(V_i\\).",
+      "answer": "Vf+(Vi-Vf)*exp(-t/tau)",
+      "variables": [
+        {
+          "name": "Vf",
+          "min": -5.0,
+          "max": 12.0
+        },
+        {
+          "name": "Vi",
+          "min": -5.0,
+          "max": 12.0
+        },
+        {
+          "name": "t",
+          "min": 0.05,
+          "max": 4.0
+        },
+        {
+          "name": "tau",
+          "min": 0.1,
+          "max": 3.0
+        }
       ],
-      "correct_index": 1,
-      "explanation": "The governing equation is \\(v_{o}=v_{s}-\\tau\\cdot dv_{o}/dt\\) with \\(\\tau=RC\\). Units: \\(\\Omega\\cdot F=\\) seconds. \\(R/C\\) and R + C do not have units of time, and \\(1/(RC)\\) is the corner (angular) frequency, not the time constant.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 230 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>RC low-pass filter</title><line x1=\"46\" y1=\"46\" x2=\"46\" y2=\"74\"/><line x1=\"46\" y1=\"98\" x2=\"46\" y2=\"126\"/><circle cx=\"46\" cy=\"86\" r=\"12\"/><text x=\"46\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"46\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"29\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vₛ</text><line x1=\"46\" y1=\"126\" x2=\"46\" y2=\"132\"/><line x1=\"37\" y1=\"132\" x2=\"55\" y2=\"132\"/><line x1=\"41\" y1=\"136\" x2=\"51\" y2=\"136\"/><line x1=\"44.5\" y1=\"140\" x2=\"47.5\" y2=\"140\"/><line x1=\"46\" y1=\"46\" x2=\"64\" y2=\"46\"/><polyline points=\"64,46 81,46 84,40 89,52 94,40 99,52 104,40 109,52 117,46 134,46\"/><text x=\"99\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><line x1=\"134\" y1=\"46\" x2=\"156\" y2=\"46\"/><circle cx=\"156\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"156\" y1=\"56\" x2=\"156\" y2=\"81\"/><line x1=\"156\" y1=\"91\" x2=\"156\" y2=\"116\"/><line x1=\"147\" y1=\"81\" x2=\"165\" y2=\"81\"/><line x1=\"147\" y1=\"91\" x2=\"165\" y2=\"91\"/><text x=\"170\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"156\" y1=\"46\" x2=\"156\" y2=\"56\"/><line x1=\"156\" y1=\"116\" x2=\"156\" y2=\"126\"/><line x1=\"156\" y1=\"126\" x2=\"156\" y2=\"132\"/><line x1=\"147\" y1=\"132\" x2=\"165\" y2=\"132\"/><line x1=\"151\" y1=\"136\" x2=\"161\" y2=\"136\"/><line x1=\"154.5\" y1=\"140\" x2=\"157.5\" y2=\"140\"/><line x1=\"156\" y1=\"46\" x2=\"170\" y2=\"46\"/><line x1=\"170\" y1=\"46\" x2=\"186\" y2=\"46\"/><circle cx=\"189\" cy=\"46\" r=\"3\"/><text x=\"196\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><text x=\"189\" y=\"68\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"189\" y=\"124\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text></svg>",
-      "figure_alt": "Voltage source vs driving series resistor R; the output vo is taken across capacitor C to ground.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "Vf+(Vi-Vf)*e**(-t/tau)",
+        "Vi*exp(-t/tau)+Vf*(1-exp(-t/tau))"
+      ],
+      "version": 2,
+      "id": "rc-lpf-r1-q4"
     },
     {
-      "id": "rc-lpf-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "A sinusoidal source with a very low frequency \\((\\omega\\ll 1/RC)\\) drives the RC low-pass filter (output across C). What does the output look like?",
-      "options": [
-        "Almost the same as the input: about the same amplitude and nearly zero phase shift",
-        "Nearly zero amplitude, because the capacitor shorts the signal",
-        "Same amplitude but delayed by 90°",
-        "Twice the input amplitude"
+      "type": "order",
+      "prompt": "The capacitor is uncharged. At \\(t=0\\) a constant source \\(V_s\\) is connected through \\(R\\). Order the derivation of \\(v_o(t)\\). Each step uses the result of the step before it.",
+      "explanation": "The node equation has to be written before it can be solved. The general solution still has a free constant, so the continuity condition is applied to that expression and cannot come first. The waveform is what remains after the constant is known. A growing exponential would run away from \\(V_s\\) instead of approaching it.",
+      "steps": [
+        "The series resistor and capacitor give the node equation \\(RC\\,v'+v = V_s\\).",
+        "The general solution of that equation is \\(V_s + A e^{-t/(RC)}\\).",
+        "The capacitor voltage is continuous and started at 0, so set that general solution equal to 0 at \\(t=0\\). This forces \\(A = -V_s\\).",
+        "Substitute that constant to obtain \\(v_o(t) = V_s(1-e^{-t/(RC)})\\)."
       ],
-      "correct_index": 0,
-      "explanation": "At low frequency the capacitor's current is tiny, so there is almost no voltage across R and \\(v_{o}\\approx v_{s}\\): the signal passes undisturbed.\n• Near-zero output happens at HIGH frequency, where the capacitor shorts the signal.\n• A 90° lag is the asymptotic phase at very HIGH frequency.\n• A passive RC filter cannot amplify.",
-      "version": 2
+      "version": 2,
+      "id": "rc-lpf-r1-q5"
     },
     {
       "id": "rc-lpf-r1-q3",
@@ -69,20 +87,24 @@
       "explanation": "\\(\\omega\\tau=20{,}000\\times 100\\ \\mu\\mathrm{s}=2\\). Amplitude response: \\(|V_{o}/V_{s}|=1/\\sqrt{1+(\\omega\\tau)^{2}}=1/\\sqrt{5}=0.4472\\).\nOutput amplitude \\(=3\\ \\mathrm{V}\\times 0.4472=1.342\\ \\mathrm{V}\\) (and the phase is \\(-\\tan^{-1}(2)=-63.4^{\\circ}\\)).\nCommon mistake: using \\(1/(1+\\omega\\tau)=1/3\\) (forgetting the square root of the sum of squares), which gives 1.0 V."
     },
     {
-      "id": "rc-lpf-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "An RC low-pass filter is driven by a sinusoid whose angular frequency is exactly \\(\\omega=1/\\tau\\). Compared with the input, the steady-state output has…",
-      "options": [
-        "amplitude \\(0.5\\times\\) input and a phase lag of 45°",
-        "amplitude \\(0.707\\times\\) input and a phase LEAD of 45°",
-        "amplitude \\(0.707\\times\\) input and a phase lag of 90°",
-        "amplitude \\(0.707\\times\\) input and a phase lag of 45°"
+      "type": "error",
+      "prompt": "A student describes the steady output of an RC low-pass filter at \\(\\omega = 1/\\tau\\). Exactly one step is wrong.",
+      "explanation": "\\(1+j\\) has equal real and imaginary parts, so its angle is \\(45^\\circ\\), and inverting it makes the output lag by \\(45^\\circ\\). That lag, together with the factor \\(1/\\sqrt{2}\\), is the cutoff. A \\(-90^\\circ\\) shift would need a purely imaginary denominator. The magnitude \\(1/\\sqrt{2}\\) is the right one; half amplitude is a higher frequency than the cutoff.",
+      "steps": [
+        "The frequency response is \\(H(j\\omega) = 1/(1+j\\omega\\tau)\\).",
+        "At \\(\\omega\\tau = 1\\), this equals \\(1/(1+j)\\).",
+        "The magnitude is \\(1/\\sqrt{2}\\), about 0.707 times the input.",
+        "The phase is \\(-90^\\circ\\), because a capacitor's current leads its voltage by a right angle."
       ],
-      "correct_index": 3,
-      "explanation": "With \\(\\omega\\tau=1\\): \\(|H|=1/\\sqrt{1+1}=0.707\\ (-3\\ \\mathrm{dB}\\), half the power) and \\(\\angle H=-\\tan^{-1}(1)=-45^{\\circ}\\) (a lag).\n• 0.5 is the magnitude of a half-voltage point, not the −3 dB point.\n• The low-pass output lags the input; a lead would be for a high-pass.\n• 90° lag is only reached asymptotically at very high frequency.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>RC low-pass magnitude</title><line x1=\"52\" y1=\"164\" x2=\"320\" y2=\"164\"/><polygon points=\"320,164 313.6,166.7 313.6,161.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"52\" y1=\"164\" x2=\"52\" y2=\"14\"/><polygon points=\"52,14 54.7,20.4 49.3,20.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"192\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ωτ</text><text x=\"56\" y=\"10\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><line x1=\"49\" y1=\"164\" x2=\"55\" y2=\"164\"/><text x=\"46\" y=\"167\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-40</text><line x1=\"49\" y1=\"132.9\" x2=\"55\" y2=\"132.9\"/><text x=\"46\" y=\"135.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-30</text><line x1=\"49\" y1=\"101.8\" x2=\"55\" y2=\"101.8\"/><text x=\"46\" y=\"104.8\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-20</text><line x1=\"49\" y1=\"70.7\" x2=\"55\" y2=\"70.7\"/><text x=\"46\" y=\"73.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-10</text><line x1=\"49\" y1=\"39.6\" x2=\"55\" y2=\"39.6\"/><text x=\"46\" y=\"42.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"52\" y1=\"39.6\" x2=\"312\" y2=\"39.6\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"52\" y1=\"161\" x2=\"52\" y2=\"167\"/><text x=\"52\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁻²</text><line x1=\"117\" y1=\"161\" x2=\"117\" y2=\"167\"/><text x=\"117\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁻¹</text><line x1=\"182\" y1=\"161\" x2=\"182\" y2=\"167\"/><text x=\"182\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"247\" y1=\"161\" x2=\"247\" y2=\"167\"/><text x=\"247\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"312\" y1=\"161\" x2=\"312\" y2=\"167\"/><text x=\"312\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><polyline points=\"52,39.6 182,39.6 312,164\" stroke-width=\"2.2\"/><polyline points=\"52,39.6 54.2,39.6 56.3,39.6 58.5,39.6 60.7,39.6 62.8,39.6 65,39.6 67.2,39.6 69.3,39.6 71.5,39.6 73.7,39.6 75.8,39.6 78,39.6 80.2,39.6 82.3,39.6 84.5,39.6 86.7,39.6 88.8,39.6 91,39.6 93.2,39.6 95.3,39.6 97.5,39.6 99.7,39.6 101.8,39.6 104,39.6 106.2,39.6 108.3,39.6 110.5,39.6 112.7,39.7 114.8,39.7 117,39.7 119.2,39.7 121.3,39.7 123.5,39.8 125.7,39.8 127.8,39.8 130,39.9 132.2,39.9 134.3,40 136.5,40.1 138.7,40.2 140.8,40.3 143,40.4 145.2,40.5 147.3,40.7 149.5,40.8 151.7,41 153.8,41.3 156,41.5 158.2,41.8 160.3,42.2 162.5,42.6 164.7,43 166.8,43.5 169,44.1 171.2,44.7 173.3,45.4 175.5,46.2 177.7,47 179.8,47.9 182,48.9 184.2,50 186.3,51.2 188.5,52.4 190.7,53.7 192.8,55.1 195,56.5 197.2,58 199.3,59.6 201.5,61.3 203.7,62.9 205.8,64.7 208,66.4 210.2,68.2 212.3,70.1 214.5,72 216.7,73.9 218.8,75.8 221,77.7 223.2,79.7 225.3,81.7 227.5,83.6 229.7,85.6 231.8,87.6 234,89.7 236.2,91.7 238.3,93.7 240.5,95.8 242.7,97.8 244.8,99.9 247,101.9 249.2,104 251.3,106 253.5,108.1 255.7,110.1 257.8,112.2 260,114.3 262.2,116.3 264.3,118.4 266.5,120.5 268.7,122.5 270.8,124.6 273,126.7 275.2,128.8 277.3,130.8 279.5,132.9 281.7,135 283.8,137 286,139.1 288.2,141.2 290.3,143.3 292.5,145.3 294.7,147.4 296.8,149.5 299,151.6 301.2,153.6 303.3,155.7 305.5,157.8 307.7,159.9 309.8,161.9 312,164\" stroke-dasharray=\"4 3\"/><circle cx=\"182\" cy=\"39.6\" r=\"3\" fill=\"currentColor\"/><text x=\"188\" y=\"33.6\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω = 1/τ</text></svg>",
-      "figure_alt": "Bode magnitude of the RC low-pass: flat, then falling 20 dB per decade beyond the corner at omega = 1/tau; the exact curve is dashed."
+      "flaw_index": 3,
+      "reasons": [
+        "The denominator \\(1+j\\) sits at \\(+45^\\circ\\), so the output lags by \\(45^\\circ\\), not \\(90^\\circ\\).",
+        "The magnitude at this frequency is \\(1/2\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "rc-lpf-r2-q4"
     },
     {
       "id": "rc-lpf-r3-q1",
@@ -170,6 +192,57 @@
       ],
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Want −20 dB at 10 kHz</title><line x1=\"52\" y1=\"164\" x2=\"320\" y2=\"164\"/><polygon points=\"320,164 313.6,166.7 313.6,161.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"52\" y1=\"164\" x2=\"52\" y2=\"14\"/><polygon points=\"52,14 54.7,20.4 49.3,20.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"192\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><text x=\"56\" y=\"10\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><line x1=\"49\" y1=\"164\" x2=\"55\" y2=\"164\"/><text x=\"46\" y=\"167\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-40</text><line x1=\"49\" y1=\"132.9\" x2=\"55\" y2=\"132.9\"/><text x=\"46\" y=\"135.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-30</text><line x1=\"49\" y1=\"101.8\" x2=\"55\" y2=\"101.8\"/><text x=\"46\" y=\"104.8\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-20</text><line x1=\"49\" y1=\"70.7\" x2=\"55\" y2=\"70.7\"/><text x=\"46\" y=\"73.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-10</text><line x1=\"49\" y1=\"39.6\" x2=\"55\" y2=\"39.6\"/><text x=\"46\" y=\"42.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"52\" y1=\"39.6\" x2=\"312\" y2=\"39.6\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"52\" y1=\"161\" x2=\"52\" y2=\"167\"/><text x=\"52\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"117\" y1=\"161\" x2=\"117\" y2=\"167\"/><text x=\"117\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"182\" y1=\"161\" x2=\"182\" y2=\"167\"/><text x=\"182\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"247\" y1=\"161\" x2=\"247\" y2=\"167\"/><text x=\"247\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"312\" y1=\"161\" x2=\"312\" y2=\"167\"/><text x=\"312\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><polyline points=\"52,39.6 182,39.6 312,164\" stroke-width=\"2.2\"/><circle cx=\"247\" cy=\"101.8\" r=\"3\" fill=\"currentColor\"/><text x=\"253\" y=\"95.8\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−20 dB at 10 kHz</text></svg>",
       "figure_alt": "Asymptotic low-pass Bode plot with a marked point at minus 20 dB at 10 kilohertz."
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "rc-lpf-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A source drives a series resistor R, and the output is taken across a capacitor C to ground (the RC low-pass filter). What is its time constant \\(\\tau\\)?",
+      "options": [
+        "\\(\\tau=R/C\\)",
+        "\\(\\tau=RC\\)",
+        "\\(\\tau=1/(RC)\\)",
+        "\\(\\tau=R+C\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "The governing equation is \\(v_{o}=v_{s}-\\tau\\cdot dv_{o}/dt\\) with \\(\\tau=RC\\). Units: \\(\\Omega\\cdot F=\\) seconds. \\(R/C\\) and R + C do not have units of time, and \\(1/(RC)\\) is the corner (angular) frequency, not the time constant.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 230 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>RC low-pass filter</title><line x1=\"46\" y1=\"46\" x2=\"46\" y2=\"74\"/><line x1=\"46\" y1=\"98\" x2=\"46\" y2=\"126\"/><circle cx=\"46\" cy=\"86\" r=\"12\"/><text x=\"46\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"46\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"29\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vₛ</text><line x1=\"46\" y1=\"126\" x2=\"46\" y2=\"132\"/><line x1=\"37\" y1=\"132\" x2=\"55\" y2=\"132\"/><line x1=\"41\" y1=\"136\" x2=\"51\" y2=\"136\"/><line x1=\"44.5\" y1=\"140\" x2=\"47.5\" y2=\"140\"/><line x1=\"46\" y1=\"46\" x2=\"64\" y2=\"46\"/><polyline points=\"64,46 81,46 84,40 89,52 94,40 99,52 104,40 109,52 117,46 134,46\"/><text x=\"99\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><line x1=\"134\" y1=\"46\" x2=\"156\" y2=\"46\"/><circle cx=\"156\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"156\" y1=\"56\" x2=\"156\" y2=\"81\"/><line x1=\"156\" y1=\"91\" x2=\"156\" y2=\"116\"/><line x1=\"147\" y1=\"81\" x2=\"165\" y2=\"81\"/><line x1=\"147\" y1=\"91\" x2=\"165\" y2=\"91\"/><text x=\"170\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"156\" y1=\"46\" x2=\"156\" y2=\"56\"/><line x1=\"156\" y1=\"116\" x2=\"156\" y2=\"126\"/><line x1=\"156\" y1=\"126\" x2=\"156\" y2=\"132\"/><line x1=\"147\" y1=\"132\" x2=\"165\" y2=\"132\"/><line x1=\"151\" y1=\"136\" x2=\"161\" y2=\"136\"/><line x1=\"154.5\" y1=\"140\" x2=\"157.5\" y2=\"140\"/><line x1=\"156\" y1=\"46\" x2=\"170\" y2=\"46\"/><line x1=\"170\" y1=\"46\" x2=\"186\" y2=\"46\"/><circle cx=\"189\" cy=\"46\" r=\"3\"/><text x=\"196\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><text x=\"189\" y=\"68\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"189\" y=\"124\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text></svg>",
+      "figure_alt": "Voltage source vs driving series resistor R; the output vo is taken across capacitor C to ground.",
+      "version": 2
+    },
+    {
+      "id": "rc-lpf-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "An RC low-pass filter is driven by a sinusoid whose angular frequency is exactly \\(\\omega=1/\\tau\\). Compared with the input, the steady-state output has…",
+      "options": [
+        "amplitude \\(0.5\\times\\) input and a phase lag of 45°",
+        "amplitude \\(0.707\\times\\) input and a phase LEAD of 45°",
+        "amplitude \\(0.707\\times\\) input and a phase lag of 90°",
+        "amplitude \\(0.707\\times\\) input and a phase lag of 45°"
+      ],
+      "correct_index": 3,
+      "explanation": "With \\(\\omega\\tau=1\\): \\(|H|=1/\\sqrt{1+1}=0.707\\ (-3\\ \\mathrm{dB}\\), half the power) and \\(\\angle H=-\\tan^{-1}(1)=-45^{\\circ}\\) (a lag).\n• 0.5 is the magnitude of a half-voltage point, not the −3 dB point.\n• The low-pass output lags the input; a lead would be for a high-pass.\n• 90° lag is only reached asymptotically at very high frequency.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>RC low-pass magnitude</title><line x1=\"52\" y1=\"164\" x2=\"320\" y2=\"164\"/><polygon points=\"320,164 313.6,166.7 313.6,161.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"52\" y1=\"164\" x2=\"52\" y2=\"14\"/><polygon points=\"52,14 54.7,20.4 49.3,20.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"192\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ωτ</text><text x=\"56\" y=\"10\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><line x1=\"49\" y1=\"164\" x2=\"55\" y2=\"164\"/><text x=\"46\" y=\"167\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-40</text><line x1=\"49\" y1=\"132.9\" x2=\"55\" y2=\"132.9\"/><text x=\"46\" y=\"135.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-30</text><line x1=\"49\" y1=\"101.8\" x2=\"55\" y2=\"101.8\"/><text x=\"46\" y=\"104.8\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-20</text><line x1=\"49\" y1=\"70.7\" x2=\"55\" y2=\"70.7\"/><text x=\"46\" y=\"73.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-10</text><line x1=\"49\" y1=\"39.6\" x2=\"55\" y2=\"39.6\"/><text x=\"46\" y=\"42.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"52\" y1=\"39.6\" x2=\"312\" y2=\"39.6\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"52\" y1=\"161\" x2=\"52\" y2=\"167\"/><text x=\"52\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁻²</text><line x1=\"117\" y1=\"161\" x2=\"117\" y2=\"167\"/><text x=\"117\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁻¹</text><line x1=\"182\" y1=\"161\" x2=\"182\" y2=\"167\"/><text x=\"182\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"247\" y1=\"161\" x2=\"247\" y2=\"167\"/><text x=\"247\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"312\" y1=\"161\" x2=\"312\" y2=\"167\"/><text x=\"312\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><polyline points=\"52,39.6 182,39.6 312,164\" stroke-width=\"2.2\"/><polyline points=\"52,39.6 54.2,39.6 56.3,39.6 58.5,39.6 60.7,39.6 62.8,39.6 65,39.6 67.2,39.6 69.3,39.6 71.5,39.6 73.7,39.6 75.8,39.6 78,39.6 80.2,39.6 82.3,39.6 84.5,39.6 86.7,39.6 88.8,39.6 91,39.6 93.2,39.6 95.3,39.6 97.5,39.6 99.7,39.6 101.8,39.6 104,39.6 106.2,39.6 108.3,39.6 110.5,39.6 112.7,39.7 114.8,39.7 117,39.7 119.2,39.7 121.3,39.7 123.5,39.8 125.7,39.8 127.8,39.8 130,39.9 132.2,39.9 134.3,40 136.5,40.1 138.7,40.2 140.8,40.3 143,40.4 145.2,40.5 147.3,40.7 149.5,40.8 151.7,41 153.8,41.3 156,41.5 158.2,41.8 160.3,42.2 162.5,42.6 164.7,43 166.8,43.5 169,44.1 171.2,44.7 173.3,45.4 175.5,46.2 177.7,47 179.8,47.9 182,48.9 184.2,50 186.3,51.2 188.5,52.4 190.7,53.7 192.8,55.1 195,56.5 197.2,58 199.3,59.6 201.5,61.3 203.7,62.9 205.8,64.7 208,66.4 210.2,68.2 212.3,70.1 214.5,72 216.7,73.9 218.8,75.8 221,77.7 223.2,79.7 225.3,81.7 227.5,83.6 229.7,85.6 231.8,87.6 234,89.7 236.2,91.7 238.3,93.7 240.5,95.8 242.7,97.8 244.8,99.9 247,101.9 249.2,104 251.3,106 253.5,108.1 255.7,110.1 257.8,112.2 260,114.3 262.2,116.3 264.3,118.4 266.5,120.5 268.7,122.5 270.8,124.6 273,126.7 275.2,128.8 277.3,130.8 279.5,132.9 281.7,135 283.8,137 286,139.1 288.2,141.2 290.3,143.3 292.5,145.3 294.7,147.4 296.8,149.5 299,151.6 301.2,153.6 303.3,155.7 305.5,157.8 307.7,159.9 309.8,161.9 312,164\" stroke-dasharray=\"4 3\"/><circle cx=\"182\" cy=\"39.6\" r=\"3\" fill=\"currentColor\"/><text x=\"188\" y=\"33.6\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω = 1/τ</text></svg>",
+      "figure_alt": "Bode magnitude of the RC low-pass: flat, then falling 20 dB per decade beyond the corner at omega = 1/tau; the exact curve is dashed.",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A sinusoidal source with a very low frequency \\((\\omega\\ll 1/RC)\\) drives the RC low-pass filter (output across C). What does the output look like?",
+      "options": [
+        "Almost the same as the input: about the same amplitude and nearly zero phase shift",
+        "Nearly zero amplitude, because the capacitor shorts the signal",
+        "Same amplitude but delayed by 90°",
+        "Twice the input amplitude"
+      ],
+      "correct_index": 0,
+      "explanation": "At low frequency the capacitor's current is tiny, so there is almost no voltage across R and \\(v_{o}\\approx v_{s}\\): the signal passes undisturbed.\n• Near-zero output happens at HIGH frequency, where the capacitor shorts the signal.\n• A 90° lag is the asymptotic phase at very HIGH frequency.\n• A passive RC filter cannot amplify.",
+      "version": 2
     }
   ]
 }
