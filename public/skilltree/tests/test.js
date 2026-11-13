@@ -4254,6 +4254,28 @@ async function test(name, fn) {
       const box = document.getElementById('profileUsername');
       return editor && !editor.hidden && box && box.value === 'ada_1' && location.pathname === '/profile/ada_1';
     });
+    await signedIn.evaluateOnNewDocument(() => {
+      const auth = window.__supabaseMock && window.__supabaseMock.auth;
+      if (!auth) return;
+      auth.getSession = async () => ({ data: { session: null } });
+    });
+    await signedIn.goto(new URL('/profile/ada_1', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    assert.strictEqual(await signedIn.$eval('#profileEditor', e => e.hidden), true, 'no session yet, so the public profile shows');
+    assert.strictEqual(await signedIn.$eval('#profilePublicName', e => e.textContent), 'ada_1');
+    await signedIn.evaluate(session => {
+      const listeners = window.__authListeners || [];
+      if (!listeners.length) throw new Error('profile page did not subscribe to auth changes');
+      listeners.forEach(cb => cb('SIGNED_IN', session));
+    }, {
+      access_token: owner.access_token,
+      user: owner.user
+    });
+    await signedIn.waitForFunction(() => {
+      const editor = document.getElementById('profileEditor');
+      const box = document.getElementById('profileUsername');
+      return editor && !editor.hidden && box && box.value === 'ada_1';
+    });
     await signedIn._ctx.close();
   });
 

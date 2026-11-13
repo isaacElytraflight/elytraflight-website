@@ -168,7 +168,7 @@ let playable = [];
 
 /* ====================== storage ====================== */
 let storageOK = true, memStore = null, progress = { version: 1, skills: {} };
-let leaderboardRows = null, leaderboardReady = false, profileLoadGen = 0;
+let leaderboardRows = null, leaderboardReady = false, profileLoadGen = 0, profileRouteGen = 0;
 
 function probeStorage() { try { const k = 'skilltree.__probe'; localStorage.setItem(k, '1'); localStorage.removeItem(k); return true } catch (e) { return false } }
 
@@ -3840,17 +3840,23 @@ function routeProfileName() {
 }
 async function openRoutedProfile() {
   if (!profileStandalone()) return null;
+  const gen = ++profileRouteGen;
   cleanProfileUrl();
   const segment = routeProfileName();
+  let mode = 'edit';
+  let publicName = null;
   if (segment) {
     const name = sanitizeUsername(segment);
-    if (name === 'me') return openProfileEditor();
-    if (name && !usernameError(name) && await usernameClaimsEditor(name)) return openProfileEditor();
-    return openPublicProfile(segment);
+    if (name === 'me') mode = 'edit';
+    else if (name && !usernameError(name) && await usernameClaimsEditor(name)) mode = 'edit';
+    else { mode = 'public'; publicName = segment; }
+  } else {
+    publicName = readRouteProfile();
+    mode = publicName ? 'public' : 'edit';
   }
-  const queryName = readRouteProfile();
-  if (queryName) return openPublicProfile(queryName);
-  return openProfileEditor();
+  if (gen !== profileRouteGen) return null;
+  if (mode === 'edit') return openProfileEditor();
+  return openPublicProfile(publicName);
 }
 
 /* ====================== feedback ====================== */
@@ -4105,7 +4111,12 @@ async function init() {
       syncProfileLink();
       const page = $('profilePage');
       const editor = $('profileEditor');
-      if (page && !page.hidden && editor && !editor.hidden) loadOwnProfile();
+      if (!page || page.hidden) return;
+      if (editor && !editor.hidden) {
+        loadOwnProfile();
+        return;
+      }
+      if (profileStandalone()) openRoutedProfile();
     },
     profile: {
       ready: () => leaderboardReady,
@@ -4114,12 +4125,11 @@ async function init() {
     }
   };
   
-  if (window.SkillgroveAuth) {
-    window.SkillgroveAuth.init();
-  }
+  const authReady = window.SkillgroveAuth ? window.SkillgroveAuth.init() : null;
   syncProfileLink();
   try { window.SkillgroveTelemetry && window.SkillgroveTelemetry.start(); } catch (e) { }
   await loadLeaderboard();
+  if (authReady) await authReady;
   if (profileStandalone()) {
     await openRoutedProfile();
     if (loading.parentNode) loading.remove();
