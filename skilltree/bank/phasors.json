@@ -1,6 +1,6 @@
 {
   "skill_id": "phasors",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "phasors-r1-q1",
@@ -14,7 +14,8 @@
         "\\(Z_{C}=C/(j\\omega)\\)"
       ],
       "correct_index": 0,
-      "explanation": "From I \\(=j\\omega C\\cdot V\\) (reader Eq. 2.26), \\(Z_{C}=V/I=1/(j\\omega C)=-j/(\\omega C)\\). It is purely imaginary, with magnitude \\(1/(\\omega C)\\) that shrinks as frequency rises.\n• \\(j\\omega C\\) is the ADMITTANCE \\(Y_{C}\\), not the impedance.\n• \\(-j\\omega C\\) has the wrong dependence on \\(\\omega\\) (it would grow with frequency).\n• \\(C/(j\\omega)\\) has wrong units."
+      "explanation": "From I \\(=j\\omega C\\cdot V\\), \\(Z_{C}=V/I=1/(j\\omega C)=-j/(\\omega C)\\). It is purely imaginary, with magnitude \\(1/(\\omega C)\\) that shrinks as frequency rises.\n• \\(j\\omega C\\) is the ADMITTANCE \\(Y_{C}\\), not the impedance.\n• \\(-j\\omega C\\) has the wrong dependence on \\(\\omega\\) (it would grow with frequency).\n• \\(C/(j\\omega)\\) has wrong units.",
+      "version": 2
     },
     {
       "id": "phasors-r1-q2",
@@ -92,9 +93,10 @@
         "35 V"
       ],
       "correct_index": 1,
-      "explanation": "In a series circuit the same current flows through both, so \\(V_{L}=j\\omega L\\cdot I\\) leads I by 90° and \\(V_{C}=I/(j\\omega C)\\) lags I by 90°: the two voltages are 180° out of phase and subtract. Source \\(=|40-30|=10\\ \\mathrm{V}\\) (phasor addition, reader Fig. 2.12).\n• 70 V adds the magnitudes as if they were in phase.\n• 50 V is the Pythagorean sum \\((\\sqrt{40^{2}+30^{2}})\\), which would be right if they were 90° apart (e.g., one was a resistor voltage).\n• 35 V is just their average.",
+      "explanation": "In a series circuit the same current flows through both, so \\(V_{L}=j\\omega L\\cdot I\\) leads I by 90° and \\(V_{C}=I/(j\\omega C)\\) lags I by 90°: the two voltages are 180° out of phase and subtract. Source \\(=|40-30|=10\\ \\mathrm{V}\\) (phasor addition).\n• 70 V adds the magnitudes as if they were in phase.\n• 50 V is the Pythagorean sum \\((\\sqrt{40^{2}+30^{2}})\\), which would be right if they were 90° apart (e.g., one was a resistor voltage).\n• 35 V is just their average.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Phasors in the series L–C</title><line x1=\"14\" y1=\"110\" x2=\"230\" y2=\"110\"/><polygon points=\"230,110 223.6,112.7 223.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"210\" x2=\"120\" y2=\"10\"/><polygon points=\"120,10 122.7,16.4 117.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"126\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"126\" y=\"18\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"35.3\"/><polygon points=\"120,35.3 123.1,42.7 116.9,42.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"120\" y=\"29.3\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_L</text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"166\"/><polygon points=\"120,166 116.9,158.6 123.1,158.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"120\" y=\"180\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_C</text><line x1=\"120\" y1=\"110\" x2=\"121.9\" y2=\"110\" stroke-dasharray=\"4 3\"/><circle cx=\"121.9\" cy=\"110\" r=\"2.5\" fill=\"currentColor\"/><text x=\"131.9\" y=\"114\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">I</text></svg>",
-      "figure_alt": "Inductor voltage phasor pointing up and capacitor voltage phasor pointing down, along with the common current reference."
+      "figure_alt": "Inductor voltage phasor pointing up and capacitor voltage phasor pointing down, along with the common current reference.",
+      "version": 2
     },
     {
       "id": "phasors-r3-q2",

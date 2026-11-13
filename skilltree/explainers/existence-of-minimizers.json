@@ -1,7 +1,7 @@
 {
   "id": "existence-of-minimizers",
   "title": "Existence of minimizers",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "If \\(\\mathcal{X}\\) is nonempty and compact and \\(f\\) is continuous, there exists \\(x^\\star \\in \\mathcal{X}\\) with \\(f(x^\\star) = \\inf_{\\mathcal{X}} f\\). If \\(\\mathcal{X}\\) is nonempty and closed, \\(f\\) is continuous, and \\(f(x) \\to +\\infty\\) as \\(\\lVert x \\rVert \\to \\infty\\) with \\(x \\in \\mathcal{X}\\), the same conclusion holds. A sublevel set \\(\\{x \\in \\mathcal{X} : f(x) \\le f(x_0)\\}\\) of a coercive continuous function is compact once it is nonempty."
+      "body_md": "If \\(\\mathcal{X}\\) is nonempty and compact and \\(f\\) is continuous, there exists \\(x^\\star \\in \\mathcal{X}\\) with \\(f(x^\\star) = \\inf_{\\mathcal{X}} f\\). If \\(\\mathcal{X}\\) is nonempty and closed, \\(f\\) is continuous, and \\(f(x) \\to +\\infty\\) as \\(\\lVert x \\rVert \\to \\infty\\) with \\(x \\in \\mathcal{X}\\), the same conclusion holds. A sublevel set \\(\\{x \\in \\mathcal{X}: f(x) \\le f(x_0)\\}\\) of a coercive continuous function is compact once it is nonempty."
     },
     {
       "heading": "Worked example",

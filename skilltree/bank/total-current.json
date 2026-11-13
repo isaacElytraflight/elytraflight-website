@@ -1,6 +1,6 @@
 {
   "skill_id": "total-current",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "total-current-r1-q1",
@@ -14,7 +14,8 @@
         "\\(J_n = qD_n\\frac{dn}{dx}\\) only, since fields only move holes"
       ],
       "correct_index": 2,
-      "explanation": "Drift plus diffusion (reader Eq. 3.57): \\(J_n = q\\mu_nnE + qD_n\\,dn/dx\\). The electron diffusion term has a PLUS sign because the flux \\(-D_n\\,dn/dx\\) is multiplied by charge \\(-q\\).\nFor holes, \\(J_p = q\\mu_ppE - qD_p\\,dp/dx\\). The minus-sign version is the hole form applied to electrons."
+      "explanation": "Drift plus diffusion: \\(J_n = q\\mu_nnE + qD_n\\,dn/dx\\). The electron diffusion term has a PLUS sign because the flux \\(-D_n\\,dn/dx\\) is multiplied by charge \\(-q\\).\nFor holes, \\(J_p = q\\mu_ppE - qD_p\\,dp/dx\\). The minus-sign version is the hole form applied to electrons.",
+      "version": 2
     },
     {
       "id": "total-current-r1-q2",
@@ -24,9 +25,10 @@
       "answer": 25.0,
       "unit": "V/cm",
       "tolerance": 0.02,
-      "explanation": "No charge piles up, so \\(J_1 = J_2\\): \\(\\sigma_1E_1 = \\sigma_2E_2\\) (reader Eq. 3.58–3.60).\n\\[E_2 = \\frac{\\sigma_1}{\\sigma_2}E_1 = \\frac{10}{2}\\times5 = 25\\ \\mathrm{V/cm}\\]\nThe field JUMPS at the interface, and it is larger in the poorer conductor.",
+      "explanation": "No charge piles up, so \\(J_1 = J_2\\): \\(\\sigma_1E_1 = \\sigma_2E_2\\).\n\\[E_2 = \\frac{\\sigma_1}{\\sigma_2}E_1 = \\frac{10}{2}\\times5 = 25\\ \\mathrm{V/cm}\\]\nThe field JUMPS at the interface, and it is larger in the poorer conductor.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 190\" role=\"img\" aria-label=\"Field steps up at an interface\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:320px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"150.0\" x2=\"298.0\" y2=\"150.0\" stroke-width=\"1.5\"/><polygon points=\"298.0,150.0 291.6,152.7 291.6,147.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"150.0\" x2=\"56.0\" y2=\"22.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,22.0 58.7,28.4 53.3,28.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"298.0\" y=\"180.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"48.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E(x)</text><line x1=\"111.0\" y1=\"147.0\" x2=\"111.0\" y2=\"153.0\" stroke-width=\"1.2\"/><text x=\"111.0\" y=\"166.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">σ₁</text><line x1=\"221.0\" y1=\"147.0\" x2=\"221.0\" y2=\"153.0\" stroke-width=\"1.2\"/><text x=\"221.0\" y=\"166.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">σ₂</text><polyline points=\"56.0,128.7 166.0,128.7 166.0,43.3 276.0,43.3\" fill=\"none\" stroke-width=\"2.0\" stroke-linejoin=\"round\"/><text x=\"111.0\" y=\"115.9\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E₁</text><text x=\"221.0\" y=\"32.7\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E₂ = ?</text></svg>",
-      "figure_alt": "Step plot of field E(x): a low constant value E1 in material 1 (left), jumping at the interface to a higher constant value E2 in material 2 (right)."
+      "figure_alt": "Step plot of field E(x): a low constant value E1 in material 1 (left), jumping at the interface to a higher constant value E2 in material 2 (right).",
+      "version": 2
     },
     {
       "id": "total-current-r1-q3",
@@ -40,9 +42,10 @@
         "Drift and diffusion are always equal"
       ],
       "correct_index": 1,
-      "explanation": "In a uniformly doped bar \\(dn/dx \\approx 0\\), so \\(J \\approx q n\\mu_n E\\) with the majority carriers (reader Sec. 3.7.4: 'In resistors ... the second term is nearly zero').\nMinority carriers are \\(10^{10}\\)–\\(10^{12}\\) times fewer. Diffusion only matters where concentrations change, such as near junctions.",
+      "explanation": "In a uniformly doped bar \\(dn/dx \\approx 0\\), so \\(J \\approx q n\\mu_n E\\) with the majority carriers.\nMinority carriers are \\(10^{10}\\)–\\(10^{12}\\) times fewer. Diffusion only matters where concentrations change, such as near junctions.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 150\" role=\"img\" aria-label=\"Doped resistor: drift current\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:380px;width:100%;height:auto\"><rect x=\"70.0\" y=\"46.0\" width=\"230.0\" height=\"50.0\" fill=\"currentColor\" fill-opacity=\"0.1\" stroke-width=\"1.5\"/><line x1=\"30.0\" y1=\"71.0\" x2=\"70.0\" y2=\"71.0\" stroke-width=\"1.5\"/><line x1=\"300.0\" y1=\"71.0\" x2=\"340.0\" y2=\"71.0\" stroke-width=\"1.5\"/><text x=\"40.0\" y=\"63.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"330.0\" y=\"63.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"185.0\" y=\"16.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V</text><line x1=\"110.0\" y1=\"58.0\" x2=\"260.0\" y2=\"58.0\" stroke-width=\"1.5\"/><polygon points=\"260.0,58.0 253.6,60.7 253.6,55.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"43.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"250.0\" y1=\"84.0\" x2=\"120.0\" y2=\"84.0\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"/><polygon points=\"120.0,84.0 126.4,81.3 126.4,86.7\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"79.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.8\" fill=\"currentColor\" stroke=\"none\">electrons</text><line x1=\"70.0\" y1=\"116.0\" x2=\"300.0\" y2=\"116.0\" stroke-width=\"1.5\"/><polygon points=\"300.0,116.0 295.4,117.9 295.4,114.1\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"300.0\" y1=\"116.0\" x2=\"70.0\" y2=\"116.0\" stroke-width=\"1.5\"/><polygon points=\"70.0,116.0 74.6,114.1 74.6,117.9\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"132.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text><text x=\"306.0\" y=\"116.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.8\" fill=\"currentColor\" stroke=\"none\">cross-section A</text></svg>",
-      "figure_alt": "Uniformly doped bar with an applied field; the carrier concentration is flat, so the current is drift."
+      "figure_alt": "Uniformly doped bar with an applied field; the carrier concentration is flat, so the current is drift.",
+      "version": 2
     },
     {
       "id": "total-current-r2-q1",

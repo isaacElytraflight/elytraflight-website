@@ -1,7 +1,7 @@
 {
   "id": "compact-sets",
   "title": "Bounded and compact sets",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -19,7 +19,7 @@
     },
     {
       "heading": "Common pitfalls",
-      "body_md": "Bounded does not imply compact. The open unit disk is the counterexample, and so is \\(\\{1/n : n = 1, 2, \\ldots\\}\\), which is bounded and misses its limit 0. Closed does not imply compact: the integers are closed in \\(\\mathbb{R}\\) and unbounded. In infinite-dimensional spaces, closed and bounded is no longer enough, so the Euclidean statement should not be copied into a space of functions. A finite set is compact even when the points are far apart. The radius only has to be large enough to cover them."
+      "body_md": "Bounded does not imply compact. The open unit disk is the counterexample, and so is \\(\\{1/n: n = 1, 2, \\ldots\\}\\), which is bounded and misses its limit 0. Closed does not imply compact: the integers are closed in \\(\\mathbb{R}\\) and unbounded. In infinite-dimensional spaces, closed and bounded is no longer enough, so the Euclidean statement should not be copied into a space of functions. A finite set is compact even when the points are far apart. The radius only has to be large enough to cover them."
     },
     {
       "heading": "Where this leads",

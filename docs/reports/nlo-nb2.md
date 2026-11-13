@@ -15,8 +15,18 @@ Do not publish.
 Items above version 1:
 
 - `frobenius-schatten-norms#explainer` version 2
+- `open-closed-sets-r1-q3` version 2
 - `open-closed-sets-r2-q3` version 2
+- `open-closed-sets-r3-q1` version 2
+- `open-closed-sets-r3-q2` version 2
+- `open-closed-sets#explainer` version 2
+- `compact-sets#explainer` version 2
+- `level-sets-contours-r2-q1` version 2
 - `level-sets-contours-r4-q2` version 2
+- `level-sets-contours#explainer` version 2
+- `convex-sets-r2-q1` version 2
+- `convex-sets-r2-q3` version 2
+- `convex-sets-r4-q2` version 2
 
 The full list is `docs/content-versions.json`.
 

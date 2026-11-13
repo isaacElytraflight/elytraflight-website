@@ -10,7 +10,7 @@
   },
   {
    "heading": "Key equations",
-   "body_md": "\\[ R = \\frac{\\rho}{t}\\cdot\\frac{L}{W} = R_\\square\\,\\frac{L}{W} \\]\n\\[ R_\\square = \\frac{\\rho}{t} = \\frac{1}{q\\mu N t} \\]\nLayout rules of thumb (reader Fig. 4.6): each contact region \\(\\approx 0.65\\) squares; each 90° corner \\(\\approx 0.56\\) squares.",
+   "body_md": "\\[ R = \\frac{\\rho}{t}\\cdot\\frac{L}{W} = R_\\square\\,\\frac{L}{W} \\]\n\\[ R_\\square = \\frac{\\rho}{t} = \\frac{1}{q\\mu N t} \\]\nLayout rules of thumb: each contact region \\(\\approx 0.65\\) squares; each 90° corner \\(\\approx 0.56\\) squares.",
    "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 140\" role=\"img\" aria-label=\"Serpentine resistor of constant width: a straight run, two corners joined by a short vertical run, and a second straight run.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:380px;width:100%;height:auto\"><polyline points=\"30,40 250,40 250,100 30,100\" stroke-width=\"8\"/><circle cx=\"30\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"30\" cy=\"100\" r=\"2.6\" fill=\"currentColor\"/><text x=\"20\" y=\"44\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">A</text><text x=\"20\" y=\"104\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"140\" y=\"26\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">straight run</text><text x=\"272\" y=\"74\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">corner + short run</text><text x=\"140\" y=\"126\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">straight run</text></svg>",
    "figure_alt": "Serpentine resistor of constant width: a straight run, two corners joined by a short vertical run, and a second straight run."
   },
@@ -26,5 +26,6 @@
    "heading": "Where this leads",
    "body_md": "The same \"count the squares\" view describes a MOSFET in triode: the channel is a voltage-controlled sheet whose \\(R_\\square\\) the gate sets, and the drain current scales with \\(W/L\\). The diffusion resistor's junction to the substrate is a first look at the parasitic capacitances that limit speed later."
   }
- ]
+ ],
+ "version": 2
 }

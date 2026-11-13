@@ -24,21 +24,24 @@ Do not publish.
 | `cauchy-schwarz-inequality` | `inner-products`, `vector-norms-lp` | `nlo-tugraz` | optimization, linear-algebra |
 
 Read `docs/notation.md` before writing. Read `docs/sources.md` for licenses and sections.
+Read `docs/batch-starter.md` for the read order, helpers, gates, and efficiency rules.
 No source or textbook name in learner-facing content: stems, choices, explanations, explainers, figures, alt text, or the skill panel.
 
 ## Bank, explainer, core or application
 
 - 4 rounds × 3 auto-graded questions. Round 1 practice. Rounds 2–3 mastery. Round 4 application, with a preview link to a descendant.
 - Multiple choice: 4 options, balanced positions, real-mistake distractors. Numeric: nonzero answer, a unit, relative tolerance 0.02.
+- Deep types, written with `Bank.sym`, `Bank.order`, `Bank.find_error`, and `Bank.multi` in `tools/skilltree-content/banklib.py`: symbolic expressions (declared variables, random-point grading, `alternates` for equivalent forms), step ordering, find-the-error, and multi-select. Each is simply correct or incorrect.
+- Deep-type quota: at least 3 of those four types per 12 questions, `ceil(3n/12)` for another length (`deep_quota` in `banklib.py`). The domain gate enforces it. Banks in `skilltree/deep_quota_grandfather.json` are exempt. Do not add ids to that list.
 - Explanations work the answer and say why the tempting wrong answers fail. No option letters. No `$` math.
 - Figures from `tools/skilltree-content/templates.py` where the shape is one of the shared templates. Alt text does not reveal the answer.
 - Explainer: idea, key equations, worked example, pitfalls, where this leads. 250–500 words, at least one figure. The worked example uses none of that skill's quiz numbers.
-- Cores: `rn-important-subsets`, `spectral-decomposition`, `positive-definite-matrices`, `singular-value-decomposition`, `rayleigh-quotient`, `inner-products`, `vector-norms-lp`, `cauchy-schwarz-inequality`. The other skills in this batch are applications.
+- Cores: `rn-important-subsets`, `spectral-decomposition`, `positive-definite-matrices`, `singular-value-decomposition`, `rayleigh-quotient`, `inner-products`, `vector-norms-lp`, `cauchy-schwarz-inequality`.
 
 ## Gates
 
 `python3 tools/skilltree-content/run_gates.py --batch nlo-nb1`.
-That runs the schema, graph, and domain validators, the batch numeric verifier, the figure-bounds check, strict KaTeX, and the content, merge, migrate, and Puppeteer tests.
+That runs the schema, graph, and domain validators, the reference gate, the batch numeric verifier, the figure-bounds check, strict KaTeX, and the content, merge, migrate, and Puppeteer tests.
 The shingle gate and the 10% spot audit are deferred. Writers paraphrase from understanding: no copied wording, problems, parameter sets, or figures.
 
 ## Deliverables

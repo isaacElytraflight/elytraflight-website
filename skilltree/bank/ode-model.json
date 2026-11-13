@@ -1,6 +1,6 @@
 {
   "skill_id": "ode-model",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "ode-model-r1-q1",
@@ -24,13 +24,13 @@
       "round": 1,
       "type": "numeric",
       "prompt": "A \\(4\\ \\mathrm{kg}\\) mass slides with viscous friction \\(8\\ \\mathrm{N\\,s/m}\\) and no spring. A constant \\(24\\ \\mathrm{N}\\) force is applied. What speed does it settle to, in m/s?",
-      "explanation": "Newton's law along the motion is \\(4\\dot v = 24 - 8v\\). At rest \\(\\dot v = 0\\), so \\(v = 24/8 = 3\\ \\mathrm{m/s}\\). The mass sets how fast the speed approaches that value. It does not set the value.\n• \\(24/4 = 6\\) is the initial acceleration in \\(\\mathrm{m/s^2}\\), if the mass starts from rest, not a speed.\n• \\(8/4 = 2\\) is the reciprocal of the time constant, in \\(\\mathrm{s^{-1}}\\).\n• \\(24 \times 8\\) multiplies the two coefficients.",
+      "explanation": "Newton's law along the motion is \\(4\\dot v = 24 - 8v\\). At rest \\(\\dot v = 0\\), so \\(v = 24/8 = 3\\ \\mathrm{m/s}\\). The mass sets how fast the speed approaches that value. It does not set the value.\n• \\(24/4 = 6\\) is the initial acceleration in \\(\\mathrm{m/s^2}\\), if the mass starts from rest, not a speed.\n• \\(8/4 = 2\\) is the reciprocal of the time constant, in \\(\\mathrm{s^{-1}}\\).\n• \\(24 imes 8\\) multiplies the two coefficients.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Mass with damping, pulled by a constant force</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"112\" x2=\"78\" y2=\"112\"/><rect x=\"78\" y=\"100\" width=\"28\" height=\"24\"/><line x1=\"106\" y1=\"112\" x2=\"140\" y2=\"112\"/><text x=\"92\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
       "figure_alt": "A mass connected to a wall through a damper, with a force arrow.",
       "answer": 3.0,
       "unit": "m/s",
       "tolerance": 0.02,
-      "version": 2
+      "version": 3
     },
     {
       "id": "ode-model-r1-q3",
@@ -54,13 +54,13 @@
       "round": 2,
       "type": "numeric",
       "prompt": "A coil \\(L = 0.5\\ \\mathrm{H}\\) is in series with \\(R = 4\\ \\Omega\\), and \\(12\\ \\mathrm{V}\\) is applied. The current starts at \\(0\\). What current does it settle to, in A?",
-      "explanation": "The loop law is \\(0.5\\,\\dot\\imath + 4\\imath = 12\\). In steady state \\(\\dot\\imath = 0\\), so \\(\\imath = 12/4 = 3\\ \\mathrm{A}\\). The inductance sets the time constant \\(L/R = 0.125\\ \\mathrm{s}\\). It stores energy. It does not drop DC voltage.\n• \\(12/0.5 = 24\\) divides by the inductance and gives the initial \\(\\mathrm{d}\\imath/\\mathrm{d}t\\) in amperes per second.\n• \\(0.5/4 = 0.125\\) is the time constant in seconds.\n• \\(12 \times 4 = 48\\) multiplies the source by the resistance.",
+      "explanation": "The loop law is \\(0.5\\,\\dot\\imath + 4\\imath = 12\\). In steady state \\(\\dot\\imath = 0\\), so \\(\\imath = 12/4 = 3\\ \\mathrm{A}\\). The inductance sets the time constant \\(L/R = 0.125\\ \\mathrm{s}\\). It stores energy. It does not drop DC voltage.\n• \\(12/0.5 = 24\\) divides by the inductance and gives the initial \\(\\mathrm{d}\\imath/\\mathrm{d}t\\) in amperes per second.\n• \\(0.5/4 = 0.125\\) is the time constant in seconds.\n• \\(12 imes 4 = 48\\) multiplies the source by the resistance.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Series inductor and resistor driven by a DC source</title><line x1=\"40\" y1=\"30\" x2=\"40\" y2=\"53\"/><line x1=\"40\" y1=\"77\" x2=\"40\" y2=\"100\"/><circle cx=\"40\" cy=\"65\" r=\"12\"/><text x=\"40\" y=\"63\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"40\" y=\"75\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"23\" y=\"69\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v</text><polyline points=\"40,30 90,30\"/><line x1=\"90\" y1=\"30\" x2=\"98\" y2=\"30\"/><path d=\"M 98.0 30.0 a 6.8 6.8 0 0 1 13.5 0 M 111.5 30.0 a 6.8 6.8 0 0 1 13.5 0 M 125.0 30.0 a 6.8 6.8 0 0 1 13.5 0 M 138.5 30.0 a 6.8 6.8 0 0 1 13.5 0\"/><line x1=\"152\" y1=\"30\" x2=\"160\" y2=\"30\"/><text x=\"125\" y=\"18\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">L</text><polyline points=\"160,30 210,30\"/><polyline points=\"210,30 222,30 225,24 230,36 235,24 240,36 245,24 250,36 258,30 270,30\"/><text x=\"240\" y=\"18\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><polyline points=\"270,30 300,30 300,100 40,100\"/><line x1=\"170\" y1=\"100\" x2=\"170\" y2=\"106\"/><line x1=\"161\" y1=\"106\" x2=\"179\" y2=\"106\"/><line x1=\"165\" y1=\"110\" x2=\"175\" y2=\"110\"/><line x1=\"168.5\" y1=\"114\" x2=\"171.5\" y2=\"114\"/></svg>",
       "figure_alt": "A voltage source in series with an inductor and a resistor.",
       "answer": 3.0,
       "unit": "A",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "ode-model-r2-q2",
@@ -84,26 +84,26 @@
       "round": 2,
       "type": "numeric",
       "prompt": "A rotor has inertia \\(J = 0.4\\ \\mathrm{kg\\,m^2}\\) and viscous friction \\(0.08\\ \\mathrm{N\\,m\\,s}\\). A constant torque of \\(0.16\\ \\mathrm{N\\,m}\\) is applied. What speed does it settle to, in rad/s?",
-      "explanation": "\\(J\\dot\\omega = \\tau - b\\omega\\). In steady state \\(b\\omega = \\tau\\), so \\(\\omega = 0.16/0.08 = 2\\ \\mathrm{rad/s}\\). The inertia cancels out of the resting speed. The time constant is \\(J/b = 5\\ \\mathrm{s}\\).\n• \\(0.16/0.4 = 0.4\\) is the initial angular acceleration, in \\(\\mathrm{rad/s^2}\\).\n• \\(0.4/0.08 = 5\\) is the time constant, in seconds.\n• \\(0.16 \times 0.08\\) is not a speed.",
+      "explanation": "\\(J\\dot\\omega = \\tau - b\\omega\\). In steady state \\(b\\omega = \\tau\\), so \\(\\omega = 0.16/0.08 = 2\\ \\mathrm{rad/s}\\). The inertia cancels out of the resting speed. The time constant is \\(J/b = 5\\ \\mathrm{s}\\).\n• \\(0.16/0.4 = 0.4\\) is the initial angular acceleration, in \\(\\mathrm{rad/s^2}\\).\n• \\(0.4/0.08 = 5\\) is the time constant, in seconds.\n• \\(0.16 imes 0.08\\) is not a speed.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 250 160\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Rotor with an applied torque</title><circle cx=\"120\" cy=\"80\" r=\"36\"/><circle cx=\"120\" cy=\"80\" r=\"6\" fill=\"currentColor\"/><line x1=\"156\" y1=\"80\" x2=\"210\" y2=\"80\"/><polygon points=\"210,80 203.6,82.7 203.6,77.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"218\" y=\"84\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">τ</text><text x=\"120\" y=\"34\" text-anchor=\"middle\" font-size=\"14\" fill=\"currentColor\" stroke=\"none\">J</text><text x=\"120\" y=\"140\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">viscous friction b</text></svg>",
       "figure_alt": "A disk on a shaft with a torque arrow and a label for inertia.",
       "answer": 2.0,
       "unit": "rad/s",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "ode-model-r3-q1",
       "round": 3,
       "type": "numeric",
       "prompt": "A tank has surface area \\(3\\ \\mathrm{m^2}\\). Outflow is \\(q = h/R\\) with \\(R = 0.4\\ \\mathrm{m/(m^3/s)}\\). Inflow steps to \\(0.5\\ \\mathrm{m^3/s}\\). What height does the water settle to, in m?",
-      "explanation": "Volume balance: \\(3\\dot h = 0.5 - h/0.4\\). At rest, \\(h/0.4 = 0.5\\), so \\(h = 0.2\\ \\mathrm{m}\\). The area does not appear in the resting height. It appears in the time constant \\(AR = 1.2\\ \\mathrm{s}\\).\n• \\(0.5/3 = 0.167\\) divides the inflow by the area. That is a velocity of the free surface only if nothing flows out.\n• \\(0.5 \times 3 = 1.5\\) multiplies by the area.\n• \\(0.4\\) is the resistance, not the height.",
+      "explanation": "Volume balance: \\(3\\dot h = 0.5 - h/0.4\\). At rest, \\(h/0.4 = 0.5\\), so \\(h = 0.2\\ \\mathrm{m}\\). The area does not appear in the resting height. It appears in the time constant \\(AR = 1.2\\ \\mathrm{s}\\).\n• \\(0.5/3 = 0.167\\) divides the inflow by the area. That is a velocity of the free surface only if nothing flows out.\n• \\(0.5 imes 3 = 1.5\\) multiplies by the area.\n• \\(0.4\\) is the resistance, not the height.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 250 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Tank whose outflow depends on height</title><line x1=\"70\" y1=\"30\" x2=\"70\" y2=\"140\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"140\"/><line x1=\"70\" y1=\"140\" x2=\"170\" y2=\"140\"/><rect x=\"71\" y=\"78\" width=\"98\" height=\"62\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"70\" y1=\"78\" x2=\"170\" y2=\"78\" stroke-dasharray=\"4 3\"/><text x=\"150\" y=\"74\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">h</text><line x1=\"110\" y1=\"16\" x2=\"110\" y2=\"40\"/><polygon points=\"110,40 107.3,33.6 112.7,33.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"124\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">q in</text><line x1=\"170\" y1=\"120\" x2=\"220\" y2=\"120\"/><polygon points=\"220,120 213.6,122.7 213.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"188\" y=\"112\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">q out</text></svg>",
       "figure_alt": "A tank with inflow and outflow arrows and a marked waterline.",
       "answer": 0.2,
       "unit": "m",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "ode-model-r3-q2",
@@ -156,7 +156,7 @@
       "round": 4,
       "type": "numeric",
       "prompt": "A vehicle of mass \\(1200\\ \\mathrm{kg}\\) has linear drag \\(80\\ \\mathrm{N}\\) per \\((\\mathrm{m/s})\\). The engine holds a constant \\(400\\ \\mathrm{N}\\). There is no grade. What speed does it settle to, in m/s?",
-      "explanation": "\\(1200\\,\\dot v = 400 - 80 v\\). At rest, \\(v = 400/80 = 5\\ \\mathrm{m/s}\\). This balance is the plant a cruise-control loop closes. The mass again sets the time constant \\(1200/80 = 15\\ \\mathrm{s}\\), not the cruising speed.\n• \\(400/1200 = 0.333\\) is the initial acceleration in \\(\\mathrm{m/s^2}\\).\n• \\(80/1200\\) is the reciprocal time constant.\n• \\(400 \times 80\\) is not a speed.",
+      "explanation": "\\(1200\\,\\dot v = 400 - 80 v\\). At rest, \\(v = 400/80 = 5\\ \\mathrm{m/s}\\). This balance is the plant a cruise-control loop closes. The mass again sets the time constant \\(1200/80 = 15\\ \\mathrm{s}\\), not the cruising speed.\n• \\(400/1200 = 0.333\\) is the initial acceleration in \\(\\mathrm{m/s^2}\\).\n• \\(80/1200\\) is the reciprocal time constant.\n• \\(400 imes 80\\) is not a speed.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 146\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Vehicle with mass and a driving force</title><rect x=\"70\" y=\"70\" width=\"120\" height=\"36\" rx=\"8\"/><rect x=\"96\" y=\"48\" width=\"60\" height=\"24\" rx=\"6\"/><circle cx=\"100\" cy=\"106\" r=\"12\"/><circle cx=\"164\" cy=\"106\" r=\"12\"/><line x1=\"40\" y1=\"120\" x2=\"250\" y2=\"120\"/><line x1=\"200\" y1=\"78\" x2=\"250\" y2=\"78\"/><polygon points=\"250,78 243.6,80.7 243.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"68\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">F</text><text x=\"130\" y=\"92\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">m</text></svg>",
       "figure_alt": "A vehicle in side view with a drive-force arrow.",
       "preview": [
@@ -165,7 +165,7 @@
       "answer": 5.0,
       "unit": "m/s",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "ode-model-r4-q3",

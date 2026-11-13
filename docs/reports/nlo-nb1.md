@@ -12,7 +12,15 @@ Do not publish.
 
 ## Versions
 
-Every item is version 1.
+Items above version 1:
+
+- `rn-important-subsets-r1-q1` version 2
+- `rn-important-subsets-r1-q2` version 2
+- `rn-important-subsets-r2-q1` version 2
+- `rn-important-subsets-r4-q1` version 2
+- `rn-important-subsets-r4-q3` version 2
+- `rn-important-subsets#explainer` version 2
+- `vector-norms-lp-r4-q3` version 2
 
 The full list is `docs/content-versions.json`.
 

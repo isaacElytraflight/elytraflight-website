@@ -1,7 +1,7 @@
 {
   "id": "rn-important-subsets",
   "title": "Key subsets of R^n",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "The line through \\(a\\) and \\(b\\) is \\(a + t(b-a)\\) for \\(t \\in \\mathbb{R}\\). The closed segment uses \\(t \\in [0,1]\\). A hyperplane is \\(a^T x = \\beta\\). The matching closed half-space is \\(a^T x \\le \\beta\\). The unit simplex in \\(\\mathbb{R}^n\\) is\n\\[\n\\{x : x \\ge 0,\\ 1^T x = 1\\}.\n\\]\nThe nonnegative orthant drops the sum constraint and keeps only \\(x \\ge 0\\). A \\(2 \\times 3\\) matrix acts on column vectors in \\(\\mathbb{R}^3\\)."
+      "body_md": "The line through \\(a\\) and \\(b\\) is \\(a + t(b-a)\\) for \\(t \\in \\mathbb{R}\\). The closed segment uses \\(t \\in [0,1]\\). A hyperplane is \\(a^T x = \\beta\\). The matching closed half-space is \\(a^T x \\le \\beta\\). The unit simplex in \\(\\mathbb{R}^n\\) is\n\\[\n\\{x: x \\ge 0,\\ 1^T x = 1\\}.\n\\]\nThe nonnegative orthant drops the sum constraint and keeps only \\(x \\ge 0\\). A \\(2 \\times 3\\) matrix acts on column vectors in \\(\\mathbb{R}^3\\)."
     },
     {
       "heading": "Worked example",

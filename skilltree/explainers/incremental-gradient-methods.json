@@ -1,7 +1,7 @@
 {
   "id": "incremental-gradient-methods",
   "title": "Incremental gradient methods",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "One block updates\n\\[\nx := x - t \\nabla f_i(x)\n\\]\nand the next block sees the new \\(x\\). A batch step uses \\(\\sum_i \\nabla f_i\\) at a single point."
+      "body_md": "One block updates\n\\[\nx:= x - t \\nabla f_i(x)\n\\]\nand the next block sees the new \\(x\\). A batch step uses \\(\\sum_i \\nabla f_i\\) at a single point."
     },
     {
       "heading": "Worked example",

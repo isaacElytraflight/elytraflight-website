@@ -1,6 +1,6 @@
 {
   "skill_id": "rev-bias",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "rev-bias-r1-q1",
@@ -14,9 +14,10 @@
         "It moves entirely into the P side"
       ],
       "correct_index": 2,
-      "explanation": "The total step across the junction becomes \\(\\varphi_{bi} - V_D > \\varphi_{bi}\\). With no significant current, the only way to support more potential is more charge, which means wider depletion (reader Eq. 5.52–5.55):\n\\[X_d(V_D) = X_{d0}\\sqrt{1 - \\frac{V_D}{\\varphi_{bi}}}\\]\nForward bias (\\(V_D > 0\\)) would shrink it.",
+      "explanation": "The total step across the junction becomes \\(\\varphi_{bi} - V_D > \\varphi_{bi}\\). With no significant current, the only way to support more potential is more charge, which means wider depletion:\n\\[X_d(V_D) = X_{d0}\\sqrt{1 - \\frac{V_D}{\\varphi_{bi}}}\\]\nForward bias (\\(V_D > 0\\)) would shrink it.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 238\" role=\"img\" aria-label=\"PN junction charge density, electric field and potential\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"44.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"76.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"26.0\" x2=\"190.0\" y2=\"102.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><rect x=\"86.0\" y=\"62.0\" width=\"104.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><rect x=\"190.0\" y=\"32.0\" width=\"104.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><line x1=\"44.0\" y1=\"62.0\" x2=\"86.0\" y2=\"62.0\" stroke-width=\"2.2\"/><line x1=\"294.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"2.2\"/><text x=\"8.0\" y=\"32.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">ρ(x)</text><text x=\"138.0\" y=\"104.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">–qN<tspan font-size=\"7\" dy=\"2.8\">A</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"242.0\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">+qN<tspan font-size=\"7\" dy=\"2.8\">D</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"44.0\" y1=\"162.0\" x2=\"336.0\" y2=\"162.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"176.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"126.0\" x2=\"190.0\" y2=\"202.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><polyline points=\"44.0,162.0 86.0,162.0 190.0,194.0 294.0,162.0 336.0,162.0\" fill=\"none\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/><text x=\"8.0\" y=\"132.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">E(x)</text><text x=\"198.0\" y=\"196.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"2.8\">max</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"86.0\" y=\"216.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-x<tspan font-size=\"7\" dy=\"2.8\">p</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"294.0\" y=\"216.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">n</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"86.0\" y1=\"159.0\" x2=\"86.0\" y2=\"165.0\" stroke-width=\"1.2\"/><line x1=\"294.0\" y1=\"159.0\" x2=\"294.0\" y2=\"165.0\" stroke-width=\"1.2\"/><text x=\"48.0\" y=\"235.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"332.0\" y=\"235.0\" text-anchor=\"end\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">N side</text></svg>",
-      "figure_alt": "Charge density and field for a reverse-biased junction: wider negative and positive charge blocks than at zero bias, and a larger triangular field."
+      "figure_alt": "Charge density and field for a reverse-biased junction: wider negative and positive charge blocks than at zero bias, and a larger triangular field.",
+      "version": 2
     },
     {
       "id": "rev-bias-r1-q2",
@@ -26,9 +27,10 @@
       "answer": 1.07703,
       "unit": "µm",
       "tolerance": 0.02,
-      "explanation": "\\[X_d = X_{d0}\\sqrt{1 - \\frac{V_D}{\\varphi_{bi}}} = 0.40\\sqrt{1 + \\frac{5}{0.8}} = 0.40\\sqrt{7.25} \\approx 1.08\\ \\mu\\mathrm{m}\\]\nCommon mistake: using \\(1 + V_D/\\varphi_{bi}\\) with \\(V_D = -5\\), which gives the square root of a negative number. In the reader's sign convention, reverse bias makes \\(V_D\\) negative and \\(-V_D/\\varphi_{bi}\\) positive.",
+      "explanation": "\\[X_d = X_{d0}\\sqrt{1 - \\frac{V_D}{\\varphi_{bi}}} = 0.40\\sqrt{1 + \\frac{5}{0.8}} = 0.40\\sqrt{7.25} \\approx 1.08\\ \\mu\\mathrm{m}\\]\nCommon mistake: using \\(1 + V_D/\\varphi_{bi}\\) with \\(V_D = -5\\), which gives the square root of a negative number. In the sign convention used here, reverse bias makes \\(V_D\\) negative and \\(-V_D/\\varphi_{bi}\\) positive.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 238\" role=\"img\" aria-label=\"PN junction charge density, electric field and potential\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"44.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"76.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"26.0\" x2=\"190.0\" y2=\"102.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><rect x=\"79.5\" y=\"62.0\" width=\"110.5\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><rect x=\"190.0\" y=\"32.0\" width=\"110.5\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><line x1=\"44.0\" y1=\"62.0\" x2=\"79.5\" y2=\"62.0\" stroke-width=\"2.2\"/><line x1=\"300.5\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"2.2\"/><text x=\"8.0\" y=\"32.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">ρ(x)</text><text x=\"134.8\" y=\"104.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">–qN<tspan font-size=\"7\" dy=\"2.8\">A</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"245.2\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">+qN<tspan font-size=\"7\" dy=\"2.8\">D</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"44.0\" y1=\"162.0\" x2=\"336.0\" y2=\"162.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"176.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"126.0\" x2=\"190.0\" y2=\"202.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><polyline points=\"44.0,162.0 79.5,162.0 190.0,194.0 300.5,162.0 336.0,162.0\" fill=\"none\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/><text x=\"8.0\" y=\"132.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">E(x)</text><text x=\"198.0\" y=\"196.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"2.8\">max</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"79.5\" y=\"216.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-x<tspan font-size=\"7\" dy=\"2.8\">p</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"300.5\" y=\"216.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">n</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"79.5\" y1=\"159.0\" x2=\"79.5\" y2=\"165.0\" stroke-width=\"1.2\"/><line x1=\"300.5\" y1=\"159.0\" x2=\"300.5\" y2=\"165.0\" stroke-width=\"1.2\"/><text x=\"48.0\" y=\"235.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"332.0\" y=\"235.0\" text-anchor=\"end\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">N side</text></svg>",
-      "figure_alt": "Reverse-biased junction with a wider depletion region and larger peak field."
+      "figure_alt": "Reverse-biased junction with a wider depletion region and larger peak field.",
+      "version": 2
     },
     {
       "id": "rev-bias-r1-q3",
@@ -42,7 +44,8 @@
         "Electrons and holes recombine at the junction before crossing"
       ],
       "correct_index": 1,
-      "explanation": "Majority carriers now face a barrier of \\(\\varphi_{bi} + V_R\\), and the number able to climb it drops as \\(e^{-V_R/V_{th}}\\). Minority carriers that wander into the field are still swept across, giving a small, bias-independent saturation current (reader Sec. 6.2.2; footnote 3 of Ch. 5).\nThe depletion region isn't a PERFECT insulator, or there'd be no leakage at all."
+      "explanation": "Majority carriers now face a barrier of \\(\\varphi_{bi} + V_R\\), and the number able to climb it drops as \\(e^{-V_R/V_{th}}\\). Minority carriers that wander into the field are still swept across, giving a small, bias-independent saturation current.\nThe depletion region isn't a PERFECT insulator, or there'd be no leakage at all.",
+      "version": 2
     },
     {
       "id": "rev-bias-r2-q1",
@@ -96,9 +99,10 @@
       "answer": 1.63299,
       "unit": "(factor)",
       "tolerance": 0.02,
-      "explanation": "\\(Q_j = qN_Ax_p \\propto \\sqrt{\\varphi_{bi} + V_R}\\) (reader Eq. 5.56):\n\\[\\frac{Q(4\\ \\mathrm{V})}{Q(1\\ \\mathrm{V})} = \\sqrt{\\frac{4.8}{1.8}} \\approx 1.63\\]\nGotcha: four times the voltage gives only about 1.6 times the charge. \\(Q\\) is NOT proportional to \\(V\\), so this is a nonlinear capacitor. You can't use \\(Q = CV\\) with a single \\(C\\).",
+      "explanation": "\\(Q_j = qN_Ax_p \\propto \\sqrt{\\varphi_{bi} + V_R}\\):\n\\[\\frac{Q(4\\ \\mathrm{V})}{Q(1\\ \\mathrm{V})} = \\sqrt{\\frac{4.8}{1.8}} \\approx 1.63\\]\nGotcha: four times the voltage gives only about 1.6 times the charge. \\(Q\\) is NOT proportional to \\(V\\), so this is a nonlinear capacitor. You can't use \\(Q = CV\\) with a single \\(C\\).",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 138\" role=\"img\" aria-label=\"PN junction charge density, electric field and potential\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"44.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"76.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"26.0\" x2=\"190.0\" y2=\"102.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><rect x=\"86.0\" y=\"62.0\" width=\"104.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><rect x=\"190.0\" y=\"32.0\" width=\"104.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><line x1=\"44.0\" y1=\"62.0\" x2=\"86.0\" y2=\"62.0\" stroke-width=\"2.2\"/><line x1=\"294.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"2.2\"/><text x=\"8.0\" y=\"32.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">ρ(x)</text><text x=\"138.0\" y=\"104.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">–qN<tspan font-size=\"7\" dy=\"2.8\">A</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"242.0\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">+qN<tspan font-size=\"7\" dy=\"2.8\">D</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"86.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-x<tspan font-size=\"7\" dy=\"2.8\">p</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"294.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">n</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"86.0\" y1=\"59.0\" x2=\"86.0\" y2=\"65.0\" stroke-width=\"1.2\"/><line x1=\"294.0\" y1=\"59.0\" x2=\"294.0\" y2=\"65.0\" stroke-width=\"1.2\"/><text x=\"48.0\" y=\"135.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"332.0\" y=\"135.0\" text-anchor=\"end\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">N side</text></svg>",
-      "figure_alt": "Charge blocks growing with reverse bias."
+      "figure_alt": "Charge blocks growing with reverse bias.",
+      "version": 2
     },
     {
       "id": "rev-bias-r3-q3",
@@ -137,11 +141,12 @@
       "answer": 2.69258,
       "unit": "(ratio)",
       "tolerance": 0.02,
-      "explanation": "\\[\\frac{C_j(0)}{C_j(5)} = \\sqrt{\\frac{0.8+5}{0.8}} = \\sqrt{7.25} \\approx 2.69\\]\nA tuning range of about 2.7 to 1 from a DC control voltage. Radios use this to tune an LC oscillator, since \\(f \\propto 1/\\sqrt{C}\\) (reader Sec. 5.5.5).",
+      "explanation": "\\[\\frac{C_j(0)}{C_j(5)} = \\sqrt{\\frac{0.8+5}{0.8}} = \\sqrt{7.25} \\approx 2.69\\]\nA tuning range of about 2.7 to 1 from a DC control voltage. Radios use this to tune an LC oscillator, since \\(f \\propto 1/\\sqrt{C}\\).",
       "preview": [
         "junction-cap",
         "diode-ss"
-      ]
+      ],
+      "version": 2
     },
     {
       "id": "rev-bias-r4-q3",
@@ -155,11 +160,12 @@
         "They add capacitance that grows with more reverse bias"
       ],
       "correct_index": 2,
-      "explanation": "A reverse-biased junction stores depletion charge that varies with voltage, so it is a nonlinear capacitor (\\(C \\propto 1/\\sqrt{\\varphi_{bi}+V_R}\\)). These parasitic capacitances (\\(C_{DB}\\), \\(C_{SB}\\)) slow down circuits.\nKeeping the body at the lowest voltage guarantees reverse bias, which isolates the devices from each other (reader Sec. 6.2.5) while leaving these capacitors behind.",
+      "explanation": "A reverse-biased junction stores depletion charge that varies with voltage, so it is a nonlinear capacitor (\\(C \\propto 1/\\sqrt{\\varphi_{bi}+V_R}\\)). These parasitic capacitances (\\(C_{DB}\\), \\(C_{SB}\\)) slow down circuits.\nKeeping the body at the lowest voltage guarantees reverse bias, which isolates the devices from each other while leaving these capacitors behind.",
       "preview": [
         "mos-caps",
         "junction-cap"
-      ]
+      ],
+      "version": 2
     }
   ]
 }

@@ -8,7 +8,7 @@ Do not publish.
 
 - 6 skills, 72 questions (30 multiple choice, 42 numeric), 6 explainers.
 - 72 question figures.
-- Explainer words: `newton-method-optimization` 486, `newton-local-quadratic-convergence` 488, `newton-globalization` 484, `wolfe-conditions` 488, `quasi-newton-secant` 481, `bfgs-update` 497.
+- Explainer words: `newton-method-optimization` 486, `newton-local-quadratic-convergence` 495, `newton-globalization` 484, `wolfe-conditions` 488, `quasi-newton-secant` 481, `bfgs-update` 497.
 
 ## Versions
 

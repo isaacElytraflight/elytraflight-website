@@ -35,12 +35,12 @@ No source or textbook name in learner-facing content: stems, choices, explanatio
 - Explanations work the answer and say why the tempting wrong answers fail. No option letters. No `$` math.
 - Figures from `tools/skilltree-content/templates.py` where the shape is one of the shared templates. Alt text does not reveal the answer.
 - Explainer: idea, key equations, worked example, pitfalls, where this leads. 250–500 words, at least one figure. The worked example uses none of that skill's quiz numbers.
-- Cores: `lp-standard-form`, `lp-graphical-solution`, `polyhedra-extreme-points`, `basic-feasible-solutions`, `simplex-feasible-directions`, `simplex-method-iteration`, `simplex-phase-one`. The other skills in this batch are applications.
+- Cores: `lp-standard-form`, `lp-graphical-solution`, `polyhedra-extreme-points`, `basic-feasible-solutions`, `simplex-feasible-directions`, `simplex-method-iteration`, `simplex-phase-one`.
 
 ## Gates
 
 `python3 tools/skilltree-content/run_gates.py --batch nlo-nb6`.
-That runs the schema, graph, and domain validators, the batch numeric verifier, the figure-bounds check, strict KaTeX, and the content, merge, migrate, and Puppeteer tests.
+That runs the schema, graph, and domain validators, the reference gate, the batch numeric verifier, the figure-bounds check, strict KaTeX, and the content, merge, migrate, and Puppeteer tests.
 The shingle gate and the 10% spot audit are deferred. Writers paraphrase from understanding: no copied wording, problems, parameter sets, or figures.
 
 ## Deliverables

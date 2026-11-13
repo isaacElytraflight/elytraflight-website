@@ -1,7 +1,7 @@
 {
   "id": "level-sets-contours",
   "title": "Sublevel sets and contour sets",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "\\[\n\\mathrm{lev}(f, a) = \\{x : f(x) \\le a\\}, \\qquad \\mathrm{con}(f, a) = \\{x : f(x) = a\\}.\n\\]\nIf \\(f(x) = \\lVert x \\rVert_2^2\\), then \\(\\mathrm{lev}(f, a)\\) is the closed disk of radius \\(\\sqrt{a}\\) for \\(a > 0\\), and the contour is the circle of that radius. If \\(f(x) = c^T x\\), the contour at height \\(a\\) is a hyperplane and the sublevel set is a closed half-space. A strict sublevel set uses \\(<\\) and drops the contour."
+      "body_md": "\\[\n\\mathrm{lev}(f, a) = \\{x: f(x) \\le a\\}, \\qquad \\mathrm{con}(f, a) = \\{x: f(x) = a\\}.\n\\]\nIf \\(f(x) = \\lVert x \\rVert_2^2\\), then \\(\\mathrm{lev}(f, a)\\) is the closed disk of radius \\(\\sqrt{a}\\) for \\(a > 0\\), and the contour is the circle of that radius. If \\(f(x) = c^T x\\), the contour at height \\(a\\) is a hyperplane and the sublevel set is a closed half-space. A strict sublevel set uses \\(<\\) and drops the contour."
     },
     {
       "heading": "Worked example",

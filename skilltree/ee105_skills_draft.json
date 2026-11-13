@@ -1,7 +1,7 @@
 {
- "course": "Elytraflight's Skill Tree global graph (EE 105, ME 132, Feedback Systems)",
- "source": "Niknejad EE105 Reader (Oct 31, 2022)",
- "version": 3,
+ "course": "Elytraflight's Skill Tree",
+ "source": "",
+ "version": 4,
  "chapters": {
   "1": "Linear Time-Invariant Systems",
   "2": "AC Circuits and AC Analysis",
@@ -27,7 +27,6 @@
    "id": "lti-def",
    "name": "Linear time-invariant systems and superposition",
    "chapter": 1,
-   "reader_section": "1.3",
    "prereqs": [],
    "owns": "linearity, time invariance, superposition",
    "sources": [
@@ -42,7 +41,6 @@
    "id": "rc-lpf",
    "name": "Solve a first-order RC low-pass filter in the time domain",
    "chapter": 1,
-   "reader_section": "1.2",
    "prereqs": [
     "step-resp"
    ],
@@ -59,7 +57,6 @@
    "id": "cx-exp",
    "name": "Complex exponentials and Euler's relations",
    "chapter": 1,
-   "reader_section": "1.4",
    "prereqs": [],
    "owns": "complex exponentials, polar form, Euler",
    "sources": [
@@ -74,7 +71,6 @@
    "id": "sinusoid-resp",
    "name": "Sinusoidal steady state using complex exponentials",
    "chapter": 1,
-   "reader_section": "1.5",
    "prereqs": [
     "cx-exp",
     "lti-def"
@@ -92,7 +88,6 @@
    "id": "impulse-conv",
    "name": "Impulse response and convolution",
    "chapter": 1,
-   "reader_section": "1.8",
    "prereqs": [
     "lti-def"
    ],
@@ -109,7 +104,6 @@
    "id": "step-resp",
    "name": "Step and pulse response",
    "chapter": 1,
-   "reader_section": "1.9",
    "prereqs": [
     "impulse-conv"
    ],
@@ -126,7 +120,6 @@
    "id": "freq-char",
    "name": "Frequency-domain view of linear systems",
    "chapter": 1,
-   "reader_section": "1.10",
    "prereqs": [
     "sinusoid-resp",
     "impulse-conv"
@@ -144,7 +137,6 @@
    "id": "tf",
    "name": "Transfer functions, voltage and current gain, transimpedance",
    "chapter": 2,
-   "reader_section": "2.2",
    "prereqs": [
     "sinusoid-resp"
    ],
@@ -161,7 +153,6 @@
    "id": "phasors",
    "name": "Phasors and impedance of R, L, C",
    "chapter": 2,
-   "reader_section": "2.4",
    "prereqs": [
     "sinusoid-resp"
    ],
@@ -171,7 +162,6 @@
    "id": "direct-h",
    "name": "Find H(jw) directly with impedances",
    "chapter": 2,
-   "reader_section": "2.4.4",
    "prereqs": [
     "phasors",
     "tf"
@@ -182,7 +172,6 @@
    "id": "pole-zero",
    "name": "Poles and zeros of a transfer function",
    "chapter": 2,
-   "reader_section": "2.3",
    "prereqs": [
     "tf"
    ],
@@ -199,7 +188,6 @@
    "id": "rlc",
    "name": "Series RLC circuits",
    "chapter": 2,
-   "reader_section": "2.5.3",
    "prereqs": [
     "direct-h",
     "pole-zero"
@@ -210,7 +198,6 @@
    "id": "bode",
    "name": "Bode plots: magnitude and phase",
    "chapter": 2,
-   "reader_section": "2.6",
    "prereqs": [
     "pole-zero"
    ],
@@ -227,7 +214,6 @@
    "id": "ac-power",
    "name": "AC power flow and RMS",
    "chapter": 2,
-   "reader_section": "2.7",
    "prereqs": [
     "phasors"
    ],
@@ -237,7 +223,6 @@
    "id": "drude",
    "name": "Conduction in metals, mobility, microscopic Ohm's law",
    "chapter": 3,
-   "reader_section": "3.2",
    "prereqs": [],
    "owns": "mobility and microscopic Ohm law"
   },
@@ -245,7 +230,6 @@
    "id": "si-props",
    "name": "Silicon bond model, electrons and holes",
    "chapter": 3,
-   "reader_section": "3.3",
    "prereqs": [
     "drude"
    ],
@@ -255,7 +239,6 @@
    "id": "intrinsic",
    "name": "Intrinsic carrier concentration and the mass-action law",
    "chapter": 3,
-   "reader_section": "3.4",
    "prereqs": [
     "si-props"
    ],
@@ -265,7 +248,6 @@
    "id": "doping",
    "name": "Doping with donors and acceptors, carrier concentrations",
    "chapter": 3,
-   "reader_section": "3.5",
    "prereqs": [
     "intrinsic"
    ],
@@ -275,7 +257,6 @@
    "id": "drift",
    "name": "Drift current and mobility",
    "chapter": 3,
-   "reader_section": "3.6",
    "prereqs": [
     "drude",
     "doping"
@@ -286,7 +267,6 @@
    "id": "diffusion",
    "name": "Diffusion current and the Einstein relation",
    "chapter": 3,
-   "reader_section": "3.7",
    "prereqs": [
     "doping"
    ],
@@ -296,7 +276,6 @@
    "id": "total-current",
    "name": "Total current and boundary conditions",
    "chapter": 3,
-   "reader_section": "3.7.4",
    "prereqs": [
     "drift",
     "diffusion"
@@ -307,7 +286,6 @@
    "id": "ic-fab",
    "name": "IC fabrication basics: oxide, implantation",
    "chapter": 4,
-   "reader_section": "4.2",
    "prereqs": [],
    "owns": "oxidation, implantation, lithography basics"
   },
@@ -315,7 +293,6 @@
    "id": "sheet-res",
    "name": "Sheet resistance and IC resistors",
    "chapter": 4,
-   "reader_section": "4.3",
    "prereqs": [
     "drude",
     "ic-fab"
@@ -326,7 +303,6 @@
    "id": "electrostatics",
    "name": "1D electrostatics, fields and potential",
    "chapter": 4,
-   "reader_section": "4.4",
    "prereqs": [],
    "owns": "1D Gauss/Poisson: rho, E, phi"
   },
@@ -334,7 +310,6 @@
    "id": "mim-cap",
    "name": "Capacitor review and MIM capacitors",
    "chapter": 4,
-   "reader_section": "4.5",
    "prereqs": [
     "electrostatics"
    ],
@@ -344,7 +319,6 @@
    "id": "nl-cap",
    "name": "Non-linear capacitors and small-signal capacitance",
    "chapter": 4,
-   "reader_section": "4.5.3",
    "prereqs": [
     "mim-cap"
    ],
@@ -354,7 +328,6 @@
    "id": "carrier-pot",
    "name": "Carrier concentration versus potential (Boltzmann)",
    "chapter": 5,
-   "reader_section": "5.3",
    "prereqs": [
     "doping"
    ],
@@ -364,7 +337,6 @@
    "id": "pn-overview",
    "name": "PN junction in equilibrium: structure and currents",
    "chapter": 5,
-   "reader_section": "5.4",
    "prereqs": [
     "carrier-pot",
     "total-current"
@@ -375,7 +347,6 @@
    "id": "depl-approx",
    "name": "Depletion approximation, fields and depletion width",
    "chapter": 5,
-   "reader_section": "5.4.5",
    "prereqs": [
     "pn-overview",
     "electrostatics"
@@ -386,7 +357,6 @@
    "id": "contact-pot",
    "name": "Built-in contact potential",
    "chapter": 5,
-   "reader_section": "5.4.7",
    "prereqs": [
     "pn-overview"
    ],
@@ -396,7 +366,6 @@
    "id": "rev-bias",
    "name": "Reverse-biased junction: width and charge",
    "chapter": 5,
-   "reader_section": "5.5",
    "prereqs": [
     "depl-approx",
     "contact-pot"
@@ -407,7 +376,6 @@
    "id": "junction-cap",
    "name": "Depletion capacitance and varactors",
    "chapter": 5,
-   "reader_section": "5.5.3",
    "prereqs": [
     "rev-bias",
     "nl-cap"
@@ -418,7 +386,6 @@
    "id": "diode-qual",
    "name": "Qualitative diode I-V: equilibrium, forward, reverse",
    "chapter": 6,
-   "reader_section": "6.2",
    "prereqs": [
     "pn-overview"
    ],
@@ -428,7 +395,6 @@
    "id": "excess-carriers",
    "name": "Non-equilibrium carriers and recombination-generation",
    "chapter": 6,
-   "reader_section": "6.3",
    "prereqs": [
     "doping"
    ],
@@ -438,7 +404,6 @@
    "id": "continuity",
    "name": "Continuity equation for excess carriers",
    "chapter": 6,
-   "reader_section": "6.4",
    "prereqs": [
     "excess-carriers",
     "total-current"
@@ -449,7 +414,6 @@
    "id": "minority-profile",
    "name": "Minority carrier distribution at junction edges",
    "chapter": 6,
-   "reader_section": "6.5",
    "prereqs": [
     "continuity",
     "diode-qual"
@@ -460,7 +424,6 @@
    "id": "diode-iv",
    "name": "Ideal diode equation",
    "chapter": 6,
-   "reader_section": "6.5.3",
    "prereqs": [
     "minority-profile"
    ],
@@ -470,7 +433,6 @@
    "id": "diode-ss",
    "name": "Diode small-signal model and diffusion capacitance",
    "chapter": 6,
-   "reader_section": "6.6",
    "prereqs": [
     "diode-iv",
     "junction-cap",
@@ -482,7 +444,6 @@
    "id": "solar-cell",
    "name": "Solar cells: short-circuit current and open-circuit voltage",
    "chapter": 6,
-   "reader_section": "6.7",
    "prereqs": [
     "diode-iv"
    ],
@@ -492,7 +453,6 @@
    "id": "led",
    "name": "Light-emitting diodes",
    "chapter": 6,
-   "reader_section": "6.7.6",
    "prereqs": [
     "diode-iv"
    ],
@@ -502,7 +462,6 @@
    "id": "mos-struct",
    "name": "MOS capacitor structure and gate contact potential",
    "chapter": 7,
-   "reader_section": "7.2",
    "prereqs": [
     "electrostatics",
     "contact-pot"
@@ -513,7 +472,6 @@
    "id": "mos-regions",
    "name": "Accumulation, depletion and inversion",
    "chapter": 7,
-   "reader_section": "7.3",
    "prereqs": [
     "mos-struct",
     "depl-approx"
@@ -524,7 +482,6 @@
    "id": "vt",
    "name": "Threshold voltage derivation",
    "chapter": 7,
-   "reader_section": "7.4",
    "prereqs": [
     "mos-regions"
    ],
@@ -534,7 +491,6 @@
    "id": "mos-fields",
    "name": "Fields and potential in oxide and substrate",
    "chapter": 7,
-   "reader_section": "7.5",
    "prereqs": [
     "mos-regions"
    ],
@@ -544,7 +500,6 @@
    "id": "mos-cv",
    "name": "MOS Q-V and C-V curves",
    "chapter": 7,
-   "reader_section": "7.6",
    "prereqs": [
     "mos-regions",
     "vt"
@@ -555,7 +510,6 @@
    "id": "mosfet-struct",
    "name": "MOSFET layout, cross section, CMOS and symbols",
    "chapter": 8,
-   "reader_section": "8.2",
    "prereqs": [
     "mos-struct"
    ],
@@ -565,7 +519,6 @@
    "id": "nmos-regions",
    "name": "NMOS regions of operation and observed I-V",
    "chapter": 8,
-   "reader_section": "8.3",
    "prereqs": [
     "vt",
     "mosfet-struct"
@@ -576,7 +529,6 @@
    "id": "triode",
    "name": "Triode region and the MOSFET as a variable resistor",
    "chapter": 8,
-   "reader_section": "8.4.1",
    "prereqs": [
     "nmos-regions"
    ],
@@ -586,7 +538,6 @@
    "id": "square-law",
    "name": "Saturation: pinch-off and the square law",
    "chapter": 8,
-   "reader_section": "8.4.5",
    "prereqs": [
     "triode"
    ],
@@ -596,7 +547,6 @@
    "id": "pmos",
    "name": "PMOS: regions, sign conventions and small-signal use",
    "chapter": 8,
-   "reader_section": "8.6",
    "prereqs": [
     "square-law",
     "ss-model"
@@ -607,7 +557,6 @@
    "id": "cs-intro",
    "name": "Common-source amplifier: transfer curve and bias-point selection",
    "chapter": 9,
-   "reader_section": "9.2",
    "prereqs": [
     "square-law",
     "tf"
@@ -618,7 +567,6 @@
    "id": "gm",
    "name": "MOS transconductance gm",
    "chapter": 9,
-   "reader_section": "9.4.2",
    "prereqs": [
     "cs-intro"
    ],
@@ -628,7 +576,6 @@
    "id": "ro",
    "name": "Channel-length modulation and output resistance ro",
    "chapter": 9,
-   "reader_section": "9.4.3",
    "prereqs": [
     "square-law",
     "gm"
@@ -639,7 +586,6 @@
    "id": "ss-model",
    "name": "MOS small-signal model and analysis procedure",
    "chapter": 9,
-   "reader_section": "9.4.4",
    "prereqs": [
     "gm",
     "ro"
@@ -650,7 +596,6 @@
    "id": "mos-caps",
    "name": "MOSFET capacitances CGS, CGD, CDB, CSB",
    "chapter": 10,
-   "reader_section": "10.2",
    "prereqs": [
     "ss-model",
     "junction-cap"
@@ -661,7 +606,6 @@
    "id": "body-effect",
    "name": "Body effect: threshold shift and gmb",
    "chapter": 10,
-   "reader_section": "10.3",
    "prereqs": [
     "vt",
     "ss-model"
@@ -672,7 +616,6 @@
    "id": "bjt-struct",
    "name": "BJT structure, layout and symbol",
    "chapter": 11,
-   "reader_section": "11.2",
    "prereqs": [
     "pn-overview"
    ],
@@ -682,7 +625,6 @@
    "id": "bjt-iv",
    "name": "BJT observed I-V characteristics",
    "chapter": 11,
-   "reader_section": "11.3",
    "prereqs": [
     "bjt-struct",
     "diode-iv"
@@ -693,7 +635,6 @@
    "id": "bjt-action",
    "name": "Transistor action, BJT currents and current gain",
    "chapter": 11,
-   "reader_section": "11.4",
    "prereqs": [
     "bjt-iv",
     "minority-profile"
@@ -704,7 +645,6 @@
    "id": "ebers-moll",
    "name": "Ebers-Moll model",
    "chapter": 11,
-   "reader_section": "11.6.1",
    "prereqs": [
     "bjt-action"
    ],
@@ -714,7 +654,6 @@
    "id": "early",
    "name": "Forward-active region and the Early effect",
    "chapter": 11,
-   "reader_section": "11.6.3",
    "prereqs": [
     "ebers-moll"
    ],
@@ -724,7 +663,6 @@
    "id": "bjt-ss",
    "name": "BJT small-signal model",
    "chapter": 11,
-   "reader_section": "11.6.5",
    "prereqs": [
     "early",
     "ss-model"
@@ -735,7 +673,6 @@
    "id": "two-port",
    "name": "Two-port amplifier models and loading in cascades",
    "chapter": 12,
-   "reader_section": "12.2",
    "prereqs": [
     "ss-model"
    ],
@@ -745,7 +682,6 @@
    "id": "bias-coupling",
    "name": "Isolating bias points, DC versus AC coupling",
    "chapter": 12,
-   "reader_section": "12.3.1",
    "prereqs": [
     "cs-intro"
    ],
@@ -755,7 +691,6 @@
    "id": "cs-analysis",
    "name": "Common-source gain, input and output impedance",
    "chapter": 12,
-   "reader_section": "12.3",
    "prereqs": [
     "two-port",
     "ss-model"
@@ -766,7 +701,6 @@
    "id": "cg",
    "name": "Common-gate amplifier",
    "chapter": 12,
-   "reader_section": "12.3.3",
    "prereqs": [
     "two-port",
     "ss-model"
@@ -777,7 +711,6 @@
    "id": "cd",
    "name": "Source follower: gain with body effect and real bias source",
    "chapter": 12,
-   "reader_section": "12.4",
    "prereqs": [
     "two-port",
     "ss-model",
@@ -789,7 +722,6 @@
    "id": "amp-choice",
    "name": "Choosing among CS, CG and CD",
    "chapter": 12,
-   "reader_section": "12.6",
    "prereqs": [
     "cs-analysis",
     "cg",
@@ -801,7 +733,6 @@
    "id": "high-load",
    "name": "High load impedance, headroom and gain",
    "chapter": 13,
-   "reader_section": "13.2",
    "prereqs": [
     "cs-analysis"
    ],
@@ -811,7 +742,6 @@
    "id": "diode-conn",
    "name": "Diode-connected transistor",
    "chapter": 13,
-   "reader_section": "13.3.1",
    "prereqs": [
     "ss-model",
     "square-law"
@@ -822,7 +752,6 @@
    "id": "mirror",
    "name": "Current mirror: ratios and output resistance",
    "chapter": 13,
-   "reader_section": "13.3.3",
    "prereqs": [
     "diode-conn"
    ],
@@ -832,7 +761,6 @@
    "id": "degeneration",
    "name": "Source degeneration",
    "chapter": 13,
-   "reader_section": "13.4.2",
    "prereqs": [
     "ss-model"
    ],
@@ -842,7 +770,6 @@
    "id": "cascode-src",
    "name": "Cascode current source and its drawback",
    "chapter": 13,
-   "reader_section": "13.4.3",
    "prereqs": [
     "degeneration",
     "mirror"
@@ -853,7 +780,6 @@
    "id": "ref-gen",
    "name": "Constant-gm current reference",
    "chapter": 13,
-   "reader_section": "13.7",
    "prereqs": [
     "mirror"
    ],
@@ -863,7 +789,6 @@
    "id": "freq-basics",
    "name": "Frequency response considerations and coupling capacitors",
    "chapter": 14,
-   "reader_section": "14.2",
    "prereqs": [
     "bode",
     "cs-analysis"
@@ -874,7 +799,6 @@
    "id": "cs-brute",
    "name": "Common-source frequency response, brute force",
    "chapter": 14,
-   "reader_section": "14.5",
    "prereqs": [
     "freq-basics",
     "mos-caps"
@@ -885,7 +809,6 @@
    "id": "miller",
    "name": "Miller theorem and common-source bandwidth",
    "chapter": 14,
-   "reader_section": "14.6",
    "prereqs": [
     "cs-brute"
    ],
@@ -895,7 +818,6 @@
    "id": "cd-freq",
    "name": "Source follower frequency response",
    "chapter": 14,
-   "reader_section": "14.8",
    "prereqs": [
     "miller",
     "cd"
@@ -906,7 +828,6 @@
    "id": "cg-freq",
    "name": "Common-gate bandwidth",
    "chapter": 14,
-   "reader_section": "14.9",
    "prereqs": [
     "freq-basics",
     "cg"
@@ -917,7 +838,6 @@
    "id": "ft",
    "name": "Unity-gain frequency fT",
    "chapter": 14,
-   "reader_section": "14.10",
    "prereqs": [
     "mos-caps",
     "gm"
@@ -928,7 +848,6 @@
    "id": "octc",
    "name": "Open-circuit time constants",
    "chapter": 14,
-   "reader_section": "14.11",
    "prereqs": [
     "pole-zero",
     "miller"
@@ -939,7 +858,6 @@
    "id": "cs-cascade",
    "name": "Two-stage common-source cascade",
    "chapter": 15,
-   "reader_section": "15.4",
    "prereqs": [
     "two-port",
     "cs-analysis"
@@ -950,7 +868,6 @@
    "id": "cs-cascade-freq",
    "name": "Cascade frequency response and bandwidth extension",
    "chapter": 15,
-   "reader_section": "15.4.3",
    "prereqs": [
     "cs-cascade",
     "miller"
@@ -961,7 +878,6 @@
    "id": "cs-cap-load",
    "name": "Common-source with a large capacitive load",
    "chapter": 15,
-   "reader_section": "15.5",
    "prereqs": [
     "miller"
    ],
@@ -971,7 +887,6 @@
    "id": "cascode-amp",
    "name": "Cascode amplifier: gain and bandwidth",
    "chapter": 15,
-   "reader_section": "15.6",
    "prereqs": [
     "cs-cascade",
     "cg",
@@ -983,7 +898,6 @@
    "id": "cascode-bias",
    "name": "Cascode biasing and complete design",
    "chapter": 15,
-   "reader_section": "15.6.6",
    "prereqs": [
     "cascode-amp"
    ],
@@ -993,7 +907,6 @@
    "id": "big-circuit",
    "name": "Simplifying a big circuit",
    "chapter": 15,
-   "reader_section": "15.7",
    "prereqs": [
     "cascode-amp",
     "cs-cascade"
@@ -1004,7 +917,6 @@
    "id": "diff-intro",
    "name": "Motivation and the source-coupled pair",
    "chapter": 16,
-   "reader_section": "16.2",
    "prereqs": [
     "degeneration"
    ],
@@ -1014,7 +926,6 @@
    "id": "diff-dc",
    "name": "Differential pair DC bias and large-signal behavior",
    "chapter": 16,
-   "reader_section": "16.4",
    "prereqs": [
     "diff-intro"
    ],
@@ -1024,7 +935,6 @@
    "id": "half-circuit",
    "name": "Differential/common-mode decomposition and half circuits",
    "chapter": 16,
-   "reader_section": "16.5.4",
    "prereqs": [
     "diff-intro",
     "cs-analysis",
@@ -1038,7 +948,6 @@
    "id": "cmrr",
    "name": "Common-mode gain and CMRR",
    "chapter": 16,
-   "reader_section": "16.6",
    "prereqs": [
     "half-circuit",
     "mirror"
@@ -1049,7 +958,6 @@
    "id": "mirror-load",
    "name": "Differential pair with current mirror load",
    "chapter": 16,
-   "reader_section": "16.7",
    "prereqs": [
     "diff-intro",
     "mirror",
@@ -1061,7 +969,6 @@
    "id": "fb-intro",
    "name": "Feedback block diagram",
    "chapter": 17,
-   "reader_section": "17.2",
    "prereqs": [
     "tf"
    ],
@@ -1078,7 +985,6 @@
    "id": "loop-gain",
    "name": "Loop gain and why feedback helps",
    "chapter": 17,
-   "reader_section": "17.3",
    "prereqs": [
     "fb-intro"
    ],
@@ -1095,7 +1001,6 @@
    "id": "opamp-models",
    "name": "Op-amp circuit models and OTA",
    "chapter": 17,
-   "reader_section": "17.4",
    "prereqs": [
     "ss-model",
     "fb-intro"
@@ -1106,7 +1011,6 @@
    "id": "gbw",
    "name": "Gain-bandwidth trade-off",
    "chapter": 17,
-   "reader_section": "17.5",
    "prereqs": [
     "loop-gain",
     "bode",
@@ -1118,7 +1022,6 @@
    "id": "inverting",
    "name": "Inverting amplifier with feedback",
    "chapter": 17,
-   "reader_section": "17.6",
    "prereqs": [
     "loop-gain",
     "opamp-models"
@@ -1129,7 +1032,6 @@
    "id": "fb-errors",
    "name": "Static and dynamic errors in feedback systems",
    "chapter": 17,
-   "reader_section": "17.7",
    "prereqs": [
     "loop-gain"
    ],
@@ -1146,7 +1048,6 @@
    "id": "fb-impedance",
    "name": "Feedback effect on input and output impedance",
    "chapter": 17,
-   "reader_section": "17.8",
    "prereqs": [
     "fb-intro",
     "two-port"
@@ -1157,7 +1058,6 @@
    "id": "stability",
    "name": "Closed-loop stability, gain and phase margins",
    "chapter": 17,
-   "reader_section": "17.9",
    "prereqs": [
     "pole-zero",
     "loop-gain",
@@ -1176,7 +1076,6 @@
    "id": "offset",
    "name": "Op-amp offset voltage",
    "chapter": 18,
-   "reader_section": "18.2",
    "prereqs": [
     "opamp-models",
     "cmrr"
@@ -1187,7 +1086,6 @@
    "id": "bias-current",
    "name": "Input bias and offset currents",
    "chapter": 18,
-   "reader_section": "18.2.3",
    "prereqs": [
     "offset"
    ],
@@ -1197,7 +1095,6 @@
    "id": "opamp-fr",
    "name": "Open-loop and closed-loop op-amp frequency response",
    "chapter": 18,
-   "reader_section": "18.3",
    "prereqs": [
     "gbw"
    ],
@@ -1207,7 +1104,6 @@
    "id": "slew",
    "name": "Output swing, slew rate and full-power bandwidth",
    "chapter": 18,
-   "reader_section": "18.4",
    "prereqs": [
     "opamp-fr"
    ],
@@ -1217,7 +1113,6 @@
    "id": "noise-dist",
    "name": "Op-amp noise and distortion",
    "chapter": 18,
-   "reader_section": "18.5",
    "prereqs": [
     "opamp-models"
    ],
@@ -1227,7 +1122,6 @@
    "id": "datasheet",
    "name": "Reading op-amp datasheets",
    "chapter": 18,
-   "reader_section": "18.6",
    "prereqs": [
     "offset",
     "slew",
@@ -1847,7 +1741,7 @@
   {
    "id": "reachability",
    "name": "Reachability (controllability)",
-   "summary": "Test reachability with the rank of [B AB ... ] and reach canonical form.",
+   "summary": "Test reachability with the rank of [B AB... ] and reach canonical form.",
    "prereqs": [
     "realization",
     "lin-algebra-review"
@@ -1925,7 +1819,7 @@
   {
    "id": "observability",
    "name": "Observability",
-   "summary": "Test observability with the rank of [C; CA; ...] and observable canonical form.",
+   "summary": "Test observability with the rank of [C; CA;...] and observable canonical form.",
    "prereqs": [
     "realization",
     "lin-algebra-review"
@@ -2219,7 +2113,7 @@
   {
    "id": "app-examples",
    "name": "Applications tour: op-amps, AFM, drug dosing, populations",
-   "summary": "Apply modeling and feedback ideas to the textbook's application families.",
+   "summary": "Apply modeling and feedback ideas to amplifiers, microscopes, dosing, and populations.",
    "prereqs": [
     "state-space-model",
     "fb-concepts"
@@ -2245,8 +2139,7 @@
     "rc-lpf"
    ],
    "summary": "Apply linearity, convolution and step response to circuit equations: RC charging, pulses, rise time and loading.",
-   "chapter": 1,
-   "reader_section": "1.4-1.6"
+   "chapter": 1
   },
   {
    "id": "freq-resp-circuits",
@@ -2258,8 +2151,7 @@
     "phasors"
    ],
    "summary": "Sinusoidal steady state of RC/RL filters, impedance magnitudes, voltage gain and transimpedance.",
-   "chapter": 1,
-   "reader_section": "1.6-1.8, 2.1"
+   "chapter": 1
   },
   {
    "id": "bode-circuits",
@@ -2269,8 +2161,7 @@
     "direct-h"
    ],
    "summary": "Locate poles and zeros from circuit time constants and sketch Bode plots of filters and amplifiers.",
-   "chapter": 2,
-   "reader_section": "2.3-2.5"
+   "chapter": 2
   },
   {
    "id": "fb-amp",
@@ -2280,8 +2171,7 @@
     "opamp-models"
    ],
    "summary": "Find f, the loop gain and the closed-loop gain of op-amp feedback circuits.",
-   "chapter": 17,
-   "reader_section": "17.1-17.3"
+   "chapter": 17
   },
   {
    "id": "fb-amp-errors",
@@ -2291,8 +2181,7 @@
     "fb-amp"
    ],
    "summary": "Static and dynamic gain errors of op-amp amplifiers from finite and frequency-dependent open-loop gain.",
-   "chapter": 17,
-   "reader_section": "17.4"
+   "chapter": 17
   },
   {
    "id": "amp-compensation",
@@ -2303,8 +2192,7 @@
     "fb-amp"
    ],
    "summary": "Phase margin of op-amp loops: second poles, capacitive loads, dominant-pole and Miller compensation.",
-   "chapter": 17,
-   "reader_section": "17.6"
+   "chapter": 17
   },
   {
    "id": "lti-mech",

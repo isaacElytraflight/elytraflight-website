@@ -20,11 +20,12 @@
   },
   {
    "heading": "Common pitfalls",
-   "body_md": "- Sign conventions. Here \\(I_E\\) is defined flowing *into* the emitter, so it is negative for an npn in forward-active.\n- Treating \\(\\alpha_R\\) as close to 1. It is small, because the collector is lightly doped.\n- Reading the reader's Eq. 11.21 literally: \"α, ICS\" should be \\(\\alpha_RI_{CS}\\)."
+   "body_md": "- Sign conventions. Here \\(I_E\\) is defined flowing *into* the emitter, so it is negative for an npn in forward-active.\n- Treating \\(\\alpha_R\\) as close to 1. It is small, because the collector is lightly doped.\n- A garbled product \"α, ICS\" should be read as \\(\\alpha_RI_{CS}\\)."
   },
   {
    "heading": "Where this leads",
    "body_md": "Adding \\((1 + V_{CE}/V_A)\\) gives the Early effect. Linearizing the forward diode gives \\(r_\\pi\\) and \\(g_m\\) in the small-signal model."
   }
- ]
+ ],
+ "version": 2
 }

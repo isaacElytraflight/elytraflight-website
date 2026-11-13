@@ -1,6 +1,6 @@
 {
   "skill_id": "impulse-conv",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "id": "impulse-conv-r1-q1",
@@ -27,10 +27,11 @@
         "the product \\(y(t)=h(t)\\cdot x(t)\\)",
         "the sum \\(y(t)=h(t)+x(t)\\)",
         "the ratio \\(y(t)=x(t)/h(t)\\)",
-        "the convolution \\(y(t)=\\int h(t-\\tau)x(\\tau)\\ d\\tau\\)  (written \\(h\\ast x\\))"
+        "the convolution \\(y(t)=\\int h(t-\\tau)x(\\tau)\\ d\\tau\\) (written \\(h\\ast x\\))"
       ],
       "correct_index": 3,
-      "explanation": "Write x as a sum of weighted, shifted impulses, then use linearity and time invariance: \\(y(t)=\\int x(\\tau)h(t-\\tau)\\ d\\tau=(h\\ast x)(t)\\).\nA pointwise product, sum, or ratio of the two functions would not respect the system's memory."
+      "explanation": "Write x as a sum of weighted, shifted impulses, then use linearity and time invariance: \\(y(t)=\\int x(\\tau)h(t-\\tau)\\ d\\tau=(h\\ast x)(t)\\).\nA pointwise product, sum, or ratio of the two functions would not respect the system's memory.",
+      "version": 2
     },
     {
       "id": "impulse-conv-r1-q3",

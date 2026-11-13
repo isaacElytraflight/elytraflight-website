@@ -39,7 +39,7 @@ No source or textbook name in learner-facing content: stems, choices, explanatio
 ## Gates
 
 `python3 tools/skilltree-content/run_gates.py --batch nlo-nb10`.
-That runs the schema, graph, and domain validators, the batch numeric verifier, the figure-bounds check, strict KaTeX, and the content, merge, migrate, and Puppeteer tests.
+That runs the schema, graph, and domain validators, the reference gate, the batch numeric verifier, the figure-bounds check, strict KaTeX, and the content, merge, migrate, and Puppeteer tests.
 The shingle gate and the 10% spot audit are deferred. Writers paraphrase from understanding: no copied wording, problems, parameter sets, or figures.
 
 ## Deliverables

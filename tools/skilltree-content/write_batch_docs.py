@@ -156,7 +156,7 @@ def brief(spec, counts, boxes):
         "## Gates",
         "",
         f"`python3 tools/skilltree-content/run_gates.py --batch {spec['id']}`.",
-        "That runs the schema, graph, and domain validators, the batch numeric verifier, the figure-bounds check, strict KaTeX, and the content, merge, migrate, and Puppeteer tests.",
+        "That runs the schema, graph, and domain validators, the reference gate, the batch numeric verifier, the figure-bounds check, strict KaTeX, and the content, merge, migrate, and Puppeteer tests.",
         "The shingle gate and the 10% spot audit are deferred. Writers paraphrase from understanding: no copied wording, problems, parameter sets, or figures.",
         "",
         "## Deliverables",

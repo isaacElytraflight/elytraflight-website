@@ -12,7 +12,11 @@ Do not publish.
 
 ## Versions
 
-Every item is version 1.
+Items above version 1:
+
+- `projection-affine-halfspace-kkt-r3-q3` version 2
+- `projection-affine-halfspace-kkt-r4-q3` version 2
+- `projection-affine-halfspace-kkt#explainer` version 2
 
 The full list is `docs/content-versions.json`.
 

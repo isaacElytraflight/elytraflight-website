@@ -11,9 +11,15 @@ Skills: `fb-concepts`, `laplace`, `lin-algebra-review`, `min-phase`, `ode-model`
 
 Items above version 1:
 
+- `fb-concepts-r1-q3` version 2
+- `fb-concepts-r2-q1` version 2
 - `fb-concepts-r4-q1` version 2
+- `fb-concepts-r4-q3` version 2
+- `laplace-r2-q3` version 2
+- `laplace-r4-q1` version 2
 - `laplace#explainer` version 2
 - `lin-algebra-review-r1-q1` version 2
+- `lin-algebra-review-r1-q2` version 2
 - `lin-algebra-review-r3-q2` version 2
 - `lin-algebra-review-r3-q3` version 2
 - `lin-algebra-review-r4-q1` version 2
@@ -26,8 +32,12 @@ Items above version 1:
 - `min-phase-r4-q1` version 2
 - `min-phase-r4-q2` version 2
 - `min-phase#explainer` version 2
-- `ode-model-r1-q2` version 2
+- `ode-model-r1-q2` version 3
+- `ode-model-r2-q1` version 2
 - `ode-model-r2-q2` version 2
+- `ode-model-r2-q3` version 2
+- `ode-model-r3-q1` version 2
+- `ode-model-r4-q2` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -162,7 +172,11 @@ Box: Nonlinear Optimization (nlo-tugraz).
 
 Skills: `calculus-of-variations`, `largest-inscribed-ellipsoid`, `trajectory-optimization`.
 
-Every item is version 1.
+Items above version 1:
+
+- `largest-inscribed-ellipsoid-r2-q2` version 2
+- `largest-inscribed-ellipsoid-r4-q1` version 2
+- `largest-inscribed-ellipsoid#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -172,7 +186,15 @@ Box: Nonlinear Optimization (nlo-tugraz).
 
 Skills: `rn-important-subsets`, `spectral-decomposition`, `positive-definite-matrices`, `singular-value-decomposition`, `rayleigh-quotient`, `inner-products`, `vector-norms-lp`, `cauchy-schwarz-inequality`.
 
-Every item is version 1.
+Items above version 1:
+
+- `rn-important-subsets-r1-q1` version 2
+- `rn-important-subsets-r1-q2` version 2
+- `rn-important-subsets-r2-q1` version 2
+- `rn-important-subsets-r4-q1` version 2
+- `rn-important-subsets-r4-q3` version 2
+- `rn-important-subsets#explainer` version 2
+- `vector-norms-lp-r4-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -215,8 +237,18 @@ Skills: `induced-matrix-norms`, `frobenius-schatten-norms`, `open-closed-sets`, 
 Items above version 1:
 
 - `frobenius-schatten-norms#explainer` version 2
+- `open-closed-sets-r1-q3` version 2
 - `open-closed-sets-r2-q3` version 2
+- `open-closed-sets-r3-q1` version 2
+- `open-closed-sets-r3-q2` version 2
+- `open-closed-sets#explainer` version 2
+- `compact-sets#explainer` version 2
+- `level-sets-contours-r2-q1` version 2
 - `level-sets-contours-r4-q2` version 2
+- `level-sets-contours#explainer` version 2
+- `convex-sets-r2-q1` version 2
+- `convex-sets-r2-q3` version 2
+- `convex-sets-r4-q2` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -246,7 +278,11 @@ Box: Nonlinear Optimization (nlo-tugraz).
 
 Skills: `optimization-problem-formulation`, `graphical-2d-optimization`, `optimization-problem-classes`, `local-global-minima`, `existence-of-minimizers`, `first-order-optimality`, `second-order-optimality`, `stationary-point-classification`, `convex-optimality-global`, `quadratic-function-minimization`.
 
-Every item is version 1.
+Items above version 1:
+
+- `optimization-problem-formulation#explainer` version 2
+- `local-global-minima#explainer` version 2
+- `existence-of-minimizers#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -256,7 +292,10 @@ Box: Nonlinear Optimization (nlo-tugraz).
 
 Skills: `lp-standard-form`, `lp-graphical-solution`, `polyhedra-extreme-points`, `basic-feasible-solutions`, `simplex-feasible-directions`, `simplex-method-iteration`, `simplex-phase-one`.
 
-Every item is version 1.
+Items above version 1:
+
+- `polyhedra-extreme-points-r2-q3` version 2
+- `simplex-feasible-directions#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -266,7 +305,11 @@ Box: Nonlinear Optimization (nlo-tugraz).
 
 Skills: `lagrangian-duality-lower-bounds`, `lagrange-multiplier-equality`, `kkt-conditions`, `lp-duality-kkt`, `projection-affine-halfspace-kkt`, `linear-least-squares`, `least-squares-data-fitting`, `nonlinear-least-squares`, `circle-fitting-least-squares`, `svm-quadratic-program`.
 
-Every item is version 1.
+Items above version 1:
+
+- `projection-affine-halfspace-kkt-r3-q3` version 2
+- `projection-affine-halfspace-kkt-r4-q3` version 2
+- `projection-affine-halfspace-kkt#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -286,6 +329,8 @@ Box: Nonlinear Optimization (nlo-tugraz).
 
 Skills: `gauss-newton-method`, `levenberg-marquardt`, `incremental-gradient-methods`, `kalman-recursive-least-squares`, `extended-kalman-filter`, `newton-root-finding`.
 
-Every item is version 1.
+Items above version 1:
+
+- `incremental-gradient-methods#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.

@@ -1,6 +1,6 @@
 {
   "skill_id": "intrinsic",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "intrinsic-r1-q1",
@@ -14,9 +14,10 @@
         "\\(n = p = 5\\times10^{22}\\ \\mathrm{cm^{-3}}\\), one per atom"
       ],
       "correct_index": 2,
-      "explanation": "Every thermally broken bond creates one electron AND one hole, and every recombination removes one of each, so \\(n_0 = p_0\\) (reader Sec. 3.4.1). Their common value is the intrinsic concentration, \\(n_i \\approx 10^{10}\\ \\mathrm{cm^{-3}}\\) at 300 K (Eq. 3.27).\nThe electron's lighter mass affects mobility, not the count. One carrier per atom describes a metal.",
+      "explanation": "Every thermally broken bond creates one electron AND one hole, and every recombination removes one of each, so \\(n_0 = p_0\\). Their common value is the intrinsic concentration, \\(n_i \\approx 10^{10}\\ \\mathrm{cm^{-3}}\\) at 300 K.\nThe electron's lighter mass affects mobility, not the count. One carrier per atom describes a metal.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 190\" role=\"img\" aria-label=\"Band diagram (intrinsic)\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:300px;width:100%;height:auto\"><rect x=\"56.0\" y=\"10.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><rect x=\"56.0\" y=\"142.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><line x1=\"56.0\" y1=\"48.0\" x2=\"254.0\" y2=\"48.0\" stroke-width=\"2.4\"/><line x1=\"56.0\" y1=\"142.0\" x2=\"254.0\" y2=\"142.0\" stroke-width=\"2.4\"/><text x=\"50.0\" y=\"52.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">c</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"50.0\" y=\"146.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">v</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"175.0\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">conduction band</text><text x=\"175.0\" y=\"170.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">valence band</text><line x1=\"56.0\" y1=\"95.0\" x2=\"254.0\" y2=\"95.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 4\"/><text x=\"258.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">i</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"258.0\" y=\"113.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"2.8\">F</tspan><tspan dy=\"-2.8\"></tspan>=E<tspan font-size=\"7\" dy=\"2.8\">i</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"76.0\" y1=\"89.0\" x2=\"76.0\" y2=\"49.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,49.0 77.9,53.6 74.1,53.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"76.0\" y1=\"101.0\" x2=\"76.0\" y2=\"141.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,141.0 74.1,136.4 77.9,136.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"82.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">g</tspan><tspan dy=\"-3.1\"></tspan></text></svg>",
-      "figure_alt": "Band diagram of intrinsic silicon: the Fermi level EF coincides with the dashed intrinsic level Ei at mid-gap."
+      "figure_alt": "Band diagram of intrinsic silicon: the Fermi level EF coincides with the dashed intrinsic level Ei at mid-gap.",
+      "version": 2
     },
     {
       "id": "intrinsic-r1-q2",
@@ -26,7 +27,8 @@
       "answer": 1e+20,
       "unit": "cm⁻⁶",
       "tolerance": 0.02,
-      "explanation": "The law of mass action: \\(n\\,p = n_i^2 = (10^{10})^2 = 10^{20}\\ \\mathrm{cm^{-6}}\\) (reader Eq. 3.28).\nThis product is fixed by temperature and material alone. It holds in ANY silicon in thermal equilibrium, doped or not, which is what makes it so useful."
+      "explanation": "The law of mass action: \\(n\\,p = n_i^2 = (10^{10})^2 = 10^{20}\\ \\mathrm{cm^{-6}}\\).\nThis product is fixed by temperature and material alone. It holds in ANY silicon in thermal equilibrium, doped or not, which is what makes it so useful.",
+      "version": 2
     },
     {
       "id": "intrinsic-r1-q3",
@@ -40,7 +42,8 @@
         "Generation is faster than recombination, but the extra carriers leave through the contacts"
       ],
       "correct_index": 1,
-      "explanation": "Equilibrium is a dynamic balance: \\(G_{th}(T) = R = k\\,n\\,p\\) (reader Eq. 3.24–3.26). Bonds break and carriers annihilate all the time; on average the rates cancel. Setting them equal is exactly what gives \\(np = G_{th}/k = n_i^2\\)."
+      "explanation": "Equilibrium is a dynamic balance: \\(G_{th}(T) = R = k\\,n\\,p\\). Bonds break and carriers annihilate all the time; on average the rates cancel. Setting them equal is exactly what gives \\(np = G_{th}/k = n_i^2\\).",
+      "version": 2
     },
     {
       "id": "intrinsic-r2-q1",
@@ -118,7 +121,8 @@
         "\\(n\\) rises and \\(p\\) falls so that \\(np\\) stays equal to \\(n_i^2\\)"
       ],
       "correct_index": 2,
-      "explanation": "\\(np = n_i^2\\) came from \\(G_{th} = knp\\). With light, \\(G = G_{th} + G_{opt}\\) (Eq. 3.22), so the steady state has \\(knp = G_{th} + G_{opt}\\), giving \\(np > n_i^2\\).\nGotcha: light makes PAIRS, so \\(n\\) and \\(p\\) both rise; nothing pushes either down. This non-equilibrium situation is the basis of solar cells and of forward-biased diodes."
+      "explanation": "\\(np = n_i^2\\) came from \\(G_{th} = knp\\). With light, \\(G = G_{th} + G_{opt}\\), so the steady state has \\(knp = G_{th} + G_{opt}\\), giving \\(np > n_i^2\\).\nGotcha: light makes PAIRS, so \\(n\\) and \\(p\\) both rise; nothing pushes either down. This non-equilibrium situation is the basis of solar cells and of forward-biased diodes.",
+      "version": 2
     },
     {
       "id": "intrinsic-r4-q1",

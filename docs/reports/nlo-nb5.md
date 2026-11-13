@@ -12,7 +12,11 @@ Do not publish.
 
 ## Versions
 
-Every item is version 1.
+Items above version 1:
+
+- `optimization-problem-formulation#explainer` version 2
+- `local-global-minima#explainer` version 2
+- `existence-of-minimizers#explainer` version 2
 
 The full list is `docs/content-versions.json`.
 

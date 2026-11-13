@@ -1,6 +1,6 @@
 {
   "skill_id": "nmos-regions",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "nmos-regions-r1-q1",
@@ -14,9 +14,10 @@
         "Accumulation-mode conduction"
       ],
       "correct_index": 1,
-      "explanation": "\\(V_{GS} < V_T\\): no inversion channel connects source and drain, so ideally \\(I_D = 0\\) (reader Eq. 8.41).",
+      "explanation": "\\(V_{GS} < V_T\\): no inversion channel connects source and drain, so ideally \\(I_D = 0\\).",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 160\" role=\"img\" aria-label=\"NMOS with source and body grounded, gate at V_GS and drain at V_DS.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><line x1=\"134\" y1=\"74\" x2=\"134\" y2=\"106\"/><line x1=\"114\" y1=\"90\" x2=\"134\" y2=\"90\"/><line x1=\"140\" y1=\"72\" x2=\"140\" y2=\"108\" stroke-width=\"2.4\"/><line x1=\"140\" y1=\"78\" x2=\"160\" y2=\"78\"/><line x1=\"160\" y1=\"78\" x2=\"160\" y2=\"62\"/><line x1=\"140\" y1=\"102\" x2=\"160\" y2=\"102\"/><line x1=\"160\" y1=\"102\" x2=\"160\" y2=\"118\"/><line x1=\"158\" y1=\"102\" x2=\"144\" y2=\"102\"/><polygon points=\"144,102 149.5,99.7 149.5,104.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"110\" y=\"94\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_GS</text><line x1=\"160\" y1=\"62\" x2=\"160\" y2=\"40\"/><text x=\"168\" y=\"44\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">V_DS (drain)</text><line x1=\"160\" y1=\"118\" x2=\"160\" y2=\"130\"/><line x1=\"160\" y1=\"130\" x2=\"160\" y2=\"136\"/><line x1=\"151\" y1=\"136\" x2=\"169\" y2=\"136\"/><line x1=\"155\" y1=\"140\" x2=\"165\" y2=\"140\"/><line x1=\"158.5\" y1=\"144\" x2=\"161.5\" y2=\"144\"/></svg>",
-      "figure_alt": "NMOS with source and body grounded, gate at V_GS and drain at V_DS."
+      "figure_alt": "NMOS with source and body grounded, gate at V_GS and drain at V_DS.",
+      "version": 2
     },
     {
       "id": "nmos-regions-r1-q2",

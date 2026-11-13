@@ -12,7 +12,11 @@ Do not publish.
 
 ## Versions
 
-Every item is version 1.
+Items above version 1:
+
+- `largest-inscribed-ellipsoid-r2-q2` version 2
+- `largest-inscribed-ellipsoid-r4-q1` version 2
+- `largest-inscribed-ellipsoid#explainer` version 2
 
 The full list is `docs/content-versions.json`.
 

@@ -24,7 +24,8 @@
   },
   {
    "heading": "Where this leads",
-   "body_md": "The same models are the plants for the control loops of ME 132 and Feedback Systems."
+   "body_md": "The same models are the plants for later feedback-control loops."
   }
- ]
+ ],
+ "version": 2
 }

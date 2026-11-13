@@ -12,7 +12,9 @@ Do not publish.
 
 ## Versions
 
-Every item is version 1.
+Items above version 1:
+
+- `incremental-gradient-methods#explainer` version 2
 
 The full list is `docs/content-versions.json`.
 

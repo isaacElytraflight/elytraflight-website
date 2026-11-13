@@ -1,7 +1,7 @@
 {
   "id": "largest-inscribed-ellipsoid",
   "title": "Largest inscribed ellipsoid",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "The ellipsoid and the containment test are\n\\[\n\\mathcal{E} = \\{B u + d : \\lVert u\\rVert \\le 1\\},\n\\]\n\\[\n\\lVert B a_i\\rVert + a_i^T d \\le b_i \\quad\\text{for every face } i.\n\\]\n\\(B\\) is symmetric positive definite. The volume objective is \\(\\log\\det B\\). On a positive diagonal matrix the determinant is the product of the diagonal entries, so two diagonal shapes with the same product have the same volume factor."
+      "body_md": "The ellipsoid and the containment test are\n\\[\n\\mathcal{E} = \\{B u + d: \\lVert u\\rVert \\le 1\\},\n\\]\n\\[\n\\lVert B a_i\\rVert + a_i^T d \\le b_i \\quad\\text{for every face } i.\n\\]\n\\(B\\) is symmetric positive definite. The volume objective is \\(\\log\\det B\\). On a positive diagonal matrix the determinant is the product of the diagonal entries, so two diagonal shapes with the same product have the same volume factor."
     },
     {
       "heading": "Worked example",

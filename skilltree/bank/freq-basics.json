@@ -1,6 +1,6 @@
 {
   "skill_id": "freq-basics",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "freq-basics-r1-q1",
@@ -14,9 +14,10 @@
         "The low corner is set by \\(r_o\\)"
       ],
       "correct_index": 0,
-      "explanation": "Large external capacitors are shorts in the midband and open at DC; small parasitic ones are open in the midband and short at high frequency (reader Sec. 14.2).",
+      "explanation": "Large external capacitors are shorts in the midband and open at DC; small parasitic ones are open in the midband and short at high frequency.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 210\" role=\"img\" aria-label=\"Amplifier gain magnitude versus log frequency: rising at low frequency below the coupling-capacitor corner, flat in the midband, falling above the high-frequency corner set by device capacitances.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"50\" y1=\"176\" x2=\"330\" y2=\"176\"/><polygon points=\"330,176 323.6,178.7 323.6,173.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"176\" x2=\"50\" y2=\"16\"/><polygon points=\"50,16 52.7,22.4 47.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"192\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log10 f (Hz)</text><text x=\"54\" y=\"12\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|A_v| (dB)</text><polyline points=\"50,176 52.2,171.1 54.5,166.2 56.8,161.3 59,156.4 61.2,151.6 63.5,146.7 65.8,141.8 68,136.9 70.2,132 72.5,127.1 74.8,122.3 77,117.4 79.2,112.5 81.5,107.7 83.8,102.9 86,98.1 88.2,93.3 90.5,88.6 92.8,84 95,79.5 97.2,75.2 99.5,71 101.8,67 104,63.4 106.2,60 108.5,57.1 110.8,54.6 113,52.5 115.2,50.8 117.5,49.5 119.8,48.4 122,47.6 124.2,47.1 126.5,46.6 128.8,46.3 131,46.1 133.2,46 135.5,45.8 137.8,45.8 140,45.7 142.2,45.7 144.5,45.6 146.8,45.6 149,45.6 151.2,45.6 153.5,45.6 155.8,45.6 158,45.6 160.2,45.6 162.5,45.6 164.8,45.6 167,45.6 169.2,45.6 171.5,45.6 173.8,45.6 176,45.6 178.2,45.6 180.5,45.6 182.8,45.6 185,45.6 187.2,45.6 189.5,45.6 191.8,45.6 194,45.6 196.2,45.6 198.5,45.7 200.8,45.7 203,45.8 205.2,45.9 207.5,46 209.8,46.2 212,46.4 214.2,46.8 216.5,47.2 218.8,47.9 221,48.7 223.2,49.9 225.5,51.3 227.8,53.1 230,55.4 232.2,58 234.5,61.1 236.8,64.5 239,68.3 241.2,72.3 243.5,76.6 245.8,81 248,85.6 250.2,90.2 252.5,94.9 254.8,99.7 257,104.5 259.2,109.3 261.5,114.2 263.8,119 266,123.9 268.2,128.8 270.5,133.6 272.8,138.5 275,143.4 277.2,148.3 279.5,153.2 281.8,158.1 284,163 286.2,167.9 288.5,172.7 290.8,176 293,176 295.2,176 297.5,176 299.8,176 302,176 304.2,176 306.5,176 308.8,176 311,176 313.2,176 315.5,176 317.8,176 320,176\" stroke-width=\"2\"/><line x1=\"110\" y1=\"176\" x2=\"110\" y2=\"26\" stroke-dasharray=\"4 3\"/><text x=\"110\" y=\"190\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f_L</text><line x1=\"230\" y1=\"176\" x2=\"230\" y2=\"26\" stroke-dasharray=\"4 3\"/><text x=\"230\" y=\"190\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f_H</text><text x=\"185\" y=\"35.8\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">midband</text></svg>",
-      "figure_alt": "Amplifier gain magnitude versus log frequency: rising at low frequency below the coupling-capacitor corner, flat in the midband, falling above the high-frequency corner set by device capacitances."
+      "figure_alt": "Amplifier gain magnitude versus log frequency: rising at low frequency below the coupling-capacitor corner, flat in the midband, falling above the high-frequency corner set by device capacitances.",
+      "version": 2
     },
     {
       "id": "freq-basics-r1-q2",

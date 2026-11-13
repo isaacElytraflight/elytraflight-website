@@ -12,11 +12,11 @@
     },
     {
       "id": "fb-concepts-r1-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "fb-concepts-r2-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "fb-concepts-r2-q2",
@@ -48,7 +48,7 @@
     },
     {
       "id": "fb-concepts-r4-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "fb-concepts#explainer",
@@ -76,7 +76,7 @@
     },
     {
       "id": "laplace-r2-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "laplace-r3-q1",
@@ -92,7 +92,7 @@
     },
     {
       "id": "laplace-r4-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "laplace-r4-q2",
@@ -112,7 +112,7 @@
     },
     {
       "id": "lin-algebra-review-r1-q2",
-      "version": 1
+      "version": 2
     },
     {
       "id": "lin-algebra-review-r1-q3",
@@ -216,7 +216,7 @@
     },
     {
       "id": "ode-model-r1-q2",
-      "version": 2
+      "version": 3
     },
     {
       "id": "ode-model-r1-q3",
@@ -224,7 +224,7 @@
     },
     {
       "id": "ode-model-r2-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "ode-model-r2-q2",
@@ -232,11 +232,11 @@
     },
     {
       "id": "ode-model-r2-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "ode-model-r3-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "ode-model-r3-q2",
@@ -252,7 +252,7 @@
     },
     {
       "id": "ode-model-r4-q2",
-      "version": 1
+      "version": 2
     },
     {
       "id": "ode-model-r4-q3",
@@ -3088,7 +3088,7 @@
     },
     {
       "id": "largest-inscribed-ellipsoid-r2-q2",
-      "version": 1
+      "version": 2
     },
     {
       "id": "largest-inscribed-ellipsoid-r2-q3",
@@ -3108,7 +3108,7 @@
     },
     {
       "id": "largest-inscribed-ellipsoid-r4-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "largest-inscribed-ellipsoid-r4-q2",
@@ -3120,7 +3120,7 @@
     },
     {
       "id": "largest-inscribed-ellipsoid#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "trajectory-optimization-r1-q1",
@@ -3176,11 +3176,11 @@
     },
     {
       "id": "rn-important-subsets-r1-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "rn-important-subsets-r1-q2",
-      "version": 1
+      "version": 2
     },
     {
       "id": "rn-important-subsets-r1-q3",
@@ -3188,7 +3188,7 @@
     },
     {
       "id": "rn-important-subsets-r2-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "rn-important-subsets-r2-q2",
@@ -3212,7 +3212,7 @@
     },
     {
       "id": "rn-important-subsets-r4-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "rn-important-subsets-r4-q2",
@@ -3220,11 +3220,11 @@
     },
     {
       "id": "rn-important-subsets-r4-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "rn-important-subsets#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "spectral-decomposition-r1-q1",
@@ -3532,7 +3532,7 @@
     },
     {
       "id": "vector-norms-lp-r4-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "vector-norms-lp#explainer",
@@ -4692,7 +4692,7 @@
     },
     {
       "id": "open-closed-sets-r1-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "open-closed-sets-r2-q1",
@@ -4708,11 +4708,11 @@
     },
     {
       "id": "open-closed-sets-r3-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "open-closed-sets-r3-q2",
-      "version": 1
+      "version": 2
     },
     {
       "id": "open-closed-sets-r3-q3",
@@ -4732,7 +4732,7 @@
     },
     {
       "id": "open-closed-sets#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "compact-sets-r1-q1",
@@ -4784,7 +4784,7 @@
     },
     {
       "id": "compact-sets#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "level-sets-contours-r1-q1",
@@ -4800,7 +4800,7 @@
     },
     {
       "id": "level-sets-contours-r2-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "level-sets-contours-r2-q2",
@@ -4836,7 +4836,7 @@
     },
     {
       "id": "level-sets-contours#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "convex-sets-r1-q1",
@@ -4852,7 +4852,7 @@
     },
     {
       "id": "convex-sets-r2-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "convex-sets-r2-q2",
@@ -4860,7 +4860,7 @@
     },
     {
       "id": "convex-sets-r2-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "convex-sets-r3-q1",
@@ -4880,7 +4880,7 @@
     },
     {
       "id": "convex-sets-r4-q2",
-      "version": 1
+      "version": 2
     },
     {
       "id": "convex-sets-r4-q3",
@@ -5876,7 +5876,7 @@
     },
     {
       "id": "optimization-problem-formulation#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "graphical-2d-optimization-r1-q1",
@@ -6032,7 +6032,7 @@
     },
     {
       "id": "local-global-minima#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "existence-of-minimizers-r1-q1",
@@ -6084,7 +6084,7 @@
     },
     {
       "id": "existence-of-minimizers#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "first-order-optimality-r1-q1",
@@ -6472,7 +6472,7 @@
     },
     {
       "id": "polyhedra-extreme-points-r2-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "polyhedra-extreme-points-r3-q1",
@@ -6604,7 +6604,7 @@
     },
     {
       "id": "simplex-feasible-directions#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "simplex-method-iteration-r1-q1",
@@ -6952,7 +6952,7 @@
     },
     {
       "id": "projection-affine-halfspace-kkt-r3-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "projection-affine-halfspace-kkt-r4-q1",
@@ -6964,11 +6964,11 @@
     },
     {
       "id": "projection-affine-halfspace-kkt-r4-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "projection-affine-halfspace-kkt#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "linear-least-squares-r1-q1",
@@ -7956,7 +7956,7 @@
     },
     {
       "id": "incremental-gradient-methods#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "kalman-recursive-least-squares-r1-q1",

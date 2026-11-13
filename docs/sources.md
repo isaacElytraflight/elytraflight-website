@@ -2,7 +2,7 @@
 
 Licenses were checked on 2026-11-06. A source that is not openly licensed is treated as fully copyrighted: it is read for scope and facts, and none of its wording, problems, parameter sets, or figures is stored in this repo.
 
-Learner-facing text does not name a reader or a textbook. The skill panel renders `sources` as "Further reading", so B1 citations stay in this file and not on the skill records.
+Learner-facing text does not name a reader, a textbook, a course, or a university. `sources` on a skill record is authoring metadata only. The public build omits it, and the skill panel does not render a further-reading list. Citations stay in this file.
 
 ## Sources
 

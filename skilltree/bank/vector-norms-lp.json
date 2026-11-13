@@ -1,6 +1,6 @@
 {
   "skill_id": "vector-norms-lp",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "vector-norms-lp-r1-q1",
@@ -183,13 +183,13 @@
         "open-closed-sets"
       ],
       "options": [
-        "\\(\\{y : \\lVert y-x \\rVert \\le r\\}\\)",
-        "\\(\\{y : \\lVert y-x \\rVert < r\\}\\)",
-        "\\(\\{y : \\lVert y-x \\rVert = r\\}\\)",
+        "\\(\\{y: \\lVert y-x \\rVert \\le r\\}\\)",
+        "\\(\\{y: \\lVert y-x \\rVert < r\\}\\)",
+        "\\(\\{y: \\lVert y-x \\rVert = r\\}\\)",
         "a closed half-space"
       ],
       "correct_index": 1,
-      "version": 1
+      "version": 2
     }
   ]
 }
