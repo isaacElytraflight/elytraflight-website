@@ -1,6 +1,6 @@
 {
   "skill_id": "freq-resp-circuits",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "freq-resp-circuits-r1-q1",
@@ -27,36 +27,50 @@
       "figure_alt": "RC low-pass filter driven by 10 cos(omega t)."
     },
     {
-      "id": "freq-resp-circuits-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "The voltage transfer function (voltage gain) of a circuit at frequency \\(\\omega\\) is defined as…",
+      "type": "multi",
+      "prompt": "Select every statement that is true of a circuit's voltage gain \\(G_v(j\\omega)\\).",
+      "explanation": "Voltage gain compares two voltages, so the unit cancels and the result is a complex number. Magnitude and angle are the sinusoidal steady-state scale and shift. An output voltage per ampere of input current is a transimpedance, in ohms, which is a different ratio.",
       "options": [
-        "\\(G_{v}=V_{\\mathrm{out}}\\times V_{\\mathrm{in}}\\), a real number in volts squared",
-        "\\(G_{v}=I_{\\mathrm{out}}/I_{\\mathrm{in}}\\), a ratio of currents",
-        "\\(G_{v}=V_{\\mathrm{out}}-V_{\\mathrm{in}}\\), the voltage drop in volts",
-        "\\(G_{v}(j\\omega)=V_{\\mathrm{out}}/V_{\\mathrm{in}}\\), a complex number (ratio of output and input phasors)"
+        "It is the ratio of the output voltage phasor to the input voltage phasor.",
+        "It is dimensionless.",
+        "Its magnitude is the steady amplitude ratio, and its angle is the phase shift of the sinusoid.",
+        "It equals the output voltage in volts when the input current is 1 A."
       ],
-      "correct_index": 3,
-      "explanation": "A transfer function is the ratio of an output phasor to an input phasor. For voltage gain, \\(G_{v}=V_{2}/V_{1}=(|V_{2}|/|V_{1}|)e^{j(\\phi_{2}-\\phi_{1})}\\). Its magnitude is the amplitude ratio and its angle is the phase shift.\n• The product of voltages is not a ratio and has units of \\(V^{2}\\).\n• The ratio of currents is the CURRENT gain, \\(G_{i}\\).\n• A difference is not a transfer function.",
-      "version": 2
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1,
+      "id": "freq-resp-circuits-r1-q4"
     },
     {
-      "id": "freq-resp-circuits-r2-q1",
       "round": 2,
-      "type": "mc",
-      "prompt": "A transimpedance amplifier (TIA) converts an input current into an output voltage. What are the units of its transfer function \\(V_{\\mathrm{out}}/I_{\\mathrm{in}}\\)?",
-      "options": [
-        "Siemens (S)",
-        "Unitless \\((V/V)\\)",
-        "Ohms (Ω)",
-        "Watts (W)"
+      "type": "symbolic",
+      "prompt": "A capacitor \\(C\\) is driven at angular frequency \\(w\\) in radians per second. Write the magnitude of its impedance, using the names \\(w\\) and \\(C\\).",
+      "explanation": "The impedance is \\(1/(j\\omega C)\\). The factor \\(j\\) has magnitude 1, so the magnitude is \\(1/(\\omega C)\\). Multiplying by \\(\\omega C\\) is the admittance magnitude, the reciprocal. A resistor's impedance does not fall as frequency rises.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Impedance magnitude</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">f</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|Z|</text><polyline points=\"46,39 49,44 52,48.6 55.1,52.8 58.1,56.7 61.1,60.3 64.1,63.7 67.2,66.9 70.2,69.8 73.2,72.5 76.2,75.1 79.2,77.5 82.3,79.8 85.3,82 88.3,84 91.3,85.9 94.4,87.8 97.4,89.5 100.4,91.2 103.4,92.7 106.4,94.2 109.5,95.6 112.5,97 115.5,98.3 118.5,99.6 121.6,100.8 124.6,101.9 127.6,103 130.6,104.1 133.6,105.1 136.7,106 139.7,107 142.7,107.9 145.7,108.8 148.8,109.6 151.8,110.4 154.8,111.2 157.8,112 160.8,112.7 163.9,113.4 166.9,114.1 169.9,114.8 172.9,115.4 176,116 179,116.6 182,117.2 185,117.8 188,118.3 191.1,118.9 194.1,119.4 197.1,119.9 200.1,120.4 203.2,120.9 206.2,121.4 209.2,121.8 212.2,122.3 215.2,122.7 218.3,123.1 221.3,123.5 224.3,123.9 227.3,124.3 230.4,124.7 233.4,125.1 236.4,125.5 239.4,125.8 242.4,126.2 245.5,126.5 248.5,126.8 251.5,127.2 254.5,127.5 257.6,127.8 260.6,128.1 263.6,128.4 266.6,128.7 269.6,129 272.7,129.3 275.7,129.5 278.7,129.8 281.7,130.1 284.8,130.3 287.8,130.6 290.8,130.8 293.8,131.1 296.8,131.3 299.9,131.5 302.9,131.8 305.9,132 308.9,132.2 312,132.4 315,132.7 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A smooth curve of impedance magnitude that falls as frequency increases.",
+      "answer": "1/(w*C)",
+      "variables": [
+        {
+          "name": "w",
+          "min": 1.0,
+          "max": 40.0
+        },
+        {
+          "name": "C",
+          "min": 0.1,
+          "max": 4.0
+        }
       ],
-      "correct_index": 2,
-      "explanation": "Volts divided by amps is ohms, so the transfer function is an impedance-like quantity: a 'trans-impedance'.\n• Siemens \\((A/V)\\) is for a trans-ADMITTANCE (output current/input voltage).\n• \\(V/V\\) is a voltage gain; \\(A/A\\) would be a current gain.\n• Watts would be for power, not a ratio of signals.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 218 70\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Transimpedance amplifier</title><text x=\"10\" y=\"27\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">i_in</text><line x1=\"10\" y1=\"35\" x2=\"60\" y2=\"35\"/><polygon points=\"60,35 53.6,37.7 53.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"17\" width=\"60\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"39\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">TIA</text><line x1=\"120\" y1=\"35\" x2=\"166\" y2=\"35\"/><polygon points=\"166,35 159.6,37.7 159.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"170\" y=\"39\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v_out</text></svg>",
-      "figure_alt": "Block diagram: an input current into a transimpedance amplifier gives an output voltage.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "1/(C*w)"
+      ],
+      "version": 1,
+      "id": "freq-resp-circuits-r2-q4"
     },
     {
       "id": "freq-resp-circuits-r2-q2",
@@ -79,19 +93,24 @@
       "explanation": "\\(-\\tan^{-1}(\\omega\\tau)=-45^{\\circ}\\) ⇒ \\(\\omega\\tau=\\tan 45^{\\circ}=1\\) ⇒ \\(\\tau=1/\\omega\\).\n\\(\\omega=2\\pi\\times 2000=12{,}566\\ \\mathrm{rad}/\\mathrm{s}\\), so \\(\\tau=1/12{,}566=79.58\\ \\mu\\mathrm{s}\\).\nThis 'find the corner from the 45° point' is a standard way to identify a first-order system from sinusoidal measurements. Common mistake: \\(\\tau=1/f=500\\ \\mu\\mathrm{s}\\) (forgetting \\(2\\pi\\))."
     },
     {
-      "id": "freq-resp-circuits-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "For a circuit made only of real-valued R, L and C elements, \\(H(j\\omega)=1/(1+j\\omega\\tau)\\). What is \\(H(-j\\omega)\\) (the response to the complex exponential \\(e^{-j\\omega t}\\))?",
-      "options": [
-        "\\(1/(1-j\\omega\\tau)\\), the complex conjugate of \\(H(j\\omega)\\)",
-        "\\(-1/(1+j\\omega\\tau)\\)",
-        "\\(1/(1+j\\omega\\tau)\\), identical to \\(H(j\\omega)\\)",
-        "\\(-1/(1-j\\omega\\tau)\\)"
+      "type": "error",
+      "prompt": "A circuit of real \\(R\\), \\(L\\), and \\(C\\) has \\(H(j\\omega) = 1/(1+j\\omega\\tau)\\). A student evaluates \\(H(-j\\omega)\\). Exactly one step is wrong.",
+      "explanation": "Conjugation flips the sign of the imaginary part. \\(1+j\\omega\\tau\\) becomes \\(1-j\\omega\\tau\\), which is what the substitution already produced, so those two steps agree. They do not agree with claiming the value is unchanged. The magnitude is even in \\(\\omega\\) and the phase is odd: the gain at \\(-\\omega\\) has the opposite phase. It is not the negation of the whole complex number, and it is not the same complex number.",
+      "steps": [
+        "Substitute \\(-\\omega\\) for \\(\\omega\\) in \\(1/(1+j\\omega\\tau)\\).",
+        "The denominator becomes \\(1 - j\\omega\\tau\\).",
+        "Real element values make \\(H(-j\\omega)\\) the complex conjugate of \\(H(j\\omega)\\).",
+        "Therefore \\(H(-j\\omega) = H(j\\omega)\\), because the circuit cannot tell the sign of frequency."
       ],
-      "correct_index": 0,
-      "explanation": "\\(H(-\\omega)\\) is found by replacing \\(\\omega\\) with \\(-\\omega\\) everywhere: \\(1/(1+j(-\\omega)\\tau)=1/(1-j\\omega\\tau)=H(j\\omega)*\\).\nThis is not an accident: for a real circuit, \\(|H(-\\omega)|=|H(\\omega)|\\) (even) and \\(\\angle H(-\\omega)=-\\angle H(\\omega)\\) (odd). It is what makes the output of a real input come out real: \\(H(\\omega)e^{j\\omega t}/2+H(-\\omega)e^{-j\\omega t}/2\\) is a sum of conjugates.\nThe other choices change the magnitude's sign or keep the phase unchanged.",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "The conjugate of \\(1/(1+j\\omega\\tau)\\) is \\(1/(1-j\\omega\\tau)\\), which equals \\(H(-j\\omega)\\) and not \\(H(j\\omega)\\).",
+        "Negative frequency reverses every impedance, so \\(H(-j\\omega) = -H(j\\omega)\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "freq-resp-circuits-r3-q4"
     },
     {
       "id": "freq-resp-circuits-r3-q2",
@@ -158,6 +177,55 @@
       ],
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Closed-loop gain 10 with a 100 kHz pole</title><line x1=\"52\" y1=\"164\" x2=\"320\" y2=\"164\"/><polygon points=\"320,164 313.6,166.7 313.6,161.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"52\" y1=\"164\" x2=\"52\" y2=\"14\"/><polygon points=\"52,14 54.7,20.4 49.3,20.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"192\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><text x=\"56\" y=\"10\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><line x1=\"49\" y1=\"164\" x2=\"55\" y2=\"164\"/><text x=\"46\" y=\"167\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-20</text><line x1=\"49\" y1=\"136\" x2=\"55\" y2=\"136\"/><text x=\"46\" y=\"139\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-10</text><line x1=\"49\" y1=\"108\" x2=\"55\" y2=\"108\"/><text x=\"46\" y=\"111\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"52\" y1=\"108\" x2=\"312\" y2=\"108\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"49\" y1=\"80\" x2=\"55\" y2=\"80\"/><text x=\"46\" y=\"83\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"49\" y1=\"52\" x2=\"55\" y2=\"52\"/><text x=\"46\" y=\"55\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"49\" y1=\"24\" x2=\"55\" y2=\"24\"/><text x=\"46\" y=\"27\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">30</text><line x1=\"52\" y1=\"161\" x2=\"52\" y2=\"167\"/><text x=\"52\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"117\" y1=\"161\" x2=\"117\" y2=\"167\"/><text x=\"117\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"182\" y1=\"161\" x2=\"182\" y2=\"167\"/><text x=\"182\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"247\" y1=\"161\" x2=\"247\" y2=\"167\"/><text x=\"247\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"312\" y1=\"161\" x2=\"312\" y2=\"167\"/><text x=\"312\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><polyline points=\"52,52 182,52 312,164\" stroke-width=\"2.2\"/><circle cx=\"247\" cy=\"108\" r=\"3\" fill=\"currentColor\"/><text x=\"253\" y=\"102\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1 MHz</text></svg>",
       "figure_alt": "Asymptotic Bode magnitude flat at 20 dB up to 100 kHz then falling 20 dB per decade; 1 MHz is marked."
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "freq-resp-circuits-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "For a circuit made only of real-valued R, L and C elements, \\(H(j\\omega)=1/(1+j\\omega\\tau)\\). What is \\(H(-j\\omega)\\) (the response to the complex exponential \\(e^{-j\\omega t}\\))?",
+      "options": [
+        "\\(1/(1-j\\omega\\tau)\\), the complex conjugate of \\(H(j\\omega)\\)",
+        "\\(-1/(1+j\\omega\\tau)\\)",
+        "\\(1/(1+j\\omega\\tau)\\), identical to \\(H(j\\omega)\\)",
+        "\\(-1/(1-j\\omega\\tau)\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(H(-\\omega)\\) is found by replacing \\(\\omega\\) with \\(-\\omega\\) everywhere: \\(1/(1+j(-\\omega)\\tau)=1/(1-j\\omega\\tau)=H(j\\omega)*\\).\nThis is not an accident: for a real circuit, \\(|H(-\\omega)|=|H(\\omega)|\\) (even) and \\(\\angle H(-\\omega)=-\\angle H(\\omega)\\) (odd). It is what makes the output of a real input come out real: \\(H(\\omega)e^{j\\omega t}/2+H(-\\omega)e^{-j\\omega t}/2\\) is a sum of conjugates.\nThe other choices change the magnitude's sign or keep the phase unchanged.",
+      "version": 2
+    },
+    {
+      "id": "freq-resp-circuits-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The voltage transfer function (voltage gain) of a circuit at frequency \\(\\omega\\) is defined as…",
+      "options": [
+        "\\(G_{v}=V_{\\mathrm{out}}\\times V_{\\mathrm{in}}\\), a real number in volts squared",
+        "\\(G_{v}=I_{\\mathrm{out}}/I_{\\mathrm{in}}\\), a ratio of currents",
+        "\\(G_{v}=V_{\\mathrm{out}}-V_{\\mathrm{in}}\\), the voltage drop in volts",
+        "\\(G_{v}(j\\omega)=V_{\\mathrm{out}}/V_{\\mathrm{in}}\\), a complex number (ratio of output and input phasors)"
+      ],
+      "correct_index": 3,
+      "explanation": "A transfer function is the ratio of an output phasor to an input phasor. For voltage gain, \\(G_{v}=V_{2}/V_{1}=(|V_{2}|/|V_{1}|)e^{j(\\phi_{2}-\\phi_{1})}\\). Its magnitude is the amplitude ratio and its angle is the phase shift.\n• The product of voltages is not a ratio and has units of \\(V^{2}\\).\n• The ratio of currents is the CURRENT gain, \\(G_{i}\\).\n• A difference is not a transfer function.",
+      "version": 2
+    },
+    {
+      "id": "freq-resp-circuits-r2-q1",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A transimpedance amplifier (TIA) converts an input current into an output voltage. What are the units of its transfer function \\(V_{\\mathrm{out}}/I_{\\mathrm{in}}\\)?",
+      "options": [
+        "Siemens (S)",
+        "Unitless \\((V/V)\\)",
+        "Ohms (Ω)",
+        "Watts (W)"
+      ],
+      "correct_index": 2,
+      "explanation": "Volts divided by amps is ohms, so the transfer function is an impedance-like quantity: a 'trans-impedance'.\n• Siemens \\((A/V)\\) is for a trans-ADMITTANCE (output current/input voltage).\n• \\(V/V\\) is a voltage gain; \\(A/A\\) would be a current gain.\n• Watts would be for power, not a ratio of signals.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 218 70\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Transimpedance amplifier</title><text x=\"10\" y=\"27\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">i_in</text><line x1=\"10\" y1=\"35\" x2=\"60\" y2=\"35\"/><polygon points=\"60,35 53.6,37.7 53.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"17\" width=\"60\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"39\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">TIA</text><line x1=\"120\" y1=\"35\" x2=\"166\" y2=\"35\"/><polygon points=\"166,35 159.6,37.7 159.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"170\" y=\"39\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v_out</text></svg>",
+      "figure_alt": "Block diagram: an input current into a transimpedance amplifier gives an output voltage.",
+      "version": 2
     }
   ]
 }

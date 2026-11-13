@@ -1,36 +1,40 @@
 {
   "skill_id": "cx-exp",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
-      "id": "cx-exp-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "Euler's relation states that \\(e^{jx}\\) equals…",
-      "options": [
-        "\\(\\cos x-j\\cdot\\sin x\\)",
-        "\\(\\cos x+\\sin x\\)",
-        "\\(\\cos x+j\\cdot\\sin x\\)",
-        "\\(e^{x}\\cdot(\\cos x+j\\cdot\\sin x)\\)"
+      "type": "order",
+      "prompt": "Order the conversion of a nonzero number \\(a+jb\\) into polar form.",
+      "explanation": "Magnitude does not depend on the quadrant, so it can come first. A plain arctangent of \\(b/a\\) gives the same value for \\(3+3j\\) and for \\(-3-3j\\). The quadrant fix has to happen before the polar form is written. Skipping it reports a third-quadrant number in the first quadrant.",
+      "steps": [
+        "Compute the magnitude \\(r = \\sqrt{a^2+b^2}\\).",
+        "Take the angle from the pair \\((a, b)\\), not from the ratio \\(b/a\\) alone.",
+        "Use the signs of both parts so the angle lands in the correct quadrant.",
+        "Write the number as \\(r e^{j\\theta}\\)."
       ],
-      "correct_index": 2,
-      "explanation": "Euler's relation: \\(e^{jx}=\\cos x+j\\ \\sin x\\). The point \\(e^{jx}\\) sits on the unit circle at angle x.\n• \\(\\cos x-j\\ \\sin x\\) equals \\(e^{-jx}\\), the conjugate.\n• \\(\\cos x+\\sin x\\) is a real number; it leaves out the j that puts \\(\\sin\\) on the imaginary axis.\n• An extra factor \\(e^{x}\\) would only appear if the exponent had a real part.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Unit circle</title><line x1=\"14\" y1=\"110\" x2=\"230\" y2=\"110\"/><polygon points=\"230,110 223.6,112.7 223.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"210\" x2=\"120\" y2=\"10\"/><polygon points=\"120,10 122.7,16.4 117.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"126\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"126\" y=\"18\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"120\" y1=\"110\" x2=\"174\" y2=\"45.7\"/><polygon points=\"174,45.7 171.6,53.3 166.9,49.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"180.4\" y=\"42\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e^{jx}</text></svg>",
-      "figure_alt": "A unit-length arrow at angle x on the complex plane, ending on the unit circle."
+      "version": 1,
+      "id": "cx-exp-r1-q5"
     },
     {
-      "id": "cx-exp-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "For real x, what is the magnitude \\(|e^{j\\omega t}|\\)?",
-      "options": [
-        "\\(\\omega t\\)",
-        "1 for every t",
-        "0",
-        "\\(e^{\\omega t}\\)"
+      "type": "error",
+      "prompt": "A student evaluates \\(|e^{j\\omega t}|\\) for real \\(\\omega\\) and \\(t\\). Exactly one step is wrong.",
+      "explanation": "A real exponential \\(e^{\\sigma t}\\) has magnitude \\(e^{\\sigma t}\\). Here the exponent is \\(j\\omega t\\), whose real part is 0, so the magnitude is \\(e^{0} = 1\\). The sine and cosine already showed that. Replacing the imaginary exponent by \\(\\omega t\\) confuses the speed of rotation with growth.",
+      "steps": [
+        "Euler's formula writes \\(e^{j\\omega t} = \\cos(\\omega t) + j\\sin(\\omega t)\\).",
+        "The magnitude is \\(\\sqrt{\\cos^2(\\omega t)+\\sin^2(\\omega t)}\\).",
+        "The identity \\(\\cos^2+\\sin^2 = 1\\) makes that square root equal to 1.",
+        "Therefore \\(|e^{j\\omega t}| = e^{\\omega t}\\), because an exponential grows with its exponent."
       ],
-      "correct_index": 1,
-      "explanation": "\\(|e^{jx}|=\\sqrt{\\cos^{2}x+\\sin^{2}x}=1\\) for any real x. So \\(e^{j\\omega t}\\) just rotates counter-clockwise around the unit circle at \\(\\omega\\ \\mathrm{rad}/\\mathrm{s}\\); its length never changes."
+      "flaw_index": 3,
+      "reasons": [
+        "The exponent is imaginary, so the point stays on the unit circle. \\(e^{\\omega t}\\) is the magnitude only for a real exponent.",
+        "The magnitude is the arc length \\(\\omega t\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "cx-exp-r1-q4"
     },
     {
       "id": "cx-exp-r1-q3",
@@ -57,18 +61,40 @@
       "figure_alt": "Arrow pointing into the second quadrant to the point minus 2 plus j2."
     },
     {
-      "id": "cx-exp-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "Which expression correctly writes \\(\\cos(\\omega t)\\) using complex exponentials?",
-      "options": [
-        "\\((e^{j\\omega t}+e^{-j\\omega t})/2\\)",
-        "\\(e^{j\\omega t}+e^{-j\\omega t}\\)",
-        "\\((e^{j\\omega t}-e^{-j\\omega t})/(2j)\\)",
-        "\\((e^{j\\omega t}-e^{-j\\omega t})/2\\)"
+      "type": "symbolic",
+      "prompt": "One phasor has magnitude \\(r\\) and angle \\(a\\) radians. Another has magnitude \\(s\\) and angle \\(b\\) radians. Write the real part of their product, using the names \\(r\\), \\(s\\), \\(a\\), and \\(b\\).",
+      "explanation": "Magnitudes multiply and angles add. The real part of a phasor is its magnitude times the cosine of its angle, so the product contributes \\(rs\\cos(a+b)\\). Sine of the summed angle is the imaginary part. Adding the magnitudes, or multiplying the cosines of the separate angles, is rectangular arithmetic applied to the wrong form.",
+      "answer": "r*s*cos(a+b)",
+      "variables": [
+        {
+          "name": "r",
+          "min": 0.3,
+          "max": 4.0
+        },
+        {
+          "name": "s",
+          "min": 0.3,
+          "max": 4.0
+        },
+        {
+          "name": "a",
+          "min": -2.0,
+          "max": 2.0
+        },
+        {
+          "name": "b",
+          "min": -2.0,
+          "max": 2.0
+        }
       ],
-      "correct_index": 0,
-      "explanation": "From Euler: \\(e^{j\\omega t}=\\cos \\omega t+j\\ \\sin \\omega t\\) and \\(e^{-j\\omega t}=\\cos \\omega t-j\\ \\sin \\omega t\\). Adding, the sines cancel: \\(e^{j\\omega t}+e^{-j\\omega t}=2\\cos \\omega t\\), so \\(\\cos \\omega t=(e^{j\\omega t}+e^{-j\\omega t})/2\\).\n• Without the /2 you would have \\(2\\cos \\omega t\\).\n• \\((e^{j\\omega t}-e^{-j\\omega t})/(2j)\\) is \\(\\sin \\omega t\\ (Eq\\). 1.33).\n• \\((e^{j\\omega t}-e^{-j\\omega t})/2\\) equals \\(j\\ \\sin \\omega t\\), purely imaginary."
+      "tolerance": 0.001,
+      "alternates": [
+        "s*r*cos(b+a)",
+        "r*s*cos(b+a)"
+      ],
+      "version": 1,
+      "id": "cx-exp-r2-q4"
     },
     {
       "id": "cx-exp-r2-q3",
@@ -171,6 +197,55 @@
       "preview": [
         "sinusoid-resp"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "cx-exp-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Which expression correctly writes \\(\\cos(\\omega t)\\) using complex exponentials?",
+      "options": [
+        "\\((e^{j\\omega t}+e^{-j\\omega t})/2\\)",
+        "\\(e^{j\\omega t}+e^{-j\\omega t}\\)",
+        "\\((e^{j\\omega t}-e^{-j\\omega t})/(2j)\\)",
+        "\\((e^{j\\omega t}-e^{-j\\omega t})/2\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "From Euler: \\(e^{j\\omega t}=\\cos \\omega t+j\\ \\sin \\omega t\\) and \\(e^{-j\\omega t}=\\cos \\omega t-j\\ \\sin \\omega t\\). Adding, the sines cancel: \\(e^{j\\omega t}+e^{-j\\omega t}=2\\cos \\omega t\\), so \\(\\cos \\omega t=(e^{j\\omega t}+e^{-j\\omega t})/2\\).\n• Without the /2 you would have \\(2\\cos \\omega t\\).\n• \\((e^{j\\omega t}-e^{-j\\omega t})/(2j)\\) is \\(\\sin \\omega t\\ (Eq\\). 1.33).\n• \\((e^{j\\omega t}-e^{-j\\omega t})/2\\) equals \\(j\\ \\sin \\omega t\\), purely imaginary.",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For real x, what is the magnitude \\(|e^{j\\omega t}|\\)?",
+      "options": [
+        "\\(\\omega t\\)",
+        "1 for every t",
+        "0",
+        "\\(e^{\\omega t}\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(|e^{jx}|=\\sqrt{\\cos^{2}x+\\sin^{2}x}=1\\) for any real x. So \\(e^{j\\omega t}\\) just rotates counter-clockwise around the unit circle at \\(\\omega\\ \\mathrm{rad}/\\mathrm{s}\\); its length never changes.",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Euler's relation states that \\(e^{jx}\\) equals…",
+      "options": [
+        "\\(\\cos x-j\\cdot\\sin x\\)",
+        "\\(\\cos x+\\sin x\\)",
+        "\\(\\cos x+j\\cdot\\sin x\\)",
+        "\\(e^{x}\\cdot(\\cos x+j\\cdot\\sin x)\\)"
+      ],
+      "correct_index": 2,
+      "explanation": "Euler's relation: \\(e^{jx}=\\cos x+j\\ \\sin x\\). The point \\(e^{jx}\\) sits on the unit circle at angle x.\n• \\(\\cos x-j\\ \\sin x\\) equals \\(e^{-jx}\\), the conjugate.\n• \\(\\cos x+\\sin x\\) is a real number; it leaves out the j that puts \\(\\sin\\) on the imaginary axis.\n• An extra factor \\(e^{x}\\) would only appear if the exponent had a real part.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Unit circle</title><line x1=\"14\" y1=\"110\" x2=\"230\" y2=\"110\"/><polygon points=\"230,110 223.6,112.7 223.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"120\" y1=\"210\" x2=\"120\" y2=\"10\"/><polygon points=\"120,10 122.7,16.4 117.3,16.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"126\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"126\" y=\"18\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"120\" y1=\"110\" x2=\"174\" y2=\"45.7\"/><polygon points=\"174,45.7 171.6,53.3 166.9,49.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"180.4\" y=\"42\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e^{jx}</text></svg>",
+      "figure_alt": "A unit-length arrow at angle x on the complex plane, ending on the unit circle.",
+      "version": 1
     }
   ]
 }

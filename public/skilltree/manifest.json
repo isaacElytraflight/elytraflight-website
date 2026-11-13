@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-13T03:29:59.734170Z",
+  "generated": "2026-11-13T18:37:17.009321Z",
   "skills": {
-    "file": "skills.7d612250.json",
-    "hash": "7d612250"
+    "file": "skills.ba2916a3.json",
+    "hash": "ba2916a3"
   },
   "collections": {
     "file": "collections.6c18ba13.json",
@@ -660,7 +660,7 @@
       "file": "banks/cs-intro.3963b7d0.json"
     },
     "cx-exp": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -668,8 +668,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "1b9316a6",
-      "file": "banks/cx-exp.1b9316a6.json"
+      "hash": "4c0aad2c",
+      "file": "banks/cx-exp.4c0aad2c.json"
     },
     "datasheet": {
       "version": 2,
@@ -1176,6 +1176,18 @@
       "file": "banks/freq-basics.fac9ccac.json"
     },
     "freq-char": {
+      "version": 4,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "37b62c04",
+      "file": "banks/freq-char.37b62c04.json"
+    },
+    "freq-resp-circuits": {
       "version": 3,
       "questionCount": 12,
       "rounds": {
@@ -1184,20 +1196,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "cb0a1fb3",
-      "file": "banks/freq-char.cb0a1fb3.json"
-    },
-    "freq-resp-circuits": {
-      "version": 2,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "c2d47c2c",
-      "file": "banks/freq-resp-circuits.c2d47c2c.json"
+      "hash": "6cdd3374",
+      "file": "banks/freq-resp-circuits.6cdd3374.json"
     },
     "freq-resp-lti": {
       "version": 1,
@@ -1488,7 +1488,7 @@
       "file": "banks/ic-fab.99c08b53.json"
     },
     "impulse-conv": {
-      "version": 4,
+      "version": 5,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1496,8 +1496,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "47c6dc13",
-      "file": "banks/impulse-conv.47c6dc13.json"
+      "hash": "6dbde057",
+      "file": "banks/impulse-conv.6dbde057.json"
     },
     "incremental-gradient-methods": {
       "version": 1,
@@ -1908,18 +1908,6 @@
       "file": "banks/lqr.9d500205.json"
     },
     "lti-circuits": {
-      "version": 2,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "2231a73f",
-      "file": "banks/lti-circuits.2231a73f.json"
-    },
-    "lti-def": {
       "version": 3,
       "questionCount": 12,
       "rounds": {
@@ -1928,8 +1916,20 @@
         "3": 3,
         "4": 3
       },
-      "hash": "1ffc1e80",
-      "file": "banks/lti-def.1ffc1e80.json"
+      "hash": "7e898716",
+      "file": "banks/lti-circuits.7e898716.json"
+    },
+    "lti-def": {
+      "version": 4,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "00ad5099",
+      "file": "banks/lti-def.00ad5099.json"
     },
     "lti-mech": {
       "version": 1,
@@ -2628,7 +2628,7 @@
       "file": "banks/rayleigh-quotient.504e8667.json"
     },
     "rc-lpf": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2636,8 +2636,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "4e3b8d25",
-      "file": "banks/rc-lpf.4e3b8d25.json"
+      "hash": "15f1ed4d",
+      "file": "banks/rc-lpf.15f1ed4d.json"
     },
     "reachability": {
       "version": 1,
@@ -2892,7 +2892,7 @@
       "file": "banks/singular-value-decomposition.7cb28a68.json"
     },
     "sinusoid-resp": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2900,8 +2900,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ec140e3d",
-      "file": "banks/sinusoid-resp.ec140e3d.json"
+      "hash": "2a5f8fc7",
+      "file": "banks/sinusoid-resp.2a5f8fc7.json"
     },
     "slew": {
       "version": 2,
@@ -3036,7 +3036,7 @@
       "file": "banks/stationary-point-classification.960d826c.json"
     },
     "step-resp": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3044,8 +3044,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "6a45f1a8",
-      "file": "banks/step-resp.6a45f1a8.json"
+      "hash": "8949da62",
+      "file": "banks/step-resp.8949da62.json"
     },
     "step-specs": {
       "version": 1,

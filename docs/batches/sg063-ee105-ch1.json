@@ -1,0 +1,39 @@
+{
+  "id": "sg063-ee105-ch1",
+  "label": "SG-063 EE 105 linear systems",
+  "box": "EE 105 (ee105-ucb), Linear Time-Invariant Systems",
+  "skills": [
+    "lti-def",
+    "rc-lpf",
+    "cx-exp",
+    "sinusoid-resp",
+    "impulse-conv",
+    "step-resp",
+    "freq-char",
+    "lti-circuits",
+    "freq-resp-circuits"
+  ],
+  "areas": {
+    "lti-def": ["signals"],
+    "rc-lpf": ["physical-models", "signals"],
+    "cx-exp": ["signals"],
+    "sinusoid-resp": ["signals", "frequency-response"],
+    "impulse-conv": ["signals"],
+    "step-resp": ["signals"],
+    "freq-char": ["frequency-response", "signals"],
+    "lti-circuits": ["physical-models", "signals"],
+    "freq-resp-circuits": ["frequency-response", "physical-models"]
+  },
+  "cores": [
+    "lti-def",
+    "cx-exp",
+    "sinusoid-resp",
+    "impulse-conv",
+    "step-resp",
+    "freq-char"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch1.py"
+}

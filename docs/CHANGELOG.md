@@ -343,3 +343,23 @@ Items above version 1:
 - `incremental-gradient-methods#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 EE 105 linear systems — sg063-ee105-ch1
+
+Box: EE 105 (ee105-ucb), Linear Time-Invariant Systems.
+
+Skills: `lti-def`, `rc-lpf`, `cx-exp`, `sinusoid-resp`, `impulse-conv`, `step-resp`, `freq-char`, `lti-circuits`, `freq-resp-circuits`.
+
+Items above version 1:
+
+- `rc-lpf-r1-q1` version 2
+- `rc-lpf-r1-q2` version 2
+- `rc-lpf#explainer` version 2
+- `impulse-conv-r1-q2` version 2
+- `lti-circuits-r1-q1` version 2
+- `freq-resp-circuits-r4-q2` version 2
+- `freq-resp-circuits-r3-q1` version 2
+- `freq-resp-circuits-r1-q3` version 2
+- `freq-resp-circuits-r2-q1` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

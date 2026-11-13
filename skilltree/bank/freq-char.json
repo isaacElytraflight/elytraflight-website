@@ -1,36 +1,41 @@
 {
   "skill_id": "freq-char",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
-      "id": "freq-char-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "An LTI system has input \\(x(t)\\), impulse response \\(h(t)\\) and output \\(y(t)=h(t)\\ast x(t)\\). In the frequency domain, what does this convolution become?",
-      "options": [
-        "An addition: \\(Y(s)=H(s)+X(s)\\)",
-        "A convolution again: \\(Y=H\\ast X\\)",
-        "A multiplication: \\(Y(s)=H(s)\\cdot X(s)\\)",
-        "A division: \\(Y(s)=X(s)/H(s)\\)"
+      "type": "order",
+      "prompt": "Order the passage from a convolution \\(y = h * x\\) to the frequency-domain product.",
+      "explanation": "The transform is applied before the theorem has a product to offer. The theorem replaces convolution by multiplication, not by another convolution and not by addition. A sinusoid's steady response is the last reading, because it uses the product at one frequency. Dividing the input transform by \\(H\\) would invert the system.",
+      "steps": [
+        "Take the Fourier transform of both sides.",
+        "Apply the convolution theorem to the transform of the convolution.",
+        "Write \\(Y(j\\omega) = H(j\\omega)\\,X(j\\omega)\\).",
+        "For a single sinusoid, read the output amplitude and phase from that product at one frequency."
       ],
-      "correct_index": 2,
-      "explanation": "Convolution in time becomes multiplication in the (Laplace/Fourier) frequency domain: \\(Y=H\\cdot X\\). That is why filters are easiest to understand in the frequency domain: each frequency component of the input is just multiplied by H at that frequency.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 274 70\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Time-domain view</title><text x=\"10\" y=\"27\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x(t)</text><line x1=\"10\" y1=\"35\" x2=\"60\" y2=\"35\"/><polygon points=\"60,35 53.6,37.7 53.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"17\" width=\"60\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"39\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">h(t)</text><line x1=\"120\" y1=\"35\" x2=\"166\" y2=\"35\"/><polygon points=\"166,35 159.6,37.7 159.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"170\" y=\"39\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y(t) = h ∗ x</text></svg>",
-      "figure_alt": "Block diagram: x(t) through h(t) gives y(t) equals h convolved with x."
+      "version": 1,
+      "id": "freq-char-r1-q4"
     },
     {
-      "id": "freq-char-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "How is the frequency response \\(H(j\\omega)\\) of an LTI system related to its impulse response \\(h(t)\\)?",
-      "options": [
-        "\\(H(j\\omega)\\) is the derivative of \\(h(t)\\) with respect to \\(\\omega\\)",
-        "\\(H(j\\omega)\\) is the Fourier (Laplace) transform of \\(h(t)\\), i.e., \\(H(s)\\) evaluated on the imaginary axis \\(s=j\\omega\\)",
-        "\\(H(j\\omega)=h(t)\\) evaluated at \\(t=\\omega\\)",
-        "They are unrelated: one is for sinusoids and the other for impulses"
+      "type": "symbolic",
+      "prompt": "A gain \\(g\\) is a positive amplitude ratio. Write that gain in decibels with the natural log, using only the name \\(g\\).",
+      "explanation": "Decibels for an amplitude are \\(20\\log_{10}(g)\\). Change of base writes \\(\\log_{10}(g) = \\ln(g)/\\ln(10)\\). A factor of 10 instead of 20 is the rule for a power ratio, and it is half of this expression. Using \\(\\ln(g)\\) alone leaves the result in nepers.",
+      "answer": "20*ln(g)/ln(10)",
+      "variables": [
+        {
+          "name": "g",
+          "min": 0.05,
+          "max": 30.0
+        }
       ],
-      "correct_index": 1,
-      "explanation": "\\(H(s)=\\int h(t)e^{-st}\\ dt\\) (the Laplace transform), and \\(H(j\\omega)\\) is that function evaluated at \\(s=j\\omega\\). The impulse response and the transfer function are two descriptions of the same system.\nThe other options are not valid relationships."
+      "tolerance": 0.001,
+      "alternates": [
+        "20*log(g)/log(10)",
+        "(20/ln(10))*ln(g)"
+      ],
+      "version": 1,
+      "id": "freq-char-r1-q5"
     },
     {
       "id": "freq-char-r1-q3",
@@ -109,18 +114,23 @@
       "figure_alt": "Input spectrum: 4 DC, 3 at 1 kHz and 2 at 10 kHz."
     },
     {
-      "id": "freq-char-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Which statement about \\(H(s)\\) and \\(H(j\\omega)\\) of a stable LTI system is correct?",
+      "type": "multi",
+      "prompt": "For a stable LTI system, select every statement that is true of \\(H(s)\\) and \\(H(j\\omega)\\).",
+      "explanation": "The frequency response is the transfer function on the imaginary axis, and that complex value scales and shifts a persistent sinusoid. Stability puts every pole in the open left half-plane, so the axis is inside the region of convergence. The two symbols are one function on two sets of \\(s\\). Transients are the part contributed by those poles, not a second meaning of \\(H(j\\omega)\\).",
       "options": [
-        "\\(H(j\\omega)\\) describes the transient response and \\(H(s)\\) describes the steady state",
-        "\\(H(j\\omega)\\) and \\(H(s)\\) are different functions with no mathematical relationship",
-        "\\(H(j\\omega)\\) is \\(H(s)\\) evaluated on the imaginary axis; it gives the steady-state response to sinusoids, while \\(H(s)\\) also describes inputs of the form \\(e^{st}\\) with a decaying or growing real part",
-        "\\(H(j\\omega)\\) is only defined for \\(\\omega>0\\), and the response at \\(-\\omega\\) is unrelated to it"
+        "\\(H(j\\omega)\\) is \\(H(s)\\) with \\(s\\) set to \\(j\\omega\\).",
+        "\\(H(j\\omega)\\) fixes the steady amplitude and phase of a sinusoid at frequency \\(\\omega\\).",
+        "Stability puts the imaginary axis inside the region where the transform converges, so that substitution is legal.",
+        "\\(H(j\\omega)\\) and \\(H(s)\\) are unrelated, one for impulses and one for steps."
       ],
-      "correct_index": 2,
-      "explanation": "Setting \\(s=j\\omega\\) in \\(H(s)\\) gives the frequency response: the eigenvalue of the system for sinusoidal (periodic) complex exponentials, hence the steady-state sinusoidal response. The general \\(H(s)\\) (any \\(s=\\sigma+j\\omega\\)) gives the response to est, which includes transient behavior.\n• The roles are reversed in the first wrong option.\n• They are the same function on different parts of the complex plane.\n• For real systems \\(H(-j\\omega)=H(j\\omega)*\\), so negative frequencies carry no new information; they are related."
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1,
+      "id": "freq-char-r3-q4"
     },
     {
       "id": "freq-char-r4-q1",
@@ -166,6 +176,55 @@
       ],
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Gain error grows toward ω_c</title><line x1=\"52\" y1=\"164\" x2=\"320\" y2=\"164\"/><polygon points=\"320,164 313.6,166.7 313.6,161.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"52\" y1=\"164\" x2=\"52\" y2=\"14\"/><polygon points=\"52,14 54.7,20.4 49.3,20.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"192\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω/ω_c</text><text x=\"56\" y=\"10\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><line x1=\"49\" y1=\"164\" x2=\"55\" y2=\"164\"/><text x=\"46\" y=\"167\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-40</text><line x1=\"49\" y1=\"132.9\" x2=\"55\" y2=\"132.9\"/><text x=\"46\" y=\"135.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-30</text><line x1=\"49\" y1=\"101.8\" x2=\"55\" y2=\"101.8\"/><text x=\"46\" y=\"104.8\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-20</text><line x1=\"49\" y1=\"70.7\" x2=\"55\" y2=\"70.7\"/><text x=\"46\" y=\"73.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-10</text><line x1=\"49\" y1=\"39.6\" x2=\"55\" y2=\"39.6\"/><text x=\"46\" y=\"42.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"52\" y1=\"39.6\" x2=\"312\" y2=\"39.6\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"52\" y1=\"161\" x2=\"52\" y2=\"167\"/><text x=\"52\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁻²</text><line x1=\"117\" y1=\"161\" x2=\"117\" y2=\"167\"/><text x=\"117\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁻¹</text><line x1=\"182\" y1=\"161\" x2=\"182\" y2=\"167\"/><text x=\"182\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"247\" y1=\"161\" x2=\"247\" y2=\"167\"/><text x=\"247\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"312\" y1=\"161\" x2=\"312\" y2=\"167\"/><text x=\"312\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><polyline points=\"52,39.6 182,39.6 312,164\" stroke-width=\"2.2\"/><polyline points=\"52,39.6 54.2,39.6 56.3,39.6 58.5,39.6 60.7,39.6 62.8,39.6 65,39.6 67.2,39.6 69.3,39.6 71.5,39.6 73.7,39.6 75.8,39.6 78,39.6 80.2,39.6 82.3,39.6 84.5,39.6 86.7,39.6 88.8,39.6 91,39.6 93.2,39.6 95.3,39.6 97.5,39.6 99.7,39.6 101.8,39.6 104,39.6 106.2,39.6 108.3,39.6 110.5,39.6 112.7,39.7 114.8,39.7 117,39.7 119.2,39.7 121.3,39.7 123.5,39.8 125.7,39.8 127.8,39.8 130,39.9 132.2,39.9 134.3,40 136.5,40.1 138.7,40.2 140.8,40.3 143,40.4 145.2,40.5 147.3,40.7 149.5,40.8 151.7,41 153.8,41.3 156,41.5 158.2,41.8 160.3,42.2 162.5,42.6 164.7,43 166.8,43.5 169,44.1 171.2,44.7 173.3,45.4 175.5,46.2 177.7,47 179.8,47.9 182,48.9 184.2,50 186.3,51.2 188.5,52.4 190.7,53.7 192.8,55.1 195,56.5 197.2,58 199.3,59.6 201.5,61.3 203.7,62.9 205.8,64.7 208,66.4 210.2,68.2 212.3,70.1 214.5,72 216.7,73.9 218.8,75.8 221,77.7 223.2,79.7 225.3,81.7 227.5,83.6 229.7,85.6 231.8,87.6 234,89.7 236.2,91.7 238.3,93.7 240.5,95.8 242.7,97.8 244.8,99.9 247,101.9 249.2,104 251.3,106 253.5,108.1 255.7,110.1 257.8,112.2 260,114.3 262.2,116.3 264.3,118.4 266.5,120.5 268.7,122.5 270.8,124.6 273,126.7 275.2,128.8 277.3,130.8 279.5,132.9 281.7,135 283.8,137 286,139.1 288.2,141.2 290.3,143.3 292.5,145.3 294.7,147.4 296.8,149.5 299,151.6 301.2,153.6 303.3,155.7 305.5,157.8 307.7,159.9 309.8,161.9 312,164\" stroke-dasharray=\"4 3\"/><circle cx=\"136.6\" cy=\"40.1\" r=\"3\" fill=\"currentColor\"/><text x=\"142.6\" y=\"34.1\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0.2ω_c</text></svg>",
       "figure_alt": "Single-pole closed-loop magnitude with a marked point at 0.2 omega_c, slightly below 0 dB."
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "freq-char-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "An LTI system has input \\(x(t)\\), impulse response \\(h(t)\\) and output \\(y(t)=h(t)\\ast x(t)\\). In the frequency domain, what does this convolution become?",
+      "options": [
+        "An addition: \\(Y(s)=H(s)+X(s)\\)",
+        "A convolution again: \\(Y=H\\ast X\\)",
+        "A multiplication: \\(Y(s)=H(s)\\cdot X(s)\\)",
+        "A division: \\(Y(s)=X(s)/H(s)\\)"
+      ],
+      "correct_index": 2,
+      "explanation": "Convolution in time becomes multiplication in the (Laplace/Fourier) frequency domain: \\(Y=H\\cdot X\\). That is why filters are easiest to understand in the frequency domain: each frequency component of the input is just multiplied by H at that frequency.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 274 70\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Time-domain view</title><text x=\"10\" y=\"27\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x(t)</text><line x1=\"10\" y1=\"35\" x2=\"60\" y2=\"35\"/><polygon points=\"60,35 53.6,37.7 53.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"17\" width=\"60\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"39\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">h(t)</text><line x1=\"120\" y1=\"35\" x2=\"166\" y2=\"35\"/><polygon points=\"166,35 159.6,37.7 159.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"170\" y=\"39\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y(t) = h ∗ x</text></svg>",
+      "figure_alt": "Block diagram: x(t) through h(t) gives y(t) equals h convolved with x.",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "How is the frequency response \\(H(j\\omega)\\) of an LTI system related to its impulse response \\(h(t)\\)?",
+      "options": [
+        "\\(H(j\\omega)\\) is the derivative of \\(h(t)\\) with respect to \\(\\omega\\)",
+        "\\(H(j\\omega)\\) is the Fourier (Laplace) transform of \\(h(t)\\), i.e., \\(H(s)\\) evaluated on the imaginary axis \\(s=j\\omega\\)",
+        "\\(H(j\\omega)=h(t)\\) evaluated at \\(t=\\omega\\)",
+        "They are unrelated: one is for sinusoids and the other for impulses"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(H(s)=\\int h(t)e^{-st}\\ dt\\) (the Laplace transform), and \\(H(j\\omega)\\) is that function evaluated at \\(s=j\\omega\\). The impulse response and the transfer function are two descriptions of the same system.\nThe other options are not valid relationships.",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Which statement about \\(H(s)\\) and \\(H(j\\omega)\\) of a stable LTI system is correct?",
+      "options": [
+        "\\(H(j\\omega)\\) describes the transient response and \\(H(s)\\) describes the steady state",
+        "\\(H(j\\omega)\\) and \\(H(s)\\) are different functions with no mathematical relationship",
+        "\\(H(j\\omega)\\) is \\(H(s)\\) evaluated on the imaginary axis; it gives the steady-state response to sinusoids, while \\(H(s)\\) also describes inputs of the form \\(e^{st}\\) with a decaying or growing real part",
+        "\\(H(j\\omega)\\) is only defined for \\(\\omega>0\\), and the response at \\(-\\omega\\) is unrelated to it"
+      ],
+      "correct_index": 2,
+      "explanation": "Setting \\(s=j\\omega\\) in \\(H(s)\\) gives the frequency response: the eigenvalue of the system for sinusoidal (periodic) complex exponentials, hence the steady-state sinusoidal response. The general \\(H(s)\\) (any \\(s=\\sigma+j\\omega\\)) gives the response to est, which includes transient behavior.\n• The roles are reversed in the first wrong option.\n• They are the same function on different parts of the complex plane.\n• For real systems \\(H(-j\\omega)=H(j\\omega)*\\), so negative frequencies carry no new information; they are related.",
+      "version": 1
     }
   ]
 }

@@ -455,10 +455,43 @@ for sid in BATCH:
         err(sid, f"expected 12 questions, got {len(qs) if isinstance(qs, list) else 'none'}")
         if not isinstance(qs, list): continue
     per_round = {1: 0, 2: 0, 3: 0, 4: 0}
+    retired = d.get("retired_questions", [])
+    if retired is None:
+        retired = []
+    if not isinstance(retired, list) or not all(isinstance(item, dict) for item in retired):
+        err(sid, "retired_questions must be a list of question objects")
+        retired = []
     expected_ids = {f"{sid}-r{r}-q{k}" for r in range(1, 5) for k in range(1, 4)}
     got_ids = {q.get("id") for q in qs}
-    if got_ids != expected_ids:
-        err(sid, f"id set mismatch: missing {sorted(expected_ids - got_ids)}, extra {sorted(x for x in got_ids - expected_ids if x)}")
+    retired_ids = [q.get("id") for q in retired]
+    if len(retired_ids) != len(set(retired_ids)):
+        err(sid, "retired question ids are not unique")
+    retired_id_set = set(retired_ids)
+    reused = sorted(x for x in (got_ids & retired_id_set) if x)
+    if reused:
+        err(sid, f"retired question ids reused: {reused}")
+    if not retired:
+        if got_ids != expected_ids:
+            err(sid, f"id set mismatch: missing {sorted(expected_ids - got_ids)}, extra {sorted(x for x in got_ids - expected_ids if x)}")
+    else:
+        # A swapped question keeps its old id on retired_questions and takes a new id.
+        # Canonical ids may not disappear, and a retired id may not come back.
+        dropped = sorted(expected_ids - got_ids - retired_id_set)
+        if dropped:
+            err(sid, f"question ids dropped without retirement: {dropped}")
+        for q in retired:
+            qid = q.get("id")
+            rr = q.get("round")
+            m = re.fullmatch(rf"{re.escape(sid)}-r(\d)-q(\d+)", str(qid))
+            if not m or int(m.group(1)) != rr:
+                err(sid, f"retired id does not match pattern/round: {qid}")
+            ver = q.get("version")
+            if not (isinstance(ver, int) and ver >= 1):
+                err(qid if isinstance(qid, str) else sid, f"retired question needs version >= 1, got {ver}")
+            if qid in ids_seen:
+                err(sid, f"duplicate id {qid}")
+            if isinstance(qid, str):
+                ids_seen.add(qid)
     allowed_prev = descendants(sid) | LEAF_PREVIEW_ALLOWED.get(sid, set())
     for q in qs:
         n_q += 1
@@ -468,7 +501,7 @@ for sid in BATCH:
         r = q.get("round")
         if r not in (1, 2, 3, 4): err(qid, f"bad round {r}"); continue
         per_round[r] += 1
-        m = re.fullmatch(rf"{re.escape(sid)}-r(\d)-q(\d)", str(qid))
+        m = re.fullmatch(rf"{re.escape(sid)}-r(\d)-q(\d+)", str(qid))
         if not m or int(m.group(1)) != r: err(qid, "id does not match pattern/round")
         for fld in ("prompt", "explanation"):
             v = q.get(fld)
@@ -534,6 +567,54 @@ for sid in BATCH:
                         warn(qid, f"preview '{x}' is a conceptual (non-DAG) follow-on; {sid} has no dependents in the JSON")
         else:
             if "preview" in q: err(qid, "preview only allowed in round 4")
+    for q in retired:
+        qid = q.get("id", "<no id>")
+        r = q.get("round")
+        if r not in (1, 2, 3, 4):
+            err(qid, f"bad round {r}")
+            continue
+        for fld in ("prompt", "explanation"):
+            v = q.get(fld)
+            if not isinstance(v, str) or not v.strip():
+                err(qid, f"empty {fld}")
+        for fld in ("prompt", "explanation"):
+            v = q.get(fld, "")
+            if isinstance(v, str) and LATEX.search(v):
+                err(qid, f"'$' math delimiter in {fld}")
+            if isinstance(v, str):
+                check_delims(qid, fld, v)
+        check_figure(qid, q)
+        t = q.get("type")
+        if t not in TYPE_FIELDS:
+            err(qid, f"bad type {t}")
+        else:
+            for extra in sorted(k for k in q if k not in COMMON_FIELDS and k not in TYPE_FIELDS[t]):
+                err(qid, f"{t} has unexpected field '{extra}'")
+        if t == "mc":
+            o = q.get("options")
+            if not (isinstance(o, list) and len(o) == 4 and all(isinstance(x, str) and x.strip() for x in o)):
+                err(qid, "mc needs exactly 4 non-empty string options")
+            ci = q.get("correct_index")
+            if not (is_int(ci) and 0 <= ci <= 3):
+                err(qid, f"bad correct_index {ci}")
+        elif t == "numeric":
+            a = q.get("answer")
+            if not (isinstance(a, (int, float)) and not isinstance(a, bool) and math.isfinite(a) and a != 0):
+                err(qid, "numeric answer must be a finite nonzero number")
+        elif t == "symbolic":
+            check_symbolic(qid, q)
+        elif t == "order":
+            check_order(qid, q)
+        elif t == "error":
+            check_error(qid, q)
+        elif t == "multi":
+            check_multi(qid, q)
+        if r == 4:
+            pv = q.get("preview")
+            if not (isinstance(pv, list) and pv and all(isinstance(x, str) for x in pv)):
+                err(qid, "round 4 needs non-empty 'preview' list")
+        elif "preview" in q:
+            err(qid, "preview only allowed in round 4")
     for r in (1, 2, 3, 4):
         if per_round[r] != 3: err(sid, f"round {r} has {per_round[r]} questions, expected 3")
 

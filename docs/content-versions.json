@@ -8113,6 +8113,582 @@
     {
       "id": "newton-root-finding#explainer",
       "version": 1
+    },
+    {
+      "id": "lti-def-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-def-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-def#explainer",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "rc-lpf-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "rc-lpf#explainer",
+      "version": 2
+    },
+    {
+      "id": "cx-exp-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "cx-exp-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "cx-exp#explainer",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "sinusoid-resp#explainer",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "impulse-conv-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "impulse-conv#explainer",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "step-resp#explainer",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-char-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-char#explainer",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "lti-circuits-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits#explainer",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "freq-resp-circuits-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "freq-resp-circuits-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "freq-resp-circuits-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "freq-resp-circuits#explainer",
+      "version": 1
     }
   ]
 }
