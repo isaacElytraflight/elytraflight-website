@@ -168,7 +168,7 @@ let playable = [];
 
 /* ====================== storage ====================== */
 let storageOK = true, memStore = null, progress = { version: 1, skills: {} };
-let leaderboardRows = null, leaderboardReady = false, profileLoadGen = 0, profileRouteGen = 0;
+let leaderboardRows = null, leaderboardReady = false, profileLoadGen = 0, profileRouteGen = 0, profileRouteInflight = 0;
 
 function probeStorage() { try { const k = 'skilltree.__probe'; localStorage.setItem(k, '1'); localStorage.removeItem(k); return true } catch (e) { return false } }
 
@@ -3743,19 +3743,23 @@ function clearPublicView() {
     if (el) el.textContent = '';
   });
 }
-async function openProfileEditor() {
+async function openProfileEditor(gen) {
+  if (gen != null && gen !== profileRouteGen) return;
   showProfileLayer('edit');
   syncProfileAuthChrome();
   const user = currentUser();
   await fillProfileForm(readLocalProfile(), user && user.created_at);
+  if (gen != null && gen !== profileRouteGen) return;
   await loadOwnProfile();
+  if (gen != null && gen !== profileRouteGen) return;
   const box = $('profileUsername');
   if (box) box.focus();
 }
 function closeProfilePage() {
   location.assign('/skilltree/');
 }
-async function openPublicProfile(username) {
+async function openPublicProfile(username, gen) {
+  if (gen != null && gen !== profileRouteGen) return;
   showProfileLayer('public');
   clearPublicView();
   const clean = sanitizeUsername(username);
@@ -3765,6 +3769,7 @@ async function openPublicProfile(username) {
     return;
   }
   const result = await lookupProfile(clean);
+  if (gen != null && gen !== profileRouteGen) return;
   if (result.missing) {
     if (missing) { missing.hidden = false; missing.textContent = "Profiles aren't available yet."; }
     return;
@@ -3841,22 +3846,27 @@ function routeProfileName() {
 async function openRoutedProfile() {
   if (!profileStandalone()) return null;
   const gen = ++profileRouteGen;
-  cleanProfileUrl();
-  const segment = routeProfileName();
-  let mode = 'edit';
-  let publicName = null;
-  if (segment) {
-    const name = sanitizeUsername(segment);
-    if (name === 'me') mode = 'edit';
-    else if (name && !usernameError(name) && await usernameClaimsEditor(name)) mode = 'edit';
-    else { mode = 'public'; publicName = segment; }
-  } else {
-    publicName = readRouteProfile();
-    mode = publicName ? 'public' : 'edit';
+  profileRouteInflight++;
+  try {
+    cleanProfileUrl();
+    const segment = routeProfileName();
+    let mode = 'edit';
+    let publicName = null;
+    if (segment) {
+      const name = sanitizeUsername(segment);
+      if (name === 'me') mode = 'edit';
+      else if (name && !usernameError(name) && await usernameClaimsEditor(name)) mode = 'edit';
+      else { mode = 'public'; publicName = segment; }
+    } else {
+      publicName = readRouteProfile();
+      mode = publicName ? 'public' : 'edit';
+    }
+    if (gen !== profileRouteGen) return null;
+    if (mode === 'edit') return await openProfileEditor(gen);
+    return await openPublicProfile(publicName, gen);
+  } finally {
+    profileRouteInflight--;
   }
-  if (gen !== profileRouteGen) return null;
-  if (mode === 'edit') return openProfileEditor();
-  return openPublicProfile(publicName);
 }
 
 /* ====================== feedback ====================== */
@@ -4111,6 +4121,10 @@ async function init() {
       syncProfileLink();
       const page = $('profilePage');
       const editor = $('profileEditor');
+      if (profileStandalone() && profileRouteInflight > 0) {
+        openRoutedProfile();
+        return;
+      }
       if (!page || page.hidden) return;
       if (editor && !editor.hidden) {
         loadOwnProfile();

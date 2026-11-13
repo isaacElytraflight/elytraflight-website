@@ -308,18 +308,26 @@ function respondProfile(req, p) {
     return;
   }
   if (call.url.includes('/rest/v1/rpc/profile_lookup')) {
-    let name = '';
-    try { name = String(JSON.parse(call.body || '{}').p_username || '').toLowerCase(); } catch (e) { name = ''; }
-    const row = p._profiles.find(r => r.username === name);
-    if (!row) send(200, { status: 'missing' });
-    else if (!row.is_public) send(200, { status: 'private' });
-    else send(200, {
-      status: 'public',
-      username: row.username,
-      bio: row.bio,
-      joined_at: row.created_at,
-      skills_completed: row.skills_completed
-    });
+    const reply = () => {
+      let name = '';
+      try { name = String(JSON.parse(call.body || '{}').p_username || '').toLowerCase(); } catch (e) { name = ''; }
+      const row = p._profiles.find(r => r.username === name);
+      if (!row) send(200, { status: 'missing' });
+      else if (!row.is_public) send(200, { status: 'private' });
+      else send(200, {
+        status: 'public',
+        username: row.username,
+        bio: row.bio,
+        joined_at: row.created_at,
+        skills_completed: row.skills_completed
+      });
+    };
+    if (p._holdProfileLookup) {
+      p._heldProfileLookups = p._heldProfileLookups || [];
+      p._heldProfileLookups.push(reply);
+      return;
+    }
+    reply();
     return;
   }
   if (req.method() === 'GET') {
@@ -4277,6 +4285,95 @@ async function test(name, fn) {
       return editor && !editor.hidden && box && box.value === 'ada_1';
     });
     await signedIn._ctx.close();
+  });
+
+  await test('a session that arrives during the profile route opens the owner editor', async () => {
+    const owner = {
+      access_token: 'user-access-token',
+      user: {
+        id: '11111111-1111-4111-8111-111111111111',
+        email: 'owner@example.com',
+        created_at: '2024-05-02T00:00:00.000Z'
+      }
+    };
+    const profiles = PROFILE_FIXTURES.map(row => Object.assign({}, row));
+    profiles.push({
+      user_id: owner.user.id,
+      username: 'ada_1',
+      bio: 'Mine',
+      is_public: true,
+      created_at: '2024-06-01T00:00:00.000Z',
+      skills_completed: 1
+    });
+    const p = await newPage(null, {
+      profileMode: 'ready',
+      profiles: profiles.map(row => Object.assign({}, row))
+    });
+    await p.evaluate(() => localStorage.setItem('skilltree.profile.v1', JSON.stringify({
+      v: 1, username: 'ada_1', bio: 'local draft', isPublic: true
+    })));
+    p._holdProfileLookup = true;
+    p._heldProfileLookups = [];
+    try {
+      await p.goto(new URL('/profile/ada_1', BASE_URL).href, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await p.waitForFunction(() => (window.__authListeners || []).length > 0, { timeout: 20000 });
+      const waitUntil = Date.now() + 20000;
+      while (Date.now() < waitUntil && !p._heldProfileLookups.length) await sleep(50);
+      assert(p._heldProfileLookups.length > 0, 'the first route is still waiting on profile lookup');
+      const mid = await p.evaluate(() => ({
+        pageHidden: document.getElementById('profilePage').hidden,
+        editorHidden: document.getElementById('profileEditor').hidden
+      }));
+      assert.strictEqual(mid.pageHidden, true, 'the route has not opened a profile view yet');
+      assert.strictEqual(mid.editorHidden, false, 'the editor stays in the markup until a view is chosen');
+      await p.evaluate(session => {
+        const auth = window.__supabaseMock && window.__supabaseMock.auth;
+        if (auth) auth.getSession = async () => ({ data: { session } });
+        const listeners = window.__authListeners || [];
+        if (!listeners.length) throw new Error('profile page did not subscribe to auth changes');
+        listeners.forEach(cb => cb('SIGNED_IN', session));
+      }, {
+        access_token: owner.access_token,
+        user: owner.user
+      });
+      await p.waitForFunction(() => {
+        const editor = document.getElementById('profileEditor');
+        const box = document.getElementById('profileUsername');
+        const profileBtn = document.querySelector('header #btnProfile');
+        const signOut = document.getElementById('btnSignOut');
+        return editor && !editor.hidden && box && box.value === 'ada_1'
+          && profileBtn && profileBtn.textContent.trim() === 'Profile'
+          && signOut;
+      }, { timeout: 10000 });
+      const landed = await p.evaluate(() => ({
+        editorHidden: document.getElementById('profileEditor').hidden,
+        publicHidden: document.getElementById('profilePublicView').hidden,
+        name: document.getElementById('profileUsername').value,
+        publicName: document.getElementById('profilePublicName').textContent,
+        profile: document.querySelector('header #btnProfile').textContent.trim(),
+        href: document.querySelector('header #btnProfile').getAttribute('href'),
+        email: document.querySelector('header .user-email').textContent,
+        signOut: document.querySelector('header #btnSignOut').textContent.trim()
+      }));
+      assert.strictEqual(landed.editorHidden, false);
+      assert.strictEqual(landed.publicHidden, true);
+      assert.strictEqual(landed.name, 'ada_1');
+      assert.strictEqual(landed.publicName, '');
+      assert.strictEqual(landed.profile, 'Profile');
+      assert.strictEqual(landed.href, '/profile/me');
+      assert.strictEqual(landed.email, 'owner@example.com');
+      assert.strictEqual(landed.signOut, 'Sign out');
+    } finally {
+      const release = (p._heldProfileLookups || []).splice(0);
+      p._holdProfileLookup = false;
+      release.forEach(fn => fn());
+    }
+    await sleep(250);
+    assert.strictEqual(await p.$eval('#profileEditor', e => e.hidden), false, 'the finished first lookup does not send the owner back to the public view');
+    assert.strictEqual(await p.$eval('#profilePublicView', e => e.hidden), true);
+    assert.strictEqual(await p.$eval('#profileUsername', e => e.value), 'ada_1');
+    assert.strictEqual(await p.$eval('header #btnProfile', e => e.textContent.trim()), 'Profile');
+    await p._ctx.close();
   });
 
   await test('exam dates spread today across the days before the exam', async () => {
