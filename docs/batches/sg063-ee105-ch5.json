@@ -1,0 +1,26 @@
+{
+  "id": "sg063-ee105-ch5",
+  "label": "SG-063 EE 105 PN equilibrium",
+  "box": "EE 105 (ee105-ucb), PN Junctions in Equilibrium",
+  "skills": [
+    "carrier-pot",
+    "pn-overview",
+    "depl-approx",
+    "contact-pot",
+    "rev-bias",
+    "junction-cap"
+  ],
+  "areas": {
+    "carrier-pot": ["physical-models"],
+    "pn-overview": ["physical-models"],
+    "depl-approx": ["physical-models"],
+    "contact-pot": ["physical-models"],
+    "rev-bias": ["physical-models"],
+    "junction-cap": ["physical-models"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch5.py"
+}

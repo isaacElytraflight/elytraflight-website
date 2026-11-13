@@ -1,6 +1,6 @@
 {
   "skill_id": "junction-cap",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "junction-cap-r1-q1",
@@ -33,21 +33,29 @@
       "version": 2
     },
     {
-      "id": "junction-cap-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "One reading of the depletion capacitance is \\(C_j=\\varepsilon_s/X_{dep}\\) per area. What does that mean physically?",
-      "options": [
-        "Small charge changes happen at the two EDGES of the depletion region, separated by \\(X_{dep}\\), as if metal plates sat there with silicon as the dielectric",
-        "The charge is stored uniformly throughout the N region",
-        "The P and N regions are insulators",
-        "The capacitance comes from free electrons crossing the junction"
+      "type": "symbolic",
+      "prompt": "Write the depletion capacitance per unit area. Use the name eps for the silicon permittivity and the name Xd for the total depletion width.",
+      "explanation": "The incremental charge sits on the two depletion edges, separated by the total depletion width. That is a parallel plate, so the capacitance per area is the permittivity divided by that width. A wider depletion region is a smaller capacitance.",
+      "answer": "eps/Xd",
+      "variables": [
+        {
+          "name": "eps",
+          "min": 0.2,
+          "max": 5.0
+        },
+        {
+          "name": "Xd",
+          "min": 0.1,
+          "max": 4.0
+        }
       ],
-      "correct_index": 0,
-      "explanation": "When \\(V_D\\) changes slightly, the depletion region grows or shrinks at its edges \\(-x_p\\) and \\(x_n\\); the incremental charges sit \\(X_{dep}\\) apart. That's why the parallel-plate form works, with a bias-dependent spacing.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
-      "figure_alt": "PN junction with the depletion region between -xp and xn.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "eps*(1/Xd)"
+      ],
+      "version": 1,
+      "id": "junction-cap-r1-q4"
     },
     {
       "id": "junction-cap-r2-q1",
@@ -76,20 +84,24 @@
       "version": 2
     },
     {
-      "id": "junction-cap-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "In a one-sided junction with \\(N_A\\gg N_D\\), which doping mainly sets \\(C_{j0}\\)?",
-      "options": [
-        "The heavier doping \\(N_A\\)",
-        "Both equally: \\(C_{j0}\\propto N_A+N_D\\)",
-        "Neither: \\(C_{j0}\\) depends only on area",
-        "The lighter doping \\(N_D\\): \\(\\dfrac{N_AN_D}{N_A+N_D}\\approx N_D\\)"
+      "type": "error",
+      "prompt": "A worked solution says which doping sets the zero-bias capacitance of a one-sided junction. Exactly one step is wrong.",
+      "explanation": "The product of the two dopings, divided by their sum, is about the smaller doping. The zero-bias capacitance of a junction with a very heavy P side is set by the lighter N-side doping, not by the heavy side.",
+      "steps": [
+        "The depletion region extends mostly into the lightly doped side.",
+        "When the acceptor concentration is much larger than the donor concentration, that lightly doped side is the N side.",
+        "The zero-bias capacitance depends on the width of that N side.",
+        "The zero-bias capacitance is therefore set by the heavier doping."
       ],
-      "correct_index": 3,
-      "explanation": "The 'series' combination \\(\\dfrac{N_AN_D}{N_A+N_D}\\) is dominated by the smaller one, just as the depletion region extends mostly into the lightly doped side. So \\(C_{j0}\\approx\\sqrt{\\dfrac{q\\varepsilon_sN_D}{2\\phi_{bi}}}\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
-      "figure_alt": "Abrupt PN junction."
+      "flaw_index": 3,
+      "reasons": [
+        "The width, and so the capacitance, is set by the lighter doping.",
+        "The heavier side holds more ions per length, so it sets the capacitance."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "junction-cap-r2-q4"
     },
     {
       "id": "junction-cap-r3-q1",
@@ -120,21 +132,18 @@
       "figure_alt": "Junction capacitance versus bias."
     },
     {
-      "id": "junction-cap-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "In the formula \\(C_j=\\varepsilon_s/X_{dep}\\), what distance is \\(X_{dep}\\)?",
-      "options": [
-        "Only \\(x_n\\), the N-side width",
-        "The total depletion width \\(x_p+x_n\\) at the bias point",
-        "Only \\(x_p\\), the P-side width",
-        "The distance between the two metal contacts"
+      "type": "order",
+      "prompt": "Order the steps that say what distance enters the depletion capacitance. Each step after the first uses the result of the step before it.",
+      "explanation": "The plates are the two edges of the depletion region, not one side and not the metal contacts. Their spacing is the sum of the two depletion widths, and the capacitance per area is the permittivity divided by that sum.",
+      "steps": [
+        "A small voltage change moves both depletion edges.",
+        "The incremental charge appears at those two edges, one on the P side and one on the N side.",
+        "The two edges are separated by the sum of the two depletion widths.",
+        "That separation is the plate spacing in the depletion capacitance."
       ],
-      "correct_index": 1,
-      "explanation": "The incremental charges appear at both edges, \\(-x_p\\) and \\(x_n\\), so the effective plate spacing is \\(X_{dep}=x_p+x_n\\). The contacts are far away in the neutral regions, which conduct.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
-      "figure_alt": "PN junction depletion region between -xp and xn.",
-      "version": 2
+      "version": 1,
+      "id": "junction-cap-r3-q4"
     },
     {
       "id": "junction-cap-r4-q1",
@@ -184,6 +193,59 @@
       "preview": [
         "mos-caps"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "junction-cap-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "One reading of the depletion capacitance is \\(C_j=\\varepsilon_s/X_{dep}\\) per area. What does that mean physically?",
+      "options": [
+        "Small charge changes happen at the two EDGES of the depletion region, separated by \\(X_{dep}\\), as if metal plates sat there with silicon as the dielectric",
+        "The charge is stored uniformly throughout the N region",
+        "The P and N regions are insulators",
+        "The capacitance comes from free electrons crossing the junction"
+      ],
+      "correct_index": 0,
+      "explanation": "When \\(V_D\\) changes slightly, the depletion region grows or shrinks at its edges \\(-x_p\\) and \\(x_n\\); the incremental charges sit \\(X_{dep}\\) apart. That's why the parallel-plate form works, with a bias-dependent spacing.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "PN junction with the depletion region between -xp and xn.",
+      "version": 2
+    },
+    {
+      "id": "junction-cap-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "In a one-sided junction with \\(N_A\\gg N_D\\), which doping mainly sets \\(C_{j0}\\)?",
+      "options": [
+        "The heavier doping \\(N_A\\)",
+        "Both equally: \\(C_{j0}\\propto N_A+N_D\\)",
+        "Neither: \\(C_{j0}\\) depends only on area",
+        "The lighter doping \\(N_D\\): \\(\\dfrac{N_AN_D}{N_A+N_D}\\approx N_D\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "The 'series' combination \\(\\dfrac{N_AN_D}{N_A+N_D}\\) is dominated by the smaller one, just as the depletion region extends mostly into the lightly doped side. So \\(C_{j0}\\approx\\sqrt{\\dfrac{q\\varepsilon_sN_D}{2\\phi_{bi}}}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "Abrupt PN junction.",
+      "version": 1
+    },
+    {
+      "id": "junction-cap-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "In the formula \\(C_j=\\varepsilon_s/X_{dep}\\), what distance is \\(X_{dep}\\)?",
+      "options": [
+        "Only \\(x_n\\), the N-side width",
+        "The total depletion width \\(x_p+x_n\\) at the bias point",
+        "Only \\(x_p\\), the P-side width",
+        "The distance between the two metal contacts"
+      ],
+      "correct_index": 1,
+      "explanation": "The incremental charges appear at both edges, \\(-x_p\\) and \\(x_n\\), so the effective plate spacing is \\(X_{dep}=x_p+x_n\\). The contacts are far away in the neutral regions, which conduct.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
+      "figure_alt": "PN junction depletion region between -xp and xn.",
+      "version": 2
     }
   ]
 }

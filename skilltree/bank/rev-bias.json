@@ -1,23 +1,20 @@
 {
   "skill_id": "rev-bias",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "rev-bias-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A PN junction is reverse biased (\\(V_D < 0\\): the N side is made more positive than the P side). What happens to the depletion region?",
-      "options": [
-        "It shrinks, because the applied voltage cancels part of φbi",
-        "It stays the same width; only the current changes",
-        "It widens on both sides, uncovering more ion charge to support the larger potential step φbi − V_D",
-        "It moves entirely into the P side"
+      "type": "order",
+      "prompt": "A PN junction is reverse biased. Order the steps that say what happens to the depletion region. Each step after the first uses the result of the step before it.",
+      "explanation": "The total step is the built-in potential minus the applied voltage, and reverse bias makes that applied voltage negative, so the step is larger than the built-in potential. More uncovered charge is the only way to hold it, and more charge means a wider depletion region.",
+      "steps": [
+        "Reverse bias increases the potential step the junction must support.",
+        "With almost no current, that extra step cannot be dropped in the neutral regions.",
+        "The depletion region uncovers more ion charge so the field can hold the larger step.",
+        "Uncovering more ion charge means the depletion region widens."
       ],
-      "correct_index": 2,
-      "explanation": "The total step across the junction becomes \\(\\varphi_{bi} - V_D > \\varphi_{bi}\\). With no significant current, the only way to support more potential is more charge, which means wider depletion:\n\\[X_d(V_D) = X_{d0}\\sqrt{1 - \\frac{V_D}{\\varphi_{bi}}}\\]\nForward bias (\\(V_D > 0\\)) would shrink it.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 238\" role=\"img\" aria-label=\"PN junction charge density, electric field and potential\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"44.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"76.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"26.0\" x2=\"190.0\" y2=\"102.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><rect x=\"86.0\" y=\"62.0\" width=\"104.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><rect x=\"190.0\" y=\"32.0\" width=\"104.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><line x1=\"44.0\" y1=\"62.0\" x2=\"86.0\" y2=\"62.0\" stroke-width=\"2.2\"/><line x1=\"294.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"2.2\"/><text x=\"8.0\" y=\"32.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">ρ(x)</text><text x=\"138.0\" y=\"104.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">–qN<tspan font-size=\"7\" dy=\"2.8\">A</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"242.0\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">+qN<tspan font-size=\"7\" dy=\"2.8\">D</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"44.0\" y1=\"162.0\" x2=\"336.0\" y2=\"162.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"176.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"126.0\" x2=\"190.0\" y2=\"202.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><polyline points=\"44.0,162.0 86.0,162.0 190.0,194.0 294.0,162.0 336.0,162.0\" fill=\"none\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/><text x=\"8.0\" y=\"132.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">E(x)</text><text x=\"198.0\" y=\"196.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"2.8\">max</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"86.0\" y=\"216.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-x<tspan font-size=\"7\" dy=\"2.8\">p</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"294.0\" y=\"216.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">n</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"86.0\" y1=\"159.0\" x2=\"86.0\" y2=\"165.0\" stroke-width=\"1.2\"/><line x1=\"294.0\" y1=\"159.0\" x2=\"294.0\" y2=\"165.0\" stroke-width=\"1.2\"/><text x=\"48.0\" y=\"235.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"332.0\" y=\"235.0\" text-anchor=\"end\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">N side</text></svg>",
-      "figure_alt": "Charge density and field for a reverse-biased junction: wider negative and positive charge blocks than at zero bias, and a larger triangular field.",
-      "version": 2
+      "version": 1,
+      "id": "rev-bias-r1-q4"
     },
     {
       "id": "rev-bias-r1-q2",
@@ -33,19 +30,24 @@
       "version": 2
     },
     {
-      "id": "rev-bias-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "A reverse-biased junction carries almost no current. Which statement explains why?",
-      "options": [
-        "The depletion region contains no carriers at all, so it is a perfect insulator",
-        "The taller barrier shuts off diffusion exponentially; only the tiny drift of thermally generated minority carriers remains",
-        "The applied voltage drops entirely across the metal contacts",
-        "Electrons and holes recombine at the junction before crossing"
+      "type": "error",
+      "prompt": "A worked solution explains the tiny current of a reverse-biased junction. Exactly one step is wrong.",
+      "explanation": "The taller barrier shuts off majority diffusion. The minority carriers that wander into the field are still swept across, which is why the reverse current is small but not exactly zero.",
+      "steps": [
+        "Reverse bias makes the barrier taller than the built-in potential.",
+        "The number of majority carriers that can climb that taller barrier falls exponentially.",
+        "The remaining current is the minority carriers that reach the field and are swept across.",
+        "The depletion region contains no carriers, so that remaining current is exactly zero."
       ],
-      "correct_index": 1,
-      "explanation": "Majority carriers now face a barrier of \\(\\varphi_{bi} + V_R\\), and the number able to climb it drops as \\(e^{-V_R/V_{th}}\\). Minority carriers that wander into the field are still swept across, giving a small, bias-independent saturation current.\nThe depletion region isn't a PERFECT insulator, or there'd be no leakage at all.",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "The swept minority carriers are a small current, so the junction is not a perfect insulator.",
+        "With the majority current shut off, nothing is left to cross, so the current is exactly zero."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "rev-bias-r1-q5"
     },
     {
       "id": "rev-bias-r2-q1",
@@ -78,18 +80,29 @@
       "explanation": "\\(X_d \\propto \\sqrt{\\varphi_{bi} + V_R}\\). Doubling the width needs four times the total potential:\n\\[\\varphi_{bi} + V_R = 4\\varphi_{bi} \\Rightarrow V_R = 3\\varphi_{bi} \\approx 2.16\\ \\mathrm{V}\\]\nCommon mistake: \\(V_R = \\varphi_{bi}\\) (that only multiplies the width by \\(\\sqrt2\\)), or \\(V_R = 4\\varphi_{bi}\\) (forgetting that \\(\\varphi_{bi}\\) is already there)."
     },
     {
-      "id": "rev-bias-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "A junction with \\(\\varphi_{bi} = 0.8\\ \\mathrm{V}\\) is FORWARD biased at \\(V_D = +0.4\\ \\mathrm{V}\\). Using the same depletion-width formula, what happens to the width?",
-      "options": [
-        "It shrinks to \\(\\sqrt{0.5} \\approx 0.71\\) of its zero-bias value",
-        "It grows to \\(\\sqrt{1.5} \\approx 1.22\\) of its zero-bias value",
-        "It shrinks to half its zero-bias value",
-        "It is unchanged, since forward bias only affects the current"
+      "type": "symbolic",
+      "prompt": "The applied voltage is positive and smaller than the built-in potential. Write the depletion width divided by its zero-bias width. Use the name VD for the applied voltage and the name phibi for the built-in potential.",
+      "explanation": "The potential step is the built-in potential minus the applied voltage, and the width follows the square root of that step divided by the built-in potential. With the applied voltage positive the step is smaller, so the width shrinks. Half the voltage does not give half the width.",
+      "answer": "sqrt(1-VD/phibi)",
+      "variables": [
+        {
+          "name": "VD",
+          "min": 0.05,
+          "max": 0.45
+        },
+        {
+          "name": "phibi",
+          "min": 0.6,
+          "max": 1.2
+        }
       ],
-      "correct_index": 0,
-      "explanation": "\\[\\frac{X_d}{X_{d0}} = \\sqrt{1 - \\frac{V_D}{\\varphi_{bi}}} = \\sqrt{1 - \\frac{0.4}{0.8}} = \\sqrt{0.5} = 0.707\\]\nGotcha: the sign convention. Forward bias (\\(V_D > 0\\)) LOWERS the step to \\(\\varphi_{bi} - V_D\\). The width is a square root, so half the voltage gives 71%, not 50%. (Under strong forward bias the depletion approximation itself becomes shaky, because the carriers are no longer negligible.)"
+      "tolerance": 0.001,
+      "alternates": [
+        "sqrt((phibi-VD)/phibi)"
+      ],
+      "version": 1,
+      "id": "rev-bias-r3-q4"
     },
     {
       "id": "rev-bias-r3-q2",
@@ -117,8 +130,9 @@
       ],
       "correct_index": 3,
       "explanation": "Both \\(x_n\\) and \\(x_p\\) scale as \\(\\sqrt{\\varphi_{bi}+V_R}\\), with \\(x_n/x_p = N_A/N_D = 10^{4}\\). So any growth is \\(10^{4}\\) times larger on the N side.\nGotcha: equal CHARGE growth on both sides doesn't mean equal WIDTH growth. For a one-sided junction you can treat it as \\(X_d \\approx \\sqrt{2\\varepsilon_s(\\varphi_{bi}+V_R)/(qN_D)}\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 138\" role=\"img\" aria-label=\"PN junction charge density, electric field and potential\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"44.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"76.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"26.0\" x2=\"190.0\" y2=\"102.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><rect x=\"186.4\" y=\"62.0\" width=\"3.6\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><rect x=\"190.0\" y=\"61.4\" width=\"178.4\" height=\"0.6\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><line x1=\"44.0\" y1=\"62.0\" x2=\"186.4\" y2=\"62.0\" stroke-width=\"2.2\"/><line x1=\"368.4\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"2.2\"/><text x=\"8.0\" y=\"32.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">ρ(x)</text><text x=\"188.2\" y=\"104.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">–qN<tspan font-size=\"7\" dy=\"2.8\">A</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"279.2\" y=\"57.4\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">+qN<tspan font-size=\"7\" dy=\"2.8\">D</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"186.4\" y=\"116.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-x<tspan font-size=\"7\" dy=\"2.8\">p</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"368.4\" y=\"116.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">n</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"186.4\" y1=\"59.0\" x2=\"186.4\" y2=\"65.0\" stroke-width=\"1.2\"/><line x1=\"368.4\" y1=\"59.0\" x2=\"368.4\" y2=\"65.0\" stroke-width=\"1.2\"/><text x=\"48.0\" y=\"135.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"332.0\" y=\"135.0\" text-anchor=\"end\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">N side</text></svg>",
-      "figure_alt": "Charge density of a P+N junction under reverse bias: a thin, tall negative sheet on the P+ side and a wide, short positive block extending far into the N side."
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 138\" role=\"img\" aria-label=\"PN junction charge density, electric field and potential\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"44.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"76.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"26.0\" x2=\"190.0\" y2=\"102.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><rect x=\"187.1\" y=\"62.0\" width=\"2.9\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><rect x=\"190.0\" y=\"61.4\" width=\"146.6\" height=\"0.6\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><line x1=\"44.0\" y1=\"62.0\" x2=\"187.1\" y2=\"62.0\" stroke-width=\"2.2\"/><line x1=\"336.6\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"2.2\"/><text x=\"8.0\" y=\"32.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">ρ(x)</text><text x=\"188.5\" y=\"104.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">–qN<tspan font-size=\"7\" dy=\"2.8\">A</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"263.3\" y=\"57.4\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">+qN<tspan font-size=\"7\" dy=\"2.8\">D</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"187.1\" y=\"116.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-x<tspan font-size=\"7\" dy=\"2.8\">p</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"336.6\" y=\"116.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">n</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"187.1\" y1=\"59.0\" x2=\"187.1\" y2=\"65.0\" stroke-width=\"1.2\"/><line x1=\"336.6\" y1=\"59.0\" x2=\"336.6\" y2=\"65.0\" stroke-width=\"1.2\"/><text x=\"48.0\" y=\"135.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"332.0\" y=\"135.0\" text-anchor=\"end\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">N side</text></svg>",
+      "figure_alt": "Charge density of a P+N junction under reverse bias: a thin, tall negative sheet on the P+ side and a wide, short positive block extending far into the N side.",
+      "version": 2
     },
     {
       "id": "rev-bias-r4-q1",
@@ -166,6 +180,55 @@
         "junction-cap"
       ],
       "version": 2
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "rev-bias-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A PN junction is reverse biased (\\(V_D < 0\\): the N side is made more positive than the P side). What happens to the depletion region?",
+      "options": [
+        "It shrinks, because the applied voltage cancels part of φbi",
+        "It stays the same width; only the current changes",
+        "It widens on both sides, uncovering more ion charge to support the larger potential step φbi − V_D",
+        "It moves entirely into the P side"
+      ],
+      "correct_index": 2,
+      "explanation": "The total step across the junction becomes \\(\\varphi_{bi} - V_D > \\varphi_{bi}\\). With no significant current, the only way to support more potential is more charge, which means wider depletion:\n\\[X_d(V_D) = X_{d0}\\sqrt{1 - \\frac{V_D}{\\varphi_{bi}}}\\]\nForward bias (\\(V_D > 0\\)) would shrink it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 238\" role=\"img\" aria-label=\"PN junction charge density, electric field and potential\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"44.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"76.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"26.0\" x2=\"190.0\" y2=\"102.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><rect x=\"86.0\" y=\"62.0\" width=\"104.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><rect x=\"190.0\" y=\"32.0\" width=\"104.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.22\" stroke-width=\"1.5\"/><line x1=\"44.0\" y1=\"62.0\" x2=\"86.0\" y2=\"62.0\" stroke-width=\"2.2\"/><line x1=\"294.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"2.2\"/><text x=\"8.0\" y=\"32.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">ρ(x)</text><text x=\"138.0\" y=\"104.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">–qN<tspan font-size=\"7\" dy=\"2.8\">A</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"242.0\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">+qN<tspan font-size=\"7\" dy=\"2.8\">D</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"44.0\" y1=\"162.0\" x2=\"336.0\" y2=\"162.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"176.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"126.0\" x2=\"190.0\" y2=\"202.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><polyline points=\"44.0,162.0 86.0,162.0 190.0,194.0 294.0,162.0 336.0,162.0\" fill=\"none\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/><text x=\"8.0\" y=\"132.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">E(x)</text><text x=\"198.0\" y=\"196.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"2.8\">max</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"86.0\" y=\"216.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-x<tspan font-size=\"7\" dy=\"2.8\">p</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"294.0\" y=\"216.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">n</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"86.0\" y1=\"159.0\" x2=\"86.0\" y2=\"165.0\" stroke-width=\"1.2\"/><line x1=\"294.0\" y1=\"159.0\" x2=\"294.0\" y2=\"165.0\" stroke-width=\"1.2\"/><text x=\"48.0\" y=\"235.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"332.0\" y=\"235.0\" text-anchor=\"end\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">N side</text></svg>",
+      "figure_alt": "Charge density and field for a reverse-biased junction: wider negative and positive charge blocks than at zero bias, and a larger triangular field.",
+      "version": 2
+    },
+    {
+      "id": "rev-bias-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A reverse-biased junction carries almost no current. Which statement explains why?",
+      "options": [
+        "The depletion region contains no carriers at all, so it is a perfect insulator",
+        "The taller barrier shuts off diffusion exponentially; only the tiny drift of thermally generated minority carriers remains",
+        "The applied voltage drops entirely across the metal contacts",
+        "Electrons and holes recombine at the junction before crossing"
+      ],
+      "correct_index": 1,
+      "explanation": "Majority carriers now face a barrier of \\(\\varphi_{bi} + V_R\\), and the number able to climb it drops as \\(e^{-V_R/V_{th}}\\). Minority carriers that wander into the field are still swept across, giving a small, bias-independent saturation current.\nThe depletion region isn't a PERFECT insulator, or there'd be no leakage at all.",
+      "version": 2
+    },
+    {
+      "id": "rev-bias-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A junction with \\(\\varphi_{bi} = 0.8\\ \\mathrm{V}\\) is FORWARD biased at \\(V_D = +0.4\\ \\mathrm{V}\\). Using the same depletion-width formula, what happens to the width?",
+      "options": [
+        "It shrinks to \\(\\sqrt{0.5} \\approx 0.71\\) of its zero-bias value",
+        "It grows to \\(\\sqrt{1.5} \\approx 1.22\\) of its zero-bias value",
+        "It shrinks to half its zero-bias value",
+        "It is unchanged, since forward bias only affects the current"
+      ],
+      "correct_index": 0,
+      "explanation": "\\[\\frac{X_d}{X_{d0}} = \\sqrt{1 - \\frac{V_D}{\\varphi_{bi}}} = \\sqrt{1 - \\frac{0.4}{0.8}} = \\sqrt{0.5} = 0.707\\]\nGotcha: the sign convention. Forward bias (\\(V_D > 0\\)) LOWERS the step to \\(\\varphi_{bi} - V_D\\). The width is a square root, so half the voltage gives 71%, not 50%. (Under strong forward bias the depletion approximation itself becomes shaky, because the carriers are no longer negligible.)",
+      "version": 1
     }
   ]
 }
