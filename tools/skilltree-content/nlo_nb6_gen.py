@@ -1267,7 +1267,7 @@ An unbounded feasible set is not the same fact as an unbounded objective. A cost
         },
         {
             "heading": "Key equations",
-            "body_md": r"""A level of \(p x + q y\) is the line \(p x + q y = c\). If \(q \ne 0\), the slope is \(-p/q\). The four outcomes for a linear objective on a convex planar set are: a unique minimizer, a whole convex piece of minimizers (often an edge), an unbounded objective, and an empty feasible set. On a nonempty polygon the minimum and the maximum are attained, and each is attained at an extreme point. The optimal value is one number even when several points attain it.""",
+            "body_md": r"""A level of \(p x + q y\) is the line \(p x + q y = c\). If \(q \ne 0\), the slope is \(-p/q\). The four outcomes for a linear objective on a convex planar set are: a unique minimizer, a whole convex piece of minimizers (often an edge), an unbounded objective, and an empty feasible set. When the feasible set is a nonempty polygon, both the smallest and the largest value of a linear cost are achieved, and a vertex is always among the points that achieve each one. The optimal value is one number even when several points attain it.""",
         },
         {
             "heading": "Worked example",
@@ -1284,7 +1284,7 @@ The shed level is 18, attained only at \((7, 11)\). The other two vertices are w
             "body_md": r"""The reason a vertex wins is that a linear function on a polyhedron attains its bounds at extreme points, when it attains them at all. Those extreme points are the basic feasible solutions once the program is written with equalities and nonnegative variables. The algebra that walks from one such point to a neighboring one is the simplex iteration. The picture in the plane is the same walk, seen without a tableau.""",
         },
     ]
-    save_explainer("lp-graphical-solution", "Graphical LP solution and solution types", sections)
+    save_explainer("lp-graphical-solution", "Graphical LP solution and solution types", sections, version=2)
 
 
 def expl_polyhedra():

@@ -220,10 +220,11 @@ def bank_newton():
         r"Let \(f(t) = 3t^2 - 12t\). At \(t = 0\), the Newton step is a descent direction. What is the directional derivative of \(f\) along that step?",
         -24,
         "1",
-        r"The derivative is \(6t - 12\) and the second derivative is \(6\). At \(t = 0\) the derivative is \(-12\), so \(6 d = 12\) and \(d = 2\). The directional derivative is \(-12 \cdot 2 = -24\). The negative sign is what makes the step a descent direction. Reporting \(24\) drops that sign. Reporting \(-12\) is the derivative, not its product with the step. Reporting \(2\) is the step.",
+        r"At \(t = 0\), \(f'(t) = 6t - 12 = -12\) and \(f''(t) = 6\). Newton sets \(6d = 12\), so \(d = 2\). The slope along that step is \(f'(0) \cdot d = -24\). A negative product is the descent test. The positive value 24 has the sign flipped. The value \(-12\) is only \(f'(0)\). The value 2 is the step itself.",
         fig=FALL,
         alt=A_FALL,
         preview=P_GLOB,
+        version=2,
     )
     b.mc(
         4,

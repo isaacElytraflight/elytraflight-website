@@ -97,7 +97,9 @@ def main():
         ("test-migrate", ["node", "public/skilltree/tests/test-migrate.js"], 60),
     ]
     ensure_server()
-    steps.append(("puppeteer", ["node", "public/skilltree/tests/test.js"], 300))
+    # The browser suite is about 70 cases and has finished in just over 5 minutes
+    # on a cold headless Chrome. 300s was killing a run that then passed on its own.
+    steps.append(("puppeteer", ["node", "public/skilltree/tests/test.js"], 480))
 
     results = []
     failed = 0

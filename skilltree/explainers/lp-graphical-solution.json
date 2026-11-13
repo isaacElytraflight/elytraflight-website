@@ -1,7 +1,7 @@
 {
   "id": "lp-graphical-solution",
   "title": "Graphical LP solution and solution types",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "A level of \\(p x + q y\\) is the line \\(p x + q y = c\\). If \\(q \\ne 0\\), the slope is \\(-p/q\\). The four outcomes for a linear objective on a convex planar set are: a unique minimizer, a whole convex piece of minimizers (often an edge), an unbounded objective, and an empty feasible set. On a nonempty polygon the minimum and the maximum are attained, and each is attained at an extreme point. The optimal value is one number even when several points attain it."
+      "body_md": "A level of \\(p x + q y\\) is the line \\(p x + q y = c\\). If \\(q \\ne 0\\), the slope is \\(-p/q\\). The four outcomes for a linear objective on a convex planar set are: a unique minimizer, a whole convex piece of minimizers (often an edge), an unbounded objective, and an empty feasible set. When the feasible set is a nonempty polygon, both the smallest and the largest value of a linear cost are achieved, and a vertex is always among the points that achieve each one. The optimal value is one number even when several points attain it."
     },
     {
       "heading": "Worked example",

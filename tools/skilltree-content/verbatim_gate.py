@@ -8,8 +8,9 @@ this from run_gates.py.
 
 No-verbatim gate for a content batch.
 
-Compares learner-facing stems, choices, explanations, and explainers with
-source text that is kept outside the repo.
+Compares learner-facing stems, choices, ordering steps, find-the-error
+reasons, explanations, and explainers with source text that is kept
+outside the repo.
 
   - normalize and build 8-word shingles of the sources
   - fail if any learner text shares a contiguous run of 12 or more words
@@ -121,6 +122,10 @@ def learner_texts(skill_ids):
             chunks = [("prompt", q.get("prompt", ""))]
             for i, opt in enumerate(q.get("options") or []):
                 chunks.append((f"option{i}", opt))
+            for i, step in enumerate(q.get("steps") or []):
+                chunks.append((f"step{i}", step))
+            for i, reason in enumerate(q.get("reasons") or []):
+                chunks.append((f"reason{i}", reason))
             chunks.append(("explanation", q.get("explanation", "")))
             if q.get("figure_alt"):
                 chunks.append(("figure_alt", q["figure_alt"]))

@@ -113,10 +113,10 @@ def bank_subsets():
          matrix_fig([["a", "b", "c"], ["d", "e", "f"]], "a 2 by 3 matrix"),
          "A matrix with two rows and three columns.")
     b.num(3,
-          r"On the segment from \((0,0)\) to \((8,12)\), the point at \(t = 1/4\) has what second coordinate?",
-          3, "1",
-          r"\((1-t)a + tb\) at \(t = 1/4\) is \((2, 3)\). The second coordinate is 3. The value \(t = 3/4\) would give 9, and reading the first coordinate would give 2.",
-          SEG, A_SEG)
+          r"A point moves from \((0, 0)\) to \((5, 20)\) as the parameter \(t\) runs from 0 to 1. At \(t = 1/5\), what is its second coordinate?",
+          4, "1",
+          r"The point is \((1-t)\) times the start plus \(t\) times the end. At \(t = 1/5\) the second coordinate is \(20/5 = 4\). The first coordinate is 1. The parameter \(t = 4/5\) would land at second coordinate 16.",
+          SEG, A_SEG, version=2)
     b.mc(4,
          r"The set \(\{x : \lVert x \rVert_2 \le 1\}\) is",
          ["an open half-space",

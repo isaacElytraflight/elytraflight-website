@@ -36,7 +36,7 @@ def main():
     expected["rn-important-subsets-r2-q2"] = (2 + 10) / 2
     expected["rn-important-subsets-r2-q3"] = 0.2 + 0.5 + 0.3
     expected["rn-important-subsets-r3-q1"] = 4 - 1
-    expected["rn-important-subsets-r3-q3"] = 0.25 * 12
+    expected["rn-important-subsets-r3-q3"] = (1.0 / 5.0) * 20.0
     expected["rn-important-subsets-r4-q2"] = 0.5 * 10
 
     A = np.array([[4.0, 2.0], [2.0, 4.0]])
