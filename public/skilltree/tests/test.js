@@ -4183,6 +4183,80 @@ async function test(name, fn) {
     await missing._ctx.close();
   });
 
+  await test('a local username does not open the editor for someone else\'s profile', async () => {
+    const owner = {
+      access_token: 'user-access-token',
+      user: {
+        id: '11111111-1111-4111-8111-111111111111',
+        email: 'owner@example.com',
+        created_at: '2024-05-02T00:00:00.000Z'
+      }
+    };
+    const profiles = PROFILE_FIXTURES.map(row => Object.assign({}, row));
+    profiles.push({
+      user_id: owner.user.id,
+      username: 'ada_1',
+      bio: 'Mine',
+      is_public: true,
+      created_at: '2024-06-01T00:00:00.000Z',
+      skills_completed: 1
+    });
+    const guest = await newPage(null, {
+      profileMode: 'ready',
+      profiles: profiles.map(row => Object.assign({}, row))
+    });
+    await guest.evaluate(() => localStorage.setItem('skilltree.profile.v1', JSON.stringify({
+      v: 1, username: 'ada', bio: 'local draft', isPublic: true
+    })));
+    await guest.goto(new URL('/profile/ada?focus=ee105', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    const hijack = await guest.evaluate(() => ({
+      editor: document.getElementById('profileEditor').hidden,
+      name: document.getElementById('profilePublicName').textContent,
+      path: location.pathname,
+      search: location.search
+    }));
+    assert.strictEqual(hijack.editor, true, 'a matching local draft still shows the public profile');
+    assert.strictEqual(hijack.name, 'ada');
+    assert.strictEqual(hijack.path, '/profile/ada');
+    assert.strictEqual(hijack.search, '');
+    await guest.goto(new URL('/profile/gio', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await guest.evaluate(() => localStorage.setItem('skilltree.profile.v1', JSON.stringify({
+      v: 1, username: 'gio', bio: 'local draft', isPublic: true
+    })));
+    await guest.reload({ waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    assert.strictEqual(await guest.$eval('#profileEditor', e => e.hidden), true);
+    assert.strictEqual(await guest.$eval('#profilePrivateOnly', e => e.hidden), false);
+    await guest.goto(BASE_URL, { waitUntil: 'networkidle0', timeout: 30000 });
+    await openOwnProfile(guest);
+    await guest.waitForFunction(() => location.pathname === '/profile/me' && document.getElementById('profileEditor') && !document.getElementById('profileEditor').hidden);
+    assert.strictEqual(await guest.$eval('#profileUsername', e => e.value), 'gio');
+    await guest._ctx.close();
+
+    const signedIn = await newPage(null, {
+      session: owner,
+      profileMode: 'ready',
+      profiles: profiles.map(row => Object.assign({}, row))
+    });
+    await signedIn.evaluate(id => {
+      localStorage.setItem('skilltree.profile.v1.' + id, JSON.stringify({
+        v: 1, username: 'ada', bio: 'stale draft', isPublic: true
+      }));
+    }, owner.user.id);
+    await signedIn.goto(new URL('/profile/ada', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    assert.strictEqual(await signedIn.$eval('#profileEditor', e => e.hidden), true);
+    assert.strictEqual(await signedIn.$eval('#profilePublicName', e => e.textContent), 'ada');
+    await signedIn.goto(new URL('/profile/ada_1', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await signedIn.waitForFunction(() => {
+      const editor = document.getElementById('profileEditor');
+      const box = document.getElementById('profileUsername');
+      return editor && !editor.hidden && box && box.value === 'ada_1' && location.pathname === '/profile/ada_1';
+    });
+    await signedIn._ctx.close();
+  });
+
   await test('exam dates spread today across the days before the exam', async () => {
     fs.mkdirSync('/opt/cursor/artifacts', { recursive: true });
     const p = await newPage(T({
@@ -4544,6 +4618,7 @@ async function test(name, fn) {
     const focus = await p.evaluate(() => new URLSearchParams(location.search).get('focus'));
     assert(focus && focus.split(',').includes('ee105') && focus.split(',').includes('me132') && focus.split(',').includes('am08'), focus);
     await openOwnProfile(p);
+    await p.waitForFunction(() => location.pathname === '/profile/isaac');
     const landed = await p.evaluate(() => ({
       path: location.pathname,
       search: location.search,
