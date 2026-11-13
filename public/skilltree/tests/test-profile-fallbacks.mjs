@@ -66,7 +66,10 @@ function baseHrefFor(html, pathname) {
   let written = ''
   vm.runInNewContext(match[1], {
     location: { pathname },
-    document: { write(chunk) { written += String(chunk) } },
+    document: {
+      write(chunk) { written += String(chunk) },
+      documentElement: { classList: { add() {} } },
+    },
   })
   const href = written.match(/href="([^"]*)"/)
   return href ? href[1] : ''

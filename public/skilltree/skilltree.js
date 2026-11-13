@@ -2013,8 +2013,9 @@ function gradedPayload(it) {
     q_index: quiz.i,
     q_count: quiz.items.length
   };
+  // choice is the multiple-choice option. An error step is not one: correct
+  // also depends on the reason, so the step must not be stored as a key.
   if (q.type === 'mc' && it.chosen != null) detail.choice = it.perm ? it.perm[it.chosen] : it.chosen;
-  else if (q.type === 'error' && it.chosen != null) detail.choice = it.chosen;
   else if (q.type === 'multi' && it.picks && it.picks.length && it.perm) detail.choices = it.picks.map(i => it.perm[i]);
   return detail;
 }
@@ -2407,6 +2408,10 @@ function readSavedScope() {
   return null;
 }
 function writeFocusUrl() {
+  if (profileStandalone()) {
+    cleanProfileUrl();
+    return;
+  }
   const cur = new URLSearchParams(location.search);
   const value = focusQueryValue();
   const parts = ['focus=' + (value ? value.split(',').map(encodeFocusToken).join(',') : '')];
@@ -3422,6 +3427,38 @@ function writeLocalProfile(profile) {
 function publicProfileHref(username) {
   return '/profile/' + encodeURIComponent(username);
 }
+function profileStandalone() {
+  const path = location.pathname || '/';
+  return /\/profile\/?$/.test(path) || /\/profile\/[^/]+\/?$/.test(path);
+}
+function cleanProfileUrl() {
+  if (!profileStandalone()) return;
+  const params = new URLSearchParams(location.search);
+  if (!params.has('focus') && !params.has('skill')) return;
+  params.delete('focus');
+  params.delete('skill');
+  const rest = params.toString();
+  const next = location.pathname + (rest ? '?' + rest : '') + location.hash;
+  const nowUrl = location.pathname + location.search + location.hash;
+  if (next !== nowUrl) history.replaceState(history.state, '', next);
+}
+function ownProfilePath() {
+  const name = readLocalProfile().username;
+  if (name && !usernameError(name)) return publicProfileHref(name);
+  return '/profile/me';
+}
+function syncProfileLink() {
+  const link = $('btnProfile');
+  if (link) link.setAttribute('href', ownProfilePath());
+}
+function publishProfileUrl(username) {
+  if (!profileStandalone()) return;
+  const name = sanitizeUsername(username);
+  if (!name || usernameError(name)) return;
+  const next = publicProfileHref(name);
+  if (location.pathname === next && !new URLSearchParams(location.search).has('focus') && !new URLSearchParams(location.search).has('skill')) return;
+  history.replaceState(history.state, '', next);
+}
 function safeDecode(s) {
   try { return decodeURIComponent(s); } catch (e) { return s; }
 }
@@ -3560,6 +3597,7 @@ function fillProfileForm(profile, joined) {
   if (joinedEl) joinedEl.textContent = formatJoinDate(joined);
   refreshProfileStats();
   setUsernameError('');
+  publishProfileUrl(profile.username);
 }
 async function loadOwnProfile() {
   const gen = ++profileLoadGen;
@@ -3665,11 +3703,13 @@ function showProfileLayer(mode) {
   const page = $('profilePage');
   if (!page) return;
   page.hidden = false;
-  document.body.style.overflow = 'hidden';
+  if (!profileStandalone()) document.body.style.overflow = 'hidden';
   const editor = $('profileEditor');
   const view = $('profilePublicView');
   if (editor) editor.hidden = mode !== 'edit';
   if (view) view.hidden = mode !== 'public';
+  const title = mode === 'edit' ? "Profile — Elytraflight's Skill Tree" : "Elytraflight's Skill Tree";
+  if (profileStandalone() && mode === 'edit') document.title = title;
 }
 function clearPublicView() {
   const priv = $('profilePrivateOnly');
@@ -3695,14 +3735,7 @@ function openProfileEditor() {
   if (box) box.focus();
 }
 function closeProfilePage() {
-  const editor = $('profileEditor');
-  if (readRouteProfile() && editor && editor.hidden) {
-    location.assign('/skilltree/');
-    return;
-  }
-  const page = $('profilePage');
-  if (page) page.hidden = true;
-  document.body.style.overflow = '';
+  location.assign('/skilltree/');
 }
 async function openPublicProfile(username) {
   showProfileLayer('public');
@@ -3740,6 +3773,7 @@ async function openPublicProfile(username) {
   const skillsEl = $('profilePublicSkills');
   const body = $('profilePublicBody');
   if (nameEl) nameEl.textContent = name;
+  if (profileStandalone()) document.title = name + " — Elytraflight's Skill Tree";
   if (bioEl) bioEl.textContent = sanitizeBio(result.profile.bio);
   if (joinedEl) joinedEl.textContent = formatJoinDate(result.profile.joined_at);
   if (skillsEl) skillsEl.textContent = String(Math.max(0, Math.round(Number(result.profile.skills_completed) || 0)));
@@ -3777,6 +3811,27 @@ async function loadLeaderboard() {
   }
   leaderboardRows = result.rows.slice(0, 5);
   renderTodo();
+}
+function routeProfileName() {
+  const path = location.pathname || '/';
+  const match = path.match(/\/profile\/([^/]+)\/?$/);
+  if (!match) return null;
+  const seg = safeDecode(match[1]);
+  if (!seg || seg.toLowerCase() === 'index.html') return null;
+  return seg;
+}
+function openRoutedProfile() {
+  if (!profileStandalone()) return null;
+  cleanProfileUrl();
+  const segment = routeProfileName();
+  if (segment) {
+    const name = sanitizeUsername(segment);
+    if (name === 'me' || (name && !usernameError(name) && name === readLocalProfile().username)) return openProfileEditor();
+    return openPublicProfile(segment);
+  }
+  const queryName = readRouteProfile();
+  if (queryName) return openPublicProfile(queryName);
+  return openProfileEditor();
 }
 
 /* ====================== feedback ====================== */
@@ -3912,7 +3967,6 @@ function setupKeyboard() {
       if (mb.classList.contains('open')) closeModal();
       else if (openFlag && window.SkillgroveTelemetry && window.SkillgroveTelemetry.dismissFlag) window.SkillgroveTelemetry.dismissFlag(openFlag);
       else if (openFlag) openFlag.hidden = true;
-      else if ($('profilePage') && !$('profilePage').hidden) closeProfilePage();
       else if (quizOpen) leaveQuiz();
       else if (panelOpen()) closePanel();
       return;
@@ -3937,7 +3991,7 @@ async function init() {
     return;
   }
   
-  loading.remove();
+  if (!profileStandalone()) loading.remove();
   
   initData();
   playable = skills.filter(s => isPlayable(s.id));
@@ -3954,7 +4008,8 @@ async function init() {
   
   loadProgress();
   loadTiming();
-  bootFocus();
+  if (profileStandalone()) cleanProfileUrl();
+  else bootFocus();
   $('playableNote').textContent = `${playable.length} of ${skills.length} skills ready`;
   buildTree(); buildGrid(); legendBuild(); buildControls();
   if (selectedBoxes.size === 0) scopePanelOpen = true;
@@ -3975,9 +4030,15 @@ async function init() {
   setupPanZoom();
   setupKeyboard();
   
-  $('btnProfile').onclick = () => openProfileEditor();
+  const profileLink = $('btnProfile');
+  if (profileLink) profileLink.addEventListener('click', e => {
+    const href = ownProfilePath();
+    profileLink.setAttribute('href', href);
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    location.assign(href);
+  });
   $('profileClose').onclick = () => closeProfilePage();
-  $('profilePage').addEventListener('mousedown', e => { if (e.target === $('profilePage')) closeProfilePage(); });
   $('profileSignIn').onclick = () => { if (window.SkillgroveAuth) window.SkillgroveAuth.openSignIn(); };
   $('profileSave').onclick = () => { saveProfile(); };
   $('btnExport').onclick = () => exportProgress();
@@ -4022,6 +4083,7 @@ async function init() {
     exams: { list: examsNow, add: addExamRecord, update: updateExamRecord, remove: removeExam, view: (id, today) => { const exam = examsNow().find(e => e.id === id); return exam ? examView(exam, today) : null } },
     openModal, toast, reloadProgress, reloadTiming: loadTiming, refreshAll, toggleGroup,
     onAuthChange: () => {
+      syncProfileLink();
       const page = $('profilePage');
       const editor = $('profileEditor');
       if (page && !page.hidden && editor && !editor.hidden) loadOwnProfile();
@@ -4036,10 +4098,13 @@ async function init() {
   if (window.SkillgroveAuth) {
     window.SkillgroveAuth.init();
   }
+  syncProfileLink();
   try { window.SkillgroveTelemetry && window.SkillgroveTelemetry.start(); } catch (e) { }
   await loadLeaderboard();
-  const routedName = readRouteProfile();
-  if (routedName) await openPublicProfile(routedName);
+  if (profileStandalone()) {
+    await openRoutedProfile();
+    if (loading.parentNode) loading.remove();
+  }
 }
 
 init();

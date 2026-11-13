@@ -374,15 +374,35 @@ function rememberFlag(row) {
   persistFlags();
 }
 
+function settleFlags(batch, keep) {
+  const sent = new Set(batch.map(row => row.question_id));
+  const held = new Set(keep.map(row => row.question_id));
+  flagQueue = flagQueue.filter(row => !sent.has(row.question_id) || held.has(row.question_id));
+  persistFlags();
+}
 async function flushFlags() {
   if (flagsOff || !flagQueue.length) return;
   const batch = flagQueue.slice();
   stamp(batch);
-  const result = await postTable('analytics_flags', batch.map(normalizeFlag));
-  if (result.ok || result.kind === 'duplicate') {
-    const sent = new Set(batch.map(row => row.question_id));
-    flagQueue = flagQueue.filter(row => !sent.has(row.question_id));
-    persistFlags();
+  const rows = batch.map(normalizeFlag);
+  const result = await postTable('analytics_flags', rows);
+  if (result.ok) {
+    settleFlags(batch, []);
+    return;
+  }
+  if (result.kind === 'duplicate') {
+    const keep = [];
+    for (let i = 0; i < rows.length; i++) {
+      const one = rows.length === 1 ? result : await postTable('analytics_flags', [rows[i]]);
+      if (one.ok || one.kind === 'duplicate') continue;
+      if (one.kind === 'missing' || one.kind === 'unavailable') {
+        flagsOff = true;
+        keep.push.apply(keep, batch.slice(i));
+        break;
+      }
+      keep.push(batch[i]);
+    }
+    settleFlags(batch, keep);
     return;
   }
   if (result.kind === 'missing' || result.kind === 'unavailable') flagsOff = true;
@@ -547,8 +567,11 @@ function noteQuizLeave() {
   });
   live = null;
 }
-function onPageHide() {
-  noteQuizLeave();
+function onPageHide(event) {
+  // Mobile Safari freezes a page into bfcache on a tab switch and sets
+  // persisted. That is not a quiz leave. visibilitychange already flushes
+  // without counting a drop-off; a real close has persisted false.
+  if (!(event && event.persisted)) noteQuizLeave();
   flush({ keepalive: true }).catch(function() {});
 }
 function onVisibility() {
