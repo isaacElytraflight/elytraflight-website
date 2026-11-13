@@ -1,40 +1,39 @@
 {
   "skill_id": "si-props",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "si-props-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "Silicon is a group IV element. In the silicon crystal (shown in the 2D bond model), how many valence electrons does each atom have, and how many covalent bonds does it form?",
-      "options": [
-        "4 valence electrons; 4 bonds, one to each nearest neighbour",
-        "4 valence electrons; 8 bonds, one per electron it shares or borrows",
-        "2 valence electrons (the 3p²); 2 bonds",
-        "14 electrons, all of which take part in bonding"
+      "type": "order",
+      "prompt": "Order the bond count for one silicon atom in the crystal. Each step after the first uses the result of the step before it.",
+      "explanation": "The valence count has to come first, because those electrons are what get placed into bonds. The neighbour's electron is added to a bond that already holds this atom's electron. Counting 8 bonds would count each shared electron as a separate bond. Only the two \\(3p\\) electrons bonding would leave the outer shell unfinished.",
+      "steps": [
+        "Count the outer-shell electrons of this group IV atom. There are 4.",
+        "Place one of those 4 electrons into a bond toward each of the 4 nearest neighbours.",
+        "Each neighbour puts one of its own electrons into the same bond, so each bond holds 2 electrons.",
+        "The atom therefore forms 4 covalent bonds, one to each nearest neighbour."
       ],
-      "correct_index": 0,
-      "explanation": "Silicon's outer shell holds 4 electrons (\\(3s^2 3p^2\\), which hybridize into 4 \\(sp^3\\) orbitals in the crystal). Each atom bonds to 4 neighbours in the diamond lattice, and each bond holds 2 electrons: one contributed by each atom.\n• 8 bonds double-counts: each atom 'sees' 8 electrons around it (4 own + 4 shared), but that is still 4 bonds.\n• Only the two 3p electrons bonding would not fill the shell; the hybridized state uses all four.\n• The 10 core electrons are tightly bound and never take part in bonding or conduction.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 210\" role=\"img\" aria-label=\"2D silicon bond model\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:300px;width:100%;height:auto\"><line x1=\"50.0\" y1=\"36.0\" x2=\"112.0\" y2=\"36.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"50.0\" y1=\"36.0\" x2=\"50.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"50.0\" y1=\"96.0\" x2=\"112.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"50.0\" y1=\"96.0\" x2=\"50.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"50.0\" y1=\"156.0\" x2=\"112.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"112.0\" y1=\"36.0\" x2=\"174.0\" y2=\"36.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"112.0\" y1=\"36.0\" x2=\"112.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"112.0\" y1=\"96.0\" x2=\"174.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"112.0\" y1=\"96.0\" x2=\"112.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"112.0\" y1=\"156.0\" x2=\"174.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"174.0\" y1=\"36.0\" x2=\"236.0\" y2=\"36.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"174.0\" y1=\"36.0\" x2=\"174.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"174.0\" y1=\"96.0\" x2=\"236.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"174.0\" y1=\"96.0\" x2=\"174.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"174.0\" y1=\"156.0\" x2=\"236.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"236.0\" y1=\"36.0\" x2=\"236.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"236.0\" y1=\"96.0\" x2=\"236.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><circle cx=\"50.0\" cy=\"36.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"50.0\" y=\"40.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"50.0\" cy=\"96.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"50.0\" y=\"100.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"50.0\" cy=\"156.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"50.0\" y=\"160.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"112.0\" cy=\"36.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"112.0\" y=\"40.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"112.0\" cy=\"96.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"112.0\" y=\"100.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"112.0\" cy=\"156.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"112.0\" y=\"160.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"174.0\" cy=\"36.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"174.0\" y=\"40.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"174.0\" cy=\"96.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"174.0\" y=\"100.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"174.0\" cy=\"156.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"174.0\" y=\"160.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"236.0\" cy=\"36.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"236.0\" y=\"40.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"236.0\" cy=\"96.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"236.0\" y=\"100.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"236.0\" cy=\"156.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"236.0\" y=\"160.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text></svg>",
-      "figure_alt": "A 4 by 3 grid of silicon atoms, each joined to its four neighbours by covalent bonds (two electrons per bond).",
-      "version": 2
+      "version": 1,
+      "id": "si-props-r1-q4"
     },
     {
-      "id": "si-props-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "Pure (undoped) silicon is cooled to \\(T = 0\\ \\mathrm{K}\\). How well does it conduct, and why?",
+      "type": "multi",
+      "prompt": "Pure silicon is cooled to \\(0\\ \\mathrm{K}\\). Select every statement that is true.",
+      "explanation": "At \\(0\\ \\mathrm{K}\\) no bond is broken, so the valence band is full, the conduction band is empty, and nothing can carry a current. A hole exists only after a bond breaks. The four valence electrons are bonding electrons, not a metal's free-electron gas. Stopping the lattice vibrations does not create carriers.",
       "options": [
-        "Very well: each atom has 4 free valence electrons",
-        "Moderately: holes conduct even when no bonds are broken",
-        "Perfectly: lattice vibrations stop, so there is no scattering",
-        "Essentially not at all: every valence electron is locked in a covalent bond, so there are no free carriers"
+        "Every valence electron is locked in a covalent bond.",
+        "The valence band is full and the conduction band is empty.",
+        "Holes are present even though no bond is broken.",
+        "There are no free carriers, so the crystal does not conduct."
       ],
-      "correct_index": 3,
-      "explanation": "At 0 K no bond is broken. The valence band is completely full and the conduction band is empty, so nothing can carry a net current: silicon is an insulator.\n• The 4 valence electrons are the bonding electrons, not free ones (that picture fits a metal's 'electron gas').\n• A hole only exists once a bond has been broken.\n• Having no scattering doesn't help if there are no carriers to move.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 190\" role=\"img\" aria-label=\"Band diagram (intrinsic)\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:300px;width:100%;height:auto\"><rect x=\"56.0\" y=\"10.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><rect x=\"56.0\" y=\"142.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><line x1=\"56.0\" y1=\"48.0\" x2=\"254.0\" y2=\"48.0\" stroke-width=\"2.4\"/><line x1=\"56.0\" y1=\"142.0\" x2=\"254.0\" y2=\"142.0\" stroke-width=\"2.4\"/><text x=\"50.0\" y=\"52.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">c</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"50.0\" y=\"146.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">v</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"175.0\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">conduction band</text><text x=\"175.0\" y=\"170.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">valence band</text><line x1=\"56.0\" y1=\"95.0\" x2=\"254.0\" y2=\"95.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 4\"/><text x=\"258.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">i</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"258.0\" y=\"113.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"2.8\">F</tspan><tspan dy=\"-2.8\"></tspan>=E<tspan font-size=\"7\" dy=\"2.8\">i</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"76.0\" y1=\"89.0\" x2=\"76.0\" y2=\"49.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,49.0 77.9,53.6 74.1,53.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"76.0\" y1=\"101.0\" x2=\"76.0\" y2=\"141.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,141.0 74.1,136.4 77.9,136.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"82.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">g</tspan><tspan dy=\"-3.1\"></tspan></text></svg>",
-      "figure_alt": "Silicon band diagram at 0 K: a full valence band, an empty conduction band, and the gap Eg between them.",
-      "version": 2
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1,
+      "id": "si-props-r1-q5"
     },
     {
       "id": "si-props-r1-q3",
@@ -92,19 +91,24 @@
       "explanation": "\\[\\frac{n_i}{N_{Si}} = \\frac{10^{10}}{5\\times10^{22}} = 2\\times10^{-13}\\]\nOnly about one atom in 5 trillion contributes a free electron at room temperature. Compare a metal, where every atom contributes about one. This is why intrinsic silicon is such a poor conductor."
     },
     {
-      "id": "si-props-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "A band is completely filled with electrons. The electrons are still moving around inside their bonds. What net current can that band carry when a field is applied?",
-      "options": [
-        "Zero: for a completely filled band, the velocities of all electrons sum to zero",
-        "A large current, since it holds the most electrons",
-        "A current proportional to the number of electrons, but flowing opposite to the field",
-        "Zero at 0 K only; at room temperature its electrons carry current"
+      "type": "error",
+      "prompt": "A band is completely filled. A student decides what current it carries when a field is applied. Exactly one step is wrong.",
+      "explanation": "In a full band every \\(+v\\) is paired with a filled \\(-v\\), so the sum is zero. A field cannot change which states are filled when there is no empty state to move into. Current appears only when the band is partly empty. Writing the valence band as a full band minus the missing electrons is what produces the hole current.",
+      "steps": [
+        "Every state in the band is occupied.",
+        "The occupied states come in pairs with velocities \\(+v\\) and \\(-v\\).",
+        "The charge-weighted sum of those velocities is zero.",
+        "A field therefore drives a net current proportional to the number of electrons in the band."
       ],
-      "correct_index": 0,
-      "explanation": "\\(\\sum_{\\text{filled band}} (-q)\\,v_i = 0\\). In a full band, every state with velocity \\(+v\\) is paired with a filled state at \\(-v\\), so the field cannot change the occupation pattern.\nCurrent only appears when the band is partly empty. Writing the partly filled band as 'full band minus missing electrons' gives \\(J_{vb} = \\sum_{\\text{empty}} q\\,v_i\\): positive carriers, the holes.\nTemperature doesn't change this: a band that stays completely full still gives zero.",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "A full band's paired velocities already sum to zero. Net current needs a partly empty band.",
+        "The current is proportional to the number of electrons and flows opposite the field."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "si-props-r3-q4"
     },
     {
       "id": "si-props-r3-q2",
@@ -189,6 +193,57 @@
       "preview": [
         "doping"
       ],
+      "version": 2
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "si-props-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Silicon is a group IV element. In the silicon crystal (shown in the 2D bond model), how many valence electrons does each atom have, and how many covalent bonds does it form?",
+      "options": [
+        "4 valence electrons; 4 bonds, one to each nearest neighbour",
+        "4 valence electrons; 8 bonds, one per electron it shares or borrows",
+        "2 valence electrons (the 3p²); 2 bonds",
+        "14 electrons, all of which take part in bonding"
+      ],
+      "correct_index": 0,
+      "explanation": "Silicon's outer shell holds 4 electrons (\\(3s^2 3p^2\\), which hybridize into 4 \\(sp^3\\) orbitals in the crystal). Each atom bonds to 4 neighbours in the diamond lattice, and each bond holds 2 electrons: one contributed by each atom.\n• 8 bonds double-counts: each atom 'sees' 8 electrons around it (4 own + 4 shared), but that is still 4 bonds.\n• Only the two 3p electrons bonding would not fill the shell; the hybridized state uses all four.\n• The 10 core electrons are tightly bound and never take part in bonding or conduction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 210\" role=\"img\" aria-label=\"2D silicon bond model\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:300px;width:100%;height:auto\"><line x1=\"50.0\" y1=\"36.0\" x2=\"112.0\" y2=\"36.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"50.0\" y1=\"36.0\" x2=\"50.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"50.0\" y1=\"96.0\" x2=\"112.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"50.0\" y1=\"96.0\" x2=\"50.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"50.0\" y1=\"156.0\" x2=\"112.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"112.0\" y1=\"36.0\" x2=\"174.0\" y2=\"36.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"112.0\" y1=\"36.0\" x2=\"112.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"112.0\" y1=\"96.0\" x2=\"174.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"112.0\" y1=\"96.0\" x2=\"112.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"112.0\" y1=\"156.0\" x2=\"174.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"174.0\" y1=\"36.0\" x2=\"236.0\" y2=\"36.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"174.0\" y1=\"36.0\" x2=\"174.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"174.0\" y1=\"96.0\" x2=\"236.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"174.0\" y1=\"96.0\" x2=\"174.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"174.0\" y1=\"156.0\" x2=\"236.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"236.0\" y1=\"36.0\" x2=\"236.0\" y2=\"96.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><line x1=\"236.0\" y1=\"96.0\" x2=\"236.0\" y2=\"156.0\" stroke-width=\"2.2\" stroke-opacity=\"0.5\"/><circle cx=\"50.0\" cy=\"36.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"50.0\" y=\"40.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"50.0\" cy=\"96.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"50.0\" y=\"100.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"50.0\" cy=\"156.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"50.0\" y=\"160.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"112.0\" cy=\"36.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"112.0\" y=\"40.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"112.0\" cy=\"96.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"112.0\" y=\"100.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"112.0\" cy=\"156.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"112.0\" y=\"160.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"174.0\" cy=\"36.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"174.0\" y=\"40.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"174.0\" cy=\"96.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"174.0\" y=\"100.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"174.0\" cy=\"156.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"174.0\" y=\"160.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"236.0\" cy=\"36.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"236.0\" y=\"40.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"236.0\" cy=\"96.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"236.0\" y=\"100.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text><circle cx=\"236.0\" cy=\"156.0\" r=\"11\" fill=\"currentColor\" fill-opacity=\"0.18\" stroke-width=\"1.5\"/><text x=\"236.0\" y=\"160.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Si</text></svg>",
+      "figure_alt": "A 4 by 3 grid of silicon atoms, each joined to its four neighbours by covalent bonds (two electrons per bond).",
+      "version": 2
+    },
+    {
+      "id": "si-props-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Pure (undoped) silicon is cooled to \\(T = 0\\ \\mathrm{K}\\). How well does it conduct, and why?",
+      "options": [
+        "Very well: each atom has 4 free valence electrons",
+        "Moderately: holes conduct even when no bonds are broken",
+        "Perfectly: lattice vibrations stop, so there is no scattering",
+        "Essentially not at all: every valence electron is locked in a covalent bond, so there are no free carriers"
+      ],
+      "correct_index": 3,
+      "explanation": "At 0 K no bond is broken. The valence band is completely full and the conduction band is empty, so nothing can carry a net current: silicon is an insulator.\n• The 4 valence electrons are the bonding electrons, not free ones (that picture fits a metal's 'electron gas').\n• A hole only exists once a bond has been broken.\n• Having no scattering doesn't help if there are no carriers to move.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 190\" role=\"img\" aria-label=\"Band diagram (intrinsic)\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:300px;width:100%;height:auto\"><rect x=\"56.0\" y=\"10.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><rect x=\"56.0\" y=\"142.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><line x1=\"56.0\" y1=\"48.0\" x2=\"254.0\" y2=\"48.0\" stroke-width=\"2.4\"/><line x1=\"56.0\" y1=\"142.0\" x2=\"254.0\" y2=\"142.0\" stroke-width=\"2.4\"/><text x=\"50.0\" y=\"52.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">c</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"50.0\" y=\"146.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">v</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"175.0\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">conduction band</text><text x=\"175.0\" y=\"170.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">valence band</text><line x1=\"56.0\" y1=\"95.0\" x2=\"254.0\" y2=\"95.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 4\"/><text x=\"258.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">i</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"258.0\" y=\"113.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"2.8\">F</tspan><tspan dy=\"-2.8\"></tspan>=E<tspan font-size=\"7\" dy=\"2.8\">i</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"76.0\" y1=\"89.0\" x2=\"76.0\" y2=\"49.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,49.0 77.9,53.6 74.1,53.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"76.0\" y1=\"101.0\" x2=\"76.0\" y2=\"141.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,141.0 74.1,136.4 77.9,136.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"82.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">g</tspan><tspan dy=\"-3.1\"></tspan></text></svg>",
+      "figure_alt": "Silicon band diagram at 0 K: a full valence band, an empty conduction band, and the gap Eg between them.",
+      "version": 2
+    },
+    {
+      "id": "si-props-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A band is completely filled with electrons. The electrons are still moving around inside their bonds. What net current can that band carry when a field is applied?",
+      "options": [
+        "Zero: for a completely filled band, the velocities of all electrons sum to zero",
+        "A large current, since it holds the most electrons",
+        "A current proportional to the number of electrons, but flowing opposite to the field",
+        "Zero at 0 K only; at room temperature its electrons carry current"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(\\sum_{\\text{filled band}} (-q)\\,v_i = 0\\). In a full band, every state with velocity \\(+v\\) is paired with a filled state at \\(-v\\), so the field cannot change the occupation pattern.\nCurrent only appears when the band is partly empty. Writing the partly filled band as 'full band minus missing electrons' gives \\(J_{vb} = \\sum_{\\text{empty}} q\\,v_i\\): positive carriers, the holes.\nTemperature doesn't change this: a band that stays completely full still gives zero.",
       "version": 2
     }
   ]

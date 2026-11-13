@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-13T19:40:40.145807Z",
+  "generated": "2026-11-13T20:08:49.886867Z",
   "skills": {
-    "file": "skills.6acaeed8.json",
-    "hash": "6acaeed8"
+    "file": "skills.d342ffe3.json",
+    "hash": "d342ffe3"
   },
   "collections": {
     "file": "collections.6c18ba13.json",
@@ -780,7 +780,7 @@
       "file": "banks/differentiability-multivariable.d6cd7984.json"
     },
     "diffusion": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -788,8 +788,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "66f6e303",
-      "file": "banks/diffusion.66f6e303.json"
+      "hash": "b2992092",
+      "file": "banks/diffusion.b2992092.json"
     },
     "diode-conn": {
       "version": 2,
@@ -876,7 +876,7 @@
       "file": "banks/discrete-time.b8a19f94.json"
     },
     "doping": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -884,11 +884,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "2879bd19",
-      "file": "banks/doping.2879bd19.json"
+      "hash": "81be1a70",
+      "file": "banks/doping.81be1a70.json"
     },
     "drift": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -896,11 +896,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ede712f2",
-      "file": "banks/drift.ede712f2.json"
+      "hash": "f0e3dea9",
+      "file": "banks/drift.f0e3dea9.json"
     },
     "drude": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -908,8 +908,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "0ea970d8",
-      "file": "banks/drude.0ea970d8.json"
+      "hash": "a46a86fe",
+      "file": "banks/drude.a46a86fe.json"
     },
     "early": {
       "version": 2,
@@ -1548,7 +1548,7 @@
       "file": "banks/integral-action.ba861962.json"
     },
     "intrinsic": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1556,8 +1556,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3128e763",
-      "file": "banks/intrinsic.3128e763.json"
+      "hash": "16f89e0d",
+      "file": "banks/intrinsic.16f89e0d.json"
     },
     "inverting": {
       "version": 2,
@@ -2832,7 +2832,7 @@
       "file": "banks/sheet-res.62c021ed.json"
     },
     "si-props": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2840,8 +2840,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ed592b00",
-      "file": "banks/si-props.ed592b00.json"
+      "hash": "22a7ecfe",
+      "file": "banks/si-props.22a7ecfe.json"
     },
     "simplex-feasible-directions": {
       "version": 1,
@@ -3144,7 +3144,7 @@
       "file": "banks/time-delay.e4b333b2.json"
     },
     "total-current": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3152,8 +3152,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ab8ca704",
-      "file": "banks/total-current.ab8ca704.json"
+      "hash": "b066318a",
+      "file": "banks/total-current.b066318a.json"
     },
     "trajectory-optimization": {
       "version": 1,

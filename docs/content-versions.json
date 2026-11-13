@@ -9201,6 +9201,454 @@
     {
       "id": "bode-circuits#explainer",
       "version": 1
+    },
+    {
+      "id": "drude-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "drude-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "drude-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "drude-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "drude-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "drude-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "drude-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "drude-r3-q2",
+      "version": 2
+    },
+    {
+      "id": "drude-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "drude-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "drude-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "drude-r4-q3",
+      "version": 2
+    },
+    {
+      "id": "drude-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "drude-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "drude-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "drude#explainer",
+      "version": 1
+    },
+    {
+      "id": "si-props-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "si-props-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "si-props-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "si-props-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "si-props-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "si-props-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "si-props-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "si-props-r3-q2",
+      "version": 2
+    },
+    {
+      "id": "si-props-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "si-props-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "si-props-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "si-props-r4-q3",
+      "version": 2
+    },
+    {
+      "id": "si-props-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "si-props-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "si-props-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "si-props#explainer",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "intrinsic-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "intrinsic-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "intrinsic-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "intrinsic#explainer",
+      "version": 1
+    },
+    {
+      "id": "doping-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "doping-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "doping-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "doping-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "doping-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "doping-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "doping-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "doping-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "doping-r3-q5",
+      "version": 1
+    },
+    {
+      "id": "doping-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "doping-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "doping-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "doping-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "doping-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "doping-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "doping#explainer",
+      "version": 1
+    },
+    {
+      "id": "drift-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "drift-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "drift-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "drift-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "drift-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "drift-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "drift-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "drift-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "drift-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "drift-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "drift-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "drift-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "drift-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "drift-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "drift-r3-q2",
+      "version": 2
+    },
+    {
+      "id": "drift#explainer",
+      "version": 1
+    },
+    {
+      "id": "diffusion-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "diffusion-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "diffusion-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "diffusion-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "diffusion-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "diffusion-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "diffusion-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "diffusion-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "diffusion-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "diffusion-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "diffusion-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "diffusion-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "diffusion-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "diffusion-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "diffusion-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "diffusion#explainer",
+      "version": 1
+    },
+    {
+      "id": "total-current-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "total-current-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "total-current-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "total-current-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "total-current-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "total-current-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "total-current-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "total-current-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "total-current-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "total-current-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "total-current-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "total-current-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "total-current-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "total-current-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "total-current-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "total-current#explainer",
+      "version": 1
     }
   ]
 }

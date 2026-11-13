@@ -1,21 +1,52 @@
 {
   "skill_id": "total-current",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "total-current-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "Which expression gives the TOTAL electron current density when both a field and a concentration gradient are present?",
-      "options": [
-        "\\(J_n = q\\,n\\,\\mu_n E - qD_n\\frac{dn}{dx}\\)",
-        "\\(J_n = q\\,n\\,\\mu_n E\\) only, since diffusion carries no charge",
-        "\\(J_n = q\\,n\\,\\mu_n E + qD_n\\frac{dn}{dx}\\)",
-        "\\(J_n = qD_n\\frac{dn}{dx}\\) only, since fields only move holes"
+      "type": "symbolic",
+      "prompt": "Both a field and a concentration gradient act on the electrons. Write the total electron current density using the name q for the elementary charge, the name n for the electron concentration, the name mun for the electron mobility, the name F for the electric field, the name Dn for the electron diffusivity, and the name gn for the gradient \\(dn/dx\\).",
+      "explanation": "Drift contributes \\(q n \\mu_n\\) times the field, and diffusion contributes \\(q D_n\\) times the gradient. The electron diffusion term is positive in front of \\(dn/dx\\), because the particle flux \\(-D_n\\,dn/dx\\) is multiplied by the charge \\(-q\\). The hole formula puts a minus in front of the hole gradient. Dropping either term is the pure-drift or pure-diffusion case.",
+      "answer": "q*n*mun*F+q*Dn*gn",
+      "variables": [
+        {
+          "name": "q",
+          "min": 0.2,
+          "max": 3.0
+        },
+        {
+          "name": "n",
+          "min": 0.3,
+          "max": 6.0
+        },
+        {
+          "name": "mun",
+          "min": 0.2,
+          "max": 5.0
+        },
+        {
+          "name": "F",
+          "min": 0.2,
+          "max": 5.0
+        },
+        {
+          "name": "Dn",
+          "min": 0.2,
+          "max": 5.0
+        },
+        {
+          "name": "gn",
+          "min": -4.0,
+          "max": 4.0
+        }
       ],
-      "correct_index": 2,
-      "explanation": "Drift plus diffusion: \\(J_n = q\\mu_nnE + qD_n\\,dn/dx\\). The electron diffusion term has a PLUS sign because the flux \\(-D_n\\,dn/dx\\) is multiplied by charge \\(-q\\).\nFor holes, \\(J_p = q\\mu_ppE - qD_p\\,dp/dx\\). The minus-sign version is the hole form applied to electrons.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "q*(n*mun*F+Dn*gn)",
+        "q*Dn*gn+q*n*mun*F"
+      ],
+      "version": 1,
+      "id": "total-current-r1-q4"
     },
     {
       "id": "total-current-r1-q2",
@@ -31,21 +62,23 @@
       "version": 2
     },
     {
-      "id": "total-current-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "In an ordinary doped silicon resistor carrying current, which component dominates?",
+      "type": "multi",
+      "prompt": "An ordinary doped silicon resistor carries a steady current. The doping is uniform. Select every statement that is true.",
+      "explanation": "Uniform doping means a vanishing gradient, so diffusion is about zero and drift of the majority carriers carries the current. Minority carriers are fewer by many orders of magnitude. Diffusion matters where the concentration changes, as it does near a junction.",
       "options": [
-        "Diffusion of majority carriers",
-        "Drift of the majority carriers; the carrier concentration is uniform, so diffusion is about zero",
-        "Drift of minority carriers",
-        "Drift and diffusion are always equal"
+        "The majority-carrier concentration does not change along the bar.",
+        "Majority-carrier diffusion is about zero.",
+        "The current is the drift of the majority carriers.",
+        "Minority carriers carry about as much of the current as the majority carriers."
       ],
-      "correct_index": 1,
-      "explanation": "In a uniformly doped bar \\(dn/dx \\approx 0\\), so \\(J \\approx q n\\mu_n E\\) with the majority carriers.\nMinority carriers are \\(10^{10}\\)–\\(10^{12}\\) times fewer. Diffusion only matters where concentrations change, such as near junctions.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 150\" role=\"img\" aria-label=\"Doped resistor: drift current\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:380px;width:100%;height:auto\"><rect x=\"70.0\" y=\"46.0\" width=\"230.0\" height=\"50.0\" fill=\"currentColor\" fill-opacity=\"0.1\" stroke-width=\"1.5\"/><line x1=\"30.0\" y1=\"71.0\" x2=\"70.0\" y2=\"71.0\" stroke-width=\"1.5\"/><line x1=\"300.0\" y1=\"71.0\" x2=\"340.0\" y2=\"71.0\" stroke-width=\"1.5\"/><text x=\"40.0\" y=\"63.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"330.0\" y=\"63.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"185.0\" y=\"16.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V</text><line x1=\"110.0\" y1=\"58.0\" x2=\"260.0\" y2=\"58.0\" stroke-width=\"1.5\"/><polygon points=\"260.0,58.0 253.6,60.7 253.6,55.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"43.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"250.0\" y1=\"84.0\" x2=\"120.0\" y2=\"84.0\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"/><polygon points=\"120.0,84.0 126.4,81.3 126.4,86.7\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"79.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.8\" fill=\"currentColor\" stroke=\"none\">electrons</text><line x1=\"70.0\" y1=\"116.0\" x2=\"300.0\" y2=\"116.0\" stroke-width=\"1.5\"/><polygon points=\"300.0,116.0 295.4,117.9 295.4,114.1\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"300.0\" y1=\"116.0\" x2=\"70.0\" y2=\"116.0\" stroke-width=\"1.5\"/><polygon points=\"70.0,116.0 74.6,114.1 74.6,117.9\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"132.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text><text x=\"306.0\" y=\"116.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.8\" fill=\"currentColor\" stroke=\"none\">cross-section A</text></svg>",
-      "figure_alt": "Uniformly doped bar with an applied field; the carrier concentration is flat, so the current is drift.",
-      "version": 2
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1,
+      "id": "total-current-r1-q5"
     },
     {
       "id": "total-current-r2-q1",
@@ -84,20 +117,18 @@
       "figure_alt": "Two layers in series carrying the same current density, drawn as a resistor across a voltage."
     },
     {
-      "id": "total-current-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "Silicon has a non-uniform doping profile, and the sample is in thermal equilibrium with no connections. Which statement is correct?",
-      "options": [
-        "A built-in electric field exists, and for EACH carrier type drift exactly cancels diffusion: Jₙ = 0 and Jₚ = 0 separately",
-        "No field can exist, because no current flows",
-        "A field exists, but only the total J = Jₙ + Jₚ is zero; Jₙ and Jₚ can each be nonzero",
-        "Diffusion is impossible in equilibrium, so the carriers redistribute until they are uniform"
+      "type": "order",
+      "prompt": "A sample has a doping gradient, is in thermal equilibrium, and has no contacts. Order the steps that produce the built-in field. Each step after the first uses the result of the step before it.",
+      "explanation": "The concentration gradient is what the diffusion current is built from, and the cancelling field is built to stop that current. Calling the field built-in uses the cancellation. Zero total current is not enough: each carrier type must be separately balanced, or that type would keep piling up. A uniform carrier profile would have nothing for the field to cancel.",
+      "steps": [
+        "The carriers follow the dopants, so the doping gradient produces a carrier-concentration gradient.",
+        "That concentration gradient drives a diffusion current of each carrier type.",
+        "Equilibrium forbids a continuing current of either type, so a field grows until the drift of each type cancels the diffusion of that same type.",
+        "With each of those currents equal to zero, the field that remains is the built-in field."
       ],
-      "correct_index": 0,
-      "explanation": "With a doping gradient, the carriers follow the dopants, so concentration gradients exist and so does diffusion. Equilibrium needs zero current of each type separately (otherwise electrons or holes would keep piling up somewhere, and energy would be dissipated with nothing supplying it). So a field forms: \\(E = -\\frac{kT}{q}\\frac{1}{n}\\frac{dn}{dx}\\).\nGotcha: zero current does NOT mean zero field. The carriers can't become uniform, because the fixed ions would then leave huge net charge.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 190\" role=\"img\" aria-label=\"Equilibrium: flat Fermi level\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:300px;width:100%;height:auto\"><rect x=\"56.0\" y=\"10.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><rect x=\"56.0\" y=\"142.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><line x1=\"56.0\" y1=\"48.0\" x2=\"254.0\" y2=\"48.0\" stroke-width=\"2.4\"/><line x1=\"56.0\" y1=\"142.0\" x2=\"254.0\" y2=\"142.0\" stroke-width=\"2.4\"/><text x=\"50.0\" y=\"52.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">c</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"50.0\" y=\"146.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">v</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"175.0\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">conduction band</text><text x=\"175.0\" y=\"170.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">valence band</text><line x1=\"56.0\" y1=\"95.0\" x2=\"254.0\" y2=\"95.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 4\"/><text x=\"258.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">i</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"56.0\" y1=\"76.2\" x2=\"254.0\" y2=\"76.2\" stroke-width=\"2\"/><text x=\"258.0\" y=\"80.2\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">F</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"76.0\" y1=\"89.0\" x2=\"76.0\" y2=\"49.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,49.0 77.9,53.6 74.1,53.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"76.0\" y1=\"101.0\" x2=\"76.0\" y2=\"141.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,141.0 74.1,136.4 77.9,136.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"82.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">g</tspan><tspan dy=\"-3.1\"></tspan></text></svg>",
-      "figure_alt": "Band diagram with a single flat Fermi level, the signature of equilibrium."
+      "version": 1,
+      "id": "total-current-r3-q4"
     },
     {
       "id": "total-current-r3-q2",
@@ -174,6 +205,57 @@
       ],
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 138\" role=\"img\" aria-label=\"PN junction charge density, electric field and potential\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"44.0\" y1=\"62.0\" x2=\"336.0\" y2=\"62.0\" stroke-width=\"1.2\"/><text x=\"336.0\" y=\"76.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"190.0\" y1=\"26.0\" x2=\"190.0\" y2=\"102.0\" stroke-width=\"0.8\" stroke-dasharray=\"2 3\" stroke-opacity=\"0.6\"/><polyline points=\"44.0,62.0 125.0,62.0 190.0,94.0 255.0,62.0 336.0,62.0\" fill=\"none\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/><text x=\"8.0\" y=\"32.0\" text-anchor=\"start\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">E(x)</text><text x=\"198.0\" y=\"96.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"2.8\">max</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"125.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-x<tspan font-size=\"7\" dy=\"2.8\">p</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"255.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">n</tspan><tspan dy=\"-2.8\"></tspan></text><line x1=\"125.0\" y1=\"59.0\" x2=\"125.0\" y2=\"65.0\" stroke-width=\"1.2\"/><line x1=\"255.0\" y1=\"59.0\" x2=\"255.0\" y2=\"65.0\" stroke-width=\"1.2\"/><text x=\"48.0\" y=\"135.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"332.0\" y=\"135.0\" text-anchor=\"end\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">N side</text></svg>",
       "figure_alt": "Electric field profile in a PN junction's transition region."
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "total-current-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Which expression gives the TOTAL electron current density when both a field and a concentration gradient are present?",
+      "options": [
+        "\\(J_n = q\\,n\\,\\mu_n E - qD_n\\frac{dn}{dx}\\)",
+        "\\(J_n = q\\,n\\,\\mu_n E\\) only, since diffusion carries no charge",
+        "\\(J_n = q\\,n\\,\\mu_n E + qD_n\\frac{dn}{dx}\\)",
+        "\\(J_n = qD_n\\frac{dn}{dx}\\) only, since fields only move holes"
+      ],
+      "correct_index": 2,
+      "explanation": "Drift plus diffusion: \\(J_n = q\\mu_nnE + qD_n\\,dn/dx\\). The electron diffusion term has a PLUS sign because the flux \\(-D_n\\,dn/dx\\) is multiplied by charge \\(-q\\).\nFor holes, \\(J_p = q\\mu_ppE - qD_p\\,dp/dx\\). The minus-sign version is the hole form applied to electrons.",
+      "version": 2
+    },
+    {
+      "id": "total-current-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In an ordinary doped silicon resistor carrying current, which component dominates?",
+      "options": [
+        "Diffusion of majority carriers",
+        "Drift of the majority carriers; the carrier concentration is uniform, so diffusion is about zero",
+        "Drift of minority carriers",
+        "Drift and diffusion are always equal"
+      ],
+      "correct_index": 1,
+      "explanation": "In a uniformly doped bar \\(dn/dx \\approx 0\\), so \\(J \\approx q n\\mu_n E\\) with the majority carriers.\nMinority carriers are \\(10^{10}\\)–\\(10^{12}\\) times fewer. Diffusion only matters where concentrations change, such as near junctions.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 150\" role=\"img\" aria-label=\"Doped resistor: drift current\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:380px;width:100%;height:auto\"><rect x=\"70.0\" y=\"46.0\" width=\"230.0\" height=\"50.0\" fill=\"currentColor\" fill-opacity=\"0.1\" stroke-width=\"1.5\"/><line x1=\"30.0\" y1=\"71.0\" x2=\"70.0\" y2=\"71.0\" stroke-width=\"1.5\"/><line x1=\"300.0\" y1=\"71.0\" x2=\"340.0\" y2=\"71.0\" stroke-width=\"1.5\"/><text x=\"40.0\" y=\"63.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"330.0\" y=\"63.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"185.0\" y=\"16.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V</text><line x1=\"110.0\" y1=\"58.0\" x2=\"260.0\" y2=\"58.0\" stroke-width=\"1.5\"/><polygon points=\"260.0,58.0 253.6,60.7 253.6,55.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"43.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"250.0\" y1=\"84.0\" x2=\"120.0\" y2=\"84.0\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"/><polygon points=\"120.0,84.0 126.4,81.3 126.4,86.7\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"79.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.8\" fill=\"currentColor\" stroke=\"none\">electrons</text><line x1=\"70.0\" y1=\"116.0\" x2=\"300.0\" y2=\"116.0\" stroke-width=\"1.5\"/><polygon points=\"300.0,116.0 295.4,117.9 295.4,114.1\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"300.0\" y1=\"116.0\" x2=\"70.0\" y2=\"116.0\" stroke-width=\"1.5\"/><polygon points=\"70.0,116.0 74.6,114.1 74.6,117.9\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"185.0\" y=\"132.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text><text x=\"306.0\" y=\"116.0\" text-anchor=\"start\" font-size=\"10\" fill-opacity=\"0.8\" fill=\"currentColor\" stroke=\"none\">cross-section A</text></svg>",
+      "figure_alt": "Uniformly doped bar with an applied field; the carrier concentration is flat, so the current is drift.",
+      "version": 2
+    },
+    {
+      "id": "total-current-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Silicon has a non-uniform doping profile, and the sample is in thermal equilibrium with no connections. Which statement is correct?",
+      "options": [
+        "A built-in electric field exists, and for EACH carrier type drift exactly cancels diffusion: Jₙ = 0 and Jₚ = 0 separately",
+        "No field can exist, because no current flows",
+        "A field exists, but only the total J = Jₙ + Jₚ is zero; Jₙ and Jₚ can each be nonzero",
+        "Diffusion is impossible in equilibrium, so the carriers redistribute until they are uniform"
+      ],
+      "correct_index": 0,
+      "explanation": "With a doping gradient, the carriers follow the dopants, so concentration gradients exist and so does diffusion. Equilibrium needs zero current of each type separately (otherwise electrons or holes would keep piling up somewhere, and energy would be dissipated with nothing supplying it). So a field forms: \\(E = -\\frac{kT}{q}\\frac{1}{n}\\frac{dn}{dx}\\).\nGotcha: zero current does NOT mean zero field. The carriers can't become uniform, because the fixed ions would then leave huge net charge.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 190\" role=\"img\" aria-label=\"Equilibrium: flat Fermi level\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:300px;width:100%;height:auto\"><rect x=\"56.0\" y=\"10.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><rect x=\"56.0\" y=\"142.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><line x1=\"56.0\" y1=\"48.0\" x2=\"254.0\" y2=\"48.0\" stroke-width=\"2.4\"/><line x1=\"56.0\" y1=\"142.0\" x2=\"254.0\" y2=\"142.0\" stroke-width=\"2.4\"/><text x=\"50.0\" y=\"52.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">c</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"50.0\" y=\"146.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">v</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"175.0\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">conduction band</text><text x=\"175.0\" y=\"170.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">valence band</text><line x1=\"56.0\" y1=\"95.0\" x2=\"254.0\" y2=\"95.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 4\"/><text x=\"258.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">i</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"56.0\" y1=\"76.2\" x2=\"254.0\" y2=\"76.2\" stroke-width=\"2\"/><text x=\"258.0\" y=\"80.2\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">F</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"76.0\" y1=\"89.0\" x2=\"76.0\" y2=\"49.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,49.0 77.9,53.6 74.1,53.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"76.0\" y1=\"101.0\" x2=\"76.0\" y2=\"141.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,141.0 74.1,136.4 77.9,136.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"82.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">g</tspan><tspan dy=\"-3.1\"></tspan></text></svg>",
+      "figure_alt": "Band diagram with a single flat Fermi level, the signature of equilibrium.",
+      "version": 1
     }
   ]
 }

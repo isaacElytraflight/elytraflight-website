@@ -1,6 +1,6 @@
 {
   "skill_id": "intrinsic",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "intrinsic-r1-q1",
@@ -31,19 +31,18 @@
       "version": 2
     },
     {
-      "id": "intrinsic-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "'Thermal equilibrium' in a semiconductor means which of the following?",
-      "options": [
-        "No bonds break and no carriers recombine",
-        "Carriers are still constantly generated and recombining, but the two rates are exactly equal, so the concentrations don't change",
-        "All carriers have recombined, so n = p = 0",
-        "Generation is faster than recombination, but the extra carriers leave through the contacts"
+      "type": "order",
+      "prompt": "The recombination rate constant is a positive number. Order the steps from thermal equilibrium to the mass-action law. Each step after the first uses the result of the step before it.",
+      "explanation": "Equilibrium is the equality of the two rates, so the product is solved from that equality. The generation rate has to be known to depend only on temperature before the product can be called a function of temperature alone. Naming it \\(n_i^2\\) uses that fixed product. Setting both rates to zero would empty the crystal, which is not equilibrium.",
+      "steps": [
+        "In equilibrium the thermal generation rate equals the recombination rate.",
+        "Write recombination as that positive constant times \\(n\\) times \\(p\\), and solve for the product \\(np\\). It equals the generation rate divided by the constant.",
+        "Generation depends only on temperature, so the product just obtained is fixed once the temperature is fixed.",
+        "That temperature-fixed product is \\(n_i^2\\), so the mass-action law is \\(np = n_i^2\\)."
       ],
-      "correct_index": 1,
-      "explanation": "Equilibrium is a dynamic balance: \\(G_{th}(T) = R = k\\,n\\,p\\). Bonds break and carriers annihilate all the time; on average the rates cancel. Setting them equal is exactly what gives \\(np = G_{th}/k = n_i^2\\).",
-      "version": 2
+      "version": 1,
+      "id": "intrinsic-r1-q4"
     },
     {
       "id": "intrinsic-r2-q1",
@@ -70,18 +69,35 @@
       "figure_alt": "Plot of intrinsic concentration relative to its 300 K value, rising steeply with temperature."
     },
     {
-      "id": "intrinsic-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "Away from equilibrium, the recombination rate is modelled as \\(R = k\\,n\\,p\\). In a sample where both \\(n\\) and \\(p\\) are suddenly doubled, how does \\(R\\) change (at first)?",
-      "options": [
-        "It becomes 4 times larger",
-        "It doubles",
-        "It does not change, because the generation rate is fixed",
-        "It halves"
+      "type": "symbolic",
+      "prompt": "Away from equilibrium, recombination uses both the electron concentration and the hole concentration. Write the recombination rate using the name k for the positive rate constant, the name n for the electron concentration, and the name p for the hole concentration.",
+      "explanation": "The rate is the constant times the product \\(np\\). Doubling both concentrations multiplies the rate by 4, which is the product of the two factors. Adding the concentrations, or using only one of them, counts meetings that do not use both partners. Thermal generation stays a function of temperature and is not this rate.",
+      "answer": "k*n*p",
+      "variables": [
+        {
+          "name": "k",
+          "min": 0.2,
+          "max": 5.0
+        },
+        {
+          "name": "n",
+          "min": 0.3,
+          "max": 8.0
+        },
+        {
+          "name": "p",
+          "min": 0.3,
+          "max": 8.0
+        }
       ],
-      "correct_index": 0,
-      "explanation": "\\(R' = k(2n)(2p) = 4\\,knp = 4R\\). Meanwhile thermal generation \\(G_{th}(T)\\) stays the same, so \\(R > G\\) and the excess carriers recombine until \\(np\\) falls back to \\(n_i^2\\).\nThis is the 'chance of meeting' picture: twice as many electrons, each finding twice as many holes."
+      "tolerance": 0.001,
+      "alternates": [
+        "k*p*n",
+        "n*p*k"
+      ],
+      "version": 1,
+      "id": "intrinsic-r2-q4"
     },
     {
       "id": "intrinsic-r3-q1",
@@ -110,19 +126,24 @@
       "figure_alt": "Plot of the intrinsic concentration ratio versus temperature near 300 K with a dashed line marking a doubling."
     },
     {
-      "id": "intrinsic-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Steady light shines on a piece of pure silicon, generating extra electron–hole pairs. In the steady state under illumination, how does \\(np\\) compare with \\(n_i^2\\)?",
-      "options": [
-        "\\(np = n_i^2\\) always, because the mass-action law is universal",
-        "\\(np < n_i^2\\), because recombination speeds up",
-        "\\(np > n_i^2\\): the mass-action law holds only in thermal equilibrium, and the light adds generation",
-        "\\(n\\) rises and \\(p\\) falls so that \\(np\\) stays equal to \\(n_i^2\\)"
+      "type": "error",
+      "prompt": "Steady light shines on pure silicon and a steady state is reached. A student applies the mass-action law. Exactly one step is wrong.",
+      "explanation": "Mass action is the equilibrium balance against thermal generation alone. With light, recombination balances thermal generation plus optical generation, so the steady product \\(np\\) is larger than \\(n_i^2\\). The light makes pairs, so \\(n\\) and \\(p\\) both rise.",
+      "steps": [
+        "With no light, equilibrium sets \\(knp\\) equal to thermal generation.",
+        "The light adds a second generation rate, on top of thermal generation.",
+        "In the illuminated steady state, recombination equals the sum of those two generation rates.",
+        "The mass-action law still forces \\(np = n_i^2\\), because that law does not care which process generates the pairs."
       ],
-      "correct_index": 2,
-      "explanation": "\\(np = n_i^2\\) came from \\(G_{th} = knp\\). With light, \\(G = G_{th} + G_{opt}\\), so the steady state has \\(knp = G_{th} + G_{opt}\\), giving \\(np > n_i^2\\).\nGotcha: light makes PAIRS, so \\(n\\) and \\(p\\) both rise; nothing pushes either down. This non-equilibrium situation is the basis of solar cells and of forward-biased diodes.",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "Mass action is the dark equilibrium. Extra generation raises the steady product \\(np\\) above \\(n_i^2\\).",
+        "Light raises \\(n\\) and lowers \\(p\\) so the product stays \\(n_i^2\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "intrinsic-r3-q4"
     },
     {
       "id": "intrinsic-r4-q1",
@@ -166,6 +187,53 @@
       "preview": [
         "carrier-pot"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "intrinsic-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "'Thermal equilibrium' in a semiconductor means which of the following?",
+      "options": [
+        "No bonds break and no carriers recombine",
+        "Carriers are still constantly generated and recombining, but the two rates are exactly equal, so the concentrations don't change",
+        "All carriers have recombined, so n = p = 0",
+        "Generation is faster than recombination, but the extra carriers leave through the contacts"
+      ],
+      "correct_index": 1,
+      "explanation": "Equilibrium is a dynamic balance: \\(G_{th}(T) = R = k\\,n\\,p\\). Bonds break and carriers annihilate all the time; on average the rates cancel. Setting them equal is exactly what gives \\(np = G_{th}/k = n_i^2\\).",
+      "version": 2
+    },
+    {
+      "id": "intrinsic-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Away from equilibrium, the recombination rate is modelled as \\(R = k\\,n\\,p\\). In a sample where both \\(n\\) and \\(p\\) are suddenly doubled, how does \\(R\\) change (at first)?",
+      "options": [
+        "It becomes 4 times larger",
+        "It doubles",
+        "It does not change, because the generation rate is fixed",
+        "It halves"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(R' = k(2n)(2p) = 4\\,knp = 4R\\). Meanwhile thermal generation \\(G_{th}(T)\\) stays the same, so \\(R > G\\) and the excess carriers recombine until \\(np\\) falls back to \\(n_i^2\\).\nThis is the 'chance of meeting' picture: twice as many electrons, each finding twice as many holes.",
+      "version": 1
+    },
+    {
+      "id": "intrinsic-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Steady light shines on a piece of pure silicon, generating extra electron–hole pairs. In the steady state under illumination, how does \\(np\\) compare with \\(n_i^2\\)?",
+      "options": [
+        "\\(np = n_i^2\\) always, because the mass-action law is universal",
+        "\\(np < n_i^2\\), because recombination speeds up",
+        "\\(np > n_i^2\\): the mass-action law holds only in thermal equilibrium, and the light adds generation",
+        "\\(n\\) rises and \\(p\\) falls so that \\(np\\) stays equal to \\(n_i^2\\)"
+      ],
+      "correct_index": 2,
+      "explanation": "\\(np = n_i^2\\) came from \\(G_{th} = knp\\). With light, \\(G = G_{th} + G_{opt}\\), so the steady state has \\(knp = G_{th} + G_{opt}\\), giving \\(np > n_i^2\\).\nGotcha: light makes PAIRS, so \\(n\\) and \\(p\\) both rise; nothing pushes either down. This non-equilibrium situation is the basis of solar cells and of forward-biased diodes.",
+      "version": 2
     }
   ]
 }
