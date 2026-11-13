@@ -1,4 +1,4 @@
-/* Skillgrove: Pure, DOM-free learning-plan simulation + timing helpers.
+/* Elytraflight's Skill Tree: pure, DOM-free learning-plan simulation + timing helpers.
    Loaded as window.SkillSim in the page; the tests also run this exact block under node. */
 (function(root){
 'use strict';

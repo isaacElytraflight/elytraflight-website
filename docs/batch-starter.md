@@ -1,13 +1,13 @@
 # Content-batch starter
 
-A short pack for an agent writing one Skillgrove batch. The rules live in `docs/skillgrove-content-SOP.md`. This file is the order of work. The batch plan wins if a prompt disagrees with it.
+A short pack for an agent writing one content batch for Elytraflight's Skill Tree. The rules live in `docs/skill-tree-content-SOP.md`. This file is the order of work. The batch plan wins if a prompt disagrees with it.
 
 ## Read in this order
 
 Read each file once. Do not re-read a file you have already read.
 
 1. The batch plan for this subject: `docs/nlo-content-batches.md` or `docs/me132-content-batches.md`. It is the skill list and the scope.
-2. `docs/skillgrove-content-SOP.md`, including the brief template in section 12.
+2. `docs/skill-tree-content-SOP.md`, including the brief template in section 12.
 3. The newest brief in `docs/briefs/` for the shape of a generated brief. Briefs are generated. Do not edit them by hand.
 4. `docs/notation.md` for every area the skills and their prerequisites touch. Add new symbols in the same change.
 5. `docs/sources.md` for licenses and sections. Learner-facing text names no course, professor, textbook, or university.

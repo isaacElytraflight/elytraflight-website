@@ -1,4 +1,4 @@
-/* Skillgrove progress migration for retired skill ids, to-do items, scope, and exam dates.
+/* Elytraflight's Skill Tree progress migration for retired skill ids, to-do items, scope, and exam dates.
    Works in the browser (window.SkillgroveMigrate) and in Node (module.exports).
    Retired progress moves onto the survivor: higher mastery tier, later practice
    time, and the union of attempt history.    To-do entries follow the same map and,

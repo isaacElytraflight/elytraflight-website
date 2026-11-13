@@ -205,7 +205,7 @@ function renderQuiz(){
     card.append(el('div',{class:'numrow'},inp,q.unit&&q.unit!=='(unitless)'?el('span',{class:'u',math:q.unit}):null,el('button',{class:'btn primary',id:'checkBtn',disabled:it.done,onclick:answerNum},'Check')));
     if(!it.done){card.append(el('div',{class:'kv',style:'margin-top:8px',text:`Plain numbers or scientific notation (like 2.5e-3) work. Accepted within ±${((q.tolerance!=null?q.tolerance:.02)*100).toFixed(0)}%.`}));setTimeout(()=>inp.focus(),0)}
   }else{
-    card.append(el('div',{class:'note warn',text:'This single-file demo grades multiple choice and numeric questions. The current Skillgrove app grades this one.'}));
+    card.append(el('div',{class:'note warn',text:"This single-file demo grades multiple choice and numeric questions. Elytraflight's Skill Tree grades this one."}));
     if(!it.done)card.append(el('div',{class:'numrow',style:'margin-top:12px'},el('button',{class:'btn',id:'checkBtn',onclick:()=>{const cur=quiz.items[quiz.i];cur.done=true;cur.correct=false;renderQuiz()}},'Skip this question')));
   }
   if(it.done){
@@ -351,7 +351,7 @@ function openHelp(){
     el('li',{},el('b',{text:'Group by chapter '}),'regroups the one big prerequisite tree into chapter blocks, and Ungroup flows it back.'),
     el('li',{},'Progress autosaves in this browser after every quiz. Use Export for a backup file you can Import later (or on another device).'),
     el('li',{},'Content: EE 105 (Niknejad reader), draft. Only some skills have questions so far; the rest say “coming soon”.'));
-  openModal({title:'How Skillgrove works',body:ul,actions:[{label:'Got it',kind:'primary'}]});
+  openModal({title:"How Elytraflight's Skill Tree works",body:ul,actions:[{label:'Got it',kind:'primary'}]});
 }
 
 /* ====================== learning plan (course simulation) ====================== */
@@ -514,7 +514,7 @@ function openPlan(){
 function exportProgress(){
   const out={version:1,app:'skillgrove',exportedAt:new Date().toISOString(),skills:progress.skills,timing:{practice:timing.practice,challenge:timing.challenge}};   /* "timing" is optional on import */
   const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
-  const a=el('a',{href:URL.createObjectURL(blob),download:`skillgrove-progress-${new Date().toISOString().slice(0,10)}.json`});
+  const a=el('a',{href:URL.createObjectURL(blob),download:`skill-tree-progress-${new Date().toISOString().slice(0,10)}.json`});
   document.body.append(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);
   toast('Progress exported.');
 }
@@ -524,7 +524,7 @@ function importFile(file){
   r.onload=()=>{
     let raw;try{raw=JSON.parse(r.result)}catch(e){openModal({title:'Import failed',body:el('p',{id:'impErr',text:'That file isn’t valid JSON.'}),actions:[{label:'OK'}]});return}
     const p=normalizeProgress(raw);
-    if(!p){openModal({title:'Import failed',body:el('p',{id:'impErr',text:'That doesn’t look like a Skillgrove progress file (expected version 1 with a “skills” object).'}),actions:[{label:'OK'}]});return}
+    if(!p){openModal({title:'Import failed',body:el('p',{id:'impErr',text:"That doesn’t look like a progress file from Elytraflight's Skill Tree (expected version 1 with a “skills” object)."}),actions:[{label:'OK'}]});return}
     const ids=Object.keys(p.skills),known=ids.filter(i=>byId[i]),unknown=ids.length-known.length;
     const impT=(raw.timing&&typeof raw.timing==='object')?Sim.normalizeTiming(raw.timing):null;   /* optional field: older exports simply don't have it */
     const nT=impT?impT.practice.length+impT.challenge.length:0;

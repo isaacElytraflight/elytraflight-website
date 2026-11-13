@@ -1,5 +1,5 @@
 /**
- * Copy the Skillgrove shell to the profile URLs a static host can serve.
+ * Copy Elytraflight's Skill Tree shell to the profile URLs a static host can serve.
  *
  * elytraflight.com is a Render static site created in the dashboard. Routes in
  * render.yaml are not applied there (unknown paths return a plain-text 404,
@@ -40,7 +40,7 @@ export function profileFallbackHtml(html) {
 export function emitProfileFallbacks(buildDir) {
   const source = path.join(buildDir, 'skilltree', 'index.html')
   if (!fs.existsSync(source) || !fs.statSync(source).isFile()) {
-    throw new Error(`Skillgrove shell not found at ${source}`)
+    throw new Error(`Elytraflight's Skill Tree shell not found at ${source}`)
   }
   const html = profileFallbackHtml(fs.readFileSync(source, 'utf8'))
   const written = []

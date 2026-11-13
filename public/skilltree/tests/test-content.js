@@ -45,7 +45,7 @@ function readJsonDir(dir) {
   return out;
 }
 
-console.log('\n=== Skillgrove content integrity ===\n');
+console.log("\n=== Elytraflight's Skill Tree content integrity ===\n");
 
 test('graph is version 3 with 270 live skills and 16 retired ids', () => {
   assert.strictEqual(graph.version, 3);

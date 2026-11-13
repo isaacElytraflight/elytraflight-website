@@ -54,7 +54,7 @@ async function test(name,fn){
    const p=await newPage();
    const r=await p.evaluate(()=>({tree:document.querySelectorAll('#world .tile').length,grid:document.querySelectorAll('#gridView .tile').length,soon:document.querySelectorAll('#world .tile.soon').length,ready:[...document.querySelectorAll('#world .tile.ready')].map(t=>t.dataset.id).sort(),blobs:document.querySelectorAll('.blob').length,paths:document.querySelectorAll('#edges path').length,title:document.querySelector('h1').textContent}));
    assert.deepStrictEqual([r.tree,r.grid,r.soon,r.blobs,r.paths],[121,121,NSOON,18,180]);
-   assert.deepStrictEqual(r.ready,ROOTS);assert.strictEqual(r.title,'Skillgrove');
+   assert.deepStrictEqual(r.ready,ROOTS);assert.strictEqual(r.title,"Elytraflight's Skill Tree");
    await p.screenshot({path:SH+'01_tree_home.png'});
    await p.click('#zFit');await sleep(700);await p.screenshot({path:SH+'02_tree_whole.png'});
    await p._ctx.close();

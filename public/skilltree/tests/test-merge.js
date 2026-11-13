@@ -1,5 +1,5 @@
 /**
- * Unit tests for Skillgrove merge functions.
+ * Unit tests for Elytraflight's Skill Tree merge functions.
  * 
  * Run: node test-merge.js
  */

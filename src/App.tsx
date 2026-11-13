@@ -130,23 +130,23 @@ function App() {
           <a href="#projects">CS 180</a>
         </nav>
         <a className="btn hot" href="/skilltree/">
-          Open Skillgrove
+          Open Skill Tree
         </a>
       </header>
 
       <main id="content">
         <section className="hero" id="top" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="eyebrow">Elytraflight</p>
-            <h1 id="hero-title">Master one STEM skill at a time.</h1>
+            <p className="eyebrow">Elytraflight's Skill Tree</p>
+            <h1 id="hero-title">Master STEM skills, one node at a time</h1>
             <p className="lede">
-              Skillgrove is Elytraflight’s learning site for undergraduate STEM. Practice until a
-              skill feels solid, watch it fill in with color, and come back so it stays with you.
-              Berkeley EE 105 is one of the courses you can study.
+              Elytraflight's Skill Tree is a general STEM learning site. Practice until a skill
+              feels solid, watch it fill in with color, and come back so it stays with you. Open
+              the tree and choose a course.
             </p>
             <div className="hero-actions">
               <a className="btn hot lg" href="/skilltree/">
-                Open Skillgrove
+                Open Elytraflight's Skill Tree
               </a>
               <a className="btn lg" href="#features">
                 See how it helps
@@ -188,8 +188,7 @@ function App() {
           <div className="section-head">
             <h2 id="courses-title">Courses to explore</h2>
             <p>
-              Skillgrove is for undergraduate STEM in general. Open it and choose a course. These
-              two are ready now.
+              A general STEM learning site. Open the tree and choose a course. These are ready now.
             </p>
           </div>
           <ul className="course-grid">
@@ -223,7 +222,7 @@ function App() {
       <footer className="site-footer">
         <p>
           <strong>Elytraflight</strong> · home of{' '}
-          <a href="/skilltree/">Skillgrove</a>
+          <a href="/skilltree/">Elytraflight's Skill Tree</a>
         </p>
       </footer>
     </>

@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Skillgrove — Master STEM skills</title>
-<meta name="description" content="Skillgrove is a mastery-based skill tree for undergraduate STEM courses. Practice quizzes, track your progress, and master one skill at a time.">
+<title>Elytraflight's Skill Tree — Master STEM skills, one node at a time</title>
+<meta name="description" content="Elytraflight's Skill Tree is a general STEM learning site. Master STEM skills, one node at a time. Practice quizzes, track your progress, and choose a course.">
+<meta property="og:title" content="Elytraflight's Skill Tree">
+<meta property="og:description" content="Master STEM skills, one node at a time. Elytraflight's Skill Tree is a general STEM learning site.">
 <script>
 (function() {
   var p = location.pathname;
@@ -27,7 +29,7 @@
 <div id="loadingOverlay" style="position:fixed;inset:0;background:linear-gradient(160deg,#fffaf1,#eef5ff);display:flex;align-items:center;justify-content:center;z-index:999">
   <div style="text-align:center">
     <svg width="60" height="60" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#fff4d6"/><path d="M20 33V19" stroke="#2f9e6a" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="13" r="6" fill="#ff7a59"/><circle cx="12" cy="21" r="5" fill="#ffc93c"/><circle cx="28" cy="21" r="5" fill="#22b8e6"/><circle cx="20" cy="26" r="4.5" fill="#7c6cff"/></svg>
-    <p style="margin:16px 0 0;font-family:system-ui;color:#4b566b;font-weight:600">Loading Skillgrove…</p>
+    <p style="margin:16px 0 0;font-family:system-ui;color:#4b566b;font-weight:600">Loading Elytraflight's Skill Tree…</p>
   </div>
 </div>
 
@@ -36,7 +38,7 @@
   <div class="hrow">
     <div class="brand">
       <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#fff4d6"/><path d="M20 33V19" stroke="#2f9e6a" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="13" r="6" fill="#ff7a59"/><circle cx="12" cy="21" r="5" fill="#ffc93c"/><circle cx="28" cy="21" r="5" fill="#22b8e6"/><circle cx="20" cy="26" r="4.5" fill="#7c6cff"/></svg>
-      <div><h1>Skillgrove</h1>
+      <div><h1>Elytraflight's Skill Tree</h1>
       <div class="sub">Master STEM skills, one node at a time · <span id="playableNote"></span></div></div>
     </div>
     <div class="spacer"></div>
@@ -50,7 +52,7 @@
   </div>
   <div class="stats" id="stats"></div>
 </header>
-<div id="strip"><div id="banner"><button class="btn small" id="btnFeedback" type="button">Report a bug / give feedback for Skillgrove</button></div><button class="btn primary grp" id="btnGroup" type="button" aria-pressed="true"><span class="gi" aria-hidden="true">▦</span><span class="t">Ungroup</span></button><div class="hctl" id="hctl"></div></div>
+<div id="strip"><div id="banner"><button class="btn small" id="btnFeedback" type="button">Report a bug / give feedback for Elytraflight's Skill Tree</button></div><button class="btn primary grp" id="btnGroup" type="button" aria-pressed="true"><span class="gi" aria-hidden="true">▦</span><span class="t">Ungroup</span></button><div class="hctl" id="hctl"></div></div>
 <main>
   <aside id="todoBook" aria-label="To-do list"></aside>
   <div id="treeView" aria-label="Skill tree"><div id="world"><svg id="edges" aria-hidden="true"></svg></div>

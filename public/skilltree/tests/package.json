@@ -1,7 +1,7 @@
 {
   "name": "skilltree-tests",
   "version": "1.0.0",
-  "description": "Tests for Skillgrove multi-file app",
+  "description": "Tests for Elytraflight's Skill Tree multi-file app",
   "main": "test.js",
   "scripts": {
     "test": "node test.js"

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared question-bank validator for ALL Skillgrove skill banks (merged from validate_bank.py,
+"""Shared question-bank validator for every skill bank in Elytraflight's Skill Tree (merged from validate_bank.py,
 batch2a_validate.py and batch2b_validate.py). Checks schema, ids, round structure, MC option positions,
 round-4 preview targets (DAG descendants + LEAF_PREVIEW_ALLOWED from batch2a and batch2b), letter references,
 LaTeX math delimiters (\\( \\) / \\[ \\] balanced, no '$'), and figure SVG safety (well-formed, viewBox,

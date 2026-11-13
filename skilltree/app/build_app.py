@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the single-file Skillgrove demo.
+"""Build the single-file Elytraflight's Skill Tree demo.
 
 Usage:  python3 /workspace/skilltree/app/build_app.py
 Reads   ../ee105_skills_draft.json and ../bank/*.json, plus template.html

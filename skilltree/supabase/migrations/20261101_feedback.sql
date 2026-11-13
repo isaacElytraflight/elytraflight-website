@@ -1,4 +1,4 @@
--- Skillgrove feedback.
+-- Elytraflight's Skill Tree feedback.
 -- Run this whole script in the Supabase SQL editor. Do not use the service_role key in the app.
 -- anon and authenticated may insert one row. They cannot select, update, or delete.
 
