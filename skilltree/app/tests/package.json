@@ -12,6 +12,6 @@
   "type": "commonjs",
   "dependencies": {
     "katex": "^0.16.47",
-    "puppeteer-core": "^24.43.1"
+    "puppeteer-core": "^25.17.0"
   }
 }
