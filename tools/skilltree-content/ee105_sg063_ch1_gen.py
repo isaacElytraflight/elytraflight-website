@@ -170,14 +170,14 @@ def swaps_for(sid):
             )),
             ("cx-exp-r1-q1", fresh(
                 1, "order",
-                r"A principal arctangent returns only a value between \(-\pi/2\) and \(\pi/2\). Order the conversion of a nonzero number \(a+jb\) into polar form that starts from that limited value. Each step uses the result of the step before it.",
+                r"Order the conversion of a nonzero number \(a+jb\) into polar form. Each step uses the result of the step before it.",
                 [
-                    r"Form the ratio of the imaginary part to the real part, \(b/a\).",
-                    r"Take the principal arctangent of that ratio. The result lies between \(-\pi/2\) and \(\pi/2\).",
-                    r"When \(a\) is negative, add \(\pi\) if \(b\ge 0\) and subtract \(\pi\) if \(b<0\). That shift uses the principal value from the previous step.",
-                    r"Attach the magnitude \(\sqrt{a^2+b^2}\) to that corrected angle and write \(r e^{j\theta}\).",
+                    r"Compute the magnitude \(r = \sqrt{a^2+b^2}\). It is positive because the number is not zero.",
+                    r"Divide each part by that magnitude. The cosine of the angle is \(a/r\) and the sine is \(b/r\).",
+                    r"Choose the unique angle \(\theta\) in \((-\pi, \pi]\) whose cosine and sine are those two values.",
+                    r"Write the number as \(r e^{j\theta}\).",
                 ],
-                r"The ratio has to exist before its arctangent is taken. The principal value sits in the wrong half-plane whenever \(a\) is negative, so the shift by \(\pi\) corrects that value and cannot come first. The polar expression needs the corrected angle, so it is last. A plain arctangent of \(b/a\) reports \(3+3j\) and \(-3-3j\) at the same angle.",
+                r"Both quotients use the magnitude, and that magnitude is positive for every nonzero number, including a pure imaginary one. The angle needs the cosine and the sine together: the sine alone does not separate \(\theta\) from \(\pi-\theta\), and dividing \(b\) by \(a\) is undefined when \(a\) is 0. The polar expression is last because it needs that angle.",
             )),
         ]
     if sid == "sinusoid-resp":
