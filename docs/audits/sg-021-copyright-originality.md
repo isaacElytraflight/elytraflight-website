@@ -48,7 +48,7 @@ After the rewrites below, a recount of cross-skill runs was:
 
 Most prompt runs are the shared instruction frame ("put these steps in the order you would use", "one of these steps is false"). Figure-alt paragraphs that describe the same schematic (the MOS high-frequency model, the PN junction charge boxes) are the same picture described the same way, and they were left as they are. Parallel drills that change the numbers and keep the setup sentence were left as they are. Examples: the two projection questions with \(z = (3, 4)\) and \(z = (8, 4)\), and the graphical-optimization explanations that share a sentence about drawing the feasible set first.
 
-These copies were not the shared frame. One side was rewritten. The concept, the key, and the difficulty stayed the same. Ids stayed the same. Each edited item's version is 2.
+These copies were not the shared frame. One side was rewritten. The concept, the key, and the difficulty stayed the same. Ids stayed the same. Each edited item's version is 2, except `step-specs-r2-q1`, which is 3 after a review fix of its distractor sentence.
 
 | Item | Course | What was copied | Decision |
 | --- | --- | --- | --- |
@@ -56,7 +56,7 @@ These copies were not the shared frame. One side was rewritten. The concept, the
 | `step-specs-r1-q2` | me132 and am08 | Same percent-overshoot explanation as `second-order-sys-r2-q1` | Explanation rewritten. Answer stays 16.3034. |
 | `step-specs-r4-q3` | me132 and am08 | Same stem and explanation as `second-order-sys-r4-q3` | Stem and explanation rewritten. Options and key stay. |
 | `step-specs-r1-q3` | me132 and am08 | 27-word explanation run with `second-order-sys-r3-q1` | Explanation rewritten. Answer stays 2. |
-| `step-specs-r2-q1` | me132 and am08 | 15-word explanation run with `second-order-sys-r2-q2` | Explanation rewritten. Answer stays 0.685552. |
+| `step-specs-r2-q1` | me132 and am08 | 15-word explanation run with `second-order-sys-r2-q2` | Explanation rewritten. Answer stays 0.685552. Version 3 after a review fix of the distractor sentence. |
 | `step-specs-r3-q1` | me132 and am08 | 16-word explanation run with `second-order-sys-r4-q1` | Explanation rewritten. Answer stays 9.47802. |
 | `newton-method-optimization-r4-q2` | nlo-tugraz | 22-word explanation run with `gauss-newton-method-r4-q2` | Explanation rewritten. Answer stays −24. |
 | `lp-graphical-solution` explainer | nlo-tugraz | 17-word sentence also in the `graphical-2d-optimization` explainer | That sentence rewritten. Explainer version is 2. |

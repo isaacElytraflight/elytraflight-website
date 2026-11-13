@@ -105,7 +105,7 @@ Items above version 1:
 - `ss-to-tf-r3-q1` version 2
 - `step-specs-r1-q2` version 2
 - `step-specs-r1-q3` version 2
-- `step-specs-r2-q1` version 2
+- `step-specs-r2-q1` version 3
 - `step-specs-r3-q1` version 2
 - `step-specs-r4-q1` version 2
 - `step-specs-r4-q3` version 2

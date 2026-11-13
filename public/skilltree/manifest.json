@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-13T03:16:33.290720Z",
+  "generated": "2026-11-13T03:29:59.734170Z",
   "skills": {
-    "file": "skills.4ee297f0.json",
-    "hash": "4ee297f0"
+    "file": "skills.7d612250.json",
+    "hash": "7d612250"
   },
   "collections": {
     "file": "collections.6c18ba13.json",
@@ -3056,8 +3056,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ed2e8c17",
-      "file": "banks/step-specs.ed2e8c17.json"
+      "hash": "f506e436",
+      "file": "banks/step-specs.f506e436.json"
     },
     "sufficient-decrease-lemma": {
       "version": 1,

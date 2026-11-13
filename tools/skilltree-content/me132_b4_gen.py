@@ -134,9 +134,9 @@ def bank_step_specs():
     b.num(2,
           r"For \(\zeta = 0.4\) and \(\omega_n = 5\) rad/s, the time to the first peak is",
           time_to_peak(z2, wn2), "s",
-          r"The first peak arrives half a damped cycle later: \(t_p = \pi/\omega_d\). Here \(\omega_d = \omega_n\sqrt{1-\zeta^2} = 5 \times 0.917 = 4.58\), so \(t_p = \pi/4.58 = 0.685\) s. Dividing \(\pi\) by the natural frequency 5 instead returns 0.628 s, which times the undamped oscillation.",
+          r"The first peak is half a cycle of the damped ringing: \(t_p = \pi/\omega_d\). With \(\zeta = 0.4\), \(\omega_d = 5 \times 0.917 = 4.58\), and \(\pi/4.58 = 0.685\) s. Dividing by the natural frequency instead gives \(\pi/5 = 0.628\) s, which is half a period of the undamped system.",
           second_order_step(z2, wn2, 1, 3),
-          step_fig, version=2)
+          step_fig, version=3)
     b.num(2,
           r"Same system, \(\zeta = 0.4\), \(\omega_n = 5\). The damped frequency is",
           wn2 * math.sqrt(1 - z2**2), "rad/s",
