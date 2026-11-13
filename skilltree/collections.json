@@ -1,12 +1,10 @@
 {
-  "version": 2,
+  "version": 3,
   "boxes": [
     {
       "id": "ee105-ucb",
-      "title": "EE 105 (UC Berkeley)",
+      "title": "Microelectronic devices and circuits",
       "kind": "course",
-      "institution": "UC Berkeley",
-      "term_or_version": "Fall 2022 (Niknejad Reader)",
       "children": [
         "ee105-ch1",
         "ee105-ch2",
@@ -27,11 +25,12 @@
         "ee105-ch17",
         "ee105-ch18"
       ],
-      "skills": []
+      "skills": [],
+      "tab_title": "EE 105"
     },
     {
       "id": "ee105-ch1",
-      "title": "Chapter 1: Linear Time-Invariant Systems",
+      "title": "Linear Time-Invariant Systems",
       "kind": "chapter",
       "color_index": 1,
       "children": [],
@@ -49,7 +48,7 @@
     },
     {
       "id": "ee105-ch2",
-      "title": "Chapter 2: AC Circuits and AC Analysis",
+      "title": "AC Circuits and AC Analysis",
       "kind": "chapter",
       "color_index": 2,
       "children": [],
@@ -66,7 +65,7 @@
     },
     {
       "id": "ee105-ch3",
-      "title": "Chapter 3: Introduction to Semiconductors",
+      "title": "Introduction to Semiconductors",
       "kind": "chapter",
       "color_index": 3,
       "children": [],
@@ -82,7 +81,7 @@
     },
     {
       "id": "ee105-ch4",
-      "title": "Chapter 4: IC Resistors, Capacitors, Electrostatics",
+      "title": "IC Resistors, Capacitors, Electrostatics",
       "kind": "chapter",
       "color_index": 4,
       "children": [],
@@ -96,7 +95,7 @@
     },
     {
       "id": "ee105-ch5",
-      "title": "Chapter 5: PN Junctions in Equilibrium",
+      "title": "PN Junctions in Equilibrium",
       "kind": "chapter",
       "color_index": 5,
       "children": [],
@@ -111,7 +110,7 @@
     },
     {
       "id": "ee105-ch6",
-      "title": "Chapter 6: PN Junction Currents",
+      "title": "PN Junction Currents",
       "kind": "chapter",
       "color_index": 6,
       "children": [],
@@ -128,7 +127,7 @@
     },
     {
       "id": "ee105-ch7",
-      "title": "Chapter 7: MOS Capacitor",
+      "title": "MOS Capacitor",
       "kind": "chapter",
       "color_index": 7,
       "children": [],
@@ -142,7 +141,7 @@
     },
     {
       "id": "ee105-ch8",
-      "title": "Chapter 8: MOSFET Device Physics",
+      "title": "MOSFET Device Physics",
       "kind": "chapter",
       "color_index": 8,
       "children": [],
@@ -156,7 +155,7 @@
     },
     {
       "id": "ee105-ch9",
-      "title": "Chapter 9: MOS Small-Signal Models",
+      "title": "MOS Small-Signal Models",
       "kind": "chapter",
       "color_index": 9,
       "children": [],
@@ -169,7 +168,7 @@
     },
     {
       "id": "ee105-ch10",
-      "title": "Chapter 10: MOSFET Capacitance and Body Effect",
+      "title": "MOSFET Capacitance and Body Effect",
       "kind": "chapter",
       "color_index": 10,
       "children": [],
@@ -180,7 +179,7 @@
     },
     {
       "id": "ee105-ch11",
-      "title": "Chapter 11: Bipolar Junction Transistors",
+      "title": "Bipolar Junction Transistors",
       "kind": "chapter",
       "color_index": 11,
       "children": [],
@@ -195,7 +194,7 @@
     },
     {
       "id": "ee105-ch12",
-      "title": "Chapter 12: Single-Stage Amplifiers",
+      "title": "Single-Stage Amplifiers",
       "kind": "chapter",
       "color_index": 12,
       "children": [],
@@ -210,7 +209,7 @@
     },
     {
       "id": "ee105-ch13",
-      "title": "Chapter 13: Current Mirrors and Biasing",
+      "title": "Current Mirrors and Biasing",
       "kind": "chapter",
       "color_index": 13,
       "children": [],
@@ -225,7 +224,7 @@
     },
     {
       "id": "ee105-ch14",
-      "title": "Chapter 14: Frequency Response of Amplifiers",
+      "title": "Frequency Response of Amplifiers",
       "kind": "chapter",
       "color_index": 14,
       "children": [],
@@ -241,7 +240,7 @@
     },
     {
       "id": "ee105-ch15",
-      "title": "Chapter 15: Multi-Stage Amplifiers",
+      "title": "Multi-Stage Amplifiers",
       "kind": "chapter",
       "color_index": 15,
       "children": [],
@@ -256,7 +255,7 @@
     },
     {
       "id": "ee105-ch16",
-      "title": "Chapter 16: Differential Amplifiers",
+      "title": "Differential Amplifiers",
       "kind": "chapter",
       "color_index": 16,
       "children": [],
@@ -270,7 +269,7 @@
     },
     {
       "id": "ee105-ch17",
-      "title": "Chapter 17: Feedback and Op-Amps",
+      "title": "Feedback and Op-Amps",
       "kind": "chapter",
       "color_index": 17,
       "children": [],
@@ -290,7 +289,7 @@
     },
     {
       "id": "ee105-ch18",
-      "title": "Chapter 18: Op-Amp Non-Idealities",
+      "title": "Op-Amp Non-Idealities",
       "kind": "chapter",
       "color_index": 18,
       "children": [],
@@ -305,7 +304,7 @@
     },
     {
       "id": "me132",
-      "title": "ME 132 (UC Berkeley)",
+      "title": "Dynamic systems and feedback",
       "kind": "course",
       "children": [
         "me132/m1",
@@ -319,11 +318,12 @@
         "me132/m9"
       ],
       "skills": [],
-      "top_level": true
+      "top_level": true,
+      "tab_title": "ME 132"
     },
     {
       "id": "me132/m1",
-      "title": "Feedback basics and block diagrams (wk 1-2)",
+      "title": "Feedback basics and block diagrams",
       "kind": "chapter",
       "children": [],
       "skills": [
@@ -339,7 +339,7 @@
     },
     {
       "id": "me132/m2",
-      "title": "First/second order systems and PID (wk 3-4)",
+      "title": "First- and second-order systems and PID",
       "kind": "chapter",
       "children": [],
       "skills": [
@@ -358,7 +358,7 @@
     },
     {
       "id": "me132/m3",
-      "title": "General LTI systems, transfer functions, frequency response (wk 5)",
+      "title": "General LTI systems, transfer functions, frequency response",
       "kind": "chapter",
       "children": [],
       "skills": [
@@ -376,7 +376,7 @@
     },
     {
       "id": "me132/m4",
-      "title": "Interconnections, root locus, Nyquist, delays (wk 6)",
+      "title": "Interconnections, root locus, Nyquist, delays",
       "kind": "chapter",
       "children": [],
       "skills": [
@@ -391,7 +391,7 @@
     },
     {
       "id": "me132/m5",
-      "title": "Robustness and margins (wk 7)",
+      "title": "Robustness and margins",
       "kind": "chapter",
       "children": [],
       "skills": [
@@ -404,7 +404,7 @@
     },
     {
       "id": "me132/m6",
-      "title": "State space and realizations (wk 8-9)",
+      "title": "State space and realizations",
       "kind": "chapter",
       "children": [],
       "skills": [
@@ -419,7 +419,7 @@
     },
     {
       "id": "me132/m7",
-      "title": "State feedback and observers (wk 10)",
+      "title": "State feedback and observers",
       "kind": "chapter",
       "children": [],
       "skills": [
@@ -434,7 +434,7 @@
     },
     {
       "id": "me132/m8",
-      "title": "Nonlinear systems, linearization, gain scheduling (wk 11-12)",
+      "title": "Nonlinear systems, linearization, gain scheduling",
       "kind": "chapter",
       "children": [],
       "skills": [
@@ -447,7 +447,7 @@
     },
     {
       "id": "me132/m9",
-      "title": "Identification, estimation, MPC, adaptation (wk 13)",
+      "title": "Identification, estimation, MPC, adaptation",
       "kind": "chapter",
       "children": [],
       "skills": [
@@ -480,8 +480,7 @@
         "am08/ch99"
       ],
       "skills": [],
-      "top_level": true,
-      "source": "Astrom & Murray (2008), reference only"
+      "top_level": true
     },
     {
       "id": "am08/ch1",
@@ -660,7 +659,7 @@
     },
     {
       "id": "am08/ch99",
-      "title": "Beyond the book (course notes)",
+      "title": "Linear algebra, estimation, and adaptation",
       "kind": "chapter",
       "children": [],
       "skills": [
@@ -674,9 +673,8 @@
     },
     {
       "id": "nlo-tugraz",
-      "title": "Nonlinear Optimization (TU Graz)",
+      "title": "Nonlinear optimization",
       "kind": "course",
-      "institution": "TU Graz",
       "children": [
         "nlo-tugraz/l1",
         "nlo-tugraz/l2",
@@ -692,7 +690,8 @@
         "nlo-tugraz/l12"
       ],
       "skills": [],
-      "top_level": true
+      "top_level": true,
+      "tab_title": "EECS 127"
     },
     {
       "id": "nlo-tugraz/l1",

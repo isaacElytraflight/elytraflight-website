@@ -1,6 +1,6 @@
 {
   "skill_id": "pmos",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "pmos-r1-q1",
@@ -14,9 +14,10 @@
         "\\(V_{SG} > |V_{Tp}|\\) and \\(V_{SD} \\ge V_{SG} - |V_{Tp}|\\)"
       ],
       "correct_index": 3,
-      "explanation": "Write every PMOS voltage source-referenced and positive: \\(V_{SG}\\), \\(V_{SD}\\), \\(|V_{Tp}|\\). Then the NMOS rules carry over unchanged (the region test itself is the NMOS-regions prerequisite). Using \\(V_{GS}\\) and \\(V_{DS}\\) directly gives negative numbers and flipped inequalities (reader Sec. 9.5).",
+      "explanation": "Write every PMOS voltage source-referenced and positive: \\(V_{SG}\\), \\(V_{SD}\\), \\(|V_{Tp}|\\). Then the NMOS rules carry over unchanged (the region test itself is the NMOS-regions prerequisite). Using \\(V_{GS}\\) and \\(V_{DS}\\) directly gives negative numbers and flipped inequalities.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 166\" role=\"img\" aria-label=\"PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"128\" y1=\"14\" x2=\"152\" y2=\"14\"/><text x=\"140\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"140\" y1=\"14\" x2=\"140\" y2=\"32\"/><text x=\"150\" y=\"30\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"114\" y1=\"44\" x2=\"114\" y2=\"76\"/><line x1=\"94\" y1=\"60\" x2=\"108\" y2=\"60\"/><line x1=\"120\" y1=\"42\" x2=\"120\" y2=\"78\" stroke-width=\"2.4\"/><line x1=\"120\" y1=\"48\" x2=\"140\" y2=\"48\"/><line x1=\"140\" y1=\"48\" x2=\"140\" y2=\"32\"/><line x1=\"120\" y1=\"72\" x2=\"140\" y2=\"72\"/><line x1=\"140\" y1=\"72\" x2=\"140\" y2=\"88\"/><circle cx=\"111\" cy=\"60\" r=\"3\"/><line x1=\"124\" y1=\"72\" x2=\"138\" y2=\"72\"/><polygon points=\"138,72 132.5,74.3 132.5,69.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"88\" y=\"64\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_G</text><line x1=\"140\" y1=\"88\" x2=\"140\" y2=\"104\"/><text x=\"148\" y=\"108\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"140\" y1=\"104\" x2=\"140\" y2=\"112\"/><line x1=\"140\" y1=\"136\" x2=\"140\" y2=\"144\"/><circle cx=\"140\" cy=\"124\" r=\"12\"/><line x1=\"140\" y1=\"116\" x2=\"140\" y2=\"132\"/><polygon points=\"140,132 137.7,126.5 142.3,126.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"157\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_D</text><line x1=\"140\" y1=\"144\" x2=\"140\" y2=\"150\"/><line x1=\"131\" y1=\"150\" x2=\"149\" y2=\"150\"/><line x1=\"135\" y1=\"154\" x2=\"145\" y2=\"154\"/><line x1=\"138.5\" y1=\"158\" x2=\"141.5\" y2=\"158\"/></svg>",
-      "figure_alt": "PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground."
+      "figure_alt": "PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground.",
+      "version": 2
     },
     {
       "id": "pmos-r1-q2",
@@ -42,9 +43,10 @@
         "It reverses direction"
       ],
       "correct_index": 0,
-      "explanation": "Raising \\(V_G\\) lowers \\(V_{SG}\\), weakening the inversion layer. The small-signal model must agree: \\(i_d = g_mv_{sg} < 0\\). This wiggle test is the reader's sanity check for PMOS polarity.",
+      "explanation": "Raising \\(V_G\\) lowers \\(V_{SG}\\), weakening the inversion layer. The small-signal model must agree: \\(i_d = g_mv_{sg} < 0\\). This wiggle test is the sanity check for PMOS polarity.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 166\" role=\"img\" aria-label=\"PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"128\" y1=\"14\" x2=\"152\" y2=\"14\"/><text x=\"140\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"140\" y1=\"14\" x2=\"140\" y2=\"32\"/><text x=\"150\" y=\"30\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"114\" y1=\"44\" x2=\"114\" y2=\"76\"/><line x1=\"94\" y1=\"60\" x2=\"108\" y2=\"60\"/><line x1=\"120\" y1=\"42\" x2=\"120\" y2=\"78\" stroke-width=\"2.4\"/><line x1=\"120\" y1=\"48\" x2=\"140\" y2=\"48\"/><line x1=\"140\" y1=\"48\" x2=\"140\" y2=\"32\"/><line x1=\"120\" y1=\"72\" x2=\"140\" y2=\"72\"/><line x1=\"140\" y1=\"72\" x2=\"140\" y2=\"88\"/><circle cx=\"111\" cy=\"60\" r=\"3\"/><line x1=\"124\" y1=\"72\" x2=\"138\" y2=\"72\"/><polygon points=\"138,72 132.5,74.3 132.5,69.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"88\" y=\"64\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_G</text><line x1=\"140\" y1=\"88\" x2=\"140\" y2=\"104\"/><text x=\"148\" y=\"108\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"140\" y1=\"104\" x2=\"140\" y2=\"112\"/><line x1=\"140\" y1=\"136\" x2=\"140\" y2=\"144\"/><circle cx=\"140\" cy=\"124\" r=\"12\"/><line x1=\"140\" y1=\"116\" x2=\"140\" y2=\"132\"/><polygon points=\"140,132 137.7,126.5 142.3,126.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"157\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_D</text><line x1=\"140\" y1=\"144\" x2=\"140\" y2=\"150\"/><line x1=\"131\" y1=\"150\" x2=\"149\" y2=\"150\"/><line x1=\"135\" y1=\"154\" x2=\"145\" y2=\"154\"/><line x1=\"138.5\" y1=\"158\" x2=\"141.5\" y2=\"158\"/></svg>",
-      "figure_alt": "PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground."
+      "figure_alt": "PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground.",
+      "version": 2
     },
     {
       "id": "pmos-r2-q1",

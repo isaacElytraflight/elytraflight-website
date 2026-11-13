@@ -223,22 +223,19 @@ def main():
         }
     
     def public_skill(s):
+        # reader_section and sources stay in the authoring file. They are not shipped:
+        # the panel must not show a reader section or a textbook further-reading list.
         out = {"id": s["id"], "name": s["name"], "prereqs": s.get("prereqs") or []}
         if s.get("chapter") is not None:
             out["chapter"] = s["chapter"]
-        if s.get("reader_section"):
-            out["reader_section"] = s["reader_section"]
         if s.get("summary"):
             out["summary"] = s["summary"]
-        if s.get("sources"):
-            out["sources"] = s["sources"]
         if s.get("status"):
             out["status"] = s["status"]
         return out
 
     skills_out = {
-        "course": data.get("course", "EE 105"),
-        "source": data.get("source", ""),
+        "course": data.get("course") or "Elytraflight's Skill Tree",
         "version": data.get("version"),
         "chapters": data.get("chapters") or {},
         "skills": [public_skill(s) for s in skills],

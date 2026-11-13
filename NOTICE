@@ -1,0 +1,65 @@
+Elytraflight
+Copyright 2026 Isaac Jones
+
+This repository contains two separately licensed bodies of work.
+
+Code
+----
+Source code, build scripts, tests, and Elytraflight's Skill Tree under
+public/skilltree/ (HTML, CSS, and JavaScript, excluding the learning-content
+JSON described below) are licensed under the Apache License, Version 2.0.
+See the LICENSE file.
+
+Learning content
+----------------
+Questions, explanations, explainers, figure captions, and skill-graph data
+(the files under skilltree/bank/, skilltree/explainers/, skilltree/collections.json,
+and skilltree/ee105_skills_draft.json, and the copies the build writes under
+public/skilltree/) are licensed under the Creative Commons Attribution-ShareAlike
+4.0 International License. See LICENSE-CONTENT. The official legal code is
+https://creativecommons.org/licenses/by-sa/4.0/legalcode.
+
+Excluded, all rights reserved
+-----------------------------
+The CS 180 project pages and the personal photo in this repository are not
+covered by either license above. They remain all rights reserved, copyright
+Isaac Jones. Those paths are:
+
+- public/CS180Proj0/
+- public/CS180Proj1/
+- public/CS180Proj2/
+- public/CS180Proj3/
+- public/CS180Proj4/
+- public/CS180Proj4A/
+- public/profile.png
+
+AI assistance
+-------------
+Some text in this repository was written with AI assistance and may not be
+copyrightable in every jurisdiction. The licenses above cover whatever rights
+exist in that text. They do not add rights that the law does not grant.
+
+Third-party open-source attributions
+------------------------------------
+These match the open licenses recorded in docs/sources.md. None of that wording
+is copied into the learning content. The works were used as scope and as a
+second source of facts.
+
+- Jim Hefferon, Linear Algebra. GNU Free Documentation License, or Creative
+  Commons Attribution-ShareAlike 3.0 United States, at the reader's choice.
+  https://hefferon.net/source.html
+- Wikibooks, Control Systems, and Wikibooks, Linear Algebra. Creative Commons
+  Attribution-ShareAlike.
+- Richard M. Murray, Notes on Linear Systems Theory (draft of 30 October 2020).
+  Creative Commons Attribution-ShareAlike 4.0.
+
+Code dependencies shipped or loaded with the site:
+
+- KaTeX 0.16.11, loaded from the jsDelivr CDN by public/skilltree/index.html.
+  MIT License. https://github.com/KaTeX/KaTeX
+- @supabase/supabase-js 2.118.0, vendored as public/skilltree/supabase.min.js.
+  MIT License. https://github.com/supabase/supabase-js
+
+Trademarks
+----------
+Neither license grants any right to use the names or logos in TRADEMARKS.md.

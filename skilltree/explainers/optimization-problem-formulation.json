@@ -1,7 +1,7 @@
 {
   "id": "optimization-problem-formulation",
   "title": "Formulating an optimization problem",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "The standard shape is\n\\[\n\\operatorname{minimize}\\ f(x) \\quad \\text{subject to}\\quad x \\in \\mathcal{X}.\n\\]\nThe optimal value is \\(p^\\star = \\inf\\{f(x) : x \\in \\mathcal{X}\\}\\). A minimizer is any \\(x^\\star \\in \\mathcal{X}\\) with \\(f(x^\\star) = p^\\star\\), and the argmin set is the collection of all such points. Maximizing \\(f\\) over \\(\\mathcal{X}\\) is minimizing \\(-f\\) over the same set. If \\(\\mathcal{X}\\) is empty the problem is infeasible and no minimizer exists."
+      "body_md": "The standard shape is\n\\[\n\\operatorname{minimize}\\ f(x) \\quad \\text{subject to}\\quad x \\in \\mathcal{X}.\n\\]\nThe optimal value is \\(p^\\star = \\inf\\{f(x): x \\in \\mathcal{X}\\}\\). A minimizer is any \\(x^\\star \\in \\mathcal{X}\\) with \\(f(x^\\star) = p^\\star\\), and the argmin set is the collection of all such points. Maximizing \\(f\\) over \\(\\mathcal{X}\\) is minimizing \\(-f\\) over the same set. If \\(\\mathcal{X}\\) is empty the problem is infeasible and no minimizer exists."
     },
     {
       "heading": "Worked example",

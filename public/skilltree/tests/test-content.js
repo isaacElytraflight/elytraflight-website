@@ -47,8 +47,8 @@ function readJsonDir(dir) {
 
 console.log("\n=== Elytraflight's Skill Tree content integrity ===\n");
 
-test('graph is version 3 with 270 live skills and 16 retired ids', () => {
-  assert.strictEqual(graph.version, 3);
+test('graph is version 4 with 270 live skills and 16 retired ids', () => {
+  assert.strictEqual(graph.version, 4);
   assert.strictEqual(skills.length, 270);
   assert.strictEqual(retiredIds.size, 16);
   assert.strictEqual(retired.margins, 'stability');
@@ -206,12 +206,14 @@ test('collections reference no retired ids and every skill sits in a top-level b
   const topIds = tops.map(box => box.id);
   assert.deepStrictEqual(topIds, ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz']);
   const nlo = tops.find(box => box.id === 'nlo-tugraz');
-  assert.strictEqual(nlo.title, 'Nonlinear Optimization (TU Graz)');
+  assert.strictEqual(nlo.title, 'Nonlinear optimization');
+  assert.strictEqual(nlo.tab_title, 'EECS 127');
   assert.strictEqual(nlo.kind, 'course');
   assert.strictEqual(nlo.children.length, 12);
   const me132 = tops.find(box => box.id === 'me132');
   const am08 = tops.find(box => box.id === 'am08');
-  assert.strictEqual(me132.title, 'ME 132 (UC Berkeley)');
+  assert.strictEqual(me132.title, 'Dynamic systems and feedback');
+  assert.strictEqual(me132.tab_title, 'ME 132');
   assert.strictEqual(me132.kind, 'course');
   assert.strictEqual(me132.children.length, 9);
   assert.strictEqual(am08.title, 'Feedback Systems');

@@ -1,6 +1,6 @@
 {
   "skill_id": "loop-gain",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "id": "loop-gain-r1-q1",
@@ -70,9 +70,10 @@
         "It is not reduced; feedback only changes the gain"
       ],
       "correct_index": 1,
-      "explanation": "A disturbance \\(s_{noise}\\) added at the output appears at the output as \\(\\dfrac{s_{noise}}{1+T}\\), so for the same signal level the disturbance is \\(1+T\\) times smaller. The loop notices any unwanted output change as an error and corrects it.\n• Gain \\(G\\) is the forward gain, not the loop's rejection factor.\n• Saying nothing changes ignores Eq. 17.13.",
+      "explanation": "A disturbance \\(s_{noise}\\) added at the output appears at the output as \\(\\dfrac{s_{noise}}{1+T}\\), so for the same signal level the disturbance is \\(1+T\\) times smaller. The loop notices any unwanted output change as an error and corrects it.\n• Gain \\(G\\) is the forward gain, not the loop's rejection factor.\n• Saying nothing changes ignores how the loop gain sets the error.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 370 150\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Feedback loop with a disturbance at the output</title><text x=\"18\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sᵢₙ</text><line x1=\"30\" y1=\"50\" x2=\"82\" y2=\"50\"/><polygon points=\"82,50 75.6,52.7 75.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"92\" cy=\"50\" r=\"10\"/><text x=\"76\" y=\"46\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"100\" y=\"72\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"102\" y1=\"50\" x2=\"140\" y2=\"50\"/><polygon points=\"140,50 133.6,52.7 133.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"140\" y=\"28\" width=\"60\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"200\" y1=\"50\" x2=\"222\" y2=\"50\"/><circle cx=\"232\" cy=\"50\" r=\"10\"/><text x=\"216\" y=\"46\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"240\" y=\"36\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"242\" y1=\"50\" x2=\"300\" y2=\"50\"/><polygon points=\"300,50 293.6,52.7 293.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"310\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">sₒᵤₜ</text><line x1=\"232\" y1=\"14\" x2=\"232\" y2=\"38\"/><polygon points=\"232,38 229.3,31.6 234.7,31.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"232\" y=\"10\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">s_noise</text><polyline points=\"272,50 272,115 200,115\"/><circle cx=\"272\" cy=\"50\" r=\"2.6\" fill=\"currentColor\"/><rect x=\"140\" y=\"93\" width=\"60\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"119\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"140,115 92,115\"/><line x1=\"92\" y1=\"115\" x2=\"92\" y2=\"62\"/><polygon points=\"92,62 94.7,68.4 89.3,68.4\" fill=\"currentColor\" stroke=\"none\"/></svg>",
-      "figure_alt": "Feedback loop with a disturbance injected at the output of block G."
+      "figure_alt": "Feedback loop with a disturbance injected at the output of block G.",
+      "version": 2
     },
     {
       "id": "loop-gain-r2-q3",

@@ -1,6 +1,6 @@
 {
   "skill_id": "contact-pot",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "contact-pot-r1-q1",
@@ -26,9 +26,10 @@
         "A large current at first that slowly decays as the junction discharges"
       ],
       "correct_index": 1,
-      "explanation": "KVL around the loop: \\(\\varphi_{bi} + \\varphi_{mn} - \\varphi_{mp} = 0\\) (reader Eq. 5.45, 5.50). Every junction of dissimilar materials, including metal–semiconductor, forms a contact potential. In equilibrium the sum around any closed loop is zero, otherwise you could extract energy from nothing.\nThere's no 'charge' to run down; the junction never stored usable energy.",
+      "explanation": "KVL around the loop: \\(\\varphi_{bi} + \\varphi_{mn} - \\varphi_{mp} = 0\\). Every junction of dissimilar materials, including metal–semiconductor, forms a contact potential. In equilibrium the sum around any closed loop is zero, otherwise you could extract energy from nothing.\nThere's no 'charge' to run down; the junction never stored usable energy.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 130\" role=\"img\" aria-label=\"PN junction block diagram\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:340px;width:100%;height:auto\"><rect x=\"30.0\" y=\"30.0\" width=\"140.0\" height=\"60.0\" fill=\"currentColor\" fill-opacity=\"0.05\" stroke-width=\"1.5\"/><rect x=\"170.0\" y=\"30.0\" width=\"140.0\" height=\"60.0\" fill=\"currentColor\" fill-opacity=\"0.16\" stroke-width=\"1.5\"/><text x=\"80.0\" y=\"65.0\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">P</text><text x=\"260.0\" y=\"65.0\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">N</text><rect x=\"148.0\" y=\"30.0\" width=\"44.0\" height=\"60.0\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\"/><text x=\"159.0\" y=\"64.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"181.0\" y=\"64.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"170.0\" y=\"106.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region</text><text x=\"170.0\" y=\"16.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P and N ends shorted by a metal wire</text></svg>",
-      "figure_alt": "PN junction with its depletion region; the note says the P and N ends are shorted by a metal wire."
+      "figure_alt": "PN junction with its depletion region; the note says the P and N ends are shorted by a metal wire.",
+      "version": 2
     },
     {
       "id": "contact-pot-r1-q3",
@@ -48,11 +49,12 @@
       "id": "contact-pot-r2-q1",
       "round": 2,
       "type": "numeric",
-      "prompt": "The reader models a metal as extremely heavily doped n-type silicon, \\(N_m \\approx 10^{22}\\ \\mathrm{cm^{-3}}\\). Using \\(\\varphi = \\frac{kT}{q}\\ln\\frac{n}{n_i}\\) for n-type and \\(\\varphi = -\\frac{kT}{q}\\ln\\frac{p}{n_i}\\) for p-type, find the contact potential between such a metal and p-type silicon with \\(N_A = 10^{16}\\ \\mathrm{cm^{-3}}\\): \\(\\varphi_{mp} = \\varphi_m - \\varphi_p\\).",
+      "prompt": "Model a metal as extremely heavily doped n-type silicon, \\(N_m \\approx 10^{22}\\ \\mathrm{cm^{-3}}\\). Using \\(\\varphi = \\frac{kT}{q}\\ln\\frac{n}{n_i}\\) for n-type and \\(\\varphi = -\\frac{kT}{q}\\ln\\frac{p}{n_i}\\) for p-type, find the contact potential between such a metal and p-type silicon with \\(N_A = 10^{16}\\ \\mathrm{cm^{-3}}\\): \\(\\varphi_{mp} = \\varphi_m - \\varphi_p\\).",
       "answer": 1.07761,
       "unit": "V",
       "tolerance": 0.02,
-      "explanation": "\\[\\varphi_m = 0.026\\ln(10^{12}) = 0.718\\ \\mathrm{V}, \\quad \\varphi_p = -0.026\\ln(10^{6}) = -0.359\\ \\mathrm{V}\\]\n\\[\\varphi_{mp} = 0.026\\ln\\frac{N_mN_A}{n_i^2} = 0.026\\ln(10^{18}) \\approx 1.08\\ \\mathrm{V}\\]\nNote: reader Eq. 5.46–5.47 write these potentials as \\(\\frac{kT}{q}\\ln\\frac{N_D}{N_A}\\) and \\(\\frac{kT}{q}\\ln\\frac{N_m}{N_A}\\). That's a typo: with the p-region as reference, the correct form has \\(N_DN_A/n_i^2\\). The cancellation argument in Eq. 5.48–5.50 still works either way."
+      "explanation": "\\[\\varphi_m = 0.026\\ln(10^{12}) = 0.718\\ \\mathrm{V}, \\quad \\varphi_p = -0.026\\ln(10^{6}) = -0.359\\ \\mathrm{V}\\]\n\\[\\varphi_{mp} = 0.026\\ln\\frac{N_mN_A}{n_i^2} = 0.026\\ln(10^{18}) \\approx 1.08\\ \\mathrm{V}\\]\nA common slip writes these potentials as \\(\\frac{kT}{q}\\ln\\frac{N_D}{N_A}\\) and \\(\\frac{kT}{q}\\ln\\frac{N_m}{N_A}\\). With the p-region as reference, the correct form has \\(N_DN_A/n_i^2\\). The cancellation of the two contact potentials still works either way.",
+      "version": 2
     },
     {
       "id": "contact-pot-r2-q2",
@@ -76,7 +78,8 @@
         "In equilibrium no net energy can flow; the contact potentials around any external loop cancel φbi exactly, so the loop's net EMF is zero"
       ],
       "correct_index": 3,
-      "explanation": "The reader compares this to a 'perfect ratchet': if a junction could drive current using only thermal energy at one temperature, it would be a perpetual-motion machine (Sec. 5.4.7).\nProviding a metal path just gives carriers another route across the same barrier, and it presents an equal barrier. With an energy input (light, a temperature difference, an applied voltage), the junction can deliver power: that's a solar cell."
+      "explanation": "If a junction could drive current using only thermal energy at one temperature, it would be a perpetual-motion machine, like a ratchet that never slips.\nProviding a metal path just gives carriers another route across the same barrier, and it presents an equal barrier. With an energy input (light, a temperature difference, an applied voltage), the junction can deliver power: that's a solar cell.",
+      "version": 2
     },
     {
       "id": "contact-pot-r3-q1",
@@ -90,7 +93,8 @@
         "They differ by the contact potential of the metal"
       ],
       "correct_index": 2,
-      "explanation": "Moving the zero shifts every potential by the same constant, so differences don't change. \\(\\varphi_{bi} = \\varphi_n - \\varphi_p = \\frac{kT}{q}\\ln\\frac{N_DN_A}{n_i^2}\\) either way.\nGotcha: the reader switches references between Sec. 5.3 (intrinsic) and Sec. 5.4.7 (P region), and that can look like a different result. It isn't."
+      "explanation": "Moving the zero shifts every potential by the same constant, so differences don't change. \\(\\varphi_{bi} = \\varphi_n - \\varphi_p = \\frac{kT}{q}\\ln\\frac{N_DN_A}{n_i^2}\\) either way.\nGotcha: switching the zero from the intrinsic level to the P-region level can look like a different result. It isn't.",
+      "version": 2
     },
     {
       "id": "contact-pot-r3-q2",
@@ -114,7 +118,8 @@
         "Contact potentials add up around a loop, which is how thermocouples work at a single temperature"
       ],
       "correct_index": 1,
-      "explanation": "Reader Sec. 5.4.7: 'the contact between two dissimilar metals creates a potential difference' (set by the work-function difference). An 'ohmic' contact still has a contact potential; it is engineered not to RECTIFY (not to act like a diode).\nGotcha: thermocouples need two DIFFERENT temperatures. At a single temperature (equilibrium) the potentials around a loop always cancel."
+      "explanation": "'the contact between two dissimilar metals creates a potential difference' (set by the work-function difference). An 'ohmic' contact still has a contact potential; it is engineered not to RECTIFY (not to act like a diode).\nGotcha: thermocouples need two DIFFERENT temperatures. At a single temperature (equilibrium) the potentials around a loop always cancel.",
+      "version": 2
     },
     {
       "id": "contact-pot-r4-q1",
@@ -124,10 +129,11 @@
       "answer": 0.951049,
       "unit": "V",
       "tolerance": 0.02,
-      "explanation": "\\[\\varphi_p = -0.026\\ln\\frac{5\\times10^{16}}{10^{10}} = -0.026\\times15.42 = -0.401\\ \\mathrm{V}\\]\n\\[\\varphi_{bi} = 0.55 - (-0.401) \\approx 0.951\\ \\mathrm{V}\\]\nThis matches the reader's MOS example (about 0.95 V). Even with the gate shorted to the body, this potential appears across the oxide and the body surface. The MOS-structure skill picks it up from here.",
+      "explanation": "\\[\\varphi_p = -0.026\\ln\\frac{5\\times10^{16}}{10^{10}} = -0.026\\times15.42 = -0.401\\ \\mathrm{V}\\]\n\\[\\varphi_{bi} = 0.55 - (-0.401) \\approx 0.951\\ \\mathrm{V}\\]\nThe result is about 0.95 V. Even with the gate shorted to the body, this potential appears across the oxide and the body surface. The MOS-structure skill picks it up from here.",
       "preview": [
         "mos-struct"
-      ]
+      ],
+      "version": 2
     },
     {
       "id": "contact-pot-r4-q2",
@@ -154,12 +160,13 @@
         "Only if a voltage source is added"
       ],
       "correct_index": 0,
-      "explanation": "Going around the loop (gate → wire → body contact → body → oxide → gate), the contact potentials of the wire connections and the drops inside the device must sum to zero. The gate and body are different materials with a built-in difference, so a potential drop (and field) ends up across the oxide plus a depleted layer in the body (reader Sec. 7.2.2–7.2.3).\nSo a MOS capacitor holds charge even at zero applied bias, a key starting point for the MOS skills.",
+      "explanation": "Going around the loop (gate → wire → body contact → body → oxide → gate), the contact potentials of the wire connections and the drops inside the device must sum to zero. The gate and body are different materials with a built-in difference, so a potential drop (and field) ends up across the oxide plus a depleted layer in the body.\nSo a MOS capacitor holds charge even at zero applied bias, a key starting point for the MOS skills.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 232\" role=\"img\" aria-label=\"MOS capacitor (neutral)\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:340px;width:100%;height:auto\"><rect x=\"64.0\" y=\"24.0\" width=\"212.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.25\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"43.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n⁺ poly gate</text><rect x=\"64.0\" y=\"54.0\" width=\"212.0\" height=\"18.0\" fill=\"currentColor\" fill-opacity=\"0.05\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"67.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">oxide</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"134.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"198.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">p-type body</text><line x1=\"170.0\" y1=\"8.0\" x2=\"170.0\" y2=\"24.0\" stroke-width=\"1.5\"/><text x=\"176.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"58.0\" y=\"198.0\" text-anchor=\"end\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"78.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"108.7\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"139.3\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"170.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"200.7\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"231.3\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"262.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"36.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 3\"/><text x=\"78.0\" y=\"94.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"114.8\" y=\"94.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"151.6\" y=\"94.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"188.4\" y=\"94.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"225.2\" y=\"94.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"262.0\" y=\"94.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><line x1=\"50.0\" y1=\"72.0\" x2=\"50.0\" y2=\"108.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,108.0 48.1,103.4 51.9,103.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"50.0\" y1=\"108.0\" x2=\"50.0\" y2=\"72.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,72.0 51.9,76.6 48.1,76.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"44.0\" y=\"94.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">dep</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"272.0\" y=\"123.0\" text-anchor=\"end\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">neutral p-type</text></svg>",
       "figure_alt": "MOS capacitor at zero bias: positive charge on the n+ poly gate, a thin oxide, and a shallow depletion region with negative ions at the top of the p-type body.",
       "preview": [
         "mos-struct"
-      ]
+      ],
+      "version": 2
     }
   ]
 }

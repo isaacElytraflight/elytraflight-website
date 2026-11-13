@@ -4,7 +4,7 @@ Master STEM skills, one node at a time.
 
 A general STEM learning site, served at `/skilltree/` on elytraflight.com.
 
-Elytraflight's Skill Tree organizes skills into prerequisite trees where you climb from Unpracticed to Mastered through quizzes. Skills are grouped into courses and chapters via a flexible "collections" system that supports multiple courses, cross-university content sharing, and nested organization.
+Elytraflight's Skill Tree organizes skills into prerequisite trees where you climb from Unpracticed to Mastered through quizzes. Skills are grouped into topics via a collections system that supports several courses and nested topics.
 
 ## Structure
 
@@ -93,16 +93,15 @@ Skills are organized into a hierarchy of "boxes" (courses, chapters, units) via 
   "boxes": [
     {
       "id": "ee105-ucb",
-      "title": "EE 105 (UC Berkeley)",
+      "title": "Microelectronic devices and circuits",
+      "tab_title": "EE 105",
       "kind": "course",
-      "institution": "UC Berkeley",
-      "term_or_version": "Fall 2022 (Niknejad Reader)",
       "children": ["ee105-ch1", "ee105-ch2"],
       "skills": []
     },
     {
       "id": "ee105-ch1",
-      "title": "Chapter 1: Linear Time-Invariant Systems",
+      "title": "Linear Time-Invariant Systems",
       "kind": "chapter",
       "color_index": 1,
       "children": [],
@@ -117,7 +116,7 @@ Skills are organized into a hierarchy of "boxes" (courses, chapters, units) via 
 1. Create a course box with `kind: "course"` and list its chapter children
 2. Create chapter boxes with `kind: "chapter"` and list their skills
 3. Skills stay in `ee105_skills_draft.json`—boxes just reference them by ID
-4. A skill can appear in multiple boxes (e.g., "phasors" in both EE 105 and Physics 7B)
+4. A skill can appear in multiple boxes (for example, phasors in both a circuits topic and a waves topic)
 5. Run `python3 tools/skilltree-content/build.py` to regenerate
 
 ### Adding a Nested Box (Unit within Chapter)

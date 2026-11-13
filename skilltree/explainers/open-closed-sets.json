@@ -1,7 +1,7 @@
 {
   "id": "open-closed-sets",
   "title": "Open and closed sets in R^n",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "\\[\nB(x, r) = \\{y : \\lVert y - x \\rVert < r\\}, \\qquad \\overline{B}(x, r) = \\{y : \\lVert y - x \\rVert \\le r\\}.\n\\]\nThe interior of \\(S\\) is the largest open set contained in \\(S\\). The closure of \\(S\\) is the smallest closed set containing \\(S\\). A point \\(x\\) is interior to an open ball of radius \\(R\\) when the gap \\(R - \\lVert x - c \\rVert\\) is positive, and that gap is a legal radius for a test ball. In finite dimension, equivalent norms determine the same open sets."
+      "body_md": "\\[\nB(x, r) = \\{y: \\lVert y - x \\rVert < r\\}, \\qquad \\overline{B}(x, r) = \\{y: \\lVert y - x \\rVert \\le r\\}.\n\\]\nThe interior of \\(S\\) is the largest open set contained in \\(S\\). The closure of \\(S\\) is the smallest closed set containing \\(S\\). A point \\(x\\) is interior to an open ball of radius \\(R\\) when the gap \\(R - \\lVert x - c \\rVert\\) is positive, and that gap is a legal radius for a test ball. In finite dimension, equivalent norms determine the same open sets."
     },
     {
       "heading": "Worked example",

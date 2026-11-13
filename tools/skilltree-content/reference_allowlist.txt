@@ -1,0 +1,26 @@
+# Allowlist for tools/skilltree-content/reference_gate.py
+#
+# One exception per line: path, a tab, a JSON pointer (or * for the whole
+# file), a tab, and the reason. Blank lines and lines starting with # are
+# ignored. A hit is suppressed only when the file path ends with the path
+# column and the pointer matches.
+#
+# Course codes are not listed here. The gate skips the tab_title field,
+# which is the only learner-facing place a class name may appear (the course
+# selection tab).
+#
+# Pattern choices, so they do not need a per-hit exception:
+# - Lecture slides are "the slides", "lecture slides", "slide deck", or "slide N".
+#   A bare "slides" is the motion verb ("a mass slides", "the bias point slides").
+# - "section" must not follow a hyphen, so "cross-section" is not a source section.
+# - University "MIT" uses a word boundary, so "limit" does not match.
+# - "textbook" and "the book" are banned in learner-facing sentences. The word
+#   "book" alone is not, so "bookkeeping" is not a hit. A string that is exactly
+#   "textbook" is the collections box kind, not a sentence, and the UI scan skips it.
+#   A circuit "source" (current source, voltage source) is not a citation, so the
+#   word "source" alone is not banned.
+# - "chapter" and "section" are banned when followed by a number. The app's
+#   own word "chapters", with no number, is the topic grouping, not a source
+#   chapter title.
+
+# No content exceptions yet. Add a line only when a hit is a real false positive.

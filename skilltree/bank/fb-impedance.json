@@ -1,6 +1,6 @@
 {
   "skill_id": "fb-impedance",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "fb-impedance-r1-q1",
@@ -14,9 +14,10 @@
         "Input impedance rises by \\(1+T\\); output impedance falls by \\(1+T\\)"
       ],
       "correct_index": 3,
-      "explanation": "Reader Sec. 17.8: \\(Z_{in,fb}=R_{in}(1+Af)\\) because the op-amp input only sees the tiny error voltage; \\(Z_{out,fb}=\\dfrac{R_{out}}{1+Af}\\) because the loop fights any output change caused by the load. Feedback makes a voltage amplifier more ideal on both ports.",
+      "explanation": "\\(Z_{in,fb}=R_{in}(1+Af)\\) because the op-amp input only sees the tiny error voltage; \\(Z_{out,fb}=\\dfrac{R_{out}}{1+Af}\\) because the loop fights any output change caused by the load. Feedback makes a voltage amplifier more ideal on both ports.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 205\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Non-inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 130,60\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><polyline points=\"130,90 112,90 112,135\"/><circle cx=\"112\" cy=\"135\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"112,135 125,135\"/><polyline points=\"125,135 139.5,135 142.5,129 147.5,141 152.5,129 157.5,141 162.5,129 167.5,141 175.5,135 190,135\"/><text x=\"157\" y=\"125\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂</text><polyline points=\"190,135 205,135 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text><polyline points=\"112,135 112,142 106,145 118,150 106,155 118,160 106,165 118,170 112,178 112,185\"/><text x=\"124\" y=\"164\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R₁</text><line x1=\"112\" y1=\"185\" x2=\"112\" y2=\"191\"/><line x1=\"103\" y1=\"191\" x2=\"121\" y2=\"191\"/><line x1=\"107\" y1=\"195\" x2=\"117\" y2=\"195\"/><line x1=\"110.5\" y1=\"199\" x2=\"113.5\" y2=\"199\"/></svg>",
-      "figure_alt": "Non-inverting amplifier with R1 and R2; input and output impedances are of interest."
+      "figure_alt": "Non-inverting amplifier with R1 and R2; input and output impedances are of interest.",
+      "version": 2
     },
     {
       "id": "fb-impedance-r1-q2",
@@ -26,9 +27,10 @@
       "answer": 0.1,
       "unit": "Ω",
       "tolerance": 0.01,
-      "explanation": "\\(Z_{out,fb}=\\dfrac{R_{out}}{1+T}=\\dfrac{100\\ \\Omega}{1000}=0.1\\ \\Omega\\) (reader Eq. 17.47).",
+      "explanation": "\\(Z_{out,fb}=\\dfrac{R_{out}}{1+T}=\\dfrac{100\\ \\Omega}{1000}=0.1\\ \\Omega\\).",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 160\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Op-amp VCVS model</title><circle cx=\"20\" cy=\"40\" r=\"3\"/><text x=\"14\" y=\"25\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">vₛ</text><polyline points=\"23,40 40,40\"/><polyline points=\"40,40 90,40\"/><polyline points=\"90,40 100,40 100,50\"/><circle cx=\"100\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"100,50 100,62 94,65 106,70 94,75 106,80 94,85 106,90 100,98 100,110\"/><text x=\"108\" y=\"84\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_in</text><polyline points=\"100,110 100,130\"/><line x1=\"100\" y1=\"130\" x2=\"100\" y2=\"136\"/><line x1=\"91\" y1=\"136\" x2=\"109\" y2=\"136\"/><line x1=\"95\" y1=\"140\" x2=\"105\" y2=\"140\"/><line x1=\"98.5\" y1=\"144\" x2=\"101.5\" y2=\"144\"/><polyline points=\"100,40 125,40\"/><polyline points=\"125,40 125,40\"/><circle cx=\"180\" cy=\"85\" r=\"22\"/><text x=\"180\" y=\"82\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A·v_in</text><text x=\"180\" y=\"94\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">+  −</text><polyline points=\"180,63 180,40\"/><polyline points=\"180,40 187,40 190,34 195,46 200,34 205,46 210,34 215,46 223,40 230,40\"/><text x=\"205\" y=\"28\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_out = 100 Ω</text><polyline points=\"180,107 180,130\"/><line x1=\"180\" y1=\"130\" x2=\"180\" y2=\"136\"/><line x1=\"171\" y1=\"136\" x2=\"189\" y2=\"136\"/><line x1=\"175\" y1=\"140\" x2=\"185\" y2=\"140\"/><line x1=\"178.5\" y1=\"144\" x2=\"181.5\" y2=\"144\"/><polyline points=\"230,40 255,40 255,50\"/><circle cx=\"255\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"255,50 255,62 249,65 261,70 249,75 261,80 249,85 261,90 255,98 255,110\"/><text x=\"263\" y=\"84\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Rₗ</text><polyline points=\"255,110 255,130\"/><line x1=\"255\" y1=\"130\" x2=\"255\" y2=\"136\"/><line x1=\"246\" y1=\"136\" x2=\"264\" y2=\"136\"/><line x1=\"250\" y1=\"140\" x2=\"260\" y2=\"140\"/><line x1=\"253.5\" y1=\"144\" x2=\"256.5\" y2=\"144\"/><polyline points=\"255,40 285,40\"/><circle cx=\"288\" cy=\"40\" r=\"3\"/><text x=\"300\" y=\"44\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text></svg>",
-      "figure_alt": "VCVS op-amp model with R_out = 100 Ω driving a load."
+      "figure_alt": "VCVS op-amp model with R_out = 100 Ω driving a load.",
+      "version": 2
     },
     {
       "id": "fb-impedance-r1-q3",
@@ -38,9 +40,10 @@
       "answer": 1.001,
       "unit": "GΩ",
       "tolerance": 0.01,
-      "explanation": "\\(Z_{in,fb}=R_{in}(1+T)=10^6\\times1001=1.001\\times10^9\\ \\Omega=1.001\\ \\mathrm{G\\Omega}\\) (reader Eq. 17.45). The input current is set by the error voltage, which is \\(1+T\\) times smaller than the input.",
+      "explanation": "\\(Z_{in,fb}=R_{in}(1+T)=10^6\\times1001=1.001\\times10^9\\ \\Omega=1.001\\ \\mathrm{G\\Omega}\\). The input current is set by the error voltage, which is \\(1+T\\) times smaller than the input.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 205\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Non-inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 130,60\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><polyline points=\"130,90 112,90 112,135\"/><circle cx=\"112\" cy=\"135\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"112,135 125,135\"/><polyline points=\"125,135 139.5,135 142.5,129 147.5,141 152.5,129 157.5,141 162.5,129 167.5,141 175.5,135 190,135\"/><text x=\"157\" y=\"125\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂</text><polyline points=\"190,135 205,135 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text><polyline points=\"112,135 112,142 106,145 118,150 106,155 118,160 106,165 118,170 112,178 112,185\"/><text x=\"124\" y=\"164\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R₁</text><line x1=\"112\" y1=\"185\" x2=\"112\" y2=\"191\"/><line x1=\"103\" y1=\"191\" x2=\"121\" y2=\"191\"/><line x1=\"107\" y1=\"195\" x2=\"117\" y2=\"195\"/><line x1=\"110.5\" y1=\"199\" x2=\"113.5\" y2=\"199\"/></svg>",
-      "figure_alt": "Non-inverting amplifier."
+      "figure_alt": "Non-inverting amplifier.",
+      "version": 2
     },
     {
       "id": "fb-impedance-r2-q1",
@@ -50,9 +53,10 @@
       "answer": 2.49988,
       "unit": "mΩ",
       "tolerance": 0.01,
-      "explanation": "\\(T=Af=2\\times10^4\\), so \\(Z_{out}=\\dfrac{50}{1+2\\times10^4}=2.5\\ \\mathrm{m\\Omega}\\). This is why op-amp followers are used as buffers: high \\(Z_{in}\\), tiny \\(Z_{out}\\) (reader Sec. 17.8.2).",
+      "explanation": "\\(T=Af=2\\times10^4\\), so \\(Z_{out}=\\dfrac{50}{1+2\\times10^4}=2.5\\ \\mathrm{m\\Omega}\\). This is why op-amp followers are used as buffers: high \\(Z_{in}\\), tiny \\(Z_{out}\\).",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 310 125\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Unity-gain follower</title><text x=\"18\" y=\"49\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"45\" r=\"3\"/><polyline points=\"33,45 110,45\"/><polygon points=\"110,30 110,90 166,60\"/><text x=\"117\" y=\"49\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"117\" y=\"79\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><polyline points=\"110,75 95,75 95,110 190,110 190,60\"/><polyline points=\"166,60 225,60\"/><circle cx=\"190\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"228\" cy=\"60\" r=\"3\"/><text x=\"247\" y=\"64\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
-      "figure_alt": "Unity-gain follower."
+      "figure_alt": "Unity-gain follower.",
+      "version": 2
     },
     {
       "id": "fb-impedance-r2-q2",
@@ -78,9 +82,10 @@
         "Because feedback lowers the input voltage to zero"
       ],
       "correct_index": 2,
-      "explanation": "\\(i_x=\\dfrac{v_x-f\\,v_{out}}{R_{in}}\\) and \\(v_{out}\\approx\\dfrac{A}{1+Af}v_x\\), giving \\(i_x=\\dfrac{v_x}{R_{in}(1+Af)}\\) (reader Eq. 17.44–17.45). The feedback voltage 'bootstraps' the other end of \\(R_{in}\\) almost up to \\(v_x\\).\n• The divider resistors are not in the input path.\n• The input voltage stays \\(v_x\\); only the DIFFERENCE across \\(R_{in}\\) shrinks.",
+      "explanation": "\\(i_x=\\dfrac{v_x-f\\,v_{out}}{R_{in}}\\) and \\(v_{out}\\approx\\dfrac{A}{1+Af}v_x\\), giving \\(i_x=\\dfrac{v_x}{R_{in}(1+Af)}\\). The feedback voltage 'bootstraps' the other end of \\(R_{in}\\) almost up to \\(v_x\\).\n• The divider resistors are not in the input path.\n• The input voltage stays \\(v_x\\); only the DIFFERENCE across \\(R_{in}\\) shrinks.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 205\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Non-inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 130,60\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><polyline points=\"130,90 112,90 112,135\"/><circle cx=\"112\" cy=\"135\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"112,135 125,135\"/><polyline points=\"125,135 139.5,135 142.5,129 147.5,141 152.5,129 157.5,141 162.5,129 167.5,141 175.5,135 190,135\"/><text x=\"157\" y=\"125\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂</text><polyline points=\"190,135 205,135 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text><polyline points=\"112,135 112,142 106,145 118,150 106,155 118,160 106,165 118,170 112,178 112,185\"/><text x=\"124\" y=\"164\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R₁</text><line x1=\"112\" y1=\"185\" x2=\"112\" y2=\"191\"/><line x1=\"103\" y1=\"191\" x2=\"121\" y2=\"191\"/><line x1=\"107\" y1=\"195\" x2=\"117\" y2=\"195\"/><line x1=\"110.5\" y1=\"199\" x2=\"113.5\" y2=\"199\"/></svg>",
-      "figure_alt": "Non-inverting amplifier; the input impedance is boosted by feedback."
+      "figure_alt": "Non-inverting amplifier; the input impedance is boosted by feedback.",
+      "version": 2
     },
     {
       "id": "fb-impedance-r3-q1",
@@ -94,9 +99,10 @@
         "Zero at all frequencies for an ideal op-amp model with a pole"
       ],
       "correct_index": 1,
-      "explanation": "\\(Z_{out}=\\dfrac{R_{out}}{1+A(j\\omega)f}\\) and \\(|A|\\) falls above \\(\\omega_{-3dB}\\), so \\(|Z_{out}|\\) rises with frequency (a zero at the op-amp pole), reaching \\(R_{out}\\) near the unity-loop-gain frequency (reader Eq. 17.48 and Fig. 17.26). Rising impedance with frequency looks inductive, which matters when driving capacitive loads.\nReader typo: the sentence after Eq. 17.48 says the unity-gain frequency is '\\(\\omega_0(1+Af)\\)'; it should be \\(\\omega_0(1+A_0f)\\).",
+      "explanation": "\\(Z_{out}=\\dfrac{R_{out}}{1+A(j\\omega)f}\\) and \\(|A|\\) falls above \\(\\omega_{-3dB}\\), so \\(|Z_{out}|\\) rises with frequency (a zero at the op-amp pole), reaching \\(R_{out}\\) near the unity-loop-gain frequency. Rising impedance with frequency looks inductive, which matters when driving capacitive loads.\nA common slip writes the unity-gain frequency as \\(\\omega_0(1+Af)\\); it should be \\(\\omega_0(1+A_0f)\\).",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 160\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Closed-loop output impedance vs frequency</title><line x1=\"40\" y1=\"130\" x2=\"320\" y2=\"130\"/><polygon points=\"320,130 313.6,132.7 313.6,127.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"130\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"146\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">f (log)</text><text x=\"44\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|Z_out|</text><polyline points=\"40,115 110,115 230,45 310,45\" stroke-width=\"2.2\"/><text x=\"60\" y=\"110\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">R_out/(1+T₀)</text><text x=\"250\" y=\"40\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">R_out</text><line x1=\"110\" y1=\"127\" x2=\"110\" y2=\"133\"/><text x=\"110\" y=\"147\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f_p</text><line x1=\"230\" y1=\"127\" x2=\"230\" y2=\"133\"/><text x=\"230\" y=\"147\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">≈ f·f_u</text></svg>",
-      "figure_alt": "Sketch of output impedance magnitude versus log frequency: flat and low, rising between the op-amp pole and the loop crossover, then flat at R_out."
+      "figure_alt": "Sketch of output impedance magnitude versus log frequency: flat and low, rising between the op-amp pole and the loop crossover, then flat at R_out.",
+      "version": 2
     },
     {
       "id": "fb-impedance-r3-q2",

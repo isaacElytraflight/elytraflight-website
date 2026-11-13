@@ -1,7 +1,7 @@
 {
   "id": "simplex-feasible-directions",
   "title": "Basic directions, reduced costs, and the ratio test",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "The reduced cost and the step are\n\\[\n\\bar{c}_j = c_j - c_B^T B^{-1} A_j, \\qquad \\theta = \\min_{i : \\bar{a}_{ij} > 0} \\frac{\\bar{b}_i}{\\bar{a}_{ij}},\n\\]\nwhere \\(\\bar{a}_j = B^{-1} A_j\\) and \\(\\bar{b} = B^{-1} b\\). The basic direction is \\(d_B = -\\bar{a}_j\\). On a single row with multiplier \\(u\\) and column entry \\(a\\), the reduced cost collapses to \\(c - u a\\). The objective change on a feasible step is \\(\\theta \\bar{c}_j\\)."
+      "body_md": "The reduced cost and the step are\n\\[\n\\bar{c}_j = c_j - c_B^T B^{-1} A_j, \\qquad \\theta = \\min_{i: \\bar{a}_{ij} > 0} \\frac{\\bar{b}_i}{\\bar{a}_{ij}},\n\\]\nwhere \\(\\bar{a}_j = B^{-1} A_j\\) and \\(\\bar{b} = B^{-1} b\\). The basic direction is \\(d_B = -\\bar{a}_j\\). On a single row with multiplier \\(u\\) and column entry \\(a\\), the reduced cost collapses to \\(c - u a\\). The objective change on a feasible step is \\(\\theta \\bar{c}_j\\)."
     },
     {
       "heading": "Worked example",

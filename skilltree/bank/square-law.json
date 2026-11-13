@@ -1,6 +1,6 @@
 {
   "skill_id": "square-law",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "square-law-r1-q1",
@@ -61,10 +61,10 @@
         "\\(-C_{ox}V(y)\\)"
       ],
       "correct_index": 2,
-      "explanation": "Locally the gate sees \\(V_{GS} - V(y)\\) across the oxide; only the excess over \\(V_T\\) becomes inversion charge (reader Sec. 8.4.5).",
+      "explanation": "Locally the gate sees \\(V_{GS} - V(y)\\) across the oxide; only the excess over \\(V_T\\) becomes inversion charge.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 170\" role=\"img\" aria-label=\"MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"80\" width=\"320\" height=\"80\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"40\" y=\"80\" width=\"60\" height=\"24\"/><rect x=\"260\" y=\"80\" width=\"60\" height=\"24\"/><text x=\"70\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ S</text><text x=\"290\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ D</text><rect x=\"100\" y=\"50\" width=\"160\" height=\"24\"/><text x=\"180\" y=\"66\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">gate</text><polygon points=\"100,81 230,81 230,83 100,88\" fill=\"currentColor\" fill-opacity=\"0.15\"/><text x=\"232\" y=\"120\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">pinch-off</text></svg>",
       "figure_alt": "MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).",
-      "version": 2
+      "version": 3
     },
     {
       "id": "square-law-r2-q2",

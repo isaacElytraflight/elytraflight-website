@@ -1,6 +1,6 @@
 {
   "skill_id": "fb-concepts",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "fb-concepts-r1-q1",
@@ -41,26 +41,26 @@
       "round": 1,
       "type": "numeric",
       "prompt": "A fan is run open loop. Each volt of drive produces \\(3.2\\ \\mathrm{rad/s}\\) of speed, and the model is exact. What drive, in V, produces \\(8\\ \\mathrm{rad/s}\\)?",
-      "explanation": "Open loop sets the command from the model alone: \\(u = 8/3.2 = 2.5\\ \\mathrm{V}\\). Nothing is measured, so this is right only while the fan really does deliver \\(3.2\\ \\mathrm{rad/s}\\) per volt.\n• Dividing the other way, \\(3.2/8\\), gives the reciprocal \\(0.4\\ \\mathrm{V}\\).\n• Multiplying \\(3.2 \times 8\\) gives \\(25.6\\), which is a speed, not a drive.\n• Treating \\(3.2\\) as already the answer forgets to scale it to the requested speed.",
+      "explanation": "Open loop sets the command from the model alone: \\(u = 8/3.2 = 2.5\\ \\mathrm{V}\\). Nothing is measured, so this is right only while the fan really does deliver \\(3.2\\ \\mathrm{rad/s}\\) per volt.\n• Dividing the other way, \\(3.2/8\\), gives the reciprocal \\(0.4\\ \\mathrm{V}\\).\n• Multiplying \\(3.2 imes 8\\) gives \\(25.6\\), which is a speed, not a drive.\n• Treating \\(3.2\\) as already the answer forgets to scale it to the requested speed.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 440 170\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Open-loop fan: reference becomes a drive, then an actuator, then the fan</title><text x=\"16\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"30\" y1=\"78\" x2=\"58\" y2=\"78\"/><polygon points=\"58,78 51.6,80.7 51.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"58\" y=\"56\" width=\"70\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"93\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">command</text><line x1=\"128\" y1=\"78\" x2=\"156\" y2=\"78\"/><polygon points=\"156,78 149.6,80.7 149.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"156\" y=\"56\" width=\"78\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"195\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">actuator</text><line x1=\"234\" y1=\"78\" x2=\"262\" y2=\"78\"/><polygon points=\"262,78 255.6,80.7 255.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"262\" y=\"56\" width=\"52\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"288\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"314\" y1=\"78\" x2=\"390\" y2=\"78\"/><polygon points=\"390,78 383.6,80.7 383.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"402\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><text x=\"210\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">no measurement returns</text></svg>",
       "figure_alt": "Open-loop chain from a speed reference through a command block and an actuator to a plant. No measurement returns.",
       "answer": 2.5,
       "unit": "V",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "fb-concepts-r2-q1",
       "round": 2,
       "type": "numeric",
       "prompt": "An open-loop speed command is calibrated as \\(u = r/4\\), in volts, for a plant of \\(4\\ \\mathrm{rad/s}\\) per volt. The real plant is \\(5.2\\ \\mathrm{rad/s}\\) per volt. For \\(r = 10\\ \\mathrm{rad/s}\\), how far is the actual speed from \\(10\\ \\mathrm{rad/s}\\)? Give a positive number, in rad/s.",
-      "explanation": "The frozen command is \\(u = 10/4 = 2.5\\ \\mathrm{V}\\). The real speed is \\(5.2 \\times 2.5 = 13\\ \\mathrm{rad/s}\\), so the miss is \\(13 - 10 = 3\\ \\mathrm{rad/s}\\). Open loop has no measurement to pull the speed back.\n• \\(5.2 - 4 = 1.2\\) subtracts the gains and never applies them to the reference.\n• \\(10/5.2 = 1.92\\) would be the command that would have worked, not the error of the command that was sent.\n• \\(5.2 \times 10 = 52\\) multiplies the reference by the plant gain and ignores that the command was only \\(2.5\\ \\mathrm{V}\\).",
+      "explanation": "The frozen command is \\(u = 10/4 = 2.5\\ \\mathrm{V}\\). The real speed is \\(5.2 \\times 2.5 = 13\\ \\mathrm{rad/s}\\), so the miss is \\(13 - 10 = 3\\ \\mathrm{rad/s}\\). Open loop has no measurement to pull the speed back.\n• \\(5.2 - 4 = 1.2\\) subtracts the gains and never applies them to the reference.\n• \\(10/5.2 = 1.92\\) would be the command that would have worked, not the error of the command that was sent.\n• \\(5.2 imes 10 = 52\\) multiplies the reference by the plant gain and ignores that the command was only \\(2.5\\ \\mathrm{V}\\).",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 440 170\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Open-loop speed command with no return path from the measured speed</title><text x=\"16\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"30\" y1=\"78\" x2=\"58\" y2=\"78\"/><polygon points=\"58,78 51.6,80.7 51.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"58\" y=\"56\" width=\"70\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"93\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">command</text><line x1=\"128\" y1=\"78\" x2=\"156\" y2=\"78\"/><polygon points=\"156,78 149.6,80.7 149.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"156\" y=\"56\" width=\"78\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"195\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">actuator</text><line x1=\"234\" y1=\"78\" x2=\"262\" y2=\"78\"/><polygon points=\"262,78 255.6,80.7 255.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"262\" y=\"56\" width=\"52\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"288\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"314\" y1=\"78\" x2=\"390\" y2=\"78\"/><polygon points=\"390,78 383.6,80.7 383.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"402\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><text x=\"210\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">no measurement returns</text></svg>",
       "figure_alt": "Open-loop chain from reference to command, actuator, and plant, with the output leaving the diagram.",
       "answer": 3.0,
       "unit": "rad/s",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "fb-concepts-r2-q2",
@@ -186,7 +186,7 @@
       "round": 4,
       "type": "numeric",
       "prompt": "A speed loop has already been reduced to a loop gain \\(L = 19\\). The reference is \\(0\\). A grade disturbance adds the equivalent of \\(2\\ \\mathrm{m/s}\\) at the output. What steady speed does that disturbance produce, in m/s?",
-      "explanation": "The fixed point is \\(y = L(0-y) + 2\\), so \\(y(1+19) = 2\\) and \\(y = 0.1\\ \\mathrm{m/s}\\). A large loop gain turns a \\(2\\ \\mathrm{m/s}\\) disturbance into a tenth of a meter per second. This is the same sensitivity a cruise-control loop uses on a grade.\n• Reporting \\(2\\ \\mathrm{m/s}\\) ignores the feedback.\n• \\(19 \times 2 = 38\\) multiplies the disturbance by the loop gain.\n• \\(19/20 \times 2 = 1.9\\) uses the tracking factor \\(T\\) where the sensitivity \\(S\\) belongs.",
+      "explanation": "The fixed point is \\(y = L(0-y) + 2\\), so \\(y(1+19) = 2\\) and \\(y = 0.1\\ \\mathrm{m/s}\\). A large loop gain turns a \\(2\\ \\mathrm{m/s}\\) disturbance into a tenth of a meter per second. This is the same sensitivity a cruise-control loop uses on a grade.\n• Reporting \\(2\\ \\mathrm{m/s}\\) ignores the feedback.\n• \\(19 imes 2 = 38\\) multiplies the disturbance by the loop gain.\n• \\(19/20 imes 2 = 1.9\\) uses the tracking factor \\(T\\) where the sensitivity \\(S\\) belongs.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 146\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Vehicle pushed by a force, the plant inside a speed loop</title><rect x=\"70\" y=\"70\" width=\"120\" height=\"36\" rx=\"8\"/><rect x=\"96\" y=\"48\" width=\"60\" height=\"24\" rx=\"6\"/><circle cx=\"100\" cy=\"106\" r=\"12\"/><circle cx=\"164\" cy=\"106\" r=\"12\"/><line x1=\"40\" y1=\"120\" x2=\"250\" y2=\"120\"/><line x1=\"200\" y1=\"78\" x2=\"250\" y2=\"78\"/><polygon points=\"250,78 243.6,80.7 243.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"68\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">F</text><text x=\"130\" y=\"92\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">m</text></svg>",
       "figure_alt": "Side view of a vehicle with a force arrow at the rear.",
       "preview": [
@@ -195,7 +195,7 @@
       "answer": 0.1,
       "unit": "m/s",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     }
   ]
 }

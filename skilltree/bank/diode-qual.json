@@ -1,6 +1,6 @@
 {
   "skill_id": "diode-qual",
-  "version": 1,
+  "version": 3,
   "questions": [
     {
       "id": "diode-qual-r1-q1",
@@ -14,9 +14,10 @@
         "For each carrier type, the diffusion current over the barrier exactly balances the drift current of minority carriers swept across by the field"
       ],
       "correct_index": 3,
-      "explanation": "Carriers move constantly, but the few majority carriers energetic enough to diffuse over the built-in barrier are balanced by minority carriers that wander to the junction and drift back across (reader Sec. 6.2.1). The depletion region has a strong field; that's what drives the drift.",
+      "explanation": "Carriers move constantly, but the few majority carriers energetic enough to diffuse over the built-in barrier are balanced by minority carriers that wander to the junction and drift back across. The depletion region has a strong field; that's what drives the drift.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,40 130,40 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"34\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"40\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"65\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">equilibrium: q·φ_bi</text></svg>",
-      "figure_alt": "Energy barrier for electrons between the P side (high) and the N side (low) in equilibrium."
+      "figure_alt": "Energy barrier for electrons between the P side (high) and the N side (low) in equilibrium.",
+      "version": 2
     },
     {
       "id": "diode-qual-r1-q2",
@@ -30,9 +31,10 @@
         "Because diffusion current grows to cancel it"
       ],
       "correct_index": 2,
-      "explanation": "Reader Sec. 6.2.2: a larger barrier suppresses diffusion exponentially, leaving only the drift of thermally generated minority carriers. Their supply is fixed by generation near the junction, not by the voltage, so the current saturates at \\(I_S\\).",
+      "explanation": "A larger barrier suppresses diffusion exponentially, leaving only the drift of thermally generated minority carriers. Their supply is fixed by generation near the junction, not by the voltage, so the current saturates at \\(I_S\\).",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,15 130,15 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"9\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"15\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"52.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">reverse bias: q(φ_bi + V_R)</text></svg>",
-      "figure_alt": "Energy barrier raised by reverse bias."
+      "figure_alt": "Energy barrier raised by reverse bias.",
+      "version": 2
     },
     {
       "id": "diode-qual-r1-q3",
@@ -58,9 +60,10 @@
         "\\(qV_D\\)"
       ],
       "correct_index": 1,
-      "explanation": "Forward bias opposes the built-in potential, so the barrier drops to \\(q(\\phi_{bi}-V_D)\\) (reader Eq. 6.17). Reverse bias raises it to \\(q(\\phi_{bi}+V_R)\\). The diffusion current depends exponentially on this barrier.",
+      "explanation": "Forward bias opposes the built-in potential, so the barrier drops to \\(q(\\phi_{bi}-V_D)\\). Reverse bias raises it to \\(q(\\phi_{bi}+V_R)\\). The diffusion current depends exponentially on this barrier.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,65 130,65 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"59\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"65\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"77.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">forward bias: q(φ_bi − V_D)</text></svg>",
-      "figure_alt": "Energy barrier lowered by forward bias."
+      "figure_alt": "Energy barrier lowered by forward bias.",
+      "version": 2
     },
     {
       "id": "diode-qual-r2-q2",
@@ -86,9 +89,10 @@
         "Carriers injected from the metal contacts"
       ],
       "correct_index": 0,
-      "explanation": "Only minority carriers that reach the depletion edge before recombining get swept across (reader Sec. 6.2.1). They are scarce (\\(n_p=n_i^2/N_A\\)), so \\(I_S\\) is tiny.",
+      "explanation": "Only minority carriers that reach the depletion edge before recombining get swept across. They are scarce (\\(n_p=n_i^2/N_A\\)), so \\(I_S\\) is tiny.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,15 130,15 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"9\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"15\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"52.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">reverse bias: q(φ_bi + V_R)</text></svg>",
-      "figure_alt": "Energy barrier under reverse bias."
+      "figure_alt": "Energy barrier under reverse bias.",
+      "version": 2
     },
     {
       "id": "diode-qual-r3-q1",
@@ -130,9 +134,10 @@
         "Because the substrate is the diode's anode"
       ],
       "correct_index": 2,
-      "explanation": "The N-well and P substrate form an unwanted diode. Reverse-biasing it (substrate at the lowest potential) keeps it off, isolating the diode from everything else on the chip (reader Sec. 6.2.5).\nReader note: Sec. 6.2.5 says the cathode connects to the P region and the N+ contact is at the anode; for a P-in-N-well diode the P region is the ANODE and the N+ well contact is the CATHODE.",
+      "explanation": "The N-well and P substrate form an unwanted diode. Reverse-biasing it (substrate at the lowest potential) keeps it off, isolating the diode from everything else on the chip. In this P-in-N-well diode the P region is the anode and the N+ well contact is the cathode.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>IC diode cross-section</title><rect x=\"20\" y=\"60\" width=\"300\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"104\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P substrate (most negative)</text><rect x=\"60\" y=\"30\" width=\"220\" height=\"55\"/><text x=\"170\" y=\"80\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N-well</text><rect x=\"90\" y=\"30\" width=\"60\" height=\"20\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"120\" y=\"44\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">P+ (anode)</text><rect x=\"190\" y=\"30\" width=\"60\" height=\"20\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"220\" y=\"44\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">N+ (cathode)</text></svg>",
-      "figure_alt": "Cross-section: P substrate containing an N-well; inside the well a P+ anode region and an N+ cathode contact."
+      "figure_alt": "Cross-section: P substrate containing an N-well; inside the well a P+ anode region and an N+ cathode contact.",
+      "version": 3
     },
     {
       "id": "diode-qual-r4-q1",
@@ -157,12 +162,13 @@
       "answer": 4.4297,
       "unit": "×10¹³ cm⁻³",
       "tolerance": 0.02,
-      "explanation": "\\(p_n=10^{17}\\times e^{-0.2/0.0259}=10^{17}\\times4.43\\times10^{-4}=4.43\\times10^{13}\\ \\mathrm{cm^{-3}}\\).\nHoles from the P side that clear the lowered barrier become minority carriers on the N side. Reader note: Eq. 6.18 labels \\(p_n\\) as the 'minority e⁻ concentration'; \\(p_n\\) is the minority HOLE density on the N side.",
+      "explanation": "\\(p_n=10^{17}\\times e^{-0.2/0.0259}=10^{17}\\times4.43\\times10^{-4}=4.43\\times10^{13}\\ \\mathrm{cm^{-3}}\\).\nHoles from the P side that clear the lowered barrier become minority carriers on the N side. \\(p_n\\) is the minority hole density on the N side, not an electron concentration.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 105\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Abrupt PN junction with depletion region</title><rect x=\"20\" y=\"30\" width=\"300\" height=\"50\"/><rect x=\"120\" y=\"30\" width=\"110\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"80\"/><text x=\"70\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">P (N_A)</text><text x=\"275\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">N (N_D)</text><text x=\"145\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">− − −</text><text x=\"200\" y=\"60\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ + +</text><text x=\"120\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">−xₚ</text><text x=\"170\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><text x=\"230\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">xₙ</text><text x=\"175\" y=\"22\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion region X_dep</text></svg>",
       "figure_alt": "PN junction with depletion edges.",
       "preview": [
         "minority-profile"
-      ]
+      ],
+      "version": 2
     },
     {
       "id": "diode-qual-r4-q3",

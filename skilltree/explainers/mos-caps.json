@@ -20,11 +20,12 @@
   },
   {
    "heading": "Common pitfalls",
-   "body_md": "- Using the full \\(WLC_{ox}\\) for \\(C_{gs}\\) in saturation, or giving \\(C_{gd}\\) a channel term.\n- Counting four perimeter edges for a diffusion.\n- Treating junction capacitances as constants; they depend on bias. (The reader writes \\(|\\varphi_p|\\) in their denominators where a junction built-in potential is meant.)"
+   "body_md": "- Using the full \\(WLC_{ox}\\) for \\(C_{gs}\\) in saturation, or giving \\(C_{gd}\\) a channel term.\n- Counting four perimeter edges for a diffusion.\n- Treating junction capacitances as constants; they depend on bias."
   },
   {
    "heading": "Where this leads",
    "body_md": "These values feed \\(f_T\\), the Miller effect on \\(C_{gd}\\), and every frequency-response calculation that follows."
   }
- ]
+ ],
+ "version": 2
 }

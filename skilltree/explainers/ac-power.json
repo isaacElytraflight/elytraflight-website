@@ -22,7 +22,8 @@
   },
   {
    "heading": "Where this leads",
-   "body_md": "RMS and average power reappear in the op-amp chapter when sizing output swing and in noise analysis, where noise is always quoted as an RMS value and independent sources add in power."
+   "body_md": "RMS and average power reappear when sizing an op-amp's output swing and in noise analysis, where noise is always quoted as an RMS value and independent sources add in power."
   }
- ]
+ ],
+ "version": 2
 }

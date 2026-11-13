@@ -12,8 +12,9 @@ description: >-
 - Ids are flat, global, permanent slugs (`kcl`, `bode`, `diode-iv-shockley`). Rename the display name, never the id.
 - Name ids descriptively and specifically. Disambiguate by concept, never by course or subject. Avoid obscure acronyms. Check uniqueness, including near-matches, against the whole graph.
 - Prerequisite edges connect any two skills. The graph must stay acyclic.
-- Subjects, courses, textbooks, chapters and paths are boxes (collections) holding ordered lists of skills. One skill can sit in many boxes, and boxes never change a skill. Courses and textbooks are independent top-level boxes, not nested in each other. Every skill sits in at least one top-level box.
-- **Dedupe first (the key rule).** With flat ids, a duplicate splits progress and content. Search every box by id, name, synonyms and summary. Reuse what exists, add the new box membership and sources, and log each decision.
+- Boxes are a course plus topic-named sub-sections. The course box's `title` is the topic, and that is what the tree, plan notes, and skill panel show. A class name such as EE 105 lives only in `tab_title`, and only the course selection tab renders it. Sub-sections are named by the topic, the way the Feedback Systems box is, never by a textbook, a source chapter, a week, or a lecture. One skill can sit in many boxes, and boxes never change a skill. Every skill sits in at least one top-level box.
+- **Dedupe first (the key rule).** With flat ids, a duplicate splits progress and content. Search every box by id, name, synonyms (`owns` until a skill has a `synonyms` field), and summary. Reuse what exists, add the new box membership and sources, and log each decision.
+- **Dedupe gate.** `tools/skilltree-content/dedupe_gate.py` compares each new or changed skill's name, synonyms, and summary with every other skill, using normalized token overlap. It is a hard gate in `run_gates.py`. A hit is a likely duplicate. Resolve it by reusing the existing skill, splitting a neutral core from a domain application, or recording that decision in `docs/dedupe-decisions.json` and naming it in the batch report. Do not record a decision to hide a real duplicate.
 
 ### Merging overlaps: neutral cores and domain applications
 - **Core.** Any skill in 2+ top-level boxes, or one another box needs as a prerequisite, is a core. A core teaches the idea in domain-neutral terms. Its prerequisites are neutral math or systems skills only, never a skill that lives in just one domain's boxes. A learner in one course must never be forced through another course's domain material (e.g. LTI theory must not require RLC circuits).
@@ -24,12 +25,13 @@ description: >-
 - **Validator.** Warn when a prerequisite belongs only to top-level boxes that don't contain the skill, and when a skill sits in no box. Fix every warning, or waive it in the CHANGELOG with a reason.
 
 ## 2. Sources and copyright
-- Ground each skill in two or more canonical sources: open textbooks, standard references, and course materials used with permission. Check each source's license page and record it in a source registry. Treat anything not openly licensed as fully copyrighted. Use course syllabi and notes for scope only.
+- Ground each skill in two or more canonical sources: open textbooks, standard references, and course materials used with permission. Check each source's license page and record it in `docs/sources.md` and on the skill's `sources` array. That array is authoring metadata. The public build does not copy it, and the skill panel does not render it. Treat anything not openly licensed as fully copyrighted. Every onboarding follows a real recent syllabus or course schedule for scope. Use that schedule to decide which topics exist. Do not copy its wording.
 - **Reference, not source.** Read the section, close it, and write from understanding. Never draft with the source open.
 - **Paraphrase from understanding.** Read the section, close it, and write in your own words. Do not copy wording, problems, parameter sets, or figures. Standard equations and notation are facts and fine to use.
 - **No borrowed problems.** Don't reuse exercises, worked examples, or their parameter sets. Invent scenarios, use fresh numbers, and frame questions differently.
 - **Figures.** Never trace, redraw or screenshot a source figure. Generate every figure from our own code, data and labels.
-- **No source names in learner-facing content.** Stems, choices, explanations, explainers, figures, alt text, and the skill panel do not name a reader or a textbook. Record citations in the authoring source registry only. Never quote the source, show its pages, or ship or link its PDF.
+- **No source names in learner-facing content.** Stems, choices, explanations, explainers, figure captions, alt text, skill titles, skill descriptions, chapter names, sub-section names, tooltips, and help text never name a reader, a textbook, lecture notes, slides, a professor or instructor, a university, a week number, a lecture number, a homework or discussion number, or a chapter or section number or name that comes from a source. Class names appear only in the course selection tab. Record citations in the source registry, not in a further-reading line. Never quote the source, show its pages, or ship or link its PDF.
+- **Reference gate.** `tools/skilltree-content/reference_gate.py` scans that learner-facing text and fails on a banned reference. It is a hard gate in `run_gates.py`. Exceptions are the pattern notes in `tools/skilltree-content/reference_allowlist.txt`, plus `tab_title`, which the gate skips because it is the course tab label.
 - **Shingle gate and spot audit, deferred.** The automated 8-word shingle gate and the manual 10% spot audit are not part of the batch pipeline. They wait for a later cleanup pass.
 - **Errata.** Log source errata and use the correct version.
 
@@ -39,11 +41,11 @@ description: >-
 - Writers read the areas their skills and prerequisites touch. New symbols are added in the same change.
 
 ## 4. Onboarding a subject
-1. Collect 3–6 syllabi and 2–3 canonical texts, and check their licenses.
+1. Start from a real recent syllabus or course schedule and use it for scope. Check the licenses of any canonical texts used beside it. Those texts stay in the source registry.
 2. Draft the concepts, merge them into skills, and dedupe against the whole graph. Split shared skills into cores and applications (see 1).
 3. Review granularity: split two-idea skills and merge trivial ones.
 4. Set the depth. Wire prerequisites, then check for cycles, orphans and cross-domain prerequisite leaks.
-5. Add registry areas and create the course, textbook and chapter boxes. Textbook material outside the course goes in the textbook box.
+5. Add registry areas and create the course box plus topic-named sub-section boxes. Do not name a box after a textbook, a source chapter, a week, or a lecture. A topic that sits outside one course still gets a topic title, as Feedback Systems does.
 6. Optionally ship the tree first as "coming soon" skills with no banks, so the owner can review it.
 7. Extend the figure library for the subject.
 8. Get an expert review of the graph.
@@ -62,9 +64,9 @@ description: >-
   - **Ordering:** shuffled steps of a derivation or procedure. The learner restores the correct order. All-or-nothing.
   - **Find-the-error:** a short derivation with exactly one flawed step. The learner picks that step, and a reason when reasons are given. All-or-nothing.
   - **Multi-select:** choose every correct option. All-or-nothing.
-- **Deep-type quota.** A bank written from now on needs at least 3 questions of the deep types (symbolic, ordering, find-the-error, multi-select) per 12 questions. Other lengths scale by rounding up: `ceil(3n/12)`, which is `deep_quota(n)` in `banklib.py`. The domain gate enforces it. Banks in `skilltree/deep_quota_grandfather.json` are the ones written before this rule and are exempt until a later retrofit. Do not add ids to that list. When an old bank is rewritten, remove its id.
+- **Deep-type quota (hard rule).** Every bank needs at least 25% deep-type questions, rounded up: `ceil(3n/12)`, which is `deep_quota(n)` in `banklib.py`. A 12-question bank needs 3. The deep types are the ones newer batches already use: symbolic, ordering, find-the-error, and multi-select. They are how a proof or a concept becomes a decision: justify a step, find the flaw, pick a counterexample, trace a procedure, or finish a multi-step application. `tools/skilltree-content/deep_quota_gate.py` fails a bank under that line. It is a hard gate in `run_gates.py`. The same check also runs inside the domain validator.
+- Banks in `skilltree/deep_quota_grandfather.json` were written before the quota. They stay on that list until SG-063 rebuilds them. Do not add ids. A wording fix does not take a bank off the list. When SG-063, or an earlier full rewrite, replaces the bank with deep questions, remove its id.
 - Author deep questions with `Bank.sym`, `Bank.order`, `Bank.find_error`, and `Bank.multi` in `tools/skilltree-content/banklib.py`. Do not hand-build those JSON fields.
-- Proofs and concepts become decisions: justify a step, find the flaw, pick a counterexample, trace the code.
 
 ## 6. Figures and math
 - Figures on at least 50% of questions (aim for 75%) and in every explainer.
@@ -94,6 +96,9 @@ description: >-
 - **Logs.** Do not commit scratch files, terminal logs, or screenshots from the run. Summarize in the report. Leave long command output in the tool log instead of pasting it. Do not poll CI or review; subscribe once and wait.
 - **Hard gates.** One command, `python3 tools/skilltree-content/run_gates.py --batch <id>`, runs:
   - the schema, graph, and domain validators
+  - the reference gate (`reference_gate.py`)
+  - the deep-type quota (`deep_quota_gate.py`, at least 25%)
+  - the dedupe gate (`dedupe_gate.py`)
   - the batch's independent numeric verifier (0 mismatches)
   - the figure-bounds check
   - strict math rendering
@@ -116,9 +121,10 @@ description: >-
 Start from `docs/batch-starter.md`. It is the read order, the helper APIs (`banklib` and `verify_harness`), the gate command, where generated files live, the deep-type quota, the review procedure, and the efficiency rules.
 Every batch brief states:
 - the box, layer and reserved skill ids
-- the prerequisites, the registries to read, and the sources (with licenses) and sections
+- the prerequisites, the registries to read, and the sources with their licenses. Section numbers stay in the source registry. They are not learner-facing text
 - the bank and explainer specs, and the core/application split
-- the deep-type quota: at least `deep_quota(n)` questions among symbolic, ordering, find-the-error, and multi-select (`Bank.sym`, `Bank.order`, `Bank.find_error`, `Bank.multi` in `banklib.py`). Grandfathered banks are listed in `skilltree/deep_quota_grandfather.json` and are not a reason to skip the quota on a new bank
-- the gates
+- the deep-type quota: at least 25% (`deep_quota(n)`, `ceil(3n/12)`) among symbolic, ordering, find-the-error, and multi-select (`Bank.sym`, `Bank.order`, `Bank.find_error`, `Bank.multi` in `banklib.py`). The grandfather list in `skilltree/deep_quota_grandfather.json` is pending SG-063 and is not a reason to skip the quota on a new bank
+- the dedupe check against the whole graph, and where a resolved overlap is recorded
+- the gates, including the reference gate, the deep-quota gate, and the dedupe gate
 - deliverables (content, generator, verifier, patches) and the generated report (counts, gate outputs, dedupe pointer)
 - "do not publish"

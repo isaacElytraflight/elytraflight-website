@@ -504,10 +504,9 @@ function chaptersFor(skillId, scopeBoxId) {
 }
 
 function chapterPillText(box) {
-  const m = /^Chapter\s+(\d+)/.exec(box.title || '');
-  if (m) return 'Ch ' + m[1];
-  const tail = (box.id || '').split('/').pop();
-  return tail ? tail.toUpperCase() : '§';
+  const topic = ((box && box.title) || '').replace(/^Chapter\s+\d+:\s*/, '');
+  const word = (topic.split(/[\s,/]+/).find(w => /[A-Za-z]/.test(w)) || topic || 'Topic');
+  return word.length > 16 ? word.slice(0, 15) + '…' : word;
 }
 
 function chapterLabel(skillId) {
@@ -516,7 +515,7 @@ function chapterLabel(skillId) {
   if (chosen.length) chs = chosen;
   if (!chs.length) {
     const s = byId[skillId];
-    if (s && s.chapter && DATA.chapters && DATA.chapters[s.chapter]) return 'Chapter ' + s.chapter + ': ' + DATA.chapters[s.chapter];
+    if (s && s.chapter && DATA.chapters && DATA.chapters[s.chapter]) return DATA.chapters[s.chapter];
     return 'Skill';
   }
   if (chs.length === 1) return chs[0].title;
@@ -900,12 +899,8 @@ function rectsOverlap(a, b, gap) {
 
 function regionLabelText(box) {
   if (!box) return '';
-  if (box.kind === 'chapter') {
-    const rest = (box.title || box.id).replace(/^Chapter\s+\d+:\s*/, '');
-    const text = chapterPillText(box) + ' · ' + rest;
-    return text.length > 42 ? text.slice(0, 41) + '…' : text;
-  }
-  return box.title || box.id;
+  const title = box.title || box.id;
+  return title.length > 42 ? title.slice(0, 41) + '…' : title;
 }
 
 function ensureRegionLayers() {
@@ -1026,7 +1021,7 @@ function buildTree() {
 
 function legendBuild() {
   const lg = $('chLegend'); lg.innerHTML = '';
-  lg.append(el('summary', {}, 'Chapter colors'));
+  lg.append(el('summary', {}, 'Topic colors'));
   const box = el('div', { class: 'lgrid' });
   allChapterBoxes().forEach(ch => box.append(el('button', {
     class: 'lg' + (selectedBoxes.has(ch.id) ? ' on' : ''), type: 'button', style: colorVars(ch.color_index || 1), title: ch.title, 'data-box': ch.id,
@@ -1035,7 +1030,7 @@ function legendBuild() {
       if (next.has(ch.id)) next.delete(ch.id); else next.add(ch.id);
       setScope([...next]);
     }
-  }, el('i'), el('span', { text: `${chapterPillText(ch)} · ${ch.title.replace(/^Chapter\s+\d+:\s*/, '')}` }))));
+  }, el('i'), el('span', { text: ch.title }))));
   lg.append(box);
 }
 
@@ -1441,8 +1436,7 @@ function applyGridFilter() {
 
 /* ====================== stats / banner / refresh ====================== */
 function scopeOptionLabel(box, depth) {
-  let title = box.title || box.id;
-  if (box.kind === 'chapter') title = title.replace(/^Chapter\s+(\d+):\s*/, 'Ch $1: ');
+  const title = (depth === 0 && box.tab_title) ? box.tab_title : (box.title || box.id);
   return (depth > 0 ? '└ ' : '') + title;
 }
 
@@ -1693,11 +1687,10 @@ function renderPanel() {
   kids.push(el('button', { class: 'close', 'aria-label': 'Close panel', onclick: closePanel }, '×'));
   kids.push(el('div', { style: colorOf(id) }, el('span', { class: 'cpill', id: 'panelChapter', text: chapterLabel(id) })));
   kids.push(el('h2', { text: s.name, id: 'panelTitle' }));
-  kids.push(el('div', { class: 'kv', text: (s.reader_section ? `Reader section ${s.reader_section} · ` : '') + `id: ${s.id}` }));
+  kids.push(el('div', { class: 'kv', text: 'id: ' + s.id }));
   if (s.summary) kids.push(el('p', { class: 'kv', id: 'skillSummary', text: s.summary }));
   const boxNames = (skillToBoxes[id] || []).map(bid => boxById[bid] && boxById[bid].title).filter(Boolean);
   if (boxNames.length) kids.push(el('div', { class: 'kv', id: 'boxList', text: 'Boxes: ' + boxNames.join(' · ') }));
-  if (s.sources && s.sources.length) kids.push(el('div', { class: 'kv', id: 'furtherReading', text: 'Further reading: ' + s.sources.map(src => src.ref + (src.section ? ', ' + src.section : '')).join('; ') }));
   if (soon) kids.push(el('div', { class: 'note soon', role: 'note' }, el('b', { text: 'Coming soon. ' }), "This skill is in the tree, but its questions haven't been written yet, so it can't be practiced in this demo."));
   else {
     kids.push(el('div', { class: 'steps', style: colorOf(s.id), role: 'img', 'aria-label': 'Tier: ' + TIERS[t] },

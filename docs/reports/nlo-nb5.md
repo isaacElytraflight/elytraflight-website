@@ -12,7 +12,11 @@ Do not publish.
 
 ## Versions
 
-Every item is version 1.
+Items above version 1:
+
+- `optimization-problem-formulation#explainer` version 2
+- `local-global-minima#explainer` version 2
+- `existence-of-minimizers#explainer` version 2
 
 The full list is `docs/content-versions.json`.
 
@@ -40,3 +44,5 @@ The automated shingle gate and the manual spot audit are deferred to a later cle
 ## Dedupe
 
 See `docs/nlo-content-batches.md`.
+The dedupe gate compares this batch's names, synonyms, and summaries with the rest of the graph.
+Resolve a hit by reusing the skill, splitting a neutral core from a domain application, or recording the decision in `docs/dedupe-decisions.json`.

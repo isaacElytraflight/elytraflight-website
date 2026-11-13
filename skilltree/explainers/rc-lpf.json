@@ -24,7 +24,8 @@
   },
   {
    "heading": "Where this leads",
-   "body_md": "The RC circuit is the template for every first-order system in EE 105: amplifier bandwidth, op-amp settling, junction and gate capacitances charging through resistors. When you later see a single dominant pole, think \"RC\" and you already know its step response."
+   "body_md": "The RC circuit is the template for later first-order systems: amplifier bandwidth, op-amp settling, junction and gate capacitances charging through resistors. When you later see a single dominant pole, think \"RC\" and you already know its step response."
   }
- ]
+ ],
+ "version": 2
 }

@@ -1590,7 +1590,8 @@ async function test(name, fn) {
     
     assert(collections.courseBox, 'EE105 course box should exist');
     assert.strictEqual(collections.courseBox.kind, 'course');
-    assert.strictEqual(collections.courseBox.title, 'EE 105 (UC Berkeley)');
+    assert.strictEqual(collections.courseBox.title, 'Microelectronic devices and circuits');
+    assert.strictEqual(collections.courseBox.tab_title, 'EE 105');
     assert.strictEqual(collections.courseBox.children.length, 18, 'course should have 18 chapter children');
     
     assert.strictEqual(collections.chapterBoxes.length, NCHAPTER, 'should have a chapter box for every chapter');
@@ -1717,7 +1718,8 @@ async function test(name, fn) {
     assert(ch1At > courseAt && ch2At > ch1At, 'chapters should be nested under their course');
     assert(options[ch1At].depth && options[ch2At].depth);
     assert(!options[courseAt].depth);
-    assert(/Ch 2:/.test(options[ch2At].text), options[ch2At].text);
+    assert.strictEqual(options[courseAt].text, 'EE 105');
+    assert(/AC Circuits and AC Analysis/.test(options[ch2At].text), options[ch2At].text);
     assert.strictEqual(options.length, NBOX);
 
     await p.click('#btnPlan');
@@ -1764,7 +1766,7 @@ async function test(name, fn) {
     }));
     assert(ch2Plan.sessions > 0, 'chapter scope should still have a plan');
     assert(ch2Plan.sessions <= allSkillsSessions, 'chapter plan should be no larger than the full plan');
-    assert(/Chapter 2/.test(ch2Plan.note), ch2Plan.note);
+    assert(/AC Circuits and AC Analysis/.test(ch2Plan.note), ch2Plan.note);
     assert(/outside this scope/i.test(ch2Plan.note));
     if (ch2Plan.extras) assert(/prerequisite.*outside/i.test(ch2Plan.extras));
     await p.keyboard.press('Escape');
@@ -2037,7 +2039,7 @@ async function test(name, fn) {
     const book = options.find(o => o.value === 'am08');
     assert(me, 'selector should list ME 132');
     assert(book, 'selector should list Feedback Systems');
-    assert.strictEqual(me.text, 'ME 132 (UC Berkeley)');
+    assert.strictEqual(me.text, 'ME 132');
     assert.strictEqual(book.text, 'Feedback Systems');
     assert(!/^[ \u00a0└]/.test(me.text) && !/^[ \u00a0└]/.test(book.text), 'both new boxes are top-level choices');
     const meAt = options.findIndex(o => o.value === 'me132');
@@ -2048,7 +2050,7 @@ async function test(name, fn) {
     const bookChapters = options.filter(o => o.value.startsWith('am08/'));
     assert.strictEqual(meChapters.length, 9);
     assert.strictEqual(bookChapters.length, 13);
-    assert(bookChapters.some(o => o.value === 'am08/ch99' && /Beyond the book/.test(o.text)));
+    assert(bookChapters.some(o => o.value === 'am08/ch99' && /Linear algebra, estimation, and adaptation/.test(o.text)));
     assert(meChapters.every(o => o.text.includes('└')));
     assert(bookChapters.every(o => o.text.includes('└')));
     const nesting = await p.evaluate(() => {
@@ -2205,7 +2207,7 @@ async function test(name, fn) {
       assert.strictEqual(view.tiles, NSKILL, scope + ' still draws every skill once');
       assert.strictEqual(view.dimmed, NSKILL - view.memberCount);
       if (scope === 'me132') {
-        assert.strictEqual(view.title, 'ME 132 (UC Berkeley)');
+        assert.strictEqual(view.title, 'Dynamic systems and feedback');
         assert.strictEqual(view.course, 1);
         assert.strictEqual(view.textbook, 0);
         assert.strictEqual(view.chapters, 0, 'unselected chapters are not drawn');
@@ -2447,7 +2449,7 @@ async function test(name, fn) {
     await p.click('#btnPlan');
     await sleep(400);
     const note = await p.$eval('#planScopeNote', e => e.textContent);
-    assert(/EE 105/.test(note) && /ME 132/.test(note), note);
+    assert(/Microelectronic devices and circuits/.test(note) && /Dynamic systems and feedback/.test(note), note);
     assert.strictEqual(await p.$('#planEmpty'), null);
     await p.keyboard.press('Escape');
     await sleep(150);

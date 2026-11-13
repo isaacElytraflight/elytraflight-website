@@ -8,7 +8,7 @@ Do not publish.
 
 - 6 skills, 72 questions (30 multiple choice, 42 numeric), 6 explainers.
 - 72 question figures.
-- Explainer words: `newton-method-optimization` 486, `newton-local-quadratic-convergence` 488, `newton-globalization` 484, `wolfe-conditions` 488, `quasi-newton-secant` 481, `bfgs-update` 497.
+- Explainer words: `newton-method-optimization` 486, `newton-local-quadratic-convergence` 495, `newton-globalization` 484, `wolfe-conditions` 488, `quasi-newton-secant` 481, `bfgs-update` 497.
 
 ## Versions
 
@@ -40,3 +40,5 @@ The automated shingle gate and the manual spot audit are deferred to a later cle
 ## Dedupe
 
 See `docs/nlo-content-batches.md`.
+The dedupe gate compares this batch's names, synonyms, and summaries with the rest of the graph.
+Resolve a hit by reusing the skill, splitting a neutral core from a domain application, or recording the decision in `docs/dedupe-decisions.json`.

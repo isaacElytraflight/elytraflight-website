@@ -1,7 +1,7 @@
 {
   "id": "local-global-minima",
   "title": "Local and global minimizers",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "The point \\(x^\\star\\) is a global minimizer when \\(x^\\star\\) is feasible and \\(f(x^\\star) \\le f(x)\\) for every feasible \\(x\\). It is local when the same inequality holds for the feasible points of some ball. Either definition is strict when the inequality is strict for every other point of the comparison set. The optimal value is \\(p^\\star = \\inf f(\\mathcal{X})\\), and\n\\[\n\\operatorname{argmin} f = \\{x \\in \\mathcal{X} : f(x) = p^\\star\\}.\n\\]\nThe set is empty when the infimum is not attained."
+      "body_md": "The point \\(x^\\star\\) is a global minimizer when \\(x^\\star\\) is feasible and \\(f(x^\\star) \\le f(x)\\) for every feasible \\(x\\). It is local when the same inequality holds for the feasible points of some ball. Either definition is strict when the inequality is strict for every other point of the comparison set. The optimal value is \\(p^\\star = \\inf f(\\mathcal{X})\\), and\n\\[\n\\operatorname{argmin} f = \\{x \\in \\mathcal{X}: f(x) = p^\\star\\}.\n\\]\nThe set is empty when the infimum is not attained."
     },
     {
       "heading": "Worked example",

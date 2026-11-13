@@ -1,6 +1,6 @@
 {
   "skill_id": "bode-circuits",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "bode-circuits-r1-q1",
@@ -94,7 +94,8 @@
         "There are at most 2 poles, and fewer if the capacitors are not independent (e.g., two capacitors in parallel behave as one)"
       ],
       "correct_index": 3,
-      "explanation": "The number of poles equals the number of independent energy-storage elements (the order of the circuit's differential equation) (reader Sec. 2.3.2). Resistors do not add poles.\nTwo capacitors in parallel combine into \\(C_{1}+C_{2}\\) (one independent state) and give only one pole; so can a capacitor loop or a capacitor in series with another one, depending on the connection. So 'at most 2', not always 2.\nRC circuits have poles without any inductor."
+      "explanation": "The number of poles equals the number of independent energy-storage elements (the order of the circuit's differential equation). Resistors do not add poles.\nTwo capacitors in parallel combine into \\(C_{1}+C_{2}\\) (one independent state) and give only one pole; so can a capacitor loop or a capacitor in series with another one, depending on the connection. So 'at most 2', not always 2.\nRC circuits have poles without any inductor.",
+      "version": 2
     },
     {
       "id": "bode-circuits-r3-q2",
