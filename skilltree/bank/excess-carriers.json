@@ -1,21 +1,32 @@
 {
   "skill_id": "excess-carriers",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "excess-carriers-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "In n-type silicon, the excess hole concentration \\(\\Delta p\\) is defined as:",
-      "options": [
-        "\\(\\Delta p = p - p_0\\), how far the hole concentration is above its thermal-equilibrium value \\(p_0 = n_i^2/N_D\\)",
-        "\\(\\Delta p = p - n_i\\)",
-        "\\(\\Delta p = N_D - p\\)",
-        "\\(\\Delta p = p\\cdot n - n_i^2\\)"
+      "type": "symbolic",
+      "prompt": "Write the excess hole concentration, using the name p for the hole concentration and the name p0 for its equilibrium value.",
+      "explanation": "Only the departure from equilibrium drives net recombination or generation. The excess is the concentration minus its equilibrium value, and it is negative where the concentration has been pulled below that value.",
+      "answer": "p-p0",
+      "variables": [
+        {
+          "name": "p",
+          "min": 0.2,
+          "max": 8.0
+        },
+        {
+          "name": "p0",
+          "min": 0.2,
+          "max": 8.0
+        }
       ],
-      "correct_index": 0,
-      "explanation": "Only the departure from equilibrium drives recombination or generation. In equilibrium, \\(\\Delta p = 0\\) even though \\(p_0 \\neq n_i\\) in doped material.\n\\(\\Delta p\\) can be negative too (fewer holes than in equilibrium, as next to a reverse-biased junction).",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "-p0+p",
+        "p+(-1)*p0"
+      ],
+      "version": 1,
+      "id": "excess-carriers-r1-q4"
     },
     {
       "id": "excess-carriers-r1-q2",
@@ -70,19 +81,30 @@
       "figure_alt": "Generation and recombination through mid-gap traps."
     },
     {
-      "id": "excess-carriers-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "The minority-carrier lifetime is \\(\\tau_p = 1/(c_pN_T)\\), where \\(N_T\\) is the trap density. A process step accidentally doubles \\(N_T\\) (say, metal contamination). What happens to \\(\\tau_p\\), and to the excess holes under the same steady light?",
-      "options": [
-        "τp doubles, because there are more places for carriers to rest",
-        "τp is unchanged; only generation is affected",
-        "τp halves, and the steady-state excess Δp = G_L τp also halves",
-        "τp halves, but Δp stays the same because G_L is unchanged"
+      "type": "symbolic",
+      "prompt": "Write the minority-carrier lifetime, using the name cp for the capture coefficient and the name NT for the trap density.",
+      "explanation": "Each trap is another place a minority carrier can be captured, so the lifetime is the reciprocal of the capture coefficient times the trap density. Doubling the trap density halves the lifetime, and the steady excess \\(G_L\\tau\\) halves with it.",
+      "answer": "1/(cp*NT)",
+      "variables": [
+        {
+          "name": "cp",
+          "min": 0.2,
+          "max": 5.0
+        },
+        {
+          "name": "NT",
+          "min": 0.2,
+          "max": 8.0
+        }
       ],
-      "correct_index": 2,
-      "explanation": "More traps give minority carriers more chances to recombine, so they live shorter: \\(\\tau_p \\propto 1/N_T\\). Then \\(\\Delta p = G_L\\tau_p\\) halves too.\nLifetime can range from nanoseconds to microseconds depending on process quality.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "1/cp*(1/NT)",
+        "(cp*NT)**(-1)"
+      ],
+      "version": 1,
+      "id": "excess-carriers-r2-q4"
     },
     {
       "id": "excess-carriers-r3-q1",
@@ -111,18 +133,24 @@
       "figure_alt": "Exponential decay of excess holes with a 2 µs lifetime, with the 1% level marked."
     },
     {
-      "id": "excess-carriers-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Next to a reverse-biased junction, the minority holes in the n-region are swept away, so \\(p < p_0\\) (that is, \\(\\Delta p < 0\\)). What does \\(\\frac{d\\Delta p}{dt} = -\\frac{\\Delta p}{\\tau_p}\\) say happens there?",
-      "options": [
-        "Net thermal GENERATION: the rate −Δp/τp is positive, so carriers are created to push p back toward p₀",
-        "Net recombination continues, making p even smaller",
-        "Nothing, because the equation only applies to excess carriers",
-        "Generation stops completely"
+      "type": "error",
+      "prompt": "A worked solution says what happens to minority holes next to a reverse-biased junction. Exactly one step is wrong.",
+      "explanation": "A positive rate of change means the concentration is rising, not falling. With the excess negative, generation beats recombination and pushes the concentration back toward equilibrium. That generation feeds the reverse leakage.",
+      "steps": [
+        "The minority concentration is below its equilibrium value, so the excess is negative.",
+        "The rate of change of that excess is the negative of the excess divided by the lifetime.",
+        "A negative excess makes that rate positive.",
+        "The concentration therefore keeps falling."
       ],
-      "correct_index": 0,
-      "explanation": "With \\(\\Delta p < 0\\), \\(-\\Delta p/\\tau_p > 0\\): generation now beats recombination (\\(np < n_i^2\\), so \\(G > R\\)).\nGotcha: the same law covers both directions. This generation near the junction feeds the reverse-bias leakage current."
+      "flaw_index": 3,
+      "reasons": [
+        "A positive rate means generation, which pushes the concentration back up toward equilibrium.",
+        "A negative excess means recombination continues, so the concentration keeps falling."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "excess-carriers-r3-q4"
     },
     {
       "id": "excess-carriers-r4-q1",
@@ -170,6 +198,53 @@
         "minority-profile",
         "continuity"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "excess-carriers-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In n-type silicon, the excess hole concentration \\(\\Delta p\\) is defined as:",
+      "options": [
+        "\\(\\Delta p = p - p_0\\), how far the hole concentration is above its thermal-equilibrium value \\(p_0 = n_i^2/N_D\\)",
+        "\\(\\Delta p = p - n_i\\)",
+        "\\(\\Delta p = N_D - p\\)",
+        "\\(\\Delta p = p\\cdot n - n_i^2\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "Only the departure from equilibrium drives recombination or generation. In equilibrium, \\(\\Delta p = 0\\) even though \\(p_0 \\neq n_i\\) in doped material.\n\\(\\Delta p\\) can be negative too (fewer holes than in equilibrium, as next to a reverse-biased junction).",
+      "version": 2
+    },
+    {
+      "id": "excess-carriers-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "The minority-carrier lifetime is \\(\\tau_p = 1/(c_pN_T)\\), where \\(N_T\\) is the trap density. A process step accidentally doubles \\(N_T\\) (say, metal contamination). What happens to \\(\\tau_p\\), and to the excess holes under the same steady light?",
+      "options": [
+        "τp doubles, because there are more places for carriers to rest",
+        "τp is unchanged; only generation is affected",
+        "τp halves, and the steady-state excess Δp = G_L τp also halves",
+        "τp halves, but Δp stays the same because G_L is unchanged"
+      ],
+      "correct_index": 2,
+      "explanation": "More traps give minority carriers more chances to recombine, so they live shorter: \\(\\tau_p \\propto 1/N_T\\). Then \\(\\Delta p = G_L\\tau_p\\) halves too.\nLifetime can range from nanoseconds to microseconds depending on process quality.",
+      "version": 2
+    },
+    {
+      "id": "excess-carriers-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Next to a reverse-biased junction, the minority holes in the n-region are swept away, so \\(p < p_0\\) (that is, \\(\\Delta p < 0\\)). What does \\(\\frac{d\\Delta p}{dt} = -\\frac{\\Delta p}{\\tau_p}\\) say happens there?",
+      "options": [
+        "Net thermal GENERATION: the rate −Δp/τp is positive, so carriers are created to push p back toward p₀",
+        "Net recombination continues, making p even smaller",
+        "Nothing, because the equation only applies to excess carriers",
+        "Generation stops completely"
+      ],
+      "correct_index": 0,
+      "explanation": "With \\(\\Delta p < 0\\), \\(-\\Delta p/\\tau_p > 0\\): generation now beats recombination (\\(np < n_i^2\\), so \\(G > R\\)).\nGotcha: the same law covers both directions. This generation near the junction feeds the reverse-bias leakage current.",
+      "version": 1
     }
   ]
 }

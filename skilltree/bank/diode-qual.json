@@ -1,40 +1,40 @@
 {
   "skill_id": "diode-qual",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
-      "id": "diode-qual-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "In thermal equilibrium (no applied bias), why is the net current through a PN junction zero?",
-      "options": [
-        "Because no carriers move at all",
-        "Because the depletion region is a perfect insulator with no field",
-        "Because only electrons flow and they cancel holes",
-        "For each carrier type, the diffusion current over the barrier exactly balances the drift current of minority carriers swept across by the field"
+      "type": "order",
+      "prompt": "Order the steps that say why an equilibrium PN junction carries no net current. Each step after the first uses the result of the step before it.",
+      "explanation": "Equilibrium does not stop the carriers. Diffusion over the barrier and drift of the minorities that reach the field are equal and opposite, so each carrier's net current is zero.",
+      "steps": [
+        "Majority carriers that clear the built-in barrier diffuse across the junction.",
+        "That diffusion current would keep charging the junction unless an equal current flows the other way.",
+        "The current the other way is the drift of minority carriers swept across by the built-in field.",
+        "With those two currents equal, the net current of each carrier is zero."
       ],
-      "correct_index": 3,
-      "explanation": "Carriers move constantly, but the few majority carriers energetic enough to diffuse over the built-in barrier are balanced by minority carriers that wander to the junction and drift back across. The depletion region has a strong field; that's what drives the drift.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,40 130,40 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"34\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"40\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"65\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">equilibrium: q·φ_bi</text></svg>",
-      "figure_alt": "Energy barrier for electrons between the P side (high) and the N side (low) in equilibrium.",
-      "version": 2
+      "version": 1,
+      "id": "diode-qual-r1-q4"
     },
     {
-      "id": "diode-qual-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "Under reverse bias, the diode current saturates at a small value \\(-I_S\\). Why doesn't it grow with more reverse voltage?",
-      "options": [
-        "Because the depletion region stops growing",
-        "Because the diode breaks down",
-        "The reverse current is drift of minority carriers that reach the junction, which doesn't depend on the barrier height; diffusion is already shut off",
-        "Because diffusion current grows to cancel it"
+      "type": "error",
+      "prompt": "A worked solution explains the reverse current of an ideal diode. Exactly one step is wrong.",
+      "explanation": "Once majority diffusion is shut off, the remaining current is set by how many minorities are generated near the junction, not by the barrier height. In the ideal model that supply does not grow with reverse voltage, so the current saturates.",
+      "steps": [
+        "Reverse bias raises the barrier above the built-in potential.",
+        "Majority diffusion over that taller barrier is shut off.",
+        "What remains is drift of minority carriers generated near the junction.",
+        "A larger reverse voltage supplies more of those minority carriers, so the current keeps growing."
       ],
-      "correct_index": 2,
-      "explanation": "A larger barrier suppresses diffusion exponentially, leaving only the drift of thermally generated minority carriers. Their supply is fixed by generation near the junction, not by the voltage, so the current saturates at \\(I_S\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,15 130,15 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"9\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"15\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"52.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">reverse bias: q(φ_bi + V_R)</text></svg>",
-      "figure_alt": "Energy barrier raised by reverse bias.",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "Generation near the junction sets the supply, so the ideal reverse current saturates.",
+        "A taller barrier generates more minorities, so the reverse current keeps growing."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "diode-qual-r1-q5"
     },
     {
       "id": "diode-qual-r1-q3",
@@ -49,21 +49,30 @@
       "figure_alt": "Diode I-V curve: tiny constant reverse current, exponential forward current."
     },
     {
-      "id": "diode-qual-r2-q1",
       "round": 2,
-      "type": "mc",
-      "prompt": "A forward bias \\(V_D\\) is applied to a junction with built-in potential \\(\\phi_{bi}\\). What barrier do majority carriers now have to climb?",
-      "options": [
-        "\\(q(\\phi_{bi}+V_D)\\)",
-        "\\(q(\\phi_{bi}-V_D)\\), lowered by the applied voltage",
-        "\\(q\\phi_{bi}\\), unchanged",
-        "\\(qV_D\\)"
+      "type": "symbolic",
+      "prompt": "Forward bias makes the applied voltage positive and smaller than the built-in potential. Write the potential barrier that majority carriers must climb, using the name phibi for the built-in potential and the name VD for the applied voltage.",
+      "explanation": "Forward bias opposes the built-in potential, so the barrier falls from the built-in potential to that potential minus the applied voltage. Reverse bias makes the applied voltage negative, and the barrier grows. The energy of the barrier is that potential times \\(q\\).",
+      "answer": "phibi-VD",
+      "variables": [
+        {
+          "name": "phibi",
+          "min": 0.6,
+          "max": 1.1
+        },
+        {
+          "name": "VD",
+          "min": -0.4,
+          "max": 0.45
+        }
       ],
-      "correct_index": 1,
-      "explanation": "Forward bias opposes the built-in potential, so the barrier drops to \\(q(\\phi_{bi}-V_D)\\). Reverse bias raises it to \\(q(\\phi_{bi}+V_R)\\). The diffusion current depends exponentially on this barrier.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,65 130,65 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"59\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"65\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"77.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">forward bias: q(φ_bi − V_D)</text></svg>",
-      "figure_alt": "Energy barrier lowered by forward bias.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "-VD+phibi",
+        "phibi+(-1)*VD"
+      ],
+      "version": 1,
+      "id": "diode-qual-r2-q4"
     },
     {
       "id": "diode-qual-r2-q2",
@@ -188,6 +197,59 @@
       "preview": [
         "solar-cell"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "diode-qual-r2-q1",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A forward bias \\(V_D\\) is applied to a junction with built-in potential \\(\\phi_{bi}\\). What barrier do majority carriers now have to climb?",
+      "options": [
+        "\\(q(\\phi_{bi}+V_D)\\)",
+        "\\(q(\\phi_{bi}-V_D)\\), lowered by the applied voltage",
+        "\\(q\\phi_{bi}\\), unchanged",
+        "\\(qV_D\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "Forward bias opposes the built-in potential, so the barrier drops to \\(q(\\phi_{bi}-V_D)\\). Reverse bias raises it to \\(q(\\phi_{bi}+V_R)\\). The diffusion current depends exponentially on this barrier.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,65 130,65 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"59\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"65\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"77.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">forward bias: q(φ_bi − V_D)</text></svg>",
+      "figure_alt": "Energy barrier lowered by forward bias.",
+      "version": 2
+    },
+    {
+      "id": "diode-qual-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In thermal equilibrium (no applied bias), why is the net current through a PN junction zero?",
+      "options": [
+        "Because no carriers move at all",
+        "Because the depletion region is a perfect insulator with no field",
+        "Because only electrons flow and they cancel holes",
+        "For each carrier type, the diffusion current over the barrier exactly balances the drift current of minority carriers swept across by the field"
+      ],
+      "correct_index": 3,
+      "explanation": "Carriers move constantly, but the few majority carriers energetic enough to diffuse over the built-in barrier are balanced by minority carriers that wander to the junction and drift back across. The depletion region has a strong field; that's what drives the drift.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,40 130,40 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"34\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"40\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"65\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">equilibrium: q·φ_bi</text></svg>",
+      "figure_alt": "Energy barrier for electrons between the P side (high) and the N side (low) in equilibrium.",
+      "version": 2
+    },
+    {
+      "id": "diode-qual-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Under reverse bias, the diode current saturates at a small value \\(-I_S\\). Why doesn't it grow with more reverse voltage?",
+      "options": [
+        "Because the depletion region stops growing",
+        "Because the diode breaks down",
+        "The reverse current is drift of minority carriers that reach the junction, which doesn't depend on the barrier height; diffusion is already shut off",
+        "Because diffusion current grows to cancel it"
+      ],
+      "correct_index": 2,
+      "explanation": "A larger barrier suppresses diffusion exponentially, leaving only the drift of thermally generated minority carriers. Their supply is fixed by generation near the junction, not by the voltage, so the current saturates at \\(I_S\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Barrier and currents</title><polyline points=\"20,15 130,15 190,90 320,90\" stroke-width=\"2.2\"/><text x=\"70\" y=\"9\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">P side</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">N side</text><line x1=\"150\" y1=\"90\" x2=\"150\" y2=\"15\" stroke-dasharray=\"4 3\"/><text x=\"146\" y=\"52.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">barrier</text><text x=\"170\" y=\"125\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">reverse bias: q(φ_bi + V_R)</text></svg>",
+      "figure_alt": "Energy barrier raised by reverse bias.",
+      "version": 2
     }
   ]
 }

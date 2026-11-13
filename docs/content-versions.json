@@ -10353,6 +10353,518 @@
     {
       "id": "junction-cap#explainer",
       "version": 1
+    },
+    {
+      "id": "diode-qual-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "diode-qual-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "diode-qual-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "diode-qual-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "diode-qual-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "diode-qual-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "diode-qual-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "diode-qual-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "diode-qual-r3-q3",
+      "version": 3
+    },
+    {
+      "id": "diode-qual-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "diode-qual-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "diode-qual-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "diode-qual-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "diode-qual-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "diode-qual-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "diode-qual#explainer",
+      "version": 1
+    },
+    {
+      "id": "excess-carriers-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "excess-carriers-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "excess-carriers-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "excess-carriers-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "excess-carriers-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "excess-carriers-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "excess-carriers-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "excess-carriers-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "excess-carriers-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "excess-carriers-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "excess-carriers-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "excess-carriers-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "excess-carriers-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "excess-carriers-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "excess-carriers-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "excess-carriers#explainer",
+      "version": 1
+    },
+    {
+      "id": "continuity-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "continuity-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "continuity-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "continuity-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "continuity-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "continuity-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "continuity-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "continuity-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "continuity-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "continuity-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "continuity-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "continuity-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "continuity-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "continuity-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "continuity-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "continuity#explainer",
+      "version": 1
+    },
+    {
+      "id": "minority-profile-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "minority-profile-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "minority-profile-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "minority-profile-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "minority-profile-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "minority-profile-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "minority-profile-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "minority-profile-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "minority-profile-r3-q5",
+      "version": 1
+    },
+    {
+      "id": "minority-profile-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "minority-profile-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "minority-profile-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "minority-profile-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "minority-profile-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "minority-profile-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "minority-profile#explainer",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "diode-iv-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "diode-iv-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "diode-iv-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "diode-iv#explainer",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "diode-ss-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "diode-ss-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "diode-ss-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "diode-ss-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "diode-ss#explainer",
+      "version": 1
+    },
+    {
+      "id": "solar-cell-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "solar-cell-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "solar-cell-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "solar-cell-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "solar-cell-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "solar-cell-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "solar-cell-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "solar-cell-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "solar-cell-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "solar-cell-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "solar-cell-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "solar-cell-r4-q3",
+      "version": 2
+    },
+    {
+      "id": "solar-cell-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "solar-cell-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "solar-cell-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "solar-cell#explainer",
+      "version": 1
+    },
+    {
+      "id": "led-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "led-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "led-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "led-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "led-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "led-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "led-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "led-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "led-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "led-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "led-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "led-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "led-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "led-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "led-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "led#explainer",
+      "version": 1
     }
   ]
 }

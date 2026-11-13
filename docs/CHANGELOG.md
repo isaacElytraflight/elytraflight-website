@@ -527,3 +527,51 @@ Items above version 1:
 - `junction-cap-r3-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 EE 105 PN currents — sg063-ee105-ch6
+
+Box: EE 105 (ee105-ucb), PN Junction Currents.
+
+Skills: `diode-qual`, `excess-carriers`, `continuity`, `minority-profile`, `diode-iv`, `diode-ss`, `solar-cell`, `led`.
+
+Items above version 1:
+
+- `diode-qual-r2-q3` version 2
+- `diode-qual-r3-q3` version 3
+- `diode-qual-r4-q2` version 2
+- `diode-qual-r2-q1` version 2
+- `diode-qual-r1-q1` version 2
+- `diode-qual-r1-q2` version 2
+- `excess-carriers-r1-q2` version 2
+- `excess-carriers-r1-q3` version 2
+- `excess-carriers-r1-q1` version 2
+- `excess-carriers-r2-q3` version 2
+- `continuity-r2-q2` version 2
+- `continuity-r3-q1` version 2
+- `continuity-r1-q2` version 2
+- `continuity-r3-q3` version 2
+- `minority-profile-r1-q3` version 2
+- `minority-profile-r1-q2` version 2
+- `minority-profile-r3-q1` version 2
+- `minority-profile-r3-q3` version 2
+- `diode-iv-r2-q1` version 2
+- `diode-iv-r1-q1` version 2
+- `diode-ss-r2-q1` version 2
+- `diode-ss-r2-q2` version 2
+- `diode-ss-r1-q1` version 2
+- `diode-ss-r1-q3` version 2
+- `solar-cell-r1-q1` version 2
+- `solar-cell-r1-q2` version 2
+- `solar-cell-r2-q1` version 2
+- `solar-cell-r2-q3` version 2
+- `solar-cell-r4-q1` version 2
+- `solar-cell-r4-q3` version 2
+- `solar-cell-r3-q1` version 2
+- `solar-cell-r1-q3` version 2
+- `solar-cell-r2-q2` version 2
+- `led-r2-q3` version 2
+- `led-r3-q3` version 2
+- `led-r1-q1` version 2
+- `led-r1-q3` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
