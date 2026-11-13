@@ -1672,7 +1672,10 @@ function selectSkill(id, focus) {
   placePanel(); panel.classList.add('open'); panel.setAttribute('aria-hidden', 'false');
   renderPanel(); applyEdgeHighlight();
   if (focus && filter.view === 'tree') focusTile(id);
-  if (focus && filter.view === 'grid') { const t = document.querySelector(`#gridView .tile[data-id="${id}"]`); t && t.scrollIntoView({ block: 'center', behavior: 'smooth' }) }
+  if (focus && filter.view === 'grid') {
+    const t = [...document.querySelectorAll(`#gridView .tile[data-id="${id}"]`)].find(el => el.offsetParent);
+    t && t.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }
   if (opened) sgEmit('skill_open', { skill_id: id });
 }
 

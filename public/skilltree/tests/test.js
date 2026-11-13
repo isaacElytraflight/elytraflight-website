@@ -4368,6 +4368,31 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('grid focus scrolls to the visible copy of a shared skill', async () => {
+    const p = await newPage();
+    await openGrid(p, '?skill=bode&focus=me132');
+    await p.waitForFunction(() => {
+      const vis = [...document.querySelectorAll('#gridView .tile[data-id="bode"]')].find(t => t.offsetParent);
+      if (!vis) return false;
+      const grid = document.getElementById('gridView').getBoundingClientRect();
+      const r = vis.getBoundingClientRect();
+      return r.top >= grid.top - 4 && r.bottom <= grid.bottom + 4;
+    }, { timeout: 4000 });
+    const placed = await p.evaluate(() => {
+      const tiles = [...document.querySelectorAll('#gridView .tile[data-id="bode"]')];
+      const vis = tiles.find(t => t.offsetParent);
+      return {
+        copies: tiles.length,
+        hidden: tiles.filter(t => !t.offsetParent).length,
+        box: vis.closest('.gsec').dataset.box
+      };
+    });
+    assert(placed.copies > 1, 'bode sits in more than one chapter');
+    assert(placed.hidden >= 1, 'the out-of-focus copy stays hidden');
+    assert(placed.box.startsWith('me132'), placed.box);
+    await p._ctx.close();
+  });
+
   await browser.close();
 
   console.log('\n=== Test Results ===\n');
