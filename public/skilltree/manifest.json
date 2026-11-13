@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-13T20:58:52.809994Z",
+  "generated": "2026-11-13T21:11:11.022378Z",
   "skills": {
-    "file": "skills.2cd4ee88.json",
-    "hash": "2cd4ee88"
+    "file": "skills.c0de1c0a.json",
+    "hash": "c0de1c0a"
   },
   "collections": {
     "file": "collections.6c18ba13.json",
@@ -2916,7 +2916,7 @@
       "file": "banks/slew.46d61c5d.json"
     },
     "solar-cell": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2924,8 +2924,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e2f8e8b4",
-      "file": "banks/solar-cell.e2f8e8b4.json"
+      "hash": "6aab1422",
+      "file": "banks/solar-cell.6aab1422.json"
     },
     "spectral-decomposition": {
       "version": 1,

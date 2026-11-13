@@ -563,7 +563,9 @@ Items above version 1:
 - `solar-cell-r1-q1` version 2
 - `solar-cell-r1-q2` version 2
 - `solar-cell-r2-q1` version 2
+- `solar-cell-r2-q4` version 2
 - `solar-cell-r2-q3` version 2
+- `solar-cell-r3-q4` version 2
 - `solar-cell-r4-q1` version 2
 - `solar-cell-r4-q3` version 2
 - `solar-cell-r3-q1` version 2

@@ -261,7 +261,7 @@ def swaps_for(sid):
         return [
             ("solar-cell-r3-q1", fresh(
                 3, "sym",
-                r"Write the open-circuit voltage of a short-base solar cell, using the name Vt for \(kT/q\), the name tau for the minority-carrier lifetime, the name GL for the generation rate, the name ND for the doping, and the name ni for the intrinsic concentration.",
+                r"Write the open-circuit voltage, using the name Vt for \(kT/q\), the name tau for the minority-carrier lifetime, the name GL for the generation rate, the name ND for the doping, and the name ni for the intrinsic concentration.",
                 "Vt*ln(tau*GL*ND/(ni*ni))",
                 {"Vt": (0.02, 0.05), "tau": (2, 6), "GL": (2, 6), "ND": (2, 6), "ni": (0.2, 1)},
                 r"Open-circuit voltage rises with lifetime, generation rate, and doping, and it falls as the intrinsic concentration rises. A shorter lifetime, lighter doping, or dimmer light all lower it.",
@@ -289,9 +289,9 @@ def swaps_for(sid):
                 r"Order the steps that say which photogenerated carriers add to the short-circuit current. Each step after the first uses the result of the step before it.",
                 [
                     r"Light generates carriers throughout the neutral region.",
-                    r"A generated carrier adds to the short-circuit current only if it reaches the junction.",
-                    r"Recombination removes a carrier before it can travel much farther than a diffusion length.",
-                    r"Carriers generated much farther than a diffusion length therefore do not add to the short-circuit current.",
+                    r"A generated carrier adds to the short-circuit current only if it diffuses to the junction before recombining.",
+                    r"The distance of that diffusion, before recombination, is about one diffusion length.",
+                    r"Carriers generated much farther than that diffusion length do not finish the trip, so they are not collected.",
                 ],
                 r"The junction collects only the carriers that arrive. Beyond about one diffusion length, recombination wins, the excess flattens, and there is no diffusion current left to collect.",
             )),
