@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Content rules
+    url: https://github.com/isaacElytraflight/elytraflight-website/blob/main/docs/skill-tree-content-SOP.md
+    about: Read the content rules before opening a content issue.
+  - name: Roadmap
+    url: https://github.com/isaacElytraflight/elytraflight-website/blob/main/docs/roadmap.md
+    about: Open work is one GitHub issue per SG id. Check that list before opening a duplicate.

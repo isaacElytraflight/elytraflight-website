@@ -71,17 +71,19 @@ At least 25% of the bank (`deep_quota(n)`) is symbolic, ordering, find-the-error
 
 ## Review and merge
 
-Use the repository's Cursor Bugbot review. Do not start a paid reviewer.
+Use the repository's Cursor Bugbot review. Do not start a paid reviewer. The rule for people is in `CONTRIBUTING.md`.
 
 After the pull request is open, wait for Bugbot on the latest head with one blocking command: a single shell loop that sleeps and checks until that check completes, with a generous timeout. Do not poll in separate commands.
 
 If Bugbot reports findings, fix them, push, and wait again the same way. At most two fix rounds. A text-only fix does not need another full gate run.
 
-Squash-merge into the base branch when either Bugbot completes with no new findings on the latest head, or the second fix round is pushed and Bugbot's review of that head has completed. Merge only when the pull request is mergeable, and pass that exact head sha. The repository deletes the head branch.
+Squash-merge into the base branch only when Bugbot is clean on that exact head sha and the pull request is mergeable. Pass that head sha. The repository deletes the head branch. Clean means the check finished with no findings. A result that says the pull request is too large to review is not clean.
+
+If Bugbot says the pull request is too large to review, or findings are still open after the second review, do not merge. Stop and report them.
 
 If the pull request is not mergeable because of conflicts, merge the base branch in, regenerate the generated files, re-run the gates, and wait for Bugbot again. That counts as a fix round.
 
-Do not merge to skip findings that are still open after the second review. Stop and report them.
+Outside contributors do not self-merge. Branch protection on `main` stays off until Isaac enables `docs/branch-protection.md`, so this self-merge path keeps working.
 
 ## Efficiency
 

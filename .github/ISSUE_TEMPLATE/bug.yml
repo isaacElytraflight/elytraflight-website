@@ -1,0 +1,59 @@
+name: Bug
+description: Something in the site or the skill tree is broken.
+title: "[bug] "
+labels: ["type:bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not paste secrets, learner data, or copyrighted material.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps
+      description: How to see it again. Include the page URL.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - area:app
+        - area:content
+        - area:content-qa
+        - area:courses
+        - area:auth
+        - area:infra
+        - area:docs
+        - area:legal
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - priority:P0
+        - priority:P1
+        - priority:P2
+        - priority:P3
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Size
+      options:
+        - size:S
+        - size:M
+        - size:L
+    validations:
+      required: false
