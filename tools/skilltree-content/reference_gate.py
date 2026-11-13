@@ -121,17 +121,68 @@ def json_strings(path):
     return found
 
 
-LITERAL = re.compile(r"'([^'\\]|\\.)*'|\"([^\"\\]|\\.)*\"|`([^`\\]|\\.)*`", re.S)
+def js_literals(text):
+    """String literals in source order. An apostrophe inside double quotes stays there."""
+    out = []
+    i, n = 0, len(text)
+    while i < n:
+        c = text[i]
+        if c == "/" and i + 1 < n and text[i + 1] == "/":
+            i = text.find("\n", i)
+            if i < 0:
+                break
+            continue
+        if c == "/" and i + 1 < n and text[i + 1] == "*":
+            end = text.find("*/", i + 2)
+            i = n if end < 0 else end + 2
+            continue
+        if c in "'\"`":
+            raw, i = read_js_string(text, i)
+            if raw is not None:
+                out.append(raw)
+            continue
+        i += 1
+    return out
+
+
+def read_js_string(text, i):
+    quote = text[i]
+    j, n = i + 1, len(text)
+    while j < n:
+        c = text[j]
+        if c == "\\":
+            j += 2
+            continue
+        if quote == "`" and c == "$" and j + 1 < n and text[j + 1] == "{":
+            j = skip_js_expr(text, j + 2)
+            continue
+        if c == quote:
+            return text[i + 1:j], j + 1
+        j += 1
+    return None, i + 1
+
+
+def skip_js_expr(text, i):
+    depth = 1
+    n = len(text)
+    while i < n and depth:
+        c = text[i]
+        if c in "'\"`":
+            _, i = read_js_string(text, i)
+            continue
+        if c == "{":
+            depth += 1
+        elif c == "}":
+            depth -= 1
+        i += 1
+    return i
 
 
 def ui_strings(path):
     with open(path, encoding="utf-8") as f:
         text = f.read()
     found = []
-    for i, m in enumerate(LITERAL.finditer(text)):
-        raw = m.group(0)
-        if len(raw) >= 2 and raw[0] == raw[-1]:
-            raw = raw[1:-1]
+    for i, raw in enumerate(js_literals(text)):
         # The collections kind "textbook" is an internal id, not a sentence about a book.
         if raw == "textbook":
             continue

@@ -5,7 +5,7 @@ This repository contains two separately licensed bodies of work.
 
 Code
 ----
-Source code, build scripts, tests, and the Skill Tree application under
+Source code, build scripts, tests, and Elytraflight's Skill Tree under
 public/skilltree/ (HTML, CSS, and JavaScript, excluding the learning-content
 JSON described below) are licensed under the Apache License, Version 2.0.
 See the LICENSE file.
