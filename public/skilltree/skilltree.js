@@ -1420,12 +1420,25 @@ function buildGrid() {
   }
 }
 
+/* A partial focus lists only chapters inside that selection (the same boxes the
+   tree leaves undimmed). focus=all and an empty focus keep every chapter, matching
+   the tree: everything, or everything dimmed. */
+function gridShowsAll() {
+  return selectedBoxes.size === 0 || selectionIsAll();
+}
+function gridBoxInFocus(boxId) {
+  if (gridShowsAll()) return true;
+  for (const id of selectedBoxes) if (isDescendantBox(boxId, id)) return true;
+  return false;
+}
 function applyGridFilter() {
   document.querySelectorAll('#gridView .gsec').forEach(sec => {
+    const inFocus = gridBoxInFocus(sec.dataset.box);
     let any = false;
     sec.querySelectorAll('.tile').forEach(t => {
-      const hide = filter.playable && !isPlayable(t.dataset.id);
-      t.style.display = hide ? 'none' : ''; if (!hide) any = true;
+      const hide = !inFocus || (filter.playable && !isPlayable(t.dataset.id));
+      t.style.display = hide ? 'none' : '';
+      if (!hide) any = true;
     });
     sec.style.display = any ? '' : 'none';
   });
@@ -1646,6 +1659,7 @@ function setView(v) {
   filter.view = v; $('treeView').hidden = v !== 'tree'; $('gridView').hidden = v !== 'grid'; $('btnGroup').hidden = v !== 'tree';
   $('vTree').setAttribute('aria-pressed', String(v === 'tree')); $('vGrid').setAttribute('aria-pressed', String(v === 'grid'));
   try { localStorage.setItem(UIKEY, JSON.stringify({ view: v })) } catch (e) { }
+  applyGridFilter();
 }
 
 function short(s, n) { return s.length > n ? s.slice(0, n - 1) + '…' : s }
@@ -2295,7 +2309,7 @@ function openHelp() {
     el('li', {}, 'Prerequisites are guidance, not locks. A new skill glows "ready" once all its prerequisites are at Level 2 or Mastered (prerequisites that are still coming soon are ignored). Lines show what leads to what; click a tile to highlight them.'),
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
     el('li', {}, el('b', { text: 'Learning plan ' }), 'simulates sessions (practice every ready skill, one mastery challenge per unmastered skill) to estimate how many sessions and how much time it takes to master everything playable. It learns how fast you are from your own timed quizzes.'),
-    el('li', {}, el('b', { text: 'Courses ' }), 'is select-all-that-apply. The address bar focus parameter is that list (for example ?focus=me132,nlo). A link with focus uses that list, and a visit with no focus parameter restores your last choice. A new profile starts with nothing focused. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
+    el('li', {}, el('b', { text: 'Courses ' }), 'is select-all-that-apply. The address bar focus parameter is that list (for example ?focus=me132,nlo). A link with focus uses that list, and a visit with no focus parameter restores your last choice. A new profile starts with nothing focused. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. The grid lists only the chapters in that selection. With every course selected, or with nothing selected yet, the grid keeps every chapter, the same way the tree does. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
     el('li', {}, el('b', { text: 'Group by course ' }), 'is on when you have not chosen a layout. It draws each selected course and chapter as a colored region around its skills. Regions overlap where boxes share skills, and Ungroup returns to one prerequisite tree. A layout you choose is remembered on this device.'),
     el('li', {}, el('b', { text: 'Flag a question ' }), 'if the answer seems wrong, the wording is unclear, there is a typo, or the figure is off. A comment is optional.'),
     el('li', {}, el('b', { text: 'Usage measurement ' }), 'counts which skills and courses you open and how quizzes go. It uses a random id on this device, not a third-party tracker. Turn it off in Profile. A browser Do Not Track signal turns it off too.'),

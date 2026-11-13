@@ -71,6 +71,72 @@ async function pickBoxes(p, ids) {
   await sleep(250);
 }
 
+async function openGrid(p, query) {
+  await p.evaluate(() => localStorage.setItem('skilltree.ui.v1', JSON.stringify({ view: 'grid' })));
+  await p.goto(BASE_URL + (query || ''), { waitUntil: 'networkidle0' });
+  await sleep(400);
+}
+
+async function gridFocusState(p) {
+  return p.evaluate(() => {
+    const sg = window.__skillgrove;
+    const boxes = sg.collections.boxById();
+    const scope = sg.collections.scope();
+    const tiles = [...document.querySelectorAll('#gridView .tile')];
+    const sections = [...document.querySelectorAll('#gridView .gsec')];
+    const visible = tiles.filter(t => t.style.display !== 'none');
+    const shown = [...new Set(visible.map(t => t.dataset.id))].sort();
+    const bright = [...new Set([...document.querySelectorAll('#world .tile:not(.boxdim)')].map(t => t.dataset.id))].sort();
+    const openBoxes = sections.filter(s => s.style.display !== 'none').map(s => s.dataset.box).sort();
+    const under = new Set();
+    const walk = id => {
+      const box = boxes[id];
+      if (!box) return;
+      if (box.kind === 'chapter') under.add(id);
+      (box.children || []).forEach(walk);
+    };
+    if (Array.isArray(scope)) scope.forEach(walk);
+    const same = shown.length === bright.length && shown.every((id, i) => id === bright[i]);
+    return {
+      scope,
+      focus: new URLSearchParams(location.search).get('focus'),
+      shown,
+      brightCount: bright.length,
+      same,
+      missing: bright.filter(id => !shown.includes(id)).slice(0, 6),
+      extra: shown.filter(id => !bright.includes(id)).slice(0, 6),
+      outside: openBoxes.filter(id => !under.has(id)).slice(0, 8),
+      missingBoxes: [...under].filter(id => {
+        const sec = sections.find(s => s.dataset.box === id);
+        return sec && sec.querySelector('.tile') && sec.style.display === 'none';
+      }).slice(0, 8),
+      visibleTiles: visible.length,
+      totalTiles: tiles.length,
+      openBoxes: openBoxes.length,
+      gridVisibleDimmed: visible.filter(t => t.classList.contains('boxdim')).length,
+      treeDimmed: document.querySelectorAll('#world .tile.boxdim').length,
+      treeTiles: document.querySelectorAll('#world .tile').length,
+      gridOn: document.getElementById('gridView').hidden === false,
+      treeOn: document.getElementById('treeView').hidden === false,
+      grouped: document.getElementById('btnGroup').getAttribute('aria-pressed'),
+      collapsed: ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz'].map(id => {
+        const el = document.getElementById('scopeChapters-' + id);
+        return { id, hidden: !!(el && el.hidden) };
+      })
+    };
+  });
+}
+
+function assertPartialGrid(state, label) {
+  assert.strictEqual(state.gridOn, true, label + ' should stay on the grid');
+  assert.strictEqual(state.same, true, label + ' grid skills ' + state.shown.length + ' vs tree ' + state.brightCount + ' missing ' + state.missing.join(',') + ' extra ' + state.extra.join(','));
+  assert.deepStrictEqual(state.outside, [], label + ' grid boxes outside the focus: ' + state.outside.join(','));
+  assert.deepStrictEqual(state.missingBoxes, [], label + ' focused chapters hidden: ' + state.missingBoxes.join(','));
+  assert.strictEqual(state.gridVisibleDimmed, 0, label + ' in-focus grid tiles should not be dimmed');
+  assert(state.shown.length > 0, label + ' should show some skills');
+  assert(state.visibleTiles < state.totalTiles, label + ' should hide tiles from other courses');
+}
+
 async function panTo(p, selector) {
   const box = await p.evaluate(sel => {
     const node = document.querySelector(sel);
@@ -4175,6 +4241,130 @@ async function test(name, fn) {
     assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.exams.list()), [
       { id: 'ex-old', date: '2026-12-01', skills: ['square-law', 'bode'] }
     ]);
+    await p._ctx.close();
+  });
+
+  await test('grid view with one focus shows only that course', async () => {
+    const p = await newPage();
+    await openGrid(p, '?focus=ee105');
+    const state = await gridFocusState(p);
+    assert.strictEqual(state.focus, 'ee105');
+    assert.deepStrictEqual(state.scope, ['ee105-ucb']);
+    assertPartialGrid(state, 'ee105');
+    assert(state.shown.includes('bode'), 'a shared EE 105 skill stays on the grid');
+    assert.strictEqual(state.grouped, 'true', 'group-by-course stays on when the grid opens');
+    state.collapsed.forEach(row => assert.strictEqual(row.hidden, true, row.id + ' chapters stay collapsed in grid view'));
+    await p._ctx.close();
+  });
+
+  await test('grid view with several focuses shows only those courses', async () => {
+    const p = await newPage();
+    await openGrid(p, '?focus=ee105,me132');
+    const state = await gridFocusState(p);
+    assert.strictEqual(state.focus, 'ee105,me132');
+    assert.deepStrictEqual(state.scope, ['ee105-ucb', 'me132']);
+    assertPartialGrid(state, 'ee105+me132');
+    const onlyEe = await p.evaluate(() => window.__skillgrove.collections.getBoxDescendantSkills('ee105-ucb'));
+    const onlyMe = await p.evaluate(() => window.__skillgrove.collections.getBoxDescendantSkills('me132'));
+    assert(state.shown.some(id => onlyMe.includes(id) && !onlyEe.includes(id)), 'an ME 132-only skill is on the grid');
+    assert(state.shown.some(id => onlyEe.includes(id) && !onlyMe.includes(id)), 'an EE 105-only skill is on the grid');
+    assert(!state.shown.some(id => !onlyEe.includes(id) && !onlyMe.includes(id)), 'a skill from neither course is hidden');
+    await p._ctx.close();
+  });
+
+  await test('grid view with focus=all shows every course, and no focus keeps every chapter dimmed', async () => {
+    const p = await newPage();
+    await openGrid(p, '?focus=all');
+    const all = await gridFocusState(p);
+    assert.strictEqual(all.focus, 'all');
+    assert.strictEqual(all.scope, null);
+    assert.strictEqual(all.gridOn, true);
+    assert.strictEqual(all.visibleTiles, all.totalTiles, 'focus=all lists every grid tile');
+    assert.strictEqual(all.gridVisibleDimmed, 0, 'focus=all does not dim the grid');
+    assert.strictEqual(all.treeDimmed, 0, 'focus=all does not dim the tree');
+    assert.strictEqual(all.same, true, 'focus=all grid skills match the tree');
+    assert(all.totalTiles > 0);
+
+    await p.evaluate(() => {
+      localStorage.clear();
+      localStorage.setItem('skilltree.ui.v1', JSON.stringify({ view: 'grid' }));
+    });
+    await p.goto(BASE_URL, { waitUntil: 'networkidle0' });
+    await sleep(400);
+    const none = await gridFocusState(p);
+    assert.strictEqual(none.focus, null, 'a new profile does not invent a focus parameter');
+    assert.deepStrictEqual(none.scope, []);
+    assert.strictEqual(none.gridOn, true);
+    assert.strictEqual(none.visibleTiles, none.totalTiles, 'no focus still lists every grid chapter');
+    assert.strictEqual(none.gridVisibleDimmed, none.totalTiles, 'no focus dims every grid tile');
+    assert.strictEqual(none.treeDimmed, none.treeTiles, 'no focus dims every tree tile');
+    await p._ctx.close();
+  });
+
+  await test('switching focus updates the grid immediately and switching views keeps it', async () => {
+    const p = await newPage();
+    await openGrid(p, '?focus=ee105');
+    const ee = await gridFocusState(p);
+    assertPartialGrid(ee, 'start ee105');
+    const hist = await p.evaluate(() => {
+      window.__stay = 'grid-focus';
+      return history.length;
+    });
+    await p.evaluate(() => {
+      const panel = document.getElementById('scopePanel');
+      if (panel.hidden) document.getElementById('scopeToggle').click();
+      document.querySelector('#scopePicker input[value="me132"]').click();
+    });
+    await sleep(200);
+    const both = await gridFocusState(p);
+    assert.strictEqual(await p.evaluate(() => window.__stay), 'grid-focus', 'changing focus does not reload the page');
+    assert.strictEqual(await p.evaluate(() => history.length), hist, 'changing focus does not add a history entry');
+    assert.strictEqual(both.focus, 'ee105,me132');
+    assertPartialGrid(both, 'add me132');
+    assert(both.shown.length > ee.shown.length, 'adding a course adds its skills to the grid');
+
+    await pickBoxes(p, ['me132']);
+    const me = await gridFocusState(p);
+    assert.strictEqual(me.focus, 'me132');
+    assert.deepStrictEqual(me.scope, ['me132']);
+    assertPartialGrid(me, 'switch to me132');
+    const eeOnly = ee.shown.filter(id => !me.shown.includes(id));
+    assert(eeOnly.length > 0, 'leaving EE 105 removes its skills from the grid');
+
+    await p.evaluate(() => document.getElementById('vTree').click());
+    await sleep(100);
+    const onTree = await gridFocusState(p);
+    assert.strictEqual(onTree.treeOn, true);
+    assert.strictEqual(onTree.gridOn, false);
+    assert.strictEqual(onTree.focus, 'me132');
+    assert.strictEqual(onTree.grouped, 'true', 'group-by-course survives the view switch');
+    onTree.collapsed.forEach(row => assert.strictEqual(row.hidden, true, row.id + ' stays collapsed after leaving the grid'));
+    assert.strictEqual(onTree.same, true, 'the tree and the grid still agree after the view switch');
+
+    await p.evaluate(() => document.querySelector('button[aria-controls="scopeChapters-me132"]').click());
+    await sleep(50);
+    await p.evaluate(() => document.getElementById('vGrid').click());
+    await sleep(100);
+    const back = await gridFocusState(p);
+    assert.strictEqual(back.gridOn, true);
+    assert.strictEqual(back.focus, 'me132');
+    assertPartialGrid(back, 'back on the grid');
+    const meChapters = back.collapsed.find(row => row.id === 'me132');
+    assert.strictEqual(meChapters.hidden, false, 'an expanded chapter list stays open in both views');
+    back.collapsed.filter(row => row.id !== 'me132').forEach(row => assert.strictEqual(row.hidden, true, row.id + ' stays collapsed'));
+
+    await p.evaluate(() => document.getElementById('vTree').click());
+    await sleep(50);
+    const groupedSkills = back.shown.slice();
+    await p.evaluate(() => window.__skillgrove.toggleGroup());
+    await sleep(800);
+    await p.evaluate(() => document.getElementById('vGrid').click());
+    await sleep(100);
+    const ungrouped = await gridFocusState(p);
+    assert.strictEqual(ungrouped.grouped, 'false');
+    assert.strictEqual(ungrouped.focus, 'me132');
+    assert.deepStrictEqual(ungrouped.shown, groupedSkills, 'group-by-course does not change which grid skills are shown');
+    assert.strictEqual(ungrouped.collapsed.find(row => row.id === 'me132').hidden, false, 'ungrouping does not collapse the chapter list');
     await p._ctx.close();
   });
 
