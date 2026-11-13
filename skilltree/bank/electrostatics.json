@@ -1,40 +1,41 @@
 {
   "skill_id": "electrostatics",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "electrostatics-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "In one dimension, Poisson's equation is \\(\\dfrac{dE}{dx}=\\dfrac{\\rho}{\\varepsilon}\\). What does it imply about the electric field in a region with no charge?",
-      "options": [
-        "The field must be zero",
-        "The field grows linearly with \\(x\\)",
-        "The field is constant (it can be nonzero, but it doesn't change with \\(x\\))",
-        "The potential must be constant"
+      "type": "order",
+      "prompt": "A region contains no charge. Order the reading of Poisson's equation there. Each step after the first uses the result of the step before it.",
+      "explanation": "The zero slope is Poisson's equation with the charge removed, so it uses that equation. The constant field is what a zero slope means, and the linear potential is the integral of that constant. A charge-free insulator, such as the dielectric of a charged capacitor, can hold a large uniform field. A constant potential would require the field itself to be zero.",
+      "steps": [
+        "Poisson's equation sets the slope of the electric field equal to the charge density divided by the permittivity.",
+        "With no charge, that slope is zero, so the field does not change with position.",
+        "A field that does not change with position is a constant, and the constant may be nonzero.",
+        "The potential's slope is the negative of that constant field, so the potential changes linearly with position."
       ],
-      "correct_index": 2,
-      "explanation": "With \\(\\rho=0\\), \\(dE/dx=0\\), so \\(E\\) is constant. It can still be large: the insulator of a charged capacitor is charge-free but has a uniform field. A constant nonzero \\(E\\) means the potential changes linearly, not that it's constant.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Parallel-plate (MIM) capacitor</title><rect x=\"60\" y=\"30\" width=\"200\" height=\"12\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"60\" y=\"92\" width=\"200\" height=\"12\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"160\" y=\"72\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">insulator, ε</text><text x=\"160\" y=\"24\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">top plate (+Q)</text><text x=\"160\" y=\"120\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">bottom plate (−Q)</text><line x1=\"45\" y1=\"42\" x2=\"45\" y2=\"92\"/><polygon points=\"45,92 43.1,87.4 46.9,87.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"45\" y1=\"92\" x2=\"45\" y2=\"42\"/><polygon points=\"45,42 46.9,46.6 43.1,46.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"38\" y=\"71\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t_ox</text><line x1=\"90\" y1=\"46\" x2=\"90\" y2=\"88\"/><polygon points=\"90,88 88.1,83.4 91.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"130\" y1=\"46\" x2=\"130\" y2=\"88\"/><polygon points=\"130,88 128.1,83.4 131.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"170\" y1=\"46\" x2=\"170\" y2=\"88\"/><polygon points=\"170,88 168.1,83.4 171.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"210\" y1=\"46\" x2=\"210\" y2=\"88\"/><polygon points=\"210,88 208.1,83.4 211.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"240\" y1=\"46\" x2=\"240\" y2=\"88\"/><polygon points=\"240,88 238.1,83.4 241.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"24\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V</text></svg>",
-      "figure_alt": "Parallel-plate capacitor with uniform field arrows across the insulator.",
-      "version": 2
+      "version": 1,
+      "id": "electrostatics-r1-q4"
     },
     {
-      "id": "electrostatics-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "The potential \\(\\phi(x)\\) increases with \\(x\\). Which way does the electric field point?",
-      "options": [
-        "Toward \\(+x\\), along the increasing potential",
-        "Toward \\(-x\\), since \\(E=-d\\phi/dx<0\\): fields point from high to low potential",
-        "There is no field unless charge is present",
-        "Perpendicular to \\(x\\)"
+      "type": "symbolic",
+      "prompt": "The potential changes with position, and that slope is known. Write the electric field using the name s for the slope \\(d\\phi/dx\\).",
+      "explanation": "The field is the negative of the potential's slope, so it points from high potential toward low potential. Using the slope itself points the field uphill. A positive charge is pushed toward lower potential. Setting the field to zero whenever the slope is nonzero would erase that push.",
+      "answer": "-s",
+      "variables": [
+        {
+          "name": "s",
+          "min": -4.0,
+          "max": 4.0
+        }
       ],
-      "correct_index": 1,
-      "explanation": "\\(E=-\\dfrac{d\\phi}{dx}\\). A positive slope gives a negative field. A positive charge is pushed downhill in potential, while an electron 'floats' toward higher potential.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 110\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Potential increasing with x</title><line x1=\"30\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"90\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"280\" y=\"106\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">φ(x)</text><line x1=\"40\" y1=\"85\" x2=\"260\" y2=\"30\" stroke-width=\"2.2\"/><line x1=\"220\" y1=\"100\" x2=\"150\" y2=\"100\"/><polygon points=\"150,100 156.4,97.3 156.4,102.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"185\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E ?</text></svg>",
-      "figure_alt": "Plot of potential rising linearly with x.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "-1*s",
+        "0-s"
+      ],
+      "version": 1,
+      "id": "electrostatics-r1-q5"
     },
     {
       "id": "electrostatics-r1-q3",
@@ -74,21 +75,35 @@
       "figure_alt": "Charge slab and its linearly rising field."
     },
     {
-      "id": "electrostatics-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "At a charge-free oxide/silicon interface, how do the fields on the two sides compare (\\(\\varepsilon_{ox}=3.9\\varepsilon_0\\), \\(\\varepsilon_s=11.7\\varepsilon_0\\))?",
-      "options": [
-        "\\(E_{ox}=3E_{si}\\), since \\(\\varepsilon_{ox}E_{ox}=\\varepsilon_sE_{si}\\)",
-        "\\(E_{ox}=E_{si}\\): fields are always continuous",
-        "\\(E_{ox}=E_{si}/3\\)",
-        "\\(E_{ox}=0\\)"
+      "type": "symbolic",
+      "prompt": "No charge sits on an oxide/silicon interface. Write the oxide field using the name Esi for the silicon field, the name es for the silicon permittivity, and the name eox for the oxide permittivity.",
+      "explanation": "A pillbox with no enclosed charge forces the two products of permittivity and normal field to match, so the oxide field is the silicon field times the silicon permittivity divided by the oxide permittivity. The material with the lower permittivity holds the larger field. For 11.7 and 3.9 that ratio is 3. The potential is what stays continuous. Setting the two fields equal skips the permittivities.",
+      "answer": "Esi*es/eox",
+      "variables": [
+        {
+          "name": "Esi",
+          "min": 0.2,
+          "max": 6.0
+        },
+        {
+          "name": "es",
+          "min": 0.5,
+          "max": 8.0
+        },
+        {
+          "name": "eox",
+          "min": 0.4,
+          "max": 5.0
+        }
       ],
-      "correct_index": 0,
-      "explanation": "Gauss's law on a thin pillbox with no enclosed charge gives \\(\\varepsilon_1E_1=\\varepsilon_2E_2\\). So \\(E_{ox}/E_{si}=\\varepsilon_s/\\varepsilon_{ox}=11.7/3.9=3\\): the lower-permittivity material holds the larger field. The POTENTIAL is continuous; the field jumps.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Oxide / silicon interface</title><rect x=\"40\" y=\"20\" width=\"120\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"100\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂ (3.9ε₀)</text><rect x=\"160\" y=\"20\" width=\"140\" height=\"90\"/><text x=\"230\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Si (11.7ε₀)</text><line x1=\"60\" y1=\"65\" x2=\"140\" y2=\"65\"/><polygon points=\"140,65 133.6,67.7 133.6,62.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E_ox</text><line x1=\"180\" y1=\"65\" x2=\"220\" y2=\"65\"/><polygon points=\"220,65 213.6,67.7 213.6,62.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E_si</text></svg>",
-      "figure_alt": "Oxide region on the left and silicon on the right, with field arrows in each.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "(es/eox)*Esi",
+        "es*Esi/eox"
+      ],
+      "version": 1,
+      "id": "electrostatics-r2-q4"
     },
     {
       "id": "electrostatics-r3-q1",
@@ -186,6 +201,59 @@
         "mos-struct",
         "mos-regions"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "electrostatics-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In one dimension, Poisson's equation is \\(\\dfrac{dE}{dx}=\\dfrac{\\rho}{\\varepsilon}\\). What does it imply about the electric field in a region with no charge?",
+      "options": [
+        "The field must be zero",
+        "The field grows linearly with \\(x\\)",
+        "The field is constant (it can be nonzero, but it doesn't change with \\(x\\))",
+        "The potential must be constant"
+      ],
+      "correct_index": 2,
+      "explanation": "With \\(\\rho=0\\), \\(dE/dx=0\\), so \\(E\\) is constant. It can still be large: the insulator of a charged capacitor is charge-free but has a uniform field. A constant nonzero \\(E\\) means the potential changes linearly, not that it's constant.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Parallel-plate (MIM) capacitor</title><rect x=\"60\" y=\"30\" width=\"200\" height=\"12\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"60\" y=\"92\" width=\"200\" height=\"12\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"160\" y=\"72\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">insulator, ε</text><text x=\"160\" y=\"24\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">top plate (+Q)</text><text x=\"160\" y=\"120\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">bottom plate (−Q)</text><line x1=\"45\" y1=\"42\" x2=\"45\" y2=\"92\"/><polygon points=\"45,92 43.1,87.4 46.9,87.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"45\" y1=\"92\" x2=\"45\" y2=\"42\"/><polygon points=\"45,42 46.9,46.6 43.1,46.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"38\" y=\"71\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t_ox</text><line x1=\"90\" y1=\"46\" x2=\"90\" y2=\"88\"/><polygon points=\"90,88 88.1,83.4 91.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"130\" y1=\"46\" x2=\"130\" y2=\"88\"/><polygon points=\"130,88 128.1,83.4 131.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"170\" y1=\"46\" x2=\"170\" y2=\"88\"/><polygon points=\"170,88 168.1,83.4 171.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"210\" y1=\"46\" x2=\"210\" y2=\"88\"/><polygon points=\"210,88 208.1,83.4 211.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"240\" y1=\"46\" x2=\"240\" y2=\"88\"/><polygon points=\"240,88 238.1,83.4 241.9,83.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"24\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V</text></svg>",
+      "figure_alt": "Parallel-plate capacitor with uniform field arrows across the insulator.",
+      "version": 2
+    },
+    {
+      "id": "electrostatics-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The potential \\(\\phi(x)\\) increases with \\(x\\). Which way does the electric field point?",
+      "options": [
+        "Toward \\(+x\\), along the increasing potential",
+        "Toward \\(-x\\), since \\(E=-d\\phi/dx<0\\): fields point from high to low potential",
+        "There is no field unless charge is present",
+        "Perpendicular to \\(x\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(E=-\\dfrac{d\\phi}{dx}\\). A positive slope gives a negative field. A positive charge is pushed downhill in potential, while an electron 'floats' toward higher potential.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 110\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Potential increasing with x</title><line x1=\"30\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"90\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"280\" y=\"106\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">φ(x)</text><line x1=\"40\" y1=\"85\" x2=\"260\" y2=\"30\" stroke-width=\"2.2\"/><line x1=\"220\" y1=\"100\" x2=\"150\" y2=\"100\"/><polygon points=\"150,100 156.4,97.3 156.4,102.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"185\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E ?</text></svg>",
+      "figure_alt": "Plot of potential rising linearly with x.",
+      "version": 2
+    },
+    {
+      "id": "electrostatics-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "At a charge-free oxide/silicon interface, how do the fields on the two sides compare (\\(\\varepsilon_{ox}=3.9\\varepsilon_0\\), \\(\\varepsilon_s=11.7\\varepsilon_0\\))?",
+      "options": [
+        "\\(E_{ox}=3E_{si}\\), since \\(\\varepsilon_{ox}E_{ox}=\\varepsilon_sE_{si}\\)",
+        "\\(E_{ox}=E_{si}\\): fields are always continuous",
+        "\\(E_{ox}=E_{si}/3\\)",
+        "\\(E_{ox}=0\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "Gauss's law on a thin pillbox with no enclosed charge gives \\(\\varepsilon_1E_1=\\varepsilon_2E_2\\). So \\(E_{ox}/E_{si}=\\varepsilon_s/\\varepsilon_{ox}=11.7/3.9=3\\): the lower-permittivity material holds the larger field. The POTENTIAL is continuous; the field jumps.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Oxide / silicon interface</title><rect x=\"40\" y=\"20\" width=\"120\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"100\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">SiO₂ (3.9ε₀)</text><rect x=\"160\" y=\"20\" width=\"140\" height=\"90\"/><text x=\"230\" y=\"15\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Si (11.7ε₀)</text><line x1=\"60\" y1=\"65\" x2=\"140\" y2=\"65\"/><polygon points=\"140,65 133.6,67.7 133.6,62.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"100\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E_ox</text><line x1=\"180\" y1=\"65\" x2=\"220\" y2=\"65\"/><polygon points=\"220,65 213.6,67.7 213.6,62.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"200\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E_si</text></svg>",
+      "figure_alt": "Oxide region on the left and silicon on the right, with field arrows in each.",
+      "version": 2
     }
   ]
 }

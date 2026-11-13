@@ -1,0 +1,24 @@
+{
+  "id": "sg063-ee105-ch4",
+  "label": "SG-063 EE 105 IC passives",
+  "box": "EE 105 (ee105-ucb), IC Resistors, Capacitors, Electrostatics",
+  "skills": [
+    "ic-fab",
+    "sheet-res",
+    "electrostatics",
+    "mim-cap",
+    "nl-cap"
+  ],
+  "areas": {
+    "ic-fab": ["physical-models"],
+    "sheet-res": ["physical-models"],
+    "electrostatics": ["physical-models"],
+    "mim-cap": ["physical-models"],
+    "nl-cap": ["physical-models"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch4.py"
+}
