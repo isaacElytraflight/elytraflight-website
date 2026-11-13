@@ -9649,6 +9649,326 @@
     {
       "id": "total-current#explainer",
       "version": 1
+    },
+    {
+      "id": "ic-fab-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "ic-fab-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "ic-fab-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "ic-fab-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "ic-fab-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "ic-fab-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "ic-fab-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "ic-fab-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "ic-fab-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "ic-fab-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "ic-fab-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "ic-fab-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "ic-fab-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "ic-fab-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "ic-fab-r3-q2",
+      "version": 2
+    },
+    {
+      "id": "ic-fab#explainer",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "sheet-res-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "sheet-res-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r3-q5",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "sheet-res-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "sheet-res#explainer",
+      "version": 2
+    },
+    {
+      "id": "electrostatics-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "electrostatics-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "electrostatics-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "electrostatics-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "electrostatics-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "electrostatics-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "electrostatics-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "electrostatics-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "electrostatics-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "electrostatics-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "electrostatics-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "electrostatics-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "electrostatics-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "electrostatics-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "electrostatics-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "electrostatics#explainer",
+      "version": 1
+    },
+    {
+      "id": "mim-cap-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "mim-cap-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "mim-cap-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "mim-cap-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "mim-cap-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "mim-cap-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "mim-cap-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "mim-cap-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "mim-cap-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "mim-cap-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "mim-cap-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "mim-cap-r4-q3",
+      "version": 2
+    },
+    {
+      "id": "mim-cap-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "mim-cap-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "mim-cap-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "mim-cap#explainer",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "nl-cap-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "nl-cap-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "nl-cap-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "nl-cap-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r4-q3",
+      "version": 2
+    },
+    {
+      "id": "nl-cap-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "nl-cap-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "nl-cap#explainer",
+      "version": 1
     }
   ]
 }

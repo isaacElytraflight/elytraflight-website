@@ -438,3 +438,44 @@ Items above version 1:
 - `total-current-r1-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 EE 105 IC passives — sg063-ee105-ch4
+
+Box: EE 105 (ee105-ucb), IC Resistors, Capacitors, Electrostatics.
+
+Skills: `ic-fab`, `sheet-res`, `electrostatics`, `mim-cap`, `nl-cap`.
+
+Items above version 1:
+
+- `ic-fab-r1-q1` version 2
+- `ic-fab-r2-q1` version 2
+- `ic-fab-r3-q3` version 2
+- `ic-fab-r4-q1` version 2
+- `ic-fab-r1-q2` version 2
+- `ic-fab-r2-q3` version 2
+- `ic-fab-r3-q2` version 2
+- `sheet-res-r2-q1` version 2
+- `sheet-res-r2-q2` version 2
+- `sheet-res-r1-q1` version 2
+- `sheet-res-r3-q3` version 2
+- `sheet-res#explainer` version 2
+- `electrostatics-r2-q1` version 2
+- `electrostatics-r3-q1` version 2
+- `electrostatics-r3-q3` version 2
+- `electrostatics-r1-q1` version 2
+- `electrostatics-r1-q2` version 2
+- `electrostatics-r2-q3` version 2
+- `mim-cap-r1-q2` version 2
+- `mim-cap-r3-q1` version 2
+- `mim-cap-r3-q3` version 2
+- `mim-cap-r4-q3` version 2
+- `mim-cap-r1-q1` version 2
+- `mim-cap-r1-q3` version 2
+- `nl-cap-r2-q1` version 2
+- `nl-cap-r2-q2` version 2
+- `nl-cap-r3-q1` version 2
+- `nl-cap-r4-q1` version 2
+- `nl-cap-r4-q3` version 2
+- `nl-cap-r1-q1` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

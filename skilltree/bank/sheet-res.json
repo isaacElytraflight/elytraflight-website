@@ -1,23 +1,38 @@
 {
   "skill_id": "sheet-res",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "sheet-res-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A sheet resistance is quoted as \\(50\\ \\Omega/\\square\\). What is the resistance of one square of that layer, of any size?",
-      "options": [
-        "50 Ω, whatever the side length",
-        "50 Ω per µm of side length",
-        "50 Ω only for a 1 µm × 1 µm square",
-        "It depends on the thickness, which the designer chooses"
+      "type": "symbolic",
+      "prompt": "A straight rectangular body is cut from a uniform sheet. Write its resistance using the name Rs for the sheet resistance, the name L for the length, and the name W for the width.",
+      "explanation": "The body is \\(L/W\\) squares, and each square contributes the sheet resistance, so the resistance is that sheet resistance times \\(L/W\\). A square has equal length and width, and its resistance is the sheet resistance at any size. Multiplying by the width instead of dividing by it scales the resistance the wrong way. Thickness and doping are already inside the sheet resistance.",
+      "answer": "Rs*L/W",
+      "variables": [
+        {
+          "name": "Rs",
+          "min": 0.2,
+          "max": 20.0
+        },
+        {
+          "name": "L",
+          "min": 0.2,
+          "max": 8.0
+        },
+        {
+          "name": "W",
+          "min": 0.2,
+          "max": 8.0
+        }
       ],
-      "correct_index": 0,
-      "explanation": "\\(R = R_\\square (L/W)\\); a square has \\(L = W\\), so \\(R = R_\\square\\) at any size. Thickness and doping are fixed by the process and folded into \\(R_\\square\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 170\" role=\"img\" aria-label=\"Top view of a dog-bone diffusion resistor: a narrow strip of width W and length L between two wider contact heads.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"30\" y=\"60\" width=\"50\" height=\"50\"/><rect x=\"80\" y=\"75\" width=\"200\" height=\"20\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"280\" y=\"60\" width=\"50\" height=\"50\"/><rect x=\"45\" y=\"75\" width=\"20\" height=\"20\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"295\" y=\"75\" width=\"20\" height=\"20\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"55\" y=\"50\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">contact</text><text x=\"305\" y=\"50\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">contact</text><text x=\"180\" y=\"120\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L/W squares</text><line x1=\"80\" y1=\"140\" x2=\"280\" y2=\"140\"/><text x=\"180\" y=\"156\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">L</text><line x1=\"290\" y1=\"75\" x2=\"290\" y2=\"95\"/><text x=\"300\" y=\"89\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">W</text></svg>",
-      "figure_alt": "Top view of a dog-bone diffusion resistor: a narrow strip of width W and length L between two wider contact heads.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "Rs*(L/W)",
+        "(Rs*L)/W",
+        "L*Rs/W"
+      ],
+      "version": 1,
+      "id": "sheet-res-r1-q4"
     },
     {
       "id": "sheet-res-r1-q2",
@@ -96,33 +111,43 @@
       "figure_alt": "Serpentine resistor of constant width: a straight run, two corners joined by a short vertical run, and a second straight run."
     },
     {
-      "id": "sheet-res-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "Two resistors are drawn in the same layer: A is \\(2\\ \\mu\\mathrm{m} \\times 20\\ \\mu\\mathrm{m}\\), B is \\(10\\ \\mu\\mathrm{m} \\times 100\\ \\mu\\mathrm{m}\\) (width × length). How do their body resistances compare?",
+      "type": "multi",
+      "prompt": "Two bodies are drawn in the same sheet. Body A is \\(2\\ \\mu\\mathrm{m}\\) wide and \\(20\\ \\mu\\mathrm{m}\\) long. Body B is \\(10\\ \\mu\\mathrm{m}\\) wide and \\(100\\ \\mu\\mathrm{m}\\) long. Select every statement that is true.",
+      "explanation": "Only \\(L/W\\) enters the resistance: \\(20/2 = 100/10 = 10\\) squares, so the resistances match. The area ratio is \\((10\\times 100)/(2\\times 20) = 25\\). The larger body is used when matching or current capacity needs the area, not when a larger resistance is needed.",
       "options": [
-        "B is 5 times larger",
-        "A is 5 times larger",
-        "Equal, since both are 10 squares",
-        "B is 25 times larger"
+        "Each body is 10 squares long.",
+        "The two body resistances are equal.",
+        "Body B covers 25 times the area of body A.",
+        "Body B has 5 times the resistance of body A."
       ],
-      "correct_index": 2,
-      "explanation": "Only \\(L/W\\) matters: \\(20/2 = 100/10 = 10\\) squares each. B takes 25 times the area, which is why wide resistors are used only when matching or current capacity needs them."
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1,
+      "id": "sheet-res-r3-q4"
     },
     {
-      "id": "sheet-res-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Why is a polysilicon film resistor (on top of the oxide) preferred over a diffusion resistor when parasitics matter?",
-      "options": [
-        "Poly has zero temperature coefficient",
-        "Poly resistors need no contacts",
-        "Poly has a far higher \\(R_\\square\\) than any diffusion",
-        "Sitting on oxide, it has much less capacitance to the substrate than a reverse-biased junction"
+      "type": "error",
+      "prompt": "A student compares a polysilicon resistor, sitting on oxide, with a diffusion resistor when the parasitic capacitance matters. Exactly one step is wrong.",
+      "explanation": "Moving the film onto the oxide increases the distance to the substrate and removes the junction, so the parasitic capacitance falls. That smaller capacitance is the reason to prefer the film when parasitics matter. A higher sheet resistance, or the absence of contacts, is a different claim.",
+      "steps": [
+        "A diffusion resistor forms a junction against the substrate.",
+        "That junction is a capacitor distributed along the resistor.",
+        "A polysilicon film lies on the oxide, with the substrate farther away.",
+        "The film therefore has more capacitance to the substrate than the diffusion resistor."
       ],
-      "correct_index": 3,
-      "explanation": "A diffusion resistor's junction to the substrate is a distributed capacitor. Moving the film onto the oxide puts it farther from the substrate, lowering that capacitance.",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "The oxide increases the distance to the substrate, so the film's parasitic capacitance is smaller.",
+        "Polysilicon needs no contacts, so it has no capacitance at all."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "sheet-res-r3-q5"
     },
     {
       "id": "sheet-res-r4-q1",
@@ -174,6 +199,55 @@
       "preview": [
         "square-law"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "sheet-res-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A sheet resistance is quoted as \\(50\\ \\Omega/\\square\\). What is the resistance of one square of that layer, of any size?",
+      "options": [
+        "50 Ω, whatever the side length",
+        "50 Ω per µm of side length",
+        "50 Ω only for a 1 µm × 1 µm square",
+        "It depends on the thickness, which the designer chooses"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(R = R_\\square (L/W)\\); a square has \\(L = W\\), so \\(R = R_\\square\\) at any size. Thickness and doping are fixed by the process and folded into \\(R_\\square\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 170\" role=\"img\" aria-label=\"Top view of a dog-bone diffusion resistor: a narrow strip of width W and length L between two wider contact heads.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"30\" y=\"60\" width=\"50\" height=\"50\"/><rect x=\"80\" y=\"75\" width=\"200\" height=\"20\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"280\" y=\"60\" width=\"50\" height=\"50\"/><rect x=\"45\" y=\"75\" width=\"20\" height=\"20\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"295\" y=\"75\" width=\"20\" height=\"20\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"55\" y=\"50\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">contact</text><text x=\"305\" y=\"50\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">contact</text><text x=\"180\" y=\"120\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L/W squares</text><line x1=\"80\" y1=\"140\" x2=\"280\" y2=\"140\"/><text x=\"180\" y=\"156\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">L</text><line x1=\"290\" y1=\"75\" x2=\"290\" y2=\"95\"/><text x=\"300\" y=\"89\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">W</text></svg>",
+      "figure_alt": "Top view of a dog-bone diffusion resistor: a narrow strip of width W and length L between two wider contact heads.",
+      "version": 2
+    },
+    {
+      "id": "sheet-res-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Two resistors are drawn in the same layer: A is \\(2\\ \\mu\\mathrm{m} \\times 20\\ \\mu\\mathrm{m}\\), B is \\(10\\ \\mu\\mathrm{m} \\times 100\\ \\mu\\mathrm{m}\\) (width × length). How do their body resistances compare?",
+      "options": [
+        "B is 5 times larger",
+        "A is 5 times larger",
+        "Equal, since both are 10 squares",
+        "B is 25 times larger"
+      ],
+      "correct_index": 2,
+      "explanation": "Only \\(L/W\\) matters: \\(20/2 = 100/10 = 10\\) squares each. B takes 25 times the area, which is why wide resistors are used only when matching or current capacity needs them.",
+      "version": 1
+    },
+    {
+      "id": "sheet-res-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Why is a polysilicon film resistor (on top of the oxide) preferred over a diffusion resistor when parasitics matter?",
+      "options": [
+        "Poly has zero temperature coefficient",
+        "Poly resistors need no contacts",
+        "Poly has a far higher \\(R_\\square\\) than any diffusion",
+        "Sitting on oxide, it has much less capacitance to the substrate than a reverse-biased junction"
+      ],
+      "correct_index": 3,
+      "explanation": "A diffusion resistor's junction to the substrate is a distributed capacitor. Moving the film onto the oxide puts it farther from the substrate, lowering that capacitance.",
+      "version": 2
     }
   ]
 }
