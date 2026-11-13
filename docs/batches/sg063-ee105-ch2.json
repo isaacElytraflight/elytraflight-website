@@ -1,0 +1,34 @@
+{
+  "id": "sg063-ee105-ch2",
+  "label": "SG-063 EE 105 AC circuits",
+  "box": "EE 105 (ee105-ucb), AC Circuits and AC Analysis",
+  "skills": [
+    "tf",
+    "phasors",
+    "direct-h",
+    "pole-zero",
+    "rlc",
+    "bode",
+    "ac-power",
+    "bode-circuits"
+  ],
+  "areas": {
+    "tf": ["signals"],
+    "phasors": ["signals", "physical-models"],
+    "direct-h": ["physical-models", "frequency-response"],
+    "pole-zero": ["signals"],
+    "rlc": ["physical-models", "frequency-response"],
+    "bode": ["frequency-response"],
+    "ac-power": ["physical-models"],
+    "bode-circuits": ["frequency-response", "physical-models"]
+  },
+  "cores": [
+    "tf",
+    "pole-zero",
+    "bode"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch2.py"
+}

@@ -1,0 +1,76 @@
+{
+  "batch": "sg063-ee105-ch2",
+  "ok": true,
+  "steps": [
+    {
+      "name": "build",
+      "ok": true,
+      "summary": "content files written"
+    },
+    {
+      "name": "schema",
+      "ok": true,
+      "summary": "OK: all checks passed (324 warning(s))"
+    },
+    {
+      "name": "reference",
+      "ok": true,
+      "summary": "OK: reference gate, 0 hits"
+    },
+    {
+      "name": "graph",
+      "ok": true,
+      "summary": "graph ok: 270 skills, acyclic, every skill in a top-level box"
+    },
+    {
+      "name": "domain",
+      "ok": true,
+      "summary": "0 unwaived warnings"
+    },
+    {
+      "name": "deep-quota",
+      "ok": true,
+      "summary": "OK: deep-quota gate, 0 banks under 25% (140 legacy banks pending SG-063)"
+    },
+    {
+      "name": "dedupe",
+      "ok": true,
+      "summary": "OK: dedupe gate, 0 unresolved overlaps (8 skills checked)"
+    },
+    {
+      "name": "numeric",
+      "ok": true,
+      "summary": "0 mismatches"
+    },
+    {
+      "name": "figure-bounds",
+      "ok": true,
+      "summary": "figure-bounds: 29 warning(s), 0 on the batch; elsewhere amp-compensation, cascode-amp, cd-freq, cs-cascade-freq, noise-dist, octc, rev-bias, stability, vt"
+    },
+    {
+      "name": "katex",
+      "ok": true,
+      "summary": "KaTeX: rendered 1036 math chunks, 0 errors"
+    },
+    {
+      "name": "test-content",
+      "ok": true,
+      "summary": "16 passed, 0 failed"
+    },
+    {
+      "name": "test-merge",
+      "ok": true,
+      "summary": "21 passed, 0 failed"
+    },
+    {
+      "name": "test-migrate",
+      "ok": true,
+      "summary": "24 passed, 0 failed"
+    },
+    {
+      "name": "puppeteer",
+      "ok": true,
+      "summary": "79 passed, 0 failed"
+    }
+  ]
+}

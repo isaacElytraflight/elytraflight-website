@@ -534,6 +534,46 @@ async function answerQuiz(p, skill, pattern) {
       const val = ok ? String(q.answer) : String(q.answer * 3 + 7);
       await p.type('#numIn', val);
       await p.click('#checkBtn');
+    } else if (q.type === 'symbolic') {
+      await p.type('#exprIn', ok ? q.answer : '0');
+      await p.click('#checkBtn');
+    } else if (q.type === 'order') {
+      if (ok) {
+        for (let target = 0; target < q.steps.length; target++) {
+          const plain = q.steps[target].replace(/\\\([\s\S]*?\\\)/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 28);
+          let guard = 0;
+          for (;;) {
+            const found = await p.evaluate(prefix => {
+              const rows = [...document.querySelectorAll('.ordrow')];
+              return rows.findIndex(row => (row.querySelector('.tx').textContent || '').includes(prefix));
+            }, plain.slice(0, 18));
+            assert(found >= 0, 'order step not on screen: ' + q.id);
+            if (found <= target) break;
+            const up = (await p.$$('.ordrow'))[found].$('button[aria-label="Move step up"]');
+            await (await up).click();
+            await sleep(20);
+            assert(++guard < 12, 'order sort did not settle ' + q.id);
+          }
+        }
+      }
+      await p.click('#checkBtn');
+    } else if (q.type === 'error') {
+      const step = ok ? q.flaw_index : (q.flaw_index === 0 ? 1 : 0);
+      await (await p.$$('#quiz .qcard > .opts .opt'))[step].click();
+      if (q.reasons && q.reasons.length) {
+        const reason = ok ? q.correct_reason : (q.correct_reason === 0 ? 1 : 0);
+        const buttons = await p.$$('#quiz .qcard .opts');
+        await (await buttons[1].$$('.opt'))[reason].click();
+        await p.click('#checkBtn');
+      }
+    } else if (q.type === 'multi') {
+      const want = new Set(ok ? q.correct_indices : [q.correct_indices[0] === 0 ? 1 : 0]);
+      const buttons = await p.$$('#quiz .opts .opt');
+      for (let i = 0; i < buttons.length; i++) {
+        const orig = await buttons[i].evaluate(b => Number(b.dataset.o));
+        if (want.has(orig)) await buttons[i].click();
+      }
+      await p.click('#checkBtn');
     } else {
       throw new Error('answerQuiz has no driver for ' + q.type + ' (' + q.id + ')');
     }

@@ -1,6 +1,6 @@
 {
   "skill_id": "bode",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "id": "bode-r1-q1",
@@ -19,18 +19,24 @@
       "figure_alt": "Asymptotic Bode magnitude of a first-order low-pass: flat, then a straight falling line beyond the pole."
     },
     {
-      "id": "bode-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "A system has a gain of \\(100\\). What is that gain in decibels?",
-      "options": [
-        "20 dB",
-        "100 dB",
-        "10 dB",
-        "40 dB"
+      "type": "symbolic",
+      "prompt": "A Bode magnitude plot has a constant gain \\(K>0\\). Write that gain in decibels using the name \\(K\\).",
+      "explanation": "Decibels are \\(20\\log_{10}(K)\\). The natural log converts by \\(\\log_{10}(K)=\\ln(K)/\\ln(10)\\). Using \\(10\\log_{10}\\) is the power ratio, and it is half of this voltage or amplitude ratio. A gain of 100 is \\(40\\ \\mathrm{dB}\\), not \\(20\\ \\mathrm{dB}\\).",
+      "answer": "20*ln(K)/ln(10)",
+      "variables": [
+        {
+          "name": "K",
+          "min": 0.2,
+          "max": 80.0
+        }
       ],
-      "correct_index": 3,
-      "explanation": "Amplitude-ratio decibels are \\(\\mathrm{dB}=20\\cdot\\log_{10}|G|\\): \\(20\\cdot\\log_{10}(100)=20\\times 2=40\\ \\mathrm{dB}\\). The factor 20 (not 10) is used because power goes as amplitude squared.\n• 20 dB corresponds to a gain of 10.\n• 100 dB would be a gain of 100,000.\n• 10 dB would be a gain of 3.16 (or would come from forgetting the \\(\\log\\))."
+      "tolerance": 0.001,
+      "alternates": [
+        "20*log(K)/log(10)"
+      ],
+      "version": 1,
+      "id": "bode-r1-q4"
     },
     {
       "id": "bode-r1-q3",
@@ -67,20 +73,18 @@
       "figure_alt": "Phase of a two-pole response falling from 0 toward minus 180 degrees, with poles at 10^2 and 10^4 rad/s."
     },
     {
-      "id": "bode-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "A system has \\(H(j\\omega)=1000/[(1+j\\omega/10)(1+j\\omega/1000)]\\) with \\(\\omega\\) in \\(\\mathrm{rad}/\\mathrm{s}\\). According to the asymptotic Bode magnitude plot, what is |H| in dB at \\(\\omega=1000\\ \\mathrm{rad}/\\mathrm{s}\\)?",
-      "options": [
-        "60 dB",
-        "40 dB",
-        "20 dB",
-        "0 dB"
+      "type": "order",
+      "prompt": "Order the straight-line magnitude sketch of a first-order low-pass \\(H=K/(1+j\\omega/\\omega_p)\\) with \\(K>0\\) and \\(\\omega_p>0\\). Each step after the first uses the result of the step before it.",
+      "explanation": "The horizontal level is the decibel value of \\(K\\), so the conversion comes first. The falling ray starts at the break from that same level, so it cannot be drawn before the corner value exists. The asymptote is the join of the two pieces. A rise of \\(20\\ \\mathrm{dB}\\) per decade would be a zero, not this pole. The true curve sits \\(3\\ \\mathrm{dB}\\) below the corner; the asymptote itself does not.",
+      "steps": [
+        "Convert the low-frequency gain \\(K\\) into decibels.",
+        "Draw that decibel level as a horizontal line from low frequency up to the break \\(\\omega_p\\).",
+        "From the decibel value at the break, drop \\(20\\ \\mathrm{dB}\\) for each decade above \\(\\omega_p\\).",
+        "Join the horizontal piece to that falling piece. The join is the magnitude asymptote."
       ],
-      "correct_index": 2,
-      "explanation": "DC gain \\(=1000=60\\ \\mathrm{dB}\\). The plot is flat at 60 dB up to the first pole at \\(\\omega=10\\ \\mathrm{rad}/\\mathrm{s}\\).\nBetween 10 and \\(1000\\ \\mathrm{rad}/\\mathrm{s}\\) (two decades) the slope is \\(-20\\ \\mathrm{dB}/\\mathrm{decade}\\), so the gain falls by 40 dB: \\(60-40=20\\ \\mathrm{dB}\\) at \\(\\omega=1000\\ \\mathrm{rad}/\\mathrm{s}\\) (just where the second pole starts to bend the curve).\n• 60 dB forgets the first pole.\n• 40 dB counts only one decade of roll-off.\n• 0 dB is not reached until about \\(\\omega\\approx 3162\\ \\mathrm{rad}/\\mathrm{s}\\), after the \\(-40\\ \\mathrm{dB}/\\mathrm{decade}\\) section has taken another 20 dB off.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>H = 1000/[(1 + jω/10)(1 + jω/1000)]</title><line x1=\"52\" y1=\"164\" x2=\"320\" y2=\"164\"/><polygon points=\"320,164 313.6,166.7 313.6,161.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"52\" y1=\"164\" x2=\"52\" y2=\"14\"/><polygon points=\"52,14 54.7,20.4 49.3,20.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"192\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω (rad/s)</text><text x=\"56\" y=\"10\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><line x1=\"49\" y1=\"164\" x2=\"55\" y2=\"164\"/><text x=\"46\" y=\"167\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-60</text><line x1=\"49\" y1=\"141.6\" x2=\"55\" y2=\"141.6\"/><text x=\"46\" y=\"144.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-40</text><line x1=\"49\" y1=\"119.2\" x2=\"55\" y2=\"119.2\"/><text x=\"46\" y=\"122.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-20</text><line x1=\"49\" y1=\"96.8\" x2=\"55\" y2=\"96.8\"/><text x=\"46\" y=\"99.8\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"52\" y1=\"96.8\" x2=\"312\" y2=\"96.8\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"49\" y1=\"74.4\" x2=\"55\" y2=\"74.4\"/><text x=\"46\" y=\"77.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"49\" y1=\"52\" x2=\"55\" y2=\"52\"/><text x=\"46\" y=\"55\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"49\" y1=\"29.6\" x2=\"55\" y2=\"29.6\"/><text x=\"46\" y=\"32.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"52\" y1=\"161\" x2=\"52\" y2=\"167\"/><text x=\"52\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"104\" y1=\"161\" x2=\"104\" y2=\"167\"/><text x=\"104\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"156\" y1=\"161\" x2=\"156\" y2=\"167\"/><text x=\"156\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"208\" y1=\"161\" x2=\"208\" y2=\"167\"/><text x=\"208\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"260\" y1=\"161\" x2=\"260\" y2=\"167\"/><text x=\"260\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"312\" y1=\"161\" x2=\"312\" y2=\"167\"/><text x=\"312\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><polyline points=\"52,29.6 104,29.6 208,74.4 312,164\" stroke-width=\"2.2\"/></svg>",
-      "figure_alt": "Asymptotic Bode magnitude with poles at 10 and 1000 rad/s starting at 60 dB."
+      "version": 1,
+      "id": "bode-r2-q4"
     },
     {
       "id": "bode-r3-q1",
@@ -99,18 +103,24 @@
       "figure_alt": "Double-pole Bode magnitude: the asymptote has a corner at omega_p while the exact dashed curve sits below it."
     },
     {
-      "id": "bode-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "Compare a left-half-plane zero, \\(H_{L}=1+j\\omega/\\omega_{z}\\), with a right-half-plane zero, \\(H_{R}=1-j\\omega/\\omega_{z}\\ (\\omega_{z}>0)\\). Which statement is correct?",
-      "options": [
-        "They have identical magnitude plots (rising at \\(+20\\ \\mathrm{dB}/\\mathrm{decade}\\) above \\(\\omega_{z}\\)), but \\(H_{R}\\) has phase going from 0° to −90° while \\(H_{L}\\) goes from 0° to +90°",
-        "\\(H_{R}\\) has a falling magnitude above \\(\\omega_{z}\\), and its phase goes from 0° to +90°",
-        "They have identical magnitudes and identical phases",
-        "\\(H_{R}\\) has a flat magnitude, but its phase goes from 0° to −90°"
+      "type": "error",
+      "prompt": "Compare \\(H_L=1+j\\omega/\\omega_z\\) with \\(H_R=1-j\\omega/\\omega_z\\), for \\(\\omega_z>0\\) and \\(\\omega>0\\). A student compares their Bode plots. Exactly one step is wrong.",
+      "explanation": "The magnitudes match, and above \\(\\omega_z\\) both rise at \\(+20\\ \\mathrm{dB}\\) per decade. The phases are mirrors: the left-half-plane zero climbs toward \\(+90^\\circ\\) and the right-half-plane zero falls toward \\(-90^\\circ\\). Saying every zero has positive phase erases that mirror.",
+      "steps": [
+        "Both factors have magnitude \\(\\sqrt{1+(\\omega/\\omega_z)^2}\\).",
+        "The phase of \\(H_L\\) is \\(+\\arctan(\\omega/\\omega_z)\\).",
+        "The phase of \\(H_R\\) is \\(-\\arctan(\\omega/\\omega_z)\\).",
+        "The two phase curves therefore match, because every zero contributes positive phase."
       ],
-      "correct_index": 0,
-      "explanation": "\\(|1-jx|=|1+jx|=\\sqrt{1+x^{2}}\\) for real x, so the magnitude plots are identical: flat, then rising \\(+20\\ \\mathrm{dB}/\\mathrm{decade}\\) above \\(\\omega_{z}\\), with the same +3 dB error at \\(\\omega_{z}\\).\nThe phases differ in sign: \\(\\angle(1+jx)=+\\tan^{-1}x\\), while \\(\\angle(1-jx)=-\\tan^{-1}x\\). The RHP zero adds phase LAG while boosting gain, which is bad for stability: an RHP zero can't be spotted from a magnitude plot alone.\nThe other options misstate either the magnitude slope or the phase sign."
+      "flaw_index": 3,
+      "reasons": [
+        "The phases are opposite. Only the left-half-plane zero climbs toward \\(+90^\\circ\\).",
+        "The right-half-plane zero has a falling magnitude."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "bode-r3-q4"
     },
     {
       "id": "bode-r3-q3",
@@ -168,6 +178,55 @@
       ],
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Loop gain L(jω)</title><line x1=\"52\" y1=\"164\" x2=\"320\" y2=\"164\"/><polygon points=\"320,164 313.6,166.7 313.6,161.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"52\" y1=\"164\" x2=\"52\" y2=\"14\"/><polygon points=\"52,14 54.7,20.4 49.3,20.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"192\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω (rad/s)</text><text x=\"56\" y=\"10\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><line x1=\"49\" y1=\"164\" x2=\"55\" y2=\"164\"/><text x=\"46\" y=\"167\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-60</text><line x1=\"49\" y1=\"141.6\" x2=\"55\" y2=\"141.6\"/><text x=\"46\" y=\"144.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-40</text><line x1=\"49\" y1=\"119.2\" x2=\"55\" y2=\"119.2\"/><text x=\"46\" y=\"122.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-20</text><line x1=\"49\" y1=\"96.8\" x2=\"55\" y2=\"96.8\"/><text x=\"46\" y=\"99.8\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"52\" y1=\"96.8\" x2=\"312\" y2=\"96.8\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"49\" y1=\"74.4\" x2=\"55\" y2=\"74.4\"/><text x=\"46\" y=\"77.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"49\" y1=\"52\" x2=\"55\" y2=\"52\"/><text x=\"46\" y=\"55\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"49\" y1=\"29.6\" x2=\"55\" y2=\"29.6\"/><text x=\"46\" y=\"32.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"52\" y1=\"161\" x2=\"52\" y2=\"167\"/><text x=\"52\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"89.1\" y1=\"161\" x2=\"89.1\" y2=\"167\"/><text x=\"89.1\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"126.3\" y1=\"161\" x2=\"126.3\" y2=\"167\"/><text x=\"126.3\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"163.4\" y1=\"161\" x2=\"163.4\" y2=\"167\"/><text x=\"163.4\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"200.6\" y1=\"161\" x2=\"200.6\" y2=\"167\"/><text x=\"200.6\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"237.7\" y1=\"161\" x2=\"237.7\" y2=\"167\"/><text x=\"237.7\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"274.9\" y1=\"161\" x2=\"274.9\" y2=\"167\"/><text x=\"274.9\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"312\" y1=\"161\" x2=\"312\" y2=\"167\"/><text x=\"312\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁸</text><polyline points=\"52,29.6 126.3,29.6 237.7,96.8 274.9,119.2 312,164\" stroke-width=\"2.2\"/><circle cx=\"237.7\" cy=\"96.8\" r=\"3\" fill=\"currentColor\"/><text x=\"243.7\" y=\"90.8\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|L| ≈ 1</text></svg>",
       "figure_alt": "Asymptotic loop-gain magnitude crossing 0 dB near 10^6 rad/s, before the second pole at 10^7."
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "bode-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A system has \\(H(j\\omega)=1000/[(1+j\\omega/10)(1+j\\omega/1000)]\\) with \\(\\omega\\) in \\(\\mathrm{rad}/\\mathrm{s}\\). According to the asymptotic Bode magnitude plot, what is |H| in dB at \\(\\omega=1000\\ \\mathrm{rad}/\\mathrm{s}\\)?",
+      "options": [
+        "60 dB",
+        "40 dB",
+        "20 dB",
+        "0 dB"
+      ],
+      "correct_index": 2,
+      "explanation": "DC gain \\(=1000=60\\ \\mathrm{dB}\\). The plot is flat at 60 dB up to the first pole at \\(\\omega=10\\ \\mathrm{rad}/\\mathrm{s}\\).\nBetween 10 and \\(1000\\ \\mathrm{rad}/\\mathrm{s}\\) (two decades) the slope is \\(-20\\ \\mathrm{dB}/\\mathrm{decade}\\), so the gain falls by 40 dB: \\(60-40=20\\ \\mathrm{dB}\\) at \\(\\omega=1000\\ \\mathrm{rad}/\\mathrm{s}\\) (just where the second pole starts to bend the curve).\n• 60 dB forgets the first pole.\n• 40 dB counts only one decade of roll-off.\n• 0 dB is not reached until about \\(\\omega\\approx 3162\\ \\mathrm{rad}/\\mathrm{s}\\), after the \\(-40\\ \\mathrm{dB}/\\mathrm{decade}\\) section has taken another 20 dB off.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>H = 1000/[(1 + jω/10)(1 + jω/1000)]</title><line x1=\"52\" y1=\"164\" x2=\"320\" y2=\"164\"/><polygon points=\"320,164 313.6,166.7 313.6,161.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"52\" y1=\"164\" x2=\"52\" y2=\"14\"/><polygon points=\"52,14 54.7,20.4 49.3,20.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"192\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω (rad/s)</text><text x=\"56\" y=\"10\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><line x1=\"49\" y1=\"164\" x2=\"55\" y2=\"164\"/><text x=\"46\" y=\"167\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-60</text><line x1=\"49\" y1=\"141.6\" x2=\"55\" y2=\"141.6\"/><text x=\"46\" y=\"144.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-40</text><line x1=\"49\" y1=\"119.2\" x2=\"55\" y2=\"119.2\"/><text x=\"46\" y=\"122.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-20</text><line x1=\"49\" y1=\"96.8\" x2=\"55\" y2=\"96.8\"/><text x=\"46\" y=\"99.8\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"52\" y1=\"96.8\" x2=\"312\" y2=\"96.8\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"49\" y1=\"74.4\" x2=\"55\" y2=\"74.4\"/><text x=\"46\" y=\"77.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"49\" y1=\"52\" x2=\"55\" y2=\"52\"/><text x=\"46\" y=\"55\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"49\" y1=\"29.6\" x2=\"55\" y2=\"29.6\"/><text x=\"46\" y=\"32.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"52\" y1=\"161\" x2=\"52\" y2=\"167\"/><text x=\"52\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"104\" y1=\"161\" x2=\"104\" y2=\"167\"/><text x=\"104\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"156\" y1=\"161\" x2=\"156\" y2=\"167\"/><text x=\"156\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"208\" y1=\"161\" x2=\"208\" y2=\"167\"/><text x=\"208\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"260\" y1=\"161\" x2=\"260\" y2=\"167\"/><text x=\"260\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"312\" y1=\"161\" x2=\"312\" y2=\"167\"/><text x=\"312\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><polyline points=\"52,29.6 104,29.6 208,74.4 312,164\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "Asymptotic Bode magnitude with poles at 10 and 1000 rad/s starting at 60 dB.",
+      "version": 1
+    },
+    {
+      "id": "bode-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A system has a gain of \\(100\\). What is that gain in decibels?",
+      "options": [
+        "20 dB",
+        "100 dB",
+        "10 dB",
+        "40 dB"
+      ],
+      "correct_index": 3,
+      "explanation": "Amplitude-ratio decibels are \\(\\mathrm{dB}=20\\cdot\\log_{10}|G|\\): \\(20\\cdot\\log_{10}(100)=20\\times 2=40\\ \\mathrm{dB}\\). The factor 20 (not 10) is used because power goes as amplitude squared.\n• 20 dB corresponds to a gain of 10.\n• 100 dB would be a gain of 100,000.\n• 10 dB would be a gain of 3.16 (or would come from forgetting the \\(\\log\\)).",
+      "version": 1
+    },
+    {
+      "id": "bode-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Compare a left-half-plane zero, \\(H_{L}=1+j\\omega/\\omega_{z}\\), with a right-half-plane zero, \\(H_{R}=1-j\\omega/\\omega_{z}\\ (\\omega_{z}>0)\\). Which statement is correct?",
+      "options": [
+        "They have identical magnitude plots (rising at \\(+20\\ \\mathrm{dB}/\\mathrm{decade}\\) above \\(\\omega_{z}\\)), but \\(H_{R}\\) has phase going from 0° to −90° while \\(H_{L}\\) goes from 0° to +90°",
+        "\\(H_{R}\\) has a falling magnitude above \\(\\omega_{z}\\), and its phase goes from 0° to +90°",
+        "They have identical magnitudes and identical phases",
+        "\\(H_{R}\\) has a flat magnitude, but its phase goes from 0° to −90°"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(|1-jx|=|1+jx|=\\sqrt{1+x^{2}}\\) for real x, so the magnitude plots are identical: flat, then rising \\(+20\\ \\mathrm{dB}/\\mathrm{decade}\\) above \\(\\omega_{z}\\), with the same +3 dB error at \\(\\omega_{z}\\).\nThe phases differ in sign: \\(\\angle(1+jx)=+\\tan^{-1}x\\), while \\(\\angle(1-jx)=-\\tan^{-1}x\\). The RHP zero adds phase LAG while boosting gain, which is bad for stability: an RHP zero can't be spotted from a magnitude plot alone.\nThe other options misstate either the magnitude slope or the phase sign.",
+      "version": 1
     }
   ]
 }

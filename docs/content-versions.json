@@ -8689,6 +8689,518 @@
     {
       "id": "freq-resp-circuits#explainer",
       "version": 1
+    },
+    {
+      "id": "tf-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "tf-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "tf-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "tf-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "tf-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "tf-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "tf-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "tf-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "tf-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "tf-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "tf-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "tf-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "tf-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "tf-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "tf-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "tf#explainer",
+      "version": 1
+    },
+    {
+      "id": "phasors-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "phasors-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "phasors-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "phasors-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "phasors-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "phasors-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "phasors-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "phasors-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "phasors-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "phasors-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "phasors-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "phasors-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "phasors-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "phasors-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "phasors-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "phasors#explainer",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "direct-h-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "direct-h-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "direct-h-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "direct-h#explainer",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q6",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "pole-zero#explainer",
+      "version": 1
+    },
+    {
+      "id": "rlc-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "rlc-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "rlc-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "rlc-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "rlc-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "rlc-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "rlc-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "rlc-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "rlc-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "rlc-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "rlc-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "rlc-r4-q3",
+      "version": 3
+    },
+    {
+      "id": "rlc-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "rlc-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "rlc-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "rlc#explainer",
+      "version": 1
+    },
+    {
+      "id": "bode-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "bode-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "bode-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "bode-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "bode-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "bode-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "bode-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "bode-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "bode-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "bode-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "bode-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "bode-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "bode-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "bode-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "bode-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "bode#explainer",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "ac-power-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "ac-power-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "ac-power#explainer",
+      "version": 2
+    },
+    {
+      "id": "bode-circuits-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "bode-circuits-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "bode-circuits#explainer",
+      "version": 1
     }
   ]
 }

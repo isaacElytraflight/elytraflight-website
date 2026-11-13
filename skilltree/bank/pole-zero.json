@@ -1,52 +1,66 @@
 {
   "skill_id": "pole-zero",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
-      "id": "pole-zero-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "For a transfer function \\(H=N(s)/D(s)\\), what are the 'poles' and 'zeros'?",
-      "options": [
-        "Poles are the roots of the numerator; zeros are the roots of the denominator",
-        "Poles are the frequencies where \\(H=0\\); zeros are the frequencies where \\(|H|=1\\)",
-        "Zeros are the roots of the numerator N (where \\(H=0\\)); poles are the roots of the denominator D (where H blows up)",
-        "Poles and zeros are both roots of the denominator, for the real and imaginary parts respectively"
+      "type": "order",
+      "prompt": "\\(H(s)=N(s)/D(s)\\), and \\(N\\) and \\(D\\) share no common root. Order the reading of one real pole \\(p=-a\\) with \\(a>0\\) into its natural term. Each step after the first uses the result of the step before it.",
+      "explanation": "The root has to be known before a mode can be attached to it. Substituting \\(p=-a\\) uses that mode. The decaying exponential is the result of the substitution, so it is last. A root of the numerator would be a zero and would not create this term. A positive real part would grow instead of decay.",
+      "steps": [
+        "Solve \\(D(s)=0\\) and take the real root \\(p=-a\\).",
+        "The mode attached to that root is \\(e^{pt}\\).",
+        "Substitute \\(p=-a\\) so the mode is \\(e^{-at}\\).",
+        "That decaying exponential is the natural term of this pole."
       ],
-      "correct_index": 2,
-      "explanation": "Zeros ('stakes in the ground' of the tent) are values of s where the numerator vanishes, so \\(H=0\\). Poles are values of s where the denominator vanishes, so \\(|H|\\to\\infty\\) (the poles holding the tent up).\nThe other options swap the roles or invent definitions."
+      "version": 1,
+      "id": "pole-zero-r1-q4"
     },
     {
-      "id": "pole-zero-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "A transfer function has a single real pole at \\(s=-4\\). Which term does that pole contribute to the natural response?",
-      "options": [
-        "\\(Ae^{4t}\\), a growing exponential",
-        "\\(Ae^{-4t}\\), a decaying exponential",
-        "\\(A\\sin(4t)\\)",
-        "\\(At^4\\)"
+      "type": "symbolic",
+      "prompt": "A transfer function has one real pole at \\(s=-a\\) with \\(a>0\\). Write the natural term that pole contributes, using the name \\(a\\) for that positive number and the name \\(t\\) for time.",
+      "explanation": "A pole at \\(s=p\\) contributes \\(e^{pt}\\). Here \\(p=-a\\), so the term is \\(e^{-at}\\). The sign in the exponent is the sign of the pole: a pole at \\(+a\\) would grow. The imaginary part, which this pole does not have, would have set an oscillation frequency rather than the decay.",
+      "answer": "exp(-a*t)",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.2,
+          "max": 6.0
+        },
+        {
+          "name": "t",
+          "min": 0.05,
+          "max": 3.0
+        }
       ],
-      "correct_index": 1,
-      "explanation": "A pole at \\(p\\) contributes \\(e^{pt}\\). With \\(p=-4\\), that term decays with time constant \\(1/4\\) s.\n• \\(e^{4t}\\) would come from a pole at \\(+4\\) in the right half plane.\n• A sinusoid needs a pair of poles on the imaginary axis.\n• Powers of t come from repeated poles, and even then they multiply an exponential.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" aria-label=\"s-plane with a single pole (x) on the negative real axis at -4.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"20\" y1=\"100\" x2=\"320\" y2=\"100\"/><line x1=\"170\" y1=\"10\" x2=\"170\" y2=\"190\"/><text x=\"312\" y=\"94\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"184\" y=\"18\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"57.3\" y1=\"95\" x2=\"67.3\" y2=\"105\"/><line x1=\"57.3\" y1=\"105\" x2=\"67.3\" y2=\"95\"/></svg>",
-      "figure_alt": "s-plane with a single pole (x) on the negative real axis at -4."
+      "tolerance": 0.001,
+      "alternates": [
+        "e**(-a*t)",
+        "exp(-t*a)"
+      ],
+      "version": 1,
+      "id": "pole-zero-r1-q5"
     },
     {
-      "id": "pole-zero-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "A system has the two poles shown, at \\(s=-1\\pm j3\\). Which term appears in its natural response?",
-      "options": [
-        "\\(Ae^{-3t}\\cos(t+\\phi)\\)",
-        "\\(Ae^{t}\\cos(3t+\\phi)\\)",
-        "\\(Ae^{-t}\\cos(3t+\\phi)\\)",
-        "\\(Ae^{-t}\\) only, with no oscillation"
+      "type": "error",
+      "prompt": "A system has poles at \\(s=-1\\pm j3\\). A student names the natural response. Exactly one step is wrong.",
+      "explanation": "Growth or decay is the real part. Both poles have real part \\(-1\\), so the envelope is \\(e^{-t}\\). The imaginary part \\(3\\) is the oscillation frequency in radians per second. A growing oscillation would need a positive real part. A real pole would have no oscillation at all.",
+      "steps": [
+        "The poles are \\(-1+j3\\) and \\(-1-j3\\).",
+        "The real part of each pole is \\(-1\\).",
+        "The natural response contains \\(e^{-t}\\) times a sinusoid at \\(3\\ \\mathrm{rad/s}\\).",
+        "The oscillation grows, because the imaginary part is not zero."
       ],
-      "correct_index": 2,
-      "explanation": "A complex pair \\(\\sigma\\pm j\\omega_d\\) gives \\(e^{\\sigma t}\\cos(\\omega_dt+\\phi)\\). The real part \\(-1\\) sets the decay, and the imaginary part 3 sets the oscillation in rad/s.\n• Swapping the two parts gives \\(e^{-3t}\\cos t\\).\n• \\(e^{t}\\) needs a positive real part.\n• A purely exponential term needs real poles.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" aria-label=\"s-plane with a complex-conjugate pole pair at -1 plus and minus j3.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"20\" y1=\"100\" x2=\"320\" y2=\"100\"/><line x1=\"170\" y1=\"10\" x2=\"170\" y2=\"190\"/><text x=\"312\" y=\"94\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"184\" y=\"18\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"144.5\" y1=\"33.5\" x2=\"154.5\" y2=\"43.5\"/><line x1=\"144.5\" y1=\"43.5\" x2=\"154.5\" y2=\"33.5\"/><line x1=\"144.5\" y1=\"156.5\" x2=\"154.5\" y2=\"166.5\"/><line x1=\"144.5\" y1=\"166.5\" x2=\"154.5\" y2=\"156.5\"/></svg>",
-      "figure_alt": "s-plane with a complex-conjugate pole pair at -1 plus and minus j3."
+      "flaw_index": 3,
+      "reasons": [
+        "The imaginary part sets the frequency. The negative real part makes the envelope decay.",
+        "The envelope is \\(e^{3t}\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "pole-zero-r1-q6"
     },
     {
       "id": "pole-zero-r2-q1",
@@ -176,6 +190,57 @@
       "preview": [
         "second-order-sys"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "pole-zero-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For a transfer function \\(H=N(s)/D(s)\\), what are the 'poles' and 'zeros'?",
+      "options": [
+        "Poles are the roots of the numerator; zeros are the roots of the denominator",
+        "Poles are the frequencies where \\(H=0\\); zeros are the frequencies where \\(|H|=1\\)",
+        "Zeros are the roots of the numerator N (where \\(H=0\\)); poles are the roots of the denominator D (where H blows up)",
+        "Poles and zeros are both roots of the denominator, for the real and imaginary parts respectively"
+      ],
+      "correct_index": 2,
+      "explanation": "Zeros ('stakes in the ground' of the tent) are values of s where the numerator vanishes, so \\(H=0\\). Poles are values of s where the denominator vanishes, so \\(|H|\\to\\infty\\) (the poles holding the tent up).\nThe other options swap the roles or invent definitions.",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A transfer function has a single real pole at \\(s=-4\\). Which term does that pole contribute to the natural response?",
+      "options": [
+        "\\(Ae^{4t}\\), a growing exponential",
+        "\\(Ae^{-4t}\\), a decaying exponential",
+        "\\(A\\sin(4t)\\)",
+        "\\(At^4\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "A pole at \\(p\\) contributes \\(e^{pt}\\). With \\(p=-4\\), that term decays with time constant \\(1/4\\) s.\n• \\(e^{4t}\\) would come from a pole at \\(+4\\) in the right half plane.\n• A sinusoid needs a pair of poles on the imaginary axis.\n• Powers of t come from repeated poles, and even then they multiply an exponential.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" aria-label=\"s-plane with a single pole (x) on the negative real axis at -4.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"20\" y1=\"100\" x2=\"320\" y2=\"100\"/><line x1=\"170\" y1=\"10\" x2=\"170\" y2=\"190\"/><text x=\"312\" y=\"94\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"184\" y=\"18\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"57.3\" y1=\"95\" x2=\"67.3\" y2=\"105\"/><line x1=\"57.3\" y1=\"105\" x2=\"67.3\" y2=\"95\"/></svg>",
+      "figure_alt": "s-plane with a single pole (x) on the negative real axis at -4.",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A system has the two poles shown, at \\(s=-1\\pm j3\\). Which term appears in its natural response?",
+      "options": [
+        "\\(Ae^{-3t}\\cos(t+\\phi)\\)",
+        "\\(Ae^{t}\\cos(3t+\\phi)\\)",
+        "\\(Ae^{-t}\\cos(3t+\\phi)\\)",
+        "\\(Ae^{-t}\\) only, with no oscillation"
+      ],
+      "correct_index": 2,
+      "explanation": "A complex pair \\(\\sigma\\pm j\\omega_d\\) gives \\(e^{\\sigma t}\\cos(\\omega_dt+\\phi)\\). The real part \\(-1\\) sets the decay, and the imaginary part 3 sets the oscillation in rad/s.\n• Swapping the two parts gives \\(e^{-3t}\\cos t\\).\n• \\(e^{t}\\) needs a positive real part.\n• A purely exponential term needs real poles.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" aria-label=\"s-plane with a complex-conjugate pole pair at -1 plus and minus j3.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"20\" y1=\"100\" x2=\"320\" y2=\"100\"/><line x1=\"170\" y1=\"10\" x2=\"170\" y2=\"190\"/><text x=\"312\" y=\"94\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"184\" y=\"18\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"144.5\" y1=\"33.5\" x2=\"154.5\" y2=\"43.5\"/><line x1=\"144.5\" y1=\"43.5\" x2=\"154.5\" y2=\"33.5\"/><line x1=\"144.5\" y1=\"156.5\" x2=\"154.5\" y2=\"166.5\"/><line x1=\"144.5\" y1=\"166.5\" x2=\"154.5\" y2=\"156.5\"/></svg>",
+      "figure_alt": "s-plane with a complex-conjugate pole pair at -1 plus and minus j3.",
+      "version": 1
     }
   ]
 }
