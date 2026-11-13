@@ -43,6 +43,10 @@ If deploy fails with "Empty build command" or "Publish directory does not exist"
 
 Use `build` without a leading slash. The `render.yaml` in this repo is only applied if the service is created from a Blueprint; manually created services need the values above.
 
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Learning-content rules are in [docs/skill-tree-content-SOP.md](docs/skill-tree-content-SOP.md). Open roadmap work is a GitHub issue per id; see [docs/roadmap.md](docs/roadmap.md).
+
 ## License
 
 Code is under the Apache License 2.0 ([LICENSE](LICENSE)). Learning content for Elytraflight's Skill Tree — questions, explainers, and skill-graph data — is under CC BY-SA 4.0 ([LICENSE-CONTENT](LICENSE-CONTENT)). [NOTICE](NOTICE) says which license covers which paths, what is excluded, and the third-party attributions. [TRADEMARKS.md](TRADEMARKS.md) states that neither license grants any right to use the name or logo "Elytraflight" or "Elytraflight's Skill Tree".

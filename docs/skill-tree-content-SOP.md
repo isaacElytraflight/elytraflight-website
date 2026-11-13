@@ -28,11 +28,14 @@ description: >-
 - Ground each skill in two or more canonical sources: open textbooks, standard references, and course materials used with permission. Check each source's license page and record it in `docs/sources.md` and on the skill's `sources` array. That array is authoring metadata. The public build does not copy it, and the skill panel does not render it. Treat anything not openly licensed as fully copyrighted. Every onboarding follows a real recent syllabus or course schedule for scope. Use that schedule to decide which topics exist. Do not copy its wording.
 - **Reference, not source.** Read the section, close it, and write from understanding. Never draft with the source open.
 - **Paraphrase from understanding.** Read the section, close it, and write in your own words. Do not copy wording, problems, parameter sets, or figures. Standard equations and notation are facts and fine to use.
-- **No borrowed problems.** Don't reuse exercises, worked examples, or their parameter sets. Invent scenarios, use fresh numbers, and frame questions differently.
+- **No borrowed problems.** Don't reuse exercises, worked examples, or their parameter sets. Invent scenarios, use fresh numbers, and frame questions differently. Do not reuse a real exam question or a real homework question.
+- **Write it yourself.** Do not copy or closely paraphrase a textbook, a reader, slides, homework, an exam, or a solution site. Facts, standard formulas, and a topic list are fine.
+- **Nothing restricted in git.** Do not commit a PDF, a solution set, a screenshot of a copyrighted page, or any other file you are not allowed to redistribute. An open source is allowed only when its license is compatible. Record that license in `docs/sources.md` and on the skill's `sources` array. Attribution stays in that metadata.
+- **Say when a model helped.** If a model drafted or edited the text, say so in the pull request. Some of that text may not be copyrightable. `NOTICE` covers whatever rights exist. The same copyright rules are restated for contributors in `CONTRIBUTING.md`.
 - **Figures.** Never trace, redraw or screenshot a source figure. Generate every figure from our own code, data and labels.
 - **No source names in learner-facing content.** Stems, choices, explanations, explainers, figure captions, alt text, skill titles, skill descriptions, chapter names, sub-section names, tooltips, and help text never name a reader, a textbook, lecture notes, slides, a professor or instructor, a university, a week number, a lecture number, a homework or discussion number, or a chapter or section number or name that comes from a source. A course selector label (`tab_title`) is the only exception: it may name a university and a course number, in the form `<Topic course title> (<University> <Course number>)`, or `(Generic)` when there is no single source course. Record citations in the source registry, not in a further-reading line. Never quote the source, show its pages, or ship or link its PDF.
 - **Reference gate.** `tools/skilltree-content/reference_gate.py` scans that learner-facing text and fails on a banned reference. It is a hard gate in `run_gates.py`. `tools/skilltree-content/reference_allowlist.txt` lists the exact course selector labels. Those strings pass the university-name and course-number checks when they are the `tab_title`. A university name or a course number anywhere else still fails, and a professor, textbook, reader, week, or lecture still fails inside a selector label.
-- **Shingle gate and spot audit, deferred.** The automated 8-word shingle gate and the manual 10% spot audit are not part of the batch pipeline. They wait for a later cleanup pass.
+- **Shingle gate and spot audit, deferred.** The automated 8-word shingle gate (`tools/skilltree-content/verbatim_gate.py`) and the manual 10% spot audit are not part of the batch pipeline. They wait until source texts are available outside the repo. The writing rules above apply whether or not that gate is running.
 - **Errata.** Log source errata and use the correct version.
 
 ## 3. Notation
@@ -48,8 +51,10 @@ description: >-
 5. Add registry areas and create the course box plus topic-named sub-section boxes. Do not name a box after a textbook, a source chapter, a week, or a lecture. Set `tab_title` to `<Topic course title> (<University> <Course number>)`, or to `<Topic> (Generic)` when there is no single source course. A topic that sits outside one course still gets a topic title, as Feedback Systems does.
 6. Optionally ship the tree first as "coming soon" skills with no banks, so the owner can review it.
 7. Extend the figure library for the subject.
-8. Get an expert review of the graph.
+8. Isaac reviews the graph before content batches start: ids, names, prerequisites, the core and application split, and the topic-named boxes. Do not start a batch on a graph he has not accepted.
 9. Order batches breadth-first.
+
+Open course work is one GitHub issue per roadmap id, titled `[SG-xxx] <title>`. The current list, and the rule for keeping the spreadsheet in sync while both exist, is in `docs/roadmap.md`.
 
 ## 5. Question banks
 - Fixed structure, e.g. 4 rounds × 3 questions:
@@ -65,7 +70,7 @@ description: >-
   - **Find-the-error:** a short derivation with exactly one flawed step. The learner picks that step, and a reason when reasons are given. All-or-nothing.
   - **Multi-select:** choose every correct option. All-or-nothing.
 - **Deep-type quota (hard rule).** Every bank needs at least 25% deep-type questions, rounded up: `ceil(3n/12)`, which is `deep_quota(n)` in `banklib.py`. A 12-question bank needs 3. The deep types are the ones newer batches already use: symbolic, ordering, find-the-error, and multi-select. They are how a proof or a concept becomes a decision: justify a step, find the flaw, pick a counterexample, trace a procedure, or finish a multi-step application. `tools/skilltree-content/deep_quota_gate.py` fails a bank under that line. It is a hard gate in `run_gates.py`. The same check also runs inside the domain validator.
-- Banks in `skilltree/deep_quota_grandfather.json` were written before the quota. They stay on that list until SG-063 rebuilds them. Do not add ids. A wording fix does not take a bank off the list. When SG-063, or an earlier full rewrite, replaces the bank with deep questions, remove its id.
+- Banks in `skilltree/deep_quota_grandfather.json` were written before the quota. They stay on that list until [SG-063](https://github.com/isaacElytraflight/elytraflight-website/issues/55) rebuilds them. Do not add ids. A wording fix does not take a bank off the list. When SG-063, or an earlier full rewrite, replaces the bank with deep questions, remove its id.
 - Author deep questions with `Bank.sym`, `Bank.order`, `Bank.find_error`, and `Bank.multi` in `tools/skilltree-content/banklib.py`. Do not hand-build those JSON fields.
 
 ## 6. Figures and math
@@ -92,7 +97,7 @@ description: >-
 - **Shared writers, thin verifiers.** Do not paste a new copy of the bank writer or the numeric-check loop. `tools/skilltree-content/banklib.py` writes the bank and explainer (B1 keeps its own word counter and copies `sym`, `order`, `find_error`, and `multi` off this class). `skilltree/verify_harness.py` loads banks, checks every numeric answer against values computed in the batch file, checks every symbolic key with SymPy, and prints the usual `0 mismatches` line. The command stays `python3 skilltree/verify_me132_bN.py`. Pass the loaded banks to `finish` so the symbolic check runs. Answer formulas stay in that batch file and must not be imported from the generator. RK4 and the proportional-loop simulation live in the harness because B2 and B3 both used them as an independent method.
 - The repeated block is that writer and that check loop. B2 and B3 are not a shared 1117-line program: the longest identical run is the writer (about 60 lines). Do not rewrite an already shipped bank just to share code. B1's verifier stays as it is; its checks are functions, not a table of expected numbers.
 - **Tests.** While fixing, run the batch verifier and any other check the edit can break. Run `python3 tools/skilltree-content/run_gates.py --batch <id> --docs` once on the candidate you intend to push. If a later edit can change schema, figures, math, or the browser suite, run the full command again. Do not report a gate result from an older commit.
-- **Bugbot.** Use the repository's existing review. Do not start a paid reviewer. Fix valid findings, then allow one more review of that head. If valid findings remain after that second review, stop and report them. Do not merge to get past them.
+- **Bugbot.** Use the repository's existing review. Do not start a paid reviewer. Fix valid findings, then allow one more review of that head. If valid findings remain after that second review, stop and report them. Do not merge to get past them. If Bugbot says the pull request is too large to review, stop and split it. The merge rule is in `CONTRIBUTING.md`.
 - **Logs.** Do not commit scratch files, terminal logs, or screenshots from the run. Summarize in the report. Leave long command output in the tool log instead of pasting it. Do not poll CI or review; subscribe once and wait.
 - **Hard gates.** One command, `python3 tools/skilltree-content/run_gates.py --batch <id>`, runs:
   - the schema, graph, and domain validators
@@ -128,3 +133,13 @@ Every batch brief states:
 - the gates, including the reference gate, the deep-quota gate, and the dedupe gate
 - deliverables (content, generator, verifier, patches) and the generated report (counts, gate outputs, dedupe pointer)
 - "do not publish"
+
+## 13. Quality baseline
+A new bank or a new course ships only when every line below holds. The sections named here are the full rule.
+
+- Learner-facing text follows section 2. It does not name a source, and it does not copy problems.
+- Sub-sections are topic names. They are not a textbook, a source chapter, a week, or a lecture (section 1). A university and a course number appear only in `tab_title`.
+- The dedupe check is cross-course. Compare the skill with the whole graph. Reuse an existing skill, split a neutral core from a domain application, or record the resolution in `docs/dedupe-decisions.json` (section 1).
+- At least 25% of each new bank is a deep-type question: symbolic, ordering, find-the-error, or multi-select. That is `deep_quota(n)`, `ceil(3n/12)` (section 5).
+- Ids stay. A content edit bumps the version. Retired ids map to a survivor (section 8).
+- A new course starts from a real recent syllabus or course schedule, used for scope only. Isaac has accepted the graph before batches start (section 4).

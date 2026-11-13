@@ -1,0 +1,60 @@
+name: Content
+description: A skill, a bank, an explainer, or a course to add or fix.
+title: "[content] "
+labels: ["type:content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read docs/skill-tree-content-SOP.md first. Learner-facing text does not name a source. A new course starts from a real syllabus, and Isaac reviews the graph before batches start.
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Rules
+      options:
+        - label: I read docs/skill-tree-content-SOP.md
+          required: true
+  - type: input
+    id: where
+    attributes:
+      label: Skill or course
+      description: Skill id, course, or the roadmap id (SG-xxx) if this continues an open issue.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What should change
+      description: The gap, in your own words. Do not paste exam questions, homework, or textbook problems.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - area:content
+        - area:content-qa
+        - area:courses
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - priority:P1
+        - priority:P2
+        - priority:P3
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Size
+      options:
+        - size:S
+        - size:M
+        - size:L
+    validations:
+      required: false

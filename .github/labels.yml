@@ -1,0 +1,64 @@
+# Label definitions for Elytraflight's Skill Tree.
+# GitHub does not apply this file by itself. Create any row that is not
+# already on the repository. Do not rename a label that already exists.
+# Colors are hex without a leading '#'.
+- name: type:bug
+  color: d73a4a
+  description: A defect in the app or the build
+- name: type:feature
+  color: 1d76db
+  description: A new capability
+- name: type:content
+  color: 0e8a16
+  description: Question banks, explainers, or the skill graph
+- name: type:chore
+  color: c5def5
+  description: Maintenance that is not a feature
+- name: type:infra
+  color: 5319e7
+  description: Hosting, CI, dependencies, or access
+- name: priority:P0
+  color: b60205
+  description: Broken for learners or blocking a launch
+- name: priority:P1
+  color: d93f0b
+  description: High priority
+- name: priority:P2
+  color: fbca04
+  description: Normal priority
+- name: priority:P3
+  color: c5def5
+  description: Low priority
+- name: size:S
+  color: c2e0c6
+  description: Small, one focused change
+- name: size:M
+  color: fef2c0
+  description: Medium, a few files or one batch
+- name: size:L
+  color: bfd4f2
+  description: "Large: several PRs or batches"
+- name: area:app
+  color: "0052cc"
+  description: Skill tree app and profile
+- name: area:content
+  color: 0e8a16
+  description: Banks, explainers, and the graph
+- name: area:content-qa
+  color: fbca04
+  description: Quality gates, quotas, and audits
+- name: area:courses
+  color: 5319e7
+  description: Course onboarding
+- name: area:auth
+  color: d93f0b
+  description: Sign-in and the Supabase client
+- name: area:infra
+  color: 1d76db
+  description: Hosting, build, and CI
+- name: area:docs
+  color: "0075ca"
+  description: Process and documentation
+- name: area:legal
+  color: f9d0c4
+  description: Licenses, contributor terms, and copyright
