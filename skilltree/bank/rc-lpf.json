@@ -1,11 +1,11 @@
 {
   "skill_id": "rc-lpf",
-  "version": 4,
+  "version": 5,
   "questions": [
     {
       "round": 1,
       "type": "symbolic",
-      "prompt": "A capacitor starts at voltage \\(V_i\\) and a constant source settles it at \\(V_f\\). The time constant is \\(\\tau\\). For \\(t>0\\), write \\(v_o(t)\\) using the names \\(V_f\\), \\(V_i\\), \\(t\\), and \\(tau\\).",
+      "prompt": "A capacitor starts at voltage \\(V_i\\) and a constant source settles it at \\(V_f\\). The time constant is \\(\\tau\\). For \\(t>0\\), write \\(v_o(t)\\) using the name \\(Vf\\) for \\(V_f\\), the name \\(Vi\\) for \\(V_i\\), the name \\(t\\) for time, and the name \\(tau\\) for \\(\\tau\\).",
       "explanation": "The stored voltage closes the gap \\(V_i-V_f\\) by the factor \\(e^{-t/\\tau}\\), so \\(v_o = V_f + (V_i-V_f)e^{-t/\\tau}\\). Writing \\(V_f e^{-t/\\tau}\\) drops the settled value and decays toward 0. Writing \\(V_i(1-e^{-t/\\tau})\\) is only the special case that starts at 0 and ends at \\(V_i\\).",
       "answer": "Vf+(Vi-Vf)*exp(-t/tau)",
       "variables": [
@@ -35,21 +35,21 @@
         "Vf+(Vi-Vf)*e**(-t/tau)",
         "Vi*exp(-t/tau)+Vf*(1-exp(-t/tau))"
       ],
-      "version": 1,
+      "version": 2,
       "id": "rc-lpf-r1-q4"
     },
     {
       "round": 1,
       "type": "order",
-      "prompt": "The capacitor is uncharged. At \\(t=0\\) a constant source \\(V_s\\) is connected through \\(R\\). Order the reasoning that writes \\(v_o(t)\\).",
-      "explanation": "Final value, initial value, then the time constant, then the expression that joins them. The final value is the open-circuit capacitor voltage, not a short-circuit voltage. A finite current cannot change the capacitor voltage in an instant, so the start stays 0. A growing exponential would run away from \\(V_s\\) instead of approaching it.",
+      "prompt": "The capacitor is uncharged. At \\(t=0\\) a constant source \\(V_s\\) is connected through \\(R\\). Order the derivation of \\(v_o(t)\\). Each step uses the result of the step before it.",
+      "explanation": "The node equation has to be written before it can be solved. The general solution still has a free constant, so the continuity condition is applied to that expression and cannot come first. The waveform is what remains after the constant is known. A growing exponential would run away from \\(V_s\\) instead of approaching it.",
       "steps": [
-        "After a long time the capacitor current is zero, so the output rests at \\(V_s\\).",
-        "Just after the source is connected, the capacitor voltage is still 0.",
-        "The resistance the capacitor sees is \\(R\\), so the time constant is \\(RC\\).",
-        "The waveform that starts at 0 and settles at \\(V_s\\) is \\(V_s(1-e^{-t/RC})\\)."
+        "The series resistor and capacitor give the node equation \\(RC\\,v'+v = V_s\\).",
+        "The general solution of that equation is \\(V_s + A e^{-t/(RC)}\\).",
+        "The capacitor voltage is continuous and started at 0, so set that general solution equal to 0 at \\(t=0\\). This forces \\(A = -V_s\\).",
+        "Substitute that constant to obtain \\(v_o(t) = V_s(1-e^{-t/(RC)})\\)."
       ],
-      "version": 1,
+      "version": 2,
       "id": "rc-lpf-r1-q5"
     },
     {

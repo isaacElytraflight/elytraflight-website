@@ -352,9 +352,12 @@ Skills: `lti-def`, `rc-lpf`, `cx-exp`, `sinusoid-resp`, `impulse-conv`, `step-re
 
 Items above version 1:
 
+- `rc-lpf-r1-q4` version 2
+- `rc-lpf-r1-q5` version 2
 - `rc-lpf-r1-q1` version 2
 - `rc-lpf-r1-q2` version 2
 - `rc-lpf#explainer` version 2
+- `cx-exp-r1-q5` version 2
 - `impulse-conv-r1-q2` version 2
 - `lti-circuits-r1-q1` version 2
 - `freq-resp-circuits-r4-q2` version 2

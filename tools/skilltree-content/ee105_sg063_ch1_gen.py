@@ -103,7 +103,7 @@ def swaps_for(sid):
         return [
             ("rc-lpf-r1-q1", fresh(
                 1, "sym",
-                r"A capacitor starts at voltage \(V_i\) and a constant source settles it at \(V_f\). The time constant is \(\tau\). For \(t>0\), write \(v_o(t)\) using the names \(V_f\), \(V_i\), \(t\), and \(tau\).",
+                r"A capacitor starts at voltage \(V_i\) and a constant source settles it at \(V_f\). The time constant is \(\tau\). For \(t>0\), write \(v_o(t)\) using the name \(Vf\) for \(V_f\), the name \(Vi\) for \(V_i\), the name \(t\) for time, and the name \(tau\) for \(\tau\).",
                 "Vf+(Vi-Vf)*exp(-t/tau)",
                 {"Vf": (-5, 12), "Vi": (-5, 12), "t": (0.05, 4), "tau": (0.1, 3)},
                 r"The stored voltage closes the gap \(V_i-V_f\) by the factor \(e^{-t/\tau}\), so \(v_o = V_f + (V_i-V_f)e^{-t/\tau}\). Writing \(V_f e^{-t/\tau}\) drops the settled value and decays toward 0. Writing \(V_i(1-e^{-t/\tau})\) is only the special case that starts at 0 and ends at \(V_i\).",
@@ -131,14 +131,14 @@ def swaps_for(sid):
             )),
             ("rc-lpf-r1-q2", fresh(
                 1, "order",
-                r"The capacitor is uncharged. At \(t=0\) a constant source \(V_s\) is connected through \(R\). Order the reasoning that writes \(v_o(t)\).",
+                r"The capacitor is uncharged. At \(t=0\) a constant source \(V_s\) is connected through \(R\). Order the derivation of \(v_o(t)\). Each step uses the result of the step before it.",
                 [
-                    r"After a long time the capacitor current is zero, so the output rests at \(V_s\).",
-                    "Just after the source is connected, the capacitor voltage is still 0.",
-                    r"The resistance the capacitor sees is \(R\), so the time constant is \(RC\).",
-                    r"The waveform that starts at 0 and settles at \(V_s\) is \(V_s(1-e^{-t/RC})\).",
+                    r"The series resistor and capacitor give the node equation \(RC\,v'+v = V_s\).",
+                    r"The general solution of that equation is \(V_s + A e^{-t/(RC)}\).",
+                    r"The capacitor voltage is continuous and started at 0, so set that general solution equal to 0 at \(t=0\). This forces \(A = -V_s\).",
+                    r"Substitute that constant to obtain \(v_o(t) = V_s(1-e^{-t/(RC)})\).",
                 ],
-                r"Final value, initial value, then the time constant, then the expression that joins them. The final value is the open-circuit capacitor voltage, not a short-circuit voltage. A finite current cannot change the capacitor voltage in an instant, so the start stays 0. A growing exponential would run away from \(V_s\) instead of approaching it.",
+                r"The node equation has to be written before it can be solved. The general solution still has a free constant, so the continuity condition is applied to that expression and cannot come first. The waveform is what remains after the constant is known. A growing exponential would run away from \(V_s\) instead of approaching it.",
             )),
         ]
     if sid == "cx-exp":
@@ -170,14 +170,14 @@ def swaps_for(sid):
             )),
             ("cx-exp-r1-q1", fresh(
                 1, "order",
-                r"Order the conversion of a nonzero number \(a+jb\) into polar form.",
+                r"A principal arctangent returns only a value between \(-\pi/2\) and \(\pi/2\). Order the conversion of a nonzero number \(a+jb\) into polar form that starts from that limited value. Each step uses the result of the step before it.",
                 [
-                    r"Compute the magnitude \(r = \sqrt{a^2+b^2}\).",
-                    r"Take the angle from the pair \((a, b)\), not from the ratio \(b/a\) alone.",
-                    "Use the signs of both parts so the angle lands in the correct quadrant.",
-                    r"Write the number as \(r e^{j\theta}\).",
+                    r"Form the ratio of the imaginary part to the real part, \(b/a\).",
+                    r"Take the principal arctangent of that ratio. The result lies between \(-\pi/2\) and \(\pi/2\).",
+                    r"When \(a\) is negative, add \(\pi\) if \(b\ge 0\) and subtract \(\pi\) if \(b<0\). That shift uses the principal value from the previous step.",
+                    r"Attach the magnitude \(\sqrt{a^2+b^2}\) to that corrected angle and write \(r e^{j\theta}\).",
                 ],
-                r"Magnitude does not depend on the quadrant, so it can come first. A plain arctangent of \(b/a\) gives the same value for \(3+3j\) and for \(-3-3j\). The quadrant fix has to happen before the polar form is written. Skipping it reports a third-quadrant number in the first quadrant.",
+                r"The ratio has to exist before its arctangent is taken. The principal value sits in the wrong half-plane whenever \(a\) is negative, so the shift by \(\pi\) corrects that value and cannot come first. The polar expression needs the corrected angle, so it is last. A plain arctangent of \(b/a\) reports \(3+3j\) and \(-3-3j\) at the same angle.",
             )),
         ]
     if sid == "sinusoid-resp":
