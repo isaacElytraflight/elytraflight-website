@@ -5,8 +5,9 @@ counter strips math differently, and copies these methods onto that class.
 Do not import a verifier from here.
 
 Deep types (symbolic, order, error, multi) are written with sym, order,
-find_error, and multi. A new bank needs deep_quota(n) of them. Banks listed
-in skilltree/deep_quota_grandfather.json are exempt.
+find_error, and multi. A bank needs deep_quota(n) of them, at least 25%
+rounded up. Banks listed in skilltree/deep_quota_grandfather.json are the
+legacy set pending SG-063.
 """
 import json
 import os
@@ -16,7 +17,7 @@ DEEP_TYPES = ("symbolic", "order", "error", "multi")
 
 
 def deep_quota(n_questions):
-    """Minimum deep-type questions. 3 per 12, rounded up for other lengths."""
+    """Minimum deep-type questions. At least 25% of n, rounded up (3 per 12)."""
     n = int(n_questions)
     if n <= 0:
         return 0

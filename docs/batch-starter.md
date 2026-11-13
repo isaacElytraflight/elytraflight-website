@@ -10,7 +10,7 @@ Read each file once. Do not re-read a file you have already read.
 2. `docs/skill-tree-content-SOP.md`, including the brief template in section 12.
 3. The newest brief in `docs/briefs/` for the shape of a generated brief. Briefs are generated. Do not edit them by hand.
 4. `docs/notation.md` for every area the skills and their prerequisites touch. Add new symbols in the same change.
-5. `docs/sources.md` for licenses and sections. Learner-facing text names no course, professor, textbook, or university.
+5. `docs/sources.md` for licenses. Sources are authoring metadata. Learner-facing text never names a reader, textbook, notes, slides, professor, university, week, lecture, homework, or a source chapter. A class name appears only in the course selection tab.
 6. `tools/skilltree-content/banklib.py` and `skilltree/verify_harness.py`.
 7. The previous batch's generator and verifier as a pattern only. The verifier must not import the generator.
 8. The coming-soon records for this batch in `skilltree/ee105_skills_draft.json`, and the playable-count assertions in `public/skilltree/tests/test-content.js`.
@@ -27,7 +27,7 @@ Read each file once. Do not re-read a file you have already read.
 - Round 4 needs `preview`, a list of descendant skill ids. A skill with no descendants needs an entry in `LEAF_PREVIEW_ALLOWED` inside `skilltree/validate_bank.py`.
 - `save_explainer(sid, title, sections)` writes `skilltree/explainers/<id>.json`. Sections are idea, key equations, worked example, pitfalls, where this leads. 250–500 words, at least one figure, and the worked example uses none of that skill's quiz numbers.
 
-`deep_quota(n)` is `ceil(3n/12)`. A new 12-question bank needs at least 3 questions of type symbolic, order, error, or multi.
+`deep_quota(n)` is `ceil(3n/12)`, at least 25% rounded up. A 12-question bank needs at least 3 questions of type symbolic, order, error, or multi.
 
 `skilltree/verify_harness.py` loads banks, checks every numeric answer against values computed in the batch verifier, checks every symbolic key with SymPy, and prints `0 mismatches`. Pass the loaded banks to `finish`. Answer formulas stay in `skilltree/verify_<batch>.py`. Do not import the generator.
 
@@ -48,7 +48,7 @@ On the candidate you intend to push, run once:
 python3 tools/skilltree-content/run_gates.py --batch <id> --docs
 ```
 
-That command runs 11 gates: build, schema, graph, domain, the numeric verifier, figure bounds, strict KaTeX, test-content, test-merge, test-migrate, and Puppeteer. `--docs` regenerates the changelog, the brief, the report, and `docs/content-versions.json`. After a text-only review fix, run only the focused check for what changed, not the full gate run again. Run the full command again only if the later edit can change schema, figures, math, or the browser suite.
+That command runs the build, schema, reference, graph, domain, deep-quota, dedupe, numeric verifier, figure bounds, strict KaTeX, test-content, test-merge, test-migrate, and Puppeteer gates. There is no separate CI workflow for content; this runner is the gate. `--docs` regenerates the changelog, the brief, the report, and `docs/content-versions.json`. After a text-only review fix, run only the focused check for what changed, not the full gate run again. Run the full command again only if the later edit can change schema, figures, math, or the browser suite.
 
 ## Generated files
 
@@ -63,7 +63,11 @@ Never grep or glob those directories, or the whole repo. `.rgignore` excludes th
 
 ## Deep-type quota
 
-At least `deep_quota(n)` questions among symbolic, ordering, find-the-error, and multi-select. The domain gate enforces it. Banks in `skilltree/deep_quota_grandfather.json` are exempt. Do not add ids to that list. When an old bank is rewritten, remove its id.
+At least 25% of the bank (`deep_quota(n)`) is symbolic, ordering, find-the-error, or multi-select. `deep_quota_gate.py` fails a bank under that line. Banks in `skilltree/deep_quota_grandfather.json` are the legacy set pending SG-063. Do not add ids. A wording fix leaves an id on the list. A full rewrite that adds the deep questions removes it.
+
+## Dedupe
+
+`dedupe_gate.py` compares this batch's names, synonyms (`owns` or `synonyms`), and summaries with every other skill. A warning means the skill is probably already in the graph. Reuse it, split a neutral core from a domain application, or record the resolution in `docs/dedupe-decisions.json`. The batch report points at that decision.
 
 ## Review and merge
 

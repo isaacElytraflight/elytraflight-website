@@ -87,6 +87,8 @@ def main():
         ("reference", [sys.executable, "tools/skilltree-content/reference_gate.py"], 120),
         ("graph", [sys.executable, "skilltree/validate_graph.py"], 60),
         ("domain", [sys.executable, "skilltree/validator_domain.py"], 60),
+        ("deep-quota", [sys.executable, "tools/skilltree-content/deep_quota_gate.py"], 60),
+        ("dedupe", [sys.executable, "tools/skilltree-content/dedupe_gate.py", "--batch", name], 60),
         ("numeric", [sys.executable, spec["verifier"]], 180),
         ("figure-bounds", [sys.executable, "skilltree/figure_bounds.py", "--fail-skills", ",".join(skills)], 120),
         ("katex", ["node", "tools/skilltree-content/katex_check.cjs", *katex_files], 180),

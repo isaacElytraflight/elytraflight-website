@@ -12,11 +12,11 @@ Systems. Warnings:
 Usage: python3 validator_domain.py [collections.json] [skills.json]
 Prints "N domain-leak warnings" and exits 0 when every warning is waived.
 
-Also enforces the deep-type quota on banks that are not in
-deep_quota_grandfather.json. That list is the banks written before SG-062.
-Do not add ids to it. A rewritten bank should be removed; a later retrofit
-removes the rest. New banks need ceil(3n/12) questions of type symbolic,
-order, error, or multi.
+Also enforces the 25% deep-type quota on banks that are not in
+deep_quota_grandfather.json. That list is legacy banks pending SG-063.
+Do not add ids to it. A wording-only edit does not remove an id. Remove an
+id when the bank is rewritten with deep questions. New banks need
+ceil(3n/12) questions of type symbolic, order, error, or multi.
 """
 import json, os, sys
 

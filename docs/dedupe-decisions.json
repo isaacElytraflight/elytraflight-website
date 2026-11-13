@@ -1,0 +1,30 @@
+{
+  "note": "Resolved dedupe-gate hits. resolution is reuse, split, or distinct. Add a pair only after choosing one of those. Do not add a pair to hide a real duplicate. The gate reads this file.",
+  "pairs": [
+    {
+      "ids": ["kalman", "extended-kalman-filter"],
+      "resolution": "distinct",
+      "reason": "kalman is the linear estimator. extended-kalman-filter linearizes a nonlinear measurement and lives in the optimization box. The shared words are the name of the linear skill, not a second copy of it."
+    },
+    {
+      "ids": ["convex-functions", "convex-optimality-global"],
+      "resolution": "distinct",
+      "reason": "convex-functions is the definition of a convex objective. convex-optimality-global is the later fact that a stationary point of a convex objective is global. One is a prerequisite of the other, not a duplicate."
+    },
+    {
+      "ids": ["least-squares-data-fitting", "circle-fitting-least-squares"],
+      "resolution": "distinct",
+      "reason": "least-squares-data-fitting is linear fitting of measurements. circle-fitting-least-squares is the nonlinear algebraic fit of a circle. Same least-squares idea, different skill."
+    },
+    {
+      "ids": ["ad-forward-mode", "ad-reverse-mode"],
+      "resolution": "distinct",
+      "reason": "Forward mode pushes a tangent. Reverse mode pulls an adjoint. They are the two modes of automatic differentiation, taught as separate skills."
+    },
+    {
+      "ids": ["convexity-first-order", "first-order-optimality"],
+      "resolution": "distinct",
+      "reason": "convexity-first-order is the chord and gradient test for a convex function. first-order-optimality is the stationarity condition for a minimizer. The shared words name the derivative order, not the same skill."
+    }
+  ]
+}
