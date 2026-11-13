@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-13T20:42:07.355806Z",
+  "generated": "2026-11-13T21:11:11.022378Z",
   "skills": {
-    "file": "skills.5c94b85f.json",
-    "hash": "5c94b85f"
+    "file": "skills.c0de1c0a.json",
+    "hash": "c0de1c0a"
   },
   "collections": {
     "file": "collections.6c18ba13.json",
@@ -492,7 +492,7 @@
       "file": "banks/contact-pot.1b32b1f5.json"
     },
     "continuity": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -500,8 +500,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "738566c4",
-      "file": "banks/continuity.738566c4.json"
+      "hash": "f9960d72",
+      "file": "banks/continuity.f9960d72.json"
     },
     "convergence-rates": {
       "version": 1,
@@ -804,18 +804,6 @@
       "file": "banks/diode-conn.cdc8501e.json"
     },
     "diode-iv": {
-      "version": 2,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "c0c628cb",
-      "file": "banks/diode-iv.c0c628cb.json"
-    },
-    "diode-qual": {
       "version": 3,
       "questionCount": 12,
       "rounds": {
@@ -824,11 +812,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b6096d0e",
-      "file": "banks/diode-qual.b6096d0e.json"
+      "hash": "11d9cfd7",
+      "file": "banks/diode-iv.11d9cfd7.json"
     },
-    "diode-ss": {
-      "version": 2,
+    "diode-qual": {
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -836,8 +824,20 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b6cb571c",
-      "file": "banks/diode-ss.b6cb571c.json"
+      "hash": "21283711",
+      "file": "banks/diode-qual.21283711.json"
+    },
+    "diode-ss": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "31ce9fdb",
+      "file": "banks/diode-ss.31ce9fdb.json"
     },
     "direct-h": {
       "version": 3,
@@ -984,7 +984,7 @@
       "file": "banks/exact-line-search-quadratic.7486b7be.json"
     },
     "excess-carriers": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -992,8 +992,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "15c73bc5",
-      "file": "banks/excess-carriers.15c73bc5.json"
+      "hash": "67a89d06",
+      "file": "banks/excess-carriers.67a89d06.json"
     },
     "existence-of-minimizers": {
       "version": 1,
@@ -1704,7 +1704,7 @@
       "file": "banks/least-squares-data-fitting.6e01049b.json"
     },
     "led": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1712,8 +1712,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "fa3369d3",
-      "file": "banks/led.fa3369d3.json"
+      "hash": "2298b9bb",
+      "file": "banks/led.2298b9bb.json"
     },
     "level-sets-contours": {
       "version": 2,
@@ -2016,7 +2016,7 @@
       "file": "banks/min-phase.0f56ba68.json"
     },
     "minority-profile": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2024,8 +2024,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "91d60a75",
-      "file": "banks/minority-profile.91d60a75.json"
+      "hash": "03992c28",
+      "file": "banks/minority-profile.03992c28.json"
     },
     "mirror-load": {
       "version": 2,
@@ -2916,7 +2916,7 @@
       "file": "banks/slew.46d61c5d.json"
     },
     "solar-cell": {
-      "version": 2,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2924,8 +2924,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "d1a1b43d",
-      "file": "banks/solar-cell.d1a1b43d.json"
+      "hash": "6aab1422",
+      "file": "banks/solar-cell.6aab1422.json"
     },
     "spectral-decomposition": {
       "version": 1,
