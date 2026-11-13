@@ -1,6 +1,6 @@
 {
   "skill_id": "doping",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "doping-r1-q1",
@@ -73,33 +73,59 @@
       "version": 2
     },
     {
-      "id": "doping-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "Which equation states charge neutrality in a uniformly doped region (ionized donors \\(N_D\\), ionized acceptors \\(N_A\\))?",
-      "options": [
-        "\\(q\\,(p_0 + n_0 - N_D - N_A) = 0\\)",
-        "\\(q\\,(p_0 - n_0 + N_D - N_A) = 0\\)",
-        "\\(q\\,(n_0 - p_0 + N_D - N_A) = 0\\)",
-        "\\(p_0\\,n_0 = N_D N_A\\)"
+      "type": "symbolic",
+      "prompt": "In a uniformly doped region the charge density is \\(\\rho\\). Write \\(\\rho/q\\) using the name p for the hole concentration, the name n for the electron concentration, the name ND for the ionized donor concentration, and the name NA for the ionized acceptor concentration.",
+      "explanation": "Holes and ionized donors are positive, so they enter with a plus. Electrons and ionized acceptors are negative, so they enter with a minus. The combination is zero only when the region is neutral. The expression itself is \\(\\rho/q\\). Swapping the signs of \\(n\\) and \\(p\\) counts every carrier with the wrong charge. The product \\(np\\) is the mass-action law, not the charge density.",
+      "answer": "p-n+ND-NA",
+      "variables": [
+        {
+          "name": "p",
+          "min": 0.2,
+          "max": 8.0
+        },
+        {
+          "name": "n",
+          "min": 0.2,
+          "max": 8.0
+        },
+        {
+          "name": "ND",
+          "min": 0.2,
+          "max": 8.0
+        },
+        {
+          "name": "NA",
+          "min": 0.2,
+          "max": 8.0
+        }
       ],
-      "correct_index": 1,
-      "explanation": "Count the charge signs: holes \\(+q\\), electrons \\(-q\\), ionized donors \\(N_D^+\\) are \\(+q\\) (they gave away an electron), ionized acceptors \\(N_A^-\\) are \\(-q\\). So \\(\\rho = q(p_0 - n_0 + N_D - N_A) = 0\\).\nCombined with \\(n_0p_0 = n_i^2\\), this gives all the doping results. \\(p_0n_0 = N_DN_A\\) is a mash-up of mass action that isn't true.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "p+ND-n-NA",
+        "ND-NA+p-n"
+      ],
+      "version": 1,
+      "id": "doping-r2-q4"
     },
     {
-      "id": "doping-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "A silicon sample is doped with EQUAL concentrations of donors and acceptors, \\(N_D = N_A = 10^{17}\\ \\mathrm{cm^{-3}}\\). What are its equilibrium carrier concentrations?",
+      "type": "multi",
+      "prompt": "Donors and acceptors are added at the same concentration, and that concentration is far above \\(n_i\\). Select every statement that is true in equilibrium.",
+      "explanation": "Equal donor and acceptor concentrations cancel in the neutrality equation, so \\(n = p\\), and mass action then forces both to \\(n_i\\). The ions remain and still scatter, which is why the mobility is not the pure-crystal value. The majority concentration is not the donor concentration, because each donated electron has filled an acceptor.",
       "options": [
-        "\\(n_0 = p_0 \\approx n_i = 10^{10}\\ \\mathrm{cm^{-3}}\\): fully compensated, it behaves like intrinsic silicon as far as carrier counts go",
-        "\\(n_0 = p_0 = 10^{17}\\ \\mathrm{cm^{-3}}\\)",
-        "\\(n_0 = 2\\times10^{17}\\ \\mathrm{cm^{-3}}\\), \\(p_0 = 5\\times10^{2}\\ \\mathrm{cm^{-3}}\\)",
-        "\\(n_0 = 10^{17}\\), \\(p_0 = 10^{3}\\ \\mathrm{cm^{-3}}\\)"
+        "Charge neutrality requires the electron and hole concentrations to be equal.",
+        "Both carrier concentrations are about \\(n_i\\).",
+        "The majority-carrier concentration is about the donor concentration.",
+        "The donor and acceptor ions are still in the crystal and still scatter carriers."
       ],
-      "correct_index": 0,
-      "explanation": "Neutrality: \\(p_0 - n_0 + N_D - N_A = 0 \\Rightarrow p_0 = n_0\\). Mass action: \\(n_0p_0 = n_i^2 \\Rightarrow n_0 = p_0 = n_i\\).\nGotcha: every donated electron fills an acceptor's empty bond, so the dopants cancel. The dopant IONS are still there, \\(2\\times10^{17}\\ \\mathrm{cm^{-3}}\\) of them. They don't add carriers, but they do scatter carriers (lower mobility), so the sample isn't truly identical to pure silicon."
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1,
+      "id": "doping-r3-q4"
     },
     {
       "id": "doping-r3-q2",
@@ -114,19 +140,24 @@
       "figure_alt": "Band diagram with the Fermi level only slightly above mid-gap, as in hot, lightly doped silicon."
     },
     {
-      "id": "doping-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Adding donors to silicon LOWERS the hole concentration, even though donors never touch the holes directly. What is the mechanism?",
-      "options": [
-        "Each donor ion captures a hole and neutralizes it",
-        "Donors turn holes into electrons",
-        "Holes are not affected; only the ratio n/p changes",
-        "The extra electrons raise the recombination rate (∝ np), while thermal generation stays the same, so holes are destroyed faster until np = nᵢ² again"
+      "type": "error",
+      "prompt": "A student explains why adding donors lowers the hole concentration. Exactly one step is wrong.",
+      "explanation": "The higher electron concentration raises recombination, so holes are removed until \\(np\\) returns to \\(n_i^2\\). A positive donor ion repels a hole; it does not bind one. Generation was already fixed by the temperature, so the new balance is a lower hole concentration \\(p = n_i^2/n\\).",
+      "steps": [
+        "Thermal generation depends on temperature and does not change when donors are added.",
+        "The recombination rate is proportional to the product of the electron and hole concentrations.",
+        "The donors raise the electron concentration, so that product, and the recombination rate, rise.",
+        "Each donor ion then captures one hole, and that capture is what lowers the hole concentration."
       ],
-      "correct_index": 3,
-      "explanation": "\\(G_{th}(T)\\) depends only on temperature, but \\(R = k\\,n\\,p\\). More electrons mean a hole finds a partner sooner. The new balance needs a lower \\(p\\): \\(p_0 = n_i^2/n_0\\).\nGotcha: the fixed donor ions are positive and would REPEL holes; they don't bind them. 'Turning holes into electrons' doesn't conserve anything; recombination removes one of each.",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "The higher electron concentration raises recombination until \\(np\\) returns to \\(n_i^2\\). The donor ion does not bind a hole.",
+        "Each donor converts one hole into one electron."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "doping-r3-q5"
     },
     {
       "id": "doping-r4-q1",
@@ -172,6 +203,53 @@
       "preview": [
         "excess-carriers"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "doping-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Which equation states charge neutrality in a uniformly doped region (ionized donors \\(N_D\\), ionized acceptors \\(N_A\\))?",
+      "options": [
+        "\\(q\\,(p_0 + n_0 - N_D - N_A) = 0\\)",
+        "\\(q\\,(p_0 - n_0 + N_D - N_A) = 0\\)",
+        "\\(q\\,(n_0 - p_0 + N_D - N_A) = 0\\)",
+        "\\(p_0\\,n_0 = N_D N_A\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "Count the charge signs: holes \\(+q\\), electrons \\(-q\\), ionized donors \\(N_D^+\\) are \\(+q\\) (they gave away an electron), ionized acceptors \\(N_A^-\\) are \\(-q\\). So \\(\\rho = q(p_0 - n_0 + N_D - N_A) = 0\\).\nCombined with \\(n_0p_0 = n_i^2\\), this gives all the doping results. \\(p_0n_0 = N_DN_A\\) is a mash-up of mass action that isn't true.",
+      "version": 2
+    },
+    {
+      "id": "doping-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A silicon sample is doped with EQUAL concentrations of donors and acceptors, \\(N_D = N_A = 10^{17}\\ \\mathrm{cm^{-3}}\\). What are its equilibrium carrier concentrations?",
+      "options": [
+        "\\(n_0 = p_0 \\approx n_i = 10^{10}\\ \\mathrm{cm^{-3}}\\): fully compensated, it behaves like intrinsic silicon as far as carrier counts go",
+        "\\(n_0 = p_0 = 10^{17}\\ \\mathrm{cm^{-3}}\\)",
+        "\\(n_0 = 2\\times10^{17}\\ \\mathrm{cm^{-3}}\\), \\(p_0 = 5\\times10^{2}\\ \\mathrm{cm^{-3}}\\)",
+        "\\(n_0 = 10^{17}\\), \\(p_0 = 10^{3}\\ \\mathrm{cm^{-3}}\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "Neutrality: \\(p_0 - n_0 + N_D - N_A = 0 \\Rightarrow p_0 = n_0\\). Mass action: \\(n_0p_0 = n_i^2 \\Rightarrow n_0 = p_0 = n_i\\).\nGotcha: every donated electron fills an acceptor's empty bond, so the dopants cancel. The dopant IONS are still there, \\(2\\times10^{17}\\ \\mathrm{cm^{-3}}\\) of them. They don't add carriers, but they do scatter carriers (lower mobility), so the sample isn't truly identical to pure silicon.",
+      "version": 1
+    },
+    {
+      "id": "doping-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Adding donors to silicon LOWERS the hole concentration, even though donors never touch the holes directly. What is the mechanism?",
+      "options": [
+        "Each donor ion captures a hole and neutralizes it",
+        "Donors turn holes into electrons",
+        "Holes are not affected; only the ratio n/p changes",
+        "The extra electrons raise the recombination rate (∝ np), while thermal generation stays the same, so holes are destroyed faster until np = nᵢ² again"
+      ],
+      "correct_index": 3,
+      "explanation": "\\(G_{th}(T)\\) depends only on temperature, but \\(R = k\\,n\\,p\\). More electrons mean a hole finds a partner sooner. The new balance needs a lower \\(p\\): \\(p_0 = n_i^2/n_0\\).\nGotcha: the fixed donor ions are positive and would REPEL holes; they don't bind them. 'Turning holes into electrons' doesn't conserve anything; recombination removes one of each.",
+      "version": 2
     }
   ]
 }

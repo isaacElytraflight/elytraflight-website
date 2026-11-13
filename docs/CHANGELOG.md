@@ -392,3 +392,49 @@ Items above version 1:
 - `bode-circuits-r3-q1` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 EE 105 semiconductors — sg063-ee105-ch3
+
+Box: EE 105 (ee105-ucb), Introduction to Semiconductors.
+
+Skills: `drude`, `si-props`, `intrinsic`, `doping`, `drift`, `diffusion`, `total-current`.
+
+Items above version 1:
+
+- `drude-r3-q2` version 2
+- `drude-r4-q3` version 2
+- `drude-r1-q1` version 2
+- `drude-r3-q3` version 2
+- `si-props-r1-q3` version 2
+- `si-props-r2-q1` version 2
+- `si-props-r2-q2` version 2
+- `si-props-r3-q2` version 2
+- `si-props-r4-q1` version 2
+- `si-props-r4-q2` version 2
+- `si-props-r4-q3` version 2
+- `si-props-r1-q1` version 2
+- `si-props-r1-q2` version 2
+- `si-props-r3-q1` version 2
+- `intrinsic-r1-q1` version 2
+- `intrinsic-r1-q2` version 2
+- `intrinsic-r1-q3` version 2
+- `intrinsic-r3-q3` version 2
+- `doping-r1-q1` version 2
+- `doping-r1-q2` version 2
+- `doping-r1-q3` version 2
+- `doping-r2-q2` version 2
+- `doping-r2-q3` version 2
+- `doping-r3-q3` version 2
+- `drift-r4-q2` version 2
+- `drift-r2-q3` version 2
+- `drift-r3-q2` version 2
+- `diffusion-r1-q2` version 2
+- `diffusion-r1-q5` version 2
+- `diffusion-r2-q3` version 2
+- `diffusion-r1-q1` version 2
+- `diffusion-r1-q3` version 2
+- `total-current-r1-q2` version 2
+- `total-current-r1-q1` version 2
+- `total-current-r1-q3` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

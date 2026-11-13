@@ -1,0 +1,28 @@
+{
+  "id": "sg063-ee105-ch3",
+  "label": "SG-063 EE 105 semiconductors",
+  "box": "EE 105 (ee105-ucb), Introduction to Semiconductors",
+  "skills": [
+    "drude",
+    "si-props",
+    "intrinsic",
+    "doping",
+    "drift",
+    "diffusion",
+    "total-current"
+  ],
+  "areas": {
+    "drude": ["physical-models"],
+    "si-props": ["physical-models"],
+    "intrinsic": ["physical-models"],
+    "doping": ["physical-models"],
+    "drift": ["physical-models"],
+    "diffusion": ["physical-models"],
+    "total-current": ["physical-models"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch3.py"
+}
