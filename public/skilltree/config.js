@@ -1,4 +1,4 @@
-/* Skillgrove configuration — public values only, no secrets */
+/* Elytraflight's Skill Tree configuration — public values only, no secrets */
 window.SKILLTREE_CONFIG = {
   app: {
     version: '1.2.0'

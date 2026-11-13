@@ -1,8 +1,10 @@
-# Skillgrove — Master STEM Skills
+# Elytraflight's Skill Tree
 
-A mastery-based skill tree for undergraduate STEM courses, served at `/skilltree/` on elytraflight.com.
+Master STEM skills, one node at a time.
 
-Skillgrove organizes skills into prerequisite trees where you climb from Unpracticed to Mastered through quizzes. Skills are grouped into courses and chapters via a flexible "collections" system that supports multiple courses, cross-university content sharing, and nested organization.
+A general STEM learning site, served at `/skilltree/` on elytraflight.com.
+
+Elytraflight's Skill Tree organizes skills into prerequisite trees where you climb from Unpracticed to Mastered through quizzes. Skills are grouped into courses and chapters via a flexible "collections" system that supports multiple courses, cross-university content sharing, and nested organization.
 
 ## Structure
 
@@ -163,6 +165,7 @@ Tests are in `public/skilltree/tests/`. They include:
 - **Unit tests** for merge functions (`test-merge.js`)
 - **Unit tests** for retired-id progress migration (`test-migrate.js`)
 - **Content integrity** for the skill graph, banks, and collections (`test-content.js`)
+- **Brand check** that learner-facing files do not contain the retired product name (`test-brand.js`)
 - **UI tests** using Puppeteer (`test.js`)
 
 ```bash
@@ -173,6 +176,7 @@ npm install
 node test-merge.js
 node test-migrate.js
 node test-content.js
+node test-brand.js
 
 # UI tests (needs local server)
 # Start a server from repo root first:

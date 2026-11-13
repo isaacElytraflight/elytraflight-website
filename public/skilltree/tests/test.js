@@ -1,5 +1,5 @@
 /**
- * Tests for Skillgrove multi-file app.
+ * Tests for Elytraflight's Skill Tree multi-file app.
  * 
  * Run with a local server:
  *   cd /workspace && npx serve public -l 5000 &
@@ -550,7 +550,7 @@ async function test(name, fn) {
     assert.strictEqual(r.textbookBlobs, 0, 'a new profile focuses nothing, so no textbook regions are drawn');
     assert.strictEqual(r.chapterBlobs, 0, 'a new profile focuses nothing, so no chapter regions are drawn');
     assert.deepStrictEqual(r.ready, ROOTS);
-    assert.strictEqual(r.title, 'Skillgrove');
+    assert.strictEqual(r.title, "Elytraflight's Skill Tree");
     await p.screenshot({ path: path.join(SHOTS_DIR, '01_tree_home.png') });
     await p._ctx.close();
   });
@@ -868,7 +868,7 @@ async function test(name, fn) {
     assert.strictEqual(tiles, NSKILL, 'should render every skill tile');
     
     const title = await p.$eval('h1', e => e.textContent);
-    assert.strictEqual(title, 'Skillgrove');
+    assert.strictEqual(title, "Elytraflight's Skill Tree");
     
     await p.screenshot({ path: path.join(SHOTS_DIR, '09_no_trailing_slash.png') });
     await ctx.close();
@@ -1628,7 +1628,7 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
-  await test('rebranded header shows Skillgrove name and STEM tagline', async () => {
+  await test("rebranded header shows Elytraflight's Skill Tree and the STEM tagline", async () => {
     const p = await newPage();
     
     const header = await p.evaluate(() => ({
@@ -1639,10 +1639,10 @@ async function test(name, fn) {
       btnGroup: document.querySelector('#btnGroup .t').textContent
     }));
     
-    assert.strictEqual(header.h1, 'Skillgrove', 'h1 should say Skillgrove');
+    assert.strictEqual(header.h1, "Elytraflight's Skill Tree", 'h1 should say Elytraflight\'s Skill Tree');
     assert(/Master STEM skills/i.test(header.sub), 'subtitle should mention STEM skills');
     assert(/one node at a time/i.test(header.sub), 'subtitle should have tagline');
-    assert(/Skillgrove/i.test(header.title), 'page title should mention Skillgrove');
+    assert(/Elytraflight's Skill Tree/i.test(header.title), 'page title should use the product name');
     assert(/STEM/i.test(header.metaDesc), 'meta description should mention STEM');
     assert.strictEqual(header.btnGroup, 'Ungroup', 'group by course is on by default');
     
@@ -2930,7 +2930,7 @@ async function test(name, fn) {
     assert.strictEqual(stats.unpracticed, String(NPLAY - 1));
     assert.strictEqual(stats.soon, String(NSOON));
     assert.strictEqual(Number(stats.unpracticed) + 1 + Number(stats.soon), NSKILL);
-    assert(/Report a bug \/ give feedback for Skillgrove/.test(stats.banner));
+    assert(/Report a bug \/ give feedback for Elytraflight's Skill Tree/.test(stats.banner));
     assert.strictEqual(stats.wide, false);
     assert.strictEqual(stats.waiting, false);
     await p._ctx.close();

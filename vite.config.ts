@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 type DevRequest = { url?: string }
 
-/** Serve the Skillgrove app for /profile/:username and /skilltree/profile. */
+/** Serve Elytraflight's Skill Tree for /profile/:username and /skilltree/profile. */
 function skilltreeProfiles(): Plugin {
   return {
     name: 'skilltree-profiles',

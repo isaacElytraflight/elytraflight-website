@@ -1,4 +1,4 @@
-/* Skillgrove usage measurement and question flags.
+/* Elytraflight's Skill Tree usage measurement and question flags.
    Anonymous install id, plus the signed-in user id when there is one.
    No third-party tracker, no fingerprint, no IP. Events are batched.
    If the tables are not there yet, this queues locally and stays quiet. */

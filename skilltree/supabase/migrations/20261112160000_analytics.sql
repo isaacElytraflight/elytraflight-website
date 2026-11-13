@@ -1,4 +1,4 @@
--- Skillgrove usage measurement and question flags.
+-- Elytraflight's Skill Tree usage measurement and question flags.
 -- Paste this whole script into the Supabase SQL editor. Do not put a service-role key in the app.
 --
 -- After it runs, set yourself as the owner (Authentication → Users → copy the user UUID,
@@ -558,6 +558,6 @@ revoke all on function public.analytics_dashboard() from public, anon, authentic
 grant execute on function public.analytics_dashboard() to authenticated;
 
 comment on function public.analytics_dashboard() is
-  'Aggregated usage and question-stat alerts for skillgrove admins. Returns {"ok": false} for everyone else.';
+  'Aggregated usage and question-stat alerts for admins listed in skillgrove_admins. Returns {"ok": false} for everyone else.';
 
 notify pgrst, 'reload schema';

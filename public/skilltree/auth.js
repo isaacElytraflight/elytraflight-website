@@ -1,4 +1,4 @@
-/* Skillgrove Auth & Sync — Supabase integration
+/* Elytraflight's Skill Tree auth and sync — Supabase integration
    localStorage remains primary for offline use; Supabase syncs when signed in */
 (function() {
 'use strict';

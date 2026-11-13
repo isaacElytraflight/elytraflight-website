@@ -1,4 +1,4 @@
--- Skillgrove profiles (SG-025 through SG-028).
+-- Elytraflight's Skill Tree profiles (SG-025 through SG-028).
 -- Paste this whole script into the Supabase SQL editor. Do not put a service_role key in the app.
 --
 -- profiles holds the public identity. "Skills completed" is not a column the client can set.

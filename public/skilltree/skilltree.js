@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-/* Skillgrove — mastery-based skill tree for undergraduate STEM courses
+/* Elytraflight's Skill Tree — a general STEM learning site
    Multi-file version: loads skills graph at startup, banks lazily on quiz open */
 
 /* ====================== base URL detection ====================== */
@@ -56,7 +56,7 @@ async function loadManifest() {
     return true;
   } catch (e) {
     loadError = e.message || String(e);
-    console.error('Skillgrove load error:', e);
+    console.error("Elytraflight's Skill Tree load error:", e);
     return false;
   }
 }
@@ -2308,7 +2308,7 @@ function openHelp() {
     el('li', {}, el('b', { text: 'Usage measurement ' }), 'counts which skills and courses you open and how quizzes go. It uses a random id on this device, not a third-party tracker. Turn it off in Profile. A browser Do Not Track signal turns it off too.'),
     el('li', {}, 'Progress autosaves in this browser after every quiz. Open Profile to Export a backup you can Import later, or on another device.'),
     el('li', {}, 'Skills are organized into courses and chapters. Some skills have questions; the rest say "coming soon".'));
-  openModal({ title: 'How Skillgrove works', body: ul, actions: [{ label: 'Got it', kind: 'primary' }] });
+  openModal({ title: "How Elytraflight's Skill Tree works", body: ul, actions: [{ label: 'Got it', kind: 'primary' }] });
 }
 
 /* ====================== learning plan (course simulation) ====================== */
@@ -2698,7 +2698,7 @@ function exportProgress() {
     timing: { practice: timing.practice, challenge: timing.challenge }
   };
   const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
-  const a = el('a', { href: URL.createObjectURL(blob), download: `skillgrove-progress-${new Date().toISOString().slice(0, 10)}.json` });
+  const a = el('a', { href: URL.createObjectURL(blob), download: `skill-tree-progress-${new Date().toISOString().slice(0, 10)}.json` });
   document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove() }, 500);
   toast('Progress exported.');
 }
@@ -2709,7 +2709,7 @@ function importFile(file) {
   r.onload = () => {
     let raw; try { raw = JSON.parse(r.result) } catch (e) { openModal({ title: 'Import failed', body: el('p', { id: 'impErr', text: "That file isn't valid JSON." }), actions: [{ label: 'OK' }] }); return }
     const normalized = normalizeProgress(raw);
-    if (!normalized) { openModal({ title: 'Import failed', body: el('p', { id: 'impErr', text: "That doesn't look like a Skillgrove progress file (expected version 1 with a \"skills\" object)." }), actions: [{ label: 'OK' }] }); return }
+    if (!normalized) { openModal({ title: 'Import failed', body: el('p', { id: 'impErr', text: "That doesn't look like a progress file from Elytraflight's Skill Tree (expected version 1 with a \"skills\" object)." }), actions: [{ label: 'OK' }] }); return }
     const p = applyRetirement(normalized).progress;
     if (!Array.isArray(p.todo)) p.todo = Array.isArray(normalized.todo) ? normalized.todo : [];
     if (raw.savedAt == null && raw.exportedAt) {
@@ -3882,7 +3882,7 @@ function openFeedback() {
   const err = el('p', { id: 'fbError', class: 'auth-msg error', hidden: true });
   const submit = el('button', { class: 'btn primary', id: 'fbSubmit', type: 'button', onclick: () => { submitFeedback(); } }, 'Submit');
   const body = el('div', { class: 'fb-form' },
-    el('p', { class: 'pintro', text: 'Guests can send this too. It goes to the Skillgrove feedback box with the skill you have open, this page, and your browser.' }),
+    el('p', { class: 'pintro', text: "Guests can send this too. It goes to the feedback box for Elytraflight's Skill Tree with the skill you have open, this page, and your browser." }),
     el('label', { for: 'fbMessage', text: 'Message' }),
     ta,
     el('label', { for: 'fbCategory', text: 'Category (optional)' }),

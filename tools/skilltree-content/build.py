@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Build script for Skillgrove multi-file app.
+Build script for Elytraflight's Skill Tree multi-file app.
 
 Reads:
   - skilltree/ee105_skills_draft.json (skill graph)

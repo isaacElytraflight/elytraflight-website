@@ -126,7 +126,7 @@ test('build copies the shell onto the two directory indexes with root-absolute a
 
 test('a missing shell fails the build', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'profile-fallbacks-empty-'))
-  assert.throws(() => emitProfileFallbacks(root), /Skillgrove shell not found/)
+  assert.throws(() => emitProfileFallbacks(root), /Elytraflight's Skill Tree shell not found/)
   fs.rmSync(root, { recursive: true, force: true })
 })
 

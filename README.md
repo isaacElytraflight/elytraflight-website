@@ -1,10 +1,10 @@
 # Elytraflight
 
-Elytraflight is home to [Skillgrove](https://elytraflight.com/skilltree/), a mastery-based skill tree for undergraduate STEM courses.
+Elytraflight is home to [Elytraflight's Skill Tree](https://elytraflight.com/skilltree/), a general STEM learning site. Master STEM skills, one node at a time.
 
 **Live:** [elytraflight.com](https://elytraflight.com)
 
-The home page introduces Skillgrove and links to Isaac’s CS 180 project pages. Skillgrove and those project pages are standalone files in `public/` and are copied into the build as-is:
+The home page introduces Elytraflight's Skill Tree and links to Isaac’s CS 180 project pages. The skill tree and those project pages are standalone files in `public/` and are copied into the build as-is:
 
 - [`/skilltree/`](public/skilltree/)
 - [`/CS180Proj0/`](public/CS180Proj0/)
