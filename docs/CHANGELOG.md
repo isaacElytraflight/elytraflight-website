@@ -429,6 +429,7 @@ Items above version 1:
 - `drift-r2-q3` version 2
 - `drift-r3-q2` version 2
 - `diffusion-r1-q2` version 2
+- `diffusion-r1-q5` version 2
 - `diffusion-r2-q3` version 2
 - `diffusion-r1-q1` version 2
 - `diffusion-r1-q3` version 2

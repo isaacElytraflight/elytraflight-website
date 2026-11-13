@@ -275,7 +275,7 @@ def swaps_for(sid):
                 r"Electrons diffuse where their concentration changes with position. Write the electron diffusion current density using the name q for the elementary charge, the name Dn for the electron diffusivity, and the name gn for the gradient \(dn/dx\).",
                 "q*Dn*gn",
                 {"q": (0.2, 4), "Dn": (0.2, 6), "gn": (-6, 6)},
-                r"Electrons flow down the gradient, toward \(-x\) when \(dn/dx\) is negative. Negative charge moving toward \(-x\) is a current toward \(-x\), so the current density is \(q D_n\) times the gradient and carries the gradient's sign. Hole diffusion current has the opposite sign in front of the gradient. The drift term is absent when there is no field.",
+                r"Electrons flow down the gradient. When \(dn/dx\) is negative, that flow is toward \(+x\). Negative charge moving toward \(+x\) is a current toward \(-x\), so the current density is \(q D_n\) times the gradient and carries the gradient's sign. Hole diffusion current has the opposite sign in front of the gradient. The drift term is absent when there is no field.",
                 alternates=["Dn*q*gn", "q*gn*Dn"],
                 fig=N_SVG,
                 alt=N_ALT,

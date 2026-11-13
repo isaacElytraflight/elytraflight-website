@@ -1,6 +1,6 @@
 {
   "skill_id": "diffusion",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "round": 1,
@@ -33,7 +33,7 @@
       "round": 1,
       "type": "symbolic",
       "prompt": "Electrons diffuse where their concentration changes with position. Write the electron diffusion current density using the name q for the elementary charge, the name Dn for the electron diffusivity, and the name gn for the gradient \\(dn/dx\\).",
-      "explanation": "Electrons flow down the gradient, toward \\(-x\\) when \\(dn/dx\\) is negative. Negative charge moving toward \\(-x\\) is a current toward \\(-x\\), so the current density is \\(q D_n\\) times the gradient and carries the gradient's sign. Hole diffusion current has the opposite sign in front of the gradient. The drift term is absent when there is no field.",
+      "explanation": "Electrons flow down the gradient. When \\(dn/dx\\) is negative, that flow is toward \\(+x\\). Negative charge moving toward \\(+x\\) is a current toward \\(-x\\), so the current density is \\(q D_n\\) times the gradient and carries the gradient's sign. Hole diffusion current has the opposite sign in front of the gradient. The drift term is absent when there is no field.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Electron concentration</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">n</text><polyline points=\"46,39 49,44 52,48.6 55.1,52.8 58.1,56.7 61.1,60.3 64.1,63.7 67.2,66.9 70.2,69.8 73.2,72.5 76.2,75.1 79.2,77.5 82.3,79.8 85.3,82 88.3,84 91.3,85.9 94.4,87.8 97.4,89.5 100.4,91.2 103.4,92.7 106.4,94.2 109.5,95.6 112.5,97 115.5,98.3 118.5,99.6 121.6,100.8 124.6,101.9 127.6,103 130.6,104.1 133.6,105.1 136.7,106 139.7,107 142.7,107.9 145.7,108.8 148.8,109.6 151.8,110.4 154.8,111.2 157.8,112 160.8,112.7 163.9,113.4 166.9,114.1 169.9,114.8 172.9,115.4 176,116 179,116.6 182,117.2 185,117.8 188,118.3 191.1,118.9 194.1,119.4 197.1,119.9 200.1,120.4 203.2,120.9 206.2,121.4 209.2,121.8 212.2,122.3 215.2,122.7 218.3,123.1 221.3,123.5 224.3,123.9 227.3,124.3 230.4,124.7 233.4,125.1 236.4,125.5 239.4,125.8 242.4,126.2 245.5,126.5 248.5,126.8 251.5,127.2 254.5,127.5 257.6,127.8 260.6,128.1 263.6,128.4 266.6,128.7 269.6,129 272.7,129.3 275.7,129.5 278.7,129.8 281.7,130.1 284.8,130.3 287.8,130.6 290.8,130.8 293.8,131.1 296.8,131.3 299.9,131.5 302.9,131.8 305.9,132 308.9,132.2 312,132.4 315,132.7 318,132.9\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "Electron concentration that falls smoothly as position increases.",
       "answer": "q*Dn*gn",
@@ -59,7 +59,7 @@
         "Dn*q*gn",
         "q*gn*Dn"
       ],
-      "version": 1,
+      "version": 2,
       "id": "diffusion-r1-q5"
     },
     {

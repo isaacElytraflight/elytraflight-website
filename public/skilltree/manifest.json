@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-13T20:08:49.886867Z",
+  "generated": "2026-11-13T20:22:02.589565Z",
   "skills": {
-    "file": "skills.d342ffe3.json",
-    "hash": "d342ffe3"
+    "file": "skills.e69723c9.json",
+    "hash": "e69723c9"
   },
   "collections": {
     "file": "collections.6c18ba13.json",
@@ -780,7 +780,7 @@
       "file": "banks/differentiability-multivariable.d6cd7984.json"
     },
     "diffusion": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -788,8 +788,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b2992092",
-      "file": "banks/diffusion.b2992092.json"
+      "hash": "44088021",
+      "file": "banks/diffusion.44088021.json"
     },
     "diode-conn": {
       "version": 2,
