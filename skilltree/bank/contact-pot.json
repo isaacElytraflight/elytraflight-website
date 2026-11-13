@@ -1,6 +1,6 @@
 {
   "skill_id": "contact-pot",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "contact-pot-r1-q1",
@@ -32,18 +32,24 @@
       "version": 2
     },
     {
-      "id": "contact-pot-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "An ideal voltmeter is connected across an isolated PN junction in equilibrium (\\(\\varphi_{bi} = 0.7\\ \\mathrm{V}\\)). What does it read?",
-      "options": [
-        "0 V",
-        "0.7 V",
-        "−0.7 V",
-        "It depends on the meter's probe metal"
+      "type": "error",
+      "prompt": "A worked solution says what an ideal voltmeter reads across an open PN junction. Exactly one step is wrong.",
+      "explanation": "The step inside the junction is real, and so are the probe contacts. They cancel around the loop. An ideal voltmeter on an equilibrium junction reads zero, not the built-in potential.",
+      "steps": [
+        "The built-in potential is a real potential step inside the junction.",
+        "Each meter probe adds its own metal-semiconductor contact to that same loop.",
+        "Those contact potentials cancel the built-in step, so the loop sum is zero.",
+        "The meter therefore reads the built-in potential."
       ],
-      "correct_index": 0,
-      "explanation": "The meter's probes make metal contacts on each side, and their contact potentials cancel the built-in potential, just like a shorting wire. The meter measures the difference in electrochemical potential, which is zero in equilibrium.\n\\(\\varphi_{bi}\\) is real (it has a field and stored charge), but you can't measure it with a voltmeter. The probe metal doesn't matter: all the contact potentials in the loop cancel."
+      "flaw_index": 3,
+      "reasons": [
+        "The contact potentials cancel the built-in potential, so the meter reads zero.",
+        "The probes are metal, so they add nothing and the meter reads the built-in potential."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "contact-pot-r1-q4"
     },
     {
       "id": "contact-pot-r2-q1",
@@ -82,19 +88,40 @@
       "version": 2
     },
     {
-      "id": "contact-pot-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "One student computes potentials relative to intrinsic silicon; another uses the P region as the zero. Do they get different built-in potentials for the junction?",
-      "options": [
-        "Yes; the intrinsic reference gives the larger value",
-        "Yes; only the P-region reference gives the physical value",
-        "No: φbi is a potential DIFFERENCE, so it is the same for any choice of reference",
-        "They differ by the contact potential of the metal"
+      "type": "symbolic",
+      "prompt": "Write the built-in potential of a PN junction in equilibrium. Use the name Vt for \\(kT/q\\), the name NA for the acceptor concentration, the name ND for the donor concentration, and the name ni for the intrinsic concentration.",
+      "explanation": "Each side's potential relative to intrinsic material is \\(V_t\\ln(N/n_i)\\), and the built-in potential is the difference: \\(V_t\\ln(N_A N_D/n_i^2)\\). Moving the zero of potential changes both sides by the same amount, so the difference does not change.",
+      "answer": "Vt*ln(NA*ND/(ni*ni))",
+      "variables": [
+        {
+          "name": "Vt",
+          "min": 0.02,
+          "max": 0.05
+        },
+        {
+          "name": "NA",
+          "min": 2.0,
+          "max": 8.0
+        },
+        {
+          "name": "ND",
+          "min": 2.0,
+          "max": 8.0
+        },
+        {
+          "name": "ni",
+          "min": 0.2,
+          "max": 1.0
+        }
       ],
-      "correct_index": 2,
-      "explanation": "Moving the zero shifts every potential by the same constant, so differences don't change. \\(\\varphi_{bi} = \\varphi_n - \\varphi_p = \\frac{kT}{q}\\ln\\frac{N_DN_A}{n_i^2}\\) either way.\nGotcha: switching the zero from the intrinsic level to the P-region level can look like a different result. It isn't.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "Vt*ln(ND*NA/(ni**2))",
+        "Vt*log(NA*ND/(ni*ni))"
+      ],
+      "version": 1,
+      "id": "contact-pot-r3-q4"
     },
     {
       "id": "contact-pot-r3-q2",
@@ -107,19 +134,23 @@
       "explanation": "\\[\\varphi_{bi,A} = 0.026\\ln\\frac{10^{18}\\cdot10^{14}}{10^{20}} = 0.026\\ln(10^{12}) \\approx 0.718\\ \\mathrm{V}\\]\nGotcha: exactly the same as junction B. Only the PRODUCT \\(N_AN_D\\) matters. A very lopsided junction isn't automatically 'stronger'. (Their depletion widths do differ a lot.)"
     },
     {
-      "id": "contact-pot-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Which statement about contact potentials is correct?",
+      "type": "multi",
+      "prompt": "Select every statement that is true of contact potentials in equilibrium.",
+      "explanation": "Every junction of dissimilar materials has a contact potential, including an ohmic contact. The ohmic contact is built so it does not rectify; the potential is still there. In equilibrium those potentials sum to zero around any loop, which is why a PN junction alone is not a battery.",
       "options": [
-        "Only PN junctions have contact potentials; metals are equipotential",
-        "Every junction of dissimilar materials (P–N, metal–semiconductor, even metal–metal) has a contact potential, and in equilibrium they sum to zero around any closed loop",
-        "An ohmic contact has no contact potential",
-        "Contact potentials add up around a loop, which is how thermocouples work at a single temperature"
+        "A PN junction has a contact potential.",
+        "A metal-semiconductor contact has a contact potential.",
+        "An ohmic contact has no contact potential.",
+        "Around a closed loop the contact potentials sum to zero."
       ],
-      "correct_index": 1,
-      "explanation": "'the contact between two dissimilar metals creates a potential difference' (set by the work-function difference). An 'ohmic' contact still has a contact potential; it is engineered not to RECTIFY (not to act like a diode).\nGotcha: thermocouples need two DIFFERENT temperatures. At a single temperature (equilibrium) the potentials around a loop always cancel.",
-      "version": 2
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1,
+      "id": "contact-pot-r3-q5"
     },
     {
       "id": "contact-pot-r4-q1",
@@ -167,6 +198,53 @@
         "mos-struct"
       ],
       "version": 2
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "contact-pot-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "One student computes potentials relative to intrinsic silicon; another uses the P region as the zero. Do they get different built-in potentials for the junction?",
+      "options": [
+        "Yes; the intrinsic reference gives the larger value",
+        "Yes; only the P-region reference gives the physical value",
+        "No: φbi is a potential DIFFERENCE, so it is the same for any choice of reference",
+        "They differ by the contact potential of the metal"
+      ],
+      "correct_index": 2,
+      "explanation": "Moving the zero shifts every potential by the same constant, so differences don't change. \\(\\varphi_{bi} = \\varphi_n - \\varphi_p = \\frac{kT}{q}\\ln\\frac{N_DN_A}{n_i^2}\\) either way.\nGotcha: switching the zero from the intrinsic level to the P-region level can look like a different result. It isn't.",
+      "version": 2
+    },
+    {
+      "id": "contact-pot-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Which statement about contact potentials is correct?",
+      "options": [
+        "Only PN junctions have contact potentials; metals are equipotential",
+        "Every junction of dissimilar materials (P–N, metal–semiconductor, even metal–metal) has a contact potential, and in equilibrium they sum to zero around any closed loop",
+        "An ohmic contact has no contact potential",
+        "Contact potentials add up around a loop, which is how thermocouples work at a single temperature"
+      ],
+      "correct_index": 1,
+      "explanation": "'the contact between two dissimilar metals creates a potential difference' (set by the work-function difference). An 'ohmic' contact still has a contact potential; it is engineered not to RECTIFY (not to act like a diode).\nGotcha: thermocouples need two DIFFERENT temperatures. At a single temperature (equilibrium) the potentials around a loop always cancel.",
+      "version": 2
+    },
+    {
+      "id": "contact-pot-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "An ideal voltmeter is connected across an isolated PN junction in equilibrium (\\(\\varphi_{bi} = 0.7\\ \\mathrm{V}\\)). What does it read?",
+      "options": [
+        "0 V",
+        "0.7 V",
+        "−0.7 V",
+        "It depends on the meter's probe metal"
+      ],
+      "correct_index": 0,
+      "explanation": "The meter's probes make metal contacts on each side, and their contact potentials cancel the built-in potential, just like a shorting wire. The meter measures the difference in electrochemical potential, which is zero in equilibrium.\n\\(\\varphi_{bi}\\) is real (it has a field and stored charge), but you can't measure it with a voltmeter. The probe metal doesn't matter: all the contact potentials in the loop cancel.",
+      "version": 1
     }
   ]
 }

@@ -479,3 +479,51 @@ Items above version 1:
 - `nl-cap-r1-q1` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 EE 105 PN equilibrium — sg063-ee105-ch5
+
+Box: EE 105 (ee105-ucb), PN Junctions in Equilibrium.
+
+Skills: `carrier-pot`, `pn-overview`, `depl-approx`, `contact-pot`, `rev-bias`, `junction-cap`.
+
+Items above version 1:
+
+- `carrier-pot-r1-q1` version 2
+- `carrier-pot-r1-q2` version 2
+- `carrier-pot-r3-q1` version 2
+- `carrier-pot-r1-q3` version 2
+- `carrier-pot-r3-q3` version 2
+- `pn-overview-r1-q1` version 2
+- `pn-overview-r1-q3` version 2
+- `pn-overview-r4-q2` version 2
+- `pn-overview-r4-q3` version 2
+- `pn-overview-r2-q3` version 2
+- `pn-overview-r2-q1` version 2
+- `pn-overview-r1-q2` version 2
+- `depl-approx-r1-q3` version 2
+- `depl-approx-r2-q1` version 2
+- `depl-approx-r2-q2` version 2
+- `depl-approx-r1-q1` version 2
+- `depl-approx-r3-q3` version 2
+- `contact-pot-r1-q2` version 2
+- `contact-pot-r2-q1` version 2
+- `contact-pot-r2-q3` version 2
+- `contact-pot-r4-q1` version 2
+- `contact-pot-r4-q3` version 2
+- `contact-pot-r3-q1` version 2
+- `contact-pot-r3-q3` version 2
+- `rev-bias-r1-q2` version 2
+- `rev-bias-r3-q2` version 2
+- `rev-bias-r3-q3` version 2
+- `rev-bias-r4-q2` version 2
+- `rev-bias-r4-q3` version 2
+- `rev-bias-r1-q1` version 2
+- `rev-bias-r1-q3` version 2
+- `junction-cap-r1-q1` version 2
+- `junction-cap-r1-q2` version 2
+- `junction-cap-r2-q1` version 2
+- `junction-cap-r2-q2` version 2
+- `junction-cap-r1-q3` version 2
+- `junction-cap-r3-q3` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
