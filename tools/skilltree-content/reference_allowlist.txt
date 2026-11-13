@@ -5,9 +5,20 @@
 # ignored. A hit is suppressed only when the file path ends with the path
 # column and the pointer matches.
 #
-# Course codes are not listed here. The gate skips the tab_title field,
-# which is the only learner-facing place a class name may appear (the course
-# selection tab).
+# Exact course selector labels. Pointer "=" is not a JSON path: the third
+# column is the whole string. The gate waives the university-name and
+# course-number patterns only when that string is a collections tab_title.
+# The same words in a title, a question, or any other learner-facing field
+# still fail. A professor, textbook, reader, week, or lecture still fails
+# inside a selector label. A different tab_title, including "EECS 127", is
+# not on this list.
+#
+# Format: <Topic course title> (<University> <Course number>), or (Generic)
+# when there is no single source course.
+*	=	Microelectronic Devices and Circuits (Berkeley EE 105)
+*	=	Dynamic Systems and Feedback (Berkeley ME 132)
+*	=	Feedback Systems (Generic)
+*	=	Nonlinear Optimization (TU Graz)
 #
 # Pattern choices, so they do not need a per-hit exception:
 # - Lecture slides are "the slides", "lecture slides", "slide deck", or "slide N".
@@ -23,4 +34,5 @@
 #   own word "chapters", with no number, is the topic grouping, not a source
 #   chapter title.
 
-# No content exceptions yet. Add a line only when a hit is a real false positive.
+# Path exceptions (pointer other than "=") are for a real false positive.
+# The "=" lines above are the course selector labels, not content exceptions.

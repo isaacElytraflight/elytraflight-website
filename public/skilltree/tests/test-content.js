@@ -207,16 +207,17 @@ test('collections reference no retired ids and every skill sits in a top-level b
   assert.deepStrictEqual(topIds, ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz']);
   const nlo = tops.find(box => box.id === 'nlo-tugraz');
   assert.strictEqual(nlo.title, 'Nonlinear optimization');
-  assert.strictEqual(nlo.tab_title, 'EECS 127');
+  assert.strictEqual(nlo.tab_title, 'Nonlinear Optimization (TU Graz)');
   assert.strictEqual(nlo.kind, 'course');
   assert.strictEqual(nlo.children.length, 12);
   const me132 = tops.find(box => box.id === 'me132');
   const am08 = tops.find(box => box.id === 'am08');
   assert.strictEqual(me132.title, 'Dynamic systems and feedback');
-  assert.strictEqual(me132.tab_title, 'ME 132');
+  assert.strictEqual(me132.tab_title, 'Dynamic Systems and Feedback (Berkeley ME 132)');
   assert.strictEqual(me132.kind, 'course');
   assert.strictEqual(me132.children.length, 9);
   assert.strictEqual(am08.title, 'Feedback Systems');
+  assert.strictEqual(am08.tab_title, 'Feedback Systems (Generic)');
   assert.strictEqual(am08.kind, 'textbook');
   assert.strictEqual(am08.children.length, 13);
   assert(!me132.children.includes('am08') && !am08.children.includes('me132'), 'the two new boxes must stay independent');
@@ -353,6 +354,31 @@ test('no retired id is referenced by the built app payload', () => {
       assert(builtIds.includes(sid), 'built collection lists unknown ' + sid);
       assert(!retiredIds.has(sid), 'built collection lists retired ' + sid);
     }
+  }
+});
+
+test('course selector labels are the four allowlisted names', () => {
+  const labels = {
+    'ee105-ucb': 'Microelectronic Devices and Circuits (Berkeley EE 105)',
+    me132: 'Dynamic Systems and Feedback (Berkeley ME 132)',
+    am08: 'Feedback Systems (Generic)',
+    'nlo-tugraz': 'Nonlinear Optimization (TU Graz)'
+  };
+  const byId = Object.fromEntries(collections.boxes.map(box => [box.id, box]));
+  for (const [id, label] of Object.entries(labels)) {
+    assert.strictEqual(byId[id].tab_title, label, id);
+    assert(!/\b(Berkeley|Graz|Stanford|EECS)\b|\b(?:EE|ME)\s+\d+/.test(byId[id].title), byId[id].title);
+  }
+  const raw = fs.readFileSync(path.join(SRC, 'collections.json'), 'utf8')
+    + fs.readFileSync(path.join(REPO, 'public', 'skilltree', 'skilltree.js'), 'utf8');
+  assert(!raw.includes('EECS 127'), 'EECS 127 is a future course, not a label for nlo');
+  const allow = fs.readFileSync(path.join(REPO, 'tools', 'skilltree-content', 'reference_allowlist.txt'), 'utf8');
+  for (const label of Object.values(labels)) assert(allow.includes(label), 'allowlist missing ' + label);
+  const manifest = JSON.parse(fs.readFileSync(path.join(PUB, 'manifest.json'), 'utf8'));
+  const built = JSON.parse(fs.readFileSync(path.join(PUB, manifest.collections.file), 'utf8'));
+  const builtById = Object.fromEntries(built.boxes.map(box => [box.id, box]));
+  for (const [id, label] of Object.entries(labels)) {
+    assert.strictEqual(builtById[id].tab_title, label, 'built ' + id);
   }
 });
 
