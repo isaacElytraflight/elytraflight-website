@@ -26,7 +26,7 @@
         "ee105-ch18"
       ],
       "skills": [],
-      "tab_title": "EE 105"
+      "tab_title": "Microelectronic Devices and Circuits (Berkeley EE 105)"
     },
     {
       "id": "ee105-ch1",
@@ -319,7 +319,7 @@
       ],
       "skills": [],
       "top_level": true,
-      "tab_title": "ME 132"
+      "tab_title": "Dynamic Systems and Feedback (Berkeley ME 132)"
     },
     {
       "id": "me132/m1",
@@ -480,7 +480,8 @@
         "am08/ch99"
       ],
       "skills": [],
-      "top_level": true
+      "top_level": true,
+      "tab_title": "Feedback Systems (Generic)"
     },
     {
       "id": "am08/ch1",
@@ -691,7 +692,7 @@
       ],
       "skills": [],
       "top_level": true,
-      "tab_title": "EECS 127"
+      "tab_title": "Nonlinear Optimization (TU Graz)"
     },
     {
       "id": "nlo-tugraz/l1",

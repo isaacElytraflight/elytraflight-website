@@ -1591,7 +1591,7 @@ async function test(name, fn) {
     assert(collections.courseBox, 'EE105 course box should exist');
     assert.strictEqual(collections.courseBox.kind, 'course');
     assert.strictEqual(collections.courseBox.title, 'Microelectronic devices and circuits');
-    assert.strictEqual(collections.courseBox.tab_title, 'EE 105');
+    assert.strictEqual(collections.courseBox.tab_title, 'Microelectronic Devices and Circuits (Berkeley EE 105)');
     assert.strictEqual(collections.courseBox.children.length, 18, 'course should have 18 chapter children');
     
     assert.strictEqual(collections.chapterBoxes.length, NCHAPTER, 'should have a chapter box for every chapter');
@@ -1718,7 +1718,7 @@ async function test(name, fn) {
     assert(ch1At > courseAt && ch2At > ch1At, 'chapters should be nested under their course');
     assert(options[ch1At].depth && options[ch2At].depth);
     assert(!options[courseAt].depth);
-    assert.strictEqual(options[courseAt].text, 'EE 105');
+    assert.strictEqual(options[courseAt].text, 'Microelectronic Devices and Circuits (Berkeley EE 105)');
     assert(/AC Circuits and AC Analysis/.test(options[ch2At].text), options[ch2At].text);
     assert.strictEqual(options.length, NBOX);
 
@@ -2037,10 +2037,16 @@ async function test(name, fn) {
     })));
     const me = options.find(o => o.value === 'me132');
     const book = options.find(o => o.value === 'am08');
-    assert(me, 'selector should list ME 132');
+    const nlo = options.find(o => o.value === 'nlo-tugraz');
+    const ee = options.find(o => o.value === 'ee105-ucb');
+    assert(me, 'selector should list the dynamics course');
     assert(book, 'selector should list Feedback Systems');
-    assert.strictEqual(me.text, 'ME 132');
-    assert.strictEqual(book.text, 'Feedback Systems');
+    assert(nlo, 'selector should list nonlinear optimization');
+    assert.strictEqual(ee.text, 'Microelectronic Devices and Circuits (Berkeley EE 105)');
+    assert.strictEqual(me.text, 'Dynamic Systems and Feedback (Berkeley ME 132)');
+    assert.strictEqual(book.text, 'Feedback Systems (Generic)');
+    assert.strictEqual(nlo.text, 'Nonlinear Optimization (TU Graz)');
+    assert(!options.some(o => /EECS\s*127/.test(o.text)), 'EECS 127 is not a course selector label');
     assert(!/^[ \u00a0└]/.test(me.text) && !/^[ \u00a0└]/.test(book.text), 'both new boxes are top-level choices');
     const meAt = options.findIndex(o => o.value === 'me132');
     const bookAt = options.findIndex(o => o.value === 'am08');

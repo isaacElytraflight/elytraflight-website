@@ -5,8 +5,11 @@ Scans question banks, explainers, skill titles and summaries, chapter and box
 titles, the built public copies of those files, and the learner UI
 (public/skilltree/skilltree.js and index.html).
 
-Course codes may appear only in a collections tab_title. That field is what
-the course selection tab renders, and the gate skips it.
+University names and course numbers may appear only as an exact course
+selector label, and only in a collections tab_title. Those labels are listed
+in the allowlist. The gate still fails when the same words appear anywhere
+else, and a professor, textbook, reader, week, or lecture still fails inside
+a selector label.
 
 Authoring metadata is not learner-facing: sources arrays, ids, prerequisites,
 and the retired bank. Generator scripts are not scanned; the JSON they emit is.
@@ -24,7 +27,7 @@ import sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 ALLOW = os.path.join(os.path.dirname(__file__), "reference_allowlist.txt")
 
-# Keys that are not shown to a learner, or that are the course-tab label.
+# Keys that are not shown to a learner. tab_title is shown, and is scanned.
 SKIP_KEYS = {
     "answer",
     "children",
@@ -42,7 +45,6 @@ SKIP_KEYS = {
     "skills",
     "sources",
     "status",
-    "tab_title",
     "tolerance",
     "type",
     "version",
@@ -74,7 +76,9 @@ PATTERNS = [
 
 
 def load_allow():
+    """Path rules, plus the exact course-selector labels (pointer column "=")."""
     rules = []
+    labels = set()
     with open(ALLOW, encoding="utf-8") as f:
         for line in f:
             raw = line.strip()
@@ -83,8 +87,11 @@ def load_allow():
             parts = raw.split("\t")
             if len(parts) < 3:
                 raise SystemExit("bad allowlist line: " + raw)
+            if parts[1] == "=":
+                labels.add(parts[2])
+                continue
             rules.append((parts[0], parts[1], parts[2]))
-    return rules
+    return rules, labels
 
 
 def allowed(rules, path, pointer):
@@ -94,6 +101,11 @@ def allowed(rules, path, pointer):
             if rule_ptr == "*" or pointer == rule_ptr or pointer.startswith(rule_ptr + "/"):
                 return True
     return False
+
+
+def selector_label(pointer, value, labels):
+    """University and course-number hits are waived only for an exact tab_title."""
+    return str(pointer).endswith("/tab_title") and value in labels
 
 
 def walk(node, pointer, out, key=None):
@@ -191,14 +203,17 @@ def ui_strings(path):
     return found
 
 
-def scan_text(path, items, rules, hits):
+def scan_text(path, items, rules, hits, labels=()):
     for pointer, forced, value in items:
         if allowed(rules, path, pointer):
             continue
         if forced:
             hits.append((path, pointer, forced, value[:180].replace("\n", " ")))
             continue
+        waive = selector_label(pointer, value, labels)
         for name, cre in PATTERNS:
+            if waive and name in ("university", "course_code"):
+                continue
             m = cre.search(value)
             if m:
                 start = max(0, m.start() - 40)
@@ -222,14 +237,51 @@ def targets():
     return [p for p in paths if os.path.isfile(p)]
 
 
+def self_check(rules, labels):
+    """The four selector labels pass. The same words fail outside tab_title."""
+    ee = "Microelectronic Devices and Circuits (Berkeley EE 105)"
+    me = "Dynamic Systems and Feedback (Berkeley ME 132)"
+    generic = "Feedback Systems (Generic)"
+    nlo = "Nonlinear Optimization (TU Graz)"
+    samples = [
+        ("/boxes/0/tab_title", ee, False),
+        ("/boxes/1/tab_title", me, False),
+        ("/boxes/2/tab_title", generic, False),
+        ("/boxes/3/tab_title", nlo, False),
+        ("/boxes/3/tab_title", "EECS 127", True),
+        ("/boxes/0/title", ee, True),
+        ("/boxes/1/title", "A course at Berkeley", True),
+        ("/skills/0/summary", "See EE 105 for the diode equation.", True),
+        ("/boxes/0/tab_title", ee + " from the professor", True),
+        ("/boxes/3/title", "Nonlinear Optimization (TU Graz)", True),
+    ]
+    bad = []
+    for pointer, value, expect_hit in samples:
+        found = []
+        scan_text("skilltree/collections.json", [(pointer, None, value)], rules, found, labels)
+        if bool(found) != expect_hit:
+            bad.append((pointer, value, expect_hit, found[:2]))
+    missing = [label for label in (ee, me, generic, nlo) if label not in labels]
+    if missing or bad:
+        print("FAILED reference gate self-check")
+        for label in missing:
+            print(f"  allowlist missing: {label}")
+        for row in bad:
+            print(f"  {row}")
+        return False
+    return True
+
+
 def main():
-    rules = load_allow()
+    rules, labels = load_allow()
+    if not self_check(rules, labels):
+        return 1
     hits = []
     for path in targets():
         if path.endswith(".json"):
-            scan_text(path, json_strings(path), rules, hits)
+            scan_text(path, json_strings(path), rules, hits, labels)
         else:
-            scan_text(path, ui_strings(path), rules, hits)
+            scan_text(path, ui_strings(path), rules, hits, labels)
     if hits:
         print(f"FAILED reference gate: {len(hits)} hit(s)")
         for path, pointer, name, snippet in hits[:50]:
