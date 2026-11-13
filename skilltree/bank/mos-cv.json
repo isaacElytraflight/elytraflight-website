@@ -1,6 +1,6 @@
 {
   "skill_id": "mos-cv",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "mos-cv-r1-q1",
@@ -15,20 +15,35 @@
       "figure_alt": "Low-frequency MOS C–V curve: flat at Cox in accumulation, dipping to a minimum in depletion near threshold, and rising back to Cox in inversion."
     },
     {
-      "id": "mos-cv-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "In depletion, the MOS capacitance is modelled as:",
-      "options": [
-        "\\(C_{ox}\\) in parallel with \\(C_{dep}\\)",
-        "Just \\(C_{dep}\\)",
-        "\\(C_{ox}+C_{dep}\\) in series with a resistor",
-        "\\(C_{ox}\\) in series with the depletion capacitance \\(C_{dep} = \\varepsilon_s/X_d\\)"
+      "type": "symbolic",
+      "prompt": "Write the capacitance per unit area in depletion, using the name Cox for the oxide capacitance per area, the name es for the silicon permittivity, and the name Xd for the depletion depth.",
+      "explanation": "The oxide and the depletion layer are two dielectrics in series. The depletion capacitance per area is the silicon permittivity divided by the depletion depth, and series capacitances add as reciprocals.",
+      "answer": "1/(1/Cox+Xd/es)",
+      "variables": [
+        {
+          "name": "Cox",
+          "min": 0.2,
+          "max": 5.0
+        },
+        {
+          "name": "es",
+          "min": 0.2,
+          "max": 5.0
+        },
+        {
+          "name": "Xd",
+          "min": 0.1,
+          "max": 4.0
+        }
       ],
-      "correct_index": 3,
-      "explanation": "A small change in gate charge is mirrored at the depletion edge, a depth \\(X_d\\) below the oxide, so the two dielectrics are in series: \\(\\frac{1}{C} = \\frac{1}{C_{ox}} + \\frac{X_d}{\\varepsilon_s}\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 220\" role=\"img\" aria-label=\"MOS capacitance versus gate voltage\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"178.0\" x2=\"336.0\" y2=\"178.0\" stroke-width=\"1.5\"/><polygon points=\"336.0,178.0 329.6,180.7 329.6,175.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"178.0\" x2=\"56.0\" y2=\"24.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,24.0 58.7,30.4 53.3,30.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"336.0\" y=\"208.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">GB</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"48.0\" y=\"16.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C (per area)</text><polyline points=\"60.0,46.0 140.0,46.0 149.0,61.6 157.9,75.5 166.9,87.8 175.8,98.4 184.8,107.4 193.8,114.8 202.7,120.5 211.7,124.6 220.6,127.1 229.6,127.9 233.3,121.2 237.1,110.3 240.8,96.9 244.5,81.5 248.3,64.5 252.0,46.0 330.0,46.0\" fill=\"none\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><text x=\"50.0\" y=\"50.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C<tspan font-size=\"7\" dy=\"3.1\">ox</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"140.0\" y1=\"178.0\" x2=\"140.0\" y2=\"32.0\" stroke-width=\"0.9\" stroke-dasharray=\"3 3\" stroke-opacity=\"0.6\"/><text x=\"140.0\" y=\"194.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">FB</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"252.0\" y1=\"178.0\" x2=\"252.0\" y2=\"32.0\" stroke-width=\"0.9\" stroke-dasharray=\"3 3\" stroke-opacity=\"0.6\"/><text x=\"252.0\" y=\"194.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">T</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"102.0\" y=\"38.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">accumulation</text><text x=\"188.0\" y=\"172.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion</text><text x=\"294.0\" y=\"38.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">inversion</text></svg>",
-      "figure_alt": "MOS C–V curve with the depletion dip marked."
+      "tolerance": 0.001,
+      "alternates": [
+        "(1/Cox+Xd/es)**(-1)",
+        "1/(Xd/es+1/Cox)"
+      ],
+      "version": 1,
+      "id": "mos-cv-r1-q4"
     },
     {
       "id": "mos-cv-r1-q3",
@@ -83,20 +98,18 @@
       "figure_alt": "C–V curve rising back to Cox at low frequency in inversion, with a dashed high-frequency curve staying at Cmin."
     },
     {
-      "id": "mos-cv-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "Within the depletion approximation, how does the capacitance of an n+/p MOS capacitor change as \\(V_{GB}\\) rises from \\(V_{FB}\\) to \\(V_T\\)?",
-      "options": [
-        "It stays at \\(C_{ox}\\) until \\(V_T\\), then drops suddenly",
-        "It falls steadily from \\(C_{ox}\\) toward \\(C_{min}\\): \\(X_d\\) grows (as the square root of the silicon drop), so the series \\(C_{dep} = \\varepsilon_s/X_d\\) shrinks",
-        "It rises, because more gate charge means more capacitance",
-        "It falls linearly with \\(V_{GB}\\) and reaches zero at \\(V_T\\)"
+      "type": "order",
+      "prompt": "Order the steps that say how the capacitance changes from flat band to threshold. Each step after the first uses the result of the step before it.",
+      "explanation": "A deeper depletion layer is a smaller series capacitor, so the measured capacitance falls from the oxide value at flat band toward its minimum at threshold. It does not stay at the oxide value, and it does not fall in a straight line to zero.",
+      "steps": [
+        "From flat band toward threshold the band bending in the silicon increases.",
+        "The depletion depth grows as the square root of that band bending.",
+        "Depletion capacitance is the silicon permittivity divided by that depth, so a larger depth is a smaller depletion capacitance.",
+        "That depletion capacitance is in series with the oxide, so the measured capacitance falls from the oxide value."
       ],
-      "correct_index": 1,
-      "explanation": "\\[\\frac{1}{C} = \\frac{1}{C_{ox}} + \\frac{X_d}{\\varepsilon_s},\\quad X_d = \\sqrt{\\frac{2\\varepsilon_s\\psi_s}{qN_A}}\\]\nAt \\(V_{FB}\\), \\(X_d = 0\\) and \\(C = C_{ox}\\). As the band bending \\(\\psi_s\\) grows to \\(-2\\varphi_p\\), \\(X_d\\) reaches \\(X_{d,max}\\) and C reaches \\(C_{min}\\). Gotcha: capacitance is \\(dQ/dV\\), not \\(Q/V\\), and it never goes to zero, because \\(C_{ox}\\) is still in series with a finite \\(C_{dep}\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 220\" role=\"img\" aria-label=\"MOS capacitance versus gate voltage\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"178.0\" x2=\"336.0\" y2=\"178.0\" stroke-width=\"1.5\"/><polygon points=\"336.0,178.0 329.6,180.7 329.6,175.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"178.0\" x2=\"56.0\" y2=\"24.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,24.0 58.7,30.4 53.3,30.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"336.0\" y=\"208.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">GB</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"48.0\" y=\"16.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C (per area)</text><polyline points=\"60.0,46.0 140.0,46.0 149.0,61.6 157.9,75.5 166.9,87.8 175.8,98.4 184.8,107.4 193.8,114.8 202.7,120.5 211.7,124.6 220.6,127.1 229.6,127.9 233.3,121.2 237.1,110.3 240.8,96.9 244.5,81.5 248.3,64.5 252.0,46.0 330.0,46.0\" fill=\"none\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><text x=\"50.0\" y=\"50.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C<tspan font-size=\"7\" dy=\"3.1\">ox</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"140.0\" y1=\"178.0\" x2=\"140.0\" y2=\"32.0\" stroke-width=\"0.9\" stroke-dasharray=\"3 3\" stroke-opacity=\"0.6\"/><text x=\"140.0\" y=\"194.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">FB</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"252.0\" y1=\"178.0\" x2=\"252.0\" y2=\"32.0\" stroke-width=\"0.9\" stroke-dasharray=\"3 3\" stroke-opacity=\"0.6\"/><text x=\"252.0\" y=\"194.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">T</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"102.0\" y=\"38.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">accumulation</text><text x=\"188.0\" y=\"172.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion</text><text x=\"294.0\" y=\"38.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">inversion</text></svg>",
-      "figure_alt": "MOS C–V curve: flat at Cox in accumulation, decreasing through depletion from VFB to VT."
+      "version": 1,
+      "id": "mos-cv-r3-q4"
     },
     {
       "id": "mos-cv-r3-q2",
@@ -111,20 +124,24 @@
       "figure_alt": "MOS capacitor in accumulation with a hole layer at the surface."
     },
     {
-      "id": "mos-cv-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Gotcha: a C–V curve measured on a device with a THICKER oxide but the same doping would show:",
-      "options": [
-        "A lower C_ox plateau and a shallower relative dip (C_min/C_ox closer to 1)",
-        "A higher plateau",
-        "The same plateau, just shifted",
-        "A deeper relative dip"
+      "type": "error",
+      "prompt": "A worked solution compares a thicker oxide with the same doping. Exactly one step is wrong.",
+      "explanation": "When the oxide dominates the series combination, the depletion layer changes the total less. The ratio of the minimum to the oxide capacitance moves closer to 1, so the relative dip is shallower, and the oxide plateau itself is lower.",
+      "steps": [
+        "A thicker oxide has a smaller oxide capacitance.",
+        "The minimum capacitance is the series combination of that oxide capacitance and the depletion capacitance.",
+        "Making the oxide capacitance smaller lets the oxide dominate that series combination.",
+        "The ratio of the minimum capacitance to the oxide capacitance therefore gets smaller."
       ],
-      "correct_index": 0,
-      "explanation": "\\(C_{min}/C_{ox} = 1/(1 + C_{ox}X_d/\\varepsilon_s)\\). A smaller \\(C_{ox}\\) makes the oxide dominate the series combination, so the depletion layer matters less.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 220\" role=\"img\" aria-label=\"MOS capacitance versus gate voltage\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"178.0\" x2=\"336.0\" y2=\"178.0\" stroke-width=\"1.5\"/><polygon points=\"336.0,178.0 329.6,180.7 329.6,175.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"178.0\" x2=\"56.0\" y2=\"24.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,24.0 58.7,30.4 53.3,30.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"336.0\" y=\"208.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">GB</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"48.0\" y=\"16.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C (per area)</text><polyline points=\"60.0,46.0 140.0,46.0 149.0,61.6 157.9,75.5 166.9,87.8 175.8,98.4 184.8,107.4 193.8,114.8 202.7,120.5 211.7,124.6 220.6,127.1 229.6,127.9 233.3,121.2 237.1,110.3 240.8,96.9 244.5,81.5 248.3,64.5 252.0,46.0 330.0,46.0\" fill=\"none\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><text x=\"50.0\" y=\"50.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C<tspan font-size=\"7\" dy=\"3.1\">ox</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"140.0\" y1=\"178.0\" x2=\"140.0\" y2=\"32.0\" stroke-width=\"0.9\" stroke-dasharray=\"3 3\" stroke-opacity=\"0.6\"/><text x=\"140.0\" y=\"194.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">FB</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"252.0\" y1=\"178.0\" x2=\"252.0\" y2=\"32.0\" stroke-width=\"0.9\" stroke-dasharray=\"3 3\" stroke-opacity=\"0.6\"/><text x=\"252.0\" y=\"194.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">T</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"102.0\" y=\"38.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">accumulation</text><text x=\"188.0\" y=\"172.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion</text><text x=\"294.0\" y=\"38.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">inversion</text></svg>",
-      "figure_alt": "Reference MOS C–V curve."
+      "flaw_index": 3,
+      "reasons": [
+        "Oxide dominance makes the ratio closer to 1, so the relative dip is shallower.",
+        "A smaller oxide capacitance deepens the relative dip."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "mos-cv-r3-q5"
     },
     {
       "id": "mos-cv-r4-q1",
@@ -169,6 +186,59 @@
         "nmos-regions",
         "mos-caps"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "mos-cv-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In depletion, the MOS capacitance is modelled as:",
+      "options": [
+        "\\(C_{ox}\\) in parallel with \\(C_{dep}\\)",
+        "Just \\(C_{dep}\\)",
+        "\\(C_{ox}+C_{dep}\\) in series with a resistor",
+        "\\(C_{ox}\\) in series with the depletion capacitance \\(C_{dep} = \\varepsilon_s/X_d\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "A small change in gate charge is mirrored at the depletion edge, a depth \\(X_d\\) below the oxide, so the two dielectrics are in series: \\(\\frac{1}{C} = \\frac{1}{C_{ox}} + \\frac{X_d}{\\varepsilon_s}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 220\" role=\"img\" aria-label=\"MOS capacitance versus gate voltage\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"178.0\" x2=\"336.0\" y2=\"178.0\" stroke-width=\"1.5\"/><polygon points=\"336.0,178.0 329.6,180.7 329.6,175.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"178.0\" x2=\"56.0\" y2=\"24.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,24.0 58.7,30.4 53.3,30.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"336.0\" y=\"208.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">GB</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"48.0\" y=\"16.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C (per area)</text><polyline points=\"60.0,46.0 140.0,46.0 149.0,61.6 157.9,75.5 166.9,87.8 175.8,98.4 184.8,107.4 193.8,114.8 202.7,120.5 211.7,124.6 220.6,127.1 229.6,127.9 233.3,121.2 237.1,110.3 240.8,96.9 244.5,81.5 248.3,64.5 252.0,46.0 330.0,46.0\" fill=\"none\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><text x=\"50.0\" y=\"50.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C<tspan font-size=\"7\" dy=\"3.1\">ox</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"140.0\" y1=\"178.0\" x2=\"140.0\" y2=\"32.0\" stroke-width=\"0.9\" stroke-dasharray=\"3 3\" stroke-opacity=\"0.6\"/><text x=\"140.0\" y=\"194.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">FB</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"252.0\" y1=\"178.0\" x2=\"252.0\" y2=\"32.0\" stroke-width=\"0.9\" stroke-dasharray=\"3 3\" stroke-opacity=\"0.6\"/><text x=\"252.0\" y=\"194.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">T</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"102.0\" y=\"38.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">accumulation</text><text x=\"188.0\" y=\"172.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion</text><text x=\"294.0\" y=\"38.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">inversion</text></svg>",
+      "figure_alt": "MOS C–V curve with the depletion dip marked.",
+      "version": 1
+    },
+    {
+      "id": "mos-cv-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Within the depletion approximation, how does the capacitance of an n+/p MOS capacitor change as \\(V_{GB}\\) rises from \\(V_{FB}\\) to \\(V_T\\)?",
+      "options": [
+        "It stays at \\(C_{ox}\\) until \\(V_T\\), then drops suddenly",
+        "It falls steadily from \\(C_{ox}\\) toward \\(C_{min}\\): \\(X_d\\) grows (as the square root of the silicon drop), so the series \\(C_{dep} = \\varepsilon_s/X_d\\) shrinks",
+        "It rises, because more gate charge means more capacitance",
+        "It falls linearly with \\(V_{GB}\\) and reaches zero at \\(V_T\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "\\[\\frac{1}{C} = \\frac{1}{C_{ox}} + \\frac{X_d}{\\varepsilon_s},\\quad X_d = \\sqrt{\\frac{2\\varepsilon_s\\psi_s}{qN_A}}\\]\nAt \\(V_{FB}\\), \\(X_d = 0\\) and \\(C = C_{ox}\\). As the band bending \\(\\psi_s\\) grows to \\(-2\\varphi_p\\), \\(X_d\\) reaches \\(X_{d,max}\\) and C reaches \\(C_{min}\\). Gotcha: capacitance is \\(dQ/dV\\), not \\(Q/V\\), and it never goes to zero, because \\(C_{ox}\\) is still in series with a finite \\(C_{dep}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 220\" role=\"img\" aria-label=\"MOS capacitance versus gate voltage\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"178.0\" x2=\"336.0\" y2=\"178.0\" stroke-width=\"1.5\"/><polygon points=\"336.0,178.0 329.6,180.7 329.6,175.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"178.0\" x2=\"56.0\" y2=\"24.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,24.0 58.7,30.4 53.3,30.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"336.0\" y=\"208.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">GB</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"48.0\" y=\"16.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C (per area)</text><polyline points=\"60.0,46.0 140.0,46.0 149.0,61.6 157.9,75.5 166.9,87.8 175.8,98.4 184.8,107.4 193.8,114.8 202.7,120.5 211.7,124.6 220.6,127.1 229.6,127.9 233.3,121.2 237.1,110.3 240.8,96.9 244.5,81.5 248.3,64.5 252.0,46.0 330.0,46.0\" fill=\"none\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><text x=\"50.0\" y=\"50.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C<tspan font-size=\"7\" dy=\"3.1\">ox</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"140.0\" y1=\"178.0\" x2=\"140.0\" y2=\"32.0\" stroke-width=\"0.9\" stroke-dasharray=\"3 3\" stroke-opacity=\"0.6\"/><text x=\"140.0\" y=\"194.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">FB</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"252.0\" y1=\"178.0\" x2=\"252.0\" y2=\"32.0\" stroke-width=\"0.9\" stroke-dasharray=\"3 3\" stroke-opacity=\"0.6\"/><text x=\"252.0\" y=\"194.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">T</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"102.0\" y=\"38.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">accumulation</text><text x=\"188.0\" y=\"172.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion</text><text x=\"294.0\" y=\"38.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">inversion</text></svg>",
+      "figure_alt": "MOS C–V curve: flat at Cox in accumulation, decreasing through depletion from VFB to VT.",
+      "version": 1
+    },
+    {
+      "id": "mos-cv-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Gotcha: a C–V curve measured on a device with a THICKER oxide but the same doping would show:",
+      "options": [
+        "A lower C_ox plateau and a shallower relative dip (C_min/C_ox closer to 1)",
+        "A higher plateau",
+        "The same plateau, just shifted",
+        "A deeper relative dip"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(C_{min}/C_{ox} = 1/(1 + C_{ox}X_d/\\varepsilon_s)\\). A smaller \\(C_{ox}\\) makes the oxide dominate the series combination, so the depletion layer matters less.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 220\" role=\"img\" aria-label=\"MOS capacitance versus gate voltage\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:360px;width:100%;height:auto\"><line x1=\"56.0\" y1=\"178.0\" x2=\"336.0\" y2=\"178.0\" stroke-width=\"1.5\"/><polygon points=\"336.0,178.0 329.6,180.7 329.6,175.3\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"56.0\" y1=\"178.0\" x2=\"56.0\" y2=\"24.0\" stroke-width=\"1.5\"/><polygon points=\"56.0,24.0 58.7,30.4 53.3,30.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"336.0\" y=\"208.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">GB</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"48.0\" y=\"16.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C (per area)</text><polyline points=\"60.0,46.0 140.0,46.0 149.0,61.6 157.9,75.5 166.9,87.8 175.8,98.4 184.8,107.4 193.8,114.8 202.7,120.5 211.7,124.6 220.6,127.1 229.6,127.9 233.3,121.2 237.1,110.3 240.8,96.9 244.5,81.5 248.3,64.5 252.0,46.0 330.0,46.0\" fill=\"none\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><text x=\"50.0\" y=\"50.0\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C<tspan font-size=\"7\" dy=\"3.1\">ox</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"140.0\" y1=\"178.0\" x2=\"140.0\" y2=\"32.0\" stroke-width=\"0.9\" stroke-dasharray=\"3 3\" stroke-opacity=\"0.6\"/><text x=\"140.0\" y=\"194.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">FB</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"252.0\" y1=\"178.0\" x2=\"252.0\" y2=\"32.0\" stroke-width=\"0.9\" stroke-dasharray=\"3 3\" stroke-opacity=\"0.6\"/><text x=\"252.0\" y=\"194.0\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V<tspan font-size=\"7\" dy=\"3.1\">T</tspan><tspan dy=\"-3.1\"></tspan></text><text x=\"102.0\" y=\"38.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">accumulation</text><text x=\"188.0\" y=\"172.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">depletion</text><text x=\"294.0\" y=\"38.0\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">inversion</text></svg>",
+      "figure_alt": "Reference MOS C–V curve.",
+      "version": 1
     }
   ]
 }

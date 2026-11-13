@@ -577,3 +577,18 @@ Items above version 1:
 - `led-r1-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 EE 105 MOS capacitor — sg063-ee105-ch7
+
+Box: EE 105 (ee105-ucb), MOS Capacitor.
+
+Skills: `mos-struct`, `mos-regions`, `vt`, `mos-fields`, `mos-cv`.
+
+Items above version 1:
+
+- `mos-struct-r1-q3` version 2
+- `mos-struct-r2-q2` version 2
+- `mos-regions-r3-q2` version 2
+- `mos-regions-r3-q1` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

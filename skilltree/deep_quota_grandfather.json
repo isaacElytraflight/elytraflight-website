@@ -72,10 +72,6 @@
     "mirror-load",
     "model-method",
     "mos-caps",
-    "mos-cv",
-    "mos-fields",
-    "mos-regions",
-    "mos-struct",
     "mosfet-struct",
     "nmos-regions",
     "noise-dist",
@@ -113,7 +109,6 @@
     "two-port",
     "uncertainty",
     "vector-norms-lp",
-    "vt",
     "windup"
   ]
 }
