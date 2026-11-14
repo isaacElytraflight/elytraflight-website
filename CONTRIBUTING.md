@@ -107,7 +107,7 @@ If Bugbot says the pull request is too large, or findings are still open after t
 
 Agents Isaac runs may self-merge under that rule. Outside contributors do not merge their own pull requests. Isaac reviews those.
 
-Branch protection on `main` is off on purpose, so the agent path is not blocked. The settings Isaac will turn on before the first outside contributor merge are in [docs/branch-protection.md](docs/branch-protection.md). Do not enable them yourself.
+Branch protection on `main` uses a ruleset with an admin bypass, so agents Isaac runs can still self-merge. The settings are in [docs/branch-protection.md](docs/branch-protection.md). Do not change them yourself.
 
 ## Copyright
 

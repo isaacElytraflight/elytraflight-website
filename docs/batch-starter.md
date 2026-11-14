@@ -83,7 +83,7 @@ If Bugbot says the pull request is too large to review, or findings are still op
 
 If the pull request is not mergeable because of conflicts, merge the base branch in, regenerate the generated files, re-run the gates, and wait for Bugbot again. That counts as a fix round.
 
-Outside contributors do not self-merge. Branch protection on `main` stays off until Isaac enables `docs/branch-protection.md`, so this self-merge path keeps working.
+Outside contributors do not self-merge. Branch protection on `main` uses a ruleset with an admin bypass (see `docs/branch-protection.md`), so this self-merge path keeps working.
 
 ## Efficiency
 

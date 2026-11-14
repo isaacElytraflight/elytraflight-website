@@ -22,7 +22,7 @@ The app reads and writes `public.progress` for the signed-in user (`user_id`, `d
 
 - `.github/dependabot.yml` opens weekly update pull requests for the npm trees at the repo root, `public/skilltree/tests`, and `skilltree/app/tests`.
 - Isaac turns on Dependabot security updates, secret scanning, and push protection in the repository settings. Those switches are not in git.
-- Branch protection is documented in [branch-protection.md](branch-protection.md). Leave it off until the first outside contributor.
+- Branch protection is documented in [branch-protection.md](branch-protection.md). It may be on now, with a Repository admin bypass so agents Isaac runs can still self-merge.
 
 ## Offboarding
 
