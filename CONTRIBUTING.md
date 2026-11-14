@@ -2,7 +2,31 @@
 
 Elytraflight's Skill Tree is the learning site at [elytraflight.com/skilltree/](https://www.elytraflight.com/skilltree/). The site shell is a Vite app. The skill tree itself is the static app in `public/skilltree/`, built from `skilltree/` and `tools/skilltree-content/`.
 
-Open roadmap work is a GitHub issue per id, titled `[SG-xxx] <title>`. The list is [docs/roadmap.md](docs/roadmap.md). While the spreadsheet still exists, keep each row and its issue in sync.
+Open roadmap work is a GitHub issue per id, titled `[SG-xxx] <title>`. GitHub Issues are the source of truth for status. The old roadmap spreadsheet is a frozen archive, and [docs/roadmap.md](docs/roadmap.md) is background only.
+
+## Writing content
+
+Read [docs/skill-tree-content-SOP.md](docs/skill-tree-content-SOP.md) before you open a content pull request. It is the full rulebook. This section is the short version, and the SOP wins if the two ever disagree.
+
+The workflow:
+
+1. Pick an open Content issue, or open one with the Content form. A new course needs Isaac to accept its skill graph before any batch starts (SOP section 4).
+2. Start from [docs/batch-starter.md](docs/batch-starter.md). It gives the read order, the helper APIs, and where generated files go.
+3. Write banks and explainers with the helpers in `tools/skilltree-content/banklib.py`. Do not hand-build question JSON, and do not hand-edit the hashed files the build writes.
+4. Run `python3 tools/skilltree-content/run_gates.py --batch <id>` once on the commit you intend to push.
+5. Open the pull request with `Refs #N`, or `Closes #N` when it finishes the issue.
+
+The hard rules:
+
+- **No source references in learner text.** Stems, choices, explanations, explainers, captions, alt text, and names never mention a reader, a textbook, notes, slides, a professor, a university, a week or lecture number, or a source chapter. The reference gate fails the batch if they do. Only a course selector label (`tab_title`) may name a university and a course number.
+- **Topic names only.** Boxes and sub-sections are named for their topic, never for a textbook, a chapter, a week, or a lecture.
+- **At least 25% deep-type questions per bank.** Deep types are symbolic, ordering, find-the-error, and multi-select. The quota is `ceil(3n/12)`, so a 12-question bank needs 3. The deep-quota gate enforces it.
+- **Dedupe against the whole graph.** Before adding a skill, check every course. Reuse an existing skill, split a neutral core from a domain application, or record the call in `docs/dedupe-decisions.json`.
+- **Verified answers and figures.** Every numeric and symbolic answer is checked by the batch's independent verifier (0 mismatches). Figures come from `tools/skilltree-content/templates.py`, have alt text, and do not give the answer away.
+- **Write it yourself.** No copied wording, problems, parameter sets, or figures. See [Copyright](#copyright).
+- **Ids are permanent.** An edit bumps the item's version. Retire items instead of deleting them.
+
+Notation is in [docs/notation.md](docs/notation.md). Past decisions are in [docs/decisions/](docs/decisions/).
 
 ## Setup
 
