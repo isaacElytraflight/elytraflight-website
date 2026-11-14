@@ -1,0 +1,24 @@
+{
+  "id": "sg063-ee105-ch7",
+  "label": "SG-063 EE 105 MOS capacitor",
+  "box": "EE 105 (ee105-ucb), MOS Capacitor",
+  "skills": [
+    "mos-struct",
+    "mos-regions",
+    "vt",
+    "mos-fields",
+    "mos-cv"
+  ],
+  "areas": {
+    "mos-struct": ["physical-models"],
+    "mos-regions": ["physical-models"],
+    "vt": ["physical-models"],
+    "mos-fields": ["physical-models"],
+    "mos-cv": ["physical-models"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch7.py"
+}

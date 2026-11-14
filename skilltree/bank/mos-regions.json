@@ -1,22 +1,20 @@
 {
   "skill_id": "mos-regions",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "mos-regions-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "For an n+ poly / p-Si MOS capacitor, list the regions of operation as \\(V_{GB}\\) increases.",
-      "options": [
-        "Accumulation (V_GB < V_FB) → depletion (V_FB < V_GB < V_T) → inversion (V_GB > V_T)",
-        "Depletion → accumulation → inversion",
-        "Inversion → depletion → accumulation",
-        "Accumulation → inversion → depletion"
+      "type": "order",
+      "prompt": "An n+ poly gate sits on p-type silicon. Order the regions as the gate voltage rises. Each step after the first uses the result of the step before it.",
+      "explanation": "Accumulation, depletion, then inversion. The hole sheet ends at flat band, the uncovered acceptors grow after that, and inversion starts when the surface is as n-type as the bulk is p-type.",
+      "steps": [
+        "Below flat band the gate is negative enough to pull majority holes to the surface.",
+        "That hole sheet is accumulation, and it ends when the gate voltage reaches flat band.",
+        "Above flat band the holes leave, and a depletion layer of uncovered acceptors grows.",
+        "Once the surface electron density reaches the bulk doping, further gate charge goes into an inversion layer of electrons."
       ],
-      "correct_index": 0,
-      "explanation": "Below \\(V_{FB}\\) the negative gate attracts holes (accumulation). Above it, holes are pushed away, leaving ionised acceptors (depletion). Past \\(V_T\\), the surface potential reaches \\(-2\\varphi_p\\) and electrons collect at the surface (inversion).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 232\" role=\"img\" aria-label=\"MOS capacitor (inversion)\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:340px;width:100%;height:auto\"><rect x=\"64.0\" y=\"24.0\" width=\"212.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.25\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"43.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n⁺ poly gate</text><rect x=\"64.0\" y=\"54.0\" width=\"212.0\" height=\"18.0\" fill=\"currentColor\" fill-opacity=\"0.05\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"67.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">oxide</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"134.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"198.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">p-type body</text><line x1=\"170.0\" y1=\"8.0\" x2=\"170.0\" y2=\"24.0\" stroke-width=\"1.5\"/><text x=\"176.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"58.0\" y=\"198.0\" text-anchor=\"end\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"78.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"98.4\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"118.9\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"139.3\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"159.8\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"180.2\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"200.7\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"221.1\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"241.6\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"262.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"70.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 3\"/><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"7.0\" fill=\"currentColor\" fill-opacity=\"0.35\" stroke=\"none\"/><text x=\"272.0\" y=\"94.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">electron layer (inversion)</text><text x=\"78.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"114.8\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"151.6\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"188.4\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"225.2\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"262.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><line x1=\"50.0\" y1=\"72.0\" x2=\"50.0\" y2=\"142.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,142.0 48.1,137.4 51.9,137.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"50.0\" y1=\"142.0\" x2=\"50.0\" y2=\"72.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,72.0 51.9,76.6 48.1,76.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"44.0\" y=\"111.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">dep</tspan><tspan dy=\"-2.8\"></tspan></text></svg>",
-      "figure_alt": "MOS cross-section in inversion: positive gate charge, a thin layer of electrons at the silicon surface, and a depletion region of acceptor ions beneath it."
+      "version": 1,
+      "id": "mos-regions-r1-q4"
     },
     {
       "id": "mos-regions-r1-q2",
@@ -83,38 +81,55 @@
       "figure_alt": "Field and potential through the oxide and body; part of the voltage drops across the oxide."
     },
     {
-      "id": "mos-regions-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "Increasing \\(V_{GB}\\) well above \\(V_T\\) adds more gate charge. Where does the matching silicon charge go?",
-      "options": [
-        "Into a deeper depletion layer, growing as √V_GB",
-        "Into accumulated holes",
-        "Almost entirely into inversion electrons at the surface; the depletion depth stays pinned near X_d,max",
-        "Into the oxide"
+      "type": "error",
+      "prompt": "A worked solution says where extra gate charge goes once the device is past threshold. Exactly one step is wrong.",
+      "explanation": "With the surface potential pinned, the depletion depth is pinned too. The extra gate charge is matched by inversion electrons at the surface, not by a deeper layer of uncovered acceptors.",
+      "steps": [
+        "Past threshold, extra gate voltage barely moves the surface potential.",
+        "The depletion depth is set by that surface potential.",
+        "The depletion depth therefore stays nearly pinned.",
+        "The added gate charge still goes into making the depletion layer deeper."
       ],
-      "correct_index": 2,
-      "explanation": "Electron density rises exponentially with surface potential, so a tiny increase in \\(\\varphi_s\\) supplies lots of charge. The surface potential and \\(X_d\\) hardly change: \\(Q_n \\approx -C_{ox}(V_{GB} - V_T)\\).\nGotcha: the depletion formula stops applying past threshold.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 232\" role=\"img\" aria-label=\"MOS capacitor (inversion)\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:340px;width:100%;height:auto\"><rect x=\"64.0\" y=\"24.0\" width=\"212.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.25\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"43.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n⁺ poly gate</text><rect x=\"64.0\" y=\"54.0\" width=\"212.0\" height=\"18.0\" fill=\"currentColor\" fill-opacity=\"0.05\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"67.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">oxide</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"134.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"198.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">p-type body</text><line x1=\"170.0\" y1=\"8.0\" x2=\"170.0\" y2=\"24.0\" stroke-width=\"1.5\"/><text x=\"176.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"58.0\" y=\"198.0\" text-anchor=\"end\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"78.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"98.4\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"118.9\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"139.3\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"159.8\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"180.2\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"200.7\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"221.1\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"241.6\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"262.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"70.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 3\"/><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"7.0\" fill=\"currentColor\" fill-opacity=\"0.35\" stroke=\"none\"/><text x=\"272.0\" y=\"94.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">electron layer (inversion)</text><text x=\"78.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"114.8\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"151.6\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"188.4\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"225.2\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"262.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><line x1=\"50.0\" y1=\"72.0\" x2=\"50.0\" y2=\"142.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,142.0 48.1,137.4 51.9,137.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"50.0\" y1=\"142.0\" x2=\"50.0\" y2=\"72.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,72.0 51.9,76.6 48.1,76.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"44.0\" y=\"111.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">dep</tspan><tspan dy=\"-2.8\"></tspan></text></svg>",
-      "figure_alt": "MOS capacitor above threshold: an inversion electron layer over a pinned depletion region.",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "The pinned depletion depth means the extra charge is inversion electrons at the surface.",
+        "Gate charge above threshold keeps uncovering acceptors, so the depletion layer keeps growing."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "mos-regions-r3-q5"
     },
     {
-      "id": "mos-regions-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "The surface 'inverts' when the surface potential reaches \\(\\varphi_s = -\\varphi_p\\) (so the band bending is \\(-2\\varphi_p\\)). Why that value rather than \\(\\varphi_s = 0\\)?",
-      "options": [
-        "At φs = 0 the bands are flat",
-        "At φs = 0 the surface is merely intrinsic (n = p = nᵢ); at φs = −φp the surface electron density equals the bulk hole density Nₐ, i.e. 'as n-type as the bulk is p-type'",
-        "−2φp is where the oxide breaks down",
-        "It's arbitrary; any value works"
+      "type": "symbolic",
+      "prompt": "Write the electron concentration at the silicon surface, using the name ni for the intrinsic concentration, the name phis for the surface potential, and the name Vt for \\(kT/q\\).",
+      "explanation": "Electrons follow the potential: the surface concentration is the intrinsic concentration times \\(e^{\\varphi_s/V_t}\\). It equals the bulk doping when the surface potential is the negative of the bulk potential, which is the inversion condition. At zero surface potential the surface is only intrinsic.",
+      "answer": "ni*exp(phis/Vt)",
+      "variables": [
+        {
+          "name": "ni",
+          "min": 0.2,
+          "max": 4.0
+        },
+        {
+          "name": "phis",
+          "min": -0.3,
+          "max": 0.3
+        },
+        {
+          "name": "Vt",
+          "min": 0.025,
+          "max": 0.05
+        }
       ],
-      "correct_index": 1,
-      "explanation": "With \\(n = n_ie^{\\varphi_s/V_{th}}\\), \\(\\varphi_s = -\\varphi_p\\) gives \\(n = n_i\\cdot N_A/n_i = N_A\\). That's the threshold condition. At midgap (\\(\\varphi_s = 0\\)) the electron density is still tiny.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 190\" role=\"img\" aria-label=\"Body: E_F below E_i\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:300px;width:100%;height:auto\"><rect x=\"56.0\" y=\"10.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><rect x=\"56.0\" y=\"142.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><line x1=\"56.0\" y1=\"48.0\" x2=\"254.0\" y2=\"48.0\" stroke-width=\"2.4\"/><line x1=\"56.0\" y1=\"142.0\" x2=\"254.0\" y2=\"142.0\" stroke-width=\"2.4\"/><text x=\"50.0\" y=\"52.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">c</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"50.0\" y=\"146.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">v</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"175.0\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">conduction band</text><text x=\"175.0\" y=\"170.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">valence band</text><line x1=\"56.0\" y1=\"95.0\" x2=\"254.0\" y2=\"95.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 4\"/><text x=\"258.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">i</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"56.0\" y1=\"127.9\" x2=\"254.0\" y2=\"127.9\" stroke-width=\"2\"/><text x=\"258.0\" y=\"131.9\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">F</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"76.0\" y1=\"89.0\" x2=\"76.0\" y2=\"49.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,49.0 77.9,53.6 74.1,53.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"76.0\" y1=\"101.0\" x2=\"76.0\" y2=\"141.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,141.0 74.1,136.4 77.9,136.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"82.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">g</tspan><tspan dy=\"-3.1\"></tspan></text></svg>",
-      "figure_alt": "Band diagram of the p-type body; the surface inverts when bending equals twice the Fermi potential.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "ni*e**(phis/Vt)",
+        "exp(phis/Vt)*ni"
+      ],
+      "version": 1,
+      "id": "mos-regions-r3-q4"
     },
     {
       "id": "mos-regions-r3-q3",
@@ -180,6 +195,59 @@
         "square-law",
         "nmos-regions"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "mos-regions-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "The surface 'inverts' when the surface potential reaches \\(\\varphi_s = -\\varphi_p\\) (so the band bending is \\(-2\\varphi_p\\)). Why that value rather than \\(\\varphi_s = 0\\)?",
+      "options": [
+        "At φs = 0 the bands are flat",
+        "At φs = 0 the surface is merely intrinsic (n = p = nᵢ); at φs = −φp the surface electron density equals the bulk hole density Nₐ, i.e. 'as n-type as the bulk is p-type'",
+        "−2φp is where the oxide breaks down",
+        "It's arbitrary; any value works"
+      ],
+      "correct_index": 1,
+      "explanation": "With \\(n = n_ie^{\\varphi_s/V_{th}}\\), \\(\\varphi_s = -\\varphi_p\\) gives \\(n = n_i\\cdot N_A/n_i = N_A\\). That's the threshold condition. At midgap (\\(\\varphi_s = 0\\)) the electron density is still tiny.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 190\" role=\"img\" aria-label=\"Body: E_F below E_i\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:300px;width:100%;height:auto\"><rect x=\"56.0\" y=\"10.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><rect x=\"56.0\" y=\"142.0\" width=\"198.0\" height=\"38.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke=\"none\"/><line x1=\"56.0\" y1=\"48.0\" x2=\"254.0\" y2=\"48.0\" stroke-width=\"2.4\"/><line x1=\"56.0\" y1=\"142.0\" x2=\"254.0\" y2=\"142.0\" stroke-width=\"2.4\"/><text x=\"50.0\" y=\"52.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">c</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"50.0\" y=\"146.0\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"8\" dy=\"3.4\">v</tspan><tspan dy=\"-3.4\"></tspan></text><text x=\"175.0\" y=\"28.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">conduction band</text><text x=\"175.0\" y=\"170.0\" text-anchor=\"middle\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">valence band</text><line x1=\"56.0\" y1=\"95.0\" x2=\"254.0\" y2=\"95.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 4\"/><text x=\"258.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">i</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"56.0\" y1=\"127.9\" x2=\"254.0\" y2=\"127.9\" stroke-width=\"2\"/><text x=\"258.0\" y=\"131.9\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">F</tspan><tspan dy=\"-3.1\"></tspan></text><line x1=\"76.0\" y1=\"89.0\" x2=\"76.0\" y2=\"49.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,49.0 77.9,53.6 74.1,53.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"76.0\" y1=\"101.0\" x2=\"76.0\" y2=\"141.0\" stroke-width=\"1.5\"/><polygon points=\"76.0,141.0 74.1,136.4 77.9,136.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"82.0\" y=\"99.0\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">E<tspan font-size=\"7\" dy=\"3.1\">g</tspan><tspan dy=\"-3.1\"></tspan></text></svg>",
+      "figure_alt": "Band diagram of the p-type body; the surface inverts when bending equals twice the Fermi potential.",
+      "version": 2
+    },
+    {
+      "id": "mos-regions-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For an n+ poly / p-Si MOS capacitor, list the regions of operation as \\(V_{GB}\\) increases.",
+      "options": [
+        "Accumulation (V_GB < V_FB) → depletion (V_FB < V_GB < V_T) → inversion (V_GB > V_T)",
+        "Depletion → accumulation → inversion",
+        "Inversion → depletion → accumulation",
+        "Accumulation → inversion → depletion"
+      ],
+      "correct_index": 0,
+      "explanation": "Below \\(V_{FB}\\) the negative gate attracts holes (accumulation). Above it, holes are pushed away, leaving ionised acceptors (depletion). Past \\(V_T\\), the surface potential reaches \\(-2\\varphi_p\\) and electrons collect at the surface (inversion).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 232\" role=\"img\" aria-label=\"MOS capacitor (inversion)\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:340px;width:100%;height:auto\"><rect x=\"64.0\" y=\"24.0\" width=\"212.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.25\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"43.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n⁺ poly gate</text><rect x=\"64.0\" y=\"54.0\" width=\"212.0\" height=\"18.0\" fill=\"currentColor\" fill-opacity=\"0.05\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"67.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">oxide</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"134.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"198.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">p-type body</text><line x1=\"170.0\" y1=\"8.0\" x2=\"170.0\" y2=\"24.0\" stroke-width=\"1.5\"/><text x=\"176.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"58.0\" y=\"198.0\" text-anchor=\"end\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"78.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"98.4\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"118.9\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"139.3\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"159.8\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"180.2\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"200.7\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"221.1\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"241.6\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"262.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"70.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 3\"/><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"7.0\" fill=\"currentColor\" fill-opacity=\"0.35\" stroke=\"none\"/><text x=\"272.0\" y=\"94.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">electron layer (inversion)</text><text x=\"78.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"114.8\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"151.6\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"188.4\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"225.2\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"262.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><line x1=\"50.0\" y1=\"72.0\" x2=\"50.0\" y2=\"142.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,142.0 48.1,137.4 51.9,137.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"50.0\" y1=\"142.0\" x2=\"50.0\" y2=\"72.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,72.0 51.9,76.6 48.1,76.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"44.0\" y=\"111.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">dep</tspan><tspan dy=\"-2.8\"></tspan></text></svg>",
+      "figure_alt": "MOS cross-section in inversion: positive gate charge, a thin layer of electrons at the silicon surface, and a depletion region of acceptor ions beneath it.",
+      "version": 1
+    },
+    {
+      "id": "mos-regions-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Increasing \\(V_{GB}\\) well above \\(V_T\\) adds more gate charge. Where does the matching silicon charge go?",
+      "options": [
+        "Into a deeper depletion layer, growing as √V_GB",
+        "Into accumulated holes",
+        "Almost entirely into inversion electrons at the surface; the depletion depth stays pinned near X_d,max",
+        "Into the oxide"
+      ],
+      "correct_index": 2,
+      "explanation": "Electron density rises exponentially with surface potential, so a tiny increase in \\(\\varphi_s\\) supplies lots of charge. The surface potential and \\(X_d\\) hardly change: \\(Q_n \\approx -C_{ox}(V_{GB} - V_T)\\).\nGotcha: the depletion formula stops applying past threshold.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 232\" role=\"img\" aria-label=\"MOS capacitor (inversion)\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:340px;width:100%;height:auto\"><rect x=\"64.0\" y=\"24.0\" width=\"212.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.25\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"43.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n⁺ poly gate</text><rect x=\"64.0\" y=\"54.0\" width=\"212.0\" height=\"18.0\" fill=\"currentColor\" fill-opacity=\"0.05\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"67.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">oxide</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"134.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"198.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">p-type body</text><line x1=\"170.0\" y1=\"8.0\" x2=\"170.0\" y2=\"24.0\" stroke-width=\"1.5\"/><text x=\"176.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"58.0\" y=\"198.0\" text-anchor=\"end\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"78.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"98.4\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"118.9\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"139.3\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"159.8\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"180.2\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"200.7\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"221.1\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"241.6\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"262.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"70.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 3\"/><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"7.0\" fill=\"currentColor\" fill-opacity=\"0.35\" stroke=\"none\"/><text x=\"272.0\" y=\"94.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">electron layer (inversion)</text><text x=\"78.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"114.8\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"151.6\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"188.4\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"225.2\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"262.0\" y=\"116.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><line x1=\"50.0\" y1=\"72.0\" x2=\"50.0\" y2=\"142.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,142.0 48.1,137.4 51.9,137.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"50.0\" y1=\"142.0\" x2=\"50.0\" y2=\"72.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,72.0 51.9,76.6 48.1,76.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"44.0\" y=\"111.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">dep</tspan><tspan dy=\"-2.8\"></tspan></text></svg>",
+      "figure_alt": "MOS capacitor above threshold: an inversion electron layer over a pinned depletion region.",
+      "version": 2
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "skill_id": "mos-struct",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "mos-struct-r1-q1",
@@ -15,18 +15,30 @@
       "figure_alt": "MOS capacitor cross-section: a gate on top, a thin oxide layer of thickness tox, and a p-type silicon substrate with a body contact."
     },
     {
-      "id": "mos-struct-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "In an n+ poly / SiO₂ / p-Si MOS capacitor, which layer stops DC current from flowing between the gate and the body?",
-      "options": [
-        "The n+ polysilicon gate",
-        "The p-type substrate",
-        "The depletion region in the silicon",
-        "The SiO₂ gate oxide, an insulator"
+      "type": "symbolic",
+      "prompt": "Write the oxide capacitance per unit area, using the name eox for the oxide permittivity and the name tox for the oxide thickness.",
+      "explanation": "The oxide is the insulator between two conductors, so its capacitance per area is its permittivity divided by its thickness. A thinner oxide is a larger capacitance. The oxide blocks DC current; it does not block the field that this capacitance describes.",
+      "answer": "eox/tox",
+      "variables": [
+        {
+          "name": "eox",
+          "min": 0.2,
+          "max": 5.0
+        },
+        {
+          "name": "tox",
+          "min": 0.05,
+          "max": 4.0
+        }
       ],
-      "correct_index": 3,
-      "explanation": "The oxide is an excellent insulator (band gap about 9 eV). So the structure is a capacitor: charge on the gate is mirrored by charge in the silicon, and no DC current flows through.\nThe gate is a heavily doped conductor, and the substrate is a conducting semiconductor body."
+      "tolerance": 0.001,
+      "alternates": [
+        "eox*(1/tox)",
+        "(eox)/tox"
+      ],
+      "version": 1,
+      "id": "mos-struct-r1-q4"
     },
     {
       "id": "mos-struct-r1-q3",
@@ -67,20 +79,18 @@
       "version": 2
     },
     {
-      "id": "mos-struct-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "At \\(V_{GB} = 0\\), an n+ poly gate on p-Si is connected through the external wire. Which way does charge settle?",
-      "options": [
-        "No charge anywhere; zero volts means flat bands",
-        "Holes accumulate at the surface",
-        "The silicon surface becomes depleted (negative acceptor charge) and the gate holds a matching positive charge, because the gate's Fermi level was higher",
-        "The oxide holds the charge"
+      "type": "order",
+      "prompt": "The applied gate-to-body voltage is zero. Order the steps that say why the silicon surface is still depleted. Each step after the first uses the result of the step before it.",
+      "explanation": "Zero applied voltage is not flat band. The work-function difference moves electrons off the gate, the gate stays positive, and the matching negative charge is uncovered acceptor ions at the surface.",
+      "steps": [
+        "The n+ gate's Fermi level sits above the p-body's Fermi level.",
+        "Electrons flow from the gate to the body until those two Fermi levels line up.",
+        "That flow leaves the gate positive and uncovers acceptors at the silicon surface.",
+        "Those uncovered acceptors are a depletion layer, so the surface is depleted at zero applied voltage."
       ],
-      "correct_index": 2,
-      "explanation": "As in a pn junction, electrons flow from the n+ gate (high Fermi level) to the p body until the Fermi levels line up. That leaves the gate positive and the surface depleted. A built-in potential \\(\\varphi_{bi}\\) drops across the oxide plus the silicon.\nTo get flat bands you must apply \\(V_{GB} = V_{FB} = -\\varphi_{bi} < 0\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 232\" role=\"img\" aria-label=\"MOS capacitor (depletion)\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:340px;width:100%;height:auto\"><rect x=\"64.0\" y=\"24.0\" width=\"212.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.25\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"43.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n⁺ poly gate</text><rect x=\"64.0\" y=\"54.0\" width=\"212.0\" height=\"18.0\" fill=\"currentColor\" fill-opacity=\"0.05\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"67.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">oxide</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"134.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"198.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">p-type body</text><line x1=\"170.0\" y1=\"8.0\" x2=\"170.0\" y2=\"24.0\" stroke-width=\"1.5\"/><text x=\"176.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"58.0\" y=\"198.0\" text-anchor=\"end\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"78.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"108.7\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"139.3\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"170.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"200.7\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"231.3\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"262.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"56.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 3\"/><text x=\"78.0\" y=\"104.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"114.8\" y=\"104.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"151.6\" y=\"104.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"188.4\" y=\"104.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"225.2\" y=\"104.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"262.0\" y=\"104.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><line x1=\"50.0\" y1=\"72.0\" x2=\"50.0\" y2=\"128.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,128.0 48.1,123.4 51.9,123.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"50.0\" y1=\"128.0\" x2=\"50.0\" y2=\"72.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,72.0 51.9,76.6 48.1,76.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"44.0\" y=\"104.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">dep</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"272.0\" y=\"143.0\" text-anchor=\"end\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">neutral p-type</text></svg>",
-      "figure_alt": "MOS cross-section with positive charge on the gate and a depletion layer of negative acceptor ions under the oxide."
+      "version": 1,
+      "id": "mos-struct-r2-q4"
     },
     {
       "id": "mos-struct-r3-q1",
@@ -105,18 +115,24 @@
       "figure_alt": "Band diagram of the n-type body under a p+ gate."
     },
     {
-      "id": "mos-struct-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "A student says: 'Since the oxide is an insulator, the MOS capacitor's gate voltage can't affect the silicon underneath.' What's the error?",
-      "options": [
-        "Nothing; the gate controls only the oxide",
-        "The field passes through the insulator: gate charge induces an equal and opposite charge in the silicon, and that charge changes the carrier concentrations at the surface",
-        "Current tunnels through even thick oxides, which is how the gate works",
-        "The gate only affects the silicon if it's metal, not poly"
+      "type": "error",
+      "prompt": "A worked solution says whether the gate can change the silicon under the oxide. Exactly one step is wrong.",
+      "explanation": "An insulator blocks current, not field. The induced silicon charge is holes in accumulation, uncovered acceptors in depletion, or electrons in inversion, so the gate does change the surface carriers.",
+      "steps": [
+        "The oxide blocks DC current between the gate and the body.",
+        "It does not block the electric field of the charge on the gate.",
+        "That field induces an equal and opposite charge in the silicon.",
+        "The gate voltage therefore cannot change the carrier density at the silicon surface."
       ],
-      "correct_index": 1,
-      "explanation": "An insulator blocks current, not electric fields. By Gauss's law, gate charge \\(Q_G\\) is balanced by \\(-Q_G\\) in the silicon: holes (accumulation), ionised acceptors (depletion) or electrons (inversion).\nThis 'field effect' is what makes the MOSFET work."
+      "flaw_index": 3,
+      "reasons": [
+        "The induced charge is a change in the surface carriers, so the gate does control the silicon.",
+        "Blocking the current also blocks the field, so the surface carriers are unaffected."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "mos-struct-r3-q4"
     },
     {
       "id": "mos-struct-r4-q1",
@@ -161,6 +177,55 @@
       "preview": [
         "vt"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "mos-struct-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In an n+ poly / SiO₂ / p-Si MOS capacitor, which layer stops DC current from flowing between the gate and the body?",
+      "options": [
+        "The n+ polysilicon gate",
+        "The p-type substrate",
+        "The depletion region in the silicon",
+        "The SiO₂ gate oxide, an insulator"
+      ],
+      "correct_index": 3,
+      "explanation": "The oxide is an excellent insulator (band gap about 9 eV). So the structure is a capacitor: charge on the gate is mirrored by charge in the silicon, and no DC current flows through.\nThe gate is a heavily doped conductor, and the substrate is a conducting semiconductor body.",
+      "version": 1
+    },
+    {
+      "id": "mos-struct-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "At \\(V_{GB} = 0\\), an n+ poly gate on p-Si is connected through the external wire. Which way does charge settle?",
+      "options": [
+        "No charge anywhere; zero volts means flat bands",
+        "Holes accumulate at the surface",
+        "The silicon surface becomes depleted (negative acceptor charge) and the gate holds a matching positive charge, because the gate's Fermi level was higher",
+        "The oxide holds the charge"
+      ],
+      "correct_index": 2,
+      "explanation": "As in a pn junction, electrons flow from the n+ gate (high Fermi level) to the p body until the Fermi levels line up. That leaves the gate positive and the surface depleted. A built-in potential \\(\\varphi_{bi}\\) drops across the oxide plus the silicon.\nTo get flat bands you must apply \\(V_{GB} = V_{FB} = -\\varphi_{bi} < 0\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 232\" role=\"img\" aria-label=\"MOS capacitor (depletion)\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" font-family=\"sans-serif\" style=\"max-width:340px;width:100%;height:auto\"><rect x=\"64.0\" y=\"24.0\" width=\"212.0\" height=\"30.0\" fill=\"currentColor\" fill-opacity=\"0.25\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"43.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n⁺ poly gate</text><rect x=\"64.0\" y=\"54.0\" width=\"212.0\" height=\"18.0\" fill=\"currentColor\" fill-opacity=\"0.05\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"67.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">oxide</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"134.0\" fill=\"currentColor\" fill-opacity=\"0.12\" stroke-width=\"1.5\"/><text x=\"282.0\" y=\"198.0\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">p-type body</text><line x1=\"170.0\" y1=\"8.0\" x2=\"170.0\" y2=\"24.0\" stroke-width=\"1.5\"/><text x=\"176.0\" y=\"14.0\" text-anchor=\"start\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"58.0\" y=\"198.0\" text-anchor=\"end\" font-size=\"12\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"78.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"108.7\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"139.3\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"170.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"200.7\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"231.3\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"262.0\" y=\"49.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">+</text><rect x=\"64.0\" y=\"72.0\" width=\"212.0\" height=\"56.0\" stroke-width=\"1.2\" stroke-dasharray=\"5 3\"/><text x=\"78.0\" y=\"104.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"114.8\" y=\"104.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"151.6\" y=\"104.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"188.4\" y=\"104.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"225.2\" y=\"104.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><text x=\"262.0\" y=\"104.0\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">–</text><line x1=\"50.0\" y1=\"72.0\" x2=\"50.0\" y2=\"128.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,128.0 48.1,123.4 51.9,123.4\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><line x1=\"50.0\" y1=\"128.0\" x2=\"50.0\" y2=\"72.0\" stroke-width=\"1.5\"/><polygon points=\"50.0,72.0 51.9,76.6 48.1,76.6\" fill=\"currentColor\" fill-opacity=\"1.0\" stroke=\"none\" stroke-linejoin=\"round\"/><text x=\"44.0\" y=\"104.0\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">x<tspan font-size=\"7\" dy=\"2.8\">dep</tspan><tspan dy=\"-2.8\"></tspan></text><text x=\"272.0\" y=\"143.0\" text-anchor=\"end\" font-size=\"10\" fill-opacity=\"0.7\" fill=\"currentColor\" stroke=\"none\">neutral p-type</text></svg>",
+      "figure_alt": "MOS cross-section with positive charge on the gate and a depletion layer of negative acceptor ions under the oxide.",
+      "version": 1
+    },
+    {
+      "id": "mos-struct-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A student says: 'Since the oxide is an insulator, the MOS capacitor's gate voltage can't affect the silicon underneath.' What's the error?",
+      "options": [
+        "Nothing; the gate controls only the oxide",
+        "The field passes through the insulator: gate charge induces an equal and opposite charge in the silicon, and that charge changes the carrier concentrations at the surface",
+        "Current tunnels through even thick oxides, which is how the gate works",
+        "The gate only affects the silicon if it's metal, not poly"
+      ],
+      "correct_index": 1,
+      "explanation": "An insulator blocks current, not electric fields. By Gauss's law, gate charge \\(Q_G\\) is balanced by \\(-Q_G\\) in the silicon: holes (accumulation), ionised acceptors (depletion) or electrons (inversion).\nThis 'field effect' is what makes the MOSFET work.",
+      "version": 1
     }
   ]
 }

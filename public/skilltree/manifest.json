@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-13T21:11:11.022378Z",
+  "generated": "2026-11-13T21:18:30.298654Z",
   "skills": {
-    "file": "skills.c0de1c0a.json",
-    "hash": "c0de1c0a"
+    "file": "skills.f25abd9f.json",
+    "hash": "f25abd9f"
   },
   "collections": {
     "file": "collections.6c18ba13.json",
@@ -2076,7 +2076,7 @@
       "file": "banks/mos-caps.994a4d6d.json"
     },
     "mos-cv": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2084,11 +2084,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "652c77ea",
-      "file": "banks/mos-cv.652c77ea.json"
+      "hash": "c98903de",
+      "file": "banks/mos-cv.c98903de.json"
     },
     "mos-fields": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2096,11 +2096,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "74ee0b0a",
-      "file": "banks/mos-fields.74ee0b0a.json"
+      "hash": "4e524c6a",
+      "file": "banks/mos-fields.4e524c6a.json"
     },
     "mos-regions": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2108,11 +2108,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b1d5de32",
-      "file": "banks/mos-regions.b1d5de32.json"
+      "hash": "2145fe8d",
+      "file": "banks/mos-regions.2145fe8d.json"
     },
     "mos-struct": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2120,8 +2120,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3ba9812a",
-      "file": "banks/mos-struct.3ba9812a.json"
+      "hash": "d114938f",
+      "file": "banks/mos-struct.d114938f.json"
     },
     "mosfet-struct": {
       "version": 2,
@@ -3216,7 +3216,7 @@
       "file": "banks/vector-norms-lp.4ce7c63a.json"
     },
     "vt": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3224,8 +3224,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "d7dce394",
-      "file": "banks/vt.d7dce394.json"
+      "hash": "5fde0af1",
+      "file": "banks/vt.5fde0af1.json"
     },
     "windup": {
       "version": 1,
