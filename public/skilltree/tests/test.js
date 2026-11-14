@@ -221,6 +221,23 @@ function handleMeasure(req, page) {
   }
   if (url.includes('/rest/v1/analytics_flags')) {
     if (page && page._flagPosts) page._flagPosts.push(record);
+    if (page && page._flagsMode === 'duplicate') {
+      let rows = [];
+      try {
+        const parsed = JSON.parse(req.postData() || 'null');
+        rows = Array.isArray(parsed) ? parsed : (parsed ? [parsed] : []);
+      } catch (e) { rows = []; }
+      const dup = rows.length > 1 || rows.some(row => row && row.question_id === 'bode-r1-q1');
+      if (dup) {
+        req.respond({
+          status: 409,
+          contentType: 'application/json',
+          headers: MEASURE_CORS,
+          body: JSON.stringify({ code: '23505', message: 'duplicate key value violates unique constraint "analytics_flags_once"' })
+        });
+        return true;
+      }
+    }
     if (page && page._flagsMode === 'missing') {
       req.respond({
         status: 404,
@@ -291,28 +308,44 @@ function respondProfile(req, p) {
     return;
   }
   if (call.url.includes('/rest/v1/rpc/profile_lookup')) {
-    let name = '';
-    try { name = String(JSON.parse(call.body || '{}').p_username || '').toLowerCase(); } catch (e) { name = ''; }
-    const row = p._profiles.find(r => r.username === name);
-    if (!row) send(200, { status: 'missing' });
-    else if (!row.is_public) send(200, { status: 'private' });
-    else send(200, {
-      status: 'public',
-      username: row.username,
-      bio: row.bio,
-      joined_at: row.created_at,
-      skills_completed: row.skills_completed
-    });
+    const reply = () => {
+      let name = '';
+      try { name = String(JSON.parse(call.body || '{}').p_username || '').toLowerCase(); } catch (e) { name = ''; }
+      const row = p._profiles.find(r => r.username === name);
+      if (!row) send(200, { status: 'missing' });
+      else if (!row.is_public) send(200, { status: 'private' });
+      else send(200, {
+        status: 'public',
+        username: row.username,
+        bio: row.bio,
+        joined_at: row.created_at,
+        skills_completed: row.skills_completed
+      });
+    };
+    if (p._holdProfileLookup) {
+      p._heldProfileLookups = p._heldProfileLookups || [];
+      p._heldProfileLookups.push(reply);
+      return;
+    }
+    reply();
     return;
   }
   if (req.method() === 'GET') {
-    const id = (new URL(call.url).searchParams.get('user_id') || '').replace(/^eq\./, '');
-    send(200, p._profiles.filter(r => r.user_id === id).map(r => ({
-      username: r.username,
-      bio: r.bio,
-      is_public: r.is_public,
-      created_at: r.created_at
-    })));
+    const reply = () => {
+      const id = (new URL(call.url).searchParams.get('user_id') || '').replace(/^eq\./, '');
+      send(200, p._profiles.filter(r => r.user_id === id).map(r => ({
+        username: r.username,
+        bio: r.bio,
+        is_public: r.is_public,
+        created_at: r.created_at
+      })));
+    };
+    if (p._holdOwnProfile && call.url.includes('/rest/v1/profiles')) {
+      p._heldOwnProfiles = p._heldOwnProfiles || [];
+      p._heldOwnProfiles.push(reply);
+      return;
+    }
+    reply();
     return;
   }
   if (req.method() === 'POST') {
@@ -432,7 +465,11 @@ async function newPage(seed, opts = {}) {
         signInWithOtp: async () => ({ error: null }),
         signInWithOAuth: async (opts) => { window.__oauthCalls.push(opts); return { error: null }; },
         signOut: async () => ({}),
-        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
+        onAuthStateChange: (cb) => {
+          window.__authListeners = window.__authListeners || [];
+          if (typeof cb === 'function') window.__authListeners.push(cb);
+          return { data: { subscription: { unsubscribe: () => {} } } };
+        }
       },
       from: () => ({
         select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: null, error: null }) }) }),
@@ -600,6 +637,15 @@ function eventRows(p) {
   return rows;
 }
 
+async function openOwnProfile(p) {
+  await Promise.all([
+    p.waitForNavigation({ waitUntil: 'networkidle0', timeout: 30000 }),
+    p.click('#btnProfile')
+  ]);
+  await sleep(250);
+  await p.waitForSelector('#profilePage:not([hidden]) #profileEditor:not([hidden])');
+}
+
 async function test(name, fn) {
   const before = errs.length;
   try {
@@ -623,7 +669,13 @@ async function test(name, fn) {
 
 (async () => {
   const analyticsSql = fs.readFileSync(path.join(__dirname, '..', '..', '..', 'skilltree', 'supabase', 'migrations', '20261112160000_analytics.sql'), 'utf8');
+  const distractorSql = fs.readFileSync(path.join(__dirname, '..', '..', '..', 'skilltree', 'supabase', 'migrations', '20261113180000_distractor_alert.sql'), 'utf8');
   assert(analyticsSql.includes('function public.is_skillgrove_admin()'), 'reusable admin check');
+  assert(/create or replace function public\.analytics_dashboard\(\)/.test(distractorSql), 'distractor fix replaces the dashboard');
+  assert(distractorSql.includes('choice_ambiguous'), 'mixed error-step choices are detected');
+  assert(distractorSql.includes('s.key_picks > 0'), 'a distractor alert needs a real key');
+  assert(distractorSql.includes('not s.choice_ambiguous'), 'a mixed choice does not raise a distractor alert');
+  assert(!/service_role/i.test(distractorSql), 'the migration has no service-role secret');
   assert(/enable row level security/i.test(analyticsSql), 'analytics tables enable rls');
   assert(!/create table[^;]*\bprofiles\b/i.test(analyticsSql), 'analytics migration does not create profiles');
   assert(analyticsSql.includes('analytics_events') && analyticsSql.includes('analytics_flags'));
@@ -955,7 +1007,11 @@ async function test(name, fn) {
           signInWithOtp: async () => ({ error: null }),
           signInWithOAuth: async () => ({ error: null }),
           signOut: async () => ({}),
-          onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
+          onAuthStateChange: (cb) => {
+          window.__authListeners = window.__authListeners || [];
+          if (typeof cb === 'function') window.__authListeners.push(cb);
+          return { data: { subscription: { unsubscribe: () => {} } } };
+        }
         },
         from: () => ({
           select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: null, error: null }) }) }),
@@ -1017,7 +1073,11 @@ async function test(name, fn) {
           signInWithOtp: async () => ({ error: null }),
           signInWithOAuth: async (opts) => { window.__oauthCalls.push(opts); return { error: null }; },
           signOut: async () => ({}),
-          onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
+          onAuthStateChange: (cb) => {
+          window.__authListeners = window.__authListeners || [];
+          if (typeof cb === 'function') window.__authListeners.push(cb);
+          return { data: { subscription: { unsubscribe: () => {} } } };
+        }
         },
         from: () => ({
           select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: null, error: null }) }) }),
@@ -3055,9 +3115,11 @@ async function test(name, fn) {
     assert.strictEqual(await p.$('#btnSettings'), null);
     assert.strictEqual(await p.$eval('#profilePage', e => e.hidden), true);
     assert.strictEqual(await p.$('#hrow #btnExport, header > .hrow > #btnExport'), null);
-    await p.click('#btnProfile');
-    await sleep(100);
+    await openOwnProfile(p);
     assert.strictEqual(await p.$eval('#profilePage', e => e.hidden), false);
+    assert.strictEqual(await p.evaluate(() => getComputedStyle(document.getElementById('treeView')).display), 'none');
+    assert.strictEqual(await p.evaluate(() => location.pathname), '/profile/me');
+    assert.strictEqual(await p.evaluate(() => location.search), '');
     for (const id of ['#btnExport', '#btnImport', '#btnReset']) assert(await p.$(id), id);
     await p.click('#btnReset');
     await sleep(150);
@@ -3175,9 +3237,7 @@ async function test(name, fn) {
       await shootUi(p, `feedback-${vp.name}.png`);
       await p.keyboard.press('Escape');
       await sleep(150);
-      await p.click('#btnProfile');
-      await p.waitForSelector('#profilePage:not([hidden])');
-      await sleep(100);
+      await openOwnProfile(p);
       await shootUi(p, `profile-${vp.name}.png`);
       await p._ctx.close();
     }
@@ -3510,7 +3570,7 @@ async function test(name, fn) {
     const p = await newPage();
     await flushMeasure(p);
     p._eventPosts.length = 0;
-    await p.click('#btnProfile');
+    await openOwnProfile(p);
     await p.waitForSelector('#usageMeasure');
     assert.strictEqual(await p.$eval('#usageMeasure', e => e.checked), true);
     assert(/No third-party trackers/.test(await p.$eval('#usageNote', e => e.textContent)));
@@ -3520,7 +3580,11 @@ async function test(name, fn) {
     await p.click('#usageMeasure');
     await sleep(80);
     assert.strictEqual(await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.privacy.v1')).usage), false);
-    await p.click('#profileClose');
+    await Promise.all([
+      p.waitForNavigation({ waitUntil: 'networkidle0', timeout: 30000 }),
+      p.click('#profileClose')
+    ]);
+    await sleep(300);
     await openSkill(p, 'bode');
     await p.click('#startBtn');
     await p.waitForSelector('#quiz .opt', { timeout: 10000 });
@@ -3536,13 +3600,13 @@ async function test(name, fn) {
     assert.strictEqual(JSON.parse(p._flagPosts[0].body)[0].reason, 'figure');
     await p.reload({ waitUntil: 'networkidle0' });
     await sleep(300);
-    await p.click('#btnProfile');
+    await openOwnProfile(p);
     await p.waitForSelector('#usageMeasure');
     assert.strictEqual(await p.$eval('#usageMeasure', e => e.checked), false);
     await p._ctx.close();
 
     const dnt = await newPage(null, { dnt: true });
-    await dnt.click('#btnProfile');
+    await openOwnProfile(dnt);
     await dnt.waitForSelector('#usageMeasure');
     const state = await dnt.evaluate(() => ({
       checked: document.getElementById('usageMeasure').checked,
@@ -3861,6 +3925,29 @@ async function test(name, fn) {
     await owner._ctx.close();
   });
 
+  await test('admin page follows a magic-link or Google session without a reload', async () => {
+    const p = await newPage();
+    p._dashboardBody = dashFixture;
+    await p.goto(ADMIN_URL, { waitUntil: 'networkidle0' });
+    await p.waitForSelector('#sgSign');
+    assert.strictEqual(await p.$('#sgDash'), null);
+    const session = {
+      access_token: 'user-access-token',
+      user: { id: '22222222-2222-4222-8222-222222222222', email: 'ada@example.com' }
+    };
+    await p.evaluate(next => {
+      const listeners = window.__authListeners || [];
+      if (!listeners.length) throw new Error('admin page did not subscribe to auth changes');
+      listeners.forEach(cb => cb('SIGNED_IN', next));
+    }, session);
+    await p.waitForSelector('#sgDash', { timeout: 10000 });
+    assert(/Usage and question alerts/.test(await p.evaluate(() => document.body.innerText)));
+    assert.strictEqual(await p.$eval('#sgWho', e => e.textContent), 'ada@example.com');
+    assert.strictEqual(p._dashboardPosts.length, 1);
+    assert.strictEqual(p._dashboardPosts[0].headers.authorization, 'Bearer user-access-token');
+    await p._ctx.close();
+  });
+
   await test('signed-out profile offers sign-in and stores a local username', async () => {
     const p = await newPage(T({
       bode: { tier: 4, lastPracticed: now, history: [] },
@@ -3869,7 +3956,7 @@ async function test(name, fn) {
     await p.waitForFunction(() => window.__skillgrove.profile.ready());
     assert.strictEqual(await p.$('#todoBoard'), null);
     assert.strictEqual(await p.$eval('#btnProfile', e => e.textContent.trim()), 'Profile');
-    await p.click('#btnProfile');
+    await openOwnProfile(p);
     await p.waitForSelector('#profilePage:not([hidden]) #profileSignIn');
     assert.strictEqual(await p.$eval('#profilePublic', e => e.checked), true);
     assert.strictEqual(await p.$eval('#profileSkills', e => e.textContent), '2');
@@ -3920,7 +4007,7 @@ async function test(name, fn) {
     }, session);
     await p.reload({ waitUntil: 'networkidle0', timeout: 30000 });
     await p.waitForFunction(() => document.getElementById('btnSignOut'));
-    await p.click('#btnProfile');
+    await openOwnProfile(p);
     await p.waitForFunction(() => {
       const save = document.getElementById('profileSave');
       const name = document.getElementById('profileUsername');
@@ -3960,7 +4047,7 @@ async function test(name, fn) {
     await p.evaluate(() => localStorage.setItem('skilltree.profile.v1', JSON.stringify({
       v: 1, username: 'ada_local', bio: 'From this device', isPublic: true
     })));
-    await p.click('#btnProfile');
+    await openOwnProfile(p);
     await p.waitForFunction(() => document.getElementById('profileSave') && !document.getElementById('profileSave').disabled);
     assert.strictEqual(await p.$eval('#profileUsername', e => e.value), '');
     assert.strictEqual(await p.$eval('#profileBio', e => e.value), '');
@@ -3993,7 +4080,7 @@ async function test(name, fn) {
       profileMode: 'ready',
       profiles: PROFILE_FIXTURES.map(row => Object.assign({}, row))
     });
-    await p.click('#btnProfile');
+    await openOwnProfile(p);
     await p.waitForFunction(() => document.getElementById('profilePage') && !document.getElementById('profilePage').hidden && !document.getElementById('profileSave').disabled);
     assert.strictEqual(await p.$eval('#profileSignIn', e => e.hidden), true);
     assert.strictEqual(await p.$eval('#profileJoined', e => e.textContent), 'May 2, 2024');
@@ -4008,6 +4095,7 @@ async function test(name, fn) {
     await p.type('#profileBio', 'Learning trees');
     await p.click('#profileSave');
     await p.waitForFunction(() => !document.getElementById('profileSave').disabled && /saved/i.test(document.getElementById('profileNote').textContent));
+    assert.strictEqual(await p.evaluate(() => location.pathname + location.search), '/profile/ada_1');
     const posts = p._profileCalls.filter(c => c.method === 'POST' && c.url.includes('/rest/v1/profiles?'));
     assert.strictEqual(posts.length, 1);
     const row = JSON.parse(posts[0].body);
@@ -4079,9 +4167,19 @@ async function test(name, fn) {
       xss: window.__xss || null,
       skills: document.getElementById('profilePublicSkills').textContent,
       joined: document.getElementById('profilePublicJoined').textContent,
-      editorHidden: document.getElementById('profileEditor').hidden
+      editorHidden: document.getElementById('profileEditor').hidden,
+      path: location.pathname,
+      search: location.search,
+      tree: getComputedStyle(document.getElementById('treeView')).display,
+      header: getComputedStyle(document.querySelector('header')).display,
+      back: document.getElementById('profileBack').getAttribute('href')
     }));
     assert.strictEqual(pub.name, 'ada');
+    assert.strictEqual(pub.path, '/profile/ada');
+    assert.strictEqual(pub.search, '');
+    assert.strictEqual(pub.tree, 'none');
+    assert.strictEqual(pub.header, 'none');
+    assert.strictEqual(pub.back, '/skilltree/');
     assert.ok(pub.bio.includes('<img'));
     assert.strictEqual(pub.html.includes('<img'), false);
     assert.strictEqual(pub.imgs, 0);
@@ -4089,10 +4187,18 @@ async function test(name, fn) {
     assert.strictEqual(pub.skills, '10');
     assert.strictEqual(pub.joined, 'January 1, 2020');
     assert.strictEqual(pub.editorHidden, true);
-    await p.goto(new URL('/profile/bea', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await p.goto(new URL('/profile/bea?focus=ee105,me132,am08&skill=bode', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
     await sleep(300);
-    assert.strictEqual(await p.$eval('#profilePublicName', e => e.textContent), 'bea');
-    assert.strictEqual(await p.$eval('#profilePublicBio', e => e.textContent), 'Second');
+    const bea = await p.evaluate(() => ({
+      name: document.getElementById('profilePublicName').textContent,
+      bio: document.getElementById('profilePublicBio').textContent,
+      path: location.pathname,
+      search: location.search
+    }));
+    assert.strictEqual(bea.name, 'bea');
+    assert.strictEqual(bea.bio, 'Second');
+    assert.strictEqual(bea.path, '/profile/bea');
+    assert.strictEqual(bea.search, '', 'a profile URL drops the tree focus and skill query');
     await p.evaluate(() => {
       const panel = document.getElementById('scopePanel');
       if (panel) panel.hidden = true;
@@ -4131,6 +4237,248 @@ async function test(name, fn) {
     assert.strictEqual(await missing.$eval('#profileMissing', e => e.textContent), "Profiles aren't available yet.");
     assert.strictEqual(await missing.$('#todoBoard'), null);
     await missing._ctx.close();
+  });
+
+  await test('a local username does not open the editor for someone else\'s profile', async () => {
+    const owner = {
+      access_token: 'user-access-token',
+      user: {
+        id: '11111111-1111-4111-8111-111111111111',
+        email: 'owner@example.com',
+        created_at: '2024-05-02T00:00:00.000Z'
+      }
+    };
+    const profiles = PROFILE_FIXTURES.map(row => Object.assign({}, row));
+    profiles.push({
+      user_id: owner.user.id,
+      username: 'ada_1',
+      bio: 'Mine',
+      is_public: true,
+      created_at: '2024-06-01T00:00:00.000Z',
+      skills_completed: 1
+    });
+    const guest = await newPage(null, {
+      profileMode: 'ready',
+      profiles: profiles.map(row => Object.assign({}, row))
+    });
+    await guest.evaluate(() => localStorage.setItem('skilltree.profile.v1', JSON.stringify({
+      v: 1, username: 'ada', bio: 'local draft', isPublic: true
+    })));
+    await guest.goto(new URL('/profile/ada?focus=ee105', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    const hijack = await guest.evaluate(() => ({
+      editor: document.getElementById('profileEditor').hidden,
+      name: document.getElementById('profilePublicName').textContent,
+      path: location.pathname,
+      search: location.search
+    }));
+    assert.strictEqual(hijack.editor, true, 'a matching local draft still shows the public profile');
+    assert.strictEqual(hijack.name, 'ada');
+    assert.strictEqual(hijack.path, '/profile/ada');
+    assert.strictEqual(hijack.search, '');
+    await guest.goto(new URL('/profile/gio', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await guest.evaluate(() => localStorage.setItem('skilltree.profile.v1', JSON.stringify({
+      v: 1, username: 'gio', bio: 'local draft', isPublic: true
+    })));
+    await guest.reload({ waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    assert.strictEqual(await guest.$eval('#profileEditor', e => e.hidden), true);
+    assert.strictEqual(await guest.$eval('#profilePrivateOnly', e => e.hidden), false);
+    await guest.goto(BASE_URL, { waitUntil: 'networkidle0', timeout: 30000 });
+    await openOwnProfile(guest);
+    await guest.waitForFunction(() => location.pathname === '/profile/me' && document.getElementById('profileEditor') && !document.getElementById('profileEditor').hidden);
+    assert.strictEqual(await guest.$eval('#profileUsername', e => e.value), 'gio');
+    await guest._ctx.close();
+
+    const signedIn = await newPage(null, {
+      session: owner,
+      profileMode: 'ready',
+      profiles: profiles.map(row => Object.assign({}, row))
+    });
+    await signedIn.evaluate(id => {
+      localStorage.setItem('skilltree.profile.v1.' + id, JSON.stringify({
+        v: 1, username: 'ada', bio: 'stale draft', isPublic: true
+      }));
+    }, owner.user.id);
+    await signedIn.goto(new URL('/profile/ada', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    assert.strictEqual(await signedIn.$eval('#profileEditor', e => e.hidden), true);
+    assert.strictEqual(await signedIn.$eval('#profilePublicName', e => e.textContent), 'ada');
+    await signedIn.goto(new URL('/profile/ada_1', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await signedIn.waitForFunction(() => {
+      const editor = document.getElementById('profileEditor');
+      const box = document.getElementById('profileUsername');
+      return editor && !editor.hidden && box && box.value === 'ada_1' && location.pathname === '/profile/ada_1';
+    });
+    await signedIn.evaluateOnNewDocument(() => {
+      const auth = window.__supabaseMock && window.__supabaseMock.auth;
+      if (!auth) return;
+      auth.getSession = async () => ({ data: { session: null } });
+    });
+    await signedIn.goto(new URL('/profile/ada_1', BASE_URL).href, { waitUntil: 'networkidle0', timeout: 30000 });
+    await sleep(300);
+    assert.strictEqual(await signedIn.$eval('#profileEditor', e => e.hidden), true, 'no session yet, so the public profile shows');
+    assert.strictEqual(await signedIn.$eval('#profilePublicName', e => e.textContent), 'ada_1');
+    await signedIn.evaluate(session => {
+      const listeners = window.__authListeners || [];
+      if (!listeners.length) throw new Error('profile page did not subscribe to auth changes');
+      listeners.forEach(cb => cb('SIGNED_IN', session));
+    }, {
+      access_token: owner.access_token,
+      user: owner.user
+    });
+    await signedIn.waitForFunction(() => {
+      const editor = document.getElementById('profileEditor');
+      const box = document.getElementById('profileUsername');
+      return editor && !editor.hidden && box && box.value === 'ada_1';
+    });
+    await signedIn._ctx.close();
+  });
+
+  await test('a late session keeps the loading cover up until the owner editor paints', async () => {
+    const owner = {
+      access_token: 'user-access-token',
+      user: {
+        id: '11111111-1111-4111-8111-111111111111',
+        email: 'owner@example.com',
+        created_at: '2024-05-02T00:00:00.000Z'
+      }
+    };
+    const profiles = PROFILE_FIXTURES.map(row => Object.assign({}, row));
+    profiles.push({
+      user_id: owner.user.id,
+      username: 'ada_1',
+      bio: 'Mine',
+      is_public: true,
+      created_at: '2024-06-01T00:00:00.000Z',
+      skills_completed: 1
+    });
+    const p = await newPage(null, {
+      profileMode: 'ready',
+      profiles: profiles.map(row => Object.assign({}, row))
+    });
+    await p.evaluate(() => localStorage.setItem('skilltree.profile.v1', JSON.stringify({
+      v: 1, username: 'ada_1', bio: 'local draft', isPublic: true
+    })));
+    p._holdProfileLookup = true;
+    p._heldProfileLookups = [];
+    p._holdOwnProfile = true;
+    p._heldOwnProfiles = [];
+    try {
+      await p.goto(new URL('/profile/ada_1', BASE_URL).href, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await p.waitForFunction(() => (window.__authListeners || []).length > 0, { timeout: 20000 });
+      const waitUntil = Date.now() + 20000;
+      while (Date.now() < waitUntil && !p._heldProfileLookups.length) await sleep(50);
+      assert(p._heldProfileLookups.length > 0, 'the first route is still waiting on profile lookup');
+      const mid = await p.evaluate(() => ({
+        pageHidden: document.getElementById('profilePage').hidden,
+        editorHidden: document.getElementById('profileEditor').hidden,
+        overlay: !!document.getElementById('loadingOverlay')
+      }));
+      assert.strictEqual(mid.pageHidden, true, 'the route has not opened a profile view yet');
+      assert.strictEqual(mid.editorHidden, false, 'the editor stays in the markup until a view is chosen');
+      assert.strictEqual(mid.overlay, true, 'the loading cover is up while the first route is choosing');
+      await p.evaluate(() => {
+        window.__blankFrames = 0;
+        window.__blankWatch = setInterval(() => {
+          const overlay = document.getElementById('loadingOverlay');
+          const page = document.getElementById('profilePage');
+          const covered = !!(overlay && overlay.isConnected);
+          const painted = !!(page && !page.hidden);
+          if (!covered && !painted) window.__blankFrames += 1;
+        }, 16);
+      });
+      await p.evaluate(session => {
+        const auth = window.__supabaseMock && window.__supabaseMock.auth;
+        if (auth) auth.getSession = async () => ({ data: { session } });
+        const listeners = window.__authListeners || [];
+        if (!listeners.length) throw new Error('profile page did not subscribe to auth changes');
+        listeners.forEach(cb => cb('SIGNED_IN', session));
+      }, {
+        access_token: owner.access_token,
+        user: owner.user
+      });
+      const ownWait = Date.now() + 10000;
+      while (Date.now() < ownWait && !p._heldOwnProfiles.length) await sleep(20);
+      assert(p._heldOwnProfiles.length > 0, 'the replacement route is still fetching the owner profile');
+      const gap = await p.evaluate(() => {
+        const overlay = document.getElementById('loadingOverlay');
+        const rect = overlay ? overlay.getBoundingClientRect() : null;
+        return {
+          covered: !!(overlay && overlay.isConnected && rect && rect.width > window.innerWidth * 0.9 && rect.height > window.innerHeight * 0.9),
+          pageHidden: document.getElementById('profilePage').hidden,
+          blanks: window.__blankFrames
+        };
+      });
+      assert.strictEqual(gap.covered, true, 'the cover stays up while the newer route is still fetching');
+      assert.strictEqual(gap.pageHidden, true, 'the profile view has not painted yet');
+      assert.strictEqual(gap.blanks, 0, 'no blank frame before the first route is released');
+      const releaseLookup = p._heldProfileLookups.splice(0);
+      p._holdProfileLookup = false;
+      releaseLookup.forEach(fn => fn());
+      await sleep(300);
+      const afterFirst = await p.evaluate(() => {
+        const overlay = document.getElementById('loadingOverlay');
+        const rect = overlay ? overlay.getBoundingClientRect() : null;
+        return {
+          covered: !!(overlay && overlay.isConnected && rect && rect.width > window.innerWidth * 0.9 && rect.height > window.innerHeight * 0.9),
+          pageHidden: document.getElementById('profilePage').hidden,
+          blanks: window.__blankFrames
+        };
+      });
+      assert.strictEqual(afterFirst.covered, true, 'dropping the first route does not uncover a blank page');
+      assert.strictEqual(afterFirst.pageHidden, true, 'the replacement route has not painted yet');
+      assert.strictEqual(afterFirst.blanks, 0);
+      p._holdOwnProfile = false;
+      const releaseOwn = p._heldOwnProfiles.splice(0);
+      releaseOwn.forEach(fn => fn());
+      await p.waitForFunction(() => {
+        const editor = document.getElementById('profileEditor');
+        const box = document.getElementById('profileUsername');
+        const profileBtn = document.querySelector('header #btnProfile');
+        const signOut = document.getElementById('btnSignOut');
+        const overlay = document.getElementById('loadingOverlay');
+        return editor && !editor.hidden && box && box.value === 'ada_1'
+          && profileBtn && profileBtn.textContent.trim() === 'Profile'
+          && signOut && !overlay;
+      }, { timeout: 10000 });
+      const landed = await p.evaluate(() => ({
+        editorHidden: document.getElementById('profileEditor').hidden,
+        publicHidden: document.getElementById('profilePublicView').hidden,
+        name: document.getElementById('profileUsername').value,
+        publicName: document.getElementById('profilePublicName').textContent,
+        profile: document.querySelector('header #btnProfile').textContent.trim(),
+        href: document.querySelector('header #btnProfile').getAttribute('href'),
+        email: document.querySelector('header .user-email').textContent,
+        signOut: document.querySelector('header #btnSignOut').textContent.trim(),
+        blanks: window.__blankFrames,
+        overlay: !!document.getElementById('loadingOverlay')
+      }));
+      assert.strictEqual(landed.editorHidden, false);
+      assert.strictEqual(landed.publicHidden, true);
+      assert.strictEqual(landed.name, 'ada_1');
+      assert.strictEqual(landed.publicName, '');
+      assert.strictEqual(landed.profile, 'Profile');
+      assert.strictEqual(landed.href, '/profile/me');
+      assert.strictEqual(landed.email, 'owner@example.com');
+      assert.strictEqual(landed.signOut, 'Sign out');
+      assert.strictEqual(landed.overlay, false, 'the cover comes down after the owner editor paints');
+      assert.strictEqual(landed.blanks, 0, 'the late session never shows a blank frame');
+    } finally {
+      await p.evaluate(() => { if (window.__blankWatch) clearInterval(window.__blankWatch); }).catch(() => {});
+      const releaseLookup = (p._heldProfileLookups || []).splice(0);
+      p._holdProfileLookup = false;
+      releaseLookup.forEach(fn => fn());
+      const releaseOwn = (p._heldOwnProfiles || []).splice(0);
+      p._holdOwnProfile = false;
+      releaseOwn.forEach(fn => fn());
+    }
+    await sleep(250);
+    assert.strictEqual(await p.$eval('#profileEditor', e => e.hidden), false, 'the finished first lookup does not send the owner back to the public view');
+    assert.strictEqual(await p.$eval('#profilePublicView', e => e.hidden), true);
+    assert.strictEqual(await p.$eval('#profileUsername', e => e.value), 'ada_1');
+    assert.strictEqual(await p.$eval('header #btnProfile', e => e.textContent.trim()), 'Profile');
+    await p._ctx.close();
   });
 
   await test('exam dates spread today across the days before the exam', async () => {
@@ -4436,6 +4784,98 @@ async function test(name, fn) {
     assert(placed.copies > 1, 'bode sits in more than one chapter');
     assert(placed.hidden >= 1, 'the out-of-focus copy stays hidden');
     assert(placed.box.startsWith('me132'), placed.box);
+    await p._ctx.close();
+  });
+
+  await test('a frozen pagehide does not count a quiz leave', async () => {
+    const p = await newPage();
+    await openSkill(p, 'bode');
+    await p.click('#startBtn');
+    await p.waitForSelector('#quiz .opt', { timeout: 10000 });
+    await flushMeasure(p);
+    p._eventPosts.length = 0;
+    await p.evaluate(() => {
+      window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true }));
+    });
+    await flushMeasure(p);
+    assert(!eventRows(p).some(r => r.kind === 'quiz_leave'), 'a bfcache freeze is not a drop-off');
+    assert(await p.$('#quiz .opt'), 'the quiz stays open after the page is frozen');
+    await p.evaluate(() => {
+      window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: false }));
+    });
+    await flushMeasure(p);
+    const leave = eventRows(p).find(r => r.kind === 'quiz_leave');
+    assert(leave, 'closing the page is a drop-off');
+    assert.strictEqual(leave.skill_id, 'bode');
+    await p._ctx.close();
+  });
+
+  await test('one duplicate flag does not drop the rest of the batch', async () => {
+    const p = await newPage(null, { flagsMode: 'duplicate' });
+    await p.evaluate(() => {
+      localStorage.setItem('skilltree.flags.q.v1', JSON.stringify([
+        { skill_id: 'bode', question_id: 'bode-r1-q1', reason: 'typo', comment: 'dup' },
+        { skill_id: 'bode', question_id: 'bode-r1-q2', reason: 'wrong', comment: 'keep' }
+      ]));
+    });
+    p._flagPosts.length = 0;
+    await p.reload({ waitUntil: 'networkidle0' });
+    for (let i = 0; i < 40 && p._flagPosts.length < 3; i++) await sleep(50);
+    const bodies = p._flagPosts.map(post => JSON.parse(post.body));
+    assert(bodies.some(rows => Array.isArray(rows) && rows.length === 2), 'the queued flags are tried together');
+    const singles = bodies.filter(rows => Array.isArray(rows) && rows.length === 1).map(rows => rows[0]);
+    assert(singles.some(row => row.question_id === 'bode-r1-q1'), 'the duplicate is retried on its own');
+    assert(singles.some(row => row.question_id === 'bode-r1-q2' && row.reason === 'wrong'), 'the other flag is sent on its own');
+    const left = await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.flags.q.v1') || '[]'));
+    assert(!left.some(row => row.question_id === 'bode-r1-q2'), 'the saved flag leaves the queue');
+    assert(!left.some(row => row.question_id === 'bode-r1-q1'), 'the duplicate is not retried forever');
+    await p._ctx.close();
+  });
+
+  await test('own profile is a standalone page without the tree focus query', async () => {
+    const p = await newPage();
+    await p.evaluate(() => {
+      localStorage.setItem('skilltree.profile.v1', JSON.stringify({ v: 1, username: 'isaac', bio: 'Hi', isPublic: true }));
+      window.__skillgrove.collections.setSelected(['ee105-ucb', 'me132', 'am08']);
+    });
+    await sleep(200);
+    const focus = await p.evaluate(() => new URLSearchParams(location.search).get('focus'));
+    assert(focus && focus.split(',').includes('ee105') && focus.split(',').includes('me132') && focus.split(',').includes('am08'), focus);
+    await openOwnProfile(p);
+    await p.waitForFunction(() => location.pathname === '/profile/isaac');
+    const landed = await p.evaluate(() => ({
+      path: location.pathname,
+      search: location.search,
+      tree: getComputedStyle(document.getElementById('treeView')).display,
+      header: getComputedStyle(document.querySelector('header')).display,
+      main: getComputedStyle(document.querySelector('main')).display,
+      back: document.getElementById('profileBack').getAttribute('href'),
+      backText: document.getElementById('profileBack').textContent,
+      name: document.getElementById('profileUsername').value,
+      editor: document.getElementById('profileEditor').hidden
+    }));
+    assert.strictEqual(landed.path, '/profile/isaac');
+    assert.strictEqual(landed.search, '');
+    assert.strictEqual(landed.tree, 'none');
+    assert.strictEqual(landed.header, 'none');
+    assert.strictEqual(landed.main, 'none');
+    assert.strictEqual(landed.back, '/skilltree/');
+    assert(/back to the tree/i.test(landed.backText));
+    assert.strictEqual(landed.name, 'isaac');
+    assert.strictEqual(landed.editor, false);
+    await Promise.all([
+      p.waitForNavigation({ waitUntil: 'networkidle0', timeout: 30000 }),
+      p.click('#profileBack')
+    ]);
+    await sleep(300);
+    const back = await p.evaluate(() => ({
+      path: location.pathname,
+      focus: new URLSearchParams(location.search).get('focus'),
+      tree: getComputedStyle(document.getElementById('treeView')).display
+    }));
+    assert(/\/skilltree\/$/.test(back.path), back.path);
+    assert(back.focus && back.focus.includes('ee105'), back.focus);
+    assert.notStrictEqual(back.tree, 'none');
     await p._ctx.close();
   });
 

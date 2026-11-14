@@ -9,7 +9,10 @@
 <meta property="og:description" content="Master STEM skills, one node at a time. Elytraflight's Skill Tree is a general STEM learning site.">
 <script>
 (function() {
-  var p = location.pathname;
+  var p = location.pathname || '/';
+  if (/\/profile\/?$/.test(p) || /\/profile\/[^/]+\/?$/.test(p)) {
+    document.documentElement.classList.add('profile-standalone');
+  }
   if (p.indexOf('/skilltree') === 0 && !p.match(/\/skilltree\/($|\?|#)/)) {
     var base = p.replace(/\/skilltree\/?.*/, '/skilltree/');
     document.write('<base href="' + base + '">');
@@ -46,7 +49,7 @@
     <span id="saveInd" aria-live="polite">Saved ✓</span>
     <button class="btn hot" id="btnQueue">Mastery challenges <span class="badge" id="qCount">0</span></button>
     <button class="btn" id="btnPlan" title="Simulate how many learning sessions it takes to master everything that is playable">Learning plan <span class="badge pl" id="planCount">–</span></button>
-    <button class="btn" id="btnProfile" type="button" aria-haspopup="dialog" aria-controls="profilePage">Profile</button>
+    <a class="btn" id="btnProfile" href="/profile/me">Profile</a>
     <button class="btn" id="btnHelp" aria-label="How it works">?</button>
     <input type="file" id="fileIn" accept=".json,application/json" class="sr" tabindex="-1" aria-label="Import progress file">
   </div>
@@ -68,8 +71,9 @@
 <div id="modalBack"><div class="modal" role="dialog" aria-modal="true" id="modal"></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="profilePage" hidden>
-  <div class="profile-card" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
-    <button type="button" class="profile-close" id="profileClose" aria-label="Close profile">×</button>
+  <div class="profile-card" id="profileCard">
+    <a class="profile-back" id="profileBack" href="/skilltree/">Back to the tree</a>
+    <button type="button" class="profile-close" id="profileClose" aria-label="Back to the tree">×</button>
     <div id="profileEditor">
       <h2 id="profileTitle">Profile</h2>
       <p id="profileSignedOut" class="profile-lead">Sign in to publish a public profile. Import, export, and reset stay on this device.</p>
@@ -109,7 +113,6 @@
         <p>Skills completed <b id="profilePublicSkills"></b></p>
       </div>
       <p id="profileMissing" hidden></p>
-      <p class="profile-home"><a id="profileHome" href="/skilltree/">Back to the tree</a></p>
     </div>
   </div>
 </div>

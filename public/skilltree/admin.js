@@ -299,6 +299,32 @@ async function loadDashboard(token, anonKey, url) {
   return data;
 }
 
+let viewGen = 0;
+let appliedToken = '';
+
+async function showForSession(session) {
+  const cfg = window.SKILLTREE_CONFIG && window.SKILLTREE_CONFIG.supabase;
+  const token = session && session.access_token || '';
+  if (token && token === appliedToken && (document.getElementById('sgDash') || document.getElementById('sgEmpty'))) return;
+  const gen = ++viewGen;
+  appliedToken = token;
+  if (!token || !cfg) {
+    if (who) who.textContent = '';
+    renderSignIn();
+    return;
+  }
+  if (who && session.user && session.user.email) who.textContent = session.user.email;
+  const data = await loadDashboard(token, cfg.anonKey, cfg.url);
+  if (gen !== viewGen) return;
+  if (!data) {
+    renderEmpty();
+    return;
+  }
+  await loadLabels();
+  if (gen !== viewGen) return;
+  renderDashboard(data);
+}
+
 async function boot() {
   const cfg = window.SKILLTREE_CONFIG && window.SKILLTREE_CONFIG.supabase;
   if (!cfg || !cfg.url || !cfg.anonKey || !window.supabase) {
@@ -310,25 +336,21 @@ async function boot() {
   } catch (e) {
     client = null;
   }
+  if (client && client.auth && client.auth.onAuthStateChange) {
+    client.auth.onAuthStateChange((event, session) => {
+      if (session && session.access_token) showForSession(session);
+      else if (event === 'SIGNED_OUT') showForSession(null);
+    });
+  }
   let session = null;
-  if (client) {
+  if (client && client.auth && client.auth.getSession) {
     try {
       const { data } = await client.auth.getSession();
       session = data && data.session;
     } catch (e) { session = null; }
   }
-  if (!session || !session.access_token) {
-    renderSignIn();
-    return;
-  }
-  if (who && session.user && session.user.email) who.textContent = session.user.email;
-  const data = await loadDashboard(session.access_token, cfg.anonKey, cfg.url);
-  if (!data) {
-    renderEmpty();
-    return;
-  }
-  await loadLabels();
-  renderDashboard(data);
+  if (session && session.access_token) await showForSession(session);
+  else if (!appliedToken) renderSignIn();
 }
 
 boot();
