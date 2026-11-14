@@ -331,13 +331,21 @@ function respondProfile(req, p) {
     return;
   }
   if (req.method() === 'GET') {
-    const id = (new URL(call.url).searchParams.get('user_id') || '').replace(/^eq\./, '');
-    send(200, p._profiles.filter(r => r.user_id === id).map(r => ({
-      username: r.username,
-      bio: r.bio,
-      is_public: r.is_public,
-      created_at: r.created_at
-    })));
+    const reply = () => {
+      const id = (new URL(call.url).searchParams.get('user_id') || '').replace(/^eq\./, '');
+      send(200, p._profiles.filter(r => r.user_id === id).map(r => ({
+        username: r.username,
+        bio: r.bio,
+        is_public: r.is_public,
+        created_at: r.created_at
+      })));
+    };
+    if (p._holdOwnProfile && call.url.includes('/rest/v1/profiles')) {
+      p._heldOwnProfiles = p._heldOwnProfiles || [];
+      p._heldOwnProfiles.push(reply);
+      return;
+    }
+    reply();
     return;
   }
   if (req.method() === 'POST') {
@@ -4287,7 +4295,7 @@ async function test(name, fn) {
     await signedIn._ctx.close();
   });
 
-  await test('a session that arrives during the profile route opens the owner editor', async () => {
+  await test('a late session keeps the loading cover up until the owner editor paints', async () => {
     const owner = {
       access_token: 'user-access-token',
       user: {
@@ -4314,6 +4322,8 @@ async function test(name, fn) {
     })));
     p._holdProfileLookup = true;
     p._heldProfileLookups = [];
+    p._holdOwnProfile = true;
+    p._heldOwnProfiles = [];
     try {
       await p.goto(new URL('/profile/ada_1', BASE_URL).href, { waitUntil: 'domcontentloaded', timeout: 30000 });
       await p.waitForFunction(() => (window.__authListeners || []).length > 0, { timeout: 20000 });
@@ -4322,10 +4332,22 @@ async function test(name, fn) {
       assert(p._heldProfileLookups.length > 0, 'the first route is still waiting on profile lookup');
       const mid = await p.evaluate(() => ({
         pageHidden: document.getElementById('profilePage').hidden,
-        editorHidden: document.getElementById('profileEditor').hidden
+        editorHidden: document.getElementById('profileEditor').hidden,
+        overlay: !!document.getElementById('loadingOverlay')
       }));
       assert.strictEqual(mid.pageHidden, true, 'the route has not opened a profile view yet');
       assert.strictEqual(mid.editorHidden, false, 'the editor stays in the markup until a view is chosen');
+      assert.strictEqual(mid.overlay, true, 'the loading cover is up while the first route is choosing');
+      await p.evaluate(() => {
+        window.__blankFrames = 0;
+        window.__blankWatch = setInterval(() => {
+          const overlay = document.getElementById('loadingOverlay');
+          const page = document.getElementById('profilePage');
+          const covered = !!(overlay && overlay.isConnected);
+          const painted = !!(page && !page.hidden);
+          if (!covered && !painted) window.__blankFrames += 1;
+        }, 16);
+      });
       await p.evaluate(session => {
         const auth = window.__supabaseMock && window.__supabaseMock.auth;
         if (auth) auth.getSession = async () => ({ data: { session } });
@@ -4336,14 +4358,49 @@ async function test(name, fn) {
         access_token: owner.access_token,
         user: owner.user
       });
+      const ownWait = Date.now() + 10000;
+      while (Date.now() < ownWait && !p._heldOwnProfiles.length) await sleep(20);
+      assert(p._heldOwnProfiles.length > 0, 'the replacement route is still fetching the owner profile');
+      const gap = await p.evaluate(() => {
+        const overlay = document.getElementById('loadingOverlay');
+        const rect = overlay ? overlay.getBoundingClientRect() : null;
+        return {
+          covered: !!(overlay && overlay.isConnected && rect && rect.width > window.innerWidth * 0.9 && rect.height > window.innerHeight * 0.9),
+          pageHidden: document.getElementById('profilePage').hidden,
+          blanks: window.__blankFrames
+        };
+      });
+      assert.strictEqual(gap.covered, true, 'the cover stays up while the newer route is still fetching');
+      assert.strictEqual(gap.pageHidden, true, 'the profile view has not painted yet');
+      assert.strictEqual(gap.blanks, 0, 'no blank frame before the first route is released');
+      const releaseLookup = p._heldProfileLookups.splice(0);
+      p._holdProfileLookup = false;
+      releaseLookup.forEach(fn => fn());
+      await sleep(300);
+      const afterFirst = await p.evaluate(() => {
+        const overlay = document.getElementById('loadingOverlay');
+        const rect = overlay ? overlay.getBoundingClientRect() : null;
+        return {
+          covered: !!(overlay && overlay.isConnected && rect && rect.width > window.innerWidth * 0.9 && rect.height > window.innerHeight * 0.9),
+          pageHidden: document.getElementById('profilePage').hidden,
+          blanks: window.__blankFrames
+        };
+      });
+      assert.strictEqual(afterFirst.covered, true, 'dropping the first route does not uncover a blank page');
+      assert.strictEqual(afterFirst.pageHidden, true, 'the replacement route has not painted yet');
+      assert.strictEqual(afterFirst.blanks, 0);
+      p._holdOwnProfile = false;
+      const releaseOwn = p._heldOwnProfiles.splice(0);
+      releaseOwn.forEach(fn => fn());
       await p.waitForFunction(() => {
         const editor = document.getElementById('profileEditor');
         const box = document.getElementById('profileUsername');
         const profileBtn = document.querySelector('header #btnProfile');
         const signOut = document.getElementById('btnSignOut');
+        const overlay = document.getElementById('loadingOverlay');
         return editor && !editor.hidden && box && box.value === 'ada_1'
           && profileBtn && profileBtn.textContent.trim() === 'Profile'
-          && signOut;
+          && signOut && !overlay;
       }, { timeout: 10000 });
       const landed = await p.evaluate(() => ({
         editorHidden: document.getElementById('profileEditor').hidden,
@@ -4353,7 +4410,9 @@ async function test(name, fn) {
         profile: document.querySelector('header #btnProfile').textContent.trim(),
         href: document.querySelector('header #btnProfile').getAttribute('href'),
         email: document.querySelector('header .user-email').textContent,
-        signOut: document.querySelector('header #btnSignOut').textContent.trim()
+        signOut: document.querySelector('header #btnSignOut').textContent.trim(),
+        blanks: window.__blankFrames,
+        overlay: !!document.getElementById('loadingOverlay')
       }));
       assert.strictEqual(landed.editorHidden, false);
       assert.strictEqual(landed.publicHidden, true);
@@ -4363,10 +4422,16 @@ async function test(name, fn) {
       assert.strictEqual(landed.href, '/profile/me');
       assert.strictEqual(landed.email, 'owner@example.com');
       assert.strictEqual(landed.signOut, 'Sign out');
+      assert.strictEqual(landed.overlay, false, 'the cover comes down after the owner editor paints');
+      assert.strictEqual(landed.blanks, 0, 'the late session never shows a blank frame');
     } finally {
-      const release = (p._heldProfileLookups || []).splice(0);
+      await p.evaluate(() => { if (window.__blankWatch) clearInterval(window.__blankWatch); }).catch(() => {});
+      const releaseLookup = (p._heldProfileLookups || []).splice(0);
       p._holdProfileLookup = false;
-      release.forEach(fn => fn());
+      releaseLookup.forEach(fn => fn());
+      const releaseOwn = (p._heldOwnProfiles || []).splice(0);
+      p._holdOwnProfile = false;
+      releaseOwn.forEach(fn => fn());
     }
     await sleep(250);
     assert.strictEqual(await p.$eval('#profileEditor', e => e.hidden), false, 'the finished first lookup does not send the owner back to the public view');
