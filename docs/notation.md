@@ -166,6 +166,15 @@ Added in B5 for `linearization`.
 | \(A = \partial f/\partial x\) | Jacobian in the state, evaluated at equilibrium | local \(A\), not a global system matrix |
 | \(B = \partial f/\partial u\) | Jacobian in the input | |
 
+## local-linear
+
+Added for `local-linear-approximation`. The Jacobians \(A\) and \(B\) stay in the linearization area. They are this approximation applied to a rate at an equilibrium, not a second formula.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(f(a) + f'(a)(x - a)\) | value plus derivative at a chosen point \(a\) | tangent approximation, linear model |
+| \(o(\|x - a\|)\) | the error shrinks faster than the step | higher-order remainder. The model is local |
+
 ## lti-stability
 
 Added in B5 for `lti-stability`. The amplifier skill `stability` keeps its own margin language. This area is the eigenvalue test.
@@ -553,6 +562,16 @@ Added in B8 for `mpc`. \(N\) is the horizon in samples. \(T\) in this area is th
 | \(N\) | number of steps in the horizon | |
 | receding horizon | apply the first computed input, then build the problem again at the next sample | |
 | \(u_{\min}, u_{\max}\) | bounds on the command inside that finite problem | |
+
+## finite-horizon
+
+Added for `finite-horizon-sequence`. \(N\) is the same horizon length as in the mpc area. This area does not apply only the first input. That habit stays with `mpc`. Stage costs of a transcribed grid stay with `trajectory-optimization`.
+
+| symbol | meaning | aliases |
+|---|---|---|
+| \(u_0,\ldots,u_{N-1}\) | the decision, a finite list of inputs | a state list \(x_0,\ldots,x_N\) is the same kind of decision |
+| \(\sum_k \ell_k\) | the cost, a sum of one term per step | not a product of the stage terms |
+| \(x_{k+1} = f(x_k, u_k)\) | dynamics written as constraints | a sequence that breaks the update is infeasible |
 
 ## separation
 

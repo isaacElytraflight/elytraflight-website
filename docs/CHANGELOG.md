@@ -133,7 +133,7 @@ Items above version 1:
 - `freq-resp-lti-r3-q1` version 2
 - `gen-gain-phase#explainer` version 2
 - `linearization-r3-q2` version 2
-- `linearization#explainer` version 2
+- `linearization#explainer` version 3
 - `lti-stability-r3-q3` version 2
 - `perf-specs-freq#explainer` version 2
 - `pid-impl#explainer` version 2
@@ -180,6 +180,9 @@ Skills: `fb-linearization`, `gain-scheduling`, `gen-controller`, `integral-actio
 Items above version 1:
 
 - `gaussian-random-vectors-r1-q3` version 2
+- `mpc-r4-q1` version 2
+- `mpc-r4-q2` version 2
+- `mpc#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -194,6 +197,7 @@ Items above version 1:
 - `largest-inscribed-ellipsoid-r2-q2` version 2
 - `largest-inscribed-ellipsoid-r4-q1` version 2
 - `largest-inscribed-ellipsoid#explainer` version 2
+- `trajectory-optimization#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -281,7 +285,10 @@ Box: Nonlinear Optimization (nlo-tugraz).
 
 Skills: `directional-derivative`, `gradient-partial-derivatives`, `differentiability-multivariable`, `hessian-matrix`, `jacobian-chain-rule`, `matrix-calculus-gradients`, `fundamental-theorem-along-segment`, `taylor-approximation-multivariable`, `taylor-exact-mean-value`.
 
-Every item is version 1.
+Items above version 1:
+
+- `taylor-approximation-multivariable-r4-q1` version 2
+- `taylor-approximation-multivariable#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -460,6 +467,46 @@ Items above version 1:
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## SG-057 group 4 — sg057-g4
+
+Box: EE 105, ME 132, Feedback Systems, and nonlinear optimization.
+
+Skills: `local-linear-approximation`, `nl-cap`, `diode-ss`, `ss-model`, `bjt-ss`, `linearization`, `taylor-approximation-multivariable`, `finite-horizon-sequence`, `trajectory-optimization`, `mpc`.
+
+Items above version 1:
+
+- `local-linear-approximation-r4-q3` version 2
+- `nl-cap-r2-q1` version 2
+- `nl-cap-r2-q2` version 2
+- `nl-cap-r3-q1` version 2
+- `nl-cap-r4-q1` version 2
+- `nl-cap-r4-q3` version 2
+- `nl-cap-r1-q1` version 2
+- `nl-cap#explainer` version 2
+- `diode-ss-r2-q1` version 2
+- `diode-ss-r2-q2` version 2
+- `diode-ss-r1-q1` version 2
+- `diode-ss-r1-q3` version 2
+- `diode-ss#explainer` version 2
+- `ss-model-r1-q1` version 2
+- `ss-model#explainer` version 2
+- `bjt-ss-r1-q1` version 2
+- `bjt-ss-r1-q2` version 2
+- `bjt-ss-r2-q1` version 2
+- `bjt-ss-r4-q2` version 2
+- `bjt-ss#explainer` version 2
+- `linearization-r3-q2` version 2
+- `linearization#explainer` version 3
+- `taylor-approximation-multivariable-r4-q1` version 2
+- `taylor-approximation-multivariable#explainer` version 2
+- `finite-horizon-sequence#explainer` version 2
+- `trajectory-optimization#explainer` version 2
+- `mpc-r4-q1` version 2
+- `mpc-r4-q2` version 2
+- `mpc#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## SG-063 EE 105 linear systems — sg063-ee105-ch1
 
 Box: EE 105 (ee105-ucb), Linear Time-Invariant Systems.
@@ -598,6 +645,7 @@ Items above version 1:
 - `nl-cap-r4-q1` version 2
 - `nl-cap-r4-q3` version 2
 - `nl-cap-r1-q1` version 2
+- `nl-cap#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -681,6 +729,7 @@ Items above version 1:
 - `diode-ss-r2-q2` version 2
 - `diode-ss-r1-q1` version 2
 - `diode-ss-r1-q3` version 2
+- `diode-ss#explainer` version 2
 - `solar-cell-r1-q1` version 2
 - `solar-cell-r1-q2` version 2
 - `solar-cell-r2-q1` version 2

@@ -1,0 +1,29 @@
+{
+  "id": "finite-horizon-sequence",
+  "title": "Finite-horizon decision sequence",
+  "version": 2,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Three stage costs</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">9   12   15</text></svg>",
+      "figure_alt": "Three stage costs written in a row.",
+      "body_md": "Some decisions are not a single number. They are a list: an input on each step of a finite horizon, or a state at each sample. The cost adds one term for each step of that list. The dynamics do not sit in the cost. They say which lists are allowed. A list that breaks the update is simply not a candidate."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "One shape is \\[ \\begin{aligned} & \\text{minimize} && \\sum_{k=0}^{N-1} \\ell_k + p \\\\ & \\text{subject to} && x_{k+1} = f(x_k, u_k). \\end{aligned} \\] The decision is the list \\(u_0,\\ldots,u_{N-1}\\), or the list of states, or both. \\(N\\) is how many steps the list has. \\(\\ell_k\\) is the stage cost. \\(p\\) is a terminal cost, added once. The update is a constraint at every step, not a second objective."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take the inputs \\(9\\), \\(12\\), and \\(15\\), and let each stage cost equal that input. The sum is \\(36\\). A terminal cost is not present, so nothing is added after the sum. The product \\(9 \\cdot 12 \\cdot 15\\) is not the cost. Start at state \\(20\\) with the update \\(x_+ = x + u\\). The states are \\(20\\), then \\(29\\), then \\(41\\), then \\(56\\). Any other list of states with those same inputs breaks the update and is not feasible. The sum \\(36\\) is the cost of this same list. Feasibility did not set the cost to zero."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "- Calling the decision a single gain. A gain is what remains when the horizon is infinite and the constraints are gone. - Multiplying the stage costs, or keeping only the largest one. The cost is a sum. - Moving the dynamics into the objective and dropping the sum. The dynamics restrict the list. They do not replace the cost. - Keeping only the first input and throwing the rest away. That is a later controller, not the definition of the sequence."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "One later skill transcribes the list on a fixed grid and stops. An obstacle on that grid can make the feasible set nonconvex, even when the cost is a sum of squares. Another later skill solves a short list from the measured state, applies only the first input, and writes the problem again at the next sample. Both start from a sequence, a sum, and dynamics as constraints. They differ in whether the list is kept."
+    }
+  ]
+}

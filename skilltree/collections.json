@@ -92,6 +92,7 @@
         "sheet-res",
         "electrostatics",
         "mim-cap",
+        "local-linear-approximation",
         "nl-cap"
       ]
     },
@@ -443,6 +444,7 @@
       "children": [],
       "skills": [
         "equilibria",
+        "local-linear-approximation",
         "linearization",
         "fb-linearization",
         "gain-scheduling"
@@ -460,6 +462,7 @@
         "kalman-optimal-observer",
         "linear-least-squares",
         "sys-id",
+        "finite-horizon-sequence",
         "mpc",
         "adaptive"
       ],
@@ -555,6 +558,7 @@
         "eig-modes",
         "freq-resp-lti",
         "discrete-time",
+        "local-linear-approximation",
         "linearization"
       ],
       "color_index": 32
@@ -675,6 +679,7 @@
         "positive-definite-matrices",
         "gaussian-random-vectors",
         "gain-scheduling",
+        "finite-horizon-sequence",
         "mpc",
         "adaptive"
       ],
@@ -714,6 +719,7 @@
         "svm-quadratic-program",
         "calculus-of-variations",
         "largest-inscribed-ellipsoid",
+        "finite-horizon-sequence",
         "trajectory-optimization"
       ],
       "color_index": 41
@@ -757,6 +763,7 @@
         "jacobian-chain-rule",
         "matrix-calculus-gradients",
         "fundamental-theorem-along-segment",
+        "local-linear-approximation",
         "taylor-approximation-multivariable",
         "taylor-exact-mean-value",
         "convex-functions",

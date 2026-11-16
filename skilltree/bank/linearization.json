@@ -1,24 +1,7 @@
 {
   "skill_id": "linearization",
-  "version": 1,
+  "version": 2,
   "questions": [
-    {
-      "id": "linearization-r1-q1",
-      "round": 1,
-      "type": "mc",
-      "prompt": "Linearization of \\(\\dot x = f(x, u)\\) about an equilibrium \\((x_e, u_e)\\) replaces \\(f\\) by",
-      "explanation": "The first-order Taylor expansion is \\(\\delta\\dot x = A\\,\\delta x + B\\,\\delta u\\), with \\(A\\) and \\(B\\) the partial derivatives at the equilibrium. \\(f(x_e, u_e)\\) is zero by the definition of equilibrium, so it does not describe the motion. The linear model is local, not exact on the whole state space. The second derivative is the next term, the one the linear model drops.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>jacobian entries</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">df/dx   df/du</text></svg>",
-      "figure_alt": "A row of two partial derivatives.",
-      "options": [
-        "its Jacobian in \\(x\\) and in \\(u\\), and is accurate for small deviations",
-        "the value \\(f(x_e, u_e)\\), which is the whole story for large deviations too",
-        "a linear model that is exact for every initial state",
-        "the second derivative only, ignoring the slope"
-      ],
-      "correct_index": 0,
-      "version": 1
-    },
     {
       "id": "linearization-r1-q2",
       "round": 1,
@@ -59,23 +42,6 @@
       "version": 1
     },
     {
-      "id": "linearization-r2-q2",
-      "round": 2,
-      "type": "mc",
-      "prompt": "The equilibrium of a smooth nonlinear system is locally asymptotically stable when",
-      "explanation": "Local asymptotic stability follows when the linearization is asymptotically stable and no eigenvalue sits on the imaginary axis. One stable eigenvalue is not enough if another has a positive real part. The zero matrix is a critical case, not a stable one. A single equilibrium can still be unstable.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>local linear poles</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"41\" x2=\"133\" y2=\"51\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"51\" x2=\"133\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"129\" x2=\"133\" y2=\"139\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"139\" x2=\"133\" y2=\"129\" stroke-width=\"1.8\"/></svg>",
-      "figure_alt": "A complex pair of pole marks in the left half-plane.",
-      "options": [
-        "the Jacobian has at least one eigenvalue with a negative real part",
-        "every eigenvalue of the Jacobian has a negative real part",
-        "the Jacobian is the zero matrix",
-        "the nonlinear system has only one equilibrium in the whole state space"
-      ],
-      "correct_index": 1,
-      "version": 1
-    },
-    {
       "id": "linearization-r2-q3",
       "round": 2,
       "type": "numeric",
@@ -86,23 +52,6 @@
       "answer": 3.16228,
       "unit": "rad/s",
       "tolerance": 0.02,
-      "version": 1
-    },
-    {
-      "id": "linearization-r3-q1",
-      "round": 3,
-      "type": "mc",
-      "prompt": "The Jacobian test is inconclusive when",
-      "explanation": "An eigenvalue with zero real part is the critical case: the linear terms do not decide stability, and the nonlinear terms can go either way. A full set of open-left-half-plane eigenvalues is conclusive and says locally stable. A zero input is just a choice of coordinates. Dimension 2 is ordinary and not a special case.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>eigenvalues on the imaginary axis</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"145\" y1=\"52\" x2=\"155\" y2=\"62\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"62\" x2=\"155\" y2=\"52\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"118\" x2=\"155\" y2=\"128\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"128\" x2=\"155\" y2=\"118\" stroke-width=\"1.8\"/></svg>",
-      "figure_alt": "A conjugate pair sitting on the imaginary axis.",
-      "options": [
-        "every eigenvalue has a negative real part",
-        "the equilibrium input is zero",
-        "an eigenvalue lies on the imaginary axis",
-        "the state dimension is 2"
-      ],
-      "correct_index": 2,
       "version": 1
     },
     {
@@ -181,6 +130,118 @@
       "answer": -2.0,
       "unit": "1",
       "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "linearization-r1-q4",
+      "round": 1,
+      "type": "order",
+      "prompt": "Put these steps in the order that builds the local matrices at an equilibrium.",
+      "explanation": "The resting condition comes first. A derivative at a point that is not an equilibrium is a different expansion. The state derivative is the matrix \\(A\\) and the input derivative is the matrix \\(B\\). Both are numbers only after they are evaluated at the resting pair. Swapping the two derivatives assigns the input slope to the state matrix.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>State and input partials</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">A   B</text></svg>",
+      "figure_alt": "Two blocks, one for the state partial and one for the input partial.",
+      "steps": [
+        "Confirm the chosen state and input make the rate zero.",
+        "Differentiate the rate with respect to the state.",
+        "Differentiate the rate with respect to the input.",
+        "Evaluate both derivatives at that equilibrium."
+      ],
+      "version": 1
+    },
+    {
+      "id": "linearization-r2-q4",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Which eigenvalue patterns say the linear model at the equilibrium is locally asymptotically stable?",
+      "explanation": "Local asymptotic stability of the linear model follows from every real part being negative, whether or not an eigenvalue is repeated. One positive real part makes the equilibrium unstable. A zero real part makes this test inconclusive. The test reads the eigenvalues of the Jacobian. It does not ask the nonlinear system to have only one equilibrium.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A conjugate pair in the left half-plane</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"101\" y1=\"63\" x2=\"111\" y2=\"73\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"73\" x2=\"111\" y2=\"63\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"107\" x2=\"111\" y2=\"117\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"117\" x2=\"111\" y2=\"107\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A complex conjugate pair in the left half-plane.",
+      "options": [
+        "Every eigenvalue has a negative real part.",
+        "One eigenvalue is positive and the others are negative.",
+        "An eigenvalue has real part zero.",
+        "A repeated eigenvalue is fine when every real part is still negative."
+      ],
+      "correct_indices": [
+        0,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "linearization-r3-q4",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note claims local asymptotic stability from the Jacobian. Exactly one step is false.",
+      "explanation": "A zero real part makes the linearization test inconclusive. It does not prove local asymptotic stability. The equilibrium check is the right first step, and a positive real part would indeed mean the linear model is unstable. The eigenvalues can be read from the Jacobian only after that Jacobian is evaluated at the equilibrium.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>One mark on the axis</title><line x1=\"20\" y1=\"90\" x2=\"48\" y2=\"90\"/><line x1=\"76\" y1=\"90\" x2=\"136\" y2=\"90\"/><line x1=\"164\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"57\" y1=\"85\" x2=\"67\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"57\" y1=\"95\" x2=\"67\" y2=\"85\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"85\" x2=\"155\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"95\" x2=\"155\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "Two marks, one in the left half-plane and one on the vertical axis.",
+      "steps": [
+        "The chosen pair is an equilibrium, so the rate is zero there.",
+        "The Jacobian eigenvalues are \\(-4\\) and \\(0\\).",
+        "A zero eigenvalue still lets the linearization test conclude local asymptotic stability.",
+        "A positive real part would have made the equilibrium unstable."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "A zero real part makes the linearization test inconclusive.",
+        "A zero eigenvalue proves stability on its own.",
+        "The equilibrium check is the false step."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "linearization-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Linearization of \\(\\dot x = f(x, u)\\) about an equilibrium \\((x_e, u_e)\\) replaces \\(f\\) by",
+      "explanation": "The first-order Taylor expansion is \\(\\delta\\dot x = A\\,\\delta x + B\\,\\delta u\\), with \\(A\\) and \\(B\\) the partial derivatives at the equilibrium. \\(f(x_e, u_e)\\) is zero by the definition of equilibrium, so it does not describe the motion. The linear model is local, not exact on the whole state space. The second derivative is the next term, the one the linear model drops.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>jacobian entries</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">df/dx   df/du</text></svg>",
+      "figure_alt": "A row of two partial derivatives.",
+      "options": [
+        "its Jacobian in \\(x\\) and in \\(u\\), and is accurate for small deviations",
+        "the value \\(f(x_e, u_e)\\), which is the whole story for large deviations too",
+        "a linear model that is exact for every initial state",
+        "the second derivative only, ignoring the slope"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "linearization-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "The equilibrium of a smooth nonlinear system is locally asymptotically stable when",
+      "explanation": "Local asymptotic stability follows when the linearization is asymptotically stable and no eigenvalue sits on the imaginary axis. One stable eigenvalue is not enough if another has a positive real part. The zero matrix is a critical case, not a stable one. A single equilibrium can still be unstable.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>local linear poles</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"41\" x2=\"133\" y2=\"51\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"51\" x2=\"133\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"129\" x2=\"133\" y2=\"139\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"139\" x2=\"133\" y2=\"129\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A complex pair of pole marks in the left half-plane.",
+      "options": [
+        "the Jacobian has at least one eigenvalue with a negative real part",
+        "every eigenvalue of the Jacobian has a negative real part",
+        "the Jacobian is the zero matrix",
+        "the nonlinear system has only one equilibrium in the whole state space"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "linearization-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "The Jacobian test is inconclusive when",
+      "explanation": "An eigenvalue with zero real part is the critical case: the linear terms do not decide stability, and the nonlinear terms can go either way. A full set of open-left-half-plane eigenvalues is conclusive and says locally stable. A zero input is just a choice of coordinates. Dimension 2 is ordinary and not a special case.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>eigenvalues on the imaginary axis</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"145\" y1=\"52\" x2=\"155\" y2=\"62\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"62\" x2=\"155\" y2=\"52\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"118\" x2=\"155\" y2=\"128\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"128\" x2=\"155\" y2=\"118\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A conjugate pair sitting on the imaginary axis.",
+      "options": [
+        "every eigenvalue has a negative real part",
+        "the equilibrium input is zero",
+        "an eigenvalue lies on the imaginary axis",
+        "the state dimension is 2"
+      ],
+      "correct_index": 2,
       "version": 1
     }
   ]
