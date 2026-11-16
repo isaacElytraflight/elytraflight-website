@@ -226,6 +226,13 @@ LEAF_PREVIEW_ALLOWED.update({
     "power-method-eigenvector": [
         "singular-value-decomposition",
     ],
+    # The quadratic reading of least squares has no dependents. Round 4 names
+    # the later fits that start from the same normal equations.
+    "least-squares-quadratic": [
+        "nonlinear-least-squares",
+        "kalman-recursive-least-squares",
+        "circle-fitting-least-squares",
+    ],
 })
 LEAF_PREVIEW_ALLOWED.update({
     # Optional NLO introduction leaves: nothing in the graph lists these as prerequisites.

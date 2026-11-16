@@ -20,11 +20,12 @@ Items above version 1:
 - `laplace#explainer` version 2
 - `lin-algebra-review-r1-q1` version 2
 - `lin-algebra-review-r1-q2` version 2
-- `lin-algebra-review-r3-q2` version 2
-- `lin-algebra-review-r3-q3` version 2
 - `lin-algebra-review-r4-q1` version 2
 - `lin-algebra-review-r4-q2` version 2
-- `lin-algebra-review#explainer` version 2
+- `lin-algebra-review-r3-q5` version 2
+- `lin-algebra-review-r3-q2` version 2
+- `lin-algebra-review-r3-q3` version 2
+- `lin-algebra-review#explainer` version 3
 - `min-phase-r1-q2` version 2
 - `min-phase-r2-q1` version 2
 - `min-phase-r2-q2` version 2
@@ -98,7 +99,10 @@ Skills: `discrete-time`, `eig-modes`, `limit-cycles`, `nyquist`, `pid`, `sensiti
 
 Items above version 1:
 
+- `eig-modes-r3-q2` version 2
+- `eig-modes-r4-q1` version 3
 - `eig-modes-r3-q1` version 2
+- `eig-modes#explainer` version 2
 - `limit-cycles-r4-q3` version 2
 - `pid-r1-q2` version 2
 - `pid-r4-q1` version 2
@@ -144,7 +148,9 @@ Box: ME 132 (me132) and Feedback Systems (am08).
 
 Skills: `loop-shaping`, `lyapunov`, `observability`, `reachability`, `robust-stability`, `root-locus`, `sys-id`, `time-delay`.
 
-Every item is version 1.
+Items above version 1:
+
+- `sys-id#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -205,6 +211,9 @@ Items above version 1:
 - `rn-important-subsets-r4-q1` version 2
 - `rn-important-subsets-r4-q3` version 2
 - `rn-important-subsets#explainer` version 2
+- `spectral-decomposition#explainer` version 2
+- `positive-definite-matrices#explainer` version 2
+- `singular-value-decomposition-r4-q3` version 2
 - `vector-norms-lp-r4-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
@@ -296,6 +305,9 @@ Items above version 1:
 - `optimization-problem-formulation#explainer` version 2
 - `local-global-minima#explainer` version 2
 - `existence-of-minimizers#explainer` version 2
+- `second-order-optimality-r4-q3` version 2
+- `convex-optimality-global-r4-q3` version 2
+- `quadratic-function-minimization-r4-q1` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -324,6 +336,7 @@ Items above version 1:
 - `projection-affine-halfspace-kkt-r3-q3` version 2
 - `projection-affine-halfspace-kkt-r4-q3` version 2
 - `projection-affine-halfspace-kkt#explainer` version 2
+- `linear-least-squares#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -386,6 +399,38 @@ Items above version 1:
 - `rlc#explainer` version 2
 - `lti-mech#explainer` version 3
 - `fb-amp-r3-q1` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-057 group 2 — sg057-g2
+
+Box: ME 132, Feedback Systems, and nonlinear optimization.
+
+Skills: `lin-algebra-review`, `eigenvalues-diagonalization`, `eig-modes`, `spectral-decomposition`, `linear-least-squares`, `least-squares-quadratic`, `sys-id`, `positive-definite-matrices`, `lyapunov`, `quadratic-function-minimization`, `second-order-optimality`, `convex-optimality-global`, `singular-value-decomposition`.
+
+Items above version 1:
+
+- `lin-algebra-review-r1-q1` version 2
+- `lin-algebra-review-r1-q2` version 2
+- `lin-algebra-review-r4-q1` version 2
+- `lin-algebra-review-r4-q2` version 2
+- `lin-algebra-review-r3-q5` version 2
+- `lin-algebra-review-r3-q2` version 2
+- `lin-algebra-review-r3-q3` version 2
+- `lin-algebra-review#explainer` version 3
+- `eig-modes-r3-q2` version 2
+- `eig-modes-r4-q1` version 3
+- `eig-modes-r3-q1` version 2
+- `eig-modes#explainer` version 2
+- `spectral-decomposition#explainer` version 2
+- `linear-least-squares#explainer` version 2
+- `least-squares-quadratic-r4-q3` version 2
+- `sys-id#explainer` version 2
+- `positive-definite-matrices#explainer` version 2
+- `quadratic-function-minimization-r4-q1` version 2
+- `second-order-optimality-r4-q3` version 2
+- `convex-optimality-global-r4-q3` version 2
+- `singular-value-decomposition-r4-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 

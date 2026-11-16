@@ -2289,7 +2289,7 @@ async function test(name, fn) {
     assert.strictEqual(result.meHasSoon, false);
     assert.strictEqual(result.readyHasSoon, false);
     assert.strictEqual(result.queueHasSoon, false, 'the recommender queue stays on playable skills');
-    assert.deepStrictEqual(result.meExtras, ['lin-algebra-review', 'discrete-time'], 'playable prerequisites of an ME 132 skill that stay outside the course box are lin-algebra-review and discrete-time: ' + result.meExtras.join(','));
+    assert.deepStrictEqual(result.meExtras, ['discrete-time'], 'the playable prerequisite of an ME 132 skill that stays outside the course box is discrete-time: ' + result.meExtras.join(','));
 
     await openSkill(p, 'optimality-over-convex-set');
     const panel = await p.evaluate(() => ({

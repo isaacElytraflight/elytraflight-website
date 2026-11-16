@@ -1358,9 +1358,10 @@
   },
   {
    "id": "eig-modes",
-   "name": "Eigenvalues, modes and diagonalization",
-   "summary": "Decompose a response into modes using eigenvectors and Jordan form.",
+   "name": "Modes of a linear system",
+   "summary": "Read a free-motion term as an exponential times an eigenvector, including a time constant, a complex pair, and a factor of t from a Jordan block.",
    "prereqs": [
+    "eigenvalues-diagonalization",
     "ss-solution"
    ],
    "sources": [
@@ -1457,8 +1458,26 @@
   {
    "id": "lin-algebra-review",
    "name": "Linear algebra review",
-   "summary": "Rank, null space, eigenvalues and similarity transforms as used in control.",
+   "summary": "Rank, the null space, the determinant, and the product of a matrix with a vector.",
    "prereqs": []
+  },
+  {
+   "id": "eigenvalues-diagonalization",
+   "name": "Eigenvalues and diagonalization",
+   "summary": "Solve Av = λv from the characteristic polynomial, and change coordinates when a full set of eigenvectors exists.",
+   "prereqs": [
+    "lin-algebra-review"
+   ],
+   "sources": [
+    {
+     "ref": "hefferon-linalg",
+     "use": "reference only"
+    },
+    {
+     "ref": "wikibooks-linalg",
+     "use": "reference only"
+    }
+   ]
   },
   {
    "id": "discrete-time",
@@ -1980,6 +1999,7 @@
    "name": "Lyapunov stability",
    "summary": "Prove stability with a Lyapunov function and the Lyapunov equation.",
    "prereqs": [
+    "positive-definite-matrices",
     "equilibria",
     "lti-stability"
    ],
@@ -2057,8 +2077,9 @@
   {
    "id": "sys-id",
    "name": "System identification",
-   "summary": "Fit a model from step/frequency data and least squares.",
+   "summary": "Read a DC gain and a time constant from a settled step, check a frequency-response magnitude, and judge a holdout residual.",
    "prereqs": [
+    "linear-least-squares",
     "first-order-sys",
     "freq-resp-lti"
    ],
@@ -2276,7 +2297,7 @@
    "name": "Spectral decomposition of symmetric matrices",
    "summary": "Diagonalize a real symmetric matrix with orthonormal eigenvectors and rebuild it from its eigenpairs.",
    "prereqs": [
-    "lin-algebra-review"
+    "eigenvalues-diagonalization"
    ]
   },
   {
@@ -2284,7 +2305,7 @@
    "name": "Positive (semi)definite matrices",
    "summary": "Test positive semidefinite and definite matrices by eigenvalues, and read quadratic-form level sets as ellipses.",
    "prereqs": [
-    "spectral-decomposition"
+    "eigenvalues-diagonalization"
    ]
   },
   {
@@ -2706,10 +2727,29 @@
   {
    "id": "linear-least-squares",
    "name": "Linear least squares",
-   "summary": "Solve an overdetermined linear fit by the normal equations when the columns are independent.",
+   "summary": "Minimize the squared length of a residual A x - b by the normal equations when the columns are independent.",
    "prereqs": [
+    "lin-algebra-review"
+   ]
+  },
+  {
+   "id": "least-squares-quadratic",
+   "name": "Least squares as a quadratic",
+   "summary": "Obtain the normal equations by setting the gradient of a squared residual to zero, and write the minimizer with the pseudoinverse.",
+   "prereqs": [
+    "linear-least-squares",
     "quadratic-function-minimization",
     "singular-value-decomposition"
+   ],
+   "sources": [
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    }
    ]
   },
   {

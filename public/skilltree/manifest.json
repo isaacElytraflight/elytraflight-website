@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "generated": "2026-11-16T18:04:51.482850Z",
+  "generated": "2026-11-16T21:04:47.959871Z",
   "skills": {
-    "file": "skills.5b65189b.json",
-    "hash": "5b65189b"
+    "file": "skills.c7afe68a.json",
+    "hash": "c7afe68a"
   },
   "collections": {
-    "file": "collections.bddf484b.json",
-    "hash": "bddf484b",
+    "file": "collections.dc8ba5ef.json",
+    "hash": "dc8ba5ef",
     "boxCount": 56
   },
   "banks": {
@@ -528,7 +528,7 @@
       "file": "banks/convex-functions.7dd0d40e.json"
     },
     "convex-optimality-global": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -536,8 +536,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "bbb44fbd",
-      "file": "banks/convex-optimality-global.bbb44fbd.json"
+      "hash": "b2e571f5",
+      "file": "banks/convex-optimality-global.b2e571f5.json"
     },
     "convex-sets": {
       "version": 2,
@@ -936,6 +936,18 @@
       "file": "banks/ebers-moll.34d60699.json"
     },
     "eig-modes": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "3daccd33",
+      "file": "banks/eig-modes.3daccd33.json"
+    },
+    "eigenvalues-diagonalization": {
       "version": 1,
       "questionCount": 12,
       "rounds": {
@@ -944,8 +956,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e104c509",
-      "file": "banks/eig-modes.e104c509.json"
+      "hash": "b0b1657e",
+      "file": "banks/eigenvalues-diagonalization.b0b1657e.json"
     },
     "electrostatics": {
       "version": 3,
@@ -1703,6 +1715,18 @@
       "hash": "6e01049b",
       "file": "banks/least-squares-data-fitting.6e01049b.json"
     },
+    "least-squares-quadratic": {
+      "version": 2,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "f6d41ab2",
+      "file": "banks/least-squares-quadratic.f6d41ab2.json"
+    },
     "led": {
       "version": 3,
       "questionCount": 12,
@@ -1752,6 +1776,18 @@
       "file": "banks/limit-cycles.b210fe9a.json"
     },
     "lin-algebra-review": {
+      "version": 4,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "efd8a551",
+      "file": "banks/lin-algebra-review.efd8a551.json"
+    },
+    "linear-least-squares": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -1760,20 +1796,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "45353889",
-      "file": "banks/lin-algebra-review.45353889.json"
-    },
-    "linear-least-squares": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "9e83b115",
-      "file": "banks/linear-least-squares.9e83b115.json"
+      "hash": "714719ad",
+      "file": "banks/linear-least-squares.714719ad.json"
     },
     "linearization": {
       "version": 1,
@@ -2520,7 +2544,7 @@
       "file": "banks/polyhedra-extreme-points.e36e843c.json"
     },
     "positive-definite-matrices": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2528,8 +2552,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "d4b57805",
-      "file": "banks/positive-definite-matrices.d4b57805.json"
+      "hash": "3a0a4444",
+      "file": "banks/positive-definite-matrices.3a0a4444.json"
     },
     "power-method-eigenvector": {
       "version": 1,
@@ -2592,7 +2616,7 @@
       "file": "banks/q-conjugate-directions.468d6749.json"
     },
     "quadratic-function-minimization": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2600,8 +2624,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3f63dde6",
-      "file": "banks/quadratic-function-minimization.3f63dde6.json"
+      "hash": "afb73f8f",
+      "file": "banks/quadratic-function-minimization.afb73f8f.json"
     },
     "quasi-newton-secant": {
       "version": 1,
@@ -2772,7 +2796,7 @@
       "file": "banks/scaled-gradient-projection.5ade58f8.json"
     },
     "second-order-optimality": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2780,8 +2804,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "9d725ae5",
-      "file": "banks/second-order-optimality.9d725ae5.json"
+      "hash": "6652a4ae",
+      "file": "banks/second-order-optimality.6652a4ae.json"
     },
     "second-order-sys": {
       "version": 2,
@@ -2880,7 +2904,7 @@
       "file": "banks/simplex-phase-one.6970f147.json"
     },
     "singular-value-decomposition": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2888,8 +2912,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "7cb28a68",
-      "file": "banks/singular-value-decomposition.7cb28a68.json"
+      "hash": "ae10c884",
+      "file": "banks/singular-value-decomposition.ae10c884.json"
     },
     "sinusoid-resp": {
       "version": 4,
@@ -2928,7 +2952,7 @@
       "file": "banks/solar-cell.6aab1422.json"
     },
     "spectral-decomposition": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2936,8 +2960,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "9472b97e",
-      "file": "banks/spectral-decomposition.9472b97e.json"
+      "hash": "9cd5368a",
+      "file": "banks/spectral-decomposition.9cd5368a.json"
     },
     "square-law": {
       "version": 3,
@@ -3084,7 +3108,7 @@
       "file": "banks/svm-quadratic-program.d59b023b.json"
     },
     "sys-id": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3092,8 +3116,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "59a45fdc",
-      "file": "banks/sys-id.59a45fdc.json"
+      "hash": "58d54721",
+      "file": "banks/sys-id.58d54721.json"
     },
     "taylor-approximation-multivariable": {
       "version": 1,
@@ -3677,8 +3701,14 @@
       "version": 2
     },
     "eig-modes": {
-      "hash": "283c1c15",
-      "file": "explainers/eig-modes.283c1c15.json",
+      "hash": "d9d21e39",
+      "file": "explainers/eig-modes.d9d21e39.json",
+      "sectionCount": 5,
+      "version": 2
+    },
+    "eigenvalues-diagonalization": {
+      "hash": "268840d8",
+      "file": "explainers/eigenvalues-diagonalization.268840d8.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -4040,6 +4070,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "least-squares-quadratic": {
+      "hash": "ff35c7ef",
+      "file": "explainers/least-squares-quadratic.ff35c7ef.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "led": {
       "hash": "da5c57e8",
       "file": "explainers/led.da5c57e8.json",
@@ -4064,16 +4100,16 @@
       "version": 1
     },
     "lin-algebra-review": {
-      "hash": "e799a9ba",
-      "file": "explainers/lin-algebra-review.e799a9ba.json",
+      "hash": "df423942",
+      "file": "explainers/lin-algebra-review.df423942.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "linear-least-squares": {
-      "hash": "be1f2024",
-      "file": "explainers/linear-least-squares.be1f2024.json",
+      "hash": "7550b25f",
+      "file": "explainers/linear-least-squares.7550b25f.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "linearization": {
       "hash": "5ad04b95",
@@ -4427,10 +4463,10 @@
       "version": 1
     },
     "positive-definite-matrices": {
-      "hash": "86938907",
-      "file": "explainers/positive-definite-matrices.86938907.json",
+      "hash": "e0b7c249",
+      "file": "explainers/positive-definite-matrices.e0b7c249.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "power-method-eigenvector": {
       "hash": "71e66244",
@@ -4624,10 +4660,10 @@
       "sectionCount": 5
     },
     "spectral-decomposition": {
-      "hash": "280d78bd",
-      "file": "explainers/spectral-decomposition.280d78bd.json",
+      "hash": "2cd22392",
+      "file": "explainers/spectral-decomposition.2cd22392.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "square-law": {
       "hash": "95533903",
@@ -4699,10 +4735,10 @@
       "version": 1
     },
     "sys-id": {
-      "hash": "37849702",
-      "file": "explainers/sys-id.37849702.json",
+      "hash": "36e3d63e",
+      "file": "explainers/sys-id.36e3d63e.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "taylor-approximation-multivariable": {
       "hash": "085ee2a4",

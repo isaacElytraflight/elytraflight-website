@@ -169,9 +169,8 @@ def main():
     b_orth = np.array([3.0, 5, 2, 6])
     x_orth, sse = least_squares(A_orth, b_orth)
     expected["linear-least-squares-r3-q2"] = sse
-    A_line = np.array([[1.0, 1], [1, 2], [1, 3]])
-    x_line, _ = least_squares(A_line, [2.0, 3, 6])
-    expected["linear-least-squares-r4-q2"] = float(x_line[1])
+    x_theta, _ = least_squares([[2.0], [3.0], [5.0]], [4.0, 7.0, 8.0])
+    expected["linear-least-squares-r4-q4"] = float(x_theta[0])
     need(mismatches, np.allclose(x_orth, (4, 4)), "orthogonal least-squares point drifted")
     need(mismatches, abs(A_orth.T @ (A_orth @ x_orth - b_orth)).max() < 1e-8, "residual was not orthogonal")
 

@@ -1,6 +1,6 @@
 {
   "skill_id": "lin-algebra-review",
-  "version": 2,
+  "version": 4,
   "questions": [
     {
       "id": "lin-algebra-review-r1-q1",
@@ -49,6 +49,175 @@
       "version": 1
     },
     {
+      "id": "lin-algebra-review-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "How many dimensions does the null space of \\(\\begin{bmatrix} 1 & 2 \\\\ 2 & 4 \\end{bmatrix}\\) have?",
+      "explanation": "The second row is twice the first, so the rank is \\(1\\). A \\(2\\)-column matrix then has nullity \\(2 - 1 = 1\\). One null vector is \\((2,-1)\\), since \\(1\\cdot 2 + 2\\cdot(-1) = 0\\). It is not the zero matrix, so the nullity is not \\(2\\).\n• \\(0\\) would mean the two columns are independent, but the second column is twice the first.\n• \\(2\\) would mean every vector is sent to zero.\n• \\(4\\) is an entry, not a dimension.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Two proportional rows</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   4</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with rows 1, 2 and 2, 4.",
+      "answer": 1.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r3-q1",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Solve \\(\\begin{bmatrix} 3 & 1 \\\\ 1 & 2 \\end{bmatrix}\\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 5 \\\\ 4 \\end{bmatrix}\\). What is \\(x\\)?",
+      "explanation": "The equations are \\(3x + y = 5\\) and \\(x + 2y = 4\\). From the second, \\(x = 4 - 2y\\). Substitute: \\(3(4-2y) + y = 5\\), so \\(12 - 5y = 5\\), \\(y = 1.4\\), and \\(x = 4 - 2.8 = 1.2\\). Check: \\(3(1.2)+1.4 = 5\\) and \\(1.2+2(1.4) = 4\\).\n• \\(1.4\\) is \\(y\\), not \\(x\\).\n• \\(5/3 = 1.667\\) drops the second unknown.\n• \\(4/2 = 2\\) does the same with the other equation.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Coefficient matrix of a 2 by 2 linear system</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   2</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with first row 3, 1 and second row 1, 2.",
+      "answer": 1.2,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "For \\(A = \\begin{bmatrix} 0 & 1 \\\\ 0 & -2 \\end{bmatrix}\\) and \\(B = \\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}\\), the controllability matrix is \\(\\begin{bmatrix} B & AB \\end{bmatrix}\\). What is its rank?",
+      "explanation": "\\(AB = \\begin{bmatrix} 1 \\\\ -2 \\end{bmatrix}\\), so the controllability matrix is \\(\\begin{bmatrix} 0 & 1 \\\\ 1 & -2 \\end{bmatrix}\\). Its determinant is \\(-1\\), not zero, so the rank is \\(2\\). Full rank is the reachability test for a two-state linear system.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A 2 by 2 controllability matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   -2</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with first row 0, 1 and second row 1, -2.",
+      "preview": [
+        "reachability"
+      ],
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "For \\(A = \\begin{bmatrix} -1 & 0 \\\\ 0 & -3 \\end{bmatrix}\\) and \\(C = \\begin{bmatrix} 1 & 0 \\end{bmatrix}\\), the observability matrix stacks \\(C\\) over \\(CA\\). What is its rank?",
+      "explanation": "\\(CA = \\begin{bmatrix} -1 & 0 \\end{bmatrix}\\). Stacking gives \\(\\begin{bmatrix} 1 & 0 \\\\ -1 & 0 \\end{bmatrix}\\). The second row is \\(-1\\) times the first, and the second column is zero, so the rank is \\(1\\), not \\(2\\). A rank short of the state dimension means the pair is not observable: the mode at \\(-3\\) never appears in the output.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A 2 by 2 observability matrix with a zero column</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">-1   0</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with first row 1, 0 and second row -1, 0.",
+      "preview": [
+        "observability"
+      ],
+      "answer": 1.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r2-q4",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "A 2 by 2 matrix has entries a, b, c, d in reading order. Write its determinant in the names a, b, c, and d.",
+      "explanation": "The determinant of \\(\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix}\\) is \\(ad - bc\\). The product \\(ad\\) is the main diagonal. The product \\(bc\\) is the other diagonal, and it is subtracted. Swapping those two products changes the sign of the determinant.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A matrix and a column</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   -2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">5   1</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with four letter entries.",
+      "answer": "a*d-b*c",
+      "variables": [
+        {
+          "name": "a",
+          "min": -3.0,
+          "max": 3.0
+        },
+        {
+          "name": "b",
+          "min": -3.0,
+          "max": 3.0
+        },
+        {
+          "name": "c",
+          "min": -3.0,
+          "max": 3.0
+        },
+        {
+          "name": "d",
+          "min": -3.0,
+          "max": 3.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "a*d-c*b"
+      ],
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r2-q5",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Let \\(A = \\begin{bmatrix} 3 & -2 \\\\ 5 & 1 \\end{bmatrix}\\) and \\(v = \\begin{bmatrix} 2 \\\\ 1 \\end{bmatrix}\\). What is the second entry of \\(Av\\)?",
+      "explanation": "The second entry is the second row dotted with the column: \\(5 \\cdot 2 + 1 \\cdot 1 = 11\\). The first entry is \\(3 \\cdot 2 + (-2) \\cdot 1 = 4\\), which is a different row. A matrix-vector product mixes the columns; it does not add the entries of the matrix.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A matrix and a column</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   -2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">5   1</text></svg>",
+      "figure_alt": "A 2 by 2 matrix beside a column of height 2.",
+      "answer": 11.0,
+      "unit": "",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r3-q4",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note claims the rank of a matrix. Exactly one step is false.",
+      "explanation": "Nonzero entries do not make columns independent. Two identical nonzero columns still have rank 1. Rank counts independent directions, and rank plus nullity equals the number of columns for any matrix, whether or not an entry is zero.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A tall matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   1</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3</text></svg>",
+      "figure_alt": "A tall matrix with three rows and two columns.",
+      "steps": [
+        "Rank is the number of independent columns.",
+        "A row that is a copy of another row does not raise the rank.",
+        "A matrix with every entry nonzero must have full rank.",
+        "Rank plus the dimension of the null space equals the number of columns."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "Nonzero entries can still be copies of one column.",
+        "A copied row does raise the rank.",
+        "Rank-nullity holds only for square matrices."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r3-q5",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which statements are true of every square matrix \\(A\\)?",
+      "explanation": "Zero is always sent to zero, so it is always in the null space. A nonzero null vector is a dependence among the columns, and for every square matrix that dependence makes the determinant zero. Rank counts independent columns, not entries.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A square matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   -2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">5   1</text></svg>",
+      "figure_alt": "A square 2 by 2 matrix.",
+      "options": [
+        "The null space contains the zero vector.",
+        "A nonzero null vector means the columns are independent.",
+        "The determinant is zero when a nonzero vector is sent to zero.",
+        "Rank is the number of entries in the matrix."
+      ],
+      "correct_indices": [
+        0,
+        2
+      ],
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r4-q4",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "What is the rank of \\(\\begin{bmatrix} 1 & 0 \\\\ 2 & 1 \\\\ 0 & 3 \\end{bmatrix}\\)?",
+      "explanation": "The two columns are \\((1, 2, 0)\\) and \\((0, 1, 3)\\). Neither is a scalar multiple of the other, so there are two independent columns and the rank is 2. A third row does not add a third column, so the rank cannot be 3.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A tall matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   1</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3</text></svg>",
+      "figure_alt": "A 3 by 2 matrix.",
+      "preview": [
+        "linear-least-squares"
+      ],
+      "answer": 2.0,
+      "unit": "",
+      "tolerance": 0.02,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
       "id": "lin-algebra-review-r2-q1",
       "round": 2,
       "type": "numeric",
@@ -76,32 +245,6 @@
         "Only the determinant. The eigenvalues can change"
       ],
       "correct_index": 2,
-      "version": 1
-    },
-    {
-      "id": "lin-algebra-review-r2-q3",
-      "round": 2,
-      "type": "numeric",
-      "prompt": "How many dimensions does the null space of \\(\\begin{bmatrix} 1 & 2 \\\\ 2 & 4 \\end{bmatrix}\\) have?",
-      "explanation": "The second row is twice the first, so the rank is \\(1\\). A \\(2\\)-column matrix then has nullity \\(2 - 1 = 1\\). One null vector is \\((2,-1)\\), since \\(1\\cdot 2 + 2\\cdot(-1) = 0\\). It is not the zero matrix, so the nullity is not \\(2\\).\n• \\(0\\) would mean the two columns are independent, but the second column is twice the first.\n• \\(2\\) would mean every vector is sent to zero.\n• \\(4\\) is an entry, not a dimension.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Two proportional rows</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   4</text></svg>",
-      "figure_alt": "A 2 by 2 matrix with rows 1, 2 and 2, 4.",
-      "answer": 1.0,
-      "unit": "1",
-      "tolerance": 0.02,
-      "version": 1
-    },
-    {
-      "id": "lin-algebra-review-r3-q1",
-      "round": 3,
-      "type": "numeric",
-      "prompt": "Solve \\(\\begin{bmatrix} 3 & 1 \\\\ 1 & 2 \\end{bmatrix}\\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 5 \\\\ 4 \\end{bmatrix}\\). What is \\(x\\)?",
-      "explanation": "The equations are \\(3x + y = 5\\) and \\(x + 2y = 4\\). From the second, \\(x = 4 - 2y\\). Substitute: \\(3(4-2y) + y = 5\\), so \\(12 - 5y = 5\\), \\(y = 1.4\\), and \\(x = 4 - 2.8 = 1.2\\). Check: \\(3(1.2)+1.4 = 5\\) and \\(1.2+2(1.4) = 4\\).\n• \\(1.4\\) is \\(y\\), not \\(x\\).\n• \\(5/3 = 1.667\\) drops the second unknown.\n• \\(4/2 = 2\\) does the same with the other equation.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Coefficient matrix of a 2 by 2 linear system</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   2</text></svg>",
-      "figure_alt": "A 2 by 2 matrix with first row 3, 1 and second row 1, 2.",
-      "answer": 1.2,
-      "unit": "1",
-      "tolerance": 0.02,
       "version": 1
     },
     {
@@ -147,38 +290,6 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A 2 by 2 matrix with a zero in the corner</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   -3</text></svg>",
       "figure_alt": "A 2 by 2 matrix with first row 0, -2 and second row 1, -3.",
       "answer": -1.0,
-      "unit": "1",
-      "tolerance": 0.02,
-      "version": 2
-    },
-    {
-      "id": "lin-algebra-review-r4-q1",
-      "round": 4,
-      "type": "numeric",
-      "prompt": "For \\(A = \\begin{bmatrix} 0 & 1 \\\\ 0 & -2 \\end{bmatrix}\\) and \\(B = \\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}\\), the controllability matrix is \\(\\begin{bmatrix} B & AB \\end{bmatrix}\\). What is its rank?",
-      "explanation": "\\(AB = \\begin{bmatrix} 1 \\\\ -2 \\end{bmatrix}\\), so the controllability matrix is \\(\\begin{bmatrix} 0 & 1 \\\\ 1 & -2 \\end{bmatrix}\\). Its determinant is \\(-1\\), not zero, so the rank is \\(2\\). Full rank is the reachability test for a two-state linear system.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A 2 by 2 controllability matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   -2</text></svg>",
-      "figure_alt": "A 2 by 2 matrix with first row 0, 1 and second row 1, -2.",
-      "preview": [
-        "reachability"
-      ],
-      "answer": 2.0,
-      "unit": "1",
-      "tolerance": 0.02,
-      "version": 2
-    },
-    {
-      "id": "lin-algebra-review-r4-q2",
-      "round": 4,
-      "type": "numeric",
-      "prompt": "For \\(A = \\begin{bmatrix} -1 & 0 \\\\ 0 & -3 \\end{bmatrix}\\) and \\(C = \\begin{bmatrix} 1 & 0 \\end{bmatrix}\\), the observability matrix stacks \\(C\\) over \\(CA\\). What is its rank?",
-      "explanation": "\\(CA = \\begin{bmatrix} -1 & 0 \\end{bmatrix}\\). Stacking gives \\(\\begin{bmatrix} 1 & 0 \\\\ -1 & 0 \\end{bmatrix}\\). The second row is \\(-1\\) times the first, and the second column is zero, so the rank is \\(1\\), not \\(2\\). A rank short of the state dimension means the pair is not observable: the mode at \\(-3\\) never appears in the output.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A 2 by 2 observability matrix with a zero column</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">-1   0</text></svg>",
-      "figure_alt": "A 2 by 2 matrix with first row 1, 0 and second row -1, 0.",
-      "preview": [
-        "observability"
-      ],
-      "answer": 1.0,
       "unit": "1",
       "tolerance": 0.02,
       "version": 2
