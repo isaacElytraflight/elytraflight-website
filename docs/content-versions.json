@@ -1320,7 +1320,7 @@
     },
     {
       "id": "sensitivity#explainer",
-      "version": 3
+      "version": 4
     },
     {
       "id": "ss-to-tf-r1-q1",
@@ -10144,7 +10144,7 @@
     },
     {
       "id": "loop-gain#explainer",
-      "version": 3
+      "version": 4
     },
     {
       "id": "fb-amp-r1-q1",
@@ -10512,7 +10512,7 @@
     },
     {
       "id": "sensitivity#explainer",
-      "version": 3
+      "version": 4
     },
     {
       "id": "stability-r1-q4",
@@ -10680,7 +10680,7 @@
     },
     {
       "id": "amp-compensation#explainer",
-      "version": 3
+      "version": 4
     },
     {
       "id": "lti-def-r1-q4",

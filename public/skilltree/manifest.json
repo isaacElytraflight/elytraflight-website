@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-16T21:41:35.491510Z",
+  "generated": "2026-11-16T21:50:43.276832Z",
   "skills": {
-    "file": "skills.bf9a3519.json",
-    "hash": "bf9a3519"
+    "file": "skills.30cba7b6.json",
+    "hash": "30cba7b6"
   },
   "collections": {
     "file": "collections.dc8ba5ef.json",
@@ -3313,10 +3313,10 @@
       "sectionCount": 5
     },
     "amp-compensation": {
-      "hash": "b7e2eb26",
-      "file": "explainers/amp-compensation.b7e2eb26.json",
+      "hash": "861854ed",
+      "file": "explainers/amp-compensation.861854ed.json",
       "sectionCount": 5,
-      "version": 3
+      "version": 4
     },
     "app-examples": {
       "hash": "f33edd64",
@@ -4133,10 +4133,10 @@
       "version": 2
     },
     "loop-gain": {
-      "hash": "ddcee246",
-      "file": "explainers/loop-gain.ddcee246.json",
+      "hash": "0aab0b4a",
+      "file": "explainers/loop-gain.0aab0b4a.json",
       "sectionCount": 5,
-      "version": 3
+      "version": 4
     },
     "loop-margin-design": {
       "hash": "300275d9",
@@ -4602,10 +4602,10 @@
       "version": 3
     },
     "sensitivity": {
-      "hash": "f3f531df",
-      "file": "explainers/sensitivity.f3f531df.json",
+      "hash": "de41bc6e",
+      "file": "explainers/sensitivity.de41bc6e.json",
       "sectionCount": 5,
-      "version": 3
+      "version": 4
     },
     "separation": {
       "hash": "09fb5616",

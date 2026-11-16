@@ -16,7 +16,7 @@
     },
     {
       "heading": "Worked example",
-      "body_md": "An op-amp has \\(f_t = 3\\ \\mathrm{MHz}\\) and a second pole at 7.5 MHz. At unity gain, crossover is about 3 MHz and the second pole adds \\(\\arctan(0.4) = 21.8^\\circ\\) of lag, so PM is about \\(68^\\circ\\). A load capacitor that moves the second pole down to 1.25 MHz cuts PM to about \\(22.6^\\circ\\)."
+      "body_md": "An op-amp has \\(f_t = 3\\ \\mathrm{MHz}\\) and a second pole at 7.5 MHz. At unity gain, crossover is about 3 MHz and the second pole adds \\(\\arctan(0.4) = 21.8^\\circ\\) of lag, so PM is about \\(68^\\circ\\). A load capacitor that moves the second pole down to 1.25 MHz also moves the crossover, because that pole now cuts the gain before 3 MHz. The new crossover is about 1.75 MHz, and the phase margin is about \\(36^\\circ\\)."
     },
     {
       "heading": "Common pitfalls",
@@ -27,5 +27,5 @@
       "body_md": "The open-loop curve is where the unity-gain frequency and the second pole are read together. A load capacitor that moves the second pole down toward that frequency is checked on the same curve. Slew rate and the full-power bandwidth then limit how large a signal can be before this small-signal margin no longer applies."
     }
   ],
-  "version": 3
+  "version": 4
 }

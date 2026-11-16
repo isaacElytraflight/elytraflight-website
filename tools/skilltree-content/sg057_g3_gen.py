@@ -333,7 +333,7 @@ The closed-loop map from reference to output is the forward gain divided by \(1+
         },
         {
             "heading": "Worked example",
-            "body_md": r"""Three blocks in one loop have gains \(2.2\), \(1.5\), and \(1.6\). The loop gain is \(2.2 \times 1.5 \times 1.6 = 5.28\). Take the forward gain to be \(13\). The closed-loop gain is \(13/(1+5.28) \approx 2.07\). If the forward gain drops from \(13\) to \(10\), the closed-loop gain becomes \(10/6.28 \approx 1.59\). The loop gain stayed \(5.28\), and the closed loop moved much less than the forward gain did. Using \(13/5.28\) would have forgotten the \(1\) in the denominator.""",
+            "body_md": r"""A loop has forward gain \(16\) and a return of \(0.35\). The loop gain is \(16 \times 0.35 = 5.6\), and the closed-loop gain is \(16/(1+5.6) \approx 2.42\). Drop the forward gain to \(11\) and leave the return at \(0.35\). The loop gain falls to \(3.85\), and the closed-loop gain becomes \(11/(1+3.85) \approx 2.27\). The forward gain fell by about a third. The closed loop fell by only a few percent, because that forward gain sits inside the loop gain and \(1+L\) absorbs most of the change. Using \(16/5.6\) would have forgotten the \(1\) in the denominator.""",
         },
         {
             "heading": "Common pitfalls",
@@ -1016,8 +1016,8 @@ Computing \(S\) from a constant \(L\) is the previous skill. Here \(S\) and \(T\
         {
             "heading": "Key equations",
             "body_md": r"""For unity feedback,
-\[ y = T r + S d - T n, \qquad e = S(r - d) - S n. \]
-\(d\) is an output disturbance and \(n\) is sensor noise. A disturbance at the plant input is not \(S d\). It still passes through the plant, which is the map \(PS\) from the loop transfer function. A command added outside the feedback loop does not appear in \(S\) or \(T\).""",
+\[ y = T r + S d - T n, \qquad r - y = S(r - d) + T n. \]
+\(d\) is an output disturbance and \(n\) is sensor noise. The tracking error \(r-y\) is the reference minus the actual output, so sensor noise reaches that error through \(T\), the same factor that puts the noise on the output. A disturbance at the plant input is not \(S d\). It still passes through the plant, which is the map \(PS\) from the loop transfer function. A command added outside the feedback loop does not appear in \(S\) or \(T\).""",
         },
         {
             "heading": "Worked example",
@@ -1400,7 +1400,7 @@ def fix_amp_figures():
     worked = (
         r"An op-amp has \(f_t = 3\ \mathrm{MHz}\) and a second pole at 7.5 MHz. "
         r"At unity gain, crossover is about 3 MHz and the second pole adds \(\arctan(0.4) = 21.8^\circ\) of lag, so PM is about \(68^\circ\). "
-        r"A load capacitor that moves the second pole down to 1.25 MHz cuts PM to about \(22.6^\circ\)."
+        r"A load capacitor that moves the second pole down to 1.25 MHz also moves the crossover, because that pole now cuts the gain before 3 MHz. The new crossover is about 1.75 MHz, and the phase margin is about \(36^\circ\)."
     )
     touched = False
     for section in exp["sections"]:

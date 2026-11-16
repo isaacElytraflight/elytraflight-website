@@ -110,7 +110,7 @@ Items above version 1:
 - `sensitivity-r1-q1` version 2
 - `sensitivity-r2-q1` version 2
 - `sensitivity-r4-q1` version 2
-- `sensitivity#explainer` version 3
+- `sensitivity#explainer` version 4
 - `ss-to-tf-r2-q1` version 2
 - `ss-to-tf-r3-q1` version 2
 - `step-specs-r1-q2` version 2
@@ -445,18 +445,18 @@ Items above version 1:
 
 - `fb-intro#explainer` version 2
 - `loop-gain-r2-q2` version 2
-- `loop-gain#explainer` version 3
+- `loop-gain#explainer` version 4
 - `fb-amp-r3-q1` version 2
 - `loop-tf#explainer` version 2
 - `fb-errors#explainer` version 3
 - `sensitivity-r1-q1` version 2
 - `sensitivity-r2-q1` version 2
 - `sensitivity-r4-q1` version 2
-- `sensitivity#explainer` version 3
+- `sensitivity#explainer` version 4
 - `stability#explainer` version 2
 - `amp-compensation-r4-q2` version 3
 - `amp-compensation-r4-q3` version 3
-- `amp-compensation#explainer` version 3
+- `amp-compensation#explainer` version 4
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 

@@ -1,7 +1,7 @@
 {
   "id": "sensitivity",
   "title": "Sensitivity functions",
-  "version": 3,
+  "version": 4,
   "sections": [
     {
       "heading": "The idea",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "Key equations",
-      "body_md": "For unity feedback,\n\\[ y = T r + S d - T n, \\qquad e = S(r - d) - S n. \\]\n\\(d\\) is an output disturbance and \\(n\\) is sensor noise. A disturbance at the plant input is not \\(S d\\). It still passes through the plant, which is the map \\(PS\\) from the loop transfer function. A command added outside the feedback loop does not appear in \\(S\\) or \\(T\\)."
+      "body_md": "For unity feedback,\n\\[ y = T r + S d - T n, \\qquad r - y = S(r - d) + T n. \\]\n\\(d\\) is an output disturbance and \\(n\\) is sensor noise. The tracking error \\(r-y\\) is the reference minus the actual output, so sensor noise reaches that error through \\(T\\), the same factor that puts the noise on the output. A disturbance at the plant input is not \\(S d\\). It still passes through the plant, which is the map \\(PS\\) from the loop transfer function. A command added outside the feedback loop does not appear in \\(S\\) or \\(T\\)."
     },
     {
       "heading": "Worked example",
