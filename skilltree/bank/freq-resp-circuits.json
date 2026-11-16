@@ -1,6 +1,6 @@
 {
   "skill_id": "freq-resp-circuits",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "id": "freq-resp-circuits-r1-q1",
@@ -164,19 +164,20 @@
       "version": 2
     },
     {
-      "id": "freq-resp-circuits-r4-q3",
+      "id": "freq-resp-circuits-r4-q4",
       "round": 4,
       "type": "numeric",
-      "prompt": "Preview of op-amp frequency response. A closed-loop op-amp amplifier with a low-frequency gain of 10 has the single-pole response \\(H(jf)=10/(1+jf/100\\ \\mathrm{kHz})\\). For a 0.1 V amplitude tone at 1 MHz, what is the output amplitude?",
-      "answer": 0.0995037,
-      "unit": "V",
-      "tolerance": 0.02,
-      "explanation": "At \\(f=1\\ \\mathrm{MHz}\\), \\(f/f_{c}=10\\): \\(|H|=10/\\sqrt{1+100}=10/10.05=0.995\\).\nOutput amplitude \\(=0.1\\ \\mathrm{V}\\times 0.995=0.0995\\ \\mathrm{V}\\) (the gain has fallen from 10 to about 1).\nCommon mistake: using the low-frequency gain of 10 (1 V). This is exactly the frequency-domain limit on how well an amplifier tracks fast signals.",
+      "prompt": "A circuit transfer function is \\(G(jf)=100/(1+jf/10\\ \\mathrm{kHz})\\). The input is a tone of amplitude 1 at 100 kHz. What is the output amplitude?",
+      "explanation": "At 100 kHz the ratio \\(f/f_p\\) is 10, so \\(|G|=100/\\sqrt{1+100}=100/\\sqrt{101}\\). The output amplitude is that gain times 1. The DC gain 100 ignores the pole. One decade above the pole is about a factor of ten, not a complete stop.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>falling gain</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,39 49,39.1 52,39.5 55.1,40.1 58.1,40.9 61.1,42 64.1,43.2 67.2,44.6 70.2,46.2 73.2,47.9 76.2,49.7 79.2,51.6 82.3,53.6 85.3,55.6 88.3,57.7 91.3,59.8 94.4,61.9 97.4,64.1 100.4,66.2 103.4,68.3 106.4,70.3 109.5,72.3 112.5,74.3 115.5,76.3 118.5,78.2 121.6,80 124.6,81.8 127.6,83.6 130.6,85.3 133.6,87 136.7,88.6 139.7,90.1 142.7,91.6 145.7,93.1 148.8,94.5 151.8,95.9 154.8,97.2 157.8,98.5 160.8,99.8 163.9,101 166.9,102.2 169.9,103.3 172.9,104.4 176,105.5 179,106.5 182,107.5 185,108.5 188,109.4 191.1,110.3 194.1,111.2 197.1,112.1 200.1,112.9 203.2,113.7 206.2,114.5 209.2,115.3 212.2,116 215.2,116.7 218.3,117.4 221.3,118.1 224.3,118.8 227.3,119.4 230.4,120 233.4,120.6 236.4,121.2 239.4,121.8 242.4,122.4 245.5,122.9 248.5,123.5 251.5,124 254.5,124.5 257.6,125 260.6,125.5 263.6,126 266.6,126.4 269.6,126.9 272.7,127.3 275.7,127.7 278.7,128.2 281.7,128.6 284.8,129 287.8,129.4 290.8,129.8 293.8,130.1 296.8,130.5 299.9,130.9 302.9,131.2 305.9,131.6 308.9,131.9 312,132.2 315,132.5 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve of magnitude that falls as frequency increases.",
       "preview": [
         "opamp-fr"
       ],
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Closed-loop gain 10 with a 100 kHz pole</title><line x1=\"52\" y1=\"164\" x2=\"320\" y2=\"164\"/><polygon points=\"320,164 313.6,166.7 313.6,161.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"52\" y1=\"164\" x2=\"52\" y2=\"14\"/><polygon points=\"52,14 54.7,20.4 49.3,20.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"192\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><text x=\"56\" y=\"10\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><line x1=\"49\" y1=\"164\" x2=\"55\" y2=\"164\"/><text x=\"46\" y=\"167\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-20</text><line x1=\"49\" y1=\"136\" x2=\"55\" y2=\"136\"/><text x=\"46\" y=\"139\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-10</text><line x1=\"49\" y1=\"108\" x2=\"55\" y2=\"108\"/><text x=\"46\" y=\"111\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"52\" y1=\"108\" x2=\"312\" y2=\"108\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"49\" y1=\"80\" x2=\"55\" y2=\"80\"/><text x=\"46\" y=\"83\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"49\" y1=\"52\" x2=\"55\" y2=\"52\"/><text x=\"46\" y=\"55\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"49\" y1=\"24\" x2=\"55\" y2=\"24\"/><text x=\"46\" y=\"27\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">30</text><line x1=\"52\" y1=\"161\" x2=\"52\" y2=\"167\"/><text x=\"52\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"117\" y1=\"161\" x2=\"117\" y2=\"167\"/><text x=\"117\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"182\" y1=\"161\" x2=\"182\" y2=\"167\"/><text x=\"182\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"247\" y1=\"161\" x2=\"247\" y2=\"167\"/><text x=\"247\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"312\" y1=\"161\" x2=\"312\" y2=\"167\"/><text x=\"312\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><polyline points=\"52,52 182,52 312,164\" stroke-width=\"2.2\"/><circle cx=\"247\" cy=\"108\" r=\"3\" fill=\"currentColor\"/><text x=\"253\" y=\"102\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1 MHz</text></svg>",
-      "figure_alt": "Asymptotic Bode magnitude flat at 20 dB up to 100 kHz then falling 20 dB per decade; 1 MHz is marked."
+      "answer": 9.95037,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
     }
   ],
   "retired_questions": [
@@ -226,6 +227,22 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 218 70\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Transimpedance amplifier</title><text x=\"10\" y=\"27\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">i_in</text><line x1=\"10\" y1=\"35\" x2=\"60\" y2=\"35\"/><polygon points=\"60,35 53.6,37.7 53.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"17\" width=\"60\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"39\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">TIA</text><line x1=\"120\" y1=\"35\" x2=\"166\" y2=\"35\"/><polygon points=\"166,35 159.6,37.7 159.6,32.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"170\" y=\"39\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v_out</text></svg>",
       "figure_alt": "Block diagram: an input current into a transimpedance amplifier gives an output voltage.",
       "version": 2
+    },
+    {
+      "id": "freq-resp-circuits-r4-q3",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of op-amp frequency response. A closed-loop op-amp amplifier with a low-frequency gain of 10 has the single-pole response \\(H(jf)=10/(1+jf/100\\ \\mathrm{kHz})\\). For a 0.1 V amplitude tone at 1 MHz, what is the output amplitude?",
+      "answer": 0.0995037,
+      "unit": "V",
+      "tolerance": 0.02,
+      "explanation": "At \\(f=1\\ \\mathrm{MHz}\\), \\(f/f_{c}=10\\): \\(|H|=10/\\sqrt{1+100}=10/10.05=0.995\\).\nOutput amplitude \\(=0.1\\ \\mathrm{V}\\times 0.995=0.0995\\ \\mathrm{V}\\) (the gain has fallen from 10 to about 1).\nCommon mistake: using the low-frequency gain of 10 (1 V). This is exactly the frequency-domain limit on how well an amplifier tracks fast signals.",
+      "preview": [
+        "opamp-fr"
+      ],
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Closed-loop gain 10 with a 100 kHz pole</title><line x1=\"52\" y1=\"164\" x2=\"320\" y2=\"164\"/><polygon points=\"320,164 313.6,166.7 313.6,161.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"52\" y1=\"164\" x2=\"52\" y2=\"14\"/><polygon points=\"52,14 54.7,20.4 49.3,20.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"192\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><text x=\"56\" y=\"10\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><line x1=\"49\" y1=\"164\" x2=\"55\" y2=\"164\"/><text x=\"46\" y=\"167\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-20</text><line x1=\"49\" y1=\"136\" x2=\"55\" y2=\"136\"/><text x=\"46\" y=\"139\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">-10</text><line x1=\"49\" y1=\"108\" x2=\"55\" y2=\"108\"/><text x=\"46\" y=\"111\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"52\" y1=\"108\" x2=\"312\" y2=\"108\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"49\" y1=\"80\" x2=\"55\" y2=\"80\"/><text x=\"46\" y=\"83\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"49\" y1=\"52\" x2=\"55\" y2=\"52\"/><text x=\"46\" y=\"55\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"49\" y1=\"24\" x2=\"55\" y2=\"24\"/><text x=\"46\" y=\"27\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">30</text><line x1=\"52\" y1=\"161\" x2=\"52\" y2=\"167\"/><text x=\"52\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"117\" y1=\"161\" x2=\"117\" y2=\"167\"/><text x=\"117\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"182\" y1=\"161\" x2=\"182\" y2=\"167\"/><text x=\"182\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"247\" y1=\"161\" x2=\"247\" y2=\"167\"/><text x=\"247\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"312\" y1=\"161\" x2=\"312\" y2=\"167\"/><text x=\"312\" y=\"179\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><polyline points=\"52,52 182,52 312,164\" stroke-width=\"2.2\"/><circle cx=\"247\" cy=\"108\" r=\"3\" fill=\"currentColor\"/><text x=\"253\" y=\"102\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1 MHz</text></svg>",
+      "figure_alt": "Asymptotic Bode magnitude flat at 20 dB up to 100 kHz then falling 20 dB per decade; 1 MHz is marked.",
+      "version": 1
     }
   ]
 }

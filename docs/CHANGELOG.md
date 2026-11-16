@@ -59,7 +59,10 @@ Items above version 1:
 - `block-diagram-r4-q2` version 4
 - `block-diagram-r4-q3` version 2
 - `block-diagram#explainer` version 3
+- `first-order-sys-r4-q1` version 2
+- `first-order-sys-r4-q2` version 2
 - `first-order-sys-r4-q3` version 3
+- `first-order-sys#explainer` version 2
 - `onoff-pid-intro-r1-q1` version 3
 - `onoff-pid-intro-r1-q3` version 3
 - `onoff-pid-intro-r2-q1` version 3
@@ -81,7 +84,9 @@ Box: ME 132 (me132) and Feedback Systems (am08).
 
 Skills: `app-examples`, `cruise-control`, `equilibria`, `loop-tf`, `second-order-sys`, `ss-solution`.
 
-Every item is version 1.
+Items above version 1:
+
+- `second-order-sys#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -344,6 +349,46 @@ Items above version 1:
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## SG-057 group 1 — sg057-g1
+
+Box: EE 105, ME 132, and Feedback Systems.
+
+Skills: `first-order-sys`, `step-resp`, `rc-lpf`, `lti-circuits`, `second-order-sys`, `pole-zero`, `tf`, `freq-resp-circuits`, `rlc`, `lti-mech`, `fb-amp`.
+
+Items above version 1:
+
+- `first-order-sys-r4-q1` version 2
+- `first-order-sys-r4-q2` version 2
+- `first-order-sys-r4-q3` version 3
+- `first-order-sys#explainer` version 2
+- `step-resp#explainer` version 2
+- `rc-lpf-r1-q1` version 2
+- `rc-lpf-r1-q2` version 2
+- `rc-lpf-r1-q4` version 2
+- `rc-lpf-r1-q5` version 2
+- `rc-lpf#explainer` version 3
+- `lti-circuits-r1-q1` version 2
+- `lti-circuits#explainer` version 2
+- `second-order-sys#explainer` version 2
+- `pole-zero#explainer` version 2
+- `tf#explainer` version 2
+- `freq-resp-circuits-r4-q2` version 2
+- `freq-resp-circuits-r3-q1` version 2
+- `freq-resp-circuits-r1-q3` version 2
+- `freq-resp-circuits-r2-q1` version 2
+- `rlc-r2-q1` version 2
+- `rlc-r2-q3` version 2
+- `rlc-r4-q1` version 2
+- `rlc-r1-q1` version 2
+- `rlc-r1-q2` version 2
+- `rlc-r3-q1` version 2
+- `rlc-r4-q3` version 3
+- `rlc#explainer` version 2
+- `lti-mech#explainer` version 3
+- `fb-amp-r3-q1` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## SG-063 EE 105 linear systems — sg063-ee105-ch1
 
 Box: EE 105 (ee105-ucb), Linear Time-Invariant Systems.
@@ -352,14 +397,16 @@ Skills: `lti-def`, `rc-lpf`, `cx-exp`, `sinusoid-resp`, `impulse-conv`, `step-re
 
 Items above version 1:
 
-- `rc-lpf-r1-q4` version 2
-- `rc-lpf-r1-q5` version 2
 - `rc-lpf-r1-q1` version 2
 - `rc-lpf-r1-q2` version 2
-- `rc-lpf#explainer` version 2
+- `rc-lpf-r1-q4` version 2
+- `rc-lpf-r1-q5` version 2
+- `rc-lpf#explainer` version 3
 - `cx-exp-r1-q5` version 3
 - `impulse-conv-r1-q2` version 2
+- `step-resp#explainer` version 2
 - `lti-circuits-r1-q1` version 2
+- `lti-circuits#explainer` version 2
 - `freq-resp-circuits-r4-q2` version 2
 - `freq-resp-circuits-r3-q1` version 2
 - `freq-resp-circuits-r1-q3` version 2
@@ -375,17 +422,20 @@ Skills: `tf`, `phasors`, `direct-h`, `pole-zero`, `rlc`, `bode`, `ac-power`, `bo
 
 Items above version 1:
 
+- `tf#explainer` version 2
 - `phasors-r3-q1` version 2
 - `phasors-r1-q1` version 2
 - `direct-h-r1-q1` version 2
 - `direct-h-r1-q2` version 2
+- `pole-zero#explainer` version 2
 - `rlc-r2-q1` version 2
 - `rlc-r2-q3` version 2
 - `rlc-r4-q1` version 2
-- `rlc-r4-q3` version 3
 - `rlc-r1-q1` version 2
 - `rlc-r1-q2` version 2
 - `rlc-r3-q1` version 2
+- `rlc-r4-q3` version 3
+- `rlc#explainer` version 2
 - `ac-power-r1-q1` version 2
 - `ac-power-r3-q1` version 2
 - `ac-power#explainer` version 2

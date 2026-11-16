@@ -39,12 +39,13 @@
   },
   {
    "id": "rc-lpf",
-   "name": "Solve a first-order RC low-pass filter in the time domain",
+   "name": "RC low-pass time constant, cutoff, and source resistance",
+   "summary": "Set the time constant to RC, read the cutoff, and use the resistance the capacitor actually sees.",
    "chapter": 1,
    "prereqs": [
-    "step-resp"
+    "first-order-sys"
    ],
-   "owns": "first-order RC step/transient in time domain",
+   "owns": "tau = RC, cutoff frequency, resistance seen by the capacitor",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -103,11 +104,12 @@
   {
    "id": "step-resp",
    "name": "Step and pulse response",
+   "summary": "The step is the running integral of the impulse, and a pulse is a difference of two steps.",
    "chapter": 1,
    "prereqs": [
     "impulse-conv"
    ],
-   "owns": "step/pulse response metrics (rise, settling)",
+   "owns": "step as the integral of an impulse, pulse as a difference of steps",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -135,12 +137,13 @@
   },
   {
    "id": "tf",
-   "name": "Transfer functions, voltage and current gain, transimpedance",
+   "name": "Transfer functions",
+   "summary": "The zero-state ratio of output to input, written as a ratio of polynomials.",
    "chapter": 2,
    "prereqs": [
     "sinusoid-resp"
    ],
-   "owns": "transfer-function definitions (voltage/current gain, transimpedance)",
+   "owns": "zero-state output-input ratio as a ratio of polynomials",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -187,12 +190,13 @@
   {
    "id": "rlc",
    "name": "Series RLC circuits",
+   "summary": "Series resonance, the quality factor Q, and the damping ratio as one over twice Q.",
    "chapter": 2,
    "prereqs": [
-    "direct-h",
-    "pole-zero"
+    "second-order-sys",
+    "direct-h"
    ],
-   "owns": "second-order RLC: w0, Q, damping"
+   "owns": "series resonance, quality factor, damping ratio from Q"
   },
   {
    "id": "bode",
@@ -1210,20 +1214,20 @@
   {
    "id": "first-order-sys",
    "name": "First-order systems",
-   "summary": "Find time constant, DC gain, step and free response of a first-order system and its control.",
+   "summary": "One real pole, a time constant, a DC gain, and the exponential step and free response.",
    "prereqs": [
-    "laplace",
     "step-resp"
-   ]
+   ],
+   "owns": "one real pole, time constant, DC gain, exponential step and free response"
   },
   {
    "id": "second-order-sys",
-   "name": "Second-order systems: damping and natural frequency",
-   "summary": "Relate zeta and omega_n to pole locations and to under/over/critically damped responses.",
+   "name": "Second-order systems",
+   "summary": "Natural frequency, damping ratio, and underdamped, critically damped, and overdamped poles.",
    "prereqs": [
-    "first-order-sys",
     "pole-zero"
    ],
+   "owns": "natural frequency, damping ratio, three damping cases",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
@@ -2138,7 +2142,7 @@
     "impulse-conv",
     "rc-lpf"
    ],
-   "summary": "Apply linearity, convolution and step response to circuit equations: RC charging, pulses, rise time and loading.",
+   "summary": "Superposition, convolution, and the resistance a capacitor sees in a linear circuit.",
    "chapter": 1
   },
   {
@@ -2198,11 +2202,10 @@
    "id": "lti-mech",
    "name": "LTI models of mechanical systems",
    "prereqs": [
-    "step-resp",
-    "freq-char",
+    "second-order-sys",
     "ode-model"
    ],
-   "summary": "Mass-spring-damper and rotational systems as LTI models: static gain, natural frequency, damping, step and frequency response.",
+   "summary": "Map mass, damping, and spring, and the rotational analog, onto natural frequency and damping ratio.",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",

@@ -315,10 +315,6 @@
       "version": 3
     },
     {
-      "id": "first-order-sys-r1-q1",
-      "version": 1
-    },
-    {
       "id": "first-order-sys-r1-q2",
       "version": 1
     },
@@ -328,6 +324,46 @@
     },
     {
       "id": "first-order-sys-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "first-order-sys-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "first-order-sys-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r1-q1",
       "version": 1
     },
     {
@@ -343,28 +379,12 @@
       "version": 1
     },
     {
-      "id": "first-order-sys-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "first-order-sys-r3-q3",
-      "version": 1
-    },
-    {
-      "id": "first-order-sys-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "first-order-sys-r4-q2",
-      "version": 1
-    },
-    {
       "id": "first-order-sys-r4-q3",
       "version": 3
     },
     {
       "id": "first-order-sys#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "model-method-r1-q1",
@@ -743,6 +763,42 @@
       "version": 1
     },
     {
+      "id": "second-order-sys-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r2-q6",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r4-q5",
+      "version": 1
+    },
+    {
       "id": "second-order-sys-r2-q1",
       "version": 1
     },
@@ -759,19 +815,7 @@
       "version": 1
     },
     {
-      "id": "second-order-sys-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "second-order-sys-r3-q3",
-      "version": 1
-    },
-    {
       "id": "second-order-sys-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "second-order-sys-r4-q2",
       "version": 1
     },
     {
@@ -780,7 +824,7 @@
     },
     {
       "id": "second-order-sys#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "ss-solution-r1-q1",
@@ -8115,6 +8159,834 @@
       "version": 1
     },
     {
+      "id": "first-order-sys-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "first-order-sys-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "first-order-sys-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "first-order-sys-r4-q3",
+      "version": 3
+    },
+    {
+      "id": "first-order-sys#explainer",
+      "version": 2
+    },
+    {
+      "id": "step-resp-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q6",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q7",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q6",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r3-q5",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r4-q5",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r4-q6",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "step-resp#explainer",
+      "version": 2
+    },
+    {
+      "id": "rc-lpf-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r1-q6",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r1-q7",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "rc-lpf-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "rc-lpf-r1-q4",
+      "version": 2
+    },
+    {
+      "id": "rc-lpf-r1-q5",
+      "version": 2
+    },
+    {
+      "id": "rc-lpf#explainer",
+      "version": 3
+    },
+    {
+      "id": "lti-circuits-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r1-q6",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r2-q6",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q5",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q6",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q7",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "lti-circuits-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits#explainer",
+      "version": 2
+    },
+    {
+      "id": "second-order-sys-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r2-q6",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r4-q5",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-sys#explainer",
+      "version": 2
+    },
+    {
+      "id": "pole-zero-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q6",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "pole-zero#explainer",
+      "version": 2
+    },
+    {
+      "id": "tf-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "tf-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "tf-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "tf-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "tf-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "tf-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "tf-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "tf-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "tf-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "tf-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "tf-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "tf-r4-q5",
+      "version": 1
+    },
+    {
+      "id": "tf-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "tf-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "tf-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "tf-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "tf-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "tf#explainer",
+      "version": 2
+    },
+    {
+      "id": "freq-resp-circuits-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "freq-resp-circuits-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "freq-resp-circuits-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "freq-resp-circuits-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "freq-resp-circuits-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-circuits#explainer",
+      "version": 1
+    },
+    {
+      "id": "rlc-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "rlc-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "rlc-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "rlc-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "rlc-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "rlc-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "rlc-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "rlc-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "rlc-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "rlc-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "rlc-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "rlc-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "rlc-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "rlc-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "rlc-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "rlc-r4-q3",
+      "version": 3
+    },
+    {
+      "id": "rlc#explainer",
+      "version": 2
+    },
+    {
+      "id": "lti-mech-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-mech-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-mech#explainer",
+      "version": 3
+    },
+    {
+      "id": "fb-amp-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "fb-amp#explainer",
+      "version": 1
+    },
+    {
       "id": "lti-def-r1-q4",
       "version": 1
     },
@@ -8179,14 +9051,6 @@
       "version": 1
     },
     {
-      "id": "rc-lpf-r1-q4",
-      "version": 2
-    },
-    {
-      "id": "rc-lpf-r1-q5",
-      "version": 2
-    },
-    {
       "id": "rc-lpf-r1-q3",
       "version": 1
     },
@@ -8227,6 +9091,14 @@
       "version": 1
     },
     {
+      "id": "rc-lpf-r1-q6",
+      "version": 1
+    },
+    {
+      "id": "rc-lpf-r1-q7",
+      "version": 1
+    },
+    {
       "id": "rc-lpf-r1-q1",
       "version": 2
     },
@@ -8239,8 +9111,16 @@
       "version": 2
     },
     {
-      "id": "rc-lpf#explainer",
+      "id": "rc-lpf-r1-q4",
       "version": 2
+    },
+    {
+      "id": "rc-lpf-r1-q5",
+      "version": 2
+    },
+    {
+      "id": "rc-lpf#explainer",
+      "version": 3
     },
     {
       "id": "cx-exp-r1-q5",
@@ -8439,6 +9319,62 @@
       "version": 1
     },
     {
+      "id": "step-resp-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q6",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q7",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q6",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r3-q5",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r4-q5",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r4-q6",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "step-resp-r1-q3",
+      "version": 1
+    },
+    {
       "id": "step-resp-r1-q2",
       "version": 1
     },
@@ -8452,14 +9388,6 @@
     },
     {
       "id": "step-resp-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "step-resp-r2-q4",
-      "version": 1
-    },
-    {
-      "id": "step-resp-r3-q1",
       "version": 1
     },
     {
@@ -8483,20 +9411,8 @@
       "version": 1
     },
     {
-      "id": "step-resp-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "step-resp-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "step-resp-r1-q3",
-      "version": 1
-    },
-    {
       "id": "step-resp#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "freq-char-r1-q4",
@@ -8563,39 +9479,11 @@
       "version": 1
     },
     {
-      "id": "lti-circuits-r1-q4",
-      "version": 1
-    },
-    {
-      "id": "lti-circuits-r1-q2",
-      "version": 1
-    },
-    {
       "id": "lti-circuits-r1-q3",
       "version": 1
     },
     {
-      "id": "lti-circuits-r2-q1",
-      "version": 1
-    },
-    {
       "id": "lti-circuits-r2-q4",
-      "version": 1
-    },
-    {
-      "id": "lti-circuits-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "lti-circuits-r3-q1",
-      "version": 1
-    },
-    {
-      "id": "lti-circuits-r3-q4",
-      "version": 1
-    },
-    {
-      "id": "lti-circuits-r3-q3",
       "version": 1
     },
     {
@@ -8611,6 +9499,34 @@
       "version": 1
     },
     {
+      "id": "lti-circuits-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r1-q6",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r2-q6",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q5",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q6",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q7",
+      "version": 1
+    },
+    {
       "id": "lti-circuits-r1-q1",
       "version": 2
     },
@@ -8623,8 +9539,36 @@
       "version": 1
     },
     {
-      "id": "lti-circuits#explainer",
+      "id": "lti-circuits-r1-q2",
       "version": 1
+    },
+    {
+      "id": "lti-circuits-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-circuits#explainer",
+      "version": 2
     },
     {
       "id": "freq-resp-circuits-r1-q1",
@@ -8671,7 +9615,7 @@
       "version": 2
     },
     {
-      "id": "freq-resp-circuits-r4-q3",
+      "id": "freq-resp-circuits-r4-q4",
       "version": 1
     },
     {
@@ -8685,6 +9629,10 @@
     {
       "id": "freq-resp-circuits-r2-q1",
       "version": 2
+    },
+    {
+      "id": "freq-resp-circuits-r4-q3",
+      "version": 1
     },
     {
       "id": "freq-resp-circuits#explainer",
@@ -8731,11 +9679,11 @@
       "version": 1
     },
     {
-      "id": "tf-r4-q2",
+      "id": "tf-r4-q4",
       "version": 1
     },
     {
-      "id": "tf-r4-q3",
+      "id": "tf-r4-q5",
       "version": 1
     },
     {
@@ -8751,8 +9699,16 @@
       "version": 1
     },
     {
-      "id": "tf#explainer",
+      "id": "tf-r4-q2",
       "version": 1
+    },
+    {
+      "id": "tf-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "tf#explainer",
+      "version": 2
     },
     {
       "id": "phasors-r1-q4",
@@ -8899,10 +9855,6 @@
       "version": 1
     },
     {
-      "id": "pole-zero-r2-q2",
-      "version": 1
-    },
-    {
       "id": "pole-zero-r2-q3",
       "version": 1
     },
@@ -8912,10 +9864,6 @@
     },
     {
       "id": "pole-zero-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "pole-zero-r3-q3",
       "version": 1
     },
     {
@@ -8931,6 +9879,14 @@
       "version": 1
     },
     {
+      "id": "pole-zero-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "pole-zero-r3-q4",
+      "version": 1
+    },
+    {
       "id": "pole-zero-r1-q1",
       "version": 1
     },
@@ -8943,8 +9899,16 @@
       "version": 1
     },
     {
-      "id": "pole-zero#explainer",
+      "id": "pole-zero-r2-q2",
       "version": 1
+    },
+    {
+      "id": "pole-zero-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "pole-zero#explainer",
+      "version": 2
     },
     {
       "id": "rlc-r1-q4",
@@ -8991,8 +9955,8 @@
       "version": 1
     },
     {
-      "id": "rlc-r4-q3",
-      "version": 3
+      "id": "rlc-r4-q4",
+      "version": 1
     },
     {
       "id": "rlc-r1-q1",
@@ -9007,8 +9971,12 @@
       "version": 2
     },
     {
+      "id": "rlc-r4-q3",
+      "version": 3
+    },
+    {
       "id": "rlc#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "bode-r1-q1",

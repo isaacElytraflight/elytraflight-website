@@ -14,22 +14,6 @@ from verify_harness import check_expected, finish, load_banks, load_texts, prop_
 SKILLS = ["second-order-sys", "ss-solution", "loop-tf", "equilibria", "cruise-control", "app-examples"]
 
 
-def second_order_overshoot(zeta):
-    """Percent overshoot from damping ratio."""
-    return 100 * math.exp(-math.pi * zeta / math.sqrt(1 - zeta**2))
-
-
-def second_order_peak_time(zeta, wn):
-    """Time to first peak."""
-    wd = wn * math.sqrt(1 - zeta**2)
-    return math.pi / wd
-
-
-def second_order_settling_2pct(zeta, wn):
-    """Approximate 2% settling time."""
-    return 4 / (zeta * wn)
-
-
 def main():
     mismatches = []
     banks = load_banks(SKILLS)
@@ -40,15 +24,14 @@ def main():
     expected["second-order-sys-r1-q2"] = z1 * wn1
     expected["second-order-sys-r1-q3"] = wn1 * math.sqrt(1 - z1**2)
 
-    wn2, z2 = 5.0, 0.5
-    expected["second-order-sys-r2-q1"] = second_order_overshoot(z2)
-    expected["second-order-sys-r2-q2"] = second_order_peak_time(z2, wn2)
+    # omega_n is the square root of the constant term of s^2 + 2s + 10
+    expected["second-order-sys-r2-q6"] = math.sqrt(10)
+    # s^2 + 3s + 25: omega_n = 5, zeta = 3 / (2 * 5)
+    expected["second-order-sys-r3-q4"] = 3 / (2 * math.sqrt(25))
 
     wn3, z3 = 3.0, 0.3
-    expected["second-order-sys-r3-q1"] = second_order_settling_2pct(z3, wn3)
     expected["second-order-sys-r3-q2"] = wn3 * math.sqrt(1 - z3**2)
 
-    expected["second-order-sys-r4-q1"] = second_order_overshoot(0.6)
     expected["second-order-sys-r4-q2"] = 5 * math.sqrt(1 - 0.16)
 
     # --- ss-solution ---
@@ -144,10 +127,10 @@ def main():
     # worked examples, recomputed a different way and required to appear in the text
     texts = load_texts(SKILLS)
 
-    # second-order-sys worked: zeta=0.4, wn=6, overshoot=25.4%
-    worked_mp = second_order_overshoot(0.4)
-    if abs(worked_mp - 25.4) > 0.2 or "25.4" not in texts["second-order-sys"]:
-        mismatches.append(f"second-order-sys worked {worked_mp}")
+    # second-order-sys worked: zeta=0.25, wn=7, omega_d = 7*sqrt(1-0.0625)
+    worked_wd = 7 * math.sqrt(1 - 0.25**2)
+    if abs(worked_wd - 6.778) > 0.002 or "6.778" not in texts["second-order-sys"]:
+        mismatches.append(f"second-order-sys worked {worked_wd}")
 
     # ss-solution worked: A = diag(-1,-3), x0 = [2,1], x1(1) = 2*e^{-1} = 0.736
     A_w = np.diag([-1.0, -3.0])

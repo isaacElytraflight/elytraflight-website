@@ -41,6 +41,7 @@
         "sinusoid-resp",
         "impulse-conv",
         "step-resp",
+        "first-order-sys",
         "freq-char",
         "lti-circuits",
         "freq-resp-circuits"
@@ -57,6 +58,7 @@
         "phasors",
         "direct-h",
         "pole-zero",
+        "second-order-sys",
         "rlc",
         "bode",
         "ac-power",

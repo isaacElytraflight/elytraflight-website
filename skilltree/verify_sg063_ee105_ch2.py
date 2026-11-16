@@ -50,11 +50,11 @@ MULTI = {
 }
 
 RETIRED = {
-    "tf": ["tf-r1-q1", "tf-r1-q2", "tf-r3-q2"],
+    "tf": ["tf-r1-q1", "tf-r1-q2", "tf-r3-q2", "tf-r4-q2", "tf-r4-q3"],
     "phasors": ["phasors-r1-q1", "phasors-r1-q2", "phasors-r3-q3"],
     "direct-h": ["direct-h-r1-q1", "direct-h-r1-q2", "direct-h-r2-q3"],
-    "pole-zero": ["pole-zero-r1-q1", "pole-zero-r1-q2", "pole-zero-r1-q3"],
-    "rlc": ["rlc-r1-q1", "rlc-r1-q2", "rlc-r3-q1"],
+    "pole-zero": ["pole-zero-r1-q1", "pole-zero-r1-q2", "pole-zero-r1-q3", "pole-zero-r2-q2", "pole-zero-r3-q3"],
+    "rlc": ["rlc-r1-q1", "rlc-r1-q2", "rlc-r3-q1", "rlc-r4-q3"],
     "bode": ["bode-r1-q2", "bode-r2-q3", "bode-r3-q2"],
     "ac-power": ["ac-power-r1-q1", "ac-power-r1-q2", "ac-power-r3-q1"],
     "bode-circuits": ["bode-circuits-r1-q1", "bode-circuits-r2-q1", "bode-circuits-r3-q1"],

@@ -27,7 +27,10 @@ elif _vs:
 # conceptually-later skills instead (they are not DAG descendants; flagged in the report).
 LEAF_PREVIEW_ALLOWED = {
     'step-resp': {'octc', 'cs-cap-load', 'slew', 'stability'},
-    'freq-char': {'noise-dist', 'opamp-fr', 'fb-errors', 'freq-basics'},
+    'freq-char': {'noise-dist', 'opamp-fr', 'fb-errors', 'freq-basics', 'lti-mech'},
+    # Laplace is no longer on the path into the first-order core. Its round 4
+    # still names the skills that use transforms, as conceptual follow-ons.
+    'laplace': {'first-order-sys', 'second-order-sys', 'pid'},
     'rlc':       {'amp-compensation', 'freq-basics', 'opamp-fr'},
     'ac-power':  {'slew', 'datasheet', 'cs-intro'},
     'mos-cv':    {'mos-caps', 'nmos-regions', 'triode', 'mosfet-struct'},
@@ -73,7 +76,7 @@ LEAF_PREVIEW_ALLOWED.update({   # batches 4-9 (post-merge): leaf skills -> conce
 
 errors, warns = [], []
 # v3 application leaves
-LEAF_PREVIEW_ALLOWED.update({"lti-circuits": ["cs-cap-load", "octc", "slew"], "freq-resp-circuits": ["noise-dist", "opamp-fr", "two-port"], "bode-circuits": ["freq-basics", "gbw", "rlc"], "fb-amp": ["fb-amp-errors", "fb-impedance", "gbw", "inverting"], "fb-amp-errors": ["cd", "cs-analysis", "degeneration", "opamp-fr"], "amp-compensation": ["cs-cap-load", "miller", "opamp-fr"], "lti-mech": ["cruise-control", "second-order-sys", "sys-id"], "loop-margin-design": ["loop-shaping", "robust-stability", "time-delay"]})
+LEAF_PREVIEW_ALLOWED.update({"lti-circuits": ["cs-cap-load", "octc", "slew"], "freq-resp-circuits": ["noise-dist", "opamp-fr", "two-port"], "bode-circuits": ["freq-basics", "gbw", "rlc"], "fb-amp": ["fb-amp-errors", "fb-impedance", "gbw", "inverting"], "fb-amp-errors": ["cd", "cs-analysis", "degeneration", "opamp-fr"], "amp-compensation": ["cs-cap-load", "miller", "opamp-fr"], "lti-mech": ["cruise-control", "sys-id"], "loop-margin-design": ["loop-shaping", "robust-stability", "time-delay"]})
 LEAF_PREVIEW_ALLOWED.update({
     # model-method has no dependents. Round 4 names the later modeling skills.
     "model-method": ["linearization", "sys-id", "equilibria"],

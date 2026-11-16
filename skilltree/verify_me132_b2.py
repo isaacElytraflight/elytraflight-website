@@ -79,8 +79,10 @@ def main():
     expected["first-order-sys-r1-q2"] = rk4(lambda t, y: (2 * 4 - y) / 6, 0, 80, 8000)
     expected["first-order-sys-r1-q3"] = rk4(lambda t, y: (1 - y) / 1, 0, 1, 2000)
     expected["first-order-sys-r2-q1"] = rk4(lambda t, y: -y / 2, 6, 2, 2000)
-    expected["first-order-sys-r2-q3"] = rk4(lambda t, y: (12 * 1 - y) / 4, 0, 60, 6000)
-    expected["first-order-sys-r3-q1"] = 1.0 / 0.25
+    # 90% of a step: 1 - exp(-t/tau) = 0.9, so t = tau * ln(10)
+    expected["first-order-sys-r2-q5"] = 0.5 * math.log(10)
+    # 95% of the slower of tau = 1 s and tau = 4 s: t = 4 * ln(20)
+    expected["first-order-sys-r4-q4"] = 4 * math.log(20)
     # initial slope by a one-sided difference of the closed form, not the derivative rule
     def y_step(t):
         return 9 * (1 - math.exp(-t / 3))

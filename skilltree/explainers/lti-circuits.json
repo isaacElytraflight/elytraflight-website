@@ -1,28 +1,30 @@
 {
- "id": "lti-circuits",
- "title": "LTI analysis of RC and RLC circuits",
- "sections": [
-  {
-   "heading": "The idea",
-   "body_md": "Circuits built from resistors, capacitors and inductors are LTI systems. Each element law is linear: \\(v = iR\\), \\(i = C\\,dv/dt\\), \\(v = L\\,di/dt\\). Combining them with Kirchhoff's laws gives a linear differential equation with constant coefficients, so all the LTI tools apply.\n\nA series RC driven by a source is first order, with time constant \\(\\tau = RC\\). A series RLC is second order, with natural frequency \\(\\omega_0 = 1/\\sqrt{LC}\\) and damping set by the resistance. To find \\(\\tau\\) in a larger first-order circuit, turn off the independent sources and find the resistance seen by the capacitor.\n\nInitial conditions come from continuity: a capacitor's voltage and an inductor's current cannot jump. After a switch event, the circuit moves exponentially from that starting value to its new DC steady state, where capacitors are open and inductors are short.",
-   "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 279 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>RC low-pass with a step input</title><line x1=\"95\" y1=\"46\" x2=\"95\" y2=\"74\"/><line x1=\"95\" y1=\"98\" x2=\"95\" y2=\"126\"/><circle cx=\"95\" cy=\"86\" r=\"12\"/><text x=\"95\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"95\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"78\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">step 0 → Vₛ</text><line x1=\"95\" y1=\"126\" x2=\"95\" y2=\"132\"/><line x1=\"86\" y1=\"132\" x2=\"104\" y2=\"132\"/><line x1=\"90\" y1=\"136\" x2=\"100\" y2=\"136\"/><line x1=\"93.5\" y1=\"140\" x2=\"96.5\" y2=\"140\"/><line x1=\"95\" y1=\"46\" x2=\"113\" y2=\"46\"/><polyline points=\"113,46 130,46 133,40 138,52 143,40 148,52 153,40 158,52 166,46 183,46\"/><text x=\"148\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><line x1=\"183\" y1=\"46\" x2=\"205\" y2=\"46\"/><circle cx=\"205\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"205\" y1=\"56\" x2=\"205\" y2=\"81\"/><line x1=\"205\" y1=\"91\" x2=\"205\" y2=\"116\"/><line x1=\"196\" y1=\"81\" x2=\"214\" y2=\"81\"/><line x1=\"196\" y1=\"91\" x2=\"214\" y2=\"91\"/><text x=\"219\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"205\" y1=\"46\" x2=\"205\" y2=\"56\"/><line x1=\"205\" y1=\"116\" x2=\"205\" y2=\"126\"/><line x1=\"205\" y1=\"126\" x2=\"205\" y2=\"132\"/><line x1=\"196\" y1=\"132\" x2=\"214\" y2=\"132\"/><line x1=\"200\" y1=\"136\" x2=\"210\" y2=\"136\"/><line x1=\"203.5\" y1=\"140\" x2=\"206.5\" y2=\"140\"/><line x1=\"205\" y1=\"46\" x2=\"219\" y2=\"46\"/><line x1=\"219\" y1=\"46\" x2=\"235\" y2=\"46\"/><circle cx=\"238\" cy=\"46\" r=\"3\"/><text x=\"245\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><text x=\"238\" y=\"68\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"238\" y=\"124\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text></svg>",
-   "figure_alt": "RC low-pass filter driven by a step from 0 to Vs."
-  },
-  {
-   "heading": "Key equations",
-   "body_md": "\\[ \\tau = R_{\\text{th}}C, \\qquad \\tau = L/R_{\\text{th}} \\]\n\\[ \\omega_0 = \\frac{1}{\\sqrt{LC}}, \\qquad \\zeta_{\\text{series}} = \\frac R2\\sqrt{\\frac CL} \\]"
-  },
-  {
-   "heading": "Worked example",
-   "body_md": "A 47 kΩ resistor charges a 330 nF capacitor from a 9 V source. Then \\(\\tau = 15.5\\ \\mathrm{ms}\\), the voltage reaches 5.7 V after one time constant, and it is within 1% of 9 V after 78 ms. Adding a 0.2 H inductor in series gives \\(\\omega_0 = 3890\\ \\mathrm{rad/s}\\) and \\(\\zeta \\approx 30\\), heavily overdamped."
-  },
-  {
-   "heading": "Common pitfalls",
-   "body_md": "- Using the source resistance alone instead of the Thevenin resistance.\n- Letting a capacitor voltage jump at a switch.\n- Confusing \\(\\omega_0\\) in rad/s with hertz."
-  },
-  {
-   "heading": "Where this leads",
-   "body_md": "Replacing the differential equation by impedances leads to circuit transfer functions and frequency response."
-  }
- ]
+  "id": "lti-circuits",
+  "title": "LTI analysis of RC and RLC circuits",
+  "sections": [
+    {
+      "heading": "The idea",
+      "body_md": "A circuit of fixed resistors, capacitors, and inductors is linear and time-invariant. Superposition is the working rule: the response to a sum of inputs is the sum of the responses, and a scaled input scales the response. Time invariance says that delaying every input delays the output by the same amount.\n\nConvolution is that rule written as an integral. The impulse response is the response to a unit impulse, and the response to any other input is the input blended against that impulse response. A short pulse acts like an impulse whose weight is the area of the pulse.\n\nLoading is the same idea applied to the resistance a capacitor sees. Independent sources are turned off first: a voltage source becomes a short and a current source becomes an open. The resistance of what remains, times the capacitance, is the time constant. The exponential that uses that time constant is already known from the first-order skill.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 279 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>RC low-pass with a step input</title><line x1=\"95\" y1=\"46\" x2=\"95\" y2=\"74\"/><line x1=\"95\" y1=\"98\" x2=\"95\" y2=\"126\"/><circle cx=\"95\" cy=\"86\" r=\"12\"/><text x=\"95\" y=\"84\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"95\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"78\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">step 0 → Vₛ</text><line x1=\"95\" y1=\"126\" x2=\"95\" y2=\"132\"/><line x1=\"86\" y1=\"132\" x2=\"104\" y2=\"132\"/><line x1=\"90\" y1=\"136\" x2=\"100\" y2=\"136\"/><line x1=\"93.5\" y1=\"140\" x2=\"96.5\" y2=\"140\"/><line x1=\"95\" y1=\"46\" x2=\"113\" y2=\"46\"/><polyline points=\"113,46 130,46 133,40 138,52 143,40 148,52 153,40 158,52 166,46 183,46\"/><text x=\"148\" y=\"34\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><line x1=\"183\" y1=\"46\" x2=\"205\" y2=\"46\"/><circle cx=\"205\" cy=\"46\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"205\" y1=\"56\" x2=\"205\" y2=\"81\"/><line x1=\"205\" y1=\"91\" x2=\"205\" y2=\"116\"/><line x1=\"196\" y1=\"81\" x2=\"214\" y2=\"81\"/><line x1=\"196\" y1=\"91\" x2=\"214\" y2=\"91\"/><text x=\"219\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"205\" y1=\"46\" x2=\"205\" y2=\"56\"/><line x1=\"205\" y1=\"116\" x2=\"205\" y2=\"126\"/><line x1=\"205\" y1=\"126\" x2=\"205\" y2=\"132\"/><line x1=\"196\" y1=\"132\" x2=\"214\" y2=\"132\"/><line x1=\"200\" y1=\"136\" x2=\"210\" y2=\"136\"/><line x1=\"203.5\" y1=\"140\" x2=\"206.5\" y2=\"140\"/><line x1=\"205\" y1=\"46\" x2=\"219\" y2=\"46\"/><line x1=\"219\" y1=\"46\" x2=\"235\" y2=\"46\"/><circle cx=\"238\" cy=\"46\" r=\"3\"/><text x=\"245\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><text x=\"238\" y=\"68\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"238\" y=\"124\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text></svg>",
+      "figure_alt": "A smooth rising curve with no component values.",
+      "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>linear step</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,127.8 52,122.9 55.1,118.4 58.1,114 61.1,109.9 64.1,106.1 67.2,102.4 70.2,99 73.2,95.7 76.2,92.6 79.2,89.7 82.3,86.9 85.3,84.3 88.3,81.8 91.3,79.4 94.4,77.2 97.4,75.1 100.4,73.1 103.4,71.3 106.4,69.5 109.5,67.8 112.5,66.2 115.5,64.7 118.5,63.3 121.6,61.9 124.6,60.7 127.6,59.5 130.6,58.3 133.6,57.2 136.7,56.2 139.7,55.3 142.7,54.3 145.7,53.5 148.8,52.7 151.8,51.9 154.8,51.2 157.8,50.5 160.8,49.8 163.9,49.2 166.9,48.6 169.9,48.1 172.9,47.5 176,47 179,46.6 182,46.1 185,45.7 188,45.3 191.1,44.9 194.1,44.6 197.1,44.3 200.1,43.9 203.2,43.6 206.2,43.4 209.2,43.1 212.2,42.8 215.2,42.6 218.3,42.4 221.3,42.1 224.3,41.9 227.3,41.7 230.4,41.6 233.4,41.4 236.4,41.2 239.4,41.1 242.4,40.9 245.5,40.8 248.5,40.7 251.5,40.5 254.5,40.4 257.6,40.3 260.6,40.2 263.6,40.1 266.6,40 269.6,39.9 272.7,39.8 275.7,39.8 278.7,39.7 281.7,39.6 284.8,39.6 287.8,39.5 290.8,39.4 293.8,39.4 296.8,39.3 299.9,39.3 302.9,39.2 305.9,39.2 308.9,39.1 312,39.1 315,39.1 318,39\" stroke-width=\"2.2\"/></svg>"
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "\\[\ny(a u_1+b u_2)=a\\,y(u_1)+b\\,y(u_2)\n\\]\n\\[\ny(t)=\\int_0^t h(\\lambda)\\,u(t-\\lambda)\\,d\\lambda\n\\]\n\\[\nR_{\\mathrm{th}}=R_1\\parallel R_2=\\frac{R_1 R_2}{R_1+R_2}\n\\]\nThe parallel formula is the resistance at a capacitor node that sees two resistors after the sources are removed."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "A capacitor node sees 6 kΩ to a voltage source and 18 kΩ to ground. Turn the voltage source off and it becomes a short, so the two resistors are in parallel: \\(R_{\\mathrm{th}}=(6\\times 18)/(6+18)=4.5\\ \\mathrm{k\\Omega}\\). That is the resistance the capacitor sees. Separately, an input of 1.5 V produces 0.45 V at a linear output, so an input of 6 V produces 1.8 V there, because the circuit scales."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Leaving an independent voltage source in place while measuring the resistance the capacitor sees. Adding the responses of two inputs that were not applied together. Using the full width of a rectangular impulse response at a time when only part of that rectangle has occurred."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Open-circuit time constants, slew limits, and capacitive loads on amplifier nodes all start from the resistance a capacitor sees and from superposition of the inputs that drive it."
+    }
+  ],
+  "version": 2
 }
