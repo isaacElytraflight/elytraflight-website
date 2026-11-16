@@ -280,13 +280,13 @@ def write_local_core():
         4,
         r"Which statements about the error of the linear approximation are true?",
         [
-            r"It matches the value and the first derivative at the chosen point.",
+            r"The error is what is left after the value and the first derivative at the chosen point are matched.",
             r"For a smooth function, the error is of higher order than the step.",
             r"The second derivative has to be matched before this first-order formula can be written.",
             r"The error is zero for every cubic, at every step.",
         ],
         [0, 1],
-        r"Matching the value and the first derivative is the whole first-order formula, and the error is then higher order in the step. The second derivative is an extra term a later skill adds. It is not required before the linear formula exists. A cubic still has a nonzero error at a finite step.",
+        r"The error is the remainder after the value and the first derivative at the chosen point are matched, and that remainder is higher order in the step. The second derivative is an extra term a later skill adds. It is not required before the linear formula exists. A cubic still has a nonzero error at a finite step.",
         fig=fig,
         alt=alt,
         preview=["taylor-approximation-multivariable"],
@@ -494,7 +494,7 @@ def write_core_explainers():
             },
             {
                 "heading": "Worked example",
-                "body_md": r"Take stage costs \(9\), \(12\), and \(15\). The sum is \(36\). A terminal cost is not present, so nothing is added after the sum. The product \(9 \cdot 12 \cdot 15\) is not the cost. Now start at state \(20\), with the update \(x_+ = x + u\) and inputs \(9\) then \(12\). The states are \(20\), then \(29\), then \(41\). Any other list of states with those inputs breaks the update and is not feasible. The sum \(36\) is still the cost of the feasible list. Feasibility did not set the cost to zero.",
+                "body_md": r"Take the inputs \(9\), \(12\), and \(15\), and let each stage cost equal that input. The sum is \(36\). A terminal cost is not present, so nothing is added after the sum. The product \(9 \cdot 12 \cdot 15\) is not the cost. Start at state \(20\) with the update \(x_+ = x + u\). The states are \(20\), then \(29\), then \(41\), then \(56\). Any other list of states with those same inputs breaks the update and is not feasible. The sum \(36\) is the cost of this same list. Feasibility did not set the cost to zero.",
             },
             {
                 "heading": "Common pitfalls",

@@ -10748,7 +10748,7 @@
     },
     {
       "id": "local-linear-approximation-r4-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "local-linear-approximation#explainer",
@@ -11156,7 +11156,7 @@
     },
     {
       "id": "finite-horizon-sequence#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "trajectory-optimization-r1-q2",

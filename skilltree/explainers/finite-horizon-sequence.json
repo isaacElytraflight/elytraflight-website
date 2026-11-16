@@ -1,7 +1,7 @@
 {
   "id": "finite-horizon-sequence",
   "title": "Finite-horizon decision sequence",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -15,7 +15,7 @@
     },
     {
       "heading": "Worked example",
-      "body_md": "Take stage costs \\(9\\), \\(12\\), and \\(15\\). The sum is \\(36\\). A terminal cost is not present, so nothing is added after the sum. The product \\(9 \\cdot 12 \\cdot 15\\) is not the cost. Now start at state \\(20\\), with the update \\(x_+ = x + u\\) and inputs \\(9\\) then \\(12\\). The states are \\(20\\), then \\(29\\), then \\(41\\). Any other list of states with those inputs breaks the update and is not feasible. The sum \\(36\\) is still the cost of the feasible list. Feasibility did not set the cost to zero."
+      "body_md": "Take the inputs \\(9\\), \\(12\\), and \\(15\\), and let each stage cost equal that input. The sum is \\(36\\). A terminal cost is not present, so nothing is added after the sum. The product \\(9 \\cdot 12 \\cdot 15\\) is not the cost. Start at state \\(20\\) with the update \\(x_+ = x + u\\). The states are \\(20\\), then \\(29\\), then \\(41\\), then \\(56\\). Any other list of states with those same inputs breaks the update and is not feasible. The sum \\(36\\) is the cost of this same list. Feasibility did not set the cost to zero."
     },
     {
       "heading": "Common pitfalls",

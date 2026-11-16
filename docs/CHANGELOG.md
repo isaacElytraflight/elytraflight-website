@@ -475,6 +475,7 @@ Skills: `local-linear-approximation`, `nl-cap`, `diode-ss`, `ss-model`, `bjt-ss`
 
 Items above version 1:
 
+- `local-linear-approximation-r4-q3` version 2
 - `nl-cap-r2-q1` version 2
 - `nl-cap-r2-q2` version 2
 - `nl-cap-r3-q1` version 2
@@ -498,6 +499,7 @@ Items above version 1:
 - `linearization#explainer` version 3
 - `taylor-approximation-multivariable-r4-q1` version 2
 - `taylor-approximation-multivariable#explainer` version 2
+- `finite-horizon-sequence#explainer` version 2
 - `trajectory-optimization#explainer` version 2
 - `mpc-r4-q1` version 2
 - `mpc-r4-q2` version 2

@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-16T22:11:12.941962Z",
+  "generated": "2026-11-16T22:19:59.688951Z",
   "skills": {
-    "file": "skills.f0ef7b52.json",
-    "hash": "f0ef7b52"
+    "file": "skills.f26b1438.json",
+    "hash": "f26b1438"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -1848,7 +1848,7 @@
       "file": "banks/local-global-minima.c2b237f2.json"
     },
     "local-linear-approximation": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1856,8 +1856,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "15220f6e",
-      "file": "banks/local-linear-approximation.15220f6e.json"
+      "hash": "5c66d6ed",
+      "file": "banks/local-linear-approximation.5c66d6ed.json"
     },
     "loop-gain": {
       "version": 5,
@@ -3825,10 +3825,10 @@
       "version": 1
     },
     "finite-horizon-sequence": {
-      "hash": "096a433d",
-      "file": "explainers/finite-horizon-sequence.096a433d.json",
+      "hash": "ae569269",
+      "file": "explainers/finite-horizon-sequence.ae569269.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "first-order-optimality": {
       "hash": "1d376058",
