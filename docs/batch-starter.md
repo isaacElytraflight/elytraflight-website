@@ -48,7 +48,7 @@ On the candidate you intend to push, run once:
 python3 tools/skilltree-content/run_gates.py --batch <id> --docs
 ```
 
-That command runs the build, schema, reference, graph, domain, deep-quota, dedupe, numeric verifier, figure bounds, strict KaTeX, test-content, test-merge, test-migrate, and Puppeteer gates. There is no separate CI workflow for content; this runner is the gate. `--docs` regenerates the changelog, the brief, the report, and `docs/content-versions.json`. After a text-only review fix, run only the focused check for what changed, not the full gate run again. Run the full command again only if the later edit can change schema, figures, math, or the browser suite.
+That command runs the build, schema, reference, graph, domain, deep-quota, dedupe, numeric verifier, figure bounds, strict KaTeX, test-content, test-merge, and test-migrate gates. A content-only diff still runs those gates, including schema validation, the no-source-references gate, the 25% deep-type quota, dedupe, and the reference checks, and skips the full Puppeteer suite. The suite runs when any changed path is not content, including app or UI code (`public/skilltree/*.js`, `*.css`, `*.html`) or the app or build code. `--browser` forces it. `--no-browser` skips it. The command prints the decision. There is no separate CI workflow for content; this runner is the gate. `--docs` regenerates the changelog, the brief, the report, and `docs/content-versions.json`. After a text-only review fix, run only the focused check for what changed, not the full gate run again. Run the full command again only if the later edit is not content-only.
 
 ## Generated files
 
@@ -92,4 +92,4 @@ Outside contributors do not self-merge. Branch protection on `main` uses a rules
 - Use the shared helpers. Do not paste a new bank writer or numeric-check loop.
 - Focused tests while working, then one `run_gates.py --batch <id> --docs` at the end.
 - Commit no scratch files, terminal logs, or screenshots from the run.
-- At most one short browser smoke check: load the tree, open one new skill, one or two screenshots. The gates, not a second pass through the app, are the validation.
+- One short browser smoke check on every pull request, content or UI: load the tree, open one changed skill, and take 1–2 screenshots. That check is not the full browser suite.

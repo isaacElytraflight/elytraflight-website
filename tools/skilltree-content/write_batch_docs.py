@@ -161,7 +161,7 @@ def brief(spec, counts, boxes):
         "## Gates",
         "",
         f"`python3 tools/skilltree-content/run_gates.py --batch {spec['id']}`.",
-        "That runs the schema, graph, and domain validators, the reference gate, the deep-quota gate, the dedupe gate, the batch numeric verifier, the figure-bounds check, strict KaTeX, and the content, merge, migrate, and Puppeteer tests.",
+        "That runs the schema, graph, and domain validators, the reference gate, the deep-quota gate, the dedupe gate, the batch numeric verifier, the figure-bounds check, strict KaTeX, and the content, merge, and migrate tests. The full browser suite runs only when the diff is not content-only. `--browser` and `--no-browser` override that.",
         "The shingle gate and the 10% spot audit are deferred. Writers paraphrase from understanding: no copied wording, problems, parameter sets, or figures.",
         "",
         "## Deliverables",
@@ -212,7 +212,12 @@ def report(spec, counts, items, gate):
         lines.append("No gate summary yet. Run `tools/skilltree-content/run_gates.py`.")
     else:
         for step in gate["steps"]:
-            mark = "PASS" if step["ok"] else "FAIL"
+            if step.get("skipped"):
+                mark = "SKIP"
+            elif step["ok"]:
+                mark = "PASS"
+            else:
+                mark = "FAIL"
             lines.append(f"- {mark} `{step['name']}`: {step['summary']}")
         lines.append("")
         lines.append("Overall: " + ("pass" if gate.get("ok") else "fail") + ".")
