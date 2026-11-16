@@ -87,6 +87,7 @@ Skills: `app-examples`, `cruise-control`, `equilibria`, `loop-tf`, `second-order
 
 Items above version 1:
 
+- `loop-tf#explainer` version 2
 - `second-order-sys#explainer` version 3
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
@@ -109,7 +110,7 @@ Items above version 1:
 - `sensitivity-r1-q1` version 2
 - `sensitivity-r2-q1` version 2
 - `sensitivity-r4-q1` version 2
-- `sensitivity#explainer` version 2
+- `sensitivity#explainer` version 4
 - `ss-to-tf-r2-q1` version 2
 - `ss-to-tf-r3-q1` version 2
 - `step-specs-r1-q2` version 2
@@ -431,6 +432,31 @@ Items above version 1:
 - `second-order-optimality-r4-q3` version 2
 - `convex-optimality-global-r4-q3` version 2
 - `singular-value-decomposition-r4-q3` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-057 group 3 — sg057-g3
+
+Box: EE 105, ME 132, and Feedback Systems.
+
+Skills: `fb-intro`, `loop-gain`, `fb-amp`, `loop-tf`, `fb-errors`, `sensitivity`, `stability`, `amp-compensation`.
+
+Items above version 1:
+
+- `fb-intro#explainer` version 2
+- `loop-gain-r2-q2` version 2
+- `loop-gain#explainer` version 4
+- `fb-amp-r3-q1` version 2
+- `loop-tf#explainer` version 2
+- `fb-errors#explainer` version 3
+- `sensitivity-r1-q1` version 2
+- `sensitivity-r2-q1` version 2
+- `sensitivity-r4-q1` version 2
+- `sensitivity#explainer` version 4
+- `stability#explainer` version 2
+- `amp-compensation-r4-q2` version 3
+- `amp-compensation-r4-q3` version 3
+- `amp-compensation#explainer` version 4
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 

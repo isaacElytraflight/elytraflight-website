@@ -1,7 +1,208 @@
 {
   "skill_id": "fb-errors",
-  "version": 2,
+  "version": 3,
   "questions": [
+    {
+      "id": "fb-errors-r1-q4",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The fractional miss of a feedback loop from its ideal feedback ratio is",
+      "explanation": "The closed loop reaches the ideal feedback ratio only as \\(L\\) grows. The fraction still missing is \\(S = 1/(1+L)\\). The complementary fraction \\(L/(1+L)\\) is the part that has arrived. \\(1/L\\) is the large-\\(L\\) approximation, not the exact miss.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>negative feedback</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A forward block, a summing junction, and a return path that is subtracted.",
+      "options": [
+        "\\(L\\), the loop gain",
+        "\\(1/L\\), for every value of \\(L\\)",
+        "\\(1/(1+L)\\)",
+        "\\(L/(1+L)\\)"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r1-q5",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A loop has \\(L = 24\\). What is the fractional miss \\(S = 1/(1+L)\\)?",
+      "explanation": "\\(S = 1/(1+24) = 1/25 = 0.04\\). The approximation \\(1/24\\) is close and is not this value. The complementary fraction \\(24/25\\) is the part of the ideal ratio the loop does reach.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>negative feedback</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A forward block, a summing junction, and a return path that is subtracted.",
+      "answer": 0.04,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r1-q6",
+      "round": 1,
+      "type": "symbolic",
+      "prompt": "Write the fractional miss \\(S\\) using the name \\(L\\) for the loop gain.",
+      "explanation": "The miss is \\(1/(1+L)\\). The form \\(L/(1+L)\\) is the complementary fraction, the part of the ideal ratio that is achieved. The form \\(1/L\\) drops the \\(1\\) in the denominator.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>negative feedback</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A forward block, a summing junction, and a return path that is subtracted.",
+      "answer": "1/(1+L)",
+      "variables": [
+        {
+          "name": "L",
+          "min": 1.0,
+          "max": 30.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "1/(L+1)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r2-q4",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A loop has \\(L = 9\\). What is the fractional miss \\(1/(1+L)\\)?",
+      "explanation": "\\(1/(1+9) = 0.1\\). The value \\(1/9\\) is the large-gain approximation. The value \\(9/10\\) is how much of the ideal ratio is achieved, not how much is missing.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>negative feedback</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A forward block, a summing junction, and a return path that is subtracted.",
+      "answer": 0.1,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r2-q5",
+      "round": 2,
+      "type": "mc",
+      "prompt": "As \\(|L|\\) falls with frequency, the fractional miss",
+      "explanation": "\\(S = 1/(1+L)\\) is larger when \\(|L|\\) is smaller. A loop that is accurate at low frequency becomes less accurate where the loop gain has rolled off. The miss is not equal to \\(L\\), and it is not frozen at the DC number.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop gain falling as frequency rises</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "options": [
+        "stays at its DC value, because \\(S\\) is defined at DC only",
+        "grows, because \\(1/(1+L)\\) grows as \\(|L|\\) shrinks",
+        "falls, because a smaller loop is a more accurate loop",
+        "becomes the loop gain itself"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r2-q6",
+      "round": 2,
+      "type": "order",
+      "prompt": "Order the steps from a loop gain to the fractional miss.",
+      "explanation": "The miss is the reciprocal of \\(1+L\\), so \\(L\\) comes first, then the sum, then the reciprocal. Reciprocal of \\(L\\) alone is the large-gain shortcut. Reciprocal of \\(L/(1+L)\\) is the complementary fraction turned upside down.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop gain falling as frequency rises</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "steps": [
+        "Read the loop gain \\(L\\) at the frequency of interest.",
+        "Add \\(1\\) to that loop gain.",
+        "Take the reciprocal of the sum."
+      ],
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r3-q4",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note evaluates the miss of a loop with \\(L = 4\\). Exactly one step is wrong.",
+      "explanation": "\\(1/(1+4) = 1/5\\), while \\(1/4\\) is a different number. The shortcut \\(1/L\\) agrees with \\(1/(1+L)\\) only as \\(L\\) becomes large. The first, second, and last steps match the definition.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>negative feedback</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A forward block, a summing junction, and a return path that is subtracted.",
+      "steps": [
+        "The exact fractional miss is \\(1/(1+L)\\).",
+        "With \\(L = 4\\), that miss is \\(1/5\\).",
+        "The large-gain shortcut \\(1/L\\) is exact for this \\(L\\).",
+        "A larger \\(L\\) would make the exact miss smaller."
+      ],
+      "flaw_index": 2,
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r3-q5",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "At a high frequency, \\(|L| = 3\\). What is the fractional miss \\(1/(1+|L|)\\) used as the size of \\(S\\)?",
+      "explanation": "The size is \\(1/(1+3) = 0.25\\). A low-frequency loop gain would give a smaller miss. The value \\(1/3\\) drops the \\(1\\), and \\(3/4\\) is the complementary fraction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop gain falling as frequency rises</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "answer": 0.25,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r3-q6",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which changes make the fractional miss \\(1/(1+L)\\) smaller?",
+      "explanation": "The miss shrinks when \\(|L|\\) grows, including when that large gain extends to higher frequency. Substituting \\(1/L\\) is a different formula. Opening the loop sets \\(L = 0\\) and makes the miss \\(1\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop gain falling as frequency rises</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "options": [
+        "Raising \\(|L|\\) at the frequency of interest",
+        "Replacing \\(L\\) by \\(1/L\\) inside the formula",
+        "Keeping \\(|L|\\) large over a wider band",
+        "Opening the loop so that \\(L = 0\\)"
+      ],
+      "correct_indices": [
+        0,
+        2
+      ],
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r4-q4",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of disturbance and tracking. A loop has \\(L = 11\\). The fraction \\(S = 1/(1+L)\\) is what a later skill multiplies onto an output disturbance. What is that fraction?",
+      "explanation": "\\(S = 1/(1+11) = 1/12\\). The disturbance reading uses this same fraction. The value \\(11/12\\) is the complementary fraction, and \\(1/11\\) is the large-gain shortcut.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 352 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>disturbance at the output</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"264\" cy=\"78\" r=\"12\"/><text x=\"242\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"278\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"264\" y1=\"28\" x2=\"264\" y2=\"66\"/><polygon points=\"264,66 261.3,59.6 266.7,59.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"280\" y=\"34\" text-anchor=\"start\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"276\" y1=\"78\" x2=\"312\" y2=\"78\"/><polygon points=\"312,78 305.6,80.7 305.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"316\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"304\" y1=\"78\" x2=\"304\" y2=\"134\"/><line x1=\"304\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"184\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A feedback loop with a disturbance added at the output.",
+      "preview": [
+        "sensitivity"
+      ],
+      "answer": 0.0833333,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r4-q5",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of integral control. Why does a loop with infinite DC loop gain have no steady miss on a constant reference?",
+      "explanation": "The steady miss on a constant reference is \\(S(0) = 1/(1+L(0))\\). An infinite DC loop gain drives that fraction to zero. A later skill gets that infinite DC gain from an integrator. The junction still subtracts, and the phase at DC is a different question.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>negative feedback</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A forward block, a summing junction, and a return path that is subtracted.",
+      "preview": [
+        "pid"
+      ],
+      "options": [
+        "Infinite \\(L(0)\\) makes \\(1/(1+L(0))\\) zero",
+        "The junction stops subtracting at DC",
+        "A constant reference has no ideal feedback ratio",
+        "Infinite loop gain forces the phase to \\(-180^\\circ\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r4-q6",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of amplifier gain error. At the frequency of interest, \\(|L| = 4\\). What is the fractional miss \\(1/(1+|L|)\\)?",
+      "explanation": "The miss is \\(1/(1+4) = 0.2\\). An amplifier whose open-loop gain has fallen to this loop gain has the same fraction. The value \\(0.25\\) is \\(1/|L|\\), and \\(0.8\\) is the complementary fraction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop gain falling as frequency rises</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "preview": [
+        "fb-amp-errors"
+      ],
+      "answer": 0.2,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
     {
       "id": "fb-errors-r1-q1",
       "round": 1,
@@ -16,35 +217,8 @@
       "correct_index": 2,
       "explanation": "\\(G_{cl}=\\dfrac1f\\cdot\\dfrac{T_0}{1+T_0}=\\dfrac1f\\left(1-\\dfrac{1}{1+T_0}\\right)\\). The shortfall is \\(\\dfrac{1}{1+T_0}\\approx\\dfrac{1}{T_0}\\).\n• \\(\\dfrac{T_0}{1+T_0}\\) is the ratio actual/ideal, not the error.\n• \\(1/f\\) is the ideal gain itself.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 370 150\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Negative feedback loop</title><text x=\"18\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sᵢₙ</text><line x1=\"30\" y1=\"50\" x2=\"82\" y2=\"50\"/><polygon points=\"82,50 75.6,52.7 75.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"92\" cy=\"50\" r=\"10\"/><text x=\"76\" y=\"46\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"100\" y=\"72\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"102\" y1=\"50\" x2=\"140\" y2=\"50\"/><polygon points=\"140,50 133.6,52.7 133.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"121\" y=\"40\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">sₑᵣᵣ</text><rect x=\"140\" y=\"28\" width=\"60\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"200\" y1=\"50\" x2=\"268\" y2=\"50\"/><polygon points=\"268,50 261.6,52.7 261.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"278\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">sₒᵤₜ</text><polyline points=\"235,50 235,115 200,115\"/><circle cx=\"235\" cy=\"50\" r=\"2.6\" fill=\"currentColor\"/><rect x=\"140\" y=\"93\" width=\"60\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"119\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"140,115 92,115\"/><line x1=\"92\" y1=\"115\" x2=\"92\" y2=\"62\"/><polygon points=\"92,62 94.7,68.4 89.3,68.4\" fill=\"currentColor\" stroke=\"none\"/></svg>",
-      "figure_alt": "Negative feedback block diagram."
-    },
-    {
-      "id": "fb-errors-r1-q2",
-      "round": 1,
-      "type": "mc",
-      "prompt": "What is meant by a 'dynamic' error in a feedback system, as opposed to a static error?",
-      "options": [
-        "An error caused only by tolerances in the feedback element f",
-        "An error that grows with signal frequency (or shows up in transients) because the loop gain \\(|T(j\\omega)|\\) falls at high frequency",
-        "An error that exists only at DC",
-        "An error caused by the system being switched on"
-      ],
-      "correct_index": 1,
-      "explanation": "The static error \\(1/(1+T_0)\\) uses the DC loop gain. At higher frequencies \\(|T(j\\omega)|\\) drops (above the loop's dominant pole it falls 20 dB/decade), so the error \\(\\left|\\dfrac{1}{1+T(j\\omega)}\\right|\\) rises, in magnitude and phase. A step response that settles with a time constant is the same effect in the time domain.\n• Tolerances in the feedback element set the IDEAL gain \\(1/f\\), they are not a loop-gain error.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Loop gain falls with frequency</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|T| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,47.7 136.7,47.7 266.7,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"118.6\" x2=\"53\" y2=\"118.6\"/><text x=\"44\" y=\"121.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"83.1\" x2=\"53\" y2=\"83.1\"/><text x=\"44\" y=\"86.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"47.7\" x2=\"53\" y2=\"47.7\"/><text x=\"44\" y=\"50.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"93.3\" y1=\"151\" x2=\"93.3\" y2=\"157\"/><text x=\"93.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"136.7\" y1=\"151\" x2=\"136.7\" y2=\"157\"/><text x=\"136.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"180\" y1=\"151\" x2=\"180\" y2=\"157\"/><text x=\"180\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"223.3\" y1=\"151\" x2=\"223.3\" y2=\"157\"/><text x=\"223.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"266.7\" y1=\"151\" x2=\"266.7\" y2=\"157\"/><text x=\"266.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
-      "figure_alt": "Bode magnitude of loop gain: 60 dB to 100 Hz, then falling to 0 dB at 100 kHz."
-    },
-    {
-      "id": "fb-errors-r1-q3",
-      "round": 1,
-      "type": "numeric",
-      "prompt": "A system has DC loop gain \\(T_0=499\\). What is its static gain error, in percent?",
-      "answer": 0.2,
-      "unit": "%",
-      "tolerance": 0.01,
-      "explanation": "\\(\\dfrac{1}{1+T_0}=\\dfrac{1}{500}=0.2\\%\\). The closed-loop gain is 0.2% below \\(1/f\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 370 150\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Negative feedback loop</title><text x=\"18\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sᵢₙ</text><line x1=\"30\" y1=\"50\" x2=\"82\" y2=\"50\"/><polygon points=\"82,50 75.6,52.7 75.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"92\" cy=\"50\" r=\"10\"/><text x=\"76\" y=\"46\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"100\" y=\"72\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"102\" y1=\"50\" x2=\"140\" y2=\"50\"/><polygon points=\"140,50 133.6,52.7 133.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"121\" y=\"40\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">sₑᵣᵣ</text><rect x=\"140\" y=\"28\" width=\"60\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"200\" y1=\"50\" x2=\"268\" y2=\"50\"/><polygon points=\"268,50 261.6,52.7 261.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"278\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">sₒᵤₜ</text><polyline points=\"235,50 235,115 200,115\"/><circle cx=\"235\" cy=\"50\" r=\"2.6\" fill=\"currentColor\"/><rect x=\"140\" y=\"93\" width=\"60\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"119\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"140,115 92,115\"/><line x1=\"92\" y1=\"115\" x2=\"92\" y2=\"62\"/><polygon points=\"92,62 94.7,68.4 89.3,68.4\" fill=\"currentColor\" stroke=\"none\"/></svg>",
-      "figure_alt": "Negative feedback block diagram with T0 = 499."
+      "figure_alt": "Negative feedback block diagram.",
+      "version": 1
     },
     {
       "id": "fb-errors-r2-q1",
@@ -56,35 +230,8 @@
       "tolerance": 0.02,
       "explanation": "\\(T(j10^4)=\\dfrac{1000}{1+j100}=\\dfrac{1000(1-j100)}{10001}=0.09999-j9.999\\).\n\\(1+T=1.09999-j9.999\\), \\(|1+T|=10.06\\), so \\(|1/(1+T)|=9.941\\%\\).\nAt DC the error was 0.1%; at 10 kHz, where \\(|T|\\approx10\\), it is about 10%. Common mistake: using \\(1/(1+|T|)=9.1\\%\\), which ignores that \\(T\\) is almost purely imaginary here.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Loop gain T(jf)</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|T| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,47.7 136.7,47.7 266.7,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"118.6\" x2=\"53\" y2=\"118.6\"/><text x=\"44\" y=\"121.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"83.1\" x2=\"53\" y2=\"83.1\"/><text x=\"44\" y=\"86.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"47.7\" x2=\"53\" y2=\"47.7\"/><text x=\"44\" y=\"50.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"93.3\" y1=\"151\" x2=\"93.3\" y2=\"157\"/><text x=\"93.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"136.7\" y1=\"151\" x2=\"136.7\" y2=\"157\"/><text x=\"136.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"180\" y1=\"151\" x2=\"180\" y2=\"157\"/><text x=\"180\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"223.3\" y1=\"151\" x2=\"223.3\" y2=\"157\"/><text x=\"223.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"266.7\" y1=\"151\" x2=\"266.7\" y2=\"157\"/><text x=\"266.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"223.3\" y1=\"154\" x2=\"223.3\" y2=\"118.6\" stroke-dasharray=\"4 3\"/><text x=\"227.3\" y=\"112.6\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10 kHz</text></svg>",
-      "figure_alt": "Loop gain Bode magnitude with a marker at 10 kHz where |T| is about 20 dB."
-    },
-    {
-      "id": "fb-errors-r2-q2",
-      "round": 2,
-      "type": "numeric",
-      "prompt": "The same loop (\\(T=\\dfrac{1000}{1+jf/100\\ \\mathrm{Hz}}\\)) has \\(f=0.01\\), so the ideal gain is 100. What is the closed-loop gain MAGNITUDE \\(\\dfrac1f\\left|\\dfrac{T}{1+T}\\right|\\) at 10 kHz?",
-      "answer": 99.4053,
-      "unit": "V/V",
-      "tolerance": 0.005,
-      "explanation": "\\(\\left|\\dfrac{T}{1+T}\\right|=\\dfrac{|0.09999-j9.999|}{|1.09999-j9.999|}=\\dfrac{9.9995}{10.059}=0.99407\\), so \\(|G_{cl}|=99.41\\).\nOnly 0.6% low in magnitude, even though the error ratio is about 10%. The error is mostly in QUADRATURE (90° out of phase), so it mainly shifts the phase instead of shrinking the magnitude.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Loop gain T(jf)</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|T| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,47.7 136.7,47.7 266.7,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"118.6\" x2=\"53\" y2=\"118.6\"/><text x=\"44\" y=\"121.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"83.1\" x2=\"53\" y2=\"83.1\"/><text x=\"44\" y=\"86.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"47.7\" x2=\"53\" y2=\"47.7\"/><text x=\"44\" y=\"50.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"93.3\" y1=\"151\" x2=\"93.3\" y2=\"157\"/><text x=\"93.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"136.7\" y1=\"151\" x2=\"136.7\" y2=\"157\"/><text x=\"136.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"180\" y1=\"151\" x2=\"180\" y2=\"157\"/><text x=\"180\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"223.3\" y1=\"151\" x2=\"223.3\" y2=\"157\"/><text x=\"223.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"266.7\" y1=\"151\" x2=\"266.7\" y2=\"157\"/><text x=\"266.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"223.3\" y1=\"154\" x2=\"223.3\" y2=\"118.6\" stroke-dasharray=\"4 3\"/><text x=\"227.3\" y=\"112.6\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10 kHz</text></svg>",
-      "figure_alt": "Loop gain Bode magnitude with a 10 kHz marker."
-    },
-    {
-      "id": "fb-errors-r2-q3",
-      "round": 2,
-      "type": "mc",
-      "prompt": "A feedback system with ideal gain 10 (\\(f=0.1\\)) and DC loop gain \\(T_0=99\\) receives a 1 input step. What is the output after it has settled?",
-      "options": [
-        "9.9",
-        "10",
-        "9.09",
-        "10.1"
-      ],
-      "correct_index": 0,
-      "explanation": "After settling, the DC loop gain applies: \\(y=\\dfrac1f\\cdot\\dfrac{T_0}{1+T_0}\\times1=10\\times\\dfrac{99}{100}=9.9\\). A 1% static error remains forever; the transient only decides how fast you get there.\n• 10 would need \\(T_0=\\infty\\).\n• 9.09 is \\(10/(1+0.1)\\), a mis-use of the formula.\n• 10.1 applies the 1% error with the wrong sign: feedback systems fall SHORT of \\(1/f\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 370 150\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Negative feedback loop</title><text x=\"18\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sᵢₙ</text><line x1=\"30\" y1=\"50\" x2=\"82\" y2=\"50\"/><polygon points=\"82,50 75.6,52.7 75.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"92\" cy=\"50\" r=\"10\"/><text x=\"76\" y=\"46\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"100\" y=\"72\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"102\" y1=\"50\" x2=\"140\" y2=\"50\"/><polygon points=\"140,50 133.6,52.7 133.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"121\" y=\"40\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">sₑᵣᵣ</text><rect x=\"140\" y=\"28\" width=\"60\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"200\" y1=\"50\" x2=\"268\" y2=\"50\"/><polygon points=\"268,50 261.6,52.7 261.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"278\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">sₒᵤₜ</text><polyline points=\"235,50 235,115 200,115\"/><circle cx=\"235\" cy=\"50\" r=\"2.6\" fill=\"currentColor\"/><rect x=\"140\" y=\"93\" width=\"60\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"119\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"140,115 92,115\"/><line x1=\"92\" y1=\"115\" x2=\"92\" y2=\"62\"/><polygon points=\"92,62 94.7,68.4 89.3,68.4\" fill=\"currentColor\" stroke=\"none\"/></svg>",
-      "figure_alt": "Negative feedback block diagram."
+      "figure_alt": "Loop gain Bode magnitude with a marker at 10 kHz where |T| is about 20 dB.",
+      "version": 1
     },
     {
       "id": "fb-errors-r3-q1",
@@ -100,31 +247,8 @@
       "correct_index": 3,
       "explanation": "\\(\\dfrac{T}{1+T}=1-\\dfrac{1}{1+T}\\). With \\(T\\approx-j10\\), the error term is \\(\\approx\\dfrac{1}{1-j10}\\approx j0.1\\): perpendicular to 1. Adding a perpendicular 0.1 to 1 changes the length by only \\(\\sqrt{1+0.01}-1\\approx0.5\\%\\) but rotates it by \\(\\approx5.7^\\circ\\).\nSo a single 'percent error' isn't enough at high frequency; magnitude and phase errors behave differently.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Phasor picture of the error</title><line x1=\"30\" y1=\"100\" x2=\"230\" y2=\"100\"/><polygon points=\"230,100 223.6,102.7 223.6,97.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"130\" y=\"118\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1 (ideal)</text><line x1=\"230\" y1=\"100\" x2=\"230\" y2=\"80\"/><polygon points=\"230,80 232.7,86.4 227.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"92\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">≈ j0.1 error</text><line x1=\"30\" y1=\"100\" x2=\"230\" y2=\"80\"/><polygon points=\"230,80 223.9,83.4 223.3,77.9\" fill=\"currentColor\" stroke=\"none\"/><text x=\"120\" y=\"80\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">actual T/(1+T)</text></svg>",
-      "figure_alt": "Phasor sketch: the ideal value is a long horizontal arrow of length 1; the error is a short perpendicular arrow; the actual value is the slightly rotated, nearly equal-length arrow."
-    },
-    {
-      "id": "fb-errors-r3-q2",
-      "round": 3,
-      "type": "numeric",
-      "prompt": "For the same loop at 10 kHz (\\(T=\\dfrac{1000}{1+j100}\\)), what is the phase of the closed-loop gain relative to the ideal, \\(\\angle\\dfrac{T}{1+T}\\), in degrees?",
-      "answer": -5.70493,
-      "unit": "degrees",
-      "tolerance": 0.02,
-      "explanation": "\\(\\dfrac{T}{1+T}=\\dfrac{0.09999-j9.999}{1.09999-j9.999}\\). Angles: numerator \\(-89.43^\\circ\\), denominator \\(-83.72^\\circ\\); difference \\(=-5.705^\\circ\\).\nAbout \\(-5.7^\\circ\\) of phase lag (\\(\\approx-\\tan^{-1}(1/|T|)\\)), while the magnitude was only 0.6% low.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Loop gain T(jf)</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|T| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,47.7 136.7,47.7 266.7,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"118.6\" x2=\"53\" y2=\"118.6\"/><text x=\"44\" y=\"121.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"83.1\" x2=\"53\" y2=\"83.1\"/><text x=\"44\" y=\"86.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"47.7\" x2=\"53\" y2=\"47.7\"/><text x=\"44\" y=\"50.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"93.3\" y1=\"151\" x2=\"93.3\" y2=\"157\"/><text x=\"93.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"136.7\" y1=\"151\" x2=\"136.7\" y2=\"157\"/><text x=\"136.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"180\" y1=\"151\" x2=\"180\" y2=\"157\"/><text x=\"180\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"223.3\" y1=\"151\" x2=\"223.3\" y2=\"157\"/><text x=\"223.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"266.7\" y1=\"151\" x2=\"266.7\" y2=\"157\"/><text x=\"266.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"223.3\" y1=\"154\" x2=\"223.3\" y2=\"118.6\" stroke-dasharray=\"4 3\"/><text x=\"227.3\" y=\"112.6\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10 kHz</text></svg>",
-      "figure_alt": "Loop gain Bode magnitude with a 10 kHz marker."
-    },
-    {
-      "id": "fb-errors-r3-q3",
-      "round": 3,
-      "type": "numeric",
-      "prompt": "A unity-feedback loop has loop gain \\(L(s)=\\dfrac{8}{s}\\), an integrator. The reference is a ramp \\(r(t)=0.5t\\). What is the steady-state tracking error \\(e=r-y\\)?",
-      "answer": 0.0625,
-      "unit": "",
-      "tolerance": 0.02,
-      "explanation": "\\(E(s)=\\dfrac{1}{1+L}R(s)=\\dfrac{s}{s+8}\\cdot\\dfrac{0.5}{s^2}\\). Final value theorem: \\(e_\\infty=\\lim_{s\\to0}sE(s)=0.5/8=0.0625\\). An integrator removes the error for a constant reference but leaves a constant lag of \\(0.5/K\\) when following a ramp.\n• 0 holds for a step reference, not a ramp.\n• The error grows without bound only if the loop has no integrator.\n• 4 multiplies instead of dividing.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 210\" role=\"img\" aria-label=\"Ramp reference r (solid) and the output y (dashed), which follows it with a small constant lag.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"50\" y1=\"176\" x2=\"330\" y2=\"176\"/><polygon points=\"330,176 323.6,178.7 323.6,173.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"176\" x2=\"50\" y2=\"16\"/><polygon points=\"50,16 52.7,22.4 47.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"192\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t (s)</text><text x=\"54\" y=\"12\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">signal</text><polyline points=\"50,176 52.2,174.9 54.5,173.7 56.8,172.6 59,171.5 61.2,170.3 63.5,169.2 65.8,168 68,166.9 70.2,165.8 72.5,164.6 74.8,163.5 77,162.4 79.2,161.2 81.5,160.1 83.8,159 86,157.8 88.2,156.7 90.5,155.5 92.8,154.4 95,153.3 97.2,152.1 99.5,151 101.8,149.9 104,148.7 106.2,147.6 108.5,146.5 110.8,145.3 113,144.2 115.2,143 117.5,141.9 119.8,140.8 122,139.6 124.2,138.5 126.5,137.4 128.8,136.2 131,135.1 133.2,134 135.5,132.8 137.8,131.7 140,130.5 142.2,129.4 144.5,128.3 146.8,127.1 149,126 151.2,124.9 153.5,123.7 155.8,122.6 158,121.5 160.2,120.3 162.5,119.2 164.8,118 167,116.9 169.2,115.8 171.5,114.6 173.8,113.5 176,112.4 178.2,111.2 180.5,110.1 182.8,109 185,107.8 187.2,106.7 189.5,105.5 191.8,104.4 194,103.3 196.2,102.1 198.5,101 200.8,99.9 203,98.7 205.2,97.6 207.5,96.5 209.8,95.3 212,94.2 214.2,93 216.5,91.9 218.8,90.8 221,89.6 223.2,88.5 225.5,87.4 227.8,86.2 230,85.1 232.2,84 234.5,82.8 236.8,81.7 239,80.5 241.2,79.4 243.5,78.3 245.8,77.1 248,76 250.2,74.9 252.5,73.7 254.8,72.6 257,71.5 259.2,70.3 261.5,69.2 263.8,68 266,66.9 268.2,65.8 270.5,64.6 272.8,63.5 275,62.4 277.2,61.2 279.5,60.1 281.8,59 284,57.8 286.2,56.7 288.5,55.5 290.8,54.4 293,53.3 295.2,52.1 297.5,51 299.8,49.9 302,48.7 304.2,47.6 306.5,46.5 308.8,45.3 311,44.2 313.2,43 315.5,41.9 317.8,40.8 320,39.6\" stroke-width=\"2\"/><text x=\"322\" y=\"35.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">r</text><polyline points=\"50,176 52.2,175.9 54.5,175.7 56.8,175.4 59,175 61.2,174.5 63.5,173.9 65.8,173.2 68,172.5 70.2,171.7 72.5,170.9 74.8,170.1 77,169.2 79.2,168.2 81.5,167.3 83.8,166.3 86,165.3 88.2,164.3 90.5,163.3 92.8,162.3 95,161.2 97.2,160.1 99.5,159.1 101.8,158 104,156.9 106.2,155.8 108.5,154.7 110.8,153.6 113,152.5 115.2,151.4 117.5,150.3 119.8,149.2 122,148 124.2,146.9 126.5,145.8 128.8,144.7 131,143.5 133.2,142.4 135.5,141.3 137.8,140.2 140,139 142.2,137.9 144.5,136.8 146.8,135.6 149,134.5 151.2,133.4 153.5,132.2 155.8,131.1 158,130 160.2,128.8 162.5,127.7 164.8,126.6 167,125.4 169.2,124.3 171.5,123.2 173.8,122 176,120.9 178.2,119.7 180.5,118.6 182.8,117.5 185,116.3 187.2,115.2 189.5,114.1 191.8,112.9 194,111.8 196.2,110.7 198.5,109.5 200.8,108.4 203,107.2 205.2,106.1 207.5,105 209.8,103.8 212,102.7 214.2,101.6 216.5,100.4 218.8,99.3 221,98.2 223.2,97 225.5,95.9 227.8,94.7 230,93.6 232.2,92.5 234.5,91.3 236.8,90.2 239,89.1 241.2,87.9 243.5,86.8 245.8,85.7 248,84.5 250.2,83.4 252.5,82.2 254.8,81.1 257,80 259.2,78.8 261.5,77.7 263.8,76.6 266,75.4 268.2,74.3 270.5,73.2 272.8,72 275,70.9 277.2,69.7 279.5,68.6 281.8,67.5 284,66.3 286.2,65.2 288.5,64.1 290.8,62.9 293,61.8 295.2,60.7 297.5,59.5 299.8,58.4 302,57.2 304.2,56.1 306.5,55 308.8,53.8 311,52.7 313.2,51.6 315.5,50.4 317.8,49.3 320,48.2\" stroke-dasharray=\"4 3\" stroke-width=\"2\"/><text x=\"322\" y=\"44.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Ramp reference r (solid) and the output y (dashed), which follows it with a small constant lag."
+      "figure_alt": "Phasor sketch: the ideal value is a long horizontal arrow of length 1; the error is a short perpendicular arrow; the actual value is the slightly rotated, nearly equal-length arrow.",
+      "version": 1
     },
     {
       "id": "fb-errors-r4-q1",
@@ -139,7 +263,51 @@
       "figure_alt": "Unity-feedback loop with proportional controller Kp in series with the plant P(s).",
       "preview": [
         "onoff-pid-intro"
-      ]
+      ],
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What is meant by a 'dynamic' error in a feedback system, as opposed to a static error?",
+      "options": [
+        "An error caused only by tolerances in the feedback element f",
+        "An error that grows with signal frequency (or shows up in transients) because the loop gain \\(|T(j\\omega)|\\) falls at high frequency",
+        "An error that exists only at DC",
+        "An error caused by the system being switched on"
+      ],
+      "correct_index": 1,
+      "explanation": "The static error \\(1/(1+T_0)\\) uses the DC loop gain. At higher frequencies \\(|T(j\\omega)|\\) drops (above the loop's dominant pole it falls 20 dB/decade), so the error \\(\\left|\\dfrac{1}{1+T(j\\omega)}\\right|\\) rises, in magnitude and phase. A step response that settles with a time constant is the same effect in the time domain.\n• Tolerances in the feedback element set the IDEAL gain \\(1/f\\), they are not a loop-gain error.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Loop gain falls with frequency</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|T| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,47.7 136.7,47.7 266.7,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"118.6\" x2=\"53\" y2=\"118.6\"/><text x=\"44\" y=\"121.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"83.1\" x2=\"53\" y2=\"83.1\"/><text x=\"44\" y=\"86.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"47.7\" x2=\"53\" y2=\"47.7\"/><text x=\"44\" y=\"50.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"93.3\" y1=\"151\" x2=\"93.3\" y2=\"157\"/><text x=\"93.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"136.7\" y1=\"151\" x2=\"136.7\" y2=\"157\"/><text x=\"136.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"180\" y1=\"151\" x2=\"180\" y2=\"157\"/><text x=\"180\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"223.3\" y1=\"151\" x2=\"223.3\" y2=\"157\"/><text x=\"223.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"266.7\" y1=\"151\" x2=\"266.7\" y2=\"157\"/><text x=\"266.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
+      "figure_alt": "Bode magnitude of loop gain: 60 dB to 100 Hz, then falling to 0 dB at 100 kHz.",
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The same loop (\\(T=\\dfrac{1000}{1+jf/100\\ \\mathrm{Hz}}\\)) has \\(f=0.01\\), so the ideal gain is 100. What is the closed-loop gain MAGNITUDE \\(\\dfrac1f\\left|\\dfrac{T}{1+T}\\right|\\) at 10 kHz?",
+      "answer": 99.4053,
+      "unit": "V/V",
+      "tolerance": 0.005,
+      "explanation": "\\(\\left|\\dfrac{T}{1+T}\\right|=\\dfrac{|0.09999-j9.999|}{|1.09999-j9.999|}=\\dfrac{9.9995}{10.059}=0.99407\\), so \\(|G_{cl}|=99.41\\).\nOnly 0.6% low in magnitude, even though the error ratio is about 10%. The error is mostly in QUADRATURE (90° out of phase), so it mainly shifts the phase instead of shrinking the magnitude.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Loop gain T(jf)</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|T| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,47.7 136.7,47.7 266.7,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"118.6\" x2=\"53\" y2=\"118.6\"/><text x=\"44\" y=\"121.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"83.1\" x2=\"53\" y2=\"83.1\"/><text x=\"44\" y=\"86.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"47.7\" x2=\"53\" y2=\"47.7\"/><text x=\"44\" y=\"50.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"93.3\" y1=\"151\" x2=\"93.3\" y2=\"157\"/><text x=\"93.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"136.7\" y1=\"151\" x2=\"136.7\" y2=\"157\"/><text x=\"136.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"180\" y1=\"151\" x2=\"180\" y2=\"157\"/><text x=\"180\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"223.3\" y1=\"151\" x2=\"223.3\" y2=\"157\"/><text x=\"223.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"266.7\" y1=\"151\" x2=\"266.7\" y2=\"157\"/><text x=\"266.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"223.3\" y1=\"154\" x2=\"223.3\" y2=\"118.6\" stroke-dasharray=\"4 3\"/><text x=\"227.3\" y=\"112.6\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10 kHz</text></svg>",
+      "figure_alt": "Loop gain Bode magnitude with a 10 kHz marker.",
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "For the same loop at 10 kHz (\\(T=\\dfrac{1000}{1+j100}\\)), what is the phase of the closed-loop gain relative to the ideal, \\(\\angle\\dfrac{T}{1+T}\\), in degrees?",
+      "answer": -5.70493,
+      "unit": "degrees",
+      "tolerance": 0.02,
+      "explanation": "\\(\\dfrac{T}{1+T}=\\dfrac{0.09999-j9.999}{1.09999-j9.999}\\). Angles: numerator \\(-89.43^\\circ\\), denominator \\(-83.72^\\circ\\); difference \\(=-5.705^\\circ\\).\nAbout \\(-5.7^\\circ\\) of phase lag (\\(\\approx-\\tan^{-1}(1/|T|)\\)), while the magnitude was only 0.6% low.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Loop gain T(jf)</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|T| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,47.7 136.7,47.7 266.7,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"118.6\" x2=\"53\" y2=\"118.6\"/><text x=\"44\" y=\"121.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"83.1\" x2=\"53\" y2=\"83.1\"/><text x=\"44\" y=\"86.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"47.7\" x2=\"53\" y2=\"47.7\"/><text x=\"44\" y=\"50.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"93.3\" y1=\"151\" x2=\"93.3\" y2=\"157\"/><text x=\"93.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"136.7\" y1=\"151\" x2=\"136.7\" y2=\"157\"/><text x=\"136.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"180\" y1=\"151\" x2=\"180\" y2=\"157\"/><text x=\"180\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"223.3\" y1=\"151\" x2=\"223.3\" y2=\"157\"/><text x=\"223.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"266.7\" y1=\"151\" x2=\"266.7\" y2=\"157\"/><text x=\"266.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><line x1=\"223.3\" y1=\"154\" x2=\"223.3\" y2=\"118.6\" stroke-dasharray=\"4 3\"/><text x=\"227.3\" y=\"112.6\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10 kHz</text></svg>",
+      "figure_alt": "Loop gain Bode magnitude with a 10 kHz marker.",
+      "version": 1
     },
     {
       "id": "fb-errors-r4-q2",
@@ -156,7 +324,51 @@
       "explanation": "The static error is \\(1/(1+T_0)\\), with \\(T_0\\) the DC loop gain. An integrator has infinite gain at DC, so the error must settle to zero. Put another way, the integrator's output can only stop changing when its input, the error, is zero.\n• Speed and error are separate: a fast proportional loop still has a static error.\n• Damping affects the transient, not the final value.\n• The integrator raises the DC gain; it does not lower it.",
       "preview": [
         "pid"
-      ]
+      ],
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A system has DC loop gain \\(T_0=499\\). What is its static gain error, in percent?",
+      "answer": 0.2,
+      "unit": "%",
+      "tolerance": 0.01,
+      "explanation": "\\(\\dfrac{1}{1+T_0}=\\dfrac{1}{500}=0.2\\%\\). The closed-loop gain is 0.2% below \\(1/f\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 370 150\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Negative feedback loop</title><text x=\"18\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sᵢₙ</text><line x1=\"30\" y1=\"50\" x2=\"82\" y2=\"50\"/><polygon points=\"82,50 75.6,52.7 75.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"92\" cy=\"50\" r=\"10\"/><text x=\"76\" y=\"46\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"100\" y=\"72\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"102\" y1=\"50\" x2=\"140\" y2=\"50\"/><polygon points=\"140,50 133.6,52.7 133.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"121\" y=\"40\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">sₑᵣᵣ</text><rect x=\"140\" y=\"28\" width=\"60\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"200\" y1=\"50\" x2=\"268\" y2=\"50\"/><polygon points=\"268,50 261.6,52.7 261.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"278\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">sₒᵤₜ</text><polyline points=\"235,50 235,115 200,115\"/><circle cx=\"235\" cy=\"50\" r=\"2.6\" fill=\"currentColor\"/><rect x=\"140\" y=\"93\" width=\"60\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"119\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"140,115 92,115\"/><line x1=\"92\" y1=\"115\" x2=\"92\" y2=\"62\"/><polygon points=\"92,62 94.7,68.4 89.3,68.4\" fill=\"currentColor\" stroke=\"none\"/></svg>",
+      "figure_alt": "Negative feedback block diagram with T0 = 499.",
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A feedback system with ideal gain 10 (\\(f=0.1\\)) and DC loop gain \\(T_0=99\\) receives a 1 input step. What is the output after it has settled?",
+      "options": [
+        "9.9",
+        "10",
+        "9.09",
+        "10.1"
+      ],
+      "correct_index": 0,
+      "explanation": "After settling, the DC loop gain applies: \\(y=\\dfrac1f\\cdot\\dfrac{T_0}{1+T_0}\\times1=10\\times\\dfrac{99}{100}=9.9\\). A 1% static error remains forever; the transient only decides how fast you get there.\n• 10 would need \\(T_0=\\infty\\).\n• 9.09 is \\(10/(1+0.1)\\), a mis-use of the formula.\n• 10.1 applies the 1% error with the wrong sign: feedback systems fall SHORT of \\(1/f\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 370 150\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Negative feedback loop</title><text x=\"18\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">sᵢₙ</text><line x1=\"30\" y1=\"50\" x2=\"82\" y2=\"50\"/><polygon points=\"82,50 75.6,52.7 75.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"92\" cy=\"50\" r=\"10\"/><text x=\"76\" y=\"46\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"100\" y=\"72\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"102\" y1=\"50\" x2=\"140\" y2=\"50\"/><polygon points=\"140,50 133.6,52.7 133.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"121\" y=\"40\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">sₑᵣᵣ</text><rect x=\"140\" y=\"28\" width=\"60\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"200\" y1=\"50\" x2=\"268\" y2=\"50\"/><polygon points=\"268,50 261.6,52.7 261.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"278\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">sₒᵤₜ</text><polyline points=\"235,50 235,115 200,115\"/><circle cx=\"235\" cy=\"50\" r=\"2.6\" fill=\"currentColor\"/><rect x=\"140\" y=\"93\" width=\"60\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"170\" y=\"119\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"140,115 92,115\"/><line x1=\"92\" y1=\"115\" x2=\"92\" y2=\"62\"/><polygon points=\"92,62 94.7,68.4 89.3,68.4\" fill=\"currentColor\" stroke=\"none\"/></svg>",
+      "figure_alt": "Negative feedback block diagram.",
+      "version": 1
+    },
+    {
+      "id": "fb-errors-r3-q3",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A unity-feedback loop has loop gain \\(L(s)=\\dfrac{8}{s}\\), an integrator. The reference is a ramp \\(r(t)=0.5t\\). What is the steady-state tracking error \\(e=r-y\\)?",
+      "answer": 0.0625,
+      "unit": "",
+      "tolerance": 0.02,
+      "explanation": "\\(E(s)=\\dfrac{1}{1+L}R(s)=\\dfrac{s}{s+8}\\cdot\\dfrac{0.5}{s^2}\\). Final value theorem: \\(e_\\infty=\\lim_{s\\to0}sE(s)=0.5/8=0.0625\\). An integrator removes the error for a constant reference but leaves a constant lag of \\(0.5/K\\) when following a ramp.\n• 0 holds for a step reference, not a ramp.\n• The error grows without bound only if the loop has no integrator.\n• 4 multiplies instead of dividing.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 210\" role=\"img\" aria-label=\"Ramp reference r (solid) and the output y (dashed), which follows it with a small constant lag.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"50\" y1=\"176\" x2=\"330\" y2=\"176\"/><polygon points=\"330,176 323.6,178.7 323.6,173.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"176\" x2=\"50\" y2=\"16\"/><polygon points=\"50,16 52.7,22.4 47.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"192\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t (s)</text><text x=\"54\" y=\"12\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">signal</text><polyline points=\"50,176 52.2,174.9 54.5,173.7 56.8,172.6 59,171.5 61.2,170.3 63.5,169.2 65.8,168 68,166.9 70.2,165.8 72.5,164.6 74.8,163.5 77,162.4 79.2,161.2 81.5,160.1 83.8,159 86,157.8 88.2,156.7 90.5,155.5 92.8,154.4 95,153.3 97.2,152.1 99.5,151 101.8,149.9 104,148.7 106.2,147.6 108.5,146.5 110.8,145.3 113,144.2 115.2,143 117.5,141.9 119.8,140.8 122,139.6 124.2,138.5 126.5,137.4 128.8,136.2 131,135.1 133.2,134 135.5,132.8 137.8,131.7 140,130.5 142.2,129.4 144.5,128.3 146.8,127.1 149,126 151.2,124.9 153.5,123.7 155.8,122.6 158,121.5 160.2,120.3 162.5,119.2 164.8,118 167,116.9 169.2,115.8 171.5,114.6 173.8,113.5 176,112.4 178.2,111.2 180.5,110.1 182.8,109 185,107.8 187.2,106.7 189.5,105.5 191.8,104.4 194,103.3 196.2,102.1 198.5,101 200.8,99.9 203,98.7 205.2,97.6 207.5,96.5 209.8,95.3 212,94.2 214.2,93 216.5,91.9 218.8,90.8 221,89.6 223.2,88.5 225.5,87.4 227.8,86.2 230,85.1 232.2,84 234.5,82.8 236.8,81.7 239,80.5 241.2,79.4 243.5,78.3 245.8,77.1 248,76 250.2,74.9 252.5,73.7 254.8,72.6 257,71.5 259.2,70.3 261.5,69.2 263.8,68 266,66.9 268.2,65.8 270.5,64.6 272.8,63.5 275,62.4 277.2,61.2 279.5,60.1 281.8,59 284,57.8 286.2,56.7 288.5,55.5 290.8,54.4 293,53.3 295.2,52.1 297.5,51 299.8,49.9 302,48.7 304.2,47.6 306.5,46.5 308.8,45.3 311,44.2 313.2,43 315.5,41.9 317.8,40.8 320,39.6\" stroke-width=\"2\"/><text x=\"322\" y=\"35.6\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">r</text><polyline points=\"50,176 52.2,175.9 54.5,175.7 56.8,175.4 59,175 61.2,174.5 63.5,173.9 65.8,173.2 68,172.5 70.2,171.7 72.5,170.9 74.8,170.1 77,169.2 79.2,168.2 81.5,167.3 83.8,166.3 86,165.3 88.2,164.3 90.5,163.3 92.8,162.3 95,161.2 97.2,160.1 99.5,159.1 101.8,158 104,156.9 106.2,155.8 108.5,154.7 110.8,153.6 113,152.5 115.2,151.4 117.5,150.3 119.8,149.2 122,148 124.2,146.9 126.5,145.8 128.8,144.7 131,143.5 133.2,142.4 135.5,141.3 137.8,140.2 140,139 142.2,137.9 144.5,136.8 146.8,135.6 149,134.5 151.2,133.4 153.5,132.2 155.8,131.1 158,130 160.2,128.8 162.5,127.7 164.8,126.6 167,125.4 169.2,124.3 171.5,123.2 173.8,122 176,120.9 178.2,119.7 180.5,118.6 182.8,117.5 185,116.3 187.2,115.2 189.5,114.1 191.8,112.9 194,111.8 196.2,110.7 198.5,109.5 200.8,108.4 203,107.2 205.2,106.1 207.5,105 209.8,103.8 212,102.7 214.2,101.6 216.5,100.4 218.8,99.3 221,98.2 223.2,97 225.5,95.9 227.8,94.7 230,93.6 232.2,92.5 234.5,91.3 236.8,90.2 239,89.1 241.2,87.9 243.5,86.8 245.8,85.7 248,84.5 250.2,83.4 252.5,82.2 254.8,81.1 257,80 259.2,78.8 261.5,77.7 263.8,76.6 266,75.4 268.2,74.3 270.5,73.2 272.8,72 275,70.9 277.2,69.7 279.5,68.6 281.8,67.5 284,66.3 286.2,65.2 288.5,64.1 290.8,62.9 293,61.8 295.2,60.7 297.5,59.5 299.8,58.4 302,57.2 304.2,56.1 306.5,55 308.8,53.8 311,52.7 313.2,51.6 315.5,50.4 317.8,49.3 320,48.2\" stroke-dasharray=\"4 3\" stroke-width=\"2\"/><text x=\"322\" y=\"44.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure_alt": "Ramp reference r (solid) and the output y (dashed), which follows it with a small constant lag.",
+      "version": 1
     },
     {
       "id": "fb-errors-r4-q3",
@@ -173,7 +385,8 @@
       "explanation": "While the actuator is pinned, the loop is effectively open: more controller output does nothing, but the integrator keeps summing the error. Once the output nears setpoint, the over-charged integrator keeps the actuator pinned until the error has been negative long enough to discharge it, which causes overshoot. Anti-windup schemes stop or bleed the integrator during saturation.\n• A plain integrator has no idea the actuator saturated.\n• Saturation lowers the effective loop gain to zero.\n• Integral action is precisely the part affected.",
       "preview": [
         "windup"
-      ]
+      ],
+      "version": 1
     }
   ]
 }

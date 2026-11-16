@@ -1,0 +1,30 @@
+{
+  "id": "sg057-g3",
+  "label": "SG-057 group 3",
+  "box": "EE 105, ME 132, and Feedback Systems",
+  "skills": [
+    "fb-intro",
+    "loop-gain",
+    "fb-amp",
+    "loop-tf",
+    "fb-errors",
+    "sensitivity",
+    "stability",
+    "amp-compensation"
+  ],
+  "areas": {
+    "fb-intro": ["feedback-loop"],
+    "loop-gain": ["feedback-loop"],
+    "fb-amp": ["feedback-loop"],
+    "loop-tf": ["loop-transfer-function"],
+    "fb-errors": ["feedback-loop", "loop-transfer-function"],
+    "sensitivity": ["loop-transfer-function"],
+    "stability": ["nyquist-stability"],
+    "amp-compensation": ["nyquist-stability"]
+  },
+  "cores": ["loop-gain", "fb-errors", "stability"],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/audits/sg-057-cross-course-overlap.md",
+  "verifier": "skilltree/verify_sg057_g3.py"
+}

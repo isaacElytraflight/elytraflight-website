@@ -1,7 +1,214 @@
 {
   "skill_id": "loop-tf",
-  "version": 1,
+  "version": 2,
   "questions": [
+    {
+      "id": "loop-tf-r1-q4",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For a controller \\(C\\) in series with a plant \\(P\\), and with the output subtracted from the reference, the loop transfer function is",
+      "explanation": "One trip around the loop meets \\(C\\) and then \\(P\\), so \\(L\\) is the product \\(PC\\). The sum \\(P+C\\) is not that trip. Either ratio leaves one of the two blocks inverted.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 412 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>controller and plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"252\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"294\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"336\" y1=\"78\" x2=\"372\" y2=\"78\"/><polygon points=\"372,78 365.6,80.7 365.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"376\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"364\" y1=\"78\" x2=\"364\" y2=\"134\"/><line x1=\"364\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"214\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant in series, with the output subtracted from the reference.",
+      "options": [
+        "\\(L = P + C\\)",
+        "\\(L = P/C\\)",
+        "\\(L = C/P\\)",
+        "\\(L = PC\\)"
+      ],
+      "correct_index": 3,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r1-q5",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A plant has gain \\(P=3\\) and the controller has gain \\(C=5\\). What is the loop gain \\(L=PC\\)?",
+      "explanation": "The product is \\(3 \\times 5 = 15\\). The sum \\(8\\) skips the series connection, and \\(5/3\\) is the controller over the plant.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 412 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>controller and plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"252\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"294\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"336\" y1=\"78\" x2=\"372\" y2=\"78\"/><polygon points=\"372,78 365.6,80.7 365.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"376\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"364\" y1=\"78\" x2=\"364\" y2=\"134\"/><line x1=\"364\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"214\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant in series, with the output subtracted from the reference.",
+      "answer": 15.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r1-q6",
+      "round": 1,
+      "type": "symbolic",
+      "prompt": "Write the loop transfer function of a series controller and plant, using the names \\(P\\) and \\(C\\).",
+      "explanation": "The loop transfer function is the product \\(PC\\). The sum \\(P+C\\) is a parallel connection. The ratio \\(P/C\\) inverts the controller.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 412 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>controller and plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"252\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"294\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"336\" y1=\"78\" x2=\"372\" y2=\"78\"/><polygon points=\"372,78 365.6,80.7 365.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"376\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"364\" y1=\"78\" x2=\"364\" y2=\"134\"/><line x1=\"364\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"214\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant in series, with the output subtracted from the reference.",
+      "answer": "P*C",
+      "variables": [
+        {
+          "name": "P",
+          "min": 0.5,
+          "max": 8.0
+        },
+        {
+          "name": "C",
+          "min": 0.5,
+          "max": 8.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "C*P"
+      ],
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r2-q4",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A plant \\(P=4\\) is under a controller \\(C=2\\), with the output subtracted from the reference. An input disturbance, added at the plant input, reaches the output through \\(P/(1+PC)\\). What is that gain?",
+      "explanation": "The loop gain is \\(PC=8\\), so the input-disturbance map is \\(4/(1+8)=4/9\\). The sensitivity \\(1/(1+8)\\) leaves out the plant. The plant gain \\(4\\) is the open-loop path, before the loop is closed.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 412 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>controller and plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"252\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"294\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"336\" y1=\"78\" x2=\"372\" y2=\"78\"/><polygon points=\"372,78 365.6,80.7 365.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"376\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"364\" y1=\"78\" x2=\"364\" y2=\"134\"/><line x1=\"364\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"214\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant in series, with the output subtracted from the reference.",
+      "answer": 0.444444,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r2-q5",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Sensor noise is subtracted with the measured output. Which of the four maps multiplies that noise into the output?",
+      "explanation": "Noise that enters with the measurement is rejected from the output only when \\(T\\) is small. The output sees that noise through \\(T\\). \\(S\\) multiplies an output disturbance, \\(PS\\) multiplies a plant-input disturbance, and \\(CS\\) builds the command from the reference.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 352 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>disturbance at the output</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"264\" cy=\"78\" r=\"12\"/><text x=\"242\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"278\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"264\" y1=\"28\" x2=\"264\" y2=\"66\"/><polygon points=\"264,66 261.3,59.6 266.7,59.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"280\" y=\"34\" text-anchor=\"start\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"276\" y1=\"78\" x2=\"312\" y2=\"78\"/><polygon points=\"312,78 305.6,80.7 305.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"316\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"304\" y1=\"78\" x2=\"304\" y2=\"134\"/><line x1=\"304\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"184\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A feedback loop with a disturbance added at the output.",
+      "options": [
+        "\\(S = 1/(1+L)\\), the sensitivity",
+        "\\(PS = P/(1+L)\\), the input-disturbance map",
+        "\\(T = L/(1+L)\\), the complementary sensitivity",
+        "\\(CS = C/(1+L)\\), the reference-to-command map"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r2-q6",
+      "round": 2,
+      "type": "order",
+      "prompt": "Order the construction of the four closed-loop maps from a plant \\(P\\) and a controller \\(C\\).",
+      "explanation": "The four maps \\(S\\), \\(T\\), \\(PS\\), and \\(CS\\) share the denominator \\(1+PC\\). The product \\(L\\) has to exist before that denominator does, and the denominator has to exist before the four divisions. Dividing by \\(L\\) alone drops the return difference.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 412 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>controller and plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"252\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"294\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"336\" y1=\"78\" x2=\"372\" y2=\"78\"/><polygon points=\"372,78 365.6,80.7 365.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"376\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"364\" y1=\"78\" x2=\"364\" y2=\"134\"/><line x1=\"364\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"214\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant in series, with the output subtracted from the reference.",
+      "steps": [
+        "Form the loop transfer function \\(L = PC\\).",
+        "Form the return difference \\(1+L\\).",
+        "Divide \\(1\\), \\(L\\), \\(P\\), and \\(C\\) by that return difference."
+      ],
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r3-q4",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note builds the map from a plant-input disturbance to the output. Exactly one step is wrong.",
+      "explanation": "The sensitivity multiplies a disturbance that is already at the output. A disturbance at the plant input still has to pass through \\(P\\), so the map is \\(P/(1+L)\\). The loop product and the return difference in the first steps are right.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 412 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>controller and plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"252\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"294\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"336\" y1=\"78\" x2=\"372\" y2=\"78\"/><polygon points=\"372,78 365.6,80.7 365.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"376\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"364\" y1=\"78\" x2=\"364\" y2=\"134\"/><line x1=\"364\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"214\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant in series, with the output subtracted from the reference.",
+      "steps": [
+        "The controller and the plant meet in series, so \\(L = PC\\).",
+        "The return difference is \\(1+L\\).",
+        "A disturbance at the plant input is filtered by the plant on its way to the output.",
+        "That map is \\(1/(1+L)\\), the sensitivity."
+      ],
+      "flaw_index": 3,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r3-q5",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "A controller \\(C=6\\) drives a plant \\(P=0.5\\). The map from reference to the command \\(u\\) is \\(C/(1+PC)\\). What is that gain?",
+      "explanation": "The loop gain is \\(PC=3\\), so \\(C/(1+PC)=6/4=1.5\\). The complementary sensitivity \\(3/4\\) is the reference-to-output map, not the command map. The controller gain \\(6\\) is the command only when the error is \\(1\\) and the loop is open.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 412 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>controller and plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"252\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"294\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"336\" y1=\"78\" x2=\"372\" y2=\"78\"/><polygon points=\"372,78 365.6,80.7 365.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"376\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"364\" y1=\"78\" x2=\"364\" y2=\"134\"/><line x1=\"364\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"214\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant in series, with the output subtracted from the reference.",
+      "answer": 1.5,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r3-q6",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which of these maps have the return difference \\(1+PC\\) in the denominator?",
+      "explanation": "\\(S\\), \\(T\\), and \\(CS\\) are three of the four closed-loop maps, and each divides by \\(1+PC\\). The sum \\(P+C\\) is not one of those maps and has no return difference in it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 412 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>controller and plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"252\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"294\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"336\" y1=\"78\" x2=\"372\" y2=\"78\"/><polygon points=\"372,78 365.6,80.7 365.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"376\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"364\" y1=\"78\" x2=\"364\" y2=\"134\"/><line x1=\"364\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"214\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant in series, with the output subtracted from the reference.",
+      "options": [
+        "\\(S = 1/(1+PC)\\)",
+        "\\(T = PC/(1+PC)\\)",
+        "\\(P+C\\), the sum of the two blocks",
+        "\\(CS = C/(1+PC)\\)"
+      ],
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r4-q4",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of a Nyquist plot. At DC the plant gain is \\(8\\) and the controller gain is \\(1.5\\). What is the DC loop gain the plot starts from?",
+      "explanation": "The DC loop gain is \\(PC=8 \\times 1.5 = 12\\). A Nyquist plot of \\(L\\) starts at that real value when the frequency is zero. The sum \\(9.5\\) is not \\(L(0)\\), and \\(8/1.5\\) divides the plant by the controller.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 412 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>controller and plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"252\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"294\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"336\" y1=\"78\" x2=\"372\" y2=\"78\"/><polygon points=\"372,78 365.6,80.7 365.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"376\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"364\" y1=\"78\" x2=\"364\" y2=\"134\"/><line x1=\"364\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"214\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant in series, with the output subtracted from the reference.",
+      "preview": [
+        "nyquist"
+      ],
+      "answer": 12.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r4-q5",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of disturbance and tracking readings. An output disturbance reaches the output through which map?",
+      "explanation": "An output disturbance is multiplied by \\(S\\) on its way to the output. A later skill uses that fact to measure attenuation, noise, and tracking error. \\(T\\) multiplies the reference and the sensor noise. \\(CS\\) builds the command. \\(L\\) is the loop, not a closed-loop map.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 352 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>disturbance at the output</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"264\" cy=\"78\" r=\"12\"/><text x=\"242\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"278\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"264\" y1=\"28\" x2=\"264\" y2=\"66\"/><polygon points=\"264,66 261.3,59.6 266.7,59.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"280\" y=\"34\" text-anchor=\"start\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"276\" y1=\"78\" x2=\"312\" y2=\"78\"/><polygon points=\"312,78 305.6,80.7 305.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"316\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"304\" y1=\"78\" x2=\"304\" y2=\"134\"/><line x1=\"304\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"184\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A feedback loop with a disturbance added at the output.",
+      "preview": [
+        "sensitivity"
+      ],
+      "options": [
+        "\\(T = L/(1+L)\\)",
+        "\\(S = 1/(1+L)\\)",
+        "\\(CS = C/(1+L)\\)",
+        "\\(L = PC\\)"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r4-q6",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of the root locus. A plant \\(P=2\\) is under a controller \\(C=3\\). What is the return difference \\(1+PC\\)?",
+      "explanation": "The loop gain is \\(6\\), so the return difference is \\(1+6=7\\). Closed-loop poles are the roots of that difference set to zero, which a later skill traces as gain changes. The loop gain \\(6\\) is one less than the return difference.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 412 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>controller and plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"252\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"294\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"336\" y1=\"78\" x2=\"372\" y2=\"78\"/><polygon points=\"372,78 365.6,80.7 365.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"376\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"364\" y1=\"78\" x2=\"364\" y2=\"134\"/><line x1=\"364\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"214\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant in series, with the output subtracted from the reference.",
+      "preview": [
+        "root-locus"
+      ],
+      "answer": 7.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
     {
       "id": "loop-tf-r1-q1",
       "round": 1,
@@ -20,32 +227,6 @@
       "version": 1
     },
     {
-      "id": "loop-tf-r1-q2",
-      "round": 1,
-      "type": "numeric",
-      "prompt": "The forward gain is 10 and the return gain is 0.2. The loop gain \\(L\\) is",
-      "explanation": "\\(L = GH = 10 \\times 0.2 = 2\\). Adding the gains gives 10.2, which is not the loop product. Dividing gives 50, which is the inverse of the return gain times the forward gain.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop with return 0.2</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">0.2</text></svg>",
-      "figure_alt": "A forward block and a return path that is subtracted at the input.",
-      "answer": 2.0,
-      "unit": "1",
-      "tolerance": 0.02,
-      "version": 1
-    },
-    {
-      "id": "loop-tf-r1-q3",
-      "round": 1,
-      "type": "numeric",
-      "prompt": "Same loop. The closed-loop gain is",
-      "explanation": "\\(T = G/(1+L) = 10/(1+2) = 10/3 = 3.333\\). The loop gain 2 is not the closed-loop gain. Adding 1 to \\(G\\) instead of to \\(L\\) gives \\(10/11\\), which is wrong.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>closed-loop gain</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">0.2</text></svg>",
-      "figure_alt": "A forward block and a return path that is subtracted at the input.",
-      "answer": 3.33333,
-      "unit": "1",
-      "tolerance": 0.02,
-      "version": 1
-    },
-    {
       "id": "loop-tf-r2-q1",
       "round": 2,
       "type": "numeric",
@@ -59,6 +240,48 @@
       "version": 1
     },
     {
+      "id": "loop-tf-r3-q1",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Forward gain 8, return gain 0.5. The return difference \\(1 + L\\) is",
+      "explanation": "\\(L = 8 \\times 0.5 = 4\\), so \\(1 + L = 5\\). The loop gain 4 is one less than the return difference. The closed-loop gain \\(8/5\\) is not the return difference.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>return difference</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">8</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">0.5</text></svg>",
+      "figure_alt": "A forward block and a return path that is subtracted at the input.",
+      "answer": 5.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "A Nyquist plot is drawn for \\(L(s)\\). The forward gain is 12 and the return is unity. The loop gain magnitude at DC is",
+      "explanation": "At \\(s = 0\\), the loop gain is \\(L(0) = 12 \\times 1 = 12\\). The closed-loop gain \\(12/13\\) is what the reference sees. The sensitivity \\(1/13\\) is the disturbance attenuation.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>DC loop gain</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">12</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A forward block and a return path that is subtracted at the input.",
+      "preview": [
+        "nyquist"
+      ],
+      "answer": 12.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The forward gain is 10 and the return gain is 0.2. The loop gain \\(L\\) is",
+      "explanation": "\\(L = GH = 10 \\times 0.2 = 2\\). Adding the gains gives 10.2, which is not the loop product. Dividing gives 50, which is the inverse of the return gain times the forward gain.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop with return 0.2</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">0.2</text></svg>",
+      "figure_alt": "A forward block and a return path that is subtracted at the input.",
+      "answer": 2.0,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
       "id": "loop-tf-r2-q2",
       "round": 2,
       "type": "numeric",
@@ -67,6 +290,48 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">6</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
       "figure_alt": "A forward block and a return path that is subtracted at the input.",
       "answer": 0.142857,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Same loop. A disturbance of magnitude 1 adds at the output. The fraction remaining at steady state is",
+      "explanation": "A disturbance at the output is divided by \\(1 + L = 5\\), so \\(1/5 = 0.2\\) remains. The closed-loop gain \\(8/5\\) is what a reference sees, not a disturbance. The loop gain 4 is not the rejection ratio.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 332 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>disturbance rejection</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">8</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"244\" cy=\"78\" r=\"12\"/><text x=\"222\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"258\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"244\" y1=\"28\" x2=\"244\" y2=\"66\"/><polygon points=\"244,66 241.3,59.6 246.7,59.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"260\" y=\"34\" text-anchor=\"start\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"256\" y1=\"78\" x2=\"292\" y2=\"78\"/><polygon points=\"292,78 285.6,80.7 285.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"296\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"284\" y1=\"78\" x2=\"284\" y2=\"134\"/><line x1=\"284\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"174\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">0.5</text></svg>",
+      "figure_alt": "A forward block, a return subtracted at the input, and a disturbance added at the output.",
+      "answer": 0.2,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "For sensitivity analysis: forward gain 5, return gain 0.4. The sensitivity \\(S\\) is",
+      "explanation": "\\(L = 2\\), so \\(S = 1/3 = 0.333\\). The complementary sensitivity \\(2/3\\) is what the reference sees. The loop gain 2 is not the sensitivity.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">5</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">0.4</text></svg>",
+      "figure_alt": "A forward block and a return path that is subtracted at the input.",
+      "preview": [
+        "sensitivity"
+      ],
+      "answer": 0.333333,
+      "unit": "1",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "loop-tf-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Same loop. The closed-loop gain is",
+      "explanation": "\\(T = G/(1+L) = 10/(1+2) = 10/3 = 3.333\\). The loop gain 2 is not the closed-loop gain. Adding 1 to \\(G\\) instead of to \\(L\\) gives \\(10/11\\), which is wrong.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>closed-loop gain</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">0.2</text></svg>",
+      "figure_alt": "A forward block and a return path that is subtracted at the input.",
+      "answer": 3.33333,
       "unit": "1",
       "tolerance": 0.02,
       "version": 1
@@ -89,32 +354,6 @@
       "version": 1
     },
     {
-      "id": "loop-tf-r3-q1",
-      "round": 3,
-      "type": "numeric",
-      "prompt": "Forward gain 8, return gain 0.5. The return difference \\(1 + L\\) is",
-      "explanation": "\\(L = 8 \\times 0.5 = 4\\), so \\(1 + L = 5\\). The loop gain 4 is one less than the return difference. The closed-loop gain \\(8/5\\) is not the return difference.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>return difference</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">8</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">0.5</text></svg>",
-      "figure_alt": "A forward block and a return path that is subtracted at the input.",
-      "answer": 5.0,
-      "unit": "1",
-      "tolerance": 0.02,
-      "version": 1
-    },
-    {
-      "id": "loop-tf-r3-q2",
-      "round": 3,
-      "type": "numeric",
-      "prompt": "Same loop. A disturbance of magnitude 1 adds at the output. The fraction remaining at steady state is",
-      "explanation": "A disturbance at the output is divided by \\(1 + L = 5\\), so \\(1/5 = 0.2\\) remains. The closed-loop gain \\(8/5\\) is what a reference sees, not a disturbance. The loop gain 4 is not the rejection ratio.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 332 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>disturbance rejection</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">8</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"244\" cy=\"78\" r=\"12\"/><text x=\"222\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"258\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"244\" y1=\"28\" x2=\"244\" y2=\"66\"/><polygon points=\"244,66 241.3,59.6 246.7,59.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"260\" y=\"34\" text-anchor=\"start\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"256\" y1=\"78\" x2=\"292\" y2=\"78\"/><polygon points=\"292,78 285.6,80.7 285.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"296\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"284\" y1=\"78\" x2=\"284\" y2=\"134\"/><line x1=\"284\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"174\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">0.5</text></svg>",
-      "figure_alt": "A forward block, a return subtracted at the input, and a disturbance added at the output.",
-      "answer": 0.2,
-      "unit": "1",
-      "tolerance": 0.02,
-      "version": 1
-    },
-    {
       "id": "loop-tf-r3-q3",
       "round": 3,
       "type": "mc",
@@ -129,38 +368,6 @@
         "\\(j\\)"
       ],
       "correct_index": 1,
-      "version": 1
-    },
-    {
-      "id": "loop-tf-r4-q1",
-      "round": 4,
-      "type": "numeric",
-      "prompt": "A Nyquist plot is drawn for \\(L(s)\\). The forward gain is 12 and the return is unity. The loop gain magnitude at DC is",
-      "explanation": "At \\(s = 0\\), the loop gain is \\(L(0) = 12 \\times 1 = 12\\). The closed-loop gain \\(12/13\\) is what the reference sees. The sensitivity \\(1/13\\) is the disturbance attenuation.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>DC loop gain</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">12</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
-      "figure_alt": "A forward block and a return path that is subtracted at the input.",
-      "preview": [
-        "nyquist"
-      ],
-      "answer": 12.0,
-      "unit": "1",
-      "tolerance": 0.02,
-      "version": 1
-    },
-    {
-      "id": "loop-tf-r4-q2",
-      "round": 4,
-      "type": "numeric",
-      "prompt": "For sensitivity analysis: forward gain 5, return gain 0.4. The sensitivity \\(S\\) is",
-      "explanation": "\\(L = 2\\), so \\(S = 1/3 = 0.333\\). The complementary sensitivity \\(2/3\\) is what the reference sees. The loop gain 2 is not the sensitivity.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>sensitivity</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">5</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">0.4</text></svg>",
-      "figure_alt": "A forward block and a return path that is subtracted at the input.",
-      "preview": [
-        "sensitivity"
-      ],
-      "answer": 0.333333,
-      "unit": "1",
-      "tolerance": 0.02,
       "version": 1
     },
     {

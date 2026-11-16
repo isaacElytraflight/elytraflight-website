@@ -13,7 +13,7 @@ Areas are tags, not owners. A symbol can mean different things in different area
 
 ## feedback-loop
 
-Added in B1, aligned with the control skills. The amplifier skill `fb-intro` already uses a different set; both stay.
+Added in B1. SG-057 group 3 splits the symbols. `loop-gain` uses one symbol \(L\) for the product around the loop, and the closed-loop map is the forward gain over \(1+L\). The fractional miss \(S = 1/(1+L)\) is `fb-errors`. Disturbance, noise, and tracking through \(S\) and \(T\) stay on `sensitivity`. The amplifier symbols \(G\), \(f\), and the ideal gain \(1/f\) stay on `fb-amp`. `fb-intro` names the forward block, the feedback block, the summing junction, the error, and the sign.
 
 | symbol | meaning | aliases |
 |---|---|---|
@@ -24,9 +24,10 @@ Added in B1, aligned with the control skills. The amplifier skill `fb-intro` alr
 | \(d\) | disturbance, at the actuator or the output | |
 | \(n\) | sensor noise | added in B1 |
 | \(K_c\) | proportional gain | added in B1 |
-| \(L\) | loop gain, product of the forward gains | alias \(T = af\) in `fb-intro` |
-| \(P\) | plant gain | alias \(a\) in `fb-intro` |
-| \(A\) | not used for loop gain | `fb-intro` uses \(A = a/(1+af)\) for closed-loop gain. Do not reuse that \(A\) in a control skill. |
+| \(L\) | loop gain, the product around the loop | the amplifier application writes the same product \(T = G f\) |
+| \(P\) | plant gain | `loop-tf` writes \(L = PC\) |
+| \(S\) | fractional miss \(1/(1+L)\) from the ideal feedback ratio | same function as sensitivity in `loop-transfer-function` |
+| \(A\) | not used for loop gain | `fb-amp` uses \(A = G/(1+Gf)\) for the amplifier closed-loop gain. Do not reuse that \(A\) in a control skill. |
 
 ## laplace
 
@@ -109,7 +110,7 @@ Added in B3 for `loop-tf`.
 | \(S(s)\) | sensitivity \(1/(1+L)\) | |
 | \(1 + L(s)\) | return difference | |
 
-Note: The identity \(T + S = 1\) holds for \(T = L/(1+L)\) and \(S = 1/(1+L)\). For non-unity feedback (\(H \ne 1\)), the closed-loop gain \(G/(1+GH)\) differs from \(L/(1+L)\).
+Note: The identity \(T + S = 1\) holds for \(T = L/(1+L)\) and \(S = 1/(1+L)\). For non-unity feedback (\(H \ne 1\)), the closed-loop gain \(G/(1+GH)\) differs from \(L/(1+L)\). The same \(S\) is the fractional miss taught on `fb-errors`. Readings of disturbance, sensor noise, and tracking stay on `sensitivity`.
 
 ## pid-control
 

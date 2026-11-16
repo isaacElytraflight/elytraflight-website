@@ -1,6 +1,6 @@
 {
   "skill_id": "amp-compensation",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "amp-compensation-r1-q1",
@@ -31,18 +31,6 @@
       "explanation": "The loop gain is \\(T=Af\\). With \\(f=1\\), the crossover happens where \\(|A|=1\\), at the unity-gain frequency, where the op-amp's higher poles add the most phase lag. With \\(f=0.1\\) the crossover drops to where \\(|A|=10\\), a decade lower, and the margin improves. 'Unity-gain stable' op-amps are compensated for this worst case.\n• Low closed-loop gain is not unstable by itself; it is the large f that matters.\n• Resistors do not supply damping in this sense.\n• Output swing is unrelated to small-signal stability."
     },
     {
-      "id": "amp-compensation-r1-q3",
-      "round": 1,
-      "type": "numeric",
-      "prompt": "A follower uses an op-amp modeled as \\(A(s)=\\dfrac{\\omega_u}{s}\\cdot\\dfrac{1}{1+s/\\omega_{p2}}\\) with \\(f_u=1\\ \\mathrm{MHz}\\) and a second pole at \\(f_{p2}=3\\ \\mathrm{MHz}\\). What is the phase margin, in degrees?",
-      "answer": 72.3756,
-      "unit": "°",
-      "tolerance": 0.02,
-      "explanation": "Crossover: \\(\\dfrac{f_u}{f}\\cdot\\dfrac{1}{\\sqrt{1+(f/f_{p2})^2}}=1\\), which gives \\(f_c=0.95\\ \\mathrm{MHz}\\). The phase there is \\(-90^\\circ-\\tan^{-1}(0.95/3)=-107.6^\\circ\\), so PM \\(=72.4^\\circ\\).\n• \\(90-\\tan^{-1}(1/3)=71.6^\\circ\\) uses \\(f_u\\) as the crossover, a close approximation.\n• 90° ignores the second pole.\n• \\(-107.6^\\circ\\) is the phase itself, not the margin.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 210\" role=\"img\" aria-label=\"Follower loop gain: falling 20 dB per decade through 0 dB near 1 MHz, steepening after 3 MHz.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"50\" y1=\"176\" x2=\"330\" y2=\"176\"/><polygon points=\"330,176 323.6,178.7 323.6,173.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"176\" x2=\"50\" y2=\"16\"/><polygon points=\"50,16 52.7,22.4 47.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"192\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log10 ω (rad/s)</text><text x=\"54\" y=\"12\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><polyline points=\"50,41.8 52.3,42.6 54.5,43.4 56.8,44.2 59,45 61.2,45.8 63.5,46.6 65.7,47.3 68,48.1 70.2,48.9 72.5,49.7 74.8,50.5 77,51.3 79.3,52.1 81.5,52.9 83.8,53.7 86,54.5 88.2,55.3 90.5,56.1 92.7,56.9 95,57.7 97.3,58.5 99.5,59.2 101.8,60 104,60.8 106.2,61.6 108.5,62.4 110.7,63.2 113,64 115.2,64.8 117.5,65.6 119.8,66.4 122,67.2 124.3,68 126.5,68.8 128.8,69.6 131,70.4 133.2,71.2 135.5,72 137.7,72.7 140,73.5 142.3,74.3 144.5,75.1 146.8,75.9 149,76.7 151.2,77.5 153.5,78.3 155.8,79.1 158,79.9 160.2,80.7 162.5,81.5 164.8,82.3 167,83.1 169.2,83.9 171.5,84.7 173.8,85.5 176,86.3 178.2,87.1 180.5,87.9 182.7,88.8 185,89.6 187.3,90.4 189.5,91.2 191.8,92 194,92.9 196.2,93.7 198.5,94.5 200.7,95.4 203,96.2 205.2,97 207.5,97.9 209.8,98.8 212,99.6 214.3,100.5 216.5,101.4 218.8,102.3 221,103.2 223.2,104.1 225.5,105.1 227.7,106 230,107 232.3,107.9 234.5,108.9 236.8,109.9 239,111 241.2,112 243.5,113.1 245.7,114.2 248,115.3 250.2,116.4 252.5,117.6 254.8,118.7 257,119.9 259.2,121.2 261.5,122.4 263.8,123.7 266,125 268.2,126.3 270.5,127.6 272.8,129 275,130.3 277.2,131.7 279.5,133.1 281.8,134.5 284,136 286.2,137.4 288.5,138.9 290.8,140.4 293,141.8 295.2,143.3 297.5,144.8 299.8,146.3 302,147.9 304.2,149.4 306.5,150.9 308.8,152.5 311,154 313.2,155.5 315.5,157.1 317.7,158.6 320,160.2\" stroke-width=\"2\"/><line x1=\"50\" y1=\"98.8\" x2=\"320\" y2=\"98.8\" stroke-dasharray=\"4 3\"/><text x=\"46\" y=\"102.8\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0 dB</text></svg>",
-      "figure_alt": "Follower loop gain: falling 20 dB per decade through 0 dB near 1 MHz, steepening after 3 MHz."
-    },
-    {
       "id": "amp-compensation-r2-q1",
       "round": 2,
       "type": "mc",
@@ -59,16 +47,6 @@
       "figure_alt": "Unity-gain follower."
     },
     {
-      "id": "amp-compensation-r2-q2",
-      "round": 2,
-      "type": "numeric",
-      "prompt": "For the same follower model (\\(f_u=2\\ \\mathrm{MHz}\\)), where must the second pole \\(f_{p2}\\) be to get exactly 60° of phase margin, in MHz?",
-      "answer": 3.0,
-      "unit": "MHz",
-      "tolerance": 0.02,
-      "explanation": "PM \\(=90^\\circ-\\tan^{-1}(f_c/f_{p2})=60^\\circ\\) requires \\(f_c=f_{p2}\\tan30^\\circ=0.577f_{p2}\\). Crossover means \\(\\dfrac{f_u}{f_c}\\cdot\\dfrac{1}{\\sqrt{1+1/3}}=1\\), so \\(f_c=0.866f_u=1.73\\ \\mathrm{MHz}\\) and \\(f_{p2}=1.73/0.577=3.0\\ \\mathrm{MHz}=1.5f_u\\).\n• \\(f_u\\tan60^\\circ=3.46\\ \\mathrm{MHz}\\) assumes the crossover stays at \\(f_u\\).\n• 2 MHz (\\(f_{p2}=f_u\\)) gives only about 52°."
-    },
-    {
       "id": "amp-compensation-r2-q3",
       "round": 2,
       "type": "mc",
@@ -81,18 +59,6 @@
       ],
       "correct_index": 1,
       "explanation": "The Miller capacitor's feedback lowers the impedance at the output node at high frequency, so the second pole moves up as the first moves down. The poles 'split' apart, which is what makes a single small on-chip capacitor so effective.\n• Moving both poles together would worsen the margin.\n• There is no exact cancellation; that would need a matched zero.\n• The effect on the output pole is the point of the technique."
-    },
-    {
-      "id": "amp-compensation-r3-q1",
-      "round": 3,
-      "type": "numeric",
-      "prompt": "An op-amp has \\(A(jf)=\\dfrac{10^5}{(1+jf/10\\ \\mathrm{Hz})(1+jf/2\\ \\mathrm{MHz})}\\) (\\(f_u\\approx1\\ \\mathrm{MHz}\\)). Connected as a follower (\\(f=1\\)), what is the phase margin? Solve \\(|T|=1\\) numerically.",
-      "answer": 65.5308,
-      "unit": "degrees",
-      "tolerance": 0.02,
-      "explanation": "\\(T=A\\). Solving \\(|A(jf)|=1\\): \\(f_c=910.2\\ \\mathrm{kHz}\\) (a bit below 1 MHz because the second pole already bends the curve).\n\\(\\angle T=-\\tan^{-1}(f_c/10)-\\tan^{-1}(f_c/2\\ \\mathrm{MHz})\\approx-90^\\circ-24.5^\\circ\\), so PM \\(=65.5^\\circ\\).\nWith \\(f=0.1\\) the crossover drops to \\(\\approx100\\ \\mathrm{kHz}\\) and PM \\(\\approx87^\\circ\\): same op-amp, very different margin.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Op-amp gain with a 2 MHz second pole</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|T| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,46.2 82.5,46.2 254.8,160.5 310,233.8\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"132.4\" x2=\"53\" y2=\"132.4\"/><text x=\"44\" y=\"135.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"110.9\" x2=\"53\" y2=\"110.9\"/><text x=\"44\" y=\"113.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"89.3\" x2=\"53\" y2=\"89.3\"/><text x=\"44\" y=\"92.3\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"47\" y1=\"67.7\" x2=\"53\" y2=\"67.7\"/><text x=\"44\" y=\"70.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">80</text><line x1=\"47\" y1=\"46.2\" x2=\"53\" y2=\"46.2\"/><text x=\"44\" y=\"49.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">100</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"82.5\" y1=\"151\" x2=\"82.5\" y2=\"157\"/><text x=\"82.5\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"115\" y1=\"151\" x2=\"115\" y2=\"157\"/><text x=\"115\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"147.5\" y1=\"151\" x2=\"147.5\" y2=\"157\"/><text x=\"147.5\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"180\" y1=\"151\" x2=\"180\" y2=\"157\"/><text x=\"180\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"212.5\" y1=\"151\" x2=\"212.5\" y2=\"157\"/><text x=\"212.5\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"245\" y1=\"151\" x2=\"245\" y2=\"157\"/><text x=\"245\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"277.5\" y1=\"151\" x2=\"277.5\" y2=\"157\"/><text x=\"277.5\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁸</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
-      "figure_alt": "Bode magnitude of an op-amp with poles at 10 Hz and 2 MHz."
     },
     {
       "id": "amp-compensation-r3-q2",
@@ -121,6 +87,150 @@
       "explanation": "\\(R_{iso}\\) in series with \\(C_L\\) adds a zero at \\(1/(R_{iso}C_L)\\), which cancels much of the load pole's phase lag near crossover, so the margin recovers. The price is a small DC error or slower settling at the load node.\n• DC gain is unchanged.\n• The capacitor is still there; only its effect on the loop is softened.\n• \\(f_u\\) does not move."
     },
     {
+      "id": "amp-compensation-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of compensation. A follower's loop gain is \\(T=\\dfrac{f_u}{jf}\\cdot\\dfrac{1}{1+jf/f_{p2}}\\) with a non-dominant pole \\(f_{p2}=10\\ \\mathrm{MHz}\\). Dominant-pole compensation sets \\(f_u\\). Which \\(f_u\\) puts the crossover exactly at \\(f_{p2}\\) (phase margin \\(45^\\circ\\)), in MHz?",
+      "answer": 14.1421,
+      "unit": "MHz",
+      "tolerance": 0.02,
+      "explanation": "At \\(f=f_{p2}\\): \\(|T|=\\dfrac{f_u}{f_{p2}}\\cdot\\dfrac{1}{\\sqrt{2}}=1\\), so \\(f_u=\\sqrt{2}\\,f_{p2}=14.14\\ \\mathrm{MHz}\\). For \\(60^\\circ\\) the unity-gain frequency would have to sit lower still. The open-loop curve that shows this unity-gain frequency is the next reading.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop gain bends steeper after a second corner</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that is flat, then falls, then falls more steeply.",
+      "preview": [
+        "opamp-fr"
+      ],
+      "version": 3
+    },
+    {
+      "id": "amp-compensation-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Preview of the open-loop frequency response. The follower driving \\(C_L\\) has too little phase margin. Using only stability ideas, which change helps?",
+      "options": [
+        "Lower the op-amp's \\(f_u\\) (more dominant-pole compensation), so the crossover moves well below the load pole",
+        "Increase \\(C_L\\) further",
+        "Raise \\(f_u\\) so the loop is faster",
+        "Increase the feedback factor beyond 1"
+      ],
+      "correct_index": 0,
+      "explanation": "Phase margin improves when the crossover sits far below the non-dominant pole. Lowering \\(f_u\\) moves the crossover down. A larger \\(C_L\\) moves the load pole DOWN (worse). Raising \\(f_u\\) pushes the crossover up into the pole (worse). \\(f\\) can't exceed 1 with a passive network.\nMiller compensation is the classic way to lower \\(f_u\\) on-chip.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop gain bends steeper after a second corner</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that is flat, then falls, then falls more steeply.",
+      "preview": [
+        "opamp-fr"
+      ],
+      "version": 3
+    },
+    {
+      "id": "amp-compensation-r1-q4",
+      "round": 1,
+      "type": "order",
+      "prompt": "Order the steps of dominant-pole compensation for a follower.",
+      "explanation": "The dominant pole is placed first so the magnitude crosses 1 while the phase is still near \\(-90^\\circ\\). Other poles have to sit above that crossing, or they spend the margin. Reading the margin comes after the poles are placed. Putting the second pole below the crossover does the opposite of this list.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>unity-gain follower</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A forward amplifier with the full output subtracted at the input.",
+      "steps": [
+        "Choose the unity-gain frequency the follower is allowed to reach.",
+        "Place one pole well below that frequency so the gain falls at 20 dB/decade through it.",
+        "Keep every other pole above that frequency.",
+        "Read the phase margin at the frequency where the loop gain crosses magnitude 1."
+      ],
+      "version": 1
+    },
+    {
+      "id": "amp-compensation-r2-q4",
+      "round": 2,
+      "type": "error",
+      "prompt": "A note places the second pole of a follower. The intended crossover is \\(2.5\\ \\mathrm{MHz}\\). Exactly one step is wrong.",
+      "explanation": "The non-dominant pole belongs above the crossover. Below the crossover it contributes a large share of \\(-90^\\circ\\) exactly where the margin is read. The follower really does set \\(f = 1\\), and the margin really is read at magnitude 1.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>unity-gain follower</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A forward amplifier with the full output subtracted at the input.",
+      "steps": [
+        "A follower uses the full open-loop gain as the loop gain, because \\(f = 1\\).",
+        "The phase margin is read where the loop-gain magnitude crosses 1.",
+        "The second pole should sit below the crossover so that it adds lag early.",
+        "A second pole above the crossover adds less lag at the crossing."
+      ],
+      "flaw_index": 2,
+      "version": 1
+    },
+    {
+      "id": "amp-compensation-r3-q4",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which statements about an op-amp follower are true?",
+      "explanation": "The follower sets the feedback factor to 1, so the loop gain is the whole open-loop gain. A load capacitor and the output resistance form a pole, and a larger capacitor moves that pole down, not up. A second pole below the crossover adds lag at the crossing and reduces the phase margin.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>unity-gain follower</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A forward amplifier with the full output subtracted at the input.",
+      "options": [
+        "Unity-gain feedback makes the loop gain as large as the open-loop gain.",
+        "A capacitive load adds a pole with the amplifier's output resistance.",
+        "That load pole moves up when the capacitor grows.",
+        "A second pole below the crossover increases the phase margin."
+      ],
+      "correct_indices": [
+        0,
+        1
+      ],
+      "version": 1
+    },
+    {
+      "id": "amp-compensation-r4-q4",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Preview of the open-loop curve. A follower is an integrator through its gain crossover plus one extra pole. The crossover is at \\(1.6\\ \\mathrm{MHz}\\) and the extra pole is at \\(6.4\\ \\mathrm{MHz}\\). Phase at crossover is \\(-90^\\circ\\) minus the lag of that pole. What is the phase margin, in degrees?",
+      "explanation": "The extra pole contributes \\(\\arctan(1.6/6.4)=\\arctan(0.25)\\), about \\(14.0^\\circ\\). The phase margin is \\(90^\\circ\\) minus that lag, about \\(76.0^\\circ\\). Using \\(\\arctan(6.4/1.6)\\) swaps the pole and the crossover and reports a much smaller margin. A margin of \\(90^\\circ\\) would ignore the extra pole.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop gain falling as frequency rises</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A magnitude sketch that falls, then falls more steeply.",
+      "preview": [
+        "opamp-fr"
+      ],
+      "answer": 75.9638,
+      "unit": "degrees",
+      "tolerance": 0.02,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "amp-compensation-r1-q3",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "A follower uses an op-amp modeled as \\(A(s)=\\dfrac{\\omega_u}{s}\\cdot\\dfrac{1}{1+s/\\omega_{p2}}\\) with \\(f_u=1\\ \\mathrm{MHz}\\) and a second pole at \\(f_{p2}=3\\ \\mathrm{MHz}\\). What is the phase margin, in degrees?",
+      "answer": 72.3756,
+      "unit": "°",
+      "tolerance": 0.02,
+      "explanation": "Crossover: \\(\\dfrac{f_u}{f}\\cdot\\dfrac{1}{\\sqrt{1+(f/f_{p2})^2}}=1\\), which gives \\(f_c=0.95\\ \\mathrm{MHz}\\). The phase there is \\(-90^\\circ-\\tan^{-1}(0.95/3)=-107.6^\\circ\\), so PM \\(=72.4^\\circ\\).\n• \\(90-\\tan^{-1}(1/3)=71.6^\\circ\\) uses \\(f_u\\) as the crossover, a close approximation.\n• 90° ignores the second pole.\n• \\(-107.6^\\circ\\) is the phase itself, not the margin.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 210\" role=\"img\" aria-label=\"Follower loop gain: falling 20 dB per decade through 0 dB near 1 MHz, steepening after 3 MHz.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"50\" y1=\"176\" x2=\"330\" y2=\"176\"/><polygon points=\"330,176 323.6,178.7 323.6,173.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"176\" x2=\"50\" y2=\"16\"/><polygon points=\"50,16 52.7,22.4 47.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"192\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log10 ω (rad/s)</text><text x=\"54\" y=\"12\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| (dB)</text><polyline points=\"50,41.8 52.3,42.6 54.5,43.4 56.8,44.2 59,45 61.2,45.8 63.5,46.6 65.7,47.3 68,48.1 70.2,48.9 72.5,49.7 74.8,50.5 77,51.3 79.3,52.1 81.5,52.9 83.8,53.7 86,54.5 88.2,55.3 90.5,56.1 92.7,56.9 95,57.7 97.3,58.5 99.5,59.2 101.8,60 104,60.8 106.2,61.6 108.5,62.4 110.7,63.2 113,64 115.2,64.8 117.5,65.6 119.8,66.4 122,67.2 124.3,68 126.5,68.8 128.8,69.6 131,70.4 133.2,71.2 135.5,72 137.7,72.7 140,73.5 142.3,74.3 144.5,75.1 146.8,75.9 149,76.7 151.2,77.5 153.5,78.3 155.8,79.1 158,79.9 160.2,80.7 162.5,81.5 164.8,82.3 167,83.1 169.2,83.9 171.5,84.7 173.8,85.5 176,86.3 178.2,87.1 180.5,87.9 182.7,88.8 185,89.6 187.3,90.4 189.5,91.2 191.8,92 194,92.9 196.2,93.7 198.5,94.5 200.7,95.4 203,96.2 205.2,97 207.5,97.9 209.8,98.8 212,99.6 214.3,100.5 216.5,101.4 218.8,102.3 221,103.2 223.2,104.1 225.5,105.1 227.7,106 230,107 232.3,107.9 234.5,108.9 236.8,109.9 239,111 241.2,112 243.5,113.1 245.7,114.2 248,115.3 250.2,116.4 252.5,117.6 254.8,118.7 257,119.9 259.2,121.2 261.5,122.4 263.8,123.7 266,125 268.2,126.3 270.5,127.6 272.8,129 275,130.3 277.2,131.7 279.5,133.1 281.8,134.5 284,136 286.2,137.4 288.5,138.9 290.8,140.4 293,141.8 295.2,143.3 297.5,144.8 299.8,146.3 302,147.9 304.2,149.4 306.5,150.9 308.8,152.5 311,154 313.2,155.5 315.5,157.1 317.7,158.6 320,160.2\" stroke-width=\"2\"/><line x1=\"50\" y1=\"98.8\" x2=\"320\" y2=\"98.8\" stroke-dasharray=\"4 3\"/><text x=\"46\" y=\"102.8\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0 dB</text></svg>",
+      "figure_alt": "Follower loop gain: falling 20 dB per decade through 0 dB near 1 MHz, steepening after 3 MHz.",
+      "version": 1
+    },
+    {
+      "id": "amp-compensation-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "For the same follower model (\\(f_u=2\\ \\mathrm{MHz}\\)), where must the second pole \\(f_{p2}\\) be to get exactly 60° of phase margin, in MHz?",
+      "answer": 3.0,
+      "unit": "MHz",
+      "tolerance": 0.02,
+      "explanation": "PM \\(=90^\\circ-\\tan^{-1}(f_c/f_{p2})=60^\\circ\\) requires \\(f_c=f_{p2}\\tan30^\\circ=0.577f_{p2}\\). Crossover means \\(\\dfrac{f_u}{f_c}\\cdot\\dfrac{1}{\\sqrt{1+1/3}}=1\\), so \\(f_c=0.866f_u=1.73\\ \\mathrm{MHz}\\) and \\(f_{p2}=1.73/0.577=3.0\\ \\mathrm{MHz}=1.5f_u\\).\n• \\(f_u\\tan60^\\circ=3.46\\ \\mathrm{MHz}\\) assumes the crossover stays at \\(f_u\\).\n• 2 MHz (\\(f_{p2}=f_u\\)) gives only about 52°.",
+      "version": 1
+    },
+    {
+      "id": "amp-compensation-r3-q1",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "An op-amp has \\(A(jf)=\\dfrac{10^5}{(1+jf/10\\ \\mathrm{Hz})(1+jf/2\\ \\mathrm{MHz})}\\) (\\(f_u\\approx1\\ \\mathrm{MHz}\\)). Connected as a follower (\\(f=1\\)), what is the phase margin? Solve \\(|T|=1\\) numerically.",
+      "answer": 65.5308,
+      "unit": "degrees",
+      "tolerance": 0.02,
+      "explanation": "\\(T=A\\). Solving \\(|A(jf)|=1\\): \\(f_c=910.2\\ \\mathrm{kHz}\\) (a bit below 1 MHz because the second pole already bends the curve).\n\\(\\angle T=-\\tan^{-1}(f_c/10)-\\tan^{-1}(f_c/2\\ \\mathrm{MHz})\\approx-90^\\circ-24.5^\\circ\\), so PM \\(=65.5^\\circ\\).\nWith \\(f=0.1\\) the crossover drops to \\(\\approx100\\ \\mathrm{kHz}\\) and PM \\(\\approx87^\\circ\\): same op-amp, very different margin.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Op-amp gain with a 2 MHz second pole</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|T| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,46.2 82.5,46.2 254.8,160.5 310,233.8\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"132.4\" x2=\"53\" y2=\"132.4\"/><text x=\"44\" y=\"135.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"110.9\" x2=\"53\" y2=\"110.9\"/><text x=\"44\" y=\"113.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"89.3\" x2=\"53\" y2=\"89.3\"/><text x=\"44\" y=\"92.3\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"47\" y1=\"67.7\" x2=\"53\" y2=\"67.7\"/><text x=\"44\" y=\"70.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">80</text><line x1=\"47\" y1=\"46.2\" x2=\"53\" y2=\"46.2\"/><text x=\"44\" y=\"49.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">100</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"82.5\" y1=\"151\" x2=\"82.5\" y2=\"157\"/><text x=\"82.5\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"115\" y1=\"151\" x2=\"115\" y2=\"157\"/><text x=\"115\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"147.5\" y1=\"151\" x2=\"147.5\" y2=\"157\"/><text x=\"147.5\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"180\" y1=\"151\" x2=\"180\" y2=\"157\"/><text x=\"180\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"212.5\" y1=\"151\" x2=\"212.5\" y2=\"157\"/><text x=\"212.5\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"245\" y1=\"151\" x2=\"245\" y2=\"157\"/><text x=\"245\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"277.5\" y1=\"151\" x2=\"277.5\" y2=\"157\"/><text x=\"277.5\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁸</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
+      "figure_alt": "Bode magnitude of an op-amp with poles at 10 Hz and 2 MHz.",
+      "version": 1
+    },
+    {
       "id": "amp-compensation-r4-q1",
       "round": 4,
       "type": "numeric",
@@ -133,42 +243,8 @@
       "figure_alt": "Unity-gain follower whose output, with 100 ohm output resistance, drives a 4.7 nF load capacitor.",
       "preview": [
         "cs-cap-load"
-      ]
-    },
-    {
-      "id": "amp-compensation-r4-q2",
-      "round": 4,
-      "type": "numeric",
-      "prompt": "Preview of compensation. A follower's loop gain is \\(T=\\dfrac{f_u}{jf}\\cdot\\dfrac{1}{1+jf/f_{p2}}\\) with a non-dominant pole \\(f_{p2}=10\\ \\mathrm{MHz}\\). Dominant-pole compensation sets \\(f_u\\). Which \\(f_u\\) puts the crossover exactly at \\(f_{p2}\\) (phase margin \\(45^\\circ\\)), in MHz?",
-      "answer": 14.1421,
-      "unit": "MHz",
-      "tolerance": 0.02,
-      "explanation": "At \\(f=f_{p2}\\): \\(|T|=\\dfrac{f_u}{f_{p2}}\\cdot\\dfrac{1}{\\sqrt2}=1\\Rightarrow f_u=\\sqrt2\\,f_{p2}=14.14\\ \\mathrm{MHz}\\).\nFor 60° you would need \\(f_u\\) lower still. Designers lower \\(f_u\\) by enlarging the dominant capacitance, often with the Miller effect, which is coming soon.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Loop gain with a 10 MHz non-dominant pole</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|T| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,46.2 124.3,46.2 235.7,154 310,297.8\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"118.1\" x2=\"53\" y2=\"118.1\"/><text x=\"44\" y=\"121.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"82.1\" x2=\"53\" y2=\"82.1\"/><text x=\"44\" y=\"85.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"46.2\" x2=\"53\" y2=\"46.2\"/><text x=\"44\" y=\"49.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"87.1\" y1=\"151\" x2=\"87.1\" y2=\"157\"/><text x=\"87.1\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"124.3\" y1=\"151\" x2=\"124.3\" y2=\"157\"/><text x=\"124.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"161.4\" y1=\"151\" x2=\"161.4\" y2=\"157\"/><text x=\"161.4\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"198.6\" y1=\"151\" x2=\"198.6\" y2=\"157\"/><text x=\"198.6\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"235.7\" y1=\"151\" x2=\"235.7\" y2=\"157\"/><text x=\"235.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"272.9\" y1=\"151\" x2=\"272.9\" y2=\"157\"/><text x=\"272.9\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁸</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁹</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
-      "figure_alt": "Two-pole loop gain Bode magnitude with the second pole at 10 MHz.",
-      "preview": [
-        "miller"
-      ]
-    },
-    {
-      "id": "amp-compensation-r4-q3",
-      "round": 4,
-      "type": "mc",
-      "prompt": "Preview of compensation. The follower driving \\(C_L\\) has too little phase margin. Using only stability ideas, which change helps?",
-      "options": [
-        "Lower the op-amp's \\(f_u\\) (more dominant-pole compensation), so the crossover moves well below the load pole",
-        "Increase \\(C_L\\) further",
-        "Raise \\(f_u\\) so the loop is faster",
-        "Increase the feedback factor beyond 1"
       ],
-      "correct_index": 0,
-      "explanation": "Phase margin improves when the crossover sits far below the non-dominant pole. Lowering \\(f_u\\) moves the crossover down. A larger \\(C_L\\) moves the load pole DOWN (worse). Raising \\(f_u\\) pushes the crossover up into the pole (worse). \\(f\\) can't exceed 1 with a passive network.\nMiller compensation is the classic way to lower \\(f_u\\) on-chip.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Loop gain with two poles</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|T| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,46.2 124.3,46.2 235.7,154 310,297.8\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"118.1\" x2=\"53\" y2=\"118.1\"/><text x=\"44\" y=\"121.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"82.1\" x2=\"53\" y2=\"82.1\"/><text x=\"44\" y=\"85.1\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"46.2\" x2=\"53\" y2=\"46.2\"/><text x=\"44\" y=\"49.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"87.1\" y1=\"151\" x2=\"87.1\" y2=\"157\"/><text x=\"87.1\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"124.3\" y1=\"151\" x2=\"124.3\" y2=\"157\"/><text x=\"124.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"161.4\" y1=\"151\" x2=\"161.4\" y2=\"157\"/><text x=\"161.4\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"198.6\" y1=\"151\" x2=\"198.6\" y2=\"157\"/><text x=\"198.6\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"235.7\" y1=\"151\" x2=\"235.7\" y2=\"157\"/><text x=\"235.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"272.9\" y1=\"151\" x2=\"272.9\" y2=\"157\"/><text x=\"272.9\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁸</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
-      "figure_alt": "Two-pole loop gain Bode magnitude.",
-      "preview": [
-        "miller",
-        "cs-cap-load"
-      ]
+      "version": 1
     }
   ]
 }
