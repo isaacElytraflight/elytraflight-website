@@ -50,7 +50,7 @@
     {
       "name": "katex",
       "ok": true,
-      "summary": "KaTeX: rendered 1271 math chunks, 0 errors"
+      "summary": "KaTeX: rendered 1272 math chunks, 0 errors"
     },
     {
       "name": "test-content",
@@ -66,6 +66,12 @@
       "name": "test-migrate",
       "ok": true,
       "summary": "24 passed, 0 failed"
+    },
+    {
+      "name": "puppeteer",
+      "ok": true,
+      "skipped": true,
+      "summary": "--no-browser override; skipping the browser suite"
     }
   ]
 }
