@@ -41,22 +41,17 @@ def main():
 
     A = np.array([[4.0, 2.0], [2.0, 4.0]])
     ev = np.linalg.eigvalsh(A)
-    expected["spectral-decomposition-r1-q2"] = ev.max()
-    expected["spectral-decomposition-r2-q2"] = np.linalg.det(A)
-    expected["spectral-decomposition-r2-q3"] = np.trace(A)
-    D = np.diag([5.0, 1.0])
-    x = np.array([2.0, 0.0])
-    expected["spectral-decomposition-r3-q2"] = float(x @ D @ x)
-    expected["spectral-decomposition-r3-q3"] = np.linalg.eigvalsh(D)[0]
+    u = 2.0 ** -0.5
+    basis = np.array([[u, u], [u, -u]])
+    rebuilt = basis @ np.diag([12.0, 4.0]) @ basis.T
+    expected["spectral-decomposition-r2-q4"] = float(rebuilt[0, 0])
+    mags = np.array([-9.0, 1.0])
+    expected["spectral-decomposition-r4-q4"] = float(mags[np.argmax(np.abs(mags))])
     expected["spectral-decomposition-r4-q2"] = ev.max()
 
     P = np.diag([2.0, 8.0])
     ones = np.array([1.0, 1.0])
     expected["positive-definite-matrices-r1-q2"] = float(ones @ P @ ones)
-    Q = np.array([[1.0, 2.0], [2.0, 1.0]])
-    qev = np.linalg.eigvalsh(Q)
-    expected["positive-definite-matrices-r2-q2"] = qev.min()
-    expected["positive-definite-matrices-r2-q3"] = np.linalg.det(Q)
     # 2 x^2 + 8 y^2 = 8 => x^2/4 + y^2 = 1, semi-axis sqrt(4) = 2
     expected["positive-definite-matrices-r3-q2"] = math.sqrt(8 / 2)
     Z = np.diag([1.0, 0.0])

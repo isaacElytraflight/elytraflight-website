@@ -1,0 +1,44 @@
+{
+  "id": "sg057-g2",
+  "label": "SG-057 group 2",
+  "box": "ME 132, Feedback Systems, and nonlinear optimization",
+  "skills": [
+    "lin-algebra-review",
+    "eigenvalues-diagonalization",
+    "eig-modes",
+    "spectral-decomposition",
+    "linear-least-squares",
+    "least-squares-quadratic",
+    "sys-id",
+    "positive-definite-matrices",
+    "lyapunov",
+    "quadratic-function-minimization",
+    "second-order-optimality",
+    "convex-optimality-global",
+    "singular-value-decomposition"
+  ],
+  "areas": {
+    "lin-algebra-review": ["optimization"],
+    "eigenvalues-diagonalization": ["optimization"],
+    "eig-modes": ["lti-stability"],
+    "spectral-decomposition": ["optimization"],
+    "linear-least-squares": ["optimization"],
+    "least-squares-quadratic": ["optimization"],
+    "sys-id": ["sys-id"],
+    "positive-definite-matrices": ["optimization"],
+    "lyapunov": ["lyapunov"],
+    "quadratic-function-minimization": ["optimization"],
+    "second-order-optimality": ["optimization"],
+    "convex-optimality-global": ["optimization"],
+    "singular-value-decomposition": ["optimization"]
+  },
+  "cores": [
+    "eigenvalues-diagonalization",
+    "linear-least-squares",
+    "positive-definite-matrices"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/audits/sg-057-cross-course-overlap.md",
+  "verifier": "skilltree/verify_sg057_g2.py"
+}

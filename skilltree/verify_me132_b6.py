@@ -91,12 +91,10 @@ def main():
     angle = math.degrees(math.atan2(*(here - other)[::-1]))
     expected["root-locus-r4-q1"] = 180.0 - angle
 
-    u = np.array([1.0, 2.0, 3.0])
-    y = np.array([2.0, 4.0, 7.0])
-    theta, *_ = np.linalg.lstsq(u.reshape(-1, 1), y, rcond=None)
     expected["sys-id-r1-q2"] = 10.0 / 4.0
-    expected["sys-id-r1-q3"] = float(theta[0])
+    expected["sys-id-r1-q4"] = 2.4  # 63 percent of the gap, read as the time constant
     expected["sys-id-r2-q2"] = 6.0 / math.sqrt(1.0 + 2.0 ** 2)
+    expected["sys-id-r3-q4"] = 5.5 - 8.0  # held-out residual, measured minus predicted
     expected["sys-id-r4-q1"] = 11.4 - 2.5 * 4.0
 
     expected["time-delay-r1-q2"] = math.degrees(0.04 * 10.0)

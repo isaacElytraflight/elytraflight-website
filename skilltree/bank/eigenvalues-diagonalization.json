@@ -1,0 +1,227 @@
+{
+  "skill_id": "eigenvalues-diagonalization",
+  "version": 1,
+  "questions": [
+    {
+      "id": "eigenvalues-diagonalization-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The eigenvalues of a square matrix \\(A\\) are the numbers \\(\\lambda\\) for which",
+      "explanation": "An eigenvalue is a stretch factor of a nonzero vector: \\(Av = \\lambda v\\) with \\(v \\ne 0\\). The zero vector satisfies the equation for every \\(\\lambda\\), so it is not an eigenvector. Adding \\(\\lambda I\\) to \\(A\\) is not the definition, and the entries of \\(A\\) need not equal \\(\\lambda\\).",
+      "options": [
+        "\\(Av = \\lambda v\\) for some nonzero vector \\(v\\).",
+        "\\(Av = \\lambda v\\) only when \\(v = 0\\).",
+        "\\(A + \\lambda I\\) is the zero matrix.",
+        "every entry of \\(A\\) equals \\(\\lambda\\)."
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "What is the larger eigenvalue of the triangular matrix \\(\\begin{bmatrix} 5 & 1 \\\\ 0 & -2 \\end{bmatrix}\\)?",
+      "explanation": "A triangular matrix lists its eigenvalues on the diagonal. Those entries are 5 and \\(-2\\). The larger one is 5. The off-diagonal 1 does not move the eigenvalues of a triangular matrix.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A triangular matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">5   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   -2</text></svg>",
+      "figure_alt": "An upper-triangular 2 by 2 matrix.",
+      "answer": 5.0,
+      "unit": "",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r1-q3",
+      "round": 1,
+      "type": "order",
+      "prompt": "Put these steps in the order you would use to find the eigenvalues of a 2 by 2 matrix and check one of them.",
+      "explanation": "For a 2 by 2 matrix the characteristic polynomial is \\(\\lambda^2 - (\\mathrm{tr}\\, A)\\lambda + \\det A\\). Its roots are the eigenvalues. A root still has to belong to a nonzero vector with \\(Av = \\lambda v\\). The trace and the determinant come before the polynomial, and the polynomial comes before the check.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A 2 by 2 matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   5</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with four numeric entries.",
+      "steps": [
+        "Compute the trace and the determinant.",
+        "Form \\(\\lambda^2 - (\\mathrm{tr}\\, A)\\lambda + \\det A\\).",
+        "Solve that quadratic for \\(\\lambda\\).",
+        "Check \\(Av = \\lambda v\\) for a nonzero \\(v\\)."
+      ],
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r2-q1",
+      "round": 2,
+      "type": "symbolic",
+      "prompt": "Let \\(A = \\begin{bmatrix} p & q \\\\ r & s \\end{bmatrix}\\). Write \\(\\det(\\lambda I - A)\\) in the names p, q, r, s, and l, using l for \\(\\lambda\\).",
+      "explanation": "The matrix \\(\\lambda I - A\\) has diagonal entries \\(l - p\\) and \\(l - s\\), and off-diagonal entries \\(-q\\) and \\(-r\\). Its determinant is \\((l - p)(l - s) - qr\\), which expands to \\(l^2 - (p + s)l + (ps - qr)\\). The trace \\(p + s\\) is subtracted. The product of the diagonal entries of \\(A\\), minus \\(qr\\), is the determinant.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A 2 by 2 matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   5</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with letter entries.",
+      "answer": "l*l-(p+s)*l+(p*s-q*r)",
+      "variables": [
+        {
+          "name": "p",
+          "min": -2.0,
+          "max": 2.0
+        },
+        {
+          "name": "q",
+          "min": -2.0,
+          "max": 2.0
+        },
+        {
+          "name": "r",
+          "min": -2.0,
+          "max": 2.0
+        },
+        {
+          "name": "s",
+          "min": -2.0,
+          "max": 2.0
+        },
+        {
+          "name": "l",
+          "min": -2.0,
+          "max": 2.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "(l-p)*(l-s)-q*r"
+      ],
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "What is the larger eigenvalue of \\(\\begin{bmatrix} 6 & 1 \\\\ 2 & 5 \\end{bmatrix}\\)?",
+      "explanation": "The trace is 11 and the determinant is \\(30 - 2 = 28\\). The polynomial is \\(\\lambda^2 - 11\\lambda + 28 = (\\lambda - 7)(\\lambda - 4)\\). The roots are 7 and 4, so the larger eigenvalue is 7. The trace itself is not an eigenvalue.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A 2 by 2 matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   5</text></svg>",
+      "figure_alt": "A 2 by 2 matrix.",
+      "answer": 7.0,
+      "unit": "",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r2-q3",
+      "round": 2,
+      "type": "multi",
+      "prompt": "Which statements are true when \\(A = P D P^{-1}\\) and \\(D\\) is diagonal?",
+      "explanation": "\\(A = P D P^{-1}\\) is a change of basis to the columns of \\(P\\). In that basis the matrix is diagonal, so those columns are eigenvectors and the diagonal entries are the eigenvalues. Similar matrices share their eigenvalues. The factorization exists only when there are enough independent eigenvectors to build \\(P\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A candidate eigenvector</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v</text></svg>",
+      "figure_alt": "Two arrows from the origin, one along the first axis.",
+      "options": [
+        "The diagonal entries of \\(D\\) are eigenvalues of \\(A\\).",
+        "The columns of \\(P\\) are eigenvectors of \\(A\\).",
+        "\\(A\\) and \\(D\\) have different eigenvalues.",
+        "This factorization needs a full set of eigenvectors."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note claims \\(\\begin{bmatrix} 2 & 1 \\\\ 0 & 2 \\end{bmatrix}\\) is diagonalizable. Exactly one step is false.",
+      "explanation": "\\(A - 2I = \\begin{bmatrix} 0 & 1 \\\\ 0 & 0 \\end{bmatrix}\\) has rank 1, so its null space has dimension 1. There is only one independent eigenvector. A repeated eigenvalue is not, by itself, a second eigenvector. The matrix is a Jordan block and is not diagonalizable.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A repeated diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   2</text></svg>",
+      "figure_alt": "A triangular matrix with equal diagonal entries.",
+      "steps": [
+        "The only eigenvalue is 2.",
+        "The equation \\((A - 2I)v = 0\\) has a one-dimensional solution.",
+        "Two independent eigenvectors exist, one for each copy of the eigenvalue.",
+        "A full set of eigenvectors is required before \\(A = P D P^{-1}\\)."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "A repeated eigenvalue can have only one eigenvector.",
+        "The only eigenvalue is not 2.",
+        "The null space of \\(A - 2I\\) is the whole plane."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r3-q2",
+      "round": 3,
+      "type": "numeric",
+      "prompt": "Let \\(A = \\begin{bmatrix} 3 & 1 \\\\ 0 & 4 \\end{bmatrix}\\) and \\(v = \\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix}\\). Which eigenvalue belongs to \\(v\\)?",
+      "explanation": "\\(Av = (4, 4) = 4v\\). The eigenvalue is 4. The other diagonal entry, 3, is the other eigenvalue, and \\(v\\) is not an eigenvector for 3. The first entry of \\(Av\\) being 4 is the check, not a different eigenvalue.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A candidate eigenvector</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">v</text></svg>",
+      "figure_alt": "An arrow along the first axis and a second arrow up and to the right.",
+      "answer": 4.0,
+      "unit": "",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A square matrix fails to be diagonalizable when",
+      "explanation": "Diagonalizable means \\(A = P D P^{-1}\\) for an invertible \\(P\\), and the columns of \\(P\\) are eigenvectors. That fails exactly when there are too few independent eigenvectors. A triangular matrix can be diagonalizable, a negative trace does not decide it, and a zero entry does not decide it.",
+      "options": [
+        "it does not have a full set of independent eigenvectors.",
+        "its trace is negative.",
+        "it is triangular.",
+        "it has a zero entry."
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r4-q1",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "The eigenvalues of \\(\\begin{bmatrix} -1 & 4 \\\\ 0 & -6 \\end{bmatrix}\\) are real. Which one is closer to zero?",
+      "explanation": "The matrix is triangular, so the eigenvalues are the diagonal entries \\(-1\\) and \\(-6\\). Distances to zero are 1 and 6. The closer eigenvalue is \\(-1\\). The more negative eigenvalue is \\(-6\\), which is farther from zero.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Two real eigenvalues</title><line x1=\"32\" y1=\"90\" x2=\"114\" y2=\"90\"/><line x1=\"142\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"85\" x2=\"133\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"95\" x2=\"133\" y2=\"85\" stroke-width=\"1.8\"/><line x1=\"13\" y1=\"85\" x2=\"23\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"13\" y1=\"95\" x2=\"23\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "Two marks on the negative real axis, one nearer the origin.",
+      "preview": [
+        "eig-modes"
+      ],
+      "answer": -1.0,
+      "unit": "",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "What is the larger eigenvalue of the symmetric matrix \\(\\begin{bmatrix} 8 & 2 \\\\ 2 & 5 \\end{bmatrix}\\)?",
+      "explanation": "The trace is 13 and the determinant is \\(40 - 4 = 36\\). The polynomial is \\(\\lambda^2 - 13\\lambda + 36 = (\\lambda - 9)(\\lambda - 4)\\). The roots are 9 and 4, so the larger eigenvalue is 9. Symmetry says the eigenvectors can be chosen orthonormal. It does not change this polynomial.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A symmetric matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">8   2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   5</text></svg>",
+      "figure_alt": "A symmetric 2 by 2 matrix.",
+      "preview": [
+        "spectral-decomposition"
+      ],
+      "answer": 9.0,
+      "unit": "",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "If \\(B = P^{-1} A P\\) with \\(P\\) invertible, what must \\(A\\) and \\(B\\) share?",
+      "explanation": "Similar matrices represent the same linear map in two bases, so they have the same eigenvalues, the same trace, and the same determinant. The eigenvectors change coordinates with \\(P\\). The entries change, and a vector in the null space of \\(A\\) is not automatically that same coordinate vector for \\(B\\).",
+      "preview": [
+        "positive-definite-matrices"
+      ],
+      "options": [
+        "Their eigenvalues.",
+        "Their eigenvectors, written in the same coordinates.",
+        "Every entry.",
+        "Their null spaces, written in the same coordinates."
+      ],
+      "correct_index": 0,
+      "version": 1
+    }
+  ]
+}

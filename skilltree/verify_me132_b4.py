@@ -101,15 +101,11 @@ def main():
     expected["eig-modes-r1-q2"] = -2.0
     expected["eig-modes-r1-q3"] = 0.2
 
-    expected["eig-modes-r2-q2"] = 5.0  # natural freq of -3+4j
-    expected["eig-modes-r2-q3"] = 0.6  # damping ratio
+    expected["eig-modes-r2-q4"] = 1.0 / 8.0  # time constant of -8+5j
 
-    tri = np.linalg.eigvals(np.array([[-1.0, 2.0], [0.0, -3.0]]))
-    expected["eig-modes-r3-q1"] = float(max(tri.real))  # slower diagonal entry
     expected["eig-modes-r3-q2"] = math.exp(-1)  # mode at t=1
 
     expected["eig-modes-r4-q1"] = -0.5  # dominant eigenvalue
-    expected["eig-modes-r4-q2"] = -5.0  # trace
 
     # --- ss-to-tf ---
     expected["ss-to-tf-r1-q3"] = 2 * (1 / 3) * 1  # DC gain

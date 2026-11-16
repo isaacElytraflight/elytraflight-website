@@ -1,0 +1,29 @@
+{
+  "id": "least-squares-quadratic",
+  "title": "Least squares as a quadratic",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A column used in a fit</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">4</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">4</text></svg>",
+      "figure_alt": "A column of two equal entries.",
+      "body_md": "The squared residual \\(\\lVert Ax - b \\rVert^2\\) is a quadratic function of \\(x\\). Its gradient is \\(2 A^T(Ax - b)\\), and setting that gradient to zero is the normal equation \\(A^T A x = A^T b\\). When the columns are independent, \\(A^T A\\) is invertible and the stationary point is the unique minimizer."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "Stationarity: \\[ A^T A x = A^T b. \\] The pseudoinverse of a full-column-rank matrix is \\[ A^+ = (A^T A)^{-1} A^T, \\] and the minimizer is \\(x = A^+ b\\). Then \\(A^+ A = I\\). For a tall matrix, \\(A A^+\\) is the projection onto the column space rather than the identity. A scalar residual \\(ax - b\\) has its square stationary at \\(x = b/a\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take the column \\((4, 4)\\) and the right-hand side \\((8, 14)\\). Then \\(A^T A = 32\\) and \\(A^T b = 88\\), so the stationary point is \\(88/32 = 2.75\\). The same number is the pseudoinverse applied to the right-hand side: \\(A^+ = (1/8, 1/8)\\) and \\((1/8) \\cdot 8 + (1/8) \\cdot 14 = 2.75\\). The residual is \\((8 - 11, 14 - 11) = (-3, 3)\\). It is orthogonal to the column, because \\(4 \\cdot (-3) + 4 \\cdot 3 = 0\\). The fit is not exact. The squared length of the residual is 18, which is the value of the quadratic at the stationary point."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "- Replacing \\(A^T b\\) by \\(b\\) in the stationarity condition. - Inverting \\(AA^T\\) for a tall full-column-rank matrix. That larger Gram matrix is singular. - Claiming \\(A A^+ = I\\) just because \\(A^+ A = I\\). The first product is a projection when there are more rows than columns. - Expecting the gradient of the squared residual to be \\(2A(Ax - b)\\) with no transpose."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "A model that is nonlinear in its parameters keeps a residual, but the residual is no longer linear in the unknown, so one normal equation is not the whole fit. A recursive update of the same normal equation takes rows one block at a time. Fitting a circle is the same stationarity idea with a different model."
+    }
+  ]
+}

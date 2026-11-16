@@ -80,7 +80,7 @@ Added in B2 for `state-space-model`, extended in B3 for `ss-solution` and `equil
 | \(A, B, C, D\) | state-space matrices | this \(A\) is not tank area; context tells which |
 | \(\dot{x} = Ax + Bu\) | state equation | |
 | \(y = Cx + Du\) | output equation | |
-| \(\lambda\) | eigenvalue of \(A\) | mode |
+| \(\lambda\) | eigenvalue of \(A\) | mode \(e^{\lambda t} v\). A Jordan block for a repeated eigenvalue adds a factor of \(t\). |
 | \(e^{At}\) | matrix exponential, the free-response operator | added in B3 |
 | \(x_e\) | equilibrium point, where \(\dot{x} = 0\) | added in B3 |
 
@@ -320,6 +320,8 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | LP dual | maximize \(b^T y\) subject to \(A^T y \le c\) | dual of minimize \(c^T x\) subject to \(Ax=b\), \(x\ge 0\). Added in NB7 |
 | half-space projection | \(z-a(a^T z-\beta)/(a^T a)\) when \(a^T z>\beta\), and \(z\) itself when \(a^T z\le \beta\) | from the KKT system of \(\tfrac12\lVert x-z\rVert^2\). Added in NB7 |
 | normal equations | \(A^T A x = A^T b\) | unique when \(A\) has full column rank. The solution is \((A^T A)^{-1} A^T b\). Added in NB7 |
+| \(A^+\) | pseudoinverse of a full-column-rank matrix | \((A^T A)^{-1} A^T\). The least-squares minimizer is \(A^+ b\). Added for `least-squares-quadratic` |
+| \(P, D\) | eigenvector matrix and the diagonal matrix of eigenvalues | \(A = P D P^{-1}\) when a full set of eigenvectors exists. Added for `eigenvalues-diagonalization` |
 | residual Jacobian \(J_r(x)\) | derivatives of the residual vector | one row per residual, one column per parameter. Added in NB7 |
 | algebraic circle | \(x^2+y^2+cx+dy+e=0\) | linear in \((c,d,e)\). Center \((-c/2,-d/2)\), and \(r^2=c^2/4+d^2/4-e\). Added in NB7 |
 | geometric margin | \(y_i(w^T x_i+b)/\lVert w\rVert\) for a correctly signed point | normalizing the smallest functional margin to 1 yields minimize \(\tfrac12\lVert w\rVert^2\) subject to \(y_i(w^T x_i+b)\ge 1\). Added in NB7 |

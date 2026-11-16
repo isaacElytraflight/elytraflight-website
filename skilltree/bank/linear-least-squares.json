@@ -1,6 +1,6 @@
 {
   "skill_id": "linear-least-squares",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "linear-least-squares-r1-q1",
@@ -47,22 +47,6 @@
         "\\(b\\) is the zero vector"
       ],
       "correct_index": 2,
-      "version": 1
-    },
-    {
-      "id": "linear-least-squares-r2-q1",
-      "round": 2,
-      "type": "order",
-      "prompt": "Put these steps in the order that derives the normal equations for \\(\\lVert Ax - b\\rVert^2\\). Each step uses the previous result.",
-      "explanation": "The objective is expanded before it is differentiated. The gradient is the quantity set to zero. Canceling \\(2\\) is legal only after that equation exists, and the rearrangement is the normal equation. Setting \\(Ax - b = 0\\) instead of the gradient to zero demands an exact fit the data may not have. Differentiating before writing the objective has nothing to differentiate.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
-      "figure_alt": "A straight line sloping downward on labeled axes.",
-      "steps": [
-        "Write the objective as \\((Ax - b)^T(Ax - b)\\).",
-        "Differentiate it in \\(x\\). The gradient is \\(2 A^T(Ax - b)\\).",
-        "Set that gradient equal to zero.",
-        "Cancel the nonzero factor \\(2\\) and rearrange to \\(A^T A x = A^T b\\)."
-      ],
       "version": 1
     },
     {
@@ -125,29 +109,6 @@
       "version": 1
     },
     {
-      "id": "linear-least-squares-r3-q1",
-      "round": 3,
-      "type": "error",
-      "prompt": "A note derives the normal equations. Exactly one step is a false claim.",
-      "explanation": "The gradient formula is right, and clearing it really does produce \\(A^T A x = A^T b\\). Full column rank really does invert \\(A^T A\\). The false step replaces \\(A^T b\\) by \\(b\\). Those two vectors have different shapes whenever \\(A\\) is not square, and they are different even when a square \\(A\\) is invertible. The right-hand side has to be \\(A^T b\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
-      "figure_alt": "A straight line sloping downward on labeled axes.",
-      "steps": [
-        "The gradient of \\(\\lVert Ax - b\\rVert^2\\) is \\(2 A^T(Ax - b)\\).",
-        "Setting that gradient to zero is equivalent to \\(A^T A x = A^T b\\).",
-        "The same equation can be written \\(A^T A x = b\\).",
-        "Full column rank makes \\(A^T A\\) invertible."
-      ],
-      "flaw_index": 2,
-      "reasons": [
-        "The right-hand side is \\(A^T b\\), not \\(b\\).",
-        "The gradient is \\(2A(Ax - b)\\), without a transpose.",
-        "Full column rank leaves \\(A^T A\\) singular."
-      ],
-      "correct_reason": 0,
-      "version": 1
-    },
-    {
       "id": "linear-least-squares-r3-q2",
       "round": 3,
       "type": "numeric",
@@ -175,6 +136,138 @@
         "\\(A^{-1} b\\), whether or not \\(A\\) is square"
       ],
       "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "If the columns of \\(A\\) are linearly dependent, the normal equations",
+      "explanation": "\\(A^T b\\) is always in the column space of \\(A^T A\\), so the normal equations stay consistent. Dependence makes \\(A^T A\\) singular, and the solution set is a translate of the null space: infinitely many solutions, all with the same residual. The residual is zero only when \\(b\\) is in the column space of \\(A\\). Dependence does not force that.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a dented quadrilateral</title><line x1=\"24\" y1=\"172\" x2=\"260\" y2=\"172\"/><polygon points=\"260,172 253.6,174.7 253.6,169.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"36\" y1=\"184\" x2=\"36\" y2=\"20\"/><polygon points=\"36,20 38.7,26.4 33.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"254\" y=\"188\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"44\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"50,150 230,150 210,40 140,130\" stroke-width=\"2.0\" fill=\"currentColor\" fill-opacity=\"0.15\"/></svg>",
+      "figure_alt": "A four-sided region with one corner pushed in.",
+      "preview": [
+        "kalman-recursive-least-squares"
+      ],
+      "options": [
+        "have no solution",
+        "have infinitely many solutions",
+        "keep \\(A^T A\\) invertible",
+        "force the residual to be zero"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r2-q4",
+      "round": 2,
+      "type": "order",
+      "prompt": "The columns of \\(A\\) are independent. Put these steps in the order you would use to solve the least-squares problem.",
+      "explanation": "Independent columns make \\(A^T A\\) invertible, so the normal equations have one solution. That solution is the least-squares minimizer, and its residual is orthogonal to the column space. Forming the Gram matrix comes before the solve. Orthogonality is a property of the residual you just computed, not a step that replaces the solve.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>One column</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">5</text></svg>",
+      "figure_alt": "A single column of three entries.",
+      "steps": [
+        "Form the Gram matrix \\(A^T A\\) and the vector \\(A^T b\\).",
+        "Solve the normal equations \\(A^T A x = A^T b\\).",
+        "The solution is unique because the columns are independent.",
+        "The residual \\(b - Ax\\) is orthogonal to every column of \\(A\\)."
+      ],
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r3-q4",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note solves \\(y = \\theta u\\) from several pairs. Exactly one step is false.",
+      "explanation": "The scalar normal equation weights each output by its input. It is the average of the outputs only when every input equals 1, because then \\(\\sum u^2\\) is the number of samples and \\(\\sum u y\\) is the sum of the outputs. Unequal inputs keep the squared inputs as weights.",
+      "steps": [
+        "The normal equation is \\(\\theta \\sum u^2 = \\sum u y\\).",
+        "When every input equals 1, \\(\\theta\\) is the average of the outputs.",
+        "For arbitrary inputs, \\(\\theta\\) is still the average of the outputs.",
+        "A column that is not all zeros has full column rank, so the minimizer is unique."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "Unequal inputs weight the outputs by \\(u\\), so the result is not the plain average.",
+        "The normal equation uses \\(\\sum u\\) on the left.",
+        "A nonzero column can still be rank zero."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q4",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "The pairs \\((u, y)\\) are \\((2, 4)\\), \\((3, 7)\\), and \\((5, 8)\\), and the model is \\(y = \\theta u\\). What is the least-squares \\(\\theta\\)?",
+      "explanation": "One column \\(a = (2, 3, 5)\\) gives \\(\\theta = (a \\cdot y) / (a \\cdot a)\\). The numerator is \\(2 \\cdot 4 + 3 \\cdot 7 + 5 \\cdot 8 = 69\\). The denominator is \\(4 + 9 + 25 = 38\\). So \\(\\theta = 69/38\\). The plain average of the outputs ignores the inputs.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>One column</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">5</text></svg>",
+      "figure_alt": "Three input values stacked in one column.",
+      "preview": [
+        "sys-id"
+      ],
+      "answer": 1.81579,
+      "unit": "",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q5",
+      "round": 4,
+      "type": "mc",
+      "prompt": "When the columns of \\(A\\) are independent, the least-squares minimizer is the solution of which equation?",
+      "explanation": "Independent columns make \\(A^T A\\) invertible, and the minimizer solves the normal equations \\(A^T A x = A^T b\\). The equation \\(Ax = b\\) is exact interpolation, which an overdetermined system usually does not have. The products \\(AA^T\\) and \\(A^T x\\) have the wrong shapes for a tall \\(A\\).",
+      "preview": [
+        "least-squares-quadratic"
+      ],
+      "options": [
+        "\\(A^T A x = A^T b\\)",
+        "\\(A x = b\\)",
+        "\\(A A^T x = b\\)",
+        "\\(A^T x = b\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "linear-least-squares-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order that derives the normal equations for \\(\\lVert Ax - b\\rVert^2\\). Each step uses the previous result.",
+      "explanation": "The objective is expanded before it is differentiated. The gradient is the quantity set to zero. Canceling \\(2\\) is legal only after that equation exists, and the rearrangement is the normal equation. Setting \\(Ax - b = 0\\) instead of the gradient to zero demands an exact fit the data may not have. Differentiating before writing the objective has nothing to differentiate.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "steps": [
+        "Write the objective as \\((Ax - b)^T(Ax - b)\\).",
+        "Differentiate it in \\(x\\). The gradient is \\(2 A^T(Ax - b)\\).",
+        "Set that gradient equal to zero.",
+        "Cancel the nonzero factor \\(2\\) and rearrange to \\(A^T A x = A^T b\\)."
+      ],
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r3-q1",
+      "round": 3,
+      "type": "error",
+      "prompt": "A note derives the normal equations. Exactly one step is a false claim.",
+      "explanation": "The gradient formula is right, and clearing it really does produce \\(A^T A x = A^T b\\). Full column rank really does invert \\(A^T A\\). The false step replaces \\(A^T b\\) by \\(b\\). Those two vectors have different shapes whenever \\(A\\) is not square, and they are different even when a square \\(A\\) is invertible. The right-hand side has to be \\(A^T b\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a line sloping down</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">z</text><polyline points=\"46,39 49,40.1 52,41.1 55.1,42.1 58.1,43.2 61.1,44.2 64.1,45.3 67.2,46.3 70.2,47.4 73.2,48.4 76.2,49.4 79.2,50.5 82.3,51.5 85.3,52.6 88.3,53.6 91.3,54.7 94.4,55.7 97.4,56.7 100.4,57.8 103.4,58.8 106.4,59.9 109.5,60.9 112.5,62 115.5,63 118.5,64 121.6,65.1 124.6,66.1 127.6,67.2 130.6,68.2 133.6,69.3 136.7,70.3 139.7,71.3 142.7,72.4 145.7,73.4 148.8,74.5 151.8,75.5 154.8,76.6 157.8,77.6 160.8,78.6 163.9,79.7 166.9,80.7 169.9,81.8 172.9,82.8 176,83.9 179,84.9 182,85.9 185,87 188,88 191.1,89.1 194.1,90.1 197.1,91.2 200.1,92.2 203.2,93.2 206.2,94.3 209.2,95.3 212.2,96.4 215.2,97.4 218.3,98.5 221.3,99.5 224.3,100.5 227.3,101.6 230.4,102.6 233.4,103.7 236.4,104.7 239.4,105.8 242.4,106.8 245.5,107.8 248.5,108.9 251.5,109.9 254.5,111 257.6,112 260.6,113 263.6,114.1 266.6,115.1 269.6,116.2 272.7,117.2 275.7,118.3 278.7,119.3 281.7,120.3 284.8,121.4 287.8,122.4 290.8,123.5 293.8,124.5 296.8,125.6 299.9,126.6 302.9,127.6 305.9,128.7 308.9,129.7 312,130.8 315,131.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A straight line sloping downward on labeled axes.",
+      "steps": [
+        "The gradient of \\(\\lVert Ax - b\\rVert^2\\) is \\(2 A^T(Ax - b)\\).",
+        "Setting that gradient to zero is equivalent to \\(A^T A x = A^T b\\).",
+        "The same equation can be written \\(A^T A x = b\\).",
+        "Full column rank makes \\(A^T A\\) invertible."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The right-hand side is \\(A^T b\\), not \\(b\\).",
+        "The gradient is \\(2A(Ax - b)\\), without a transpose.",
+        "Full column rank leaves \\(A^T A\\) singular."
+      ],
+      "correct_reason": 0,
       "version": 1
     },
     {
@@ -211,26 +304,6 @@
       "answer": 2.0,
       "unit": "1",
       "tolerance": 0.02,
-      "version": 1
-    },
-    {
-      "id": "linear-least-squares-r4-q3",
-      "round": 4,
-      "type": "mc",
-      "prompt": "If the columns of \\(A\\) are linearly dependent, the normal equations",
-      "explanation": "\\(A^T b\\) is always in the column space of \\(A^T A\\), so the normal equations stay consistent. Dependence makes \\(A^T A\\) singular, and the solution set is a translate of the null space: infinitely many solutions, all with the same residual. The residual is zero only when \\(b\\) is in the column space of \\(A\\). Dependence does not force that.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a dented quadrilateral</title><line x1=\"24\" y1=\"172\" x2=\"260\" y2=\"172\"/><polygon points=\"260,172 253.6,174.7 253.6,169.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"36\" y1=\"184\" x2=\"36\" y2=\"20\"/><polygon points=\"36,20 38.7,26.4 33.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"254\" y=\"188\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"44\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"50,150 230,150 210,40 140,130\" stroke-width=\"2.0\" fill=\"currentColor\" fill-opacity=\"0.15\"/></svg>",
-      "figure_alt": "A four-sided region with one corner pushed in.",
-      "preview": [
-        "kalman-recursive-least-squares"
-      ],
-      "options": [
-        "have no solution",
-        "have infinitely many solutions",
-        "keep \\(A^T A\\) invertible",
-        "force the residual to be zero"
-      ],
-      "correct_index": 1,
       "version": 1
     }
   ]

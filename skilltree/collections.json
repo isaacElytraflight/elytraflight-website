@@ -413,6 +413,8 @@
         "impulse-conv",
         "state-space-model",
         "ss-solution",
+        "lin-algebra-review",
+        "eigenvalues-diagonalization",
         "eig-modes",
         "ss-to-tf",
         "realization"
@@ -456,6 +458,7 @@
         "gaussian-random-vectors",
         "kalman",
         "kalman-optimal-observer",
+        "linear-least-squares",
         "sys-id",
         "mpc",
         "adaptive"
@@ -506,6 +509,7 @@
         "ode-model",
         "state-space-model",
         "model-method",
+        "linear-least-squares",
         "sys-id",
         "lti-mech"
       ],
@@ -667,6 +671,8 @@
       "children": [],
       "skills": [
         "lin-algebra-review",
+        "eigenvalues-diagonalization",
+        "positive-definite-matrices",
         "gaussian-random-vectors",
         "gain-scheduling",
         "mpc",
@@ -719,6 +725,7 @@
       "children": [],
       "skills": [
         "lin-algebra-review",
+        "eigenvalues-diagonalization",
         "gaussian-random-vectors",
         "rn-important-subsets",
         "spectral-decomposition",
@@ -817,6 +824,7 @@
       "children": [],
       "skills": [
         "linear-least-squares",
+        "least-squares-quadratic",
         "least-squares-data-fitting",
         "nonlinear-least-squares",
         "circle-fitting-least-squares"

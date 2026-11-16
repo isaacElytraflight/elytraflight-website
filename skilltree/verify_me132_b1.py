@@ -112,21 +112,16 @@ def numeric_checks():
     put("laplace-r4-q2", _spring)
     put("laplace-r4-q3", lambda: float(abs(np.roots([2.0, 5.0])[0])))
 
-    # --- linear algebra: eigenvalues, SVD rank, solves ---
+    # --- linear algebra: determinant, rank, products, solves ---
     put("lin-algebra-review-r1-q2", lambda: float(np.prod(np.linalg.eigvals(np.array([[2.0, 1.0], [0.0, 3.0]], float))).real))
-    put("lin-algebra-review-r2-q1", lambda: float(np.max(np.linalg.eigvals(np.array([[4.0, 1.0], [2.0, 3.0]], float)).real)))
 
     def nullity():
         s = np.linalg.svd(np.array([[1.0, 2.0], [2.0, 4.0]]), compute_uv=False)
         rank = int(np.sum(s > 1e-8))
         return 2 - rank
     put("lin-algebra-review-r2-q3", nullity)
+    put("lin-algebra-review-r2-q5", lambda: float((np.array([[3.0, -2.0], [5.0, 1.0]]) @ np.array([2.0, 1.0]))[1]))
     put("lin-algebra-review-r3-q1", lambda: float(np.linalg.solve(np.array([[3.0, 1.0], [1.0, 2.0]]), np.array([5.0, 4.0]))[0]))
-
-    def closer_eig():
-        ev = np.linalg.eigvals(np.array([[0.0, -2.0], [1.0, -3.0]], float)).real
-        return float(ev[np.argmin(np.abs(ev))])
-    put("lin-algebra-review-r3-q3", closer_eig)
 
     def ctrb_rank():
         A = np.array([[0.0, 1.0], [0.0, -2.0]])
@@ -141,7 +136,7 @@ def numeric_checks():
         M = np.vstack([C, C @ A])
         return float(np.linalg.matrix_rank(M))
     put("lin-algebra-review-r4-q2", obs_rank)
-    put("lin-algebra-review-r4-q3", lambda: float(np.poly([-2.0, -5.0])[1]))
+    put("lin-algebra-review-r4-q4", lambda: float(np.linalg.matrix_rank(np.array([[1.0, 0.0], [2.0, 1.0], [0.0, 3.0]]))))
 
     # --- min-phase: complex argument, not the atan difference used to author ---
     put("min-phase-r1-q2", lambda: -phase_deg(np.exp(-1j * 50 * 0.02)))
@@ -230,13 +225,7 @@ def check_worked():
     if abs(h_inf - 4) > 1e-3 or " = 4" not in lap:
         mismatches.append(f"laplace steady {h_inf}")
 
-    A = np.array([[5.0, 2.0], [1.0, 4.0]])
-    ev = sorted(float(x.real) for x in np.linalg.eigvals(A))
     lin = texts["lin-algebra-review"]
-    if [round(v) for v in ev] != [3, 6]:
-        mismatches.append(f"lin eigs {ev}")
-    if "6" not in lin or "3" not in lin:
-        mismatches.append("lin explainer missing eigenvalues")
     sol = np.linalg.solve(np.array([[5.0, 1.0], [2.0, 3.0]]), np.array([7.0, 8.0]))
     if abs(sol[0] - 1) > 1e-9 or abs(sol[1] - 2) > 1e-9:
         mismatches.append(f"lin solve {sol}")

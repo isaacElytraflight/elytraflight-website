@@ -119,19 +119,47 @@
       "version": 1
     },
     {
-      "id": "lin-algebra-review-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "lin-algebra-review-r2-q2",
-      "version": 1
-    },
-    {
       "id": "lin-algebra-review-r2-q3",
       "version": 1
     },
     {
       "id": "lin-algebra-review-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r3-q5",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r2-q2",
       "version": 1
     },
     {
@@ -143,20 +171,12 @@
       "version": 2
     },
     {
-      "id": "lin-algebra-review-r4-q1",
-      "version": 2
-    },
-    {
-      "id": "lin-algebra-review-r4-q2",
-      "version": 2
-    },
-    {
       "id": "lin-algebra-review-r4-q3",
       "version": 1
     },
     {
       "id": "lin-algebra-review#explainer",
-      "version": 2
+      "version": 3
     },
     {
       "id": "min-phase-r1-q1",
@@ -947,6 +967,38 @@
       "version": 1
     },
     {
+      "id": "eig-modes-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "eig-modes-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r4-q4",
+      "version": 1
+    },
+    {
       "id": "eig-modes-r2-q2",
       "version": 1
     },
@@ -959,28 +1011,12 @@
       "version": 2
     },
     {
-      "id": "eig-modes-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "eig-modes-r3-q3",
-      "version": 1
-    },
-    {
-      "id": "eig-modes-r4-q1",
-      "version": 1
-    },
-    {
       "id": "eig-modes-r4-q2",
       "version": 1
     },
     {
-      "id": "eig-modes-r4-q3",
-      "version": 1
-    },
-    {
       "id": "eig-modes#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "limit-cycles-r1-q1",
@@ -2187,10 +2223,6 @@
       "version": 1
     },
     {
-      "id": "sys-id-r1-q3",
-      "version": 1
-    },
-    {
       "id": "sys-id-r2-q1",
       "version": 1
     },
@@ -2200,10 +2232,6 @@
     },
     {
       "id": "sys-id-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "sys-id-r3-q1",
       "version": 1
     },
     {
@@ -2227,8 +2255,24 @@
       "version": 1
     },
     {
-      "id": "sys-id#explainer",
+      "id": "sys-id-r1-q4",
       "version": 1
+    },
+    {
+      "id": "sys-id-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "sys-id#explainer",
+      "version": 2
     },
     {
       "id": "time-delay-r1-q1",
@@ -3275,10 +3319,6 @@
       "version": 1
     },
     {
-      "id": "spectral-decomposition-r1-q2",
-      "version": 1
-    },
-    {
       "id": "spectral-decomposition-r1-q3",
       "version": 1
     },
@@ -3287,15 +3327,51 @@
       "version": 1
     },
     {
+      "id": "spectral-decomposition-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r3-q5",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r1-q2",
+      "version": 1
+    },
+    {
       "id": "spectral-decomposition-r2-q2",
       "version": 1
     },
     {
       "id": "spectral-decomposition-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "spectral-decomposition-r3-q1",
       "version": 1
     },
     {
@@ -3311,16 +3387,8 @@
       "version": 1
     },
     {
-      "id": "spectral-decomposition-r4-q2",
-      "version": 1
-    },
-    {
-      "id": "spectral-decomposition-r4-q3",
-      "version": 1
-    },
-    {
       "id": "spectral-decomposition#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "positive-definite-matrices-r1-q1",
@@ -3331,19 +3399,7 @@
       "version": 1
     },
     {
-      "id": "positive-definite-matrices-r1-q3",
-      "version": 1
-    },
-    {
       "id": "positive-definite-matrices-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "positive-definite-matrices-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "positive-definite-matrices-r2-q3",
       "version": 1
     },
     {
@@ -3371,8 +3427,32 @@
       "version": 1
     },
     {
-      "id": "positive-definite-matrices#explainer",
+      "id": "positive-definite-matrices-r1-q4",
       "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices#explainer",
+      "version": 2
     },
     {
       "id": "singular-value-decomposition-r1-q1",
@@ -3420,7 +3500,7 @@
     },
     {
       "id": "singular-value-decomposition-r4-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "singular-value-decomposition#explainer",
@@ -6228,7 +6308,7 @@
     },
     {
       "id": "second-order-optimality-r4-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "second-order-optimality#explainer",
@@ -6332,7 +6412,7 @@
     },
     {
       "id": "convex-optimality-global-r4-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "convex-optimality-global#explainer",
@@ -6376,7 +6456,7 @@
     },
     {
       "id": "quadratic-function-minimization-r4-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "quadratic-function-minimization-r4-q2",
@@ -7027,19 +7107,11 @@
       "version": 1
     },
     {
-      "id": "linear-least-squares-r2-q1",
-      "version": 1
-    },
-    {
       "id": "linear-least-squares-r2-q2",
       "version": 1
     },
     {
       "id": "linear-least-squares-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "linear-least-squares-r3-q1",
       "version": 1
     },
     {
@@ -7051,6 +7123,34 @@
       "version": 1
     },
     {
+      "id": "linear-least-squares-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q5",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r3-q1",
+      "version": 1
+    },
+    {
       "id": "linear-least-squares-r4-q1",
       "version": 1
     },
@@ -7059,12 +7159,8 @@
       "version": 1
     },
     {
-      "id": "linear-least-squares-r4-q3",
-      "version": 1
-    },
-    {
       "id": "linear-least-squares#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "least-squares-data-fitting-r1-q1",
@@ -8984,6 +9080,778 @@
     },
     {
       "id": "fb-amp#explainer",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r3-q5",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review-r3-q2",
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "lin-algebra-review-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lin-algebra-review#explainer",
+      "version": 3
+    },
+    {
+      "id": "eigenvalues-diagonalization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "eigenvalues-diagonalization#explainer",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "eig-modes-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "eig-modes-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "eig-modes-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "eig-modes#explainer",
+      "version": 2
+    },
+    {
+      "id": "spectral-decomposition-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r3-q5",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "spectral-decomposition#explainer",
+      "version": 2
+    },
+    {
+      "id": "linear-least-squares-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q4",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q5",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "linear-least-squares#explainer",
+      "version": 2
+    },
+    {
+      "id": "least-squares-quadratic-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "least-squares-quadratic-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "least-squares-quadratic-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "least-squares-quadratic-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "least-squares-quadratic-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "least-squares-quadratic-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "least-squares-quadratic-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "least-squares-quadratic-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "least-squares-quadratic-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "least-squares-quadratic-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "least-squares-quadratic-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "least-squares-quadratic-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "least-squares-quadratic#explainer",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "sys-id-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "sys-id#explainer",
+      "version": 2
+    },
+    {
+      "id": "positive-definite-matrices-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "positive-definite-matrices#explainer",
+      "version": 2
+    },
+    {
+      "id": "lyapunov-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lyapunov-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lyapunov-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lyapunov-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lyapunov-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lyapunov-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lyapunov-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lyapunov-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lyapunov-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lyapunov-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lyapunov-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lyapunov-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lyapunov#explainer",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "quadratic-function-minimization-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratic-function-minimization#explainer",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-optimality-r4-q3",
+      "version": 2
+    },
+    {
+      "id": "second-order-optimality#explainer",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-optimality-global-r4-q3",
+      "version": 2
+    },
+    {
+      "id": "convex-optimality-global#explainer",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "singular-value-decomposition-r4-q3",
+      "version": 2
+    },
+    {
+      "id": "singular-value-decomposition#explainer",
       "version": 1
     },
     {
