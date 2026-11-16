@@ -13,8 +13,9 @@ The workflow:
 1. Pick an open Content issue, or open one with the Content form. A new course needs Isaac to accept its skill graph before any batch starts (SOP section 4).
 2. Start from [docs/batch-starter.md](docs/batch-starter.md). It gives the read order, the helper APIs, and where generated files go.
 3. Write banks and explainers with the helpers in `tools/skilltree-content/banklib.py`. Do not hand-build question JSON, and do not hand-edit the hashed files the build writes.
-4. Run `python3 tools/skilltree-content/run_gates.py --batch <id>` once on the commit you intend to push.
-5. Open the pull request with `Refs #N`, or `Closes #N` when it finishes the issue.
+4. Run `python3 tools/skilltree-content/run_gates.py --batch <id>` once on the commit you intend to push. A content-only diff still runs every content gate (schema, the no-source-references gate, the 25% deep-type quota, dedupe, and the reference checks) and skips the full browser suite. The suite runs when any changed path is not content, including app or UI code (`public/skilltree/*.js`, `*.css`, `*.html`) or the app or build code. `--browser` forces the suite. `--no-browser` skips it. The command prints the decision and why.
+5. Smoke-check in a browser on every pull request, content or UI: load the tree, open one changed skill, and take 1–2 screenshots.
+6. Open the pull request with `Refs #N`, or `Closes #N` when it finishes the issue.
 
 The hard rules:
 
@@ -82,7 +83,7 @@ A content batch has one gate command. Run it once on the commit you intend to pu
 python3 tools/skilltree-content/run_gates.py --batch <id>
 ```
 
-That runs the build, schema, reference, graph, domain, deep-quota, dedupe, numeric verifier, figure bounds, strict KaTeX, `test-content`, `test-merge`, `test-migrate`, and the Puppeteer suite. There is no separate content CI workflow. This command is the gate. Add `--docs` only when that batch should regenerate the changelog, the brief, the report, and `docs/content-versions.json`.
+That runs the build, schema, reference, graph, domain, deep-quota, dedupe, numeric verifier, figure bounds, strict KaTeX, `test-content`, `test-merge`, and `test-migrate`. The full Puppeteer suite is skipped when every path changed against `origin/main` is content (question banks, explainers, the skill graph, and their sources), and it runs otherwise. `--browser` and `--no-browser` override that, and the command prints why. There is no separate content CI workflow. This command is the gate. Add `--docs` only when that batch should regenerate the changelog, the brief, the report, and `docs/content-versions.json`. Every pull request, content or UI, still ends with one short browser smoke check: load the tree, open one changed skill, and take 1–2 screenshots.
 
 `tools/skilltree-content/verbatim_gate.py` is the shingle check for copied wording. It is not part of `run_gates.py` yet, because the source texts stay outside the repo. The copyright rules below apply whether or not that command is running.
 
