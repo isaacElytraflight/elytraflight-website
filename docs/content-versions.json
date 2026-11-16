@@ -1583,10 +1583,6 @@
       "version": 2
     },
     {
-      "id": "linearization-r1-q1",
-      "version": 1
-    },
-    {
       "id": "linearization-r1-q2",
       "version": 1
     },
@@ -1599,15 +1595,7 @@
       "version": 1
     },
     {
-      "id": "linearization-r2-q2",
-      "version": 1
-    },
-    {
       "id": "linearization-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "linearization-r3-q1",
       "version": 1
     },
     {
@@ -1631,8 +1619,32 @@
       "version": 1
     },
     {
+      "id": "linearization-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "linearization-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "linearization-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "linearization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "linearization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "linearization-r3-q1",
+      "version": 1
+    },
+    {
       "id": "linearization#explainer",
-      "version": 2
+      "version": 3
     },
     {
       "id": "lti-stability-r1-q1",
@@ -3136,11 +3148,11 @@
     },
     {
       "id": "mpc-r4-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "mpc-r4-q2",
-      "version": 1
+      "version": 2
     },
     {
       "id": "mpc-r4-q3",
@@ -3148,7 +3160,7 @@
     },
     {
       "id": "mpc#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "separation-r1-q1",
@@ -3307,10 +3319,6 @@
       "version": 2
     },
     {
-      "id": "trajectory-optimization-r1-q1",
-      "version": 1
-    },
-    {
       "id": "trajectory-optimization-r1-q2",
       "version": 1
     },
@@ -3355,8 +3363,16 @@
       "version": 1
     },
     {
-      "id": "trajectory-optimization#explainer",
+      "id": "trajectory-optimization-r1-q4",
       "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization#explainer",
+      "version": 2
     },
     {
       "id": "rn-important-subsets-r1-q1",
@@ -5475,10 +5491,6 @@
       "version": 1
     },
     {
-      "id": "taylor-approximation-multivariable-r1-q1",
-      "version": 1
-    },
-    {
       "id": "taylor-approximation-multivariable-r1-q2",
       "version": 1
     },
@@ -5512,7 +5524,7 @@
     },
     {
       "id": "taylor-approximation-multivariable-r4-q1",
-      "version": 1
+      "version": 2
     },
     {
       "id": "taylor-approximation-multivariable-r4-q2",
@@ -5523,8 +5535,16 @@
       "version": 1
     },
     {
-      "id": "taylor-approximation-multivariable#explainer",
+      "id": "taylor-approximation-multivariable-r1-q4",
       "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable#explainer",
+      "version": 2
     },
     {
       "id": "taylor-exact-mean-value-r1-q1",
@@ -10683,6 +10703,570 @@
       "version": 4
     },
     {
+      "id": "local-linear-approximation-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "local-linear-approximation-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "local-linear-approximation-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "local-linear-approximation-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "local-linear-approximation-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "local-linear-approximation-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "local-linear-approximation-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "local-linear-approximation-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "local-linear-approximation-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "local-linear-approximation-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "local-linear-approximation-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "local-linear-approximation-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "local-linear-approximation#explainer",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "nl-cap-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "nl-cap-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "nl-cap-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "nl-cap-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r4-q3",
+      "version": 2
+    },
+    {
+      "id": "nl-cap-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "nl-cap-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "nl-cap-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "nl-cap#explainer",
+      "version": 2
+    },
+    {
+      "id": "diode-ss-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "diode-ss-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "diode-ss-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "diode-ss-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "diode-ss-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "diode-ss-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "diode-ss#explainer",
+      "version": 2
+    },
+    {
+      "id": "ss-model-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "ss-model-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "ss-model-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "ss-model-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "ss-model-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "ss-model-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "ss-model-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "ss-model-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "ss-model-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "ss-model-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "ss-model-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "ss-model-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "ss-model#explainer",
+      "version": 2
+    },
+    {
+      "id": "bjt-ss-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "bjt-ss-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "bjt-ss-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "bjt-ss-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "bjt-ss-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "bjt-ss-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "bjt-ss-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "bjt-ss-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "bjt-ss-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "bjt-ss-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "bjt-ss-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "bjt-ss-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "bjt-ss#explainer",
+      "version": 2
+    },
+    {
+      "id": "linearization-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "linearization-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "linearization-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "linearization-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "linearization-r3-q2",
+      "version": 2
+    },
+    {
+      "id": "linearization-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "linearization-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "linearization-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "linearization-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "linearization-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "linearization-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "linearization-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "linearization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "linearization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "linearization-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "linearization#explainer",
+      "version": 3
+    },
+    {
+      "id": "taylor-approximation-multivariable-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "taylor-approximation-multivariable-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "taylor-approximation-multivariable#explainer",
+      "version": 2
+    },
+    {
+      "id": "finite-horizon-sequence-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "finite-horizon-sequence-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "finite-horizon-sequence-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "finite-horizon-sequence-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "finite-horizon-sequence-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "finite-horizon-sequence-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "finite-horizon-sequence-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "finite-horizon-sequence-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "finite-horizon-sequence-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "finite-horizon-sequence-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "finite-horizon-sequence-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "finite-horizon-sequence-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "finite-horizon-sequence#explainer",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization#explainer",
+      "version": 2
+    },
+    {
+      "id": "mpc-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "mpc-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "mpc-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "mpc-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "mpc-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "mpc-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "mpc-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "mpc-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "mpc-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "mpc-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "mpc-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "mpc-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "mpc#explainer",
+      "version": 2
+    },
+    {
       "id": "lti-def-r1-q4",
       "version": 1
     },
@@ -12632,7 +13216,7 @@
     },
     {
       "id": "nl-cap#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "carrier-pot-r1-q1",
@@ -13400,7 +13984,7 @@
     },
     {
       "id": "diode-ss#explainer",
-      "version": 1
+      "version": 2
     },
     {
       "id": "solar-cell-r1-q1",

@@ -1,0 +1,37 @@
+{
+  "id": "sg057-g4",
+  "label": "SG-057 group 4",
+  "box": "EE 105, ME 132, Feedback Systems, and nonlinear optimization",
+  "skills": [
+    "local-linear-approximation",
+    "nl-cap",
+    "diode-ss",
+    "ss-model",
+    "bjt-ss",
+    "linearization",
+    "taylor-approximation-multivariable",
+    "finite-horizon-sequence",
+    "trajectory-optimization",
+    "mpc"
+  ],
+  "areas": {
+    "local-linear-approximation": ["local-linear"],
+    "nl-cap": ["local-linear"],
+    "diode-ss": ["local-linear"],
+    "ss-model": ["local-linear"],
+    "bjt-ss": ["local-linear"],
+    "linearization": ["linearization"],
+    "taylor-approximation-multivariable": ["optimization"],
+    "finite-horizon-sequence": ["finite-horizon"],
+    "trajectory-optimization": ["optimization"],
+    "mpc": ["mpc"]
+  },
+  "cores": [
+    "local-linear-approximation",
+    "finite-horizon-sequence"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/audits/sg-057-cross-course-overlap.md",
+  "verifier": "skilltree/verify_sg057_g4.py"
+}

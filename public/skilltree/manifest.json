@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "generated": "2026-11-16T21:50:43.276832Z",
+  "generated": "2026-11-16T22:11:12.941962Z",
   "skills": {
-    "file": "skills.30cba7b6.json",
-    "hash": "30cba7b6"
+    "file": "skills.f0ef7b52.json",
+    "hash": "f0ef7b52"
   },
   "collections": {
-    "file": "collections.dc8ba5ef.json",
-    "hash": "dc8ba5ef",
+    "file": "collections.dd83d892.json",
+    "hash": "dd83d892",
     "boxCount": 56
   },
   "banks": {
@@ -1139,6 +1139,18 @@
       "hash": "186fb94b",
       "file": "banks/finite-difference-derivatives.186fb94b.json"
     },
+    "finite-horizon-sequence": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "15c30d53",
+      "file": "banks/finite-horizon-sequence.15c30d53.json"
+    },
     "first-order-optimality": {
       "version": 1,
       "questionCount": 12,
@@ -1800,7 +1812,7 @@
       "file": "banks/linear-least-squares.714719ad.json"
     },
     "linearization": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1808,8 +1820,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "62729677",
-      "file": "banks/linearization.62729677.json"
+      "hash": "3d6fcef6",
+      "file": "banks/linearization.3d6fcef6.json"
     },
     "lipschitz-gradient": {
       "version": 1,
@@ -1834,6 +1846,18 @@
       },
       "hash": "c2b237f2",
       "file": "banks/local-global-minima.c2b237f2.json"
+    },
+    "local-linear-approximation": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "15220f6e",
+      "file": "banks/local-linear-approximation.15220f6e.json"
     },
     "loop-gain": {
       "version": 5,
@@ -2160,7 +2184,7 @@
       "file": "banks/mosfet-struct.a2d2e740.json"
     },
     "mpc": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2168,8 +2192,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "63e6b023",
-      "file": "banks/mpc.63e6b023.json"
+      "hash": "5f5aad32",
+      "file": "banks/mpc.5f5aad32.json"
     },
     "nesterov-accelerated-gradient": {
       "version": 1,
@@ -3120,7 +3144,7 @@
       "file": "banks/sys-id.58d54721.json"
     },
     "taylor-approximation-multivariable": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3128,8 +3152,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "7f703a36",
-      "file": "banks/taylor-approximation-multivariable.7f703a36.json"
+      "hash": "bb0bb382",
+      "file": "banks/taylor-approximation-multivariable.bb0bb382.json"
     },
     "taylor-exact-mean-value": {
       "version": 1,
@@ -3180,7 +3204,7 @@
       "file": "banks/total-current.b066318a.json"
     },
     "trajectory-optimization": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3188,8 +3212,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "c8a5ebe6",
-      "file": "banks/trajectory-optimization.c8a5ebe6.json"
+      "hash": "999ef18f",
+      "file": "banks/trajectory-optimization.999ef18f.json"
     },
     "triode": {
       "version": 2,
@@ -3375,9 +3399,10 @@
       "sectionCount": 5
     },
     "bjt-ss": {
-      "hash": "e09f08d7",
-      "file": "explainers/bjt-ss.e09f08d7.json",
-      "sectionCount": 5
+      "hash": "5ca9f5dc",
+      "file": "explainers/bjt-ss.5ca9f5dc.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "bjt-struct": {
       "hash": "f75a4463",
@@ -3654,9 +3679,10 @@
       "sectionCount": 5
     },
     "diode-ss": {
-      "hash": "7cc1be3f",
-      "file": "explainers/diode-ss.7cc1be3f.json",
-      "sectionCount": 5
+      "hash": "d93e797a",
+      "file": "explainers/diode-ss.d93e797a.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "direct-h": {
       "hash": "655321a2",
@@ -3795,6 +3821,12 @@
     "finite-difference-derivatives": {
       "hash": "336323f6",
       "file": "explainers/finite-difference-derivatives.336323f6.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "finite-horizon-sequence": {
+      "hash": "096a433d",
+      "file": "explainers/finite-horizon-sequence.096a433d.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -4115,10 +4147,10 @@
       "version": 2
     },
     "linearization": {
-      "hash": "5ad04b95",
-      "file": "explainers/linearization.5ad04b95.json",
+      "hash": "cba9e0a8",
+      "file": "explainers/linearization.cba9e0a8.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "lipschitz-gradient": {
       "hash": "a8f9a407",
@@ -4131,6 +4163,12 @@
       "file": "explainers/local-global-minima.95757c84.json",
       "sectionCount": 5,
       "version": 2
+    },
+    "local-linear-approximation": {
+      "hash": "6d0430b1",
+      "file": "explainers/local-linear-approximation.6d0430b1.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "loop-gain": {
       "hash": "0aab0b4a",
@@ -4284,10 +4322,10 @@
       "sectionCount": 5
     },
     "mpc": {
-      "hash": "189bf22f",
-      "file": "explainers/mpc.189bf22f.json",
+      "hash": "07cf3eac",
+      "file": "explainers/mpc.07cf3eac.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "nesterov-accelerated-gradient": {
       "hash": "c3c63cdc",
@@ -4320,9 +4358,10 @@
       "version": 1
     },
     "nl-cap": {
-      "hash": "67aeb041",
-      "file": "explainers/nl-cap.67aeb041.json",
-      "sectionCount": 5
+      "hash": "c300ad8e",
+      "file": "explainers/nl-cap.c300ad8e.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "nmos-regions": {
       "hash": "bfd299ff",
@@ -4675,9 +4714,10 @@
       "sectionCount": 5
     },
     "ss-model": {
-      "hash": "4b759b7d",
-      "file": "explainers/ss-model.4b759b7d.json",
-      "sectionCount": 5
+      "hash": "5222c8c7",
+      "file": "explainers/ss-model.5222c8c7.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "ss-solution": {
       "hash": "e857d6c5",
@@ -4746,10 +4786,10 @@
       "version": 2
     },
     "taylor-approximation-multivariable": {
-      "hash": "085ee2a4",
-      "file": "explainers/taylor-approximation-multivariable.085ee2a4.json",
+      "hash": "53934dde",
+      "file": "explainers/taylor-approximation-multivariable.53934dde.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "taylor-exact-mean-value": {
       "hash": "4025ce6e",
@@ -4775,10 +4815,10 @@
       "sectionCount": 5
     },
     "trajectory-optimization": {
-      "hash": "d1a7ea3a",
-      "file": "explainers/trajectory-optimization.d1a7ea3a.json",
+      "hash": "b4a07184",
+      "file": "explainers/trajectory-optimization.b4a07184.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "triode": {
       "hash": "264646f7",

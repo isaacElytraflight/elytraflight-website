@@ -1,24 +1,7 @@
 {
   "skill_id": "trajectory-optimization",
-  "version": 1,
+  "version": 2,
   "questions": [
-    {
-      "id": "trajectory-optimization-r1-q1",
-      "round": 1,
-      "type": "mc",
-      "prompt": "After a path is replaced by samples \\(x_0,\\ldots,x_N\\), the decision variable of the optimization problem is",
-      "explanation": "Discretizing replaces the curve by finitely many numbers, and those numbers are what the problem chooses. Leaving the decision as a free function is the calculus-of-variations form, which the grid was meant to leave behind. The final time can be one coordinate of the decision, but it is not the whole decision while the samples are free. An obstacle radius is data, unless the problem is explicitly designing the obstacle.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
-      "figure_alt": "A solid segment joins two marked points on a dashed line.",
-      "options": [
-        "only the final time, even when the samples are still free",
-        "the radius of an obstacle",
-        "the list of those samples, together with any control values the transcription keeps free",
-        "the original continuous curve, with no grid"
-      ],
-      "correct_index": 2,
-      "version": 1
-    },
     {
       "id": "trajectory-optimization-r1-q2",
       "round": 1,
@@ -220,6 +203,42 @@
         "requires the cost to be a sum of squares",
         "builds one open-loop plan for the whole grid",
         "replans at every sample, by the definition of the transcription"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "trajectory-optimization-r1-q4",
+      "round": 1,
+      "type": "mc",
+      "prompt": "This transcription solves the grid once. What does the solver return?",
+      "explanation": "One transcription returns the whole list and stops. Discarding the tail is the receding-horizon habit, not this grid. A gain recomputed from a new measurement is a different architecture. An infinite horizon has no finite list of samples to return.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Three inputs in a row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">u0   u1   u2</text></svg>",
+      "figure_alt": "A row of decision values on a grid.",
+      "options": [
+        "Only the first input, with the rest discarded at once",
+        "A gain recomputed from a new measurement",
+        "The whole input list for the grid, kept as one open-loop plan",
+        "An infinite-horizon equation with no samples"
+      ],
+      "correct_index": 2,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "trajectory-optimization-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "After a path is replaced by samples \\(x_0,\\ldots,x_N\\), the decision variable of the optimization problem is",
+      "explanation": "Discretizing replaces the curve by finitely many numbers, and those numbers are what the problem chooses. Leaving the decision as a free function is the calculus-of-variations form, which the grid was meant to leave behind. The final time can be one coordinate of the decision, but it is not the whole decision while the samples are free. An obstacle radius is data, unless the problem is explicitly designing the obstacle.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
+      "figure_alt": "A solid segment joins two marked points on a dashed line.",
+      "options": [
+        "only the final time, even when the samples are still free",
+        "the radius of an obstacle",
+        "the list of those samples, together with any control values the transcription keeps free",
+        "the original continuous curve, with no grid"
       ],
       "correct_index": 2,
       "version": 1

@@ -324,6 +324,7 @@
    "name": "Non-linear capacitors and small-signal capacitance",
    "chapter": 4,
    "prereqs": [
+    "local-linear-approximation",
     "mim-cap"
    ],
    "owns": "small-signal capacitance of non-linear Q(V)"
@@ -438,6 +439,7 @@
    "name": "Diode small-signal model and diffusion capacitance",
    "chapter": 6,
    "prereqs": [
+    "local-linear-approximation",
     "diode-iv",
     "junction-cap",
     "nl-cap"
@@ -591,6 +593,7 @@
    "name": "MOS small-signal model and analysis procedure",
    "chapter": 9,
    "prereqs": [
+    "local-linear-approximation",
     "gm",
     "ro"
    ],
@@ -668,6 +671,7 @@
    "name": "BJT small-signal model",
    "chapter": 11,
    "prereqs": [
+    "local-linear-approximation",
     "early",
     "ss-model"
    ],
@@ -1981,10 +1985,32 @@
    ]
   },
   {
+   "id": "local-linear-approximation",
+   "name": "Linear approximation at an operating point",
+   "summary": "Replace a smooth map by its value plus its derivative at a chosen point. The remainder shrinks faster than the step, and the replacement is trustworthy only nearby.",
+   "prereqs": [],
+   "sources": [
+    {
+     "ref": "fbs-v315",
+     "section": "5.4",
+     "use": "reference only"
+    },
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    }
+   ]
+  },
+  {
    "id": "linearization",
    "name": "Linearization about an equilibrium",
-   "summary": "Compute Jacobians and use local linear models for analysis and control.",
+   "summary": "Form the Jacobians A and B at an equilibrium and read local stability from those eigenvalues.",
    "prereqs": [
+    "local-linear-approximation",
     "equilibria",
     "eig-modes"
    ],
@@ -2102,10 +2128,35 @@
    ]
   },
   {
+   "id": "finite-horizon-sequence",
+   "name": "Finite-horizon decision sequence",
+   "summary": "The decision is a sequence of inputs or states, the cost adds a term at each step, and the dynamics restrict which sequences are feasible.",
+   "prereqs": [],
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nlo-notes",
+     "use": "scope only"
+    },
+    {
+     "ref": "fbs-v315",
+     "use": "reference only"
+    },
+    {
+     "ref": "me132-f26",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
    "id": "mpc",
    "name": "Model predictive control (intro)",
-   "summary": "Solve a receding-horizon optimization with constraints at each step.",
+   "summary": "At each sample, solve a short look-ahead and apply only the first input.",
    "prereqs": [
+    "finite-horizon-sequence",
     "state-feedback",
     "discrete-time"
    ],
@@ -2467,8 +2518,9 @@
   {
    "id": "taylor-approximation-multivariable",
    "name": "First- and second-order Taylor approximations",
-   "summary": "Build the linear and quadratic models of a function from its gradient and Hessian.",
+   "summary": "Add the Hessian term on top of a linear approximation and read the second-order remainder.",
    "prereqs": [
+    "local-linear-approximation",
     "hessian-matrix"
    ]
   },
@@ -3134,8 +3186,9 @@
   {
    "id": "trajectory-optimization",
    "name": "Trajectory planning as optimization",
-   "summary": "Optional motivation, not required for later skills. Discretize a path or a control sequence, score time, energy, or smoothness, and see why an obstacle makes the feasible set nonconvex.",
+   "summary": "Optional motivation, not required for later skills. One open-loop grid scores a sequence once, and an obstacle can make the feasible set nonconvex.",
    "prereqs": [
+    "finite-horizon-sequence",
     "optimization-problem-formulation",
     "optimization-problem-classes"
    ]
