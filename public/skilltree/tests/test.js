@@ -2750,7 +2750,7 @@ async function test(name, fn) {
 
     await p.click('#todoPaper .todo-line[data-type="skill"] .todo-hit');
     await sleep(300);
-    assert.strictEqual(await p.$eval('#panelTitle', e => e.textContent), 'Transfer functions, voltage and current gain, transimpedance');
+    assert.strictEqual(await p.$eval('#panelTitle', e => e.textContent), 'Transfer functions');
     assert.strictEqual(await p.$eval('#panel', e => e.classList.contains('open')), true);
     assert.strictEqual(await p.$('#quiz.open'), null, 'a practice line opens the skill info panel');
     await p.evaluate(() => document.querySelector('#panel .close').click());

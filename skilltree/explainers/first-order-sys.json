@@ -1,7 +1,7 @@
 {
   "id": "first-order-sys",
   "title": "First-order systems",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
@@ -23,7 +23,7 @@
     },
     {
       "heading": "Where this leads",
-      "body_md": "A second-order step can overshoot; the first-order rise is the comparison that makes the overshoot obvious. Step-response specs quote the time constant, the settling level, and the initial slope you just computed. Proportional control around a first-order plant leaves a constant error, which is the reason a later PID law adds an integrator."
+      "body_md": "The same two numbers describe a capacitor charged through a resistor: the product of resistance and capacitance is the time constant, and the cutoff sits at one over that product. A settled step record is enough to read the DC gain and the time constant back out. A second stored quantity brings a second pole, and that pair is a different skill."
     }
   ]
 }

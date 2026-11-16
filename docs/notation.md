@@ -93,9 +93,10 @@ Added in B3 for `second-order-sys`.
 | \(\omega_n\) | natural frequency, rad/s | undamped natural frequency |
 | \(\zeta\) | damping ratio | |
 | poles | \(-\zeta\omega_n \pm \omega_n\sqrt{\zeta^2 - 1}\) | when \(\zeta < 1\), a conjugate pair |
-| \(M_p\) | percent overshoot | peak overshoot |
-| \(t_p\) | time to peak | |
-| \(t_s\) | settling time, usually 2% or 5% of steady value | |
+| \(M_p\) | percent overshoot | peak overshoot. Read in `step-specs`, not in the damping-case core |
+| \(t_p\) | time to peak | a step-response specification |
+| \(t_s\) | settling time, usually 2% or 5% of steady value | a step-response specification |
+| \(\zeta = 1/(2Q)\) | damping ratio of a series RLC | \(Q\) is the series quality factor. Added for the series-resonance application |
 
 ## loop-transfer-function
 

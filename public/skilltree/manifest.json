@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "generated": "2026-11-13T21:18:30.298654Z",
+  "generated": "2026-11-16T18:04:51.482850Z",
   "skills": {
-    "file": "skills.f25abd9f.json",
-    "hash": "f25abd9f"
+    "file": "skills.5b65189b.json",
+    "hash": "5b65189b"
   },
   "collections": {
-    "file": "collections.6c18ba13.json",
-    "hash": "6c18ba13",
+    "file": "collections.bddf484b.json",
+    "hash": "bddf484b",
     "boxCount": 56
   },
   "banks": {
@@ -1032,7 +1032,7 @@
       "file": "banks/fb-amp-errors.bb28e87e.json"
     },
     "fb-amp": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1040,8 +1040,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "46f13777",
-      "file": "banks/fb-amp.46f13777.json"
+      "hash": "446da878",
+      "file": "banks/fb-amp.446da878.json"
     },
     "fb-concepts": {
       "version": 2,
@@ -1140,7 +1140,7 @@
       "file": "banks/first-order-optimality.9ca12f8c.json"
     },
     "first-order-sys": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1148,8 +1148,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "19741cfb",
-      "file": "banks/first-order-sys.19741cfb.json"
+      "hash": "6810c791",
+      "file": "banks/first-order-sys.6810c791.json"
     },
     "frank-wolfe-conditional-gradient": {
       "version": 1,
@@ -1188,7 +1188,7 @@
       "file": "banks/freq-char.37b62c04.json"
     },
     "freq-resp-circuits": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1196,8 +1196,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "6cdd3374",
-      "file": "banks/freq-resp-circuits.6cdd3374.json"
+      "hash": "18c79672",
+      "file": "banks/freq-resp-circuits.18c79672.json"
     },
     "freq-resp-lti": {
       "version": 1,
@@ -1908,16 +1908,16 @@
       "file": "banks/lqr.9d500205.json"
     },
     "lti-circuits": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
         "2": 3,
-        "3": 3,
-        "4": 3
+        "4": 3,
+        "3": 3
       },
-      "hash": "7e898716",
-      "file": "banks/lti-circuits.7e898716.json"
+      "hash": "661cf0a8",
+      "file": "banks/lti-circuits.661cf0a8.json"
     },
     "lti-def": {
       "version": 4,
@@ -1932,7 +1932,7 @@
       "file": "banks/lti-def.00ad5099.json"
     },
     "lti-mech": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1940,8 +1940,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "0f5f7238",
-      "file": "banks/lti-mech.0f5f7238.json"
+      "hash": "8dcabe2f",
+      "file": "banks/lti-mech.8dcabe2f.json"
     },
     "lti-stability": {
       "version": 1,
@@ -2496,7 +2496,7 @@
       "file": "banks/pn-overview.47732cd4.json"
     },
     "pole-zero": {
-      "version": 4,
+      "version": 5,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2504,8 +2504,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8003b3f5",
-      "file": "banks/pole-zero.8003b3f5.json"
+      "hash": "bc7364f7",
+      "file": "banks/pole-zero.bc7364f7.json"
     },
     "polyhedra-extreme-points": {
       "version": 2,
@@ -2628,7 +2628,7 @@
       "file": "banks/rayleigh-quotient.504e8667.json"
     },
     "rc-lpf": {
-      "version": 5,
+      "version": 6,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2636,8 +2636,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "32e424df",
-      "file": "banks/rc-lpf.32e424df.json"
+      "hash": "433ac200",
+      "file": "banks/rc-lpf.433ac200.json"
     },
     "reachability": {
       "version": 1,
@@ -2688,7 +2688,7 @@
       "file": "banks/rev-bias.af03c72c.json"
     },
     "rlc": {
-      "version": 5,
+      "version": 6,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2696,8 +2696,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "c8728038",
-      "file": "banks/rlc.c8728038.json"
+      "hash": "179f4fe4",
+      "file": "banks/rlc.179f4fe4.json"
     },
     "rn-important-subsets": {
       "version": 2,
@@ -2784,16 +2784,16 @@
       "file": "banks/second-order-optimality.9d725ae5.json"
     },
     "second-order-sys": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
-        "2": 3,
         "3": 3,
-        "4": 3
+        "4": 3,
+        "2": 3
       },
-      "hash": "3f600b1a",
-      "file": "banks/second-order-sys.3f600b1a.json"
+      "hash": "668bb133",
+      "file": "banks/second-order-sys.668bb133.json"
     },
     "sensitivity": {
       "version": 1,
@@ -3036,7 +3036,7 @@
       "file": "banks/stationary-point-classification.960d826c.json"
     },
     "step-resp": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3044,8 +3044,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8949da62",
-      "file": "banks/step-resp.8949da62.json"
+      "hash": "0dce6ff4",
+      "file": "banks/step-resp.0dce6ff4.json"
     },
     "step-specs": {
       "version": 1,
@@ -3120,7 +3120,7 @@
       "file": "banks/taylor-exact-mean-value.387836cc.json"
     },
     "tf": {
-      "version": 4,
+      "version": 5,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3128,8 +3128,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "83708a88",
-      "file": "banks/tf.83708a88.json"
+      "hash": "be075f62",
+      "file": "banks/tf.be075f62.json"
     },
     "time-delay": {
       "version": 1,
@@ -3772,10 +3772,10 @@
       "version": 1
     },
     "first-order-sys": {
-      "hash": "c45495c2",
-      "file": "explainers/first-order-sys.c45495c2.json",
+      "hash": "4989fba9",
+      "file": "explainers/first-order-sys.4989fba9.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "frank-wolfe-conditional-gradient": {
       "hash": "fd053220",
@@ -4140,9 +4140,10 @@
       "version": 1
     },
     "lti-circuits": {
-      "hash": "693afd4b",
-      "file": "explainers/lti-circuits.693afd4b.json",
-      "sectionCount": 5
+      "hash": "25d402b7",
+      "file": "explainers/lti-circuits.25d402b7.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "lti-def": {
       "hash": "19ef7dec",
@@ -4150,10 +4151,10 @@
       "sectionCount": 5
     },
     "lti-mech": {
-      "hash": "efe7c564",
-      "file": "explainers/lti-mech.efe7c564.json",
+      "hash": "53c08fcf",
+      "file": "explainers/lti-mech.53c08fcf.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "lti-stability": {
       "hash": "8c0abff2",
@@ -4414,9 +4415,10 @@
       "sectionCount": 5
     },
     "pole-zero": {
-      "hash": "f60b27a0",
-      "file": "explainers/pole-zero.f60b27a0.json",
-      "sectionCount": 5
+      "hash": "f3991de8",
+      "file": "explainers/pole-zero.f3991de8.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "polyhedra-extreme-points": {
       "hash": "ac670b68",
@@ -4479,10 +4481,10 @@
       "version": 1
     },
     "rc-lpf": {
-      "hash": "b5ae6486",
-      "file": "explainers/rc-lpf.b5ae6486.json",
+      "hash": "1774e805",
+      "file": "explainers/rc-lpf.1774e805.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "reachability": {
       "hash": "fae8a99d",
@@ -4507,9 +4509,10 @@
       "sectionCount": 5
     },
     "rlc": {
-      "hash": "b06f1588",
-      "file": "explainers/rlc.b06f1588.json",
-      "sectionCount": 5
+      "hash": "e2f295bb",
+      "file": "explainers/rlc.e2f295bb.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "rn-important-subsets": {
       "hash": "e5eb2ac4",
@@ -4553,10 +4556,10 @@
       "version": 1
     },
     "second-order-sys": {
-      "hash": "9f11ec3e",
-      "file": "explainers/second-order-sys.9f11ec3e.json",
+      "hash": "bfc75d01",
+      "file": "explainers/second-order-sys.bfc75d01.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 3
     },
     "sensitivity": {
       "hash": "bfeb9c28",
@@ -4672,9 +4675,10 @@
       "version": 1
     },
     "step-resp": {
-      "hash": "14cb0b74",
-      "file": "explainers/step-resp.14cb0b74.json",
-      "sectionCount": 5
+      "hash": "b7c68e31",
+      "file": "explainers/step-resp.b7c68e31.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "step-specs": {
       "hash": "d25f0590",
@@ -4713,9 +4717,10 @@
       "version": 1
     },
     "tf": {
-      "hash": "a4b8b86c",
-      "file": "explainers/tf.a4b8b86c.json",
-      "sectionCount": 5
+      "hash": "e86d962f",
+      "file": "explainers/tf.e86d962f.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "time-delay": {
       "hash": "5fd7bc04",

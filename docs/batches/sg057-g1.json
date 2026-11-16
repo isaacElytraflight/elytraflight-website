@@ -1,0 +1,36 @@
+{
+  "id": "sg057-g1",
+  "label": "SG-057 group 1",
+  "box": "EE 105, ME 132, and Feedback Systems",
+  "skills": [
+    "first-order-sys",
+    "step-resp",
+    "rc-lpf",
+    "lti-circuits",
+    "second-order-sys",
+    "pole-zero",
+    "tf",
+    "freq-resp-circuits",
+    "rlc",
+    "lti-mech",
+    "fb-amp"
+  ],
+  "areas": {
+    "first-order-sys": ["time-response"],
+    "step-resp": ["signals"],
+    "rc-lpf": ["physical-models", "signals"],
+    "lti-circuits": ["physical-models", "signals"],
+    "second-order-sys": ["second-order-systems", "time-response"],
+    "pole-zero": ["signals"],
+    "tf": ["signals"],
+    "freq-resp-circuits": ["frequency-response", "physical-models"],
+    "rlc": ["physical-models", "frequency-response"],
+    "lti-mech": ["physical-models", "second-order-systems"],
+    "fb-amp": ["feedback-loop"]
+  },
+  "cores": ["first-order-sys", "second-order-sys", "tf"],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/audits/sg-057-cross-course-overlap.md",
+  "verifier": "skilltree/verify_sg057_g1.py"
+}
