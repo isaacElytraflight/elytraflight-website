@@ -98,6 +98,7 @@ Skills: `discrete-time`, `eig-modes`, `limit-cycles`, `nyquist`, `pid`, `sensiti
 
 Items above version 1:
 
+- `eig-modes-r3-q2` version 2
 - `eig-modes-r4-q1` version 2
 - `eig-modes-r3-q1` version 2
 - `eig-modes#explainer` version 2
@@ -415,6 +416,7 @@ Items above version 1:
 - `lin-algebra-review-r3-q2` version 2
 - `lin-algebra-review-r3-q3` version 2
 - `lin-algebra-review#explainer` version 3
+- `eig-modes-r3-q2` version 2
 - `eig-modes-r4-q1` version 2
 - `eig-modes-r3-q1` version 2
 - `eig-modes#explainer` version 2

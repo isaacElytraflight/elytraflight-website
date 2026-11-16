@@ -169,6 +169,14 @@ def patch_eig_modes():
     ):
         retire(bank, qid)
     retarget(bank, "eig-modes-r4-q1", ["lti-stability"])
+    for q in bank["questions"]:
+        if q.get("id") == "eig-modes-r3-q2" and q["prompt"].startswith("Same matrix"):
+            q["prompt"] = (
+                r"Let \(A = \begin{bmatrix} -1 & 2 \\ 0 & -3 \end{bmatrix}\). "
+                r"The initial state \([1, 0]^T\) is an eigenvector for \(\lambda = -1\). "
+                r"At \(t = 1\) the state is entirely in that mode. What is the value of that coordinate?"
+            )
+            q["version"] = int(q.get("version") or 1) + 1
     pair = splane([(-8, 5), (-8, -5)], [], "A complex conjugate pair")
     bank["questions"] += [
         built(

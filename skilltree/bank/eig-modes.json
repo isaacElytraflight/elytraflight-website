@@ -66,14 +66,14 @@
       "id": "eig-modes-r3-q2",
       "round": 3,
       "type": "numeric",
-      "prompt": "Same matrix. If the initial state is \\([1, 0]^T\\), which is an eigenvector for \\(\\lambda = -1\\), the state at \\(t = 1\\) is entirely in the first mode with value",
+      "prompt": "Let \\(A = \\begin{bmatrix} -1 & 2 \\\\ 0 & -3 \\end{bmatrix}\\). The initial state \\([1, 0]^T\\) is an eigenvector for \\(\\lambda = -1\\). At \\(t = 1\\) the state is entirely in that mode. What is the value of that coordinate?",
       "explanation": "Starting on an eigenvector, only that mode is excited: \\(x_1(t) = e^{-t}\\). At \\(t = 1\\), \\(x_1 = e^{-1} = 0.368\\). The second mode is not excited.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>single mode</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,39 49,44.1 52,49 55.1,53.5 58.1,57.8 61.1,61.9 64.1,65.8 67.2,69.5 70.2,72.9 73.2,76.2 76.2,79.3 79.2,82.2 82.3,85 85.3,87.6 88.3,90.1 91.3,92.4 94.4,94.7 97.4,96.8 100.4,98.7 103.4,100.6 106.4,102.4 109.5,104.1 112.5,105.7 115.5,107.2 118.5,108.6 121.6,109.9 124.6,111.2 127.6,112.4 130.6,113.6 133.6,114.6 136.7,115.7 139.7,116.6 142.7,117.5 145.7,118.4 148.8,119.2 151.8,120 154.8,120.7 157.8,121.4 160.8,122.1 163.9,122.7 166.9,123.3 169.9,123.8 172.9,124.3 176,124.8 179,125.3 182,125.7 185,126.2 188,126.6 191.1,126.9 194.1,127.3 197.1,127.6 200.1,127.9 203.2,128.2 206.2,128.5 209.2,128.8 212.2,129 215.2,129.3 218.3,129.5 221.3,129.7 224.3,129.9 227.3,130.1 230.4,130.3 233.4,130.5 236.4,130.6 239.4,130.8 242.4,130.9 245.5,131.1 248.5,131.2 251.5,131.3 254.5,131.5 257.6,131.6 260.6,131.7 263.6,131.8 266.6,131.9 269.6,131.9 272.7,132 275.7,132.1 278.7,132.2 281.7,132.3 284.8,132.3 287.8,132.4 290.8,132.4 293.8,132.5 296.8,132.6 299.9,132.6 302.9,132.7 305.9,132.7 308.9,132.7 312,132.8 315,132.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "A curve that decays toward zero.",
       "answer": 0.367879,
       "unit": "1",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "eig-modes-r3-q3",
