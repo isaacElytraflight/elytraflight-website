@@ -22,6 +22,7 @@ Items above version 1:
 - `lin-algebra-review-r1-q2` version 2
 - `lin-algebra-review-r4-q1` version 2
 - `lin-algebra-review-r4-q2` version 2
+- `lin-algebra-review-r3-q5` version 2
 - `lin-algebra-review-r3-q2` version 2
 - `lin-algebra-review-r3-q3` version 2
 - `lin-algebra-review#explainer` version 3
@@ -99,7 +100,7 @@ Skills: `discrete-time`, `eig-modes`, `limit-cycles`, `nyquist`, `pid`, `sensiti
 Items above version 1:
 
 - `eig-modes-r3-q2` version 2
-- `eig-modes-r4-q1` version 2
+- `eig-modes-r4-q1` version 3
 - `eig-modes-r3-q1` version 2
 - `eig-modes#explainer` version 2
 - `limit-cycles-r4-q3` version 2
@@ -413,15 +414,17 @@ Items above version 1:
 - `lin-algebra-review-r1-q2` version 2
 - `lin-algebra-review-r4-q1` version 2
 - `lin-algebra-review-r4-q2` version 2
+- `lin-algebra-review-r3-q5` version 2
 - `lin-algebra-review-r3-q2` version 2
 - `lin-algebra-review-r3-q3` version 2
 - `lin-algebra-review#explainer` version 3
 - `eig-modes-r3-q2` version 2
-- `eig-modes-r4-q1` version 2
+- `eig-modes-r4-q1` version 3
 - `eig-modes-r3-q1` version 2
 - `eig-modes#explainer` version 2
 - `spectral-decomposition#explainer` version 2
 - `linear-least-squares#explainer` version 2
+- `least-squares-quadratic-r4-q3` version 2
 - `sys-id#explainer` version 2
 - `positive-definite-matrices#explainer` version 2
 - `quadratic-function-minimization-r4-q1` version 2

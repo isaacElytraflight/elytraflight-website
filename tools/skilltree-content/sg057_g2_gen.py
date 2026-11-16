@@ -89,6 +89,7 @@ def patch_lin_algebra():
     ):
         retire(bank, qid)
     mat = matrix_fig([["3", "-2"], ["5", "1"]], "A matrix and a column")
+    square = matrix_fig([["3", "-2"], ["5", "1"]], "A square matrix")
     tall = matrix_fig([["1", "0"], ["2", "1"], ["0", "3"]], "A tall matrix")
     bank["questions"] += [
         built(
@@ -132,17 +133,17 @@ def patch_lin_algebra():
         ),
         built(
             "lin-algebra-review", 3, "lin-algebra-review-r3-q5", "multi",
-            r"Which statements are true of every matrix \(A\)?",
+            r"Which statements are true of every square matrix \(A\)?",
             [
                 r"The null space contains the zero vector.",
                 r"A nonzero null vector means the columns are independent.",
-                r"The determinant of a square matrix is zero when a nonzero vector is sent to zero.",
+                r"The determinant is zero when a nonzero vector is sent to zero.",
                 r"Rank is the number of entries in the matrix.",
             ],
             [0, 2],
-            r"Zero is always sent to zero, so it is always in the null space. A nonzero null vector is a dependence among the columns, and for a square matrix that is exactly a zero determinant. Rank counts independent columns, not entries.",
-            fig=tall,
-            alt="A matrix with more rows than columns.",
+            r"Zero is always sent to zero, so it is always in the null space. A nonzero null vector is a dependence among the columns, and for every square matrix that dependence makes the determinant zero. Rank counts independent columns, not entries.",
+            fig=square,
+            alt="A square 2 by 2 matrix.",
         ),
         built(
             "lin-algebra-review", 4, "lin-algebra-review-r4-q4", "num",
@@ -168,7 +169,6 @@ def patch_eig_modes():
         "eig-modes-r4-q2",
     ):
         retire(bank, qid)
-    retarget(bank, "eig-modes-r4-q1", ["lti-stability"])
     for q in bank["questions"]:
         if q.get("id") == "eig-modes-r3-q2" and q["prompt"].startswith("Same matrix"):
             q["prompt"] = (
@@ -770,10 +770,10 @@ def write_lsq():
     )
     b.num(
         4,
-        r"\(A\) has rows \((1, 0)\), \((1, 0)\), and \((0, 1)\), and \(b = (1, 9, 5)\). The least-squares solution is \((x_1, x_2)\). What is \(x_1\)?",
+        r"\(A\) has rows \((1, 0)\), \((1, 0)\), and \((0, 1)\), and \(b = (2, 8, 3)\). The least-squares solution is \((x_1, x_2)\). What is \(x_1\)?",
         5,
         "",
-        r"The two columns are orthogonal. The first column sees the first two rows, so \(2 x_1 = 1 + 9\) and \(x_1 = 5\). The second column sees only the last row, so \(x_2 = 5\) as well. The first component is not the average of all three right-hand entries.",
+        r"The two columns are orthogonal. The first column sees the first two rows, so \(2 x_1 = 2 + 8\) and \(x_1 = 5\). The second column sees only the last row, so \(x_2 = 3\). Averaging all three right-hand entries gives \(13/3\). Stopping at the sum \(10\) skips the division by 2. Neither of those is \(x_1\).",
         fig=matrix_fig([["1", "0"], ["1", "0"], ["0", "1"]], "Two orthogonal columns"),
         alt="A 3 by 2 matrix with orthogonal columns.",
         preview=["circle-fitting-least-squares"],

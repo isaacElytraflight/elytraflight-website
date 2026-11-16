@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-16T19:57:42.083510Z",
+  "generated": "2026-11-16T21:04:47.959871Z",
   "skills": {
-    "file": "skills.e1cf7214.json",
-    "hash": "e1cf7214"
+    "file": "skills.c7afe68a.json",
+    "hash": "c7afe68a"
   },
   "collections": {
     "file": "collections.dc8ba5ef.json",
@@ -936,7 +936,7 @@
       "file": "banks/ebers-moll.34d60699.json"
     },
     "eig-modes": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -944,8 +944,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "6ccc9556",
-      "file": "banks/eig-modes.6ccc9556.json"
+      "hash": "3daccd33",
+      "file": "banks/eig-modes.3daccd33.json"
     },
     "eigenvalues-diagonalization": {
       "version": 1,
@@ -1716,7 +1716,7 @@
       "file": "banks/least-squares-data-fitting.6e01049b.json"
     },
     "least-squares-quadratic": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1724,8 +1724,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8e7972dd",
-      "file": "banks/least-squares-quadratic.8e7972dd.json"
+      "hash": "f6d41ab2",
+      "file": "banks/least-squares-quadratic.f6d41ab2.json"
     },
     "led": {
       "version": 3,
@@ -1776,7 +1776,7 @@
       "file": "banks/limit-cycles.b210fe9a.json"
     },
     "lin-algebra-review": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1784,8 +1784,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "80442ee4",
-      "file": "banks/lin-algebra-review.80442ee4.json"
+      "hash": "efd8a551",
+      "file": "banks/lin-algebra-review.efd8a551.json"
     },
     "linear-least-squares": {
       "version": 2,

@@ -148,7 +148,7 @@
     },
     {
       "id": "lin-algebra-review-r3-q5",
-      "version": 1
+      "version": 2
     },
     {
       "id": "lin-algebra-review-r4-q4",
@@ -976,7 +976,7 @@
     },
     {
       "id": "eig-modes-r4-q1",
-      "version": 2
+      "version": 3
     },
     {
       "id": "eig-modes-r4-q3",
@@ -9124,7 +9124,7 @@
     },
     {
       "id": "lin-algebra-review-r3-q5",
-      "version": 1
+      "version": 2
     },
     {
       "id": "lin-algebra-review-r4-q4",
@@ -9232,7 +9232,7 @@
     },
     {
       "id": "eig-modes-r4-q1",
-      "version": 2
+      "version": 3
     },
     {
       "id": "eig-modes-r4-q3",
@@ -9464,7 +9464,7 @@
     },
     {
       "id": "least-squares-quadratic-r4-q3",
-      "version": 1
+      "version": 2
     },
     {
       "id": "least-squares-quadratic#explainer",

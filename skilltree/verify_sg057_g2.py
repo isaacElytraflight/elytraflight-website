@@ -76,7 +76,7 @@ def main():
     expected["least-squares-quadratic-r3-q2"] = float(np.linalg.lstsq(tall, tall_b, rcond=None)[0][0])
     expected["least-squares-quadratic-r4-q1"] = float(np.mean([1.0, 1.0, 16.0]))
     orth = np.array([[1.0, 0.0], [1.0, 0.0], [0.0, 1.0]])
-    orth_b = np.array([1.0, 9.0, 5.0])
+    orth_b = np.array([2.0, 8.0, 3.0])
     orth_x = np.linalg.lstsq(orth, orth_b, rcond=None)[0]
     expected["least-squares-quadratic-r4-q3"] = float(orth_x[0])
 
