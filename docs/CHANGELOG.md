@@ -59,8 +59,8 @@ Items above version 1:
 - `block-diagram-r4-q2` version 4
 - `block-diagram-r4-q3` version 2
 - `block-diagram#explainer` version 3
-- `first-order-sys-r4-q1` version 2
-- `first-order-sys-r4-q2` version 2
+- `first-order-sys-r4-q1` version 3
+- `first-order-sys-r4-q2` version 3
 - `first-order-sys-r4-q3` version 3
 - `first-order-sys#explainer` version 2
 - `onoff-pid-intro-r1-q1` version 3
@@ -86,7 +86,7 @@ Skills: `app-examples`, `cruise-control`, `equilibria`, `loop-tf`, `second-order
 
 Items above version 1:
 
-- `second-order-sys#explainer` version 2
+- `second-order-sys#explainer` version 3
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -357,8 +357,8 @@ Skills: `first-order-sys`, `step-resp`, `rc-lpf`, `lti-circuits`, `second-order-
 
 Items above version 1:
 
-- `first-order-sys-r4-q1` version 2
-- `first-order-sys-r4-q2` version 2
+- `first-order-sys-r4-q1` version 3
+- `first-order-sys-r4-q2` version 3
 - `first-order-sys-r4-q3` version 3
 - `first-order-sys#explainer` version 2
 - `step-resp#explainer` version 2
@@ -369,7 +369,7 @@ Items above version 1:
 - `rc-lpf#explainer` version 3
 - `lti-circuits-r1-q1` version 2
 - `lti-circuits#explainer` version 2
-- `second-order-sys#explainer` version 2
+- `second-order-sys#explainer` version 3
 - `pole-zero#explainer` version 2
 - `tf#explainer` version 2
 - `freq-resp-circuits-r4-q2` version 2

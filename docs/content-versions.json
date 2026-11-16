@@ -336,11 +336,11 @@
     },
     {
       "id": "first-order-sys-r4-q1",
-      "version": 2
+      "version": 3
     },
     {
       "id": "first-order-sys-r4-q2",
-      "version": 2
+      "version": 3
     },
     {
       "id": "first-order-sys-r1-q4",
@@ -824,7 +824,7 @@
     },
     {
       "id": "second-order-sys#explainer",
-      "version": 2
+      "version": 3
     },
     {
       "id": "ss-solution-r1-q1",
@@ -8180,11 +8180,11 @@
     },
     {
       "id": "first-order-sys-r4-q1",
-      "version": 2
+      "version": 3
     },
     {
       "id": "first-order-sys-r4-q2",
-      "version": 2
+      "version": 3
     },
     {
       "id": "first-order-sys-r1-q4",
@@ -8568,7 +8568,7 @@
     },
     {
       "id": "second-order-sys#explainer",
-      "version": 2
+      "version": 3
     },
     {
       "id": "pole-zero-r1-q4",

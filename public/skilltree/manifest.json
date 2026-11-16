@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-16T17:50:21.736696Z",
+  "generated": "2026-11-16T18:04:51.482850Z",
   "skills": {
-    "file": "skills.fa8c522f.json",
-    "hash": "fa8c522f"
+    "file": "skills.5b65189b.json",
+    "hash": "5b65189b"
   },
   "collections": {
     "file": "collections.bddf484b.json",
@@ -1148,8 +1148,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ca1b1b89",
-      "file": "banks/first-order-sys.ca1b1b89.json"
+      "hash": "6810c791",
+      "file": "banks/first-order-sys.6810c791.json"
     },
     "frank-wolfe-conditional-gradient": {
       "version": 1,
@@ -4556,10 +4556,10 @@
       "version": 1
     },
     "second-order-sys": {
-      "hash": "6c8677d3",
-      "file": "explainers/second-order-sys.6c8677d3.json",
+      "hash": "bfc75d01",
+      "file": "explainers/second-order-sys.bfc75d01.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "sensitivity": {
       "hash": "bfeb9c28",

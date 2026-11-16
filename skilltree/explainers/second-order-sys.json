@@ -1,7 +1,7 @@
 {
   "id": "second-order-sys",
   "title": "Second-order systems",
-  "version": 2,
+  "version": 3,
   "sections": [
     {
       "heading": "The idea",
@@ -15,7 +15,7 @@
     },
     {
       "heading": "Worked example",
-      "body_md": "Take \\(\\omega_n=7\\ \\mathrm{rad/s}\\) and \\(\\zeta=0.25\\). The real part of each pole is \\(7\\times 0.25=1.75\\). The damped frequency is\n\\[\n\\omega_d=7\\sqrt{1-0.0625}=7\\sqrt{0.9375}=6.778\\ \\mathrm{rad/s}.\n\\]\nThe poles are \\(-1.75\\pm j6.778\\). Because \\(\\zeta\\) is below 1, the pair is underdamped. Calling 6.778 the natural frequency uses the imaginary part. Calling 1.75 the natural frequency uses only the real part. The distance from the origin is 7, and that is \\(\\omega_n\\).",
+      "body_md": "Take \\(\\omega_n=7\\ \\mathrm{rad/s}\\) and \\(\\zeta=0.25\\). The real part of each pole is \\(-\\zeta\\omega_n=-7\\times 0.25=-1.75\\). The damped frequency is\n\\[\n\\omega_d=7\\sqrt{1-0.0625}=7\\sqrt{0.9375}=6.778\\ \\mathrm{rad/s}.\n\\]\nThe poles are \\(-1.75\\pm j6.778\\). Because \\(\\zeta\\) is below 1, the pair is underdamped. Calling 6.778 the natural frequency uses the imaginary part. Calling the magnitude 1.75 the natural frequency uses only that real part. The distance from the origin is 7, and that is \\(\\omega_n\\).",
       "figure_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>worked poles</title><line x1=\"20\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150.2\" y1=\"160\" x2=\"150.2\" y2=\"16\"/><polygon points=\"150.2,16 153,22.4 147.5,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158.2\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"130.8\" y1=\"31\" x2=\"140.8\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"130.8\" y1=\"41\" x2=\"140.8\" y2=\"31\" stroke-width=\"1.8\"/><line x1=\"130.8\" y1=\"143\" x2=\"140.8\" y2=\"153\" stroke-width=\"1.8\"/><line x1=\"130.8\" y1=\"153\" x2=\"140.8\" y2=\"143\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "A conjugate pair of pole marks in the left half-plane, closer to the imaginary axis than to the real axis."
     },
