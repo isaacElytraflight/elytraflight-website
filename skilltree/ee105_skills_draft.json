@@ -976,30 +976,33 @@
    "prereqs": [
     "tf"
    ],
-   "owns": "feedback block diagram",
+   "owns": "forward block, feedback block, summing junction, error signal, sign of feedback",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
      "section": "1.1",
      "use": "reference only"
     }
-   ]
+   ],
+   "summary": "Forward block, feedback block, summing junction, error signal, and the sign of the feedback."
   },
   {
    "id": "loop-gain",
-   "name": "Loop gain and why feedback helps",
+   "name": "Loop gain",
    "chapter": 17,
    "prereqs": [
-    "fb-intro"
+    "fb-intro",
+    "tf"
    ],
-   "owns": "loop gain and desensitivity",
+   "owns": "product around the loop, closed-loop gain over one plus loop gain",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
      "section": "9.1",
      "use": "reference only"
     }
-   ]
+   ],
+   "summary": "The loop gain is the product around the loop. The closed-loop map is the forward gain over one plus that product, and a large loop gain makes the closed loop follow the feedback path."
   },
   {
    "id": "opamp-models",
@@ -1034,19 +1037,20 @@
   },
   {
    "id": "fb-errors",
-   "name": "Static and dynamic errors in feedback systems",
+   "name": "Sensitivity of a feedback loop",
    "chapter": 17,
    "prereqs": [
     "loop-gain"
    ],
-   "owns": "static/dynamic feedback errors",
+   "owns": "S = 1/(1+L), the miss from the ideal feedback ratio",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
      "section": "10.1",
      "use": "reference only"
     }
-   ]
+   ],
+   "summary": "S = 1/(1+L) is the fraction by which the closed loop misses the ideal feedback ratio, and that fraction grows as |L| falls."
   },
   {
    "id": "fb-impedance",
@@ -1060,21 +1064,22 @@
   },
   {
    "id": "stability",
-   "name": "Closed-loop stability, gain and phase margins",
+   "name": "Closed-loop stability and margins",
    "chapter": 17,
    "prereqs": [
     "pole-zero",
     "loop-gain",
     "bode"
    ],
-   "owns": "stability and phase margin",
+   "owns": "phase margin and gain margin from where the loop gain crosses 1 and -180 degrees",
    "sources": [
     {
      "ref": "Astrom & Murray, Feedback Systems (2008)",
      "section": "9.3",
      "use": "reference only"
     }
-   ]
+   ],
+   "summary": "Phase margin and gain margin from where the loop gain crosses magnitude 1 and phase -180 degrees, including that a single-pole loop cannot reach -180 degrees."
   },
   {
    "id": "offset",
@@ -1501,7 +1506,7 @@
   {
    "id": "loop-tf",
    "name": "Loop transfer function and the Gang of Four",
-   "summary": "Form L=PC and the closed-loop maps S, T, PS, CS from reference, disturbance and noise.",
+   "summary": "Form L = PC and the four closed-loop maps from reference, disturbance, and noise.",
    "prereqs": [
     "block-diagram",
     "loop-gain"
@@ -1608,8 +1613,9 @@
   {
    "id": "sensitivity",
    "name": "Sensitivity functions and disturbance rejection",
-   "summary": "Use S and T to quantify disturbance attenuation, noise and tracking.",
+   "summary": "Disturbance, sensor noise, and tracking through S and T.",
    "prereqs": [
+    "fb-errors",
     "loop-tf"
    ],
    "sources": [
@@ -2195,8 +2201,9 @@
     "loop-gain",
     "opamp-models"
    ],
-   "summary": "Find f, the loop gain and the closed-loop gain of op-amp feedback circuits.",
-   "chapter": 17
+   "summary": "The feedback factor from a resistor divider, and the ideal closed-loop gain 1/f of an op-amp amplifier.",
+   "chapter": 17,
+   "owns": "feedback factor from a resistor divider and ideal gain 1/f"
   },
   {
    "id": "fb-amp-errors",

@@ -54,22 +54,17 @@ def main():
     expected["ss-solution-r4-q2"] = 1.0  # slowest eigenvalue -1 has tau = 1
 
     # --- loop-tf ---
-    G1, H1 = 10, 0.2
-    expected["loop-tf-r1-q2"] = G1 * H1
-    expected["loop-tf-r1-q3"] = G1 / (1 + G1 * H1)
-
-    G2, H2 = 6, 1
-    expected["loop-tf-r2-q1"] = G2 * H2
-    expected["loop-tf-r2-q2"] = 1 / (1 + G2)
-
-    G3, H3 = 8, 0.5
-    expected["loop-tf-r3-q1"] = 1 + G3 * H3
-    expected["loop-tf-r3-q2"] = 1 / (1 + G3 * H3)
-
-    G4 = 12
-    expected["loop-tf-r4-q1"] = G4
-    G5, H5 = 5, 0.4
-    expected["loop-tf-r4-q2"] = 1 / (1 + G5 * H5)
+    # L = P C, input-disturbance map P/(1+PC), command map C/(1+PC)
+    p1, c1 = 3.0, 5.0
+    expected["loop-tf-r1-q5"] = p1 * c1
+    p2, c2 = 4.0, 2.0
+    expected["loop-tf-r2-q4"] = p2 / (1 + p2 * c2)
+    p3, c3 = 0.5, 6.0
+    expected["loop-tf-r3-q5"] = c3 / (1 + p3 * c3)
+    p4, c4 = 8.0, 1.5
+    expected["loop-tf-r4-q4"] = p4 * c4
+    p5, c5 = 2.0, 3.0
+    expected["loop-tf-r4-q6"] = 1 + p5 * c5
 
     # --- equilibria ---
     expected["equilibria-r1-q2"] = 5 / 2
@@ -138,8 +133,8 @@ def main():
     if abs(x_w[0] - 0.736) > 0.01 or "0.736" not in texts["ss-solution"]:
         mismatches.append(f"ss-solution worked {x_w[0]}")
 
-    # loop-tf worked: G=8, H=1 (unity feedback), T=8/9=0.889, S=1/9=0.111
-    if "0.889" not in texts["loop-tf"] or "0.111" not in texts["loop-tf"]:
+    # loop-tf worked: P=9, C=0.2, S=1/2.8, CS=0.2/2.8
+    if "0.357" not in texts["loop-tf"] or "0.0714" not in texts["loop-tf"]:
         mismatches.append("loop-tf worked text")
 
     # equilibria worked: 4 - 0.5x = 0 -> x = 8

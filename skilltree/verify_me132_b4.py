@@ -61,19 +61,11 @@ def main():
     expected["pid-r4-q3"] = 0.5  # tau_i = Kp/Ki = 6/12
 
     # --- sensitivity ---
-    L1 = 8.0
-    expected["sensitivity-r1-q2"] = 1 / (1 + L1)
-    expected["sensitivity-r1-q3"] = L1 / (1 + L1)
-
-    L2 = 15.0
-    expected["sensitivity-r2-q2"] = 1 / (1 + L2)
-
-    Ms = 2.0
-    expected["sensitivity-r3-q1"] = 1 / Ms
-    expected["sensitivity-r3-q3"] = 1 / 21
-
-    expected["sensitivity-r4-q1"] = 20 * math.log10(1 / 0.1)  # phase crossover, |L|=0.1
-    expected["sensitivity-r4-q3"] = 9.0
+    # Output disturbance, tracking error, and sensor noise use the given maps.
+    expected["sensitivity-r1-q5"] = 0.2 * 3
+    expected["sensitivity-r2-q4"] = 0.15 * 2
+    expected["sensitivity-r3-q5"] = 0.8 * 0.4
+    expected["sensitivity-r4-q4"] = 0.25 / 5
 
     # --- nyquist ---
     expected["nyquist-r2-q1"] = 2.0  # gain margin
@@ -135,8 +127,8 @@ def main():
     if "-1" not in texts["pid"] or "-8" not in texts["pid"]:
         mismatches.append("pid worked text")
 
-    # sensitivity: S=0.091
-    if "0.091" not in texts["sensitivity"]:
+    # sensitivity worked: disturbance 7 times S=0.04 leaves 0.28
+    if "0.28" not in texts["sensitivity"]:
         mismatches.append("sensitivity worked text")
 
     # nyquist: GM=2.5
