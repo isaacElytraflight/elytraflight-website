@@ -552,6 +552,51 @@ Items above version 1:
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## SG-063 EE 105 bipolar transistors — sg063-ee105-ch11
+
+Box: EE 105 (ee105-ucb), Bipolar Junction Transistors.
+
+Skills: `bjt-struct`, `bjt-iv`, `bjt-action`, `ebers-moll`, `early`, `bjt-ss`.
+
+Items above version 1:
+
+- `bjt-struct-r1-q3` version 2
+- `bjt-struct-r2-q2` version 2
+- `bjt-struct-r2-q3` version 2
+- `bjt-struct-r4-q1` version 2
+- `bjt-struct-r1-q1` version 2
+- `bjt-iv-r1-q1` version 2
+- `bjt-iv-r1-q3` version 2
+- `bjt-iv-r1-q2` version 2
+- `bjt-action-r1-q2` version 2
+- `bjt-action-r1-q3` version 3
+- `bjt-action-r2-q1` version 2
+- `bjt-action-r2-q2` version 2
+- `bjt-action-r3-q1` version 2
+- `bjt-action-r3-q3` version 2
+- `bjt-action-r4-q1` version 2
+- `bjt-action-r4-q2` version 2
+- `bjt-action-r4-q3` version 2
+- `bjt-action-r2-q3` version 3
+- `bjt-action-r1-q1` version 3
+- `bjt-action-r3-q2` version 2
+- `ebers-moll-r1-q1` version 2
+- `ebers-moll-r1-q3` version 2
+- `ebers-moll-r4-q1` version 2
+- `ebers-moll-r4-q2` version 2
+- `ebers-moll-r1-q2` version 2
+- `ebers-moll#explainer` version 2
+- `early-r1-q2` version 2
+- `early-r3-q3` version 2
+- `early-r1-q3` version 2
+- `bjt-ss-r1-q1` version 2
+- `bjt-ss-r1-q2` version 2
+- `bjt-ss-r2-q1` version 2
+- `bjt-ss-r4-q2` version 2
+- `bjt-ss#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## SG-063 EE 105 AC circuits — sg063-ee105-ch2
 
 Box: EE 105 (ee105-ucb), AC Circuits and AC Analysis.

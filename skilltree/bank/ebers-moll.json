@@ -1,6 +1,6 @@
 {
   "skill_id": "ebers-moll",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "ebers-moll-r1-q1",
@@ -20,21 +20,35 @@
       "version": 2
     },
     {
-      "id": "ebers-moll-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "What is the reciprocity relation in the Ebers-Moll model?",
-      "options": [
-        "\\(I_{ES} = I_{CS}\\)",
-        "\\(\\alpha_F = \\alpha_R\\)",
-        "\\(\\alpha_F\\alpha_R = 1\\)",
-        "\\(\\alpha_FI_{ES} = \\alpha_RI_{CS}\\)"
+      "type": "symbolic",
+      "prompt": "Write \\(I_{CS}\\) from the Ebers-Moll reciprocity relation. Use alphaF and alphaR for the forward and reverse transport factors, and IES for the base-emitter saturation current.",
+      "explanation": "Reciprocity is \\(\\alpha_F I_{ES} = \\alpha_R I_{CS}\\), so \\(I_{CS} = \\alpha_F I_{ES}/\\alpha_R\\). Setting \\(I_{CS} = I_{ES}\\) drops both transport factors. Setting \\(\\alpha_F = \\alpha_R\\) is a different claim, and it is not what reciprocity says. The product \\(\\alpha_F\\alpha_R\\) is not 1.",
+      "answer": "alphaF*IES/alphaR",
+      "variables": [
+        {
+          "name": "alphaF",
+          "min": 0.9,
+          "max": 0.999
+        },
+        {
+          "name": "alphaR",
+          "min": 0.05,
+          "max": 0.7
+        },
+        {
+          "name": "IES",
+          "min": 1e-18,
+          "max": 1e-14
+        }
       ],
-      "correct_index": 3,
-      "explanation": "Reciprocity links the forward and reverse transport.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 186\" role=\"img\" aria-label=\"Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><text x=\"30\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"40\" y1=\"30\" x2=\"230\" y2=\"30\"/><text x=\"30\" y=\"164\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"40\" y1=\"160\" x2=\"230\" y2=\"160\"/><text x=\"18\" y=\"99\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"28\" y1=\"95\" x2=\"90\" y2=\"95\"/><line x1=\"90\" y1=\"95\" x2=\"90\" y2=\"74\"/><polygon points=\"82,74 98,74 90,60\"/><line x1=\"82\" y1=\"58\" x2=\"98\" y2=\"58\"/><line x1=\"90\" y1=\"58\" x2=\"90\" y2=\"30\"/><text x=\"100\" y=\"70\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_R</text><line x1=\"90\" y1=\"95\" x2=\"90\" y2=\"116\"/><polygon points=\"82,116 98,116 90,130\"/><line x1=\"82\" y1=\"132\" x2=\"98\" y2=\"132\"/><line x1=\"90\" y1=\"132\" x2=\"90\" y2=\"160\"/><text x=\"100\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_F</text><circle cx=\"190\" cy=\"70\" r=\"14\"/><line x1=\"190\" y1=\"80\" x2=\"190\" y2=\"60\"/><polygon points=\"190,60 192.7,66.4 187.3,66.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"190\" y1=\"30\" x2=\"190\" y2=\"56\"/><line x1=\"190\" y1=\"84\" x2=\"190\" y2=\"95\"/><text x=\"212\" y=\"74\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">α_F I_F</text><line x1=\"190\" y1=\"95\" x2=\"190\" y2=\"106\"/><circle cx=\"190\" cy=\"120\" r=\"14\"/><line x1=\"190\" y1=\"110\" x2=\"190\" y2=\"130\"/><polygon points=\"190,130 187.3,123.6 192.7,123.6\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"190\" y1=\"134\" x2=\"190\" y2=\"160\"/><text x=\"212\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">α_R I_R</text><line x1=\"90\" y1=\"95\" x2=\"190\" y2=\"95\"/></svg>",
-      "figure_alt": "Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "IES*alphaF/alphaR",
+        "alphaF*IES*alphaR**(-1)"
+      ],
+      "version": 1,
+      "id": "ebers-moll-r1-q4"
     },
     {
       "id": "ebers-moll-r1-q3",
@@ -74,20 +88,18 @@
       "figure_alt": "Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter."
     },
     {
-      "id": "ebers-moll-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "Swap roles: \\(V_{BE} = -2\\ \\mathrm{V}\\), \\(V_{BC} = 0.65\\ \\mathrm{V}\\). Which region is this?",
-      "options": [
-        "Reverse-active: the collector acts as an (inefficient) emitter",
-        "Forward-active",
-        "Saturation",
-        "Cut-off"
+      "type": "order",
+      "prompt": "Order the steps that name the region when \\(V_{BE} = -1.2\\ \\mathrm{V}\\) and \\(V_{BC} = 0.58\\ \\mathrm{V}\\). Each step after the first uses the result of the step before it.",
+      "explanation": "Only the base-collector junction is forward biased, so the device is reverse-active and the gain is \\(\\alpha_R/(1-\\alpha_R)\\), which is small. Both junctions forward would be saturation. Both off, or the collector reverse biased with the emitter forward, would not be this bias. \\(\\alpha_R\\) is not close to 1, because the collector is lightly doped.",
+      "steps": [
+        "A negative \\(V_{BE}\\) reverse-biases the base-emitter junction, so that junction is not injecting.",
+        "A positive \\(V_{BC}\\) of several tenths of a volt forward-biases the base-collector junction.",
+        "Only the collector side injects, so the collector is playing the role of the emitter.",
+        "Transport in that direction uses \\(\\alpha_R\\), which is much smaller than \\(\\alpha_F\\), so the gain is poor. This is reverse-active."
       ],
-      "correct_index": 0,
-      "explanation": "Only the base-collector junction is forward biased. Because \\(\\alpha_R\\) is small, the reverse gain \\(\\beta_R = \\alpha_R/(1 - \\alpha_R)\\) is tiny (here 1).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 186\" role=\"img\" aria-label=\"Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><text x=\"30\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"40\" y1=\"30\" x2=\"230\" y2=\"30\"/><text x=\"30\" y=\"164\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"40\" y1=\"160\" x2=\"230\" y2=\"160\"/><text x=\"18\" y=\"99\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"28\" y1=\"95\" x2=\"90\" y2=\"95\"/><line x1=\"90\" y1=\"95\" x2=\"90\" y2=\"74\"/><polygon points=\"82,74 98,74 90,60\"/><line x1=\"82\" y1=\"58\" x2=\"98\" y2=\"58\"/><line x1=\"90\" y1=\"58\" x2=\"90\" y2=\"30\"/><text x=\"100\" y=\"70\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_R</text><line x1=\"90\" y1=\"95\" x2=\"90\" y2=\"116\"/><polygon points=\"82,116 98,116 90,130\"/><line x1=\"82\" y1=\"132\" x2=\"98\" y2=\"132\"/><line x1=\"90\" y1=\"132\" x2=\"90\" y2=\"160\"/><text x=\"100\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_F</text><circle cx=\"190\" cy=\"70\" r=\"14\"/><line x1=\"190\" y1=\"80\" x2=\"190\" y2=\"60\"/><polygon points=\"190,60 192.7,66.4 187.3,66.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"190\" y1=\"30\" x2=\"190\" y2=\"56\"/><line x1=\"190\" y1=\"84\" x2=\"190\" y2=\"95\"/><text x=\"212\" y=\"74\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">α_F I_F</text><line x1=\"190\" y1=\"95\" x2=\"190\" y2=\"106\"/><circle cx=\"190\" cy=\"120\" r=\"14\"/><line x1=\"190\" y1=\"110\" x2=\"190\" y2=\"130\"/><polygon points=\"190,130 187.3,123.6 192.7,123.6\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"190\" y1=\"134\" x2=\"190\" y2=\"160\"/><text x=\"212\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">α_R I_R</text><line x1=\"90\" y1=\"95\" x2=\"190\" y2=\"95\"/></svg>",
-      "figure_alt": "Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter."
+      "version": 1,
+      "id": "ebers-moll-r2-q4"
     },
     {
       "id": "ebers-moll-r3-q1",
@@ -114,20 +126,24 @@
       "figure_alt": "Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter."
     },
     {
-      "id": "ebers-moll-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Why is the BJT 'saturation' region undesirable in amplifiers?",
-      "options": [
-        "\\(I_C\\) becomes zero",
-        "Both junctions are forward biased, so \\(I_C\\) no longer follows \\(\\beta_FI_B\\) and stored charge slows switching",
-        "The gain becomes infinite",
-        "The device breaks down"
+      "type": "error",
+      "prompt": "A worked solution says why saturation is a poor bias for a linear amplifier. Exactly one step is wrong.",
+      "explanation": "In saturation the forced ratio \\(I_C/I_B\\) is below \\(\\beta_F\\), and the extra stored base charge has to leave before the device can turn off. The collector current is not zero, and the gain is not infinite. The device is not in breakdown.",
+      "steps": [
+        "In saturation both the base-emitter junction and the base-collector junction are forward biased.",
+        "The collector junction injects carriers back into the base.",
+        "That reverse injection cuts the net collector current, so \\(I_C/I_B\\) falls well below \\(\\beta_F\\).",
+        "The stage is then a good linear amplifier, because the gain has become infinite."
       ],
-      "correct_index": 1,
-      "explanation": "In saturation the collector also injects, the effective \\(I_C/I_B\\) drops well below \\(\\beta_F\\), and excess base charge must be removed before the device turns off.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 186\" role=\"img\" aria-label=\"Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><text x=\"30\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"40\" y1=\"30\" x2=\"230\" y2=\"30\"/><text x=\"30\" y=\"164\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"40\" y1=\"160\" x2=\"230\" y2=\"160\"/><text x=\"18\" y=\"99\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"28\" y1=\"95\" x2=\"90\" y2=\"95\"/><line x1=\"90\" y1=\"95\" x2=\"90\" y2=\"74\"/><polygon points=\"82,74 98,74 90,60\"/><line x1=\"82\" y1=\"58\" x2=\"98\" y2=\"58\"/><line x1=\"90\" y1=\"58\" x2=\"90\" y2=\"30\"/><text x=\"100\" y=\"70\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_R</text><line x1=\"90\" y1=\"95\" x2=\"90\" y2=\"116\"/><polygon points=\"82,116 98,116 90,130\"/><line x1=\"82\" y1=\"132\" x2=\"98\" y2=\"132\"/><line x1=\"90\" y1=\"132\" x2=\"90\" y2=\"160\"/><text x=\"100\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_F</text><circle cx=\"190\" cy=\"70\" r=\"14\"/><line x1=\"190\" y1=\"80\" x2=\"190\" y2=\"60\"/><polygon points=\"190,60 192.7,66.4 187.3,66.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"190\" y1=\"30\" x2=\"190\" y2=\"56\"/><line x1=\"190\" y1=\"84\" x2=\"190\" y2=\"95\"/><text x=\"212\" y=\"74\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">α_F I_F</text><line x1=\"190\" y1=\"95\" x2=\"190\" y2=\"106\"/><circle cx=\"190\" cy=\"120\" r=\"14\"/><line x1=\"190\" y1=\"110\" x2=\"190\" y2=\"130\"/><polygon points=\"190,130 187.3,123.6 192.7,123.6\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"190\" y1=\"134\" x2=\"190\" y2=\"160\"/><text x=\"212\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">α_R I_R</text><line x1=\"90\" y1=\"95\" x2=\"190\" y2=\"95\"/></svg>",
-      "figure_alt": "Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter."
+      "flaw_index": 3,
+      "reasons": [
+        "The forced gain is below \\(\\beta_F\\), and the stored charge slows the exit from saturation.",
+        "Saturation sets \\(I_C\\) to zero, which is why a saturated stage has no gain."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "ebers-moll-r3-q4"
     },
     {
       "id": "ebers-moll-r4-q1",
@@ -182,6 +198,59 @@
       "preview": [
         "bjt-ss"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "ebers-moll-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What is the reciprocity relation in the Ebers-Moll model?",
+      "options": [
+        "\\(I_{ES} = I_{CS}\\)",
+        "\\(\\alpha_F = \\alpha_R\\)",
+        "\\(\\alpha_F\\alpha_R = 1\\)",
+        "\\(\\alpha_FI_{ES} = \\alpha_RI_{CS}\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "Reciprocity links the forward and reverse transport.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 186\" role=\"img\" aria-label=\"Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><text x=\"30\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"40\" y1=\"30\" x2=\"230\" y2=\"30\"/><text x=\"30\" y=\"164\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"40\" y1=\"160\" x2=\"230\" y2=\"160\"/><text x=\"18\" y=\"99\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"28\" y1=\"95\" x2=\"90\" y2=\"95\"/><line x1=\"90\" y1=\"95\" x2=\"90\" y2=\"74\"/><polygon points=\"82,74 98,74 90,60\"/><line x1=\"82\" y1=\"58\" x2=\"98\" y2=\"58\"/><line x1=\"90\" y1=\"58\" x2=\"90\" y2=\"30\"/><text x=\"100\" y=\"70\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_R</text><line x1=\"90\" y1=\"95\" x2=\"90\" y2=\"116\"/><polygon points=\"82,116 98,116 90,130\"/><line x1=\"82\" y1=\"132\" x2=\"98\" y2=\"132\"/><line x1=\"90\" y1=\"132\" x2=\"90\" y2=\"160\"/><text x=\"100\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_F</text><circle cx=\"190\" cy=\"70\" r=\"14\"/><line x1=\"190\" y1=\"80\" x2=\"190\" y2=\"60\"/><polygon points=\"190,60 192.7,66.4 187.3,66.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"190\" y1=\"30\" x2=\"190\" y2=\"56\"/><line x1=\"190\" y1=\"84\" x2=\"190\" y2=\"95\"/><text x=\"212\" y=\"74\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">α_F I_F</text><line x1=\"190\" y1=\"95\" x2=\"190\" y2=\"106\"/><circle cx=\"190\" cy=\"120\" r=\"14\"/><line x1=\"190\" y1=\"110\" x2=\"190\" y2=\"130\"/><polygon points=\"190,130 187.3,123.6 192.7,123.6\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"190\" y1=\"134\" x2=\"190\" y2=\"160\"/><text x=\"212\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">α_R I_R</text><line x1=\"90\" y1=\"95\" x2=\"190\" y2=\"95\"/></svg>",
+      "figure_alt": "Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter.",
+      "version": 2
+    },
+    {
+      "id": "ebers-moll-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Swap roles: \\(V_{BE} = -2\\ \\mathrm{V}\\), \\(V_{BC} = 0.65\\ \\mathrm{V}\\). Which region is this?",
+      "options": [
+        "Reverse-active: the collector acts as an (inefficient) emitter",
+        "Forward-active",
+        "Saturation",
+        "Cut-off"
+      ],
+      "correct_index": 0,
+      "explanation": "Only the base-collector junction is forward biased. Because \\(\\alpha_R\\) is small, the reverse gain \\(\\beta_R = \\alpha_R/(1 - \\alpha_R)\\) is tiny (here 1).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 186\" role=\"img\" aria-label=\"Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><text x=\"30\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"40\" y1=\"30\" x2=\"230\" y2=\"30\"/><text x=\"30\" y=\"164\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"40\" y1=\"160\" x2=\"230\" y2=\"160\"/><text x=\"18\" y=\"99\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"28\" y1=\"95\" x2=\"90\" y2=\"95\"/><line x1=\"90\" y1=\"95\" x2=\"90\" y2=\"74\"/><polygon points=\"82,74 98,74 90,60\"/><line x1=\"82\" y1=\"58\" x2=\"98\" y2=\"58\"/><line x1=\"90\" y1=\"58\" x2=\"90\" y2=\"30\"/><text x=\"100\" y=\"70\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_R</text><line x1=\"90\" y1=\"95\" x2=\"90\" y2=\"116\"/><polygon points=\"82,116 98,116 90,130\"/><line x1=\"82\" y1=\"132\" x2=\"98\" y2=\"132\"/><line x1=\"90\" y1=\"132\" x2=\"90\" y2=\"160\"/><text x=\"100\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_F</text><circle cx=\"190\" cy=\"70\" r=\"14\"/><line x1=\"190\" y1=\"80\" x2=\"190\" y2=\"60\"/><polygon points=\"190,60 192.7,66.4 187.3,66.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"190\" y1=\"30\" x2=\"190\" y2=\"56\"/><line x1=\"190\" y1=\"84\" x2=\"190\" y2=\"95\"/><text x=\"212\" y=\"74\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">α_F I_F</text><line x1=\"190\" y1=\"95\" x2=\"190\" y2=\"106\"/><circle cx=\"190\" cy=\"120\" r=\"14\"/><line x1=\"190\" y1=\"110\" x2=\"190\" y2=\"130\"/><polygon points=\"190,130 187.3,123.6 192.7,123.6\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"190\" y1=\"134\" x2=\"190\" y2=\"160\"/><text x=\"212\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">α_R I_R</text><line x1=\"90\" y1=\"95\" x2=\"190\" y2=\"95\"/></svg>",
+      "figure_alt": "Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter.",
+      "version": 1
+    },
+    {
+      "id": "ebers-moll-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Why is the BJT 'saturation' region undesirable in amplifiers?",
+      "options": [
+        "\\(I_C\\) becomes zero",
+        "Both junctions are forward biased, so \\(I_C\\) no longer follows \\(\\beta_FI_B\\) and stored charge slows switching",
+        "The gain becomes infinite",
+        "The device breaks down"
+      ],
+      "correct_index": 1,
+      "explanation": "In saturation the collector also injects, the effective \\(I_C/I_B\\) drops well below \\(\\beta_F\\), and excess base charge must be removed before the device turns off.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 186\" role=\"img\" aria-label=\"Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><text x=\"30\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"40\" y1=\"30\" x2=\"230\" y2=\"30\"/><text x=\"30\" y=\"164\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">E</text><line x1=\"40\" y1=\"160\" x2=\"230\" y2=\"160\"/><text x=\"18\" y=\"99\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">B</text><line x1=\"28\" y1=\"95\" x2=\"90\" y2=\"95\"/><line x1=\"90\" y1=\"95\" x2=\"90\" y2=\"74\"/><polygon points=\"82,74 98,74 90,60\"/><line x1=\"82\" y1=\"58\" x2=\"98\" y2=\"58\"/><line x1=\"90\" y1=\"58\" x2=\"90\" y2=\"30\"/><text x=\"100\" y=\"70\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_R</text><line x1=\"90\" y1=\"95\" x2=\"90\" y2=\"116\"/><polygon points=\"82,116 98,116 90,130\"/><line x1=\"82\" y1=\"132\" x2=\"98\" y2=\"132\"/><line x1=\"90\" y1=\"132\" x2=\"90\" y2=\"160\"/><text x=\"100\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I_F</text><circle cx=\"190\" cy=\"70\" r=\"14\"/><line x1=\"190\" y1=\"80\" x2=\"190\" y2=\"60\"/><polygon points=\"190,60 192.7,66.4 187.3,66.4\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"190\" y1=\"30\" x2=\"190\" y2=\"56\"/><line x1=\"190\" y1=\"84\" x2=\"190\" y2=\"95\"/><text x=\"212\" y=\"74\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">α_F I_F</text><line x1=\"190\" y1=\"95\" x2=\"190\" y2=\"106\"/><circle cx=\"190\" cy=\"120\" r=\"14\"/><line x1=\"190\" y1=\"110\" x2=\"190\" y2=\"130\"/><polygon points=\"190,130 187.3,123.6 192.7,123.6\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"190\" y1=\"134\" x2=\"190\" y2=\"160\"/><text x=\"212\" y=\"124\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">α_R I_R</text><line x1=\"90\" y1=\"95\" x2=\"190\" y2=\"95\"/></svg>",
+      "figure_alt": "Ebers-Moll model: a forward diode I_F from base to emitter and a reverse diode I_R from base to collector, with controlled sources α_F I_F into the collector and α_R I_R into the emitter.",
+      "version": 1
     }
   ]
 }

@@ -1,0 +1,26 @@
+{
+  "id": "sg063-ee105-ch11",
+  "label": "SG-063 EE 105 bipolar transistors",
+  "box": "EE 105 (ee105-ucb), Bipolar Junction Transistors",
+  "skills": [
+    "bjt-struct",
+    "bjt-iv",
+    "bjt-action",
+    "ebers-moll",
+    "early",
+    "bjt-ss"
+  ],
+  "areas": {
+    "bjt-struct": ["physical-models"],
+    "bjt-iv": ["physical-models"],
+    "bjt-action": ["physical-models"],
+    "ebers-moll": ["physical-models"],
+    "early": ["physical-models"],
+    "bjt-ss": ["physical-models", "local-linear"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch11.py"
+}

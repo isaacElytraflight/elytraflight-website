@@ -1,39 +1,46 @@
 {
   "skill_id": "bjt-struct",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "bjt-struct-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "An npn BJT consists of which sequence of regions?",
-      "options": [
-        "p emitter, n base, p collector",
-        "n emitter, n base, p collector",
-        "n emitter, p base, n collector",
-        "p emitter, p base, n collector"
+      "type": "order",
+      "prompt": "Order how a vertical npn is built and then biased for forward-active use, starting at the surface. Each step after the first uses the region named in the step before it.",
+      "explanation": "npn names the regions in that order: n emitter, p base, n collector. The emitter is the surface diffusion, not a buried layer under the collector, and it is not beside the collector at the same depth. A pnp is the opposite stack. The collector of an npn is n-type, so the bottom region is not p-type.",
+      "steps": [
+        "The surface region is a small, heavily doped n-type emitter.",
+        "That emitter is nested inside a thin p-type base.",
+        "The base is nested inside the n-type collector, which is the large remaining region.",
+        "Forward-active bias then forward-biases the emitter-base junction and reverse-biases the base-collector junction."
       ],
-      "correct_index": 2,
-      "explanation": "npn names the three regions in order: an n-type emitter, a thin p-type base, and an n-type collector.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 196\" role=\"img\" aria-label=\"Cross-section of a vertical npn BJT: heavily doped n+ emitter on top, a thin p base under it, and the n collector below; current flows vertically through the base width W_B.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"60\" width=\"320\" height=\"120\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n collector</text><rect x=\"90\" y=\"60\" width=\"180\" height=\"70\" stroke-dasharray=\"4 3\"/><text x=\"118\" y=\"120\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p base</text><rect x=\"140\" y=\"60\" width=\"80\" height=\"30\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"80\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ emitter</text><text x=\"180\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E</text><text x=\"110\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"300\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"180\" y1=\"90\" x2=\"180\" y2=\"130\" stroke-dasharray=\"4 3\"/><text x=\"186\" y=\"112\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">W_B</text></svg>",
-      "figure_alt": "Cross-section of a vertical npn BJT: heavily doped n+ emitter on top, a thin p base under it, and the n collector below; current flows vertically through the base width W_B.",
-      "version": 2
+      "version": 1,
+      "id": "bjt-struct-r1-q5"
     },
     {
-      "id": "bjt-struct-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "In the npn symbol, what does the arrow on the emitter show?",
-      "options": [
-        "The direction electrons flow in the emitter",
-        "Which terminal is the base",
-        "The direction of the base current",
-        "The direction of conventional emitter current in forward-active operation (out of the device)"
+      "type": "symbolic",
+      "prompt": "Write the current into the emitter in terms of the currents into the collector and the base. Use IC and IB. Every current is positive when it flows into the device.",
+      "explanation": "KCL on the three terminals is \\(I_C + I_B + I_E = 0\\), so the current into the emitter is \\(-(I_C + I_B)\\). For an npn in forward-active that current is negative: conventional current leaves through the emitter, which is what the emitter arrow shows. \\(I_C + I_B\\) is the magnitude of that current, not the signed current into the terminal. \\(I_C - I_B\\) subtracts the base current instead of adding it. \\(I_B - I_C\\) is the wrong difference.",
+      "answer": "-(IC+IB)",
+      "variables": [
+        {
+          "name": "IC",
+          "min": 0.05,
+          "max": 20.0
+        },
+        {
+          "name": "IB",
+          "min": 0.001,
+          "max": 2.0
+        }
       ],
-      "correct_index": 3,
-      "explanation": "The arrow points out of the emitter for an npn (conventional current leaves there); for a pnp it points in.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 150\" role=\"img\" aria-label=\"npn BJT symbol: base on the left, collector at the top, emitter at the bottom, emitter arrow pointing out of the device.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"126\" y1=\"80\" x2=\"150\" y2=\"80\"/><line x1=\"150\" y1=\"66\" x2=\"150\" y2=\"94\" stroke-width=\"2.4\"/><line x1=\"150\" y1=\"74\" x2=\"168\" y2=\"62\"/><line x1=\"168\" y1=\"62\" x2=\"168\" y2=\"52\"/><line x1=\"168\" y1=\"98\" x2=\"168\" y2=\"108\"/><line x1=\"150\" y1=\"86\" x2=\"168\" y2=\"98\"/><polygon points=\"168,98 161.1,96.7 164.1,92.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"174\" y=\"84\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">npn</text><text x=\"120\" y=\"76\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"176\" y=\"48\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><text x=\"176\" y=\"120\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">E</text></svg>",
-      "figure_alt": "npn BJT symbol: base on the left, collector at the top, emitter at the bottom, emitter arrow pointing out of the device."
+      "tolerance": 0.001,
+      "alternates": [
+        "-IC-IB",
+        "(-1)*(IC+IB)"
+      ],
+      "version": 1,
+      "id": "bjt-struct-r1-q4"
     },
     {
       "id": "bjt-struct-r1-q3",
@@ -99,20 +106,24 @@
       "version": 2
     },
     {
-      "id": "bjt-struct-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "Swapping the collector and emitter connections of a real BJT gives a much lower current gain. Why?",
-      "options": [
-        "The base contact only touches the emitter side",
-        "Holes cannot flow toward the collector",
-        "The arrow in the symbol defines the physics",
-        "The device is not symmetric: the emitter is heavily doped and small, the collector lightly doped and large"
+      "type": "error",
+      "prompt": "A worked solution says what happens to the current gain when the collector and emitter leads of a real BJT are swapped. Exactly one step is wrong.",
+      "explanation": "The structure is built for one direction. Used in reverse, the lightly doped side injects poorly and \\(\\alpha_R\\) is small, so the reverse gain collapses. The arrow on the symbol records that direction; it does not create it. Holes can still flow, and the base contact is not what sets the asymmetry.",
+      "steps": [
+        "The emitter is small and very heavily doped, and the collector is large and lightly doped.",
+        "Forward gain uses that heavy emitter doping, which keeps the current injected back into the emitter small.",
+        "Swapping the leads makes the lightly doped collector act as the emitter.",
+        "The current gain is unchanged, because the two junctions are the same pn junction in either direction."
       ],
-      "correct_index": 3,
-      "explanation": "The physical structure is optimized for one direction. Used in reverse, the lightly doped 'emitter' injects many holes back and the gain collapses (reverse-active \\(\\alpha_R\\) is small).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 196\" role=\"img\" aria-label=\"Cross-section of a vertical npn BJT: heavily doped n+ emitter on top, a thin p base under it, and the n collector below; current flows vertically through the base width W_B.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"60\" width=\"320\" height=\"120\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n collector</text><rect x=\"90\" y=\"60\" width=\"180\" height=\"70\" stroke-dasharray=\"4 3\"/><text x=\"118\" y=\"120\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p base</text><rect x=\"140\" y=\"60\" width=\"80\" height=\"30\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"80\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ emitter</text><text x=\"180\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E</text><text x=\"110\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"300\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"180\" y1=\"90\" x2=\"180\" y2=\"130\" stroke-dasharray=\"4 3\"/><text x=\"186\" y=\"112\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">W_B</text></svg>",
-      "figure_alt": "Cross-section of a vertical npn BJT: heavily doped n+ emitter on top, a thin p base under it, and the n collector below; current flows vertically through the base width W_B."
+      "flaw_index": 3,
+      "reasons": [
+        "Reverse operation uses the small transport factor \\(\\alpha_R\\), so the current gain collapses.",
+        "The two junctions are identical, so the gain is the same with the leads swapped."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "bjt-struct-r3-q4"
     },
     {
       "id": "bjt-struct-r3-q2",
@@ -193,6 +204,59 @@
       "preview": [
         "bjt-action"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "bjt-struct-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In the npn symbol, what does the arrow on the emitter show?",
+      "options": [
+        "The direction electrons flow in the emitter",
+        "Which terminal is the base",
+        "The direction of the base current",
+        "The direction of conventional emitter current in forward-active operation (out of the device)"
+      ],
+      "correct_index": 3,
+      "explanation": "The arrow points out of the emitter for an npn (conventional current leaves there); for a pnp it points in.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 150\" role=\"img\" aria-label=\"npn BJT symbol: base on the left, collector at the top, emitter at the bottom, emitter arrow pointing out of the device.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"126\" y1=\"80\" x2=\"150\" y2=\"80\"/><line x1=\"150\" y1=\"66\" x2=\"150\" y2=\"94\" stroke-width=\"2.4\"/><line x1=\"150\" y1=\"74\" x2=\"168\" y2=\"62\"/><line x1=\"168\" y1=\"62\" x2=\"168\" y2=\"52\"/><line x1=\"168\" y1=\"98\" x2=\"168\" y2=\"108\"/><line x1=\"150\" y1=\"86\" x2=\"168\" y2=\"98\"/><polygon points=\"168,98 161.1,96.7 164.1,92.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"174\" y=\"84\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">npn</text><text x=\"120\" y=\"76\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"176\" y=\"48\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><text x=\"176\" y=\"120\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">E</text></svg>",
+      "figure_alt": "npn BJT symbol: base on the left, collector at the top, emitter at the bottom, emitter arrow pointing out of the device.",
+      "version": 1
+    },
+    {
+      "id": "bjt-struct-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "An npn BJT consists of which sequence of regions?",
+      "options": [
+        "p emitter, n base, p collector",
+        "n emitter, n base, p collector",
+        "n emitter, p base, n collector",
+        "p emitter, p base, n collector"
+      ],
+      "correct_index": 2,
+      "explanation": "npn names the three regions in order: an n-type emitter, a thin p-type base, and an n-type collector.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 196\" role=\"img\" aria-label=\"Cross-section of a vertical npn BJT: heavily doped n+ emitter on top, a thin p base under it, and the n collector below; current flows vertically through the base width W_B.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"60\" width=\"320\" height=\"120\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n collector</text><rect x=\"90\" y=\"60\" width=\"180\" height=\"70\" stroke-dasharray=\"4 3\"/><text x=\"118\" y=\"120\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p base</text><rect x=\"140\" y=\"60\" width=\"80\" height=\"30\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"80\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ emitter</text><text x=\"180\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E</text><text x=\"110\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"300\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"180\" y1=\"90\" x2=\"180\" y2=\"130\" stroke-dasharray=\"4 3\"/><text x=\"186\" y=\"112\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">W_B</text></svg>",
+      "figure_alt": "Cross-section of a vertical npn BJT: heavily doped n+ emitter on top, a thin p base under it, and the n collector below; current flows vertically through the base width W_B.",
+      "version": 2
+    },
+    {
+      "id": "bjt-struct-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Swapping the collector and emitter connections of a real BJT gives a much lower current gain. Why?",
+      "options": [
+        "The base contact only touches the emitter side",
+        "Holes cannot flow toward the collector",
+        "The arrow in the symbol defines the physics",
+        "The device is not symmetric: the emitter is heavily doped and small, the collector lightly doped and large"
+      ],
+      "correct_index": 3,
+      "explanation": "The physical structure is optimized for one direction. Used in reverse, the lightly doped 'emitter' injects many holes back and the gain collapses (reverse-active \\(\\alpha_R\\) is small).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 196\" role=\"img\" aria-label=\"Cross-section of a vertical npn BJT: heavily doped n+ emitter on top, a thin p base under it, and the n collector below; current flows vertically through the base width W_B.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"60\" width=\"320\" height=\"120\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n collector</text><rect x=\"90\" y=\"60\" width=\"180\" height=\"70\" stroke-dasharray=\"4 3\"/><text x=\"118\" y=\"120\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p base</text><rect x=\"140\" y=\"60\" width=\"80\" height=\"30\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"80\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ emitter</text><text x=\"180\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">E</text><text x=\"110\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">B</text><text x=\"300\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"180\" y1=\"90\" x2=\"180\" y2=\"130\" stroke-dasharray=\"4 3\"/><text x=\"186\" y=\"112\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">W_B</text></svg>",
+      "figure_alt": "Cross-section of a vertical npn BJT: heavily doped n+ emitter on top, a thin p base under it, and the n collector below; current flows vertically through the base width W_B.",
+      "version": 1
     }
   ]
 }
