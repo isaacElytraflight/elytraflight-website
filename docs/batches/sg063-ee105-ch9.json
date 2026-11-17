@@ -1,0 +1,22 @@
+{
+  "id": "sg063-ee105-ch9",
+  "label": "SG-063 EE 105 MOS small-signal models",
+  "box": "EE 105 (ee105-ucb), MOS Small-Signal Models",
+  "skills": [
+    "cs-intro",
+    "gm",
+    "ro",
+    "ss-model"
+  ],
+  "areas": {
+    "cs-intro": ["physical-models"],
+    "gm": ["physical-models"],
+    "ro": ["physical-models"],
+    "ss-model": ["physical-models"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch9.py"
+}

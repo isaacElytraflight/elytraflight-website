@@ -1,39 +1,40 @@
 {
   "skill_id": "ss-model",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "ss-model-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "What is the correct order of the small-signal analysis procedure?",
-      "options": [
-        "Solve the DC bias, compute \\(g_m\\) and \\(r_o\\), replace devices and zero the DC sources, then solve the linear circuit",
-        "Draw the linear model first, then solve DC",
-        "Compute the gain from the DC transfer curve only",
-        "Zero the DC sources, then find the bias point"
+      "type": "order",
+      "prompt": "Order the small-signal analysis procedure. Each step after the first uses the result of the step before it.",
+      "explanation": "The model parameters depend on the operating point, so the bias comes first. Drawing the linear model before the bias, or zeroing the supplies before the bias is known, leaves nothing to linearize around. The gain is not read from the DC transfer curve alone: that curve is what the bias step solves, and the small-signal result is the slope at the point.",
+      "steps": [
+        "Solve the DC bias and confirm the region, which fixes the operating point.",
+        "Compute \\(g_m\\) and \\(r_o\\) at that operating point.",
+        "Replace every transistor with the linear model that uses those values, short the DC voltage sources, and open the DC current sources.",
+        "Solve the resulting linear circuit for the gain and the port resistances."
       ],
-      "correct_index": 0,
-      "explanation": "Model parameters depend on the operating point, so DC comes first. Zeroing sources before the bias is known leaves nothing to linearize around.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"30\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"40\" y1=\"60\" x2=\"90\" y2=\"60\"/><circle cx=\"90\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_gs</text><line x1=\"90\" y1=\"60\" x2=\"90\" y2=\"76\"/><text x=\"98\" y=\"80\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">(open)</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><circle cx=\"200\" cy=\"150\" r=\"2.6\" fill=\"currentColor\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"60\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_gs</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
-      "figure_alt": "MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel.",
-      "version": 2
+      "version": 1,
+      "id": "ss-model-r1-q4"
     },
     {
-      "id": "ss-model-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "In the small-signal circuit, what do the DC supply and a DC bias current source become?",
-      "options": [
-        "Both become shorts",
-        "The voltage source becomes a short to ground; the current source becomes an open",
-        "Both become opens",
-        "The voltage source becomes an open; the current source a short"
+      "type": "error",
+      "prompt": "A worked solution says what a DC supply and a DC bias current source become in the small-signal circuit. Exactly one step is wrong.",
+      "explanation": "A constant voltage has zero incremental voltage, which is a short to ground. A constant current has zero incremental current, which is an open. Opening the supply, or shorting the current source, swaps those two. Both sources do not become shorts, and both do not become opens.",
+      "steps": [
+        "A DC source has no incremental part, so its small-signal value is zero.",
+        "A voltage fixed at zero is a short.",
+        "A current fixed at zero is an open.",
+        "The supply is therefore opened, and the bias current source is shorted."
       ],
-      "correct_index": 1,
-      "explanation": "A constant source has zero incremental value: \\(v = 0\\) is a short, \\(i = 0\\) is an open.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"30\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"40\" y1=\"60\" x2=\"90\" y2=\"60\"/><circle cx=\"90\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_gs</text><line x1=\"90\" y1=\"60\" x2=\"90\" y2=\"76\"/><text x=\"98\" y=\"80\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">(open)</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><circle cx=\"200\" cy=\"150\" r=\"2.6\" fill=\"currentColor\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"60\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_gs</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
-      "figure_alt": "MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel."
+      "flaw_index": 3,
+      "reasons": [
+        "The voltage source becomes a short and the current source becomes an open.",
+        "The voltage source becomes an open and the current source becomes a short."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "ss-model-r1-q5"
     },
     {
       "id": "ss-model-r1-q3",
@@ -92,20 +93,30 @@
       "figure_alt": "MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel."
     },
     {
-      "id": "ss-model-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "A device's gate is held at a DC bias and its source node moves by a small \\(v_s\\). What is \\(v_{gs}\\)?",
-      "options": [
-        "\\(-v_s\\)",
-        "\\(+v_s\\)",
-        "0, since the gate is fixed",
-        "\\(v_s/2\\)"
+      "type": "symbolic",
+      "prompt": "Write the small-signal gate-source voltage. Use vg for the movement of the gate node and vs for the movement of the source node.",
+      "explanation": "\\(v_{gs}=v_g-v_s\\). A source that rises while the gate is held still makes \\(v_{gs}\\) negative, not positive and not zero. Adding the two movements drops the difference, and using the source movement alone is not this definition. The sign is the usual slip when the source node, rather than the gate, carries the signal.",
+      "answer": "vg-vs",
+      "variables": [
+        {
+          "name": "vg",
+          "min": -0.04,
+          "max": 0.04
+        },
+        {
+          "name": "vs",
+          "min": -0.04,
+          "max": 0.04
+        }
       ],
-      "correct_index": 0,
-      "explanation": "\\(v_{gs} = v_g - v_s = 0 - v_s\\). Forgetting the sign is a common slip in common-gate and follower analysis.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"30\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"40\" y1=\"60\" x2=\"90\" y2=\"60\"/><circle cx=\"90\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_gs</text><line x1=\"90\" y1=\"60\" x2=\"90\" y2=\"76\"/><text x=\"98\" y=\"80\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">(open)</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><circle cx=\"200\" cy=\"150\" r=\"2.6\" fill=\"currentColor\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"60\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_gs</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
-      "figure_alt": "MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel."
+      "tolerance": 0.001,
+      "alternates": [
+        "-vs+vg",
+        "vg+(-1)*vs"
+      ],
+      "version": 1,
+      "id": "ss-model-r3-q4"
     },
     {
       "id": "ss-model-r3-q2",
@@ -187,6 +198,59 @@
       "preview": [
         "mos-caps"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "ss-model-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A device's gate is held at a DC bias and its source node moves by a small \\(v_s\\). What is \\(v_{gs}\\)?",
+      "options": [
+        "\\(-v_s\\)",
+        "\\(+v_s\\)",
+        "0, since the gate is fixed",
+        "\\(v_s/2\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(v_{gs} = v_g - v_s = 0 - v_s\\). Forgetting the sign is a common slip in common-gate and follower analysis.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"30\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"40\" y1=\"60\" x2=\"90\" y2=\"60\"/><circle cx=\"90\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_gs</text><line x1=\"90\" y1=\"60\" x2=\"90\" y2=\"76\"/><text x=\"98\" y=\"80\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">(open)</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><circle cx=\"200\" cy=\"150\" r=\"2.6\" fill=\"currentColor\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"60\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_gs</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel.",
+      "version": 1
+    },
+    {
+      "id": "ss-model-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What is the correct order of the small-signal analysis procedure?",
+      "options": [
+        "Solve the DC bias, compute \\(g_m\\) and \\(r_o\\), replace devices and zero the DC sources, then solve the linear circuit",
+        "Draw the linear model first, then solve DC",
+        "Compute the gain from the DC transfer curve only",
+        "Zero the DC sources, then find the bias point"
+      ],
+      "correct_index": 0,
+      "explanation": "Model parameters depend on the operating point, so DC comes first. Zeroing sources before the bias is known leaves nothing to linearize around.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"30\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"40\" y1=\"60\" x2=\"90\" y2=\"60\"/><circle cx=\"90\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_gs</text><line x1=\"90\" y1=\"60\" x2=\"90\" y2=\"76\"/><text x=\"98\" y=\"80\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">(open)</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><circle cx=\"200\" cy=\"150\" r=\"2.6\" fill=\"currentColor\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"60\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_gs</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel.",
+      "version": 2
+    },
+    {
+      "id": "ss-model-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In the small-signal circuit, what do the DC supply and a DC bias current source become?",
+      "options": [
+        "Both become shorts",
+        "The voltage source becomes a short to ground; the current source becomes an open",
+        "Both become opens",
+        "The voltage source becomes an open; the current source a short"
+      ],
+      "correct_index": 1,
+      "explanation": "A constant source has zero incremental value: \\(v = 0\\) is a short, \\(i = 0\\) is an open.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 186\" role=\"img\" aria-label=\"MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"30\" y=\"64\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"40\" y1=\"60\" x2=\"90\" y2=\"60\"/><circle cx=\"90\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><text x=\"60\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+ v_gs</text><line x1=\"90\" y1=\"60\" x2=\"90\" y2=\"76\"/><text x=\"98\" y=\"80\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">(open)</text><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"150\"/><line x1=\"90\" y1=\"150\" x2=\"330\" y2=\"150\"/><circle cx=\"200\" cy=\"150\" r=\"2.6\" fill=\"currentColor\"/><text x=\"200\" y=\"172\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"60\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"100\" x2=\"200\" y2=\"80\"/><polygon points=\"200,80 202.7,86.4 197.3,86.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_gs</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"200\" y1=\"30\" x2=\"330\" y2=\"30\"/><text x=\"342\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/></svg>",
+      "figure_alt": "MOSFET small-signal model: gate open (or C_gs to source), dependent current source g_m v_gs from drain to source, r_o in parallel.",
+      "version": 1
     }
   ]
 }

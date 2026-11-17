@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-17T17:34:00.443912Z",
+  "generated": "2026-11-17T17:56:22.084147Z",
   "skills": {
-    "file": "skills.d30e476b.json",
-    "hash": "d30e476b"
+    "file": "skills.10a1ce97.json",
+    "hash": "10a1ce97"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -648,7 +648,7 @@
       "file": "banks/cs-cascade.4e42043c.json"
     },
     "cs-intro": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -656,8 +656,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3963b7d0",
-      "file": "banks/cs-intro.3963b7d0.json"
+      "hash": "6e1ef1ff",
+      "file": "banks/cs-intro.6e1ef1ff.json"
     },
     "cx-exp": {
       "version": 6,
@@ -1356,7 +1356,7 @@
       "file": "banks/gen-gain-phase.b9420142.json"
     },
     "gm": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1364,8 +1364,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "34df7a24",
-      "file": "banks/gm.34df7a24.json"
+      "hash": "6e5d9161",
+      "file": "banks/gm.6e5d9161.json"
     },
     "gradient-method-convergence": {
       "version": 1,
@@ -2760,7 +2760,7 @@
       "file": "banks/rn-important-subsets.03df9379.json"
     },
     "ro": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2768,8 +2768,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "c0b11c02",
-      "file": "banks/ro.c0b11c02.json"
+      "hash": "e56d3a6d",
+      "file": "banks/ro.e56d3a6d.json"
     },
     "robust-perf": {
       "version": 1,
@@ -3000,7 +3000,7 @@
       "file": "banks/square-law.3759b459.json"
     },
     "ss-model": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3008,8 +3008,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "cf77c4d3",
-      "file": "banks/ss-model.cf77c4d3.json"
+      "hash": "fbb598d0",
+      "file": "banks/ss-model.fbb598d0.json"
     },
     "ss-solution": {
       "version": 1,

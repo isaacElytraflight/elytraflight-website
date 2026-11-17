@@ -788,3 +788,21 @@ Items above version 1:
 - `pmos#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 EE 105 MOS small-signal models — sg063-ee105-ch9
+
+Box: EE 105 (ee105-ucb), MOS Small-Signal Models.
+
+Skills: `cs-intro`, `gm`, `ro`, `ss-model`.
+
+Items above version 1:
+
+- `cs-intro-r1-q1` version 2
+- `gm-r1-q1` version 2
+- `gm-r3-q1` version 2
+- `ro-r1-q2` version 2
+- `ro-r1-q1` version 2
+- `ss-model-r1-q1` version 2
+- `ss-model#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
