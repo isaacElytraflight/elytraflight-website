@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-17T18:13:13.592152Z",
+  "generated": "2026-11-17T19:42:04.056954Z",
   "skills": {
-    "file": "skills.6a9a48b3.json",
-    "hash": "6a9a48b3"
+    "file": "skills.1b9509d4.json",
+    "hash": "1b9509d4"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -192,6 +192,18 @@
       "file": "banks/big-circuit.f3e55ece.json"
     },
     "bjt-action": {
+      "version": 4,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "f3a41e6d",
+      "file": "banks/bjt-action.f3a41e6d.json"
+    },
+    "bjt-iv": {
       "version": 3,
       "questionCount": 12,
       "rounds": {
@@ -200,23 +212,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "82c9dd47",
-      "file": "banks/bjt-action.82c9dd47.json"
-    },
-    "bjt-iv": {
-      "version": 2,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "e246a5dd",
-      "file": "banks/bjt-iv.e246a5dd.json"
+      "hash": "1b48f3f3",
+      "file": "banks/bjt-iv.1b48f3f3.json"
     },
     "bjt-ss": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -224,11 +224,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "c2b565ad",
-      "file": "banks/bjt-ss.c2b565ad.json"
+      "hash": "bac845e6",
+      "file": "banks/bjt-ss.bac845e6.json"
     },
     "bjt-struct": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -236,8 +236,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "9419f05a",
-      "file": "banks/bjt-struct.9419f05a.json"
+      "hash": "4cc72304",
+      "file": "banks/bjt-struct.4cc72304.json"
     },
     "block-diagram": {
       "version": 1,
@@ -912,7 +912,7 @@
       "file": "banks/drude.a46a86fe.json"
     },
     "early": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -920,11 +920,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "fee4ed72",
-      "file": "banks/early.fee4ed72.json"
+      "hash": "fac929e0",
+      "file": "banks/early.fac929e0.json"
     },
     "ebers-moll": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -932,8 +932,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "34d60699",
-      "file": "banks/ebers-moll.34d60699.json"
+      "hash": "cc990f11",
+      "file": "banks/ebers-moll.cc990f11.json"
     },
     "eig-modes": {
       "version": 3,
