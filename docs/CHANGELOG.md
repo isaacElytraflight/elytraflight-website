@@ -762,3 +762,29 @@ Items above version 1:
 - `mos-regions-r3-q1` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 EE 105 MOSFET device physics — sg063-ee105-ch8
+
+Box: EE 105 (ee105-ucb), MOSFET Device Physics.
+
+Skills: `mosfet-struct`, `nmos-regions`, `triode`, `square-law`, `pmos`.
+
+Items above version 1:
+
+- `mosfet-struct-r1-q1` version 2
+- `mosfet-struct-r2-q1` version 2
+- `nmos-regions-r1-q1` version 2
+- `triode-r1-q1` version 2
+- `triode-r1-q2` version 2
+- `square-law-r1-q2` version 2
+- `square-law-r3-q2` version 2
+- `square-law-r3-q3` version 2
+- `square-law-r4-q2` version 2
+- `square-law-r2-q1` version 3
+- `square-law-r2-q3` version 2
+- `square-law-r1-q3` version 2
+- `pmos-r1-q1` version 2
+- `pmos-r1-q3` version 2
+- `pmos#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.

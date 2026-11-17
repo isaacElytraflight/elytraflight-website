@@ -1,6 +1,6 @@
 {
   "skill_id": "square-law",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "id": "square-law-r1-q1",
@@ -33,38 +33,60 @@
       "version": 2
     },
     {
-      "id": "square-law-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "At pinch-off (\\(V_{DS} = V_{GS} - V_T\\)), what is the gate-to-drain voltage?",
-      "options": [
-        "Zero",
-        "Exactly \\(V_T\\)",
-        "\\(V_{DS}\\)",
-        "\\(V_{ov}\\)"
+      "type": "error",
+      "prompt": "A worked solution states the gate-to-drain voltage at pinch-off, and the charge there. Exactly one step is wrong.",
+      "explanation": "At pinch-off \\(V_{GD}=V_{GS}-V_{DS}=V_T\\), so the excess over threshold at the drain end is zero and the inversion layer vanishes there. \\(C_{ox}V_{ov}\\) is the charge at the source, not at the pinched-off end. The current does not stop: carriers are swept across the high-field region into the drain.",
+      "steps": [
+        "Pinch-off is the bias where \\(V_{DS}\\) equals \\(V_{GS}-V_T\\).",
+        "The gate-to-drain voltage is \\(V_{GS}\\) minus \\(V_{DS}\\).",
+        "At that bias the gate-to-drain voltage equals the threshold.",
+        "The inversion charge at the drain end is then \\(C_{ox}\\) times the overdrive."
       ],
-      "correct_index": 1,
-      "explanation": "\\(V_{GD} = V_{GS} - V_{DS} = V_T\\): the drain end of the channel is right at threshold, so the inversion charge there vanishes.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 170\" role=\"img\" aria-label=\"MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"80\" width=\"320\" height=\"80\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"40\" y=\"80\" width=\"60\" height=\"24\"/><rect x=\"260\" y=\"80\" width=\"60\" height=\"24\"/><text x=\"70\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ S</text><text x=\"290\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ D</text><rect x=\"100\" y=\"50\" width=\"160\" height=\"24\"/><text x=\"180\" y=\"66\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">gate</text><polygon points=\"100,81 230,81 230,83 100,88\" fill=\"currentColor\" fill-opacity=\"0.15\"/><text x=\"232\" y=\"120\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">pinch-off</text></svg>",
-      "figure_alt": "MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "The drain end is exactly at threshold, so the inversion charge there is zero.",
+        "Pinch-off leaves a full \\(C_{ox}V_{ov}\\) of inversion charge at the drain end."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "square-law-r1-q4"
     },
     {
-      "id": "square-law-r2-q1",
       "round": 2,
-      "type": "mc",
-      "prompt": "In the derivation, what is the sheet charge in the channel at position \\(y\\) where the channel potential is \\(V(y)\\)?",
-      "options": [
-        "\\(-C_{ox}(V_{GS} - V_T)\\) everywhere",
-        "\\(-qN_AX_d\\)",
-        "\\(Q_N(y) = -C_{ox}(V_{GS} - V(y) - V_T)\\)",
-        "\\(-C_{ox}V(y)\\)"
+      "type": "symbolic",
+      "prompt": "Write the mobile inversion charge per unit area at a point in the channel. Use Cox for the oxide capacitance per area, Vgs for the gate-source voltage, Vy for the channel potential at that point, and Vt for the threshold.",
+      "explanation": "The gate sees \\(V_{GS}-V(y)\\) across the oxide, and only the excess over \\(V_T\\) is inversion charge. The charge is negative because the carriers are electrons. Using \\(-C_{ox}(V_{GS}-V_T)\\) everywhere drops the channel potential, so the charge would not fall toward the drain. Using \\(-C_{ox}V(y)\\) keeps the channel potential and drops the gate. The depletion charge \\(-qN_AX_d\\) is a different sheet.",
+      "answer": "-Cox*(Vgs-Vy-Vt)",
+      "variables": [
+        {
+          "name": "Cox",
+          "min": 0.3,
+          "max": 4.0
+        },
+        {
+          "name": "Vgs",
+          "min": 1.2,
+          "max": 2.6
+        },
+        {
+          "name": "Vy",
+          "min": 0.05,
+          "max": 0.45
+        },
+        {
+          "name": "Vt",
+          "min": 0.15,
+          "max": 0.45
+        }
       ],
-      "correct_index": 2,
-      "explanation": "Locally the gate sees \\(V_{GS} - V(y)\\) across the oxide; only the excess over \\(V_T\\) becomes inversion charge.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 170\" role=\"img\" aria-label=\"MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"80\" width=\"320\" height=\"80\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"40\" y=\"80\" width=\"60\" height=\"24\"/><rect x=\"260\" y=\"80\" width=\"60\" height=\"24\"/><text x=\"70\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ S</text><text x=\"290\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ D</text><rect x=\"100\" y=\"50\" width=\"160\" height=\"24\"/><text x=\"180\" y=\"66\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">gate</text><polygon points=\"100,81 230,81 230,83 100,88\" fill=\"currentColor\" fill-opacity=\"0.15\"/><text x=\"232\" y=\"120\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">pinch-off</text></svg>",
-      "figure_alt": "MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).",
-      "version": 3
+      "tolerance": 0.001,
+      "alternates": [
+        "-(Cox*(Vgs-Vy-Vt))",
+        "Cox*(Vy+Vt-Vgs)"
+      ],
+      "version": 1,
+      "id": "square-law-r2-q4"
     },
     {
       "id": "square-law-r2-q2",
@@ -80,21 +102,18 @@
       "version": 1
     },
     {
-      "id": "square-law-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "Where does the factor \\(\\tfrac12\\) in the saturation current come from?",
-      "options": [
-        "The two sides of the channel",
-        "Half the carriers are holes",
-        "The drain resistance",
-        "Averaging the channel charge, which falls linearly from \\(C_{ox}V_{ov}\\) at the source to zero at pinch-off"
+      "type": "order",
+      "prompt": "Order the steps that produce the factor of one half in the saturation current. Each step after the first uses the result of the step before it.",
+      "explanation": "The one half is the average of a charge that falls from \\(C_{ox}V_{ov}\\) to zero. It is not one half because the channel has two ends, and it is not because half the carriers are holes. The integral has to come after the charge profile, because the profile is what gets integrated.",
+      "steps": [
+        "From the source to the pinch-off point, the channel potential rises from zero to the overdrive.",
+        "The inversion charge falls in a straight line from \\(C_{ox}V_{ov}\\) at the source to zero at pinch-off.",
+        "The average of a straight line that falls to zero is half of its value at the start.",
+        "Integrating \\((V_{ov}-V)\\,dV\\) from zero to \\(V_{ov}\\) therefore gives \\(V_{ov}^2/2\\)."
       ],
-      "correct_index": 3,
-      "explanation": "Integrating \\((V_{ov} - V)\\,dV\\) from 0 to \\(V_{ov}\\) gives \\(V_{ov}^2/2\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 170\" role=\"img\" aria-label=\"MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"80\" width=\"320\" height=\"80\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"40\" y=\"80\" width=\"60\" height=\"24\"/><rect x=\"260\" y=\"80\" width=\"60\" height=\"24\"/><text x=\"70\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ S</text><text x=\"290\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ D</text><rect x=\"100\" y=\"50\" width=\"160\" height=\"24\"/><text x=\"180\" y=\"66\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">gate</text><polygon points=\"100,81 230,81 230,83 100,88\" fill=\"currentColor\" fill-opacity=\"0.15\"/><text x=\"232\" y=\"120\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">pinch-off</text></svg>",
-      "figure_alt": "MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).",
-      "version": 2
+      "version": 1,
+      "id": "square-law-r2-q5"
     },
     {
       "id": "square-law-r3-q1",
@@ -198,6 +217,59 @@
         "cs-intro"
       ],
       "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "square-law-r2-q1",
+      "round": 2,
+      "type": "mc",
+      "prompt": "In the derivation, what is the sheet charge in the channel at position \\(y\\) where the channel potential is \\(V(y)\\)?",
+      "options": [
+        "\\(-C_{ox}(V_{GS} - V_T)\\) everywhere",
+        "\\(-qN_AX_d\\)",
+        "\\(Q_N(y) = -C_{ox}(V_{GS} - V(y) - V_T)\\)",
+        "\\(-C_{ox}V(y)\\)"
+      ],
+      "correct_index": 2,
+      "explanation": "Locally the gate sees \\(V_{GS} - V(y)\\) across the oxide; only the excess over \\(V_T\\) becomes inversion charge.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 170\" role=\"img\" aria-label=\"MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"80\" width=\"320\" height=\"80\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"40\" y=\"80\" width=\"60\" height=\"24\"/><rect x=\"260\" y=\"80\" width=\"60\" height=\"24\"/><text x=\"70\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ S</text><text x=\"290\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ D</text><rect x=\"100\" y=\"50\" width=\"160\" height=\"24\"/><text x=\"180\" y=\"66\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">gate</text><polygon points=\"100,81 230,81 230,83 100,88\" fill=\"currentColor\" fill-opacity=\"0.15\"/><text x=\"232\" y=\"120\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">pinch-off</text></svg>",
+      "figure_alt": "MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).",
+      "version": 3
+    },
+    {
+      "id": "square-law-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Where does the factor \\(\\tfrac12\\) in the saturation current come from?",
+      "options": [
+        "The two sides of the channel",
+        "Half the carriers are holes",
+        "The drain resistance",
+        "Averaging the channel charge, which falls linearly from \\(C_{ox}V_{ov}\\) at the source to zero at pinch-off"
+      ],
+      "correct_index": 3,
+      "explanation": "Integrating \\((V_{ov} - V)\\,dV\\) from 0 to \\(V_{ov}\\) gives \\(V_{ov}^2/2\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 170\" role=\"img\" aria-label=\"MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"80\" width=\"320\" height=\"80\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"40\" y=\"80\" width=\"60\" height=\"24\"/><rect x=\"260\" y=\"80\" width=\"60\" height=\"24\"/><text x=\"70\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ S</text><text x=\"290\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ D</text><rect x=\"100\" y=\"50\" width=\"160\" height=\"24\"/><text x=\"180\" y=\"66\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">gate</text><polygon points=\"100,81 230,81 230,83 100,88\" fill=\"currentColor\" fill-opacity=\"0.15\"/><text x=\"232\" y=\"120\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">pinch-off</text></svg>",
+      "figure_alt": "MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).",
+      "version": 2
+    },
+    {
+      "id": "square-law-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "At pinch-off (\\(V_{DS} = V_{GS} - V_T\\)), what is the gate-to-drain voltage?",
+      "options": [
+        "Zero",
+        "Exactly \\(V_T\\)",
+        "\\(V_{DS}\\)",
+        "\\(V_{ov}\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(V_{GD} = V_{GS} - V_{DS} = V_T\\): the drain end of the channel is right at threshold, so the inversion charge there vanishes.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 170\" role=\"img\" aria-label=\"MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"80\" width=\"320\" height=\"80\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"40\" y=\"80\" width=\"60\" height=\"24\"/><rect x=\"260\" y=\"80\" width=\"60\" height=\"24\"/><text x=\"70\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ S</text><text x=\"290\" y=\"96\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ D</text><rect x=\"100\" y=\"50\" width=\"160\" height=\"24\"/><text x=\"180\" y=\"66\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">gate</text><polygon points=\"100,81 230,81 230,83 100,88\" fill=\"currentColor\" fill-opacity=\"0.15\"/><text x=\"232\" y=\"120\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">pinch-off</text></svg>",
+      "figure_alt": "MOSFET channel cross-section: the inversion layer is thick at the source and pinches off before reaching the drain (saturation).",
+      "version": 2
     }
   ]
 }

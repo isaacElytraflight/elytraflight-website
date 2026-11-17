@@ -1,23 +1,32 @@
 {
   "skill_id": "pmos",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "pmos-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A PMOS has its source at \\(V_{DD}\\). Which condition puts it in saturation?",
-      "options": [
-        "\\(V_{GS} > V_{Tp}\\) and \\(V_{DS} \\ge V_{GS} - V_{Tp}\\) with all quantities positive",
-        "\\(V_{SG} < |V_{Tp}|\\) and \\(V_{SD}\\) large",
-        "\\(V_{SD} \\le V_{SG} - |V_{Tp}|\\)",
-        "\\(V_{SG} > |V_{Tp}|\\) and \\(V_{SD} \\ge V_{SG} - |V_{Tp}|\\)"
+      "type": "symbolic",
+      "prompt": "Write the smallest source-drain voltage that keeps a PMOS in saturation. Use Vsg for the source-gate voltage and Vtp for the magnitude of the threshold. Both names are positive.",
+      "explanation": "With source-referenced positive voltages, saturation starts at \\(V_{SD}=V_{SG}-|V_{Tp}|\\), the same overdrive rule as an NMOS. Adding the threshold instead of subtracting it, or requiring \\(V_{SD}\\ge V_{SG}\\), uses the wrong boundary. The drain of a saturated PMOS may sit up to one threshold above the gate, which is \\(V_D \\le V_G+|V_{Tp}|\\).",
+      "answer": "Vsg-Vtp",
+      "variables": [
+        {
+          "name": "Vsg",
+          "min": 0.7,
+          "max": 2.2
+        },
+        {
+          "name": "Vtp",
+          "min": 0.15,
+          "max": 0.55
+        }
       ],
-      "correct_index": 3,
-      "explanation": "Write every PMOS voltage source-referenced and positive: \\(V_{SG}\\), \\(V_{SD}\\), \\(|V_{Tp}|\\). Then the NMOS rules carry over unchanged (the region test itself is the NMOS-regions prerequisite). Using \\(V_{GS}\\) and \\(V_{DS}\\) directly gives negative numbers and flipped inequalities.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 166\" role=\"img\" aria-label=\"PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"128\" y1=\"14\" x2=\"152\" y2=\"14\"/><text x=\"140\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"140\" y1=\"14\" x2=\"140\" y2=\"32\"/><text x=\"150\" y=\"30\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"114\" y1=\"44\" x2=\"114\" y2=\"76\"/><line x1=\"94\" y1=\"60\" x2=\"108\" y2=\"60\"/><line x1=\"120\" y1=\"42\" x2=\"120\" y2=\"78\" stroke-width=\"2.4\"/><line x1=\"120\" y1=\"48\" x2=\"140\" y2=\"48\"/><line x1=\"140\" y1=\"48\" x2=\"140\" y2=\"32\"/><line x1=\"120\" y1=\"72\" x2=\"140\" y2=\"72\"/><line x1=\"140\" y1=\"72\" x2=\"140\" y2=\"88\"/><circle cx=\"111\" cy=\"60\" r=\"3\"/><line x1=\"124\" y1=\"72\" x2=\"138\" y2=\"72\"/><polygon points=\"138,72 132.5,74.3 132.5,69.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"88\" y=\"64\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_G</text><line x1=\"140\" y1=\"88\" x2=\"140\" y2=\"104\"/><text x=\"148\" y=\"108\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"140\" y1=\"104\" x2=\"140\" y2=\"112\"/><line x1=\"140\" y1=\"136\" x2=\"140\" y2=\"144\"/><circle cx=\"140\" cy=\"124\" r=\"12\"/><line x1=\"140\" y1=\"116\" x2=\"140\" y2=\"132\"/><polygon points=\"140,132 137.7,126.5 142.3,126.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"157\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_D</text><line x1=\"140\" y1=\"144\" x2=\"140\" y2=\"150\"/><line x1=\"131\" y1=\"150\" x2=\"149\" y2=\"150\"/><line x1=\"135\" y1=\"154\" x2=\"145\" y2=\"154\"/><line x1=\"138.5\" y1=\"158\" x2=\"141.5\" y2=\"158\"/></svg>",
-      "figure_alt": "PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "-Vtp+Vsg",
+        "Vsg+(-1)*Vtp"
+      ],
+      "version": 1,
+      "id": "pmos-r1-q4"
     },
     {
       "id": "pmos-r1-q2",
@@ -32,21 +41,18 @@
       "figure_alt": "PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground."
     },
     {
-      "id": "pmos-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "With the source fixed at \\(V_{DD}\\), you raise the PMOS gate voltage slightly. What happens to the drain current?",
-      "options": [
-        "It decreases, because \\(V_{SG}\\) and the inversion charge fall",
-        "It increases, as it would for an NMOS",
-        "It is unchanged, since the source is fixed",
-        "It reverses direction"
+      "type": "order",
+      "prompt": "A PMOS source is fixed at the positive supply. Order the wiggle test for a small rise in the gate voltage. Each step after the first uses the result of the step before it.",
+      "explanation": "Raising the gate of a PMOS weakens the channel. The current falls. Treating the device like an NMOS, and letting the current rise, skips the drop in \\(V_{SG}\\). The supply is fixed, so the source does not move with the gate, and the current does not reverse direction.",
+      "steps": [
+        "The source voltage stays put while the gate voltage rises.",
+        "The source-gate voltage therefore falls by that same rise.",
+        "Less source-gate voltage means less inversion charge, so the drain current falls.",
+        "The small-signal current has the sign of \\(v_{sg}\\), which is negative for this rise."
       ],
-      "correct_index": 0,
-      "explanation": "Raising \\(V_G\\) lowers \\(V_{SG}\\), weakening the inversion layer. The small-signal model must agree: \\(i_d = g_mv_{sg} < 0\\). This wiggle test is the sanity check for PMOS polarity.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 166\" role=\"img\" aria-label=\"PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"128\" y1=\"14\" x2=\"152\" y2=\"14\"/><text x=\"140\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"140\" y1=\"14\" x2=\"140\" y2=\"32\"/><text x=\"150\" y=\"30\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"114\" y1=\"44\" x2=\"114\" y2=\"76\"/><line x1=\"94\" y1=\"60\" x2=\"108\" y2=\"60\"/><line x1=\"120\" y1=\"42\" x2=\"120\" y2=\"78\" stroke-width=\"2.4\"/><line x1=\"120\" y1=\"48\" x2=\"140\" y2=\"48\"/><line x1=\"140\" y1=\"48\" x2=\"140\" y2=\"32\"/><line x1=\"120\" y1=\"72\" x2=\"140\" y2=\"72\"/><line x1=\"140\" y1=\"72\" x2=\"140\" y2=\"88\"/><circle cx=\"111\" cy=\"60\" r=\"3\"/><line x1=\"124\" y1=\"72\" x2=\"138\" y2=\"72\"/><polygon points=\"138,72 132.5,74.3 132.5,69.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"88\" y=\"64\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_G</text><line x1=\"140\" y1=\"88\" x2=\"140\" y2=\"104\"/><text x=\"148\" y=\"108\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"140\" y1=\"104\" x2=\"140\" y2=\"112\"/><line x1=\"140\" y1=\"136\" x2=\"140\" y2=\"144\"/><circle cx=\"140\" cy=\"124\" r=\"12\"/><line x1=\"140\" y1=\"116\" x2=\"140\" y2=\"132\"/><polygon points=\"140,132 137.7,126.5 142.3,126.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"157\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_D</text><line x1=\"140\" y1=\"144\" x2=\"140\" y2=\"150\"/><line x1=\"131\" y1=\"150\" x2=\"149\" y2=\"150\"/><line x1=\"135\" y1=\"154\" x2=\"145\" y2=\"154\"/><line x1=\"138.5\" y1=\"158\" x2=\"141.5\" y2=\"158\"/></svg>",
-      "figure_alt": "PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground.",
-      "version": 2
+      "version": 1,
+      "id": "pmos-r1-q5"
     },
     {
       "id": "pmos-r2-q1",
@@ -61,20 +67,24 @@
       "figure_alt": "PMOS common-source amplifier: source at the supply, input at the gate, drain load R_D to ground, output at the drain."
     },
     {
-      "id": "pmos-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "Which small-signal model is correct for a saturated PMOS?",
-      "options": [
-        "\\(g_mv_{gs}\\) from source to drain",
-        "The same as the NMOS: \\(g_mv_{gs}\\) from drain to source, i.e. \\(g_mv_{sg}\\) from source to drain, with \\(r_o\\) between drain and source",
-        "\\(-g_m\\) in place of \\(g_m\\) in the NMOS model, with the source at the bottom",
-        "Just \\(r_o\\); the PMOS has no controlled source"
+      "type": "error",
+      "prompt": "A worked solution builds the small-signal model of a saturated PMOS. Exactly one step is wrong.",
+      "explanation": "The PMOS model drawn upside down is the NMOS model. \\(g_m v_{sg}\\) from source to drain is the same as \\(g_m v_{gs}\\) from drain to source, and \\(g_m\\) is positive. A minus sign on \\(g_m\\), on top of the flipped drawing, counts the polarity twice. \\(r_o\\) still sits between drain and source.",
+      "steps": [
+        "With the source at the top, the controlling voltage is \\(v_{sg}\\).",
+        "The controlled source pushes a current \\(g_m v_{sg}\\) from the source toward the drain.",
+        "Turned over, that element is \\(g_m v_{gs}\\) from drain to source, the same element an NMOS uses.",
+        "Because the device is a PMOS, the value of \\(g_m\\) in that element is negative."
       ],
-      "correct_index": 1,
-      "explanation": "Drawn upside down, the PMOS model is the NMOS model: \\(g_mv_{gs}\\) drain-to-source equals \\(g_mv_{sg}\\) source-to-drain. A negative \\(g_m\\) would double-count the flip; \\(g_m\\) is always positive.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 176\" role=\"img\" aria-label=\"PMOS small-signal model drawn upside down: source on top, controlled source g_m v_sg pushing current from source down to drain, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"30\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"40\" y1=\"30\" x2=\"330\" y2=\"30\"/><circle cx=\"200\" cy=\"30\" r=\"2.6\" fill=\"currentColor\"/><text x=\"40\" y=\"90\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G (open)</text><text x=\"40\" y=\"108\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">v_sg = v_s − v_g</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"80\" x2=\"200\" y2=\"100\"/><polygon points=\"200,100 197.3,93.6 202.7,93.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_sg</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/><line x1=\"150\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"342\" y=\"154\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">D</text></svg>",
-      "figure_alt": "PMOS small-signal model drawn upside down: source on top, controlled source g_m v_sg pushing current from source down to drain, r_o in parallel."
+      "flaw_index": 3,
+      "reasons": [
+        "\\(g_m\\) stays positive. The source-referenced voltage already carries the PMOS sign.",
+        "A PMOS needs a negative \\(g_m\\), with the NMOS model otherwise left as it is."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "pmos-r2-q4"
     },
     {
       "id": "pmos-r2-q3",
@@ -184,6 +194,59 @@
       "preview": [
         "mirror-load"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "pmos-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A PMOS has its source at \\(V_{DD}\\). Which condition puts it in saturation?",
+      "options": [
+        "\\(V_{GS} > V_{Tp}\\) and \\(V_{DS} \\ge V_{GS} - V_{Tp}\\) with all quantities positive",
+        "\\(V_{SG} < |V_{Tp}|\\) and \\(V_{SD}\\) large",
+        "\\(V_{SD} \\le V_{SG} - |V_{Tp}|\\)",
+        "\\(V_{SG} > |V_{Tp}|\\) and \\(V_{SD} \\ge V_{SG} - |V_{Tp}|\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "Write every PMOS voltage source-referenced and positive: \\(V_{SG}\\), \\(V_{SD}\\), \\(|V_{Tp}|\\). Then the NMOS rules carry over unchanged (the region test itself is the NMOS-regions prerequisite). Using \\(V_{GS}\\) and \\(V_{DS}\\) directly gives negative numbers and flipped inequalities.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 166\" role=\"img\" aria-label=\"PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"128\" y1=\"14\" x2=\"152\" y2=\"14\"/><text x=\"140\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"140\" y1=\"14\" x2=\"140\" y2=\"32\"/><text x=\"150\" y=\"30\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"114\" y1=\"44\" x2=\"114\" y2=\"76\"/><line x1=\"94\" y1=\"60\" x2=\"108\" y2=\"60\"/><line x1=\"120\" y1=\"42\" x2=\"120\" y2=\"78\" stroke-width=\"2.4\"/><line x1=\"120\" y1=\"48\" x2=\"140\" y2=\"48\"/><line x1=\"140\" y1=\"48\" x2=\"140\" y2=\"32\"/><line x1=\"120\" y1=\"72\" x2=\"140\" y2=\"72\"/><line x1=\"140\" y1=\"72\" x2=\"140\" y2=\"88\"/><circle cx=\"111\" cy=\"60\" r=\"3\"/><line x1=\"124\" y1=\"72\" x2=\"138\" y2=\"72\"/><polygon points=\"138,72 132.5,74.3 132.5,69.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"88\" y=\"64\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_G</text><line x1=\"140\" y1=\"88\" x2=\"140\" y2=\"104\"/><text x=\"148\" y=\"108\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"140\" y1=\"104\" x2=\"140\" y2=\"112\"/><line x1=\"140\" y1=\"136\" x2=\"140\" y2=\"144\"/><circle cx=\"140\" cy=\"124\" r=\"12\"/><line x1=\"140\" y1=\"116\" x2=\"140\" y2=\"132\"/><polygon points=\"140,132 137.7,126.5 142.3,126.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"157\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_D</text><line x1=\"140\" y1=\"144\" x2=\"140\" y2=\"150\"/><line x1=\"131\" y1=\"150\" x2=\"149\" y2=\"150\"/><line x1=\"135\" y1=\"154\" x2=\"145\" y2=\"154\"/><line x1=\"138.5\" y1=\"158\" x2=\"141.5\" y2=\"158\"/></svg>",
+      "figure_alt": "PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground.",
+      "version": 2
+    },
+    {
+      "id": "pmos-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "With the source fixed at \\(V_{DD}\\), you raise the PMOS gate voltage slightly. What happens to the drain current?",
+      "options": [
+        "It decreases, because \\(V_{SG}\\) and the inversion charge fall",
+        "It increases, as it would for an NMOS",
+        "It is unchanged, since the source is fixed",
+        "It reverses direction"
+      ],
+      "correct_index": 0,
+      "explanation": "Raising \\(V_G\\) lowers \\(V_{SG}\\), weakening the inversion layer. The small-signal model must agree: \\(i_d = g_mv_{sg} < 0\\). This wiggle test is the sanity check for PMOS polarity.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 166\" role=\"img\" aria-label=\"PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"128\" y1=\"14\" x2=\"152\" y2=\"14\"/><text x=\"140\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"140\" y1=\"14\" x2=\"140\" y2=\"32\"/><text x=\"150\" y=\"30\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"114\" y1=\"44\" x2=\"114\" y2=\"76\"/><line x1=\"94\" y1=\"60\" x2=\"108\" y2=\"60\"/><line x1=\"120\" y1=\"42\" x2=\"120\" y2=\"78\" stroke-width=\"2.4\"/><line x1=\"120\" y1=\"48\" x2=\"140\" y2=\"48\"/><line x1=\"140\" y1=\"48\" x2=\"140\" y2=\"32\"/><line x1=\"120\" y1=\"72\" x2=\"140\" y2=\"72\"/><line x1=\"140\" y1=\"72\" x2=\"140\" y2=\"88\"/><circle cx=\"111\" cy=\"60\" r=\"3\"/><line x1=\"124\" y1=\"72\" x2=\"138\" y2=\"72\"/><polygon points=\"138,72 132.5,74.3 132.5,69.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"88\" y=\"64\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_G</text><line x1=\"140\" y1=\"88\" x2=\"140\" y2=\"104\"/><text x=\"148\" y=\"108\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"140\" y1=\"104\" x2=\"140\" y2=\"112\"/><line x1=\"140\" y1=\"136\" x2=\"140\" y2=\"144\"/><circle cx=\"140\" cy=\"124\" r=\"12\"/><line x1=\"140\" y1=\"116\" x2=\"140\" y2=\"132\"/><polygon points=\"140,132 137.7,126.5 142.3,126.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"157\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_D</text><line x1=\"140\" y1=\"144\" x2=\"140\" y2=\"150\"/><line x1=\"131\" y1=\"150\" x2=\"149\" y2=\"150\"/><line x1=\"135\" y1=\"154\" x2=\"145\" y2=\"154\"/><line x1=\"138.5\" y1=\"158\" x2=\"141.5\" y2=\"158\"/></svg>",
+      "figure_alt": "PMOS with source at V_DD, gate at V_G, drain current flowing out of the drain into a load toward ground.",
+      "version": 2
+    },
+    {
+      "id": "pmos-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Which small-signal model is correct for a saturated PMOS?",
+      "options": [
+        "\\(g_mv_{gs}\\) from source to drain",
+        "The same as the NMOS: \\(g_mv_{gs}\\) from drain to source, i.e. \\(g_mv_{sg}\\) from source to drain, with \\(r_o\\) between drain and source",
+        "\\(-g_m\\) in place of \\(g_m\\) in the NMOS model, with the source at the bottom",
+        "Just \\(r_o\\); the PMOS has no controlled source"
+      ],
+      "correct_index": 1,
+      "explanation": "Drawn upside down, the PMOS model is the NMOS model: \\(g_mv_{gs}\\) drain-to-source equals \\(g_mv_{sg}\\) source-to-drain. A negative \\(g_m\\) would double-count the flip; \\(g_m\\) is always positive.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 176\" role=\"img\" aria-label=\"PMOS small-signal model drawn upside down: source on top, controlled source g_m v_sg pushing current from source down to drain, r_o in parallel.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><text x=\"30\" y=\"34\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"40\" y1=\"30\" x2=\"330\" y2=\"30\"/><circle cx=\"200\" cy=\"30\" r=\"2.6\" fill=\"currentColor\"/><text x=\"40\" y=\"90\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G (open)</text><text x=\"40\" y=\"108\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">v_sg = v_s − v_g</text><line x1=\"200\" y1=\"30\" x2=\"200\" y2=\"76\"/><circle cx=\"200\" cy=\"90\" r=\"14\"/><line x1=\"200\" y1=\"80\" x2=\"200\" y2=\"100\"/><polygon points=\"200,100 197.3,93.6 202.7,93.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"222\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g_m v_sg</text><line x1=\"200\" y1=\"104\" x2=\"200\" y2=\"150\"/><line x1=\"280\" y1=\"30\" x2=\"280\" y2=\"64\"/><polyline points=\"280,64 280,71 274,74 286,79 274,84 286,89 274,94 286,99 280,107 280,114\"/><text x=\"292\" y=\"93\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r_o</text><line x1=\"280\" y1=\"114\" x2=\"280\" y2=\"150\"/><line x1=\"150\" y1=\"150\" x2=\"330\" y2=\"150\"/><text x=\"342\" y=\"154\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">D</text></svg>",
+      "figure_alt": "PMOS small-signal model drawn upside down: source on top, controlled source g_m v_sg pushing current from source down to drain, r_o in parallel.",
+      "version": 1
     }
   ]
 }
