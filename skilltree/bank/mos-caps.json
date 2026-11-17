@@ -1,23 +1,42 @@
 {
   "skill_id": "mos-caps",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "mos-caps-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "For a saturated MOSFET, which expression gives \\(C_{gs}\\)?",
-      "options": [
-        "\\(WLC_{ox}\\)",
-        "\\(\\tfrac12WLC_{ox} + C_{ov}\\)",
-        "\\(C_{ov}\\) only",
-        "\\(\\tfrac23WLC_{ox} + C_{ov}\\)"
+      "type": "symbolic",
+      "prompt": "Write the gate-source capacitance of a saturated MOSFET. Use W for the width, L for the channel length, Cox for the oxide capacitance per area, and Cov for the overlap capacitance.",
+      "explanation": "In saturation the inversion charge is wedge-shaped and tied to the source, so the gate sees two thirds of \\(WLC_{ox}\\), plus the overlap along the source edge. Half of \\(WLC_{ox}\\) is the deep-triode split, not this value. Overlap alone is \\(C_{gd}\\) in saturation. The full \\(WLC_{ox}\\) would treat the channel charge as if pinch-off did not weight it toward the source.",
+      "answer": "(2/3)*W*L*Cox+Cov",
+      "variables": [
+        {
+          "name": "W",
+          "min": 1.0,
+          "max": 40.0
+        },
+        {
+          "name": "L",
+          "min": 0.1,
+          "max": 2.0
+        },
+        {
+          "name": "Cox",
+          "min": 1.0,
+          "max": 20.0
+        },
+        {
+          "name": "Cov",
+          "min": 0.05,
+          "max": 8.0
+        }
       ],
-      "correct_index": 3,
-      "explanation": "In saturation the inversion charge is wedge-shaped, so the gate sees two thirds of the full oxide capacitance, plus overlap along the source edge. Half is the triode split; overlap alone is \\(C_{gd}\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 200\" role=\"img\" aria-label=\"MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:320px;width:100%;height:auto\"><line x1=\"144\" y1=\"84\" x2=\"144\" y2=\"116\"/><line x1=\"124\" y1=\"100\" x2=\"144\" y2=\"100\"/><line x1=\"150\" y1=\"82\" x2=\"150\" y2=\"118\" stroke-width=\"2.4\"/><line x1=\"150\" y1=\"88\" x2=\"170\" y2=\"88\"/><line x1=\"170\" y1=\"88\" x2=\"170\" y2=\"72\"/><line x1=\"150\" y1=\"112\" x2=\"170\" y2=\"112\"/><line x1=\"170\" y1=\"112\" x2=\"170\" y2=\"128\"/><line x1=\"168\" y1=\"112\" x2=\"154\" y2=\"112\"/><polygon points=\"154,112 159.5,109.7 159.5,114.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"124\" y1=\"100\" x2=\"60\" y2=\"100\"/><text x=\"52\" y=\"104\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><circle cx=\"110\" cy=\"100\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"40\"/><line x1=\"110\" y1=\"40\" x2=\"135\" y2=\"40\"/><line x1=\"145\" y1=\"40\" x2=\"170\" y2=\"40\"/><line x1=\"135\" y1=\"31\" x2=\"135\" y2=\"49\"/><line x1=\"145\" y1=\"31\" x2=\"145\" y2=\"49\"/><text x=\"140\" y=\"26\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gd</text><line x1=\"170\" y1=\"40\" x2=\"170\" y2=\"72\"/><text x=\"176\" y=\"66\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"170\"/><line x1=\"110\" y1=\"170\" x2=\"135\" y2=\"170\"/><line x1=\"145\" y1=\"170\" x2=\"170\" y2=\"170\"/><line x1=\"135\" y1=\"161\" x2=\"135\" y2=\"179\"/><line x1=\"145\" y1=\"161\" x2=\"145\" y2=\"179\"/><text x=\"140\" y=\"156\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"170\" y1=\"170\" x2=\"170\" y2=\"128\"/><text x=\"176\" y=\"134\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><circle cx=\"170\" cy=\"72\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"72\" x2=\"260\" y2=\"72\"/><line x1=\"260\" y1=\"72\" x2=\"260\" y2=\"89\"/><line x1=\"260\" y1=\"99\" x2=\"260\" y2=\"116\"/><line x1=\"251\" y1=\"89\" x2=\"269\" y2=\"89\"/><line x1=\"251\" y1=\"99\" x2=\"269\" y2=\"99\"/><text x=\"274\" y=\"98\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_db</text><line x1=\"260\" y1=\"116\" x2=\"260\" y2=\"122\"/><line x1=\"251\" y1=\"122\" x2=\"269\" y2=\"122\"/><line x1=\"255\" y1=\"126\" x2=\"265\" y2=\"126\"/><line x1=\"258.5\" y1=\"130\" x2=\"261.5\" y2=\"130\"/><circle cx=\"170\" cy=\"140\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"140\" x2=\"210\" y2=\"140\"/><line x1=\"210\" y1=\"140\" x2=\"210\" y2=\"155\"/><line x1=\"210\" y1=\"165\" x2=\"210\" y2=\"180\"/><line x1=\"201\" y1=\"155\" x2=\"219\" y2=\"155\"/><line x1=\"201\" y1=\"165\" x2=\"219\" y2=\"165\"/><text x=\"224\" y=\"164\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_sb</text><line x1=\"210\" y1=\"180\" x2=\"210\" y2=\"186\"/><line x1=\"201\" y1=\"186\" x2=\"219\" y2=\"186\"/><line x1=\"205\" y1=\"190\" x2=\"215\" y2=\"190\"/><line x1=\"208.5\" y1=\"194\" x2=\"211.5\" y2=\"194\"/></svg>",
-      "figure_alt": "MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "2*W*L*Cox/3+Cov",
+        "Cov+2*W*L*Cox/3"
+      ],
+      "version": 1,
+      "id": "mos-caps-r1-q4"
     },
     {
       "id": "mos-caps-r1-q2",
@@ -33,21 +52,18 @@
       "version": 2
     },
     {
-      "id": "mos-caps-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "Why is \\(C_{gd}\\) of a saturated MOSFET only an overlap (plus fringe) term?",
-      "options": [
-        "The channel is pinched off at the drain, so drain voltage no longer changes the channel charge",
-        "Because the drain is reverse biased to the body",
-        "Because \\(C_{gd}\\) is always zero",
-        "Because the oxide is thicker near the drain"
+      "type": "order",
+      "prompt": "Order the steps that say why \\(C_{gd}\\) of a saturated MOSFET is only overlap plus fringe. Each step after the first uses the result of the step before it.",
+      "explanation": "Past pinch-off the channel charge depends on \\(V_{GS}\\), not \\(V_{DS}\\), so the only gate-drain coupling is the gate overlapping the drain diffusion. Reverse bias of the drain to the body is what sets \\(C_{db}\\), not why the channel term of \\(C_{gd}\\) vanishes. \\(C_{gd}\\) is not identically zero, and the oxide is not thicker at the drain.",
+      "steps": [
+        "In saturation the channel pinches off at the drain end.",
+        "Past that pinch-off point, the inversion charge is set by the gate-source voltage.",
+        "A change in drain-source voltage therefore does not change the channel charge.",
+        "The remaining gate-to-drain capacitance is the overlap of the gate with the drain diffusion, plus fringe."
       ],
-      "correct_index": 0,
-      "explanation": "Past pinch-off the channel charge depends on \\(V_{GS}\\), not \\(V_{DS}\\), so the only gate-drain coupling is the gate overlapping the drain diffusion.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 200\" role=\"img\" aria-label=\"MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:320px;width:100%;height:auto\"><line x1=\"144\" y1=\"84\" x2=\"144\" y2=\"116\"/><line x1=\"124\" y1=\"100\" x2=\"144\" y2=\"100\"/><line x1=\"150\" y1=\"82\" x2=\"150\" y2=\"118\" stroke-width=\"2.4\"/><line x1=\"150\" y1=\"88\" x2=\"170\" y2=\"88\"/><line x1=\"170\" y1=\"88\" x2=\"170\" y2=\"72\"/><line x1=\"150\" y1=\"112\" x2=\"170\" y2=\"112\"/><line x1=\"170\" y1=\"112\" x2=\"170\" y2=\"128\"/><line x1=\"168\" y1=\"112\" x2=\"154\" y2=\"112\"/><polygon points=\"154,112 159.5,109.7 159.5,114.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"124\" y1=\"100\" x2=\"60\" y2=\"100\"/><text x=\"52\" y=\"104\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><circle cx=\"110\" cy=\"100\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"40\"/><line x1=\"110\" y1=\"40\" x2=\"135\" y2=\"40\"/><line x1=\"145\" y1=\"40\" x2=\"170\" y2=\"40\"/><line x1=\"135\" y1=\"31\" x2=\"135\" y2=\"49\"/><line x1=\"145\" y1=\"31\" x2=\"145\" y2=\"49\"/><text x=\"140\" y=\"26\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gd</text><line x1=\"170\" y1=\"40\" x2=\"170\" y2=\"72\"/><text x=\"176\" y=\"66\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"170\"/><line x1=\"110\" y1=\"170\" x2=\"135\" y2=\"170\"/><line x1=\"145\" y1=\"170\" x2=\"170\" y2=\"170\"/><line x1=\"135\" y1=\"161\" x2=\"135\" y2=\"179\"/><line x1=\"145\" y1=\"161\" x2=\"145\" y2=\"179\"/><text x=\"140\" y=\"156\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"170\" y1=\"170\" x2=\"170\" y2=\"128\"/><text x=\"176\" y=\"134\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><circle cx=\"170\" cy=\"72\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"72\" x2=\"260\" y2=\"72\"/><line x1=\"260\" y1=\"72\" x2=\"260\" y2=\"89\"/><line x1=\"260\" y1=\"99\" x2=\"260\" y2=\"116\"/><line x1=\"251\" y1=\"89\" x2=\"269\" y2=\"89\"/><line x1=\"251\" y1=\"99\" x2=\"269\" y2=\"99\"/><text x=\"274\" y=\"98\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_db</text><line x1=\"260\" y1=\"116\" x2=\"260\" y2=\"122\"/><line x1=\"251\" y1=\"122\" x2=\"269\" y2=\"122\"/><line x1=\"255\" y1=\"126\" x2=\"265\" y2=\"126\"/><line x1=\"258.5\" y1=\"130\" x2=\"261.5\" y2=\"130\"/><circle cx=\"170\" cy=\"140\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"140\" x2=\"210\" y2=\"140\"/><line x1=\"210\" y1=\"140\" x2=\"210\" y2=\"155\"/><line x1=\"210\" y1=\"165\" x2=\"210\" y2=\"180\"/><line x1=\"201\" y1=\"155\" x2=\"219\" y2=\"155\"/><line x1=\"201\" y1=\"165\" x2=\"219\" y2=\"165\"/><text x=\"224\" y=\"164\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_sb</text><line x1=\"210\" y1=\"180\" x2=\"210\" y2=\"186\"/><line x1=\"201\" y1=\"186\" x2=\"219\" y2=\"186\"/><line x1=\"205\" y1=\"190\" x2=\"215\" y2=\"190\"/><line x1=\"208.5\" y1=\"194\" x2=\"211.5\" y2=\"194\"/></svg>",
-      "figure_alt": "MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).",
-      "version": 2
+      "version": 1,
+      "id": "mos-caps-r1-q5"
     },
     {
       "id": "mos-caps-r2-q1",
@@ -107,20 +123,24 @@
       "figure_alt": "Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them."
     },
     {
-      "id": "mos-caps-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "Raising \\(V_{DB}\\) from 0.5 V to 2 V does what to \\(C_{db}\\)?",
-      "options": [
-        "Raises it, because more charge is stored",
-        "Leaves it unchanged, since it is a fixed parasitic",
-        "Turns it into a forward-bias diffusion capacitance",
-        "Lowers it, because the drain-body depletion region widens"
+      "type": "error",
+      "prompt": "A worked solution says what happens to \\(C_{db}\\) when the drain-body reverse bias is increased. Exactly one step is wrong.",
+      "explanation": "\\(C_{db}\\) is a reverse-biased junction capacitance, and it falls as \\(1/\\sqrt{1+V_{DB}/\\varphi_{bi}}\\). The stored charge does grow, but capacitance is the slope \\(dQ/dV\\), and a wider depletion region makes that slope smaller. The capacitance is not a fixed parasitic, and the junction stays reverse-biased, so this is not a forward-bias diffusion capacitance.",
+      "steps": [
+        "\\(C_{db}\\) is the capacitance of the drain diffusion's junction to the body.",
+        "Raising the drain-body voltage increases the reverse bias on that junction.",
+        "The depletion region widens, and the separated charge on the two sides of the junction grows.",
+        "Capacitance is that stored charge, so \\(C_{db}\\) rises with the reverse bias."
       ],
-      "correct_index": 3,
-      "explanation": "\\(C_{db}\\) is a reverse-biased junction capacitance: \\(C \\propto 1/\\sqrt{1 + V_{DB}/\\varphi_{bi}}\\). More reverse bias, wider depletion, less capacitance.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 200\" role=\"img\" aria-label=\"MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:320px;width:100%;height:auto\"><line x1=\"144\" y1=\"84\" x2=\"144\" y2=\"116\"/><line x1=\"124\" y1=\"100\" x2=\"144\" y2=\"100\"/><line x1=\"150\" y1=\"82\" x2=\"150\" y2=\"118\" stroke-width=\"2.4\"/><line x1=\"150\" y1=\"88\" x2=\"170\" y2=\"88\"/><line x1=\"170\" y1=\"88\" x2=\"170\" y2=\"72\"/><line x1=\"150\" y1=\"112\" x2=\"170\" y2=\"112\"/><line x1=\"170\" y1=\"112\" x2=\"170\" y2=\"128\"/><line x1=\"168\" y1=\"112\" x2=\"154\" y2=\"112\"/><polygon points=\"154,112 159.5,109.7 159.5,114.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"124\" y1=\"100\" x2=\"60\" y2=\"100\"/><text x=\"52\" y=\"104\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><circle cx=\"110\" cy=\"100\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"40\"/><line x1=\"110\" y1=\"40\" x2=\"135\" y2=\"40\"/><line x1=\"145\" y1=\"40\" x2=\"170\" y2=\"40\"/><line x1=\"135\" y1=\"31\" x2=\"135\" y2=\"49\"/><line x1=\"145\" y1=\"31\" x2=\"145\" y2=\"49\"/><text x=\"140\" y=\"26\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gd</text><line x1=\"170\" y1=\"40\" x2=\"170\" y2=\"72\"/><text x=\"176\" y=\"66\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"170\"/><line x1=\"110\" y1=\"170\" x2=\"135\" y2=\"170\"/><line x1=\"145\" y1=\"170\" x2=\"170\" y2=\"170\"/><line x1=\"135\" y1=\"161\" x2=\"135\" y2=\"179\"/><line x1=\"145\" y1=\"161\" x2=\"145\" y2=\"179\"/><text x=\"140\" y=\"156\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"170\" y1=\"170\" x2=\"170\" y2=\"128\"/><text x=\"176\" y=\"134\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><circle cx=\"170\" cy=\"72\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"72\" x2=\"260\" y2=\"72\"/><line x1=\"260\" y1=\"72\" x2=\"260\" y2=\"89\"/><line x1=\"260\" y1=\"99\" x2=\"260\" y2=\"116\"/><line x1=\"251\" y1=\"89\" x2=\"269\" y2=\"89\"/><line x1=\"251\" y1=\"99\" x2=\"269\" y2=\"99\"/><text x=\"274\" y=\"98\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_db</text><line x1=\"260\" y1=\"116\" x2=\"260\" y2=\"122\"/><line x1=\"251\" y1=\"122\" x2=\"269\" y2=\"122\"/><line x1=\"255\" y1=\"126\" x2=\"265\" y2=\"126\"/><line x1=\"258.5\" y1=\"130\" x2=\"261.5\" y2=\"130\"/><circle cx=\"170\" cy=\"140\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"140\" x2=\"210\" y2=\"140\"/><line x1=\"210\" y1=\"140\" x2=\"210\" y2=\"155\"/><line x1=\"210\" y1=\"165\" x2=\"210\" y2=\"180\"/><line x1=\"201\" y1=\"155\" x2=\"219\" y2=\"155\"/><line x1=\"201\" y1=\"165\" x2=\"219\" y2=\"165\"/><text x=\"224\" y=\"164\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_sb</text><line x1=\"210\" y1=\"180\" x2=\"210\" y2=\"186\"/><line x1=\"201\" y1=\"186\" x2=\"219\" y2=\"186\"/><line x1=\"205\" y1=\"190\" x2=\"215\" y2=\"190\"/><line x1=\"208.5\" y1=\"194\" x2=\"211.5\" y2=\"194\"/></svg>",
-      "figure_alt": "MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground)."
+      "flaw_index": 3,
+      "reasons": [
+        "Capacitance is \\(dQ/dV\\). A wider depletion region makes that slope smaller, so \\(C_{db}\\) falls.",
+        "The stored depletion charge is the capacitance, so more reverse bias raises \\(C_{db}\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "mos-caps-r3-q4"
     },
     {
       "id": "mos-caps-r3-q3",
@@ -186,6 +206,59 @@
       "preview": [
         "cs-brute"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "mos-caps-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For a saturated MOSFET, which expression gives \\(C_{gs}\\)?",
+      "options": [
+        "\\(WLC_{ox}\\)",
+        "\\(\\tfrac12WLC_{ox} + C_{ov}\\)",
+        "\\(C_{ov}\\) only",
+        "\\(\\tfrac23WLC_{ox} + C_{ov}\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "In saturation the inversion charge is wedge-shaped, so the gate sees two thirds of the full oxide capacitance, plus overlap along the source edge. Half is the triode split; overlap alone is \\(C_{gd}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 200\" role=\"img\" aria-label=\"MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:320px;width:100%;height:auto\"><line x1=\"144\" y1=\"84\" x2=\"144\" y2=\"116\"/><line x1=\"124\" y1=\"100\" x2=\"144\" y2=\"100\"/><line x1=\"150\" y1=\"82\" x2=\"150\" y2=\"118\" stroke-width=\"2.4\"/><line x1=\"150\" y1=\"88\" x2=\"170\" y2=\"88\"/><line x1=\"170\" y1=\"88\" x2=\"170\" y2=\"72\"/><line x1=\"150\" y1=\"112\" x2=\"170\" y2=\"112\"/><line x1=\"170\" y1=\"112\" x2=\"170\" y2=\"128\"/><line x1=\"168\" y1=\"112\" x2=\"154\" y2=\"112\"/><polygon points=\"154,112 159.5,109.7 159.5,114.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"124\" y1=\"100\" x2=\"60\" y2=\"100\"/><text x=\"52\" y=\"104\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><circle cx=\"110\" cy=\"100\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"40\"/><line x1=\"110\" y1=\"40\" x2=\"135\" y2=\"40\"/><line x1=\"145\" y1=\"40\" x2=\"170\" y2=\"40\"/><line x1=\"135\" y1=\"31\" x2=\"135\" y2=\"49\"/><line x1=\"145\" y1=\"31\" x2=\"145\" y2=\"49\"/><text x=\"140\" y=\"26\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gd</text><line x1=\"170\" y1=\"40\" x2=\"170\" y2=\"72\"/><text x=\"176\" y=\"66\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"170\"/><line x1=\"110\" y1=\"170\" x2=\"135\" y2=\"170\"/><line x1=\"145\" y1=\"170\" x2=\"170\" y2=\"170\"/><line x1=\"135\" y1=\"161\" x2=\"135\" y2=\"179\"/><line x1=\"145\" y1=\"161\" x2=\"145\" y2=\"179\"/><text x=\"140\" y=\"156\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"170\" y1=\"170\" x2=\"170\" y2=\"128\"/><text x=\"176\" y=\"134\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><circle cx=\"170\" cy=\"72\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"72\" x2=\"260\" y2=\"72\"/><line x1=\"260\" y1=\"72\" x2=\"260\" y2=\"89\"/><line x1=\"260\" y1=\"99\" x2=\"260\" y2=\"116\"/><line x1=\"251\" y1=\"89\" x2=\"269\" y2=\"89\"/><line x1=\"251\" y1=\"99\" x2=\"269\" y2=\"99\"/><text x=\"274\" y=\"98\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_db</text><line x1=\"260\" y1=\"116\" x2=\"260\" y2=\"122\"/><line x1=\"251\" y1=\"122\" x2=\"269\" y2=\"122\"/><line x1=\"255\" y1=\"126\" x2=\"265\" y2=\"126\"/><line x1=\"258.5\" y1=\"130\" x2=\"261.5\" y2=\"130\"/><circle cx=\"170\" cy=\"140\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"140\" x2=\"210\" y2=\"140\"/><line x1=\"210\" y1=\"140\" x2=\"210\" y2=\"155\"/><line x1=\"210\" y1=\"165\" x2=\"210\" y2=\"180\"/><line x1=\"201\" y1=\"155\" x2=\"219\" y2=\"155\"/><line x1=\"201\" y1=\"165\" x2=\"219\" y2=\"165\"/><text x=\"224\" y=\"164\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_sb</text><line x1=\"210\" y1=\"180\" x2=\"210\" y2=\"186\"/><line x1=\"201\" y1=\"186\" x2=\"219\" y2=\"186\"/><line x1=\"205\" y1=\"190\" x2=\"215\" y2=\"190\"/><line x1=\"208.5\" y1=\"194\" x2=\"211.5\" y2=\"194\"/></svg>",
+      "figure_alt": "MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).",
+      "version": 2
+    },
+    {
+      "id": "mos-caps-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Why is \\(C_{gd}\\) of a saturated MOSFET only an overlap (plus fringe) term?",
+      "options": [
+        "The channel is pinched off at the drain, so drain voltage no longer changes the channel charge",
+        "Because the drain is reverse biased to the body",
+        "Because \\(C_{gd}\\) is always zero",
+        "Because the oxide is thicker near the drain"
+      ],
+      "correct_index": 0,
+      "explanation": "Past pinch-off the channel charge depends on \\(V_{GS}\\), not \\(V_{DS}\\), so the only gate-drain coupling is the gate overlapping the drain diffusion.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 200\" role=\"img\" aria-label=\"MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:320px;width:100%;height:auto\"><line x1=\"144\" y1=\"84\" x2=\"144\" y2=\"116\"/><line x1=\"124\" y1=\"100\" x2=\"144\" y2=\"100\"/><line x1=\"150\" y1=\"82\" x2=\"150\" y2=\"118\" stroke-width=\"2.4\"/><line x1=\"150\" y1=\"88\" x2=\"170\" y2=\"88\"/><line x1=\"170\" y1=\"88\" x2=\"170\" y2=\"72\"/><line x1=\"150\" y1=\"112\" x2=\"170\" y2=\"112\"/><line x1=\"170\" y1=\"112\" x2=\"170\" y2=\"128\"/><line x1=\"168\" y1=\"112\" x2=\"154\" y2=\"112\"/><polygon points=\"154,112 159.5,109.7 159.5,114.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"124\" y1=\"100\" x2=\"60\" y2=\"100\"/><text x=\"52\" y=\"104\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><circle cx=\"110\" cy=\"100\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"40\"/><line x1=\"110\" y1=\"40\" x2=\"135\" y2=\"40\"/><line x1=\"145\" y1=\"40\" x2=\"170\" y2=\"40\"/><line x1=\"135\" y1=\"31\" x2=\"135\" y2=\"49\"/><line x1=\"145\" y1=\"31\" x2=\"145\" y2=\"49\"/><text x=\"140\" y=\"26\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gd</text><line x1=\"170\" y1=\"40\" x2=\"170\" y2=\"72\"/><text x=\"176\" y=\"66\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"170\"/><line x1=\"110\" y1=\"170\" x2=\"135\" y2=\"170\"/><line x1=\"145\" y1=\"170\" x2=\"170\" y2=\"170\"/><line x1=\"135\" y1=\"161\" x2=\"135\" y2=\"179\"/><line x1=\"145\" y1=\"161\" x2=\"145\" y2=\"179\"/><text x=\"140\" y=\"156\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"170\" y1=\"170\" x2=\"170\" y2=\"128\"/><text x=\"176\" y=\"134\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><circle cx=\"170\" cy=\"72\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"72\" x2=\"260\" y2=\"72\"/><line x1=\"260\" y1=\"72\" x2=\"260\" y2=\"89\"/><line x1=\"260\" y1=\"99\" x2=\"260\" y2=\"116\"/><line x1=\"251\" y1=\"89\" x2=\"269\" y2=\"89\"/><line x1=\"251\" y1=\"99\" x2=\"269\" y2=\"99\"/><text x=\"274\" y=\"98\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_db</text><line x1=\"260\" y1=\"116\" x2=\"260\" y2=\"122\"/><line x1=\"251\" y1=\"122\" x2=\"269\" y2=\"122\"/><line x1=\"255\" y1=\"126\" x2=\"265\" y2=\"126\"/><line x1=\"258.5\" y1=\"130\" x2=\"261.5\" y2=\"130\"/><circle cx=\"170\" cy=\"140\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"140\" x2=\"210\" y2=\"140\"/><line x1=\"210\" y1=\"140\" x2=\"210\" y2=\"155\"/><line x1=\"210\" y1=\"165\" x2=\"210\" y2=\"180\"/><line x1=\"201\" y1=\"155\" x2=\"219\" y2=\"155\"/><line x1=\"201\" y1=\"165\" x2=\"219\" y2=\"165\"/><text x=\"224\" y=\"164\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_sb</text><line x1=\"210\" y1=\"180\" x2=\"210\" y2=\"186\"/><line x1=\"201\" y1=\"186\" x2=\"219\" y2=\"186\"/><line x1=\"205\" y1=\"190\" x2=\"215\" y2=\"190\"/><line x1=\"208.5\" y1=\"194\" x2=\"211.5\" y2=\"194\"/></svg>",
+      "figure_alt": "MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).",
+      "version": 2
+    },
+    {
+      "id": "mos-caps-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Raising \\(V_{DB}\\) from 0.5 V to 2 V does what to \\(C_{db}\\)?",
+      "options": [
+        "Raises it, because more charge is stored",
+        "Leaves it unchanged, since it is a fixed parasitic",
+        "Turns it into a forward-bias diffusion capacitance",
+        "Lowers it, because the drain-body depletion region widens"
+      ],
+      "correct_index": 3,
+      "explanation": "\\(C_{db}\\) is a reverse-biased junction capacitance: \\(C \\propto 1/\\sqrt{1 + V_{DB}/\\varphi_{bi}}\\). More reverse bias, wider depletion, less capacitance.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 200\" role=\"img\" aria-label=\"MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:320px;width:100%;height:auto\"><line x1=\"144\" y1=\"84\" x2=\"144\" y2=\"116\"/><line x1=\"124\" y1=\"100\" x2=\"144\" y2=\"100\"/><line x1=\"150\" y1=\"82\" x2=\"150\" y2=\"118\" stroke-width=\"2.4\"/><line x1=\"150\" y1=\"88\" x2=\"170\" y2=\"88\"/><line x1=\"170\" y1=\"88\" x2=\"170\" y2=\"72\"/><line x1=\"150\" y1=\"112\" x2=\"170\" y2=\"112\"/><line x1=\"170\" y1=\"112\" x2=\"170\" y2=\"128\"/><line x1=\"168\" y1=\"112\" x2=\"154\" y2=\"112\"/><polygon points=\"154,112 159.5,109.7 159.5,114.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"124\" y1=\"100\" x2=\"60\" y2=\"100\"/><text x=\"52\" y=\"104\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><circle cx=\"110\" cy=\"100\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"40\"/><line x1=\"110\" y1=\"40\" x2=\"135\" y2=\"40\"/><line x1=\"145\" y1=\"40\" x2=\"170\" y2=\"40\"/><line x1=\"135\" y1=\"31\" x2=\"135\" y2=\"49\"/><line x1=\"145\" y1=\"31\" x2=\"145\" y2=\"49\"/><text x=\"140\" y=\"26\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gd</text><line x1=\"170\" y1=\"40\" x2=\"170\" y2=\"72\"/><text x=\"176\" y=\"66\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"170\"/><line x1=\"110\" y1=\"170\" x2=\"135\" y2=\"170\"/><line x1=\"145\" y1=\"170\" x2=\"170\" y2=\"170\"/><line x1=\"135\" y1=\"161\" x2=\"135\" y2=\"179\"/><line x1=\"145\" y1=\"161\" x2=\"145\" y2=\"179\"/><text x=\"140\" y=\"156\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"170\" y1=\"170\" x2=\"170\" y2=\"128\"/><text x=\"176\" y=\"134\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><circle cx=\"170\" cy=\"72\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"72\" x2=\"260\" y2=\"72\"/><line x1=\"260\" y1=\"72\" x2=\"260\" y2=\"89\"/><line x1=\"260\" y1=\"99\" x2=\"260\" y2=\"116\"/><line x1=\"251\" y1=\"89\" x2=\"269\" y2=\"89\"/><line x1=\"251\" y1=\"99\" x2=\"269\" y2=\"99\"/><text x=\"274\" y=\"98\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_db</text><line x1=\"260\" y1=\"116\" x2=\"260\" y2=\"122\"/><line x1=\"251\" y1=\"122\" x2=\"269\" y2=\"122\"/><line x1=\"255\" y1=\"126\" x2=\"265\" y2=\"126\"/><line x1=\"258.5\" y1=\"130\" x2=\"261.5\" y2=\"130\"/><circle cx=\"170\" cy=\"140\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"140\" x2=\"210\" y2=\"140\"/><line x1=\"210\" y1=\"140\" x2=\"210\" y2=\"155\"/><line x1=\"210\" y1=\"165\" x2=\"210\" y2=\"180\"/><line x1=\"201\" y1=\"155\" x2=\"219\" y2=\"155\"/><line x1=\"201\" y1=\"165\" x2=\"219\" y2=\"165\"/><text x=\"224\" y=\"164\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_sb</text><line x1=\"210\" y1=\"180\" x2=\"210\" y2=\"186\"/><line x1=\"201\" y1=\"186\" x2=\"219\" y2=\"186\"/><line x1=\"205\" y1=\"190\" x2=\"215\" y2=\"190\"/><line x1=\"208.5\" y1=\"194\" x2=\"211.5\" y2=\"194\"/></svg>",
+      "figure_alt": "MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).",
+      "version": 1
     }
   ]
 }

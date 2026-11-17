@@ -532,6 +532,26 @@ Items above version 1:
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## SG-063 EE 105 MOSFET capacitance — sg063-ee105-ch10
+
+Box: EE 105 (ee105-ucb), MOSFET Capacitance and Body Effect.
+
+Skills: `mos-caps`, `body-effect`.
+
+Items above version 1:
+
+- `mos-caps-r1-q2` version 2
+- `mos-caps-r2-q2` version 2
+- `mos-caps-r1-q1` version 2
+- `mos-caps-r1-q3` version 2
+- `mos-caps#explainer` version 2
+- `body-effect-r1-q1` version 2
+- `body-effect-r3-q1` version 2
+- `body-effect-r1-q3` version 2
+- `body-effect#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## SG-063 EE 105 AC circuits — sg063-ee105-ch2
 
 Box: EE 105 (ee105-ucb), AC Circuits and AC Analysis.

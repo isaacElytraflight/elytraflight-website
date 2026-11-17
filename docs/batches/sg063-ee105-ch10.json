@@ -1,0 +1,18 @@
+{
+  "id": "sg063-ee105-ch10",
+  "label": "SG-063 EE 105 MOSFET capacitance",
+  "box": "EE 105 (ee105-ucb), MOSFET Capacitance and Body Effect",
+  "skills": [
+    "mos-caps",
+    "body-effect"
+  ],
+  "areas": {
+    "mos-caps": ["physical-models"],
+    "body-effect": ["physical-models"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch10.py"
+}
