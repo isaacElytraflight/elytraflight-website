@@ -1,0 +1,24 @@
+{
+  "id": "sg063-ee105-ch8",
+  "label": "SG-063 EE 105 MOSFET device physics",
+  "box": "EE 105 (ee105-ucb), MOSFET Device Physics",
+  "skills": [
+    "mosfet-struct",
+    "nmos-regions",
+    "triode",
+    "square-law",
+    "pmos"
+  ],
+  "areas": {
+    "mosfet-struct": ["physical-models"],
+    "nmos-regions": ["physical-models"],
+    "triode": ["physical-models"],
+    "square-law": ["physical-models"],
+    "pmos": ["physical-models"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch8.py"
+}

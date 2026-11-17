@@ -1,6 +1,6 @@
 {
   "skill_id": "mosfet-struct",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "mosfet-struct-r1-q1",
@@ -20,20 +20,40 @@
       "version": 2
     },
     {
-      "id": "mosfet-struct-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "Which dimension is the channel length \\(L\\)?",
-      "options": [
-        "The width of the gate perpendicular to current flow",
-        "The distance from source to drain under the gate",
-        "The thickness of the gate oxide",
-        "The depth of the source and drain regions"
+      "type": "symbolic",
+      "prompt": "Two NMOS transistors have the same gate, drain, and source voltages. Write the ratio of the second drain current to the first. Use W1 and L1 for the first device's width and length, and W2 and L2 for the second.",
+      "explanation": "At a fixed bias the drain current scales with \\(W/L\\). \\(L\\) is the source-to-drain distance under the gate, and \\(W\\) is the width across the current. The ratio of the currents is therefore the ratio of the two aspect ratios. Using width alone, or using the gate area \\(WL\\), answers a different question: area sets the oxide capacitance, not the current.",
+      "answer": "W2*L1/(W1*L2)",
+      "variables": [
+        {
+          "name": "W1",
+          "min": 0.4,
+          "max": 8.0
+        },
+        {
+          "name": "L1",
+          "min": 0.1,
+          "max": 2.0
+        },
+        {
+          "name": "W2",
+          "min": 0.4,
+          "max": 8.0
+        },
+        {
+          "name": "L2",
+          "min": 0.1,
+          "max": 2.0
+        }
       ],
-      "correct_index": 1,
-      "explanation": "Current flows from drain to source along \\(L\\); \\(W\\) is the perpendicular width. The current scales with \\(W/L\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 206\" role=\"img\" aria-label=\"Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"90\" width=\"320\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p-type body</text><rect x=\"50\" y=\"90\" width=\"70\" height=\"26\"/><rect x=\"240\" y=\"90\" width=\"70\" height=\"26\"/><text x=\"85\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><text x=\"275\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><rect x=\"120\" y=\"80\" width=\"120\" height=\"10\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"120\" y=\"50\" width=\"120\" height=\"30\"/><text x=\"180\" y=\"70\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ poly gate on thin oxide</text><text x=\"85\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><text x=\"275\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><text x=\"180\" y=\"40\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"180\" y=\"132\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">← L →</text><line x1=\"20\" y1=\"180\" x2=\"340\" y2=\"180\"/><text x=\"180\" y=\"198\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">B (body contact)</text></svg>",
-      "figure_alt": "Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them."
+      "tolerance": 0.001,
+      "alternates": [
+        "(W2/L2)/(W1/L1)",
+        "(W2*L1)/(L2*W1)"
+      ],
+      "version": 1,
+      "id": "mosfet-struct-r1-q4"
     },
     {
       "id": "mosfet-struct-r1-q3",
@@ -65,20 +85,18 @@
       "version": 2
     },
     {
-      "id": "mosfet-struct-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "Why is the body of an NMOS normally tied to the lowest supply (ground)?",
-      "options": [
-        "To turn the channel on",
-        "To set the oxide capacitance",
-        "To cancel the gate leakage",
-        "So the source/drain-to-body junctions are never forward biased"
+      "type": "order",
+      "prompt": "An NMOS sits in a p-type body. Order the steps that say why that body is tied to the lowest supply. Each step after the first uses the result of the step before it.",
+      "explanation": "The body tie is a junction constraint. It does not turn the channel on, and it does not set the oxide capacitance. The gate does that. Putting the body above a source or drain node forward-biases that junction, so the body has to be the lowest node.",
+      "steps": [
+        "The source and the drain are n+ regions in the p-type body.",
+        "Each of those n+ regions forms a pn junction with the body.",
+        "A pn junction stays reverse biased only when the body is at or below both n+ voltages.",
+        "Tying the body to the lowest supply keeps both junctions reverse biased for every allowed source and drain voltage."
       ],
-      "correct_index": 3,
-      "explanation": "Source and drain are n+ regions in the p body: two diodes. Keeping the body at the lowest potential keeps them reverse biased.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 206\" role=\"img\" aria-label=\"Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"90\" width=\"320\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p-type body</text><rect x=\"50\" y=\"90\" width=\"70\" height=\"26\"/><rect x=\"240\" y=\"90\" width=\"70\" height=\"26\"/><text x=\"85\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><text x=\"275\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><rect x=\"120\" y=\"80\" width=\"120\" height=\"10\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"120\" y=\"50\" width=\"120\" height=\"30\"/><text x=\"180\" y=\"70\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ poly gate on thin oxide</text><text x=\"85\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><text x=\"275\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><text x=\"180\" y=\"40\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"180\" y=\"132\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">← L →</text><line x1=\"20\" y1=\"180\" x2=\"340\" y2=\"180\"/><text x=\"180\" y=\"198\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">B (body contact)</text></svg>",
-      "figure_alt": "Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them."
+      "version": 1,
+      "id": "mosfet-struct-r2-q4"
     },
     {
       "id": "mosfet-struct-r2-q3",
@@ -107,20 +125,24 @@
       "figure_alt": "PMOS symbol with a circle at the gate, source at the top and drain at the bottom."
     },
     {
-      "id": "mosfet-struct-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "Electrically, what distinguishes the source from the drain of a symmetric NMOS?",
-      "options": [
-        "The source is always the region nearer the body contact",
-        "Nothing structural; the source is whichever n+ region is at the lower voltage",
-        "The drain is always more heavily doped",
-        "The source is defined by the symbol arrow only"
+      "type": "error",
+      "prompt": "A worked solution says how to tell the source from the drain of a symmetric NMOS. Exactly one step is wrong.",
+      "explanation": "The layout is symmetric. Electrons come from the n+ end at the lower potential, and that end is the source. Calling it the drain reverses the terminal names. The symbol arrow does not pick the source of a symmetric device; the voltages do.",
+      "steps": [
+        "The layout places an n+ region at each end of the gate.",
+        "Those two regions are doped the same way, so the layout does not mark one of them as the source.",
+        "Electrons enter the channel from the n+ region that sits at the lower potential.",
+        "That lower-potential region is the drain."
       ],
-      "correct_index": 1,
-      "explanation": "The layout is symmetric. Carriers (electrons) come from the lower-potential end, which we call the source.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 206\" role=\"img\" aria-label=\"Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"90\" width=\"320\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p-type body</text><rect x=\"50\" y=\"90\" width=\"70\" height=\"26\"/><rect x=\"240\" y=\"90\" width=\"70\" height=\"26\"/><text x=\"85\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><text x=\"275\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><rect x=\"120\" y=\"80\" width=\"120\" height=\"10\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"120\" y=\"50\" width=\"120\" height=\"30\"/><text x=\"180\" y=\"70\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ poly gate on thin oxide</text><text x=\"85\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><text x=\"275\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><text x=\"180\" y=\"40\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"180\" y=\"132\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">← L →</text><line x1=\"20\" y1=\"180\" x2=\"340\" y2=\"180\"/><text x=\"180\" y=\"198\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">B (body contact)</text></svg>",
-      "figure_alt": "Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them."
+      "flaw_index": 3,
+      "reasons": [
+        "The lower-potential n+ region supplies the electrons, so it is the source.",
+        "The lower-potential end is the drain, because that is where the current leaves the channel."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "mosfet-struct-r3-q4"
     },
     {
       "id": "mosfet-struct-r3-q3",
@@ -182,6 +204,59 @@
       "preview": [
         "pmos"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "mosfet-struct-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Which dimension is the channel length \\(L\\)?",
+      "options": [
+        "The width of the gate perpendicular to current flow",
+        "The distance from source to drain under the gate",
+        "The thickness of the gate oxide",
+        "The depth of the source and drain regions"
+      ],
+      "correct_index": 1,
+      "explanation": "Current flows from drain to source along \\(L\\); \\(W\\) is the perpendicular width. The current scales with \\(W/L\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 206\" role=\"img\" aria-label=\"Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"90\" width=\"320\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p-type body</text><rect x=\"50\" y=\"90\" width=\"70\" height=\"26\"/><rect x=\"240\" y=\"90\" width=\"70\" height=\"26\"/><text x=\"85\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><text x=\"275\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><rect x=\"120\" y=\"80\" width=\"120\" height=\"10\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"120\" y=\"50\" width=\"120\" height=\"30\"/><text x=\"180\" y=\"70\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ poly gate on thin oxide</text><text x=\"85\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><text x=\"275\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><text x=\"180\" y=\"40\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"180\" y=\"132\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">← L →</text><line x1=\"20\" y1=\"180\" x2=\"340\" y2=\"180\"/><text x=\"180\" y=\"198\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">B (body contact)</text></svg>",
+      "figure_alt": "Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them.",
+      "version": 1
+    },
+    {
+      "id": "mosfet-struct-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Why is the body of an NMOS normally tied to the lowest supply (ground)?",
+      "options": [
+        "To turn the channel on",
+        "To set the oxide capacitance",
+        "To cancel the gate leakage",
+        "So the source/drain-to-body junctions are never forward biased"
+      ],
+      "correct_index": 3,
+      "explanation": "Source and drain are n+ regions in the p body: two diodes. Keeping the body at the lowest potential keeps them reverse biased.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 206\" role=\"img\" aria-label=\"Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"90\" width=\"320\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p-type body</text><rect x=\"50\" y=\"90\" width=\"70\" height=\"26\"/><rect x=\"240\" y=\"90\" width=\"70\" height=\"26\"/><text x=\"85\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><text x=\"275\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><rect x=\"120\" y=\"80\" width=\"120\" height=\"10\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"120\" y=\"50\" width=\"120\" height=\"30\"/><text x=\"180\" y=\"70\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ poly gate on thin oxide</text><text x=\"85\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><text x=\"275\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><text x=\"180\" y=\"40\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"180\" y=\"132\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">← L →</text><line x1=\"20\" y1=\"180\" x2=\"340\" y2=\"180\"/><text x=\"180\" y=\"198\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">B (body contact)</text></svg>",
+      "figure_alt": "Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them.",
+      "version": 1
+    },
+    {
+      "id": "mosfet-struct-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Electrically, what distinguishes the source from the drain of a symmetric NMOS?",
+      "options": [
+        "The source is always the region nearer the body contact",
+        "Nothing structural; the source is whichever n+ region is at the lower voltage",
+        "The drain is always more heavily doped",
+        "The source is defined by the symbol arrow only"
+      ],
+      "correct_index": 1,
+      "explanation": "The layout is symmetric. Carriers (electrons) come from the lower-potential end, which we call the source.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 206\" role=\"img\" aria-label=\"Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:360px;width:100%;height:auto\"><rect x=\"20\" y=\"90\" width=\"320\" height=\"90\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"180\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">p-type body</text><rect x=\"50\" y=\"90\" width=\"70\" height=\"26\"/><rect x=\"240\" y=\"90\" width=\"70\" height=\"26\"/><text x=\"85\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><text x=\"275\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">n+</text><rect x=\"120\" y=\"80\" width=\"120\" height=\"10\" fill=\"currentColor\" fill-opacity=\"0.10\"/><rect x=\"120\" y=\"50\" width=\"120\" height=\"30\"/><text x=\"180\" y=\"70\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">n+ poly gate on thin oxide</text><text x=\"85\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><text x=\"275\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><text x=\"180\" y=\"40\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><text x=\"180\" y=\"132\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">← L →</text><line x1=\"20\" y1=\"180\" x2=\"340\" y2=\"180\"/><text x=\"180\" y=\"198\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">B (body contact)</text></svg>",
+      "figure_alt": "Cross-section of an NMOS transistor: n+ source and drain wells in a p-type body, thin oxide and poly gate of length L between them.",
+      "version": 1
     }
   ]
 }
