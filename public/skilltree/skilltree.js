@@ -3449,6 +3449,55 @@ function syncProfileLink() {
   const link = $('btnProfile');
   if (link) link.setAttribute('href', ownProfilePath());
 }
+let accountNudgeGen = 0, accountNudgeUser = null, accountProfile = 'unknown';
+function accountAuthResolved() {
+  const auth = window.SkillgroveAuth;
+  return !!(auth && auth.authResolved && auth.authResolved());
+}
+function syncAccountNudge() {
+  const resolved = accountAuthResolved();
+  const user = resolved ? currentUser() : null;
+  const signIn = $('btnSignIn');
+  const profileBtn = $('btnProfile');
+  if (signIn) signIn.classList.toggle('ready', !!(resolved && !user));
+  if (profileBtn) profileBtn.classList.toggle('ready', !!(user && accountNudgeUser === user.id && accountProfile === 'no'));
+}
+function accountProfileCreated(row) {
+  const username = sanitizeUsername(row && row.username);
+  return !!username && !usernameError(username);
+}
+async function refreshAccountNudge() {
+  const gen = ++accountNudgeGen;
+  const user = accountAuthResolved() ? currentUser() : null;
+  const userId = user && user.id || '';
+  if (!userId) {
+    accountNudgeUser = null;
+    accountProfile = 'unknown';
+    syncAccountNudge();
+    return;
+  }
+  if (accountNudgeUser !== userId) {
+    accountNudgeUser = userId;
+    accountProfile = 'unknown';
+    syncAccountNudge();
+  }
+  const result = await fetchOwnProfile(userId);
+  if (gen !== accountNudgeGen) return;
+  const now = currentUser();
+  if (!accountAuthResolved() || !now || now.id !== userId) return;
+  if (result && result.ok) {
+    accountProfile = accountProfileCreated(result.row) ? 'yes' : 'no';
+    syncAccountNudge();
+  }
+}
+function markAccountProfileCreated() {
+  const user = currentUser();
+  if (!user || !user.id) return;
+  accountNudgeGen++;
+  accountNudgeUser = user.id;
+  accountProfile = 'yes';
+  syncAccountNudge();
+}
 async function usernameClaimsEditor(name) {
   const clean = sanitizeUsername(name);
   if (!clean || usernameError(clean)) return false;
@@ -3708,6 +3757,7 @@ async function saveProfile() {
       return;
     }
     writeLocalProfile(profile);
+    markAccountProfileCreated();
     const joined = result.row && result.row.created_at ? result.row.created_at : (user.created_at || null);
     await fillProfileForm(profile, joined);
     setProfileNote(isPublic ? 'Public profile saved.' : 'Private profile saved.');
@@ -4123,6 +4173,7 @@ async function init() {
     openModal, toast, reloadProgress, reloadTiming: loadTiming, refreshAll, toggleGroup,
     onAuthChange: () => {
       syncProfileLink();
+      refreshAccountNudge();
       const page = $('profilePage');
       const editor = $('profileEditor');
       if (profileStandalone() && profileRouteInflight > 0) {
