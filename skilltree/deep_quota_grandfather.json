@@ -1,9 +1,7 @@
 {
   "note": "Legacy banks pending SG-063. They were authored before the 25% deep-type quota (SG-062). Do not add ids. A new bank is checked. A wording-only edit does not remove an id. Remove an id when that bank is rewritten with deep questions. SG-063 removes the rest.",
   "skills": [
-    "amp-choice",
     "app-examples",
-    "bias-coupling",
     "bias-current",
     "big-circuit",
     "block-diagram",
@@ -11,13 +9,10 @@
     "cascode-bias",
     "cascode-src",
     "cauchy-schwarz-inequality",
-    "cd",
     "cd-freq",
-    "cg",
     "cg-freq",
     "cmrr",
     "cruise-control",
-    "cs-analysis",
     "cs-brute",
     "cs-cap-load",
     "cs-cascade",
@@ -73,7 +68,6 @@
     "ss-to-tf",
     "state-space-model",
     "step-specs",
-    "two-port",
     "uncertainty",
     "vector-norms-lp",
     "windup"

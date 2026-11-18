@@ -1,23 +1,20 @@
 {
   "skill_id": "two-port",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "two-port-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "How is a two-port's output resistance found?",
-      "options": [
-        "Zero the input source (keeping its source resistance), apply a test source at the output and take \\(v_t/i_t\\)",
-        "Divide the open-circuit output voltage by the input current",
-        "Short the output and measure the input current",
-        "Leave the input source active and load the output"
+      "type": "order",
+      "prompt": "Order the resistance test that finds a two-port's output resistance. Each step after the first uses the result of the step before it.",
+      "explanation": "An impedance test kills independent sources and keeps dependent ones. The source resistance stays, because it still affects internal controlling voltages. Dividing the open-circuit output by the input current is a gain, not this resistance. Shorting the output and reading the input current measures neither port. Leaving the input source running mixes a signal into the test.",
+      "steps": [
+        "Switch off the independent source at the input, and leave the resistance that belonged to that source in place.",
+        "Dependent sources stay in the circuit, because they still respond once a test source is applied.",
+        "Drive the output port with a test source and record the current that test source delivers.",
+        "Divide the test voltage by that current. The quotient is the output resistance."
       ],
-      "correct_index": 0,
-      "explanation": "Independent sources are zeroed for impedance tests; the dependent source stays, and so does the source resistance because it affects the internal controlling voltages.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 170\" role=\"img\" aria-label=\"Two-port amplifier model: input resistance R_in, a controlled source, and output resistance R_out.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:380px;width:100%;height:auto\"><rect x=\"80\" y=\"30\" width=\"200\" height=\"110\" stroke-dasharray=\"4 3\"/><text x=\"30\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"40\" y1=\"50\" x2=\"110\" y2=\"50\"/><line x1=\"40\" y1=\"120\" x2=\"110\" y2=\"120\"/><polyline points=\"110,50 110,67 104,70 116,75 104,80 116,85 104,90 116,95 110,103 110,120\"/><text x=\"122\" y=\"89\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_in</text><text x=\"180\" y=\"26\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">two-port amplifier</text><circle cx=\"220\" cy=\"85\" r=\"14\"/><text x=\"220\" y=\"89\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">+/−</text><text x=\"220\" y=\"160\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">G_m v_in or A_v v_in</text><line x1=\"220\" y1=\"50\" x2=\"220\" y2=\"71\"/><line x1=\"220\" y1=\"99\" x2=\"220\" y2=\"120\"/><polyline points=\"220,50 237,50 240,44 245,56 250,44 255,56 260,44 265,56 273,50 290,50\"/><text x=\"255\" y=\"38\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_out</text><line x1=\"110\" y1=\"120\" x2=\"320\" y2=\"120\"/><text x=\"330\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text></svg>",
-      "figure_alt": "Two-port amplifier model: input resistance R_in, a controlled source, and output resistance R_out.",
-      "version": 2
+      "version": 1,
+      "id": "two-port-r1-q4"
     },
     {
       "id": "two-port-r1-q2",
@@ -60,20 +57,30 @@
       "figure_alt": "A source with resistance R_s drives one amplifier two-port, which drives a load resistor R_L."
     },
     {
-      "id": "two-port-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "A transconductance two-port has \\(G_m\\) and \\(R_{out}\\). What is its open-circuit voltage gain?",
-      "options": [
-        "\\(G_m/R_{out}\\)",
-        "\\(-G_m\\)",
-        "\\(-G_mR_{out}\\)",
-        "\\(G_mR_{in}\\)"
+      "type": "symbolic",
+      "prompt": "Write the open-circuit voltage gain of a transconductance two-port. The controlled current is \\(G_m v_{in}\\) drawn out of the output node. Use Gm and Rout.",
+      "explanation": "With the load open, the whole controlled current flows through \\(R_{out}\\), and the sign is negative because that current leaves the output node. The open-circuit voltage gain is \\(-G_m R_{out}\\). \\(G_m/R_{out}\\) divides where it should multiply. \\(-G_m\\) has dropped the resistance, so it is not a voltage gain. \\(G_m R_{in}\\) uses the input resistance, which does not set the open-circuit output.",
+      "answer": "-Gm*Rout",
+      "variables": [
+        {
+          "name": "Gm",
+          "min": 0.2,
+          "max": 40.0
+        },
+        {
+          "name": "Rout",
+          "min": 0.5,
+          "max": 80.0
+        }
       ],
-      "correct_index": 2,
-      "explanation": "Open-circuited, all of \\(G_mv_{in}\\) flows through \\(R_{out}\\). Norton and Thevenin output forms are interchangeable.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 170\" role=\"img\" aria-label=\"Two-port amplifier model: input resistance R_in, a controlled source, and output resistance R_out.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:380px;width:100%;height:auto\"><rect x=\"80\" y=\"30\" width=\"200\" height=\"110\" stroke-dasharray=\"4 3\"/><text x=\"30\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"40\" y1=\"50\" x2=\"110\" y2=\"50\"/><line x1=\"40\" y1=\"120\" x2=\"110\" y2=\"120\"/><polyline points=\"110,50 110,67 104,70 116,75 104,80 116,85 104,90 116,95 110,103 110,120\"/><text x=\"122\" y=\"89\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_in</text><text x=\"180\" y=\"26\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">two-port amplifier</text><circle cx=\"220\" cy=\"85\" r=\"14\"/><text x=\"220\" y=\"89\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">+/−</text><text x=\"220\" y=\"160\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">G_m v_in</text><line x1=\"220\" y1=\"50\" x2=\"220\" y2=\"71\"/><line x1=\"220\" y1=\"99\" x2=\"220\" y2=\"120\"/><polyline points=\"220,50 237,50 240,44 245,56 250,44 255,56 260,44 265,56 273,50 290,50\"/><text x=\"255\" y=\"38\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_out</text><line x1=\"110\" y1=\"120\" x2=\"320\" y2=\"120\"/><text x=\"330\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text></svg>",
-      "figure_alt": "Two-port amplifier model: input resistance R_in, a controlled source, and output resistance R_out."
+      "tolerance": 0.001,
+      "alternates": [
+        "-(Gm*Rout)",
+        "(-1)*Gm*Rout"
+      ],
+      "version": 1,
+      "id": "two-port-r2-q4"
     },
     {
       "id": "two-port-r2-q3",
@@ -100,20 +107,24 @@
       "figure_alt": "Cascade: a source with resistance R_s drives 2 amplifier stages in series, then the load R_L."
     },
     {
-      "id": "two-port-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "For voltage gain, how should a stage's output resistance compare with the next stage's input resistance?",
-      "options": [
-        "Much larger",
-        "Equal, for maximum power transfer",
-        "It does not matter",
-        "Much smaller, so little signal is lost in the divider"
+      "type": "error",
+      "prompt": "A worked solution says how a stage's output resistance should compare with the next stage's input resistance when the goal is voltage gain. Exactly one step is wrong.",
+      "explanation": "The divider is \\(R_{in}/(R_{out}+R_{in})\\). Equal resistances hand over half the voltage and do maximize power. Voltage gain wants \\(R_{out}\\) much smaller than the next \\(R_{in}\\), so almost all of the voltage arrives. A much larger output resistance does the opposite. The comparison is not optional.",
+      "steps": [
+        "The first stage's output resistance and the next stage's input resistance form a divider.",
+        "The fraction of the open-circuit voltage that arrives at the next input is the next input resistance divided by the sum of those two resistances.",
+        "That fraction is nearly one when the first output resistance is much smaller than the next input resistance.",
+        "Setting the two resistances equal is better, because the most power transferred is the same goal as the most voltage gain."
       ],
-      "correct_index": 3,
-      "explanation": "The interstage divider is \\(R_{in,2}/(R_{out,1} + R_{in,2})\\). Matching maximizes power, not voltage.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 500 100\" role=\"img\" aria-label=\"Cascade: a source with resistance R_s drives 2 amplifier stages in series, then the load R_L.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:500px;width:100%;height:auto\"><rect x=\"20\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"65\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v_s, R_s</text><line x1=\"110\" y1=\"50\" x2=\"130\" y2=\"50\"/><polygon points=\"130,50 123.6,52.7 123.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"130\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"175\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">stage 1</text><line x1=\"220\" y1=\"50\" x2=\"240\" y2=\"50\"/><polygon points=\"240,50 233.6,52.7 233.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"240\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"285\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">stage 2</text><line x1=\"330\" y1=\"50\" x2=\"350\" y2=\"50\"/><polygon points=\"350,50 343.6,52.7 343.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"350\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"395\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_L</text></svg>",
-      "figure_alt": "Cascade: a source with resistance R_s drives 2 amplifier stages in series, then the load R_L."
+      "flaw_index": 3,
+      "reasons": [
+        "Equal resistances maximize power. Voltage gain wants the output resistance much smaller than the next input resistance.",
+        "The two resistances cancel, so their ratio does not change the voltage that arrives."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "two-port-r3-q4"
     },
     {
       "id": "two-port-r3-q3",
@@ -183,6 +194,59 @@
       "preview": [
         "cg"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "two-port-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A transconductance two-port has \\(G_m\\) and \\(R_{out}\\). What is its open-circuit voltage gain?",
+      "options": [
+        "\\(G_m/R_{out}\\)",
+        "\\(-G_m\\)",
+        "\\(-G_mR_{out}\\)",
+        "\\(G_mR_{in}\\)"
+      ],
+      "correct_index": 2,
+      "explanation": "Open-circuited, all of \\(G_mv_{in}\\) flows through \\(R_{out}\\). Norton and Thevenin output forms are interchangeable.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 170\" role=\"img\" aria-label=\"Two-port amplifier model: input resistance R_in, a controlled source, and output resistance R_out.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:380px;width:100%;height:auto\"><rect x=\"80\" y=\"30\" width=\"200\" height=\"110\" stroke-dasharray=\"4 3\"/><text x=\"30\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"40\" y1=\"50\" x2=\"110\" y2=\"50\"/><line x1=\"40\" y1=\"120\" x2=\"110\" y2=\"120\"/><polyline points=\"110,50 110,67 104,70 116,75 104,80 116,85 104,90 116,95 110,103 110,120\"/><text x=\"122\" y=\"89\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_in</text><text x=\"180\" y=\"26\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">two-port amplifier</text><circle cx=\"220\" cy=\"85\" r=\"14\"/><text x=\"220\" y=\"89\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">+/−</text><text x=\"220\" y=\"160\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">G_m v_in</text><line x1=\"220\" y1=\"50\" x2=\"220\" y2=\"71\"/><line x1=\"220\" y1=\"99\" x2=\"220\" y2=\"120\"/><polyline points=\"220,50 237,50 240,44 245,56 250,44 255,56 260,44 265,56 273,50 290,50\"/><text x=\"255\" y=\"38\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_out</text><line x1=\"110\" y1=\"120\" x2=\"320\" y2=\"120\"/><text x=\"330\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text></svg>",
+      "figure_alt": "Two-port amplifier model: input resistance R_in, a controlled source, and output resistance R_out.",
+      "version": 1
+    },
+    {
+      "id": "two-port-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "How is a two-port's output resistance found?",
+      "options": [
+        "Zero the input source (keeping its source resistance), apply a test source at the output and take \\(v_t/i_t\\)",
+        "Divide the open-circuit output voltage by the input current",
+        "Short the output and measure the input current",
+        "Leave the input source active and load the output"
+      ],
+      "correct_index": 0,
+      "explanation": "Independent sources are zeroed for impedance tests; the dependent source stays, and so does the source resistance because it affects the internal controlling voltages.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 170\" role=\"img\" aria-label=\"Two-port amplifier model: input resistance R_in, a controlled source, and output resistance R_out.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:380px;width:100%;height:auto\"><rect x=\"80\" y=\"30\" width=\"200\" height=\"110\" stroke-dasharray=\"4 3\"/><text x=\"30\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"40\" y1=\"50\" x2=\"110\" y2=\"50\"/><line x1=\"40\" y1=\"120\" x2=\"110\" y2=\"120\"/><polyline points=\"110,50 110,67 104,70 116,75 104,80 116,85 104,90 116,95 110,103 110,120\"/><text x=\"122\" y=\"89\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_in</text><text x=\"180\" y=\"26\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">two-port amplifier</text><circle cx=\"220\" cy=\"85\" r=\"14\"/><text x=\"220\" y=\"89\" text-anchor=\"middle\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">+/−</text><text x=\"220\" y=\"160\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">G_m v_in or A_v v_in</text><line x1=\"220\" y1=\"50\" x2=\"220\" y2=\"71\"/><line x1=\"220\" y1=\"99\" x2=\"220\" y2=\"120\"/><polyline points=\"220,50 237,50 240,44 245,56 250,44 255,56 260,44 265,56 273,50 290,50\"/><text x=\"255\" y=\"38\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_out</text><line x1=\"110\" y1=\"120\" x2=\"320\" y2=\"120\"/><text x=\"330\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text></svg>",
+      "figure_alt": "Two-port amplifier model: input resistance R_in, a controlled source, and output resistance R_out.",
+      "version": 2
+    },
+    {
+      "id": "two-port-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "For voltage gain, how should a stage's output resistance compare with the next stage's input resistance?",
+      "options": [
+        "Much larger",
+        "Equal, for maximum power transfer",
+        "It does not matter",
+        "Much smaller, so little signal is lost in the divider"
+      ],
+      "correct_index": 3,
+      "explanation": "The interstage divider is \\(R_{in,2}/(R_{out,1} + R_{in,2})\\). Matching maximizes power, not voltage.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 500 100\" role=\"img\" aria-label=\"Cascade: a source with resistance R_s drives 2 amplifier stages in series, then the load R_L.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:500px;width:100%;height:auto\"><rect x=\"20\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"65\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v_s, R_s</text><line x1=\"110\" y1=\"50\" x2=\"130\" y2=\"50\"/><polygon points=\"130,50 123.6,52.7 123.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"130\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"175\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">stage 1</text><line x1=\"220\" y1=\"50\" x2=\"240\" y2=\"50\"/><polygon points=\"240,50 233.6,52.7 233.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"240\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"285\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">stage 2</text><line x1=\"330\" y1=\"50\" x2=\"350\" y2=\"50\"/><polygon points=\"350,50 343.6,52.7 343.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"350\" y=\"30\" width=\"90\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"395\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_L</text></svg>",
+      "figure_alt": "Cascade: a source with resistance R_s drives 2 amplifier stages in series, then the load R_L.",
+      "version": 1
     }
   ]
 }

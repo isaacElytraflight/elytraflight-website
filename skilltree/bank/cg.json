@@ -1,6 +1,6 @@
 {
   "skill_id": "cg",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "cg-r1-q1",
@@ -58,21 +58,24 @@
       "version": 2
     },
     {
-      "id": "cg-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "What is the CG stage's short-circuit current gain \\(i_{out}/i_{in}\\)?",
-      "options": [
-        "\\(g_mr_o\\)",
-        "\\(-g_mR_D\\)",
-        "About 0",
-        "About 1: it passes the input current to a high-impedance output"
+      "type": "error",
+      "prompt": "A worked solution gives the short-circuit current gain of a common-gate stage. Exactly one step is wrong.",
+      "explanation": "The current into the source leaves through the drain, so the short-circuit current gain is about 1. \\(g_m r_o\\) is the intrinsic voltage gain with the drain left open, not this current ratio. \\(-g_m R_D\\) is a voltage gain. A ratio near 0 would mean the current never reached the drain. The stage is a current buffer: low input resistance, high output resistance.",
+      "steps": [
+        "Signal current driven into the source has to leave through one of the other terminals.",
+        "The gate oxide takes none of that signal current.",
+        "The current that entered the source therefore leaves through the drain.",
+        "The short-circuit ratio of drain current to source current is \\(g_m r_o\\)."
       ],
-      "correct_index": 3,
-      "explanation": "The current into the source leaves through the drain. It works as a current buffer: low \\(R_{in}\\), high \\(R_{out}\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 230\" role=\"img\" aria-label=\"Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><polyline points=\"130,20 130,27 124,30 136,35 124,40 136,45 124,50 136,55 130,63 130,70\"/><text x=\"142\" y=\"49\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"70\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><text x=\"56\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"166\"/><circle cx=\"130\" cy=\"166\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"160\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"130\" y1=\"166\" x2=\"70\" y2=\"166\"/><line x1=\"70\" y1=\"166\" x2=\"70\" y2=\"174\"/><line x1=\"70\" y1=\"198\" x2=\"70\" y2=\"206\"/><circle cx=\"70\" cy=\"186\" r=\"12\"/><text x=\"70\" y=\"184\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"70\" y=\"196\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"53\" y=\"190\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"70\" y1=\"206\" x2=\"70\" y2=\"212\"/><line x1=\"61\" y1=\"212\" x2=\"79\" y2=\"212\"/><line x1=\"65\" y1=\"216\" x2=\"75\" y2=\"216\"/><line x1=\"68.5\" y1=\"220\" x2=\"71.5\" y2=\"220\"/><line x1=\"130\" y1=\"166\" x2=\"130\" y2=\"176\"/><line x1=\"130\" y1=\"176\" x2=\"130\" y2=\"181\"/><line x1=\"130\" y1=\"205\" x2=\"130\" y2=\"210\"/><circle cx=\"130\" cy=\"193\" r=\"12\"/><line x1=\"130\" y1=\"185\" x2=\"130\" y2=\"201\"/><polygon points=\"130,201 127.7,195.5 132.3,195.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"197\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"210\" x2=\"130\" y2=\"216\"/><line x1=\"121\" y1=\"216\" x2=\"139\" y2=\"216\"/><line x1=\"125\" y1=\"220\" x2=\"135\" y2=\"220\"/><line x1=\"128.5\" y1=\"224\" x2=\"131.5\" y2=\"224\"/></svg>",
-      "figure_alt": "Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D.",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "Drain current equals source current, so the short-circuit current gain is about 1. \\(g_m r_o\\) is an open-drain voltage gain.",
+        "The gate takes the input current, so the current gain is about 0."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "cg-r2-q4"
     },
     {
       "id": "cg-r2-q3",
@@ -100,36 +103,44 @@
       "figure_alt": "Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D."
     },
     {
-      "id": "cg-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "Why is the CG input resistance so low?",
-      "options": [
-        "Any voltage at the source appears directly as \\(-v_{gs}\\), so the device sinks \\(g_m\\) amps per volt",
-        "Because the gate is open",
-        "Because \\(R_D\\) is in series with the input",
-        "Because the bias source shorts it"
+      "type": "order",
+      "prompt": "Order why a common-gate input resistance is low when the body effect is left out. Each step after the first uses the result of the step before it.",
+      "explanation": "The device itself is a conductance \\(g_m\\) from the source to signal ground. The drain resistor is not in series with this input, and the bias source is not what makes the resistance small. An open gate is a high resistance, which is the common-source input, not this one.",
+      "steps": [
+        "The gate is an AC ground, so a voltage \\(v\\) applied at the source appears entirely as \\(v_{gs} = -v\\).",
+        "The controlled source then draws \\(g_m v\\) out of the source node.",
+        "The current that must be supplied to the source, per volt of \\(v\\), is therefore \\(g_m\\).",
+        "The input resistance is the reciprocal of that conductance, about \\(1/g_m\\)."
       ],
-      "correct_index": 0,
-      "explanation": "The device acts as a conductance \\(g_m\\) at its own source. That is ideal for a current input.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 230\" role=\"img\" aria-label=\"Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><polyline points=\"130,20 130,27 124,30 136,35 124,40 136,45 124,50 136,55 130,63 130,70\"/><text x=\"142\" y=\"49\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"70\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><text x=\"56\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"166\"/><circle cx=\"130\" cy=\"166\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"160\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"130\" y1=\"166\" x2=\"70\" y2=\"166\"/><line x1=\"70\" y1=\"166\" x2=\"70\" y2=\"174\"/><line x1=\"70\" y1=\"198\" x2=\"70\" y2=\"206\"/><circle cx=\"70\" cy=\"186\" r=\"12\"/><text x=\"70\" y=\"184\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"70\" y=\"196\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"53\" y=\"190\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"70\" y1=\"206\" x2=\"70\" y2=\"212\"/><line x1=\"61\" y1=\"212\" x2=\"79\" y2=\"212\"/><line x1=\"65\" y1=\"216\" x2=\"75\" y2=\"216\"/><line x1=\"68.5\" y1=\"220\" x2=\"71.5\" y2=\"220\"/><line x1=\"130\" y1=\"166\" x2=\"130\" y2=\"176\"/><line x1=\"130\" y1=\"176\" x2=\"130\" y2=\"181\"/><line x1=\"130\" y1=\"205\" x2=\"130\" y2=\"210\"/><circle cx=\"130\" cy=\"193\" r=\"12\"/><line x1=\"130\" y1=\"185\" x2=\"130\" y2=\"201\"/><polygon points=\"130,201 127.7,195.5 132.3,195.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"197\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"210\" x2=\"130\" y2=\"216\"/><line x1=\"121\" y1=\"216\" x2=\"139\" y2=\"216\"/><line x1=\"125\" y1=\"220\" x2=\"135\" y2=\"220\"/><line x1=\"128.5\" y1=\"224\" x2=\"131.5\" y2=\"224\"/></svg>",
-      "figure_alt": "Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D."
+      "version": 1,
+      "id": "cg-r3-q5"
     },
     {
-      "id": "cg-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "In a CG stage whose body is grounded, how does the body effect change \\(R_{in}\\)? (The body effect is a labelled prerequisite.)",
-      "options": [
-        "It raises it to \\(1/(g_m - g_{mb})\\)",
-        "It lowers it to about \\(1/(g_m + g_{mb})\\)",
-        "No change, since the gate is grounded",
-        "It makes it infinite"
+      "type": "symbolic",
+      "prompt": "Write the input resistance at the source of a common-gate stage whose body is grounded, with \\(r_o\\) very large. Use gm and gmb.",
+      "explanation": "A voltage at the source appears as \\(-v_{gs}\\) and, with the body grounded, as \\(-v_{bs}\\). Both controlled sources conduct, so the conductance is \\(g_m+g_{mb}\\) and the resistance is \\(1/(g_m+g_{mb})\\). Subtracting \\(g_{mb}\\) would raise the resistance. Grounding the gate does not turn the body source off, and the resistance does not become infinite.",
+      "answer": "1/(gm+gmb)",
+      "variables": [
+        {
+          "name": "gm",
+          "min": 0.3,
+          "max": 30.0
+        },
+        {
+          "name": "gmb",
+          "min": 0.05,
+          "max": 8.0
+        }
       ],
-      "correct_index": 1,
-      "explanation": "The source signal also appears as \\(v_{bs} = -v\\), adding \\(g_{mb}v\\) of current.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 230\" role=\"img\" aria-label=\"Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><polyline points=\"130,20 130,27 124,30 136,35 124,40 136,45 124,50 136,55 130,63 130,70\"/><text x=\"142\" y=\"49\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"70\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><text x=\"56\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"166\"/><circle cx=\"130\" cy=\"166\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"160\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"130\" y1=\"166\" x2=\"70\" y2=\"166\"/><line x1=\"70\" y1=\"166\" x2=\"70\" y2=\"174\"/><line x1=\"70\" y1=\"198\" x2=\"70\" y2=\"206\"/><circle cx=\"70\" cy=\"186\" r=\"12\"/><text x=\"70\" y=\"184\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"70\" y=\"196\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"53\" y=\"190\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"70\" y1=\"206\" x2=\"70\" y2=\"212\"/><line x1=\"61\" y1=\"212\" x2=\"79\" y2=\"212\"/><line x1=\"65\" y1=\"216\" x2=\"75\" y2=\"216\"/><line x1=\"68.5\" y1=\"220\" x2=\"71.5\" y2=\"220\"/><line x1=\"130\" y1=\"166\" x2=\"130\" y2=\"176\"/><line x1=\"130\" y1=\"176\" x2=\"130\" y2=\"181\"/><line x1=\"130\" y1=\"205\" x2=\"130\" y2=\"210\"/><circle cx=\"130\" cy=\"193\" r=\"12\"/><line x1=\"130\" y1=\"185\" x2=\"130\" y2=\"201\"/><polygon points=\"130,201 127.7,195.5 132.3,195.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"197\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"210\" x2=\"130\" y2=\"216\"/><line x1=\"121\" y1=\"216\" x2=\"139\" y2=\"216\"/><line x1=\"125\" y1=\"220\" x2=\"135\" y2=\"220\"/><line x1=\"128.5\" y1=\"224\" x2=\"131.5\" y2=\"224\"/></svg>",
-      "figure_alt": "Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D."
+      "tolerance": 0.001,
+      "alternates": [
+        "(gm+gmb)**(-1)",
+        "(gmb+gm)**(-1)"
+      ],
+      "version": 1,
+      "id": "cg-r3-q4"
     },
     {
       "id": "cg-r4-q1",
@@ -183,6 +194,59 @@
       "preview": [
         "cg-freq"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "cg-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "In a CG stage whose body is grounded, how does the body effect change \\(R_{in}\\)? (The body effect is a labelled prerequisite.)",
+      "options": [
+        "It raises it to \\(1/(g_m - g_{mb})\\)",
+        "It lowers it to about \\(1/(g_m + g_{mb})\\)",
+        "No change, since the gate is grounded",
+        "It makes it infinite"
+      ],
+      "correct_index": 1,
+      "explanation": "The source signal also appears as \\(v_{bs} = -v\\), adding \\(g_{mb}v\\) of current.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 230\" role=\"img\" aria-label=\"Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><polyline points=\"130,20 130,27 124,30 136,35 124,40 136,45 124,50 136,55 130,63 130,70\"/><text x=\"142\" y=\"49\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"70\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><text x=\"56\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"166\"/><circle cx=\"130\" cy=\"166\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"160\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"130\" y1=\"166\" x2=\"70\" y2=\"166\"/><line x1=\"70\" y1=\"166\" x2=\"70\" y2=\"174\"/><line x1=\"70\" y1=\"198\" x2=\"70\" y2=\"206\"/><circle cx=\"70\" cy=\"186\" r=\"12\"/><text x=\"70\" y=\"184\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"70\" y=\"196\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"53\" y=\"190\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"70\" y1=\"206\" x2=\"70\" y2=\"212\"/><line x1=\"61\" y1=\"212\" x2=\"79\" y2=\"212\"/><line x1=\"65\" y1=\"216\" x2=\"75\" y2=\"216\"/><line x1=\"68.5\" y1=\"220\" x2=\"71.5\" y2=\"220\"/><line x1=\"130\" y1=\"166\" x2=\"130\" y2=\"176\"/><line x1=\"130\" y1=\"176\" x2=\"130\" y2=\"181\"/><line x1=\"130\" y1=\"205\" x2=\"130\" y2=\"210\"/><circle cx=\"130\" cy=\"193\" r=\"12\"/><line x1=\"130\" y1=\"185\" x2=\"130\" y2=\"201\"/><polygon points=\"130,201 127.7,195.5 132.3,195.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"197\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"210\" x2=\"130\" y2=\"216\"/><line x1=\"121\" y1=\"216\" x2=\"139\" y2=\"216\"/><line x1=\"125\" y1=\"220\" x2=\"135\" y2=\"220\"/><line x1=\"128.5\" y1=\"224\" x2=\"131.5\" y2=\"224\"/></svg>",
+      "figure_alt": "Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D.",
+      "version": 1
+    },
+    {
+      "id": "cg-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Why is the CG input resistance so low?",
+      "options": [
+        "Any voltage at the source appears directly as \\(-v_{gs}\\), so the device sinks \\(g_m\\) amps per volt",
+        "Because the gate is open",
+        "Because \\(R_D\\) is in series with the input",
+        "Because the bias source shorts it"
+      ],
+      "correct_index": 0,
+      "explanation": "The device acts as a conductance \\(g_m\\) at its own source. That is ideal for a current input.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 230\" role=\"img\" aria-label=\"Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><polyline points=\"130,20 130,27 124,30 136,35 124,40 136,45 124,50 136,55 130,63 130,70\"/><text x=\"142\" y=\"49\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"70\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><text x=\"56\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"166\"/><circle cx=\"130\" cy=\"166\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"160\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"130\" y1=\"166\" x2=\"70\" y2=\"166\"/><line x1=\"70\" y1=\"166\" x2=\"70\" y2=\"174\"/><line x1=\"70\" y1=\"198\" x2=\"70\" y2=\"206\"/><circle cx=\"70\" cy=\"186\" r=\"12\"/><text x=\"70\" y=\"184\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"70\" y=\"196\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"53\" y=\"190\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"70\" y1=\"206\" x2=\"70\" y2=\"212\"/><line x1=\"61\" y1=\"212\" x2=\"79\" y2=\"212\"/><line x1=\"65\" y1=\"216\" x2=\"75\" y2=\"216\"/><line x1=\"68.5\" y1=\"220\" x2=\"71.5\" y2=\"220\"/><line x1=\"130\" y1=\"166\" x2=\"130\" y2=\"176\"/><line x1=\"130\" y1=\"176\" x2=\"130\" y2=\"181\"/><line x1=\"130\" y1=\"205\" x2=\"130\" y2=\"210\"/><circle cx=\"130\" cy=\"193\" r=\"12\"/><line x1=\"130\" y1=\"185\" x2=\"130\" y2=\"201\"/><polygon points=\"130,201 127.7,195.5 132.3,195.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"197\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"210\" x2=\"130\" y2=\"216\"/><line x1=\"121\" y1=\"216\" x2=\"139\" y2=\"216\"/><line x1=\"125\" y1=\"220\" x2=\"135\" y2=\"220\"/><line x1=\"128.5\" y1=\"224\" x2=\"131.5\" y2=\"224\"/></svg>",
+      "figure_alt": "Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D.",
+      "version": 1
+    },
+    {
+      "id": "cg-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "What is the CG stage's short-circuit current gain \\(i_{out}/i_{in}\\)?",
+      "options": [
+        "\\(g_mr_o\\)",
+        "\\(-g_mR_D\\)",
+        "About 0",
+        "About 1: it passes the input current to a high-impedance output"
+      ],
+      "correct_index": 3,
+      "explanation": "The current into the source leaves through the drain. It works as a current buffer: low \\(R_{in}\\), high \\(R_{out}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 230\" role=\"img\" aria-label=\"Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><polyline points=\"130,20 130,27 124,30 136,35 124,40 136,45 124,50 136,55 130,63 130,70\"/><text x=\"142\" y=\"49\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"70\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><text x=\"56\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"166\"/><circle cx=\"130\" cy=\"166\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"160\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"130\" y1=\"166\" x2=\"70\" y2=\"166\"/><line x1=\"70\" y1=\"166\" x2=\"70\" y2=\"174\"/><line x1=\"70\" y1=\"198\" x2=\"70\" y2=\"206\"/><circle cx=\"70\" cy=\"186\" r=\"12\"/><text x=\"70\" y=\"184\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"70\" y=\"196\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"53\" y=\"190\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"70\" y1=\"206\" x2=\"70\" y2=\"212\"/><line x1=\"61\" y1=\"212\" x2=\"79\" y2=\"212\"/><line x1=\"65\" y1=\"216\" x2=\"75\" y2=\"216\"/><line x1=\"68.5\" y1=\"220\" x2=\"71.5\" y2=\"220\"/><line x1=\"130\" y1=\"166\" x2=\"130\" y2=\"176\"/><line x1=\"130\" y1=\"176\" x2=\"130\" y2=\"181\"/><line x1=\"130\" y1=\"205\" x2=\"130\" y2=\"210\"/><circle cx=\"130\" cy=\"193\" r=\"12\"/><line x1=\"130\" y1=\"185\" x2=\"130\" y2=\"201\"/><polygon points=\"130,201 127.7,195.5 132.3,195.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"197\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"210\" x2=\"130\" y2=\"216\"/><line x1=\"121\" y1=\"216\" x2=\"139\" y2=\"216\"/><line x1=\"125\" y1=\"220\" x2=\"135\" y2=\"220\"/><line x1=\"128.5\" y1=\"224\" x2=\"131.5\" y2=\"224\"/></svg>",
+      "figure_alt": "Common-gate amplifier: gate at a DC bias, input at the source, output at the drain across R_D.",
+      "version": 2
     }
   ]
 }
