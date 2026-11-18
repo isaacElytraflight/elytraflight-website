@@ -1,23 +1,20 @@
 {
   "skill_id": "cg-freq",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "cg-freq-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "Why does a common-gate stage usually have a much wider bandwidth than a CS stage with the same gain?",
-      "options": [
-        "Because its \\(g_m\\) is larger",
-        "Its gate is AC ground, so no capacitor connects input to output and nothing is Miller-multiplied",
-        "Because it has no capacitances",
-        "Because its output resistance is smaller"
+      "type": "order",
+      "prompt": "Order why a common-gate stage is usually wider than a common-source stage of the same gain. Each step after the first uses the result of the step before it.",
+      "explanation": "The speed comes from the missing bridge, not from a larger \\(g_m\\) and not from a smaller output resistance. The stage still has capacitances. The input pole is rarely the dominant one, because the source resistance is at most \\(1/g_m\\). A Miller pole at the gate would require a capacitor from the input to a moving output, which this gate connection does not provide.",
+      "steps": [
+        "The gate is an AC ground, so neither \\(C_{gs}\\) nor \\(C_{gd}\\) connects the source node to the drain node.",
+        "Nothing is Miller-multiplied: \\(C_{gs}\\) loads the source, and \\(C_{gd}\\) loads the drain, each to ground.",
+        "The source node sees \\(R_s\\) in parallel with \\(1/g_m\\), a small resistance, so its pole is high.",
+        "The drain node sees the full load resistance, so the output pole is the one that usually sets the bandwidth."
       ],
-      "correct_index": 1,
-      "explanation": "\\(C_{gs}\\) loads the low-impedance source node and \\(C_{gd}\\) loads the output to ground.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 450 150\" role=\"img\" aria-label=\"High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:450px;width:100%;height:auto\"><text x=\"4\" y=\"112\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"30\" y1=\"80\" x2=\"30\" y2=\"93\"/><line x1=\"30\" y1=\"117\" x2=\"30\" y2=\"130\"/><circle cx=\"30\" cy=\"105\" r=\"12\"/><text x=\"30\" y=\"103\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"30\" y=\"115\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"30\" y1=\"130\" x2=\"30\" y2=\"136\"/><line x1=\"21\" y1=\"136\" x2=\"39\" y2=\"136\"/><line x1=\"25\" y1=\"140\" x2=\"35\" y2=\"140\"/><line x1=\"28.5\" y1=\"144\" x2=\"31.5\" y2=\"144\"/><line x1=\"30\" y1=\"80\" x2=\"30\" y2=\"60\"/><polyline points=\"30,60 42,60 45,54 50,66 55,54 60,66 65,54 70,66 78,60 90,60\"/><text x=\"60\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_s</text><line x1=\"90\" y1=\"60\" x2=\"120\" y2=\"60\"/><circle cx=\"120\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><text x=\"116\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"120\" y1=\"60\" x2=\"120\" y2=\"80\"/><line x1=\"120\" y1=\"90\" x2=\"120\" y2=\"110\"/><line x1=\"111\" y1=\"80\" x2=\"129\" y2=\"80\"/><line x1=\"111\" y1=\"90\" x2=\"129\" y2=\"90\"/><text x=\"134\" y=\"89\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"116\"/><line x1=\"111\" y1=\"116\" x2=\"129\" y2=\"116\"/><line x1=\"115\" y1=\"120\" x2=\"125\" y2=\"120\"/><line x1=\"118.5\" y1=\"124\" x2=\"121.5\" y2=\"124\"/><line x1=\"120\" y1=\"60\" x2=\"180\" y2=\"60\"/><text x=\"186\" y=\"54\" text-anchor=\"start\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">(1/g_m into source)</text><line x1=\"180\" y1=\"60\" x2=\"180\" y2=\"100\"/><rect x=\"180\" y=\"100\" width=\"70\" height=\"22\" rx=\"4\"/><text x=\"215\" y=\"115\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">g_m v_sg</text><line x1=\"250\" y1=\"111\" x2=\"290\" y2=\"111\"/><line x1=\"290\" y1=\"111\" x2=\"290\" y2=\"40\"/><circle cx=\"290\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><text x=\"286\" y=\"34\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"290\" y1=\"40\" x2=\"390\" y2=\"40\"/><polyline points=\"330,40 330,47 324,50 336,55 324,60 336,65 324,70 336,75 330,83 330,90\"/><text x=\"342\" y=\"69\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_L</text><line x1=\"330\" y1=\"90\" x2=\"330\" y2=\"96\"/><line x1=\"321\" y1=\"96\" x2=\"339\" y2=\"96\"/><line x1=\"325\" y1=\"100\" x2=\"335\" y2=\"100\"/><line x1=\"328.5\" y1=\"104\" x2=\"331.5\" y2=\"104\"/><line x1=\"390\" y1=\"40\" x2=\"390\" y2=\"55\"/><line x1=\"390\" y1=\"65\" x2=\"390\" y2=\"80\"/><line x1=\"381\" y1=\"55\" x2=\"399\" y2=\"55\"/><line x1=\"381\" y1=\"65\" x2=\"399\" y2=\"65\"/><text x=\"404\" y=\"64\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_out</text><line x1=\"390\" y1=\"80\" x2=\"390\" y2=\"86\"/><line x1=\"381\" y1=\"86\" x2=\"399\" y2=\"86\"/><line x1=\"385\" y1=\"90\" x2=\"395\" y2=\"90\"/><line x1=\"388.5\" y1=\"94\" x2=\"391.5\" y2=\"94\"/></svg>",
-      "figure_alt": "High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output.",
-      "version": 2
+      "version": 1,
+      "id": "cg-freq-r1-q4"
     },
     {
       "id": "cg-freq-r1-q2",
@@ -72,20 +69,35 @@
       "figure_alt": "Bode magnitude of the CG stage: flat midband, a dominant output pole in the hundreds of megahertz and a far input pole near 20 GHz."
     },
     {
-      "id": "cg-freq-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "A CS stage and a CG stage have the same gain and the same \\(R_s\\). Which usually has the lower bandwidth and why?",
-      "options": [
-        "The CG stage, because of \\(C_{gs}\\)",
-        "They are equal",
-        "The CG stage, because its gate is grounded",
-        "The CS stage, because its \\(C_{gd}\\) appears multiplied by the gain at the high-resistance input"
+      "type": "symbolic",
+      "prompt": "Write the radian frequency of the common-gate input pole when \\(r_o\\) is ignored. The capacitance at the source node is Cgs. Use gm, Rs, and Cgs.",
+      "explanation": "The source node sees \\(R_s\\parallel 1/g_m\\), so \\(\\omega_{in} = (1+g_mR_s)/(R_sC_{gs})\\). Using \\(R_s\\) alone drops the device's own \\(1/g_m\\) and places the pole too low. \\(1/(R_LC_{out})\\) is the output pole and does not use these three quantities. Multiplying \\(C_{gs}\\) by the voltage gain would be a Miller term. This stage has no capacitor from the input to a moving output, so that factor is not here. \\(g_m/C_{gs}\\) is the limit only when \\(R_s\\) is large compared with \\(1/g_m\\).",
+      "answer": "(1+gm*Rs)/(Rs*Cgs)",
+      "variables": [
+        {
+          "name": "gm",
+          "min": 0.0002,
+          "max": 0.02
+        },
+        {
+          "name": "Rs",
+          "min": 20.0,
+          "max": 5000.0
+        },
+        {
+          "name": "Cgs",
+          "min": 5e-15,
+          "max": 2e-13
+        }
       ],
-      "correct_index": 3,
-      "explanation": "Miller multiplication is the CS stage's penalty; the CG stage pays only for \\(C_{gs}\\) at a low-resistance node.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 450 150\" role=\"img\" aria-label=\"High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:450px;width:100%;height:auto\"><text x=\"4\" y=\"112\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"30\" y1=\"80\" x2=\"30\" y2=\"93\"/><line x1=\"30\" y1=\"117\" x2=\"30\" y2=\"130\"/><circle cx=\"30\" cy=\"105\" r=\"12\"/><text x=\"30\" y=\"103\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"30\" y=\"115\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"30\" y1=\"130\" x2=\"30\" y2=\"136\"/><line x1=\"21\" y1=\"136\" x2=\"39\" y2=\"136\"/><line x1=\"25\" y1=\"140\" x2=\"35\" y2=\"140\"/><line x1=\"28.5\" y1=\"144\" x2=\"31.5\" y2=\"144\"/><line x1=\"30\" y1=\"80\" x2=\"30\" y2=\"60\"/><polyline points=\"30,60 42,60 45,54 50,66 55,54 60,66 65,54 70,66 78,60 90,60\"/><text x=\"60\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_s</text><line x1=\"90\" y1=\"60\" x2=\"120\" y2=\"60\"/><circle cx=\"120\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><text x=\"116\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"120\" y1=\"60\" x2=\"120\" y2=\"80\"/><line x1=\"120\" y1=\"90\" x2=\"120\" y2=\"110\"/><line x1=\"111\" y1=\"80\" x2=\"129\" y2=\"80\"/><line x1=\"111\" y1=\"90\" x2=\"129\" y2=\"90\"/><text x=\"134\" y=\"89\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"116\"/><line x1=\"111\" y1=\"116\" x2=\"129\" y2=\"116\"/><line x1=\"115\" y1=\"120\" x2=\"125\" y2=\"120\"/><line x1=\"118.5\" y1=\"124\" x2=\"121.5\" y2=\"124\"/><line x1=\"120\" y1=\"60\" x2=\"180\" y2=\"60\"/><text x=\"186\" y=\"54\" text-anchor=\"start\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">(1/g_m into source)</text><line x1=\"180\" y1=\"60\" x2=\"180\" y2=\"100\"/><rect x=\"180\" y=\"100\" width=\"70\" height=\"22\" rx=\"4\"/><text x=\"215\" y=\"115\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">g_m v_sg</text><line x1=\"250\" y1=\"111\" x2=\"290\" y2=\"111\"/><line x1=\"290\" y1=\"111\" x2=\"290\" y2=\"40\"/><circle cx=\"290\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><text x=\"286\" y=\"34\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"290\" y1=\"40\" x2=\"390\" y2=\"40\"/><polyline points=\"330,40 330,47 324,50 336,55 324,60 336,65 324,70 336,75 330,83 330,90\"/><text x=\"342\" y=\"69\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_L</text><line x1=\"330\" y1=\"90\" x2=\"330\" y2=\"96\"/><line x1=\"321\" y1=\"96\" x2=\"339\" y2=\"96\"/><line x1=\"325\" y1=\"100\" x2=\"335\" y2=\"100\"/><line x1=\"328.5\" y1=\"104\" x2=\"331.5\" y2=\"104\"/><line x1=\"390\" y1=\"40\" x2=\"390\" y2=\"55\"/><line x1=\"390\" y1=\"65\" x2=\"390\" y2=\"80\"/><line x1=\"381\" y1=\"55\" x2=\"399\" y2=\"55\"/><line x1=\"381\" y1=\"65\" x2=\"399\" y2=\"65\"/><text x=\"404\" y=\"64\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_out</text><line x1=\"390\" y1=\"80\" x2=\"390\" y2=\"86\"/><line x1=\"381\" y1=\"86\" x2=\"399\" y2=\"86\"/><line x1=\"385\" y1=\"90\" x2=\"395\" y2=\"90\"/><line x1=\"388.5\" y1=\"94\" x2=\"391.5\" y2=\"94\"/></svg>",
-      "figure_alt": "High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output."
+      "tolerance": 0.001,
+      "alternates": [
+        "1/(Rs*Cgs)+gm/Cgs",
+        "(gm*Rs+1)/(Cgs*Rs)"
+      ],
+      "version": 1,
+      "id": "cg-freq-r2-q4"
     },
     {
       "id": "cg-freq-r3-q1",
@@ -100,20 +112,24 @@
       "figure_alt": "High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output."
     },
     {
-      "id": "cg-freq-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "With a finite \\(r_o\\), why does the CG analysis become less clean?",
-      "options": [
-        "The input resistance then depends on the load, so the input and output nodes interact",
-        "Because \\(r_o\\) adds a Miller capacitor",
-        "Because \\(r_o\\) shorts the gate",
-        "It does not change anything"
+      "type": "error",
+      "prompt": "A worked solution says what a finite \\(r_o\\) does to a common-gate stage. Exactly one step is wrong.",
+      "explanation": "Finite \\(r_o\\) couples the nodes resistively. The input resistance becomes \\((r_o+R_L)/(1+g_mr_o)\\), so it depends on the load. It does not add a capacitor, and it does not Miller-multiply \\(C_{gd}\\). \\(r_o\\) also does not short the gate. The two-pole picture is then an approximation, not an unchanged result.",
+      "steps": [
+        "With \\(r_o\\) infinite, the source node and the drain node do not share a resistive path through the channel.",
+        "\\(C_{gs}\\) then loads only the source, and \\(C_{gd}\\) loads only the drain, each to AC ground.",
+        "A finite \\(r_o\\) ties the drain back to the source, so the current in \\(r_o\\) depends on both node voltages.",
+        "That tie inserts a bridging capacitor from the source to the drain, and \\(C_{gd}\\) is Miller-multiplied."
       ],
-      "correct_index": 0,
-      "explanation": "\\(R_{in} = (r_o + R_L)/(1 + g_mr_o)\\) couples the two nodes; the single-pole picture is then an approximation.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 450 150\" role=\"img\" aria-label=\"High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:450px;width:100%;height:auto\"><text x=\"4\" y=\"112\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"30\" y1=\"80\" x2=\"30\" y2=\"93\"/><line x1=\"30\" y1=\"117\" x2=\"30\" y2=\"130\"/><circle cx=\"30\" cy=\"105\" r=\"12\"/><text x=\"30\" y=\"103\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"30\" y=\"115\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"30\" y1=\"130\" x2=\"30\" y2=\"136\"/><line x1=\"21\" y1=\"136\" x2=\"39\" y2=\"136\"/><line x1=\"25\" y1=\"140\" x2=\"35\" y2=\"140\"/><line x1=\"28.5\" y1=\"144\" x2=\"31.5\" y2=\"144\"/><line x1=\"30\" y1=\"80\" x2=\"30\" y2=\"60\"/><polyline points=\"30,60 42,60 45,54 50,66 55,54 60,66 65,54 70,66 78,60 90,60\"/><text x=\"60\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_s</text><line x1=\"90\" y1=\"60\" x2=\"120\" y2=\"60\"/><circle cx=\"120\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><text x=\"116\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"120\" y1=\"60\" x2=\"120\" y2=\"80\"/><line x1=\"120\" y1=\"90\" x2=\"120\" y2=\"110\"/><line x1=\"111\" y1=\"80\" x2=\"129\" y2=\"80\"/><line x1=\"111\" y1=\"90\" x2=\"129\" y2=\"90\"/><text x=\"134\" y=\"89\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"116\"/><line x1=\"111\" y1=\"116\" x2=\"129\" y2=\"116\"/><line x1=\"115\" y1=\"120\" x2=\"125\" y2=\"120\"/><line x1=\"118.5\" y1=\"124\" x2=\"121.5\" y2=\"124\"/><line x1=\"120\" y1=\"60\" x2=\"180\" y2=\"60\"/><text x=\"186\" y=\"54\" text-anchor=\"start\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">(1/g_m into source)</text><line x1=\"180\" y1=\"60\" x2=\"180\" y2=\"100\"/><rect x=\"180\" y=\"100\" width=\"70\" height=\"22\" rx=\"4\"/><text x=\"215\" y=\"115\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">g_m v_sg</text><line x1=\"250\" y1=\"111\" x2=\"290\" y2=\"111\"/><line x1=\"290\" y1=\"111\" x2=\"290\" y2=\"40\"/><circle cx=\"290\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><text x=\"286\" y=\"34\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"290\" y1=\"40\" x2=\"390\" y2=\"40\"/><polyline points=\"330,40 330,47 324,50 336,55 324,60 336,65 324,70 336,75 330,83 330,90\"/><text x=\"342\" y=\"69\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_L</text><line x1=\"330\" y1=\"90\" x2=\"330\" y2=\"96\"/><line x1=\"321\" y1=\"96\" x2=\"339\" y2=\"96\"/><line x1=\"325\" y1=\"100\" x2=\"335\" y2=\"100\"/><line x1=\"328.5\" y1=\"104\" x2=\"331.5\" y2=\"104\"/><line x1=\"390\" y1=\"40\" x2=\"390\" y2=\"55\"/><line x1=\"390\" y1=\"65\" x2=\"390\" y2=\"80\"/><line x1=\"381\" y1=\"55\" x2=\"399\" y2=\"55\"/><line x1=\"381\" y1=\"65\" x2=\"399\" y2=\"65\"/><text x=\"404\" y=\"64\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_out</text><line x1=\"390\" y1=\"80\" x2=\"390\" y2=\"86\"/><line x1=\"381\" y1=\"86\" x2=\"399\" y2=\"86\"/><line x1=\"385\" y1=\"90\" x2=\"395\" y2=\"90\"/><line x1=\"388.5\" y1=\"94\" x2=\"391.5\" y2=\"94\"/></svg>",
-      "figure_alt": "High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output."
+      "flaw_index": 3,
+      "reasons": [
+        "Finite \\(r_o\\) makes the input resistance depend on the load. It does not insert a bridging capacitor.",
+        "\\(r_o\\) shorts the gate, so both poles disappear."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "cg-freq-r3-q4"
     },
     {
       "id": "cg-freq-r3-q3",
@@ -179,6 +195,59 @@
       "preview": [
         "octc"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "cg-freq-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Why does a common-gate stage usually have a much wider bandwidth than a CS stage with the same gain?",
+      "options": [
+        "Because its \\(g_m\\) is larger",
+        "Its gate is AC ground, so no capacitor connects input to output and nothing is Miller-multiplied",
+        "Because it has no capacitances",
+        "Because its output resistance is smaller"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(C_{gs}\\) loads the low-impedance source node and \\(C_{gd}\\) loads the output to ground.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 450 150\" role=\"img\" aria-label=\"High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:450px;width:100%;height:auto\"><text x=\"4\" y=\"112\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"30\" y1=\"80\" x2=\"30\" y2=\"93\"/><line x1=\"30\" y1=\"117\" x2=\"30\" y2=\"130\"/><circle cx=\"30\" cy=\"105\" r=\"12\"/><text x=\"30\" y=\"103\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"30\" y=\"115\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"30\" y1=\"130\" x2=\"30\" y2=\"136\"/><line x1=\"21\" y1=\"136\" x2=\"39\" y2=\"136\"/><line x1=\"25\" y1=\"140\" x2=\"35\" y2=\"140\"/><line x1=\"28.5\" y1=\"144\" x2=\"31.5\" y2=\"144\"/><line x1=\"30\" y1=\"80\" x2=\"30\" y2=\"60\"/><polyline points=\"30,60 42,60 45,54 50,66 55,54 60,66 65,54 70,66 78,60 90,60\"/><text x=\"60\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_s</text><line x1=\"90\" y1=\"60\" x2=\"120\" y2=\"60\"/><circle cx=\"120\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><text x=\"116\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"120\" y1=\"60\" x2=\"120\" y2=\"80\"/><line x1=\"120\" y1=\"90\" x2=\"120\" y2=\"110\"/><line x1=\"111\" y1=\"80\" x2=\"129\" y2=\"80\"/><line x1=\"111\" y1=\"90\" x2=\"129\" y2=\"90\"/><text x=\"134\" y=\"89\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"116\"/><line x1=\"111\" y1=\"116\" x2=\"129\" y2=\"116\"/><line x1=\"115\" y1=\"120\" x2=\"125\" y2=\"120\"/><line x1=\"118.5\" y1=\"124\" x2=\"121.5\" y2=\"124\"/><line x1=\"120\" y1=\"60\" x2=\"180\" y2=\"60\"/><text x=\"186\" y=\"54\" text-anchor=\"start\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">(1/g_m into source)</text><line x1=\"180\" y1=\"60\" x2=\"180\" y2=\"100\"/><rect x=\"180\" y=\"100\" width=\"70\" height=\"22\" rx=\"4\"/><text x=\"215\" y=\"115\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">g_m v_sg</text><line x1=\"250\" y1=\"111\" x2=\"290\" y2=\"111\"/><line x1=\"290\" y1=\"111\" x2=\"290\" y2=\"40\"/><circle cx=\"290\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><text x=\"286\" y=\"34\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"290\" y1=\"40\" x2=\"390\" y2=\"40\"/><polyline points=\"330,40 330,47 324,50 336,55 324,60 336,65 324,70 336,75 330,83 330,90\"/><text x=\"342\" y=\"69\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_L</text><line x1=\"330\" y1=\"90\" x2=\"330\" y2=\"96\"/><line x1=\"321\" y1=\"96\" x2=\"339\" y2=\"96\"/><line x1=\"325\" y1=\"100\" x2=\"335\" y2=\"100\"/><line x1=\"328.5\" y1=\"104\" x2=\"331.5\" y2=\"104\"/><line x1=\"390\" y1=\"40\" x2=\"390\" y2=\"55\"/><line x1=\"390\" y1=\"65\" x2=\"390\" y2=\"80\"/><line x1=\"381\" y1=\"55\" x2=\"399\" y2=\"55\"/><line x1=\"381\" y1=\"65\" x2=\"399\" y2=\"65\"/><text x=\"404\" y=\"64\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_out</text><line x1=\"390\" y1=\"80\" x2=\"390\" y2=\"86\"/><line x1=\"381\" y1=\"86\" x2=\"399\" y2=\"86\"/><line x1=\"385\" y1=\"90\" x2=\"395\" y2=\"90\"/><line x1=\"388.5\" y1=\"94\" x2=\"391.5\" y2=\"94\"/></svg>",
+      "figure_alt": "High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output.",
+      "version": 2
+    },
+    {
+      "id": "cg-freq-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A CS stage and a CG stage have the same gain and the same \\(R_s\\). Which usually has the lower bandwidth and why?",
+      "options": [
+        "The CG stage, because of \\(C_{gs}\\)",
+        "They are equal",
+        "The CG stage, because its gate is grounded",
+        "The CS stage, because its \\(C_{gd}\\) appears multiplied by the gain at the high-resistance input"
+      ],
+      "correct_index": 3,
+      "explanation": "Miller multiplication is the CS stage's penalty; the CG stage pays only for \\(C_{gs}\\) at a low-resistance node.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 450 150\" role=\"img\" aria-label=\"High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:450px;width:100%;height:auto\"><text x=\"4\" y=\"112\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"30\" y1=\"80\" x2=\"30\" y2=\"93\"/><line x1=\"30\" y1=\"117\" x2=\"30\" y2=\"130\"/><circle cx=\"30\" cy=\"105\" r=\"12\"/><text x=\"30\" y=\"103\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"30\" y=\"115\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"30\" y1=\"130\" x2=\"30\" y2=\"136\"/><line x1=\"21\" y1=\"136\" x2=\"39\" y2=\"136\"/><line x1=\"25\" y1=\"140\" x2=\"35\" y2=\"140\"/><line x1=\"28.5\" y1=\"144\" x2=\"31.5\" y2=\"144\"/><line x1=\"30\" y1=\"80\" x2=\"30\" y2=\"60\"/><polyline points=\"30,60 42,60 45,54 50,66 55,54 60,66 65,54 70,66 78,60 90,60\"/><text x=\"60\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_s</text><line x1=\"90\" y1=\"60\" x2=\"120\" y2=\"60\"/><circle cx=\"120\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><text x=\"116\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"120\" y1=\"60\" x2=\"120\" y2=\"80\"/><line x1=\"120\" y1=\"90\" x2=\"120\" y2=\"110\"/><line x1=\"111\" y1=\"80\" x2=\"129\" y2=\"80\"/><line x1=\"111\" y1=\"90\" x2=\"129\" y2=\"90\"/><text x=\"134\" y=\"89\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"116\"/><line x1=\"111\" y1=\"116\" x2=\"129\" y2=\"116\"/><line x1=\"115\" y1=\"120\" x2=\"125\" y2=\"120\"/><line x1=\"118.5\" y1=\"124\" x2=\"121.5\" y2=\"124\"/><line x1=\"120\" y1=\"60\" x2=\"180\" y2=\"60\"/><text x=\"186\" y=\"54\" text-anchor=\"start\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">(1/g_m into source)</text><line x1=\"180\" y1=\"60\" x2=\"180\" y2=\"100\"/><rect x=\"180\" y=\"100\" width=\"70\" height=\"22\" rx=\"4\"/><text x=\"215\" y=\"115\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">g_m v_sg</text><line x1=\"250\" y1=\"111\" x2=\"290\" y2=\"111\"/><line x1=\"290\" y1=\"111\" x2=\"290\" y2=\"40\"/><circle cx=\"290\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><text x=\"286\" y=\"34\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"290\" y1=\"40\" x2=\"390\" y2=\"40\"/><polyline points=\"330,40 330,47 324,50 336,55 324,60 336,65 324,70 336,75 330,83 330,90\"/><text x=\"342\" y=\"69\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_L</text><line x1=\"330\" y1=\"90\" x2=\"330\" y2=\"96\"/><line x1=\"321\" y1=\"96\" x2=\"339\" y2=\"96\"/><line x1=\"325\" y1=\"100\" x2=\"335\" y2=\"100\"/><line x1=\"328.5\" y1=\"104\" x2=\"331.5\" y2=\"104\"/><line x1=\"390\" y1=\"40\" x2=\"390\" y2=\"55\"/><line x1=\"390\" y1=\"65\" x2=\"390\" y2=\"80\"/><line x1=\"381\" y1=\"55\" x2=\"399\" y2=\"55\"/><line x1=\"381\" y1=\"65\" x2=\"399\" y2=\"65\"/><text x=\"404\" y=\"64\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_out</text><line x1=\"390\" y1=\"80\" x2=\"390\" y2=\"86\"/><line x1=\"381\" y1=\"86\" x2=\"399\" y2=\"86\"/><line x1=\"385\" y1=\"90\" x2=\"395\" y2=\"90\"/><line x1=\"388.5\" y1=\"94\" x2=\"391.5\" y2=\"94\"/></svg>",
+      "figure_alt": "High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output.",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "With a finite \\(r_o\\), why does the CG analysis become less clean?",
+      "options": [
+        "The input resistance then depends on the load, so the input and output nodes interact",
+        "Because \\(r_o\\) adds a Miller capacitor",
+        "Because \\(r_o\\) shorts the gate",
+        "It does not change anything"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(R_{in} = (r_o + R_L)/(1 + g_mr_o)\\) couples the two nodes; the single-pole picture is then an approximation.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 450 150\" role=\"img\" aria-label=\"High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:450px;width:100%;height:auto\"><text x=\"4\" y=\"112\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">v_s</text><line x1=\"30\" y1=\"80\" x2=\"30\" y2=\"93\"/><line x1=\"30\" y1=\"117\" x2=\"30\" y2=\"130\"/><circle cx=\"30\" cy=\"105\" r=\"12\"/><text x=\"30\" y=\"103\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"30\" y=\"115\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"30\" y1=\"130\" x2=\"30\" y2=\"136\"/><line x1=\"21\" y1=\"136\" x2=\"39\" y2=\"136\"/><line x1=\"25\" y1=\"140\" x2=\"35\" y2=\"140\"/><line x1=\"28.5\" y1=\"144\" x2=\"31.5\" y2=\"144\"/><line x1=\"30\" y1=\"80\" x2=\"30\" y2=\"60\"/><polyline points=\"30,60 42,60 45,54 50,66 55,54 60,66 65,54 70,66 78,60 90,60\"/><text x=\"60\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_s</text><line x1=\"90\" y1=\"60\" x2=\"120\" y2=\"60\"/><circle cx=\"120\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><text x=\"116\" y=\"54\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">S</text><line x1=\"120\" y1=\"60\" x2=\"120\" y2=\"80\"/><line x1=\"120\" y1=\"90\" x2=\"120\" y2=\"110\"/><line x1=\"111\" y1=\"80\" x2=\"129\" y2=\"80\"/><line x1=\"111\" y1=\"90\" x2=\"129\" y2=\"90\"/><text x=\"134\" y=\"89\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"116\"/><line x1=\"111\" y1=\"116\" x2=\"129\" y2=\"116\"/><line x1=\"115\" y1=\"120\" x2=\"125\" y2=\"120\"/><line x1=\"118.5\" y1=\"124\" x2=\"121.5\" y2=\"124\"/><line x1=\"120\" y1=\"60\" x2=\"180\" y2=\"60\"/><text x=\"186\" y=\"54\" text-anchor=\"start\" font-size=\"9\" fill=\"currentColor\" stroke=\"none\">(1/g_m into source)</text><line x1=\"180\" y1=\"60\" x2=\"180\" y2=\"100\"/><rect x=\"180\" y=\"100\" width=\"70\" height=\"22\" rx=\"4\"/><text x=\"215\" y=\"115\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">g_m v_sg</text><line x1=\"250\" y1=\"111\" x2=\"290\" y2=\"111\"/><line x1=\"290\" y1=\"111\" x2=\"290\" y2=\"40\"/><circle cx=\"290\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><text x=\"286\" y=\"34\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"290\" y1=\"40\" x2=\"390\" y2=\"40\"/><polyline points=\"330,40 330,47 324,50 336,55 324,60 336,65 324,70 336,75 330,83 330,90\"/><text x=\"342\" y=\"69\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_L</text><line x1=\"330\" y1=\"90\" x2=\"330\" y2=\"96\"/><line x1=\"321\" y1=\"96\" x2=\"339\" y2=\"96\"/><line x1=\"325\" y1=\"100\" x2=\"335\" y2=\"100\"/><line x1=\"328.5\" y1=\"104\" x2=\"331.5\" y2=\"104\"/><line x1=\"390\" y1=\"40\" x2=\"390\" y2=\"55\"/><line x1=\"390\" y1=\"65\" x2=\"390\" y2=\"80\"/><line x1=\"381\" y1=\"55\" x2=\"399\" y2=\"55\"/><line x1=\"381\" y1=\"65\" x2=\"399\" y2=\"65\"/><text x=\"404\" y=\"64\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_out</text><line x1=\"390\" y1=\"80\" x2=\"390\" y2=\"86\"/><line x1=\"381\" y1=\"86\" x2=\"399\" y2=\"86\"/><line x1=\"385\" y1=\"90\" x2=\"395\" y2=\"90\"/><line x1=\"388.5\" y1=\"94\" x2=\"391.5\" y2=\"94\"/></svg>",
+      "figure_alt": "High-frequency model of a common-gate stage: the source node has R_s from the signal source and C_gs to (AC) ground, the device passes its current g_m v_sg to the drain, and the drain node has R_L and C_out (C_gd plus C_db plus load) to ground. The gate is grounded, so no capacitor bridges input and output.",
+      "version": 1
     }
   ]
 }

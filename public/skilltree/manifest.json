@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-18T19:19:17.839062Z",
+  "generated": "2026-11-18T22:17:26.750757Z",
   "skills": {
-    "file": "skills.9ab9be2b.json",
-    "hash": "9ab9be2b"
+    "file": "skills.0a06c7b1.json",
+    "hash": "0a06c7b1"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -360,7 +360,7 @@
       "file": "banks/cauchy-schwarz-inequality.6b855c2d.json"
     },
     "cd-freq": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -368,8 +368,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "cc0f36b0",
-      "file": "banks/cd-freq.cc0f36b0.json"
+      "hash": "790025be",
+      "file": "banks/cd-freq.790025be.json"
     },
     "cd": {
       "version": 3,
@@ -384,7 +384,7 @@
       "file": "banks/cd.28c1596b.json"
     },
     "cg-freq": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -392,8 +392,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8b3d6e92",
-      "file": "banks/cg-freq.8b3d6e92.json"
+      "hash": "1086aa06",
+      "file": "banks/cg-freq.1086aa06.json"
     },
     "cg": {
       "version": 3,
@@ -600,7 +600,7 @@
       "file": "banks/cs-analysis.4efa8059.json"
     },
     "cs-brute": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -608,8 +608,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3ea97701",
-      "file": "banks/cs-brute.3ea97701.json"
+      "hash": "28d26580",
+      "file": "banks/cs-brute.28d26580.json"
     },
     "cs-cap-load": {
       "version": 3,
@@ -1188,7 +1188,7 @@
       "file": "banks/frank-wolfe-conditional-gradient.d193db0f.json"
     },
     "freq-basics": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1196,8 +1196,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "fac9ccac",
-      "file": "banks/freq-basics.fac9ccac.json"
+      "hash": "6b59b416",
+      "file": "banks/freq-basics.6b59b416.json"
     },
     "freq-char": {
       "version": 4,
@@ -1248,7 +1248,7 @@
       "file": "banks/frobenius-schatten-norms.5c78becf.json"
     },
     "ft": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1256,8 +1256,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "08546469",
-      "file": "banks/ft.08546469.json"
+      "hash": "2cf8f802",
+      "file": "banks/ft.2cf8f802.json"
     },
     "fund-limits": {
       "version": 1,
@@ -2028,7 +2028,7 @@
       "file": "banks/matrix-calculus-gradients.5b5a8555.json"
     },
     "miller": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2036,8 +2036,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f640c2ea",
-      "file": "banks/miller.f640c2ea.json"
+      "hash": "8ffe2e48",
+      "file": "banks/miller.8ffe2e48.json"
     },
     "mim-cap": {
       "version": 3,
@@ -2340,7 +2340,7 @@
       "file": "banks/observer.b34b47cf.json"
     },
     "octc": {
-      "version": 4,
+      "version": 5,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2348,8 +2348,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "fd5262a2",
-      "file": "banks/octc.fd5262a2.json"
+      "hash": "479be7e7",
+      "file": "banks/octc.479be7e7.json"
     },
     "ode-model": {
       "version": 2,

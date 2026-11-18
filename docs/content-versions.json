@@ -13159,6 +13159,454 @@
       "version": 1
     },
     {
+      "id": "freq-basics-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "freq-basics-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-basics-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-basics#explainer",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "cs-brute-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "cs-brute-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "cs-brute-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "cs-brute#explainer",
+      "version": 1
+    },
+    {
+      "id": "miller-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "miller-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "miller-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "miller-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "miller-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "miller-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "miller-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "miller-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "miller-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "miller-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "miller-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "miller-r4-q3",
+      "version": 2
+    },
+    {
+      "id": "miller-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "miller-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "miller-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "miller#explainer",
+      "version": 1
+    },
+    {
+      "id": "cd-freq-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "cd-freq-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "cd-freq-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "cd-freq-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "cd-freq-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "cd-freq-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "cd-freq-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "cd-freq-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "cd-freq-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "cd-freq-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "cd-freq-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "cd-freq-r4-q3",
+      "version": 2
+    },
+    {
+      "id": "cd-freq-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "cd-freq-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "cd-freq-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "cd-freq#explainer",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "cg-freq-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "cg-freq-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "cg-freq#explainer",
+      "version": 1
+    },
+    {
+      "id": "ft-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "ft-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "ft-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "ft-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "ft-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "ft-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "ft-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "ft-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "ft-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "ft-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "ft-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "ft-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "ft-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "ft-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "ft-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "ft#explainer",
+      "version": 1
+    },
+    {
+      "id": "octc-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "octc-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "octc-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "octc-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "octc-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "octc-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "octc-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "octc-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "octc-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "octc-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "octc-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "octc-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "octc-r1-q1",
+      "version": 3
+    },
+    {
+      "id": "octc-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "octc-r3-q2",
+      "version": 2
+    },
+    {
+      "id": "octc#explainer",
+      "version": 1
+    },
+    {
       "id": "tf-r1-q4",
       "version": 1
     },
