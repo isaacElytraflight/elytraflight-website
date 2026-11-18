@@ -620,6 +620,29 @@ Items above version 1:
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## SG-063 EE 105 current mirrors and biasing — sg063-ee105-ch13
+
+Box: EE 105 (ee105-ucb), Current Mirrors and Biasing.
+
+Skills: `high-load`, `diode-conn`, `mirror`, `degeneration`, `cascode-src`, `ref-gen`.
+
+Items above version 1:
+
+- `high-load-r1-q3` version 2
+- `high-load-r3-q2` version 2
+- `diode-conn-r1-q1` version 2
+- `mirror-r1-q1` version 2
+- `mirror-r2-q2` version 2
+- `mirror-r2-q3` version 2
+- `degeneration-r2-q1` version 2
+- `cascode-src-r1-q1` version 2
+- `cascode-src-r2-q1` version 2
+- `cascode-src-r1-q3` version 2
+- `cascode-src#explainer` version 2
+- `ref-gen-r1-q1` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## SG-063 EE 105 AC circuits — sg063-ee105-ch2
 
 Box: EE 105 (ee105-ucb), AC Circuits and AC Analysis.

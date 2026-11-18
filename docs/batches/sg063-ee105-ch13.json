@@ -1,0 +1,26 @@
+{
+  "id": "sg063-ee105-ch13",
+  "label": "SG-063 EE 105 current mirrors and biasing",
+  "box": "EE 105 (ee105-ucb), Current Mirrors and Biasing",
+  "skills": [
+    "high-load",
+    "diode-conn",
+    "mirror",
+    "degeneration",
+    "cascode-src",
+    "ref-gen"
+  ],
+  "areas": {
+    "high-load": ["physical-models"],
+    "diode-conn": ["physical-models"],
+    "mirror": ["physical-models"],
+    "degeneration": ["physical-models"],
+    "cascode-src": ["physical-models"],
+    "ref-gen": ["physical-models"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch13.py"
+}

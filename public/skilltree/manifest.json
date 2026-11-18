@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-18T19:01:08.600581Z",
+  "generated": "2026-11-18T19:19:17.839062Z",
   "skills": {
-    "file": "skills.15c9b551.json",
-    "hash": "15c9b551"
+    "file": "skills.9ab9be2b.json",
+    "hash": "9ab9be2b"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -336,7 +336,7 @@
       "file": "banks/cascode-bias.89fd8505.json"
     },
     "cascode-src": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -344,8 +344,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b1048f6b",
-      "file": "banks/cascode-src.b1048f6b.json"
+      "hash": "61c9147c",
+      "file": "banks/cascode-src.61c9147c.json"
     },
     "cauchy-schwarz-inequality": {
       "version": 1,
@@ -684,7 +684,7 @@
       "file": "banks/datasheet.441e7fe7.json"
     },
     "degeneration": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -692,8 +692,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "410f8861",
-      "file": "banks/degeneration.410f8861.json"
+      "hash": "31ae749b",
+      "file": "banks/degeneration.31ae749b.json"
     },
     "depl-approx": {
       "version": 3,
@@ -792,7 +792,7 @@
       "file": "banks/diffusion.44088021.json"
     },
     "diode-conn": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -800,8 +800,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "cdc8501e",
-      "file": "banks/diode-conn.cdc8501e.json"
+      "hash": "c5690fe7",
+      "file": "banks/diode-conn.c5690fe7.json"
     },
     "diode-iv": {
       "version": 3,
@@ -1488,7 +1488,7 @@
       "file": "banks/hessian-vector-products-ad.6611b9ba.json"
     },
     "high-load": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1496,8 +1496,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "6ca13740",
-      "file": "banks/high-load.6ca13740.json"
+      "hash": "d6d91d4b",
+      "file": "banks/high-load.d6d91d4b.json"
     },
     "ic-fab": {
       "version": 3,
@@ -2088,7 +2088,7 @@
       "file": "banks/mirror-load.fa0670ae.json"
     },
     "mirror": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2096,8 +2096,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "7624d645",
-      "file": "banks/mirror.7624d645.json"
+      "hash": "e8514a8a",
+      "file": "banks/mirror.e8514a8a.json"
     },
     "model-method": {
       "version": 1,
@@ -2712,7 +2712,7 @@
       "file": "banks/realization.fb990bbf.json"
     },
     "ref-gen": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2720,8 +2720,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "02347482",
-      "file": "banks/ref-gen.02347482.json"
+      "hash": "1c6b28f4",
+      "file": "banks/ref-gen.1c6b28f4.json"
     },
     "rev-bias": {
       "version": 3,
