@@ -461,7 +461,13 @@ async function newPage(seed, opts = {}) {
     window.__oauthCalls = [];
     window.__supabaseMock = {
       auth: {
-        getSession: async () => ({ data: { session } }),
+        getSession: async () => {
+          if (window.__holdSession) {
+            window.__sessionHeld = true;
+            await window.__holdSession;
+          }
+          return { data: { session } };
+        },
         signInWithOtp: async () => ({ error: null }),
         signInWithOAuth: async (opts) => { window.__oauthCalls.push(opts); return { error: null }; },
         signOut: async () => ({}),
@@ -3986,6 +3992,137 @@ async function test(name, fn) {
     assert.strictEqual(await p.evaluate(() => window.__xss || null), null);
     assert(/this device/i.test(await p.$eval('#profileNote', e => e.textContent)));
     await p._ctx.close();
+  });
+
+  await test('sign-in and profile buttons reuse the ready pulse after auth settles', async () => {
+    const session = {
+      access_token: 'user-access-token',
+      user: {
+        id: '11111111-1111-4111-8111-111111111111',
+        email: 'ada@example.com',
+        created_at: '2024-05-02T00:00:00.000Z'
+      }
+    };
+    const p = await newPage(null, { profileMode: 'ready' });
+    await p.evaluateOnNewDocument(() => {
+      if (window.name === 'auth-held') return;
+      window.name = 'auth-held';
+      window.__holdSession = new Promise(resolve => { window.__releaseSession = resolve; });
+    });
+    await p.reload({ waitUntil: 'networkidle0', timeout: 30000 });
+    await p.waitForFunction(() => window.__sessionHeld === true);
+    const before = await p.evaluate(() => ({
+      resolved: !!(window.SkillgroveAuth && window.SkillgroveAuth.authResolved()),
+      signIn: !!document.getElementById('btnSignIn'),
+      profileReady: document.getElementById('btnProfile').classList.contains('ready')
+    }));
+    assert.strictEqual(before.resolved, false, 'auth is still waiting on the session');
+    assert.strictEqual(before.signIn, false, 'Sign in is not shown before auth settles');
+    assert.strictEqual(before.profileReady, false, 'Profile does not pulse before auth settles');
+    await p.evaluate(() => window.__releaseSession());
+    await p.waitForSelector('#btnSignIn.ready');
+    const signedOut = await p.evaluate(() => {
+      const btn = document.getElementById('btnSignIn');
+      const tile = document.querySelector('#world .tile.ready');
+      const btnCss = getComputedStyle(btn);
+      return {
+        label: btn.textContent.trim(),
+        profileReady: document.getElementById('btnProfile').classList.contains('ready'),
+        animation: btnCss.animationName,
+        tileAnimation: tile ? getComputedStyle(tile).animationName : '',
+        borderStyle: btnCss.borderStyle
+      };
+    });
+    assert.strictEqual(signedOut.label, 'Sign in');
+    assert.strictEqual(signedOut.profileReady, false);
+    assert.strictEqual(signedOut.animation, 'glow');
+    assert.strictEqual(signedOut.animation, signedOut.tileAnimation);
+    assert.strictEqual(signedOut.borderStyle, 'dashed');
+
+    await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
+    await p.reload({ waitUntil: 'networkidle0', timeout: 30000 });
+    await p.waitForSelector('#btnSignIn.ready');
+    const reduced = await p.evaluate(() => {
+      const css = getComputedStyle(document.getElementById('btnSignIn'));
+      return { animation: css.animationName, shadow: css.boxShadow, borderStyle: css.borderStyle };
+    });
+    assert.strictEqual(reduced.animation, 'none', reduced.animation);
+    assert.strictEqual(reduced.borderStyle, 'dashed');
+    assert(/3px/.test(reduced.shadow), reduced.shadow);
+    await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'no-preference' }]);
+    assert.strictEqual(await p.evaluate(() => getComputedStyle(document.getElementById('btnSignIn')).animationName), 'glow');
+
+    p._holdOwnProfile = true;
+    p._heldOwnProfiles = [];
+    await p.evaluate(next => {
+      const listeners = window.__authListeners || [];
+      if (!listeners.length) throw new Error('auth listener missing');
+      listeners.forEach(cb => cb('SIGNED_IN', next));
+    }, session);
+    const heldUntil = Date.now() + 10000;
+    while (Date.now() < heldUntil && !(p._heldOwnProfiles && p._heldOwnProfiles.length)) await sleep(20);
+    assert(p._heldOwnProfiles.length > 0, 'profile lookup stays in flight');
+    const mid = await p.evaluate(() => ({
+      signIn: !!document.getElementById('btnSignIn'),
+      profileReady: document.getElementById('btnProfile').classList.contains('ready')
+    }));
+    assert.strictEqual(mid.signIn, false, 'signing in removes the Sign in pulse');
+    assert.strictEqual(mid.profileReady, false, 'Profile does not pulse while its lookup is in flight');
+    p._holdOwnProfile = false;
+    p._heldOwnProfiles.splice(0).forEach(fn => fn());
+    await p.waitForSelector('#btnProfile.ready');
+    assert.strictEqual(await p.evaluate(() => getComputedStyle(document.getElementById('btnProfile')).animationName), 'glow');
+    await p._ctx.close();
+
+    const open = await newPage(null, { session, profileMode: 'ready' });
+    await open.waitForSelector('#btnProfile.ready');
+    assert.strictEqual(await open.$('#btnSignIn'), null);
+    await openOwnProfile(open);
+    await open.waitForFunction(() => {
+      const save = document.getElementById('profileSave');
+      return save && !save.disabled;
+    });
+    await open.type('#profileUsername', 'pulse_ada');
+    await open.click('#profileSave');
+    await open.waitForFunction(() => !document.getElementById('btnProfile').classList.contains('ready'));
+    assert(/saved/i.test(await open.$eval('#profileNote', e => e.textContent)));
+    await open._ctx.close();
+
+    const owned = await newPage(null, {
+      session,
+      profileMode: 'ready',
+      profiles: [{
+        user_id: session.user.id,
+        username: 'ada',
+        bio: 'Hello',
+        is_public: true,
+        created_at: '2024-06-01T00:00:00.000Z',
+        skills_completed: 1
+      }]
+    });
+    await owned.evaluateOnNewDocument(() => {
+      window.__profilePulsed = false;
+      const arm = () => {
+        const btn = document.getElementById('btnProfile');
+        if (!btn) return;
+        const mark = () => { if (btn.classList.contains('ready')) window.__profilePulsed = true; };
+        mark();
+        new MutationObserver(mark).observe(btn, { attributes: true, attributeFilter: ['class'] });
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', arm);
+      else arm();
+    });
+    const callsBeforeReload = owned._profileCalls.length;
+    await owned.reload({ waitUntil: 'networkidle0', timeout: 30000 });
+    const ownProfileFetched = () => owned._profileCalls.slice(callsBeforeReload).some(c => c.method === 'GET' && c.url.includes('/rest/v1/profiles'));
+    const ownUntil = Date.now() + 10000;
+    while (Date.now() < ownUntil && !ownProfileFetched()) await sleep(20);
+    assert(ownProfileFetched(), 'own profile was fetched');
+    await sleep(150);
+    assert.strictEqual(await owned.evaluate(() => window.__profilePulsed), false);
+    assert.strictEqual(await owned.$eval('#btnProfile', e => e.classList.contains('ready')), false);
+    assert.strictEqual(await owned.$('#btnSignIn'), null);
+    await owned._ctx.close();
   });
 
   await test('a username saved while signed out is still there after sign-in', async () => {

@@ -10,6 +10,8 @@ const TIMING_KEY = 'skilltree.timing.v1';
 let supabase = null;
 let currentUser = null;
 let syncStatus = 'signed_out';
+let authResolved = false;
+let authEventSeen = 0;
 let syncDebounceTimer = null;
 const SYNC_DEBOUNCE_MS = 2000;
 
@@ -322,30 +324,34 @@ async function initAuth() {
     console.warn('Supabase not available — auth disabled');
     return;
   }
-  
-  try {
-    const { data: { session } } = await sb.auth.getSession();
-    if (session?.user) {
-      currentUser = session.user;
-      updateAuthUI();
-      await syncOnSignIn();
-    } else {
-      updateAuthUI();
-    }
-  } catch (e) {
-    console.error('Auth init error:', e);
-    updateAuthUI();
-  }
-  
+
+  // Subscribe before getSession so a session that arrives while the first
+  // read is in flight is kept, and the signed-out chrome is not painted first.
   sb.auth.onAuthStateChange(async (event, session) => {
+    authEventSeen++;
     const wasSignedIn = !!currentUser;
     currentUser = session?.user || null;
+    if (!authResolved) return;
     updateAuthUI();
-    
-    if (currentUser && !wasSignedIn) {
-      await syncOnSignIn();
-    }
+    if (currentUser && !wasSignedIn) await syncOnSignIn();
   });
+
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const fromSession = session?.user || null;
+    if (authEventSeen === 0) currentUser = fromSession;
+    else if (fromSession && !currentUser) currentUser = fromSession;
+    const signedIn = !!currentUser;
+    authResolved = true;
+    updateAuthUI();
+    if (signedIn) await syncOnSignIn();
+  } catch (e) {
+    console.error('Auth init error:', e);
+    const signedIn = !!currentUser;
+    authResolved = true;
+    updateAuthUI();
+    if (signedIn) await syncOnSignIn();
+  }
   
   window.addEventListener('online', () => {
     if (currentUser && (syncStatus === 'offline' || syncStatus === 'error')) {
@@ -374,6 +380,7 @@ window.SkillgroveAuth = {
   signOut,
   client: getSupabase,
   getUser: () => currentUser,
+  authResolved: () => authResolved,
   getSyncStatus: () => syncStatus,
   mergeProgress,
   mergeTiming,

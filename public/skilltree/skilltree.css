@@ -320,6 +320,15 @@ figure.qfig.small svg{max-height:200px}
 /* Auth & Sync UI */
 .auth-ui{display:flex;align-items:center;gap:10px}
 .auth-ui .btn{font-size:13px;padding:6px 14px}
+/* Same pulse as a ready skill (.ready / glow). The variables are the accent,
+   because a header button has no chapter color. Reduced motion keeps the
+   static ring the legend swatch already uses. */
+header #btnSignIn.ready,
+header #btnProfile.ready{--c:var(--accent);--cs:rgba(108,92,231,.5)}
+@media (prefers-reduced-motion:reduce){
+  header #btnSignIn.ready,
+  header #btnProfile.ready{box-shadow:0 0 0 3px rgba(108,92,231,.2)}
+}
 .user-email{font-size:12px;font-weight:600;color:var(--ink2);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sync-status{font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px}
 .sync-status.synced{background:#e6f9ef;color:var(--good)}
