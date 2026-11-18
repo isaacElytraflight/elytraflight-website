@@ -643,6 +643,38 @@ Items above version 1:
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## SG-063 EE 105 amplifier frequency response — sg063-ee105-ch14
+
+Box: EE 105 (ee105-ucb), Frequency Response of Amplifiers.
+
+Skills: `freq-basics`, `cs-brute`, `miller`, `cd-freq`, `cg-freq`, `ft`, `octc`.
+
+Items above version 1:
+
+- `freq-basics-r1-q1` version 2
+- `cs-brute-r1-q2` version 2
+- `cs-brute-r1-q1` version 2
+- `miller-r1-q2` version 2
+- `miller-r2-q1` version 2
+- `miller-r2-q2` version 2
+- `miller-r4-q3` version 2
+- `miller-r1-q1` version 2
+- `cd-freq-r1-q2` version 2
+- `cd-freq-r2-q1` version 2
+- `cd-freq-r4-q3` version 2
+- `cd-freq-r1-q1` version 2
+- `cg-freq-r1-q1` version 2
+- `ft-r1-q1` version 2
+- `ft-r1-q3` version 2
+- `octc-r2-q1` version 2
+- `octc-r3-q3` version 2
+- `octc-r4-q1` version 2
+- `octc-r1-q1` version 3
+- `octc-r1-q2` version 2
+- `octc-r3-q2` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## SG-063 EE 105 AC circuits — sg063-ee105-ch2
 
 Box: EE 105 (ee105-ucb), AC Circuits and AC Analysis.

@@ -1,23 +1,20 @@
 {
   "skill_id": "ft",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "ft-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "How is a MOSFET's unity-gain frequency \\(f_T\\) defined?",
-      "options": [
-        "The frequency where a CS amplifier's voltage gain falls to 1",
-        "The \\(-3\\ \\mathrm{dB}\\) frequency of the device with its drain open",
-        "The frequency where the short-circuit current gain \\(|i_{out}/i_{in}|\\), drain AC-shorted, falls to 1",
-        "The frequency where \\(C_{gs}\\) and \\(C_{gd}\\) are equal"
+      "type": "order",
+      "prompt": "Order how the unity-gain frequency \\(f_T\\) of a MOSFET is defined. Each step after the first uses the result of the step before it.",
+      "explanation": "\\(f_T\\) is a current gain with the drain AC-shorted, not the frequency where a common-source voltage gain falls to 1, and not the \\(-3\\ \\mathrm{dB}\\) frequency with the drain open. It is not the frequency where \\(C_{gs}\\) equals \\(C_{gd}\\). Opening the drain would let the load and a Miller factor into the result. Leaving out \\(2\\pi\\) turns the same ratio into radians per second.",
+      "steps": [
+        "Bias the device, and short the drain to AC ground so the measurement has no load.",
+        "With the drain shorted, \\(C_{gd}\\) is another capacitance from the gate to AC ground, and it is not Miller-multiplied.",
+        "Drive the gate with a small-signal current. The short-circuit current gain is \\(g_m\\) over \\(\\omega(C_{gs}+C_{gd})\\), which falls as \\(1/f\\).",
+        "\\(f_T\\) is the frequency where that current gain crosses 1, a property of the device and its bias."
       ],
-      "correct_index": 2,
-      "explanation": "Drive the gate with a current, short the drain to AC ground, and compare currents. Shorting the drain removes any load, so \\(f_T\\) is a property of the device and its bias alone.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 164\" role=\"img\" aria-label=\"f_T test setup: a small-signal current source drives the gate, the drain is held at a fixed DC voltage (AC short), and the drain current i_out is compared with the gate current i_in.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"138\" y1=\"14\" x2=\"162\" y2=\"14\"/><text x=\"150\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><text x=\"28\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">i_in</text><line x1=\"60\" y1=\"74\" x2=\"60\" y2=\"87\"/><line x1=\"60\" y1=\"111\" x2=\"60\" y2=\"124\"/><circle cx=\"60\" cy=\"99\" r=\"12\"/><line x1=\"60\" y1=\"107\" x2=\"60\" y2=\"91\"/><polygon points=\"60,91 62.3,96.5 57.7,96.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"130\"/><line x1=\"51\" y1=\"130\" x2=\"69\" y2=\"130\"/><line x1=\"55\" y1=\"134\" x2=\"65\" y2=\"134\"/><line x1=\"58.5\" y1=\"138\" x2=\"61.5\" y2=\"138\"/><line x1=\"60\" y1=\"74\" x2=\"60\" y2=\"100\"/><line x1=\"60\" y1=\"74\" x2=\"104\" y2=\"74\"/><line x1=\"104\" y1=\"74\" x2=\"104\" y2=\"100\"/><line x1=\"124\" y1=\"84\" x2=\"124\" y2=\"116\"/><line x1=\"104\" y1=\"100\" x2=\"124\" y2=\"100\"/><line x1=\"130\" y1=\"82\" x2=\"130\" y2=\"118\" stroke-width=\"2.4\"/><line x1=\"130\" y1=\"88\" x2=\"150\" y2=\"88\"/><line x1=\"150\" y1=\"88\" x2=\"150\" y2=\"72\"/><line x1=\"130\" y1=\"112\" x2=\"150\" y2=\"112\"/><line x1=\"150\" y1=\"112\" x2=\"150\" y2=\"128\"/><line x1=\"148\" y1=\"112\" x2=\"134\" y2=\"112\"/><polygon points=\"134,112 139.5,109.7 139.5,114.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"104\" y1=\"100\" x2=\"104\" y2=\"100\"/><line x1=\"150\" y1=\"14\" x2=\"150\" y2=\"30\"/><line x1=\"150\" y1=\"30\" x2=\"150\" y2=\"39\"/><line x1=\"150\" y1=\"63\" x2=\"150\" y2=\"72\"/><circle cx=\"150\" cy=\"51\" r=\"12\"/><text x=\"150\" y=\"49\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"150\" y=\"61\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"133\" y=\"55\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_DS</text><line x1=\"150\" y1=\"128\" x2=\"150\" y2=\"140\"/><line x1=\"150\" y1=\"140\" x2=\"150\" y2=\"146\"/><line x1=\"141\" y1=\"146\" x2=\"159\" y2=\"146\"/><line x1=\"145\" y1=\"150\" x2=\"155\" y2=\"150\"/><line x1=\"148.5\" y1=\"154\" x2=\"151.5\" y2=\"154\"/><text x=\"170\" y=\"60\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">i_out</text><line x1=\"164\" y1=\"50\" x2=\"164\" y2=\"66\"/><polygon points=\"164,66 161.3,59.6 166.7,59.6\" fill=\"currentColor\" stroke=\"none\"/></svg>",
-      "figure_alt": "f_T test setup: a small-signal current source drives the gate, the drain is held at a fixed DC voltage (AC short), and the drain current i_out is compared with the gate current i_in.",
-      "version": 2
+      "version": 1,
+      "id": "ft-r1-q4"
     },
     {
       "id": "ft-r1-q2",
@@ -32,21 +29,24 @@
       "figure_alt": "Short-circuit current gain magnitude in dB versus log frequency: it falls at 20 dB per decade and crosses 0 dB at the unity-gain frequency f_T."
     },
     {
-      "id": "ft-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "For a long-channel device, \\(\\omega_T \\approx \\tfrac32\\mu_nV_{ov}/L^2\\). Which change raises \\(f_T\\) the most?",
-      "options": [
-        "Doubling \\(W\\)",
-        "Doubling \\(V_{ov}\\), which quadruples \\(f_T\\)",
-        "Halving \\(C_{ox}\\)",
-        "Halving \\(L\\), which quadruples \\(f_T\\)"
+      "type": "error",
+      "prompt": "A worked solution scales the long-channel unity-gain frequency, overlap ignored. Exactly one step is wrong.",
+      "explanation": "\\(f_T\\) scales as \\(1/L^2\\), so half the length multiplies \\(f_T\\) by four. Doubling the width does not change this long-channel result. Doubling the overdrive doubles \\(f_T\\); it does not quadruple it. Halving \\(C_{ox}\\) does nothing, because the oxide capacitance cancels. A short-channel device in velocity saturation is closer to \\(1/L\\), which is a different rule.",
+      "steps": [
+        "At a fixed overdrive, \\(g_m\\) is proportional to \\(W/L\\) and \\(C_{gs}\\) is proportional to \\(WL\\).",
+        "\\(W\\) cancels in \\(g_m/C_{gs}\\), and so does \\(C_{ox}\\), which sits in both.",
+        "What remains is proportional to \\(\\mu_n V_{ov}/L^2\\), so doubling the overdrive doubles \\(f_T\\).",
+        "Halving \\(L\\) at the same overdrive therefore doubles \\(f_T\\), because the length appears to the first power."
       ],
-      "correct_index": 3,
-      "explanation": "\\(g_m \\propto W/L\\) and \\(C_{gs} \\propto WL\\), so \\(W\\) and \\(C_{ox}\\) cancel and \\(f_T \\propto \\mu V_{ov}/L^2\\). Doubling \\(V_{ov}\\) only doubles it.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 210\" role=\"img\" aria-label=\"Short-circuit current gain magnitude in dB versus log frequency: it falls at 20 dB per decade and crosses 0 dB at the unity-gain frequency f_T.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"50\" y1=\"176\" x2=\"330\" y2=\"176\"/><polygon points=\"330,176 323.6,178.7 323.6,173.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"176\" x2=\"50\" y2=\"16\"/><polygon points=\"50,16 52.7,22.4 47.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"192\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log10 f (Hz)</text><text x=\"54\" y=\"12\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|i_d/i_g| (dB)</text><polyline points=\"50,26 52.2,27.2 54.5,28.5 56.7,29.8 59,31 61.3,32.3 63.5,33.5 65.8,34.8 68,36 70.2,37.2 72.5,38.5 74.7,39.8 77,41 79.3,42.2 81.5,43.5 83.8,44.8 86,46 88.2,47.2 90.5,48.5 92.7,49.7 95,51 97.3,52.2 99.5,53.5 101.8,54.7 104,56 106.2,57.2 108.5,58.5 110.8,59.8 113,61 115.3,62.2 117.5,63.5 119.7,64.8 122,66 124.2,67.2 126.5,68.5 128.7,69.7 131,71 133.3,72.3 135.5,73.5 137.8,74.8 140,76 142.3,77.3 144.5,78.5 146.8,79.8 149,81 151.2,82.2 153.5,83.5 155.8,84.7 158,86 160.2,87.2 162.5,88.5 164.7,89.7 167,91 169.2,92.2 171.5,93.5 173.8,94.8 176,96 178.3,97.3 180.5,98.5 182.8,99.8 185,101 187.2,102.2 189.5,103.5 191.7,104.7 194,106 196.2,107.2 198.5,108.5 200.8,109.8 203,111 205.3,112.3 207.5,113.5 209.8,114.8 212,116 214.3,117.2 216.5,118.5 218.8,119.8 221,121 223.2,122.2 225.5,123.5 227.7,124.7 230,126 232.2,127.2 234.5,128.5 236.7,129.7 239,131 241.3,132.3 243.5,133.5 245.8,134.8 248,136 250.2,137.2 252.5,138.5 254.8,139.8 257,141 259.2,142.2 261.5,143.5 263.8,144.7 266,146 268.3,147.3 270.5,148.5 272.8,149.8 275,151 277.2,152.3 279.5,153.5 281.8,154.8 284,156 286.2,157.2 288.5,158.5 290.8,159.8 293,161 295.2,162.2 297.5,163.5 299.7,164.7 302,166 304.2,167.2 306.5,168.5 308.8,169.8 311,171 313.2,172.2 315.5,173.5 317.8,174.8 320,176\" stroke-width=\"2\"/><line x1=\"50\" y1=\"138.5\" x2=\"320\" y2=\"138.5\" stroke-dasharray=\"4 3\"/><text x=\"46\" y=\"142.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0 dB</text><circle cx=\"252.5\" cy=\"138.5\" r=\"2.6\" fill=\"currentColor\"/><text x=\"258.5\" y=\"132.5\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f_T</text></svg>",
-      "figure_alt": "Short-circuit current gain magnitude in dB versus log frequency: it falls at 20 dB per decade and crosses 0 dB at the unity-gain frequency f_T.",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "\\(f_T\\) scales as \\(1/L^2\\), so halving \\(L\\) multiplies \\(f_T\\) by four. Doubling \\(W\\) does not change it.",
+        "The overdrive is squared, so halving \\(L\\) only doubles \\(f_T\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "ft-r1-q5"
     },
     {
       "id": "ft-r2-q1",
@@ -61,20 +61,35 @@
       "figure_alt": "Short-circuit current gain magnitude in dB versus log frequency: it falls at 20 dB per decade and crosses 0 dB at the unity-gain frequency f_T."
     },
     {
-      "id": "ft-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "At fixed \\(W/L\\), you double a device's bias current. How does \\(f_T\\) change (long-channel, capacitances unchanged)?",
-      "options": [
-        "It rises by \\(\\sqrt2\\), because \\(g_m \\propto \\sqrt{I_D}\\)",
-        "It doubles",
-        "It is unchanged",
-        "It halves"
+      "type": "symbolic",
+      "prompt": "Write \\(f_T\\) in hertz for a MOSFET with the drain AC-shorted. pi is the circle constant. Use gm, Cgs, and Cgd.",
+      "explanation": "\\(f_T = g_m/[2\\pi(C_{gs}+C_{gd})]\\). Both capacitances hang on the gate once the drain is shorted. Dropping \\(2\\pi\\) leaves the radian frequency. Using \\(C_{gs}\\) alone drops \\(C_{gd}\\). \\(g_m(C_{gs}+C_{gd})\\) does not have the dimensions of a frequency. At fixed capacitances, doubling the bias current of a long-channel square-law device raises \\(g_m\\), and therefore \\(f_T\\), by \\(\\sqrt{2}\\), not by 2. Width cancels in the long-channel limit and does not appear here.",
+      "answer": "gm/(2*pi*(Cgs+Cgd))",
+      "variables": [
+        {
+          "name": "gm",
+          "min": 0.0002,
+          "max": 0.02
+        },
+        {
+          "name": "Cgs",
+          "min": 5e-15,
+          "max": 2e-13
+        },
+        {
+          "name": "Cgd",
+          "min": 5e-16,
+          "max": 4e-14
+        }
       ],
-      "correct_index": 0,
-      "explanation": "The gate capacitance is set by geometry, so \\(f_T\\) follows \\(g_m\\). Doubling current at fixed size raises \\(V_{ov}\\) and \\(g_m\\) by \\(\\sqrt2\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 200\" role=\"img\" aria-label=\"MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:320px;width:100%;height:auto\"><line x1=\"144\" y1=\"84\" x2=\"144\" y2=\"116\"/><line x1=\"124\" y1=\"100\" x2=\"144\" y2=\"100\"/><line x1=\"150\" y1=\"82\" x2=\"150\" y2=\"118\" stroke-width=\"2.4\"/><line x1=\"150\" y1=\"88\" x2=\"170\" y2=\"88\"/><line x1=\"170\" y1=\"88\" x2=\"170\" y2=\"72\"/><line x1=\"150\" y1=\"112\" x2=\"170\" y2=\"112\"/><line x1=\"170\" y1=\"112\" x2=\"170\" y2=\"128\"/><line x1=\"168\" y1=\"112\" x2=\"154\" y2=\"112\"/><polygon points=\"154,112 159.5,109.7 159.5,114.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"124\" y1=\"100\" x2=\"60\" y2=\"100\"/><text x=\"52\" y=\"104\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><circle cx=\"110\" cy=\"100\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"40\"/><line x1=\"110\" y1=\"40\" x2=\"135\" y2=\"40\"/><line x1=\"145\" y1=\"40\" x2=\"170\" y2=\"40\"/><line x1=\"135\" y1=\"31\" x2=\"135\" y2=\"49\"/><line x1=\"145\" y1=\"31\" x2=\"145\" y2=\"49\"/><text x=\"140\" y=\"26\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gd</text><line x1=\"170\" y1=\"40\" x2=\"170\" y2=\"72\"/><text x=\"176\" y=\"66\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"170\"/><line x1=\"110\" y1=\"170\" x2=\"135\" y2=\"170\"/><line x1=\"145\" y1=\"170\" x2=\"170\" y2=\"170\"/><line x1=\"135\" y1=\"161\" x2=\"135\" y2=\"179\"/><line x1=\"145\" y1=\"161\" x2=\"145\" y2=\"179\"/><text x=\"140\" y=\"156\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"170\" y1=\"170\" x2=\"170\" y2=\"128\"/><text x=\"176\" y=\"134\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><circle cx=\"170\" cy=\"72\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"72\" x2=\"260\" y2=\"72\"/><line x1=\"260\" y1=\"72\" x2=\"260\" y2=\"89\"/><line x1=\"260\" y1=\"99\" x2=\"260\" y2=\"116\"/><line x1=\"251\" y1=\"89\" x2=\"269\" y2=\"89\"/><line x1=\"251\" y1=\"99\" x2=\"269\" y2=\"99\"/><text x=\"274\" y=\"98\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_db</text><line x1=\"260\" y1=\"116\" x2=\"260\" y2=\"122\"/><line x1=\"251\" y1=\"122\" x2=\"269\" y2=\"122\"/><line x1=\"255\" y1=\"126\" x2=\"265\" y2=\"126\"/><line x1=\"258.5\" y1=\"130\" x2=\"261.5\" y2=\"130\"/><circle cx=\"170\" cy=\"140\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"140\" x2=\"210\" y2=\"140\"/><line x1=\"210\" y1=\"140\" x2=\"210\" y2=\"155\"/><line x1=\"210\" y1=\"165\" x2=\"210\" y2=\"180\"/><line x1=\"201\" y1=\"155\" x2=\"219\" y2=\"155\"/><line x1=\"201\" y1=\"165\" x2=\"219\" y2=\"165\"/><text x=\"224\" y=\"164\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_sb</text><line x1=\"210\" y1=\"180\" x2=\"210\" y2=\"186\"/><line x1=\"201\" y1=\"186\" x2=\"219\" y2=\"186\"/><line x1=\"205\" y1=\"190\" x2=\"215\" y2=\"190\"/><line x1=\"208.5\" y1=\"194\" x2=\"211.5\" y2=\"194\"/></svg>",
-      "figure_alt": "MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground)."
+      "tolerance": 0.001,
+      "alternates": [
+        "gm/(2*pi*Cgs+2*pi*Cgd)",
+        "gm*(2*pi*(Cgs+Cgd))**(-1)"
+      ],
+      "version": 1,
+      "id": "ft-r2-q4"
     },
     {
       "id": "ft-r2-q3",
@@ -180,6 +195,59 @@
       "preview": [
         "cd-freq"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "ft-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "How is a MOSFET's unity-gain frequency \\(f_T\\) defined?",
+      "options": [
+        "The frequency where a CS amplifier's voltage gain falls to 1",
+        "The \\(-3\\ \\mathrm{dB}\\) frequency of the device with its drain open",
+        "The frequency where the short-circuit current gain \\(|i_{out}/i_{in}|\\), drain AC-shorted, falls to 1",
+        "The frequency where \\(C_{gs}\\) and \\(C_{gd}\\) are equal"
+      ],
+      "correct_index": 2,
+      "explanation": "Drive the gate with a current, short the drain to AC ground, and compare currents. Shorting the drain removes any load, so \\(f_T\\) is a property of the device and its bias alone.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 164\" role=\"img\" aria-label=\"f_T test setup: a small-signal current source drives the gate, the drain is held at a fixed DC voltage (AC short), and the drain current i_out is compared with the gate current i_in.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"138\" y1=\"14\" x2=\"162\" y2=\"14\"/><text x=\"150\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><text x=\"28\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">i_in</text><line x1=\"60\" y1=\"74\" x2=\"60\" y2=\"87\"/><line x1=\"60\" y1=\"111\" x2=\"60\" y2=\"124\"/><circle cx=\"60\" cy=\"99\" r=\"12\"/><line x1=\"60\" y1=\"107\" x2=\"60\" y2=\"91\"/><polygon points=\"60,91 62.3,96.5 57.7,96.5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"130\"/><line x1=\"51\" y1=\"130\" x2=\"69\" y2=\"130\"/><line x1=\"55\" y1=\"134\" x2=\"65\" y2=\"134\"/><line x1=\"58.5\" y1=\"138\" x2=\"61.5\" y2=\"138\"/><line x1=\"60\" y1=\"74\" x2=\"60\" y2=\"100\"/><line x1=\"60\" y1=\"74\" x2=\"104\" y2=\"74\"/><line x1=\"104\" y1=\"74\" x2=\"104\" y2=\"100\"/><line x1=\"124\" y1=\"84\" x2=\"124\" y2=\"116\"/><line x1=\"104\" y1=\"100\" x2=\"124\" y2=\"100\"/><line x1=\"130\" y1=\"82\" x2=\"130\" y2=\"118\" stroke-width=\"2.4\"/><line x1=\"130\" y1=\"88\" x2=\"150\" y2=\"88\"/><line x1=\"150\" y1=\"88\" x2=\"150\" y2=\"72\"/><line x1=\"130\" y1=\"112\" x2=\"150\" y2=\"112\"/><line x1=\"150\" y1=\"112\" x2=\"150\" y2=\"128\"/><line x1=\"148\" y1=\"112\" x2=\"134\" y2=\"112\"/><polygon points=\"134,112 139.5,109.7 139.5,114.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"104\" y1=\"100\" x2=\"104\" y2=\"100\"/><line x1=\"150\" y1=\"14\" x2=\"150\" y2=\"30\"/><line x1=\"150\" y1=\"30\" x2=\"150\" y2=\"39\"/><line x1=\"150\" y1=\"63\" x2=\"150\" y2=\"72\"/><circle cx=\"150\" cy=\"51\" r=\"12\"/><text x=\"150\" y=\"49\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"150\" y=\"61\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"133\" y=\"55\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_DS</text><line x1=\"150\" y1=\"128\" x2=\"150\" y2=\"140\"/><line x1=\"150\" y1=\"140\" x2=\"150\" y2=\"146\"/><line x1=\"141\" y1=\"146\" x2=\"159\" y2=\"146\"/><line x1=\"145\" y1=\"150\" x2=\"155\" y2=\"150\"/><line x1=\"148.5\" y1=\"154\" x2=\"151.5\" y2=\"154\"/><text x=\"170\" y=\"60\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">i_out</text><line x1=\"164\" y1=\"50\" x2=\"164\" y2=\"66\"/><polygon points=\"164,66 161.3,59.6 166.7,59.6\" fill=\"currentColor\" stroke=\"none\"/></svg>",
+      "figure_alt": "f_T test setup: a small-signal current source drives the gate, the drain is held at a fixed DC voltage (AC short), and the drain current i_out is compared with the gate current i_in.",
+      "version": 2
+    },
+    {
+      "id": "ft-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For a long-channel device, \\(\\omega_T \\approx \\tfrac32\\mu_nV_{ov}/L^2\\). Which change raises \\(f_T\\) the most?",
+      "options": [
+        "Doubling \\(W\\)",
+        "Doubling \\(V_{ov}\\), which quadruples \\(f_T\\)",
+        "Halving \\(C_{ox}\\)",
+        "Halving \\(L\\), which quadruples \\(f_T\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "\\(g_m \\propto W/L\\) and \\(C_{gs} \\propto WL\\), so \\(W\\) and \\(C_{ox}\\) cancel and \\(f_T \\propto \\mu V_{ov}/L^2\\). Doubling \\(V_{ov}\\) only doubles it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 210\" role=\"img\" aria-label=\"Short-circuit current gain magnitude in dB versus log frequency: it falls at 20 dB per decade and crosses 0 dB at the unity-gain frequency f_T.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:340px;width:100%;height:auto\"><line x1=\"50\" y1=\"176\" x2=\"330\" y2=\"176\"/><polygon points=\"330,176 323.6,178.7 323.6,173.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"176\" x2=\"50\" y2=\"16\"/><polygon points=\"50,16 52.7,22.4 47.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"330\" y=\"192\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log10 f (Hz)</text><text x=\"54\" y=\"12\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|i_d/i_g| (dB)</text><polyline points=\"50,26 52.2,27.2 54.5,28.5 56.7,29.8 59,31 61.3,32.3 63.5,33.5 65.8,34.8 68,36 70.2,37.2 72.5,38.5 74.7,39.8 77,41 79.3,42.2 81.5,43.5 83.8,44.8 86,46 88.2,47.2 90.5,48.5 92.7,49.7 95,51 97.3,52.2 99.5,53.5 101.8,54.7 104,56 106.2,57.2 108.5,58.5 110.8,59.8 113,61 115.3,62.2 117.5,63.5 119.7,64.8 122,66 124.2,67.2 126.5,68.5 128.7,69.7 131,71 133.3,72.3 135.5,73.5 137.8,74.8 140,76 142.3,77.3 144.5,78.5 146.8,79.8 149,81 151.2,82.2 153.5,83.5 155.8,84.7 158,86 160.2,87.2 162.5,88.5 164.7,89.7 167,91 169.2,92.2 171.5,93.5 173.8,94.8 176,96 178.3,97.3 180.5,98.5 182.8,99.8 185,101 187.2,102.2 189.5,103.5 191.7,104.7 194,106 196.2,107.2 198.5,108.5 200.8,109.8 203,111 205.3,112.3 207.5,113.5 209.8,114.8 212,116 214.3,117.2 216.5,118.5 218.8,119.8 221,121 223.2,122.2 225.5,123.5 227.7,124.7 230,126 232.2,127.2 234.5,128.5 236.7,129.7 239,131 241.3,132.3 243.5,133.5 245.8,134.8 248,136 250.2,137.2 252.5,138.5 254.8,139.8 257,141 259.2,142.2 261.5,143.5 263.8,144.7 266,146 268.3,147.3 270.5,148.5 272.8,149.8 275,151 277.2,152.3 279.5,153.5 281.8,154.8 284,156 286.2,157.2 288.5,158.5 290.8,159.8 293,161 295.2,162.2 297.5,163.5 299.7,164.7 302,166 304.2,167.2 306.5,168.5 308.8,169.8 311,171 313.2,172.2 315.5,173.5 317.8,174.8 320,176\" stroke-width=\"2\"/><line x1=\"50\" y1=\"138.5\" x2=\"320\" y2=\"138.5\" stroke-dasharray=\"4 3\"/><text x=\"46\" y=\"142.5\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0 dB</text><circle cx=\"252.5\" cy=\"138.5\" r=\"2.6\" fill=\"currentColor\"/><text x=\"258.5\" y=\"132.5\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f_T</text></svg>",
+      "figure_alt": "Short-circuit current gain magnitude in dB versus log frequency: it falls at 20 dB per decade and crosses 0 dB at the unity-gain frequency f_T.",
+      "version": 2
+    },
+    {
+      "id": "ft-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "At fixed \\(W/L\\), you double a device's bias current. How does \\(f_T\\) change (long-channel, capacitances unchanged)?",
+      "options": [
+        "It rises by \\(\\sqrt2\\), because \\(g_m \\propto \\sqrt{I_D}\\)",
+        "It doubles",
+        "It is unchanged",
+        "It halves"
+      ],
+      "correct_index": 0,
+      "explanation": "The gate capacitance is set by geometry, so \\(f_T\\) follows \\(g_m\\). Doubling current at fixed size raises \\(V_{ov}\\) and \\(g_m\\) by \\(\\sqrt2\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 200\" role=\"img\" aria-label=\"MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:320px;width:100%;height:auto\"><line x1=\"144\" y1=\"84\" x2=\"144\" y2=\"116\"/><line x1=\"124\" y1=\"100\" x2=\"144\" y2=\"100\"/><line x1=\"150\" y1=\"82\" x2=\"150\" y2=\"118\" stroke-width=\"2.4\"/><line x1=\"150\" y1=\"88\" x2=\"170\" y2=\"88\"/><line x1=\"170\" y1=\"88\" x2=\"170\" y2=\"72\"/><line x1=\"150\" y1=\"112\" x2=\"170\" y2=\"112\"/><line x1=\"170\" y1=\"112\" x2=\"170\" y2=\"128\"/><line x1=\"168\" y1=\"112\" x2=\"154\" y2=\"112\"/><polygon points=\"154,112 159.5,109.7 159.5,114.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"124\" y1=\"100\" x2=\"60\" y2=\"100\"/><text x=\"52\" y=\"104\" text-anchor=\"end\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">G</text><circle cx=\"110\" cy=\"100\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"40\"/><line x1=\"110\" y1=\"40\" x2=\"135\" y2=\"40\"/><line x1=\"145\" y1=\"40\" x2=\"170\" y2=\"40\"/><line x1=\"135\" y1=\"31\" x2=\"135\" y2=\"49\"/><line x1=\"145\" y1=\"31\" x2=\"145\" y2=\"49\"/><text x=\"140\" y=\"26\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gd</text><line x1=\"170\" y1=\"40\" x2=\"170\" y2=\"72\"/><text x=\"176\" y=\"66\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">D</text><line x1=\"110\" y1=\"100\" x2=\"110\" y2=\"170\"/><line x1=\"110\" y1=\"170\" x2=\"135\" y2=\"170\"/><line x1=\"145\" y1=\"170\" x2=\"170\" y2=\"170\"/><line x1=\"135\" y1=\"161\" x2=\"135\" y2=\"179\"/><line x1=\"145\" y1=\"161\" x2=\"145\" y2=\"179\"/><text x=\"140\" y=\"156\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C_gs</text><line x1=\"170\" y1=\"170\" x2=\"170\" y2=\"128\"/><text x=\"176\" y=\"134\" text-anchor=\"start\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">S</text><circle cx=\"170\" cy=\"72\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"72\" x2=\"260\" y2=\"72\"/><line x1=\"260\" y1=\"72\" x2=\"260\" y2=\"89\"/><line x1=\"260\" y1=\"99\" x2=\"260\" y2=\"116\"/><line x1=\"251\" y1=\"89\" x2=\"269\" y2=\"89\"/><line x1=\"251\" y1=\"99\" x2=\"269\" y2=\"99\"/><text x=\"274\" y=\"98\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_db</text><line x1=\"260\" y1=\"116\" x2=\"260\" y2=\"122\"/><line x1=\"251\" y1=\"122\" x2=\"269\" y2=\"122\"/><line x1=\"255\" y1=\"126\" x2=\"265\" y2=\"126\"/><line x1=\"258.5\" y1=\"130\" x2=\"261.5\" y2=\"130\"/><circle cx=\"170\" cy=\"140\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"170\" y1=\"140\" x2=\"210\" y2=\"140\"/><line x1=\"210\" y1=\"140\" x2=\"210\" y2=\"155\"/><line x1=\"210\" y1=\"165\" x2=\"210\" y2=\"180\"/><line x1=\"201\" y1=\"155\" x2=\"219\" y2=\"155\"/><line x1=\"201\" y1=\"165\" x2=\"219\" y2=\"165\"/><text x=\"224\" y=\"164\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_sb</text><line x1=\"210\" y1=\"180\" x2=\"210\" y2=\"186\"/><line x1=\"201\" y1=\"186\" x2=\"219\" y2=\"186\"/><line x1=\"205\" y1=\"190\" x2=\"215\" y2=\"190\"/><line x1=\"208.5\" y1=\"194\" x2=\"211.5\" y2=\"194\"/></svg>",
+      "figure_alt": "MOSFET with its four parasitic capacitances: C_gs from gate to source, C_gd from gate to drain, C_db from drain to body (ground) and C_sb from source to body (ground).",
+      "version": 1
     }
   ]
 }

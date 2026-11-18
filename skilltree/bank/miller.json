@@ -1,23 +1,32 @@
 {
   "skill_id": "miller",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "miller-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "An impedance \\(Z_F\\) connects the input and output of an ideal amplifier with gain \\(A\\). Seen from the input, what is it equivalent to?",
-      "options": [
-        "An impedance \\(Z_F(1 - A)\\) from the input to ground",
-        "An impedance \\(Z_F/(1 - A)\\) from the input to ground",
-        "An impedance \\(Z_F\\) from the input to ground",
-        "An impedance \\(AZ_F\\) in series with the input"
+      "type": "symbolic",
+      "prompt": "Write the impedance from the input to ground that replaces a bridging impedance ZF across an amplifier of signed gain A. Use ZF and A.",
+      "explanation": "The input current is \\((v_{in}-Av_{in})/Z_F = v_{in}(1-A)/Z_F\\), so the equivalent impedance is \\(Z_F/(1-A)\\). For a negative gain this is smaller than \\(Z_F\\), and a bridging capacitor therefore looks larger. \\(Z_F(1-A)\\) grows instead of shrinking. \\(AZ_F\\) is not an impedance from the input to ground. \\(Z_F\\) alone forgets the gain. The output-side equivalent is \\(Z_F/(1-1/A)\\), which is a different port.",
+      "answer": "ZF/(1-A)",
+      "variables": [
+        {
+          "name": "ZF",
+          "min": 10.0,
+          "max": 1000000.0
+        },
+        {
+          "name": "A",
+          "min": -40.0,
+          "max": -1.5
+        }
       ],
-      "correct_index": 1,
-      "explanation": "The current is \\(i_{in} = (v_{in} - Av_{in})/Z_F = v_{in}/[Z_F/(1 - A)]\\). For negative \\(A\\) the impedance shrinks.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 430 160\" role=\"img\" aria-label=\"Miller theorem: (a) an amplifier of gain A with an impedance Z_F connected from input to output; (b) the equivalent circuit with Z_F/(1−A) from the input to ground and Z_F/(1−1/A) from the output to ground.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:430px;width:100%;height:auto\"><text x=\"20\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">(a)</text><circle cx=\"40\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"34\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"40\" y1=\"80\" x2=\"80\" y2=\"80\"/><polygon points=\"80,62 80,98 116,80\"/><text x=\"93\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"116\" y1=\"80\" x2=\"160\" y2=\"80\"/><circle cx=\"160\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"166\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"40\" y1=\"80\" x2=\"40\" y2=\"40\"/><line x1=\"40\" y1=\"40\" x2=\"76\" y2=\"40\"/><rect x=\"76\" y=\"30\" width=\"44\" height=\"20\" rx=\"4\"/><text x=\"98\" y=\"44\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F</text><line x1=\"120\" y1=\"40\" x2=\"160\" y2=\"40\"/><line x1=\"160\" y1=\"40\" x2=\"160\" y2=\"80\"/><text x=\"220\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">(b)</text><circle cx=\"250\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"244\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"250\" y1=\"80\" x2=\"300\" y2=\"80\"/><polygon points=\"300,62 300,98 336,80\"/><text x=\"313\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"336\" y1=\"80\" x2=\"390\" y2=\"80\"/><circle cx=\"390\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"386\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"270\" y1=\"80\" x2=\"270\" y2=\"100\"/><rect x=\"238\" y=\"100\" width=\"64\" height=\"20\" rx=\"4\"/><text x=\"270\" y=\"114\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F/(1−A)</text><line x1=\"270\" y1=\"120\" x2=\"270\" y2=\"134\"/><line x1=\"270\" y1=\"134\" x2=\"270\" y2=\"140\"/><line x1=\"261\" y1=\"140\" x2=\"279\" y2=\"140\"/><line x1=\"265\" y1=\"144\" x2=\"275\" y2=\"144\"/><line x1=\"268.5\" y1=\"148\" x2=\"271.5\" y2=\"148\"/><line x1=\"370\" y1=\"80\" x2=\"370\" y2=\"100\"/><rect x=\"332\" y=\"100\" width=\"76\" height=\"20\" rx=\"4\"/><text x=\"370\" y=\"114\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F/(1−1/A)</text><line x1=\"370\" y1=\"120\" x2=\"370\" y2=\"134\"/><line x1=\"370\" y1=\"134\" x2=\"370\" y2=\"140\"/><line x1=\"361\" y1=\"140\" x2=\"379\" y2=\"140\"/><line x1=\"365\" y1=\"144\" x2=\"375\" y2=\"144\"/><line x1=\"368.5\" y1=\"148\" x2=\"371.5\" y2=\"148\"/></svg>",
-      "figure_alt": "Miller theorem: (a) an amplifier of gain A with an impedance Z_F connected from input to output; (b) the equivalent circuit with Z_F/(1−A) from the input to ground and Z_F/(1−1/A) from the output to ground.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "ZF*(1-A)**(-1)",
+        "ZF/(-A+1)"
+      ],
+      "version": 1,
+      "id": "miller-r1-q4"
     },
     {
       "id": "miller-r1-q2",
@@ -33,20 +42,18 @@
       "version": 2
     },
     {
-      "id": "miller-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "Physically, why does an inverting gain multiply a bridging capacitor?",
-      "options": [
-        "The amplifier adds charge to the capacitor's plates",
-        "The capacitor's dielectric constant rises with gain",
-        "The voltage across the capacitor is \\((1 - A)\\) times the input swing, so it draws that much more current",
-        "The output resistance appears in series with it"
+      "type": "order",
+      "prompt": "Order why an inverting gain multiplies a bridging capacitor. Each step after the first uses the result of the step before it.",
+      "explanation": "Capacitor current follows the voltage across the capacitor, and the far terminal moves the other way. The amplifier does not add charge by itself, and the dielectric constant does not change. The output resistance is not what multiplies the capacitor. Using \\(|A|\\) instead of \\(1+|A|\\) drops the original input swing. The same algebra with the low-frequency gain is an estimate, because the bridging element itself changes the gain at high frequency.",
+      "steps": [
+        "When the input moves, the output of an inverting stage moves by the gain \\(A\\), and \\(A\\) is negative.",
+        "The voltage across the bridging capacitor changes by the input move minus that output move.",
+        "The difference is \\((1-A)\\) times the input move, which equals \\((1+|A|)\\) times the input move.",
+        "The capacitor therefore draws \\((1+|A|)\\) times the current it would draw to ground, and the input sees the capacitance \\((1-A)C\\)."
       ],
-      "correct_index": 2,
-      "explanation": "Capacitor current follows the rate of change of the voltage across it; the far terminal moves \\(|A|\\) times as much in the opposite direction.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 430 160\" role=\"img\" aria-label=\"Miller theorem: (a) an amplifier of gain A with an impedance Z_F connected from input to output; (b) the equivalent circuit with Z_F/(1−A) from the input to ground and Z_F/(1−1/A) from the output to ground.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:430px;width:100%;height:auto\"><text x=\"20\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">(a)</text><circle cx=\"40\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"34\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"40\" y1=\"80\" x2=\"80\" y2=\"80\"/><polygon points=\"80,62 80,98 116,80\"/><text x=\"93\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"116\" y1=\"80\" x2=\"160\" y2=\"80\"/><circle cx=\"160\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"166\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"40\" y1=\"80\" x2=\"40\" y2=\"40\"/><line x1=\"40\" y1=\"40\" x2=\"76\" y2=\"40\"/><rect x=\"76\" y=\"30\" width=\"44\" height=\"20\" rx=\"4\"/><text x=\"98\" y=\"44\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F</text><line x1=\"120\" y1=\"40\" x2=\"160\" y2=\"40\"/><line x1=\"160\" y1=\"40\" x2=\"160\" y2=\"80\"/><text x=\"220\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">(b)</text><circle cx=\"250\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"244\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"250\" y1=\"80\" x2=\"300\" y2=\"80\"/><polygon points=\"300,62 300,98 336,80\"/><text x=\"313\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"336\" y1=\"80\" x2=\"390\" y2=\"80\"/><circle cx=\"390\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"386\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"270\" y1=\"80\" x2=\"270\" y2=\"100\"/><rect x=\"238\" y=\"100\" width=\"64\" height=\"20\" rx=\"4\"/><text x=\"270\" y=\"114\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F/(1−A)</text><line x1=\"270\" y1=\"120\" x2=\"270\" y2=\"134\"/><line x1=\"270\" y1=\"134\" x2=\"270\" y2=\"140\"/><line x1=\"261\" y1=\"140\" x2=\"279\" y2=\"140\"/><line x1=\"265\" y1=\"144\" x2=\"275\" y2=\"144\"/><line x1=\"268.5\" y1=\"148\" x2=\"271.5\" y2=\"148\"/><line x1=\"370\" y1=\"80\" x2=\"370\" y2=\"100\"/><rect x=\"332\" y=\"100\" width=\"76\" height=\"20\" rx=\"4\"/><text x=\"370\" y=\"114\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F/(1−1/A)</text><line x1=\"370\" y1=\"120\" x2=\"370\" y2=\"134\"/><line x1=\"370\" y1=\"134\" x2=\"370\" y2=\"140\"/><line x1=\"361\" y1=\"140\" x2=\"379\" y2=\"140\"/><line x1=\"365\" y1=\"144\" x2=\"375\" y2=\"144\"/><line x1=\"368.5\" y1=\"148\" x2=\"371.5\" y2=\"148\"/></svg>",
-      "figure_alt": "Miller theorem: (a) an amplifier of gain A with an impedance Z_F connected from input to output; (b) the equivalent circuit with Z_F/(1−A) from the input to ground and Z_F/(1−1/A) from the output to ground."
+      "version": 1,
+      "id": "miller-r1-q5"
     },
     {
       "id": "miller-r2-q1",
@@ -115,20 +122,24 @@
       "figure_alt": "CS stage after the Miller approximation: the gate node has C_gs and the Miller capacitance C_M = (1 + g_m R_o) C_gd to ground, driven through R_s; the drain has g_m v_gs and R_o, with no capacitor bridging the two nodes."
     },
     {
-      "id": "miller-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Why is the Miller result only an estimate?",
-      "options": [
-        "It uses the low-frequency gain, although \\(Z_F\\) itself changes the gain at high frequency",
-        "Because Miller's theorem is algebraically wrong",
-        "Because it ignores \\(C_{gs}\\)",
-        "Because it only holds for resistors"
+      "type": "error",
+      "prompt": "A worked solution applies Miller's theorem to \\(C_{gd}\\) of an inverting stage whose low-frequency gain is \\(A\\). Exactly one step is wrong.",
+      "explanation": "Adding \\(C_{gs}\\) completes the input capacitance of the estimate. It does not cancel the error in \\(A\\). The theorem is exact only for the true frequency-dependent gain. Using \\(-g_mR_o\\) drops the right-half-plane zero and the interaction with the output pole. The algebra of the theorem is not restricted to resistors: the same factor applies to \\(C_{gd}\\).",
+      "steps": [
+        "The theorem replaces the bridge by an input capacitance \\((1-A)C_{gd}\\).",
+        "That factor uses a gain, and the practical estimate puts in the low-frequency gain \\(-g_mR_o\\).",
+        "The estimate is not exact at high frequency, because the bridging capacitor changes the gain that the theorem assumed.",
+        "The missing piece is only \\(C_{gs}\\). With \\(C_{gs}\\) added, the Miller input pole is exact at every frequency."
       ],
-      "correct_index": 0,
-      "explanation": "The theorem is exact for the true \\(A\\), but that \\(A\\) depends on the bridging capacitor. Taking \\(A \\approx -g_mR_o\\) drops the zero and the output-pole interaction.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 430 160\" role=\"img\" aria-label=\"Miller theorem: (a) an amplifier of gain A with an impedance Z_F connected from input to output; (b) the equivalent circuit with Z_F/(1−A) from the input to ground and Z_F/(1−1/A) from the output to ground.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:430px;width:100%;height:auto\"><text x=\"20\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">(a)</text><circle cx=\"40\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"34\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"40\" y1=\"80\" x2=\"80\" y2=\"80\"/><polygon points=\"80,62 80,98 116,80\"/><text x=\"93\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"116\" y1=\"80\" x2=\"160\" y2=\"80\"/><circle cx=\"160\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"166\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"40\" y1=\"80\" x2=\"40\" y2=\"40\"/><line x1=\"40\" y1=\"40\" x2=\"76\" y2=\"40\"/><rect x=\"76\" y=\"30\" width=\"44\" height=\"20\" rx=\"4\"/><text x=\"98\" y=\"44\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F</text><line x1=\"120\" y1=\"40\" x2=\"160\" y2=\"40\"/><line x1=\"160\" y1=\"40\" x2=\"160\" y2=\"80\"/><text x=\"220\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">(b)</text><circle cx=\"250\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"244\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"250\" y1=\"80\" x2=\"300\" y2=\"80\"/><polygon points=\"300,62 300,98 336,80\"/><text x=\"313\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"336\" y1=\"80\" x2=\"390\" y2=\"80\"/><circle cx=\"390\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"386\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"270\" y1=\"80\" x2=\"270\" y2=\"100\"/><rect x=\"238\" y=\"100\" width=\"64\" height=\"20\" rx=\"4\"/><text x=\"270\" y=\"114\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F/(1−A)</text><line x1=\"270\" y1=\"120\" x2=\"270\" y2=\"134\"/><line x1=\"270\" y1=\"134\" x2=\"270\" y2=\"140\"/><line x1=\"261\" y1=\"140\" x2=\"279\" y2=\"140\"/><line x1=\"265\" y1=\"144\" x2=\"275\" y2=\"144\"/><line x1=\"268.5\" y1=\"148\" x2=\"271.5\" y2=\"148\"/><line x1=\"370\" y1=\"80\" x2=\"370\" y2=\"100\"/><rect x=\"332\" y=\"100\" width=\"76\" height=\"20\" rx=\"4\"/><text x=\"370\" y=\"114\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F/(1−1/A)</text><line x1=\"370\" y1=\"120\" x2=\"370\" y2=\"134\"/><line x1=\"370\" y1=\"134\" x2=\"370\" y2=\"140\"/><line x1=\"361\" y1=\"140\" x2=\"379\" y2=\"140\"/><line x1=\"365\" y1=\"144\" x2=\"375\" y2=\"144\"/><line x1=\"368.5\" y1=\"148\" x2=\"371.5\" y2=\"148\"/></svg>",
-      "figure_alt": "Miller theorem: (a) an amplifier of gain A with an impedance Z_F connected from input to output; (b) the equivalent circuit with Z_F/(1−A) from the input to ground and Z_F/(1−1/A) from the output to ground."
+      "flaw_index": 3,
+      "reasons": [
+        "\\(C_{gs}\\) belongs in the input sum, but the low-frequency gain is still an estimate. The pole is not exact.",
+        "The theorem is algebraically wrong for capacitors, so no added term can make the pole exact."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "miller-r3-q4"
     },
     {
       "id": "miller-r4-q1",
@@ -183,6 +194,59 @@
         "octc"
       ],
       "version": 2
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "miller-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "An impedance \\(Z_F\\) connects the input and output of an ideal amplifier with gain \\(A\\). Seen from the input, what is it equivalent to?",
+      "options": [
+        "An impedance \\(Z_F(1 - A)\\) from the input to ground",
+        "An impedance \\(Z_F/(1 - A)\\) from the input to ground",
+        "An impedance \\(Z_F\\) from the input to ground",
+        "An impedance \\(AZ_F\\) in series with the input"
+      ],
+      "correct_index": 1,
+      "explanation": "The current is \\(i_{in} = (v_{in} - Av_{in})/Z_F = v_{in}/[Z_F/(1 - A)]\\). For negative \\(A\\) the impedance shrinks.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 430 160\" role=\"img\" aria-label=\"Miller theorem: (a) an amplifier of gain A with an impedance Z_F connected from input to output; (b) the equivalent circuit with Z_F/(1−A) from the input to ground and Z_F/(1−1/A) from the output to ground.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:430px;width:100%;height:auto\"><text x=\"20\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">(a)</text><circle cx=\"40\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"34\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"40\" y1=\"80\" x2=\"80\" y2=\"80\"/><polygon points=\"80,62 80,98 116,80\"/><text x=\"93\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"116\" y1=\"80\" x2=\"160\" y2=\"80\"/><circle cx=\"160\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"166\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"40\" y1=\"80\" x2=\"40\" y2=\"40\"/><line x1=\"40\" y1=\"40\" x2=\"76\" y2=\"40\"/><rect x=\"76\" y=\"30\" width=\"44\" height=\"20\" rx=\"4\"/><text x=\"98\" y=\"44\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F</text><line x1=\"120\" y1=\"40\" x2=\"160\" y2=\"40\"/><line x1=\"160\" y1=\"40\" x2=\"160\" y2=\"80\"/><text x=\"220\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">(b)</text><circle cx=\"250\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"244\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"250\" y1=\"80\" x2=\"300\" y2=\"80\"/><polygon points=\"300,62 300,98 336,80\"/><text x=\"313\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"336\" y1=\"80\" x2=\"390\" y2=\"80\"/><circle cx=\"390\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"386\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"270\" y1=\"80\" x2=\"270\" y2=\"100\"/><rect x=\"238\" y=\"100\" width=\"64\" height=\"20\" rx=\"4\"/><text x=\"270\" y=\"114\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F/(1−A)</text><line x1=\"270\" y1=\"120\" x2=\"270\" y2=\"134\"/><line x1=\"270\" y1=\"134\" x2=\"270\" y2=\"140\"/><line x1=\"261\" y1=\"140\" x2=\"279\" y2=\"140\"/><line x1=\"265\" y1=\"144\" x2=\"275\" y2=\"144\"/><line x1=\"268.5\" y1=\"148\" x2=\"271.5\" y2=\"148\"/><line x1=\"370\" y1=\"80\" x2=\"370\" y2=\"100\"/><rect x=\"332\" y=\"100\" width=\"76\" height=\"20\" rx=\"4\"/><text x=\"370\" y=\"114\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F/(1−1/A)</text><line x1=\"370\" y1=\"120\" x2=\"370\" y2=\"134\"/><line x1=\"370\" y1=\"134\" x2=\"370\" y2=\"140\"/><line x1=\"361\" y1=\"140\" x2=\"379\" y2=\"140\"/><line x1=\"365\" y1=\"144\" x2=\"375\" y2=\"144\"/><line x1=\"368.5\" y1=\"148\" x2=\"371.5\" y2=\"148\"/></svg>",
+      "figure_alt": "Miller theorem: (a) an amplifier of gain A with an impedance Z_F connected from input to output; (b) the equivalent circuit with Z_F/(1−A) from the input to ground and Z_F/(1−1/A) from the output to ground.",
+      "version": 2
+    },
+    {
+      "id": "miller-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Physically, why does an inverting gain multiply a bridging capacitor?",
+      "options": [
+        "The amplifier adds charge to the capacitor's plates",
+        "The capacitor's dielectric constant rises with gain",
+        "The voltage across the capacitor is \\((1 - A)\\) times the input swing, so it draws that much more current",
+        "The output resistance appears in series with it"
+      ],
+      "correct_index": 2,
+      "explanation": "Capacitor current follows the rate of change of the voltage across it; the far terminal moves \\(|A|\\) times as much in the opposite direction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 430 160\" role=\"img\" aria-label=\"Miller theorem: (a) an amplifier of gain A with an impedance Z_F connected from input to output; (b) the equivalent circuit with Z_F/(1−A) from the input to ground and Z_F/(1−1/A) from the output to ground.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:430px;width:100%;height:auto\"><text x=\"20\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">(a)</text><circle cx=\"40\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"34\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"40\" y1=\"80\" x2=\"80\" y2=\"80\"/><polygon points=\"80,62 80,98 116,80\"/><text x=\"93\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"116\" y1=\"80\" x2=\"160\" y2=\"80\"/><circle cx=\"160\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"166\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"40\" y1=\"80\" x2=\"40\" y2=\"40\"/><line x1=\"40\" y1=\"40\" x2=\"76\" y2=\"40\"/><rect x=\"76\" y=\"30\" width=\"44\" height=\"20\" rx=\"4\"/><text x=\"98\" y=\"44\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F</text><line x1=\"120\" y1=\"40\" x2=\"160\" y2=\"40\"/><line x1=\"160\" y1=\"40\" x2=\"160\" y2=\"80\"/><text x=\"220\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">(b)</text><circle cx=\"250\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"244\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"250\" y1=\"80\" x2=\"300\" y2=\"80\"/><polygon points=\"300,62 300,98 336,80\"/><text x=\"313\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"336\" y1=\"80\" x2=\"390\" y2=\"80\"/><circle cx=\"390\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"386\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"270\" y1=\"80\" x2=\"270\" y2=\"100\"/><rect x=\"238\" y=\"100\" width=\"64\" height=\"20\" rx=\"4\"/><text x=\"270\" y=\"114\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F/(1−A)</text><line x1=\"270\" y1=\"120\" x2=\"270\" y2=\"134\"/><line x1=\"270\" y1=\"134\" x2=\"270\" y2=\"140\"/><line x1=\"261\" y1=\"140\" x2=\"279\" y2=\"140\"/><line x1=\"265\" y1=\"144\" x2=\"275\" y2=\"144\"/><line x1=\"268.5\" y1=\"148\" x2=\"271.5\" y2=\"148\"/><line x1=\"370\" y1=\"80\" x2=\"370\" y2=\"100\"/><rect x=\"332\" y=\"100\" width=\"76\" height=\"20\" rx=\"4\"/><text x=\"370\" y=\"114\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F/(1−1/A)</text><line x1=\"370\" y1=\"120\" x2=\"370\" y2=\"134\"/><line x1=\"370\" y1=\"134\" x2=\"370\" y2=\"140\"/><line x1=\"361\" y1=\"140\" x2=\"379\" y2=\"140\"/><line x1=\"365\" y1=\"144\" x2=\"375\" y2=\"144\"/><line x1=\"368.5\" y1=\"148\" x2=\"371.5\" y2=\"148\"/></svg>",
+      "figure_alt": "Miller theorem: (a) an amplifier of gain A with an impedance Z_F connected from input to output; (b) the equivalent circuit with Z_F/(1−A) from the input to ground and Z_F/(1−1/A) from the output to ground.",
+      "version": 1
+    },
+    {
+      "id": "miller-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Why is the Miller result only an estimate?",
+      "options": [
+        "It uses the low-frequency gain, although \\(Z_F\\) itself changes the gain at high frequency",
+        "Because Miller's theorem is algebraically wrong",
+        "Because it ignores \\(C_{gs}\\)",
+        "Because it only holds for resistors"
+      ],
+      "correct_index": 0,
+      "explanation": "The theorem is exact for the true \\(A\\), but that \\(A\\) depends on the bridging capacitor. Taking \\(A \\approx -g_mR_o\\) drops the zero and the output-pole interaction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 430 160\" role=\"img\" aria-label=\"Miller theorem: (a) an amplifier of gain A with an impedance Z_F connected from input to output; (b) the equivalent circuit with Z_F/(1−A) from the input to ground and Z_F/(1−1/A) from the output to ground.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:430px;width:100%;height:auto\"><text x=\"20\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">(a)</text><circle cx=\"40\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"34\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"40\" y1=\"80\" x2=\"80\" y2=\"80\"/><polygon points=\"80,62 80,98 116,80\"/><text x=\"93\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"116\" y1=\"80\" x2=\"160\" y2=\"80\"/><circle cx=\"160\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"166\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"40\" y1=\"80\" x2=\"40\" y2=\"40\"/><line x1=\"40\" y1=\"40\" x2=\"76\" y2=\"40\"/><rect x=\"76\" y=\"30\" width=\"44\" height=\"20\" rx=\"4\"/><text x=\"98\" y=\"44\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F</text><line x1=\"120\" y1=\"40\" x2=\"160\" y2=\"40\"/><line x1=\"160\" y1=\"40\" x2=\"160\" y2=\"80\"/><text x=\"220\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">(b)</text><circle cx=\"250\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"244\" y=\"74\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"250\" y1=\"80\" x2=\"300\" y2=\"80\"/><polygon points=\"300,62 300,98 336,80\"/><text x=\"313\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A</text><line x1=\"336\" y1=\"80\" x2=\"390\" y2=\"80\"/><circle cx=\"390\" cy=\"80\" r=\"2.6\" fill=\"currentColor\"/><text x=\"386\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"270\" y1=\"80\" x2=\"270\" y2=\"100\"/><rect x=\"238\" y=\"100\" width=\"64\" height=\"20\" rx=\"4\"/><text x=\"270\" y=\"114\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F/(1−A)</text><line x1=\"270\" y1=\"120\" x2=\"270\" y2=\"134\"/><line x1=\"270\" y1=\"134\" x2=\"270\" y2=\"140\"/><line x1=\"261\" y1=\"140\" x2=\"279\" y2=\"140\"/><line x1=\"265\" y1=\"144\" x2=\"275\" y2=\"144\"/><line x1=\"268.5\" y1=\"148\" x2=\"271.5\" y2=\"148\"/><line x1=\"370\" y1=\"80\" x2=\"370\" y2=\"100\"/><rect x=\"332\" y=\"100\" width=\"76\" height=\"20\" rx=\"4\"/><text x=\"370\" y=\"114\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Z_F/(1−1/A)</text><line x1=\"370\" y1=\"120\" x2=\"370\" y2=\"134\"/><line x1=\"370\" y1=\"134\" x2=\"370\" y2=\"140\"/><line x1=\"361\" y1=\"140\" x2=\"379\" y2=\"140\"/><line x1=\"365\" y1=\"144\" x2=\"375\" y2=\"144\"/><line x1=\"368.5\" y1=\"148\" x2=\"371.5\" y2=\"148\"/></svg>",
+      "figure_alt": "Miller theorem: (a) an amplifier of gain A with an impedance Z_F connected from input to output; (b) the equivalent circuit with Z_F/(1−A) from the input to ground and Z_F/(1−1/A) from the output to ground.",
+      "version": 1
     }
   ]
 }
