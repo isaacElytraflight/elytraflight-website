@@ -322,8 +322,6 @@ async function initAuth() {
   const sb = getSupabase();
   if (!sb) {
     console.warn('Supabase not available — auth disabled');
-    authResolved = true;
-    updateAuthUI();
     return;
   }
 
@@ -349,8 +347,10 @@ async function initAuth() {
     if (signedIn) await syncOnSignIn();
   } catch (e) {
     console.error('Auth init error:', e);
+    const signedIn = !!currentUser;
     authResolved = true;
     updateAuthUI();
+    if (signedIn) await syncOnSignIn();
   }
   
   window.addEventListener('online', () => {
