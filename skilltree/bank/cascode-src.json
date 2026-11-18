@@ -1,6 +1,6 @@
 {
   "skill_id": "cascode-src",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "cascode-src-r1-q1",
@@ -16,37 +16,38 @@
       "version": 2
     },
     {
-      "id": "cascode-src-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "Why does stacking M2 raise the output resistance so much?",
-      "options": [
-        "Because two resistances add in series",
-        "Because M2 doubles the current",
-        "Because M1 enters triode",
-        "M2 holds node X nearly fixed, so M1's current barely changes when the output moves"
+      "type": "order",
+      "prompt": "Order why stacking the cascode device makes the output current almost insensitive to the output voltage. Each step after the first uses the result of the step before it.",
+      "explanation": "The cascode device holds node X nearly still, so the bottom device's current barely changes. The two \\(r_o\\) values do not merely add in series. The cascode device does not double the current, and it does not push the bottom device into triode. The multiplication is about \\(g_m r_o\\), which is why the resistance is about \\(g_m r_o^2\\).",
+      "steps": [
+        "A rise at the output tries to increase the current in the cascode device.",
+        "That extra current can come only through the bottom device, so node X would have to rise across the bottom device's \\(r_o\\).",
+        "The cascode gate is fixed, so a rise at X reduces \\(v_{gs}\\) and the cascode device opposes the current change.",
+        "Node X therefore moves by about the output move divided by \\(g_m r_o\\), and the output current barely changes."
       ],
-      "correct_index": 3,
-      "explanation": "Any output change appears across M2 and is fed back by its \\(g_m\\); X moves by only about \\(1/(g_mr_o)\\) of it.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 232\" role=\"img\" aria-label=\"Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"17\" x2=\"142\" y2=\"17\"/><text x=\"130\" y=\"12\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"17\" x2=\"130\" y2=\"20\"/><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"24\"/><line x1=\"130\" y1=\"48\" x2=\"130\" y2=\"52\"/><circle cx=\"130\" cy=\"36\" r=\"12\"/><line x1=\"130\" y1=\"28\" x2=\"130\" y2=\"44\"/><polygon points=\"130,44 127.7,38.5 132.3,38.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"40\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"52\" x2=\"130\" y2=\"62\"/><circle cx=\"130\" cy=\"62\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"56\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"62\" x2=\"130\" y2=\"70\"/><line x1=\"104\" y1=\"82\" x2=\"104\" y2=\"114\"/><line x1=\"84\" y1=\"98\" x2=\"104\" y2=\"98\"/><line x1=\"110\" y1=\"80\" x2=\"110\" y2=\"116\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"86\" x2=\"130\" y2=\"86\"/><line x1=\"130\" y1=\"86\" x2=\"130\" y2=\"70\"/><line x1=\"110\" y1=\"110\" x2=\"130\" y2=\"110\"/><line x1=\"130\" y1=\"110\" x2=\"130\" y2=\"126\"/><line x1=\"128\" y1=\"110\" x2=\"114\" y2=\"110\"/><polygon points=\"114,110 119.5,107.7 119.5,112.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"102\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M2</text><text x=\"80\" y=\"102\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"126\" x2=\"130\" y2=\"134\"/><circle cx=\"130\" cy=\"134\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"138\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">X</text><line x1=\"130\" y1=\"134\" x2=\"130\" y2=\"142\"/><line x1=\"104\" y1=\"154\" x2=\"104\" y2=\"186\"/><line x1=\"84\" y1=\"170\" x2=\"104\" y2=\"170\"/><line x1=\"110\" y1=\"152\" x2=\"110\" y2=\"188\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"158\" x2=\"130\" y2=\"158\"/><line x1=\"130\" y1=\"158\" x2=\"130\" y2=\"142\"/><line x1=\"110\" y1=\"182\" x2=\"130\" y2=\"182\"/><line x1=\"130\" y1=\"182\" x2=\"130\" y2=\"198\"/><line x1=\"128\" y1=\"182\" x2=\"114\" y2=\"182\"/><polygon points=\"114,182 119.5,179.7 119.5,184.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"174\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M1</text><line x1=\"84\" y1=\"170\" x2=\"60\" y2=\"170\"/><line x1=\"60\" y1=\"170\" x2=\"60\" y2=\"180\"/><line x1=\"60\" y1=\"204\" x2=\"60\" y2=\"214\"/><circle cx=\"60\" cy=\"192\" r=\"12\"/><text x=\"60\" y=\"190\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"202\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"196\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"214\" x2=\"60\" y2=\"220\"/><line x1=\"51\" y1=\"220\" x2=\"69\" y2=\"220\"/><line x1=\"55\" y1=\"224\" x2=\"65\" y2=\"224\"/><line x1=\"58.5\" y1=\"228\" x2=\"61.5\" y2=\"228\"/><line x1=\"130\" y1=\"198\" x2=\"130\" y2=\"206\"/><line x1=\"130\" y1=\"206\" x2=\"130\" y2=\"212\"/><line x1=\"121\" y1=\"212\" x2=\"139\" y2=\"212\"/><line x1=\"125\" y1=\"216\" x2=\"135\" y2=\"216\"/><line x1=\"128.5\" y1=\"220\" x2=\"131.5\" y2=\"220\"/></svg>",
-      "figure_alt": "Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain."
+      "version": 1,
+      "id": "cascode-src-r1-q4"
     },
     {
-      "id": "cascode-src-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "What is the cascode source's main drawback?",
-      "options": [
-        "Headroom: the output needs about two overdrives (more with simple biasing) to keep both devices saturated",
-        "It needs a larger current",
-        "It has lower output resistance",
-        "It cannot be built in CMOS"
+      "type": "error",
+      "prompt": "A worked solution states the lowest output voltage of a cascode current source. Exactly one step is wrong.",
+      "explanation": "The two overdrives add. An ideal gate bias needs about \\(2V_{ov}\\) at the output. A diode-stack bias holds the cascode gate near \\(2V_T+2V_{ov}\\) and needs \\(V_T+2V_{ov}\\). Neither floor is one overdrive, and the cascode is not in triode at that limit. The price of the large output resistance is this extra headroom, not a larger bias current.",
+      "steps": [
+        "Both the bottom device and the cascode device must stay saturated.",
+        "The bottom device needs its drain, node X, at least one overdrive above its source.",
+        "The cascode device needs the output at least one overdrive above node X.",
+        "The second requirement replaces the first, so the output still needs only a single overdrive, the same compliance as one device."
       ],
-      "correct_index": 0,
-      "explanation": "Each stacked device needs its own \\(V_{ov}\\); simple diode-stack biasing wastes another \\(V_T\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 232\" role=\"img\" aria-label=\"Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"17\" x2=\"142\" y2=\"17\"/><text x=\"130\" y=\"12\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"17\" x2=\"130\" y2=\"20\"/><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"24\"/><line x1=\"130\" y1=\"48\" x2=\"130\" y2=\"52\"/><circle cx=\"130\" cy=\"36\" r=\"12\"/><line x1=\"130\" y1=\"28\" x2=\"130\" y2=\"44\"/><polygon points=\"130,44 127.7,38.5 132.3,38.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"40\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"52\" x2=\"130\" y2=\"62\"/><circle cx=\"130\" cy=\"62\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"56\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"62\" x2=\"130\" y2=\"70\"/><line x1=\"104\" y1=\"82\" x2=\"104\" y2=\"114\"/><line x1=\"84\" y1=\"98\" x2=\"104\" y2=\"98\"/><line x1=\"110\" y1=\"80\" x2=\"110\" y2=\"116\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"86\" x2=\"130\" y2=\"86\"/><line x1=\"130\" y1=\"86\" x2=\"130\" y2=\"70\"/><line x1=\"110\" y1=\"110\" x2=\"130\" y2=\"110\"/><line x1=\"130\" y1=\"110\" x2=\"130\" y2=\"126\"/><line x1=\"128\" y1=\"110\" x2=\"114\" y2=\"110\"/><polygon points=\"114,110 119.5,107.7 119.5,112.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"102\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M2</text><text x=\"80\" y=\"102\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"126\" x2=\"130\" y2=\"134\"/><circle cx=\"130\" cy=\"134\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"138\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">X</text><line x1=\"130\" y1=\"134\" x2=\"130\" y2=\"142\"/><line x1=\"104\" y1=\"154\" x2=\"104\" y2=\"186\"/><line x1=\"84\" y1=\"170\" x2=\"104\" y2=\"170\"/><line x1=\"110\" y1=\"152\" x2=\"110\" y2=\"188\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"158\" x2=\"130\" y2=\"158\"/><line x1=\"130\" y1=\"158\" x2=\"130\" y2=\"142\"/><line x1=\"110\" y1=\"182\" x2=\"130\" y2=\"182\"/><line x1=\"130\" y1=\"182\" x2=\"130\" y2=\"198\"/><line x1=\"128\" y1=\"182\" x2=\"114\" y2=\"182\"/><polygon points=\"114,182 119.5,179.7 119.5,184.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"174\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M1</text><line x1=\"84\" y1=\"170\" x2=\"60\" y2=\"170\"/><line x1=\"60\" y1=\"170\" x2=\"60\" y2=\"180\"/><line x1=\"60\" y1=\"204\" x2=\"60\" y2=\"214\"/><circle cx=\"60\" cy=\"192\" r=\"12\"/><text x=\"60\" y=\"190\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"202\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"196\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"214\" x2=\"60\" y2=\"220\"/><line x1=\"51\" y1=\"220\" x2=\"69\" y2=\"220\"/><line x1=\"55\" y1=\"224\" x2=\"65\" y2=\"224\"/><line x1=\"58.5\" y1=\"228\" x2=\"61.5\" y2=\"228\"/><line x1=\"130\" y1=\"198\" x2=\"130\" y2=\"206\"/><line x1=\"130\" y1=\"206\" x2=\"130\" y2=\"212\"/><line x1=\"121\" y1=\"212\" x2=\"139\" y2=\"212\"/><line x1=\"125\" y1=\"216\" x2=\"135\" y2=\"216\"/><line x1=\"128.5\" y1=\"220\" x2=\"131.5\" y2=\"220\"/></svg>",
-      "figure_alt": "Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain.",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "The two overdrives stack. Ideal bias needs about \\(2V_{ov}\\); a diode stack needs \\(V_T+2V_{ov}\\).",
+        "The cascode device is in triode at the compliance limit, so it adds no voltage of its own."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "cascode-src-r1-q5"
     },
     {
       "id": "cascode-src-r2-q1",
@@ -74,20 +75,30 @@
       "figure_alt": "Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain."
     },
     {
-      "id": "cascode-src-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "The cascode output moves by \\(\\Delta V\\). By roughly how much does node X move?",
-      "options": [
-        "\\(\\Delta V\\)",
-        "About \\(\\Delta V/(g_{m2}r_{o2})\\)",
-        "\\(\\Delta V/2\\)",
-        "Zero exactly"
+      "type": "symbolic",
+      "prompt": "Write the factor \\(v_x/v_{out}\\) for a cascode current source, body effect ignored, in the limit where the output resistance is about \\(g_{m2} r_{o2} r_{o1}\\). Use gm2 and ro2.",
+      "explanation": "\\(R_{out} \\approx g_{m2} r_{o2} r_{o1}\\) and the move at node X is the output move times \\(r_{o1}/R_{out}\\), so the factor is \\(1/(g_{m2} r_{o2})\\). It is not 1: node X does not follow the output. It is not \\(1/2\\). It is not zero, because \\(r_{o1}\\) is finite. Adding \\(g_{mb2}\\) replaces \\(g_{m2}\\) by \\(g_{m2}+g_{mb2}\\) and makes the factor slightly smaller. \\(g_{m2} r_{o2}\\) is the reciprocal of this factor.",
+      "answer": "1/(gm2*ro2)",
+      "variables": [
+        {
+          "name": "gm2",
+          "min": 0.0002,
+          "max": 0.02
+        },
+        {
+          "name": "ro2",
+          "min": 10000.0,
+          "max": 200000.0
+        }
       ],
-      "correct_index": 1,
-      "explanation": "X sees \\(r_{o1}\\) against the whole stack, \\(r_{o1}/R_{out} \\approx 1/(g_{m2}r_{o2})\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 232\" role=\"img\" aria-label=\"Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"17\" x2=\"142\" y2=\"17\"/><text x=\"130\" y=\"12\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"17\" x2=\"130\" y2=\"20\"/><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"24\"/><line x1=\"130\" y1=\"48\" x2=\"130\" y2=\"52\"/><circle cx=\"130\" cy=\"36\" r=\"12\"/><line x1=\"130\" y1=\"28\" x2=\"130\" y2=\"44\"/><polygon points=\"130,44 127.7,38.5 132.3,38.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"40\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"52\" x2=\"130\" y2=\"62\"/><circle cx=\"130\" cy=\"62\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"56\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"62\" x2=\"130\" y2=\"70\"/><line x1=\"104\" y1=\"82\" x2=\"104\" y2=\"114\"/><line x1=\"84\" y1=\"98\" x2=\"104\" y2=\"98\"/><line x1=\"110\" y1=\"80\" x2=\"110\" y2=\"116\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"86\" x2=\"130\" y2=\"86\"/><line x1=\"130\" y1=\"86\" x2=\"130\" y2=\"70\"/><line x1=\"110\" y1=\"110\" x2=\"130\" y2=\"110\"/><line x1=\"130\" y1=\"110\" x2=\"130\" y2=\"126\"/><line x1=\"128\" y1=\"110\" x2=\"114\" y2=\"110\"/><polygon points=\"114,110 119.5,107.7 119.5,112.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"102\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M2</text><text x=\"80\" y=\"102\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"126\" x2=\"130\" y2=\"134\"/><circle cx=\"130\" cy=\"134\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"138\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">X</text><line x1=\"130\" y1=\"134\" x2=\"130\" y2=\"142\"/><line x1=\"104\" y1=\"154\" x2=\"104\" y2=\"186\"/><line x1=\"84\" y1=\"170\" x2=\"104\" y2=\"170\"/><line x1=\"110\" y1=\"152\" x2=\"110\" y2=\"188\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"158\" x2=\"130\" y2=\"158\"/><line x1=\"130\" y1=\"158\" x2=\"130\" y2=\"142\"/><line x1=\"110\" y1=\"182\" x2=\"130\" y2=\"182\"/><line x1=\"130\" y1=\"182\" x2=\"130\" y2=\"198\"/><line x1=\"128\" y1=\"182\" x2=\"114\" y2=\"182\"/><polygon points=\"114,182 119.5,179.7 119.5,184.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"174\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M1</text><line x1=\"84\" y1=\"170\" x2=\"60\" y2=\"170\"/><line x1=\"60\" y1=\"170\" x2=\"60\" y2=\"180\"/><line x1=\"60\" y1=\"204\" x2=\"60\" y2=\"214\"/><circle cx=\"60\" cy=\"192\" r=\"12\"/><text x=\"60\" y=\"190\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"202\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"196\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"214\" x2=\"60\" y2=\"220\"/><line x1=\"51\" y1=\"220\" x2=\"69\" y2=\"220\"/><line x1=\"55\" y1=\"224\" x2=\"65\" y2=\"224\"/><line x1=\"58.5\" y1=\"228\" x2=\"61.5\" y2=\"228\"/><line x1=\"130\" y1=\"198\" x2=\"130\" y2=\"206\"/><line x1=\"130\" y1=\"206\" x2=\"130\" y2=\"212\"/><line x1=\"121\" y1=\"212\" x2=\"139\" y2=\"212\"/><line x1=\"125\" y1=\"216\" x2=\"135\" y2=\"216\"/><line x1=\"128.5\" y1=\"220\" x2=\"131.5\" y2=\"220\"/></svg>",
-      "figure_alt": "Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain."
+      "tolerance": 0.001,
+      "alternates": [
+        "(gm2*ro2)**(-1)",
+        "1/gm2/ro2"
+      ],
+      "version": 1,
+      "id": "cascode-src-r2-q4"
     },
     {
       "id": "cascode-src-r3-q1",
@@ -181,6 +192,59 @@
       "preview": [
         "cascode-bias"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "cascode-src-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "The cascode output moves by \\(\\Delta V\\). By roughly how much does node X move?",
+      "options": [
+        "\\(\\Delta V\\)",
+        "About \\(\\Delta V/(g_{m2}r_{o2})\\)",
+        "\\(\\Delta V/2\\)",
+        "Zero exactly"
+      ],
+      "correct_index": 1,
+      "explanation": "X sees \\(r_{o1}\\) against the whole stack, \\(r_{o1}/R_{out} \\approx 1/(g_{m2}r_{o2})\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 232\" role=\"img\" aria-label=\"Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"17\" x2=\"142\" y2=\"17\"/><text x=\"130\" y=\"12\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"17\" x2=\"130\" y2=\"20\"/><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"24\"/><line x1=\"130\" y1=\"48\" x2=\"130\" y2=\"52\"/><circle cx=\"130\" cy=\"36\" r=\"12\"/><line x1=\"130\" y1=\"28\" x2=\"130\" y2=\"44\"/><polygon points=\"130,44 127.7,38.5 132.3,38.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"40\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"52\" x2=\"130\" y2=\"62\"/><circle cx=\"130\" cy=\"62\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"56\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"62\" x2=\"130\" y2=\"70\"/><line x1=\"104\" y1=\"82\" x2=\"104\" y2=\"114\"/><line x1=\"84\" y1=\"98\" x2=\"104\" y2=\"98\"/><line x1=\"110\" y1=\"80\" x2=\"110\" y2=\"116\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"86\" x2=\"130\" y2=\"86\"/><line x1=\"130\" y1=\"86\" x2=\"130\" y2=\"70\"/><line x1=\"110\" y1=\"110\" x2=\"130\" y2=\"110\"/><line x1=\"130\" y1=\"110\" x2=\"130\" y2=\"126\"/><line x1=\"128\" y1=\"110\" x2=\"114\" y2=\"110\"/><polygon points=\"114,110 119.5,107.7 119.5,112.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"102\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M2</text><text x=\"80\" y=\"102\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"126\" x2=\"130\" y2=\"134\"/><circle cx=\"130\" cy=\"134\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"138\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">X</text><line x1=\"130\" y1=\"134\" x2=\"130\" y2=\"142\"/><line x1=\"104\" y1=\"154\" x2=\"104\" y2=\"186\"/><line x1=\"84\" y1=\"170\" x2=\"104\" y2=\"170\"/><line x1=\"110\" y1=\"152\" x2=\"110\" y2=\"188\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"158\" x2=\"130\" y2=\"158\"/><line x1=\"130\" y1=\"158\" x2=\"130\" y2=\"142\"/><line x1=\"110\" y1=\"182\" x2=\"130\" y2=\"182\"/><line x1=\"130\" y1=\"182\" x2=\"130\" y2=\"198\"/><line x1=\"128\" y1=\"182\" x2=\"114\" y2=\"182\"/><polygon points=\"114,182 119.5,179.7 119.5,184.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"174\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M1</text><line x1=\"84\" y1=\"170\" x2=\"60\" y2=\"170\"/><line x1=\"60\" y1=\"170\" x2=\"60\" y2=\"180\"/><line x1=\"60\" y1=\"204\" x2=\"60\" y2=\"214\"/><circle cx=\"60\" cy=\"192\" r=\"12\"/><text x=\"60\" y=\"190\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"202\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"196\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"214\" x2=\"60\" y2=\"220\"/><line x1=\"51\" y1=\"220\" x2=\"69\" y2=\"220\"/><line x1=\"55\" y1=\"224\" x2=\"65\" y2=\"224\"/><line x1=\"58.5\" y1=\"228\" x2=\"61.5\" y2=\"228\"/><line x1=\"130\" y1=\"198\" x2=\"130\" y2=\"206\"/><line x1=\"130\" y1=\"206\" x2=\"130\" y2=\"212\"/><line x1=\"121\" y1=\"212\" x2=\"139\" y2=\"212\"/><line x1=\"125\" y1=\"216\" x2=\"135\" y2=\"216\"/><line x1=\"128.5\" y1=\"220\" x2=\"131.5\" y2=\"220\"/></svg>",
+      "figure_alt": "Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain.",
+      "version": 1
+    },
+    {
+      "id": "cascode-src-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Why does stacking M2 raise the output resistance so much?",
+      "options": [
+        "Because two resistances add in series",
+        "Because M2 doubles the current",
+        "Because M1 enters triode",
+        "M2 holds node X nearly fixed, so M1's current barely changes when the output moves"
+      ],
+      "correct_index": 3,
+      "explanation": "Any output change appears across M2 and is fed back by its \\(g_m\\); X moves by only about \\(1/(g_mr_o)\\) of it.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 232\" role=\"img\" aria-label=\"Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"17\" x2=\"142\" y2=\"17\"/><text x=\"130\" y=\"12\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"17\" x2=\"130\" y2=\"20\"/><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"24\"/><line x1=\"130\" y1=\"48\" x2=\"130\" y2=\"52\"/><circle cx=\"130\" cy=\"36\" r=\"12\"/><line x1=\"130\" y1=\"28\" x2=\"130\" y2=\"44\"/><polygon points=\"130,44 127.7,38.5 132.3,38.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"40\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"52\" x2=\"130\" y2=\"62\"/><circle cx=\"130\" cy=\"62\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"56\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"62\" x2=\"130\" y2=\"70\"/><line x1=\"104\" y1=\"82\" x2=\"104\" y2=\"114\"/><line x1=\"84\" y1=\"98\" x2=\"104\" y2=\"98\"/><line x1=\"110\" y1=\"80\" x2=\"110\" y2=\"116\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"86\" x2=\"130\" y2=\"86\"/><line x1=\"130\" y1=\"86\" x2=\"130\" y2=\"70\"/><line x1=\"110\" y1=\"110\" x2=\"130\" y2=\"110\"/><line x1=\"130\" y1=\"110\" x2=\"130\" y2=\"126\"/><line x1=\"128\" y1=\"110\" x2=\"114\" y2=\"110\"/><polygon points=\"114,110 119.5,107.7 119.5,112.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"102\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M2</text><text x=\"80\" y=\"102\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"126\" x2=\"130\" y2=\"134\"/><circle cx=\"130\" cy=\"134\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"138\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">X</text><line x1=\"130\" y1=\"134\" x2=\"130\" y2=\"142\"/><line x1=\"104\" y1=\"154\" x2=\"104\" y2=\"186\"/><line x1=\"84\" y1=\"170\" x2=\"104\" y2=\"170\"/><line x1=\"110\" y1=\"152\" x2=\"110\" y2=\"188\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"158\" x2=\"130\" y2=\"158\"/><line x1=\"130\" y1=\"158\" x2=\"130\" y2=\"142\"/><line x1=\"110\" y1=\"182\" x2=\"130\" y2=\"182\"/><line x1=\"130\" y1=\"182\" x2=\"130\" y2=\"198\"/><line x1=\"128\" y1=\"182\" x2=\"114\" y2=\"182\"/><polygon points=\"114,182 119.5,179.7 119.5,184.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"174\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M1</text><line x1=\"84\" y1=\"170\" x2=\"60\" y2=\"170\"/><line x1=\"60\" y1=\"170\" x2=\"60\" y2=\"180\"/><line x1=\"60\" y1=\"204\" x2=\"60\" y2=\"214\"/><circle cx=\"60\" cy=\"192\" r=\"12\"/><text x=\"60\" y=\"190\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"202\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"196\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"214\" x2=\"60\" y2=\"220\"/><line x1=\"51\" y1=\"220\" x2=\"69\" y2=\"220\"/><line x1=\"55\" y1=\"224\" x2=\"65\" y2=\"224\"/><line x1=\"58.5\" y1=\"228\" x2=\"61.5\" y2=\"228\"/><line x1=\"130\" y1=\"198\" x2=\"130\" y2=\"206\"/><line x1=\"130\" y1=\"206\" x2=\"130\" y2=\"212\"/><line x1=\"121\" y1=\"212\" x2=\"139\" y2=\"212\"/><line x1=\"125\" y1=\"216\" x2=\"135\" y2=\"216\"/><line x1=\"128.5\" y1=\"220\" x2=\"131.5\" y2=\"220\"/></svg>",
+      "figure_alt": "Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain.",
+      "version": 1
+    },
+    {
+      "id": "cascode-src-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What is the cascode source's main drawback?",
+      "options": [
+        "Headroom: the output needs about two overdrives (more with simple biasing) to keep both devices saturated",
+        "It needs a larger current",
+        "It has lower output resistance",
+        "It cannot be built in CMOS"
+      ],
+      "correct_index": 0,
+      "explanation": "Each stacked device needs its own \\(V_{ov}\\); simple diode-stack biasing wastes another \\(V_T\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 232\" role=\"img\" aria-label=\"Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"17\" x2=\"142\" y2=\"17\"/><text x=\"130\" y=\"12\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"17\" x2=\"130\" y2=\"20\"/><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"24\"/><line x1=\"130\" y1=\"48\" x2=\"130\" y2=\"52\"/><circle cx=\"130\" cy=\"36\" r=\"12\"/><line x1=\"130\" y1=\"28\" x2=\"130\" y2=\"44\"/><polygon points=\"130,44 127.7,38.5 132.3,38.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"40\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"130\" y1=\"52\" x2=\"130\" y2=\"62\"/><circle cx=\"130\" cy=\"62\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"56\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"62\" x2=\"130\" y2=\"70\"/><line x1=\"104\" y1=\"82\" x2=\"104\" y2=\"114\"/><line x1=\"84\" y1=\"98\" x2=\"104\" y2=\"98\"/><line x1=\"110\" y1=\"80\" x2=\"110\" y2=\"116\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"86\" x2=\"130\" y2=\"86\"/><line x1=\"130\" y1=\"86\" x2=\"130\" y2=\"70\"/><line x1=\"110\" y1=\"110\" x2=\"130\" y2=\"110\"/><line x1=\"130\" y1=\"110\" x2=\"130\" y2=\"126\"/><line x1=\"128\" y1=\"110\" x2=\"114\" y2=\"110\"/><polygon points=\"114,110 119.5,107.7 119.5,112.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"102\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M2</text><text x=\"80\" y=\"102\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">V_B</text><line x1=\"130\" y1=\"126\" x2=\"130\" y2=\"134\"/><circle cx=\"130\" cy=\"134\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"138\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">X</text><line x1=\"130\" y1=\"134\" x2=\"130\" y2=\"142\"/><line x1=\"104\" y1=\"154\" x2=\"104\" y2=\"186\"/><line x1=\"84\" y1=\"170\" x2=\"104\" y2=\"170\"/><line x1=\"110\" y1=\"152\" x2=\"110\" y2=\"188\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"158\" x2=\"130\" y2=\"158\"/><line x1=\"130\" y1=\"158\" x2=\"130\" y2=\"142\"/><line x1=\"110\" y1=\"182\" x2=\"130\" y2=\"182\"/><line x1=\"130\" y1=\"182\" x2=\"130\" y2=\"198\"/><line x1=\"128\" y1=\"182\" x2=\"114\" y2=\"182\"/><polygon points=\"114,182 119.5,179.7 119.5,184.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"136\" y=\"174\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M1</text><line x1=\"84\" y1=\"170\" x2=\"60\" y2=\"170\"/><line x1=\"60\" y1=\"170\" x2=\"60\" y2=\"180\"/><line x1=\"60\" y1=\"204\" x2=\"60\" y2=\"214\"/><circle cx=\"60\" cy=\"192\" r=\"12\"/><text x=\"60\" y=\"190\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"202\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"196\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"214\" x2=\"60\" y2=\"220\"/><line x1=\"51\" y1=\"220\" x2=\"69\" y2=\"220\"/><line x1=\"55\" y1=\"224\" x2=\"65\" y2=\"224\"/><line x1=\"58.5\" y1=\"228\" x2=\"61.5\" y2=\"228\"/><line x1=\"130\" y1=\"198\" x2=\"130\" y2=\"206\"/><line x1=\"130\" y1=\"206\" x2=\"130\" y2=\"212\"/><line x1=\"121\" y1=\"212\" x2=\"139\" y2=\"212\"/><line x1=\"125\" y1=\"216\" x2=\"135\" y2=\"216\"/><line x1=\"128.5\" y1=\"220\" x2=\"131.5\" y2=\"220\"/></svg>",
+      "figure_alt": "Cascode current source: M1 at the bottom with gate at a fixed bias, M2 stacked on top with gate at V_B; node X between them; the output is M2's drain.",
+      "version": 2
     }
   ]
 }

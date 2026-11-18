@@ -1,23 +1,20 @@
 {
   "skill_id": "diode-conn",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "diode-conn-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "Why is a diode-connected MOSFET always in saturation when it conducts?",
-      "options": [
-        "\\(V_{DS} = V_{GS}\\), which always exceeds \\(V_{GS} - V_T\\)",
-        "Its current is set by a source",
-        "Its drain is at the supply",
-        "Because \\(r_o\\) is large"
+      "type": "order",
+      "prompt": "Order why a diode-connected MOSFET stays in saturation whenever it conducts. Each step after the first uses the result of the step before it.",
+      "explanation": "\\(V_{DS} = V_{GS}\\) is always one threshold above the saturation boundary \\(V_{GS}-V_T\\). The current source that feeds the device does not decide the region, and neither does a large \\(r_o\\). The drain is not required to sit at the supply. A device whose gate is not tied to its drain can leave saturation; this one cannot, while it conducts.",
+      "steps": [
+        "The gate is tied to the drain, so \\(V_{DS}\\) equals \\(V_{GS}\\).",
+        "Saturation requires \\(V_{DS}\\) to be at least \\(V_{GS} - V_T\\).",
+        "With those two voltages equal, the saturation test becomes \\(V_{GS} \\ge V_{GS} - V_T\\), a margin of exactly one threshold.",
+        "Every conducting current therefore keeps the device saturated, and the device cannot sit in triode."
       ],
-      "correct_index": 0,
-      "explanation": "Gate and drain are the same node, so the saturation condition \\(V_{DS} \\ge V_{GS} - V_T\\) reduces to \\(V_T \\ge 0\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 164\" role=\"img\" aria-label=\"Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:240px;width:100%;height:auto\"><line x1=\"108\" y1=\"14\" x2=\"132\" y2=\"14\"/><text x=\"120\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"120\" y1=\"14\" x2=\"120\" y2=\"22\"/><line x1=\"120\" y1=\"46\" x2=\"120\" y2=\"54\"/><circle cx=\"120\" cy=\"34\" r=\"12\"/><line x1=\"120\" y1=\"26\" x2=\"120\" y2=\"42\"/><polygon points=\"120,42 117.7,36.5 122.3,36.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"137\" y=\"38\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"120\" y1=\"54\" x2=\"120\" y2=\"74\"/><circle cx=\"120\" cy=\"64\" r=\"2.6\" fill=\"currentColor\"/><text x=\"128\" y=\"58\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">X</text><line x1=\"94\" y1=\"86\" x2=\"94\" y2=\"118\"/><line x1=\"74\" y1=\"102\" x2=\"94\" y2=\"102\"/><line x1=\"100\" y1=\"84\" x2=\"100\" y2=\"120\" stroke-width=\"2.4\"/><line x1=\"100\" y1=\"90\" x2=\"120\" y2=\"90\"/><line x1=\"120\" y1=\"90\" x2=\"120\" y2=\"74\"/><line x1=\"100\" y1=\"114\" x2=\"120\" y2=\"114\"/><line x1=\"120\" y1=\"114\" x2=\"120\" y2=\"130\"/><line x1=\"118\" y1=\"114\" x2=\"104\" y2=\"114\"/><polygon points=\"104,114 109.5,111.7 109.5,116.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"74\" y1=\"102\" x2=\"60\" y2=\"102\"/><line x1=\"60\" y1=\"102\" x2=\"60\" y2=\"64\"/><line x1=\"60\" y1=\"64\" x2=\"120\" y2=\"64\"/><line x1=\"120\" y1=\"130\" x2=\"120\" y2=\"142\"/><line x1=\"120\" y1=\"142\" x2=\"120\" y2=\"148\"/><line x1=\"111\" y1=\"148\" x2=\"129\" y2=\"148\"/><line x1=\"115\" y1=\"152\" x2=\"125\" y2=\"152\"/><line x1=\"118.5\" y1=\"156\" x2=\"121.5\" y2=\"156\"/></svg>",
-      "figure_alt": "Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded.",
-      "version": 2
+      "version": 1,
+      "id": "diode-conn-r1-q4"
     },
     {
       "id": "diode-conn-r1-q2",
@@ -44,20 +41,24 @@
       "figure_alt": "Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded."
     },
     {
-      "id": "diode-conn-r2-q1",
       "round": 2,
-      "type": "mc",
-      "prompt": "At fixed \\(I_B\\), you make the diode-connected device four times wider. What happens?",
-      "options": [
-        "\\(V_{GS}\\) rises and the impedance doubles",
-        "\\(V_{GS}\\) falls toward \\(V_T\\) and the impedance \\(1/g_m\\) halves",
-        "Nothing; the current is fixed",
-        "The impedance quarters"
+      "type": "error",
+      "prompt": "A worked solution says what four times the width does to a diode-connected device at fixed current. Exactly one step is wrong.",
+      "explanation": "\\(1/g_m\\) halves when \\(g_m\\) doubles. The resistance does not stay put just because the current is fixed, and it does not fall by four. \\(r_o\\) is in parallel and is usually the larger of the two, so it is not the resistance this width change sets. \\(V_{GS}\\) falls toward \\(V_T\\); it does not rise.",
+      "steps": [
+        "At a fixed current, four times the width cuts the overdrive in half, because the overdrive scales as \\(1/\\sqrt{W/L}\\).",
+        "\\(g_m = 2I_B/V_{ov}\\), so half the overdrive doubles \\(g_m\\).",
+        "With channel-length modulation ignored, the small-signal resistance is \\(1/g_m\\).",
+        "The resistance therefore doubles, because \\(g_m\\) doubled."
       ],
-      "correct_index": 1,
-      "explanation": "\\(V_{ov} \\propto 1/\\sqrt{W}\\) at fixed current and \\(g_m = \\sqrt{2\\mu_nC_{ox}(W/L)I_B}\\) doubles, so \\(1/g_m\\) halves.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 164\" role=\"img\" aria-label=\"Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:240px;width:100%;height:auto\"><line x1=\"108\" y1=\"14\" x2=\"132\" y2=\"14\"/><text x=\"120\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"120\" y1=\"14\" x2=\"120\" y2=\"22\"/><line x1=\"120\" y1=\"46\" x2=\"120\" y2=\"54\"/><circle cx=\"120\" cy=\"34\" r=\"12\"/><line x1=\"120\" y1=\"26\" x2=\"120\" y2=\"42\"/><polygon points=\"120,42 117.7,36.5 122.3,36.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"137\" y=\"38\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"120\" y1=\"54\" x2=\"120\" y2=\"74\"/><circle cx=\"120\" cy=\"64\" r=\"2.6\" fill=\"currentColor\"/><text x=\"128\" y=\"58\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">X</text><line x1=\"94\" y1=\"86\" x2=\"94\" y2=\"118\"/><line x1=\"74\" y1=\"102\" x2=\"94\" y2=\"102\"/><line x1=\"100\" y1=\"84\" x2=\"100\" y2=\"120\" stroke-width=\"2.4\"/><line x1=\"100\" y1=\"90\" x2=\"120\" y2=\"90\"/><line x1=\"120\" y1=\"90\" x2=\"120\" y2=\"74\"/><line x1=\"100\" y1=\"114\" x2=\"120\" y2=\"114\"/><line x1=\"120\" y1=\"114\" x2=\"120\" y2=\"130\"/><line x1=\"118\" y1=\"114\" x2=\"104\" y2=\"114\"/><polygon points=\"104,114 109.5,111.7 109.5,116.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"74\" y1=\"102\" x2=\"60\" y2=\"102\"/><line x1=\"60\" y1=\"102\" x2=\"60\" y2=\"64\"/><line x1=\"60\" y1=\"64\" x2=\"120\" y2=\"64\"/><line x1=\"120\" y1=\"130\" x2=\"120\" y2=\"142\"/><line x1=\"120\" y1=\"142\" x2=\"120\" y2=\"148\"/><line x1=\"111\" y1=\"148\" x2=\"129\" y2=\"148\"/><line x1=\"115\" y1=\"152\" x2=\"125\" y2=\"152\"/><line x1=\"118.5\" y1=\"156\" x2=\"121.5\" y2=\"156\"/></svg>",
-      "figure_alt": "Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded."
+      "flaw_index": 3,
+      "reasons": [
+        "Doubling \\(g_m\\) halves \\(1/g_m\\). The resistance does not double with \\(g_m\\).",
+        "The resistance is \\(r_o\\), which does not change when the device is made wider."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "diode-conn-r2-q4"
     },
     {
       "id": "diode-conn-r2-q2",
@@ -100,20 +101,30 @@
       "figure_alt": "NMOS with gate and drain both tied to the supply; its source is node X, biased by current I_B to ground; body grounded."
     },
     {
-      "id": "diode-conn-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "At fixed size, you double the bias current of a diode-connected device. How does its small-signal resistance change?",
-      "options": [
-        "It halves",
-        "It doubles",
-        "It is unchanged",
-        "It falls by a factor of \\(\\sqrt2\\)"
+      "type": "symbolic",
+      "prompt": "Write the small-signal resistance of a diode-connected MOSFET when channel-length modulation and the body effect are ignored. Use kn for \\(\\mu_n C_{ox} W/L\\) and IB for the bias current.",
+      "explanation": "\\(I_B = \\frac{1}{2} k_n V_{ov}^2\\) gives \\(V_{ov} = \\sqrt{2I_B/k_n}\\), and \\(g_m = \\sqrt{2 k_n I_B}\\). The resistance is \\(1/g_m\\). Doubling the current multiplies \\(g_m\\) by \\(\\sqrt{2}\\) and cuts the resistance by \\(\\sqrt{2}\\), not by 2. \\(1/(2 k_n I_B)\\) is not a resistance of this device. \\(\\sqrt{2 k_n I_B}\\) is \\(g_m\\) itself. Including \\(r_o\\) would put that resistance in parallel; it is not this expression.",
+      "answer": "1/sqrt(2*kn*IB)",
+      "variables": [
+        {
+          "name": "kn",
+          "min": 0.0001,
+          "max": 0.02
+        },
+        {
+          "name": "IB",
+          "min": 5e-06,
+          "max": 0.0004
+        }
       ],
-      "correct_index": 3,
-      "explanation": "\\(g_m \\propto \\sqrt{I}\\) at fixed \\(W/L\\), so \\(1/g_m\\) drops by \\(\\sqrt2\\). Halving assumes fixed \\(V_{ov}\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 164\" role=\"img\" aria-label=\"Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:240px;width:100%;height:auto\"><line x1=\"108\" y1=\"14\" x2=\"132\" y2=\"14\"/><text x=\"120\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"120\" y1=\"14\" x2=\"120\" y2=\"22\"/><line x1=\"120\" y1=\"46\" x2=\"120\" y2=\"54\"/><circle cx=\"120\" cy=\"34\" r=\"12\"/><line x1=\"120\" y1=\"26\" x2=\"120\" y2=\"42\"/><polygon points=\"120,42 117.7,36.5 122.3,36.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"137\" y=\"38\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"120\" y1=\"54\" x2=\"120\" y2=\"74\"/><circle cx=\"120\" cy=\"64\" r=\"2.6\" fill=\"currentColor\"/><text x=\"128\" y=\"58\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">X</text><line x1=\"94\" y1=\"86\" x2=\"94\" y2=\"118\"/><line x1=\"74\" y1=\"102\" x2=\"94\" y2=\"102\"/><line x1=\"100\" y1=\"84\" x2=\"100\" y2=\"120\" stroke-width=\"2.4\"/><line x1=\"100\" y1=\"90\" x2=\"120\" y2=\"90\"/><line x1=\"120\" y1=\"90\" x2=\"120\" y2=\"74\"/><line x1=\"100\" y1=\"114\" x2=\"120\" y2=\"114\"/><line x1=\"120\" y1=\"114\" x2=\"120\" y2=\"130\"/><line x1=\"118\" y1=\"114\" x2=\"104\" y2=\"114\"/><polygon points=\"104,114 109.5,111.7 109.5,116.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"74\" y1=\"102\" x2=\"60\" y2=\"102\"/><line x1=\"60\" y1=\"102\" x2=\"60\" y2=\"64\"/><line x1=\"60\" y1=\"64\" x2=\"120\" y2=\"64\"/><line x1=\"120\" y1=\"130\" x2=\"120\" y2=\"142\"/><line x1=\"120\" y1=\"142\" x2=\"120\" y2=\"148\"/><line x1=\"111\" y1=\"148\" x2=\"129\" y2=\"148\"/><line x1=\"115\" y1=\"152\" x2=\"125\" y2=\"152\"/><line x1=\"118.5\" y1=\"156\" x2=\"121.5\" y2=\"156\"/></svg>",
-      "figure_alt": "Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded."
+      "tolerance": 0.001,
+      "alternates": [
+        "1/sqrt(2*IB*kn)",
+        "(2*kn*IB)**(-1/2)"
+      ],
+      "version": 1,
+      "id": "diode-conn-r3-q4"
     },
     {
       "id": "diode-conn-r3-q3",
@@ -179,6 +190,59 @@
       "preview": [
         "cascode-src"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "diode-conn-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "At fixed size, you double the bias current of a diode-connected device. How does its small-signal resistance change?",
+      "options": [
+        "It halves",
+        "It doubles",
+        "It is unchanged",
+        "It falls by a factor of \\(\\sqrt2\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "\\(g_m \\propto \\sqrt{I}\\) at fixed \\(W/L\\), so \\(1/g_m\\) drops by \\(\\sqrt2\\). Halving assumes fixed \\(V_{ov}\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 164\" role=\"img\" aria-label=\"Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:240px;width:100%;height:auto\"><line x1=\"108\" y1=\"14\" x2=\"132\" y2=\"14\"/><text x=\"120\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"120\" y1=\"14\" x2=\"120\" y2=\"22\"/><line x1=\"120\" y1=\"46\" x2=\"120\" y2=\"54\"/><circle cx=\"120\" cy=\"34\" r=\"12\"/><line x1=\"120\" y1=\"26\" x2=\"120\" y2=\"42\"/><polygon points=\"120,42 117.7,36.5 122.3,36.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"137\" y=\"38\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"120\" y1=\"54\" x2=\"120\" y2=\"74\"/><circle cx=\"120\" cy=\"64\" r=\"2.6\" fill=\"currentColor\"/><text x=\"128\" y=\"58\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">X</text><line x1=\"94\" y1=\"86\" x2=\"94\" y2=\"118\"/><line x1=\"74\" y1=\"102\" x2=\"94\" y2=\"102\"/><line x1=\"100\" y1=\"84\" x2=\"100\" y2=\"120\" stroke-width=\"2.4\"/><line x1=\"100\" y1=\"90\" x2=\"120\" y2=\"90\"/><line x1=\"120\" y1=\"90\" x2=\"120\" y2=\"74\"/><line x1=\"100\" y1=\"114\" x2=\"120\" y2=\"114\"/><line x1=\"120\" y1=\"114\" x2=\"120\" y2=\"130\"/><line x1=\"118\" y1=\"114\" x2=\"104\" y2=\"114\"/><polygon points=\"104,114 109.5,111.7 109.5,116.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"74\" y1=\"102\" x2=\"60\" y2=\"102\"/><line x1=\"60\" y1=\"102\" x2=\"60\" y2=\"64\"/><line x1=\"60\" y1=\"64\" x2=\"120\" y2=\"64\"/><line x1=\"120\" y1=\"130\" x2=\"120\" y2=\"142\"/><line x1=\"120\" y1=\"142\" x2=\"120\" y2=\"148\"/><line x1=\"111\" y1=\"148\" x2=\"129\" y2=\"148\"/><line x1=\"115\" y1=\"152\" x2=\"125\" y2=\"152\"/><line x1=\"118.5\" y1=\"156\" x2=\"121.5\" y2=\"156\"/></svg>",
+      "figure_alt": "Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded.",
+      "version": 1
+    },
+    {
+      "id": "diode-conn-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Why is a diode-connected MOSFET always in saturation when it conducts?",
+      "options": [
+        "\\(V_{DS} = V_{GS}\\), which always exceeds \\(V_{GS} - V_T\\)",
+        "Its current is set by a source",
+        "Its drain is at the supply",
+        "Because \\(r_o\\) is large"
+      ],
+      "correct_index": 0,
+      "explanation": "Gate and drain are the same node, so the saturation condition \\(V_{DS} \\ge V_{GS} - V_T\\) reduces to \\(V_T \\ge 0\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 164\" role=\"img\" aria-label=\"Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:240px;width:100%;height:auto\"><line x1=\"108\" y1=\"14\" x2=\"132\" y2=\"14\"/><text x=\"120\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"120\" y1=\"14\" x2=\"120\" y2=\"22\"/><line x1=\"120\" y1=\"46\" x2=\"120\" y2=\"54\"/><circle cx=\"120\" cy=\"34\" r=\"12\"/><line x1=\"120\" y1=\"26\" x2=\"120\" y2=\"42\"/><polygon points=\"120,42 117.7,36.5 122.3,36.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"137\" y=\"38\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"120\" y1=\"54\" x2=\"120\" y2=\"74\"/><circle cx=\"120\" cy=\"64\" r=\"2.6\" fill=\"currentColor\"/><text x=\"128\" y=\"58\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">X</text><line x1=\"94\" y1=\"86\" x2=\"94\" y2=\"118\"/><line x1=\"74\" y1=\"102\" x2=\"94\" y2=\"102\"/><line x1=\"100\" y1=\"84\" x2=\"100\" y2=\"120\" stroke-width=\"2.4\"/><line x1=\"100\" y1=\"90\" x2=\"120\" y2=\"90\"/><line x1=\"120\" y1=\"90\" x2=\"120\" y2=\"74\"/><line x1=\"100\" y1=\"114\" x2=\"120\" y2=\"114\"/><line x1=\"120\" y1=\"114\" x2=\"120\" y2=\"130\"/><line x1=\"118\" y1=\"114\" x2=\"104\" y2=\"114\"/><polygon points=\"104,114 109.5,111.7 109.5,116.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"74\" y1=\"102\" x2=\"60\" y2=\"102\"/><line x1=\"60\" y1=\"102\" x2=\"60\" y2=\"64\"/><line x1=\"60\" y1=\"64\" x2=\"120\" y2=\"64\"/><line x1=\"120\" y1=\"130\" x2=\"120\" y2=\"142\"/><line x1=\"120\" y1=\"142\" x2=\"120\" y2=\"148\"/><line x1=\"111\" y1=\"148\" x2=\"129\" y2=\"148\"/><line x1=\"115\" y1=\"152\" x2=\"125\" y2=\"152\"/><line x1=\"118.5\" y1=\"156\" x2=\"121.5\" y2=\"156\"/></svg>",
+      "figure_alt": "Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded.",
+      "version": 2
+    },
+    {
+      "id": "diode-conn-r2-q1",
+      "round": 2,
+      "type": "mc",
+      "prompt": "At fixed \\(I_B\\), you make the diode-connected device four times wider. What happens?",
+      "options": [
+        "\\(V_{GS}\\) rises and the impedance doubles",
+        "\\(V_{GS}\\) falls toward \\(V_T\\) and the impedance \\(1/g_m\\) halves",
+        "Nothing; the current is fixed",
+        "The impedance quarters"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(V_{ov} \\propto 1/\\sqrt{W}\\) at fixed current and \\(g_m = \\sqrt{2\\mu_nC_{ox}(W/L)I_B}\\) doubles, so \\(1/g_m\\) halves.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 240 164\" role=\"img\" aria-label=\"Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:240px;width:100%;height:auto\"><line x1=\"108\" y1=\"14\" x2=\"132\" y2=\"14\"/><text x=\"120\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"120\" y1=\"14\" x2=\"120\" y2=\"22\"/><line x1=\"120\" y1=\"46\" x2=\"120\" y2=\"54\"/><circle cx=\"120\" cy=\"34\" r=\"12\"/><line x1=\"120\" y1=\"26\" x2=\"120\" y2=\"42\"/><polygon points=\"120,42 117.7,36.5 122.3,36.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"137\" y=\"38\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">I_B</text><line x1=\"120\" y1=\"54\" x2=\"120\" y2=\"74\"/><circle cx=\"120\" cy=\"64\" r=\"2.6\" fill=\"currentColor\"/><text x=\"128\" y=\"58\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">X</text><line x1=\"94\" y1=\"86\" x2=\"94\" y2=\"118\"/><line x1=\"74\" y1=\"102\" x2=\"94\" y2=\"102\"/><line x1=\"100\" y1=\"84\" x2=\"100\" y2=\"120\" stroke-width=\"2.4\"/><line x1=\"100\" y1=\"90\" x2=\"120\" y2=\"90\"/><line x1=\"120\" y1=\"90\" x2=\"120\" y2=\"74\"/><line x1=\"100\" y1=\"114\" x2=\"120\" y2=\"114\"/><line x1=\"120\" y1=\"114\" x2=\"120\" y2=\"130\"/><line x1=\"118\" y1=\"114\" x2=\"104\" y2=\"114\"/><polygon points=\"104,114 109.5,111.7 109.5,116.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"74\" y1=\"102\" x2=\"60\" y2=\"102\"/><line x1=\"60\" y1=\"102\" x2=\"60\" y2=\"64\"/><line x1=\"60\" y1=\"64\" x2=\"120\" y2=\"64\"/><line x1=\"120\" y1=\"130\" x2=\"120\" y2=\"142\"/><line x1=\"120\" y1=\"142\" x2=\"120\" y2=\"148\"/><line x1=\"111\" y1=\"148\" x2=\"129\" y2=\"148\"/><line x1=\"115\" y1=\"152\" x2=\"125\" y2=\"152\"/><line x1=\"118.5\" y1=\"156\" x2=\"121.5\" y2=\"156\"/></svg>",
+      "figure_alt": "Diode-connected NMOS: gate tied to drain at node X, fed by current I_B from the supply, source grounded.",
+      "version": 1
     }
   ]
 }

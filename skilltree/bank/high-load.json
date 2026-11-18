@@ -1,22 +1,20 @@
 {
   "skill_id": "high-load",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "high-load-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "Why load a CS stage with a current source instead of a resistor?",
-      "options": [
-        "It reduces the bias current",
-        "It gives a large small-signal resistance with only a small DC voltage drop",
-        "It makes the gain independent of \\(g_m\\)",
-        "It removes the need for a supply"
+      "type": "order",
+      "prompt": "Order why a current-source load gives a large common-source gain without a large DC drop. Each step after the first uses the result of the step before it.",
+      "explanation": "The current source separates the DC drop from the small-signal resistance. It does not raise the gain by lowering the bias current, and it does not make the gain independent of \\(g_m\\). The supply is still required. A resistor that matched \\(r_{op}\\) would spend far more voltage at the same current.",
+      "steps": [
+        "A resistor-loaded gain magnitude is about \\(2V_{RD}/V_{ov}\\), so a large gain asks the resistor for a large DC drop.",
+        "That drop comes out of the supply, so a low-voltage supply then has little room left for the signal.",
+        "A current-source load avoids that drop: at DC it needs only about one overdrive, while the signal still sees \\(r_{op}\\).",
+        "The gain magnitude is then \\(g_m(r_{on}\\parallel r_{op})\\), which stays large without spending the supply on the resistor drop."
       ],
-      "correct_index": 1,
-      "explanation": "A resistor large enough for high gain would drop more than the supply; a saturated PMOS needs only \\(|V_{ov}|\\) of headroom.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier: NMOS with load PMOS load to the supply.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><line x1=\"130\" y1=\"34\" x2=\"130\" y2=\"47\"/><line x1=\"130\" y1=\"71\" x2=\"130\" y2=\"84\"/><circle cx=\"130\" cy=\"59\" r=\"12\"/><line x1=\"130\" y1=\"51\" x2=\"130\" y2=\"67\"/><polygon points=\"130,67 127.7,61.5 132.3,61.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">PMOS load</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/></svg>",
-      "figure_alt": "Common-source amplifier: NMOS with load PMOS load to the supply."
+      "version": 1,
+      "id": "high-load-r1-q4"
     },
     {
       "id": "high-load-r1-q2",
@@ -72,20 +70,35 @@
       "figure_alt": "Common-source amplifier: NMOS with load R_D to the supply."
     },
     {
-      "id": "high-load-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "With matched \\(\\lambda\\) and fixed \\(V_{ov}\\), you halve the bias current of a current-source-loaded CS stage. What happens to the gain?",
-      "options": [
-        "It halves",
-        "It doubles",
-        "It falls by \\(\\sqrt2\\)",
-        "Nothing: \\(g_m\\) halves and \\(r_o\\) doubles"
+      "type": "symbolic",
+      "prompt": "Write the magnitude of the gain of a current-source-loaded common-source stage. The gain device has overdrive Vov, and the NMOS and PMOS channel-length parameters are lamn and lamp. Use Vov, lamn, and lamp.",
+      "explanation": "\\(g_m = 2I_D/V_{ov}\\) and \\(r_{on}\\parallel r_{op} = 1/(I_D(\\lambda_n+\\lambda_p))\\), so the current cancels and the magnitude is \\(2/(V_{ov}(\\lambda_n+\\lambda_p))\\). The gain itself is negative. Halving the bias current halves \\(g_m\\) and doubles both output resistances, so this expression does not change. \\(2/(V_{ov}\\lambda_n)\\) drops the load. \\(V_{ov}(\\lambda_n+\\lambda_p)/2\\) inverts the ratio. \\(2V_{ov}/(\\lambda_n+\\lambda_p)\\) puts the overdrive on top, which is not this product of \\(g_m\\) and the parallel resistance.",
+      "answer": "2/(Vov*(lamn+lamp))",
+      "variables": [
+        {
+          "name": "Vov",
+          "min": 0.08,
+          "max": 0.5
+        },
+        {
+          "name": "lamn",
+          "min": 0.02,
+          "max": 0.25
+        },
+        {
+          "name": "lamp",
+          "min": 0.02,
+          "max": 0.3
+        }
       ],
-      "correct_index": 3,
-      "explanation": "\\(|A_v| = 2/[V_{ov}(\\lambda_n + \\lambda_p)]\\) has no current in it. Lower current costs speed, not gain.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier: NMOS with load PMOS load to the supply.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><line x1=\"130\" y1=\"34\" x2=\"130\" y2=\"47\"/><line x1=\"130\" y1=\"71\" x2=\"130\" y2=\"84\"/><circle cx=\"130\" cy=\"59\" r=\"12\"/><line x1=\"130\" y1=\"51\" x2=\"130\" y2=\"67\"/><polygon points=\"130,67 127.7,61.5 132.3,61.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">PMOS load</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/></svg>",
-      "figure_alt": "Common-source amplifier: NMOS with load PMOS load to the supply."
+      "tolerance": 0.001,
+      "alternates": [
+        "2/(Vov*lamn+Vov*lamp)",
+        "2*Vov**(-1)*(lamn+lamp)**(-1)"
+      ],
+      "version": 1,
+      "id": "high-load-r2-q4"
     },
     {
       "id": "high-load-r3-q1",
@@ -100,21 +113,24 @@
       "figure_alt": "Common-source amplifier: NMOS with load PMOS load to the supply."
     },
     {
-      "id": "high-load-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "Why is the DC output voltage of a current-source-loaded CS stage hard to pin down?",
-      "options": [
-        "Two high-impedance current sources fight at one node, so small current mismatches swing the output a lot",
-        "Because the PMOS has no threshold",
-        "Because \\(g_m\\) is too small",
-        "It is not; it always sits at \\(V_{DD}/2\\)"
+      "type": "error",
+      "prompt": "A worked solution says where the DC output of a current-source-loaded common-source stage sits. Exactly one step is wrong.",
+      "explanation": "The voltage that absorbs the mismatch is that current times the large parallel resistance, so a tiny mismatch moves the DC output a long way. Nothing in the two current sources prefers mid-supply. Feedback is what pins the node in a practical circuit. A small \\(g_m\\) is not what sets this DC point, and the PMOS still has a threshold.",
+      "steps": [
+        "The NMOS and the PMOS are both current sources tied to one output node.",
+        "Each device's output resistance is large, so the resistance of the parallel combination is still large.",
+        "A small difference between the two bias currents has to flow through that large resistance.",
+        "The output therefore stays at mid-supply for any mismatch, because two complementary devices always split the supply in half."
       ],
-      "correct_index": 0,
-      "explanation": "A 1% current mismatch across a 40 kΩ node moves the output by volts. In practice feedback sets the bias.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier: NMOS with load PMOS load to the supply.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><line x1=\"130\" y1=\"34\" x2=\"130\" y2=\"47\"/><line x1=\"130\" y1=\"71\" x2=\"130\" y2=\"84\"/><circle cx=\"130\" cy=\"59\" r=\"12\"/><line x1=\"130\" y1=\"51\" x2=\"130\" y2=\"67\"/><polygon points=\"130,67 127.7,61.5 132.3,61.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">PMOS load</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/></svg>",
-      "figure_alt": "Common-source amplifier: NMOS with load PMOS load to the supply.",
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "The mismatch current times the large resistance swings the output, so the DC point is not a supply split.",
+        "The DC output is fixed by \\(g_m\\), and a small \\(g_m\\) holds the node at mid-supply."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "high-load-r3-q4"
     },
     {
       "id": "high-load-r3-q3",
@@ -180,6 +196,59 @@
       "preview": [
         "mirror-load"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "high-load-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "With matched \\(\\lambda\\) and fixed \\(V_{ov}\\), you halve the bias current of a current-source-loaded CS stage. What happens to the gain?",
+      "options": [
+        "It halves",
+        "It doubles",
+        "It falls by \\(\\sqrt2\\)",
+        "Nothing: \\(g_m\\) halves and \\(r_o\\) doubles"
+      ],
+      "correct_index": 3,
+      "explanation": "\\(|A_v| = 2/[V_{ov}(\\lambda_n + \\lambda_p)]\\) has no current in it. Lower current costs speed, not gain.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier: NMOS with load PMOS load to the supply.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><line x1=\"130\" y1=\"34\" x2=\"130\" y2=\"47\"/><line x1=\"130\" y1=\"71\" x2=\"130\" y2=\"84\"/><circle cx=\"130\" cy=\"59\" r=\"12\"/><line x1=\"130\" y1=\"51\" x2=\"130\" y2=\"67\"/><polygon points=\"130,67 127.7,61.5 132.3,61.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">PMOS load</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/></svg>",
+      "figure_alt": "Common-source amplifier: NMOS with load PMOS load to the supply.",
+      "version": 1
+    },
+    {
+      "id": "high-load-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Why load a CS stage with a current source instead of a resistor?",
+      "options": [
+        "It reduces the bias current",
+        "It gives a large small-signal resistance with only a small DC voltage drop",
+        "It makes the gain independent of \\(g_m\\)",
+        "It removes the need for a supply"
+      ],
+      "correct_index": 1,
+      "explanation": "A resistor large enough for high gain would drop more than the supply; a saturated PMOS needs only \\(|V_{ov}|\\) of headroom.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier: NMOS with load PMOS load to the supply.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><line x1=\"130\" y1=\"34\" x2=\"130\" y2=\"47\"/><line x1=\"130\" y1=\"71\" x2=\"130\" y2=\"84\"/><circle cx=\"130\" cy=\"59\" r=\"12\"/><line x1=\"130\" y1=\"51\" x2=\"130\" y2=\"67\"/><polygon points=\"130,67 127.7,61.5 132.3,61.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">PMOS load</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/></svg>",
+      "figure_alt": "Common-source amplifier: NMOS with load PMOS load to the supply.",
+      "version": 1
+    },
+    {
+      "id": "high-load-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Why is the DC output voltage of a current-source-loaded CS stage hard to pin down?",
+      "options": [
+        "Two high-impedance current sources fight at one node, so small current mismatches swing the output a lot",
+        "Because the PMOS has no threshold",
+        "Because \\(g_m\\) is too small",
+        "It is not; it always sits at \\(V_{DD}/2\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "A 1% current mismatch across a 40 kΩ node moves the output by volts. In practice feedback sets the bias.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier: NMOS with load PMOS load to the supply.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><line x1=\"130\" y1=\"34\" x2=\"130\" y2=\"47\"/><line x1=\"130\" y1=\"71\" x2=\"130\" y2=\"84\"/><circle cx=\"130\" cy=\"59\" r=\"12\"/><line x1=\"130\" y1=\"51\" x2=\"130\" y2=\"67\"/><polygon points=\"130,67 127.7,61.5 132.3,61.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"147\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">PMOS load</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/></svg>",
+      "figure_alt": "Common-source amplifier: NMOS with load PMOS load to the supply.",
+      "version": 2
     }
   ]
 }
