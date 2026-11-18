@@ -1,0 +1,26 @@
+{
+  "id": "sg063-ee105-ch12",
+  "label": "SG-063 EE 105 single-stage amplifiers",
+  "box": "EE 105 (ee105-ucb), Single-Stage Amplifiers",
+  "skills": [
+    "two-port",
+    "bias-coupling",
+    "cs-analysis",
+    "cg",
+    "cd",
+    "amp-choice"
+  ],
+  "areas": {
+    "two-port": ["physical-models"],
+    "bias-coupling": ["physical-models"],
+    "cs-analysis": ["physical-models"],
+    "cg": ["physical-models"],
+    "cd": ["physical-models"],
+    "amp-choice": ["physical-models"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch12.py"
+}

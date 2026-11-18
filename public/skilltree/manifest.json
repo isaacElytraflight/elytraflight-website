@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-17T19:42:04.056954Z",
+  "generated": "2026-11-18T19:01:08.600581Z",
   "skills": {
-    "file": "skills.1b9509d4.json",
-    "hash": "1b9509d4"
+    "file": "skills.15c9b551.json",
+    "hash": "15c9b551"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -72,7 +72,7 @@
       "file": "banks/affine-scaling-method.6f1193c4.json"
     },
     "amp-choice": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -80,8 +80,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "65054c65",
-      "file": "banks/amp-choice.65054c65.json"
+      "hash": "36bbf011",
+      "file": "banks/amp-choice.36bbf011.json"
     },
     "amp-compensation": {
       "version": 2,
@@ -156,7 +156,7 @@
       "file": "banks/bfgs-update.7be9a9e5.json"
     },
     "bias-coupling": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -164,8 +164,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e550407c",
-      "file": "banks/bias-coupling.e550407c.json"
+      "hash": "7c14cae7",
+      "file": "banks/bias-coupling.7c14cae7.json"
     },
     "bias-current": {
       "version": 2,
@@ -372,7 +372,7 @@
       "file": "banks/cd-freq.cc0f36b0.json"
     },
     "cd": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -380,8 +380,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "284f7419",
-      "file": "banks/cd.284f7419.json"
+      "hash": "28c1596b",
+      "file": "banks/cd.28c1596b.json"
     },
     "cg-freq": {
       "version": 2,
@@ -396,7 +396,7 @@
       "file": "banks/cg-freq.8b3d6e92.json"
     },
     "cg": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -404,8 +404,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f17d7853",
-      "file": "banks/cg.f17d7853.json"
+      "hash": "16fd7bdd",
+      "file": "banks/cg.16fd7bdd.json"
     },
     "circle-fitting-least-squares": {
       "version": 1,
@@ -588,7 +588,7 @@
       "file": "banks/cruise-control.73ee3453.json"
     },
     "cs-analysis": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -596,8 +596,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "6fe1c2b6",
-      "file": "banks/cs-analysis.6fe1c2b6.json"
+      "hash": "4efa8059",
+      "file": "banks/cs-analysis.4efa8059.json"
     },
     "cs-brute": {
       "version": 2,
@@ -3228,7 +3228,7 @@
       "file": "banks/triode.cffbeecb.json"
     },
     "two-port": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3236,8 +3236,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "5a9c20fc",
-      "file": "banks/two-port.5a9c20fc.json"
+      "hash": "2815ada4",
+      "file": "banks/two-port.2815ada4.json"
     },
     "uncertainty": {
       "version": 1,

@@ -1,6 +1,6 @@
 {
   "skill_id": "cs-analysis",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "cs-analysis-r1-q1",
@@ -16,20 +16,24 @@
       "version": 2
     },
     {
-      "id": "cs-analysis-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "What are the low-frequency input and output resistances of a CS stage?",
-      "options": [
-        "\\(R_{in} = 1/g_m\\), \\(R_{out} = R_D\\)",
-        "\\(R_{in} = R_D\\), \\(R_{out} = r_o\\)",
-        "\\(R_{in} = r_o\\), \\(R_{out} = 1/g_m\\)",
-        "\\(R_{in} \\to \\infty\\) (gate), \\(R_{out} = r_o\\parallel R_D\\)"
+      "type": "error",
+      "prompt": "A worked solution states the low-frequency port resistances of a common-source stage. Exactly one step is wrong.",
+      "explanation": "The insulated gate takes no current, so \\(R_{in}\\) is infinite at low frequency. With \\(v_{in} = 0\\) the controlled source is dead and only \\(r_o\\) and \\(R_D\\) remain, so \\(R_{out} = r_o\\parallel R_D\\). \\(1/g_m\\) is the resistance at a common-gate source, not at this drain. \\(R_D\\) is not the input resistance, and \\(r_o\\) alone is not the input either.",
+      "steps": [
+        "At low frequency the gate draws no signal current.",
+        "The input resistance is therefore infinite.",
+        "With the input held at zero the controlled source is off, and the drain node is left with \\(r_o\\) in parallel with \\(R_D\\).",
+        "The output resistance is \\(1/g_m\\), because every port of a MOSFET has that resistance."
       ],
-      "correct_index": 3,
-      "explanation": "The insulated gate draws no current. At the output, with \\(v_{in} = 0\\) the controlled source is dead and only \\(r_o\\) and \\(R_D\\) remain. \\(1/g_m\\) is the CG input.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier: NMOS with load R_D to the supply.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><polyline points=\"130,34 130,41 124,44 136,49 124,54 136,59 124,64 136,69 130,77 130,84\"/><text x=\"142\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/></svg>",
-      "figure_alt": "Common-source amplifier: NMOS with load R_D to the supply."
+      "flaw_index": 3,
+      "reasons": [
+        "The output resistance is \\(r_o\\) in parallel with \\(R_D\\). \\(1/g_m\\) is the common-gate input, not this drain resistance.",
+        "The gate current is zero, so the output resistance is infinite as well."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "cs-analysis-r1-q4"
     },
     {
       "id": "cs-analysis-r1-q3",
@@ -56,20 +60,18 @@
       "figure_alt": "Common-source amplifier: NMOS with load R_D to the supply."
     },
     {
-      "id": "cs-analysis-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "With the bias current held fixed and \\(R_D \\ll r_o\\), you double \\(R_D\\) (the device stays saturated). What happens to the gain?",
-      "options": [
-        "It roughly doubles",
-        "It is unchanged, since \\(g_m\\) is unchanged",
-        "It halves",
-        "It rises by \\(\\sqrt2\\)"
+      "type": "order",
+      "prompt": "Order what happens to the gain when the drain resistor is doubled, the bias current stays fixed, the device stays saturated, and the resistor remains much smaller than \\(r_o\\). Each step after the first uses the result of the step before it.",
+      "explanation": "While \\(R_D \\ll r_o\\), the gain magnitude tracks \\(R_D\\). It does not stay put just because \\(g_m\\) is constant, and it does not halve. A factor of \\(\\sqrt{2}\\) is what a fixed-size device does when its current changes, which is not this change. The DC drop across the resistor doubles too, so the headroom shrinks even as the gain rises.",
+      "steps": [
+        "The bias current is fixed, so \\(g_m = 2I_D/V_{ov}\\) stays fixed.",
+        "With the drain resistor much smaller than \\(r_o\\), the gain magnitude is \\(g_m R_D\\).",
+        "Doubling the resistor doubles that product, because \\(g_m\\) did not change.",
+        "The device is still saturated, so the same small-signal result still applies and the gain magnitude roughly doubles."
       ],
-      "correct_index": 0,
-      "explanation": "\\(A_v = -g_m(r_o\\parallel R_D) \\approx -g_mR_D\\). The catch is headroom: the DC drop \\(I_DR_D\\) doubles too.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier: NMOS with load R_D to the supply.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><polyline points=\"130,34 130,41 124,44 136,49 124,54 136,59 124,64 136,69 130,77 130,84\"/><text x=\"142\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/></svg>",
-      "figure_alt": "Common-source amplifier: NMOS with load R_D to the supply."
+      "version": 1,
+      "id": "cs-analysis-r2-q4"
     },
     {
       "id": "cs-analysis-r2-q3",
@@ -84,20 +86,30 @@
       "figure_alt": "Small-signal model of a common-source stage: gate driven by v_in, controlled source g_m v_gs, with r_o and R_D in parallel at the output."
     },
     {
-      "id": "cs-analysis-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "Rewrite the resistor-loaded CS gain (\\(R_D \\ll r_o\\)) in terms of bias quantities. Which is right?",
-      "options": [
-        "\\(|A_v| = V_{RD}/V_{ov}\\)",
-        "\\(|A_v| = 2V_{RD}/V_{ov}\\), where \\(V_{RD} = I_DR_D\\) is the DC drop across \\(R_D\\)",
-        "\\(|A_v| = 2V_{ov}/V_{RD}\\)",
-        "\\(|A_v| = V_{DD}/V_T\\)"
+      "type": "symbolic",
+      "prompt": "Write the magnitude of a resistor-loaded common-source gain when the drain resistor is much smaller than \\(r_o\\). Use VRD for the DC drop across that resistor and Vov for the overdrive.",
+      "explanation": "\\(g_m = 2I_D/V_{ov}\\) and the drop is \\(V_{RD} = I_D R_D\\), so \\(g_m R_D = 2V_{RD}/V_{ov}\\). Using \\(V_{RD}/V_{ov}\\) leaves out the 2 from the square-law slope. \\(2V_{ov}/V_{RD}\\) inverts the ratio, so a larger drop would look like less gain. A supply divided by a thermal voltage is not this resistor-loaded gain.",
+      "answer": "2*VRD/Vov",
+      "variables": [
+        {
+          "name": "VRD",
+          "min": 0.05,
+          "max": 2.5
+        },
+        {
+          "name": "Vov",
+          "min": 0.08,
+          "max": 0.6
+        }
       ],
-      "correct_index": 1,
-      "explanation": "\\(g_m = 2I_D/V_{ov}\\), so \\(g_mR_D = 2I_DR_D/V_{ov}\\). More gain needs a bigger DC drop or a smaller overdrive.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier: NMOS with load R_D to the supply.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><polyline points=\"130,34 130,41 124,44 136,49 124,54 136,59 124,64 136,69 130,77 130,84\"/><text x=\"142\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/></svg>",
-      "figure_alt": "Common-source amplifier: NMOS with load R_D to the supply."
+      "tolerance": 0.001,
+      "alternates": [
+        "2*(VRD/Vov)",
+        "(2*VRD)/Vov"
+      ],
+      "version": 1,
+      "id": "cs-analysis-r3-q4"
     },
     {
       "id": "cs-analysis-r3-q2",
@@ -175,6 +187,59 @@
       "preview": [
         "freq-basics"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "cs-analysis-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Rewrite the resistor-loaded CS gain (\\(R_D \\ll r_o\\)) in terms of bias quantities. Which is right?",
+      "options": [
+        "\\(|A_v| = V_{RD}/V_{ov}\\)",
+        "\\(|A_v| = 2V_{RD}/V_{ov}\\), where \\(V_{RD} = I_DR_D\\) is the DC drop across \\(R_D\\)",
+        "\\(|A_v| = 2V_{ov}/V_{RD}\\)",
+        "\\(|A_v| = V_{DD}/V_T\\)"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(g_m = 2I_D/V_{ov}\\), so \\(g_mR_D = 2I_DR_D/V_{ov}\\). More gain needs a bigger DC drop or a smaller overdrive.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier: NMOS with load R_D to the supply.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><polyline points=\"130,34 130,41 124,44 136,49 124,54 136,59 124,64 136,69 130,77 130,84\"/><text x=\"142\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/></svg>",
+      "figure_alt": "Common-source amplifier: NMOS with load R_D to the supply.",
+      "version": 1
+    },
+    {
+      "id": "cs-analysis-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "With the bias current held fixed and \\(R_D \\ll r_o\\), you double \\(R_D\\) (the device stays saturated). What happens to the gain?",
+      "options": [
+        "It roughly doubles",
+        "It is unchanged, since \\(g_m\\) is unchanged",
+        "It halves",
+        "It rises by \\(\\sqrt2\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(A_v = -g_m(r_o\\parallel R_D) \\approx -g_mR_D\\). The catch is headroom: the DC drop \\(I_DR_D\\) doubles too.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier: NMOS with load R_D to the supply.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><polyline points=\"130,34 130,41 124,44 136,49 124,54 136,59 124,64 136,69 130,77 130,84\"/><text x=\"142\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/></svg>",
+      "figure_alt": "Common-source amplifier: NMOS with load R_D to the supply.",
+      "version": 1
+    },
+    {
+      "id": "cs-analysis-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What are the low-frequency input and output resistances of a CS stage?",
+      "options": [
+        "\\(R_{in} = 1/g_m\\), \\(R_{out} = R_D\\)",
+        "\\(R_{in} = R_D\\), \\(R_{out} = r_o\\)",
+        "\\(R_{in} = r_o\\), \\(R_{out} = 1/g_m\\)",
+        "\\(R_{in} \\to \\infty\\) (gate), \\(R_{out} = r_o\\parallel R_D\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "The insulated gate draws no current. At the output, with \\(v_{in} = 0\\) the controlled source is dead and only \\(r_o\\) and \\(R_D\\) remain. \\(1/g_m\\) is the CG input.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier: NMOS with load R_D to the supply.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><polyline points=\"130,34 130,41 124,44 136,49 124,54 136,59 124,64 136,69 130,77 130,84\"/><text x=\"142\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/></svg>",
+      "figure_alt": "Common-source amplifier: NMOS with load R_D to the supply.",
+      "version": 1
     }
   ]
 }

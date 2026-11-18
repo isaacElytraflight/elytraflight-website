@@ -597,6 +597,29 @@ Items above version 1:
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## SG-063 EE 105 single-stage amplifiers — sg063-ee105-ch12
+
+Box: EE 105 (ee105-ucb), Single-Stage Amplifiers.
+
+Skills: `two-port`, `bias-coupling`, `cs-analysis`, `cg`, `cd`, `amp-choice`.
+
+Items above version 1:
+
+- `two-port-r1-q1` version 2
+- `bias-coupling-r1-q1` version 2
+- `cs-analysis-r1-q1` version 2
+- `cg-r1-q1` version 2
+- `cg-r1-q2` version 2
+- `cg-r2-q1` version 2
+- `cg-r2-q3` version 2
+- `cg-r2-q2` version 2
+- `cd-r1-q1` version 2
+- `cd-r1-q3` version 2
+- `cd-r2-q1` version 2
+- `cd-r3-q1` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## SG-063 EE 105 AC circuits — sg063-ee105-ch2
 
 Box: EE 105 (ee105-ucb), AC Circuits and AC Analysis.
