@@ -230,7 +230,7 @@ def swaps_for(sid):
                     r"The grade or the headwind pushes the speed away from the driver's reference.",
                     r"That push is a disturbance. It is not a new reference, and it is not by itself a new throttle command.",
                     r"The speed error grows, and the proportional controller changes the throttle command.",
-                    r"At steady state the speed offset left by a constant output disturbance is that disturbance divided by \(1\) plus the loop gain.",
+                    r"At steady state a constant output disturbance \(d\) leaves the speed offset \(d/(1+L)\), where \(L\) is the loop gain.",
                 ],
                 r"Grades, headwinds, and rolling resistance are disturbances the loop has to reject. Calling the grade a reference change would make the controller chase the disturbance. The fraction that remains is \(1/(1+L)\), not the whole disturbance and not the loop gain itself. Integral action is what would remove a constant offset. Proportional control only shrinks it.",
             )),
@@ -238,7 +238,7 @@ def swaps_for(sid):
                 2, "find_error",
                 r"A worked solution adds integral action to a stable cruise loop. Exactly one step is wrong.",
                 [
-                    r"Proportional cruise control leaves a steady speed error equal to the reference divided by \(1\) plus the loop gain.",
+                    r"Proportional cruise control leaves the steady speed error \(r/(1+L)\), with \(L\) the loop gain.",
                     r"Integral action accumulates that speed error over time.",
                     r"While the error is a nonzero constant, the integral command is still changing.",
                     r"The speed can therefore settle with that same nonzero error, which is the point of the integrator.",
@@ -271,11 +271,11 @@ def swaps_for(sid):
                 r"Order the choice of what a control model keeps. Each step after the first uses the result of the step before it.",
                 [
                     r"Name the behavior the loop has to get right, and set aside effects that do not change it.",
-                    r"From what remains, the stored quantities that need initial conditions are the states.",
-                    r"Anything left that is not one of those stored quantities, such as a command or a disturbance, is an input unless you give it dynamics of its own.",
-                    r"A stored quantity whose motion is over before that behavior has started is replaced by the gain it settles to, and it leaves the state list.",
+                    r"From what remains, list every stored quantity that needs an initial condition. Those are the candidate states.",
+                    r"Drop each candidate that has already settled before that behavior starts, and replace it by the gain it settles to. The shorter list is the state.",
+                    r"Take that shorter list as closed. A command or a disturbance stays an input, and it is not added back onto the state unless you give it dynamics of its own.",
                 ],
-                r"A state is a stored quantity with an initial condition. Calling the command a state, or a tank level an input, swaps the columns of the model you write next. A fast electrical transient can be replaced by the gain it settles to when the load motion is the slow part. Dropping the integrator that the loop needs for zero error makes the model predict an offset the hardware will not show.",
+                r"A state is a stored quantity with an initial condition. The candidates are listed first. A fast electrical transient is then dropped from that list and replaced by the gain it settles to. Only that shorter list is the state. A command or a disturbance is labeled an input afterward, and it is not added back unless it has dynamics of its own. Calling the command a state swaps the columns of the model you write next. Dropping the integrator that the loop needs for zero error makes the model predict an offset the hardware will not show.",
             )),
             ("model-method-r1-q3", fresh(
                 1, "find_error",

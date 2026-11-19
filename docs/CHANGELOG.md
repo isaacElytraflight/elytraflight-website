@@ -1139,5 +1139,8 @@ Items above version 1:
 - `ode-model-r3-q1` version 2
 - `ode-model-r4-q2` version 2
 - `ode-model-r2-q2` version 2
+- `cruise-control-r1-q4` version 2
+- `cruise-control-r2-q4` version 2
+- `model-method-r1-q4` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.

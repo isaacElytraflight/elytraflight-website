@@ -6,14 +6,14 @@
       "round": 1,
       "type": "order",
       "prompt": "Order the choice of what a control model keeps. Each step after the first uses the result of the step before it.",
-      "explanation": "A state is a stored quantity with an initial condition. Calling the command a state, or a tank level an input, swaps the columns of the model you write next. A fast electrical transient can be replaced by the gain it settles to when the load motion is the slow part. Dropping the integrator that the loop needs for zero error makes the model predict an offset the hardware will not show.",
+      "explanation": "A state is a stored quantity with an initial condition. The candidates are listed first. A fast electrical transient is then dropped from that list and replaced by the gain it settles to. Only that shorter list is the state. A command or a disturbance is labeled an input afterward, and it is not added back unless it has dynamics of its own. Calling the command a state swaps the columns of the model you write next. Dropping the integrator that the loop needs for zero error makes the model predict an offset the hardware will not show.",
       "steps": [
         "Name the behavior the loop has to get right, and set aside effects that do not change it.",
-        "From what remains, the stored quantities that need initial conditions are the states.",
-        "Anything left that is not one of those stored quantities, such as a command or a disturbance, is an input unless you give it dynamics of its own.",
-        "A stored quantity whose motion is over before that behavior has started is replaced by the gain it settles to, and it leaves the state list."
+        "From what remains, list every stored quantity that needs an initial condition. Those are the candidate states.",
+        "Drop each candidate that has already settled before that behavior starts, and replace it by the gain it settles to. The shorter list is the state.",
+        "Take that shorter list as closed. A command or a disturbance stays an input, and it is not added back onto the state unless you give it dynamics of its own."
       ],
-      "version": 1,
+      "version": 2,
       "id": "model-method-r1-q4"
     },
     {

@@ -11,9 +11,9 @@
         "The grade or the headwind pushes the speed away from the driver's reference.",
         "That push is a disturbance. It is not a new reference, and it is not by itself a new throttle command.",
         "The speed error grows, and the proportional controller changes the throttle command.",
-        "At steady state the speed offset left by a constant output disturbance is that disturbance divided by \\(1\\) plus the loop gain."
+        "At steady state a constant output disturbance \\(d\\) leaves the speed offset \\(d/(1+L)\\), where \\(L\\) is the loop gain."
       ],
-      "version": 1,
+      "version": 2,
       "id": "cruise-control-r1-q4"
     },
     {
@@ -61,7 +61,7 @@
       "prompt": "A worked solution adds integral action to a stable cruise loop. Exactly one step is wrong.",
       "explanation": "The integrator cannot rest while the speed error is a nonzero constant. Zero steady error is the only settling point, and only if the loop is still stable. Proportional control is what leaves \\(r/(1+L)\\). Raising the proportional gain shrinks that error and does not zero it. The integrator is the term that does.",
       "steps": [
-        "Proportional cruise control leaves a steady speed error equal to the reference divided by \\(1\\) plus the loop gain.",
+        "Proportional cruise control leaves the steady speed error \\(r/(1+L)\\), with \\(L\\) the loop gain.",
         "Integral action accumulates that speed error over time.",
         "While the error is a nonzero constant, the integral command is still changing.",
         "The speed can therefore settle with that same nonzero error, which is the point of the integrator."
@@ -72,7 +72,7 @@
         "The integrator holds the proportional error in place so the throttle can rest."
       ],
       "correct_reason": 0,
-      "version": 1,
+      "version": 2,
       "id": "cruise-control-r2-q4"
     },
     {
