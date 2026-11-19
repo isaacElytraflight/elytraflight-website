@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-19T21:02:02.233812Z",
+  "generated": "2026-11-19T21:21:23.432421Z",
   "skills": {
-    "file": "skills.65e1f92a.json",
-    "hash": "65e1f92a"
+    "file": "skills.1000204b.json",
+    "hash": "1000204b"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -168,7 +168,7 @@
       "file": "banks/bias-coupling.7c14cae7.json"
     },
     "bias-current": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -176,8 +176,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b1ca201d",
-      "file": "banks/bias-current.b1ca201d.json"
+      "hash": "f8ffc540",
+      "file": "banks/bias-current.f8ffc540.json"
     },
     "big-circuit": {
       "version": 3,
@@ -672,7 +672,7 @@
       "file": "banks/cx-exp.a1b47802.json"
     },
     "datasheet": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -680,8 +680,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "441e7fe7",
-      "file": "banks/datasheet.441e7fe7.json"
+      "hash": "3689a1bb",
+      "file": "banks/datasheet.3689a1bb.json"
     },
     "degeneration": {
       "version": 3,
@@ -2280,7 +2280,7 @@
       "file": "banks/nmos-regions.76006db6.json"
     },
     "noise-dist": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2288,8 +2288,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "d977cd50",
-      "file": "banks/noise-dist.d977cd50.json"
+      "hash": "77934bf5",
+      "file": "banks/noise-dist.77934bf5.json"
     },
     "nonlinear-least-squares": {
       "version": 1,
@@ -2364,7 +2364,7 @@
       "file": "banks/ode-model.1b81fec9.json"
     },
     "offset": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2372,8 +2372,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "05109b21",
-      "file": "banks/offset.05109b21.json"
+      "hash": "4ede23cc",
+      "file": "banks/offset.4ede23cc.json"
     },
     "onoff-pid-intro": {
       "version": 1,
@@ -2388,7 +2388,7 @@
       "file": "banks/onoff-pid-intro.671126d8.json"
     },
     "opamp-fr": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2396,8 +2396,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "d4ec48d0",
-      "file": "banks/opamp-fr.d4ec48d0.json"
+      "hash": "550cc0cb",
+      "file": "banks/opamp-fr.550cc0cb.json"
     },
     "opamp-models": {
       "version": 3,
@@ -2952,7 +2952,7 @@
       "file": "banks/sinusoid-resp.2a5f8fc7.json"
     },
     "slew": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2960,8 +2960,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "46d61c5d",
-      "file": "banks/slew.46d61c5d.json"
+      "hash": "206a0c46",
+      "file": "banks/slew.206a0c46.json"
     },
     "solar-cell": {
       "version": 4,

@@ -1,23 +1,33 @@
 {
   "skill_id": "datasheet",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "datasheet-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "Which datasheet number most directly tells you the small-signal bandwidth you'll get for a closed-loop gain of \\(G\\)?",
-      "options": [
-        "The slew rate",
-        "The gain-bandwidth product (bandwidth \\(\\approx GBW/G\\) for a non-inverting gain \\(G\\))",
-        "The input offset voltage",
-        "The input resistance"
+      "type": "symbolic",
+      "prompt": "Write the approximate closed-loop bandwidth of a non-inverting stage whose ideal gain is \\(G\\), for a single-pole op-amp whose gain-bandwidth product is GBW. Use GBW and G.",
+      "explanation": "On a single-pole op-amp the closed-loop bandwidth is about \\(GBW/G\\) for a non-inverting gain \\(G\\). \\(GBW\\) times \\(G\\) would make a higher gain faster. \\(GBW\\) alone is the follower bandwidth, the case \\(G = 1\\). The slew-rate limit is a separate line and does not appear in this small-signal bandwidth. Offset and input resistance are DC specs; they do not set the corner.",
+      "answer": "GBW/G",
+      "variables": [
+        {
+          "name": "GBW",
+          "min": 2000000.0,
+          "max": 400000000.0
+        },
+        {
+          "name": "G",
+          "min": 2.0,
+          "max": 80.0
+        }
       ],
-      "correct_index": 1,
-      "explanation": "For a single-pole op-amp, closed-loop bandwidth \\(\\approx f\\cdot f_u=GBW/G_{noninv}\\). Slew rate limits LARGE signals; offset and input resistance are DC specs.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>ADA4891 key specs</title><rect x=\"10\" y=\"6\" width=\"320\" height=\"164\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"22\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Gain-bandwidth product</text><text x=\"318\" y=\"28\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">240 MHz</text><text x=\"22\" y=\"50\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Slew rate</text><text x=\"318\" y=\"50\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">170 V/µs</text><text x=\"22\" y=\"72\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Input offset voltage</text><text x=\"318\" y=\"72\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">2 mV</text><text x=\"22\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Open-loop gain</text><text x=\"318\" y=\"94\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">66 dB</text><text x=\"22\" y=\"116\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Input resistance</text><text x=\"318\" y=\"116\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">5 GΩ</text><text x=\"22\" y=\"138\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Input common-mode range</text><text x=\"318\" y=\"138\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">−Vs − 0.3 V to +Vs − 0.8 V</text><text x=\"22\" y=\"160\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">CMRR</text><text x=\"318\" y=\"160\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">88 dB</text></svg>",
-      "figure_alt": "Table of ADA4891 specs: GBW 240 MHz, slew rate 170 V/µs, offset 2 mV, open-loop gain 66 dB, input resistance 5 GΩ, input common-mode range -Vs-0.3 V to +Vs-0.8 V, CMRR 88 dB.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "GBW*G**(-1)",
+        "1/(G/GBW)",
+        "GBW*(1/G)"
+      ],
+      "version": 1,
+      "id": "datasheet-r1-q4"
     },
     {
       "id": "datasheet-r1-q2",
@@ -119,21 +129,18 @@
       "version": 2
     },
     {
-      "id": "datasheet-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Compare the fastest Analog Devices op-amps (GHz GBW, slew rates near \\(1\\ \\mathrm{GV/s}\\)) with ultra-low-power parts (sub-µA supply current). What trade-off do these tables show?",
-      "options": [
-        "Faster op-amps always use less power",
-        "Power consumption doesn't depend on speed",
-        "Speed (GBW and slew rate) costs supply current: the fastest parts draw tens of mA, while sub-µA parts are very slow",
-        "Low-power parts have higher slew rates"
+      "type": "order",
+      "prompt": "Order why a faster op-amp draws more supply current. Each step after the first uses the result of the step before it.",
+      "explanation": "Speed and supply current are tied by the current available to charge the compensation capacitor. A faster part does not draw less current. Supply current is not independent of the speed lines, and a micropower part is not the one with the higher slew rate. Offset and noise are separate lines; they do not set this speed-versus-current trade.",
+      "steps": [
+        "Both the gain-bandwidth product and the slew rate are set by how fast an internal capacitor can be charged.",
+        "Charging that capacitor quickly takes current: the slew rate is about that current over the capacitance, and the transconductance that sets the gain-bandwidth product also rises with bias current.",
+        "A part with a much higher gain-bandwidth product and slew rate therefore runs at a much higher supply current.",
+        "A part biased at a tiny supply current has to give that speed up. The speed lines and the supply-current line move together."
       ],
-      "correct_index": 2,
-      "explanation": "Slew rate \\(\\approx I_{max}/C_x\\) and GBW \\(\\approx G_m/C_x\\) both need bias current to charge internal capacitances quickly. That's why IoT/sensor op-amps sacrifice speed, and GHz op-amps burn power. Read the supply-current line next to the speed specs.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 110\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Speed vs power (illustrative)</title><rect x=\"10\" y=\"6\" width=\"320\" height=\"98\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"22\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Fast part: GBW</text><text x=\"318\" y=\"28\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">3.8 GHz</text><text x=\"22\" y=\"50\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Fast part: supply current</text><text x=\"318\" y=\"50\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">≈ tens of mA</text><text x=\"22\" y=\"72\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Micropower part: supply current</text><text x=\"318\" y=\"72\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">&lt; 1 µA</text><text x=\"22\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Micropower part: GBW</text><text x=\"318\" y=\"94\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">≈ kHz range</text></svg>",
-      "figure_alt": "Table contrasting a fast op-amp (3.8 GHz GBW, tens of mA) with a micropower op-amp (under 1 µA, kHz-range GBW).",
-      "version": 2
+      "version": 1,
+      "id": "datasheet-r3-q4"
     },
     {
       "id": "datasheet-r4-q1",
@@ -165,6 +172,65 @@
       "preview": [
         "ft"
       ],
+      "version": 2
+    },
+    {
+      "round": 4,
+      "type": "error",
+      "prompt": "A worked solution says how to read the input-offset line on an op-amp datasheet. Exactly one step is wrong.",
+      "explanation": "Offset comes from random mismatch between the two halves of the input pair, so the sign differs from part to part. A datasheet maximum is a bound on that magnitude, not a guaranteed positive voltage and not the output offset. The circuit still multiplies it by the noise gain. Supply polarity does not set the offset sign, and the offset does not follow the signal.",
+      "preview": [
+        "diff-intro"
+      ],
+      "steps": [
+        "The input stage is a differential pair: two devices that are drawn as identical.",
+        "Real devices mismatch by a random amount, so the voltage that balances the pair is a different number on every part.",
+        "The datasheet therefore lists one fixed polarity, the same sign on every unit, equal to the typical value.",
+        "What the line actually gives is a statistical bound on the magnitude. The sign is not known until that part is measured."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "Mismatch is random, so the offset sign is not fixed. The datasheet number is a statistical bound on the magnitude.",
+        "The datasheet polarity is the sign every unit ships with, so the typical value can be dropped straight into the gain formula."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "datasheet-r4-q4"
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "datasheet-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Which datasheet number most directly tells you the small-signal bandwidth you'll get for a closed-loop gain of \\(G\\)?",
+      "options": [
+        "The slew rate",
+        "The gain-bandwidth product (bandwidth \\(\\approx GBW/G\\) for a non-inverting gain \\(G\\))",
+        "The input offset voltage",
+        "The input resistance"
+      ],
+      "correct_index": 1,
+      "explanation": "For a single-pole op-amp, closed-loop bandwidth \\(\\approx f\\cdot f_u=GBW/G_{noninv}\\). Slew rate limits LARGE signals; offset and input resistance are DC specs.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>ADA4891 key specs</title><rect x=\"10\" y=\"6\" width=\"320\" height=\"164\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"22\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Gain-bandwidth product</text><text x=\"318\" y=\"28\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">240 MHz</text><text x=\"22\" y=\"50\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Slew rate</text><text x=\"318\" y=\"50\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">170 V/µs</text><text x=\"22\" y=\"72\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Input offset voltage</text><text x=\"318\" y=\"72\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">2 mV</text><text x=\"22\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Open-loop gain</text><text x=\"318\" y=\"94\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">66 dB</text><text x=\"22\" y=\"116\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Input resistance</text><text x=\"318\" y=\"116\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">5 GΩ</text><text x=\"22\" y=\"138\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Input common-mode range</text><text x=\"318\" y=\"138\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">−Vs − 0.3 V to +Vs − 0.8 V</text><text x=\"22\" y=\"160\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">CMRR</text><text x=\"318\" y=\"160\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">88 dB</text></svg>",
+      "figure_alt": "Table of ADA4891 specs: GBW 240 MHz, slew rate 170 V/µs, offset 2 mV, open-loop gain 66 dB, input resistance 5 GΩ, input common-mode range -Vs-0.3 V to +Vs-0.8 V, CMRR 88 dB.",
+      "version": 2
+    },
+    {
+      "id": "datasheet-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Compare the fastest Analog Devices op-amps (GHz GBW, slew rates near \\(1\\ \\mathrm{GV/s}\\)) with ultra-low-power parts (sub-µA supply current). What trade-off do these tables show?",
+      "options": [
+        "Faster op-amps always use less power",
+        "Power consumption doesn't depend on speed",
+        "Speed (GBW and slew rate) costs supply current: the fastest parts draw tens of mA, while sub-µA parts are very slow",
+        "Low-power parts have higher slew rates"
+      ],
+      "correct_index": 2,
+      "explanation": "Slew rate \\(\\approx I_{max}/C_x\\) and GBW \\(\\approx G_m/C_x\\) both need bias current to charge internal capacitances quickly. That's why IoT/sensor op-amps sacrifice speed, and GHz op-amps burn power. Read the supply-current line next to the speed specs.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 110\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Speed vs power (illustrative)</title><rect x=\"10\" y=\"6\" width=\"320\" height=\"98\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"22\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Fast part: GBW</text><text x=\"318\" y=\"28\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">3.8 GHz</text><text x=\"22\" y=\"50\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Fast part: supply current</text><text x=\"318\" y=\"50\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">≈ tens of mA</text><text x=\"22\" y=\"72\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Micropower part: supply current</text><text x=\"318\" y=\"72\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">&lt; 1 µA</text><text x=\"22\" y=\"94\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Micropower part: GBW</text><text x=\"318\" y=\"94\" text-anchor=\"end\" font-size=\"11\" font-weight=\"bold\" fill=\"currentColor\" stroke=\"none\">≈ kHz range</text></svg>",
+      "figure_alt": "Table contrasting a fast op-amp (3.8 GHz GBW, tens of mA) with a micropower op-amp (under 1 µA, kHz-range GBW).",
       "version": 2
     },
     {
