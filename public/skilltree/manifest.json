@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-19T20:19:35.836604Z",
+  "generated": "2026-11-19T20:48:57.049333Z",
   "skills": {
-    "file": "skills.7d88c679.json",
-    "hash": "7d88c679"
+    "file": "skills.587731bd.json",
+    "hash": "587731bd"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -420,7 +420,7 @@
       "file": "banks/circle-fitting-least-squares.653dac0d.json"
     },
     "cmrr": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -428,8 +428,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "7d2b95c3",
-      "file": "banks/cmrr.7d2b95c3.json"
+      "hash": "f22190d0",
+      "file": "banks/cmrr.f22190d0.json"
     },
     "compact-sets": {
       "version": 1,
@@ -744,7 +744,7 @@
       "file": "banks/descent-method-framework.a63d59f6.json"
     },
     "diff-dc": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -752,11 +752,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "c3fc9c90",
-      "file": "banks/diff-dc.c3fc9c90.json"
+      "hash": "4b871c58",
+      "file": "banks/diff-dc.4b871c58.json"
     },
     "diff-intro": {
-      "version": 2,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -764,8 +764,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "398dd5b9",
-      "file": "banks/diff-intro.398dd5b9.json"
+      "hash": "9ad48b2c",
+      "file": "banks/diff-intro.9ad48b2c.json"
     },
     "differentiability-multivariable": {
       "version": 1,
@@ -1440,7 +1440,7 @@
       "file": "banks/graphical-2d-optimization.efcb43dc.json"
     },
     "half-circuit": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1448,8 +1448,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "db960bdf",
-      "file": "banks/half-circuit.db960bdf.json"
+      "hash": "c823c306",
+      "file": "banks/half-circuit.c823c306.json"
     },
     "heavy-ball-method": {
       "version": 1,
@@ -2076,7 +2076,7 @@
       "file": "banks/minority-profile.03992c28.json"
     },
     "mirror-load": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2084,8 +2084,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "fa0670ae",
-      "file": "banks/mirror-load.fa0670ae.json"
+      "hash": "72345218",
+      "file": "banks/mirror-load.72345218.json"
     },
     "mirror": {
       "version": 3,
