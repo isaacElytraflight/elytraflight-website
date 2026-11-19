@@ -675,6 +675,57 @@ Items above version 1:
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## SG-063 EE 105 multi-stage amplifiers — sg063-ee105-ch15
+
+Box: EE 105 (ee105-ucb), Multi-Stage Amplifiers.
+
+Skills: `cs-cascade`, `cs-cascade-freq`, `cs-cap-load`, `cascode-amp`, `cascode-bias`, `big-circuit`.
+
+Items above version 1:
+
+- `cs-cascade-r1-q1` version 2
+- `cs-cascade-r1-q3` version 2
+- `cs-cascade-freq-r1-q2` version 3
+- `cs-cascade-freq-r1-q3` version 3
+- `cs-cascade-freq-r2-q1` version 2
+- `cs-cascade-freq-r3-q2` version 3
+- `cs-cascade-freq-r3-q3` version 3
+- `cs-cascade-freq-r4-q1` version 2
+- `cs-cascade-freq-r4-q3` version 2
+- `cs-cascade-freq-r1-q1` version 2
+- `cs-cascade-freq-r3-q1` version 2
+- `cs-cascade-freq#explainer` version 2
+- `cs-cap-load-r1-q1` version 2
+- `cs-cap-load-r3-q3` version 2
+- `cs-cap-load#explainer` version 2
+- `cascode-amp-r1-q3` version 2
+- `cascode-amp-r2-q1` version 2
+- `cascode-amp-r2-q3` version 3
+- `cascode-amp-r3-q1` version 2
+- `cascode-amp-r3-q2` version 2
+- `cascode-amp-r4-q2` version 2
+- `cascode-amp-r1-q1` version 2
+- `cascode-amp-r2-q2` version 2
+- `cascode-amp-r3-q3` version 2
+- `cascode-bias-r1-q2` version 2
+- `cascode-bias-r1-q3` version 2
+- `cascode-bias-r2-q2` version 2
+- `cascode-bias-r3-q1` version 2
+- `cascode-bias-r3-q2` version 2
+- `cascode-bias-r3-q3` version 2
+- `cascode-bias-r4-q3` version 2
+- `cascode-bias-r1-q1` version 2
+- `cascode-bias-r4-q1` version 2
+- `big-circuit-r1-q3` version 2
+- `big-circuit-r2-q1` version 2
+- `big-circuit-r2-q2` version 2
+- `big-circuit-r2-q3` version 2
+- `big-circuit-r1-q1` version 2
+- `big-circuit-r1-q2` version 2
+- `big-circuit#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## SG-063 EE 105 AC circuits — sg063-ee105-ch2
 
 Box: EE 105 (ee105-ucb), AC Circuits and AC Analysis.
