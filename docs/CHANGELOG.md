@@ -797,6 +797,65 @@ Items above version 1:
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## SG-063 EE 105 op-amp non-idealities — sg063-ee105-ch18
+
+Box: EE 105 (ee105-ucb), Op-Amp Non-Idealities.
+
+Skills: `offset`, `bias-current`, `opamp-fr`, `slew`, `noise-dist`, `datasheet`.
+
+Items above version 1:
+
+- `offset-r1-q2` version 2
+- `offset-r4-q3` version 2
+- `offset-r1-q1` version 2
+- `offset-r2-q3` version 2
+- `bias-current-r1-q3` version 2
+- `bias-current-r2-q1` version 2
+- `bias-current-r2-q2` version 2
+- `bias-current-r4-q2` version 2
+- `bias-current-r4-q3` version 2
+- `bias-current-r1-q1` version 2
+- `bias-current-r2-q3` version 2
+- `bias-current-r3-q3` version 2
+- `opamp-fr-r2-q1` version 2
+- `opamp-fr-r2-q3` version 2
+- `opamp-fr-r4-q2` version 2
+- `opamp-fr-r4-q3` version 2
+- `opamp-fr-r1-q1` version 2
+- `opamp-fr-r1-q3` version 2
+- `opamp-fr-r3-q1` version 2
+- `slew-r2-q1` version 2
+- `slew-r3-q1` version 2
+- `slew-r4-q1` version 2
+- `slew-r1-q1` version 2
+- `slew-r1-q3` version 2
+- `slew-r2-q3` version 2
+- `noise-dist-r1-q3` version 2
+- `noise-dist-r2-q1` version 2
+- `noise-dist-r2-q2` version 3
+- `noise-dist-r3-q1` version 2
+- `noise-dist-r3-q3` version 3
+- `noise-dist-r4-q1` version 2
+- `noise-dist-r4-q3` version 3
+- `noise-dist-r1-q2` version 2
+- `noise-dist-r1-q1` version 2
+- `noise-dist-r2-q3` version 2
+- `datasheet-r1-q2` version 2
+- `datasheet-r1-q3` version 2
+- `datasheet-r2-q1` version 2
+- `datasheet-r2-q2` version 2
+- `datasheet-r2-q3` version 2
+- `datasheet-r3-q1` version 2
+- `datasheet-r3-q2` version 2
+- `datasheet-r4-q1` version 2
+- `datasheet-r4-q2` version 2
+- `datasheet-r1-q1` version 2
+- `datasheet-r3-q3` version 2
+- `datasheet-r4-q3` version 2
+- `datasheet#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## SG-063 EE 105 AC circuits — sg063-ee105-ch2
 
 Box: EE 105 (ee105-ucb), AC Circuits and AC Analysis.

@@ -1,40 +1,46 @@
 {
   "skill_id": "noise-dist",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "noise-dist-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A signal \\(\\cos(\\omega t)\\) passes through a square-law nonlinearity. Using \\(\\cos^2(\\omega t)=\\tfrac12\\left(1+\\cos 2\\omega t\\right)\\), which frequencies appear at the output?",
-      "options": [
-        "DC and \\(2\\omega\\) (second harmonic)",
-        "Only \\(\\omega\\)",
-        "\\(\\omega\\) and \\(3\\omega\\)",
-        "Only \\(2\\omega\\)"
+      "type": "order",
+      "prompt": "Order what a square-law term does to a pure cosine. Each step after the first uses the result of the step before it.",
+      "explanation": "Squaring \\(\\cos\\omega t\\) produces DC and \\(2\\omega\\), not the fundamental and not the third harmonic. A cubic term is what produces \\(3\\omega\\). A random noise waveform does not create these discrete lines: a harmonic is deterministic distortion. Dropping the constant term misses the even-order DC shift. An odd-symmetric curve has no square-law term, so it produces neither this DC nor this second harmonic.",
+      "steps": [
+        "The square of \\(\\cos\\omega t\\) is \\(\\frac{1}{2}+\\frac{1}{2}\\cos 2\\omega t\\).",
+        "The constant term is a DC shift, present even though the input cosine had no DC.",
+        "The double-frequency term is a second harmonic at \\(2\\omega\\).",
+        "The original frequency \\(\\omega\\) is absent from the square. It appears only when a linear term sits beside the square-law term."
       ],
-      "correct_index": 0,
-      "explanation": "Squaring a sinusoid creates a DC term \\(\\tfrac12\\) and a second harmonic \\(\\tfrac12\\cos2\\omega t\\). A real amplifier with \\(a_1v+a_2v^2\\) therefore outputs the fundamental (from \\(a_1\\)) plus DC and \\(2\\omega\\) (from \\(a_2\\)).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Harmonics produced by a nonlinearity</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
-      "figure_alt": "Spectrum sketch with lines at the fundamental, second and third harmonic.",
-      "version": 2
+      "version": 1,
+      "id": "noise-dist-r1-q5"
     },
     {
-      "id": "noise-dist-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "Op-amp datasheets quote input voltage noise in \\(\\mathrm{nV/\\sqrt{Hz}}\\). How do you get the RMS noise voltage over a bandwidth \\(B\\) (white noise)?",
-      "options": [
-        "Multiply the density by \\(B\\)",
-        "Divide the density by \\(B\\)",
-        "The density already is the RMS voltage",
-        "Multiply the density by \\(\\sqrt{B}\\)"
+      "type": "symbolic",
+      "prompt": "Write the RMS noise voltage of white input noise with density \\(e_n\\), integrated over a bandwidth \\(B\\). Use en and B.",
+      "explanation": "The density \\(e_n\\) is in volts per root hertz, so the RMS voltage in a flat band is \\(e_n\\sqrt{B}\\). Multiplying by \\(B\\) treats the density as if it were already a voltage per hertz and overstates the noise by \\(\\sqrt{B}\\). Dividing by \\(B\\), or by \\(\\sqrt{B}\\), goes the wrong direction. \\(e_n\\) alone is the density, not the integrated voltage. Two uncorrelated contributions still have to be combined as the square root of a sum of squares after each one is integrated this way.",
+      "answer": "en*sqrt(B)",
+      "variables": [
+        {
+          "name": "en",
+          "min": 2e-09,
+          "max": 4e-08
+        },
+        {
+          "name": "B",
+          "min": 2000.0,
+          "max": 500000.0
+        }
       ],
-      "correct_index": 3,
-      "explanation": "The noise POWER per hertz is \\(e_n^2\\) (in \\(\\mathrm{V^2/Hz}\\)); for a flat spectrum the power in \\(B\\) is \\(e_n^2B\\), and the RMS voltage is \\(e_n\\sqrt B\\). That's why the unit has a square root of hertz.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Noise vs signal spectra</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
-      "figure_alt": "Spectrum sketch.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "sqrt(B)*en",
+        "en*B**(1/2)"
+      ],
+      "version": 1,
+      "id": "noise-dist-r1-q4"
     },
     {
       "id": "noise-dist-r1-q3",
@@ -45,8 +51,9 @@
       "unit": "µV",
       "tolerance": 0.01,
       "explanation": "\\(e_n\\sqrt B=10\\ \\mathrm{nV/\\sqrt{Hz}}\\times\\sqrt{10^6\\ \\mathrm{Hz}}=10\\ \\mathrm{nV}\\times1000=10\\ \\mu\\mathrm{V}\\) RMS.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>White noise</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
-      "figure_alt": "Spectrum sketch."
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>White noise</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
+      "figure_alt": "Spectrum sketch.",
+      "version": 2
     },
     {
       "id": "noise-dist-r2-q1",
@@ -70,26 +77,29 @@
       "unit": "%",
       "tolerance": 0.01,
       "explanation": "\\(a_3\\cos^3\\omega t=0.1\\left(\\tfrac34\\cos\\omega t+\\tfrac14\\cos3\\omega t\\right)\\).\nFundamental: \\(1+0.075=1.075\\). Third harmonic: \\(0.025\\). Ratio \\(=2.326\\%\\).\nCommon mistake: forgetting that the cubic term also adds to the fundamental (giving 2.5%).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>S-shaped amplifier transfer curve</title><line x1=\"170\" y1=\"120\" x2=\"320\" y2=\"120\"/><polygon points=\"320,120 313.6,122.7 313.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"170\" y1=\"120\" x2=\"170\" y2=\"20\"/><polygon points=\"170,20 172.7,26.4 167.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"136\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vᵢ</text><text x=\"174\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><line x1=\"20\" y1=\"70\" x2=\"320\" y2=\"70\" stroke-opacity=\"0.3\"/><line x1=\"170\" y1=\"125\" x2=\"170\" y2=\"15\" stroke-opacity=\"0.3\"/><polyline points=\"30,114.8 33.5,114.8 37,114.8 40.5,114.7 44,114.7 47.5,114.6 51,114.5 54.5,114.5 58,114.4 61.5,114.3 65,114.2 68.5,114 72,113.9 75.5,113.7 79,113.5 82.5,113.2 86,112.9 89.5,112.6 93,112.2 96.5,111.7 100,111.2 103.5,110.5 107,109.8 110.5,109 114,108.1 117.5,107 121,105.8 124.5,104.5 128,102.9 131.5,101.2 135,99.3 138.5,97.2 142,94.9 145.5,92.3 149,89.6 152.5,86.7 156,83.6 159.5,80.3 163,76.9 166.5,73.5 170,70 173.5,66.5 177,63.1 180.5,59.7 184,56.4 187.5,53.3 191,50.4 194.5,47.7 198,45.1 201.5,42.8 205,40.7 208.5,38.8 212,37.1 215.5,35.5 219,34.2 222.5,33 226,31.9 229.5,31 233,30.2 236.5,29.5 240,28.8 243.5,28.3 247,27.8 250.5,27.4 254,27.1 257.5,26.8 261,26.5 264.5,26.3 268,26.1 271.5,26 275,25.8 278.5,25.7 282,25.6 285.5,25.5 289,25.5 292.5,25.4 296,25.3 299.5,25.3 303,25.2 306.5,25.2 310,25.2\" stroke-width=\"2.2\"/></svg>",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>S-shaped amplifier transfer curve</title><line x1=\"170\" y1=\"120\" x2=\"320\" y2=\"120\"/><polygon points=\"320,120 313.6,122.7 313.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"170\" y1=\"120\" x2=\"170\" y2=\"20\"/><polygon points=\"170,20 172.7,26.4 167.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"136\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vᵢ</text><text x=\"174\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><line x1=\"20\" y1=\"70\" x2=\"320\" y2=\"70\" stroke-opacity=\"0.3\"/><line x1=\"170\" y1=\"125\" x2=\"170\" y2=\"15\" stroke-opacity=\"0.3\"/><polyline points=\"30,114.8 33.5,114.8 37,114.8 40.5,114.7 44,114.7 47.5,114.6 51,114.5 54.5,114.5 58,114.4 61.5,114.3 65,114.2 68.5,114 72,113.9 75.5,113.7 79,113.5 82.5,113.2 86,112.9 89.5,112.6 93,112.2 96.5,111.7 100,111.2 103.5,110.5 107,109.8 110.5,109 114,108.1 117.5,107 121,105.8 124.5,104.5 128,102.9 131.5,101.2 135,99.3 138.5,97.2 142,94.9 145.5,92.3 149,89.6 152.5,86.7 156,83.6 159.5,80.3 163,76.9 166.5,73.5 170,70 173.5,66.5 177,63.1 180.5,59.7 184,56.4 187.5,53.3 191,50.4 194.5,47.7 198,45.1 201.5,42.8 205,40.7 208.5,38.8 212,37.1 215.5,35.5 219,34.2 222.5,33 226,31.9 229.5,31 233,30.2 236.5,29.5 240,28.8 243.5,28.3 247,27.8 250.5,27.4 254,27.1 257.5,26.8 261,26.5 264.5,26.3 268,26.1 271.5,26 275,25.8 278.5,25.7 282,25.6 285.5,25.5 289,25.5 292.5,25.4 296,25.3 299.5,25.3 303,25.2 306.5,25.2 310,25.2\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "S-shaped transfer curve that compresses at large inputs.",
-      "version": 2
+      "version": 3
     },
     {
-      "id": "noise-dist-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "How does op-amp noise differ from offset voltage?",
-      "options": [
-        "They are the same thing",
-        "Noise is a fixed DC value; offset is random AC",
-        "Noise is a random AC signal described by its spectral density (and RMS value); offset is a fixed DC value for a given part",
-        "Noise only appears at the output, offset only at the input"
+      "type": "error",
+      "prompt": "A worked solution adds two op-amp errors that both sit at the input. Exactly one step is wrong.",
+      "explanation": "Offset is a fixed DC value. Noise fluctuates and is integrated from its density with a square root of bandwidth. Two uncorrelated contributions combine as \\(\\sqrt{v_1^2+v_2^2}\\), not as \\(v_1+v_2\\). Adding the RMS values is right only for fully correlated sources. Multiplying the density by \\(B\\) instead of \\(\\sqrt{B}\\) confuses power with voltage. Feedback can shrink distortion inside the loop, but it does not turn the noise into a DC offset.",
+      "steps": [
+        "Offset is one DC voltage for a given part. Its sign varies from part to part and does not fluctuate in time.",
+        "Input noise is a random waveform, quoted as a density in volts per root hertz and turned into an RMS value over the bandwidth.",
+        "Two uncorrelated noise voltages add by summing those RMS values, the same way two DC offsets of known sign would add.",
+        "Uncorrelated noise adds in power, so the total RMS is the square root of the sum of the squares, and that total is still noise rather than an offset."
       ],
-      "correct_index": 2,
-      "explanation": "Both are modeled as sources at the input of an ideal op-amp, but offset is a constant (random only across parts), while noise fluctuates in time with a flat ('white') spectrum, so it's specified per root hertz and integrated over bandwidth.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>White noise vs a DC offset</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
-      "figure_alt": "Spectrum sketch.",
-      "version": 2
+      "flaw_index": 2,
+      "reasons": [
+        "Uncorrelated noise adds in power. Summing the RMS values treats them like a pair of signed DC offsets.",
+        "RMS noise voltages add directly, because every random voltage combines the way a pair of DC sources does."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "noise-dist-r2-q4"
     },
     {
       "id": "noise-dist-r3-q1",
@@ -104,8 +114,9 @@
       ],
       "correct_index": 1,
       "explanation": "Uncorrelated random signals add in POWER (mean-square): \\(v^2=3^2+4^2=25\\ \\mu\\mathrm{V^2}\\), so 5 µV RMS. Adding RMS values directly would only hold for perfectly correlated (identical) signals.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Two noise contributions</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
-      "figure_alt": "Spectrum sketch."
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Two noise contributions</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
+      "figure_alt": "Spectrum sketch.",
+      "version": 2
     },
     {
       "id": "noise-dist-r3-q2",
@@ -132,9 +143,9 @@
       ],
       "correct_index": 0,
       "explanation": "An odd function has only odd powers in its Taylor series (\\(a_1v+a_3v^3+a_5v^5\\dots\\)), and odd powers of \\(\\cos\\) contain only odd harmonics. Even harmonics come from even powers like \\(v^2\\), which an odd-symmetric curve lacks. Differential (balanced) circuits use this to cancel even-order distortion.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>S-shaped amplifier transfer curve</title><line x1=\"170\" y1=\"120\" x2=\"320\" y2=\"120\"/><polygon points=\"320,120 313.6,122.7 313.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"170\" y1=\"120\" x2=\"170\" y2=\"20\"/><polygon points=\"170,20 172.7,26.4 167.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"136\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vᵢ</text><text x=\"174\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><line x1=\"20\" y1=\"70\" x2=\"320\" y2=\"70\" stroke-opacity=\"0.3\"/><line x1=\"170\" y1=\"125\" x2=\"170\" y2=\"15\" stroke-opacity=\"0.3\"/><polyline points=\"30,114.8 33.5,114.8 37,114.8 40.5,114.7 44,114.7 47.5,114.6 51,114.5 54.5,114.5 58,114.4 61.5,114.3 65,114.2 68.5,114 72,113.9 75.5,113.7 79,113.5 82.5,113.2 86,112.9 89.5,112.6 93,112.2 96.5,111.7 100,111.2 103.5,110.5 107,109.8 110.5,109 114,108.1 117.5,107 121,105.8 124.5,104.5 128,102.9 131.5,101.2 135,99.3 138.5,97.2 142,94.9 145.5,92.3 149,89.6 152.5,86.7 156,83.6 159.5,80.3 163,76.9 166.5,73.5 170,70 173.5,66.5 177,63.1 180.5,59.7 184,56.4 187.5,53.3 191,50.4 194.5,47.7 198,45.1 201.5,42.8 205,40.7 208.5,38.8 212,37.1 215.5,35.5 219,34.2 222.5,33 226,31.9 229.5,31 233,30.2 236.5,29.5 240,28.8 243.5,28.3 247,27.8 250.5,27.4 254,27.1 257.5,26.8 261,26.5 264.5,26.3 268,26.1 271.5,26 275,25.8 278.5,25.7 282,25.6 285.5,25.5 289,25.5 292.5,25.4 296,25.3 299.5,25.3 303,25.2 306.5,25.2 310,25.2\" stroke-width=\"2.2\"/></svg>",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>S-shaped amplifier transfer curve</title><line x1=\"170\" y1=\"120\" x2=\"320\" y2=\"120\"/><polygon points=\"320,120 313.6,122.7 313.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"170\" y1=\"120\" x2=\"170\" y2=\"20\"/><polygon points=\"170,20 172.7,26.4 167.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"136\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vᵢ</text><text x=\"174\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><line x1=\"20\" y1=\"70\" x2=\"320\" y2=\"70\" stroke-opacity=\"0.3\"/><line x1=\"170\" y1=\"125\" x2=\"170\" y2=\"15\" stroke-opacity=\"0.3\"/><polyline points=\"30,114.8 33.5,114.8 37,114.8 40.5,114.7 44,114.7 47.5,114.6 51,114.5 54.5,114.5 58,114.4 61.5,114.3 65,114.2 68.5,114 72,113.9 75.5,113.7 79,113.5 82.5,113.2 86,112.9 89.5,112.6 93,112.2 96.5,111.7 100,111.2 103.5,110.5 107,109.8 110.5,109 114,108.1 117.5,107 121,105.8 124.5,104.5 128,102.9 131.5,101.2 135,99.3 138.5,97.2 142,94.9 145.5,92.3 149,89.6 152.5,86.7 156,83.6 159.5,80.3 163,76.9 166.5,73.5 170,70 173.5,66.5 177,63.1 180.5,59.7 184,56.4 187.5,53.3 191,50.4 194.5,47.7 198,45.1 201.5,42.8 205,40.7 208.5,38.8 212,37.1 215.5,35.5 219,34.2 222.5,33 226,31.9 229.5,31 233,30.2 236.5,29.5 240,28.8 243.5,28.3 247,27.8 250.5,27.4 254,27.1 257.5,26.8 261,26.5 264.5,26.3 268,26.1 271.5,26 275,25.8 278.5,25.7 282,25.6 285.5,25.5 289,25.5 292.5,25.4 296,25.3 299.5,25.3 303,25.2 306.5,25.2 310,25.2\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "Odd-symmetric S-shaped transfer curve.",
-      "version": 2
+      "version": 3
     },
     {
       "id": "noise-dist-r4-q1",
@@ -145,11 +156,12 @@
       "unit": "dB",
       "tolerance": 0.01,
       "explanation": "Noise \\(=10\\ \\mathrm{nV}\\times\\sqrt{20\\,000}=1.414\\ \\mu\\mathrm{V}\\). \\(SNR=20\\log_{10}\\dfrac{10\\ \\mathrm{mV}}{1.414\\ \\mu\\mathrm{V}}=76.99\\ \\mathrm{dB}\\).\nDatasheet noise specs let you predict SNR before building anything.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Signal and noise</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Signal and noise</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
       "figure_alt": "Spectrum sketch.",
       "preview": [
         "datasheet"
-      ]
+      ],
+      "version": 2
     },
     {
       "id": "noise-dist-r4-q2",
@@ -179,11 +191,64 @@
       ],
       "correct_index": 3,
       "explanation": "Distortion generated inside the loop is reduced by \\(1+T=100\\) at equal output level (the noise-rejection result from the loop-gain skill): \\(1\\%/100=0.01\\%\\). This is why harmonics are tiny in negative-feedback circuits.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>S-shaped amplifier transfer curve</title><line x1=\"170\" y1=\"120\" x2=\"320\" y2=\"120\"/><polygon points=\"320,120 313.6,122.7 313.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"170\" y1=\"120\" x2=\"170\" y2=\"20\"/><polygon points=\"170,20 172.7,26.4 167.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"136\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vᵢ</text><text x=\"174\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><line x1=\"20\" y1=\"70\" x2=\"320\" y2=\"70\" stroke-opacity=\"0.3\"/><line x1=\"170\" y1=\"125\" x2=\"170\" y2=\"15\" stroke-opacity=\"0.3\"/><polyline points=\"30,114.8 33.5,114.8 37,114.8 40.5,114.7 44,114.7 47.5,114.6 51,114.5 54.5,114.5 58,114.4 61.5,114.3 65,114.2 68.5,114 72,113.9 75.5,113.7 79,113.5 82.5,113.2 86,112.9 89.5,112.6 93,112.2 96.5,111.7 100,111.2 103.5,110.5 107,109.8 110.5,109 114,108.1 117.5,107 121,105.8 124.5,104.5 128,102.9 131.5,101.2 135,99.3 138.5,97.2 142,94.9 145.5,92.3 149,89.6 152.5,86.7 156,83.6 159.5,80.3 163,76.9 166.5,73.5 170,70 173.5,66.5 177,63.1 180.5,59.7 184,56.4 187.5,53.3 191,50.4 194.5,47.7 198,45.1 201.5,42.8 205,40.7 208.5,38.8 212,37.1 215.5,35.5 219,34.2 222.5,33 226,31.9 229.5,31 233,30.2 236.5,29.5 240,28.8 243.5,28.3 247,27.8 250.5,27.4 254,27.1 257.5,26.8 261,26.5 264.5,26.3 268,26.1 271.5,26 275,25.8 278.5,25.7 282,25.6 285.5,25.5 289,25.5 292.5,25.4 296,25.3 299.5,25.3 303,25.2 306.5,25.2 310,25.2\" stroke-width=\"2.2\"/></svg>",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 148\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>S-shaped amplifier transfer curve</title><line x1=\"170\" y1=\"120\" x2=\"320\" y2=\"120\"/><polygon points=\"320,120 313.6,122.7 313.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"170\" y1=\"120\" x2=\"170\" y2=\"20\"/><polygon points=\"170,20 172.7,26.4 167.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"136\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vᵢ</text><text x=\"174\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text><line x1=\"20\" y1=\"70\" x2=\"320\" y2=\"70\" stroke-opacity=\"0.3\"/><line x1=\"170\" y1=\"125\" x2=\"170\" y2=\"15\" stroke-opacity=\"0.3\"/><polyline points=\"30,114.8 33.5,114.8 37,114.8 40.5,114.7 44,114.7 47.5,114.6 51,114.5 54.5,114.5 58,114.4 61.5,114.3 65,114.2 68.5,114 72,113.9 75.5,113.7 79,113.5 82.5,113.2 86,112.9 89.5,112.6 93,112.2 96.5,111.7 100,111.2 103.5,110.5 107,109.8 110.5,109 114,108.1 117.5,107 121,105.8 124.5,104.5 128,102.9 131.5,101.2 135,99.3 138.5,97.2 142,94.9 145.5,92.3 149,89.6 152.5,86.7 156,83.6 159.5,80.3 163,76.9 166.5,73.5 170,70 173.5,66.5 177,63.1 180.5,59.7 184,56.4 187.5,53.3 191,50.4 194.5,47.7 198,45.1 201.5,42.8 205,40.7 208.5,38.8 212,37.1 215.5,35.5 219,34.2 222.5,33 226,31.9 229.5,31 233,30.2 236.5,29.5 240,28.8 243.5,28.3 247,27.8 250.5,27.4 254,27.1 257.5,26.8 261,26.5 264.5,26.3 268,26.1 271.5,26 275,25.8 278.5,25.7 282,25.6 285.5,25.5 289,25.5 292.5,25.4 296,25.3 299.5,25.3 303,25.2 306.5,25.2 310,25.2\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "S-shaped transfer curve.",
       "preview": [
         "datasheet"
       ],
+      "version": 3
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "noise-dist-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Op-amp datasheets quote input voltage noise in \\(\\mathrm{nV/\\sqrt{Hz}}\\). How do you get the RMS noise voltage over a bandwidth \\(B\\) (white noise)?",
+      "options": [
+        "Multiply the density by \\(B\\)",
+        "Divide the density by \\(B\\)",
+        "The density already is the RMS voltage",
+        "Multiply the density by \\(\\sqrt{B}\\)"
+      ],
+      "correct_index": 3,
+      "explanation": "The noise POWER per hertz is \\(e_n^2\\) (in \\(\\mathrm{V^2/Hz}\\)); for a flat spectrum the power in \\(B\\) is \\(e_n^2B\\), and the RMS voltage is \\(e_n\\sqrt B\\). That's why the unit has a square root of hertz.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Noise vs signal spectra</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
+      "figure_alt": "Spectrum sketch.",
+      "version": 2
+    },
+    {
+      "id": "noise-dist-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A signal \\(\\cos(\\omega t)\\) passes through a square-law nonlinearity. Using \\(\\cos^2(\\omega t)=\\tfrac12\\left(1+\\cos 2\\omega t\\right)\\), which frequencies appear at the output?",
+      "options": [
+        "DC and \\(2\\omega\\) (second harmonic)",
+        "Only \\(\\omega\\)",
+        "\\(\\omega\\) and \\(3\\omega\\)",
+        "Only \\(2\\omega\\)"
+      ],
+      "correct_index": 0,
+      "explanation": "Squaring a sinusoid creates a DC term \\(\\tfrac12\\) and a second harmonic \\(\\tfrac12\\cos2\\omega t\\). A real amplifier with \\(a_1v+a_2v^2\\) therefore outputs the fundamental (from \\(a_1\\)) plus DC and \\(2\\omega\\) (from \\(a_2\\)).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Harmonics produced by a nonlinearity</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
+      "figure_alt": "Spectrum sketch with lines at the fundamental, second and third harmonic.",
+      "version": 2
+    },
+    {
+      "id": "noise-dist-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "How does op-amp noise differ from offset voltage?",
+      "options": [
+        "They are the same thing",
+        "Noise is a fixed DC value; offset is random AC",
+        "Noise is a random AC signal described by its spectral density (and RMS value); offset is a fixed DC value for a given part",
+        "Noise only appears at the output, offset only at the input"
+      ],
+      "correct_index": 2,
+      "explanation": "Both are modeled as sources at the input of an ideal op-amp, but offset is a constant (random only across parts), while noise fluctuates in time with a flat ('white') spectrum, so it's specified per root hertz and integrated over bandwidth.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 135\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>White noise vs a DC offset</title><line x1=\"30\" y1=\"110\" x2=\"320\" y2=\"110\"/><polygon points=\"320,110 313.6,112.7 313.6,107.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"30\" y1=\"110\" x2=\"30\" y2=\"20\"/><polygon points=\"30,20 32.7,26.4 27.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"320\" y=\"126\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">frequency</text><text x=\"34\" y=\"16\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">amplitude</text><line x1=\"80\" y1=\"110\" x2=\"80\" y2=\"30\" stroke-width=\"3\"/><text x=\"80\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">ω</text><line x1=\"150\" y1=\"110\" x2=\"150\" y2=\"80\" stroke-width=\"3\"/><text x=\"150\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">2ω</text><line x1=\"220\" y1=\"110\" x2=\"220\" y2=\"92\" stroke-width=\"3\"/><text x=\"220\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">3ω</text></svg>",
+      "figure_alt": "Spectrum sketch.",
       "version": 2
     }
   ]

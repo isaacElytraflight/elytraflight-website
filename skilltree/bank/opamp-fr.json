@@ -1,23 +1,20 @@
 {
   "skill_id": "opamp-fr",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "opamp-fr-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "For a single-pole op-amp \\(A(j\\omega)=\\dfrac{A_0}{1+j\\omega/\\omega_{-3dB}}\\), what is the phase of \\(A\\) at frequencies far above \\(\\omega_{-3dB}\\)?",
-      "options": [
-        "About \\(-180^\\circ\\)",
-        "About \\(-45^\\circ\\)",
-        "About \\(-90^\\circ\\)",
-        "About \\(0^\\circ\\)"
+      "type": "order",
+      "prompt": "Order how a single-pole op-amp reaches a phase of \\(-90^\\circ\\) well above its dominant pole. Each step after the first uses the result of the step before it.",
+      "explanation": "Above the dominant pole the op-amp is an integrator, phase \\(-90^\\circ\\). The phase is \\(-45^\\circ\\) only at the pole itself, not everywhere above it. \\(-180^\\circ\\) would take a second pole. A phase of \\(0^\\circ\\) is the low-frequency result, where the denominator is still real. The closed-loop bandwidth is a different frequency: it sits near \\(f\\,\\omega_u\\), not at \\(\\omega_p\\).",
+      "steps": [
+        "The open-loop gain is \\(A_0/(1+j\\omega/\\omega_p)\\), with one pole at \\(\\omega_p\\).",
+        "Far above \\(\\omega_p\\) the 1 in the denominator is negligible, leaving \\(A_0 \\omega_p/(j\\omega)\\).",
+        "The product \\(A_0 \\omega_p\\) is the unity-gain frequency \\(\\omega_u\\), so the gain is \\(\\omega_u/(j\\omega)\\).",
+        "Dividing by \\(j\\) is a phase of \\(-90^\\circ\\). One pole can move the phase by only that much, so it never reaches \\(-180^\\circ\\)."
       ],
-      "correct_index": 2,
-      "explanation": "For \\(\\omega\\gg\\omega_{-3dB}\\), \\(A\\approx\\dfrac{\\omega_u}{j\\omega}\\): dividing by \\(j\\) is a \\(-90^\\circ\\) phase shift. It is exactly \\(-45^\\circ\\) only AT the pole, and a single pole can never reach \\(-180^\\circ\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Open-loop gain |A| (asymptotic)</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|A| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,46.2 87.1,46.2 272.9,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"132.4\" x2=\"53\" y2=\"132.4\"/><text x=\"44\" y=\"135.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"110.9\" x2=\"53\" y2=\"110.9\"/><text x=\"44\" y=\"113.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"89.3\" x2=\"53\" y2=\"89.3\"/><text x=\"44\" y=\"92.3\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"47\" y1=\"67.7\" x2=\"53\" y2=\"67.7\"/><text x=\"44\" y=\"70.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">80</text><line x1=\"47\" y1=\"46.2\" x2=\"53\" y2=\"46.2\"/><text x=\"44\" y=\"49.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">100</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"87.1\" y1=\"151\" x2=\"87.1\" y2=\"157\"/><text x=\"87.1\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"124.3\" y1=\"151\" x2=\"124.3\" y2=\"157\"/><text x=\"124.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"161.4\" y1=\"151\" x2=\"161.4\" y2=\"157\"/><text x=\"161.4\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"198.6\" y1=\"151\" x2=\"198.6\" y2=\"157\"/><text x=\"198.6\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"235.7\" y1=\"151\" x2=\"235.7\" y2=\"157\"/><text x=\"235.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"272.9\" y1=\"151\" x2=\"272.9\" y2=\"157\"/><text x=\"272.9\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
-      "figure_alt": "Op-amp open-loop Bode magnitude with a dominant pole at 10 Hz and unity gain at 1 MHz.",
-      "version": 2
+      "version": 1,
+      "id": "opamp-fr-r1-q4"
     },
     {
       "id": "opamp-fr-r1-q2",
@@ -32,21 +29,36 @@
       "figure_alt": "Open-loop Bode magnitude: 106 dB to 5 Hz, then -20 dB/decade to 0 dB at 1 MHz."
     },
     {
-      "id": "opamp-fr-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "An inverting amplifier (\\(R_1\\), \\(R_2\\)) uses a single-pole op-amp with unity-gain frequency \\(\\omega_u\\). Its closed-loop bandwidth is approximately",
-      "options": [
-        "\\(\\omega_0=\\dfrac{\\omega_u}{R_2/R_1}\\)",
-        "\\(\\omega_0=\\dfrac{\\omega_u}{1+R_2/R_1}\\)",
-        "\\(\\omega_0=\\omega_u\\,(1+R_2/R_1)\\)",
-        "\\(\\omega_0=\\omega_{-3dB}\\), unchanged by feedback"
+      "type": "symbolic",
+      "prompt": "Write the approximate closed-loop bandwidth of an inverting amplifier built on a single-pole op-amp. The noise gain is \\(1+R_2/R_1\\), and the unity-gain frequency is \\(\\omega_u\\). Use wu, R1, and R2.",
+      "explanation": "The closed-loop corner is \\(\\omega_u\\) divided by the noise gain \\(1+R_2/R_1\\), not by the signal gain \\(R_2/R_1\\). Multiplying \\(\\omega_u\\) by \\(1+R_2/R_1\\) would make a higher gain faster, which is backwards. \\(\\omega_u\\) itself is the follower bandwidth, the case \\(R_2 = 0\\). The open-loop pole \\(\\omega_u/A_0\\) is far below this closed-loop corner. For a large ratio the noise gain and the signal gain nearly agree, which is why the gain-bandwidth product is quoted as \\(\\omega_u\\).",
+      "answer": "wu/(1+R2/R1)",
+      "variables": [
+        {
+          "name": "wu",
+          "min": 200000.0,
+          "max": 50000000.0
+        },
+        {
+          "name": "R1",
+          "min": 800.0,
+          "max": 8000.0
+        },
+        {
+          "name": "R2",
+          "min": 800.0,
+          "max": 60000.0
+        }
       ],
-      "correct_index": 1,
-      "explanation": "\\(\\omega_0=\\dfrac{A_0\\omega_{-3dB}}{1+R_2/R_1}=\\dfrac{\\omega_u}{1+R_2/R_1}\\). The factor \\(1+R_2/R_1=1/f\\) (the 'noise gain') appears, not the signal gain \\(R_2/R_1\\); for large gains the two are nearly equal, which is why the gain-bandwidth product is about \\(\\omega_u\\).\n• Multiplying would make high gain faster, which is backwards.\n• Feedback does extend the bandwidth beyond the open-loop pole.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 45,60\"/><polyline points=\"45,60 59.5,60 62.5,54 67.5,66 72.5,54 77.5,66 82.5,54 87.5,66 95.5,60 110,60\"/><text x=\"77.5\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₁</text><polyline points=\"110,60 130,60\"/><circle cx=\"110\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"130,90 116,90\"/><line x1=\"116\" y1=\"90\" x2=\"116\" y2=\"96\"/><line x1=\"107\" y1=\"96\" x2=\"125\" y2=\"96\"/><line x1=\"111\" y1=\"100\" x2=\"121\" y2=\"100\"/><line x1=\"114.5\" y1=\"104\" x2=\"117.5\" y2=\"104\"/><polyline points=\"110,60 110,25 125,25\"/><polyline points=\"125,25 139.5,25 142.5,19 147.5,31 152.5,19 157.5,31 162.5,19 167.5,31 175.5,25 190,25\"/><text x=\"157\" y=\"14\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂</text><polyline points=\"190,25 205,25 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
-      "figure_alt": "Inverting amplifier with R1 and R2.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "wu/((R1+R2)/R1)",
+        "wu*R1/(R1+R2)",
+        "wu/(1+R2*R1**(-1))"
+      ],
+      "version": 1,
+      "id": "opamp-fr-r1-q5"
     },
     {
       "id": "opamp-fr-r2-q1",
@@ -91,21 +103,24 @@
       "version": 2
     },
     {
-      "id": "opamp-fr-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "A non-inverting amplifier has closed-loop gain \\(1/f\\) and bandwidth \\(f\\cdot\\omega_u\\). Well ABOVE that bandwidth, how does its closed-loop magnitude behave?",
-      "options": [
-        "It drops at \\(-40\\ \\mathrm{dB/decade}\\), twice as fast as the op-amp",
-        "It stays flat at \\(1/f\\)",
-        "It rises back toward the open-loop DC gain",
-        "It merges with the open-loop curve \\(|A|\\approx\\omega_u/\\omega\\): the loop gain is \\(<1\\), so feedback no longer acts"
+      "type": "error",
+      "prompt": "A worked solution describes a non-inverting amplifier above its closed-loop bandwidth. Exactly one step is wrong.",
+      "explanation": "\\(A_{CL}=A/(1+Af)\\) stays near \\(1/f\\) only while \\(|Af|\\) is large. Past \\(f\\,\\omega_u\\), \\(|Af|<1\\) and \\(A_{CL}\\approx A\\), on the open-loop \\(-20\\) dB/decade line. A slope of \\(-40\\) dB/decade would need a second pole. The curve does not climb back toward the open-loop DC gain. Staying flat out to \\(\\omega_u\\) would require the loop gain to remain large, which is the claim that fails.",
+      "steps": [
+        "The closed-loop gain is \\(A/(1+Af)\\), flat near \\(1/f\\) at low frequency.",
+        "That flat region ends near \\(f\\,\\omega_u\\), where the falling open-loop curve meets \\(1/f\\).",
+        "Well above that corner the loop gain is still large, so the closed-loop magnitude stays flat at \\(1/f\\) all the way to \\(\\omega_u\\).",
+        "Once \\(|Af|\\) drops below 1, feedback stops holding the gain, and the closed-loop curve lies on the open-loop curve, falling at 20 dB/decade."
       ],
-      "correct_index": 3,
-      "explanation": "\\(A_{CL}=\\dfrac{A}{1+Af}\\). Above \\(f\\omega_u\\), \\(|Af|<1\\) and \\(A_{CL}\\approx A\\): the closed-loop curve lies on top of the open-loop \\(-20\\ \\mathrm{dB/decade}\\) line. One pole, one slope: no \\(-40\\) dB/decade.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Open-loop and closed-loop gain</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|A| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,46.2 87.1,46.2 272.9,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"132.4\" x2=\"53\" y2=\"132.4\"/><text x=\"44\" y=\"135.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"110.9\" x2=\"53\" y2=\"110.9\"/><text x=\"44\" y=\"113.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"89.3\" x2=\"53\" y2=\"89.3\"/><text x=\"44\" y=\"92.3\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"47\" y1=\"67.7\" x2=\"53\" y2=\"67.7\"/><text x=\"44\" y=\"70.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">80</text><line x1=\"47\" y1=\"46.2\" x2=\"53\" y2=\"46.2\"/><text x=\"44\" y=\"49.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">100</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"87.1\" y1=\"151\" x2=\"87.1\" y2=\"157\"/><text x=\"87.1\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"124.3\" y1=\"151\" x2=\"124.3\" y2=\"157\"/><text x=\"124.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"161.4\" y1=\"151\" x2=\"161.4\" y2=\"157\"/><text x=\"161.4\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"198.6\" y1=\"151\" x2=\"198.6\" y2=\"157\"/><text x=\"198.6\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"235.7\" y1=\"151\" x2=\"235.7\" y2=\"157\"/><text x=\"235.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"272.9\" y1=\"151\" x2=\"272.9\" y2=\"157\"/><text x=\"272.9\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><polyline points=\"50,110.9 198.6,110.9\" stroke-dasharray=\"4 3\" stroke-width=\"2.2\"/><text x=\"56\" y=\"104.9\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">closed loop</text><text x=\"93.1\" y=\"40.2\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">open loop A</text><line x1=\"198.6\" y1=\"114.9\" x2=\"198.6\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
-      "figure_alt": "Bode sketch of open-loop gain and a 40 dB closed-loop gain that meets the open-loop line at 10 kHz and follows it beyond.",
-      "version": 2
+      "flaw_index": 2,
+      "reasons": [
+        "Above \\(f\\,\\omega_u\\) the loop gain is below 1, so the closed-loop curve merges with \\(|A|\\approx\\omega_u/\\omega\\) instead of staying flat.",
+        "The closed-loop gain stays at \\(1/f\\) until the unity-gain frequency, because feedback remains strong across that whole span."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "opamp-fr-r3-q4"
     },
     {
       "id": "opamp-fr-r3-q2",
@@ -184,6 +199,59 @@
       "preview": [
         "slew"
       ],
+      "version": 2
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "opamp-fr-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "For a single-pole op-amp \\(A(j\\omega)=\\dfrac{A_0}{1+j\\omega/\\omega_{-3dB}}\\), what is the phase of \\(A\\) at frequencies far above \\(\\omega_{-3dB}\\)?",
+      "options": [
+        "About \\(-180^\\circ\\)",
+        "About \\(-45^\\circ\\)",
+        "About \\(-90^\\circ\\)",
+        "About \\(0^\\circ\\)"
+      ],
+      "correct_index": 2,
+      "explanation": "For \\(\\omega\\gg\\omega_{-3dB}\\), \\(A\\approx\\dfrac{\\omega_u}{j\\omega}\\): dividing by \\(j\\) is a \\(-90^\\circ\\) phase shift. It is exactly \\(-45^\\circ\\) only AT the pole, and a single pole can never reach \\(-180^\\circ\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Open-loop gain |A| (asymptotic)</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|A| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,46.2 87.1,46.2 272.9,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"132.4\" x2=\"53\" y2=\"132.4\"/><text x=\"44\" y=\"135.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"110.9\" x2=\"53\" y2=\"110.9\"/><text x=\"44\" y=\"113.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"89.3\" x2=\"53\" y2=\"89.3\"/><text x=\"44\" y=\"92.3\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"47\" y1=\"67.7\" x2=\"53\" y2=\"67.7\"/><text x=\"44\" y=\"70.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">80</text><line x1=\"47\" y1=\"46.2\" x2=\"53\" y2=\"46.2\"/><text x=\"44\" y=\"49.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">100</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"87.1\" y1=\"151\" x2=\"87.1\" y2=\"157\"/><text x=\"87.1\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"124.3\" y1=\"151\" x2=\"124.3\" y2=\"157\"/><text x=\"124.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"161.4\" y1=\"151\" x2=\"161.4\" y2=\"157\"/><text x=\"161.4\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"198.6\" y1=\"151\" x2=\"198.6\" y2=\"157\"/><text x=\"198.6\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"235.7\" y1=\"151\" x2=\"235.7\" y2=\"157\"/><text x=\"235.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"272.9\" y1=\"151\" x2=\"272.9\" y2=\"157\"/><text x=\"272.9\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
+      "figure_alt": "Op-amp open-loop Bode magnitude with a dominant pole at 10 Hz and unity gain at 1 MHz.",
+      "version": 2
+    },
+    {
+      "id": "opamp-fr-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "An inverting amplifier (\\(R_1\\), \\(R_2\\)) uses a single-pole op-amp with unity-gain frequency \\(\\omega_u\\). Its closed-loop bandwidth is approximately",
+      "options": [
+        "\\(\\omega_0=\\dfrac{\\omega_u}{R_2/R_1}\\)",
+        "\\(\\omega_0=\\dfrac{\\omega_u}{1+R_2/R_1}\\)",
+        "\\(\\omega_0=\\omega_u\\,(1+R_2/R_1)\\)",
+        "\\(\\omega_0=\\omega_{-3dB}\\), unchanged by feedback"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(\\omega_0=\\dfrac{A_0\\omega_{-3dB}}{1+R_2/R_1}=\\dfrac{\\omega_u}{1+R_2/R_1}\\). The factor \\(1+R_2/R_1=1/f\\) (the 'noise gain') appears, not the signal gain \\(R_2/R_1\\); for large gains the two are nearly equal, which is why the gain-bandwidth product is about \\(\\omega_u\\).\n• Multiplying would make high gain faster, which is backwards.\n• Feedback does extend the bandwidth beyond the open-loop pole.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 380 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inverting amplifier</title><text x=\"24\" y=\"50\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"60\" r=\"3\"/><polyline points=\"33,60 45,60\"/><polyline points=\"45,60 59.5,60 62.5,54 67.5,66 72.5,54 77.5,66 82.5,54 87.5,66 95.5,60 110,60\"/><text x=\"77.5\" y=\"48\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₁</text><polyline points=\"110,60 130,60\"/><circle cx=\"110\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><polygon points=\"130,45 130,105 186,75\"/><text x=\"137\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"137\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><polyline points=\"130,90 116,90\"/><line x1=\"116\" y1=\"90\" x2=\"116\" y2=\"96\"/><line x1=\"107\" y1=\"96\" x2=\"125\" y2=\"96\"/><line x1=\"111\" y1=\"100\" x2=\"121\" y2=\"100\"/><line x1=\"114.5\" y1=\"104\" x2=\"117.5\" y2=\"104\"/><polyline points=\"110,60 110,25 125,25\"/><polyline points=\"125,25 139.5,25 142.5,19 147.5,31 152.5,19 157.5,31 162.5,19 167.5,31 175.5,25 190,25\"/><text x=\"157\" y=\"14\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R₂</text><polyline points=\"190,25 205,25 205,75\"/><polyline points=\"186,75 240,75\"/><circle cx=\"205\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"243\" cy=\"75\" r=\"3\"/><text x=\"262\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "Inverting amplifier with R1 and R2.",
+      "version": 2
+    },
+    {
+      "id": "opamp-fr-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A non-inverting amplifier has closed-loop gain \\(1/f\\) and bandwidth \\(f\\cdot\\omega_u\\). Well ABOVE that bandwidth, how does its closed-loop magnitude behave?",
+      "options": [
+        "It drops at \\(-40\\ \\mathrm{dB/decade}\\), twice as fast as the op-amp",
+        "It stays flat at \\(1/f\\)",
+        "It rises back toward the open-loop DC gain",
+        "It merges with the open-loop curve \\(|A|\\approx\\omega_u/\\omega\\): the loop gain is \\(<1\\), so feedback no longer acts"
+      ],
+      "correct_index": 3,
+      "explanation": "\\(A_{CL}=\\dfrac{A}{1+Af}\\). Above \\(f\\omega_u\\), \\(|Af|<1\\) and \\(A_{CL}\\approx A\\): the closed-loop curve lies on top of the open-loop \\(-20\\ \\mathrm{dB/decade}\\) line. One pole, one slope: no \\(-40\\) dB/decade.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Open-loop and closed-loop gain</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|A| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,46.2 87.1,46.2 272.9,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"132.4\" x2=\"53\" y2=\"132.4\"/><text x=\"44\" y=\"135.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"110.9\" x2=\"53\" y2=\"110.9\"/><text x=\"44\" y=\"113.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"89.3\" x2=\"53\" y2=\"89.3\"/><text x=\"44\" y=\"92.3\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"47\" y1=\"67.7\" x2=\"53\" y2=\"67.7\"/><text x=\"44\" y=\"70.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">80</text><line x1=\"47\" y1=\"46.2\" x2=\"53\" y2=\"46.2\"/><text x=\"44\" y=\"49.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">100</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"87.1\" y1=\"151\" x2=\"87.1\" y2=\"157\"/><text x=\"87.1\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"124.3\" y1=\"151\" x2=\"124.3\" y2=\"157\"/><text x=\"124.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"161.4\" y1=\"151\" x2=\"161.4\" y2=\"157\"/><text x=\"161.4\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"198.6\" y1=\"151\" x2=\"198.6\" y2=\"157\"/><text x=\"198.6\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"235.7\" y1=\"151\" x2=\"235.7\" y2=\"157\"/><text x=\"235.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"272.9\" y1=\"151\" x2=\"272.9\" y2=\"157\"/><text x=\"272.9\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><polyline points=\"50,110.9 198.6,110.9\" stroke-dasharray=\"4 3\" stroke-width=\"2.2\"/><text x=\"56\" y=\"104.9\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">closed loop</text><text x=\"93.1\" y=\"40.2\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">open loop A</text><line x1=\"198.6\" y1=\"114.9\" x2=\"198.6\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
+      "figure_alt": "Bode sketch of open-loop gain and a 40 dB closed-loop gain that meets the open-loop line at 10 kHz and follows it beyond.",
       "version": 2
     }
   ]
