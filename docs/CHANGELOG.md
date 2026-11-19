@@ -685,6 +685,7 @@ Items above version 1:
 
 - `cs-cascade-r1-q1` version 2
 - `cs-cascade-r1-q3` version 2
+- `cs-cascade-freq-r1-q4` version 2
 - `cs-cascade-freq-r1-q2` version 3
 - `cs-cascade-freq-r1-q3` version 3
 - `cs-cascade-freq-r2-q1` version 2
@@ -707,6 +708,7 @@ Items above version 1:
 - `cascode-amp-r1-q1` version 2
 - `cascode-amp-r2-q2` version 2
 - `cascode-amp-r3-q3` version 2
+- `cascode-bias-r1-q4` version 2
 - `cascode-bias-r1-q2` version 2
 - `cascode-bias-r1-q3` version 2
 - `cascode-bias-r2-q2` version 2

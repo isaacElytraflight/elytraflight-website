@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-19T20:03:34.104129Z",
+  "generated": "2026-11-19T20:19:35.836604Z",
   "skills": {
-    "file": "skills.092d9bd6.json",
-    "hash": "092d9bd6"
+    "file": "skills.7d88c679.json",
+    "hash": "7d88c679"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -332,8 +332,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "adcc5b6a",
-      "file": "banks/cascode-bias.adcc5b6a.json"
+      "hash": "f35173ba",
+      "file": "banks/cascode-bias.f35173ba.json"
     },
     "cascode-src": {
       "version": 3,
@@ -632,8 +632,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "feb03209",
-      "file": "banks/cs-cascade-freq.feb03209.json"
+      "hash": "2754d8f9",
+      "file": "banks/cs-cascade-freq.2754d8f9.json"
     },
     "cs-cascade": {
       "version": 3,

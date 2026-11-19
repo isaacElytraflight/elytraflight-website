@@ -5,8 +5,8 @@
     {
       "round": 1,
       "type": "symbolic",
-      "prompt": "Write the open-circuit time constant of the intermediate node in a two-stage common-source cascade. Stage 1's output resistance is R1. Stage 2's gain magnitude is gm2 times R2. Use R1, Cgs2, Cdb1, Cgd2, gm2, and R2.",
-      "explanation": "The node sees \\(C_{gs2}\\), the first drain's \\(C_{db1}\\), and \\(C_{gd2}\\) multiplied by \\(1+g_{m2}R_2\\). That sum times \\(R_1\\) is the intermediate time constant, and the large resistance times the Miller capacitance is why the node limits the bandwidth. \\(R_s\\) drives only the input node, so it does not appear. \\(C_{gd2}\\) without the Miller factor is the capacitance to an AC ground, which this bridge is not. The product of the three capacitances is not a time constant. \\(1/(2\\pi\\sum\\tau)\\) is the bandwidth estimate, not this one time constant.",
+      "prompt": "Write the Miller estimate of the intermediate-node time constant in a two-stage common-source cascade. Stage 1's output resistance is R1. \\(C_{gd2}\\) is multiplied by one plus stage 2's gain magnitude, gm2 times R2, and R1 drives that whole capacitance. Use R1, Cgs2, Cdb1, Cgd2, gm2, and R2.",
+      "explanation": "The three-node model puts \\(C_{gs2}\\), \\(C_{db1}\\), and \\(C_{gd2}(1+g_{m2}R_2)\\) on the intermediate node and drives them with \\(R_1\\). That product is the Miller estimate, and the large resistance times the multiplied capacitance is why the node limits the bandwidth. The open-circuit resistance across the bridging \\(C_{gd2}\\) is \\(R_1+R_2+g_{m2}R_1R_2\\), so the open-circuit sum is larger by \\(R_2C_{gd2}\\). This estimate does not include that extra term. \\(R_s\\) drives only the input node. \\(C_{gd2}\\) without the Miller factor treats the bridge as a capacitor to AC ground. The product of the three capacitances is not a time constant, and \\(1/(2\\pi\\sum\\tau)\\) is the bandwidth estimate rather than this one term.",
       "answer": "R1*(Cgs2+Cdb1+Cgd2*(1+gm2*R2))",
       "variables": [
         {
@@ -45,7 +45,7 @@
         "R1*Cgs2+R1*Cdb1+R1*Cgd2+R1*gm2*R2*Cgd2",
         "R1*Cgs2+R1*Cdb1+R1*(1+gm2*R2)*Cgd2"
       ],
-      "version": 1,
+      "version": 2,
       "id": "cs-cascade-freq-r1-q4"
     },
     {
