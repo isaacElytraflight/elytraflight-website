@@ -7,14 +7,10 @@ Ids do not change. A content edit bumps that item's version. `docs/content-versi
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `fb-concepts`, `laplace`, `lin-algebra-review`, `min-phase`, `ode-model`.
+Skills: `laplace`, `lin-algebra-review`, `min-phase`.
 
 Items above version 1:
 
-- `fb-concepts-r1-q3` version 2
-- `fb-concepts-r2-q1` version 2
-- `fb-concepts-r4-q1` version 2
-- `fb-concepts-r4-q3` version 2
 - `laplace-r2-q3` version 2
 - `laplace-r4-q1` version 2
 - `laplace#explainer` version 2
@@ -33,12 +29,6 @@ Items above version 1:
 - `min-phase-r4-q1` version 2
 - `min-phase-r4-q2` version 2
 - `min-phase#explainer` version 2
-- `ode-model-r1-q2` version 3
-- `ode-model-r2-q1` version 2
-- `ode-model-r2-q2` version 2
-- `ode-model-r2-q3` version 2
-- `ode-model-r3-q1` version 2
-- `ode-model-r4-q2` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -46,36 +36,14 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `block-diagram`, `first-order-sys`, `model-method`, `onoff-pid-intro`, `state-space-model`.
+Skills: `first-order-sys`, `state-space-model`.
 
 Items above version 1:
 
-- `block-diagram-r1-q3` version 3
-- `block-diagram-r2-q1` version 3
-- `block-diagram-r2-q3` version 3
-- `block-diagram-r3-q1` version 3
-- `block-diagram-r3-q2` version 3
-- `block-diagram-r3-q3` version 2
-- `block-diagram-r4-q1` version 3
-- `block-diagram-r4-q2` version 4
-- `block-diagram-r4-q3` version 2
-- `block-diagram#explainer` version 3
 - `first-order-sys-r4-q1` version 3
 - `first-order-sys-r4-q2` version 3
 - `first-order-sys-r4-q3` version 3
 - `first-order-sys#explainer` version 2
-- `onoff-pid-intro-r1-q1` version 3
-- `onoff-pid-intro-r1-q3` version 3
-- `onoff-pid-intro-r2-q1` version 3
-- `onoff-pid-intro-r2-q2` version 3
-- `onoff-pid-intro-r2-q3` version 4
-- `onoff-pid-intro-r3-q1` version 3
-- `onoff-pid-intro-r3-q2` version 3
-- `onoff-pid-intro-r3-q3` version 3
-- `onoff-pid-intro-r4-q1` version 3
-- `onoff-pid-intro-r4-q2` version 3
-- `onoff-pid-intro-r4-q3` version 3
-- `onoff-pid-intro#explainer` version 3
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -83,7 +51,7 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `app-examples`, `cruise-control`, `equilibria`, `loop-tf`, `second-order-sys`, `ss-solution`.
+Skills: `app-examples`, `equilibria`, `loop-tf`, `second-order-sys`, `ss-solution`.
 
 Items above version 1:
 
@@ -1128,5 +1096,48 @@ Items above version 1:
 - `ro-r1-q1` version 2
 - `ss-model-r1-q1` version 2
 - `ss-model#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 ME 132 feedback basics and block diagrams — sg063-me132-m1
+
+Box: ME 132 (me132), Feedback basics and block diagrams.
+
+Skills: `fb-concepts`, `block-diagram`, `onoff-pid-intro`, `ode-model`, `cruise-control`, `model-method`.
+
+Items above version 1:
+
+- `fb-concepts-r1-q3` version 2
+- `fb-concepts-r2-q1` version 2
+- `fb-concepts-r4-q1` version 2
+- `fb-concepts-r4-q3` version 2
+- `block-diagram-r2-q1` version 3
+- `block-diagram-r3-q1` version 3
+- `block-diagram-r3-q2` version 3
+- `block-diagram-r3-q3` version 2
+- `block-diagram-r4-q1` version 3
+- `block-diagram-r4-q2` version 4
+- `block-diagram-r4-q3` version 2
+- `block-diagram-r1-q3` version 3
+- `block-diagram-r2-q3` version 3
+- `block-diagram#explainer` version 3
+- `onoff-pid-intro-r1-q3` version 3
+- `onoff-pid-intro-r2-q1` version 3
+- `onoff-pid-intro-r2-q3` version 4
+- `onoff-pid-intro-r3-q1` version 3
+- `onoff-pid-intro-r3-q3` version 3
+- `onoff-pid-intro-r4-q1` version 3
+- `onoff-pid-intro-r4-q2` version 3
+- `onoff-pid-intro-r4-q3` version 3
+- `onoff-pid-intro-r1-q1` version 3
+- `onoff-pid-intro-r2-q2` version 3
+- `onoff-pid-intro-r3-q2` version 3
+- `onoff-pid-intro#explainer` version 3
+- `ode-model-r1-q2` version 3
+- `ode-model-r2-q1` version 2
+- `ode-model-r2-q3` version 2
+- `ode-model-r3-q1` version 2
+- `ode-model-r4-q2` version 2
+- `ode-model-r2-q2` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.

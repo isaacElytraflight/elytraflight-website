@@ -1,23 +1,20 @@
 {
   "skill_id": "onoff-pid-intro",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "onoff-pid-intro-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "An on-off controller can command only 0 or full scale. While the error is nonzero it",
-      "explanation": "On-off has two legal outputs. It switches to one or the other according to the sign of the error, and it cannot sit at an intermediate command. A command proportional to the error is P control. Integrating the error is I control. Commanding the derivative is D control.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two-level command</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">on/off</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
-      "figure_alt": "A controller and a plant, with the return subtracted at the input.",
-      "options": [
-        "holds one of those two commands, not a value in between",
-        "produces a command proportional to the error",
-        "integrates the error until the error is zero",
-        "commands the derivative of the error"
+      "type": "order",
+      "prompt": "Order what an on-off controller does with a nonzero error. Each step after the first uses the result of the step before it.",
+      "explanation": "On-off feedback has no command between its two levels. Proportional control is the law that scales the command with the error. Holding full on while the output already sits past the reference drives the error the wrong way. The chatter is the controller hunting for a command it is not allowed to hold.",
+      "steps": [
+        "Read the sign of the error. The size of the error does not set an intermediate command.",
+        "Command one of the two allowed values, full on or full off.",
+        "The only way to reduce that command is to switch it to the other value.",
+        "A plant that needs an intermediate command to hold the reference therefore chatters around it."
       ],
-      "correct_index": 0,
-      "version": 3
+      "version": 1,
+      "id": "onoff-pid-intro-r1-q4"
     },
     {
       "id": "onoff-pid-intro-r1-q2",
@@ -59,21 +56,24 @@
       "version": 3
     },
     {
-      "id": "onoff-pid-intro-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "A constant reference and a constant disturbance act on a loop. Adding integral action, and no other change, makes the steady error",
-      "explanation": "An integrator in a stable loop cannot settle while its input, the error, is a nonzero constant. The only steady state is zero error. Windup is what happens when the actuator saturates and the integrator is left running, which is a different regime. The proportional-only error is exactly what the integrator removes. A ramp would mean the loop never reached a steady state.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>integral in the forward path</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">PI</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
-      "figure_alt": "A controller and a plant, with the return subtracted at the input.",
-      "options": [
-        "larger, because the integrator winds up on a constant",
-        "zero, if the loop is still stable",
-        "equal to the proportional-only error",
-        "a ramp, because the integrator keeps moving"
+      "type": "error",
+      "prompt": "A worked solution adds integral action to a stable loop with a constant reference and a constant disturbance. Exactly one step is wrong.",
+      "explanation": "A leftover constant error keeps the integral moving, so the command cannot sit still. The only steady point of a stable loop is zero error. Derivative action is the term that is zero on a constant, and it does not move that resting point. An unstable loop is not a way to claim zero error. The integrator has to sit inside a loop that still settles.",
+      "steps": [
+        "Proportional control alone can rest with a nonzero constant error.",
+        "Integral action adds that error up as time passes.",
+        "A nonzero constant error keeps the sum moving, so the command is still changing.",
+        "The error can rest at that nonzero value, because a constant integrator output needs a constant error to hold it."
       ],
-      "correct_index": 1,
-      "version": 3
+      "flaw_index": 3,
+      "reasons": [
+        "A nonzero constant error never lets the integrator rest, so a stable loop cannot settle until the error is zero.",
+        "Integral action zeros the error only after the loop has been made unstable."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "onoff-pid-intro-r2-q4"
     },
     {
       "id": "onoff-pid-intro-r2-q3",
@@ -102,21 +102,36 @@
       "version": 3
     },
     {
-      "id": "onoff-pid-intro-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "Derivative action is added to a proportional loop. The reference is a step, the disturbance is constant, and the loop stays linear. The steady error",
-      "explanation": "A derivative of a constant is zero. Once the signals have settled, the D term contributes nothing, so the steady error is the P-only error. Looking ahead changes the transient, not the resting value. The sign of the error is set by the proportional balance. A growing error would mean the loop is not at a steady state.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>derivative added</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P+D</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
-      "figure_alt": "A controller and a plant, with the return subtracted at the input.",
-      "options": [
-        "becomes zero, because the derivative looks ahead",
-        "changes sign",
-        "stays the same as the proportional-only error",
-        "grows like \\(t\\), because a derivative emphasizes high frequency"
+      "type": "symbolic",
+      "prompt": "Write the steady error of a proportional loop. The loop gain is the proportional gain \\(K_c\\) times the plant DC gain \\(P\\), and the reference \\(r\\) is constant. Derivative action adds nothing to this value. Use \\(r\\), \\(K_c\\), and \\(P\\).",
+      "explanation": "The steady output is \\(L r/(1+L)\\) with \\(L = K_c P\\), so the error is \\(r - y = r/(1+L)\\). The derivative of a constant error is zero, which is why adding derivative action leaves this value unchanged. Reporting \\(r\\) is the miss of a plant that produces nothing. Reporting \\(K_c P r\\) is a command, not the error. Reporting \\(r/(K_c P)\\) drops the 1 in the denominator. Raising \\(K_c\\) shrinks the error and does not remove it.",
+      "answer": "r/(1+Kc*P)",
+      "variables": [
+        {
+          "name": "r",
+          "min": 1.0,
+          "max": 40.0
+        },
+        {
+          "name": "Kc",
+          "min": 0.4,
+          "max": 15.0
+        },
+        {
+          "name": "P",
+          "min": 0.4,
+          "max": 12.0
+        }
       ],
-      "correct_index": 2,
-      "version": 3
+      "tolerance": 0.001,
+      "alternates": [
+        "r/(1+P*Kc)",
+        "r*(1+Kc*P)**(-1)",
+        "r/(Kc*P+1)"
+      ],
+      "version": 1,
+      "id": "onoff-pid-intro-r3-q4"
     },
     {
       "id": "onoff-pid-intro-r3-q3",
@@ -181,6 +196,59 @@
         "the error, the integral of the error, and the derivative of the error"
       ],
       "correct_index": 3,
+      "version": 3
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "onoff-pid-intro-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "An on-off controller can command only 0 or full scale. While the error is nonzero it",
+      "explanation": "On-off has two legal outputs. It switches to one or the other according to the sign of the error, and it cannot sit at an intermediate command. A command proportional to the error is P control. Integrating the error is I control. Commanding the derivative is D control.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two-level command</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">on/off</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant, with the return subtracted at the input.",
+      "options": [
+        "holds one of those two commands, not a value in between",
+        "produces a command proportional to the error",
+        "integrates the error until the error is zero",
+        "commands the derivative of the error"
+      ],
+      "correct_index": 0,
+      "version": 3
+    },
+    {
+      "id": "onoff-pid-intro-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A constant reference and a constant disturbance act on a loop. Adding integral action, and no other change, makes the steady error",
+      "explanation": "An integrator in a stable loop cannot settle while its input, the error, is a nonzero constant. The only steady state is zero error. Windup is what happens when the actuator saturates and the integrator is left running, which is a different regime. The proportional-only error is exactly what the integrator removes. A ramp would mean the loop never reached a steady state.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>integral in the forward path</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">PI</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant, with the return subtracted at the input.",
+      "options": [
+        "larger, because the integrator winds up on a constant",
+        "zero, if the loop is still stable",
+        "equal to the proportional-only error",
+        "a ramp, because the integrator keeps moving"
+      ],
+      "correct_index": 1,
+      "version": 3
+    },
+    {
+      "id": "onoff-pid-intro-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Derivative action is added to a proportional loop. The reference is a step, the disturbance is constant, and the loop stays linear. The steady error",
+      "explanation": "A derivative of a constant is zero. Once the signals have settled, the D term contributes nothing, so the steady error is the P-only error. Looking ahead changes the transient, not the resting value. The sign of the error is set by the proportional balance. A growing error would mean the loop is not at a steady state.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>derivative added</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P+D</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant, with the return subtracted at the input.",
+      "options": [
+        "becomes zero, because the derivative looks ahead",
+        "changes sign",
+        "stays the same as the proportional-only error",
+        "grows like \\(t\\), because a derivative emphasizes high frequency"
+      ],
+      "correct_index": 2,
       "version": 3
     }
   ]

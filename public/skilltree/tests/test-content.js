@@ -417,8 +417,9 @@ function svgLines(svg) {
 
 test('feedback labels, signs, and disturbance topology match the stems', () => {
   const skills = ['block-diagram', 'first-order-sys', 'onoff-pid-intro'];
-  const questions = skills.flatMap(id =>
-    JSON.parse(fs.readFileSync(path.join(SRC, 'bank', id + '.json'), 'utf8')).questions);
+  const banks = skills.map(id =>
+    JSON.parse(fs.readFileSync(path.join(SRC, 'bank', id + '.json'), 'utf8')));
+  const questions = banks.flatMap(bank => bank.questions);
   const explainers = skills.map(id =>
     JSON.parse(fs.readFileSync(path.join(SRC, 'explainers', id + '.json'), 'utf8')));
   const figures = [
@@ -458,7 +459,8 @@ test('feedback labels, signs, and disturbance topology match the stems', () => {
       assert(outputSummer > Math.max(...rects), item.id + ' adds the disturbance before the forward blocks');
     }
   }
-  const walk = questions.find(q => q.id === 'block-diagram-r2-q3');
+  const walk = [...questions, ...banks.flatMap(bank => bank.retired_questions || [])]
+    .find(q => q.id === 'block-diagram-r2-q3');
   assert.strictEqual(walk.version, 3);
   assert(svgTexts(walk.figure).some(t => t.t === 'e'));
   assert(svgTexts(walk.figure).some(t => t.t === 'r'));
