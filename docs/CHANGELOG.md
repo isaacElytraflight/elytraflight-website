@@ -1151,7 +1151,9 @@ Items above version 1:
 - `step-specs-r4-q1` version 2
 - `step-specs-r4-q3` version 2
 - `pid-r1-q2` version 2
+- `pid-r2-q4` version 2
 - `pid-r4-q1` version 2
+- `pid-tuning-r2-q4` version 2
 - `pid-tuning-r2-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.

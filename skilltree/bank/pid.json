@@ -52,7 +52,7 @@
     {
       "round": 2,
       "type": "symbolic",
-      "prompt": "A PD controller is \\(K_p + K_d s\\), with \\(K_p\\) and \\(K_d\\) positive. Its zero is in the open left half-plane. Write the positive distance from the origin to that zero. Use \\(K_p\\) and \\(K_d\\).",
+      "prompt": "A PD controller is Kp + Kd*s, with Kp and Kd positive. Its zero is in the open left half-plane. Write the positive distance from the origin to that zero. Use Kp and Kd.",
       "explanation": "The zero solves \\(K_p + K_d s = 0\\), so \\(s = -K_p/K_d\\). The distance from the origin is the positive number \\(K_p/K_d\\). \\(K_d/K_p\\) inverts the ratio and moves the break frequency. \\(K_p K_d\\) multiplies the two gains and is not a frequency. \\(K_p + K_d\\) adds them. The derivative term's phase lead comes from this zero, not from a pole at the origin. Infinite DC gain is the integral term.",
       "answer": "Kp/Kd",
       "variables": [
@@ -72,7 +72,7 @@
         "Kp*Kd**(-1)",
         "(1/Kd)*Kp"
       ],
-      "version": 1,
+      "version": 2,
       "id": "pid-r2-q4"
     },
     {

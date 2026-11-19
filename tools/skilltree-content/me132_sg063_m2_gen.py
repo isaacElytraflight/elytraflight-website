@@ -163,7 +163,7 @@ def swaps_for(sid):
             )),
             ("pid-r2-q1", fresh(
                 2, "sym",
-                r"A PD controller is \(K_p + K_d s\), with \(K_p\) and \(K_d\) positive. Its zero is in the open left half-plane. Write the positive distance from the origin to that zero. Use \(K_p\) and \(K_d\).",
+                r"A PD controller is Kp + Kd*s, with Kp and Kd positive. Its zero is in the open left half-plane. Write the positive distance from the origin to that zero. Use Kp and Kd.",
                 "Kp/Kd",
                 {"Kp": (0.4, 25), "Kd": (0.05, 8)},
                 r"The zero solves \(K_p + K_d s = 0\), so \(s = -K_p/K_d\). The distance from the origin is the positive number \(K_p/K_d\). \(K_d/K_p\) inverts the ratio and moves the break frequency. \(K_p K_d\) multiplies the two gains and is not a frequency. \(K_p + K_d\) adds them. The derivative term's phase lead comes from this zero, not from a pole at the origin. Infinite DC gain is the integral term.",
@@ -224,7 +224,7 @@ def swaps_for(sid):
             )),
             ("pid-tuning-r2-q2", fresh(
                 2, "sym",
-                r"Write the PID reaction-curve proportional gain. The open-loop step fit has gain \(K\), lag \(\tau\), and delay \(L\), all positive, and \(a = KL/\tau\). The PID rule is \(K_p = 1.2/a\). Use \(K\), \(L\), and \(\tau\).",
+                r"Write the PID reaction-curve proportional gain. The open-loop step fit has gain K, lag tau, and delay L, all positive, and a = K*L/tau. The PID rule is Kp = 1.2/a. Use K, L, and tau.",
                 "1.2*tau/(K*L)",
                 {"K": (0.4, 15), "L": (0.15, 6), "tau": (0.4, 25)},
                 r"Substitute \(a = KL/\tau\) into \(K_p = 1.2/a\) and the gain is \(1.2\,\tau/(KL)\). \(1.2 a\) inverts the rule, so a larger delay would raise \(K_p\) instead of lowering it. \(0.9/a\) is the PI reaction-curve gain, not the PID gain. Dropping \(L\) is the mistake of treating a plant with delay as a plant with none. The ultimate-gain rule is a different experiment and does not use \(K\), \(\tau\), and \(L\).",

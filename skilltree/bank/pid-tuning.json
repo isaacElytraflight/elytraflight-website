@@ -58,7 +58,7 @@
     {
       "round": 2,
       "type": "symbolic",
-      "prompt": "Write the PID reaction-curve proportional gain. The open-loop step fit has gain \\(K\\), lag \\(\\tau\\), and delay \\(L\\), all positive, and \\(a = KL/\\tau\\). The PID rule is \\(K_p = 1.2/a\\). Use \\(K\\), \\(L\\), and \\(\\tau\\).",
+      "prompt": "Write the PID reaction-curve proportional gain. The open-loop step fit has gain K, lag tau, and delay L, all positive, and a = K*L/tau. The PID rule is Kp = 1.2/a. Use K, L, and tau.",
       "explanation": "Substitute \\(a = KL/\\tau\\) into \\(K_p = 1.2/a\\) and the gain is \\(1.2\\,\\tau/(KL)\\). \\(1.2 a\\) inverts the rule, so a larger delay would raise \\(K_p\\) instead of lowering it. \\(0.9/a\\) is the PI reaction-curve gain, not the PID gain. Dropping \\(L\\) is the mistake of treating a plant with delay as a plant with none. The ultimate-gain rule is a different experiment and does not use \\(K\\), \\(\\tau\\), and \\(L\\).",
       "answer": "1.2*tau/(K*L)",
       "variables": [
@@ -84,7 +84,7 @@
         "(1.2/K)*(tau/L)",
         "1.2*tau/(L*K)"
       ],
-      "version": 1,
+      "version": 2,
       "id": "pid-tuning-r2-q4"
     },
     {
