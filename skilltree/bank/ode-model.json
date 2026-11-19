@@ -1,23 +1,31 @@
 {
   "skill_id": "ode-model",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "ode-model-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A capacitor has capacitance \\(C\\) and voltage \\(v\\) across it. Which relation is the element law?",
-      "explanation": "Charge is \\(q = Cv\\), and current is the derivative of charge, so \\(i = C\\,dv/dt\\). The inductor law is the one that puts a derivative on the current: \\(v = L\\,di/dt\\). Putting \\(C\\) in that slot mixes the two storage elements. \\(i = Cv\\) and \\(i = v/C\\) are algebraic, like a resistor, and a capacitor does not obey Ohm's law.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 160\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Series resistor and capacitor driven by a voltage source</title><line x1=\"40\" y1=\"28\" x2=\"40\" y2=\"56\"/><line x1=\"40\" y1=\"80\" x2=\"40\" y2=\"108\"/><circle cx=\"40\" cy=\"68\" r=\"12\"/><text x=\"40\" y=\"66\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"40\" y=\"78\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"23\" y=\"72\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vs</text><polyline points=\"40,28 100,28\"/><polyline points=\"100,28 117,28 120,22 125,34 130,22 135,34 140,22 145,34 153,28 170,28\"/><text x=\"135\" y=\"16\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><polyline points=\"170,28 230,28 230,70\"/><line x1=\"230\" y1=\"70\" x2=\"230\" y2=\"85\"/><line x1=\"230\" y1=\"95\" x2=\"230\" y2=\"110\"/><line x1=\"221\" y1=\"85\" x2=\"239\" y2=\"85\"/><line x1=\"221\" y1=\"95\" x2=\"239\" y2=\"95\"/><text x=\"244\" y=\"94\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><polyline points=\"230,110 230,128 40,128\"/><line x1=\"140\" y1=\"128\" x2=\"140\" y2=\"134\"/><line x1=\"131\" y1=\"134\" x2=\"149\" y2=\"134\"/><line x1=\"135\" y1=\"138\" x2=\"145\" y2=\"138\"/><line x1=\"138.5\" y1=\"142\" x2=\"141.5\" y2=\"142\"/></svg>",
-      "figure_alt": "A voltage source, a series resistor, and a capacitor to the return node.",
-      "options": [
-        "\\(i = C\\,\\dfrac{dv}{dt}\\)",
-        "\\(v = C\\,\\dfrac{di}{dt}\\)",
-        "\\(i = C v\\)",
-        "\\(i = v/C\\)"
+      "type": "symbolic",
+      "prompt": "Write the current through a capacitor. The capacitance is \\(C\\) and the voltage across it changes at the rate \\(vdot\\). Use \\(C\\) and \\(vdot\\).",
+      "explanation": "The element law is \\(i = C\\) times the voltage rate. The rate is the derivative of the capacitor voltage, not a second state. Reporting \\(C/vdot\\) inverts the law. Reporting \\(vdot/C\\) has the shape of a reciprocal time constant, not a current. A resistor's law is algebraic and has no derivative and no initial condition.",
+      "answer": "C*vdot",
+      "variables": [
+        {
+          "name": "C",
+          "min": 1e-07,
+          "max": 0.005
+        },
+        {
+          "name": "vdot",
+          "min": 0.1,
+          "max": 50.0
+        }
       ],
-      "correct_index": 0,
-      "version": 1
+      "tolerance": 0.001,
+      "alternates": [
+        "vdot*C"
+      ],
+      "version": 1,
+      "id": "ode-model-r1-q4"
     },
     {
       "id": "ode-model-r1-q2",
@@ -63,21 +71,24 @@
       "version": 2
     },
     {
-      "id": "ode-model-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "A mass \\(m\\) is tied to a fixed wall by a spring \\(k\\), with no damper. An external force \\(u\\) pushes the mass, and \\(y\\) is the stretch of the spring. Which equation is Newton's law?",
-      "explanation": "The spring force on the mass pulls back toward the unstretched position, so it enters with a minus: \\(m\\ddot y = u - ky\\). A plus sign on \\(ky\\) would push the mass further out as it moves out, which is unstable. The mass multiplies acceleration, not velocity. Swapping \\(m\\) and \\(k\\) assigns inertia to the spring and a spring law to the mass.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Mass and spring, no damper drawn in the force balance</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"70\" x2=\"48\" y2=\"70\"/><polyline points=\"48,70 56,58 66,82 76,58 86,82 96,58 106,82 116,70 140,70\"/><text x=\"90\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
-      "figure_alt": "A mass, a spring to a wall, and an applied force.",
-      "options": [
-        "\\(m\\ddot y = u + ky\\)",
-        "\\(m\\dot y = u - ky\\)",
-        "\\(m\\ddot y = u - ky\\)",
-        "\\(k\\ddot y = u - my\\)"
+      "type": "error",
+      "prompt": "A worked solution writes Newton's law for a mass tied to a fixed wall by a spring, with no damper. The external force is \\(u\\) and \\(y\\) is the stretch. Exactly one step is wrong.",
+      "explanation": "The free-body diagram puts the spring force against the displacement. The sign \\(-ky\\) is what keeps the motion oscillatory rather than runaway. Writing \\(+ky\\) turns a restoring force into a push that grows with stretch. Dropping the spring deletes the element that sets the stiffness. A damper, if there were one, would oppose velocity, not add another \\(+ky\\).",
+      "steps": [
+        "Mass times acceleration equals the sum of the forces on the mass.",
+        "The external force \\(u\\) is taken as positive in the direction of increasing \\(y\\).",
+        "The spring pulls the mass back toward the unstretched length, opposite the stretch.",
+        "Newton's law is therefore mass times acceleration \\(= u + ky\\), because a restoring spring adds to the external force."
       ],
-      "correct_index": 2,
-      "version": 2
+      "flaw_index": 3,
+      "reasons": [
+        "The spring opposes the stretch, so the force on the mass is \\(-ky\\) and the law is mass times acceleration \\(= u - ky\\).",
+        "The spring is algebraic, so it drops out and the law is mass times acceleration \\(= u\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "ode-model-r2-q4"
     },
     {
       "id": "ode-model-r2-q3",
@@ -119,21 +130,18 @@
       "version": 1
     },
     {
-      "id": "ode-model-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Which pair can be the state of a circuit made of resistors, capacitors, and inductors?",
-      "explanation": "Inductors store energy in current, and capacitors store energy in voltage. Those are the quantities whose derivatives are fixed by the element laws, so they are the states. A resistor is algebraic: its voltage and current are locked by Ohm's law and do not need an initial condition. The source is an input, not a state. Calling a resistor a storage element double-counts a variable the algebra already removed.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inductor current is one stored quantity</title><line x1=\"40\" y1=\"30\" x2=\"40\" y2=\"53\"/><line x1=\"40\" y1=\"77\" x2=\"40\" y2=\"100\"/><circle cx=\"40\" cy=\"65\" r=\"12\"/><text x=\"40\" y=\"63\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"40\" y=\"75\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"23\" y=\"69\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v</text><polyline points=\"40,30 90,30\"/><line x1=\"90\" y1=\"30\" x2=\"98\" y2=\"30\"/><path d=\"M 98.0 30.0 a 6.8 6.8 0 0 1 13.5 0 M 111.5 30.0 a 6.8 6.8 0 0 1 13.5 0 M 125.0 30.0 a 6.8 6.8 0 0 1 13.5 0 M 138.5 30.0 a 6.8 6.8 0 0 1 13.5 0\"/><line x1=\"152\" y1=\"30\" x2=\"160\" y2=\"30\"/><text x=\"125\" y=\"18\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">L</text><polyline points=\"160,30 210,30\"/><polyline points=\"210,30 222,30 225,24 230,36 235,24 240,36 245,24 250,36 258,30 270,30\"/><text x=\"240\" y=\"18\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><polyline points=\"270,30 300,30 300,100 40,100\"/><line x1=\"170\" y1=\"100\" x2=\"170\" y2=\"106\"/><line x1=\"161\" y1=\"106\" x2=\"179\" y2=\"106\"/><line x1=\"165\" y1=\"110\" x2=\"175\" y2=\"110\"/><line x1=\"168.5\" y1=\"114\" x2=\"171.5\" y2=\"114\"/></svg>",
-      "figure_alt": "A source feeding an inductor and a resistor, the inductor marked as the storage element.",
-      "options": [
-        "The voltage across a resistor and the current through that same resistor",
-        "The source voltage and nothing else",
-        "The current through a resistor, because resistors store charge",
-        "Inductor current and capacitor voltage"
+      "type": "order",
+      "prompt": "Order how you choose the state of a circuit made of resistors, capacitors, and inductors. Each step after the first uses the result of the step before it.",
+      "explanation": "A state needs an initial condition. Inductor current and capacitor voltage are those quantities. Resistor voltage is fixed once the currents are known, so treating it as a state adds an algebraic variable. Charge instead of capacitor voltage counts the same storage twice. The steady values do not depend on the storage elements. The time constants do.",
+      "steps": [
+        "Mark the inductors and the capacitors, the elements that store energy.",
+        "Take inductor current and capacitor voltage as the stored quantities that need initial conditions.",
+        "Leave the resistors off that list. A resistor has no derivative and no initial condition.",
+        "Eliminate the resistor variables. The derivatives that remain are the state equations."
       ],
-      "correct_index": 3,
-      "version": 1
+      "version": 1,
+      "id": "ode-model-r3-q4"
     },
     {
       "id": "ode-model-r4-q1",
@@ -181,6 +189,59 @@
       "answer": 5.0,
       "unit": "1",
       "tolerance": 0.02,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "ode-model-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A capacitor has capacitance \\(C\\) and voltage \\(v\\) across it. Which relation is the element law?",
+      "explanation": "Charge is \\(q = Cv\\), and current is the derivative of charge, so \\(i = C\\,dv/dt\\). The inductor law is the one that puts a derivative on the current: \\(v = L\\,di/dt\\). Putting \\(C\\) in that slot mixes the two storage elements. \\(i = Cv\\) and \\(i = v/C\\) are algebraic, like a resistor, and a capacitor does not obey Ohm's law.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 160\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Series resistor and capacitor driven by a voltage source</title><line x1=\"40\" y1=\"28\" x2=\"40\" y2=\"56\"/><line x1=\"40\" y1=\"80\" x2=\"40\" y2=\"108\"/><circle cx=\"40\" cy=\"68\" r=\"12\"/><text x=\"40\" y=\"66\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"40\" y=\"78\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"23\" y=\"72\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">vs</text><polyline points=\"40,28 100,28\"/><polyline points=\"100,28 117,28 120,22 125,34 130,22 135,34 140,22 145,34 153,28 170,28\"/><text x=\"135\" y=\"16\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><polyline points=\"170,28 230,28 230,70\"/><line x1=\"230\" y1=\"70\" x2=\"230\" y2=\"85\"/><line x1=\"230\" y1=\"95\" x2=\"230\" y2=\"110\"/><line x1=\"221\" y1=\"85\" x2=\"239\" y2=\"85\"/><line x1=\"221\" y1=\"95\" x2=\"239\" y2=\"95\"/><text x=\"244\" y=\"94\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C</text><polyline points=\"230,110 230,128 40,128\"/><line x1=\"140\" y1=\"128\" x2=\"140\" y2=\"134\"/><line x1=\"131\" y1=\"134\" x2=\"149\" y2=\"134\"/><line x1=\"135\" y1=\"138\" x2=\"145\" y2=\"138\"/><line x1=\"138.5\" y1=\"142\" x2=\"141.5\" y2=\"142\"/></svg>",
+      "figure_alt": "A voltage source, a series resistor, and a capacitor to the return node.",
+      "options": [
+        "\\(i = C\\,\\dfrac{dv}{dt}\\)",
+        "\\(v = C\\,\\dfrac{di}{dt}\\)",
+        "\\(i = C v\\)",
+        "\\(i = v/C\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "ode-model-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A mass \\(m\\) is tied to a fixed wall by a spring \\(k\\), with no damper. An external force \\(u\\) pushes the mass, and \\(y\\) is the stretch of the spring. Which equation is Newton's law?",
+      "explanation": "The spring force on the mass pulls back toward the unstretched position, so it enters with a minus: \\(m\\ddot y = u - ky\\). A plus sign on \\(ky\\) would push the mass further out as it moves out, which is unstable. The mass multiplies acceleration, not velocity. Swapping \\(m\\) and \\(k\\) assigns inertia to the spring and a spring law to the mass.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Mass and spring, no damper drawn in the force balance</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"70\" x2=\"48\" y2=\"70\"/><polyline points=\"48,70 56,58 66,82 76,58 86,82 96,58 106,82 116,70 140,70\"/><text x=\"90\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
+      "figure_alt": "A mass, a spring to a wall, and an applied force.",
+      "options": [
+        "\\(m\\ddot y = u + ky\\)",
+        "\\(m\\dot y = u - ky\\)",
+        "\\(m\\ddot y = u - ky\\)",
+        "\\(k\\ddot y = u - my\\)"
+      ],
+      "correct_index": 2,
+      "version": 2
+    },
+    {
+      "id": "ode-model-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Which pair can be the state of a circuit made of resistors, capacitors, and inductors?",
+      "explanation": "Inductors store energy in current, and capacitors store energy in voltage. Those are the quantities whose derivatives are fixed by the element laws, so they are the states. A resistor is algebraic: its voltage and current are locked by Ohm's law and do not need an initial condition. The source is an input, not a state. Calling a resistor a storage element double-counts a variable the algebra already removed.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 140\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Inductor current is one stored quantity</title><line x1=\"40\" y1=\"30\" x2=\"40\" y2=\"53\"/><line x1=\"40\" y1=\"77\" x2=\"40\" y2=\"100\"/><circle cx=\"40\" cy=\"65\" r=\"12\"/><text x=\"40\" y=\"63\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"40\" y=\"75\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"23\" y=\"69\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v</text><polyline points=\"40,30 90,30\"/><line x1=\"90\" y1=\"30\" x2=\"98\" y2=\"30\"/><path d=\"M 98.0 30.0 a 6.8 6.8 0 0 1 13.5 0 M 111.5 30.0 a 6.8 6.8 0 0 1 13.5 0 M 125.0 30.0 a 6.8 6.8 0 0 1 13.5 0 M 138.5 30.0 a 6.8 6.8 0 0 1 13.5 0\"/><line x1=\"152\" y1=\"30\" x2=\"160\" y2=\"30\"/><text x=\"125\" y=\"18\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">L</text><polyline points=\"160,30 210,30\"/><polyline points=\"210,30 222,30 225,24 230,36 235,24 240,36 245,24 250,36 258,30 270,30\"/><text x=\"240\" y=\"18\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R</text><polyline points=\"270,30 300,30 300,100 40,100\"/><line x1=\"170\" y1=\"100\" x2=\"170\" y2=\"106\"/><line x1=\"161\" y1=\"106\" x2=\"179\" y2=\"106\"/><line x1=\"165\" y1=\"110\" x2=\"175\" y2=\"110\"/><line x1=\"168.5\" y1=\"114\" x2=\"171.5\" y2=\"114\"/></svg>",
+      "figure_alt": "A source feeding an inductor and a resistor, the inductor marked as the storage element.",
+      "options": [
+        "The voltage across a resistor and the current through that same resistor",
+        "The source voltage and nothing else",
+        "The current through a resistor, because resistors store charge",
+        "Inductor current and capacitor voltage"
+      ],
+      "correct_index": 3,
       "version": 1
     }
   ]

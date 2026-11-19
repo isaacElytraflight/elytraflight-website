@@ -1,0 +1,26 @@
+{
+  "id": "sg063-me132-m1",
+  "label": "SG-063 ME 132 feedback basics and block diagrams",
+  "box": "ME 132 (me132), Feedback basics and block diagrams",
+  "skills": [
+    "fb-concepts",
+    "block-diagram",
+    "onoff-pid-intro",
+    "ode-model",
+    "cruise-control",
+    "model-method"
+  ],
+  "areas": {
+    "fb-concepts": ["feedback-loop"],
+    "block-diagram": ["feedback-loop"],
+    "onoff-pid-intro": ["feedback-loop"],
+    "ode-model": ["physical-models"],
+    "cruise-control": ["feedback-loop"],
+    "model-method": ["physical-models"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_me132_m1.py"
+}

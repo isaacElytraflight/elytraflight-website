@@ -1,23 +1,20 @@
 {
   "skill_id": "block-diagram",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "block-diagram-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "Two blocks sit one after the other. The first multiplies by 6 and the second multiplies by 5. The single block that replaces both multiplies by",
-      "explanation": "Blocks in series share one signal, so their gains multiply: \\(6 \\times 5 = 30\\). Adding them gives 11, which is the parallel rule. Dividing them gives 1.2. Keeping only 6 drops the second block.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 336 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>series blocks</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">6</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">5</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"304\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Two labeled blocks in a row, with arrows in and out.",
-      "options": [
-        "30",
-        "11",
-        "1.2",
-        "6"
+      "type": "order",
+      "prompt": "Order the reduction of two blocks that sit one after the other. Each step after the first uses the result of the step before it.",
+      "explanation": "Series blocks share a signal, so the gains multiply. Adding them is the parallel rule, for two blocks that see the same input and whose outputs sum. The product is not yet the closed-loop gain. Feedback, if there is any, is reduced after the series pair has become one block.",
+      "steps": [
+        "The output of the first block is the only input of the second.",
+        "Multiply the two gains. The second block never sees the original input by itself.",
+        "Replace the pair by one block whose gain is that product.",
+        "A later loop reduction uses that one block. It does not add the two gains back together."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 1,
+      "id": "block-diagram-r1-q4"
     },
     {
       "id": "block-diagram-r1-q2",
@@ -31,21 +28,31 @@
       "version": 1
     },
     {
-      "id": "block-diagram-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "A forward block \\(G\\) and a return block \\(H\\) form a negative feedback loop: the return signal is subtracted from the reference. The closed-loop gain from reference to output is",
-      "explanation": "Call the error \\(e = r - Hy\\) and the output \\(y = Ge\\). Substituting gives \\(y = G(r - Hy)\\), so \\(y(1 + GH) = Gr\\) and the gain is \\(G/(1+GH)\\). \\(G+H\\) adds the two blocks as if they were in parallel. The minus sign in the denominator is the positive-feedback formula. \\(GH\\) is the loop gain, not the closed-loop gain.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>negative feedback</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">H</text></svg>",
-      "figure_alt": "A forward block and a return path that is subtracted at the input.",
-      "options": [
-        "\\(G + H\\)",
-        "\\(\\dfrac{G}{1 + GH}\\)",
-        "\\(\\dfrac{G}{1 - GH}\\)",
-        "\\(GH\\)"
+      "type": "symbolic",
+      "prompt": "Write the closed-loop gain from reference to output for negative feedback. The forward block is \\(G\\), the return block is \\(H\\), and the return is subtracted. Use \\(G\\) and \\(H\\).",
+      "explanation": "The output is \\(G\\) times the error, and the error is the reference minus \\(H\\) times the output, so \\(y = G(r - H y)\\) and \\(y/r = G/(1+GH)\\). The product \\(GH\\) is the loop gain, not this gain. \\(G/(1-GH)\\) is the loop that adds the return. \\(G+H\\) adds a forward block to a return block that are not in parallel. The denominator is 1 only when the return path is open.",
+      "answer": "G/(1+G*H)",
+      "variables": [
+        {
+          "name": "G",
+          "min": 0.5,
+          "max": 20.0
+        },
+        {
+          "name": "H",
+          "min": 0.05,
+          "max": 5.0
+        }
       ],
-      "correct_index": 1,
-      "version": 3
+      "tolerance": 0.001,
+      "alternates": [
+        "G/(1+H*G)",
+        "1/(1/G+H)",
+        "(1+G*H)**(-1)*G"
+      ],
+      "version": 1,
+      "id": "block-diagram-r1-q5"
     },
     {
       "id": "block-diagram-r2-q1",
@@ -74,21 +81,24 @@
       "version": 1
     },
     {
-      "id": "block-diagram-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "In a negative feedback loop the forward block is \\(G\\) and the return block is \\(H\\). Which expression is the loop gain?",
-      "explanation": "Start at the error and walk once around the loop: multiply by \\(G\\), then by \\(H\\), and you are back at the summing junction. That product \\(GH\\) is the loop gain. \\(G\\) skips the return path. \\(G/(1+GH)\\) is what the closed loop does to a reference. \\(H\\) is only the sensor path.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>walk the loop</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">H</text></svg>",
-      "figure_alt": "Reference r enters a summing junction. The error e leaves that junction toward G, and the return H is subtracted.",
-      "options": [
-        "\\(G\\)",
-        "\\(\\dfrac{G}{1+GH}\\)",
-        "\\(GH\\)",
-        "\\(H\\)"
+      "type": "error",
+      "prompt": "A worked solution names the loop gain of a negative feedback loop and then the closed-loop gain. Exactly one step is wrong.",
+      "explanation": "Walking around the loop gives the loop gain \\(GH\\). The reference reaches the output through the forward block only, after the subtraction, so the closed-loop gain is \\(G/(1+GH)\\). Calling \\(GH\\) the closed-loop gain confuses the product around the loop with the gain from reference to output. Adding \\(G\\) and \\(H\\) is the parallel rule used on the wrong picture.",
+      "steps": [
+        "Walk once around the loop, through the forward block \\(G\\) and the return block \\(H\\).",
+        "The loop gain is the product \\(GH\\).",
+        "Negative feedback subtracts the returned signal from the reference.",
+        "The closed-loop gain equals that same product \\(GH\\), because the reference is multiplied by every block in the loop."
       ],
-      "correct_index": 2,
-      "version": 3
+      "flaw_index": 3,
+      "reasons": [
+        "The closed-loop gain is \\(G/(1+GH)\\). \\(GH\\) is only the product around the loop.",
+        "The closed-loop gain is \\(G+H\\), because the return block adds a second path from the reference."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "block-diagram-r2-q4"
     },
     {
       "id": "block-diagram-r3-q1",
@@ -180,6 +190,59 @@
       "unit": "1",
       "tolerance": 0.02,
       "version": 2
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "block-diagram-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Two blocks sit one after the other. The first multiplies by 6 and the second multiplies by 5. The single block that replaces both multiplies by",
+      "explanation": "Blocks in series share one signal, so their gains multiply: \\(6 \\times 5 = 30\\). Adding them gives 11, which is the parallel rule. Dividing them gives 1.2. Keeping only 6 drops the second block.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 336 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>series blocks</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">6</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">5</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"304\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure_alt": "Two labeled blocks in a row, with arrows in and out.",
+      "options": [
+        "30",
+        "11",
+        "1.2",
+        "6"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "block-diagram-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A forward block \\(G\\) and a return block \\(H\\) form a negative feedback loop: the return signal is subtracted from the reference. The closed-loop gain from reference to output is",
+      "explanation": "Call the error \\(e = r - Hy\\) and the output \\(y = Ge\\). Substituting gives \\(y = G(r - Hy)\\), so \\(y(1 + GH) = Gr\\) and the gain is \\(G/(1+GH)\\). \\(G+H\\) adds the two blocks as if they were in parallel. The minus sign in the denominator is the positive-feedback formula. \\(GH\\) is the loop gain, not the closed-loop gain.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>negative feedback</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">H</text></svg>",
+      "figure_alt": "A forward block and a return path that is subtracted at the input.",
+      "options": [
+        "\\(G + H\\)",
+        "\\(\\dfrac{G}{1 + GH}\\)",
+        "\\(\\dfrac{G}{1 - GH}\\)",
+        "\\(GH\\)"
+      ],
+      "correct_index": 1,
+      "version": 3
+    },
+    {
+      "id": "block-diagram-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "In a negative feedback loop the forward block is \\(G\\) and the return block is \\(H\\). Which expression is the loop gain?",
+      "explanation": "Start at the error and walk once around the loop: multiply by \\(G\\), then by \\(H\\), and you are back at the summing junction. That product \\(GH\\) is the loop gain. \\(G\\) skips the return path. \\(G/(1+GH)\\) is what the closed loop does to a reference. \\(H\\) is only the sensor path.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>walk the loop</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">H</text></svg>",
+      "figure_alt": "Reference r enters a summing junction. The error e leaves that junction toward G, and the return H is subtracted.",
+      "options": [
+        "\\(G\\)",
+        "\\(\\dfrac{G}{1+GH}\\)",
+        "\\(GH\\)",
+        "\\(H\\)"
+      ],
+      "correct_index": 2,
+      "version": 3
     }
   ]
 }

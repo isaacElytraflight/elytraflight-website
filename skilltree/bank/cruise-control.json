@@ -1,23 +1,20 @@
 {
   "skill_id": "cruise-control",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "cruise-control-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A cruise-control loop holds a car's speed at a reference by adjusting the throttle. A grade or a headwind acts as",
-      "explanation": "A grade or wind changes the load on the engine without being commanded. That is a disturbance. The reference is the speed the driver sets, not an external load. The sensor measures the speed. The controller gain is a design parameter, not an external effect.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 452 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>cruise loop</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Kc</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"364\" cy=\"78\" r=\"12\"/><text x=\"342\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"378\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"364\" y1=\"28\" x2=\"364\" y2=\"66\"/><polygon points=\"364,66 361.3,59.6 366.7,59.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"380\" y=\"34\" text-anchor=\"start\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"376\" y1=\"78\" x2=\"412\" y2=\"78\"/><polygon points=\"412,78 405.6,80.7 405.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"416\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"404\" y1=\"78\" x2=\"404\" y2=\"134\"/><line x1=\"404\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"234\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
-      "figure_alt": "A controller, a plant, and a disturbance at the output.",
-      "options": [
-        "a disturbance",
-        "the reference",
-        "the sensor",
-        "the controller gain"
+      "type": "order",
+      "prompt": "Order how a proportional cruise loop treats a grade or a headwind. Each step after the first uses the result of the step before it.",
+      "explanation": "Grades, headwinds, and rolling resistance are disturbances the loop has to reject. Calling the grade a reference change would make the controller chase the disturbance. The fraction that remains is \\(1/(1+L)\\), not the whole disturbance and not the loop gain itself. Integral action is what would remove a constant offset. Proportional control only shrinks it.",
+      "steps": [
+        "The grade or the headwind pushes the speed away from the driver's reference.",
+        "That push is a disturbance. It is not a new reference, and it is not by itself a new throttle command.",
+        "The speed error grows, and the proportional controller changes the throttle command.",
+        "At steady state a constant output disturbance \\(d\\) leaves the speed offset \\(d/(1+L)\\), where \\(L\\) is the loop gain."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 2,
+      "id": "cruise-control-r1-q4"
     },
     {
       "id": "cruise-control-r1-q2",
@@ -59,21 +56,24 @@
       "version": 1
     },
     {
-      "id": "cruise-control-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "Adding integral action to a cruise loop, if the loop stays stable, makes the steady error",
-      "explanation": "Integral action cannot settle while a constant error remains. The only steady state is zero error. Proportional-only error is positive. Larger error goes the wrong way. Oscillation is a transient issue, not the steady value.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>PI cruise</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">PI</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
-      "figure_alt": "A controller and a plant in a speed loop.",
-      "options": [
-        "larger",
-        "zero",
-        "equal to the proportional-only error",
-        "oscillate"
+      "type": "error",
+      "prompt": "A worked solution adds integral action to a stable cruise loop. Exactly one step is wrong.",
+      "explanation": "The integrator cannot rest while the speed error is a nonzero constant. Zero steady error is the only settling point, and only if the loop is still stable. Proportional control is what leaves \\(r/(1+L)\\). Raising the proportional gain shrinks that error and does not zero it. The integrator is the term that does.",
+      "steps": [
+        "Proportional cruise control leaves the steady speed error \\(r/(1+L)\\), with \\(L\\) the loop gain.",
+        "Integral action accumulates that speed error over time.",
+        "While the error is a nonzero constant, the integral command is still changing.",
+        "The speed can therefore settle with that same nonzero error, which is the point of the integrator."
       ],
-      "correct_index": 1,
-      "version": 1
+      "flaw_index": 3,
+      "reasons": [
+        "A nonzero constant error keeps the integrator moving, so a stable cruise loop settles only at zero speed error.",
+        "The integrator holds the proportional error in place so the throttle can rest."
+      ],
+      "correct_reason": 0,
+      "version": 2,
+      "id": "cruise-control-r2-q4"
     },
     {
       "id": "cruise-control-r2-q3",
@@ -115,21 +115,36 @@
       "version": 1
     },
     {
-      "id": "cruise-control-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Increasing the proportional gain \\(K_c\\) in a stable cruise loop",
-      "explanation": "Higher \\(K_c\\) raises \\(L\\), which shrinks \\(1/(1+L)\\). The error decreases. Increasing the error goes the wrong way. No effect is wrong because \\(K_c\\) appears in \\(L\\). The loop can become unstable if \\(K_c\\) is raised too far, but that is a separate limit, not the immediate consequence.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>higher gain</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Kc</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
-      "figure_alt": "A controller and a plant in a speed loop.",
-      "options": [
-        "increases the steady error",
-        "has no effect on the steady error",
-        "makes the loop unstable",
-        "decreases the steady error"
+      "type": "symbolic",
+      "prompt": "Write the steady speed error of proportional cruise control. The loop gain is \\(K_c\\) times the plant DC gain \\(P\\), and the speed reference is \\(r\\). Use \\(r\\), \\(K_c\\), and \\(P\\).",
+      "explanation": "The steady speed is \\(L r/(1+L)\\) with \\(L = K_c P\\), so the shortfall is \\(r/(1+L)\\). Raising \\(K_c\\) makes the denominator larger and the error smaller. The error stays positive for any finite gain. Reporting \\(r/(K_c P)\\) drops the 1. Reporting \\(K_c P\\) is the loop gain, not the error. Reporting \\(r\\) is the error only if the throttle does nothing. Zero error needs integral action, not a larger \\(K_c\\).",
+      "answer": "r/(1+Kc*P)",
+      "variables": [
+        {
+          "name": "r",
+          "min": 2.0,
+          "max": 40.0
+        },
+        {
+          "name": "Kc",
+          "min": 0.5,
+          "max": 12.0
+        },
+        {
+          "name": "P",
+          "min": 0.5,
+          "max": 12.0
+        }
       ],
-      "correct_index": 3,
-      "version": 1
+      "tolerance": 0.001,
+      "alternates": [
+        "r/(1+P*Kc)",
+        "r*(1+Kc*P)**(-1)",
+        "r/(P*Kc+1)"
+      ],
+      "version": 1,
+      "id": "cruise-control-r3-q4"
     },
     {
       "id": "cruise-control-r4-q1",
@@ -181,6 +196,59 @@
         "no disturbance is present"
       ],
       "correct_index": 2,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "cruise-control-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A cruise-control loop holds a car's speed at a reference by adjusting the throttle. A grade or a headwind acts as",
+      "explanation": "A grade or wind changes the load on the engine without being commanded. That is a disturbance. The reference is the speed the driver sets, not an external load. The sensor measures the speed. The controller gain is a design parameter, not an external effect.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 452 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>cruise loop</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Kc</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"364\" cy=\"78\" r=\"12\"/><text x=\"342\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"378\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"364\" y1=\"28\" x2=\"364\" y2=\"66\"/><polygon points=\"364,66 361.3,59.6 366.7,59.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"380\" y=\"34\" text-anchor=\"start\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"376\" y1=\"78\" x2=\"412\" y2=\"78\"/><polygon points=\"412,78 405.6,80.7 405.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"416\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"404\" y1=\"78\" x2=\"404\" y2=\"134\"/><line x1=\"404\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"234\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller, a plant, and a disturbance at the output.",
+      "options": [
+        "a disturbance",
+        "the reference",
+        "the sensor",
+        "the controller gain"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "cruise-control-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Adding integral action to a cruise loop, if the loop stays stable, makes the steady error",
+      "explanation": "Integral action cannot settle while a constant error remains. The only steady state is zero error. Proportional-only error is positive. Larger error goes the wrong way. Oscillation is a transient issue, not the steady value.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>PI cruise</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">PI</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">plant</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant in a speed loop.",
+      "options": [
+        "larger",
+        "zero",
+        "equal to the proportional-only error",
+        "oscillate"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "cruise-control-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Increasing the proportional gain \\(K_c\\) in a stable cruise loop",
+      "explanation": "Higher \\(K_c\\) raises \\(L\\), which shrinks \\(1/(1+L)\\). The error decreases. Increasing the error goes the wrong way. No effect is wrong because \\(K_c\\) appears in \\(L\\). The loop can become unstable if \\(K_c\\) is raised too far, but that is a separate limit, not the immediate consequence.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>higher gain</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Kc</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A controller and a plant in a speed loop.",
+      "options": [
+        "increases the steady error",
+        "has no effect on the steady error",
+        "makes the loop unstable",
+        "decreases the steady error"
+      ],
+      "correct_index": 3,
       "version": 1
     }
   ]
