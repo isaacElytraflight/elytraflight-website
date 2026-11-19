@@ -1,0 +1,24 @@
+{
+  "id": "sg063-me132-m2",
+  "label": "SG-063 ME 132 first- and second-order systems and PID",
+  "box": "ME 132 (me132), First- and second-order systems and PID",
+  "skills": [
+    "laplace",
+    "step-specs",
+    "pid",
+    "windup",
+    "pid-tuning"
+  ],
+  "areas": {
+    "laplace": ["laplace", "signals"],
+    "step-specs": ["second-order-systems"],
+    "pid": ["pid-control", "feedback-loop"],
+    "windup": ["windup", "pid-control"],
+    "pid-tuning": ["pid-tuning", "pid-control"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_me132_m2.py"
+}

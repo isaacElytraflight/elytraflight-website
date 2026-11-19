@@ -3,12 +3,10 @@
   "label": "B1",
   "box": "ME 132 (me132) and Feedback Systems (am08)",
   "skills": [
-    "laplace",
     "lin-algebra-review",
     "min-phase"
   ],
   "areas": {
-    "laplace": ["laplace", "signals"],
     "lin-algebra-review": ["linear-algebra"],
     "min-phase": ["frequency-response"]
   },

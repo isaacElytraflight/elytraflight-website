@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-19T21:51:48.262986Z",
+  "generated": "2026-11-19T22:25:07.027846Z",
   "skills": {
-    "file": "skills.8917a36b.json",
-    "hash": "8917a36b"
+    "file": "skills.25cb17d6.json",
+    "hash": "25cb17d6"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -1692,7 +1692,7 @@
       "file": "banks/lagrangian-duality-lower-bounds.0573d3fc.json"
     },
     "laplace": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1700,8 +1700,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "5821a9db",
-      "file": "banks/laplace.5821a9db.json"
+      "hash": "48f11679",
+      "file": "banks/laplace.48f11679.json"
     },
     "largest-inscribed-ellipsoid": {
       "version": 2,
@@ -2496,7 +2496,7 @@
       "file": "banks/pid-impl.d061c65d.json"
     },
     "pid-tuning": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2504,11 +2504,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f740502a",
-      "file": "banks/pid-tuning.f740502a.json"
+      "hash": "04d223d1",
+      "file": "banks/pid-tuning.04d223d1.json"
     },
     "pid": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2516,8 +2516,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "796ec66f",
-      "file": "banks/pid.796ec66f.json"
+      "hash": "f18d7e91",
+      "file": "banks/pid.f18d7e91.json"
     },
     "pmos": {
       "version": 3,
@@ -3096,7 +3096,7 @@
       "file": "banks/step-resp.0dce6ff4.json"
     },
     "step-specs": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3104,8 +3104,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f506e436",
-      "file": "banks/step-specs.f506e436.json"
+      "hash": "d59adfef",
+      "file": "banks/step-specs.d59adfef.json"
     },
     "sufficient-decrease-lemma": {
       "version": 1,
@@ -3276,7 +3276,7 @@
       "file": "banks/vt.5fde0af1.json"
     },
     "windup": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3284,8 +3284,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "985ffb42",
-      "file": "banks/windup.985ffb42.json"
+      "hash": "93a1cb14",
+      "file": "banks/windup.93a1cb14.json"
     },
     "wolfe-conditions": {
       "version": 1,
