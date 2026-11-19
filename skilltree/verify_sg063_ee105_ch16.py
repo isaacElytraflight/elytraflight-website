@@ -51,7 +51,7 @@ RETIRED = {
 }
 
 VERSIONS = {
-    "diff-intro": 3,
+    "diff-intro": 4,
     "diff-dc": 3,
     "half-circuit": 3,
     "cmrr": 3,

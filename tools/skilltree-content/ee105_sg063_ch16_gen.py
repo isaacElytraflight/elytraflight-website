@@ -76,7 +76,7 @@ def swaps_for(sid):
                 2, "sym",
                 r"An ideal tail carries \(I_{SS}\), and M1's drain current is \(I_{D1}\). Write M2's drain current. Use ISS and ID1.",
                 "ISS-ID1",
-                {"ISS": (2e-4, 2e-3), "ID1": (2e-5, 1.5e-3)},
+                {"ISS": (1e-3, 2e-3), "ID1": (2e-5, 5e-4)},
                 r"The tail fixes the sum, so \(I_{D2} = I_{SS} - I_{D1}\). A rise in one current is an equal fall in the other. \(I_{SS}/2\) is only the balance value, not the current at an arbitrary split. \(I_{D1} + I_{SS}\) would make the sum larger than the tail. \(2I_{SS} - I_{D1}\) leaves M2 carrying more than \(I_{SS}\) whenever M1 carries a positive current. With the tail ideal, a common-mode input does not appear in this relation.",
                 alternates=["-ID1+ISS", "ISS+(-1)*ID1"],
             )),

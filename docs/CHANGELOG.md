@@ -738,6 +738,7 @@ Items above version 1:
 
 - `diff-intro-r2-q1` version 2
 - `diff-intro-r2-q2` version 2
+- `diff-intro-r2-q4` version 2
 - `diff-intro-r1-q1` version 2
 - `diff-dc-r2-q2` version 2
 - `diff-dc-r1-q2` version 2

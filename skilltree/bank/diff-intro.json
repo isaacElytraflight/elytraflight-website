@@ -1,6 +1,6 @@
 {
   "skill_id": "diff-intro",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "round": 1,
@@ -87,13 +87,13 @@
       "variables": [
         {
           "name": "ISS",
-          "min": 0.0002,
+          "min": 0.001,
           "max": 0.002
         },
         {
           "name": "ID1",
           "min": 2e-05,
-          "max": 0.0015
+          "max": 0.0005
         }
       ],
       "tolerance": 0.001,
@@ -101,7 +101,7 @@
         "-ID1+ISS",
         "ISS+(-1)*ID1"
       ],
-      "version": 1,
+      "version": 2,
       "id": "diff-intro-r2-q4"
     },
     {
