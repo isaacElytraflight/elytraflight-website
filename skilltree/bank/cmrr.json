@@ -1,23 +1,33 @@
 {
   "skill_id": "cmrr",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "cmrr-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "How is the common-mode rejection ratio defined?",
-      "options": [
-        "\\(\\mathrm{CMRR} = |A_{DM}/A_{CM}|\\), often quoted in dB",
-        "\\(|A_{CM}/A_{DM}|\\)",
-        "\\(A_{DM} - A_{CM}\\)",
-        "The gain at zero input"
+      "type": "symbolic",
+      "prompt": "Write the single-ended CMRR of a symmetric resistor-loaded pair, the ratio of the one-output differential gain to the magnitude of the common-mode gain. \\(R_D\\) cancels. Use gm and RSS.",
+      "explanation": "The one-output differential gain has magnitude \\(g_m R_D/2\\), and the common-mode gain has magnitude \\(g_m R_D/(1+2g_m R_{SS})\\). Dividing them leaves \\((1+2g_m R_{SS})/2\\). Inverting the ratio gives \\(|A_{CM}/A_{DM}|\\). Using the drain-to-drain gain \\(g_m R_D\\) in the numerator, without the extra factor of 2, doubles this result. The estimate \\(g_m R_{SS}\\) drops both the \\(1/2\\) and the 1 inside the exact ratio. A differential output on a matched pair is a different case: that common-mode piece cancels, and mismatch sets the ratio.",
+      "answer": "(1+2*gm*RSS)/2",
+      "variables": [
+        {
+          "name": "gm",
+          "min": 0.0002,
+          "max": 0.02
+        },
+        {
+          "name": "RSS",
+          "min": 1000.0,
+          "max": 500000.0
+        }
       ],
-      "correct_index": 0,
-      "explanation": "It compares how much the stage amplifies differences with how much it passes common signals.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" aria-label=\"Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><line x1=\"138\" y1=\"14\" x2=\"162\" y2=\"14\"/><text x=\"150\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"96\" y1=\"14\" x2=\"224\" y2=\"14\"/><polyline points=\"96,14 96,31 90,34 102,39 90,44 102,49 90,54 102,59 96,67 96,84\"/><text x=\"108\" y=\"53\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><polyline points=\"224,14 224,31 218,34 230,39 218,44 230,49 218,54 230,59 224,67 224,84\"/><text x=\"236\" y=\"53\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"96\" y1=\"84\" x2=\"96\" y2=\"96\"/><line x1=\"224\" y1=\"84\" x2=\"224\" y2=\"96\"/><circle cx=\"96\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"90\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_o1</text><circle cx=\"224\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"230\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_o2</text><line x1=\"70\" y1=\"108\" x2=\"70\" y2=\"140\"/><line x1=\"50\" y1=\"124\" x2=\"70\" y2=\"124\"/><line x1=\"76\" y1=\"106\" x2=\"76\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"76\" y1=\"112\" x2=\"96\" y2=\"112\"/><line x1=\"96\" y1=\"112\" x2=\"96\" y2=\"96\"/><line x1=\"76\" y1=\"136\" x2=\"96\" y2=\"136\"/><line x1=\"96\" y1=\"136\" x2=\"96\" y2=\"152\"/><line x1=\"94\" y1=\"136\" x2=\"80\" y2=\"136\"/><polygon points=\"80,136 85.5,133.7 85.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"102\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M1</text><line x1=\"198\" y1=\"108\" x2=\"198\" y2=\"140\"/><line x1=\"178\" y1=\"124\" x2=\"198\" y2=\"124\"/><line x1=\"204\" y1=\"106\" x2=\"204\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"204\" y1=\"112\" x2=\"224\" y2=\"112\"/><line x1=\"224\" y1=\"112\" x2=\"224\" y2=\"96\"/><line x1=\"204\" y1=\"136\" x2=\"224\" y2=\"136\"/><line x1=\"224\" y1=\"136\" x2=\"224\" y2=\"152\"/><line x1=\"222\" y1=\"136\" x2=\"208\" y2=\"136\"/><polygon points=\"208,136 213.5,133.7 213.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M2</text><text x=\"46\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_i1</text><text x=\"174\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_i2</text><line x1=\"96\" y1=\"152\" x2=\"96\" y2=\"164\"/><line x1=\"224\" y1=\"152\" x2=\"224\" y2=\"164\"/><line x1=\"96\" y1=\"164\" x2=\"224\" y2=\"164\"/><circle cx=\"160\" cy=\"164\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"160\" y1=\"164\" x2=\"160\" y2=\"174\"/><line x1=\"160\" y1=\"198\" x2=\"160\" y2=\"208\"/><circle cx=\"160\" cy=\"186\" r=\"12\"/><line x1=\"160\" y1=\"178\" x2=\"160\" y2=\"194\"/><polygon points=\"160,194 157.7,188.5 162.3,188.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"177\" y=\"190\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_SS</text><line x1=\"160\" y1=\"208\" x2=\"160\" y2=\"214\"/><line x1=\"151\" y1=\"214\" x2=\"169\" y2=\"214\"/><line x1=\"155\" y1=\"218\" x2=\"165\" y2=\"218\"/><line x1=\"158.5\" y1=\"222\" x2=\"161.5\" y2=\"222\"/></svg>",
-      "figure_alt": "Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "0.5+gm*RSS",
+        "1/2+gm*RSS",
+        "(2*gm*RSS+1)/2"
+      ],
+      "version": 1,
+      "id": "cmrr-r1-q4"
     },
     {
       "id": "cmrr-r1-q2",
@@ -32,20 +42,18 @@
       "figure_alt": "Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS."
     },
     {
-      "id": "cmrr-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "What is the most direct way to raise a pair's CMRR?",
-      "options": [
-        "Lower \\(R_D\\)",
-        "Raise the tail's output resistance, for example with a cascode tail",
-        "Lower the tail current to zero",
-        "Use a single-ended input"
+      "type": "order",
+      "prompt": "Order why a stiffer tail raises the single-ended CMRR. Each step after the first uses the result of the step before it.",
+      "explanation": "CMRR is \\(|A_{DM}/A_{CM}|\\). Lowering \\(R_D\\) cuts both gains, and the single-ended ratio \\((1+2g_m R_{SS})/2\\) has no \\(R_D\\) in it. Setting the tail current to zero removes the bias rather than raising the ratio. Driving only one input does not change \\(R_{SS}\\). Capacitance across the tail does the opposite at high frequency: it lowers the impedance the common-mode half sees.",
+      "steps": [
+        "In the common-mode half circuit each device is degenerated by \\(2R_{SS}\\).",
+        "Raising \\(R_{SS}\\) therefore lowers the common-mode gain, whose magnitude is about \\(R_D/(2R_{SS})\\).",
+        "The differential half circuit still has an AC ground at the source, so the one-output differential gain \\(g_m R_D/2\\) does not depend on \\(R_{SS}\\).",
+        "The ratio of those gains rises with \\(R_{SS}\\). A cascode current source is one way to make that resistance large."
       ],
-      "correct_index": 1,
-      "explanation": "\\(A_{CM} \\approx -R_D/(2R_{SS})\\), so a larger \\(R_{SS}\\) cuts it directly.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" aria-label=\"Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><line x1=\"138\" y1=\"14\" x2=\"162\" y2=\"14\"/><text x=\"150\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"96\" y1=\"14\" x2=\"224\" y2=\"14\"/><polyline points=\"96,14 96,31 90,34 102,39 90,44 102,49 90,54 102,59 96,67 96,84\"/><text x=\"108\" y=\"53\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><polyline points=\"224,14 224,31 218,34 230,39 218,44 230,49 218,54 230,59 224,67 224,84\"/><text x=\"236\" y=\"53\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"96\" y1=\"84\" x2=\"96\" y2=\"96\"/><line x1=\"224\" y1=\"84\" x2=\"224\" y2=\"96\"/><circle cx=\"96\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"90\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_o1</text><circle cx=\"224\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"230\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_o2</text><line x1=\"70\" y1=\"108\" x2=\"70\" y2=\"140\"/><line x1=\"50\" y1=\"124\" x2=\"70\" y2=\"124\"/><line x1=\"76\" y1=\"106\" x2=\"76\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"76\" y1=\"112\" x2=\"96\" y2=\"112\"/><line x1=\"96\" y1=\"112\" x2=\"96\" y2=\"96\"/><line x1=\"76\" y1=\"136\" x2=\"96\" y2=\"136\"/><line x1=\"96\" y1=\"136\" x2=\"96\" y2=\"152\"/><line x1=\"94\" y1=\"136\" x2=\"80\" y2=\"136\"/><polygon points=\"80,136 85.5,133.7 85.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"102\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M1</text><line x1=\"198\" y1=\"108\" x2=\"198\" y2=\"140\"/><line x1=\"178\" y1=\"124\" x2=\"198\" y2=\"124\"/><line x1=\"204\" y1=\"106\" x2=\"204\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"204\" y1=\"112\" x2=\"224\" y2=\"112\"/><line x1=\"224\" y1=\"112\" x2=\"224\" y2=\"96\"/><line x1=\"204\" y1=\"136\" x2=\"224\" y2=\"136\"/><line x1=\"224\" y1=\"136\" x2=\"224\" y2=\"152\"/><line x1=\"222\" y1=\"136\" x2=\"208\" y2=\"136\"/><polygon points=\"208,136 213.5,133.7 213.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M2</text><text x=\"46\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_i1</text><text x=\"174\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_i2</text><line x1=\"96\" y1=\"152\" x2=\"96\" y2=\"164\"/><line x1=\"224\" y1=\"152\" x2=\"224\" y2=\"164\"/><line x1=\"96\" y1=\"164\" x2=\"224\" y2=\"164\"/><circle cx=\"160\" cy=\"164\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"160\" y1=\"164\" x2=\"160\" y2=\"174\"/><line x1=\"160\" y1=\"198\" x2=\"160\" y2=\"208\"/><circle cx=\"160\" cy=\"186\" r=\"12\"/><line x1=\"160\" y1=\"178\" x2=\"160\" y2=\"194\"/><polygon points=\"160,194 157.7,188.5 162.3,188.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"177\" y=\"190\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_SS</text><line x1=\"160\" y1=\"208\" x2=\"160\" y2=\"214\"/><line x1=\"151\" y1=\"214\" x2=\"169\" y2=\"214\"/><line x1=\"155\" y1=\"218\" x2=\"165\" y2=\"218\"/><line x1=\"158.5\" y1=\"222\" x2=\"161.5\" y2=\"222\"/></svg>",
-      "figure_alt": "Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS."
+      "version": 1,
+      "id": "cmrr-r1-q5"
     },
     {
       "id": "cmrr-r2-q1",
@@ -60,21 +68,24 @@
       "figure_alt": "Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS."
     },
     {
-      "id": "cmrr-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "A perfectly matched pair is read differentially. What limits its CMRR?",
-      "options": [
-        "The tail resistance alone",
-        "The supply voltage",
-        "Nothing in principle: the common-mode output is identical on both sides and cancels; mismatch sets the real limit",
-        "\\(r_o\\) of the input devices"
+      "type": "error",
+      "prompt": "A worked solution gives the CMRR of a perfectly matched pair whose output is taken differentially. Exactly one step is wrong.",
+      "explanation": "Perfect matching makes the two common-mode outputs identical, so their difference is zero whatever \\(R_{SS}\\) is. A finite tail limits the single-ended common-mode gain, not this differential residue. Mismatch of the loads or of the two transconductances is what converts the common-mode current into a differential output. The supply voltage does not appear in that cancellation.",
+      "steps": [
+        "A common-mode input pushes the same signal current through both matched halves.",
+        "The two drain voltages therefore move by the same amount.",
+        "A finite tail resistance still leaves a differential residue, so \\(R_{SS}\\) alone sets a finite differential CMRR.",
+        "Subtracting the two drains cancels that shared move, and any real differential residue comes from mismatch."
       ],
-      "correct_index": 2,
-      "explanation": "With perfect symmetry \\(A_{CM\\to DM} = 0\\); real CMRR comes from mismatch.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" aria-label=\"Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><line x1=\"138\" y1=\"14\" x2=\"162\" y2=\"14\"/><text x=\"150\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"96\" y1=\"14\" x2=\"224\" y2=\"14\"/><polyline points=\"96,14 96,31 90,34 102,39 90,44 102,49 90,54 102,59 96,67 96,84\"/><text x=\"108\" y=\"53\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><polyline points=\"224,14 224,31 218,34 230,39 218,44 230,49 218,54 230,59 224,67 224,84\"/><text x=\"236\" y=\"53\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"96\" y1=\"84\" x2=\"96\" y2=\"96\"/><line x1=\"224\" y1=\"84\" x2=\"224\" y2=\"96\"/><circle cx=\"96\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"90\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_o1</text><circle cx=\"224\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"230\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_o2</text><line x1=\"70\" y1=\"108\" x2=\"70\" y2=\"140\"/><line x1=\"50\" y1=\"124\" x2=\"70\" y2=\"124\"/><line x1=\"76\" y1=\"106\" x2=\"76\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"76\" y1=\"112\" x2=\"96\" y2=\"112\"/><line x1=\"96\" y1=\"112\" x2=\"96\" y2=\"96\"/><line x1=\"76\" y1=\"136\" x2=\"96\" y2=\"136\"/><line x1=\"96\" y1=\"136\" x2=\"96\" y2=\"152\"/><line x1=\"94\" y1=\"136\" x2=\"80\" y2=\"136\"/><polygon points=\"80,136 85.5,133.7 85.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"102\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M1</text><line x1=\"198\" y1=\"108\" x2=\"198\" y2=\"140\"/><line x1=\"178\" y1=\"124\" x2=\"198\" y2=\"124\"/><line x1=\"204\" y1=\"106\" x2=\"204\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"204\" y1=\"112\" x2=\"224\" y2=\"112\"/><line x1=\"224\" y1=\"112\" x2=\"224\" y2=\"96\"/><line x1=\"204\" y1=\"136\" x2=\"224\" y2=\"136\"/><line x1=\"224\" y1=\"136\" x2=\"224\" y2=\"152\"/><line x1=\"222\" y1=\"136\" x2=\"208\" y2=\"136\"/><polygon points=\"208,136 213.5,133.7 213.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M2</text><text x=\"46\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_i1</text><text x=\"174\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_i2</text><line x1=\"96\" y1=\"152\" x2=\"96\" y2=\"164\"/><line x1=\"224\" y1=\"152\" x2=\"224\" y2=\"164\"/><line x1=\"96\" y1=\"164\" x2=\"224\" y2=\"164\"/><circle cx=\"160\" cy=\"164\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"160\" y1=\"164\" x2=\"160\" y2=\"174\"/><line x1=\"160\" y1=\"198\" x2=\"160\" y2=\"208\"/><circle cx=\"160\" cy=\"186\" r=\"12\"/><line x1=\"160\" y1=\"178\" x2=\"160\" y2=\"194\"/><polygon points=\"160,194 157.7,188.5 162.3,188.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"177\" y=\"190\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_SS</text><line x1=\"160\" y1=\"208\" x2=\"160\" y2=\"214\"/><line x1=\"151\" y1=\"214\" x2=\"169\" y2=\"214\"/><line x1=\"155\" y1=\"218\" x2=\"165\" y2=\"218\"/><line x1=\"158.5\" y1=\"222\" x2=\"161.5\" y2=\"222\"/></svg>",
-      "figure_alt": "Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS.",
-      "version": 2
+      "flaw_index": 2,
+      "reasons": [
+        "With perfect matching the differential common-mode gain is zero. A finite tail limits only the single-ended common-mode gain.",
+        "Matching does not matter. The tail resistance is what remains in the differential output."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "cmrr-r2-q4"
     },
     {
       "id": "cmrr-r2-q3",
@@ -186,6 +197,59 @@
       "preview": [
         "bias-current"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "cmrr-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "How is the common-mode rejection ratio defined?",
+      "options": [
+        "\\(\\mathrm{CMRR} = |A_{DM}/A_{CM}|\\), often quoted in dB",
+        "\\(|A_{CM}/A_{DM}|\\)",
+        "\\(A_{DM} - A_{CM}\\)",
+        "The gain at zero input"
+      ],
+      "correct_index": 0,
+      "explanation": "It compares how much the stage amplifies differences with how much it passes common signals.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" aria-label=\"Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><line x1=\"138\" y1=\"14\" x2=\"162\" y2=\"14\"/><text x=\"150\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"96\" y1=\"14\" x2=\"224\" y2=\"14\"/><polyline points=\"96,14 96,31 90,34 102,39 90,44 102,49 90,54 102,59 96,67 96,84\"/><text x=\"108\" y=\"53\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><polyline points=\"224,14 224,31 218,34 230,39 218,44 230,49 218,54 230,59 224,67 224,84\"/><text x=\"236\" y=\"53\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"96\" y1=\"84\" x2=\"96\" y2=\"96\"/><line x1=\"224\" y1=\"84\" x2=\"224\" y2=\"96\"/><circle cx=\"96\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"90\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_o1</text><circle cx=\"224\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"230\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_o2</text><line x1=\"70\" y1=\"108\" x2=\"70\" y2=\"140\"/><line x1=\"50\" y1=\"124\" x2=\"70\" y2=\"124\"/><line x1=\"76\" y1=\"106\" x2=\"76\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"76\" y1=\"112\" x2=\"96\" y2=\"112\"/><line x1=\"96\" y1=\"112\" x2=\"96\" y2=\"96\"/><line x1=\"76\" y1=\"136\" x2=\"96\" y2=\"136\"/><line x1=\"96\" y1=\"136\" x2=\"96\" y2=\"152\"/><line x1=\"94\" y1=\"136\" x2=\"80\" y2=\"136\"/><polygon points=\"80,136 85.5,133.7 85.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"102\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M1</text><line x1=\"198\" y1=\"108\" x2=\"198\" y2=\"140\"/><line x1=\"178\" y1=\"124\" x2=\"198\" y2=\"124\"/><line x1=\"204\" y1=\"106\" x2=\"204\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"204\" y1=\"112\" x2=\"224\" y2=\"112\"/><line x1=\"224\" y1=\"112\" x2=\"224\" y2=\"96\"/><line x1=\"204\" y1=\"136\" x2=\"224\" y2=\"136\"/><line x1=\"224\" y1=\"136\" x2=\"224\" y2=\"152\"/><line x1=\"222\" y1=\"136\" x2=\"208\" y2=\"136\"/><polygon points=\"208,136 213.5,133.7 213.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M2</text><text x=\"46\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_i1</text><text x=\"174\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_i2</text><line x1=\"96\" y1=\"152\" x2=\"96\" y2=\"164\"/><line x1=\"224\" y1=\"152\" x2=\"224\" y2=\"164\"/><line x1=\"96\" y1=\"164\" x2=\"224\" y2=\"164\"/><circle cx=\"160\" cy=\"164\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"160\" y1=\"164\" x2=\"160\" y2=\"174\"/><line x1=\"160\" y1=\"198\" x2=\"160\" y2=\"208\"/><circle cx=\"160\" cy=\"186\" r=\"12\"/><line x1=\"160\" y1=\"178\" x2=\"160\" y2=\"194\"/><polygon points=\"160,194 157.7,188.5 162.3,188.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"177\" y=\"190\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_SS</text><line x1=\"160\" y1=\"208\" x2=\"160\" y2=\"214\"/><line x1=\"151\" y1=\"214\" x2=\"169\" y2=\"214\"/><line x1=\"155\" y1=\"218\" x2=\"165\" y2=\"218\"/><line x1=\"158.5\" y1=\"222\" x2=\"161.5\" y2=\"222\"/></svg>",
+      "figure_alt": "Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS.",
+      "version": 2
+    },
+    {
+      "id": "cmrr-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "What is the most direct way to raise a pair's CMRR?",
+      "options": [
+        "Lower \\(R_D\\)",
+        "Raise the tail's output resistance, for example with a cascode tail",
+        "Lower the tail current to zero",
+        "Use a single-ended input"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(A_{CM} \\approx -R_D/(2R_{SS})\\), so a larger \\(R_{SS}\\) cuts it directly.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" aria-label=\"Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><line x1=\"138\" y1=\"14\" x2=\"162\" y2=\"14\"/><text x=\"150\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"96\" y1=\"14\" x2=\"224\" y2=\"14\"/><polyline points=\"96,14 96,31 90,34 102,39 90,44 102,49 90,54 102,59 96,67 96,84\"/><text x=\"108\" y=\"53\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><polyline points=\"224,14 224,31 218,34 230,39 218,44 230,49 218,54 230,59 224,67 224,84\"/><text x=\"236\" y=\"53\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"96\" y1=\"84\" x2=\"96\" y2=\"96\"/><line x1=\"224\" y1=\"84\" x2=\"224\" y2=\"96\"/><circle cx=\"96\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"90\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_o1</text><circle cx=\"224\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"230\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_o2</text><line x1=\"70\" y1=\"108\" x2=\"70\" y2=\"140\"/><line x1=\"50\" y1=\"124\" x2=\"70\" y2=\"124\"/><line x1=\"76\" y1=\"106\" x2=\"76\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"76\" y1=\"112\" x2=\"96\" y2=\"112\"/><line x1=\"96\" y1=\"112\" x2=\"96\" y2=\"96\"/><line x1=\"76\" y1=\"136\" x2=\"96\" y2=\"136\"/><line x1=\"96\" y1=\"136\" x2=\"96\" y2=\"152\"/><line x1=\"94\" y1=\"136\" x2=\"80\" y2=\"136\"/><polygon points=\"80,136 85.5,133.7 85.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"102\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M1</text><line x1=\"198\" y1=\"108\" x2=\"198\" y2=\"140\"/><line x1=\"178\" y1=\"124\" x2=\"198\" y2=\"124\"/><line x1=\"204\" y1=\"106\" x2=\"204\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"204\" y1=\"112\" x2=\"224\" y2=\"112\"/><line x1=\"224\" y1=\"112\" x2=\"224\" y2=\"96\"/><line x1=\"204\" y1=\"136\" x2=\"224\" y2=\"136\"/><line x1=\"224\" y1=\"136\" x2=\"224\" y2=\"152\"/><line x1=\"222\" y1=\"136\" x2=\"208\" y2=\"136\"/><polygon points=\"208,136 213.5,133.7 213.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M2</text><text x=\"46\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_i1</text><text x=\"174\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_i2</text><line x1=\"96\" y1=\"152\" x2=\"96\" y2=\"164\"/><line x1=\"224\" y1=\"152\" x2=\"224\" y2=\"164\"/><line x1=\"96\" y1=\"164\" x2=\"224\" y2=\"164\"/><circle cx=\"160\" cy=\"164\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"160\" y1=\"164\" x2=\"160\" y2=\"174\"/><line x1=\"160\" y1=\"198\" x2=\"160\" y2=\"208\"/><circle cx=\"160\" cy=\"186\" r=\"12\"/><line x1=\"160\" y1=\"178\" x2=\"160\" y2=\"194\"/><polygon points=\"160,194 157.7,188.5 162.3,188.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"177\" y=\"190\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_SS</text><line x1=\"160\" y1=\"208\" x2=\"160\" y2=\"214\"/><line x1=\"151\" y1=\"214\" x2=\"169\" y2=\"214\"/><line x1=\"155\" y1=\"218\" x2=\"165\" y2=\"218\"/><line x1=\"158.5\" y1=\"222\" x2=\"161.5\" y2=\"222\"/></svg>",
+      "figure_alt": "Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS.",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A perfectly matched pair is read differentially. What limits its CMRR?",
+      "options": [
+        "The tail resistance alone",
+        "The supply voltage",
+        "Nothing in principle: the common-mode output is identical on both sides and cancels; mismatch sets the real limit",
+        "\\(r_o\\) of the input devices"
+      ],
+      "correct_index": 2,
+      "explanation": "With perfect symmetry \\(A_{CM\\to DM} = 0\\); real CMRR comes from mismatch.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" aria-label=\"Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:300px;width:100%;height:auto\"><line x1=\"138\" y1=\"14\" x2=\"162\" y2=\"14\"/><text x=\"150\" y=\"9\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"96\" y1=\"14\" x2=\"224\" y2=\"14\"/><polyline points=\"96,14 96,31 90,34 102,39 90,44 102,49 90,54 102,59 96,67 96,84\"/><text x=\"108\" y=\"53\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><polyline points=\"224,14 224,31 218,34 230,39 218,44 230,49 218,54 230,59 224,67 224,84\"/><text x=\"236\" y=\"53\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"96\" y1=\"84\" x2=\"96\" y2=\"96\"/><line x1=\"224\" y1=\"84\" x2=\"224\" y2=\"96\"/><circle cx=\"96\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"90\" y=\"90\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_o1</text><circle cx=\"224\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"230\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_o2</text><line x1=\"70\" y1=\"108\" x2=\"70\" y2=\"140\"/><line x1=\"50\" y1=\"124\" x2=\"70\" y2=\"124\"/><line x1=\"76\" y1=\"106\" x2=\"76\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"76\" y1=\"112\" x2=\"96\" y2=\"112\"/><line x1=\"96\" y1=\"112\" x2=\"96\" y2=\"96\"/><line x1=\"76\" y1=\"136\" x2=\"96\" y2=\"136\"/><line x1=\"96\" y1=\"136\" x2=\"96\" y2=\"152\"/><line x1=\"94\" y1=\"136\" x2=\"80\" y2=\"136\"/><polygon points=\"80,136 85.5,133.7 85.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"102\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M1</text><line x1=\"198\" y1=\"108\" x2=\"198\" y2=\"140\"/><line x1=\"178\" y1=\"124\" x2=\"198\" y2=\"124\"/><line x1=\"204\" y1=\"106\" x2=\"204\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"204\" y1=\"112\" x2=\"224\" y2=\"112\"/><line x1=\"224\" y1=\"112\" x2=\"224\" y2=\"96\"/><line x1=\"204\" y1=\"136\" x2=\"224\" y2=\"136\"/><line x1=\"224\" y1=\"136\" x2=\"224\" y2=\"152\"/><line x1=\"222\" y1=\"136\" x2=\"208\" y2=\"136\"/><polygon points=\"208,136 213.5,133.7 213.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"128\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">M2</text><text x=\"46\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_i1</text><text x=\"174\" y=\"128\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_i2</text><line x1=\"96\" y1=\"152\" x2=\"96\" y2=\"164\"/><line x1=\"224\" y1=\"152\" x2=\"224\" y2=\"164\"/><line x1=\"96\" y1=\"164\" x2=\"224\" y2=\"164\"/><circle cx=\"160\" cy=\"164\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"160\" y1=\"164\" x2=\"160\" y2=\"174\"/><line x1=\"160\" y1=\"198\" x2=\"160\" y2=\"208\"/><circle cx=\"160\" cy=\"186\" r=\"12\"/><line x1=\"160\" y1=\"178\" x2=\"160\" y2=\"194\"/><polygon points=\"160,194 157.7,188.5 162.3,188.5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"177\" y=\"190\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_SS</text><line x1=\"160\" y1=\"208\" x2=\"160\" y2=\"214\"/><line x1=\"151\" y1=\"214\" x2=\"169\" y2=\"214\"/><line x1=\"155\" y1=\"218\" x2=\"165\" y2=\"218\"/><line x1=\"158.5\" y1=\"222\" x2=\"161.5\" y2=\"222\"/></svg>",
+      "figure_alt": "Source-coupled pair M1, M2 with resistor loads R_D and tail current source R_SS.",
+      "version": 2
     }
   ]
 }

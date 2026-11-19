@@ -728,6 +728,35 @@ Items above version 1:
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## SG-063 EE 105 differential amplifiers — sg063-ee105-ch16
+
+Box: EE 105 (ee105-ucb), Differential Amplifiers.
+
+Skills: `diff-intro`, `diff-dc`, `half-circuit`, `cmrr`, `mirror-load`.
+
+Items above version 1:
+
+- `diff-intro-r2-q1` version 2
+- `diff-intro-r2-q2` version 2
+- `diff-intro-r1-q1` version 2
+- `diff-dc-r2-q2` version 2
+- `diff-dc-r1-q2` version 2
+- `half-circuit-r1-q1` version 2
+- `half-circuit-r2-q1` version 2
+- `half-circuit-r2-q2` version 2
+- `half-circuit-r2-q3` version 2
+- `cmrr-r2-q3` version 2
+- `cmrr-r3-q1` version 2
+- `cmrr-r1-q1` version 2
+- `cmrr-r2-q2` version 2
+- `mirror-load-r1-q1` version 2
+- `mirror-load-r2-q1` version 2
+- `mirror-load-r3-q1` version 2
+- `mirror-load-r1-q3` version 2
+- `mirror-load#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## SG-063 EE 105 AC circuits — sg063-ee105-ch2
 
 Box: EE 105 (ee105-ucb), AC Circuits and AC Analysis.

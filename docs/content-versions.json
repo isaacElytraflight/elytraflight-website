@@ -17081,6 +17081,326 @@
     {
       "id": "big-circuit#explainer",
       "version": 2
+    },
+    {
+      "id": "diff-intro-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "diff-intro-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "diff-intro-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "diff-intro-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "diff-intro-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "diff-intro-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "diff-intro-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "diff-intro-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "diff-intro-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "diff-intro-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "diff-intro-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "diff-intro-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "diff-intro-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "diff-intro-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "diff-intro-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "diff-intro#explainer",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "diff-dc-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "diff-dc-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "diff-dc-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "diff-dc#explainer",
+      "version": 1
+    },
+    {
+      "id": "half-circuit-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "half-circuit-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "half-circuit-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "half-circuit-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "half-circuit-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "half-circuit-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "half-circuit-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "half-circuit-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "half-circuit-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "half-circuit-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "half-circuit-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "half-circuit-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "half-circuit-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "half-circuit-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "half-circuit-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "half-circuit#explainer",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r2-q3",
+      "version": 2
+    },
+    {
+      "id": "cmrr-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "cmrr-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "cmrr-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "cmrr-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "cmrr#explainer",
+      "version": 1
+    },
+    {
+      "id": "mirror-load-r1-q1",
+      "version": 2
+    },
+    {
+      "id": "mirror-load-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "mirror-load-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "mirror-load-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "mirror-load-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "mirror-load-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "mirror-load-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "mirror-load-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "mirror-load-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "mirror-load-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "mirror-load-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "mirror-load-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "mirror-load-r1-q3",
+      "version": 2
+    },
+    {
+      "id": "mirror-load-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "mirror-load-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "mirror-load#explainer",
+      "version": 2
     }
   ]
 }
