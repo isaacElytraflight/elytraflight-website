@@ -1,23 +1,32 @@
 {
   "skill_id": "cs-cap-load",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
-      "id": "cs-cap-load-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "When the load capacitance \\(C_L\\) is much larger than the transistor parasitics, which time constant sets the bandwidth?",
-      "options": [
-        "The output one, \\((R_D\\parallel r_o)C_L\\)",
-        "The input one, \\(R_sC_{gs}\\)",
-        "The Miller time constant at the gate",
-        "None; \\(C_L\\) does not matter"
+      "type": "symbolic",
+      "prompt": "Write the gain-bandwidth product, in radians per second, of a common-source stage whose load capacitance CL sets the dominant pole. The midband gain magnitude is gm times the resistance at the drain. Use gm and CL.",
+      "explanation": "The gain magnitude is \\(g_m R\\) and the output pole is \\(1/(RC_L)\\), so the product is \\(g_m/C_L\\). The resistance cancels. Keeping \\(R\\) in the product, as \\(g_m R/C_L\\), still has the load in it and is not the gain-bandwidth. \\(1/(RC_L)\\) is the pole alone. The input Miller time constant uses the source resistance and the device capacitances; it is not this product. Halving the drain resistance doubles the bandwidth and halves the gain, and the product stays put.",
+      "answer": "gm/CL",
+      "variables": [
+        {
+          "name": "gm",
+          "min": 0.0002,
+          "max": 0.02
+        },
+        {
+          "name": "CL",
+          "min": 2e-13,
+          "max": 2e-09
+        }
       ],
-      "correct_index": 0,
-      "explanation": "\\(\\tau_2 \\approx (R_D\\parallel r_o)C_L\\) dominates.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier with drain load R_D and a large load capacitance C_L at the output.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><polyline points=\"130,34 130,41 124,44 136,49 124,54 136,59 124,64 136,69 130,77 130,84\"/><text x=\"142\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/><line x1=\"190\" y1=\"96\" x2=\"190\" y2=\"116\"/><line x1=\"190\" y1=\"126\" x2=\"190\" y2=\"146\"/><line x1=\"181\" y1=\"116\" x2=\"199\" y2=\"116\"/><line x1=\"181\" y1=\"126\" x2=\"199\" y2=\"126\"/><text x=\"204\" y=\"125\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_L</text><line x1=\"190\" y1=\"146\" x2=\"190\" y2=\"152\"/><line x1=\"181\" y1=\"152\" x2=\"199\" y2=\"152\"/><line x1=\"185\" y1=\"156\" x2=\"195\" y2=\"156\"/><line x1=\"188.5\" y1=\"160\" x2=\"191.5\" y2=\"160\"/></svg>",
-      "figure_alt": "Common-source amplifier with drain load R_D and a large load capacitance C_L at the output.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "gm*CL**(-1)",
+        "(CL/gm)**(-1)"
+      ],
+      "version": 1,
+      "id": "cs-cap-load-r1-q4"
     },
     {
       "id": "cs-cap-load-r1-q2",
@@ -54,20 +63,24 @@
       "figure_alt": "Common-source amplifier with drain load R_D and a large load capacitance C_L at the output."
     },
     {
-      "id": "cs-cap-load-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "You halve \\(R_D\\) to speed up a CS stage whose bandwidth is set by \\(C_L\\). What happens?",
-      "options": [
-        "Bandwidth and gain both double",
-        "The bandwidth doubles but the gain halves; their product \\(g_m/C_L\\) is unchanged",
-        "Nothing changes",
-        "The gain doubles"
+      "type": "error",
+      "prompt": "A worked solution halves the drain resistance of a common-source stage whose bandwidth is set by a large load capacitance. Exactly one step is wrong.",
+      "explanation": "Bandwidth and gain trade one for one when the load capacitance dominates. Their product is \\(g_m/C_L\\), which has no drain resistance in it. Raising the product means raising \\(g_m\\) or lowering the load capacitance. The input pole does not set this trade while the load capacitance is the large one.",
+      "steps": [
+        "The dominant pole sits at the output, at \\(1/[(R_D\\parallel r_o)C_L]\\).",
+        "Halving \\(R_D\\parallel r_o\\) doubles that pole frequency.",
+        "The midband gain magnitude is \\(g_m(R_D\\parallel r_o)\\), so the same cut halves the gain.",
+        "Gain and bandwidth therefore both double, and the gain-bandwidth product rises by four."
       ],
-      "correct_index": 1,
-      "explanation": "\\(A_0 = g_mR\\) and \\(\\omega_p = 1/(RC_L)\\), so \\(A_0\\omega_p = g_m/C_L\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier with drain load R_D and a large load capacitance C_L at the output.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><polyline points=\"130,34 130,41 124,44 136,49 124,54 136,59 124,64 136,69 130,77 130,84\"/><text x=\"142\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/><line x1=\"190\" y1=\"96\" x2=\"190\" y2=\"116\"/><line x1=\"190\" y1=\"126\" x2=\"190\" y2=\"146\"/><line x1=\"181\" y1=\"116\" x2=\"199\" y2=\"116\"/><line x1=\"181\" y1=\"126\" x2=\"199\" y2=\"126\"/><text x=\"204\" y=\"125\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_L</text><line x1=\"190\" y1=\"146\" x2=\"190\" y2=\"152\"/><line x1=\"181\" y1=\"152\" x2=\"199\" y2=\"152\"/><line x1=\"185\" y1=\"156\" x2=\"195\" y2=\"156\"/><line x1=\"188.5\" y1=\"160\" x2=\"191.5\" y2=\"160\"/></svg>",
-      "figure_alt": "Common-source amplifier with drain load R_D and a large load capacitance C_L at the output."
+      "flaw_index": 3,
+      "reasons": [
+        "The gain falls by the same factor the bandwidth rises, so \\(g_m/C_L\\) is unchanged.",
+        "Halving the load resistance moves the pole down, because a smaller resistance drives the capacitor more slowly."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "cs-cap-load-r2-q4"
     },
     {
       "id": "cs-cap-load-r2-q3",
@@ -106,21 +119,18 @@
       "figure_alt": "Common-source gain stage followed by a source-follower buffer: the follower's low output resistance 1/g_m2, instead of R_D, drives the large load capacitance C_L."
     },
     {
-      "id": "cs-cap-load-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Why is adding a follower usually cheaper than raising \\(g_{m1}\\) and cutting \\(R_D\\) to reach the same bandwidth at the same gain?",
-      "options": [
-        "Because followers have voltage gain",
-        "Because raising \\(g_m\\) lowers the gain",
-        "Keeping \\(g_mR_D\\) fixed while cutting \\(R_D\\) needs a proportional rise in \\(g_{m1}\\), and so in current; the follower costs one modest extra branch",
-        "Because a follower removes \\(C_L\\)"
+      "type": "order",
+      "prompt": "Order why a source follower is the cheaper way to drive a large load capacitance at the same gain and a higher bandwidth. Each step after the first uses the result of the step before it.",
+      "explanation": "The follower moves the load capacitance off the high-resistance node without giving up the gain. Cutting the drain resistance and raising the common-source \\(g_m\\) to hold the product spends that current in the gain device. The follower does not multiply the load by a Miller factor. Ignoring the follower's own output pole leaves out the new time constant \\(C_L/g_{m2}\\).",
+      "steps": [
+        "The common-source stage keeps its drain resistance, so it keeps the gain \\(g_m(R_D\\parallel r_o)\\).",
+        "Its drain now sees the follower's small input capacitance instead of the load capacitance.",
+        "The load capacitance is driven by the follower's output resistance, about \\(1/g_{m2}\\), far below the drain resistance.",
+        "The extra current is one follower branch. Holding the gain while cutting the drain resistance instead would raise the common-source current in proportion."
       ],
-      "correct_index": 2,
-      "explanation": "The follower buffers \\(C_L\\) from the gain stage at far lower power.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 622 100\" role=\"img\" aria-label=\"Common-source gain stage followed by a source-follower buffer: the follower's low output resistance 1/g_m2, instead of R_D, drives the large load capacitance C_L.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:622px;width:100%;height:auto\"><rect x=\"14\" y=\"30\" width=\"130\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"79\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v_s with R_s</text><line x1=\"144\" y1=\"50\" x2=\"166\" y2=\"50\"/><polygon points=\"166,50 159.6,52.7 159.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"166\" y=\"30\" width=\"130\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"231\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">CS stage (R_D)</text><line x1=\"296\" y1=\"50\" x2=\"318\" y2=\"50\"/><polygon points=\"318,50 311.6,52.7 311.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"318\" y=\"30\" width=\"130\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"383\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">follower (1/g_m2)</text><line x1=\"448\" y1=\"50\" x2=\"470\" y2=\"50\"/><polygon points=\"470,50 463.6,52.7 463.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"470\" y=\"30\" width=\"130\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"535\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">load C_L</text></svg>",
-      "figure_alt": "Common-source gain stage followed by a source-follower buffer: the follower's low output resistance 1/g_m2, instead of R_D, drives the large load capacitance C_L.",
-      "version": 2
+      "version": 1,
+      "id": "cs-cap-load-r3-q4"
     },
     {
       "id": "cs-cap-load-r4-q1",
@@ -172,6 +182,59 @@
       "preview": [
         "opamp-fr"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "cs-cap-load-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "When the load capacitance \\(C_L\\) is much larger than the transistor parasitics, which time constant sets the bandwidth?",
+      "options": [
+        "The output one, \\((R_D\\parallel r_o)C_L\\)",
+        "The input one, \\(R_sC_{gs}\\)",
+        "The Miller time constant at the gate",
+        "None; \\(C_L\\) does not matter"
+      ],
+      "correct_index": 0,
+      "explanation": "\\(\\tau_2 \\approx (R_D\\parallel r_o)C_L\\) dominates.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier with drain load R_D and a large load capacitance C_L at the output.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><polyline points=\"130,34 130,41 124,44 136,49 124,54 136,59 124,64 136,69 130,77 130,84\"/><text x=\"142\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/><line x1=\"190\" y1=\"96\" x2=\"190\" y2=\"116\"/><line x1=\"190\" y1=\"126\" x2=\"190\" y2=\"146\"/><line x1=\"181\" y1=\"116\" x2=\"199\" y2=\"116\"/><line x1=\"181\" y1=\"126\" x2=\"199\" y2=\"126\"/><text x=\"204\" y=\"125\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_L</text><line x1=\"190\" y1=\"146\" x2=\"190\" y2=\"152\"/><line x1=\"181\" y1=\"152\" x2=\"199\" y2=\"152\"/><line x1=\"185\" y1=\"156\" x2=\"195\" y2=\"156\"/><line x1=\"188.5\" y1=\"160\" x2=\"191.5\" y2=\"160\"/></svg>",
+      "figure_alt": "Common-source amplifier with drain load R_D and a large load capacitance C_L at the output.",
+      "version": 2
+    },
+    {
+      "id": "cs-cap-load-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "You halve \\(R_D\\) to speed up a CS stage whose bandwidth is set by \\(C_L\\). What happens?",
+      "options": [
+        "Bandwidth and gain both double",
+        "The bandwidth doubles but the gain halves; their product \\(g_m/C_L\\) is unchanged",
+        "Nothing changes",
+        "The gain doubles"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(A_0 = g_mR\\) and \\(\\omega_p = 1/(RC_L)\\), so \\(A_0\\omega_p = g_m/C_L\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 214\" role=\"img\" aria-label=\"Common-source amplifier with drain load R_D and a large load capacitance C_L at the output.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:260px;width:100%;height:auto\"><line x1=\"118\" y1=\"20\" x2=\"142\" y2=\"20\"/><text x=\"130\" y=\"15\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">V_DD</text><line x1=\"130\" y1=\"20\" x2=\"130\" y2=\"34\"/><polyline points=\"130,34 130,41 124,44 136,49 124,54 136,59 124,64 136,69 130,77 130,84\"/><text x=\"142\" y=\"63\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">R_D</text><line x1=\"130\" y1=\"84\" x2=\"130\" y2=\"96\"/><line x1=\"104\" y1=\"108\" x2=\"104\" y2=\"140\"/><line x1=\"84\" y1=\"124\" x2=\"104\" y2=\"124\"/><line x1=\"110\" y1=\"106\" x2=\"110\" y2=\"142\" stroke-width=\"2.4\"/><line x1=\"110\" y1=\"112\" x2=\"130\" y2=\"112\"/><line x1=\"130\" y1=\"112\" x2=\"130\" y2=\"96\"/><line x1=\"110\" y1=\"136\" x2=\"130\" y2=\"136\"/><line x1=\"130\" y1=\"136\" x2=\"130\" y2=\"152\"/><line x1=\"128\" y1=\"136\" x2=\"114\" y2=\"136\"/><polygon points=\"114,136 119.5,133.7 119.5,138.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"130\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"138\" y=\"90\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text><line x1=\"130\" y1=\"96\" x2=\"190\" y2=\"96\"/><circle cx=\"190\" cy=\"96\" r=\"2.6\" fill=\"currentColor\"/><text x=\"196\" y=\"100\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\"></text><line x1=\"84\" y1=\"124\" x2=\"60\" y2=\"124\"/><line x1=\"60\" y1=\"124\" x2=\"60\" y2=\"137\"/><line x1=\"60\" y1=\"161\" x2=\"60\" y2=\"174\"/><circle cx=\"60\" cy=\"149\" r=\"12\"/><text x=\"60\" y=\"147\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"60\" y=\"159\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−</text><text x=\"43\" y=\"153\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">v_in</text><line x1=\"60\" y1=\"174\" x2=\"60\" y2=\"180\"/><line x1=\"51\" y1=\"180\" x2=\"69\" y2=\"180\"/><line x1=\"55\" y1=\"184\" x2=\"65\" y2=\"184\"/><line x1=\"58.5\" y1=\"188\" x2=\"61.5\" y2=\"188\"/><line x1=\"130\" y1=\"152\" x2=\"130\" y2=\"170\"/><line x1=\"130\" y1=\"170\" x2=\"130\" y2=\"176\"/><line x1=\"121\" y1=\"176\" x2=\"139\" y2=\"176\"/><line x1=\"125\" y1=\"180\" x2=\"135\" y2=\"180\"/><line x1=\"128.5\" y1=\"184\" x2=\"131.5\" y2=\"184\"/><line x1=\"190\" y1=\"96\" x2=\"190\" y2=\"116\"/><line x1=\"190\" y1=\"126\" x2=\"190\" y2=\"146\"/><line x1=\"181\" y1=\"116\" x2=\"199\" y2=\"116\"/><line x1=\"181\" y1=\"126\" x2=\"199\" y2=\"126\"/><text x=\"204\" y=\"125\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_L</text><line x1=\"190\" y1=\"146\" x2=\"190\" y2=\"152\"/><line x1=\"181\" y1=\"152\" x2=\"199\" y2=\"152\"/><line x1=\"185\" y1=\"156\" x2=\"195\" y2=\"156\"/><line x1=\"188.5\" y1=\"160\" x2=\"191.5\" y2=\"160\"/></svg>",
+      "figure_alt": "Common-source amplifier with drain load R_D and a large load capacitance C_L at the output.",
+      "version": 1
+    },
+    {
+      "id": "cs-cap-load-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Why is adding a follower usually cheaper than raising \\(g_{m1}\\) and cutting \\(R_D\\) to reach the same bandwidth at the same gain?",
+      "options": [
+        "Because followers have voltage gain",
+        "Because raising \\(g_m\\) lowers the gain",
+        "Keeping \\(g_mR_D\\) fixed while cutting \\(R_D\\) needs a proportional rise in \\(g_{m1}\\), and so in current; the follower costs one modest extra branch",
+        "Because a follower removes \\(C_L\\)"
+      ],
+      "correct_index": 2,
+      "explanation": "The follower buffers \\(C_L\\) from the gain stage at far lower power.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 622 100\" role=\"img\" aria-label=\"Common-source gain stage followed by a source-follower buffer: the follower's low output resistance 1/g_m2, instead of R_D, drives the large load capacitance C_L.\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\" style=\"max-width:622px;width:100%;height:auto\"><rect x=\"14\" y=\"30\" width=\"130\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"79\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v_s with R_s</text><line x1=\"144\" y1=\"50\" x2=\"166\" y2=\"50\"/><polygon points=\"166,50 159.6,52.7 159.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"166\" y=\"30\" width=\"130\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"231\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">CS stage (R_D)</text><line x1=\"296\" y1=\"50\" x2=\"318\" y2=\"50\"/><polygon points=\"318,50 311.6,52.7 311.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"318\" y=\"30\" width=\"130\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"383\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">follower (1/g_m2)</text><line x1=\"448\" y1=\"50\" x2=\"470\" y2=\"50\"/><polygon points=\"470,50 463.6,52.7 463.6,47.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"470\" y=\"30\" width=\"130\" height=\"40\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"535\" y=\"54\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">load C_L</text></svg>",
+      "figure_alt": "Common-source gain stage followed by a source-follower buffer: the follower's low output resistance 1/g_m2, instead of R_D, drives the large load capacitance C_L.",
+      "version": 2
     }
   ]
 }

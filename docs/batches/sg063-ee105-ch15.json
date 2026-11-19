@@ -1,0 +1,26 @@
+{
+  "id": "sg063-ee105-ch15",
+  "label": "SG-063 EE 105 multi-stage amplifiers",
+  "box": "EE 105 (ee105-ucb), Multi-Stage Amplifiers",
+  "skills": [
+    "cs-cascade",
+    "cs-cascade-freq",
+    "cs-cap-load",
+    "cascode-amp",
+    "cascode-bias",
+    "big-circuit"
+  ],
+  "areas": {
+    "cs-cascade": ["frequency-response", "physical-models"],
+    "cs-cascade-freq": ["frequency-response", "physical-models"],
+    "cs-cap-load": ["frequency-response", "physical-models"],
+    "cascode-amp": ["frequency-response", "physical-models"],
+    "cascode-bias": ["frequency-response", "physical-models"],
+    "big-circuit": ["frequency-response", "physical-models"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch15.py"
+}

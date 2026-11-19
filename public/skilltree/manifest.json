@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-18T22:17:26.750757Z",
+  "generated": "2026-11-19T20:19:35.836604Z",
   "skills": {
-    "file": "skills.0a06c7b1.json",
-    "hash": "0a06c7b1"
+    "file": "skills.7d88c679.json",
+    "hash": "7d88c679"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -180,7 +180,7 @@
       "file": "banks/bias-current.b1ca201d.json"
     },
     "big-circuit": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -188,8 +188,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f3e55ece",
-      "file": "banks/big-circuit.f3e55ece.json"
+      "hash": "f22b0369",
+      "file": "banks/big-circuit.f22b0369.json"
     },
     "bjt-action": {
       "version": 4,
@@ -312,7 +312,7 @@
       "file": "banks/carrier-pot.8c546870.json"
     },
     "cascode-amp": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -320,11 +320,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8d1a5c30",
-      "file": "banks/cascode-amp.8d1a5c30.json"
+      "hash": "ec7f27b7",
+      "file": "banks/cascode-amp.ec7f27b7.json"
     },
     "cascode-bias": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -332,8 +332,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "89fd8505",
-      "file": "banks/cascode-bias.89fd8505.json"
+      "hash": "f35173ba",
+      "file": "banks/cascode-bias.f35173ba.json"
     },
     "cascode-src": {
       "version": 3,
@@ -612,7 +612,7 @@
       "file": "banks/cs-brute.28d26580.json"
     },
     "cs-cap-load": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -620,10 +620,22 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f3ef436b",
-      "file": "banks/cs-cap-load.f3ef436b.json"
+      "hash": "fd5a4daf",
+      "file": "banks/cs-cap-load.fd5a4daf.json"
     },
     "cs-cascade-freq": {
+      "version": 4,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "2754d8f9",
+      "file": "banks/cs-cascade-freq.2754d8f9.json"
+    },
+    "cs-cascade": {
       "version": 3,
       "questionCount": 12,
       "rounds": {
@@ -632,20 +644,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8eec2a67",
-      "file": "banks/cs-cascade-freq.8eec2a67.json"
-    },
-    "cs-cascade": {
-      "version": 2,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "4e42043c",
-      "file": "banks/cs-cascade.4e42043c.json"
+      "hash": "ff4a5da1",
+      "file": "banks/cs-cascade.ff4a5da1.json"
     },
     "cs-intro": {
       "version": 3,
