@@ -1,6 +1,6 @@
 {
   "skill_id": "fb-amp-errors",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "fb-amp-errors-r1-q1",
@@ -15,18 +15,18 @@
       "figure_alt": "Non-inverting amplifier set for an ideal gain of 25."
     },
     {
-      "id": "fb-amp-errors-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "Two amplifiers use the same op-amp (\\(A=10^4\\)). One has ideal gain 2 and the other has ideal gain 200. Which has the larger static gain error, and why?",
-      "options": [
-        "Both are the same, since they use the same op-amp",
-        "The gain-200 amplifier: its feedback factor is 100 times smaller, so its loop gain \\(T=A/200=50\\) is much less than \\(A/2=5000\\)",
-        "The gain-2 amplifier, because it feeds back more of the output",
-        "Neither has any error, since \\(A\\) is large"
+      "type": "order",
+      "prompt": "Order why a larger ideal noninverting gain has a larger static gain error on the same op-amp. Each step after the first uses the result of the step before it.",
+      "explanation": "Ideal gain \\(1/f\\) and loop gain \\(T = a f\\) move in opposite directions, and the miss is \\(1/(1+T)\\). The stage that returns less of its output has the larger error. The same open-loop gain does not mean the same error. More feedback reduces the miss; it does not increase it. \\(T \\approx 1\\) only about halves the miss. Quoting \\(a\\) alone, without \\(f\\), skips the quantity that actually differs between a low-gain stage and a high-gain stage.",
+      "steps": [
+        "The ideal noninverting gain is \\(1/f\\), so asking for more gain means a smaller feedback factor.",
+        "Loop gain is the product \\(T = a f\\), so the smaller \\(f\\) cuts \\(T\\) even though \\(a\\) is the same op-amp.",
+        "The fraction of the ideal gain that is missing is exactly \\(1/(1+T)\\).",
+        "The high-gain stage therefore misses by more. Returning a larger share of the output would have raised \\(T\\) and shrunk that fraction."
       ],
-      "correct_index": 1,
-      "explanation": "The error is \\(1/(1+T)\\) with \\(T=Af\\), and \\(f=1/G_{ideal}\\). High closed-loop gain means little feedback and a small loop gain: 2% error for the gain-200 design versus 0.02% for the gain-2 design. This is the core trade-off of feedback amplifiers.\n• Same op-amp does not mean same loop gain.\n• More feedback reduces the error rather than increasing it.\n• 'A is large' is relative: \\(A/200\\) is only 50."
+      "version": 1,
+      "id": "fb-amp-errors-r1-q4"
     },
     {
       "id": "fb-amp-errors-r1-q3",
@@ -61,18 +61,31 @@
       "explanation": "\\(\\left|\\dfrac{T}{1+T}\\right|=\\dfrac{5}{\\sqrt{1+25}}=0.981\\), so the gain is \\(9.81\\), only 1.9% low, even though the error ratio is about 20%. The missing part of the error shows up mostly as phase: \\(\\angle\\dfrac{T}{1+T}\\approx-11^\\circ\\).\n• \\(10(1-0.196)=8.04\\) subtracts the error ratio from the magnitude, but the error is in quadrature.\n• 10 ignores the finite loop gain."
     },
     {
-      "id": "fb-amp-errors-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "A unity-gain buffer (\\(f=1\\)) uses an op-amp with \\(A_0=10^5\\). What is its static gain error?",
-      "options": [
-        "About 1%",
-        "Exactly zero, because the gain is 1",
-        "About 10 ppm (0.001%): \\(T=A_0\\) is as large as it can be, because the buffer feeds back the whole output",
-        "About 50%, because the input and output are tied together"
+      "type": "symbolic",
+      "prompt": "Write the exact fraction of its ideal gain that a feedback amplifier misses, when the open-loop gain is \\(a\\) and the feedback factor is \\(f\\). The loop gain is the product \\(a f\\). Use a and f.",
+      "explanation": "The actual gain is the ideal gain times \\(T/(1+T)\\), with \\(T = a f\\), so the missing fraction is \\(1/(1+a f)\\). \\(1/(a f)\\) is the large-\\(T\\) estimate, slightly larger than the exact miss, and the two are not equal. \\(a f\\) itself is the loop gain, not the error. \\(a/(1+a f)\\) is the noninverting closed-loop gain, ideal value times \\(T/(1+T)\\), not the fraction that is missing. A follower, \\(f = 1\\), has the smallest miss this op-amp can have, because it returns the whole output. Resistor tolerance in the feedback network is not in this expression: that error sits in the ideal gain, and the loop does not divide it by \\(1+T\\).",
+      "answer": "1/(1+a*f)",
+      "variables": [
+        {
+          "name": "a",
+          "min": 100.0,
+          "max": 400.0
+        },
+        {
+          "name": "f",
+          "min": 0.05,
+          "max": 0.25
+        }
       ],
-      "correct_index": 2,
-      "explanation": "With \\(f=1\\), \\(T=A_0=10^5\\) and the error is \\(1/(1+10^5)\\approx10\\ \\mathrm{ppm}\\). The follower has the largest loop gain of any configuration, which makes it the most accurate. As a later skill shows, it is also the hardest to keep stable.\n• 1% would need \\(T\\approx100\\).\n• A gain of 1 still has a small shortfall: \\(A/(1+A)\\).\n• Tying output to input is the feedback, not a short circuit."
+      "tolerance": 0.001,
+      "alternates": [
+        "1/(1+f*a)",
+        "(1+a*f)**(-1)",
+        "1/(a*f+1)"
+      ],
+      "version": 1,
+      "id": "fb-amp-errors-r2-q4"
     },
     {
       "id": "fb-amp-errors-r3-q1",
@@ -103,18 +116,24 @@
       "figure_alt": "Single-pole closed-loop step response rising exponentially to its final value."
     },
     {
-      "id": "fb-amp-errors-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "A feedback amplifier's closed-loop response is a single pole at \\(f_c\\). At \\(f=f_c/10\\), how do its magnitude and phase errors compare?",
-      "options": [
-        "Both are about 10%",
-        "The magnitude is 10% low and the phase is exact",
-        "Both are negligible, under 0.01%",
-        "The magnitude is only about 0.5% low, but the phase lags by about 5.7°"
+      "type": "error",
+      "prompt": "A worked solution compares magnitude and phase errors of a single-pole closed-loop response at one tenth of its pole frequency \\(f_c\\). Exactly one step is wrong.",
+      "explanation": "\\(1/(1+j0.1)\\) has magnitude \\(1/\\sqrt{1.01} \\approx 0.995\\), about half a percent low, and phase \\(-\\arctan(0.1) \\approx -5.7^\\circ\\). The 10% figure is the frequency ratio \\(f/f_c\\), not either error. Magnitude error grows as \\((f/f_c)^2\\) and phase error nearly as \\(f/f_c\\), so a timing-sensitive loop feels the phase first. The two errors are not both 10%, and the phase is not exact. At the pole itself the magnitude is 3 dB down and the phase is \\(-45^\\circ\\); a tenth of the way there is still close to the low-frequency gain.",
+      "steps": [
+        "At \\(f = f_c/10\\) the closed-loop factor is \\(1/(1+j0.1)\\).",
+        "The magnitude of that factor is about 10% low, because each error simply tracks \\(f/f_c\\).",
+        "The phase is \\(-\\arctan(0.1)\\), about \\(-5.7\\) degrees.",
+        "Magnitude error grows with the square of \\(f/f_c\\), so it is only about half a percent here, while the phase has already moved by several degrees."
       ],
-      "correct_index": 3,
-      "explanation": "\\(|1/(1+j0.1)|=1/\\sqrt{1.01}=0.995\\), a 0.5% error, but \\(\\angle=-\\tan^{-1}0.1=-5.7^\\circ\\). Magnitude error grows as the square of \\(f/f_c\\), while phase error grows linearly. Systems that care about timing (feedback loops, multi-channel measurements) feel the phase error first.\n• The 10% figure is the ratio \\(f/f_c\\), not either error.\n• The phase is far from exact.\n• 5.7° is not negligible in most loops."
+      "flaw_index": 1,
+      "reasons": [
+        "The magnitude is \\(1/\\sqrt{1.01}\\), about 0.5% low. The 10% figure is \\(f/f_c\\), not the magnitude error.",
+        "At a tenth of the pole, magnitude and phase are both off by about 10%, since each tracks \\(f/f_c\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "fb-amp-errors-r3-q4"
     },
     {
       "id": "fb-amp-errors-r4-q1",
@@ -164,6 +183,53 @@
       "preview": [
         "cs-analysis"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "fb-amp-errors-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A unity-gain buffer (\\(f=1\\)) uses an op-amp with \\(A_0=10^5\\). What is its static gain error?",
+      "options": [
+        "About 1%",
+        "Exactly zero, because the gain is 1",
+        "About 10 ppm (0.001%): \\(T=A_0\\) is as large as it can be, because the buffer feeds back the whole output",
+        "About 50%, because the input and output are tied together"
+      ],
+      "correct_index": 2,
+      "explanation": "With \\(f=1\\), \\(T=A_0=10^5\\) and the error is \\(1/(1+10^5)\\approx10\\ \\mathrm{ppm}\\). The follower has the largest loop gain of any configuration, which makes it the most accurate. As a later skill shows, it is also the hardest to keep stable.\n• 1% would need \\(T\\approx100\\).\n• A gain of 1 still has a small shortfall: \\(A/(1+A)\\).\n• Tying output to input is the feedback, not a short circuit.",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-errors-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Two amplifiers use the same op-amp (\\(A=10^4\\)). One has ideal gain 2 and the other has ideal gain 200. Which has the larger static gain error, and why?",
+      "options": [
+        "Both are the same, since they use the same op-amp",
+        "The gain-200 amplifier: its feedback factor is 100 times smaller, so its loop gain \\(T=A/200=50\\) is much less than \\(A/2=5000\\)",
+        "The gain-2 amplifier, because it feeds back more of the output",
+        "Neither has any error, since \\(A\\) is large"
+      ],
+      "correct_index": 1,
+      "explanation": "The error is \\(1/(1+T)\\) with \\(T=Af\\), and \\(f=1/G_{ideal}\\). High closed-loop gain means little feedback and a small loop gain: 2% error for the gain-200 design versus 0.02% for the gain-2 design. This is the core trade-off of feedback amplifiers.\n• Same op-amp does not mean same loop gain.\n• More feedback reduces the error rather than increasing it.\n• 'A is large' is relative: \\(A/200\\) is only 50.",
+      "version": 1
+    },
+    {
+      "id": "fb-amp-errors-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A feedback amplifier's closed-loop response is a single pole at \\(f_c\\). At \\(f=f_c/10\\), how do its magnitude and phase errors compare?",
+      "options": [
+        "Both are about 10%",
+        "The magnitude is 10% low and the phase is exact",
+        "Both are negligible, under 0.01%",
+        "The magnitude is only about 0.5% low, but the phase lags by about 5.7°"
+      ],
+      "correct_index": 3,
+      "explanation": "\\(|1/(1+j0.1)|=1/\\sqrt{1.01}=0.995\\), a 0.5% error, but \\(\\angle=-\\tan^{-1}0.1=-5.7^\\circ\\). Magnitude error grows as the square of \\(f/f_c\\), while phase error grows linearly. Systems that care about timing (feedback loops, multi-channel measurements) feel the phase error first.\n• The 10% figure is the ratio \\(f/f_c\\), not either error.\n• The phase is far from exact.\n• 5.7° is not negligible in most loops.",
+      "version": 1
     }
   ]
 }

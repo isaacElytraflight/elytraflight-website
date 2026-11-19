@@ -1,0 +1,24 @@
+{
+  "id": "sg063-ee105-ch17",
+  "label": "SG-063 EE 105 feedback and op-amps",
+  "box": "EE 105 (ee105-ucb), Feedback and Op-Amps",
+  "skills": [
+    "opamp-models",
+    "gbw",
+    "inverting",
+    "fb-impedance",
+    "fb-amp-errors"
+  ],
+  "areas": {
+    "opamp-models": ["feedback-loop", "frequency-response"],
+    "gbw": ["feedback-loop", "frequency-response"],
+    "inverting": ["feedback-loop", "frequency-response"],
+    "fb-impedance": ["feedback-loop", "frequency-response"],
+    "fb-amp-errors": ["feedback-loop", "frequency-response"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_ee105_ch17.py"
+}

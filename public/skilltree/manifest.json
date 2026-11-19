@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-19T20:48:57.049333Z",
+  "generated": "2026-11-19T21:02:02.233812Z",
   "skills": {
-    "file": "skills.587731bd.json",
-    "hash": "587731bd"
+    "file": "skills.65e1f92a.json",
+    "hash": "65e1f92a"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -1032,7 +1032,7 @@
       "file": "banks/extended-kalman-filter.eb52295d.json"
     },
     "fb-amp-errors": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1040,8 +1040,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "bb28e87e",
-      "file": "banks/fb-amp-errors.bb28e87e.json"
+      "hash": "afaaa60f",
+      "file": "banks/fb-amp-errors.afaaa60f.json"
     },
     "fb-amp": {
       "version": 3,
@@ -1080,7 +1080,7 @@
       "file": "banks/fb-errors.fe76cf41.json"
     },
     "fb-impedance": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1088,8 +1088,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "38e8aae8",
-      "file": "banks/fb-impedance.38e8aae8.json"
+      "hash": "b00e76af",
+      "file": "banks/fb-impedance.b00e76af.json"
     },
     "fb-intro": {
       "version": 4,
@@ -1320,7 +1320,7 @@
       "file": "banks/gaussian-random-vectors.4c28170b.json"
     },
     "gbw": {
-      "version": 4,
+      "version": 5,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1328,8 +1328,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f02859a3",
-      "file": "banks/gbw.f02859a3.json"
+      "hash": "9c9c8105",
+      "file": "banks/gbw.9c9c8105.json"
     },
     "gen-controller": {
       "version": 1,
@@ -1584,7 +1584,7 @@
       "file": "banks/intrinsic.16f89e0d.json"
     },
     "inverting": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1592,8 +1592,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f5f36bb8",
-      "file": "banks/inverting.f5f36bb8.json"
+      "hash": "30b0720e",
+      "file": "banks/inverting.30b0720e.json"
     },
     "jacobian-chain-rule": {
       "version": 1,
@@ -2400,7 +2400,7 @@
       "file": "banks/opamp-fr.d4ec48d0.json"
     },
     "opamp-models": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2408,8 +2408,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "cbd3db8d",
-      "file": "banks/opamp-models.cbd3db8d.json"
+      "hash": "ca2429cd",
+      "file": "banks/opamp-models.ca2429cd.json"
     },
     "open-closed-sets": {
       "version": 2,

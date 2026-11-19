@@ -1,6 +1,6 @@
 {
   "skill_id": "gbw",
-  "version": 4,
+  "version": 5,
   "questions": [
     {
       "id": "gbw-r1-q1",
@@ -20,21 +20,31 @@
       "version": 2
     },
     {
-      "id": "gbw-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "Closing a feedback loop around a single-pole op-amp with DC loop gain \\(T_0\\) does what to the DC gain and the bandwidth?",
-      "options": [
-        "Divides the gain by \\(1+T_0\\) and multiplies the bandwidth by \\(1+T_0\\), so gain × bandwidth is unchanged",
-        "Multiplies both the gain and the bandwidth by \\(1+T_0\\)",
-        "Divides both the gain and the bandwidth by \\(1+T_0\\)",
-        "Leaves the bandwidth unchanged and lowers the gain"
+      "type": "symbolic",
+      "prompt": "Write the approximate closed-loop bandwidth of a single-pole op-amp loop with feedback factor \\(f\\) and unity-gain frequency \\(\\omega_u\\). This is the estimate used when the DC loop gain is large. Use f and wu.",
+      "explanation": "On the open-loop slope, gain times frequency stays near \\(\\omega_u\\). Feedback asks for a low-frequency gain of about \\(1/f\\), and the closed-loop curve holds that gain until the open-loop curve falls down to meet it, at about \\(f\\,\\omega_u\\). \\(\\omega_u/f\\) turns the trade around and would give the highest gain the widest band. \\(f\\) times the open-loop pole is far too low: that pole sits near \\(\\omega_u/A_0\\). \\((1+T_0)\\) times the open-loop pole is the exact move, and it matches \\(f\\,\\omega_u\\) only after \\(T_0 = A_0 f\\) is large enough to drop the 1. A follower is the case \\(f = 1\\), so its bandwidth is about \\(\\omega_u\\).",
+      "answer": "f*wu",
+      "variables": [
+        {
+          "name": "f",
+          "min": 0.05,
+          "max": 1.0
+        },
+        {
+          "name": "wu",
+          "min": 100000.0,
+          "max": 100000000.0
+        }
       ],
-      "correct_index": 0,
-      "explanation": "From \\(G_{CL}=\\dfrac{A_0/(1+T_0)}{1+j\\omega\\tau/(1+T_0)}\\), the DC gain falls by \\(1+T_0\\) and the pole moves up by \\(1+T_0\\). Their product, the gain-bandwidth, stays at \\(\\approx\\omega_u\\): you can trade gain for bandwidth but not get both.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Open-loop and closed-loop gain</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|A| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,46.2 87.1,46.2 272.9,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"132.4\" x2=\"53\" y2=\"132.4\"/><text x=\"44\" y=\"135.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"110.9\" x2=\"53\" y2=\"110.9\"/><text x=\"44\" y=\"113.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"89.3\" x2=\"53\" y2=\"89.3\"/><text x=\"44\" y=\"92.3\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"47\" y1=\"67.7\" x2=\"53\" y2=\"67.7\"/><text x=\"44\" y=\"70.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">80</text><line x1=\"47\" y1=\"46.2\" x2=\"53\" y2=\"46.2\"/><text x=\"44\" y=\"49.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">100</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"87.1\" y1=\"151\" x2=\"87.1\" y2=\"157\"/><text x=\"87.1\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"124.3\" y1=\"151\" x2=\"124.3\" y2=\"157\"/><text x=\"124.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"161.4\" y1=\"151\" x2=\"161.4\" y2=\"157\"/><text x=\"161.4\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"198.6\" y1=\"151\" x2=\"198.6\" y2=\"157\"/><text x=\"198.6\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"235.7\" y1=\"151\" x2=\"235.7\" y2=\"157\"/><text x=\"235.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"272.9\" y1=\"151\" x2=\"272.9\" y2=\"157\"/><text x=\"272.9\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><polyline points=\"50,110.9 198.6,110.9\" stroke-dasharray=\"4 3\" stroke-width=\"2.2\"/><text x=\"56\" y=\"104.9\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">closed loop</text><text x=\"93.1\" y=\"40.2\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">open loop A</text><line x1=\"198.6\" y1=\"114.9\" x2=\"198.6\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
-      "figure_alt": "Bode sketch: open-loop gain 100 dB with a 10 Hz pole, and a closed-loop gain of 40 dB that stays flat out to 10 kHz where it meets the open-loop line.",
-      "version": 2
+      "tolerance": 0.001,
+      "alternates": [
+        "wu*f",
+        "wu/(1/f)",
+        "f*(wu)"
+      ],
+      "version": 1,
+      "id": "gbw-r1-q4"
     },
     {
       "id": "gbw-r1-q3",
@@ -76,21 +86,18 @@
       "version": 2
     },
     {
-      "id": "gbw-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "A unity-gain follower (\\(f=1\\)) uses an op-amp with unity-gain frequency \\(f_u\\). What is the closed-loop bandwidth?",
-      "options": [
-        "About \\(f_u/2\\)",
-        "The op-amp's open-loop \\(-3\\ \\mathrm{dB}\\) frequency",
-        "Infinite, since the gain is 1",
-        "About \\(f_u\\): the follower uses the full gain-bandwidth"
+      "type": "order",
+      "prompt": "Order why a unity-gain follower uses the whole gain-bandwidth of a single-pole op-amp. Each step after the first uses the result of the step before it.",
+      "explanation": "The follower has \\(f = 1\\), so it meets the open-loop curve where that curve crosses 1 and uses the whole gain-bandwidth. Half of \\(\\omega_u\\) is the bandwidth of a loop whose feedback factor is \\(1/2\\), including an inverting gain of \\(-1\\), whose noise gain is 2. The open-loop pole is about \\(\\omega_u/A_0\\), not the closed-loop bandwidth. A closed-loop gain of 1 does not delete the pole. Infinite bandwidth would require an infinite unity-gain frequency.",
+      "steps": [
+        "Past its dominant pole the open-loop gain falls at 20 dB/decade and crosses 1 at the unity-gain frequency \\(\\omega_u\\).",
+        "A follower returns the entire output, so the feedback factor is 1 and the ideal closed-loop gain is 1.",
+        "The closed-loop gain stays near that value of 1 until the falling open-loop curve meets it.",
+        "The curves meet at \\(\\omega_u\\), so the follower's bandwidth is about \\(\\omega_u\\). A higher closed-loop gain would have met the open-loop curve sooner."
       ],
-      "correct_index": 3,
-      "explanation": "Closed-loop bandwidth \\(\\approx f\\cdot f_u\\), and \\(f=1\\) for a follower, so the bandwidth is \\(\\approx f_u\\). It is the widest-band configuration because it has the lowest gain.\n• \\(f_u/2\\) is the bandwidth of a gain \\(-1\\) INVERTING stage (noise gain 2).\n• The open-loop pole is \\(1+T_0\\) times lower.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 310 125\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Unity-gain follower</title><text x=\"18\" y=\"49\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"45\" r=\"3\"/><polyline points=\"33,45 110,45\"/><polygon points=\"110,30 110,90 166,60\"/><text x=\"117\" y=\"49\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"117\" y=\"79\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><polyline points=\"110,75 95,75 95,110 190,110 190,60\"/><polyline points=\"166,60 225,60\"/><circle cx=\"190\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"228\" cy=\"60\" r=\"3\"/><text x=\"247\" y=\"64\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
-      "figure_alt": "Unity-gain follower: input to the + terminal, output tied directly to the − terminal.",
-      "version": 2
+      "version": 1,
+      "id": "gbw-r2-q4"
     },
     {
       "id": "gbw-r3-q1",
@@ -122,21 +129,24 @@
       "figure_alt": "Two gain-of-10 amplifier stages in cascade, each built from an op-amp with 10 MHz unity-gain frequency."
     },
     {
-      "id": "gbw-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "An OTA (no output buffer) with internal capacitance \\(C_x\\) drives a load capacitor \\(C_L=4C_x\\) directly. How does its gain-bandwidth product compare with the unloaded value \\(G_m/C_x\\)?",
-      "options": [
-        "It is unchanged; the GBW depends only on \\(G_m\\) and \\(C_x\\)",
-        "It drops by a factor of 5, to \\(G_m/(C_x+C_L)\\)",
-        "It drops by a factor of 4",
-        "It increases by a factor of 5"
+      "type": "error",
+      "prompt": "A worked solution gives the gain-bandwidth of an OTA with no output buffer, driving a load capacitor \\(C_L\\) in parallel with its internal \\(C_x\\). Exactly one step is wrong.",
+      "explanation": "A capacitor is an open circuit at DC, so \\(C_L\\) does not change \\(G_m R_x\\). It does add to the capacitance that sets the pole, and the product of the unchanged DC gain and the new pole is \\(G_m/(C_x+C_L)\\). Calling the capacitor a short would collapse the bias point, which a capacitive load does not do. An ideal buffer holds \\(C_L\\) off that node and leaves the product at \\(G_m/C_x\\). Series capacitors, or a pole set by \\(C_L\\) alone, describe a different circuit.",
+      "steps": [
+        "Without a buffer, \\(C_L\\) sits on the same high-impedance node as \\(C_x\\).",
+        "At DC the capacitor is a short circuit, so the load reduces the DC gain \\(G_m R_x\\).",
+        "The pole frequency is \\(1/(R_x(C_x+C_L))\\).",
+        "DC gain times that pole, the gain-bandwidth product, therefore falls from \\(G_m/C_x\\) to \\(G_m/(C_x+C_L)\\)."
       ],
-      "correct_index": 1,
-      "explanation": "Without a buffer, the load capacitance sits in parallel with \\(C_x\\) at the high-impedance node, so the pole becomes \\(\\dfrac{1}{R_x(C_x+C_L)}\\). The DC gain \\(G_mR_x\\) is unchanged, so GBW \\(=\\dfrac{G_m}{C_x+C_L}=\\dfrac{G_m}{5C_x}\\).\n• 'Unchanged' would be true with an ideal buffer isolating \\(C_L\\).\n• The total is \\(C_x+4C_x=5C_x\\), not \\(4C_x\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 160\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>OTA driving a capacitive load</title><text x=\"18\" y=\"49\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v⁺</text><circle cx=\"30\" cy=\"45\" r=\"3\"/><polyline points=\"33,45 60,45\"/><text x=\"18\" y=\"99\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v⁻</text><circle cx=\"30\" cy=\"95\" r=\"3\"/><polyline points=\"33,95 60,95\"/><rect x=\"60\" y=\"35\" width=\"60\" height=\"70\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Gm</text><polyline points=\"120,70 280,70\"/><circle cx=\"160\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"160,70 160,82 154,85 166,90 154,95 166,100 154,105 166,110 160,118 160,130\"/><text x=\"172\" y=\"104\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Rₓ</text><line x1=\"160\" y1=\"130\" x2=\"160\" y2=\"136\"/><line x1=\"151\" y1=\"136\" x2=\"169\" y2=\"136\"/><line x1=\"155\" y1=\"140\" x2=\"165\" y2=\"140\"/><line x1=\"158.5\" y1=\"144\" x2=\"161.5\" y2=\"144\"/><circle cx=\"210\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"210\" y1=\"70\" x2=\"210\" y2=\"95\"/><line x1=\"210\" y1=\"105\" x2=\"210\" y2=\"130\"/><line x1=\"201\" y1=\"95\" x2=\"219\" y2=\"95\"/><line x1=\"201\" y1=\"105\" x2=\"219\" y2=\"105\"/><text x=\"224\" y=\"104\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">Cₓ</text><line x1=\"210\" y1=\"130\" x2=\"210\" y2=\"136\"/><line x1=\"201\" y1=\"136\" x2=\"219\" y2=\"136\"/><line x1=\"205\" y1=\"140\" x2=\"215\" y2=\"140\"/><line x1=\"208.5\" y1=\"144\" x2=\"211.5\" y2=\"144\"/><circle cx=\"260\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"260\" y1=\"70\" x2=\"260\" y2=\"95\"/><line x1=\"260\" y1=\"105\" x2=\"260\" y2=\"130\"/><line x1=\"251\" y1=\"95\" x2=\"269\" y2=\"95\"/><line x1=\"251\" y1=\"105\" x2=\"269\" y2=\"105\"/><text x=\"274\" y=\"104\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_L</text><line x1=\"260\" y1=\"130\" x2=\"260\" y2=\"136\"/><line x1=\"251\" y1=\"136\" x2=\"269\" y2=\"136\"/><line x1=\"255\" y1=\"140\" x2=\"265\" y2=\"140\"/><line x1=\"258.5\" y1=\"144\" x2=\"261.5\" y2=\"144\"/><circle cx=\"283\" cy=\"70\" r=\"3\"/><text x=\"296\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text></svg>",
-      "figure_alt": "OTA driving a node with Rx, Cx and an external load capacitor CL all to ground; no output buffer.",
-      "version": 2
+      "flaw_index": 1,
+      "reasons": [
+        "A capacitor is open at DC, so \\(C_L\\) leaves \\(G_m R_x\\) alone and only lowers the gain-bandwidth product to \\(G_m/(C_x+C_L)\\).",
+        "Any load capacitor reduces the DC gain, because it shunts \\(R_x\\) at every frequency including DC."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "gbw-r3-q4"
     },
     {
       "id": "gbw-r4-q1",
@@ -186,6 +196,59 @@
       "preview": [
         "slew"
       ],
+      "version": 2
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "gbw-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Closing a feedback loop around a single-pole op-amp with DC loop gain \\(T_0\\) does what to the DC gain and the bandwidth?",
+      "options": [
+        "Divides the gain by \\(1+T_0\\) and multiplies the bandwidth by \\(1+T_0\\), so gain × bandwidth is unchanged",
+        "Multiplies both the gain and the bandwidth by \\(1+T_0\\)",
+        "Divides both the gain and the bandwidth by \\(1+T_0\\)",
+        "Leaves the bandwidth unchanged and lowers the gain"
+      ],
+      "correct_index": 0,
+      "explanation": "From \\(G_{CL}=\\dfrac{A_0/(1+T_0)}{1+j\\omega\\tau/(1+T_0)}\\), the DC gain falls by \\(1+T_0\\) and the pole moves up by \\(1+T_0\\). Their product, the gain-bandwidth, stays at \\(\\approx\\omega_u\\): you can trade gain for bandwidth but not get both.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 190\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Open-loop and closed-loop gain</title><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\"/><polygon points=\"310,154 303.6,156.7 303.6,151.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"154\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|A| (dB)</text><text x=\"310\" y=\"148\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">f (Hz)</text><polyline points=\"50,46.2 87.1,46.2 272.9,154\" stroke-width=\"2.2\"/><line x1=\"47\" y1=\"154\" x2=\"53\" y2=\"154\"/><text x=\"44\" y=\"157\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">0</text><line x1=\"47\" y1=\"132.4\" x2=\"53\" y2=\"132.4\"/><text x=\"44\" y=\"135.4\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">20</text><line x1=\"47\" y1=\"110.9\" x2=\"53\" y2=\"110.9\"/><text x=\"44\" y=\"113.9\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">40</text><line x1=\"47\" y1=\"89.3\" x2=\"53\" y2=\"89.3\"/><text x=\"44\" y=\"92.3\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">60</text><line x1=\"47\" y1=\"67.7\" x2=\"53\" y2=\"67.7\"/><text x=\"44\" y=\"70.7\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">80</text><line x1=\"47\" y1=\"46.2\" x2=\"53\" y2=\"46.2\"/><text x=\"44\" y=\"49.2\" text-anchor=\"end\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">100</text><line x1=\"50\" y1=\"151\" x2=\"50\" y2=\"157\"/><text x=\"50\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"87.1\" y1=\"151\" x2=\"87.1\" y2=\"157\"/><text x=\"87.1\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10</text><line x1=\"124.3\" y1=\"151\" x2=\"124.3\" y2=\"157\"/><text x=\"124.3\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10²</text><line x1=\"161.4\" y1=\"151\" x2=\"161.4\" y2=\"157\"/><text x=\"161.4\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10³</text><line x1=\"198.6\" y1=\"151\" x2=\"198.6\" y2=\"157\"/><text x=\"198.6\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁴</text><line x1=\"235.7\" y1=\"151\" x2=\"235.7\" y2=\"157\"/><text x=\"235.7\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁵</text><line x1=\"272.9\" y1=\"151\" x2=\"272.9\" y2=\"157\"/><text x=\"272.9\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁶</text><line x1=\"310\" y1=\"151\" x2=\"310\" y2=\"157\"/><text x=\"310\" y=\"169\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">10⁷</text><line x1=\"50\" y1=\"154\" x2=\"310\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/><polyline points=\"50,110.9 198.6,110.9\" stroke-dasharray=\"4 3\" stroke-width=\"2.2\"/><text x=\"56\" y=\"104.9\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">closed loop</text><text x=\"93.1\" y=\"40.2\" text-anchor=\"start\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">open loop A</text><line x1=\"198.6\" y1=\"114.9\" x2=\"198.6\" y2=\"154\" stroke-dasharray=\"4 3\" stroke-opacity=\"0.5\"/></svg>",
+      "figure_alt": "Bode sketch: open-loop gain 100 dB with a 10 Hz pole, and a closed-loop gain of 40 dB that stays flat out to 10 kHz where it meets the open-loop line.",
+      "version": 2
+    },
+    {
+      "id": "gbw-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A unity-gain follower (\\(f=1\\)) uses an op-amp with unity-gain frequency \\(f_u\\). What is the closed-loop bandwidth?",
+      "options": [
+        "About \\(f_u/2\\)",
+        "The op-amp's open-loop \\(-3\\ \\mathrm{dB}\\) frequency",
+        "Infinite, since the gain is 1",
+        "About \\(f_u\\): the follower uses the full gain-bandwidth"
+      ],
+      "correct_index": 3,
+      "explanation": "Closed-loop bandwidth \\(\\approx f\\cdot f_u\\), and \\(f=1\\) for a follower, so the bandwidth is \\(\\approx f_u\\). It is the widest-band configuration because it has the lowest gain.\n• \\(f_u/2\\) is the bandwidth of a gain \\(-1\\) INVERTING stage (noise gain 2).\n• The open-loop pole is \\(1+T_0\\) times lower.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 310 125\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Unity-gain follower</title><text x=\"18\" y=\"49\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">vᵢₙ</text><circle cx=\"30\" cy=\"45\" r=\"3\"/><polyline points=\"33,45 110,45\"/><polygon points=\"110,30 110,90 166,60\"/><text x=\"117\" y=\"49\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"117\" y=\"79\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">−</text><polyline points=\"110,75 95,75 95,110 190,110 190,60\"/><polyline points=\"166,60 225,60\"/><circle cx=\"190\" cy=\"60\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"228\" cy=\"60\" r=\"3\"/><text x=\"247\" y=\"64\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒᵤₜ</text></svg>",
+      "figure_alt": "Unity-gain follower: input to the + terminal, output tied directly to the − terminal.",
+      "version": 2
+    },
+    {
+      "id": "gbw-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "An OTA (no output buffer) with internal capacitance \\(C_x\\) drives a load capacitor \\(C_L=4C_x\\) directly. How does its gain-bandwidth product compare with the unloaded value \\(G_m/C_x\\)?",
+      "options": [
+        "It is unchanged; the GBW depends only on \\(G_m\\) and \\(C_x\\)",
+        "It drops by a factor of 5, to \\(G_m/(C_x+C_L)\\)",
+        "It drops by a factor of 4",
+        "It increases by a factor of 5"
+      ],
+      "correct_index": 1,
+      "explanation": "Without a buffer, the load capacitance sits in parallel with \\(C_x\\) at the high-impedance node, so the pole becomes \\(\\dfrac{1}{R_x(C_x+C_L)}\\). The DC gain \\(G_mR_x\\) is unchanged, so GBW \\(=\\dfrac{G_m}{C_x+C_L}=\\dfrac{G_m}{5C_x}\\).\n• 'Unchanged' would be true with an ideal buffer isolating \\(C_L\\).\n• The total is \\(C_x+4C_x=5C_x\\), not \\(4C_x\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 160\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>OTA driving a capacitive load</title><text x=\"18\" y=\"49\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v⁺</text><circle cx=\"30\" cy=\"45\" r=\"3\"/><polyline points=\"33,45 60,45\"/><text x=\"18\" y=\"99\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v⁻</text><circle cx=\"30\" cy=\"95\" r=\"3\"/><polyline points=\"33,95 60,95\"/><rect x=\"60\" y=\"35\" width=\"60\" height=\"70\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Gm</text><polyline points=\"120,70 280,70\"/><circle cx=\"160\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"160,70 160,82 154,85 166,90 154,95 166,100 154,105 166,110 160,118 160,130\"/><text x=\"172\" y=\"104\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Rₓ</text><line x1=\"160\" y1=\"130\" x2=\"160\" y2=\"136\"/><line x1=\"151\" y1=\"136\" x2=\"169\" y2=\"136\"/><line x1=\"155\" y1=\"140\" x2=\"165\" y2=\"140\"/><line x1=\"158.5\" y1=\"144\" x2=\"161.5\" y2=\"144\"/><circle cx=\"210\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"210\" y1=\"70\" x2=\"210\" y2=\"95\"/><line x1=\"210\" y1=\"105\" x2=\"210\" y2=\"130\"/><line x1=\"201\" y1=\"95\" x2=\"219\" y2=\"95\"/><line x1=\"201\" y1=\"105\" x2=\"219\" y2=\"105\"/><text x=\"224\" y=\"104\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">Cₓ</text><line x1=\"210\" y1=\"130\" x2=\"210\" y2=\"136\"/><line x1=\"201\" y1=\"136\" x2=\"219\" y2=\"136\"/><line x1=\"205\" y1=\"140\" x2=\"215\" y2=\"140\"/><line x1=\"208.5\" y1=\"144\" x2=\"211.5\" y2=\"144\"/><circle cx=\"260\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"260\" y1=\"70\" x2=\"260\" y2=\"95\"/><line x1=\"260\" y1=\"105\" x2=\"260\" y2=\"130\"/><line x1=\"251\" y1=\"95\" x2=\"269\" y2=\"95\"/><line x1=\"251\" y1=\"105\" x2=\"269\" y2=\"105\"/><text x=\"274\" y=\"104\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">C_L</text><line x1=\"260\" y1=\"130\" x2=\"260\" y2=\"136\"/><line x1=\"251\" y1=\"136\" x2=\"269\" y2=\"136\"/><line x1=\"255\" y1=\"140\" x2=\"265\" y2=\"140\"/><line x1=\"258.5\" y1=\"144\" x2=\"261.5\" y2=\"144\"/><circle cx=\"283\" cy=\"70\" r=\"3\"/><text x=\"296\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text></svg>",
+      "figure_alt": "OTA driving a node with Rx, Cx and an external load capacitor CL all to ground; no output buffer.",
       "version": 2
     }
   ]

@@ -1,6 +1,6 @@
 {
   "skill_id": "opamp-models",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "opamp-models-r1-q1",
@@ -20,20 +20,18 @@
       "version": 2
     },
     {
-      "id": "opamp-models-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "In terms of the VCVS model parameters \\(A\\), \\(R_{in}\\), \\(R_{out}\\), the IDEAL op-amp is the limit",
-      "options": [
-        "\\(A\\to0\\), \\(R_{in}\\to0\\), \\(R_{out}\\to\\infty\\)",
-        "\\(A\\to\\infty\\), \\(R_{in}\\to0\\), \\(R_{out}\\to\\infty\\)",
-        "\\(A\\to\\infty\\), \\(R_{in}\\to\\infty\\), \\(R_{out}\\to0\\)",
-        "\\(A\\to1\\), \\(R_{in}\\to\\infty\\), \\(R_{out}\\to0\\)"
+      "type": "order",
+      "prompt": "Order how the voltage-controlled voltage source becomes the ideal op-amp, and what that forces once negative feedback holds the output finite. Each step after the first uses the result of the step before it.",
+      "explanation": "Infinite input resistance is what stops the amplifier from loading its source, zero output resistance is what lets the load see the full amplified voltage, and infinite gain is what forces the input difference to zero once feedback holds the output finite. Taking \\(A\\) to 0 kills the amplifier. Taking \\(R_{in}\\) to 0 shorts the source. Taking \\(R_{out}\\) to infinity leaves the load with nothing. Infinite gain with no feedback does not equalize the inputs: the output runs to the rail instead. This limit has no frequency dependence; the controlled source is flat.",
+      "steps": [
+        "Start from the controlled source: the output is \\(A\\) times the input difference, taken behind \\(R_{out}\\), with \\(R_{in}\\) across the two inputs.",
+        "Send \\(R_{in}\\) to infinity: the current drawn from the source goes to zero at any finite input voltage.",
+        "Send \\(R_{out}\\) to zero: none of that amplified voltage is then lost in the output resistance, so a load sees the full \\(A\\) times the input difference.",
+        "Send \\(A\\) to infinity while negative feedback keeps the output finite: the input difference that the previous step multiplies has to go to zero, so the two inputs match."
       ],
-      "correct_index": 2,
-      "explanation": "An ideal voltage amplifier draws no input current (\\(R_{in}=\\infty\\)), produces its output regardless of the load (\\(R_{out}=0\\)), and has unlimited gain so that the input difference is driven to zero in feedback (\\(A=\\infty\\)).\nThe other combinations describe a poor amplifier: low \\(R_{in}\\) loads the source, high \\(R_{out}\\) loses gain into a load.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 160\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Op-amp VCVS model</title><circle cx=\"20\" cy=\"40\" r=\"3\"/><text x=\"14\" y=\"25\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">vₛ</text><polyline points=\"23,40 40,40\"/><polyline points=\"40,40 90,40\"/><polyline points=\"90,40 100,40 100,50\"/><circle cx=\"100\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"100,50 100,62 94,65 106,70 94,75 106,80 94,85 106,90 100,98 100,110\"/><text x=\"108\" y=\"84\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_in</text><polyline points=\"100,110 100,130\"/><line x1=\"100\" y1=\"130\" x2=\"100\" y2=\"136\"/><line x1=\"91\" y1=\"136\" x2=\"109\" y2=\"136\"/><line x1=\"95\" y1=\"140\" x2=\"105\" y2=\"140\"/><line x1=\"98.5\" y1=\"144\" x2=\"101.5\" y2=\"144\"/><polyline points=\"100,40 125,40\"/><polyline points=\"125,40 125,40\"/><circle cx=\"180\" cy=\"85\" r=\"22\"/><text x=\"180\" y=\"82\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A·v_in</text><text x=\"180\" y=\"94\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">+  −</text><polyline points=\"180,63 180,40\"/><polyline points=\"180,40 187,40 190,34 195,46 200,34 205,46 210,34 215,46 223,40 230,40\"/><text x=\"205\" y=\"28\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_out</text><polyline points=\"180,107 180,130\"/><line x1=\"180\" y1=\"130\" x2=\"180\" y2=\"136\"/><line x1=\"171\" y1=\"136\" x2=\"189\" y2=\"136\"/><line x1=\"175\" y1=\"140\" x2=\"185\" y2=\"140\"/><line x1=\"178.5\" y1=\"144\" x2=\"181.5\" y2=\"144\"/><polyline points=\"230,40 255,40 255,50\"/><circle cx=\"255\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"255,40 285,40\"/><circle cx=\"288\" cy=\"40\" r=\"3\"/><text x=\"300\" y=\"44\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text></svg>",
-      "figure_alt": "VCVS op-amp model with R_in, A·v_in source and R_out."
+      "version": 1,
+      "id": "opamp-models-r1-q4"
     },
     {
       "id": "opamp-models-r1-q3",
@@ -75,37 +73,51 @@
       "version": 2
     },
     {
-      "id": "opamp-models-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "In the single-pole model, \\(R_x\\) is doubled while \\(G_m\\) and \\(C_x\\) stay the same. What happens to the DC gain \\(A_0\\) and the gain-bandwidth product?",
-      "options": [
-        "\\(A_0\\) doubles and the gain-bandwidth product doubles",
-        "\\(A_0\\) doubles, the pole halves, and the gain-bandwidth product is unchanged",
-        "\\(A_0\\) is unchanged and the pole halves",
-        "\\(A_0\\) halves and the gain-bandwidth product halves"
+      "type": "symbolic",
+      "prompt": "Write the unity-gain frequency of a single-pole OTA, the frequency where the open-loop magnitude crosses 1. \\(R_x\\) sets both the DC gain and the dominant pole, and it cancels in the product. Use Gm and Cx.",
+      "explanation": "\\(A_0 = G_m R_x\\) and the dominant pole is \\(1/(R_x C_x)\\), so their product is \\(\\omega_u = G_m/C_x\\). Raising \\(R_x\\) buys DC gain and gives up the same factor in bandwidth. \\(G_m R_x\\) is the DC gain, not this frequency. \\(1/(R_x C_x)\\) is the pole, far below \\(\\omega_u\\). \\(G_m C_x\\) is not a frequency. Dropping \\(R_x\\) entirely, so the transconductor feeds only \\(C_x\\), leaves this same unity-gain frequency.",
+      "answer": "Gm/Cx",
+      "variables": [
+        {
+          "name": "Gm",
+          "min": 0.0005,
+          "max": 0.05
+        },
+        {
+          "name": "Cx",
+          "min": 4e-12,
+          "max": 4e-11
+        }
       ],
-      "correct_index": 1,
-      "explanation": "\\(A_0=G_mR_x\\) doubles. The pole \\(\\omega_{-3dB}=1/(R_xC_x)\\) halves. The product \\(A_0\\,\\omega_{-3dB}=G_m/C_x\\) does not contain \\(R_x\\), so it stays put: more DC gain is bought with less bandwidth.\n• GBW is set by \\(G_m\\) and \\(C_x\\) only.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 175\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Single-pole op-amp model: OTA, Rx‖Cx node, unity buffer</title><text x=\"18\" y=\"49\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v⁺</text><circle cx=\"30\" cy=\"45\" r=\"3\"/><polyline points=\"33,45 60,45\"/><text x=\"18\" y=\"99\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v⁻</text><circle cx=\"30\" cy=\"95\" r=\"3\"/><polyline points=\"33,95 60,95\"/><rect x=\"60\" y=\"35\" width=\"60\" height=\"70\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Gm</text><text x=\"90\" y=\"26\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I = Gm(v⁺ − v⁻)</text><polyline points=\"120,70 160,70\"/><circle cx=\"160\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"160,70 160,80\"/><polyline points=\"160,80 160,87 154,90 166,95 154,100 166,105 154,110 166,115 160,123 160,130\"/><text x=\"172\" y=\"108\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Rₓ</text><polyline points=\"160,130 160,140\"/><line x1=\"160\" y1=\"140\" x2=\"160\" y2=\"146\"/><line x1=\"151\" y1=\"146\" x2=\"169\" y2=\"146\"/><line x1=\"155\" y1=\"150\" x2=\"165\" y2=\"150\"/><line x1=\"158.5\" y1=\"154\" x2=\"161.5\" y2=\"154\"/><polyline points=\"160,70 200,70 200,80\"/><circle cx=\"200\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"200\" y1=\"80\" x2=\"200\" y2=\"100\"/><line x1=\"200\" y1=\"110\" x2=\"200\" y2=\"130\"/><line x1=\"191\" y1=\"100\" x2=\"209\" y2=\"100\"/><line x1=\"191\" y1=\"110\" x2=\"209\" y2=\"110\"/><text x=\"214\" y=\"109\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">Cₓ</text><polyline points=\"200,130 200,140\"/><line x1=\"200\" y1=\"140\" x2=\"200\" y2=\"146\"/><line x1=\"191\" y1=\"146\" x2=\"209\" y2=\"146\"/><line x1=\"195\" y1=\"150\" x2=\"205\" y2=\"150\"/><line x1=\"198.5\" y1=\"154\" x2=\"201.5\" y2=\"154\"/><polyline points=\"200,70 225,70\"/><rect x=\"225\" y=\"52\" width=\"40\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"245\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+1</text><polyline points=\"265,70 300,70\"/><circle cx=\"303\" cy=\"70\" r=\"3\"/><text x=\"318\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text></svg>",
-      "figure_alt": "Op-amp single-pole model: Gm stage, Rx and Cx at the output node, buffer."
+      "tolerance": 0.001,
+      "alternates": [
+        "Gm*Cx**(-1)",
+        "1/(Cx/Gm)",
+        "Gm*(1/Cx)"
+      ],
+      "version": 1,
+      "id": "opamp-models-r2-q4"
     },
     {
-      "id": "opamp-models-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "A model has the transconductor \\(G_m\\) feeding only a capacitor \\(C_x\\) (there is no \\(R_x\\)), followed by an ideal buffer. What is true of its open-loop gain?",
-      "options": [
-        "The DC gain is infinite (it is an integrator), yet the unity-gain frequency is still \\(\\omega_u=G_m/C_x\\)",
-        "The gain is zero at DC and rises at 20 dB/decade",
-        "The unity-gain frequency is infinite, since \\(R_x\\to\\infty\\)",
-        "The model has no frequency dependence"
+      "type": "error",
+      "prompt": "A worked solution describes an OTA whose transconductor feeds only \\(C_x\\), with no \\(R_x\\), followed by an ideal buffer. Exactly one step is wrong.",
+      "explanation": "DC current into a capacitor integrates, so \\(A(j\\omega) = G_m/(j\\omega C_x)\\). The magnitude is infinite as \\(\\omega\\) goes to 0 and falls at 20 dB/decade, crossing 1 at \\(G_m/C_x\\). Zero gain at DC is a high-pass zero, not this integrator. Removing \\(R_x\\) does not erase the frequency dependence, and it does not send \\(\\omega_u\\) to infinity. The buffer that follows the node has a gain of 1; it does not set the slope.",
+      "steps": [
+        "With no resistor, a DC current has nowhere to go but into \\(C_x\\).",
+        "The node voltage is \\(G_m v_d/(j\\omega C_x)\\), so the gain is \\(G_m/(j\\omega C_x)\\).",
+        "That gain is zero at DC and rises at 20 dB/decade, because a capacitor blocks DC current.",
+        "The magnitude equals 1 at \\(\\omega_u = G_m/C_x\\), the same unity-gain frequency the resistor would have set."
       ],
-      "correct_index": 0,
-      "explanation": "With no resistor, DC current has nowhere to go but into \\(C_x\\): \\(v_x=\\dfrac{G_mv_d}{j\\omega C_x}\\), so \\(A(j\\omega)=\\dfrac{G_m}{j\\omega C_x}=\\dfrac{\\omega_u}{j\\omega}\\). The gain is infinite as \\(\\omega\\to0\\), falls at \\(-20\\) dB/decade, and equals 1 at \\(\\omega_u=G_m/C_x\\).\nThis is the high-frequency form \\(A\\approx\\omega_u/j\\omega\\) of any single-pole op-amp, extended down to DC.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 175\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Single-pole op-amp model: OTA, Rx‖Cx node, unity buffer</title><text x=\"18\" y=\"49\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v⁺</text><circle cx=\"30\" cy=\"45\" r=\"3\"/><polyline points=\"33,45 60,45\"/><text x=\"18\" y=\"99\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v⁻</text><circle cx=\"30\" cy=\"95\" r=\"3\"/><polyline points=\"33,95 60,95\"/><rect x=\"60\" y=\"35\" width=\"60\" height=\"70\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Gm</text><text x=\"90\" y=\"26\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I = Gm(v⁺ − v⁻)</text><polyline points=\"120,70 160,70\"/><circle cx=\"160\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"160,70 160,80\"/><polyline points=\"160,80 160,87 154,90 166,95 154,100 166,105 154,110 166,115 160,123 160,130\"/><text x=\"172\" y=\"108\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Rₓ</text><polyline points=\"160,130 160,140\"/><line x1=\"160\" y1=\"140\" x2=\"160\" y2=\"146\"/><line x1=\"151\" y1=\"146\" x2=\"169\" y2=\"146\"/><line x1=\"155\" y1=\"150\" x2=\"165\" y2=\"150\"/><line x1=\"158.5\" y1=\"154\" x2=\"161.5\" y2=\"154\"/><polyline points=\"160,70 200,70 200,80\"/><circle cx=\"200\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"200\" y1=\"80\" x2=\"200\" y2=\"100\"/><line x1=\"200\" y1=\"110\" x2=\"200\" y2=\"130\"/><line x1=\"191\" y1=\"100\" x2=\"209\" y2=\"100\"/><line x1=\"191\" y1=\"110\" x2=\"209\" y2=\"110\"/><text x=\"214\" y=\"109\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">Cₓ</text><polyline points=\"200,130 200,140\"/><line x1=\"200\" y1=\"140\" x2=\"200\" y2=\"146\"/><line x1=\"191\" y1=\"146\" x2=\"209\" y2=\"146\"/><line x1=\"195\" y1=\"150\" x2=\"205\" y2=\"150\"/><line x1=\"198.5\" y1=\"154\" x2=\"201.5\" y2=\"154\"/><polyline points=\"200,70 225,70\"/><rect x=\"225\" y=\"52\" width=\"40\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"245\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+1</text><polyline points=\"265,70 300,70\"/><circle cx=\"303\" cy=\"70\" r=\"3\"/><text x=\"318\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text></svg>",
-      "figure_alt": "Op-amp model drawn with Gm, Rx and Cx; in this question Rx is removed so only Cx loads the node.",
-      "version": 2
+      "flaw_index": 2,
+      "reasons": [
+        "The capacitor integrates DC current, so the gain is infinite at DC and falls at 20 dB/decade. Zero at DC is the high-pass case.",
+        "Removing \\(R_x\\) removes the frequency dependence, so the gain is the constant \\(G_m\\)."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "opamp-models-r3-q4"
     },
     {
       "id": "opamp-models-r3-q2",
@@ -186,6 +198,59 @@
       "preview": [
         "offset"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "opamp-models-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In terms of the VCVS model parameters \\(A\\), \\(R_{in}\\), \\(R_{out}\\), the IDEAL op-amp is the limit",
+      "options": [
+        "\\(A\\to0\\), \\(R_{in}\\to0\\), \\(R_{out}\\to\\infty\\)",
+        "\\(A\\to\\infty\\), \\(R_{in}\\to0\\), \\(R_{out}\\to\\infty\\)",
+        "\\(A\\to\\infty\\), \\(R_{in}\\to\\infty\\), \\(R_{out}\\to0\\)",
+        "\\(A\\to1\\), \\(R_{in}\\to\\infty\\), \\(R_{out}\\to0\\)"
+      ],
+      "correct_index": 2,
+      "explanation": "An ideal voltage amplifier draws no input current (\\(R_{in}=\\infty\\)), produces its output regardless of the load (\\(R_{out}=0\\)), and has unlimited gain so that the input difference is driven to zero in feedback (\\(A=\\infty\\)).\nThe other combinations describe a poor amplifier: low \\(R_{in}\\) loads the source, high \\(R_{out}\\) loses gain into a load.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 160\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Op-amp VCVS model</title><circle cx=\"20\" cy=\"40\" r=\"3\"/><text x=\"14\" y=\"25\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">vₛ</text><polyline points=\"23,40 40,40\"/><polyline points=\"40,40 90,40\"/><polyline points=\"90,40 100,40 100,50\"/><circle cx=\"100\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"100,50 100,62 94,65 106,70 94,75 106,80 94,85 106,90 100,98 100,110\"/><text x=\"108\" y=\"84\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_in</text><polyline points=\"100,110 100,130\"/><line x1=\"100\" y1=\"130\" x2=\"100\" y2=\"136\"/><line x1=\"91\" y1=\"136\" x2=\"109\" y2=\"136\"/><line x1=\"95\" y1=\"140\" x2=\"105\" y2=\"140\"/><line x1=\"98.5\" y1=\"144\" x2=\"101.5\" y2=\"144\"/><polyline points=\"100,40 125,40\"/><polyline points=\"125,40 125,40\"/><circle cx=\"180\" cy=\"85\" r=\"22\"/><text x=\"180\" y=\"82\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">A·v_in</text><text x=\"180\" y=\"94\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">+  −</text><polyline points=\"180,63 180,40\"/><polyline points=\"180,40 187,40 190,34 195,46 200,34 205,46 210,34 215,46 223,40 230,40\"/><text x=\"205\" y=\"28\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">R_out</text><polyline points=\"180,107 180,130\"/><line x1=\"180\" y1=\"130\" x2=\"180\" y2=\"136\"/><line x1=\"171\" y1=\"136\" x2=\"189\" y2=\"136\"/><line x1=\"175\" y1=\"140\" x2=\"185\" y2=\"140\"/><line x1=\"178.5\" y1=\"144\" x2=\"181.5\" y2=\"144\"/><polyline points=\"230,40 255,40 255,50\"/><circle cx=\"255\" cy=\"40\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"255,40 285,40\"/><circle cx=\"288\" cy=\"40\" r=\"3\"/><text x=\"300\" y=\"44\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v_out</text></svg>",
+      "figure_alt": "VCVS op-amp model with R_in, A·v_in source and R_out.",
+      "version": 1
+    },
+    {
+      "id": "opamp-models-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "In the single-pole model, \\(R_x\\) is doubled while \\(G_m\\) and \\(C_x\\) stay the same. What happens to the DC gain \\(A_0\\) and the gain-bandwidth product?",
+      "options": [
+        "\\(A_0\\) doubles and the gain-bandwidth product doubles",
+        "\\(A_0\\) doubles, the pole halves, and the gain-bandwidth product is unchanged",
+        "\\(A_0\\) is unchanged and the pole halves",
+        "\\(A_0\\) halves and the gain-bandwidth product halves"
+      ],
+      "correct_index": 1,
+      "explanation": "\\(A_0=G_mR_x\\) doubles. The pole \\(\\omega_{-3dB}=1/(R_xC_x)\\) halves. The product \\(A_0\\,\\omega_{-3dB}=G_m/C_x\\) does not contain \\(R_x\\), so it stays put: more DC gain is bought with less bandwidth.\n• GBW is set by \\(G_m\\) and \\(C_x\\) only.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 175\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Single-pole op-amp model: OTA, Rx‖Cx node, unity buffer</title><text x=\"18\" y=\"49\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v⁺</text><circle cx=\"30\" cy=\"45\" r=\"3\"/><polyline points=\"33,45 60,45\"/><text x=\"18\" y=\"99\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v⁻</text><circle cx=\"30\" cy=\"95\" r=\"3\"/><polyline points=\"33,95 60,95\"/><rect x=\"60\" y=\"35\" width=\"60\" height=\"70\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Gm</text><text x=\"90\" y=\"26\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I = Gm(v⁺ − v⁻)</text><polyline points=\"120,70 160,70\"/><circle cx=\"160\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"160,70 160,80\"/><polyline points=\"160,80 160,87 154,90 166,95 154,100 166,105 154,110 166,115 160,123 160,130\"/><text x=\"172\" y=\"108\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Rₓ</text><polyline points=\"160,130 160,140\"/><line x1=\"160\" y1=\"140\" x2=\"160\" y2=\"146\"/><line x1=\"151\" y1=\"146\" x2=\"169\" y2=\"146\"/><line x1=\"155\" y1=\"150\" x2=\"165\" y2=\"150\"/><line x1=\"158.5\" y1=\"154\" x2=\"161.5\" y2=\"154\"/><polyline points=\"160,70 200,70 200,80\"/><circle cx=\"200\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"200\" y1=\"80\" x2=\"200\" y2=\"100\"/><line x1=\"200\" y1=\"110\" x2=\"200\" y2=\"130\"/><line x1=\"191\" y1=\"100\" x2=\"209\" y2=\"100\"/><line x1=\"191\" y1=\"110\" x2=\"209\" y2=\"110\"/><text x=\"214\" y=\"109\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">Cₓ</text><polyline points=\"200,130 200,140\"/><line x1=\"200\" y1=\"140\" x2=\"200\" y2=\"146\"/><line x1=\"191\" y1=\"146\" x2=\"209\" y2=\"146\"/><line x1=\"195\" y1=\"150\" x2=\"205\" y2=\"150\"/><line x1=\"198.5\" y1=\"154\" x2=\"201.5\" y2=\"154\"/><polyline points=\"200,70 225,70\"/><rect x=\"225\" y=\"52\" width=\"40\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"245\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+1</text><polyline points=\"265,70 300,70\"/><circle cx=\"303\" cy=\"70\" r=\"3\"/><text x=\"318\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text></svg>",
+      "figure_alt": "Op-amp single-pole model: Gm stage, Rx and Cx at the output node, buffer.",
+      "version": 1
+    },
+    {
+      "id": "opamp-models-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A model has the transconductor \\(G_m\\) feeding only a capacitor \\(C_x\\) (there is no \\(R_x\\)), followed by an ideal buffer. What is true of its open-loop gain?",
+      "options": [
+        "The DC gain is infinite (it is an integrator), yet the unity-gain frequency is still \\(\\omega_u=G_m/C_x\\)",
+        "The gain is zero at DC and rises at 20 dB/decade",
+        "The unity-gain frequency is infinite, since \\(R_x\\to\\infty\\)",
+        "The model has no frequency dependence"
+      ],
+      "correct_index": 0,
+      "explanation": "With no resistor, DC current has nowhere to go but into \\(C_x\\): \\(v_x=\\dfrac{G_mv_d}{j\\omega C_x}\\), so \\(A(j\\omega)=\\dfrac{G_m}{j\\omega C_x}=\\dfrac{\\omega_u}{j\\omega}\\). The gain is infinite as \\(\\omega\\to0\\), falls at \\(-20\\) dB/decade, and equals 1 at \\(\\omega_u=G_m/C_x\\).\nThis is the high-frequency form \\(A\\approx\\omega_u/j\\omega\\) of any single-pole op-amp, extended down to DC.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 350 175\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Single-pole op-amp model: OTA, Rx‖Cx node, unity buffer</title><text x=\"18\" y=\"49\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v⁺</text><circle cx=\"30\" cy=\"45\" r=\"3\"/><polyline points=\"33,45 60,45\"/><text x=\"18\" y=\"99\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">v⁻</text><circle cx=\"30\" cy=\"95\" r=\"3\"/><polyline points=\"33,95 60,95\"/><rect x=\"60\" y=\"35\" width=\"60\" height=\"70\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"90\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Gm</text><text x=\"90\" y=\"26\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">I = Gm(v⁺ − v⁻)</text><polyline points=\"120,70 160,70\"/><circle cx=\"160\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><polyline points=\"160,70 160,80\"/><polyline points=\"160,80 160,87 154,90 166,95 154,100 166,105 154,110 166,115 160,123 160,130\"/><text x=\"172\" y=\"108\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">Rₓ</text><polyline points=\"160,130 160,140\"/><line x1=\"160\" y1=\"140\" x2=\"160\" y2=\"146\"/><line x1=\"151\" y1=\"146\" x2=\"169\" y2=\"146\"/><line x1=\"155\" y1=\"150\" x2=\"165\" y2=\"150\"/><line x1=\"158.5\" y1=\"154\" x2=\"161.5\" y2=\"154\"/><polyline points=\"160,70 200,70 200,80\"/><circle cx=\"200\" cy=\"70\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"200\" y1=\"80\" x2=\"200\" y2=\"100\"/><line x1=\"200\" y1=\"110\" x2=\"200\" y2=\"130\"/><line x1=\"191\" y1=\"100\" x2=\"209\" y2=\"100\"/><line x1=\"191\" y1=\"110\" x2=\"209\" y2=\"110\"/><text x=\"214\" y=\"109\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">Cₓ</text><polyline points=\"200,130 200,140\"/><line x1=\"200\" y1=\"140\" x2=\"200\" y2=\"146\"/><line x1=\"191\" y1=\"146\" x2=\"209\" y2=\"146\"/><line x1=\"195\" y1=\"150\" x2=\"205\" y2=\"150\"/><line x1=\"198.5\" y1=\"154\" x2=\"201.5\" y2=\"154\"/><polyline points=\"200,70 225,70\"/><rect x=\"225\" y=\"52\" width=\"40\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"245\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">+1</text><polyline points=\"265,70 300,70\"/><circle cx=\"303\" cy=\"70\" r=\"3\"/><text x=\"318\" y=\"74\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">vₒ</text></svg>",
+      "figure_alt": "Op-amp model drawn with Gm, Rx and Cx; in this question Rx is removed so only Cx loads the node.",
+      "version": 2
     }
   ]
 }
