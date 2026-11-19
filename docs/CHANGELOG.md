@@ -7,13 +7,10 @@ Ids do not change. A content edit bumps that item's version. `docs/content-versi
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `laplace`, `lin-algebra-review`, `min-phase`.
+Skills: `lin-algebra-review`, `min-phase`.
 
 Items above version 1:
 
-- `laplace-r2-q3` version 2
-- `laplace-r4-q1` version 2
-- `laplace#explainer` version 2
 - `lin-algebra-review-r1-q1` version 2
 - `lin-algebra-review-r1-q2` version 2
 - `lin-algebra-review-r4-q1` version 2
@@ -64,7 +61,7 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `discrete-time`, `eig-modes`, `limit-cycles`, `nyquist`, `pid`, `sensitivity`, `ss-to-tf`, `step-specs`.
+Skills: `discrete-time`, `eig-modes`, `limit-cycles`, `nyquist`, `sensitivity`, `ss-to-tf`.
 
 Items above version 1:
 
@@ -73,20 +70,12 @@ Items above version 1:
 - `eig-modes-r3-q1` version 2
 - `eig-modes#explainer` version 2
 - `limit-cycles-r4-q3` version 2
-- `pid-r1-q2` version 2
-- `pid-r4-q1` version 2
 - `sensitivity-r1-q1` version 2
 - `sensitivity-r2-q1` version 2
 - `sensitivity-r4-q1` version 2
 - `sensitivity#explainer` version 4
 - `ss-to-tf-r2-q1` version 2
 - `ss-to-tf-r3-q1` version 2
-- `step-specs-r1-q2` version 2
-- `step-specs-r1-q3` version 2
-- `step-specs-r2-q1` version 3
-- `step-specs-r3-q1` version 2
-- `step-specs-r4-q1` version 2
-- `step-specs-r4-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -94,7 +83,7 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `feedforward`, `freq-resp-lti`, `gen-gain-phase`, `linearization`, `lti-stability`, `perf-specs-freq`, `pid-impl`, `pid-tuning`, `realization`, `uncertainty`, `windup`.
+Skills: `feedforward`, `freq-resp-lti`, `gen-gain-phase`, `linearization`, `lti-stability`, `perf-specs-freq`, `pid-impl`, `realization`, `uncertainty`.
 
 Items above version 1:
 
@@ -105,7 +94,6 @@ Items above version 1:
 - `lti-stability-r3-q3` version 2
 - `perf-specs-freq#explainer` version 2
 - `pid-impl#explainer` version 2
-- `pid-tuning-r2-q3` version 2
 - `realization-r1-q2` version 2
 - `uncertainty#explainer` version 2
 
@@ -1142,5 +1130,28 @@ Items above version 1:
 - `cruise-control-r1-q4` version 2
 - `cruise-control-r2-q4` version 2
 - `model-method-r1-q4` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 ME 132 first- and second-order systems and PID — sg063-me132-m2
+
+Box: ME 132 (me132), First- and second-order systems and PID.
+
+Skills: `laplace`, `step-specs`, `pid`, `windup`, `pid-tuning`.
+
+Items above version 1:
+
+- `laplace-r2-q3` version 2
+- `laplace-r4-q1` version 2
+- `laplace#explainer` version 2
+- `step-specs-r1-q2` version 2
+- `step-specs-r1-q3` version 2
+- `step-specs-r2-q1` version 3
+- `step-specs-r3-q1` version 2
+- `step-specs-r4-q1` version 2
+- `step-specs-r4-q3` version 2
+- `pid-r1-q2` version 2
+- `pid-r4-q1` version 2
+- `pid-tuning-r2-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.

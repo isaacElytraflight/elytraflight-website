@@ -9,16 +9,13 @@
     "freq-resp-lti",
     "gen-gain-phase",
     "inner-products",
-    "laplace",
     "limit-cycles",
     "loop-margin-design",
     "lti-stability",
     "min-phase",
     "nyquist",
     "perf-specs-freq",
-    "pid",
     "pid-impl",
-    "pid-tuning",
     "rayleigh-quotient",
     "realization",
     "rn-important-subsets",
@@ -26,9 +23,7 @@
     "ss-solution",
     "ss-to-tf",
     "state-space-model",
-    "step-specs",
     "uncertainty",
-    "vector-norms-lp",
-    "windup"
+    "vector-norms-lp"
   ]
 }
