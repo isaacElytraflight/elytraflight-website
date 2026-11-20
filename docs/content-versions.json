@@ -199,58 +199,6 @@
       "version": 2
     },
     {
-      "id": "app-examples-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "app-examples-r1-q2",
-      "version": 1
-    },
-    {
-      "id": "app-examples-r1-q3",
-      "version": 1
-    },
-    {
-      "id": "app-examples-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "app-examples-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "app-examples-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "app-examples-r3-q1",
-      "version": 1
-    },
-    {
-      "id": "app-examples-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "app-examples-r3-q3",
-      "version": 1
-    },
-    {
-      "id": "app-examples-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "app-examples-r4-q2",
-      "version": 1
-    },
-    {
-      "id": "app-examples-r4-q3",
-      "version": 1
-    },
-    {
-      "id": "app-examples#explainer",
-      "version": 1
-    },
-    {
       "id": "loop-tf-r1-q4",
       "version": 1
     },
@@ -427,58 +375,6 @@
       "version": 3
     },
     {
-      "id": "discrete-time-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "discrete-time-r1-q2",
-      "version": 1
-    },
-    {
-      "id": "discrete-time-r1-q3",
-      "version": 1
-    },
-    {
-      "id": "discrete-time-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "discrete-time-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "discrete-time-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "discrete-time-r3-q1",
-      "version": 1
-    },
-    {
-      "id": "discrete-time-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "discrete-time-r3-q3",
-      "version": 1
-    },
-    {
-      "id": "discrete-time-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "discrete-time-r4-q2",
-      "version": 1
-    },
-    {
-      "id": "discrete-time-r4-q3",
-      "version": 1
-    },
-    {
-      "id": "discrete-time#explainer",
-      "version": 1
-    },
-    {
       "id": "eig-modes-r1-q1",
       "version": 1
     },
@@ -545,58 +441,6 @@
     {
       "id": "eig-modes#explainer",
       "version": 2
-    },
-    {
-      "id": "limit-cycles-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "limit-cycles-r1-q2",
-      "version": 1
-    },
-    {
-      "id": "limit-cycles-r1-q3",
-      "version": 1
-    },
-    {
-      "id": "limit-cycles-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "limit-cycles-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "limit-cycles-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "limit-cycles-r3-q1",
-      "version": 1
-    },
-    {
-      "id": "limit-cycles-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "limit-cycles-r3-q3",
-      "version": 1
-    },
-    {
-      "id": "limit-cycles-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "limit-cycles-r4-q2",
-      "version": 1
-    },
-    {
-      "id": "limit-cycles-r4-q3",
-      "version": 2
-    },
-    {
-      "id": "limit-cycles#explainer",
-      "version": 1
     },
     {
       "id": "sensitivity-r1-q4",
@@ -916,58 +760,6 @@
     },
     {
       "id": "perf-specs-freq#explainer",
-      "version": 2
-    },
-    {
-      "id": "pid-impl-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "pid-impl-r1-q2",
-      "version": 1
-    },
-    {
-      "id": "pid-impl-r1-q3",
-      "version": 1
-    },
-    {
-      "id": "pid-impl-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "pid-impl-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "pid-impl-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "pid-impl-r3-q1",
-      "version": 1
-    },
-    {
-      "id": "pid-impl-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "pid-impl-r3-q3",
-      "version": 1
-    },
-    {
-      "id": "pid-impl-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "pid-impl-r4-q2",
-      "version": 1
-    },
-    {
-      "id": "pid-impl-r4-q3",
-      "version": 1
-    },
-    {
-      "id": "pid-impl#explainer",
       "version": 2
     },
     {
@@ -9884,6 +9676,262 @@
     },
     {
       "id": "mpc#explainer",
+      "version": 2
+    },
+    {
+      "id": "app-examples-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "app-examples-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "app-examples#explainer",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r4-q3",
+      "version": 2
+    },
+    {
+      "id": "limit-cycles-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "limit-cycles#explainer",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r2-q5",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "discrete-time#explainer",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "pid-impl#explainer",
       "version": 2
     },
     {

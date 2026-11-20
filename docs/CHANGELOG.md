@@ -48,7 +48,7 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `app-examples`, `loop-tf`, `second-order-sys`.
+Skills: `loop-tf`, `second-order-sys`.
 
 Items above version 1:
 
@@ -61,7 +61,7 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `discrete-time`, `eig-modes`, `limit-cycles`, `sensitivity`.
+Skills: `eig-modes`, `sensitivity`.
 
 Items above version 1:
 
@@ -69,7 +69,6 @@ Items above version 1:
 - `eig-modes-r4-q1` version 3
 - `eig-modes-r3-q1` version 2
 - `eig-modes#explainer` version 2
-- `limit-cycles-r4-q3` version 2
 - `sensitivity-r1-q1` version 2
 - `sensitivity-r2-q1` version 2
 - `sensitivity-r4-q1` version 2
@@ -81,7 +80,7 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `feedforward`, `gen-gain-phase`, `linearization`, `perf-specs-freq`, `pid-impl`.
+Skills: `feedforward`, `gen-gain-phase`, `linearization`, `perf-specs-freq`.
 
 Items above version 1:
 
@@ -89,7 +88,6 @@ Items above version 1:
 - `linearization-r3-q2` version 2
 - `linearization#explainer` version 3
 - `perf-specs-freq#explainer` version 2
-- `pid-impl#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -444,6 +442,19 @@ Items above version 1:
 - `mpc-r4-q1` version 2
 - `mpc-r4-q2` version 2
 - `mpc#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 Feedback Systems examples, dynamic behavior, linear systems, and PID control — sg063-am08-c3c4c5c10
+
+Box: Feedback Systems (am08), Examples; Dynamic behavior; Linear systems; PID control.
+
+Skills: `app-examples`, `limit-cycles`, `discrete-time`, `pid-impl`.
+
+Items above version 1:
+
+- `limit-cycles-r4-q3` version 2
+- `pid-impl#explainer` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 

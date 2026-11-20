@@ -2,11 +2,9 @@
   "id": "me132-b4",
   "label": "B4",
   "box": "ME 132 (me132) and Feedback Systems (am08)",
-  "skills": ["discrete-time", "eig-modes", "limit-cycles", "sensitivity"],
+  "skills": ["eig-modes", "sensitivity"],
   "areas": {
-    "discrete-time": ["state-space", "discrete-systems"],
     "eig-modes": ["state-space", "linear-algebra"],
-    "limit-cycles": ["nonlinear-systems"],
     "sensitivity": ["loop-transfer-function", "feedback-loop"]
   },
   "cores": [],
