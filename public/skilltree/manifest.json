@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-20T01:43:01.345268Z",
+  "generated": "2026-11-20T02:13:14.304578Z",
   "skills": {
-    "file": "skills.cec2e0a3.json",
-    "hash": "cec2e0a3"
+    "file": "skills.8975ba18.json",
+    "hash": "8975ba18"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -348,7 +348,7 @@
       "file": "banks/cascode-src.61c9147c.json"
     },
     "cauchy-schwarz-inequality": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -356,8 +356,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "6b855c2d",
-      "file": "banks/cauchy-schwarz-inequality.6b855c2d.json"
+      "hash": "32308289",
+      "file": "banks/cauchy-schwarz-inequality.32308289.json"
     },
     "cd-freq": {
       "version": 3,
@@ -1548,7 +1548,7 @@
       "file": "banks/induced-matrix-norms.861447a9.json"
     },
     "inner-products": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1556,8 +1556,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "fd081a64",
-      "file": "banks/inner-products.fd081a64.json"
+      "hash": "7d8f5098",
+      "file": "banks/inner-products.7d8f5098.json"
     },
     "integral-action": {
       "version": 1,
@@ -2664,7 +2664,7 @@
       "file": "banks/quasi-newton-secant.4df0eeee.json"
     },
     "rayleigh-quotient": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2672,8 +2672,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "504e8667",
-      "file": "banks/rayleigh-quotient.504e8667.json"
+      "hash": "be0cad7d",
+      "file": "banks/rayleigh-quotient.be0cad7d.json"
     },
     "rc-lpf": {
       "version": 6,
@@ -2748,7 +2748,7 @@
       "file": "banks/rlc.179f4fe4.json"
     },
     "rn-important-subsets": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2756,8 +2756,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "03df9379",
-      "file": "banks/rn-important-subsets.03df9379.json"
+      "hash": "a83b6ac3",
+      "file": "banks/rn-important-subsets.a83b6ac3.json"
     },
     "ro": {
       "version": 3,
@@ -2928,7 +2928,7 @@
       "file": "banks/simplex-phase-one.6970f147.json"
     },
     "singular-value-decomposition": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2936,8 +2936,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "ae10c884",
-      "file": "banks/singular-value-decomposition.ae10c884.json"
+      "hash": "20ae64be",
+      "file": "banks/singular-value-decomposition.20ae64be.json"
     },
     "sinusoid-resp": {
       "version": 4,
@@ -3252,7 +3252,7 @@
       "file": "banks/uncertainty.ee2e3f19.json"
     },
     "vector-norms-lp": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3260,8 +3260,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "4ce7c63a",
-      "file": "banks/vector-norms-lp.4ce7c63a.json"
+      "hash": "13fbd55f",
+      "file": "banks/vector-norms-lp.13fbd55f.json"
     },
     "vt": {
       "version": 2,

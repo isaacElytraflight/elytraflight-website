@@ -14,8 +14,7 @@
     "lyapunov",
     "quadratic-function-minimization",
     "second-order-optimality",
-    "convex-optimality-global",
-    "singular-value-decomposition"
+    "convex-optimality-global"
   ],
   "areas": {
     "lin-algebra-review": ["optimization"],
@@ -29,8 +28,7 @@
     "lyapunov": ["lyapunov"],
     "quadratic-function-minimization": ["optimization"],
     "second-order-optimality": ["optimization"],
-    "convex-optimality-global": ["optimization"],
-    "singular-value-decomposition": ["optimization"]
+    "convex-optimality-global": ["optimization"]
   },
   "cores": [
     "eigenvalues-diagonalization",

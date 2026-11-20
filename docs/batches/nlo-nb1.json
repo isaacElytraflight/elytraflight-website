@@ -3,34 +3,16 @@
   "label": "NB1",
   "box": "Nonlinear Optimization (nlo-tugraz)",
   "skills": [
-    "rn-important-subsets",
     "spectral-decomposition",
-    "positive-definite-matrices",
-    "singular-value-decomposition",
-    "rayleigh-quotient",
-    "inner-products",
-    "vector-norms-lp",
-    "cauchy-schwarz-inequality"
+    "positive-definite-matrices"
   ],
   "areas": {
-    "rn-important-subsets": ["optimization", "linear-algebra"],
     "spectral-decomposition": ["optimization", "linear-algebra"],
-    "positive-definite-matrices": ["optimization", "linear-algebra"],
-    "singular-value-decomposition": ["optimization", "linear-algebra"],
-    "rayleigh-quotient": ["optimization", "linear-algebra"],
-    "inner-products": ["optimization", "linear-algebra"],
-    "vector-norms-lp": ["optimization", "linear-algebra"],
-    "cauchy-schwarz-inequality": ["optimization", "linear-algebra"]
+    "positive-definite-matrices": ["optimization", "linear-algebra"]
   },
   "cores": [
-    "rn-important-subsets",
     "spectral-decomposition",
-    "positive-definite-matrices",
-    "singular-value-decomposition",
-    "rayleigh-quotient",
-    "inner-products",
-    "vector-norms-lp",
-    "cauchy-schwarz-inequality"
+    "positive-definite-matrices"
   ],
   "sources": "docs/sources.md",
   "notation": "docs/notation.md",

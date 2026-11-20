@@ -155,21 +155,12 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: Nonlinear Optimization (nlo-tugraz).
 
-Skills: `rn-important-subsets`, `spectral-decomposition`, `positive-definite-matrices`, `singular-value-decomposition`, `rayleigh-quotient`, `inner-products`, `vector-norms-lp`, `cauchy-schwarz-inequality`.
+Skills: `spectral-decomposition`, `positive-definite-matrices`.
 
 Items above version 1:
 
-- `rn-important-subsets-r1-q1` version 2
-- `rn-important-subsets-r1-q2` version 2
-- `rn-important-subsets-r2-q1` version 2
-- `rn-important-subsets-r3-q3` version 2
-- `rn-important-subsets-r4-q1` version 2
-- `rn-important-subsets-r4-q3` version 2
-- `rn-important-subsets#explainer` version 2
 - `spectral-decomposition#explainer` version 2
 - `positive-definite-matrices#explainer` version 2
-- `singular-value-decomposition-r4-q3` version 2
-- `vector-norms-lp-r4-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -364,7 +355,7 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: ME 132, Feedback Systems, and nonlinear optimization.
 
-Skills: `lin-algebra-review`, `eigenvalues-diagonalization`, `eig-modes`, `spectral-decomposition`, `linear-least-squares`, `least-squares-quadratic`, `sys-id`, `positive-definite-matrices`, `lyapunov`, `quadratic-function-minimization`, `second-order-optimality`, `convex-optimality-global`, `singular-value-decomposition`.
+Skills: `lin-algebra-review`, `eigenvalues-diagonalization`, `eig-modes`, `spectral-decomposition`, `linear-least-squares`, `least-squares-quadratic`, `sys-id`, `positive-definite-matrices`, `lyapunov`, `quadratic-function-minimization`, `second-order-optimality`, `convex-optimality-global`.
 
 Items above version 1:
 
@@ -388,7 +379,6 @@ Items above version 1:
 - `quadratic-function-minimization-r4-q1` version 2
 - `second-order-optimality-r4-q3` version 2
 - `convex-optimality-global-r4-q3` version 2
-- `singular-value-decomposition-r4-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -1177,5 +1167,25 @@ Items above version 1:
 - `ss-to-tf-r2-q1` version 2
 - `ss-to-tf-r3-q1` version 2
 - `realization-r1-q2` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 nonlinear optimization mathematical preliminaries — sg063-nlo-l2
+
+Box: Nonlinear optimization (nlo-tugraz), Mathematical preliminaries.
+
+Skills: `rn-important-subsets`, `singular-value-decomposition`, `rayleigh-quotient`, `inner-products`, `vector-norms-lp`, `cauchy-schwarz-inequality`.
+
+Items above version 1:
+
+- `rn-important-subsets-r1-q2` version 2
+- `rn-important-subsets-r3-q3` version 2
+- `rn-important-subsets-r4-q1` version 2
+- `rn-important-subsets-r4-q3` version 2
+- `rn-important-subsets-r1-q1` version 2
+- `rn-important-subsets-r2-q1` version 2
+- `rn-important-subsets#explainer` version 2
+- `singular-value-decomposition-r4-q3` version 2
+- `vector-norms-lp-r4-q3` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.

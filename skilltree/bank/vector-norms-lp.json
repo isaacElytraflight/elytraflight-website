@@ -1,23 +1,20 @@
 {
   "skill_id": "vector-norms-lp",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
-      "id": "vector-norms-lp-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A norm on \\(\\mathbb{R}^n\\) must satisfy",
-      "explanation": "The axioms are positivity, absolute homogeneity, and the triangle inequality. Equality in the triangle inequality is special, not required for every pair. A nonzero vector in the kernel would break positivity. A negative scalar must come out as its absolute value, or the norm could be negative.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested unit balls</title><line x1=\"28\" y1=\"112\" x2=\"256\" y2=\"112\"/><polygon points=\"256,112 249.6,114.7 249.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"200\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"24\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"72\" y=\"44\" width=\"136\" height=\"136\" stroke-dasharray=\"4 3\"/><circle cx=\"140\" cy=\"112\" r=\"68\"/><polygon points=\"208,112 140,44 72,112 140,180\"/><text x=\"158\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">inf</text><text x=\"162\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"156\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
-      "figure_alt": "A diamond inside a disk inside a square, centered at the origin.",
-      "options": [
-        "\\(\\lVert x \\rVert > 0\\) for \\(x \\ne 0\\), \\(\\lVert c x \\rVert = \\lvert c \\rvert\\,\\lVert x \\rVert\\), and the triangle inequality",
-        "\\(\\lVert x+y \\rVert = \\lVert x \\rVert + \\lVert y \\rVert\\) for every pair",
-        "\\(\\lVert x \\rVert = 0\\) for some \\(x \\ne 0\\)",
-        "\\(\\lVert c x \\rVert = c\\,\\lVert x \\rVert\\) even when \\(c\\) is negative"
+      "type": "order",
+      "prompt": "Order the comparison of the 1-norm, the 2-norm, and the infinity-norm of one vector. Each step after the first uses the result of the step before it.",
+      "explanation": "The 1-norm adds absolute coordinates, the infinity-norm keeps the largest absolute coordinate, and the 2-norm is the Euclidean length. For every real vector the infinity-norm is at most the 2-norm, and the 2-norm is at most the 1-norm. Equality of the triangle inequality for every pair is not a norm axiom. A negative scalar comes out of a norm as its absolute value.",
+      "steps": [
+        "Replace each coordinate of a vector x by its absolute value. A negative coordinate changes sign. A positive coordinate stays positive. Zero stays zero.",
+        "Add the absolute values from the previous step. That sum is the 1-norm of x.",
+        "The largest of the absolute values from the first step is the infinity-norm. It is at most the sum from the previous step, because every term in that sum is nonnegative.",
+        "Take the square root of the sum of the squares of the absolute values from the first step. That square root is the 2-norm. It is at least the infinity-norm named in the previous step, and it is at most the 1-norm from the second step."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 1,
+      "id": "vector-norms-lp-r1-q4"
     },
     {
       "id": "vector-norms-lp-r1-q2",
@@ -33,21 +30,24 @@
       "version": 1
     },
     {
-      "id": "vector-norms-lp-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "In the plane, the unit balls of the 1-norm, the 2-norm, and the infinity-norm are",
-      "explanation": "The 1-norm ball is a diamond with vertices on the axes, the 2-norm ball is the round disk, and the infinity-norm ball is the square aligned with the axes. The same radius does not make those three sets coincide. A hyperbola is unbounded, so it cannot be a unit ball.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested unit balls</title><line x1=\"28\" y1=\"112\" x2=\"256\" y2=\"112\"/><polygon points=\"256,112 249.6,114.7 249.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"200\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"24\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"72\" y=\"44\" width=\"136\" height=\"136\" stroke-dasharray=\"4 3\"/><circle cx=\"140\" cy=\"112\" r=\"68\"/><polygon points=\"208,112 140,44 72,112 140,180\"/><text x=\"158\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">inf</text><text x=\"162\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"156\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
-      "figure_alt": "A diamond inside a disk inside a square, centered at the origin.",
-      "options": [
-        "three disks of different radii",
-        "a diamond, a disk, and a square",
-        "a square, a diamond, and a hyperbola",
-        "a single square used for all three"
+      "type": "error",
+      "prompt": "A worked solution describes the closed unit balls in the plane. Exactly one step is wrong.",
+      "explanation": "The plane unit balls are a diamond, a disk, and an axis-aligned square. Equivalence means each norm is at most a constant times the other, and those constants may depend on the dimension. It does not make the balls the same set. On (1, 1) the 1-norm is 2 and the infinity-norm is 1. A hyperbola is unbounded, so it is not a unit ball.",
+      "steps": [
+        "The set of vectors with 1-norm at most 1 is the diamond whose vertices are the four unit points on the two axes.",
+        "The set of vectors with 2-norm at most 1 is the disk of radius 1 centered at the origin.",
+        "The set of vectors with infinity-norm at most 1 is the square with sides parallel to the axes, running from \\(-1\\) to \\(1\\) in each coordinate.",
+        "Those three sets are the same square, because equivalence of norms on a finite-dimensional space forces their unit balls to coincide."
       ],
-      "correct_index": 1,
-      "version": 1
+      "flaw_index": 3,
+      "reasons": [
+        "Equivalence supplies constants relating the norms. The three unit balls have different shapes, so they are not the same square.",
+        "Equivalence of norms means the unit balls are identical, so the diamond, the disk, and the square are the same set."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "vector-norms-lp-r1-q5"
     },
     {
       "id": "vector-norms-lp-r2-q1",
@@ -63,21 +63,30 @@
       "version": 1
     },
     {
-      "id": "vector-norms-lp-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "The infinity-norm of a vector is",
-      "explanation": "\\(\\lVert x \\rVert_\\infty = \\max_i \\lvert x_i \\rvert\\). The sum of absolute values is the 1-norm, and the square root of the sum of squares is the 2-norm. A product is not a norm: it vanishes when any coordinate does.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested unit balls</title><line x1=\"28\" y1=\"112\" x2=\"256\" y2=\"112\"/><polygon points=\"256,112 249.6,114.7 249.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"200\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"24\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"72\" y=\"44\" width=\"136\" height=\"136\" stroke-dasharray=\"4 3\"/><circle cx=\"140\" cy=\"112\" r=\"68\"/><polygon points=\"208,112 140,44 72,112 140,180\"/><text x=\"158\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">inf</text><text x=\"162\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"156\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
-      "figure_alt": "A diamond inside a disk inside a square, centered at the origin.",
-      "options": [
-        "the sum of the absolute values of the coordinates",
-        "the square root of the sum of squares",
-        "the largest absolute coordinate",
-        "the product of the coordinates"
+      "type": "symbolic",
+      "prompt": "a and b are positive. Write the 1-norm of the vector (a, -b). Use a and b.",
+      "explanation": "The 1-norm adds the absolute coordinates. The coordinates are a and -b, both of whose absolute values are the positive numbers a and b, so the 1-norm is a+b. a-b subtracts and can be smaller than either absolute value. a*b is a product, and it is not a norm of this vector. The larger of a and b is the infinity-norm, not the 1-norm. The Euclidean length is the square root of a**2 + b**2.",
+      "answer": "a+b",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.25,
+          "max": 18.0
+        },
+        {
+          "name": "b",
+          "min": 0.25,
+          "max": 18.0
+        }
       ],
-      "correct_index": 2,
-      "version": 1
+      "tolerance": 0.001,
+      "alternates": [
+        "b+a",
+        "(a)+(b)"
+      ],
+      "version": 1,
+      "id": "vector-norms-lp-r2-q4"
     },
     {
       "id": "vector-norms-lp-r2-q3",
@@ -190,6 +199,59 @@
       ],
       "correct_index": 1,
       "version": 2
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "vector-norms-lp-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A norm on \\(\\mathbb{R}^n\\) must satisfy",
+      "explanation": "The axioms are positivity, absolute homogeneity, and the triangle inequality. Equality in the triangle inequality is special, not required for every pair. A nonzero vector in the kernel would break positivity. A negative scalar must come out as its absolute value, or the norm could be negative.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested unit balls</title><line x1=\"28\" y1=\"112\" x2=\"256\" y2=\"112\"/><polygon points=\"256,112 249.6,114.7 249.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"200\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"24\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"72\" y=\"44\" width=\"136\" height=\"136\" stroke-dasharray=\"4 3\"/><circle cx=\"140\" cy=\"112\" r=\"68\"/><polygon points=\"208,112 140,44 72,112 140,180\"/><text x=\"158\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">inf</text><text x=\"162\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"156\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A diamond inside a disk inside a square, centered at the origin.",
+      "options": [
+        "\\(\\lVert x \\rVert > 0\\) for \\(x \\ne 0\\), \\(\\lVert c x \\rVert = \\lvert c \\rvert\\,\\lVert x \\rVert\\), and the triangle inequality",
+        "\\(\\lVert x+y \\rVert = \\lVert x \\rVert + \\lVert y \\rVert\\) for every pair",
+        "\\(\\lVert x \\rVert = 0\\) for some \\(x \\ne 0\\)",
+        "\\(\\lVert c x \\rVert = c\\,\\lVert x \\rVert\\) even when \\(c\\) is negative"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In the plane, the unit balls of the 1-norm, the 2-norm, and the infinity-norm are",
+      "explanation": "The 1-norm ball is a diamond with vertices on the axes, the 2-norm ball is the round disk, and the infinity-norm ball is the square aligned with the axes. The same radius does not make those three sets coincide. A hyperbola is unbounded, so it cannot be a unit ball.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested unit balls</title><line x1=\"28\" y1=\"112\" x2=\"256\" y2=\"112\"/><polygon points=\"256,112 249.6,114.7 249.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"200\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"24\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"72\" y=\"44\" width=\"136\" height=\"136\" stroke-dasharray=\"4 3\"/><circle cx=\"140\" cy=\"112\" r=\"68\"/><polygon points=\"208,112 140,44 72,112 140,180\"/><text x=\"158\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">inf</text><text x=\"162\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"156\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A diamond inside a disk inside a square, centered at the origin.",
+      "options": [
+        "three disks of different radii",
+        "a diamond, a disk, and a square",
+        "a square, a diamond, and a hyperbola",
+        "a single square used for all three"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "vector-norms-lp-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "The infinity-norm of a vector is",
+      "explanation": "\\(\\lVert x \\rVert_\\infty = \\max_i \\lvert x_i \\rvert\\). The sum of absolute values is the 1-norm, and the square root of the sum of squares is the 2-norm. A product is not a norm: it vanishes when any coordinate does.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested unit balls</title><line x1=\"28\" y1=\"112\" x2=\"256\" y2=\"112\"/><polygon points=\"256,112 249.6,114.7 249.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"200\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"24\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"72\" y=\"44\" width=\"136\" height=\"136\" stroke-dasharray=\"4 3\"/><circle cx=\"140\" cy=\"112\" r=\"68\"/><polygon points=\"208,112 140,44 72,112 140,180\"/><text x=\"158\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">inf</text><text x=\"162\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"156\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "A diamond inside a disk inside a square, centered at the origin.",
+      "options": [
+        "the sum of the absolute values of the coordinates",
+        "the square root of the sum of squares",
+        "the largest absolute coordinate",
+        "the product of the coordinates"
+      ],
+      "correct_index": 2,
+      "version": 1
     }
   ]
 }

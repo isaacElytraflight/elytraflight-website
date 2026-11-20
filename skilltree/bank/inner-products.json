@@ -1,23 +1,20 @@
 {
   "skill_id": "inner-products",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "inner-products-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "Which list matches the inner-product axioms on a real vector space?",
-      "explanation": "A real inner product is symmetric, linear in each slot, and positive on nonzero vectors. Forcing every square to zero destroys positive definiteness. Skew-symmetry would make \\(\\langle x,x \\rangle = 0\\). Positivity alone does not give the angle formula.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from one origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"131.8\"/><polygon points=\"235.9,131.8 230,135.6 229.1,130.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"123.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"95.2\" y2=\"42.3\"/><polygon points=\"95.2,42.3 96,49.3 90.8,47.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"103.2\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Two arrows leave the origin with a gap between them.",
-      "options": [
-        "symmetry, linearity in the first argument, and \\(\\langle x,x \\rangle > 0\\) for \\(x \\ne 0\\)",
-        "symmetry, and \\(\\langle x,x \\rangle = 0\\) for every \\(x\\)",
-        "linearity, but \\(\\langle x,y \\rangle = -\\langle y,x \\rangle\\)",
-        "\\(\\langle x,x \\rangle > 0\\), with no linearity requirement"
+      "type": "order",
+      "prompt": "Order how the axioms of a real inner product produce the norm and the cosine. Each step after the first uses the result of the step before it.",
+      "explanation": "A real inner product is symmetric and linear in each argument, and positive on nonzero vectors. The induced norm is the nonnegative square root of the self inner product. The cosine divides the inner product by the product of the norms, and that cosine is zero exactly for orthogonal nonzero vectors. Equal lengths are a different condition. Skew-symmetry would force every self inner product to be zero.",
+      "steps": [
+        "On a real vector space, an inner product is symmetric, linear in its first argument, and strictly positive on every nonzero vector.",
+        "Swap arguments with the symmetry from the previous step, apply first-argument linearity, and swap back. The second argument is linear as well.",
+        "Use the second-argument linearity from the previous step: the inner product of x with 2x equals 2 times the inner product of x with itself. Call the inner product of x with itself the squared norm. Positivity from the first step makes that square positive for every nonzero x, so its nonnegative square root, the norm, is positive too.",
+        "Divide the inner product of two nonzero vectors by the product of their norms from the previous step. The quotient is the cosine of the angle between them, and the quotient is zero exactly when the vectors are orthogonal."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 1,
+      "id": "inner-products-r1-q4"
     },
     {
       "id": "inner-products-r1-q2",
@@ -33,21 +30,23 @@
       "version": 1
     },
     {
-      "id": "inner-products-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "Two nonzero vectors are orthogonal when",
-      "explanation": "Orthogonality is \\(\\langle x, y \\rangle = 0\\). Equal length is a different condition, and the Cauchy-Schwarz equality case is about parallel vectors, not orthogonal ones. Integer coordinates say nothing about the angle.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>perpendicular arrows</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Two arrows leave the origin at a right angle.",
+      "type": "multi",
+      "prompt": "Which statements about real inner products are true? Select every correct statement.",
+      "explanation": "Orthogonality of nonzero vectors is a zero inner product. The pairing \\(x_1 y_1 - x_2 y_2\\) gives \\(-1\\) on (0, 1) with itself, so it fails positivity. The cosine divides the inner product by the product of the norms. A real inner product is symmetric, not skew-symmetric, and the self inner product is zero only for the zero vector. Equal lengths are not the definition of orthogonality.",
       "options": [
-        "they have the same length",
-        "their inner product is zero",
-        "their sum has length 1",
-        "each has integer coordinates"
+        "Two nonzero vectors are orthogonal exactly when their inner product is zero.",
+        "On \\(\\mathbb{R}^2\\), the pairing \\(x_1 y_1 - x_2 y_2\\) is negative when both vectors are (0, 1), so that pairing is not an inner product.",
+        "For two nonzero vectors, the cosine of the angle between them equals their inner product divided by the product of their norms.",
+        "A real inner product is skew-symmetric, so the inner product of every vector with itself is zero."
       ],
-      "correct_index": 1,
-      "version": 1
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1,
+      "id": "inner-products-r1-q5"
     },
     {
       "id": "inner-products-r2-q1",
@@ -63,21 +62,41 @@
       "version": 1
     },
     {
-      "id": "inner-products-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "The cosine of the angle between two nonzero vectors is",
-      "explanation": "The angle formula divides the inner product by the product of the lengths. The inner product alone still carries the lengths. The product of the lengths is the Cauchy-Schwarz upper bound, not the cosine. The length of the sum is the triangle inequality's subject.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from one origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"131.8\"/><polygon points=\"235.9,131.8 230,135.6 229.1,130.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"123.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"95.2\" y2=\"42.3\"/><polygon points=\"95.2,42.3 96,49.3 90.8,47.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"103.2\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Two arrows leave the origin with a gap between them.",
-      "options": [
-        "\\(\\langle x,y \\rangle\\)",
-        "\\(\\lVert x \\rVert\\,\\lVert y \\rVert\\)",
-        "\\(\\langle x,y \\rangle / (\\lVert x \\rVert\\,\\lVert y \\rVert)\\)",
-        "\\(\\lVert x+y \\rVert\\)"
+      "type": "symbolic",
+      "prompt": "a, b, c, and d are positive. Write the dot product of the vectors (a, b) and (c, d). Use a, b, c, and d.",
+      "explanation": "The dot product multiplies matching coordinates and adds: a*c + b*d. a*b + c*d pairs coordinates from the same vector. a*c*b*d multiplies all four numbers instead of adding the two products. a+c+b+d adds the coordinates and is not an inner product. The product of the two Euclidean lengths is the Cauchy-Schwarz upper bound, not the inner product.",
+      "answer": "a*c + b*d",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.25,
+          "max": 18.0
+        },
+        {
+          "name": "b",
+          "min": 0.25,
+          "max": 18.0
+        },
+        {
+          "name": "c",
+          "min": 0.25,
+          "max": 18.0
+        },
+        {
+          "name": "d",
+          "min": 0.25,
+          "max": 18.0
+        }
       ],
-      "correct_index": 2,
-      "version": 1
+      "tolerance": 0.001,
+      "alternates": [
+        "c*a + d*b",
+        "a*c + d*b",
+        "b*d + a*c"
+      ],
+      "version": 1,
+      "id": "inner-products-r2-q4"
     },
     {
       "id": "inner-products-r2-q3",
@@ -187,6 +206,59 @@
         "\\(d_i^T d_j = 1\\)",
         "\\(d_i^T Q d_j = 0\\)",
         "\\(Q\\) is a multiple of the identity and nothing else is true"
+      ],
+      "correct_index": 2,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "inner-products-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Which list matches the inner-product axioms on a real vector space?",
+      "explanation": "A real inner product is symmetric, linear in each slot, and positive on nonzero vectors. Forcing every square to zero destroys positive definiteness. Skew-symmetry would make \\(\\langle x,x \\rangle = 0\\). Positivity alone does not give the angle formula.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from one origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"131.8\"/><polygon points=\"235.9,131.8 230,135.6 229.1,130.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"123.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"95.2\" y2=\"42.3\"/><polygon points=\"95.2,42.3 96,49.3 90.8,47.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"103.2\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure_alt": "Two arrows leave the origin with a gap between them.",
+      "options": [
+        "symmetry, linearity in the first argument, and \\(\\langle x,x \\rangle > 0\\) for \\(x \\ne 0\\)",
+        "symmetry, and \\(\\langle x,x \\rangle = 0\\) for every \\(x\\)",
+        "linearity, but \\(\\langle x,y \\rangle = -\\langle y,x \\rangle\\)",
+        "\\(\\langle x,x \\rangle > 0\\), with no linearity requirement"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "inner-products-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Two nonzero vectors are orthogonal when",
+      "explanation": "Orthogonality is \\(\\langle x, y \\rangle = 0\\). Equal length is a different condition, and the Cauchy-Schwarz equality case is about parallel vectors, not orthogonal ones. Integer coordinates say nothing about the angle.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>perpendicular arrows</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure_alt": "Two arrows leave the origin at a right angle.",
+      "options": [
+        "they have the same length",
+        "their inner product is zero",
+        "their sum has length 1",
+        "each has integer coordinates"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "inner-products-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "The cosine of the angle between two nonzero vectors is",
+      "explanation": "The angle formula divides the inner product by the product of the lengths. The inner product alone still carries the lengths. The product of the lengths is the Cauchy-Schwarz upper bound, not the cosine. The length of the sum is the triangle inequality's subject.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from one origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"131.8\"/><polygon points=\"235.9,131.8 230,135.6 229.1,130.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"123.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"95.2\" y2=\"42.3\"/><polygon points=\"95.2,42.3 96,49.3 90.8,47.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"103.2\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure_alt": "Two arrows leave the origin with a gap between them.",
+      "options": [
+        "\\(\\langle x,y \\rangle\\)",
+        "\\(\\lVert x \\rVert\\,\\lVert y \\rVert\\)",
+        "\\(\\langle x,y \\rangle / (\\lVert x \\rVert\\,\\lVert y \\rVert)\\)",
+        "\\(\\lVert x+y \\rVert\\)"
       ],
       "correct_index": 2,
       "version": 1
