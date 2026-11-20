@@ -1,23 +1,20 @@
 {
   "skill_id": "lti-stability",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "lti-stability-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A continuous-time linear system \\(\\dot x = Ax\\) is asymptotically stable when",
-      "explanation": "Asymptotic stability needs the whole spectrum in the open left half-plane. One stable eigenvalue does not rescue an unstable partner. A negative trace is necessary for a second-order system but not sufficient. Positive real parts are the unstable case.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>left-half-plane poles</title><line x1=\"20\" y1=\"90\" x2=\"92\" y2=\"90\"/><line x1=\"142\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"85\" x2=\"133\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"95\" x2=\"133\" y2=\"85\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"85\" x2=\"111\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"95\" x2=\"111\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
-      "figure_alt": "Two pole marks on the negative real axis.",
-      "options": [
-        "every eigenvalue of \\(A\\) has a negative real part",
-        "at least one eigenvalue has a negative real part",
-        "the trace of \\(A\\) is negative, with no other condition",
-        "every eigenvalue has a positive real part"
+      "type": "order",
+      "prompt": "Order the Routh-Hurwitz test for \\(s^3 + a s^2 + b s + c\\). Each step after the first uses the result of the step before it.",
+      "explanation": "The cubic test needs a, b, and c positive and \\(ab > c\\). The product \\(ab\\) without subtracting c is not the minor. A negative trace-style reading of a alone misses b and c. A zero minor is the boundary, where a root is not in the open left half-plane. Solving the cubic is a different route to the same yes-or-no fact.",
+      "steps": [
+        "Read a, b, and c, and keep them only if all three are positive. If one is not positive, the polynomial already fails the test.",
+        "Multiply the a and b kept in the previous step. Call that product the first part of the Hurwitz minor.",
+        "Subtract c from the product in the previous step. That signed difference is the Hurwitz minor.",
+        "Every root is in the open left half-plane only when the minor from the previous step is strictly positive. A zero minor puts a root on the imaginary axis."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 1,
+      "id": "lti-stability-r1-q4"
     },
     {
       "id": "lti-stability-r1-q2",
@@ -59,21 +56,24 @@
       "version": 1
     },
     {
-      "id": "lti-stability-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "A transfer function is BIBO stable while a state-space realization of it is not asymptotically stable when",
-      "explanation": "Cancellation hides a mode from the input-output map. If that mode is unstable, the transfer function can be BIBO stable while the internal state still runs away. A minimal realization has no such hidden mode, so the two stability notions agree. A sinusoid input does not create a hidden eigenvalue.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a right-half-plane pole</title><line x1=\"20\" y1=\"90\" x2=\"147\" y2=\"90\"/><line x1=\"175\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"156\" y1=\"85\" x2=\"166\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"156\" y1=\"95\" x2=\"166\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
-      "figure_alt": "A pole mark on the positive real axis.",
-      "options": [
-        "every pole and every eigenvalue is in the open left half-plane",
-        "a right-half-plane eigenvalue is cancelled and does not appear as a pole of \\(G(s)\\)",
-        "the realization is minimal",
-        "the input is a sinusoid"
+      "type": "error",
+      "prompt": "A worked solution compares BIBO stability of a transfer function with asymptotic stability of one realization. Exactly one step is wrong.",
+      "explanation": "Cancellation hides a mode from the input-output map. An unstable hidden mode leaves the transfer function BIBO stable while that realization is not asymptotically stable. A minimal realization has no cancelled mode, so the two tests agree for that realization. A sinusoid input does not create the hidden mode.",
+      "steps": [
+        "BIBO stability means every bounded input produces a bounded output.",
+        "A mode cancelled between the numerator and the denominator does not appear as a pole of the transfer function.",
+        "If that cancelled mode is unstable, the state can grow while every pole of the transfer function stays in the open left half-plane.",
+        "Therefore every realization of a BIBO-stable transfer function is asymptotically stable."
       ],
-      "correct_index": 1,
-      "version": 1
+      "flaw_index": 3,
+      "reasons": [
+        "A cancelled unstable mode stays in the state, so BIBO stability does not make every realization asymptotically stable.",
+        "Cancellation removes the mode from the state too, so every realization of a BIBO-stable transfer function is asymptotically stable."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "lti-stability-r2-q4"
     },
     {
       "id": "lti-stability-r2-q3",
@@ -89,21 +89,29 @@
       "version": 1
     },
     {
-      "id": "lti-stability-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "Simple poles on the imaginary axis, and no poles in the right half-plane, mean the free response is",
-      "explanation": "A simple pair at \\(\\pm j\\omega\\) produces a sustained sinusoid. The state stays bounded and does not return to the origin, so the system is not asymptotically stable. Growth would require a positive real part, or a repeated imaginary pole. The zero response is only the zero initial state.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>poles on the imaginary axis</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"145\" y1=\"41\" x2=\"155\" y2=\"51\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"51\" x2=\"155\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"129\" x2=\"155\" y2=\"139\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"139\" x2=\"155\" y2=\"129\" stroke-width=\"1.8\"/></svg>",
-      "figure_alt": "A conjugate pair on the imaginary axis.",
-      "options": [
-        "asymptotically stable",
-        "unstable and growing",
-        "bounded but not asymptotically stable",
-        "identically zero for every initial state"
+      "type": "symbolic",
+      "prompt": "For \\(s^3 + a s^2 + b s + c\\), write the critical constant term at which the Routh minor changes sign. a and b are positive. Use a and b.",
+      "explanation": "The boundary is c = a*b. a+b adds two coefficients and is not the minor. a/b is a ratio of the first two coefficients, not the critical constant term. The sign test also needs a, b, and the constant term positive, and a strictly larger product is the open left half-plane rather than the boundary.",
+      "answer": "a*b",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.25,
+          "max": 12.0
+        },
+        {
+          "name": "b",
+          "min": 0.25,
+          "max": 12.0
+        }
       ],
-      "correct_index": 2,
-      "version": 1
+      "tolerance": 0.001,
+      "alternates": [
+        "b*a"
+      ],
+      "version": 1,
+      "id": "lti-stability-r3-q4"
     },
     {
       "id": "lti-stability-r3-q2",
@@ -181,6 +189,59 @@
       "answer": 34.0,
       "unit": "1",
       "tolerance": 0.02,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "lti-stability-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A continuous-time linear system \\(\\dot x = Ax\\) is asymptotically stable when",
+      "explanation": "Asymptotic stability needs the whole spectrum in the open left half-plane. One stable eigenvalue does not rescue an unstable partner. A negative trace is necessary for a second-order system but not sufficient. Positive real parts are the unstable case.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>left-half-plane poles</title><line x1=\"20\" y1=\"90\" x2=\"92\" y2=\"90\"/><line x1=\"142\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"85\" x2=\"133\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"95\" x2=\"133\" y2=\"85\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"85\" x2=\"111\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"95\" x2=\"111\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "Two pole marks on the negative real axis.",
+      "options": [
+        "every eigenvalue of \\(A\\) has a negative real part",
+        "at least one eigenvalue has a negative real part",
+        "the trace of \\(A\\) is negative, with no other condition",
+        "every eigenvalue has a positive real part"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A transfer function is BIBO stable while a state-space realization of it is not asymptotically stable when",
+      "explanation": "Cancellation hides a mode from the input-output map. If that mode is unstable, the transfer function can be BIBO stable while the internal state still runs away. A minimal realization has no such hidden mode, so the two stability notions agree. A sinusoid input does not create a hidden eigenvalue.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a right-half-plane pole</title><line x1=\"20\" y1=\"90\" x2=\"147\" y2=\"90\"/><line x1=\"175\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"156\" y1=\"85\" x2=\"166\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"156\" y1=\"95\" x2=\"166\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A pole mark on the positive real axis.",
+      "options": [
+        "every pole and every eigenvalue is in the open left half-plane",
+        "a right-half-plane eigenvalue is cancelled and does not appear as a pole of \\(G(s)\\)",
+        "the realization is minimal",
+        "the input is a sinusoid"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Simple poles on the imaginary axis, and no poles in the right half-plane, mean the free response is",
+      "explanation": "A simple pair at \\(\\pm j\\omega\\) produces a sustained sinusoid. The state stays bounded and does not return to the origin, so the system is not asymptotically stable. Growth would require a positive real part, or a repeated imaginary pole. The zero response is only the zero initial state.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>poles on the imaginary axis</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"145\" y1=\"41\" x2=\"155\" y2=\"51\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"51\" x2=\"155\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"129\" x2=\"155\" y2=\"139\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"139\" x2=\"155\" y2=\"129\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A conjugate pair on the imaginary axis.",
+      "options": [
+        "asymptotically stable",
+        "unstable and growing",
+        "bounded but not asymptotically stable",
+        "identically zero for every initial state"
+      ],
+      "correct_index": 2,
       "version": 1
     }
   ]

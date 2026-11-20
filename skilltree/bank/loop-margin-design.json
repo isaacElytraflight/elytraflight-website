@@ -1,20 +1,20 @@
 {
   "skill_id": "loop-margin-design",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "loop-margin-design-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "Why do control designers usually ask for a phase margin of 45–60° rather than just 'more than 0°'?",
-      "options": [
-        "Margins give room for model errors, delays and gain drift, and larger margins mean less overshoot and ringing in the closed-loop response",
-        "Because a loop with less than 45° is always unstable",
-        "Because phase margin sets the steady-state error",
-        "Because it maximizes the bandwidth"
+      "type": "order",
+      "prompt": "Order a delay-margin calculation from a loop transfer L. Each step after the first uses the result of the step before it.",
+      "explanation": "Delay margin is the phase margin in radians divided by the gain-crossover frequency. Dividing degrees by rad/s does not give seconds. The gain margin is a factor on |L| at the phase crossover and does not by itself give this delay. A larger crossover at the same phase margin leaves less room for delay.",
+      "steps": [
+        "Find the gain crossover wc, the frequency where the magnitude of L is 1.",
+        "At the frequency wc from the previous step, convert 180 degrees plus the phase of L into radians. Call that number pm.",
+        "Divide the pm from the previous step by the same wc. That quotient is the delay margin in seconds.",
+        "A pure delay longer than the margin from the previous step spends the phase margin and puts the loop on the stability boundary."
       ],
-      "correct_index": 0,
-      "explanation": "Any PM above 0° is stable on paper. But the real plant differs from the model: unmodeled lags, delays and gain changes eat into the margin. Small margins also mean lightly damped closed-loop poles (\\(\\zeta\\approx\\mathrm{PM}/100^\\circ\\)). 45–60° balances speed against robustness.\n• Between 0° and 45° the loop is stable, just poorly damped.\n• Steady-state error depends on the low-frequency loop gain.\n• More margin generally costs bandwidth, not the reverse."
+      "version": 1,
+      "id": "loop-margin-design-r1-q4"
     },
     {
       "id": "loop-margin-design-r1-q2",
@@ -29,18 +29,24 @@
       "figure_alt": "Bode magnitude of 10/(s(s+3)): -20 dB per decade, then -40, crossing 0 dB near 2.5 rad/s."
     },
     {
-      "id": "loop-margin-design-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "A loop has a gain margin of 6 dB. What does that mean?",
-      "options": [
-        "The loop is unstable by 6 dB",
-        "The loop gain could roughly double before the loop reaches the stability limit",
-        "The output overshoots by 6 dB",
-        "The loop gain can be reduced by half before it goes unstable"
+      "type": "error",
+      "prompt": "A worked solution explains a gain margin of 6 dB. Exactly one step is wrong.",
+      "explanation": "A gain margin of 6 dB means the loop gain can increase by a factor of about 2 before the phase-crossover point reaches -1. Cutting the gain moves that crossing toward the origin, farther from -1. A positive margin means the loop is stable on the model. The margin is not an overshoot in dB.",
+      "steps": [
+        "Gain margin is how far the magnitude of L sits below 1 at the frequency where the phase is -180 degrees.",
+        "6 dB is a factor of 2.",
+        "Doubling the loop gain would move that negative-real crossing onto -1.",
+        "Halving the loop gain would also move that same crossing onto -1."
       ],
-      "correct_index": 1,
-      "explanation": "Gain margin is how far \\(|L|\\) sits below 1 at the \\(-180^\\circ\\) frequency. 6 dB is a factor of 2, so doubling the gain would put \\(L=-1\\) there.\n• A positive margin means stable.\n• Margins describe the loop, not overshoot in dB.\n• For a typical loop, lowering the gain does not destabilize it; the margin is the allowed increase."
+      "flaw_index": 3,
+      "reasons": [
+        "Halving the gain moves a crossing near -0.5 toward the origin. The factor of 2 is the increase that reaches -1.",
+        "Gain margin is symmetric, so the same factor reaches -1 when the gain is raised or lowered."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "loop-margin-design-r1-q5"
     },
     {
       "id": "loop-margin-design-r2-q1",
@@ -105,18 +111,22 @@
       "figure_alt": "Bode magnitude of 2/(s+1): flat at 6 dB, then falling 20 dB per decade through 0 dB near 1.7 rad/s."
     },
     {
-      "id": "loop-margin-design-r3-q3",
       "round": 3,
-      "type": "mc",
-      "prompt": "Using \\(\\zeta\\approx\\mathrm{PM}/100^\\circ\\), which step response should you expect from a loop designed with a phase margin of 30°?",
+      "type": "multi",
+      "prompt": "Which statements about margins are true? Select every correct statement.",
+      "explanation": "Delay margin spends the phase margin, in radians, at the rate of the crossover frequency. The sensitivity peak is 1 over the distance from the curve to -1. A phase margin of 30 degrees is still a positive margin, so the model loop is stable, with a lightly damped step. Steady-state error is set by the loop gain and the system type, not by the phase margin.",
       "options": [
-        "No overshoot",
-        "About 5% overshoot",
-        "Growing oscillations",
-        "Overshoot of roughly 35–40% with several visible oscillations"
+        "The delay margin, in seconds, equals the phase margin in radians divided by the gain-crossover frequency.",
+        "A phase margin of 30 degrees means the closed loop is already unstable.",
+        "The sensitivity peak is the reciprocal of the closest distance from the Nyquist curve of L to -1.",
+        "Phase margin is the quantity that sets the steady-state error of a step."
       ],
-      "correct_index": 3,
-      "explanation": "PM 30° means \\(\\zeta\\approx0.3\\) and \\(M_p\\approx e^{-\\pi(0.3)/0.954}=37\\%\\). For about 5% overshoot you need \\(\\zeta\\approx0.7\\), roughly 65–70° of PM.\n• No overshoot needs very large margins.\n• Growing oscillation means a negative margin."
+      "correct_indices": [
+        0,
+        2
+      ],
+      "version": 1,
+      "id": "loop-margin-design-r3-q4"
     },
     {
       "id": "loop-margin-design-r4-q1",
@@ -162,6 +172,53 @@
       "preview": [
         "time-delay"
       ]
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "loop-margin-design-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Why do control designers usually ask for a phase margin of 45–60° rather than just 'more than 0°'?",
+      "options": [
+        "Margins give room for model errors, delays and gain drift, and larger margins mean less overshoot and ringing in the closed-loop response",
+        "Because a loop with less than 45° is always unstable",
+        "Because phase margin sets the steady-state error",
+        "Because it maximizes the bandwidth"
+      ],
+      "correct_index": 0,
+      "explanation": "Any PM above 0° is stable on paper. But the real plant differs from the model: unmodeled lags, delays and gain changes eat into the margin. Small margins also mean lightly damped closed-loop poles (\\(\\zeta\\approx\\mathrm{PM}/100^\\circ\\)). 45–60° balances speed against robustness.\n• Between 0° and 45° the loop is stable, just poorly damped.\n• Steady-state error depends on the low-frequency loop gain.\n• More margin generally costs bandwidth, not the reverse.",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A loop has a gain margin of 6 dB. What does that mean?",
+      "options": [
+        "The loop is unstable by 6 dB",
+        "The loop gain could roughly double before the loop reaches the stability limit",
+        "The output overshoots by 6 dB",
+        "The loop gain can be reduced by half before it goes unstable"
+      ],
+      "correct_index": 1,
+      "explanation": "Gain margin is how far \\(|L|\\) sits below 1 at the \\(-180^\\circ\\) frequency. 6 dB is a factor of 2, so doubling the gain would put \\(L=-1\\) there.\n• A positive margin means stable.\n• Margins describe the loop, not overshoot in dB.\n• For a typical loop, lowering the gain does not destabilize it; the margin is the allowed increase.",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "Using \\(\\zeta\\approx\\mathrm{PM}/100^\\circ\\), which step response should you expect from a loop designed with a phase margin of 30°?",
+      "options": [
+        "No overshoot",
+        "About 5% overshoot",
+        "Growing oscillations",
+        "Overshoot of roughly 35–40% with several visible oscillations"
+      ],
+      "correct_index": 3,
+      "explanation": "PM 30° means \\(\\zeta\\approx0.3\\) and \\(M_p\\approx e^{-\\pi(0.3)/0.954}=37\\%\\). For about 5% overshoot you need \\(\\zeta\\approx0.7\\), roughly 65–70° of PM.\n• No overshoot needs very large margins.\n• Growing oscillation means a negative margin.",
+      "version": 1
     }
   ]
 }

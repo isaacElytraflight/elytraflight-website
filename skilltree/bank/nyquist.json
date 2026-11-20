@@ -1,40 +1,40 @@
 {
   "skill_id": "nyquist",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "nyquist-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "The Nyquist criterion determines closed-loop stability by",
-      "explanation": "The Nyquist plot is \\(L(j\\omega)\\) in the complex plane. The number of encirclements of \\(-1\\) equals the difference between closed-loop and open-loop RHP poles. Checking \\(|L| < 1\\) everywhere is too restrictive. \\(L = 0\\) is not the critical point.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Nyquist curve</title><line x1=\"48\" y1=\"104\" x2=\"270\" y2=\"104\"/><polygon points=\"270,104 263.6,106.7 263.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"111.2\" y1=\"180\" x2=\"111.2\" y2=\"28\"/><polygon points=\"111.2,28 113.9,34.4 108.4,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"118\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"117.2\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.7,104 159,165.3 87.2,134.6 96.8,104 87.2,73.4 159,42.7 254.7,104\" stroke-width=\"2.2\"/><circle cx=\"63.3\" cy=\"104\" r=\"4\"/><text x=\"63.3\" y=\"94\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−1</text></svg>",
-      "figure_alt": "A curve in the complex plane with the critical point marked.",
-      "options": [
-        "counting encirclements of \\(-1\\) by \\(L(j\\omega)\\)",
-        "checking if \\(|L(j\\omega)| < 1\\) at all frequencies",
-        "finding where \\(L(j\\omega) = 0\\)",
-        "measuring the phase margin only"
+      "type": "order",
+      "prompt": "Order the Nyquist count that decides closed-loop stability. Each step after the first uses the result of the step before it.",
+      "explanation": "The criterion is Z = N + P, with N the clockwise encirclements of -1 and P the open-loop right-half-plane poles. Stability needs Z = 0. Requiring |L| < 1 at every frequency is a stricter and different test. The origin is not the critical point. A counter-clockwise encirclement subtracts from the clockwise count rather than adding another positive N.",
+      "steps": [
+        "Draw the curve of L(jw) in the complex plane and mark the point -1.",
+        "On the curve from the previous step, count the clockwise encirclements of the marked point -1. Call that count N.",
+        "Add the open-loop right-half-plane pole count P to the N from the previous step. Call the sum Z.",
+        "The closed loop is stable only when the Z from the previous step is zero. A positive Z is the number of closed-loop right-half-plane poles."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 1,
+      "id": "nyquist-r1-q4"
     },
     {
-      "id": "nyquist-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "A stable open-loop system has the Nyquist curve that does not encircle \\(-1\\). The closed-loop is",
-      "explanation": "For a stable open-loop (no RHP poles), \\(Z = N + P = 0 + 0 = 0\\). The closed-loop is stable. If the curve encircles \\(-1\\) once clockwise, there would be one closed-loop RHP pole.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>stable Nyquist</title><line x1=\"48\" y1=\"104\" x2=\"270\" y2=\"104\"/><polygon points=\"270,104 263.6,106.7 263.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"127.1\" y1=\"180\" x2=\"127.1\" y2=\"28\"/><polygon points=\"127.1,28 129.8,34.4 124.4,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"118\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"133.1\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.7,104 190.9,165.3 127.1,134.6 108,104 127.1,73.4 190.9,42.7 254.7,104\" stroke-width=\"2.2\"/><circle cx=\"63.3\" cy=\"104\" r=\"4\"/><text x=\"63.3\" y=\"94\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−1</text></svg>",
-      "figure_alt": "A curve in the complex plane with the critical point marked.",
-      "options": [
-        "stable with zero RHP poles",
-        "unstable with one RHP pole",
-        "marginally stable",
-        "unstable with two RHP poles"
+      "type": "symbolic",
+      "prompt": "A stable open-loop Nyquist curve crosses the negative real axis at -d. d is positive and less than 1. Write the gain margin as a factor. Use d.",
+      "explanation": "The crossing is at -d, so the loop gain can be multiplied by 1/d before the crossing reaches -1. d itself is the distance from the origin, not the margin. 1-d is the gap from the crossing to -1 in the plane, not the gain factor. -1/d is the same factor with the wrong sign. The phase margin is read on the unit circle, not at this real-axis crossing.",
+      "answer": "1/d",
+      "variables": [
+        {
+          "name": "d",
+          "min": 0.05,
+          "max": 0.9
+        }
       ],
-      "correct_index": 0,
-      "version": 1
+      "tolerance": 0.001,
+      "alternates": [
+        "d**(-1)"
+      ],
+      "version": 1,
+      "id": "nyquist-r1-q5"
     },
     {
       "id": "nyquist-r1-q3",
@@ -80,21 +80,24 @@
       "version": 1
     },
     {
-      "id": "nyquist-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "Phase margin is measured at",
-      "explanation": "Phase margin is how much additional phase lag can be added before instability. At \\(|L| = 1\\), the distance from \\(-180°\\) to the actual phase is the phase margin. Gain margin is measured at the phase crossover.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>phase margin</title><line x1=\"48\" y1=\"42.7\" x2=\"270\" y2=\"42.7\"/><polygon points=\"270,42.7 263.6,45.4 263.6,40\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"159\" y1=\"180\" x2=\"159\" y2=\"28\"/><polygon points=\"159,28 161.7,34.4 156.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"56.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"165\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.7,42.7 226,128.5 159,165.3\" stroke-width=\"2.2\"/><circle cx=\"63.3\" cy=\"42.7\" r=\"4\"/><text x=\"63.3\" y=\"32.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−1</text></svg>",
-      "figure_alt": "A curve in the complex plane with the critical point marked.",
-      "options": [
-        "the gain crossover frequency where \\(|L| = 1\\)",
-        "the phase crossover frequency where the phase is \\(-180°\\)",
-        "DC where \\(L\\) is largest",
-        "the frequency of maximum \\(|L|\\)"
+      "type": "error",
+      "prompt": "A worked solution says where phase margin is read on a Nyquist plot. Exactly one step is wrong.",
+      "explanation": "Phase margin is an angle at the gain crossover, where the curve meets the unit circle. The negative-real crossing is the phase crossover, and the factor 1 over its distance from the origin is the gain margin. Requiring the curve to pass through -1 would mean the margin is already zero. The largest imaginary part is not a margin.",
+      "steps": [
+        "Phase margin is the extra phase lag that would put the loop on the stability boundary.",
+        "That extra lag is measured at the frequency where the magnitude of L is 1.",
+        "On the Nyquist plot, magnitude 1 is the unit circle centered at the origin.",
+        "Phase margin is therefore the distance from the origin to the negative-real crossing."
       ],
-      "correct_index": 0,
-      "version": 1
+      "flaw_index": 3,
+      "reasons": [
+        "The negative-real crossing is where gain margin is read. Phase margin is the angle where the curve meets the unit circle.",
+        "Phase margin and gain margin are the same number, so either crossing measures both."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "nyquist-r2-q4"
     },
     {
       "id": "nyquist-r3-q1",
@@ -193,6 +196,59 @@
         "pass through \\(-1\\)"
       ],
       "correct_index": 1,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "nyquist-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The Nyquist criterion determines closed-loop stability by",
+      "explanation": "The Nyquist plot is \\(L(j\\omega)\\) in the complex plane. The number of encirclements of \\(-1\\) equals the difference between closed-loop and open-loop RHP poles. Checking \\(|L| < 1\\) everywhere is too restrictive. \\(L = 0\\) is not the critical point.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Nyquist curve</title><line x1=\"48\" y1=\"104\" x2=\"270\" y2=\"104\"/><polygon points=\"270,104 263.6,106.7 263.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"111.2\" y1=\"180\" x2=\"111.2\" y2=\"28\"/><polygon points=\"111.2,28 113.9,34.4 108.4,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"118\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"117.2\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.7,104 159,165.3 87.2,134.6 96.8,104 87.2,73.4 159,42.7 254.7,104\" stroke-width=\"2.2\"/><circle cx=\"63.3\" cy=\"104\" r=\"4\"/><text x=\"63.3\" y=\"94\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−1</text></svg>",
+      "figure_alt": "A curve in the complex plane with the critical point marked.",
+      "options": [
+        "counting encirclements of \\(-1\\) by \\(L(j\\omega)\\)",
+        "checking if \\(|L(j\\omega)| < 1\\) at all frequencies",
+        "finding where \\(L(j\\omega) = 0\\)",
+        "measuring the phase margin only"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "nyquist-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A stable open-loop system has the Nyquist curve that does not encircle \\(-1\\). The closed-loop is",
+      "explanation": "For a stable open-loop (no RHP poles), \\(Z = N + P = 0 + 0 = 0\\). The closed-loop is stable. If the curve encircles \\(-1\\) once clockwise, there would be one closed-loop RHP pole.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>stable Nyquist</title><line x1=\"48\" y1=\"104\" x2=\"270\" y2=\"104\"/><polygon points=\"270,104 263.6,106.7 263.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"127.1\" y1=\"180\" x2=\"127.1\" y2=\"28\"/><polygon points=\"127.1,28 129.8,34.4 124.4,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"118\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"133.1\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.7,104 190.9,165.3 127.1,134.6 108,104 127.1,73.4 190.9,42.7 254.7,104\" stroke-width=\"2.2\"/><circle cx=\"63.3\" cy=\"104\" r=\"4\"/><text x=\"63.3\" y=\"94\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−1</text></svg>",
+      "figure_alt": "A curve in the complex plane with the critical point marked.",
+      "options": [
+        "stable with zero RHP poles",
+        "unstable with one RHP pole",
+        "marginally stable",
+        "unstable with two RHP poles"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "nyquist-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Phase margin is measured at",
+      "explanation": "Phase margin is how much additional phase lag can be added before instability. At \\(|L| = 1\\), the distance from \\(-180°\\) to the actual phase is the phase margin. Gain margin is measured at the phase crossover.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>phase margin</title><line x1=\"48\" y1=\"42.7\" x2=\"270\" y2=\"42.7\"/><polygon points=\"270,42.7 263.6,45.4 263.6,40\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"159\" y1=\"180\" x2=\"159\" y2=\"28\"/><polygon points=\"159,28 161.7,34.4 156.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"56.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"165\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.7,42.7 226,128.5 159,165.3\" stroke-width=\"2.2\"/><circle cx=\"63.3\" cy=\"42.7\" r=\"4\"/><text x=\"63.3\" y=\"32.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−1</text></svg>",
+      "figure_alt": "A curve in the complex plane with the critical point marked.",
+      "options": [
+        "the gain crossover frequency where \\(|L| = 1\\)",
+        "the phase crossover frequency where the phase is \\(-180°\\)",
+        "DC where \\(L\\) is largest",
+        "the frequency of maximum \\(|L|\\)"
+      ],
+      "correct_index": 0,
       "version": 1
     }
   ]

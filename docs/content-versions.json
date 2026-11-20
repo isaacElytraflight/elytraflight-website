@@ -755,58 +755,6 @@
       "version": 1
     },
     {
-      "id": "nyquist-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "nyquist-r1-q2",
-      "version": 1
-    },
-    {
-      "id": "nyquist-r1-q3",
-      "version": 1
-    },
-    {
-      "id": "nyquist-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "nyquist-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "nyquist-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "nyquist-r3-q1",
-      "version": 1
-    },
-    {
-      "id": "nyquist-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "nyquist-r3-q3",
-      "version": 1
-    },
-    {
-      "id": "nyquist-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "nyquist-r4-q2",
-      "version": 1
-    },
-    {
-      "id": "nyquist-r4-q3",
-      "version": 1
-    },
-    {
-      "id": "nyquist#explainer",
-      "version": 1
-    },
-    {
       "id": "sensitivity-r1-q4",
       "version": 1
     },
@@ -1011,58 +959,6 @@
       "version": 1
     },
     {
-      "id": "freq-resp-lti-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "freq-resp-lti-r1-q2",
-      "version": 1
-    },
-    {
-      "id": "freq-resp-lti-r1-q3",
-      "version": 1
-    },
-    {
-      "id": "freq-resp-lti-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "freq-resp-lti-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "freq-resp-lti-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "freq-resp-lti-r3-q1",
-      "version": 2
-    },
-    {
-      "id": "freq-resp-lti-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "freq-resp-lti-r3-q3",
-      "version": 1
-    },
-    {
-      "id": "freq-resp-lti-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "freq-resp-lti-r4-q2",
-      "version": 1
-    },
-    {
-      "id": "freq-resp-lti-r4-q3",
-      "version": 1
-    },
-    {
-      "id": "freq-resp-lti#explainer",
-      "version": 1
-    },
-    {
       "id": "gen-gain-phase-r1-q1",
       "version": 1
     },
@@ -1177,58 +1073,6 @@
     {
       "id": "linearization#explainer",
       "version": 3
-    },
-    {
-      "id": "lti-stability-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "lti-stability-r1-q2",
-      "version": 1
-    },
-    {
-      "id": "lti-stability-r1-q3",
-      "version": 1
-    },
-    {
-      "id": "lti-stability-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "lti-stability-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "lti-stability-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "lti-stability-r3-q1",
-      "version": 1
-    },
-    {
-      "id": "lti-stability-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "lti-stability-r3-q3",
-      "version": 2
-    },
-    {
-      "id": "lti-stability-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "lti-stability-r4-q2",
-      "version": 1
-    },
-    {
-      "id": "lti-stability-r4-q3",
-      "version": 1
-    },
-    {
-      "id": "lti-stability#explainer",
-      "version": 1
     },
     {
       "id": "perf-specs-freq-r1-q1",
@@ -1385,58 +1229,6 @@
     {
       "id": "realization#explainer",
       "version": 1
-    },
-    {
-      "id": "uncertainty-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "uncertainty-r1-q2",
-      "version": 1
-    },
-    {
-      "id": "uncertainty-r1-q3",
-      "version": 1
-    },
-    {
-      "id": "uncertainty-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "uncertainty-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "uncertainty-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "uncertainty-r3-q1",
-      "version": 1
-    },
-    {
-      "id": "uncertainty-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "uncertainty-r3-q3",
-      "version": 1
-    },
-    {
-      "id": "uncertainty-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "uncertainty-r4-q2",
-      "version": 1
-    },
-    {
-      "id": "uncertainty-r4-q3",
-      "version": 1
-    },
-    {
-      "id": "uncertainty#explainer",
-      "version": 2
     },
     {
       "id": "loop-shaping-r1-q1",
@@ -18236,6 +18028,326 @@
     },
     {
       "id": "pid-tuning#explainer",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "lti-stability-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lti-stability-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lti-stability#explainer",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "freq-resp-lti-r3-q1",
+      "version": 2
+    },
+    {
+      "id": "freq-resp-lti#explainer",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "nyquist-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "nyquist#explainer",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "uncertainty-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "uncertainty#explainer",
+      "version": 2
+    },
+    {
+      "id": "loop-margin-design-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "loop-margin-design#explainer",
       "version": 1
     }
   ]

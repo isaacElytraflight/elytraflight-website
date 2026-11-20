@@ -6,14 +6,10 @@
     "discrete-time",
     "equilibria",
     "feedforward",
-    "freq-resp-lti",
     "gen-gain-phase",
     "inner-products",
     "limit-cycles",
-    "loop-margin-design",
-    "lti-stability",
     "min-phase",
-    "nyquist",
     "perf-specs-freq",
     "pid-impl",
     "rayleigh-quotient",
@@ -23,7 +19,6 @@
     "ss-solution",
     "ss-to-tf",
     "state-space-model",
-    "uncertainty",
     "vector-norms-lp"
   ]
 }
