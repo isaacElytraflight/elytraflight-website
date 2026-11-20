@@ -1619,7 +1619,7 @@ function setScope(ids, opts) {
 
 function refreshAll() {
   document.querySelectorAll('.tile[data-id]').forEach(refreshTile);
-  renderStats(); renderPlanBadge();
+  renderStats();
   $('qCount').textContent = queue().length;
   document.querySelectorAll('[data-ct]').forEach(e => {
     const box = boxById[e.dataset.ct];
@@ -2309,11 +2309,10 @@ function openHelp() {
     el('li', {}, el('b', { text: 'Rounds 2–4 ' }), 'are mastery challenges: 3 questions, get at least 2 right to move up. Round 2 is harder, round 3 hunts for gotchas, round 4 applies the skill to what comes next. An expression, an ordering, a flawed step, or a select-all question is simply right or wrong.'),
     el('li', {}, 'Missing a challenge never costs a tier. Retry any time.'),
     el('li', {}, 'The mastery queue lists unmastered skills, least recently practiced first. Learn broadly first; come back for mastery.'),
-    el('li', {}, el('b', { text: 'To-do list ' }), 'is your own ordered notebook of skills and mastery challenges. Add them from a skill, or queue the next learning session in the current scope. Each line shows the step that skill is on — 0 → P, P → 1, 1 → 2, or 2 → 👑 — and drops off once you finish that step. Lines stay until you remove them, including when you change which courses are focused. It is saved with your progress.'),
-    el('li', {}, el('b', { text: 'Exam dates ' }), 'spread the remaining learning-plan sessions for one course, or for skills you choose, across the days before that date. The notebook shows the countdown and the skills assigned to today. You can keep more than one date, and edit or remove any of them. Queueing the next session still follows the courses in the address bar.'),
+    el('li', {}, el('b', { text: 'To-do list ' }), 'is your own ordered notebook of skills and mastery challenges. Add them from a skill, or queue the next session from the plan. Each line shows the step that skill is on — 0 → P, P → 1, 1 → 2, or 2 → 👑 — and drops off once you finish that step. Lines stay until you remove them, including when you change which courses are focused. It is saved with your progress.'),
     el('li', {}, 'Prerequisites are guidance, not locks. A new skill glows "ready" once all its prerequisites are at Level 2 or Mastered (prerequisites that are still coming soon are ignored). Lines show what leads to what; click a tile to highlight them.'),
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
-    el('li', {}, el('b', { text: 'Learning plan ' }), 'simulates sessions (practice every ready skill, one mastery challenge per unmastered skill) to estimate how many sessions and how much time it takes to master everything playable. It learns how fast you are from your own timed quizzes.'),
+    el('li', {}, el('b', { text: 'Plan ' }), 'opens from the notebook and holds the session simulation together with your exam dates. A simulated session practices every ready skill and takes one mastery challenge on every skill that is not yet mastered, then repeats until everything playable in the focused courses is mastered. Minutes come from your own timed quizzes. Each exam date spreads the remaining sessions for one course, or for skills you choose, across the days before the exam. The notebook shows the countdown and the skills assigned to today, and opens this plan. Queueing uses the nearest upcoming exam: the earliest date still ahead, and if two exams share that date, the one saved first. It queues that exam\'s skills for today. If that exam assigns nothing today, or no exam is still ahead, the next session of the focused courses is queued instead.'),
     el('li', {}, el('b', { text: 'Courses ' }), 'is select-all-that-apply. The address bar focus parameter is that list (for example ?focus=me132,nlo). A link with focus uses that list, and a visit with no focus parameter restores your last choice. A new profile starts with nothing focused. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. The grid lists only the chapters in that selection. With every course selected, or with nothing selected yet, the grid keeps every chapter, the same way the tree does. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
     el('li', {}, el('b', { text: 'Group by course ' }), 'is on when you have not chosen a layout. It draws each selected course and chapter as a colored region around its skills. Regions overlap where boxes share skills, and Ungroup returns to one prerequisite tree. A layout you choose is remembered on this device.'),
     el('li', {}, el('b', { text: 'Flag a question ' }), 'if the answer seems wrong, the wording is unclear, there is a typo, or the figure is off. A comment is optional.'),
@@ -2541,17 +2540,26 @@ function runPlan(scratch, scope) {
 }
 
 function renderPlanBadge() {
-  const b = $('planCount'); if (!b) return;
+  const b = $('planCount');
+  const btn = $('todoPlan');
+  if (!b || !btn) return;
   const scope = scopeForPlan();
+  let detail = 'Plan';
   if (Array.isArray(scope) && scope.length === 0) {
     b.textContent = '–';
-    $('btnPlan').title = 'No boxes selected — choose courses or chapters to plan';
-    return;
+    detail = 'No boxes selected — choose courses or chapters to plan';
+  } else {
+    const r = runPlan(false, scope);
+    b.textContent = r.ok ? (r.sessions ? String(r.sessions) : '✓') : '?';
+    const where = scope == null ? '' : ` in ${scopeName(scope)}`;
+    detail = r.ok
+      ? (r.sessions
+        ? `About ${r.sessions} more learning session${r.sessions === 1 ? '' : 's'} (~${Sim.fmtDuration(r.totalMinutes)}) to master the ${r.scope} playable skills${where}`
+        : `All ${r.scope} playable skills${where} are mastered — nothing left to plan`)
+      : 'Plan';
   }
-  const r = runPlan(false, scope);
-  b.textContent = r.ok ? (r.sessions ? r.sessions : '✓') : '?';
-  const where = scope == null ? '' : ` in ${scopeName(scope)}`;
-  $('btnPlan').title = r.ok ? (r.sessions ? `About ${r.sessions} more learning session${r.sessions === 1 ? '' : 's'} (~${Sim.fmtDuration(r.totalMinutes)}) to master the ${r.scope} playable skills${where} — click for the plan` : `All ${r.scope} playable skills${where} are mastered — nothing left to plan`) : 'Learning plan';
+  btn.title = detail;
+  btn.setAttribute('aria-label', detail === 'Plan' ? 'Plan' : 'Plan. ' + detail);
 }
 
 const TIER_COL = ['#d5dae6', '#ffd36b', '#8bd36b', '#3cb6c9', '#7c6cff'];
@@ -2675,7 +2683,7 @@ function estimateCaption(k, label) {
   return `Using default ${Sim.DEFAULT_MIN} min per ${unit}. Your own average replaces it after ${m.need} timed quizzes (${m.n} so far).`;
 }
 
-function openPlan() {
+function openPlan(opts) {
   const body = el('div', { id: 'planBody' });
   const results = el('div', { id: 'planResults' });
   const refreshNotes = () => {
@@ -2699,8 +2707,16 @@ function openPlan() {
   };
   body.append(el('div', { class: 'ests' }, mkInp('practice', 'estPractice', 'estNoteP', 'estResetP', 'Minutes per new-skill practice quiz'), mkInp('challenge', 'estChallenge', 'estNoteC', 'estResetC', 'Minutes per mastery challenge')));
   body.append(results);
-  openModal({ title: 'Learning plan — how many sessions to master everything?', body, actions: [{ label: 'Close', kind: 'primary' }], wide: true });
+  body.append(el('section', { id: 'planExams', 'aria-labelledby': 'planExamsHead' },
+    el('h3', { class: 'ph', id: 'planExamsHead', text: 'Exam dates' }),
+    el('p', { class: 'pintro', id: 'planExamNote', text: 'Each date spreads the remaining sessions for one course, or for skills you choose, across the days before the exam. The notebook shows the countdown and today\'s skills, and opens this plan. Queueing uses the nearest upcoming exam: the earliest date still ahead, and if two exams share that date, the one saved first. It queues that exam\'s skills for today. If that exam assigns nothing today, or no exam is still ahead, the next session of the focused courses is queued instead.' }),
+    el('div', { id: 'planExamList' }),
+    el('button', { type: 'button', class: 'btn', id: 'planAddExam', 'aria-controls': 'planExamEditor', 'aria-expanded': 'false', onclick: () => showExamEditor(null) }, 'Add exam date'),
+    el('div', { id: 'planExamEditor', hidden: true })));
+  openModal({ title: 'Plan', body, actions: [{ label: 'Close', kind: 'primary' }], wide: true });
   refreshNotes(); $('planScopeNote').textContent = scopeNoteText(); setScratch(planState.scratch);
+  refreshPlanExams();
+  if (opts && Object.prototype.hasOwnProperty.call(opts, 'exam')) showExamEditor(opts.exam);
 }
 
 /* ====================== export / import / reset ====================== */
@@ -2917,22 +2933,65 @@ function openTodoItem(item) {
   if (quizOpen) closeQuizUI();
   selectSkill(item.id, true);
 }
-function queueNextSession() {
-  const scope = scopeForPlan();
-  if (Array.isArray(scope) && scope.length === 0) { toast('Pick at least one course before queueing a session.'); return 0; }
-  const plan = runPlan(false, scope);
-  const row = plan && plan.ok && plan.rows && plan.rows[0];
-  if (!row) { toast('Nothing left to queue in this learning plan.'); return 0; }
-  const soon = new Set(skills.filter(s => !isPlayable(s.id)).map(s => s.id));
-  const items = window.SkillgroveMigrate.sessionTodoItems(row, soon).filter(it => byId[it.id]).map(it => ({ type: it.type, id: it.id, from: tierOf(it.id) }));
+/* Queue rule for the one plan:
+   Upcoming exams are dates that are today or still ahead (examView.days >= 0).
+   The nearest one supplies today's skills, using the same day-spreading as the
+   notebook (examView.today). If two exams are the same number of days away,
+   the one earlier in the saved list wins, then the smaller id.
+   If that exam assigns nothing today, or every saved exam is already past,
+   queue the first simulated session of the focused courses instead.
+   Coming-soon skills are omitted. appendTodo skips lines already on the list. */
+function nearestUpcomingExam(today) {
+  today = today || Sim.localISODate(new Date());
+  const ranked = [];
+  examsNow().forEach((exam, index) => {
+    const view = examView(exam, today);
+    if (view.days == null || view.days < 0) return;
+    ranked.push({ exam, view, index });
+  });
+  ranked.sort((a, b) => a.view.days - b.view.days || a.index - b.index || String(a.exam.id).localeCompare(String(b.exam.id)));
+  return ranked[0] || null;
+}
+function todoItemsFromPairs(pairs) {
+  const soon = soonIdSet();
+  const items = [];
+  (pairs || []).forEach(it => {
+    if (!it || (it.type !== 'skill' && it.type !== 'challenge') || !byId[it.id] || soon.has(it.id)) return;
+    items.push({ type: it.type, id: it.id, from: tierOf(it.id) });
+  });
+  return items;
+}
+function commitQueuedItems(items, source) {
+  if (!items.length) return null;
   const res = window.SkillgroveMigrate.appendTodo(progress.todo, items);
   if (!res.added) { toast('Those items are already on your to-do list.'); return 0; }
   progress.todo = res.todo;
   saveProgress();
   renderTodo();
   if (panelOpen()) renderPanel();
-  toast(`Added ${res.added} item${res.added === 1 ? '' : 's'} from the next learning session.`);
+  const noun = res.added === 1 ? 'item' : 'items';
+  toast(source === 'exam' ? `Added ${res.added} ${noun} from today's exam plan.` : `Added ${res.added} ${noun} from the next learning session.`);
   return res.added;
+}
+function queueNextSession() {
+  const choice = nearestUpcomingExam();
+  if (choice && choice.view.today.length) {
+    const examItems = todoItemsFromPairs(choice.view.today);
+    if (examItems.length) {
+      const queued = commitQueuedItems(examItems, 'exam');
+      return queued == null ? 0 : queued;
+    }
+  }
+  const scope = scopeForPlan();
+  if (Array.isArray(scope) && scope.length === 0) { toast('Pick at least one course before queueing a session.'); return 0; }
+  const plan = runPlan(false, scope);
+  const row = plan && plan.ok && plan.rows && plan.rows[0];
+  if (!row) { toast('Nothing left to queue in this learning plan.'); return 0; }
+  const soon = soonIdSet();
+  const items = window.SkillgroveMigrate.sessionTodoItems(row, soon).filter(it => byId[it.id]).map(it => ({ type: it.type, id: it.id, from: tierOf(it.id) }));
+  const queued = commitQueuedItems(items, 'plan');
+  if (queued == null) { toast('Nothing left to queue in this learning plan.'); return 0; }
+  return queued;
 }
 function todoAddButton(type, id, opts) {
   opts = opts || {};
@@ -2991,10 +3050,9 @@ function bindTodoGrip(grip, from) {
     grip.addEventListener('pointercancel', up);
   });
 }
-/* Exam dates live on the progress object so they sync with everything else.
-   The notebook shows each countdown and the skills assigned to today. Those
-   lines are computed from the learning plan; they are not written into the
-   to-do list, so a focus change cannot clear them or the lines you added. */
+/* Exam dates stay on progress.exams and are edited in the plan. Notebook cards
+   (#todoExams) are a read-only summary that opens the plan. They are computed,
+   not written into the to-do list, so a focus change cannot clear them. */
 function newExamId() {
   return 'ex-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
 }
@@ -3011,6 +3069,7 @@ function saveExam(exam) {
   progress.exams = list;
   saveProgress();
   renderTodo();
+  refreshPlanExams();
 }
 function addExamRecord(spec) {
   const exam = window.SkillgroveMigrate.normalizeExam(Object.assign({ id: newExamId() }, spec || {}));
@@ -3031,7 +3090,10 @@ function removeExam(id) {
   if (next.length === examsNow().length) return false;
   progress.exams = next;
   saveProgress();
+  const editor = $('planExamEditor');
+  if (editor && editor.dataset.examId === id) hideExamEditor();
   renderTodo();
+  refreshPlanExams();
   toast('Exam date removed.');
   return true;
 }
@@ -3142,12 +3204,22 @@ function examView(exam, today) {
     ok: !!(plan && plan.ok)
   };
 }
-function renderExamCard(exam) {
+function renderExamCard(exam, opts) {
+  opts = opts || {};
   const view = examView(exam);
   const card = el('div', { class: 'todo-exam', 'data-exam': exam.id, 'data-days': String(view.days), 'data-today': String(view.today.length) });
-  card.append(el('div', { class: 'todo-exam-top' },
-    el('span', { class: 'todo-exam-name', text: view.label, title: view.label }),
-    el('span', { class: 'todo-exam-count', text: view.countdown })));
+  const nameEl = el('span', { class: 'todo-exam-name', text: view.label, title: view.label });
+  const countEl = el('span', { class: 'todo-exam-count', text: view.countdown });
+  if (opts.summary) {
+    card.append(el('button', {
+      type: 'button',
+      class: 'todo-exam-open',
+      'aria-label': view.label + ', ' + view.countdown + '. Open the plan',
+      onclick: () => openPlan()
+    }, nameEl, countEl));
+  } else {
+    card.append(el('div', { class: 'todo-exam-top' }, nameEl, countEl));
+  }
   const when = formatExamDate(exam.date);
   const left = view.sessions ? view.sessions + ' session' + (view.sessions === 1 ? '' : 's') + ' left' : 'nothing left';
   card.append(el('div', { class: 'todo-exam-meta', text: (when ? when + ' · ' : '') + left }));
@@ -3174,12 +3246,42 @@ function renderExamCard(exam) {
     today.append(el('span', { class: 'todo-exam-rest', text: text }));
   }
   card.append(today);
-  card.append(el('div', { class: 'todo-exam-actions' },
-    el('button', { type: 'button', class: 'todo-exam-edit', onclick: () => openExamEditor(exam) }, 'Edit'),
-    el('button', { type: 'button', class: 'todo-exam-remove', 'aria-label': 'Remove ' + view.label, onclick: () => removeExam(exam.id) }, 'Remove')));
+  if (!opts.summary) {
+    card.append(el('div', { class: 'todo-exam-actions' },
+      el('button', { type: 'button', class: 'todo-exam-edit', onclick: () => showExamEditor(exam) }, 'Edit'),
+      el('button', { type: 'button', class: 'todo-exam-remove', 'aria-label': 'Remove ' + view.label, onclick: () => removeExam(exam.id) }, 'Remove')));
+  }
   return card;
 }
-function openExamEditor(existing) {
+function refreshPlanExams() {
+  const list = $('planExamList');
+  if (!list) return;
+  list.innerHTML = '';
+  const exams = examsNow();
+  if (!exams.length) {
+    list.append(el('p', { class: 'kv', id: 'planExamEmpty', text: 'No exam dates yet.' }));
+    return;
+  }
+  exams.forEach(exam => list.append(renderExamCard(exam)));
+}
+function syncExamEditorOpen() {
+  const btn = $('planAddExam');
+  const editor = $('planExamEditor');
+  if (btn && editor) btn.setAttribute('aria-expanded', editor.hidden ? 'false' : 'true');
+}
+function hideExamEditor() {
+  const editor = $('planExamEditor');
+  if (!editor) return;
+  editor.hidden = true;
+  editor.innerHTML = '';
+  delete editor.dataset.examId;
+  syncExamEditorOpen();
+}
+function showExamEditor(existing) {
+  if (!$('planExamEditor')) {
+    openPlan({ exam: existing || null });
+    return;
+  }
   const id = existing ? existing.id : newExamId();
   const skillsMode = !!(existing && !existing.box && existing.skills && existing.skills.length);
   const boxWrap = el('label', { class: 'exam-field', id: 'examBoxWrap', hidden: skillsMode }, 'Course');
@@ -3232,8 +3334,9 @@ function openExamEditor(existing) {
   modeSkills.addEventListener('change', syncMode);
   const err = el('p', { id: 'examError', class: 'auth-msg error', hidden: true });
   const save = el('button', { type: 'button', class: 'btn primary', id: 'examSave', onclick: () => commitExam(id) }, 'Save exam date');
+  const cancel = el('button', { type: 'button', class: 'btn', id: 'examCancel', onclick: () => hideExamEditor() }, 'Cancel');
   const body = el('div', { class: 'exam-form' },
-    el('p', { class: 'pintro', text: 'Pick a course, or the skills you want ready for the exam. The notebook spreads the remaining learning-plan sessions across the days before that date and lists what is assigned today. Lines you add yourself stay until you remove them.' }),
+    el('p', { class: 'pintro', text: 'Pick a course, or the skills you want ready for the exam. This plan spreads the remaining sessions across the days before that date and lists what is assigned today. The notebook shows the same countdown. Lines you add yourself stay until you remove them.' }),
     el('label', { class: 'exam-field', text: 'Name (optional)' }, el('input', { type: 'text', id: 'examLabel', maxlength: '80', value: (existing && existing.label) || '' })),
     el('div', { class: 'exam-modes', role: 'radiogroup', 'aria-label': 'What the exam covers' },
       el('label', {}, modeBox, 'A course'),
@@ -3242,10 +3345,21 @@ function openExamEditor(existing) {
     skillWrap,
     el('label', { class: 'exam-field', text: 'Exam date' }, el('input', { type: 'date', id: 'examDate', value: (existing && existing.date) || '', required: true })),
     err,
-    save);
-  openModal({ title: existing ? 'Edit exam date' : 'Add exam date', body, actions: [{ label: 'Cancel' }] });
+    el('div', { class: 'exam-actions' }, save, cancel));
+  const host = $('planExamEditor');
+  host.hidden = false;
+  host.innerHTML = '';
+  host.dataset.examId = id;
+  host.setAttribute('role', 'group');
+  host.setAttribute('aria-label', existing ? 'Edit exam date' : 'Add exam date');
+  host.append(body);
+  syncExamEditorOpen();
   const name = $('examLabel');
-  if (name) name.focus();
+  if (name) {
+    name.addEventListener('keydown', e => { if (e.key === 'Enter') e.preventDefault(); });
+    name.focus();
+  }
+  host.scrollIntoView({ block: 'nearest' });
 }
 function commitExam(id) {
   const skillsMode = $('examModeSkills').checked;
@@ -3260,7 +3374,7 @@ function commitExam(id) {
     return;
   }
   saveExam(exam);
-  closeModal();
+  hideExamEditor();
   toast('Exam date saved.');
 }
 function renderTodo() {
@@ -3327,14 +3441,18 @@ function renderTodo() {
   let examsEl = null;
   if (examList.length) {
     examsEl = el('div', { class: 'todo-exams', id: 'todoExams' });
-    examList.forEach(exam => examsEl.append(renderExamCard(exam)));
+    examList.forEach(exam => examsEl.append(renderExamCard(exam, { summary: true })));
   }
   const actions = el('div', { class: 'todo-actions' },
-    el('button', { type: 'button', class: 'btn todo-queue', id: 'todoAddExam', onclick: () => openExamEditor(null) }, 'Add exam date'),
+    el('button', {
+      type: 'button', class: 'btn todo-queue', id: 'todoPlan', title: 'Plan',
+      'aria-haspopup': 'dialog', onclick: () => openPlan()
+    }, 'Plan ', el('span', { class: 'badge pl', id: 'planCount', text: '–' })),
     el('button', { type: 'button', class: 'btn todo-queue', id: 'todoQueueSession', onclick: queueNextSession }, 'Queue up next learning session'));
   host.append(head, spiral);
   if (examsEl) host.append(examsEl);
   host.append(paper, actions);
+  renderPlanBadge();
 }
 
 /* ====================== profile ====================== */
@@ -4204,7 +4322,6 @@ async function init() {
   $('btnExport').onclick = () => exportProgress();
   $('btnImport').onclick = () => $('fileIn').click();
   $('fileIn').onchange = e => { const f = e.target.files[0]; if (f) importFile(f); e.target.value = '' };
-  $('btnPlan').onclick = openPlan;
   $('btnReset').onclick = () => resetProgress();
   $('btnQueue').onclick = openQueue;
   $('btnHelp').onclick = openHelp;

@@ -966,7 +966,7 @@ async function test(name, fn) {
       'lti-def': { tier: 2, lastPracticed: now - 2 * DAY, history: [] }
     }));
     await p.evaluate(() => document.getElementById('scopeAll').click());
-    await p.click('#btnPlan');
+    await p.click('#todoPlan');
     await sleep(500);
     assert(await p.$('#planSessions'));
     assert(await p.$('#minChart'));
@@ -1894,7 +1894,7 @@ async function test(name, fn) {
     assert(/AC Circuits and AC Analysis/.test(options[ch2At].text), options[ch2At].text);
     assert.strictEqual(options.length, NBOX);
 
-    await p.click('#btnPlan');
+    await p.click('#todoPlan');
     await sleep(400);
     const allSkillsSessions = await p.$eval('#planSessions', e => parseInt(e.textContent, 10));
     assert(allSkillsSessions > 0, 'all skills should have sessions');
@@ -1929,7 +1929,7 @@ async function test(name, fn) {
     assert.strictEqual(filterResult.tileCount, NSKILL, 'out-of-scope skills stay on the tree');
     assert.deepStrictEqual(filterResult.drawn, ['ee105-ch2']);
 
-    await p.click('#btnPlan');
+    await p.click('#todoPlan');
     await sleep(400);
     const ch2Plan = await p.evaluate(() => ({
       sessions: parseInt(document.getElementById('planSessions').textContent, 10),
@@ -2186,7 +2186,7 @@ async function test(name, fn) {
     
     if (prereqTest.hasExtras) {
       await pickBoxes(p, ['ee105-ch2']);
-      await p.click('#btnPlan');
+      await p.click('#todoPlan');
       await sleep(400);
       
       const extrasNote = await p.$('#planExtras');
@@ -2624,7 +2624,7 @@ async function test(name, fn) {
       assert(!drawn.regions.includes(id));
     });
 
-    await p.click('#btnPlan');
+    await p.click('#todoPlan');
     await sleep(400);
     const note = await p.$eval('#planScopeNote', e => e.textContent);
     assert(/Microelectronic devices and circuits/.test(note) && /Dynamic systems and feedback/.test(note), note);
@@ -2644,7 +2644,7 @@ async function test(name, fn) {
     assert.strictEqual(none.dimmed, NSKILL);
     assert.deepStrictEqual(none.scope, []);
     assert.strictEqual(none.tiles, NSKILL);
-    await p.click('#btnPlan');
+    await p.click('#todoPlan');
     await sleep(300);
     const empty = await p.$eval('#planEmpty', e => e.textContent);
     assert(/No boxes selected/.test(empty));
@@ -4746,15 +4746,21 @@ async function test(name, fn) {
       const today = Sim.localISODate(new Date());
       return { today, course: Sim.addISODays(today, 6), soon: Sim.addISODays(today, 1) };
     });
-    await p.click('#todoAddExam');
+    await p.click('#todoPlan');
+    await sleep(250);
+    assert.strictEqual(await p.$eval('#modal h2', e => e.textContent), 'Plan');
+    assert(await p.$('#planExamList'), 'the plan view includes the exam list');
+    await p.click('#planAddExam');
     await sleep(200);
-    assert.strictEqual(await p.$eval('#modal h2', e => e.textContent), 'Add exam date');
+    assert.strictEqual(await p.$eval('#planExamEditor', e => e.getAttribute('aria-label')), 'Add exam date');
     assert.strictEqual(await p.evaluate(() => document.activeElement && document.activeElement.id), 'examLabel');
     await p.keyboard.press('Enter');
-    assert.strictEqual(await p.$eval('#modal h2', e => e.textContent), 'Add exam date', 'Enter in the name field keeps the editor open');
+    assert.strictEqual(await p.$eval('#planExamEditor', e => e.getAttribute('aria-label')), 'Add exam date', 'Enter in the name field keeps the editor open');
+    assert.strictEqual(await p.$eval('#modal h2', e => e.textContent), 'Plan', 'the exam editor stays inside the plan');
     await p.select('#examBox', 'me132');
     await p.type('#examLabel', 'Checkpoint');
     await p.$eval('#examDate', (el, v) => { el.value = v; }, when.course);
+    await p.$eval('#examLabel', el => el.scrollIntoView({ block: 'center' }));
     await p.screenshot({ path: '/opt/cursor/artifacts/exam-date-form.png' });
     await p.click('#examSave');
     await sleep(300);
@@ -4795,9 +4801,12 @@ async function test(name, fn) {
     assert.deepStrictEqual(manual, [], 'assigning an exam does not write the to-do list');
     const examMax = await p.evaluate(() => getComputedStyle(document.getElementById('todoExams')).maxHeight);
     assert(/^\d+(\.\d+)?px$/.test(examMax) && parseFloat(examMax) <= 240, 'exam list has a real height cap: ' + examMax);
+    await p.keyboard.press('Escape');
+    await sleep(200);
     await p.screenshot({ path: '/opt/cursor/artifacts/exam-date-today.png' });
-
-    await p.click('.todo-exam-edit');
+    await p.click('#todoPlan');
+    await sleep(250);
+    await p.click('#planExamList .todo-exam-edit');
     await sleep(200);
     assert.strictEqual(await p.$eval('#examLabel', e => e.value), 'Checkpoint');
     assert.strictEqual(await p.$eval('#examBox', e => e.value), 'me132');
@@ -4819,7 +4828,7 @@ async function test(name, fn) {
     assert(edited.n >= course.today.length, 'a nearer date packs at least as much into today');
     assert.strictEqual(edited.covers, true, 'today still includes the skills that were already due');
 
-    await p.click('#todoAddExam');
+    await p.click('#planAddExam');
     await sleep(200);
     await p.evaluate(() => {
       const r = document.getElementById('examModeSkills');
@@ -4838,12 +4847,13 @@ async function test(name, fn) {
     await p.$eval('#examDate', (el, v) => { el.value = v; }, when.soon);
     await p.click('#examSave');
     await sleep(300);
-    assert.strictEqual(await p.$$eval('.todo-exam', els => els.length), 2, 'more than one exam can be saved');
+    assert.strictEqual(await p.$$eval('#todoExams .todo-exam', els => els.length), 2, 'more than one exam can be saved');
+    assert.strictEqual(await p.$$eval('#planExamList .todo-exam', els => els.length), 2, 'the plan lists every exam date');
     const skillsExam = await p.evaluate(() => {
       const list = window.__skillgrove.exams.list();
       const exam = list[1];
       const view = window.__skillgrove.exams.view(exam.id);
-      const challenges = [...document.querySelectorAll('.todo-exam:last-child .todo-exam-skill[data-type="challenge"]')].map(b => b.dataset.id);
+      const challenges = [...document.querySelectorAll('#todoExams .todo-exam:last-child .todo-exam-skill[data-type="challenge"]')].map(b => b.dataset.id);
       return { skills: exam.skills, challenges, countdown: view.countdown };
     });
     assert.deepStrictEqual(skillsExam.skills, ['bode', 'tf']);
@@ -4851,14 +4861,21 @@ async function test(name, fn) {
     assert(skillsExam.challenges.includes('bode') && skillsExam.challenges.includes('tf'), skillsExam.challenges.join(','));
     assert(skillsExam.challenges.indexOf('bode') < skillsExam.challenges.indexOf('tf'), 'the less recent skill comes first');
 
-    await p.click('.todo-exam-remove');
+    await p.click('#planExamList .todo-exam-remove');
     await sleep(200);
-    assert.strictEqual(await p.$$eval('.todo-exam', els => els.length), 1);
+    assert.strictEqual(await p.$$eval('#todoExams .todo-exam', els => els.length), 1);
+    assert.strictEqual(await p.$$eval('#planExamList .todo-exam', els => els.length), 1);
     assert.deepStrictEqual((await p.evaluate(() => window.__skillgrove.exams.list())).map(e => e.skills), [['bode', 'tf']]);
     await p.reload({ waitUntil: 'networkidle0' });
     await sleep(500);
     assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.exams.list().map(e => e.skills)), [['bode', 'tf']]);
-    await p.click('.todo-exam-skill');
+    await p.click('#todoExams .todo-exam-open');
+    await sleep(300);
+    assert.strictEqual(await p.$eval('#modal h2', e => e.textContent), 'Plan', 'a notebook exam card opens the plan');
+    assert.strictEqual(await p.$$eval('#planExamList .todo-exam', els => els.length), 1);
+    await p.keyboard.press('Escape');
+    await sleep(150);
+    await p.click('#todoExams .todo-exam-skill');
     await sleep(300);
     assert.strictEqual(await p.$eval('#panel', e => e.classList.contains('open')), true, 'a today skill opens that skill');
 
@@ -4872,13 +4889,281 @@ async function test(name, fn) {
     const added = await p.evaluate(() => window.__skillgrove.todo.queueSession());
     const after = await p.evaluate(() => window.__skillgrove.todo.list());
     assert.strictEqual(after[0].id, 'lti-def', 'a focus change does not remove to-do items');
-    assert(added > 0, 'queueing still follows the focused course');
-    const planIds = await p.evaluate(() => {
+    assert(added > 0, 'queueing an upcoming exam adds that exam\'s skills for today');
+    const todayKeys = await p.evaluate(() => {
+      const exam = window.__skillgrove.exams.list()[0];
+      return window.__skillgrove.exams.view(exam.id).today.map(it => ({ type: it.type, id: it.id }));
+    });
+    const expectedQueue = todayKeys.filter(it => !(it.type === 'skill' && it.id === 'lti-def'));
+    assert.deepStrictEqual(after.slice(1).map(it => ({ type: it.type, id: it.id })), expectedQueue);
+    assert.strictEqual(after.filter(it => it.type === 'skill' && it.id === 'lti-def').length, 1, 'a skill already on the list is not queued twice');
+    todayKeys.forEach(it => assert(after.some(row => row.type === it.type && row.id === it.id), it.id + ' from today should be on the list'));
+    const focusedIds = await p.evaluate(() => {
       const row = window.__skillgrove.plan(false).rows[0];
       return row.practiced.concat(row.challenges.map(c => c.id));
     });
-    after.slice(1).forEach(it => assert(planIds.includes(it.id), it.id + ' should come from the focused plan'));
+    const queuedIds = after.slice(1).map(it => it.id);
+    assert.notDeepStrictEqual(queuedIds, focusedIds, 'an upcoming exam is queued ahead of the focused course');
     assert.strictEqual(await p.evaluate(() => window.__skillgrove.exams.list().length), 1, 'queueing does not drop exam dates');
+    await p._ctx.close();
+  });
+
+  await test('the plan button sits in the notebook and opens one view', async () => {
+    const p = await newPage();
+    assert.strictEqual(await p.$('#btnPlan'), null, 'the header learning-plan button is gone');
+    assert.strictEqual(await p.$('header #planCount'), null);
+    const place = await p.evaluate(() => {
+      const btn = document.getElementById('todoPlan');
+      return {
+        inActions: !!(btn && btn.closest('.todo-actions')),
+        text: btn ? btn.textContent.replace(/\s+/g, ' ').trim() : '',
+        popup: btn && btn.getAttribute('aria-haspopup'),
+        queue: !!document.getElementById('todoQueueSession'),
+        addExam: !!document.getElementById('todoAddExam')
+      };
+    });
+    assert.strictEqual(place.inActions, true, 'the plan button sits in the notebook actions');
+    assert(/^Plan\b/.test(place.text), place.text);
+    assert.strictEqual(place.popup, 'dialog');
+    assert.strictEqual(place.queue, true);
+    assert.strictEqual(place.addExam, false, 'add-exam is no longer a separate notebook button');
+    await p.evaluate(() => document.getElementById('scopeAll').click());
+    await sleep(150);
+    await p.click('#todoPlan');
+    await sleep(400);
+    const view = await p.evaluate(() => ({
+      title: document.querySelector('#modal h2').textContent,
+      charts: !!document.getElementById('minChart') && !!document.getElementById('tierChart') && !!document.getElementById('planTable'),
+      sessions: !!document.getElementById('planSessions'),
+      add: (document.getElementById('planAddExam') || {}).textContent,
+      list: !!document.getElementById('planExamList'),
+      note: document.getElementById('planExamNote').textContent
+    }));
+    assert.strictEqual(view.title, 'Plan');
+    assert.strictEqual(view.charts, true, 'the unified view keeps the learning-plan charts and table');
+    assert.strictEqual(view.sessions, true);
+    assert.strictEqual(view.add, 'Add exam date');
+    assert.strictEqual(view.list, true);
+    assert(/nearest upcoming exam/i.test(view.note), view.note);
+    await p.click('#planAddExam');
+    await sleep(200);
+    const editor = await p.evaluate(() => ({
+      charts: !!document.getElementById('minChart') && !!document.getElementById('tierChart'),
+      label: document.getElementById('planExamEditor').getAttribute('aria-label'),
+      date: !!document.getElementById('examDate'),
+      save: !!document.getElementById('examSave'),
+      box: !!document.getElementById('examBox'),
+      title: document.querySelector('#modal h2').textContent
+    }));
+    assert.strictEqual(editor.title, 'Plan', 'adding an exam stays in the plan view');
+    assert.strictEqual(editor.charts, true);
+    assert.strictEqual(editor.label, 'Add exam date');
+    assert.strictEqual(editor.date, true);
+    assert.strictEqual(editor.save, true);
+    assert.strictEqual(editor.box, true);
+    await p.$eval('#examBox', el => { el.value = 'me132'; });
+    await p.type('#examLabel', 'Midterm');
+    const when = await p.evaluate(() => window.SkillSim.addISODays(window.SkillSim.localISODate(new Date()), 4));
+    await p.$eval('#examDate', (el, v) => { el.value = v; }, when);
+    await p.click('#examSave');
+    await sleep(250);
+    assert.strictEqual(await p.$('#examLabel'), null, 'saving keeps the plan open and closes the editor');
+    assert.strictEqual(await p.$eval('#planExamList .todo-exam-name', e => e.textContent), 'Midterm');
+    await p.click('#planExamList .todo-exam-edit');
+    await sleep(150);
+    assert.strictEqual(await p.$eval('#planExamEditor', e => e.getAttribute('aria-label')), 'Edit exam date');
+    assert.strictEqual(await p.$eval('#examLabel', e => e.value), 'Midterm');
+    assert(await p.$('#minChart'), 'editing an exam leaves the charts in the same view');
+    await p.keyboard.press('Escape');
+    await sleep(100);
+    await p.click('#btnHelp');
+    await sleep(200);
+    const help = await p.$eval('#modal', e => e.textContent);
+    assert(/nearest upcoming exam/i.test(help));
+    assert(!/still follows the courses in the address bar/i.test(help));
+    assert(!/ignores exam/i.test(help));
+    const tip = await p.evaluate(() => document.getElementById('todoPlan').title);
+    assert(!/ignores exam/i.test(tip), tip);
+    await p._ctx.close();
+  });
+
+  await test('queueing with an upcoming exam pulls that exam\'s skills for today', async () => {
+    assert(ROOTS.length >= 3, 'need three playable roots');
+    const nearSkill = ROOTS[0];
+    const otherSkill = ROOTS[1];
+    const mastered = ROOTS[2];
+    const p = await newPage(T({
+      [mastered]: { tier: 4, lastPracticed: now - DAY, history: [] },
+      bode: { tier: 1, lastPracticed: now - 5 * DAY, history: [] }
+    }));
+    await p.evaluate(() => document.getElementById('scopeAll').click());
+    await sleep(100);
+    const dates = await p.evaluate(() => {
+      const Sim = window.SkillSim;
+      const today = Sim.localISODate(new Date());
+      return {
+        near: Sim.addISODays(today, 1),
+        far: Sim.addISODays(today, 12),
+        past: Sim.addISODays(today, -4),
+        same: Sim.addISODays(today, 3)
+      };
+    });
+    await p.evaluate((dates, nearSkill) => {
+      const ex = window.__skillgrove.exams;
+      ex.add({ id: 'ex-far', date: dates.far, label: 'Far', box: 'me132' });
+      ex.add({ id: 'ex-past', date: dates.past, label: 'Past', skills: ['bode'] });
+      ex.add({ id: 'ex-near', date: dates.near, label: 'Near', skills: [nearSkill] });
+    }, dates, nearSkill);
+    const expected = await p.evaluate(() => window.__skillgrove.exams.view('ex-near').today.map(it => ({ type: it.type, id: it.id })));
+    const farToday = await p.evaluate(() => window.__skillgrove.exams.view('ex-far').today.map(it => it.id));
+    assert(expected.length > 0, 'the nearest exam assigns work today');
+    assert(farToday.length > 0, 'a later exam also has work');
+    await p.click('#todoQueueSession');
+    await sleep(250);
+    const queued = await p.evaluate(() => window.__skillgrove.todo.list().map(it => ({ type: it.type, id: it.id, from: it.from })));
+    assert.deepStrictEqual(queued.map(it => ({ type: it.type, id: it.id })), expected, 'queueing uses the nearest exam\'s skills for today');
+    assert(queued.every(it => Number.isInteger(it.from) && it.from >= 0 && it.from <= 4));
+    assert(!queued.some(it => it.id === 'bode'), 'a past exam does not supply the queue');
+    const farOnly = farToday.filter(id => !expected.some(it => it.id === id));
+    if (farOnly.length) assert(!queued.some(it => farOnly.includes(it.id)), 'a later exam does not add skills the nearest exam left out');
+
+    await p.evaluate((dates, nearSkill, otherSkill) => {
+      const todo = window.__skillgrove.todo;
+      todo.list().forEach(it => todo.remove(it.type, it.id));
+      const ex = window.__skillgrove.exams;
+      ['ex-far', 'ex-past', 'ex-near'].forEach(id => ex.remove(id));
+      ex.add({ id: 'ex-first', date: dates.same, label: 'First', skills: [nearSkill] });
+      ex.add({ id: 'ex-second', date: dates.same, label: 'Second', skills: [otherSkill] });
+    }, dates, nearSkill, otherSkill);
+    const firstToday = await p.evaluate(() => window.__skillgrove.exams.view('ex-first').today.map(it => ({ type: it.type, id: it.id })));
+    const secondToday = await p.evaluate(() => window.__skillgrove.exams.view('ex-second').today.map(it => ({ type: it.type, id: it.id })));
+    assert(firstToday.length > 0 && secondToday.length > 0);
+    assert.notDeepStrictEqual(firstToday, secondToday);
+    assert(await p.evaluate(() => window.__skillgrove.todo.queueSession()) > 0);
+    const tie = await p.evaluate(() => window.__skillgrove.todo.list().map(it => ({ type: it.type, id: it.id })));
+    assert.deepStrictEqual(tie, firstToday, 'when two exams share a date, the one saved first wins');
+
+    await p.evaluate(mastered => {
+      const todo = window.__skillgrove.todo;
+      todo.list().forEach(it => todo.remove(it.type, it.id));
+      const ex = window.__skillgrove.exams;
+      ex.remove('ex-first');
+      ex.remove('ex-second');
+      const Sim = window.SkillSim;
+      ex.add({ id: 'ex-done', date: Sim.addISODays(Sim.localISODate(new Date()), 2), label: 'Done', skills: [mastered] });
+    }, mastered);
+    assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.exams.view('ex-done').today), [], 'a mastered exam assigns nothing today');
+    const planItems = await p.evaluate(() => {
+      const row = window.__skillgrove.plan(false).rows[0];
+      const playable = new Set(window.__skillgrove.playableIds());
+      const items = [];
+      row.practiced.forEach(id => { if (playable.has(id)) items.push({ type: 'skill', id }); });
+      row.challenges.forEach(c => { if (playable.has(c.id)) items.push({ type: 'challenge', id: c.id }); });
+      return items;
+    });
+    assert(planItems.length > 0, 'the focused plan still has a session');
+    assert(await p.evaluate(() => window.__skillgrove.todo.queueSession()) > 0);
+    const backed = await p.evaluate(() => window.__skillgrove.todo.list().map(it => ({ type: it.type, id: it.id })));
+    assert.deepStrictEqual(backed, planItems, 'an upcoming exam with nothing today falls back to the next simulated session');
+    await p._ctx.close();
+  });
+
+  await test('saved exams, scope, and timing load into the plan unchanged', async () => {
+    const seed = T({ bode: { tier: 1, lastPracticed: now - DAY, history: [] } });
+    seed.savedAt = now - DAY;
+    seed.scope = { v: 2, boxes: ['me132'] };
+    seed.exams = [{ id: 'ex-keep', date: '2027-06-01', label: 'Final', box: 'me132' }];
+    const timing = {
+      version: 1,
+      practice: [{ s: 120, t: 1 }, { s: 180, t: 2 }, { s: 240, t: 3 }],
+      challenge: [{ s: 60, t: 4 }, { s: 90, t: 5 }, { s: 120, t: 6 }],
+      override: { practice: 12.5, challenge: null }
+    };
+    const p = await newPage(seed);
+    await p.evaluate((savedTiming, scope) => {
+      localStorage.setItem('skilltree.timing.v1', JSON.stringify(savedTiming));
+      localStorage.setItem('skilltree.planscope.v1', JSON.stringify(scope));
+    }, timing, seed.scope);
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(500);
+    const loaded = await p.evaluate(() => ({
+      exam: window.__skillgrove.exams.list()[0],
+      scope: window.__skillgrove.collections.scope(),
+      storedScope: JSON.parse(localStorage.getItem('skilltree.progress.v1')).scope,
+      mirror: JSON.parse(localStorage.getItem('skilltree.planscope.v1')),
+      override: window.__skillgrove.timing().override
+    }));
+    assert.deepStrictEqual(loaded.exam, { id: 'ex-keep', date: '2027-06-01', label: 'Final', box: 'me132' });
+    assert.deepStrictEqual(loaded.scope, ['me132']);
+    assert.deepStrictEqual(loaded.storedScope, { v: 2, boxes: ['me132'] });
+    assert.deepStrictEqual(loaded.mirror, { v: 2, boxes: ['me132'] });
+    assert.strictEqual(loaded.override.practice, 12.5);
+    assert.strictEqual(loaded.override.challenge, null);
+    await p.click('#todoPlan');
+    await sleep(400);
+    const view = await p.evaluate(() => ({
+      note: document.getElementById('planScopeNote').textContent,
+      practice: document.getElementById('estPractice').value,
+      challenge: document.getElementById('estChallenge').value,
+      label: document.querySelector('#planExamList .todo-exam-name').textContent,
+      date: document.querySelector('#planExamList .todo-exam').getAttribute('data-exam'),
+      charts: !!document.getElementById('minChart') && !!document.getElementById('tierChart')
+    }));
+    assert(/dynamic systems and feedback/i.test(view.note), view.note);
+    assert.strictEqual(view.practice, '12.5');
+    assert.strictEqual(view.challenge, '1.5');
+    assert.strictEqual(view.label, 'Final');
+    assert.strictEqual(view.date, 'ex-keep');
+    assert.strictEqual(view.charts, true);
+
+    const merged = await p.evaluate(() => {
+      const local = JSON.parse(localStorage.getItem('skilltree.progress.v1'));
+      const remote = {
+        version: 1,
+        savedAt: (Number(local.savedAt) || 0) - 1000,
+        skills: {
+          bode: { tier: 2, lastPracticed: Date.now(), history: [] },
+          tf: { tier: 1, lastPracticed: Date.now() - 86400000, history: [] }
+        },
+        scope: { v: 2, boxes: ['ee105-ucb'] },
+        exams: [{ id: 'ex-remote', date: '2027-07-01', label: 'Quiz', skills: ['tf'] }]
+      };
+      const timingBefore = localStorage.getItem('skilltree.timing.v1');
+      const progress = window.SkillgroveMigrate.combineMigratedProgress(
+        local, remote, window.__skillgrove.retired(), window.SkillgroveAuth.mergeProgress
+      ).progress;
+      localStorage.setItem('skilltree.progress.v1', JSON.stringify(progress));
+      window.__skillgrove.reloadProgress();
+      window.__skillgrove.reloadTiming();
+      window.__skillgrove.refreshAll();
+      return {
+        exams: window.__skillgrove.exams.list(),
+        scope: window.__skillgrove.collections.scope(),
+        timingSame: localStorage.getItem('skilltree.timing.v1') === timingBefore,
+        override: window.__skillgrove.timing().override
+      };
+    });
+    assert.deepStrictEqual(merged.exams, [
+      { id: 'ex-keep', date: '2027-06-01', label: 'Final', box: 'me132' },
+      { id: 'ex-remote', date: '2027-07-01', label: 'Quiz', skills: ['tf'] }
+    ]);
+    assert.deepStrictEqual(merged.scope, ['me132'], 'an older remote scope does not replace the saved focus');
+    assert.strictEqual(merged.timingSame, true, 'merging progress leaves skilltree.timing.v1 alone');
+    assert.strictEqual(merged.override.practice, 12.5);
+    await p.keyboard.press('Escape');
+    await sleep(150);
+    await p.click('#todoPlan');
+    await sleep(400);
+    const again = await p.evaluate(() => ({
+      names: [...document.querySelectorAll('#planExamList .todo-exam-name')].map(e => e.textContent),
+      practice: document.getElementById('estPractice').value,
+      note: document.getElementById('planScopeNote').textContent,
+      charts: !!document.getElementById('minChart')
+    }));
+    assert.deepStrictEqual(again.names, ['Final', 'Quiz']);
+    assert.strictEqual(again.practice, '12.5');
+    assert(/dynamic systems and feedback/i.test(again.note), again.note);
+    assert.strictEqual(again.charts, true);
     await p._ctx.close();
   });
 
