@@ -75,58 +75,6 @@
       "version": 3
     },
     {
-      "id": "min-phase-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "min-phase-r1-q2",
-      "version": 2
-    },
-    {
-      "id": "min-phase-r1-q3",
-      "version": 1
-    },
-    {
-      "id": "min-phase-r2-q1",
-      "version": 2
-    },
-    {
-      "id": "min-phase-r2-q2",
-      "version": 2
-    },
-    {
-      "id": "min-phase-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "min-phase-r3-q1",
-      "version": 1
-    },
-    {
-      "id": "min-phase-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "min-phase-r3-q3",
-      "version": 2
-    },
-    {
-      "id": "min-phase-r4-q1",
-      "version": 2
-    },
-    {
-      "id": "min-phase-r4-q2",
-      "version": 2
-    },
-    {
-      "id": "min-phase-r4-q3",
-      "version": 1
-    },
-    {
-      "id": "min-phase#explainer",
-      "version": 2
-    },
-    {
       "id": "first-order-sys-r1-q2",
       "version": 1
     },
@@ -543,110 +491,6 @@
       "version": 4
     },
     {
-      "id": "feedforward-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "feedforward-r1-q2",
-      "version": 1
-    },
-    {
-      "id": "feedforward-r1-q3",
-      "version": 1
-    },
-    {
-      "id": "feedforward-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "feedforward-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "feedforward-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "feedforward-r3-q1",
-      "version": 1
-    },
-    {
-      "id": "feedforward-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "feedforward-r3-q3",
-      "version": 1
-    },
-    {
-      "id": "feedforward-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "feedforward-r4-q2",
-      "version": 1
-    },
-    {
-      "id": "feedforward-r4-q3",
-      "version": 1
-    },
-    {
-      "id": "feedforward#explainer",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase-r1-q2",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase-r1-q3",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase-r3-q1",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase-r3-q3",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase-r4-q2",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase-r4-q3",
-      "version": 1
-    },
-    {
-      "id": "gen-gain-phase#explainer",
-      "version": 2
-    },
-    {
       "id": "linearization-r1-q2",
       "version": 1
     },
@@ -709,58 +553,6 @@
     {
       "id": "linearization#explainer",
       "version": 3
-    },
-    {
-      "id": "perf-specs-freq-r1-q1",
-      "version": 1
-    },
-    {
-      "id": "perf-specs-freq-r1-q2",
-      "version": 1
-    },
-    {
-      "id": "perf-specs-freq-r1-q3",
-      "version": 1
-    },
-    {
-      "id": "perf-specs-freq-r2-q1",
-      "version": 1
-    },
-    {
-      "id": "perf-specs-freq-r2-q2",
-      "version": 1
-    },
-    {
-      "id": "perf-specs-freq-r2-q3",
-      "version": 1
-    },
-    {
-      "id": "perf-specs-freq-r3-q1",
-      "version": 1
-    },
-    {
-      "id": "perf-specs-freq-r3-q2",
-      "version": 1
-    },
-    {
-      "id": "perf-specs-freq-r3-q3",
-      "version": 1
-    },
-    {
-      "id": "perf-specs-freq-r4-q1",
-      "version": 1
-    },
-    {
-      "id": "perf-specs-freq-r4-q2",
-      "version": 1
-    },
-    {
-      "id": "perf-specs-freq-r4-q3",
-      "version": 1
-    },
-    {
-      "id": "perf-specs-freq#explainer",
-      "version": 2
     },
     {
       "id": "loop-shaping-r1-q1",
@@ -9932,6 +9724,262 @@
     },
     {
       "id": "pid-impl#explainer",
+      "version": 2
+    },
+    {
+      "id": "min-phase-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r1-q2",
+      "version": 2
+    },
+    {
+      "id": "min-phase-r1-q5",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r2-q1",
+      "version": 2
+    },
+    {
+      "id": "min-phase-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r3-q3",
+      "version": 2
+    },
+    {
+      "id": "min-phase-r4-q1",
+      "version": 2
+    },
+    {
+      "id": "min-phase-r4-q2",
+      "version": 2
+    },
+    {
+      "id": "min-phase-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "min-phase-r2-q2",
+      "version": 2
+    },
+    {
+      "id": "min-phase#explainer",
+      "version": 2
+    },
+    {
+      "id": "gen-gain-phase-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "gen-gain-phase#explainer",
+      "version": 2
+    },
+    {
+      "id": "feedforward-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "feedforward-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "feedforward#explainer",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r1-q4",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r2-q4",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r3-q4",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "perf-specs-freq#explainer",
       "version": 2
     },
     {
