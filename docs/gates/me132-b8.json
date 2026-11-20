@@ -60,7 +60,7 @@
     {
       "name": "test-merge",
       "ok": true,
-      "summary": "21 passed, 0 failed"
+      "summary": "25 passed, 0 failed"
     },
     {
       "name": "test-migrate",
