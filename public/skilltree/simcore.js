@@ -195,6 +195,118 @@ function spreadSessionIndexes(sessionCount,dayCount){
 
 /* New skills keep the plan's order. Mastery challenges follow the spaced-review
    queue: least recently practiced first. Missing times count as never. */
+/* One date per simulated session, spread with sessionsOnDay over the study
+   days from today through the day before the exam. A future exam therefore
+   never receives a session on or after its date. An exam dated today has a
+   single study day (today), which is the exam day itself. */
+function datesForExamSessions(sessionCount,today,examDate){
+  var dayCount=studyDayCount(today,examDate),out=[],i,day;
+  if(!sessionCount||sessionCount<0)return out;
+  for(i=0;i<sessionCount;i++){
+    day=sessionDayIndex(i,sessionCount,dayCount);
+    if(day<0)day=0;
+    out.push(addISODays(today,day)||today);
+  }
+  return out;
+}
+
+/* Interleave per-exam plans. Each plan's sessions already belong to one exam.
+   They are dated on that exam's own study days, then grouped by date.
+   Order on a date: earlier exam date, then the order the exams were saved,
+   then the session index inside that exam. A step is type+id+from. The same
+   step is kept once, at its earliest occurrence (so a skill shared by two
+   exams is not scheduled twice). A session left with no items is dropped. */
+function mergeExamSessionPlans(plans){
+  var placed=[],seen={},sessions=[];
+  (Array.isArray(plans)?plans:[]).forEach(function(plan){
+    if(!plan)return;
+    var rows=Array.isArray(plan.rows)?plan.rows:[];
+    var dates=datesForExamSessions(rows.length,plan.today,plan.examDate);
+    rows.forEach(function(row,i){
+      var items=[],practiced=row&&Array.isArray(row.practiced)?row.practiced:[];
+      var challenges=row&&Array.isArray(row.challenges)?row.challenges:[];
+      practiced.forEach(function(id){
+        if(typeof id==='string'&&id)items.push({type:'skill',id:id,from:0});
+      });
+      challenges.forEach(function(c){
+        var id=typeof c==='string'?c:(c&&c.id);
+        var from=c&&typeof c.from==='number'&&isFinite(c.from)?c.from:1;
+        if(typeof id==='string'&&id)items.push({type:'challenge',id:id,from:from});
+      });
+      placed.push({
+        date:dates[i]||plan.today,
+        examId:plan.examId,
+        examDate:plan.examDate,
+        savedIndex:plan.savedIndex|0,
+        sessionIndex:i,
+        items:items
+      });
+    });
+  });
+  placed.sort(function(a,b){
+    if(a.date<b.date)return -1;
+    if(a.date>b.date)return 1;
+    if(a.examDate<b.examDate)return -1;
+    if(a.examDate>b.examDate)return 1;
+    if(a.savedIndex!==b.savedIndex)return a.savedIndex-b.savedIndex;
+    return a.sessionIndex-b.sessionIndex;
+  });
+  placed.forEach(function(p){
+    var items=[];
+    p.items.forEach(function(it){
+      var key=it.type+'\0'+it.id+'\0'+it.from;
+      if(seen[key])return;
+      seen[key]=1;
+      items.push({type:it.type,id:it.id,from:it.from});
+    });
+    if(!items.length)return;
+    var session={n:sessions.length+1,date:p.date,examId:p.examId,items:items};
+    sessions.push(session);
+  });
+  return sessions;
+}
+
+/* Pace against a saved plan. `sessions` are {date, complete}. Incomplete
+   sessions before today count as behind; else incomplete sessions today;
+   else completed sessions after today. */
+/* A plan is stale when the upcoming exams differ from the snapshot in id,
+   date, box, or skills. An exam whose date has passed is no longer upcoming
+   on either side, so the calendar rolling forward is not a change. A label
+   is not part of the comparison. */
+function savedExamPlanStale(savedExams,currentExams,today){
+  function stamp(snap){
+    var skills=Array.isArray(snap&&snap.skills)?snap.skills.join('\0'):'';
+    return [snap&&snap.id,snap&&snap.date,(snap&&snap.box)||'',skills].join('|');
+  }
+  function upcoming(list){
+    return (Array.isArray(list)?list:[]).filter(function(exam){
+      var days=daysBetween(today,exam&&exam.date);
+      return isFinite(days)&&days>=0;
+    }).map(stamp);
+  }
+  var current=upcoming(currentExams),prev=upcoming(savedExams),i;
+  if(current.length!==prev.length)return true;
+  for(i=0;i<current.length;i++)if(current[i]!==prev[i])return true;
+  return false;
+}
+
+function planPaceStatus(sessions,today){
+  var behind=0,todayLeft=0,ahead=0,i,s;
+  sessions=Array.isArray(sessions)?sessions:[];
+  for(i=0;i<sessions.length;i++){
+    s=sessions[i];
+    if(!s||typeof s.date!=='string')continue;
+    if(s.date<today){if(!s.complete)behind++;}
+    else if(s.date===today){if(!s.complete)todayLeft++;}
+    else if(s.complete)ahead++;
+  }
+  function noun(n){return n===1?'session':'sessions';}
+  if(behind>0)return {kind:'behind',n:behind,text:behind+' '+noun(behind)+' behind'};
+  if(todayLeft>0)return {kind:'today',n:todayLeft,text:todayLeft+' '+noun(todayLeft)+' left to complete today'};
+  if(ahead===0)return {kind:'caught',n:0,text:'✓ all caught up!'};
+  return {kind:'ahead',n:ahead,text:'⭐ '+ahead+' '+noun(ahead)+' ahead'};
+}
+
 function orderSessionItems(items,lastPracticed){
   items=Array.isArray(items)?items:[];
   var skills=[],challenges=[],last=lastPracticed||{};
@@ -216,6 +328,8 @@ var api={simulate:simulate,addSample:addSample,estimate:estimate,normalizeTiming
   studyDayCount:studyDayCount,studyDates:studyDates,examCountdown:examCountdown,
   sessionDayIndex:sessionDayIndex,sessionsOnDay:sessionsOnDay,nextSessionDay:nextSessionDay,
   spreadSessionIndexes:spreadSessionIndexes,orderSessionItems:orderSessionItems,
+  datesForExamSessions:datesForExamSessions,mergeExamSessionPlans:mergeExamSessionPlans,
+  savedExamPlanStale:savedExamPlanStale,planPaceStatus:planPaceStatus,
   READY_TIER:READY_TIER,DEFAULT_MIN:DEFAULT_MIN,MIN_SAMPLES:MIN_SAMPLES,MIN_SEC:MIN_SEC,CAP_SEC:CAP_SEC,MAX_SAMPLES:MAX_SAMPLES,MAX_STUDY_DAYS:MAX_STUDY_DAYS};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.SkillSim=api;
 })(typeof window!=='undefined'?window:this);

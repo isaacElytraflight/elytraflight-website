@@ -4,7 +4,8 @@
    time, and the union of attempt history.    To-do entries follow the same map and,
    when a catalog of live skill ids is provided, entries that no longer exist are
    dropped. A starting tier (`from`, an integer 0–4) is kept when present.
-   Running it again changes nothing. */
+   Running it again changes nothing. A to-do line may carry source: 'plan'.
+   A saved exam plan (progress.savedPlan) is kept; the newer createdAt wins. */
 (function (root, factory) {
   const api = factory();
   if (typeof module === 'object' && module.exports) module.exports = api;
@@ -62,6 +63,11 @@
     return n;
   }
 
+  function readTodoSource(raw) {
+    if (!raw || typeof raw !== 'object') return null;
+    return raw.source === 'plan' ? 'plan' : null;
+  }
+
   function normalizeTodoItem(item) {
     if (!item || typeof item !== 'object') return null;
     const type = item.type === 'skill' || item.type === 'challenge' ? item.type : null;
@@ -69,6 +75,8 @@
     const out = { type, id: item.id };
     const from = readTodoFrom(item);
     if (from != null) out.from = from;
+    const source = readTodoSource(item);
+    if (source) out.source = source;
     return out;
   }
 
@@ -79,8 +87,12 @@
     const nextFrom = next.from == null ? null : next.from;
     if (rawFrom !== nextFrom) return true;
     if (raw.from !== undefined && rawFrom == null) return true;
+    const rawSource = readTodoSource(raw);
+    const nextSource = next.source === 'plan' ? 'plan' : null;
+    if (rawSource !== nextSource) return true;
+    if (raw.source !== undefined && rawSource == null) return true;
     for (const k of Object.keys(raw)) {
-      if (k !== 'type' && k !== 'id' && k !== 'from') return true;
+      if (k !== 'type' && k !== 'id' && k !== 'from' && k !== 'source') return true;
     }
     return false;
   }
@@ -88,6 +100,10 @@
   function keepHigherFrom(prev, from) {
     if (from == null) return;
     if (prev.from == null || from > prev.from) prev.from = from;
+  }
+
+  function keepPlanSource(prev, source) {
+    if (source === 'plan') prev.source = 'plan';
   }
 
   function todoKey(item) { return item.type + '\0' + item.id; }
@@ -128,6 +144,7 @@
       const key = todoKey(item);
       if (seen.has(key)) {
         keepHigherFrom(out[seen.get(key)], item.from);
+        keepPlanSource(out[seen.get(key)], item.source);
         return;
       }
       seen.set(key, out.length);
@@ -178,10 +195,12 @@
       if (known && !known.has(id)) { changed = true; continue; }
       const next = { type: item.type, id };
       if (item.from != null) next.from = item.from;
+      if (item.source === 'plan') next.source = 'plan';
       const key = item.type + '\0' + id;
       if (seen.has(key)) {
         changed = true;
         keepHigherFrom(out[seen.get(key)], next.from);
+        keepPlanSource(out[seen.get(key)], next.source);
         continue;
       }
       seen.set(key, out.length);
@@ -328,6 +347,226 @@
     return out.length ? out.slice(0, 30) : null;
   }
 
+  function finiteNum(n) {
+    const x = Number(n);
+    return Number.isFinite(x) ? x : null;
+  }
+
+  function normalizeCount5(raw) {
+    if (!Array.isArray(raw) || raw.length !== 5) return null;
+    const out = [];
+    for (const n of raw) {
+      if (typeof n !== 'number' || !Number.isInteger(n) || n < 0) return null;
+      out.push(n);
+    }
+    return out;
+  }
+
+  function normalizePlanItem(raw) {
+    const item = normalizeTodoItem(raw);
+    if (!item) return null;
+    delete item.source;
+    if (item.from == null) {
+      if (item.type === 'skill') item.from = 0;
+      else return null;
+    }
+    return item;
+  }
+
+  /**
+   * Saved blended exam plan. Keeps the chart snapshot (minutes, tiers, totals)
+   * so the plan tab can draw without simulating again.
+   */
+  function normalizeSavedPlan(raw) {
+    if (raw == null) return null;
+    if (typeof raw !== 'object' || Array.isArray(raw)) return null;
+    const createdAt = Number(raw.createdAt);
+    if (!Number.isFinite(createdAt)) return null;
+    const exams = [];
+    const seenExam = new Set();
+    if (Array.isArray(raw.exams)) {
+      for (const ex of raw.exams) {
+        if (!ex || typeof ex !== 'object') continue;
+        const id = typeof ex.id === 'string' ? ex.id.trim().slice(0, 80) : '';
+        const date = typeof ex.date === 'string' ? ex.date : '';
+        if (!id || !/^\d{4}-\d{2}-\d{2}$/.test(date) || seenExam.has(id)) continue;
+        seenExam.add(id);
+        const snap = { id, date };
+        if (typeof ex.label === 'string' && ex.label.trim()) snap.label = ex.label.trim().slice(0, 80);
+        if (typeof ex.box === 'string' && ex.box.trim()) snap.box = ex.box.trim().slice(0, 120);
+        else if (Array.isArray(ex.skills)) {
+          const skills = [];
+          const seen = new Set();
+          for (const sid of ex.skills) {
+            if (typeof sid !== 'string') continue;
+            const s = sid.trim();
+            if (!s || s.length > 120 || seen.has(s)) continue;
+            seen.add(s);
+            skills.push(s);
+            if (skills.length >= 400) break;
+          }
+          if (skills.length) snap.skills = skills;
+        }
+        exams.push(snap);
+        if (exams.length >= 30) break;
+      }
+    }
+    const sessions = [];
+    if (Array.isArray(raw.sessions)) {
+      for (const s of raw.sessions) {
+        if (!s || typeof s !== 'object' || sessions.length >= 5000) continue;
+        const date = typeof s.date === 'string' ? s.date : '';
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) continue;
+        const items = [];
+        const seenItem = new Set();
+        if (Array.isArray(s.items)) {
+          for (const it of s.items) {
+            const norm = normalizePlanItem(it);
+            if (!norm) continue;
+            const key = norm.type + '\0' + norm.id + '\0' + norm.from;
+            if (seenItem.has(key)) continue;
+            seenItem.add(key);
+            items.push(norm);
+            if (items.length >= 400) break;
+          }
+        }
+        const session = { n: sessions.length + 1, date, items };
+        if (typeof s.examId === 'string' && s.examId.trim()) session.examId = s.examId.trim().slice(0, 80);
+        const minutes = finiteNum(s.minutes);
+        if (minutes != null && minutes >= 0) session.minutes = Math.round(minutes * 100) / 100;
+        const cumulative = finiteNum(s.cumulative);
+        if (cumulative != null && cumulative >= 0) session.cumulative = Math.round(cumulative * 100) / 100;
+        const tiers = normalizeCount5(s.tiers);
+        if (tiers) session.tiers = tiers.slice();
+        sessions.push(session);
+      }
+    }
+    const out = { createdAt, exams, sessions };
+    const practiceMin = finiteNum(raw.practiceMin);
+    const challengeMin = finiteNum(raw.challengeMin);
+    if (practiceMin != null && practiceMin >= 0) out.practiceMin = practiceMin;
+    if (challengeMin != null && challengeMin >= 0) out.challengeMin = challengeMin;
+    const startCounts = normalizeCount5(raw.startCounts);
+    if (startCounts) out.startCounts = startCounts;
+    if (typeof raw.scope === 'number' && Number.isInteger(raw.scope) && raw.scope >= 0) out.scope = raw.scope;
+    if (Array.isArray(raw.extras)) {
+      const extras = [];
+      const seen = new Set();
+      for (const id of raw.extras) {
+        if (typeof id !== 'string' || !id || id.length > 120 || seen.has(id)) continue;
+        seen.add(id);
+        extras.push(id);
+        if (extras.length >= 400) break;
+      }
+      if (extras.length) out.extras = extras;
+    }
+    if (raw.totals && typeof raw.totals === 'object') {
+      const totals = {};
+      ['sessions', 'practiceCount', 'challengeCount'].forEach(k => {
+        const n = finiteNum(raw.totals[k]);
+        if (n != null && n >= 0) totals[k] = Math.round(n);
+      });
+      const totalMinutes = finiteNum(raw.totals.totalMinutes);
+      if (totalMinutes != null && totalMinutes >= 0) totals.totalMinutes = Math.round(totalMinutes * 100) / 100;
+      if (Object.keys(totals).length) out.totals = totals;
+    }
+    return out;
+  }
+
+  /** The later createdAt wins. A missing side keeps the side that has a plan. */
+  function mergeSavedPlan(local, remote) {
+    const l = normalizeSavedPlan(local && local.savedPlan);
+    const r = normalizeSavedPlan(remote && remote.savedPlan);
+    if (!l) return r;
+    if (!r) return l;
+    return Number(r.createdAt) > Number(l.createdAt) ? r : l;
+  }
+
+  function migrateSavedPlanField(savedPlan, retired, knownIds) {
+    if (savedPlan == null) return { changed: false };
+    const norm = normalizeSavedPlan(savedPlan);
+    if (!norm) return { changed: true, savedPlan: null };
+    const map = retired && typeof retired === 'object' ? retired : {};
+    const known = knownIds == null ? null : (knownIds instanceof Set ? knownIds : new Set(knownIds));
+    let changed = false;
+    const remap = id => {
+      const next = resolveSurvivor(id, map);
+      if (next !== id) changed = true;
+      return next;
+    };
+    const sessions = norm.sessions.map(s => {
+      const items = [];
+      const seen = new Set();
+      for (const it of s.items) {
+        const id = remap(it.id);
+        if (known && !known.has(id)) { changed = true; continue; }
+        const key = it.type + '\0' + id + '\0' + it.from;
+        if (seen.has(key)) { changed = true; continue; }
+        seen.add(key);
+        items.push({ type: it.type, id, from: it.from });
+      }
+      if (items.length !== s.items.length) changed = true;
+      const session = { n: s.n, date: s.date, items };
+      if (s.examId) session.examId = s.examId;
+      if (s.minutes != null) session.minutes = s.minutes;
+      if (s.cumulative != null) session.cumulative = s.cumulative;
+      if (s.tiers) session.tiers = s.tiers.slice();
+      return session;
+    });
+    const exams = [];
+    for (const ex of norm.exams) {
+      const next = { id: ex.id, date: ex.date };
+      if (ex.label) next.label = ex.label;
+      if (ex.box) {
+        next.box = ex.box;
+        exams.push(next);
+        continue;
+      }
+      if (ex.skills) {
+        const skills = [];
+        const seen = new Set();
+        for (const sid of ex.skills) {
+          const id = remap(sid);
+          if (known && !known.has(id)) { changed = true; continue; }
+          if (seen.has(id)) { changed = true; continue; }
+          seen.add(id);
+          skills.push(id);
+        }
+        if (skills.length !== ex.skills.length) changed = true;
+        if (skills.length) next.skills = skills;
+      }
+      exams.push(next);
+    }
+    let extras = null;
+    if (norm.extras) {
+      extras = [];
+      const seen = new Set();
+      for (const id0 of norm.extras) {
+        const id = remap(id0);
+        if (known && !known.has(id)) { changed = true; continue; }
+        if (seen.has(id)) { changed = true; continue; }
+        seen.add(id);
+        extras.push(id);
+      }
+      if (extras.length !== norm.extras.length) changed = true;
+    }
+    const cleaned = {
+      createdAt: norm.createdAt,
+      exams,
+      sessions
+    };
+    if (norm.practiceMin != null) cleaned.practiceMin = norm.practiceMin;
+    if (norm.challengeMin != null) cleaned.challengeMin = norm.challengeMin;
+    if (norm.startCounts) cleaned.startCounts = norm.startCounts.slice();
+    if (norm.scope != null) cleaned.scope = norm.scope;
+    if (extras && extras.length) cleaned.extras = extras;
+    if (norm.totals) cleaned.totals = Object.assign({}, norm.totals);
+    if (JSON.stringify(cleaned) !== JSON.stringify(norm)) changed = true;
+    if (JSON.stringify(norm) !== JSON.stringify(savedPlan)) changed = true;
+    if (!changed) return { changed: false };
+    return { changed: true, savedPlan: cleaned };
+  }
+
   /** Move progress off retired ids. Does not mutate `progress`.
       Pass `knownIds` (array or Set of live skill ids) to drop to-do entries
       whose ids were removed. Omit it to keep unknown ids. */
@@ -354,11 +593,16 @@
 
     const todoMig = migrateTodoField(progress.todo, map, knownIds);
     const examMig = migrateExamField(progress.exams, map, knownIds);
-    if (!changed && !todoMig.changed && !examMig.changed) return { progress, changed: false };
+    const planMig = migrateSavedPlanField(progress.savedPlan, map, knownIds);
+    if (!changed && !todoMig.changed && !examMig.changed && !planMig.changed) return { progress, changed: false };
     const next = { ...progress };
     if (changed) next.skills = skills;
     if (todoMig.changed) next.todo = todoMig.todo;
     if (examMig.changed) next.exams = examMig.exams;
+    if (planMig.changed) {
+      if (planMig.savedPlan) next.savedPlan = planMig.savedPlan;
+      else delete next.savedPlan;
+    }
     return { progress: next, changed: true };
   }
 
@@ -384,6 +628,8 @@
     if (scope) merged.scope = scope;
     const exams = mergeExams(local.exams, remote.exams, local.savedAt, remote.savedAt);
     if (exams) merged.exams = exams;
+    const savedPlan = mergeSavedPlan(local, remote);
+    if (savedPlan) merged.savedPlan = savedPlan;
     const lt = Number(local.savedAt);
     const rt = Number(remote.savedAt);
     if (Number.isFinite(lt) || Number.isFinite(rt)) {
@@ -410,6 +656,6 @@
   return {
     mergeSkillRecords, migrateRetiredProgress, combineMigratedProgress,
     normalizeTodoItem, normalizeScope, mergeScope, mergeProgress, appendTodo, sessionTodoItems,
-    normalizeExam, normalizeExams, mergeExams
+    normalizeExam, normalizeExams, mergeExams, normalizeSavedPlan, mergeSavedPlan
   };
 });
