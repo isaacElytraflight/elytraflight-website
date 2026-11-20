@@ -269,6 +269,27 @@ function mergeExamSessionPlans(plans){
 /* Pace against a saved plan. `sessions` are {date, complete}. Incomplete
    sessions before today count as behind; else incomplete sessions today;
    else completed sessions after today. */
+/* A plan is stale when the upcoming exams differ from the snapshot in id,
+   date, box, or skills. An exam whose date has passed is no longer upcoming
+   on either side, so the calendar rolling forward is not a change. A label
+   is not part of the comparison. */
+function savedExamPlanStale(savedExams,currentExams,today){
+  function stamp(snap){
+    var skills=Array.isArray(snap&&snap.skills)?snap.skills.join('\0'):'';
+    return [snap&&snap.id,snap&&snap.date,(snap&&snap.box)||'',skills].join('|');
+  }
+  function upcoming(list){
+    return (Array.isArray(list)?list:[]).filter(function(exam){
+      var days=daysBetween(today,exam&&exam.date);
+      return isFinite(days)&&days>=0;
+    }).map(stamp);
+  }
+  var current=upcoming(currentExams),prev=upcoming(savedExams),i;
+  if(current.length!==prev.length)return true;
+  for(i=0;i<current.length;i++)if(current[i]!==prev[i])return true;
+  return false;
+}
+
 function planPaceStatus(sessions,today){
   var behind=0,todayLeft=0,ahead=0,i,s;
   sessions=Array.isArray(sessions)?sessions:[];
@@ -307,7 +328,8 @@ var api={simulate:simulate,addSample:addSample,estimate:estimate,normalizeTiming
   studyDayCount:studyDayCount,studyDates:studyDates,examCountdown:examCountdown,
   sessionDayIndex:sessionDayIndex,sessionsOnDay:sessionsOnDay,nextSessionDay:nextSessionDay,
   spreadSessionIndexes:spreadSessionIndexes,orderSessionItems:orderSessionItems,
-  datesForExamSessions:datesForExamSessions,mergeExamSessionPlans:mergeExamSessionPlans,planPaceStatus:planPaceStatus,
+  datesForExamSessions:datesForExamSessions,mergeExamSessionPlans:mergeExamSessionPlans,
+  savedExamPlanStale:savedExamPlanStale,planPaceStatus:planPaceStatus,
   READY_TIER:READY_TIER,DEFAULT_MIN:DEFAULT_MIN,MIN_SAMPLES:MIN_SAMPLES,MIN_SEC:MIN_SEC,CAP_SEC:CAP_SEC,MAX_SAMPLES:MAX_SAMPLES,MAX_STUDY_DAYS:MAX_STUDY_DAYS};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.SkillSim=api;
 })(typeof window!=='undefined'?window:this);

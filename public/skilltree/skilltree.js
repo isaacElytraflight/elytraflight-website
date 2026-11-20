@@ -2661,18 +2661,12 @@ function examPlanSnapshot(exam) {
   else if (Array.isArray(exam.skills) && exam.skills.length) snap.skills = exam.skills.slice();
   return snap;
 }
-function examPlanStamp(snap) {
-  const skills = Array.isArray(snap.skills) ? snap.skills.join('\0') : '';
-  return [snap.id, snap.date, snap.box || '', skills].join('|');
-}
 function savedPlanIsStale(today) {
   const plan = savedPlanNow();
   if (!plan) return false;
-  const current = upcomingExamEntries(today).map(({ exam }) => examPlanStamp(examPlanSnapshot(exam)));
-  const prev = (plan.exams || []).map(examPlanStamp);
-  if (current.length !== prev.length) return true;
-  for (let i = 0; i < current.length; i++) if (current[i] !== prev[i]) return true;
-  return false;
+  today = today || Sim.localISODate(new Date());
+  const current = examsNow().map(examPlanSnapshot);
+  return Sim.savedExamPlanStale(plan.exams, current, today);
 }
 function examSkillGraph(exam) {
   if (exam.box) {

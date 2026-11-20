@@ -322,6 +322,26 @@ test('plan pace covers behind, today, caught up, and ahead', () => {
   ], today).kind, 'behind', 'behind wins over today and ahead');
 });
 
+test('a saved plan stays fresh when an exam date simply passes', () => {
+  const saved = [
+    { id: 'ee', date: '2026-11-27', box: 'ee105-ucb' },
+    { id: 'me', date: '2026-12-04', box: 'me132', label: 'Final' }
+  ];
+  const later = '2026-11-28';
+  assert.strictEqual(Sim.savedExamPlanStale(saved, [
+    { id: 'ee', date: '2026-11-27', box: 'ee105-ucb' },
+    { id: 'me', date: '2026-12-04', box: 'me132', label: 'Midterm' }
+  ], later), false, 'the passed exam drops out, and a label change does not stale the plan');
+  assert.strictEqual(Sim.savedExamPlanStale(saved, [
+    { id: 'me', date: '2026-12-04', skills: ['bode'] }
+  ], later), true, 'editing the remaining exam still stales the plan');
+  assert.strictEqual(Sim.savedExamPlanStale(saved, [
+    { id: 'me', date: '2026-12-04', box: 'me132' },
+    { id: 'quiz', date: '2026-12-01', box: 'me132' }
+  ], later), true, 'adding an exam still stales the plan');
+  assert.strictEqual(Sim.savedExamPlanStale(saved, saved, '2026-11-20'), false);
+});
+
 test('merge keeps the newer saved plan and does not drop a plan source', () => {
   const older = {
     version: 1, savedAt: 1,
