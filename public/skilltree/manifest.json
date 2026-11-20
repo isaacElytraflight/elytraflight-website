@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-20T01:08:26.320047Z",
+  "generated": "2026-11-20T01:18:10.639703Z",
   "skills": {
-    "file": "skills.966833ac.json",
-    "hash": "966833ac"
+    "file": "skills.8f67ec92.json",
+    "hash": "8f67ec92"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -2000,8 +2000,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8624903e",
-      "file": "banks/lti-stability.8624903e.json"
+      "hash": "c00c41ff",
+      "file": "banks/lti-stability.c00c41ff.json"
     },
     "lyapunov": {
       "version": 1,
