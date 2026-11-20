@@ -484,8 +484,7 @@ header #btnProfile.ready{--c:var(--accent);--cs:rgba(108,92,231,.5)}
 #todoBook.collapsed .todo-paper,
 #todoBook.collapsed .todo-actions,
 #todoBook.collapsed .todo-edit,
-#todoBook.collapsed .todo-exams,
-#todoBook.collapsed .todo-board{display:none}
+#todoBook.collapsed .todo-exams{display:none}
 .qflag-block{display:flex;flex-direction:column;align-items:flex-end;gap:8px;margin:0 0 10px}
 .qflag-btn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
 .qflag-form{align-self:stretch;display:flex;flex-direction:column;gap:8px;background:#fffaf1;border:2px solid var(--line);border-radius:14px;padding:10px 12px;text-align:left}
@@ -500,15 +499,20 @@ header #btnProfile.ready{--c:var(--accent);--cs:rgba(108,92,231,.5)}
 .menu-check{display:flex;gap:8px;align-items:flex-start;font-size:13px;font-weight:650;padding:8px 0 0;cursor:pointer}
 .menu-check input{margin-top:2px;flex:none}
 .menu-note{margin:4px 0 0;font-size:11.5px;line-height:1.35;color:var(--ink2);font-weight:600}
-.todo-board{flex:none;margin-top:8px;background:rgba(255,255,255,.92);border-radius:10px;padding:6px 8px 8px;color:#24304a}
-.todo-board-title{font-weight:800;font-size:12px;color:#6d2044;margin:0 0 4px}
+#lbDock{position:relative;height:0;flex:none;min-height:0;z-index:17;pointer-events:none}
+.lb-pop{position:absolute;top:8px;right:14px;display:flex;flex-direction:column;align-items:flex-end;pointer-events:auto;max-width:calc(100vw - 28px)}
+.lb-toggle{background:#6495ED;color:#1d2433;border:2px solid #1d2433;border-radius:10px;padding:5px 12px;font-weight:800;box-shadow:var(--shadow)}
+.lb-toggle:hover{background:#8eb0f2}
+.lb-toggle:focus-visible,.todo-board a:focus-visible,.todo-board:focus-visible{outline:3px solid #1d2433;outline-offset:2px;box-shadow:0 0 0 5px #fff}
+.todo-board{margin-top:6px;width:min(280px,calc(100vw - 28px));max-height:min(280px,46vh);overflow:auto;background:#6495ED;color:#1d2433;border:2px solid #1d2433;border-radius:12px;box-shadow:var(--shadow);padding:8px 10px 10px}
+.todo-board-title{font-weight:800;font-size:12px;color:#1d2433;margin:0 0 4px}
 .todo-board-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
-.todo-board-link{display:flex;align-items:center;gap:6px;text-decoration:none;color:#24304a;font-size:12.5px;font-weight:650;padding:2px;border-radius:6px}
-.todo-board-link:hover{background:#fff0f6}
-.todo-board-rank{flex:none;width:14px;color:#8d3154;font-weight:800}
+.todo-board-link{display:flex;align-items:center;gap:6px;text-decoration:none;color:#1d2433;font-size:12.5px;font-weight:700;padding:3px 4px;border-radius:6px}
+.todo-board-link:hover{background:rgba(29,36,51,.12)}
+.todo-board-rank{flex:none;width:14px;color:#1d2433;font-weight:800}
 .todo-board-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.todo-board-score{flex:none;font-weight:800;color:#6d2044}
-.todo-board-empty{margin:0;font-size:12px;color:#8d6a7a}
+.todo-board-score{flex:none;font-weight:800;color:#1d2433}
+.todo-board-empty{margin:0;font-size:12px;font-weight:700;color:#1d2433}
 @media (max-width:720px){
   header{padding:10px 12px 8px}
   #strip{padding:6px 12px}
@@ -518,6 +522,8 @@ header #btnProfile.ready{--c:var(--accent);--cs:rgba(108,92,231,.5)}
   .modal{padding:16px 14px}
   #todoBook{left:8px;right:8px;width:auto;top:8px;max-height:48vh}
   #todoBook.collapsed{right:auto;width:180px;min-width:0;max-height:none}
+  .lb-pop{top:6px;right:8px;max-width:calc(100vw - 76px)}
+  .todo-board{width:min(240px,calc(100vw - 76px));max-height:min(200px,calc(100dvh - 300px))}
   .todo-hit{font-size:14px}
   .profile-card{padding:16px 14px 18px}
   .profile-facts{flex-direction:column;gap:4px}
@@ -530,6 +536,7 @@ html.profile-standalone body{height:auto;min-height:100%;overflow:auto}
 html.profile-standalone body{display:block}
 html.profile-standalone header,
 html.profile-standalone #strip,
+html.profile-standalone #lbDock,
 html.profile-standalone main,
 html.profile-standalone #treeView,
 html.profile-standalone #gridView,

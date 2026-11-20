@@ -4276,6 +4276,35 @@ async function test(name, fn) {
       profiles: PROFILE_FIXTURES.map(row => Object.assign({}, row))
     });
     await p.waitForSelector('#todoBoard');
+    await p.waitForSelector('#lbToggle');
+    const placed = await p.evaluate(() => {
+      const board = document.getElementById('todoBoard');
+      const book = document.getElementById('todoBook');
+      const dock = document.getElementById('lbDock');
+      const strip = document.getElementById('strip');
+      const hctl = document.getElementById('hctl');
+      const btn = document.getElementById('lbToggle');
+      return {
+        inBook: !!(book && board && book.contains(board)),
+        inHctl: !!(hctl && dock && hctl.contains(dock)),
+        afterStrip: !!(strip && dock && strip.nextElementSibling === dock),
+        hidden: board.hidden,
+        expanded: btn.getAttribute('aria-expanded'),
+        controls: btn.getAttribute('aria-controls'),
+        haspopup: btn.getAttribute('aria-haspopup'),
+        name: (btn.getAttribute('aria-label') || btn.textContent || '').trim(),
+        boardName: board.getAttribute('aria-label') || ''
+      };
+    });
+    assert.strictEqual(placed.inBook, false, 'leaderboard stays out of the to-do list');
+    assert.strictEqual(placed.inHctl, false, 'leaderboard stays out of the course controls');
+    assert.strictEqual(placed.afterStrip, true, 'leaderboard mounts directly under the strip');
+    assert.strictEqual(placed.hidden, true, 'dropdown starts collapsed');
+    assert.strictEqual(placed.expanded, 'false');
+    assert.strictEqual(placed.controls, 'todoBoard');
+    assert.strictEqual(placed.haspopup, 'true');
+    assert.strictEqual(placed.name, 'Leaderboard');
+    assert.strictEqual(placed.boardName, 'Leaderboard');
     const board = await p.$$eval('#todoBoard a', links => links.map(a => ({
       name: a.querySelector('.todo-board-name').textContent,
       score: a.querySelector('.todo-board-score').textContent,
@@ -4285,7 +4314,77 @@ async function test(name, fn) {
     assert.deepStrictEqual(board.map(r => r.score), ['10', '10', '8', '7', '3']);
     assert.strictEqual(board.some(r => r.name === 'gio' || r.name === 'ed'), false);
     assert.deepStrictEqual(board.map(r => r.href), ['/profile/ada', '/profile/bea', '/profile/ham', '/profile/cyan', '/profile/dee']);
-    const clip = await p.$eval('#todoBook', el => {
+    const scopeOpen = await p.$eval('#scopeToggle', b => b.getAttribute('aria-expanded') === 'true');
+    if (scopeOpen) await p.click('#scopeToggle');
+    await p.click('#lbToggle');
+    assert.strictEqual(await p.$eval('#todoBoard', el => el.hidden), false);
+    assert.strictEqual(await p.$eval('#lbToggle', el => el.getAttribute('aria-expanded')), 'true');
+    assert.strictEqual(await p.evaluate(() => document.activeElement && document.activeElement.id), 'lbToggle');
+    await p.click('#lbToggle');
+    assert.strictEqual(await p.$eval('#todoBoard', el => el.hidden), true);
+    assert.strictEqual(await p.$eval('#lbToggle', el => el.getAttribute('aria-expanded')), 'false');
+    await p.focus('#lbToggle');
+    await p.keyboard.press('Enter');
+    assert.strictEqual(await p.$eval('#lbToggle', el => el.getAttribute('aria-expanded')), 'true');
+    assert.strictEqual(await p.evaluate(() => document.activeElement && document.activeElement.getAttribute('href')), '/profile/ada');
+    await p.keyboard.press('Tab');
+    assert.strictEqual(await p.evaluate(() => document.activeElement && document.activeElement.getAttribute('href')), '/profile/bea');
+    await p.keyboard.press('Escape');
+    assert.strictEqual(await p.$eval('#todoBoard', el => el.hidden), true);
+    assert.strictEqual(await p.evaluate(() => document.activeElement && document.activeElement.id), 'lbToggle');
+    await p.keyboard.press('Space');
+    assert.strictEqual(await p.$eval('#lbToggle', el => el.getAttribute('aria-expanded')), 'true');
+    assert.strictEqual(await p.evaluate(() => {
+      const active = document.activeElement;
+      return !!(active && active.closest && active.closest('#todoBoard'));
+    }), true);
+    await p.keyboard.press('Escape');
+    assert.strictEqual(await p.$eval('#todoBoard', el => el.hidden), true);
+    assert.strictEqual(await p.evaluate(() => document.activeElement && document.activeElement.id), 'lbToggle');
+    await p.click('#lbToggle');
+    await p.click('.brand h1');
+    assert.strictEqual(await p.$eval('#todoBoard', el => el.hidden), true, 'click outside closes the leaderboard');
+    await p.click('#lbToggle');
+    assert.strictEqual(await p.$eval('#todoBoard', el => el.hidden), false);
+    await p.click('#scopeToggle');
+    assert.strictEqual(await p.$eval('#scopePanel', el => el.hidden), false);
+    assert.strictEqual(await p.$eval('#todoBoard', el => el.hidden), true, 'opening the course picker closes the leaderboard');
+    await p.click('#lbToggle');
+    assert.strictEqual(await p.$eval('#scopePanel', el => el.hidden), true, 'opening the leaderboard closes the course picker');
+    assert.strictEqual(await p.$eval('#todoBoard', el => el.hidden), false);
+    const kept = await p.evaluate(() => {
+      const boardEl = document.getElementById('todoBoard');
+      const book = document.getElementById('todoBook');
+      const was = book.classList.contains('collapsed');
+      book.classList.add('collapsed');
+      const shown = boardEl.hidden === false && getComputedStyle(boardEl).display !== 'none';
+      if (!was) book.classList.remove('collapsed');
+      return { inBook: book.contains(boardEl), shown };
+    });
+    assert.strictEqual(kept.inBook, false);
+    assert.strictEqual(kept.shown, true, 'collapsing the to-do list does not hide the leaderboard');
+    await p.setViewport({ width: 390, height: 700 });
+    await sleep(100);
+    if (await p.$eval('#todoBoard', el => el.hidden)) await p.click('#lbToggle');
+    const overlap = await p.evaluate(() => {
+      const boardEl = document.getElementById('todoBoard').getBoundingClientRect();
+      const hit = sel => {
+        const node = document.querySelector(sel);
+        if (!node) return true;
+        const r = node.getBoundingClientRect();
+        if (r.width < 1 || r.height < 1) return true;
+        const x = Math.min(boardEl.right, r.right) - Math.max(boardEl.left, r.left);
+        const y = Math.min(boardEl.bottom, r.bottom) - Math.max(boardEl.top, r.top);
+        return x > 0 && y > 0;
+      };
+      return { hctl: hit('#hctl'), zoom: hit('.zoomctl') };
+    });
+    assert.strictEqual(overlap.hctl, false, 'open leaderboard covers the view controls');
+    assert.strictEqual(overlap.zoom, false, 'open leaderboard covers the zoom controls');
+    await p.setViewport({ width: 1280, height: 800 });
+    await sleep(100);
+    if (await p.$eval('#todoBoard', el => el.hidden)) await p.click('#lbToggle');
+    const clip = await p.$eval('.lb-pop', el => {
       const r = el.getBoundingClientRect();
       return { x: Math.max(0, r.x), y: Math.max(0, r.y), width: Math.ceil(r.width), height: Math.ceil(r.height) };
     });
