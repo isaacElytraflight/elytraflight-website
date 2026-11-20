@@ -1,0 +1,24 @@
+{
+  "id": "sg063-me132-m3",
+  "label": "SG-063 ME 132 LTI response, Nyquist, and margins",
+  "box": "ME 132 (me132), General LTI systems, transfer functions, frequency response; Interconnections, root locus, Nyquist, delays; Robustness and margins",
+  "skills": [
+    "lti-stability",
+    "freq-resp-lti",
+    "nyquist",
+    "uncertainty",
+    "loop-margin-design"
+  ],
+  "areas": {
+    "lti-stability": ["lti-stability", "state-space"],
+    "freq-resp-lti": ["frequency-response", "state-space"],
+    "nyquist": ["nyquist-stability", "frequency-response"],
+    "uncertainty": ["uncertainty", "loop-transfer-function"],
+    "loop-margin-design": ["nyquist-stability", "time-delay"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_me132_m3.py"
+}
