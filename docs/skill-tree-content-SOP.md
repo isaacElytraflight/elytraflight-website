@@ -70,7 +70,7 @@ Open course work is one GitHub issue per roadmap id, titled `[SG-xxx] <title>`. 
   - **Find-the-error:** a short derivation with exactly one flawed step. The learner picks that step, and a reason when reasons are given. All-or-nothing.
   - **Multi-select:** choose every correct option. All-or-nothing.
 - **Deep-type quota (hard rule).** Every bank needs at least 25% deep-type questions, rounded up: `ceil(3n/12)`, which is `deep_quota(n)` in `banklib.py`. A 12-question bank needs 3. The deep types are the ones newer batches already use: symbolic, ordering, find-the-error, and multi-select. They are how a proof or a concept becomes a decision: justify a step, find the flaw, pick a counterexample, trace a procedure, or finish a multi-step application. `tools/skilltree-content/deep_quota_gate.py` fails a bank under that line. It is a hard gate in `run_gates.py`. The same check also runs inside the domain validator.
-- Banks in `skilltree/deep_quota_grandfather.json` were written before the quota. They stay on that list until [SG-063](https://github.com/isaacElytraflight/elytraflight-website/issues/55) rebuilds them. Do not add ids. A wording fix does not take a bank off the list. When SG-063, or an earlier full rewrite, replaces the bank with deep questions, remove its id.
+- SG-063 ([#55](https://github.com/isaacElytraflight/elytraflight-website/issues/55)) is complete and closed. `skilltree/deep_quota_grandfather.json` stays, with an empty `skills` list. Keep the file and `deep_quota_gate.py`. Do not add ids. The quota applies to every bank.
 - Author deep questions with `Bank.sym`, `Bank.order`, `Bank.find_error`, and `Bank.multi` in `tools/skilltree-content/banklib.py`. Do not hand-build those JSON fields.
 
 ## 6. Figures and math
@@ -124,12 +124,12 @@ Open course work is one GitHub issue per roadmap id, titled `[SG-xxx] <title>`. 
 - Never put secrets in briefs or repos.
 
 ## 12. Brief template
-Start from `docs/batch-starter.md`. It is the read order, the helper APIs (`banklib` and `verify_harness`), the gate command, where generated files live, the deep-type quota, the review procedure, and the efficiency rules.
+Start from `docs/batch-starter.md`. It is the read order, the helper APIs (`banklib` and `verify_harness`), the gate command, where generated files live, the deep-type quota, the cloud-agent environment, the review procedure, and the efficiency rules.
 Every batch brief states:
 - the box, layer and reserved skill ids
 - the prerequisites, the registries to read, and the sources with their licenses. Section numbers stay in the source registry. They are not learner-facing text
 - the bank and explainer specs, and the core/application split
-- the deep-type quota: at least 25% (`deep_quota(n)`, `ceil(3n/12)`) among symbolic, ordering, find-the-error, and multi-select (`Bank.sym`, `Bank.order`, `Bank.find_error`, `Bank.multi` in `banklib.py`). The grandfather list in `skilltree/deep_quota_grandfather.json` is pending SG-063 and is not a reason to skip the quota on a new bank
+- the deep-type quota: at least 25% (`deep_quota(n)`, `ceil(3n/12)`) among symbolic, ordering, find-the-error, and multi-select (`Bank.sym`, `Bank.order`, `Bank.find_error`, `Bank.multi` in `banklib.py`). SG-063 is complete ([#55](https://github.com/isaacElytraflight/elytraflight-website/issues/55) closed). The empty `skills` list in `skilltree/deep_quota_grandfather.json` is not a reason to skip the quota on a new bank
 - the dedupe check against the whole graph, and where a resolved overlap is recorded
 - the gates, including the reference gate, the deep-quota gate, and the dedupe gate
 - deliverables (content, generator, verifier, patches) and the generated report (counts, gate outputs, dedupe pointer)
