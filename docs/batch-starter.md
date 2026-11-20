@@ -2,6 +2,24 @@
 
 A short pack for an agent writing one content batch for Elytraflight's Skill Tree. The rules live in `docs/skill-tree-content-SOP.md`. This file is the order of work. The batch plan wins if a prompt disagrees with it.
 
+## Cloud-agent environment, search, and merge
+
+First step: `bash tools/skilltree-content/agent_bootstrap.sh`. It installs sympy and numpy when `import` fails, and KaTeX 0.16.47 under `/tmp/katex-home` when that copy is missing. It does not install npm packages at the repo root. `--box <box-id>` prints that box's skills and which of them are in the grandfather `skills` list (`none` when there are none).
+
+The checkout is `/agent/repos/elytraflight-website`. Start with `git fetch origin main && git merge --ff-only origin/main`.
+
+`skilltree/collections.json` is `{version, boxes:[{id, title, skills, ...}]}`. The grandfather key is `skills`.
+
+A missing sympy install fails the first generator or verifier on a fresh VM. Do not run `npm install` or `npm ci` at the repo root for content work. That is the Vite app. `katex_check.cjs` already searches `/tmp/katex-home/node_modules/katex`.
+
+Do not commit `__pycache__` or `node_modules`. Before committing: `rm -rf skilltree/__pycache__ tools/skilltree-content/__pycache__`.
+
+Search one file or a narrow glob. An unscoped grep of `tools/`, every `verify_*.py`, or `public/` returns tens of thousands of characters. The published catalog file name is in `public/skilltree/manifest.json`.
+
+Iterate with the slice generator and verifier. On the candidate, run `python3 tools/skilltree-content/run_gates.py --batch <batch-id> --docs` once. See Gates for the `--docs` rewrite. A content-only pull request skips Puppeteer; one short smoke check is enough.
+
+Wait for Bugbot in one loop on `gh api repos/isaacElytraflight/elytraflight-website/commits/$SHA/check-runs` until `Cursor Bugbot` completes. `mergeStateStatus` stays `BLOCKED` / `REVIEW_REQUIRED` because the `main` ruleset requires an approving review. When Bugbot is clean on that head and the pull request is mergeable, `gh pr merge <n> --squash --admin --match-head-commit <sha>`. Without `--admin` the merge fails. Recurring catches: invalid symbolic sample ranges, non-unique order chains, ambiguous wording, a prompt name that differs from the graded name (`K_p` vs `Kp`), and over-strong claims.
+
 ## Read in this order
 
 Read each file once. Do not re-read a file you have already read.
@@ -48,7 +66,7 @@ On the candidate you intend to push, run once:
 python3 tools/skilltree-content/run_gates.py --batch <id> --docs
 ```
 
-That command runs the build, schema, reference, graph, domain, deep-quota, dedupe, numeric verifier, figure bounds, strict KaTeX, test-content, test-merge, and test-migrate gates. A content-only diff still runs those gates, including schema validation, the no-source-references gate, the 25% deep-type quota, dedupe, and the reference checks, and skips the full Puppeteer suite. The suite runs when any changed path is not content, including app or UI code (`public/skilltree/*.js`, `*.css`, `*.html`) or the app or build code. `--browser` forces it. `--no-browser` skips it. The command prints the decision. There is no separate CI workflow for content; this runner is the gate. `--docs` regenerates the changelog, the brief, the report, and `docs/content-versions.json`. After a text-only review fix, run only the focused check for what changed, not the full gate run again. Run the full command again only if the later edit is not content-only.
+That command runs the build, schema, reference, graph, domain, deep-quota, dedupe, numeric verifier, figure bounds, strict KaTeX, test-content, test-merge, and test-migrate gates. A content-only diff still runs those gates, including schema validation, the no-source-references gate, the 25% deep-type quota, dedupe, and the reference checks, and skips the full Puppeteer suite. The suite runs when any changed path is not content, including app or UI code (`public/skilltree/*.js`, `*.css`, `*.html`) or the app or build code. `--browser` forces it. `--no-browser` skips it. The command prints the decision. There is no separate CI workflow for content; this runner is the gate. `--docs` regenerates the changelog, the brief, and the report, and rewrites all of `docs/content-versions.json` from every `docs/batches/*.json`. A large diff, including pre-existing `bjt-ss` duplicate rows, is expected and is not a regression. After a text-only review fix, run only the focused check for what changed, not the full gate run again. Run the full command again only if the later edit is not content-only.
 
 ## Generated files
 
@@ -63,7 +81,7 @@ Never grep or glob those directories, or the whole repo. `.rgignore` excludes th
 
 ## Deep-type quota
 
-At least 25% of the bank (`deep_quota(n)`) is symbolic, ordering, find-the-error, or multi-select. `deep_quota_gate.py` fails a bank under that line. Banks in `skilltree/deep_quota_grandfather.json` are the legacy set pending SG-063. Do not add ids. A wording fix leaves an id on the list. A full rewrite that adds the deep questions removes it.
+At least 25% of the bank (`deep_quota(n)`) is symbolic, ordering, find-the-error, or multi-select. `deep_quota_gate.py` fails a bank under that line. SG-063 ([#55](https://github.com/isaacElytraflight/elytraflight-website/issues/55)) is complete and closed. `skilltree/deep_quota_grandfather.json` stays, and its `skills` list is empty. Keep the file and the gate. Do not add ids.
 
 ## Dedupe
 
