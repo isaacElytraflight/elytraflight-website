@@ -2132,7 +2132,10 @@
    "id": "finite-horizon-sequence",
    "name": "Finite-horizon decision sequence",
    "summary": "The decision is a sequence of inputs or states, the cost adds a term at each step, and the dynamics restrict which sequences are feasible.",
-   "prereqs": [],
+   "prereqs": [
+    "optimization-problem-formulation",
+    "discrete-time"
+   ],
    "sources": [
     {
      "ref": "boyd-cvx",
