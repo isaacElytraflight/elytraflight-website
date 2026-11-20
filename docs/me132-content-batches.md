@@ -101,7 +101,7 @@ SG-056, written in this batch:
 | `kalman` | existing id, now the course-neutral core | `lin-algebra-review`, `gaussian-random-vectors` | `me132`, `nlo-tugraz`, `am08` |
 | `kalman-optimal-observer` | new ME 132 application | `kalman`, `observer` | `me132` |
 
-`kalman` teaches the predict/update recursion, the gain, and the covariance for \(x_{k+1} = A x_k + w_k\), \(y_k = C x_k + v_k\). It does not contain an optimality proof. `gaussian-random-vectors` also sits in the Feedback Systems box so that copy of the core does not depend on a skill outside the book. `kalman` is an added prerequisite of `kalman-recursive-least-squares`. `extended-kalman-filter` stays on top of that skill and stays in the optimization box only.
+`kalman` teaches the predict/update recursion, the gain, and the covariance for \(x_{k+1} = A x_k + w_k\), \(y_k = C x_k + v_k\). It does not contain an optimality proof. `kalman` is an added prerequisite of `kalman-recursive-least-squares`. `extended-kalman-filter` stays on top of that skill and stays in the optimization box only. The `me132` and `am08/ch7` placements of `gaussian-random-vectors` were removed under the box rule in `docs/skill-tree-content-SOP.md`: a skill stays in a course box only when that course's materials teach it. `am08/ch7` did not list the skill, so nothing was removed there. It remains in `am08/ch99` and `nlo-tugraz/l2`. `kalman` also lists `discrete-time` as a prerequisite; that skill stays in `am08/ch5` and is not copied into an ME 132 box.
 
 Dedupe, no other new edges:
 

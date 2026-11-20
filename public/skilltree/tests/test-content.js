@@ -74,7 +74,7 @@ test('graph is version 4 with 274 live skills and 16 retired ids', () => {
     assert.strictEqual(byId[id].status, undefined, id + ' has a bank and is not coming soon');
   }
   assert.strictEqual(byId['kalman'].name, 'Kalman filter');
-  assert.deepStrictEqual(byId['kalman'].prereqs, ['lin-algebra-review', 'gaussian-random-vectors']);
+  assert.deepStrictEqual(byId['kalman'].prereqs, ['lin-algebra-review', 'gaussian-random-vectors', 'discrete-time']);
   assert.deepStrictEqual(byId['gaussian-random-vectors'].prereqs, ['lin-algebra-review']);
   assert.deepStrictEqual(byId['kalman-optimal-observer'].prereqs, ['kalman', 'observer']);
   assert.ok(byId['kalman-recursive-least-squares'].prereqs.includes('kalman'));
@@ -236,7 +236,7 @@ test('collections reference no retired ids and every skill sits in a top-level b
     for (const sid of members) covered.add(sid);
   }
   for (const id of skillIds) assert(covered.has(id), 'skill missing from every top-level box: ' + id);
-  assert.strictEqual(skillsInBox(me132, byId).size, 63);
+  assert.strictEqual(skillsInBox(me132, byId).size, 62);
   assert.strictEqual(skillsInBox(am08, byId).size, 77);
   assert.strictEqual(skillsInBox(nlo, byId).size, 105);
   const nloChapters = collections.boxes.filter(box => (box.skills || []).includes('lin-algebra-review')).map(box => box.id).sort();
