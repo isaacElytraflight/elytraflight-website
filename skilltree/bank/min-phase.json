@@ -1,23 +1,20 @@
 {
   "skill_id": "min-phase",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "min-phase-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A minimum-phase loop gain holds a slope of \\(-40\\ \\mathrm{dB}\\) per decade across a wide band around crossover. About what phase does that slope imply?",
-      "explanation": "For a minimum-phase frequency response, a slope of \\(-20n\\ \\mathrm{dB}\\) per decade, held over a wide band, corresponds to a phase near \\(-90n\\) degrees. Here \\(n = 2\\), so the phase is near \\(-180^\\circ\\). A single pole (\\(n = 1\\)) would be near \\(-90^\\circ\\), and three poles near \\(-270^\\circ\\). The phase tracks the slope, not the absolute gain. The rule fails if the system has a right-half-plane zero or a delay: those add lag the magnitude plot does not show.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Magnitude falling, then falling steeper, with the steeper region marked -40</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
-      "figure_alt": "A Bode magnitude sketch that is shallow, then steeper. The steeper region is marked -40. No phase axis is shown.",
-      "options": [
-        "about \\(-180^\\circ\\)",
-        "about \\(-90^\\circ\\)",
-        "about \\(-270^\\circ\\)",
-        "about \\(0^\\circ\\), because phase is set by the gain at one frequency, not by the slope"
+      "type": "order",
+      "prompt": "Order the minimum-phase slope rule, then the addition that breaks it. Each step after the first uses the result of the step before it.",
+      "explanation": "For a minimum-phase response, a wideband slope of \\(-20n\\ \\mathrm{dB}\\) per decade sits near \\(-90n\\) degrees. So \\(-20\\) sits near \\(-90^\\circ\\) and \\(-40\\) sits near \\(-180^\\circ\\). A pure delay and the all-pass \\((z-s)/(z+s)\\) each have magnitude 1, so they leave that slope unchanged and add lag the slope rule does not predict.",
+      "steps": [
+        "A frequency response is minimum phase when every finite zero lies in the open left half-plane and there is no time delay. For that response, a magnitude slope held across a wide band fixes the phase.",
+        "Hold the minimum-phase response from the previous step at a slope of \\(-20\\ \\mathrm{dB}\\) per decade across a wide band. The phase in that band is near \\(-90^\\circ\\).",
+        "Double the wideband slope from the previous step, to \\(-40\\ \\mathrm{dB}\\) per decade. The same rule then puts the phase near \\(-180^\\circ\\).",
+        "Start from the near \\(-180^\\circ\\) phase given by the previous step, and multiply by either a pure time delay or the all-pass \\((z-s)/(z+s)\\) for some \\(z > 0\\). Each factor has magnitude 1, so the magnitude slope is unchanged, and each adds negative phase at every positive frequency. The phase is then more negative than the slope rule predicted."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 1,
+      "id": "min-phase-r1-q4"
     },
     {
       "id": "min-phase-r1-q2",
@@ -33,21 +30,31 @@
       "version": 2
     },
     {
-      "id": "min-phase-r1-q3",
       "round": 1,
-      "type": "mc",
-      "prompt": "You may multiply a transfer function by one of the following without changing its magnitude Bode plot. Which choice adds phase lag?",
-      "explanation": "\\((z-s)/(z+s)\\) is an all-pass: its magnitude is \\(1\\) at every imaginary \\(s = j\\omega\\), and its phase is \\(-2\\tan^{-1}(\\omega/z)\\), which is lag. A new left-half-plane zero \\((s+z)\\) raises the magnitude by \\(20\\ \\mathrm{dB}\\) per decade and adds phase lead, not lag. A positive constant changes the magnitude by a fixed number of decibels and adds no phase. Looking only at the magnitude of the reciprocal all-pass throws away exactly the phase the question is about.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>One zero in each half-plane</title><line x1=\"20\" y1=\"90\" x2=\"70\" y2=\"90\"/><line x1=\"98\" y1=\"90\" x2=\"202\" y2=\"90\"/><line x1=\"230\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><circle cx=\"84\" cy=\"90\" r=\"5\"/><circle cx=\"216\" cy=\"90\" r=\"5\"/></svg>",
-      "figure_alt": "s-plane with the imaginary axis drawn and one open circle in each half-plane.",
-      "options": [
-        "Multiplying by \\(s+z\\) for \\(z>0\\), a new left-half-plane zero",
-        "Multiplying by \\(\\dfrac{z-s}{z+s}\\) for \\(z>0\\)",
-        "Multiplying by a positive constant gain",
-        "Multiplying by \\(\\dfrac{s+z}{z-s}\\) and then taking the magnitude only"
+      "type": "symbolic",
+      "prompt": "a and b are positive. A pure delay of a seconds is evaluated at frequency b radians per second. Write the phase lag in radians. Use a and b.",
+      "explanation": "A delay of \\(a\\) seconds has frequency response \\(e^{-j b a}\\). The phase is \\(-a b\\) radians, so the positive lag is \\(a b\\) radians. The ratio \\(a/b\\) is a time, not this lag. The sum \\(a+b\\) is not the lag. A minimum-phase factor has no delay, so this product is exactly the extra lag a delay adds on top of the slope rule.",
+      "answer": "a*b",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.05,
+          "max": 2.0
+        },
+        {
+          "name": "b",
+          "min": 0.5,
+          "max": 20.0
+        }
       ],
-      "correct_index": 1,
-      "version": 1
+      "tolerance": 0.001,
+      "alternates": [
+        "b*a",
+        "(a)*(b)",
+        "a*b*1"
+      ],
+      "version": 1,
+      "id": "min-phase-r1-q5"
     },
     {
       "id": "min-phase-r2-q1",
@@ -63,21 +70,23 @@
       "version": 2
     },
     {
-      "id": "min-phase-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "Which transfer function is minimum phase?",
-      "explanation": "Minimum phase means every zero is in the open left half-plane and there is no time delay. \\((s+3)/((s+1)(s+8))\\) has its only zero at \\(-3\\). \\((s-3)/((s+1)(s+8))\\) has a zero at \\(+3\\). A factor \\(e^{-0.1 s}\\) is a delay, which adds lag at every frequency and is not minimum phase. \\((3-s)/(s+3)\\) is an all-pass with a right-half-plane zero.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Poles and a zero, all in the left half-plane</title><line x1=\"20\" y1=\"92\" x2=\"26\" y2=\"92\"/><line x1=\"54\" y1=\"92\" x2=\"154.8\" y2=\"92\"/><line x1=\"182.8\" y1=\"92\" x2=\"206.2\" y2=\"92\"/><line x1=\"234.2\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"246\" y1=\"160\" x2=\"246\" y2=\"16\"/><polygon points=\"246,16 248.7,22.4 243.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"254\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"215.2\" y1=\"87\" x2=\"225.2\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"215.2\" y1=\"97\" x2=\"225.2\" y2=\"87\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"87\" x2=\"45\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"97\" x2=\"45\" y2=\"87\" stroke-width=\"1.8\"/><circle cx=\"168.8\" cy=\"92\" r=\"5\"/></svg>",
-      "figure_alt": "s-plane with two poles and one zero, all on the negative real axis.",
+      "type": "multi",
+      "prompt": "Which statements about minimum phase are true? Select every correct statement.",
+      "explanation": "Minimum phase is a condition on the finite zeros and on time delay, not on the poles. \\((s+3)/((s+1)(s+8))\\) has its only finite zero at \\(-3\\) and no delay. For \\(z > 0\\), \\((z-s)/(z+s)\\) is an all-pass: magnitude 1 on the imaginary axis, and phase \\(-2\\tan^{-1}(\\omega/z)\\) for \\(\\omega > 0\\). A stable pole set does not cancel a right-half-plane zero or a delay.",
       "options": [
-        "\\(\\dfrac{s-3}{(s+1)(s+8)}\\)",
-        "\\(\\dfrac{e^{-0.1 s}}{s+1}\\)",
-        "\\(\\dfrac{s+3}{(s+1)(s+8)}\\)",
-        "\\(\\dfrac{3-s}{s+3}\\)"
+        "A transfer function is minimum phase when every finite zero lies in the open left half-plane and there is no time delay.",
+        "\\(\\dfrac{s+3}{(s+1)(s+8)}\\) is minimum phase: its only finite zero is at \\(-3\\), and it has no time delay.",
+        "For every \\(z > 0\\), \\(\\dfrac{z-s}{z+s}\\) has magnitude 1 at every \\(s = j\\omega\\) with \\(\\omega\\) real, and for every \\(\\omega > 0\\) its phase equals \\(-2\\tan^{-1}(\\omega/z)\\), which is lag.",
+        "A transfer function is minimum phase whenever every pole lies in the open left half-plane, including when it has a right-half-plane zero or a pure delay."
       ],
-      "correct_index": 2,
-      "version": 2
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1,
+      "id": "min-phase-r2-q4"
     },
     {
       "id": "min-phase-r2-q3",
@@ -182,6 +191,59 @@
       "unit": "deg",
       "tolerance": 0.02,
       "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "min-phase-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A minimum-phase loop gain holds a slope of \\(-40\\ \\mathrm{dB}\\) per decade across a wide band around crossover. About what phase does that slope imply?",
+      "explanation": "For a minimum-phase frequency response, a slope of \\(-20n\\ \\mathrm{dB}\\) per decade, held over a wide band, corresponds to a phase near \\(-90n\\) degrees. Here \\(n = 2\\), so the phase is near \\(-180^\\circ\\). A single pole (\\(n = 1\\)) would be near \\(-90^\\circ\\), and three poles near \\(-270^\\circ\\). The phase tracks the slope, not the absolute gain. The rule fails if the system has a right-half-plane zero or a delay: those add lag the magnitude plot does not show.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 330 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Magnitude falling, then falling steeper, with the steeper region marked -40</title><line x1=\"50\" y1=\"156\" x2=\"300\" y2=\"156\"/><polygon points=\"300,156 293.6,158.7 293.6,153.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"50\" y1=\"156\" x2=\"50\" y2=\"30\"/><polygon points=\"50,30 52.7,36.4 47.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"300\" y=\"172\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">log ω</text><text x=\"54\" y=\"26\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">|H| dB</text><polyline points=\"58,42 150,86 268,142\" stroke-width=\"2.2\"/><text x=\"96\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−20</text><text x=\"188\" y=\"96\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−40</text></svg>",
+      "figure_alt": "A Bode magnitude sketch that is shallow, then steeper. The steeper region is marked -40. No phase axis is shown.",
+      "options": [
+        "about \\(-180^\\circ\\)",
+        "about \\(-90^\\circ\\)",
+        "about \\(-270^\\circ\\)",
+        "about \\(0^\\circ\\), because phase is set by the gain at one frequency, not by the slope"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "min-phase-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "You may multiply a transfer function by one of the following without changing its magnitude Bode plot. Which choice adds phase lag?",
+      "explanation": "\\((z-s)/(z+s)\\) is an all-pass: its magnitude is \\(1\\) at every imaginary \\(s = j\\omega\\), and its phase is \\(-2\\tan^{-1}(\\omega/z)\\), which is lag. A new left-half-plane zero \\((s+z)\\) raises the magnitude by \\(20\\ \\mathrm{dB}\\) per decade and adds phase lead, not lag. A positive constant changes the magnitude by a fixed number of decibels and adds no phase. Looking only at the magnitude of the reciprocal all-pass throws away exactly the phase the question is about.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>One zero in each half-plane</title><line x1=\"20\" y1=\"90\" x2=\"70\" y2=\"90\"/><line x1=\"98\" y1=\"90\" x2=\"202\" y2=\"90\"/><line x1=\"230\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><circle cx=\"84\" cy=\"90\" r=\"5\"/><circle cx=\"216\" cy=\"90\" r=\"5\"/></svg>",
+      "figure_alt": "s-plane with the imaginary axis drawn and one open circle in each half-plane.",
+      "options": [
+        "Multiplying by \\(s+z\\) for \\(z>0\\), a new left-half-plane zero",
+        "Multiplying by \\(\\dfrac{z-s}{z+s}\\) for \\(z>0\\)",
+        "Multiplying by a positive constant gain",
+        "Multiplying by \\(\\dfrac{s+z}{z-s}\\) and then taking the magnitude only"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "min-phase-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Which transfer function is minimum phase?",
+      "explanation": "Minimum phase means every zero is in the open left half-plane and there is no time delay. \\((s+3)/((s+1)(s+8))\\) has its only zero at \\(-3\\). \\((s-3)/((s+1)(s+8))\\) has a zero at \\(+3\\). A factor \\(e^{-0.1 s}\\) is a delay, which adds lag at every frequency and is not minimum phase. \\((3-s)/(s+3)\\) is an all-pass with a right-half-plane zero.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Poles and a zero, all in the left half-plane</title><line x1=\"20\" y1=\"92\" x2=\"26\" y2=\"92\"/><line x1=\"54\" y1=\"92\" x2=\"154.8\" y2=\"92\"/><line x1=\"182.8\" y1=\"92\" x2=\"206.2\" y2=\"92\"/><line x1=\"234.2\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"246\" y1=\"160\" x2=\"246\" y2=\"16\"/><polygon points=\"246,16 248.7,22.4 243.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"254\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"215.2\" y1=\"87\" x2=\"225.2\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"215.2\" y1=\"97\" x2=\"225.2\" y2=\"87\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"87\" x2=\"45\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"97\" x2=\"45\" y2=\"87\" stroke-width=\"1.8\"/><circle cx=\"168.8\" cy=\"92\" r=\"5\"/></svg>",
+      "figure_alt": "s-plane with two poles and one zero, all on the negative real axis.",
+      "options": [
+        "\\(\\dfrac{s-3}{(s+1)(s+8)}\\)",
+        "\\(\\dfrac{e^{-0.1 s}}{s+1}\\)",
+        "\\(\\dfrac{s+3}{(s+1)(s+8)}\\)",
+        "\\(\\dfrac{3-s}{s+3}\\)"
+      ],
+      "correct_index": 2,
+      "version": 2
     }
   ]
 }

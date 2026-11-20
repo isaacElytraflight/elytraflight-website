@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-20T02:29:52.998701Z",
+  "generated": "2026-11-20T02:58:18.276994Z",
   "skills": {
-    "file": "skills.ceb1e3fe.json",
-    "hash": "ceb1e3fe"
+    "file": "skills.3a36f809.json",
+    "hash": "3a36f809"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -1116,7 +1116,7 @@
       "file": "banks/fb-linearization.9090717b.json"
     },
     "feedforward": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1124,8 +1124,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b28f00fa",
-      "file": "banks/feedforward.b28f00fa.json"
+      "hash": "b411070d",
+      "file": "banks/feedforward.b411070d.json"
     },
     "finite-difference-derivatives": {
       "version": 1,
@@ -1344,7 +1344,7 @@
       "file": "banks/gen-controller.7319bb84.json"
     },
     "gen-gain-phase": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1352,8 +1352,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b9420142",
-      "file": "banks/gen-gain-phase.b9420142.json"
+      "hash": "e51b057d",
+      "file": "banks/gen-gain-phase.e51b057d.json"
     },
     "gm": {
       "version": 3,
@@ -2052,7 +2052,7 @@
       "file": "banks/mim-cap.863d6836.json"
     },
     "min-phase": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2060,8 +2060,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "0f56ba68",
-      "file": "banks/min-phase.0f56ba68.json"
+      "hash": "1b9a4992",
+      "file": "banks/min-phase.1b9a4992.json"
     },
     "minority-profile": {
       "version": 3,
@@ -2460,7 +2460,7 @@
       "file": "banks/optimization-problem-formulation.3f04eea5.json"
     },
     "perf-specs-freq": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2468,8 +2468,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "c075e4b2",
-      "file": "banks/perf-specs-freq.c075e4b2.json"
+      "hash": "05846978",
+      "file": "banks/perf-specs-freq.05846978.json"
     },
     "phasors": {
       "version": 3,

@@ -3,12 +3,10 @@
   "label": "B1",
   "box": "ME 132 (me132) and Feedback Systems (am08)",
   "skills": [
-    "lin-algebra-review",
-    "min-phase"
+    "lin-algebra-review"
   ],
   "areas": {
-    "lin-algebra-review": ["linear-algebra"],
-    "min-phase": ["frequency-response"]
+    "lin-algebra-review": ["linear-algebra"]
   },
   "cores": ["lin-algebra-review"],
   "sources": "docs/sources.md",

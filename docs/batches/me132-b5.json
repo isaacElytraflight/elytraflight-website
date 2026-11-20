@@ -3,16 +3,10 @@
   "label": "B5",
   "box": "ME 132 (me132) and Feedback Systems (am08)",
   "skills": [
-    "feedforward",
-    "gen-gain-phase",
-    "linearization",
-    "perf-specs-freq"
+    "linearization"
   ],
   "areas": {
-    "feedforward": ["feedback-loop", "feedforward"],
-    "gen-gain-phase": ["describing-function", "frequency-response"],
-    "linearization": ["state-space", "linearization"],
-    "perf-specs-freq": ["performance-frequency", "loop-transfer-function"]
+    "linearization": ["state-space", "linearization"]
   },
   "cores": [],
   "sources": "docs/sources.md",

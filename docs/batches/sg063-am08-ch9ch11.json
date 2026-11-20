@@ -1,0 +1,22 @@
+{
+  "id": "sg063-am08-ch9ch11",
+  "label": "SG-063 Feedback Systems frequency-domain analysis and frequency-domain design",
+  "box": "Feedback Systems (am08), Frequency domain analysis; Frequency domain design",
+  "skills": [
+    "min-phase",
+    "gen-gain-phase",
+    "feedforward",
+    "perf-specs-freq"
+  ],
+  "areas": {
+    "min-phase": ["frequency-response"],
+    "gen-gain-phase": ["describing-function", "frequency-response"],
+    "feedforward": ["feedback-loop", "feedforward"],
+    "perf-specs-freq": ["performance-frequency", "loop-transfer-function"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_am08_ch9ch11.py"
+}
