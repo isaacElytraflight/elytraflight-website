@@ -499,7 +499,7 @@ header #btnProfile.ready{--c:var(--accent);--cs:rgba(108,92,231,.5)}
 .menu-check{display:flex;gap:8px;align-items:flex-start;font-size:13px;font-weight:650;padding:8px 0 0;cursor:pointer}
 .menu-check input{margin-top:2px;flex:none}
 .menu-note{margin:4px 0 0;font-size:11.5px;line-height:1.35;color:var(--ink2);font-weight:600}
-#lbDock{position:relative;height:0;flex:none;min-height:0;z-index:17;pointer-events:none}
+#lbDock{position:relative;height:0;flex:none;min-height:0;z-index:32;pointer-events:none}
 .lb-pop{position:absolute;top:8px;right:14px;display:flex;flex-direction:column;align-items:flex-end;pointer-events:auto;max-width:calc(100vw - 28px)}
 .lb-toggle{background:#6495ED;color:#1d2433;border:2px solid #1d2433;border-radius:10px;padding:5px 12px;font-weight:800;box-shadow:var(--shadow)}
 .lb-toggle:hover{background:#8eb0f2}
@@ -522,8 +522,8 @@ header #btnProfile.ready{--c:var(--accent);--cs:rgba(108,92,231,.5)}
   .modal{padding:16px 14px}
   #todoBook{left:8px;right:8px;width:auto;top:8px;max-height:48vh}
   #todoBook.collapsed{right:auto;width:180px;min-width:0;max-height:none}
-  .lb-pop{top:6px;right:8px;max-width:calc(100vw - 76px)}
-  .todo-board{width:min(240px,calc(100vw - 76px));max-height:min(200px,calc(100dvh - 300px))}
+  .lb-pop{top:6px;right:8px;max-width:calc(100vw - 210px)}
+  .todo-board{width:min(220px,calc(100vw - 210px));max-height:min(200px,calc(100dvh - 300px))}
   .todo-hit{font-size:14px}
   .profile-card{padding:16px 14px 18px}
   .profile-facts{flex-direction:column;gap:4px}

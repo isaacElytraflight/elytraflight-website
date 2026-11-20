@@ -4365,7 +4365,20 @@ async function test(name, fn) {
     assert.strictEqual(kept.shown, true, 'collapsing the to-do list does not hide the leaderboard');
     await p.setViewport({ width: 390, height: 700 });
     await sleep(100);
+    await p.evaluate(() => document.getElementById('todoBook').classList.add('collapsed'));
     if (await p.$eval('#todoBoard', el => el.hidden)) await p.click('#lbToggle');
+    const painted = await p.evaluate(() => {
+      const sample = node => {
+        const r = node.getBoundingClientRect();
+        const el = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+        return !!(el && (el === node || node.contains(el) || el.closest('#todoBoard')));
+      };
+      const rank = document.querySelector('#todoBoard .todo-board-rank');
+      const name = document.querySelector('#todoBoard .todo-board-name');
+      return { rank: sample(rank), name: sample(name) };
+    });
+    assert.strictEqual(painted.rank, true, 'leaderboard rank is painted above the to-do list');
+    assert.strictEqual(painted.name, true, 'leaderboard name is painted above the to-do list');
     const overlap = await p.evaluate(() => {
       const boardEl = document.getElementById('todoBoard').getBoundingClientRect();
       const hit = sel => {
