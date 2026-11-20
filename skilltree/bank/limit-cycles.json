@@ -1,40 +1,39 @@
 {
   "skill_id": "limit-cycles",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "limit-cycles-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A limit cycle is",
-      "explanation": "A limit cycle is an isolated periodic orbit. Nearby trajectories spiral toward (stable) or away from (unstable) it. Equilibrium points are single points, not orbits. Linear systems cannot have isolated limit cycles.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>limit cycle</title><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₁</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₂</text><circle cx=\"140\" cy=\"120\" r=\"60\" stroke-dasharray=\"4 3\"/><polyline points=\"170,120 173.5,114.1 175.1,107.2 174.8,99.9 172.6,92.6 168.6,85.9 163.1,80 156.3,75.2 148.5,71.9 140,70.2 131.2,70.1 122.4,71.8 114,75 106.3,79.8 99.5,86 93.9,93.4 89.8,101.7 87.1,110.7 86.1,120 86.7,129.4 89,138.6 92.9,147.2 98.3,155 104.9,161.8 112.7,167.3 121.3,171.4 130.5,173.9 140,174.8 149.5,174 158.8,171.5 167.4,167.5 175.3,162 182.1,155.3 187.6,147.5 191.6,138.8 194.1,129.5 195,120\" stroke-width=\"1.8\"/></svg>",
-      "figure_alt": "A closed orbit in the phase plane.",
-      "options": [
-        "a closed orbit that nearby trajectories approach or leave",
-        "an equilibrium point",
-        "any oscillation in a linear system",
-        "the same as a center"
+      "type": "order",
+      "prompt": "Order how a stable limit cycle differs from a closed orbit of a linear planar center. Each step after the first uses the result of the step before it.",
+      "explanation": "A limit cycle is an isolated periodic orbit. Stability means nearby trajectories approach it. A linear planar center has a continuous family of closed orbits, so none of them is isolated. The region of attraction is the set of states that approach the cycle. Stability guarantees a neighborhood of the cycle, not the whole plane.",
+      "steps": [
+        "Start with a closed orbit: the state returns to its starting point after a positive period, and the orbit is not a single equilibrium.",
+        "Keep the orbit from the previous step only when some neighborhood of it contains no other closed orbit. The orbit is then isolated. A linear planar center fails this test, because its closed orbits form a continuous family.",
+        "Keep the isolated orbit from the previous step only when every trajectory that starts close enough to it, and not on it, approaches it as time increases. That orbit is a stable limit cycle.",
+        "Collect every initial condition that approaches the stable limit cycle named in the previous step. That set is its region of attraction. The set contains a neighborhood of the cycle, and it need not be the whole plane."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 1,
+      "id": "limit-cycles-r1-q4"
     },
     {
-      "id": "limit-cycles-r1-q2",
       "round": 1,
-      "type": "mc",
-      "prompt": "Limit cycles can exist in",
-      "explanation": "Limit cycles require nonlinearity to sustain oscillation. Linear systems have either stable nodes/spirals, centers (non-isolated orbits), or unstable trajectories. The nonlinearity provides energy to maintain the cycle.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nonlinear cycle</title><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₁</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₂</text><circle cx=\"140\" cy=\"120\" r=\"60\" stroke-dasharray=\"4 3\"/><polyline points=\"170,120 173.5,114.1 175.1,107.2 174.8,99.9 172.6,92.6 168.6,85.9 163.1,80 156.3,75.2 148.5,71.9 140,70.2 131.2,70.1 122.4,71.8 114,75 106.3,79.8 99.5,86 93.9,93.4 89.8,101.7 87.1,110.7 86.1,120 86.7,129.4 89,138.6 92.9,147.2 98.3,155 104.9,161.8 112.7,167.3 121.3,171.4 130.5,173.9 140,174.8 149.5,174 158.8,171.5 167.4,167.5 175.3,162 182.1,155.3 187.6,147.5 191.6,138.8 194.1,129.5 195,120\" stroke-width=\"1.8\"/></svg>",
-      "figure_alt": "A closed orbit in the phase plane.",
+      "type": "multi",
+      "prompt": "Which statements about periodic orbits are true? Select every correct statement.",
+      "explanation": "Scaling a nonconstant periodic solution of \\(\\dot{x} = Ax\\) by a factor near 1 produces a nearby periodic orbit, so no periodic orbit of an autonomous linear system is isolated. The stated Van der Pol equation has one stable periodic orbit when \\(\\mu > 0\\). A Hopf bifurcation keeps the equilibrium and creates or destroys a limit cycle as the critical pair crosses the imaginary axis. A stable linear feedback loop has no limit cycle, so feedback alone does not produce one.",
       "options": [
-        "only linear systems",
-        "only nonlinear systems",
-        "any system with feedback",
-        "only systems without damping"
+        "If \\(\\dot{x} = Ax\\) has a nonconstant periodic solution \\(x(t)\\), then \\(c\\, x(t)\\) is a periodic solution on a different orbit for every real \\(c\\) near 1 with \\(c \\neq 1\\). An autonomous linear system therefore has no isolated periodic orbit.",
+        "The Van der Pol equation \\(\\ddot{x} - \\mu(1-x^2)\\dot{x} + x = 0\\), with \\(\\mu > 0\\), has exactly one periodic orbit, and that orbit is stable.",
+        "In a Hopf bifurcation, an equilibrium persists while a complex conjugate pair of its eigenvalues crosses the imaginary axis, and a limit cycle is created or destroyed.",
+        "Every feedback loop has a limit cycle."
       ],
-      "correct_index": 1,
-      "version": 1
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1,
+      "id": "limit-cycles-r1-q5"
     },
     {
       "id": "limit-cycles-r1-q3",
@@ -71,21 +70,24 @@
       "version": 1
     },
     {
-      "id": "limit-cycles-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "A bifurcation is a qualitative change in system behavior as",
-      "explanation": "A bifurcation occurs when varying a parameter crosses a threshold that changes the number or stability of equilibria or limit cycles. Time evolution does not cause bifurcation; parameter changes do.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>bifurcation</title><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₁</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₂</text><circle cx=\"140\" cy=\"120\" r=\"60\" stroke-dasharray=\"4 3\"/><polyline points=\"170,120 173.5,114.1 175.1,107.2 174.8,99.9 172.6,92.6 168.6,85.9 163.1,80 156.3,75.2 148.5,71.9 140,70.2 131.2,70.1 122.4,71.8 114,75 106.3,79.8 99.5,86 93.9,93.4 89.8,101.7 87.1,110.7 86.1,120 86.7,129.4 89,138.6 92.9,147.2 98.3,155 104.9,161.8 112.7,167.3 121.3,171.4 130.5,173.9 140,174.8 149.5,174 158.8,171.5 167.4,167.5 175.3,162 182.1,155.3 187.6,147.5 191.6,138.8 194.1,129.5 195,120\" stroke-width=\"1.8\"/></svg>",
-      "figure_alt": "A closed orbit in the phase plane.",
-      "options": [
-        "a parameter varies",
-        "time increases",
-        "the initial condition changes",
-        "the input oscillates"
+      "type": "error",
+      "prompt": "A worked solution states general facts about bifurcations. Exactly one step is wrong.",
+      "explanation": "A bifurcation is a change in the vector field as a parameter varies. Changing the initial condition selects another basin and leaves the vector field alone. In a Hopf bifurcation the equilibrium persists and a limit cycle is created or destroyed. The passage of time at a fixed parameter is an ordinary trajectory, not a bifurcation.",
+      "steps": [
+        "Varying a parameter can produce a bifurcation: a qualitative change in the number or the stability of equilibria or of periodic orbits.",
+        "Moving the initial condition from one region of attraction to another changes which attractor is approached. That is not a bifurcation, because the vector field is unchanged.",
+        "In a Hopf bifurcation, an equilibrium persists while a complex conjugate pair of its eigenvalues crosses the imaginary axis, and a limit cycle is created or destroyed.",
+        "A bifurcation also occurs when every parameter is held fixed and only time increases, because the state moves."
       ],
-      "correct_index": 0,
-      "version": 1
+      "flaw_index": 3,
+      "reasons": [
+        "A bifurcation is a change in the vector field as a parameter varies. Time evolution at fixed parameters is not a bifurcation.",
+        "Letting time increase at fixed parameters is a bifurcation, because the state eventually changes."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "limit-cycles-r2-q4"
     },
     {
       "id": "limit-cycles-r2-q3",
@@ -210,6 +212,59 @@
       ],
       "correct_index": 0,
       "version": 2
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "limit-cycles-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A limit cycle is",
+      "explanation": "A limit cycle is an isolated periodic orbit. Nearby trajectories spiral toward (stable) or away from (unstable) it. Equilibrium points are single points, not orbits. Linear systems cannot have isolated limit cycles.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>limit cycle</title><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₁</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₂</text><circle cx=\"140\" cy=\"120\" r=\"60\" stroke-dasharray=\"4 3\"/><polyline points=\"170,120 173.5,114.1 175.1,107.2 174.8,99.9 172.6,92.6 168.6,85.9 163.1,80 156.3,75.2 148.5,71.9 140,70.2 131.2,70.1 122.4,71.8 114,75 106.3,79.8 99.5,86 93.9,93.4 89.8,101.7 87.1,110.7 86.1,120 86.7,129.4 89,138.6 92.9,147.2 98.3,155 104.9,161.8 112.7,167.3 121.3,171.4 130.5,173.9 140,174.8 149.5,174 158.8,171.5 167.4,167.5 175.3,162 182.1,155.3 187.6,147.5 191.6,138.8 194.1,129.5 195,120\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A closed orbit in the phase plane.",
+      "options": [
+        "a closed orbit that nearby trajectories approach or leave",
+        "an equilibrium point",
+        "any oscillation in a linear system",
+        "the same as a center"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r1-q2",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Limit cycles can exist in",
+      "explanation": "Limit cycles require nonlinearity to sustain oscillation. Linear systems have either stable nodes/spirals, centers (non-isolated orbits), or unstable trajectories. The nonlinearity provides energy to maintain the cycle.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nonlinear cycle</title><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₁</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₂</text><circle cx=\"140\" cy=\"120\" r=\"60\" stroke-dasharray=\"4 3\"/><polyline points=\"170,120 173.5,114.1 175.1,107.2 174.8,99.9 172.6,92.6 168.6,85.9 163.1,80 156.3,75.2 148.5,71.9 140,70.2 131.2,70.1 122.4,71.8 114,75 106.3,79.8 99.5,86 93.9,93.4 89.8,101.7 87.1,110.7 86.1,120 86.7,129.4 89,138.6 92.9,147.2 98.3,155 104.9,161.8 112.7,167.3 121.3,171.4 130.5,173.9 140,174.8 149.5,174 158.8,171.5 167.4,167.5 175.3,162 182.1,155.3 187.6,147.5 191.6,138.8 194.1,129.5 195,120\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A closed orbit in the phase plane.",
+      "options": [
+        "only linear systems",
+        "only nonlinear systems",
+        "any system with feedback",
+        "only systems without damping"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "limit-cycles-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "A bifurcation is a qualitative change in system behavior as",
+      "explanation": "A bifurcation occurs when varying a parameter crosses a threshold that changes the number or stability of equilibria or limit cycles. Time evolution does not cause bifurcation; parameter changes do.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>bifurcation</title><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₁</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x₂</text><circle cx=\"140\" cy=\"120\" r=\"60\" stroke-dasharray=\"4 3\"/><polyline points=\"170,120 173.5,114.1 175.1,107.2 174.8,99.9 172.6,92.6 168.6,85.9 163.1,80 156.3,75.2 148.5,71.9 140,70.2 131.2,70.1 122.4,71.8 114,75 106.3,79.8 99.5,86 93.9,93.4 89.8,101.7 87.1,110.7 86.1,120 86.7,129.4 89,138.6 92.9,147.2 98.3,155 104.9,161.8 112.7,167.3 121.3,171.4 130.5,173.9 140,174.8 149.5,174 158.8,171.5 167.4,167.5 175.3,162 182.1,155.3 187.6,147.5 191.6,138.8 194.1,129.5 195,120\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "A closed orbit in the phase plane.",
+      "options": [
+        "a parameter varies",
+        "time increases",
+        "the initial condition changes",
+        "the input oscillates"
+      ],
+      "correct_index": 0,
+      "version": 1
     }
   ]
 }

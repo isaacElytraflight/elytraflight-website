@@ -1,0 +1,22 @@
+{
+  "id": "sg063-am08-c3c4c5c10",
+  "label": "SG-063 Feedback Systems examples, dynamic behavior, linear systems, and PID control",
+  "box": "Feedback Systems (am08), Examples; Dynamic behavior; Linear systems; PID control",
+  "skills": [
+    "app-examples",
+    "limit-cycles",
+    "discrete-time",
+    "pid-impl"
+  ],
+  "areas": {
+    "app-examples": ["state-space", "physical-models"],
+    "limit-cycles": ["nonlinear-systems"],
+    "discrete-time": ["state-space", "discrete-systems"],
+    "pid-impl": ["pid-implementation", "discrete-time-systems"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_am08_c3c4c5c10.py"
+}

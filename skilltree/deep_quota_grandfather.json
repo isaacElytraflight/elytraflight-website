@@ -1,13 +1,9 @@
 {
   "note": "Legacy banks pending SG-063. They were authored before the 25% deep-type quota (SG-062). Do not add ids. A new bank is checked. A wording-only edit does not remove an id. Remove an id when that bank is rewritten with deep questions. SG-063 removes the rest.",
   "skills": [
-    "app-examples",
-    "discrete-time",
     "feedforward",
     "gen-gain-phase",
-    "limit-cycles",
     "min-phase",
-    "perf-specs-freq",
-    "pid-impl"
+    "perf-specs-freq"
   ]
 }

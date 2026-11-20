@@ -2,9 +2,8 @@
   "id": "me132-b3",
   "label": "B3",
   "box": "ME 132 (me132) and Feedback Systems (am08)",
-  "skills": ["app-examples", "loop-tf", "second-order-sys"],
+  "skills": ["loop-tf", "second-order-sys"],
   "areas": {
-    "app-examples": ["state-space", "physical-models"],
     "loop-tf": ["loop-transfer-function", "feedback-loop"],
     "second-order-sys": ["second-order-systems", "time-response"]
   },

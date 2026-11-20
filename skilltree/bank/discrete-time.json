@@ -1,23 +1,20 @@
 {
   "skill_id": "discrete-time",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "discrete-time-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A discrete-time system is stable when all poles are",
-      "explanation": "In the z-plane, the stability boundary is the unit circle, not the imaginary axis. Poles inside \\(|z| < 1\\) decay. Poles on the unit circle give sustained oscillation. Poles outside grow without bound.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>z-plane stability</title><circle cx=\"140\" cy=\"120\" r=\"80\" stroke-dasharray=\"4 3\"/><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><text x=\"220\" y=\"134\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"175\" y1=\"91\" x2=\"185\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"175\" y1=\"101\" x2=\"185\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"175\" y1=\"139\" x2=\"185\" y2=\"149\" stroke-width=\"1.6\"/><line x1=\"175\" y1=\"149\" x2=\"185\" y2=\"139\" stroke-width=\"1.6\"/></svg>",
-      "figure_alt": "The z-plane with the unit circle.",
-      "options": [
-        "inside the unit circle",
-        "in the left half-plane",
-        "on the unit circle",
-        "at the origin"
+      "type": "order",
+      "prompt": "Order the exact sampling of one real continuous-time pole and the stability reading of its image. Each step after the first uses the result of the step before it.",
+      "explanation": "A real pole at \\(-a\\) with \\(a > 0\\) decays in continuous time. Exact sampling with period \\(b > 0\\) sends it to \\(e^{-a b}\\), which lies in \\((0, 1)\\) and so decays in discrete time. A pole with absolute value greater than 1 grows, and a pole with absolute value 1 does not decay to zero. A smaller positive period moves the same continuous pole closer to \\(z = 1\\) without leaving the open unit disk.",
+      "steps": [
+        "Start from a real continuous-time pole at \\(-a\\) with \\(a > 0\\). The pole lies in the open left half-plane, so the continuous mode decays.",
+        "Sample the pole from the previous step with period \\(b > 0\\) under the exact map \\(z = e^{s b}\\). The image is the real number \\(e^{-a b}\\), strictly between 0 and 1.",
+        "The image from the previous step has absolute value strictly less than 1, so that discrete mode decays to zero. A pole whose absolute value is strictly greater than 1 grows, and a pole whose absolute value equals 1 does not decay to zero.",
+        "Keep the decay to zero stated in the previous step, and replace the sample period that produced that image by a smaller positive period. The new image lies strictly between the old image and 1, so it is closer to 1 and the decay to zero still holds."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 1,
+      "id": "discrete-time-r1-q4"
     },
     {
       "id": "discrete-time-r1-q2",
@@ -46,21 +43,31 @@
       "version": 1
     },
     {
-      "id": "discrete-time-r2-q1",
       "round": 2,
-      "type": "mc",
-      "prompt": "The z-transform maps a continuous-time pole at \\(s = -a\\) with sample time \\(T\\) to",
-      "explanation": "The exact discretization gives \\(z = e^{sT}\\). For \\(s = -a\\), that is \\(z = e^{-aT}\\). The pole moves inside the unit circle if \\(a > 0\\). The other options are not the correct mapping.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>s to z mapping</title><circle cx=\"140\" cy=\"120\" r=\"80\" stroke-dasharray=\"4 3\"/><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><text x=\"220\" y=\"134\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"164.4\" y1=\"115\" x2=\"174.4\" y2=\"125\" stroke-width=\"1.6\"/><line x1=\"164.4\" y1=\"125\" x2=\"174.4\" y2=\"115\" stroke-width=\"1.6\"/></svg>",
-      "figure_alt": "The z-plane with the unit circle.",
-      "options": [
-        "\\(z = e^{-aT}\\)",
-        "\\(z = -aT\\)",
-        "\\(z = 1/(aT)\\)",
-        "\\(z = a + T\\)"
+      "type": "symbolic",
+      "prompt": "a and b are positive. Write the exact discrete-time image of the continuous-time pole at -a when the sample period is b. Use a and b.",
+      "explanation": "The exact map is \\(z = e^{s b}\\) with \\(s = -a\\), so the discrete pole is \\(\\exp(-a b)\\). For positive \\(a\\) and \\(b\\) this number lies in \\((0, 1)\\). The product \\(a*b\\) is the exponent, not the pole. Forward Euler would give \\(1 - a*b\\), which is a different map. The reciprocal \\(1/(a*b)\\) is not this image.",
+      "answer": "exp(-a*b)",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.25,
+          "max": 4.0
+        },
+        {
+          "name": "b",
+          "min": 0.25,
+          "max": 4.0
+        }
       ],
-      "correct_index": 0,
-      "version": 1
+      "tolerance": 0.001,
+      "alternates": [
+        "exp(-(a*b))",
+        "exp(-b*a)",
+        "e**(-a*b)"
+      ],
+      "version": 1,
+      "id": "discrete-time-r2-q4"
     },
     {
       "id": "discrete-time-r2-q2",
@@ -76,21 +83,24 @@
       "version": 1
     },
     {
-      "id": "discrete-time-r2-q3",
       "round": 2,
-      "type": "mc",
-      "prompt": "Aliasing occurs when",
-      "explanation": "Nyquist's theorem requires sampling at more than twice the signal frequency. Frequencies above half the sample rate (the Nyquist frequency) fold back as aliases. This is a sampling limitation, not a stability issue.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>aliasing</title><circle cx=\"140\" cy=\"120\" r=\"80\" stroke-dasharray=\"4 3\"/><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><text x=\"220\" y=\"134\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"183\" y1=\"67\" x2=\"193\" y2=\"77\" stroke-width=\"1.6\"/><line x1=\"183\" y1=\"77\" x2=\"193\" y2=\"67\" stroke-width=\"1.6\"/><line x1=\"183\" y1=\"163\" x2=\"193\" y2=\"173\" stroke-width=\"1.6\"/><line x1=\"183\" y1=\"173\" x2=\"193\" y2=\"163\" stroke-width=\"1.6\"/></svg>",
-      "figure_alt": "The z-plane with the unit circle.",
-      "options": [
-        "the signal frequency exceeds half the sample rate",
-        "the pole is inside the unit circle",
-        "the sample rate is too high",
-        "the z-transform has no poles"
+      "type": "error",
+      "prompt": "A worked solution states facts about sampling with a fixed period \\(T > 0\\). Exactly one step is wrong.",
+      "explanation": "The Nyquist frequency is \\(1/(2T)\\) hertz, and a sinusoid strictly above it aliases to a lower frequency. A discrete pole inside the open unit disk says the mode decays. It is not an aliasing test. Raising the sample rate raises the Nyquist frequency and can put the sinusoid below it. The wrong step reverses that effect.",
+      "steps": [
+        "The Nyquist frequency in hertz is \\(1/(2T)\\).",
+        "A continuous-time sinusoid whose frequency in hertz is strictly larger than \\(1/(2T)\\) aliases to a lower frequency when it is sampled at period \\(T\\).",
+        "A discrete pole inside the open unit disk says that the corresponding mode decays. That fact does not, by itself, decide whether a continuous-time sinusoid was aliased.",
+        "Raising the sample rate, while holding the sinusoid's frequency fixed, is what creates the alias."
       ],
-      "correct_index": 0,
-      "version": 1
+      "flaw_index": 3,
+      "reasons": [
+        "Aliasing appears when the sample rate is too low for the sinusoid. Raising the sample rate raises the Nyquist frequency. A pole inside the unit disk is a stability fact, not an aliasing test.",
+        "A higher sample rate folds the sinusoid downward, so increasing the sample rate is what creates the alias."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "discrete-time-r2-q5"
     },
     {
       "id": "discrete-time-r3-q1",
@@ -185,6 +195,59 @@
       "answer": 0.05,
       "unit": "s",
       "tolerance": 0.02,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "discrete-time-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A discrete-time system is stable when all poles are",
+      "explanation": "In the z-plane, the stability boundary is the unit circle, not the imaginary axis. Poles inside \\(|z| < 1\\) decay. Poles on the unit circle give sustained oscillation. Poles outside grow without bound.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>z-plane stability</title><circle cx=\"140\" cy=\"120\" r=\"80\" stroke-dasharray=\"4 3\"/><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><text x=\"220\" y=\"134\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"175\" y1=\"91\" x2=\"185\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"175\" y1=\"101\" x2=\"185\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"175\" y1=\"139\" x2=\"185\" y2=\"149\" stroke-width=\"1.6\"/><line x1=\"175\" y1=\"149\" x2=\"185\" y2=\"139\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "The z-plane with the unit circle.",
+      "options": [
+        "inside the unit circle",
+        "in the left half-plane",
+        "on the unit circle",
+        "at the origin"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r2-q1",
+      "round": 2,
+      "type": "mc",
+      "prompt": "The z-transform maps a continuous-time pole at \\(s = -a\\) with sample time \\(T\\) to",
+      "explanation": "The exact discretization gives \\(z = e^{sT}\\). For \\(s = -a\\), that is \\(z = e^{-aT}\\). The pole moves inside the unit circle if \\(a > 0\\). The other options are not the correct mapping.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>s to z mapping</title><circle cx=\"140\" cy=\"120\" r=\"80\" stroke-dasharray=\"4 3\"/><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><text x=\"220\" y=\"134\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"164.4\" y1=\"115\" x2=\"174.4\" y2=\"125\" stroke-width=\"1.6\"/><line x1=\"164.4\" y1=\"125\" x2=\"174.4\" y2=\"115\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "The z-plane with the unit circle.",
+      "options": [
+        "\\(z = e^{-aT}\\)",
+        "\\(z = -aT\\)",
+        "\\(z = 1/(aT)\\)",
+        "\\(z = a + T\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "discrete-time-r2-q3",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Aliasing occurs when",
+      "explanation": "Nyquist's theorem requires sampling at more than twice the signal frequency. Frequencies above half the sample rate (the Nyquist frequency) fold back as aliases. This is a sampling limitation, not a stability issue.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 240\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>aliasing</title><circle cx=\"140\" cy=\"120\" r=\"80\" stroke-dasharray=\"4 3\"/><line x1=\"30\" y1=\"120\" x2=\"250\" y2=\"120\"/><polygon points=\"250,120 243.6,122.7 243.6,117.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"30\"/><polygon points=\"140,30 142.7,36.4 137.3,36.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"245\" y=\"136\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"148\" y=\"28\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><text x=\"220\" y=\"134\" text-anchor=\"middle\" font-size=\"10\" fill=\"currentColor\" stroke=\"none\">1</text><line x1=\"183\" y1=\"67\" x2=\"193\" y2=\"77\" stroke-width=\"1.6\"/><line x1=\"183\" y1=\"77\" x2=\"193\" y2=\"67\" stroke-width=\"1.6\"/><line x1=\"183\" y1=\"163\" x2=\"193\" y2=\"173\" stroke-width=\"1.6\"/><line x1=\"183\" y1=\"173\" x2=\"193\" y2=\"163\" stroke-width=\"1.6\"/></svg>",
+      "figure_alt": "The z-plane with the unit circle.",
+      "options": [
+        "the signal frequency exceeds half the sample rate",
+        "the pole is inside the unit circle",
+        "the sample rate is too high",
+        "the z-transform has no poles"
+      ],
+      "correct_index": 0,
       "version": 1
     }
   ]

@@ -1,23 +1,20 @@
 {
   "skill_id": "pid-impl",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "pid-impl-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "A pure derivative term \\(K_d s\\) is avoided in a real controller because",
-      "explanation": "Differentiating noise makes the command chatter. A filter \\(s/(\\tau_f s+1)\\) keeps the phase lead over a limited band and then rolls off. The proportional term is a separate path. The filtered derivative is proper. It does not cancel the integrator; the two terms sit at opposite ends of the frequency axis.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>filtered derivative magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 80.6,38.8 112.5,65.9 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
-      "figure_alt": "A flat magnitude that rolls off after a corner.",
-      "options": [
-        "it amplifies high-frequency sensor noise, so a low-pass filter is put on the derivative",
-        "it removes the proportional gain",
-        "it makes the controller improper in a way that no filter can fix",
-        "it cancels the integrator exactly"
+      "type": "order",
+      "prompt": "Order the practical derivative path of a PID controller. Each step after the first uses the result of the step before it.",
+      "explanation": "A pure derivative amplifies measurement noise, so the derivative is filtered as \\(K_d s/(\\tau_f s + 1)\\) with \\(\\tau_f = \\tau_d/N\\). That filter is proper, and its pole is at \\(-N/\\tau_d\\). The weight \\(c = 0\\) drives the derivative with \\(-y\\), so a reference step does not kick it. The loop gain is read from \\(y\\). The weight \\(c\\) changes the reference response and does not change that loop gain.",
+      "steps": [
+        "A pure derivative \\(K_d s\\) amplifies high-frequency measurement noise, so the implemented derivative is not left as \\(K_d s\\).",
+        "Replace the pure derivative from the previous step by \\(K_d s/(\\tau_f s + 1)\\), where \\(\\tau_f = \\tau_d/N\\) with \\(\\tau_d > 0\\) and \\(N > 0\\). The filter pole is at \\(-N/\\tau_d\\). The denominator degree equals the numerator degree, so the transfer function is proper.",
+        "Drive the filtered derivative from the previous step with \\(c r - y\\). The weight \\(c = 0\\) makes the driving signal \\(-y\\), so a step in the reference \\(r\\) does not reach the derivative.",
+        "Read the loop gain from the measured output \\(y\\) used in the driving signal of the previous step. Changing the weight \\(c\\) changes the response from the reference to the output and does not change that loop gain."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 1,
+      "id": "pid-impl-r1-q4"
     },
     {
       "id": "pid-impl-r1-q2",
@@ -59,21 +56,23 @@
       "version": 1
     },
     {
-      "id": "pid-impl-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "Setpoint weight \\(c = 0\\) on the derivative means the derivative acts on",
-      "explanation": "With \\(c = 0\\) the derivative sees \\(-y\\), not \\(c r - y\\). A step in \\(r\\) no longer differentiates into a spike. Differentiating the reference is the \\(c = 1\\) choice, which is exactly the kick. The integral and the saturated command are other signals.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>derivative kick sketch</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,127.8 52,122.9 55.1,118.4 58.1,114 61.1,109.9 64.1,106.1 67.2,102.4 70.2,99 73.2,95.7 76.2,92.6 79.2,89.7 82.3,86.9 85.3,84.3 88.3,81.8 91.3,79.4 94.4,77.2 97.4,75.1 100.4,73.1 103.4,71.3 106.4,69.5 109.5,67.8 112.5,66.2 115.5,64.7 118.5,63.3 121.6,61.9 124.6,60.7 127.6,59.5 130.6,58.3 133.6,57.2 136.7,56.2 139.7,55.3 142.7,54.3 145.7,53.5 148.8,52.7 151.8,51.9 154.8,51.2 157.8,50.5 160.8,49.8 163.9,49.2 166.9,48.6 169.9,48.1 172.9,47.5 176,47 179,46.6 182,46.1 185,45.7 188,45.3 191.1,44.9 194.1,44.6 197.1,44.3 200.1,43.9 203.2,43.6 206.2,43.4 209.2,43.1 212.2,42.8 215.2,42.6 218.3,42.4 221.3,42.1 224.3,41.9 227.3,41.7 230.4,41.6 233.4,41.4 236.4,41.2 239.4,41.1 242.4,40.9 245.5,40.8 248.5,40.7 251.5,40.5 254.5,40.4 257.6,40.3 260.6,40.2 263.6,40.1 266.6,40 269.6,39.9 272.7,39.8 275.7,39.8 278.7,39.7 281.7,39.6 284.8,39.6 287.8,39.5 290.8,39.4 293.8,39.4 296.8,39.3 299.9,39.3 302.9,39.2 305.9,39.2 308.9,39.1 312,39.1 315,39.1 318,39\" stroke-width=\"2.2\"/></svg>",
-      "figure_alt": "A step that jumps and then settles.",
+      "type": "multi",
+      "prompt": "Which statements about a PID implementation are true? Select every correct statement.",
+      "explanation": "The weight \\(c = 0\\) drives the derivative with \\(-y\\), so a reference step does not reach it. For \\(T > 0\\) and \\(\\mathrm{Re}(s) < 0\\), the backward-Euler denominator has real part greater than 1, so its image lies in the open unit disk. A one-sample delay contributes phase \\(-\\omega T\\) on \\(z = e^{j\\omega T}\\) when \\(|\\omega T| < \\pi\\). Forward Euler does not keep every stable pole inside that disk: the pole at \\(-40\\) with \\(T = 0.1\\) maps to \\(-3\\).",
       "options": [
-        "the reference only",
-        "the measured output only, so a step in the reference does not kick the derivative",
-        "the integral state",
-        "the actuator command after saturation"
+        "With derivative setpoint weight \\(c = 0\\), the derivative is driven by \\(-y\\). A step in the reference does not kick the derivative.",
+        "For every sample period \\(T > 0\\), backward Euler \\(z = 1/(1 - s T)\\) maps every finite pole with negative real part into the open unit disk.",
+        "On the unit circle \\(z = e^{j\\omega T}\\) with \\(|\\omega T| < \\pi\\), a one-sample delay \\(z^{-1}\\) has phase \\(-\\omega T\\) radians.",
+        "Forward Euler \\(z = 1 + s T\\) maps every stable continuous pole into the open unit disk for every sample period \\(T > 0\\)."
       ],
-      "correct_index": 1,
-      "version": 1
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1,
+      "id": "pid-impl-r2-q4"
     },
     {
       "id": "pid-impl-r2-q3",
@@ -89,21 +88,31 @@
       "version": 1
     },
     {
-      "id": "pid-impl-r3-q1",
       "round": 3,
-      "type": "mc",
-      "prompt": "A fast, stable continuous pole is mapped into discrete time. Which statement is right?",
-      "explanation": "Backward Euler sends \\(\\mathrm{Re}\\, s < 0\\) to \\(|z| < 1\\). Forward Euler can send a stable pole with a large negative real part outside the unit circle, as the next question shows. Tustin maps the imaginary axis to the unit circle, not to a vertical line. A delay of one sample adds phase lag.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>filtered derivative magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 80.6,38.8 112.5,65.9 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
-      "figure_alt": "A flat magnitude that rolls off after a corner.",
-      "options": [
-        "Forward Euler always keeps it inside the unit circle",
-        "Tustin maps the imaginary axis to a vertical line",
-        "Backward Euler maps the open left half-plane into the open unit disk",
-        "A one-sample computational delay adds phase lead"
+      "type": "symbolic",
+      "prompt": "a and b are positive. A continuous-time pole at -a is discretized with backward Euler and sample period b. Write the discrete pole. Use a and b.",
+      "explanation": "Backward Euler sets \\(z = 1/(1 - s b)\\) with \\(s = -a\\), which simplifies to \\(1/(1 + a b)\\). The denominator is greater than 1, so the value lies in \\((0, 1)\\). Forward Euler would write \\(1 - a b\\), and that value lies outside the unit disk when \\(a b > 2\\). The exact map \\(\\exp(-a b)\\) is a different expression. The product \\(a*b\\) alone is not the discrete pole.",
+      "answer": "1/(1+a*b)",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.25,
+          "max": 18.0
+        },
+        {
+          "name": "b",
+          "min": 0.25,
+          "max": 18.0
+        }
       ],
-      "correct_index": 2,
-      "version": 1
+      "tolerance": 0.001,
+      "alternates": [
+        "1/(1+b*a)",
+        "(1+a*b)**(-1)",
+        "1/(1+(a*b))"
+      ],
+      "version": 1,
+      "id": "pid-impl-r3-q4"
     },
     {
       "id": "pid-impl-r3-q2",
@@ -181,6 +190,59 @@
       "answer": 0.5,
       "unit": "1",
       "tolerance": 0.02,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "pid-impl-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A pure derivative term \\(K_d s\\) is avoided in a real controller because",
+      "explanation": "Differentiating noise makes the command chatter. A filter \\(s/(\\tau_f s+1)\\) keeps the phase lead over a limited band and then rolls off. The proportional term is a separate path. The filtered derivative is proper. It does not cancel the integrator; the two terms sit at opposite ends of the frequency axis.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>filtered derivative magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 80.6,38.8 112.5,65.9 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A flat magnitude that rolls off after a corner.",
+      "options": [
+        "it amplifies high-frequency sensor noise, so a low-pass filter is put on the derivative",
+        "it removes the proportional gain",
+        "it makes the controller improper in a way that no filter can fix",
+        "it cancels the integrator exactly"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "Setpoint weight \\(c = 0\\) on the derivative means the derivative acts on",
+      "explanation": "With \\(c = 0\\) the derivative sees \\(-y\\), not \\(c r - y\\). A step in \\(r\\) no longer differentiates into a spike. Differentiating the reference is the \\(c = 1\\) choice, which is exactly the kick. The integral and the saturated command are other signals.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>derivative kick sketch</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,132.9 49,127.8 52,122.9 55.1,118.4 58.1,114 61.1,109.9 64.1,106.1 67.2,102.4 70.2,99 73.2,95.7 76.2,92.6 79.2,89.7 82.3,86.9 85.3,84.3 88.3,81.8 91.3,79.4 94.4,77.2 97.4,75.1 100.4,73.1 103.4,71.3 106.4,69.5 109.5,67.8 112.5,66.2 115.5,64.7 118.5,63.3 121.6,61.9 124.6,60.7 127.6,59.5 130.6,58.3 133.6,57.2 136.7,56.2 139.7,55.3 142.7,54.3 145.7,53.5 148.8,52.7 151.8,51.9 154.8,51.2 157.8,50.5 160.8,49.8 163.9,49.2 166.9,48.6 169.9,48.1 172.9,47.5 176,47 179,46.6 182,46.1 185,45.7 188,45.3 191.1,44.9 194.1,44.6 197.1,44.3 200.1,43.9 203.2,43.6 206.2,43.4 209.2,43.1 212.2,42.8 215.2,42.6 218.3,42.4 221.3,42.1 224.3,41.9 227.3,41.7 230.4,41.6 233.4,41.4 236.4,41.2 239.4,41.1 242.4,40.9 245.5,40.8 248.5,40.7 251.5,40.5 254.5,40.4 257.6,40.3 260.6,40.2 263.6,40.1 266.6,40 269.6,39.9 272.7,39.8 275.7,39.8 278.7,39.7 281.7,39.6 284.8,39.6 287.8,39.5 290.8,39.4 293.8,39.4 296.8,39.3 299.9,39.3 302.9,39.2 305.9,39.2 308.9,39.1 312,39.1 315,39.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A step that jumps and then settles.",
+      "options": [
+        "the reference only",
+        "the measured output only, so a step in the reference does not kick the derivative",
+        "the integral state",
+        "the actuator command after saturation"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "pid-impl-r3-q1",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A fast, stable continuous pole is mapped into discrete time. Which statement is right?",
+      "explanation": "Backward Euler sends \\(\\mathrm{Re}\\, s < 0\\) to \\(|z| < 1\\). Forward Euler can send a stable pole with a large negative real part outside the unit circle, as the next question shows. Tustin maps the imaginary axis to the unit circle, not to a vertical line. A delay of one sample adds phase lag.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 186\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>filtered derivative magnitude</title><line x1=\"54\" y1=\"140\" x2=\"300\" y2=\"140\"/><polygon points=\"300,140 293.6,142.7 293.6,137.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"54\" y1=\"140\" x2=\"54\" y2=\"28\"/><polygon points=\"54,28 56.7,34.4 51.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"58\" y=\"24\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">dB</text><polyline points=\"71,38.8 80.6,38.8 112.5,65.9 283,129.2\" stroke-width=\"2.2\"/><text x=\"300\" y=\"156\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">f</text></svg>",
+      "figure_alt": "A flat magnitude that rolls off after a corner.",
+      "options": [
+        "Forward Euler always keeps it inside the unit circle",
+        "Tustin maps the imaginary axis to a vertical line",
+        "Backward Euler maps the open left half-plane into the open unit disk",
+        "A one-sample computational delay adds phase lead"
+      ],
+      "correct_index": 2,
       "version": 1
     }
   ]
