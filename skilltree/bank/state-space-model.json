@@ -1,23 +1,20 @@
 {
   "skill_id": "state-space-model",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "state-space-model-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "An \\(n\\)th-order differential equation is written as a state model. How many states does that take?",
-      "explanation": "Each extra derivative needs its own initial condition, so an \\(n\\)th-order equation has \\(n\\) states. One equation can still hide several derivatives. A and B are matrices, not a count of states. The number of entries in A is \\(n^2\\), which counts coefficients, not states.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 336 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a chain of integrators</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">1/s</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">1/s</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"304\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Two integrator blocks in series.",
-      "options": [
-        "n, one per derivative you have to remember",
-        "1, because one equation is one state",
-        "2, for A and for B",
-        "n squared, the number of entries in A"
+      "type": "order",
+      "prompt": "Order the state count for one scalar linear equation whose leading coefficient is nonzero. Each step after the first uses the result of the step before it.",
+      "explanation": "An nth-order scalar equation needs n initial values, so this state vector has n entries. One equation can still hide several derivatives. A and B are the coefficient matrices, not a count of states. The number of entries in A is n squared, which counts coefficients.",
+      "steps": [
+        "Solve the equation so the highest derivative of y stands alone on the left, and call that derivative order n.",
+        "List the initial values the equation from the previous step needs: y and every derivative of y of order strictly less than n. That list has n numbers.",
+        "Assign one state to each number listed in the previous step. Fewer states would drop an initial value, and the equation does not need an extra state.",
+        "The length of the state list from the previous step is the dimension of x. The entries of A are coefficients, so do not square that length and call the square a state count."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 1,
+      "id": "state-space-model-r1-q4"
     },
     {
       "id": "state-space-model-r1-q2",
@@ -59,21 +56,40 @@
       "version": 1
     },
     {
-      "id": "state-space-model-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "The output equation of a state model is",
-      "explanation": "\\(y = Cx + Du\\) reads the output off the state, plus any piece that jumps straight through from the input. \\(\\dot{x} = Ax + Bu\\) is the state equation, not the output. Swapping \\(x\\) and \\(y\\) inverts the definition. Using A and B for the output mixes the two equations.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a C row and a D entry, symbolic</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">c1   c2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">d   0</text></svg>",
-      "figure_alt": "A symbolic array, not a numeric answer.",
-      "options": [
-        "\\(\\dot{x} = Ax + Bu\\)",
-        "\\(y = Cx + Du\\)",
-        "\\(y = Ax + Bu\\)",
-        "\\(x = Cy + Du\\)"
+      "type": "symbolic",
+      "prompt": "A scalar linear state model reads its output as C times the state x, plus D times the input u. Write that output. Use C, x, D, and u.",
+      "explanation": "The output equation is C*x + D*u. C*x drops the direct term. A*x + B*u is the state equation, not the output. Swapping the state and the output inverts the definition. D is the feedthrough, not a second copy of B.",
+      "answer": "C*x + D*u",
+      "variables": [
+        {
+          "name": "C",
+          "min": 0.25,
+          "max": 18.0
+        },
+        {
+          "name": "x",
+          "min": 0.25,
+          "max": 18.0
+        },
+        {
+          "name": "D",
+          "min": 0.25,
+          "max": 18.0
+        },
+        {
+          "name": "u",
+          "min": 0.25,
+          "max": 18.0
+        }
       ],
-      "correct_index": 1,
-      "version": 1
+      "tolerance": 0.001,
+      "alternates": [
+        "D*u + C*x",
+        "(C*x)+(D*u)"
+      ],
+      "version": 1,
+      "id": "state-space-model-r2-q4"
     },
     {
       "id": "state-space-model-r2-q3",
@@ -102,21 +118,24 @@
       "version": 1
     },
     {
-      "id": "state-space-model-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "You rewrite the same ODE in a new choice of states. Which statement stays true?",
-      "explanation": "A change of coordinates \\(x = Tz\\) replaces \\(A\\) by \\(T^{-1}AT\\). Similar matrices share their eigenvalues, so the modes do not move. A itself does change unless \\(T\\) commutes with it in a trivial way. B is transformed too, and it is not forced to be the identity.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a state matrix with the bottom row still open</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">?   ?</text></svg>",
-      "figure_alt": "A 2 by 2 matrix with the second row not filled in.",
-      "options": [
-        "A is unchanged, because the physics did not change",
-        "the eigenvalues change to the new coordinates",
-        "the eigenvalues stay the same",
-        "B becomes the identity"
+      "type": "error",
+      "prompt": "A worked solution changes coordinates in a linear state model. T is a constant invertible matrix and x = T z. Exactly one step is wrong.",
+      "explanation": "Similarity preserves the eigenvalues of A, including multiplicities. The eigenvalues of T are not the modes. The entries of A do change in general, and B is transformed as well. It is not forced to become the identity.",
+      "steps": [
+        "The new coordinate z is defined by x = T z, and T is a constant invertible matrix.",
+        "Differentiating that definition and substituting \\(\\dot{x} = A x + B u\\) produces the new state matrix \\(T^{-1} A T\\).",
+        "\\(T^{-1} A T\\) is similar to A, so it has the same eigenvalues, with the same algebraic and geometric multiplicities.",
+        "Those eigenvalues are replaced by the eigenvalues of T, because z is a different basis."
       ],
-      "correct_index": 2,
-      "version": 1
+      "flaw_index": 3,
+      "reasons": [
+        "Similarity keeps the eigenvalues of A. The eigenvalues of T are not the modes of the model.",
+        "The new state matrix equals T, so the modes move to the eigenvalues of T."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "state-space-model-r3-q4"
     },
     {
       "id": "state-space-model-r3-q3",
@@ -181,6 +200,59 @@
         "the eigenvalues of A"
       ],
       "correct_index": 3,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "state-space-model-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "An \\(n\\)th-order differential equation is written as a state model. How many states does that take?",
+      "explanation": "Each extra derivative needs its own initial condition, so an \\(n\\)th-order equation has \\(n\\) states. One equation can still hide several derivatives. A and B are matrices, not a count of states. The number of entries in A is \\(n^2\\), which counts coefficients, not states.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 336 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a chain of integrators</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">1/s</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">1/s</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"304\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
+      "figure_alt": "Two integrator blocks in series.",
+      "options": [
+        "n, one per derivative you have to remember",
+        "1, because one equation is one state",
+        "2, for A and for B",
+        "n squared, the number of entries in A"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "The output equation of a state model is",
+      "explanation": "\\(y = Cx + Du\\) reads the output off the state, plus any piece that jumps straight through from the input. \\(\\dot{x} = Ax + Bu\\) is the state equation, not the output. Swapping \\(x\\) and \\(y\\) inverts the definition. Using A and B for the output mixes the two equations.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a C row and a D entry, symbolic</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">c1   c2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">d   0</text></svg>",
+      "figure_alt": "A symbolic array, not a numeric answer.",
+      "options": [
+        "\\(\\dot{x} = Ax + Bu\\)",
+        "\\(y = Cx + Du\\)",
+        "\\(y = Ax + Bu\\)",
+        "\\(x = Cy + Du\\)"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "state-space-model-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "You rewrite the same ODE in a new choice of states. Which statement stays true?",
+      "explanation": "A change of coordinates \\(x = Tz\\) replaces \\(A\\) by \\(T^{-1}AT\\). Similar matrices share their eigenvalues, so the modes do not move. A itself does change unless \\(T\\) commutes with it in a trivial way. B is transformed too, and it is not forced to be the identity.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a state matrix with the bottom row still open</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">?   ?</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with the second row not filled in.",
+      "options": [
+        "A is unchanged, because the physics did not change",
+        "the eigenvalues change to the new coordinates",
+        "the eigenvalues stay the same",
+        "B becomes the identity"
+      ],
+      "correct_index": 2,
       "version": 1
     }
   ]

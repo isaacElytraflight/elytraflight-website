@@ -4,7 +4,6 @@
     "app-examples",
     "cauchy-schwarz-inequality",
     "discrete-time",
-    "equilibria",
     "feedforward",
     "gen-gain-phase",
     "inner-products",
@@ -13,12 +12,8 @@
     "perf-specs-freq",
     "pid-impl",
     "rayleigh-quotient",
-    "realization",
     "rn-important-subsets",
     "singular-value-decomposition",
-    "ss-solution",
-    "ss-to-tf",
-    "state-space-model",
     "vector-norms-lp"
   ]
 }

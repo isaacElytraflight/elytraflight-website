@@ -2,13 +2,11 @@
   "id": "me132-b3",
   "label": "B3",
   "box": "ME 132 (me132) and Feedback Systems (am08)",
-  "skills": ["app-examples", "equilibria", "loop-tf", "second-order-sys", "ss-solution"],
+  "skills": ["app-examples", "loop-tf", "second-order-sys"],
   "areas": {
     "app-examples": ["state-space", "physical-models"],
-    "equilibria": ["state-space"],
     "loop-tf": ["loop-transfer-function", "feedback-loop"],
-    "second-order-sys": ["second-order-systems", "time-response"],
-    "ss-solution": ["state-space"]
+    "second-order-sys": ["second-order-systems", "time-response"]
   },
   "cores": [],
   "sources": "docs/sources.md",

@@ -1,23 +1,20 @@
 {
   "skill_id": "ss-solution",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
-      "id": "ss-solution-r1-q1",
       "round": 1,
-      "type": "mc",
-      "prompt": "The free response of \\(\\dot{x} = Ax\\) from initial state \\(x(0)\\) is",
-      "explanation": "The matrix exponential \\(e^{At}\\) generalizes the scalar exponential. It multiplies the initial state to give the state at time \\(t\\). \\(Ax(0)\\) is a single derivative, not the time evolution. \\(x(0) + At\\) is a linear ramp. \\(x(0)e^{-t}\\) assumes a specific eigenvalue of \\(-1\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>free response</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,39 49,44.1 52,49 55.1,53.5 58.1,57.8 61.1,61.9 64.1,65.8 67.2,69.5 70.2,72.9 73.2,76.2 76.2,79.3 79.2,82.2 82.3,85 85.3,87.6 88.3,90.1 91.3,92.4 94.4,94.7 97.4,96.8 100.4,98.7 103.4,100.6 106.4,102.4 109.5,104.1 112.5,105.7 115.5,107.2 118.5,108.6 121.6,109.9 124.6,111.2 127.6,112.4 130.6,113.6 133.6,114.6 136.7,115.7 139.7,116.6 142.7,117.5 145.7,118.4 148.8,119.2 151.8,120 154.8,120.7 157.8,121.4 160.8,122.1 163.9,122.7 166.9,123.3 169.9,123.8 172.9,124.3 176,124.8 179,125.3 182,125.7 185,126.2 188,126.6 191.1,126.9 194.1,127.3 197.1,127.6 200.1,127.9 203.2,128.2 206.2,128.5 209.2,128.8 212.2,129 215.2,129.3 218.3,129.5 221.3,129.7 224.3,129.9 227.3,130.1 230.4,130.3 233.4,130.5 236.4,130.6 239.4,130.8 242.4,130.9 245.5,131.1 248.5,131.2 251.5,131.3 254.5,131.5 257.6,131.6 260.6,131.7 263.6,131.8 266.6,131.9 269.6,131.9 272.7,132 275.7,132.1 278.7,132.2 281.7,132.3 284.8,132.3 287.8,132.4 290.8,132.4 293.8,132.5 296.8,132.6 299.9,132.6 302.9,132.7 305.9,132.7 308.9,132.7 312,132.8 315,132.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
-      "figure_alt": "A curve that decays toward zero.",
-      "options": [
-        "\\(x(t) = e^{At} x(0)\\)",
-        "\\(x(t) = A x(0)\\)",
-        "\\(x(t) = x(0) + At\\)",
-        "\\(x(t) = x(0) e^{-t}\\)"
+      "type": "order",
+      "prompt": "Order the free response of \\(\\dot{x} = A x\\) when A is diagonal, with diagonal entries \\(\\lambda_1\\) and \\(\\lambda_2\\). Each step after the first uses the result of the step before it.",
+      "explanation": "The free response is \\(e^{At} x(0)\\). For a diagonal A the exponential is the diagonal of the scalar exponentials, and each mode stays in its own coordinate. A x(0) is one derivative, not the time evolution. x(0) + A t is a ramp. A single factor \\(e^{-t}\\) assumes both eigenvalues are \\(-1\\).",
+      "steps": [
+        "Read \\(\\lambda_1\\) and \\(\\lambda_2\\) from the diagonal. The off-diagonal zeros mean neither state equation contains the other state.",
+        "Exponentiate each diagonal entry from the previous step, times t, and place the two results on a diagonal. That matrix is \\(e^{At}\\).",
+        "Multiply the matrix from the previous step by the initial state. Each entry of the product uses only the matching initial entry and its own exponential.",
+        "Stop at the product from the previous step. That product is the free response. A nonzero input would add a convolution on top of it, and the convolution is not part of the free response."
       ],
-      "correct_index": 0,
-      "version": 1
+      "version": 1,
+      "id": "ss-solution-r1-q4"
     },
     {
       "id": "ss-solution-r1-q2",
@@ -59,21 +56,25 @@
       "version": 1
     },
     {
-      "id": "ss-solution-r2-q2",
       "round": 2,
-      "type": "mc",
-      "prompt": "The matrix exponential of a diagonal matrix \\(\\mathrm{diag}(\\lambda_1, \\lambda_2)\\) is",
-      "explanation": "The exponential of a diagonal matrix is the diagonal of the exponentials. Each mode evolves independently. The sum of eigenvalues in the exponent would collapse the two modes into one; that is wrong. A linear term \\(\\lambda t\\) is not an exponential. The original matrix without time evolution is missing the \\(t\\) dependence.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal exponential</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">e^{λ₁t}   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   e^{λ₂t}</text></svg>",
-      "figure_alt": "A 2 by 2 diagonal matrix of exponentials.",
-      "options": [
-        "\\(e^{(\\lambda_1 + \\lambda_2) t}\\)",
-        "\\(\\mathrm{diag}(e^{\\lambda_1 t}, e^{\\lambda_2 t})\\)",
-        "\\(\\mathrm{diag}(\\lambda_1 t, \\lambda_2 t)\\)",
-        "\\(\\mathrm{diag}(\\lambda_1, \\lambda_2)\\)"
+      "type": "symbolic",
+      "prompt": "A real mode has eigenvalue -a, with a positive. Write its time constant, the time at which the mode has been multiplied by 1/e. Use a.",
+      "explanation": "The mode is e to the power -a*t, which equals e to the power -1 when t = 1/a. The time constant is 1/a, not a and not -a. 1/a squared is the square of that time. The imaginary part of a complex eigenvalue sets the oscillation, not this decay time.",
+      "answer": "1/a",
+      "variables": [
+        {
+          "name": "a",
+          "min": 0.2,
+          "max": 20.0
+        }
       ],
-      "correct_index": 1,
-      "version": 1
+      "tolerance": 0.001,
+      "alternates": [
+        "a**(-1)",
+        "1/(a)"
+      ],
+      "version": 1,
+      "id": "ss-solution-r2-q4"
     },
     {
       "id": "ss-solution-r2-q3",
@@ -102,21 +103,24 @@
       "version": 1
     },
     {
-      "id": "ss-solution-r3-q2",
       "round": 3,
-      "type": "mc",
-      "prompt": "If all eigenvalues of \\(A\\) have negative real parts, the free response",
-      "explanation": "Every mode is a decaying exponential times a sinusoid (or just the exponential for real eigenvalues). All modes die out, so the state decays to zero. Right-half eigenvalues would grow. Purely imaginary eigenvalues would oscillate forever. A constant state would need an eigenvalue at zero.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>stable complex pair</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"41\" x2=\"133\" y2=\"51\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"51\" x2=\"133\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"129\" x2=\"133\" y2=\"139\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"139\" x2=\"133\" y2=\"129\" stroke-width=\"1.8\"/></svg>",
-      "figure_alt": "Two pole marks in the left half-plane.",
-      "options": [
-        "grows without bound",
-        "oscillates forever at constant amplitude",
-        "stays constant",
-        "decays to zero"
+      "type": "error",
+      "prompt": "A worked solution describes the free response when every eigenvalue of A has a negative real part. Exactly one step is wrong.",
+      "explanation": "Negative real parts make every free mode decay, including a factor of a power of t from a Jordan block. A constant input then settles at the equilibrium \\(-A^{-1} B u\\). It does not grow. A positive real part is what makes a mode grow. A purely imaginary eigenvalue is what keeps a constant-amplitude oscillation.",
+      "steps": [
+        "Every eigenvalue of A has a strictly negative real part.",
+        "A mode is then a decaying exponential or a decaying oscillation, and a Jordan block only multiplies that factor by a power of t.",
+        "Every such mode tends to the origin as t grows, so the free response tends to the origin from every initial state.",
+        "The same eigenvalue hypothesis makes the response to a nonzero constant input grow without bound."
       ],
-      "correct_index": 3,
-      "version": 1
+      "flaw_index": 3,
+      "reasons": [
+        "Negative real parts make every free mode decay, and a constant input then settles at an equilibrium instead of growing.",
+        "A nonzero constant input adds B u at every instant, so the state grows without bound under that hypothesis."
+      ],
+      "correct_reason": 0,
+      "version": 1,
+      "id": "ss-solution-r3-q4"
     },
     {
       "id": "ss-solution-r3-q3",
@@ -181,6 +185,59 @@
         "the trace of \\(A\\) is positive"
       ],
       "correct_index": 2,
+      "version": 1
+    }
+  ],
+  "retired_questions": [
+    {
+      "id": "ss-solution-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The free response of \\(\\dot{x} = Ax\\) from initial state \\(x(0)\\) is",
+      "explanation": "The matrix exponential \\(e^{At}\\) generalizes the scalar exponential. It multiplies the initial state to give the state at time \\(t\\). \\(Ax(0)\\) is a single derivative, not the time evolution. \\(x(0) + At\\) is a linear ramp. \\(x(0)e^{-t}\\) assumes a specific eigenvalue of \\(-1\\).",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>free response</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,39 49,44.1 52,49 55.1,53.5 58.1,57.8 61.1,61.9 64.1,65.8 67.2,69.5 70.2,72.9 73.2,76.2 76.2,79.3 79.2,82.2 82.3,85 85.3,87.6 88.3,90.1 91.3,92.4 94.4,94.7 97.4,96.8 100.4,98.7 103.4,100.6 106.4,102.4 109.5,104.1 112.5,105.7 115.5,107.2 118.5,108.6 121.6,109.9 124.6,111.2 127.6,112.4 130.6,113.6 133.6,114.6 136.7,115.7 139.7,116.6 142.7,117.5 145.7,118.4 148.8,119.2 151.8,120 154.8,120.7 157.8,121.4 160.8,122.1 163.9,122.7 166.9,123.3 169.9,123.8 172.9,124.3 176,124.8 179,125.3 182,125.7 185,126.2 188,126.6 191.1,126.9 194.1,127.3 197.1,127.6 200.1,127.9 203.2,128.2 206.2,128.5 209.2,128.8 212.2,129 215.2,129.3 218.3,129.5 221.3,129.7 224.3,129.9 227.3,130.1 230.4,130.3 233.4,130.5 236.4,130.6 239.4,130.8 242.4,130.9 245.5,131.1 248.5,131.2 251.5,131.3 254.5,131.5 257.6,131.6 260.6,131.7 263.6,131.8 266.6,131.9 269.6,131.9 272.7,132 275.7,132.1 278.7,132.2 281.7,132.3 284.8,132.3 287.8,132.4 290.8,132.4 293.8,132.5 296.8,132.6 299.9,132.6 302.9,132.7 305.9,132.7 308.9,132.7 312,132.8 315,132.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that decays toward zero.",
+      "options": [
+        "\\(x(t) = e^{At} x(0)\\)",
+        "\\(x(t) = A x(0)\\)",
+        "\\(x(t) = x(0) + At\\)",
+        "\\(x(t) = x(0) e^{-t}\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "ss-solution-r2-q2",
+      "round": 2,
+      "type": "mc",
+      "prompt": "The matrix exponential of a diagonal matrix \\(\\mathrm{diag}(\\lambda_1, \\lambda_2)\\) is",
+      "explanation": "The exponential of a diagonal matrix is the diagonal of the exponentials. Each mode evolves independently. The sum of eigenvalues in the exponent would collapse the two modes into one; that is wrong. A linear term \\(\\lambda t\\) is not an exponential. The original matrix without time evolution is missing the \\(t\\) dependence.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal exponential</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">e^{λ₁t}   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   e^{λ₂t}</text></svg>",
+      "figure_alt": "A 2 by 2 diagonal matrix of exponentials.",
+      "options": [
+        "\\(e^{(\\lambda_1 + \\lambda_2) t}\\)",
+        "\\(\\mathrm{diag}(e^{\\lambda_1 t}, e^{\\lambda_2 t})\\)",
+        "\\(\\mathrm{diag}(\\lambda_1 t, \\lambda_2 t)\\)",
+        "\\(\\mathrm{diag}(\\lambda_1, \\lambda_2)\\)"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "ss-solution-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "If all eigenvalues of \\(A\\) have negative real parts, the free response",
+      "explanation": "Every mode is a decaying exponential times a sinusoid (or just the exponential for real eigenvalues). All modes die out, so the state decays to zero. Right-half eigenvalues would grow. Purely imaginary eigenvalues would oscillate forever. A constant state would need an eigenvalue at zero.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>stable complex pair</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"41\" x2=\"133\" y2=\"51\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"51\" x2=\"133\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"129\" x2=\"133\" y2=\"139\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"139\" x2=\"133\" y2=\"129\" stroke-width=\"1.8\"/></svg>",
+      "figure_alt": "Two pole marks in the left half-plane.",
+      "options": [
+        "grows without bound",
+        "oscillates forever at constant amplitude",
+        "stays constant",
+        "decays to zero"
+      ],
+      "correct_index": 3,
       "version": 1
     }
   ]
