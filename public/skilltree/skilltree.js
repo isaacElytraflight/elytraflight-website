@@ -168,7 +168,7 @@ let playable = [];
 
 /* ====================== storage ====================== */
 let storageOK = true, memStore = null, progress = { version: 1, skills: {} };
-let leaderboardRows = null, leaderboardReady = false, profileLoadGen = 0, profileRouteGen = 0, profileRouteInflight = 0, latestProfileRoute = null;
+let leaderboardRows = null, leaderboardReady = false, leaderboardOpen = false, profileLoadGen = 0, profileRouteGen = 0, profileRouteInflight = 0, latestProfileRoute = null;
 
 function probeStorage() { try { const k = 'skilltree.__probe'; localStorage.setItem(k, '1'); localStorage.removeItem(k); return true } catch (e) { return false } }
 
@@ -1466,6 +1466,7 @@ function scopeButtonText() {
 function syncScopePicker() {
   const btn = $('scopeToggle');
   if (!btn) return;
+  if (scopePanelOpen) closeLeaderboard(false);
   document.querySelectorAll('#scopePicker input[type=checkbox]').forEach(inp => { inp.checked = selectedBoxes.has(inp.value); });
   btn.textContent = scopeButtonText();
   if (selectedBoxes.size === 0) btn.title = 'Pick courses to focus the tree';
@@ -3334,7 +3335,6 @@ function renderTodo() {
   host.append(head, spiral);
   if (examsEl) host.append(examsEl);
   host.append(paper, actions);
-  appendLeaderboard(host);
 }
 
 /* ====================== profile ====================== */
@@ -3852,10 +3852,80 @@ async function openPublicProfile(username, gen) {
   if (skillsEl) skillsEl.textContent = String(Math.max(0, Math.round(Number(result.profile.skills_completed) || 0)));
   if (body) body.hidden = false;
 }
-function appendLeaderboard(host) {
-  if (!leaderboardRows) return;
-  const board = el('section', { class: 'todo-board', id: 'todoBoard', 'aria-label': 'Leaderboard' });
-  board.append(el('div', { class: 'todo-board-title', text: 'Leaderboard' }));
+function bindLeaderboardDismiss() {
+  if (bindLeaderboardDismiss.done) return;
+  bindLeaderboardDismiss.done = true;
+  document.addEventListener('click', e => {
+    if (!leaderboardOpen) return;
+    if (e.target && e.target.closest && e.target.closest('#lbDock')) return;
+    closeLeaderboard(false);
+  });
+}
+function closeLeaderboard(restoreFocus) {
+  const was = leaderboardOpen;
+  leaderboardOpen = false;
+  const board = $('todoBoard');
+  const btn = $('lbToggle');
+  if (board) board.hidden = true;
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+  if (restoreFocus && was && btn) btn.focus();
+}
+function focusLeaderboard() {
+  const board = $('todoBoard');
+  if (!board) return;
+  const link = board.querySelector('a');
+  if (link) { link.focus(); return; }
+  board.tabIndex = -1;
+  board.focus();
+}
+function openLeaderboard(fromKeyboard) {
+  leaderboardOpen = true;
+  if (scopePanelOpen) {
+    scopePanelOpen = false;
+    syncScopePicker();
+  }
+  const board = $('todoBoard');
+  const btn = $('lbToggle');
+  if (board) board.hidden = false;
+  if (btn) btn.setAttribute('aria-expanded', 'true');
+  if (fromKeyboard) focusLeaderboard();
+}
+function renderLeaderboard() {
+  bindLeaderboardDismiss();
+  const strip = $('strip');
+  if (!strip || !strip.parentNode) return;
+  let host = $('lbDock');
+  if (!leaderboardRows) {
+    leaderboardOpen = false;
+    if (host) host.remove();
+    return;
+  }
+  const open = leaderboardOpen;
+  if (!host) {
+    host = el('div', { id: 'lbDock', class: 'lb-dock' });
+    strip.parentNode.insertBefore(host, strip.nextSibling);
+  }
+  const toggle = el('button', {
+    type: 'button',
+    id: 'lbToggle',
+    class: 'lb-toggle',
+    'aria-expanded': open ? 'true' : 'false',
+    'aria-controls': 'todoBoard',
+    'aria-haspopup': 'true',
+    'aria-label': 'Leaderboard',
+    onclick: e => {
+      e.stopPropagation();
+      if (leaderboardOpen) closeLeaderboard(false);
+      else openLeaderboard(e.detail === 0);
+    }
+  }, 'Leaderboard');
+  const board = el('section', {
+    class: 'todo-board',
+    id: 'todoBoard',
+    'aria-label': 'Leaderboard',
+    hidden: !open
+  });
+  board.append(el('div', { class: 'todo-board-title', id: 'todoBoardTitle', text: 'Leaderboard' }));
   const list = el('ol', { class: 'todo-board-list' });
   leaderboardRows.slice(0, 5).forEach((row, i) => {
     const name = sanitizeUsername(row && row.username);
@@ -3872,18 +3942,18 @@ function appendLeaderboard(host) {
   });
   if (!list.childNodes.length) board.append(el('p', { class: 'todo-board-empty', text: 'No public profiles yet.' }));
   else board.append(list);
-  host.append(board);
+  host.replaceChildren(el('div', { class: 'lb-pop' }, toggle, board));
 }
 async function loadLeaderboard() {
   const result = await fetchLeaderboard();
   leaderboardReady = true;
   if (!result.ok) {
     leaderboardRows = null;
-    if ($('todoBoard')) renderTodo();
+    renderLeaderboard();
     return;
   }
   leaderboardRows = result.rows.slice(0, 5);
-  renderTodo();
+  renderLeaderboard();
 }
 function routeProfileName() {
   const path = location.pathname || '/';
@@ -4057,6 +4127,7 @@ function setupKeyboard() {
       else if (openFlag && window.SkillgroveTelemetry && window.SkillgroveTelemetry.dismissFlag) window.SkillgroveTelemetry.dismissFlag(openFlag);
       else if (openFlag) openFlag.hidden = true;
       else if (quizOpen) leaveQuiz();
+      else if (leaderboardOpen) closeLeaderboard(true);
       else if (panelOpen()) closePanel();
       return;
     }
