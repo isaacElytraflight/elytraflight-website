@@ -273,6 +273,86 @@ test('study days stop before the exam and sessions spread across them', () => {
   assert.deepStrictEqual(Sim.orderSessionItems(items, {}).filter(it => it.type === 'challenge').map(it => it.id), ['c', 'b']);
 });
 
+test('blended exam plans interleave and never pass an exam date', () => {
+  const today = '2026-11-20';
+  const eeDate = '2026-11-27';
+  const meDate = '2026-12-04';
+  const eeRows = [0, 1, 2, 3].map(i => ({ practiced: ['shared', 'ee' + i], challenges: [{ id: 'eeC' + i, from: 1 }] }));
+  const meRows = [0, 1, 2, 3].map(i => ({ practiced: ['shared', 'me' + i], challenges: [{ id: 'meC' + i, from: 1 }] }));
+  const sessions = Sim.mergeExamSessionPlans([
+    { examId: 'ee105', examDate: eeDate, savedIndex: 0, today, rows: eeRows },
+    { examId: 'me132', examDate: meDate, savedIndex: 1, today, rows: meRows }
+  ]);
+  const ee = sessions.filter(s => s.examId === 'ee105');
+  const me = sessions.filter(s => s.examId === 'me132');
+  assert(ee.length > 0 && me.length > 0);
+  assert(ee.every(s => s.date < eeDate), 'an EE105 session lands on or after its exam');
+  assert(me.every(s => s.date < meDate), 'an ME132 session lands on or after its exam');
+  assert(me.some(s => s.date <= ee[ee.length - 1].date), 'ME132 should appear before EE105 is finished');
+  assert.strictEqual(me[0].date, ee[0].date, 'both exams start on the early study days');
+  const shared = sessions.filter(s => s.items.some(it => it.type === 'skill' && it.id === 'shared'));
+  assert.strictEqual(shared.length, 1);
+  assert.strictEqual(shared[0].examId, 'ee105');
+  const dates = sessions.map(s => s.date);
+  const sorted = dates.slice().sort();
+  assert.deepStrictEqual(dates, sorted, 'sessions are ordered by date');
+});
+
+test('plan pace covers behind, today, caught up, and ahead', () => {
+  const today = '2026-11-20';
+  assert.deepStrictEqual(Sim.planPaceStatus([{ date: '2026-11-19', complete: false }, { date: '2026-11-18', complete: false }], today), {
+    kind: 'behind', n: 2, text: '2 sessions behind'
+  });
+  assert.strictEqual(Sim.planPaceStatus([{ date: '2026-11-19', complete: false }], today).text, '1 session behind');
+  assert.deepStrictEqual(Sim.planPaceStatus([{ date: today, complete: false }, { date: today, complete: false }], today), {
+    kind: 'today', n: 2, text: '2 sessions left to complete today'
+  });
+  assert.strictEqual(Sim.planPaceStatus([{ date: today, complete: false }], today).text, '1 session left to complete today');
+  assert.deepStrictEqual(Sim.planPaceStatus([{ date: '2026-11-19', complete: true }, { date: today, complete: true }], today), {
+    kind: 'caught', n: 0, text: '✓ all caught up!'
+  });
+  assert.deepStrictEqual(Sim.planPaceStatus([{ date: '2026-11-21', complete: true }, { date: '2026-11-22', complete: true }], today), {
+    kind: 'ahead', n: 2, text: '⭐ 2 sessions ahead'
+  });
+  assert.strictEqual(Sim.planPaceStatus([{ date: '2026-11-21', complete: true }], today).text, '⭐ 1 session ahead');
+  assert.strictEqual(Sim.planPaceStatus([
+    { date: '2026-11-19', complete: false },
+    { date: today, complete: false },
+    { date: '2026-11-21', complete: true }
+  ], today).kind, 'behind', 'behind wins over today and ahead');
+});
+
+test('merge keeps the newer saved plan and does not drop a plan source', () => {
+  const older = {
+    version: 1, savedAt: 1,
+    skills: { bode: { tier: 1, lastPracticed: now, history: [] } },
+    todo: [{ type: 'skill', id: 'bode', source: 'plan', from: 0 }],
+    savedPlan: { createdAt: 10, exams: [{ id: 'a', date: '2026-12-01', box: 'me132' }], sessions: [] }
+  };
+  const newer = {
+    version: 1, savedAt: 2,
+    skills: { bode: { tier: 1, lastPracticed: now, history: [] } },
+    todo: [{ type: 'challenge', id: 'tf' }],
+    savedPlan: {
+      createdAt: 20,
+      exams: [{ id: 'b', date: '2026-12-15', skills: ['tf'] }],
+      sessions: [{ n: 1, date: '2026-12-01', examId: 'b', items: [{ type: 'challenge', id: 'tf', from: 1 }] }]
+    }
+  };
+  const merged = mergeProgress(older, newer);
+  assert.strictEqual(merged.savedPlan.createdAt, 20);
+  assert.strictEqual(merged.savedPlan.exams[0].id, 'b');
+  assert.strictEqual(merged.savedPlan.sessions[0].items[0].from, 1);
+  assert.deepStrictEqual(merged.todo, [
+    { type: 'skill', id: 'bode', from: 0, source: 'plan' },
+    { type: 'challenge', id: 'tf' }
+  ]);
+  assert.strictEqual(mergeProgress(newer, older).savedPlan.createdAt, 20);
+  const kept = appendTodo([{ type: 'skill', id: 'bode' }], [{ type: 'skill', id: 'bode', source: 'plan', from: 0 }]);
+  assert.deepStrictEqual(kept.todo, [{ type: 'skill', id: 'bode', from: 0, source: 'plan' }]);
+  assert.strictEqual(kept.added, 0);
+});
+
 test('mergeTiming: limits to 50 entries per category', () => {
   const makeSamples = (start, count) => Array.from({ length: count }, (_, i) => ({ t: start + i, d: 10 }));
   const local = { practice: makeSamples(0, 30), challenge: makeSamples(0, 30) };
