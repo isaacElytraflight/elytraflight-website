@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-20T01:18:10.639703Z",
+  "generated": "2026-11-20T01:43:01.345268Z",
   "skills": {
-    "file": "skills.8f67ec92.json",
-    "hash": "8f67ec92"
+    "file": "skills.cec2e0a3.json",
+    "hash": "cec2e0a3"
   },
   "collections": {
     "file": "collections.dd83d892.json",
@@ -972,7 +972,7 @@
       "file": "banks/electrostatics.5219092f.json"
     },
     "equilibria": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -980,8 +980,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "74f7f18d",
-      "file": "banks/equilibria.74f7f18d.json"
+      "hash": "be7732ed",
+      "file": "banks/equilibria.be7732ed.json"
     },
     "exact-line-search-quadratic": {
       "version": 1,
@@ -2700,7 +2700,7 @@
       "file": "banks/reachability.ab10d040.json"
     },
     "realization": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2708,8 +2708,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "fb990bbf",
-      "file": "banks/realization.fb990bbf.json"
+      "hash": "6166031b",
+      "file": "banks/realization.6166031b.json"
     },
     "ref-gen": {
       "version": 3,
@@ -3012,7 +3012,7 @@
       "file": "banks/ss-model.fbb598d0.json"
     },
     "ss-solution": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3020,11 +3020,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8308e1f7",
-      "file": "banks/ss-solution.8308e1f7.json"
+      "hash": "ef251b60",
+      "file": "banks/ss-solution.ef251b60.json"
     },
     "ss-to-tf": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3032,8 +3032,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "5816e56b",
-      "file": "banks/ss-to-tf.5816e56b.json"
+      "hash": "b016862d",
+      "file": "banks/ss-to-tf.b016862d.json"
     },
     "stability": {
       "version": 4,
@@ -3060,7 +3060,7 @@
       "file": "banks/state-feedback.16a29c8c.json"
     },
     "state-space-model": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3068,8 +3068,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "4db33b3c",
-      "file": "banks/state-space-model.4db33b3c.json"
+      "hash": "8fbb39e5",
+      "file": "banks/state-space-model.8fbb39e5.json"
     },
     "stationary-point-classification": {
       "version": 1,

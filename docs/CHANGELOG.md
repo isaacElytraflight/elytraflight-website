@@ -33,7 +33,7 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `first-order-sys`, `state-space-model`.
+Skills: `first-order-sys`.
 
 Items above version 1:
 
@@ -48,7 +48,7 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `app-examples`, `equilibria`, `loop-tf`, `second-order-sys`, `ss-solution`.
+Skills: `app-examples`, `loop-tf`, `second-order-sys`.
 
 Items above version 1:
 
@@ -61,7 +61,7 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `discrete-time`, `eig-modes`, `limit-cycles`, `sensitivity`, `ss-to-tf`.
+Skills: `discrete-time`, `eig-modes`, `limit-cycles`, `sensitivity`.
 
 Items above version 1:
 
@@ -74,8 +74,6 @@ Items above version 1:
 - `sensitivity-r2-q1` version 2
 - `sensitivity-r4-q1` version 2
 - `sensitivity#explainer` version 4
-- `ss-to-tf-r2-q1` version 2
-- `ss-to-tf-r3-q1` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -83,7 +81,7 @@ The shingle gate and the manual spot audit are deferred. They are not part of th
 
 Box: ME 132 (me132) and Feedback Systems (am08).
 
-Skills: `feedforward`, `gen-gain-phase`, `linearization`, `perf-specs-freq`, `pid-impl`, `realization`.
+Skills: `feedforward`, `gen-gain-phase`, `linearization`, `perf-specs-freq`, `pid-impl`.
 
 Items above version 1:
 
@@ -92,7 +90,6 @@ Items above version 1:
 - `linearization#explainer` version 3
 - `perf-specs-freq#explainer` version 2
 - `pid-impl#explainer` version 2
-- `realization-r1-q2` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
@@ -1166,5 +1163,19 @@ Items above version 1:
 - `lti-stability-r3-q3` version 2
 - `freq-resp-lti-r3-q1` version 2
 - `uncertainty#explainer` version 2
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
+## SG-063 ME 132 state space and realizations, and nonlinear systems — sg063-me132-m6m8
+
+Box: ME 132 (me132), State space and realizations; Nonlinear systems, linearization, gain scheduling.
+
+Skills: `state-space-model`, `ss-solution`, `ss-to-tf`, `realization`, `equilibria`.
+
+Items above version 1:
+
+- `ss-to-tf-r2-q1` version 2
+- `ss-to-tf-r3-q1` version 2
+- `realization-r1-q2` version 2
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.

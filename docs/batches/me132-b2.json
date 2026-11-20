@@ -2,10 +2,9 @@
   "id": "me132-b2",
   "label": "B2",
   "box": "ME 132 (me132) and Feedback Systems (am08)",
-  "skills": ["first-order-sys", "state-space-model"],
+  "skills": ["first-order-sys"],
   "areas": {
-    "first-order-sys": ["time-response"],
-    "state-space-model": ["state-space"]
+    "first-order-sys": ["time-response"]
   },
   "cores": [],
   "sources": "docs/sources.md",

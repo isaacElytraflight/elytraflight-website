@@ -1,0 +1,24 @@
+{
+  "id": "sg063-me132-m6m8",
+  "label": "SG-063 ME 132 state space and realizations, and nonlinear systems",
+  "box": "ME 132 (me132), State space and realizations; Nonlinear systems, linearization, gain scheduling",
+  "skills": [
+    "state-space-model",
+    "ss-solution",
+    "ss-to-tf",
+    "realization",
+    "equilibria"
+  ],
+  "areas": {
+    "state-space-model": ["state-space"],
+    "ss-solution": ["state-space"],
+    "ss-to-tf": ["state-space"],
+    "realization": ["realization-forms", "state-space"],
+    "equilibria": ["state-space"]
+  },
+  "cores": [],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_me132_m6m8.py"
+}

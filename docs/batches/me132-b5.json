@@ -7,16 +7,14 @@
     "gen-gain-phase",
     "linearization",
     "perf-specs-freq",
-    "pid-impl",
-    "realization"
+    "pid-impl"
   ],
   "areas": {
     "feedforward": ["feedback-loop", "feedforward"],
     "gen-gain-phase": ["describing-function", "frequency-response"],
     "linearization": ["state-space", "linearization"],
     "perf-specs-freq": ["performance-frequency", "loop-transfer-function"],
-    "pid-impl": ["pid-implementation", "discrete-time-systems"],
-    "realization": ["realization-forms", "state-space"]
+    "pid-impl": ["pid-implementation", "discrete-time-systems"]
   },
   "cores": [],
   "sources": "docs/sources.md",
