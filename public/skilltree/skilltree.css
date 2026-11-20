@@ -522,7 +522,7 @@ header #btnProfile.ready{--c:var(--accent);--cs:rgba(108,92,231,.5)}
   .modal{padding:16px 14px}
   #todoBook{left:8px;right:8px;width:auto;top:8px;max-height:48vh}
   #todoBook.collapsed{right:auto;width:180px;min-width:0;max-height:none}
-  .lb-pop{top:6px;right:8px;max-width:calc(100vw - 210px)}
+  .lb-pop{top:58px;right:8px;max-width:calc(100vw - 210px)}
   .todo-board{width:min(220px,calc(100vw - 210px));max-height:min(200px,calc(100dvh - 300px))}
   .todo-hit{font-size:14px}
   .profile-card{padding:16px 14px 18px}
