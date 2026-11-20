@@ -10,17 +10,32 @@
     {
       "name": "schema",
       "ok": true,
-      "summary": "OK: all checks passed (265 warning(s))"
+      "summary": "OK: all checks passed (302 warning(s))"
+    },
+    {
+      "name": "reference",
+      "ok": true,
+      "summary": "OK: reference gate, 0 hits"
     },
     {
       "name": "graph",
       "ok": true,
-      "summary": "graph ok: 267 skills, acyclic, every skill in a top-level box"
+      "summary": "graph ok: 274 skills, acyclic, every skill in a top-level box"
     },
     {
       "name": "domain",
       "ok": true,
       "summary": "0 unwaived warnings"
+    },
+    {
+      "name": "deep-quota",
+      "ok": true,
+      "summary": "OK: deep-quota gate, 0 banks under 25% (0 legacy banks pending SG-063)"
+    },
+    {
+      "name": "dedupe",
+      "ok": true,
+      "summary": "OK: dedupe gate, 0 unresolved overlaps (10 skills checked)"
     },
     {
       "name": "numeric",
@@ -30,7 +45,7 @@
     {
       "name": "figure-bounds",
       "ok": true,
-      "summary": "figure-bounds: 30 warning(s), 0 on the batch; elsewhere amp-compensation, cascode-amp, cd-freq, cs-cascade-freq, noise-dist, octc, rev-bias, rlc, stability, vt"
+      "summary": "figure-bounds: 0 warning(s), 0 on the batch"
     },
     {
       "name": "katex",
@@ -40,22 +55,23 @@
     {
       "name": "test-content",
       "ok": true,
-      "summary": "15 passed, 0 failed"
+      "summary": "16 passed, 0 failed"
     },
     {
       "name": "test-merge",
       "ok": true,
-      "summary": "19 passed, 0 failed"
+      "summary": "21 passed, 0 failed"
     },
     {
       "name": "test-migrate",
       "ok": true,
-      "summary": "22 passed, 0 failed"
+      "summary": "24 passed, 0 failed"
     },
     {
       "name": "puppeteer",
       "ok": true,
-      "summary": "50 passed, 0 failed"
+      "skipped": true,
+      "summary": "--no-browser override; skipping the browser suite"
     }
   ]
 }

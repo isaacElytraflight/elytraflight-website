@@ -8,7 +8,7 @@ First step: `bash tools/skilltree-content/agent_bootstrap.sh`. It installs sympy
 
 The checkout is `/agent/repos/elytraflight-website`. Start with `git fetch origin main && git merge --ff-only origin/main`.
 
-`skilltree/collections.json` is `{version, boxes:[{id, title, skills, ...}]}`. The grandfather key is `skills`.
+`skilltree/collections.json` is `{version, boxes:[{id, title, skills, ...}]}`. The grandfather key is `skills`. A skill goes in a course or subject box only if that course's materials explicitly teach it, so selecting a course shows only what the course teaches. Prerequisites outside the box are normal and expected, especially with vertically stacked courses; they show as starred outside prerequisites. Never copy a prerequisite into a box to make it self-contained. The full rule is in `docs/skill-tree-content-SOP.md`.
 
 A missing sympy install fails the first generator or verifier on a fresh VM. Do not run `npm install` or `npm ci` at the repo root for content work. That is the Vite app. `katex_check.cjs` already searches `/tmp/katex-home/node_modules/katex`.
 

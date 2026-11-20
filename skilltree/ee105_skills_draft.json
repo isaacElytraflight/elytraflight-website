@@ -1922,7 +1922,8 @@
    "summary": "Predict and update a linear state estimate and its covariance for a model with process and measurement noise.",
    "prereqs": [
     "lin-algebra-review",
-    "gaussian-random-vectors"
+    "gaussian-random-vectors",
+    "discrete-time"
    ],
    "sources": [
     {

@@ -457,7 +457,6 @@
       "kind": "chapter",
       "children": [],
       "skills": [
-        "gaussian-random-vectors",
         "kalman",
         "kalman-optimal-observer",
         "linear-least-squares",
