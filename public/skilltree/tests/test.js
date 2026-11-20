@@ -4873,6 +4873,14 @@ async function test(name, fn) {
     await sleep(300);
     assert.strictEqual(await p.$eval('#modal h2', e => e.textContent), 'Plan', 'a notebook exam card opens the plan');
     assert.strictEqual(await p.$$eval('#planExamList .todo-exam', els => els.length), 1);
+    const planSkill = await p.$eval('#planExamList .todo-exam-skill', e => ({ id: e.dataset.id, name: e.textContent }));
+    await p.click('#planExamList .todo-exam-skill');
+    await sleep(300);
+    assert.strictEqual(await p.$eval('#modalBack', e => e.classList.contains('open')), false, 'a plan skill click closes the plan');
+    assert.strictEqual(await p.$eval('#panel', e => e.classList.contains('open')), true, 'a plan skill click opens that skill');
+    assert.strictEqual(await p.$eval('#panelTitle', e => e.textContent), planSkill.name);
+    await p.evaluate(() => document.querySelector('#panel .close').click());
+    await sleep(150);
     await p.keyboard.press('Escape');
     await sleep(150);
     await p.click('#todoExams .todo-exam-skill');

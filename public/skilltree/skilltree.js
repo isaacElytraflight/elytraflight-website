@@ -3233,7 +3233,13 @@ function renderExamCard(exam, opts) {
       today.append(el('button', {
         type: 'button', class: 'todo-exam-skill', 'data-id': it.id, 'data-type': it.type,
         title: kind + ': ' + name,
-        onclick: () => openTodoItem(it)
+        onclick: () => {
+          // Plan cards sit inside #modalBack (z-index 80), above the skill panel
+          // (z-index 60). Close the plan first so the skill is visible. Notebook
+          // cards are already outside the modal.
+          if (!opts.summary) closeModal();
+          openTodoItem(it);
+        }
       }, name));
     });
   } else {
