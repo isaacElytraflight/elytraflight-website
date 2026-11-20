@@ -1,0 +1,33 @@
+{
+  "id": "sg063-nlo-l2",
+  "label": "SG-063 nonlinear optimization mathematical preliminaries",
+  "box": "Nonlinear optimization (nlo-tugraz), Mathematical preliminaries",
+  "skills": [
+    "rn-important-subsets",
+    "singular-value-decomposition",
+    "rayleigh-quotient",
+    "inner-products",
+    "vector-norms-lp",
+    "cauchy-schwarz-inequality"
+  ],
+  "areas": {
+    "rn-important-subsets": ["optimization", "linear-algebra"],
+    "singular-value-decomposition": ["optimization", "linear-algebra"],
+    "rayleigh-quotient": ["optimization", "linear-algebra"],
+    "inner-products": ["optimization", "linear-algebra"],
+    "vector-norms-lp": ["optimization", "linear-algebra"],
+    "cauchy-schwarz-inequality": ["optimization", "linear-algebra"]
+  },
+  "cores": [
+    "rn-important-subsets",
+    "singular-value-decomposition",
+    "rayleigh-quotient",
+    "inner-products",
+    "vector-norms-lp",
+    "cauchy-schwarz-inequality"
+  ],
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_sg063_nlo_l2.py"
+}
