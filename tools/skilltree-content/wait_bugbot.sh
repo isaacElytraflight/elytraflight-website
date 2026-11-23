@@ -62,18 +62,25 @@ def flat(text, limit=None):
         text = text[:limit]
     return " ".join(text.split())
 
+def findings_line():
+    print("FINDINGS\t" + flat(title) + "\t" + flat(summary, 500))
+
+# GitHub's conclusion decides. A success run is CLEAN unless its own
+# summary states a finding the repo refuses to merge: too large to review,
+# or "potential issue". Loose words such as "found" and "issue" do not.
+# A non-success conclusion is never CLEAN, even if the text says
+# "no issues found".
+explicit_finding = (
+    "too large to review" in blob
+    or "too big to review" in blob
+    or "potential issue" in blob
+)
 if conclusion == "skipped":
     print("SKIPPED")
-elif "too large" in blob or "too big" in blob:
-    print("FINDINGS\t" + flat(title) + "\t" + flat(summary, 500))
-elif "no issues found" in blob:
-    print("CLEAN")
-elif "potential issue" in blob or ("found" in blob and "issue" in blob):
-    print("FINDINGS\t" + flat(title) + "\t" + flat(summary, 500))
-elif conclusion == "success":
+elif conclusion == "success" and not explicit_finding:
     print("CLEAN")
 else:
-    print("FINDINGS\t" + flat(title) + "\t" + flat(summary, 500))
+    findings_line()
 PY
 }
 
