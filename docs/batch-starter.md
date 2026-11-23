@@ -8,6 +8,7 @@ A short pack for an agent writing one content batch for Elytraflight's Skill Tre
 - Pedagogy: follow the SOP pedagogy section for clear wording and direct continuity. Do not restate it here.
 - Ordering questions: adjacent steps must be real dependencies, not interchangeable; note the check in the batch self-review. See the SOP.
 - Diagrams: only where that item needs one, and labeled for it; note which items got diagrams and why in the self-review. See the SOP.
+- Reverse wiring: SOP section 4. A course box holds only skills that course teaches, and every onboarding also adds those skills as prerequisites of existing skills in other courses where the dependency is real.
 
 ## Cloud-agent environment, search, and merge
 

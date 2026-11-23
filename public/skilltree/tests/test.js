@@ -123,7 +123,7 @@ async function gridFocusState(p) {
       gridOn: document.getElementById('gridView').hidden === false,
       treeOn: document.getElementById('treeView').hidden === false,
       grouped: document.getElementById('btnGroup').getAttribute('aria-pressed'),
-      collapsed: ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz'].map(id => {
+      collapsed: ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz', 'eecs127'].map(id => {
         const el = document.getElementById('scopeChapters-' + id);
         return { id, hidden: !!(el && el.hidden) };
       })
@@ -724,7 +724,7 @@ async function test(name, fn) {
   await test('video gate accepts a watch url, a youtu.be url, and an omitted field', async () => {
     const catalog = videoGate();
     assert.strictEqual(catalog.code, 0, catalog.out);
-    assert(/video ok: \d+ skills, 0 with a video/.test(catalog.out), catalog.out);
+    assert(/video ok: \d+ skills, 8 with a video/.test(catalog.out), catalog.out);
     const samples = [
       { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
       { url: 'https://youtu.be/dQw4w9WgXcQ', title: 'A short segment', start: 90 },
@@ -2297,7 +2297,10 @@ async function test(name, fn) {
     assert.strictEqual(me.text, 'Dynamic Systems and Feedback (Berkeley ME 132)');
     assert.strictEqual(book.text, 'Feedback Systems (Generic)');
     assert.strictEqual(nlo.text, 'Nonlinear Optimization (TU Graz)');
-    assert(!options.some(o => /EECS\s*127/.test(o.text)), 'EECS 127 is not a course selector label');
+    const opt = options.find(o => o.value === 'eecs127');
+    assert(opt, 'selector should list optimization models');
+    assert.strictEqual(opt.text, 'Optimization Models in Engineering (Berkeley EECS 127)');
+    assert(!/EECS\s*127/.test(nlo.text), 'the nonlinear optimization label is not this course');
     assert(!/^[ \u00a0└]/.test(me.text) && !/^[ \u00a0└]/.test(book.text), 'both new boxes are top-level choices');
     const meAt = options.findIndex(o => o.value === 'me132');
     const bookAt = options.findIndex(o => o.value === 'am08');
@@ -3454,7 +3457,7 @@ async function test(name, fn) {
   await test('course chapters start collapsed and the course checkbox still selects the course', async () => {
     const p = await newPage();
     const closed = await p.evaluate(() => {
-      const ids = ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz'];
+      const ids = ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz', 'eecs127'];
       return {
         rows: ids.map(id => {
           const box = document.getElementById('scopeChapters-' + id);

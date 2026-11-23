@@ -391,6 +391,29 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | \(\log\det B\) | logarithm of the volume factor | concave on symmetric positive definite \(B\). Maximizing it over the containment inequalities is a convex problem. Added for `largest-inscribed-ellipsoid` |
 | stage cost | time, energy \(\sum_k\lVert u_k\rVert^2\), or smoothness \(\sum_k\lVert x_{k+1}-x_k\rVert^2\) | a cost on a discrete trajectory. This \(x_k\) is a sample of a planned path, not the state of a plant model unless a sentence says so. Added for `trajectory-optimization` |
 | obstacle constraint | \(\lVert x_k-c\rVert\ge r\) | the outside of a disk. The segment between two feasible samples can enter the disk, so the feasible set is not convex. Added for `trajectory-optimization` |
+| \(A = QR\) | thin QR factorization | \(Q\) has orthonormal columns and \(R\) is square and upper triangular, for a full-column-rank \(A\). Added for `qr-factorization` |
+| four subspaces | column space, row space, nullspace, and left nullspace | the row space is orthogonal to the nullspace, and the column space is orthogonal to the left nullspace. Added for `fundamental-subspaces` |
+| Schur complement | \(D - C A^{-1} B\) inside \(\begin{bmatrix} A & B \\ C & D \end{bmatrix}\) when \(A\) is invertible | the block matrix is invertible when \(A\) and this complement are. Added for `block-matrix-identities` |
+| principal components | leading eigenvectors of a covariance, or leading right singular vectors of centered data | directions of greatest spread. Added for `principal-component-analysis` |
+| rank-\(r\) truncation | keep the \(r\) largest singular values and set the others to zero | nearest matrix of rank at most \(r\) in the Frobenius norm and in the spectral norm. Added for `low-rank-approximation` |
+| least-squares condition | \(\sigma_{\max}(A)/\sigma_{\min}(A)\) | how a relative change in \(A\) or \(b\) can scale into the least-squares solution. Not the gradient condition factor \((( \kappa - 1)/(\kappa + 1))^2\). Added for `least-squares-perturbation` |
+| penalty weight \(\lambda\) | coefficient of a squared or absolute penalty | not an eigenvalue. Ridge minimizes \(\lVert Ax-b\rVert^2 + \lambda \lVert x\rVert^2\). Added for `ridge-regression` |
+| general squared penalty | \(\lVert \Gamma x\rVert^2\) | ridge is the case \(\Gamma = \sqrt{\lambda}\, I\). This \(\Gamma\) is not a covariance. Added for `ridge-regression` |
+| \(m\)-strong convexity | \(f(y) \ge f(x) + \nabla f(x)^T(y-x) + \tfrac{m}{2}\lVert y-x\rVert^2\) | equivalent, for a twice differentiable \(f\), to \(H_f(x) \succeq m I\). Added for `strong-convexity` |
+| gradient step | \(x_+ = x - t \nabla f(x)\) with fixed \(t > 0\) | the plain gradient iteration. The decrease bound for \(t < 2/L\) stays on `sufficient-decrease-lemma`. Added for `gradient-descent` |
+| stochastic step | \(x_+ = x - t g\) with \(\mathbb{E}[g \mid x] = \nabla f(x)\) | \(t\) shrinks. This \(g\) is one random draw, not the full gradient. Added for `stochastic-gradient-descent` |
+| strong duality | the dual maximum equals \(p^\star\) | a relative-interior constraint qualification is one condition that forces the gap to zero. Added for `strong-duality` |
+| conjugate \(f^\star\) | \(f^\star(y) = \sup_x\, y^T x - f(x)\) | a dual function is often a conjugate. Added for `convex-conjugate` |
+| posterior mode | maximizer of likelihood times prior | a Gaussian prior on the coefficients produces the ridge penalty. Added for `maximum-a-posteriori-estimation` |
+| lasso | \(\lVert Ax-b\rVert^2 + \lambda \lVert x\rVert_1\) | the unit ball of the absolute penalty is a diamond whose corners are sparse. Added for `lasso-regression` |
+| soft threshold | \(\operatorname{sign}(z)\max(\lvert z\rvert - \lambda/2, 0)\) | stationarity map of \(\lVert Ax-b\rVert^2 + \lambda \lVert x\rVert_1\) when the columns of \(A\) are orthonormal and \(z = A^T b\). The squared residual contributes a factor of 2, so the threshold is \(\lambda/2\). Added for `lasso-stationarity` |
+| QCQP | quadratic objective and quadratic inequality constraints | convex when every Hessian in the objective and the inequalities is positive semidefinite. Added for `quadratically-constrained-quadratic-program` |
+| second-order cone | \(\lVert Ax+b\rVert \le c^T x + d\) | a convex quadratic constraint is one case. Added for `second-order-cone-program` |
+| spectrahedron | \(\{x : F_0 + \sum_i x_i F_i \succeq 0\}\) with each \(F_i\) symmetric | the feasible set of a semidefinite program. Added for `semidefinite-program` |
+| dual cone | \(\{y : y^T z \ge 0 \text{ for every } z \text{ in the cone}\}\) | the nonnegative orthant and the positive-semidefinite cone are self-dual. Added for `conic-duality` |
+| coordinate step | minimize \(f\) in one coordinate and hold the others fixed | one pass updates every coordinate once. Added for `coordinate-descent` |
+| equality Newton system | \(\begin{bmatrix} H_f(x) & A^T \\ A & 0 \end{bmatrix} \begin{bmatrix} d \\ \nu \end{bmatrix} = \begin{bmatrix} -\nabla f(x) \\ 0 \end{bmatrix}\) | one step for \(\min f(x)\) subject to \(Ax = b\), at a feasible \(x\). Added for `equality-constrained-newton` |
+| log barrier | \(f(x) - w \sum_i \log(-g_i(x))\) on \(g_i(x) < 0\) | \(w > 0\) decreases toward 0. Newton steps on the equality-constrained barrier problem trace an interior path. This \(w\) is not a weight matrix. Added for `barrier-interior-point` |
 
 ## loop-shaping
 

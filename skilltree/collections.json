@@ -918,6 +918,196 @@
         "power-method-eigenvector"
       ],
       "color_index": 52
+    },
+    {
+      "id": "eecs127",
+      "title": "Optimization models in engineering",
+      "kind": "course",
+      "children": [
+        "eecs127/models",
+        "eecs127/linear-algebra",
+        "eecs127/derivatives",
+        "eecs127/estimation",
+        "eecs127/convexity",
+        "eecs127/gradient-methods",
+        "eecs127/duality",
+        "eecs127/programs",
+        "eecs127/sparsity",
+        "eecs127/newton-methods",
+        "eecs127/applications"
+      ],
+      "skills": [],
+      "top_level": true,
+      "tab_title": "Optimization Models in Engineering (Berkeley EECS 127)"
+    },
+    {
+      "id": "eecs127/models",
+      "title": "Optimization models",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "optimization-problem-formulation",
+        "linear-least-squares",
+        "local-global-minima"
+      ],
+      "color_index": 53
+    },
+    {
+      "id": "eecs127/linear-algebra",
+      "title": "Linear algebra",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "lin-algebra-review",
+        "inner-products",
+        "vector-norms-lp",
+        "induced-matrix-norms",
+        "frobenius-schatten-norms",
+        "gram-schmidt-orthogonalization",
+        "qr-factorization",
+        "fundamental-subspaces",
+        "spectral-decomposition",
+        "positive-definite-matrices",
+        "rayleigh-quotient",
+        "singular-value-decomposition",
+        "principal-component-analysis",
+        "low-rank-approximation",
+        "block-matrix-identities"
+      ],
+      "color_index": 54
+    },
+    {
+      "id": "eecs127/derivatives",
+      "title": "Derivatives and optimality",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "directional-derivative",
+        "gradient-partial-derivatives",
+        "jacobian-chain-rule",
+        "hessian-matrix",
+        "taylor-approximation-multivariable",
+        "taylor-exact-mean-value",
+        "matrix-calculus-gradients",
+        "first-order-optimality"
+      ],
+      "color_index": 55
+    },
+    {
+      "id": "eecs127/estimation",
+      "title": "Least squares and estimation",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "least-squares-quadratic",
+        "least-squares-data-fitting",
+        "quadratic-function-minimization",
+        "least-squares-perturbation",
+        "ridge-regression",
+        "principal-components-regression",
+        "maximum-likelihood-estimation",
+        "maximum-a-posteriori-estimation"
+      ],
+      "color_index": 56
+    },
+    {
+      "id": "eecs127/convexity",
+      "title": "Convexity",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "convex-sets",
+        "convex-functions",
+        "convexity-first-order",
+        "convexity-second-order",
+        "strong-convexity",
+        "optimization-problem-classes",
+        "convex-optimality-global",
+        "convex-reparameterization"
+      ],
+      "color_index": 57
+    },
+    {
+      "id": "eecs127/gradient-methods",
+      "title": "Gradient methods",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "gradient-descent",
+        "stochastic-gradient-descent",
+        "lipschitz-gradient",
+        "descent-lemma",
+        "convergence-rates",
+        "gradient-method-convergence",
+        "projection-affine-halfspace-kkt",
+        "projection-onto-convex-set",
+        "gradient-projection-method"
+      ],
+      "color_index": 58
+    },
+    {
+      "id": "eecs127/duality",
+      "title": "Duality",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "lagrange-multiplier-equality",
+        "lagrangian-duality-lower-bounds",
+        "strong-duality",
+        "kkt-conditions",
+        "convex-conjugate",
+        "conic-duality"
+      ],
+      "color_index": 59
+    },
+    {
+      "id": "eecs127/programs",
+      "title": "Convex programs",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "lp-standard-form",
+        "quadratic-program",
+        "quadratically-constrained-quadratic-program",
+        "second-order-cone-program",
+        "semidefinite-program"
+      ],
+      "color_index": 60
+    },
+    {
+      "id": "eecs127/sparsity",
+      "title": "Sparse regularization",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "lasso-regression",
+        "lasso-stationarity"
+      ],
+      "color_index": 61
+    },
+    {
+      "id": "eecs127/newton-methods",
+      "title": "Coordinate and Newton methods",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "coordinate-descent",
+        "newton-method-optimization",
+        "equality-constrained-newton",
+        "barrier-interior-point"
+      ],
+      "color_index": 62
+    },
+    {
+      "id": "eecs127/applications",
+      "title": "Support vectors and linear quadratic regulators",
+      "kind": "chapter",
+      "children": [],
+      "skills": [
+        "svm-quadratic-program",
+        "lqr"
+      ],
+      "color_index": 63
     }
   ]
 }

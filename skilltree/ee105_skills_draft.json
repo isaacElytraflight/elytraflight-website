@@ -2345,7 +2345,8 @@
    "summary": "Turn a maximum-margin separator into a quadratic program in the weights.",
    "prereqs": [
     "optimization-problem-classes",
-    "quadratic-function-minimization"
+    "quadratic-function-minimization",
+    "quadratic-program"
    ]
   },
   {
@@ -2926,7 +2927,8 @@
    "summary": "Quantify the decrease of a gradient step whose length is below twice the reciprocal Lipschitz constant.",
    "prereqs": [
     "descent-lemma",
-    "armijo-backtracking"
+    "armijo-backtracking",
+    "gradient-descent"
    ]
   },
   {
@@ -2962,7 +2964,8 @@
    "summary": "Replace the full gradient by a pass through data blocks, and compare the step-size behavior with batch descent.",
    "prereqs": [
     "descent-method-framework",
-    "nonlinear-least-squares"
+    "nonlinear-least-squares",
+    "gradient-descent"
    ]
   },
   {
@@ -3119,7 +3122,8 @@
    "summary": "Write stationarity as a fixed point of a projected gradient step and run the iteration.",
    "prereqs": [
     "projection-onto-convex-set",
-    "sufficient-decrease-lemma"
+    "sufficient-decrease-lemma",
+    "gradient-descent"
    ]
   },
   {
@@ -3146,7 +3150,8 @@
    "summary": "Take Newton steps on a perturbed KKT system and stay near the central path.",
    "prereqs": [
     "affine-scaling-method",
-    "newton-root-finding"
+    "newton-root-finding",
+    "barrier-interior-point"
    ]
   },
   {
@@ -3195,6 +3200,659 @@
     "finite-horizon-sequence",
     "optimization-problem-formulation",
     "optimization-problem-classes"
+   ]
+  },
+  {
+   "id": "qr-factorization",
+   "name": "QR factorization",
+   "summary": "Factor a full-column-rank matrix as an orthonormal factor times an upper-triangular factor by orthogonalizing its columns.",
+   "prereqs": [
+    "gram-schmidt-orthogonalization"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "hefferon-linalg",
+     "use": "reference only"
+    },
+    {
+     "ref": "wikibooks-linalg",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=cmqWm_jeZ0o",
+    "title": "Orthonormal columns by the Gram-Schmidt process"
+   }
+  },
+  {
+   "id": "fundamental-subspaces",
+   "name": "Four fundamental subspaces",
+   "summary": "Split a matrix into its column space, row space, nullspace, and left nullspace, and use the two orthogonality relations among them.",
+   "prereqs": [
+    "lin-algebra-review",
+    "inner-products"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "hefferon-linalg",
+     "use": "reference only"
+    },
+    {
+     "ref": "wikibooks-linalg",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=uQhTuRlWMxw",
+    "title": "Column space and null space of a linear map"
+   }
+  },
+  {
+   "id": "block-matrix-identities",
+   "name": "Block matrix identities",
+   "summary": "Multiply and invert a two-by-two block matrix, and reduce the inverse with the Schur complement of an invertible block.",
+   "prereqs": [
+    "lin-algebra-review"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "hefferon-linalg",
+     "use": "reference only"
+    },
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "principal-component-analysis",
+   "name": "Principal component analysis",
+   "summary": "Take the leading eigenvectors of a covariance, or the leading right singular vectors of centered data, as the directions of greatest spread.",
+   "prereqs": [
+    "spectral-decomposition",
+    "singular-value-decomposition"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "hefferon-linalg",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=FgakZw6K1QQ",
+    "title": "Directions of greatest spread in a data cloud"
+   }
+  },
+  {
+   "id": "low-rank-approximation",
+   "name": "Low-rank approximation",
+   "summary": "Keep the largest singular values and zero the rest. That truncation is the nearest matrix of a given rank in the Frobenius norm and in the spectral norm.",
+   "prereqs": [
+    "singular-value-decomposition"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "hefferon-linalg",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=nbBvuuNVfco",
+    "title": "Singular vectors and a truncated matrix approximation"
+   }
+  },
+  {
+   "id": "least-squares-perturbation",
+   "name": "Perturbation of least squares",
+   "summary": "Bound how a change in the data matrix or the right-hand side moves a least-squares solution, using the ratio of the largest singular value to the smallest.",
+   "prereqs": [
+    "linear-least-squares",
+    "singular-value-decomposition",
+    "induced-matrix-norms"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "ridge-regression",
+   "name": "Ridge regression",
+   "summary": "Add a squared penalty on the coefficients, or a general squared penalty on a linear image of them, and solve the shifted normal equations.",
+   "prereqs": [
+    "least-squares-quadratic",
+    "positive-definite-matrices"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Q81RR3yKn30",
+    "title": "A squared penalty on the fitted coefficients"
+   }
+  },
+  {
+   "id": "principal-components-regression",
+   "name": "Principal components regression",
+   "summary": "Replace the columns by the leading principal components, then solve an ordinary least-squares problem in that smaller coordinate.",
+   "prereqs": [
+    "principal-component-analysis",
+    "low-rank-approximation",
+    "least-squares-data-fitting"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "maximum-likelihood-estimation",
+   "name": "Maximum likelihood estimation",
+   "summary": "Maximize the Gaussian density of the residuals. For independent equal-variance noise, that maximizer is the least-squares fit.",
+   "prereqs": [
+    "least-squares-data-fitting",
+    "gaussian-random-vectors"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=XepXtl9YKwc",
+    "title": "Choosing parameters that make the observations most likely"
+   }
+  },
+  {
+   "id": "convex-reparameterization",
+   "name": "Reparameterizing a convex problem",
+   "summary": "Change variables, move a constraint into the objective, or rewrite a problem so the same decisions are easier to recognize as convex.",
+   "prereqs": [
+    "optimization-problem-classes",
+    "convex-functions"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "strong-convexity",
+   "name": "Strong convexity",
+   "summary": "Add a quadratic bowl of curvature m under a convex function, and test it by a Hessian that stays at least m times the identity.",
+   "prereqs": [
+    "convexity-second-order",
+    "positive-definite-matrices"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "gradient-descent",
+   "name": "Gradient descent",
+   "summary": "Inside a descent iteration, take the direction opposite the gradient and a fixed positive step length, then repeat.",
+   "prereqs": [
+    "descent-method-framework"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=IHZwWFHWa-w",
+    "title": "Stepping opposite the gradient of a cost",
+    "start": 415
+   }
+  },
+  {
+   "id": "stochastic-gradient-descent",
+   "name": "Stochastic gradient descent",
+   "summary": "Replace the full gradient by an unbiased random draw from the data, and shrink the step length so the noise averages out.",
+   "prereqs": [
+    "gradient-descent"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "strong-duality",
+   "name": "Strong duality",
+   "summary": "Name when the dual maximum equals the primal minimum, including a relative-interior constraint qualification that forces a zero gap.",
+   "prereqs": [
+    "lagrangian-duality-lower-bounds"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "convex-conjugate",
+   "name": "Convex conjugates",
+   "summary": "Form the conjugate as the supremum of linear underestimators of a function, and use it to evaluate a dual function.",
+   "prereqs": [
+    "convex-functions",
+    "lagrangian-duality-lower-bounds"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "maximum-a-posteriori-estimation",
+   "name": "Maximum a posteriori estimation",
+   "summary": "Multiply a Gaussian likelihood by a Gaussian prior. The maximizer is a ridge fit, and the prior variance sets the penalty weight.",
+   "prereqs": [
+    "maximum-likelihood-estimation",
+    "ridge-regression"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "lasso-regression",
+   "name": "Lasso regression",
+   "summary": "Replace the squared penalty by an absolute-value penalty, and read sparsity off the corners of that penalty's unit ball.",
+   "prereqs": [
+    "ridge-regression",
+    "vector-norms-lp"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Xm2C_gTAl8c",
+    "title": "Why an absolute penalty prefers corners"
+   }
+  },
+  {
+   "id": "quadratic-program",
+   "name": "Convex quadratic programs",
+   "summary": "Write a quadratic objective with affine equalities and inequalities, and keep the program convex when the Hessian is positive semidefinite.",
+   "prereqs": [
+    "optimization-problem-classes",
+    "quadratic-function-minimization"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "quadratically-constrained-quadratic-program",
+   "name": "Quadratically constrained quadratic programs",
+   "summary": "Allow quadratic inequality constraints, and keep each constraint convex when its Hessian is positive semidefinite.",
+   "prereqs": [
+    "quadratic-program"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "second-order-cone-program",
+   "name": "Second-order cone programs",
+   "summary": "Constrain a Euclidean norm of an affine map by an affine upper bound, and recognize a convex quadratic constraint as one case.",
+   "prereqs": [
+    "quadratically-constrained-quadratic-program",
+    "vector-norms-lp"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "semidefinite-program",
+   "name": "Semidefinite programs",
+   "summary": "Constrain a symmetric affine matrix to be positive semidefinite. Linear, quadratic, and second-order-cone programs embed in this form by a Schur complement.",
+   "prereqs": [
+    "second-order-cone-program",
+    "positive-definite-matrices",
+    "block-matrix-identities"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "conic-duality",
+   "name": "Conic duality",
+   "summary": "Write the dual of a cone program by swapping each cone for its dual cone, and compare the primal and dual values.",
+   "prereqs": [
+    "strong-duality",
+    "second-order-cone-program"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "lasso-stationarity",
+   "name": "Lasso stationarity and soft thresholding",
+   "summary": "Write stationarity with a subdifferential of the absolute penalty, and reduce it to soft thresholding when the columns are orthonormal.",
+   "prereqs": [
+    "lasso-regression",
+    "convex-optimality-global"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "coordinate-descent",
+   "name": "Coordinate descent",
+   "summary": "Minimize along one coordinate while the others stay fixed, and use one pass of that update on a separable absolute penalty.",
+   "prereqs": [
+    "gradient-descent",
+    "lasso-regression"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "equality-constrained-newton",
+   "name": "Newton's method with equality constraints",
+   "summary": "Solve one Newton step on an equality-constrained problem as a single linear system in the step and the multiplier.",
+   "prereqs": [
+    "newton-method-optimization",
+    "lagrange-multiplier-equality"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "barrier-interior-point",
+   "name": "Barrier interior-point method",
+   "summary": "Add a log barrier on the strict inequalities, send its weight to zero, and take Newton steps on the equality-constrained barrier problem.",
+   "prereqs": [
+    "equality-constrained-newton",
+    "kkt-conditions"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
    ]
   }
  ],

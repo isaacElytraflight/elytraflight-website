@@ -47,14 +47,22 @@ function readJsonDir(dir) {
 
 console.log("\n=== Elytraflight's Skill Tree content integrity ===\n");
 
-test('graph is version 4 with 274 live skills and 16 retired ids', () => {
+test('graph is version 4 with 300 live skills and 16 retired ids', () => {
   assert.strictEqual(graph.version, 4);
-  assert.strictEqual(skills.length, 274);
+  assert.strictEqual(skills.length, 300);
   assert.strictEqual(retiredIds.size, 16);
   assert.strictEqual(retired.margins, 'stability');
-  assert.strictEqual(new Set(skills.map(s => s.id)).size, 274, 'skill ids are unique');
+  assert.strictEqual(new Set(skills.map(s => s.id)).size, 300, 'skill ids are unique');
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 0, 'NB1 through NB12 and B5 through B8 leave no skills coming soon');
+  assert.deepStrictEqual(soon.map(s => s.id).sort(), [
+    'barrier-interior-point', 'block-matrix-identities', 'conic-duality', 'convex-conjugate', 'convex-reparameterization',
+    'coordinate-descent', 'equality-constrained-newton', 'fundamental-subspaces', 'gradient-descent',
+    'lasso-regression', 'lasso-stationarity', 'least-squares-perturbation', 'low-rank-approximation',
+    'maximum-a-posteriori-estimation', 'maximum-likelihood-estimation', 'principal-component-analysis',
+    'principal-components-regression', 'qr-factorization', 'quadratic-program',
+    'quadratically-constrained-quadratic-program', 'ridge-regression', 'second-order-cone-program',
+    'semidefinite-program', 'stochastic-gradient-descent', 'strong-convexity', 'strong-duality'
+  ]);
   const byId = Object.fromEntries(skills.map(s => [s.id, s]));
   assert.strictEqual(byId['lin-algebra-review'].name, 'Linear algebra review');
   assert.strictEqual(byId['lin-algebra-review'].id, 'lin-algebra-review');
@@ -95,7 +103,7 @@ test('playable skills have quiz banks and coming-soon skills do not', () => {
   const banks = readJsonDir(path.join(SRC, 'bank'));
   assert.strictEqual(Object.keys(banks).length, 274);
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 0, 'NB1 through NB12 and B5 through B8 leave no skills coming soon');
+  assert.strictEqual(soon.length, 26, 'the optimization-models course adds 26 coming-soon skills and no banks');
   for (const skill of skills) {
     const bank = banks[skill.id];
     if (skill.status === 'coming-soon') {
@@ -204,7 +212,7 @@ test('collections reference no retired ids and every skill sits in a top-level b
 
   const tops = topLevelBoxes(collections.boxes);
   const topIds = tops.map(box => box.id);
-  assert.deepStrictEqual(topIds, ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz']);
+  assert.deepStrictEqual(topIds, ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz', 'eecs127']);
   const nlo = tops.find(box => box.id === 'nlo-tugraz');
   assert.strictEqual(nlo.title, 'Nonlinear optimization');
   assert.strictEqual(nlo.tab_title, 'Nonlinear Optimization (TU Graz)');
@@ -240,7 +248,7 @@ test('collections reference no retired ids and every skill sits in a top-level b
   assert.strictEqual(skillsInBox(am08, byId).size, 77);
   assert.strictEqual(skillsInBox(nlo, byId).size, 105);
   const nloChapters = collections.boxes.filter(box => (box.skills || []).includes('lin-algebra-review')).map(box => box.id).sort();
-  assert.deepStrictEqual(nloChapters, ['am08/ch99', 'me132/m6', 'nlo-tugraz/l2']);
+  assert.deepStrictEqual(nloChapters, ['am08/ch99', 'eecs127/linear-algebra', 'me132/m6', 'nlo-tugraz/l2']);
   for (const shared of ['tf', 'bode', 'fb-intro', 'stability']) {
     const boxes = collections.boxes.filter(box => (box.skills || []).includes(shared)).map(box => box.id);
     assert(boxes.some(id => id.startsWith('ee105-')), shared + ' should stay in EE 105');
@@ -321,7 +329,7 @@ test('no retired id is referenced by the built app payload', () => {
   const built = JSON.parse(fs.readFileSync(path.join(PUB, manifest.skills.file), 'utf8'));
   assert.deepStrictEqual(built.retired, retired);
   const builtIds = built.skills.map(s => s.id);
-  assert.strictEqual(builtIds.length, 274);
+  assert.strictEqual(builtIds.length, 300);
   assert.strictEqual(Object.keys(built.banks).length, 274);
   assert.strictEqual(Object.keys(built.explainers).length, 274);
   for (const id of builtIds) {
@@ -345,7 +353,7 @@ test('no retired id is referenced by the built app payload', () => {
   const builtCollections = JSON.parse(fs.readFileSync(path.join(PUB, manifest.collections.file), 'utf8'));
   const builtById = Object.fromEntries(builtCollections.boxes.map(box => [box.id, box]));
   const builtTops = topLevelBoxes(builtCollections.boxes).map(box => box.id);
-  assert.deepStrictEqual(builtTops, ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz']);
+  assert.deepStrictEqual(builtTops, ['ee105-ucb', 'me132', 'am08', 'nlo-tugraz', 'eecs127']);
   const covered = new Set();
   for (const topId of builtTops) for (const sid of skillsInBox(builtById[topId], builtById)) covered.add(sid);
   for (const id of builtIds) assert(covered.has(id), 'built skill missing from top-level boxes: ' + id);
@@ -357,21 +365,23 @@ test('no retired id is referenced by the built app payload', () => {
   }
 });
 
-test('course selector labels are the four allowlisted names', () => {
+test('course selector labels are the five allowlisted names', () => {
   const labels = {
     'ee105-ucb': 'Microelectronic Devices and Circuits (Berkeley EE 105)',
     me132: 'Dynamic Systems and Feedback (Berkeley ME 132)',
     am08: 'Feedback Systems (Generic)',
-    'nlo-tugraz': 'Nonlinear Optimization (TU Graz)'
+    'nlo-tugraz': 'Nonlinear Optimization (TU Graz)',
+    eecs127: 'Optimization Models in Engineering (Berkeley EECS 127)'
   };
   const byId = Object.fromEntries(collections.boxes.map(box => [box.id, box]));
   for (const [id, label] of Object.entries(labels)) {
     assert.strictEqual(byId[id].tab_title, label, id);
     assert(!/\b(Berkeley|Graz|Stanford|EECS)\b|\b(?:EE|ME)\s+\d+/.test(byId[id].title), byId[id].title);
   }
-  const raw = fs.readFileSync(path.join(SRC, 'collections.json'), 'utf8')
-    + fs.readFileSync(path.join(REPO, 'public', 'skilltree', 'skilltree.js'), 'utf8');
-  assert(!raw.includes('EECS 127'), 'EECS 127 is a future course, not a label for nlo');
+  const shell = fs.readFileSync(path.join(REPO, 'public', 'skilltree', 'skilltree.js'), 'utf8');
+  assert(!shell.includes('EECS 127'), 'the course label lives on the box, not in the app shell');
+  assert.strictEqual(byId['nlo-tugraz'].tab_title, labels['nlo-tugraz']);
+  assert.strictEqual(byId.eecs127.tab_title, labels.eecs127);
   const allow = fs.readFileSync(path.join(REPO, 'tools', 'skilltree-content', 'reference_allowlist.txt'), 'utf8');
   for (const label of Object.values(labels)) assert(allow.includes(label), 'allowlist missing ' + label);
   const manifest = JSON.parse(fs.readFileSync(path.join(PUB, 'manifest.json'), 'utf8'));
