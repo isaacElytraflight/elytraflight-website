@@ -28,7 +28,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>disk centered at the origin</title><line x1=\"28\" y1=\"112\" x2=\"252\" y2=\"112\"/><polygon points=\"252,112 245.6,114.7 245.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"196\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"246\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><circle cx=\"140\" cy=\"112\" r=\"64\" fill=\"currentColor\" fill-opacity=\"0.12\"/><circle cx=\"140\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/></svg>",
       "figure_alt": "A filled disk centered at the origin.",
       "answer": 13.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -74,7 +74,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>shaded first quadrant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
       "figure_alt": "The closed first quadrant is shaded.",
       "answer": 10.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -87,7 +87,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>disk centered at the origin</title><line x1=\"28\" y1=\"112\" x2=\"252\" y2=\"112\"/><polygon points=\"252,112 245.6,114.7 245.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"196\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"246\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><circle cx=\"140\" cy=\"112\" r=\"64\" fill=\"currentColor\" fill-opacity=\"0.12\"/><circle cx=\"140\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/></svg>",
       "figure_alt": "A filled disk centered at the origin.",
       "answer": 1.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -120,7 +120,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>disk centered at the origin</title><line x1=\"28\" y1=\"112\" x2=\"252\" y2=\"112\"/><polygon points=\"252,112 245.6,114.7 245.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"196\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"246\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><circle cx=\"140\" cy=\"112\" r=\"64\" fill=\"currentColor\" fill-opacity=\"0.12\"/><circle cx=\"140\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/></svg>",
       "figure_alt": "A filled disk centered at the origin.",
       "answer": 5.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -179,7 +179,7 @@
         "existence-of-minimizers"
       ],
       "answer": 4.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },

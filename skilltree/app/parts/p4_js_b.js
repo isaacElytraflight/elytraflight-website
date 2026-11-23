@@ -196,9 +196,10 @@ function fmtAns(a){
   if(ab>=1e6||ab<1e-3){const [m,e]=a.toExponential(3).split('e');return m.replace(/\.?0+$/,'')+'×10^'+Number(e)}
   return String(Number(a.toPrecision(6)));
 }
+function hasUnit(u){return u&&u!=='(unitless)'&&u.trim()!=='1'}
 const answerLine=it=>{
   if(it.q.type==='mc')return `Answer: ${'ABCD'[it.ci]}. ${it.opts[it.ci]}`;
-  if(it.q.type==='numeric')return `Answer: ${fmtAns(it.q.answer)}${it.q.unit&&it.q.unit!=='(unitless)'?' '+it.q.unit:''}`;
+  if(it.q.type==='numeric')return `Answer: ${fmtAns(it.q.answer)}${hasUnit(it.q.unit)?' '+it.q.unit:''}`;
   return 'This single-file demo grades multiple choice and numeric questions.';
 };
 function renderQuiz(){
@@ -227,10 +228,10 @@ function renderQuiz(){
     });
     card.append(box);
   }else if(q.type==='numeric'){
-    const inp=el('input',{type:'text',id:'numIn',autocomplete:'off',spellcheck:'false',placeholder:'Type a number',disabled:it.done,'aria-label':'Your answer'+(q.unit?' in '+mathPlain(q.unit):'')});
+    const inp=el('input',{type:'text',id:'numIn',autocomplete:'off',spellcheck:'false',placeholder:'Type a number',disabled:it.done,'aria-label':'Your answer'+(hasUnit(q.unit)?' in '+mathPlain(q.unit):'')});
     inp.value=it.text;inp.addEventListener('input',()=>it.text=inp.value);
     inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();answerNum()}});
-    card.append(el('div',{class:'numrow'},inp,q.unit&&q.unit!=='(unitless)'?el('span',{class:'u',math:q.unit}):null,el('button',{class:'btn primary',id:'checkBtn',disabled:it.done,onclick:answerNum},'Check')));
+    card.append(el('div',{class:'numrow'},inp,hasUnit(q.unit)?el('span',{class:'u',math:q.unit}):null,el('button',{class:'btn primary',id:'checkBtn',disabled:it.done,onclick:answerNum},'Check')));
     if(!it.done){card.append(el('div',{class:'kv',style:'margin-top:8px',text:`Plain numbers or scientific notation (like 2.5e-3) work. Accepted within ±${((q.tolerance!=null?q.tolerance:.02)*100).toFixed(0)}%.`}));setTimeout(()=>inp.focus(),0)}
   }else{
     card.append(el('div',{class:'note warn',text:"This single-file demo grades multiple choice and numeric questions. Elytraflight's Skill Tree grades this one."}));

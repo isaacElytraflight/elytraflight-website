@@ -1908,10 +1908,14 @@ function fmtAns(a) {
   return String(Number(a.toPrecision(6)));
 }
 
+function hasUnit(u) {
+  return u && u !== '(unitless)' && u.trim() !== '1';
+}
+
 function answerLine(it) {
   const q = it.q;
   if (q.type === 'mc') return `Answer: ${'ABCD'[it.ci]}. ${it.opts[it.ci]}`;
-  if (q.type === 'numeric') return `Answer: ${fmtAns(q.answer)}${q.unit && q.unit !== '(unitless)' ? ' ' + q.unit : ''}`;
+  if (q.type === 'numeric') return `Answer: ${fmtAns(q.answer)}${hasUnit(q.unit) ? ' ' + q.unit : ''}`;
   if (q.type === 'symbolic') {
     const alt = q.alternates && q.alternates.length ? ` (also ${q.alternates.join(' or ')})` : '';
     return `Answer: ${q.answer}${alt}`;
@@ -2025,10 +2029,10 @@ function renderQuiz() {
       setTimeout(() => inp.focus(), 0);
     }
   } else if (q.type === 'numeric') {
-    const inp = el('input', { type: 'text', id: 'numIn', autocomplete: 'off', spellcheck: 'false', placeholder: 'Type a number', disabled: it.done, 'aria-label': 'Your answer' + (q.unit ? ' in ' + mathPlain(q.unit) : '') });
+    const inp = el('input', { type: 'text', id: 'numIn', autocomplete: 'off', spellcheck: 'false', placeholder: 'Type a number', disabled: it.done, 'aria-label': 'Your answer' + (hasUnit(q.unit) ? ' in ' + mathPlain(q.unit) : '') });
     inp.value = it.text; inp.addEventListener('input', () => it.text = inp.value);
     inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); answerNum() } });
-    card.append(el('div', { class: 'numrow' }, inp, q.unit && q.unit !== '(unitless)' ? el('span', { class: 'u', math: q.unit }) : null, el('button', { class: 'btn primary', id: 'checkBtn', disabled: it.done, onclick: answerNum }, 'Check')));
+    card.append(el('div', { class: 'numrow' }, inp, hasUnit(q.unit) ? el('span', { class: 'u', math: q.unit }) : null, el('button', { class: 'btn primary', id: 'checkBtn', disabled: it.done, onclick: answerNum }, 'Check')));
     if (!it.done) { card.append(el('div', { class: 'kv', style: 'margin-top:8px', text: `Plain numbers or scientific notation (like 2.5e-3) work. Accepted within ±${((q.tolerance != null ? q.tolerance : .02) * 100).toFixed(0)}%.` })); setTimeout(() => inp.focus(), 0) }
   } else {
     card.append(el('div', { class: 'note warn', text: 'This question type cannot be graded in this build.' }));

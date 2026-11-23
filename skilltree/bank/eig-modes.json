@@ -28,7 +28,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>diagonal eigenvalues</title><line x1=\"20\" y1=\"90\" x2=\"26\" y2=\"90\"/><line x1=\"54\" y1=\"90\" x2=\"92\" y2=\"90\"/><line x1=\"120\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"101\" y1=\"85\" x2=\"111\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"95\" x2=\"111\" y2=\"85\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"85\" x2=\"45\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"95\" x2=\"45\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "Pole marks in the complex plane.",
       "answer": -2.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -71,7 +71,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>single mode</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,39 49,44.1 52,49 55.1,53.5 58.1,57.8 61.1,61.9 64.1,65.8 67.2,69.5 70.2,72.9 73.2,76.2 76.2,79.3 79.2,82.2 82.3,85 85.3,87.6 88.3,90.1 91.3,92.4 94.4,94.7 97.4,96.8 100.4,98.7 103.4,100.6 106.4,102.4 109.5,104.1 112.5,105.7 115.5,107.2 118.5,108.6 121.6,109.9 124.6,111.2 127.6,112.4 130.6,113.6 133.6,114.6 136.7,115.7 139.7,116.6 142.7,117.5 145.7,118.4 148.8,119.2 151.8,120 154.8,120.7 157.8,121.4 160.8,122.1 163.9,122.7 166.9,123.3 169.9,123.8 172.9,124.3 176,124.8 179,125.3 182,125.7 185,126.2 188,126.6 191.1,126.9 194.1,127.3 197.1,127.6 200.1,127.9 203.2,128.2 206.2,128.5 209.2,128.8 212.2,129 215.2,129.3 218.3,129.5 221.3,129.7 224.3,129.9 227.3,130.1 230.4,130.3 233.4,130.5 236.4,130.6 239.4,130.8 242.4,130.9 245.5,131.1 248.5,131.2 251.5,131.3 254.5,131.5 257.6,131.6 260.6,131.7 263.6,131.8 266.6,131.9 269.6,131.9 272.7,132 275.7,132.1 278.7,132.2 281.7,132.3 284.8,132.3 287.8,132.4 290.8,132.4 293.8,132.5 296.8,132.6 299.9,132.6 302.9,132.7 305.9,132.7 308.9,132.7 312,132.8 315,132.8 318,132.9\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "A curve that decays toward zero.",
       "answer": 0.367879,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 2
     },
@@ -104,7 +104,7 @@
         "realization"
       ],
       "answer": -0.5,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 3
     },
@@ -224,7 +224,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>damping ratio</title><line x1=\"20\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"164\" y1=\"160\" x2=\"164\" y2=\"16\"/><polygon points=\"164,16 166.7,22.4 161.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"172\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"117\" y1=\"31\" x2=\"127\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"117\" y1=\"41\" x2=\"127\" y2=\"31\" stroke-width=\"1.8\"/><line x1=\"117\" y1=\"143\" x2=\"127\" y2=\"153\" stroke-width=\"1.8\"/><line x1=\"117\" y1=\"153\" x2=\"127\" y2=\"143\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "Pole marks in the complex plane.",
       "answer": 0.6,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -237,7 +237,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>triangular eigenvalues</title><line x1=\"20\" y1=\"90\" x2=\"70\" y2=\"90\"/><line x1=\"98\" y1=\"90\" x2=\"114\" y2=\"90\"/><line x1=\"142\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"85\" x2=\"133\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"95\" x2=\"133\" y2=\"85\" stroke-width=\"1.8\"/><line x1=\"79\" y1=\"85\" x2=\"89\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"79\" y1=\"95\" x2=\"89\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "Pole marks in the complex plane.",
       "answer": -1.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 2
     },
@@ -253,7 +253,7 @@
         "lin-algebra-review"
       ],
       "answer": -5.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     }

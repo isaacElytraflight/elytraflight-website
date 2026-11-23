@@ -25,7 +25,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>output above the reference</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><polyline points=\"46,89.1 49,89.1 52,89.1 55.1,89.1 58.1,89.1 61.1,89.1 64.1,89.1 67.2,89.1 70.2,89.1 73.2,89.1 76.2,89.1 79.2,89.1 82.3,89.1 85.3,89.1 88.3,89.1 91.3,89.1 94.4,89.1 97.4,89.1 100.4,89.1 103.4,89.1 106.4,89.1 109.5,89.1 112.5,89.1 115.5,89.1 118.5,89.1 121.6,89.1 124.6,89.1 127.6,89.1 130.6,89.1 133.6,89.1 136.7,89.1 139.7,89.1 142.7,89.1 145.7,89.1 148.8,89.1 151.8,89.1 154.8,89.1 157.8,89.1 160.8,89.1 163.9,89.1 166.9,89.1 169.9,89.1 172.9,89.1 176,89.1 179,89.1 182,89.1 185,89.1 188,89.1 191.1,89.1 194.1,89.1 197.1,89.1 200.1,89.1 203.2,89.1 206.2,89.1 209.2,89.1 212.2,89.1 215.2,89.1 218.3,89.1 221.3,89.1 224.3,89.1 227.3,89.1 230.4,89.1 233.4,89.1 236.4,89.1 239.4,89.1 242.4,89.1 245.5,89.1 248.5,89.1 251.5,89.1 254.5,89.1 257.6,89.1 260.6,89.1 263.6,89.1 266.6,89.1 269.6,89.1 272.7,89.1 275.7,89.1 278.7,89.1 281.7,89.1 284.8,89.1 287.8,89.1 290.8,89.1 293.8,89.1 296.8,89.1 299.9,89.1 302.9,89.1 305.9,89.1 308.9,89.1 312,89.1 315,89.1 318,89.1\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "A flat line, the output while the switch stays on.",
       "answer": -5.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -38,7 +38,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>proportional loop</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">4</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">3</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
       "figure_alt": "A controller and a plant, with the return subtracted at the input.",
       "answer": 9.23077,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 3
     },
@@ -51,7 +51,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>error of a proportional loop</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">4</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">3</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
       "figure_alt": "A controller and a plant, with the return subtracted at the input.",
       "answer": 0.769231,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 3
     },
@@ -84,7 +84,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 452 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>disturbance after the plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">4</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">3</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"364\" cy=\"78\" r=\"12\"/><text x=\"342\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"378\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"364\" y1=\"28\" x2=\"364\" y2=\"66\"/><polygon points=\"364,66 361.3,59.6 366.7,59.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"380\" y=\"34\" text-anchor=\"start\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"376\" y1=\"78\" x2=\"412\" y2=\"78\"/><polygon points=\"412,78 405.6,80.7 405.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"416\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"404\" y1=\"78\" x2=\"404\" y2=\"134\"/><line x1=\"404\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"234\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
       "figure_alt": "Two forward blocks, a return subtracted at the input, and a disturbance added at the output.",
       "answer": 0.153846,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 4
     },
@@ -97,7 +97,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>higher proportional gain</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">8</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">3</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
       "figure_alt": "A controller and a plant, with the return subtracted at the input.",
       "answer": 0.4,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 3
     },
@@ -142,7 +142,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 392 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>speed loop</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">6</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"232\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"274\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">2</text><line x1=\"316\" y1=\"78\" x2=\"352\" y2=\"78\"/><polygon points=\"352,78 345.6,80.7 345.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"356\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">v</text><line x1=\"344\" y1=\"78\" x2=\"344\" y2=\"134\"/><line x1=\"344\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"204\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
       "figure_alt": "A controller and a plant, with the return subtracted at the input.",
       "answer": 0.615385,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 3
     },
@@ -158,7 +158,7 @@
         "pid-tuning"
       ],
       "answer": 0.215686,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 3
     },
@@ -174,7 +174,7 @@
         "cruise-control"
       ],
       "answer": 1.125,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 3
     },

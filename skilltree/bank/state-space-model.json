@@ -25,7 +25,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>mass, spring, and damper</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"70\" x2=\"48\" y2=\"70\"/><polyline points=\"48,70 56,58 66,82 76,58 86,82 96,58 106,82 116,70 140,70\"/><text x=\"90\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"30\" y1=\"112\" x2=\"78\" y2=\"112\"/><rect x=\"78\" y=\"100\" width=\"28\" height=\"24\"/><line x1=\"106\" y1=\"112\" x2=\"140\" y2=\"112\"/><text x=\"92\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
       "figure_alt": "A mass, a spring, and a damper.",
       "answer": -2.5,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -38,7 +38,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>force input on the mass</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"70\" x2=\"48\" y2=\"70\"/><polyline points=\"48,70 56,58 66,82 76,58 86,82 96,58 106,82 116,70 140,70\"/><text x=\"90\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"30\" y1=\"112\" x2=\"78\" y2=\"112\"/><rect x=\"78\" y=\"100\" width=\"28\" height=\"24\"/><line x1=\"106\" y1=\"112\" x2=\"140\" y2=\"112\"/><text x=\"92\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
       "figure_alt": "A mass, a spring, and a damper.",
       "answer": 0.25,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -51,7 +51,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>damper contribution</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"70\" x2=\"48\" y2=\"70\"/><polyline points=\"48,70 56,58 66,82 76,58 86,82 96,58 106,82 116,70 140,70\"/><text x=\"90\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"30\" y1=\"112\" x2=\"78\" y2=\"112\"/><rect x=\"78\" y=\"100\" width=\"28\" height=\"24\"/><line x1=\"106\" y1=\"112\" x2=\"140\" y2=\"112\"/><text x=\"92\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
       "figure_alt": "A mass, a spring, and a damper.",
       "answer": -1.5,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -100,7 +100,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>rest position under a constant force</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"70\" x2=\"48\" y2=\"70\"/><polyline points=\"48,70 56,58 66,82 76,58 86,82 96,58 106,82 116,70 140,70\"/><text x=\"90\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"30\" y1=\"112\" x2=\"78\" y2=\"112\"/><rect x=\"78\" y=\"100\" width=\"28\" height=\"24\"/><line x1=\"106\" y1=\"112\" x2=\"140\" y2=\"112\"/><text x=\"92\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
       "figure_alt": "A mass, a spring, and a damper.",
       "answer": 0.8,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -113,7 +113,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two real poles</title><line x1=\"20\" y1=\"92\" x2=\"26\" y2=\"92\"/><line x1=\"54\" y1=\"92\" x2=\"180.5\" y2=\"92\"/><line x1=\"208.5\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"246\" y1=\"160\" x2=\"246\" y2=\"16\"/><polygon points=\"246,16 248.7,22.4 243.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"254\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"189.5\" y1=\"87\" x2=\"199.5\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"189.5\" y1=\"97\" x2=\"199.5\" y2=\"87\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"87\" x2=\"45\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"35\" y1=\"97\" x2=\"45\" y2=\"87\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "Two pole marks on the negative real axis.",
       "answer": -2.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -146,7 +146,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 168\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>trace from the damper</title><rect x=\"16\" y=\"36\" width=\"14\" height=\"100\" fill=\"currentColor\" fill-opacity=\"0.10\"/><line x1=\"30\" y1=\"70\" x2=\"48\" y2=\"70\"/><polyline points=\"48,70 56,58 66,82 76,58 86,82 96,58 106,82 116,70 140,70\"/><text x=\"90\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">k</text><line x1=\"30\" y1=\"112\" x2=\"78\" y2=\"112\"/><rect x=\"78\" y=\"100\" width=\"28\" height=\"24\"/><line x1=\"106\" y1=\"112\" x2=\"140\" y2=\"112\"/><text x=\"92\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" fill=\"currentColor\" stroke=\"none\">b</text><rect x=\"140\" y=\"48\" width=\"64\" height=\"80\"/><text x=\"172\" y=\"94\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">m</text><line x1=\"204\" y1=\"88\" x2=\"250\" y2=\"88\"/><polygon points=\"250,88 243.6,90.7 243.6,85.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"258\" y=\"92\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"30\" y1=\"148\" x2=\"230\" y2=\"148\"/></svg>",
       "figure_alt": "A mass, a spring, and a damper.",
       "answer": 1.5,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -162,7 +162,7 @@
         "ss-solution"
       ],
       "answer": -0.333333,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -178,7 +178,7 @@
         "realization"
       ],
       "answer": 3.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },

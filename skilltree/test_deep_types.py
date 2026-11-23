@@ -149,7 +149,7 @@ def numeric_q(sid, rnd, k):
         "prompt": "How many?",
         "explanation": "The count is 4 because the two pairs each contribute 2, and adding the pairs is the whole.",
         "answer": 4,
-        "unit": "1",
+        "unit": "(unitless)",
         "tolerance": 0.02,
         "version": 1,
     }
@@ -249,6 +249,10 @@ def test_schema():
     check("schema rejects variable e", code != 0 and "reserved" in text)
     code, text = run_schema(bank_with("fixture", {"type": "mc", "prompt": "x", "explanation": "y" * 70, "options": ["a"], "correct_index": 0}))
     check("schema still rejects short mc", code != 0)
+    bare = numeric_q("fixture", 1, 1)
+    bare["unit"] = "1"
+    code, text = run_schema(bank_with("fixture", bare))
+    check("schema rejects unit 1", code != 0 and "(unitless)" in text)
 
 
 def test_quota():

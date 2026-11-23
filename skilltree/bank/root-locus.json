@@ -28,7 +28,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a real-axis branch between two poles</title><line x1=\"40\" y1=\"96\" x2=\"270\" y2=\"96\"/><polygon points=\"270,96 263.6,98.7 263.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"254.1\" y1=\"168\" x2=\"254.1\" y2=\"24\"/><polygon points=\"254.1,24 256.9,30.4 251.4,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"110\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"260.1\" y=\"26\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.1,96 155,96 55.9,96\" stroke-width=\"2.0\"/><line x1=\"249.1\" y1=\"91\" x2=\"259.1\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"249.1\" y1=\"101\" x2=\"259.1\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"91\" x2=\"60.9\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"101\" x2=\"60.9\" y2=\"91\" stroke-width=\"1.6\"/></svg>",
       "figure_alt": "A real-axis segment joining two pole marks, with the imaginary axis marked.",
       "answer": 9.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -41,7 +41,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>three real poles</title><line x1=\"40\" y1=\"96\" x2=\"270\" y2=\"96\"/><polygon points=\"270,96 263.6,98.7 263.6,93.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"254.1\" y1=\"168\" x2=\"254.1\" y2=\"24\"/><polygon points=\"254.1,24 256.9,30.4 251.4,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"110\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"260.1\" y=\"26\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"220.8\" y1=\"91\" x2=\"230.8\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"220.8\" y1=\"101\" x2=\"230.8\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"135.8\" y1=\"91\" x2=\"145.8\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"135.8\" y1=\"101\" x2=\"145.8\" y2=\"91\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"91\" x2=\"60.9\" y2=\"101\" stroke-width=\"1.6\"/><line x1=\"50.9\" y1=\"101\" x2=\"60.9\" y2=\"91\" stroke-width=\"1.6\"/></svg>",
       "figure_alt": "Three pole marks on the negative real axis.",
       "answer": -4.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
