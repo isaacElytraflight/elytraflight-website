@@ -143,9 +143,6 @@ These existing skills stay in their own boxes. Each new prerequisite is a skill 
 | `gradient-projection-method` | `gradient-descent` | The projected iteration is that step, followed by a projection. |
 | `svm-quadratic-program` | `quadratic-program` | The separator is built as a convex quadratic program, not only named as one. |
 | `primal-dual-interior-point` | `barrier-interior-point` | The barrier method is the lighter interior-point idea. The primal-dual method follows it. |
-| `mpc` | `quadratic-program` | A short look-ahead with a quadratic cost is a convex quadratic program. |
-| `levenberg-marquardt` | `ridge-regression` | The damping term is a ridge shift on the Gauss-Newton normal equations. |
-| `kalman-recursive-least-squares` | `maximum-a-posteriori-estimation` | The Kalman update is the posterior mode of a linear Gaussian model. |
 
 ## Skills
 
