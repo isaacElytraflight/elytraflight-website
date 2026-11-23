@@ -6,7 +6,7 @@ Read `docs/agent-map.md` first. It is the list of exact paths. Do not search the
 
 ## Reminders
 
-- Recommended video: follow SOP section 14. Pick a YouTube video quickly, or omit the field.
+- Recommended video: follow SOP section 14. Search YouTube with `python3 tools/skilltree-content/yt_search.py "<query>"`, not Google. Try at least three queries before giving up: the exact skill name, the plain-words concept, and the topic plus a trusted channel (3Blue1Brown, Steve Brunton, MIT OpenCourseWare, Stanford Online / Boyd, Khan Academy, Brian Douglas, Visually Explained, Gilbert Strang). A lecture segment is fine via `start`. If nothing fits, use a parent-concept video and label it in `title`. Hard rule: reject a video that mainly teaches a different skill in the tree, including when its title names that other skill. When the field is omitted, the pull request body lists the queries tried.
 - Pedagogy: follow the SOP pedagogy section for clear wording and direct continuity. Do not restate it here.
 - Ordering questions: adjacent steps must be real dependencies, not interchangeable; note the check in the batch self-review. See the SOP.
 - Diagrams: only where that item needs one, and labeled for it; note which items got diagrams and why in the self-review. See the SOP.
