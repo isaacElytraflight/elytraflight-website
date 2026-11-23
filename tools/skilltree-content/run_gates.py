@@ -247,6 +247,7 @@ def main(argv=None):
     steps = [
         ("build", [sys.executable, "tools/skilltree-content/build.py"], 120),
         ("schema", [sys.executable, "skilltree/validate_bank.py", "skilltree/bank", "skilltree/ee105_skills_draft.json"], 120),
+        ("video", [sys.executable, "tools/skilltree-content/video_gate.py"], 60),
         ("reference", [sys.executable, "tools/skilltree-content/reference_gate.py"], 120),
         ("graph", [sys.executable, "skilltree/validate_graph.py"], 60),
         ("domain", [sys.executable, "skilltree/validator_domain.py"], 60),

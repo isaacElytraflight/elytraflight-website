@@ -356,6 +356,12 @@ header #btnProfile.ready{--c:var(--accent);--cs:rgba(108,92,231,.5)}
 /* Explainer */
 .explainer-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#f8f4ff,#fff8f0);border:2px solid #e5defa}
 .explainer-btn:hover{border-color:var(--accent);background:linear-gradient(135deg,#f0e8ff,#fff0e0)}
+.video-card{display:flex;flex-wrap:wrap;align-items:flex-start;gap:10px;width:100%;max-width:100%;min-width:0;box-sizing:border-box;margin-top:10px;padding:8px;border:2px solid var(--line);border-radius:12px;background:#fff;color:inherit;text-decoration:none}
+.video-card:hover{border-color:var(--accent);background:#fafbfe}
+.video-thumb{width:120px;max-width:100%;min-width:0;flex:0 1 120px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:8px;background:#e6ebf4;display:block}
+.video-copy{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1 1 150px}
+.video-kicker{font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--mute);line-height:1.35}
+.video-title{font-size:13.5px;font-weight:700;line-height:1.35;overflow-wrap:anywhere}
 .exp-icon{font-size:16px}
 .explainer-body{max-height:65vh;overflow-y:auto;padding:0 4px 10px}
 .exp-section{margin-bottom:20px}

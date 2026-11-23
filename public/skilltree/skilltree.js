@@ -1700,6 +1700,44 @@ function tierPill(id) {
 
 const need = n => Math.ceil(n * 2 / 3);
 
+const YT_ID = /^[A-Za-z0-9_-]{11}$/;
+const YT_WATCH = 'https://www.youtube.com/watch?v=';
+const YT_THUMB = 'https://i.ytimg.com/vi/';
+
+/* Optional skill.video: {url, title?, start?}. Returns a sidebar card, or null. */
+function recommendedVideoCard(video) {
+  if (!video || typeof video !== 'object' || Array.isArray(video)) return null;
+  const keys = Object.keys(video);
+  if (keys.some(k => k !== 'url' && k !== 'title' && k !== 'start')) return null;
+  if (typeof video.url !== 'string' || !video.url || /\s/.test(video.url)) return null;
+  let u;
+  try { u = new URL(video.url); } catch (e) { return null; }
+  if (u.protocol !== 'http:' && u.protocol !== 'https:') return null;
+  if (u.username || u.password || (u.port && u.port !== '80' && u.port !== '443')) return null;
+  const host = u.hostname.toLowerCase().replace(/\.$/, '');
+  let id = '';
+  if (host === 'youtube.com' || host === 'www.youtube.com') {
+    if ((u.pathname.replace(/\/+$/, '') || '/') !== '/watch') return null;
+    const vs = u.searchParams.getAll('v');
+    if (vs.length !== 1) return null;
+    id = vs[0];
+  } else if (host === 'youtu.be' || host === 'www.youtu.be') {
+    const parts = u.pathname.split('/').filter(Boolean);
+    if (parts.length !== 1) return null;
+    id = parts[0];
+  } else return null;
+  if (!YT_ID.test(id)) return null;
+  if (video.start != null && (typeof video.start !== 'number' || !Number.isInteger(video.start) || video.start < 0)) return null;
+  if (video.title != null && (typeof video.title !== 'string' || !video.title.trim())) return null;
+  let href = YT_WATCH + id;
+  if (video.start != null) href += '&t=' + video.start;
+  const copy = [el('span', { class: 'video-kicker', text: 'Recommended 3rd party video' })];
+  if (video.title != null) copy.push(el('span', { class: 'video-title', text: video.title.trim() }));
+  return el('a', {
+    class: 'video-card', id: 'videoCard', href: href, target: '_blank', rel: 'noopener noreferrer'
+  }, el('img', { class: 'video-thumb', src: YT_THUMB + id + '/mqdefault.jpg', alt: '' }), el('span', { class: 'video-copy' }, copy));
+}
+
 function renderPanel() {
   const id = selected; panel.innerHTML = ''; if (!id) return;
   const s = byId[id], t = tierOf(id), soon = !isPlayable(id), ready = isReady(id);
@@ -1711,8 +1749,11 @@ function renderPanel() {
   if (s.summary) kids.push(el('p', { class: 'kv', id: 'skillSummary', text: s.summary }));
   const boxNames = (skillToBoxes[id] || []).map(bid => boxById[bid] && boxById[bid].title).filter(Boolean);
   if (boxNames.length) kids.push(el('div', { class: 'kv', id: 'boxList', text: 'Boxes: ' + boxNames.join(' · ') }));
-  if (soon) kids.push(el('div', { class: 'note soon', role: 'note' }, el('b', { text: 'Coming soon. ' }), "This skill is in the tree, but its questions haven't been written yet, so it can't be practiced in this demo."));
-  else {
+  if (soon) {
+    kids.push(el('div', { class: 'note soon', role: 'note' }, el('b', { text: 'Coming soon. ' }), "This skill is in the tree, but its questions haven't been written yet, so it can't be practiced in this demo."));
+    const soonCard = recommendedVideoCard(s.video);
+    if (soonCard) kids.push(soonCard);
+  } else {
     kids.push(el('div', { class: 'steps', style: colorOf(s.id), role: 'img', 'aria-label': 'Tier: ' + TIERS[t] },
       TIERS.map((n, i) => el('div', { class: 'step' + (i <= t && i > 0 ? ' done' : '') + (i === t ? ' cur' : '') }, el('div', { class: 'dot', text: i > 0 && i <= t ? '✓' : '' }), n))));
     kids.push(el('div', { class: 'kv', id: 'panelTier' }, el('b', { text: 'Tier: ' }), TIERS[t], ready ? ' · ready to learn' : ''));
@@ -1720,6 +1761,8 @@ function renderPanel() {
     if (hasExplainer(id)) {
       kids.push(el('button', { class: 'btn explainer-btn', style: 'width:100%;justify-content:center;margin-top:10px', id: 'explainerBtn', onclick: () => openExplainer(id) }, el('span', { class: 'exp-icon', 'aria-hidden': 'true', text: '📖' }), t === 0 ? 'Read first' : 'Explainer'));
     }
+    const videoCard = recommendedVideoCard(s.video);
+    if (videoCard) kids.push(videoCard);
     const gaps = prereqGaps(id), soonP = s.prereqs.filter(p => !isPlayable(p));
     if (t === 0 && ready) kids.push(el('div', { class: 'note ok', id: 'readyNote' }, el('b', { text: 'Ready to learn: ' }), s.prereqs.length && s.prereqs.some(isPlayable) ? 'all its prerequisites are at Level 2 or Mastered.' : 'it has no prerequisites you can practice yet, so you can start right away.'));
     if (gaps.length && t === 0) kids.push(el('div', { class: 'note warn', id: 'prereqNote' }, el('b', { text: 'Gentle heads-up: ' }), `this skill is recommended once its prerequisites reach Level 2. Still to go: ${gaps.map(p => `${byId[p].name} (${TIERS[tierOf(p)]})`).join('; ')}. Nothing is locked, so start whenever you like.`));

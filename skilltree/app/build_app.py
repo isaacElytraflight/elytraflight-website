@@ -9,11 +9,23 @@ import json, glob, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+sys.path.insert(0, os.path.join(os.path.dirname(ROOT), "tools", "skilltree-content"))
+from video_gate import video_error
 SKILLS = os.path.join(ROOT, "ee105_skills_draft.json")
 BANK = os.path.join(ROOT, "bank", "*.json")
 TEMPLATE = os.path.join(HERE, "template.html")
 OUT = os.path.join(HERE, "skilltree.html")
 PLACEHOLDER = "/*__SKILLTREE_DATA__*/null"
+
+
+def demo_skill(s):
+    out = {k: s[k] for k in ("id", "name", "chapter", "reader_section", "prereqs") if k in s}
+    if "video" not in s:
+        return out
+    err = video_error(s.get("video"))
+    assert not err, f"{s.get('id')}: {err}"
+    out["video"] = {k: s["video"][k] for k in ("url", "title", "start") if k in s["video"]}
+    return out
 
 
 def main():
@@ -67,7 +79,7 @@ def main():
         "source": d.get("source", ""),
         "version": d.get("version"),
         "chapters": d["chapters"],
-        "skills": [{k: s[k] for k in ("id", "name", "chapter", "reader_section", "prereqs")} for s in skills],
+        "skills": [demo_skill(s) for s in skills],
         "bank": bank,
     }
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
