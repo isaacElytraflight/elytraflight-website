@@ -11,9 +11,9 @@ Read [docs/skill-tree-content-SOP.md](docs/skill-tree-content-SOP.md) before you
 The workflow:
 
 1. Pick an open Content issue, or open one with the Content form. A new course needs Isaac to accept its skill graph before any batch starts (SOP section 4).
-2. Start from [docs/batch-starter.md](docs/batch-starter.md). It gives the read order, the helper APIs, and where generated files go.
+2. Start from [docs/agent-map.md](docs/agent-map.md), then [docs/batch-starter.md](docs/batch-starter.md). The map is the path list. The starter gives the read order, the helper APIs, and where generated files go.
 3. Write banks and explainers with the helpers in `tools/skilltree-content/banklib.py`. Do not hand-build question JSON, and do not hand-edit the hashed files the build writes.
-4. Run `python3 tools/skilltree-content/run_gates.py --batch <id>` once on the commit you intend to push. A content-only diff still runs every content gate (schema, the no-source-references gate, the 25% deep-type quota, dedupe, and the reference checks) and skips the full browser suite. The suite runs when any changed path is not content, including app or UI code (`public/skilltree/*.js`, `*.css`, `*.html`) or the app or build code. `--browser` forces the suite. `--no-browser` skips it. The command prints the decision and why.
+4. Run `python3 tools/skilltree-content/run_gates.py --batch <id> --summary` once on the commit you intend to push. A content-only diff still runs every content gate (schema, the no-source-references gate, the 25% deep-type quota, dedupe, and the reference checks) and skips the full browser suite. The suite runs when any changed path is not content, including app or UI code (`public/skilltree/*.js`, `*.css`, `*.html`) or the app or build code. `--browser` forces the suite. `--no-browser` skips it. `--summary` prints a pass/fail table instead of the per-gate log.
 5. Smoke-check in a browser on every pull request, content or UI: load the tree, open one changed skill, and take 1–2 screenshots.
 6. Open the pull request with `Refs #N`, or `Closes #N` when it finishes the issue.
 
@@ -80,8 +80,10 @@ SKILLTREE_URL=http://localhost:5000/skilltree/ node public/skilltree/tests/test.
 A content batch has one gate command. Run it once on the commit you intend to push:
 
 ```bash
-python3 tools/skilltree-content/run_gates.py --batch <id>
+python3 tools/skilltree-content/run_gates.py --batch <id> --summary
 ```
+
+Add `--summary` to print a pass/fail table instead of every gate's log line. When a gate fails, the table is followed by that first failure's last 30 lines. The gate file is the same either way.
 
 That runs the build, schema, video URL, reference, graph, domain, deep-quota, dedupe, numeric verifier, figure bounds, strict KaTeX, `test-content`, `test-merge`, and `test-migrate`. The full Puppeteer suite is skipped when every path changed against `origin/main` is content (question banks, explainers, the skill graph, and their sources), and it runs otherwise. `--browser` and `--no-browser` override that, and the command prints why. There is no separate content CI workflow. This command is the gate. Add `--docs` only when that batch should regenerate the changelog, the brief, the report, and `docs/content-versions.json`. Every pull request, content or UI, still ends with one short browser smoke check: load the tree, open one changed skill, and take 1–2 screenshots.
 
@@ -100,11 +102,20 @@ That runs the build, schema, video URL, reference, graph, domain, deep-quota, de
 
 Cursor Bugbot is the review on this repository. Do not start a paid reviewer.
 
-After the pull request is open, wait for the `Cursor Bugbot` check on the latest head. One blocking wait. If Bugbot reports findings, fix them, push, and wait again. At most two fix rounds.
+Agents follow this in the same run that opened the pull request. Do not end the run while it is waiting.
 
-Squash-merge only when Bugbot is clean on that exact head sha and GitHub says the pull request is mergeable. Pass that sha. Clean means the check finished with no findings. A result that says the pull request is too large to review is not clean.
+- Read [docs/agent-map.md](docs/agent-map.md) before searching the repo. Search with `bash tools/skilltree-content/find.sh <pattern> [path...]`. Do not run a repo-wide grep. Do not re-read a file you just edited. Do not search the web unless the brief asks.
+- Read gate output from `python3 tools/skilltree-content/run_gates.py --batch <id> --summary`. Add `--docs` when that batch should regenerate the changelog, the brief, the report, and `docs/content-versions.json`.
+- After pushing, run `bash tools/skilltree-content/wait_bugbot.sh <head sha> <pr>` and wait until it prints a line. It polls the `Cursor Bugbot` check every 30 seconds for up to 30 minutes.
+- Merge only when that line is `CLEAN` or `SKIPPED`, the gates passed, and the pull request is mergeable:
 
-If Bugbot says the pull request is too large, or findings are still open after the second review, do not merge. Stop and report them.
+```bash
+gh pr merge <n> --squash --admin --match-head-commit <sha>
+```
+
+- On `FINDINGS`, fix them, push, and run `wait_bugbot.sh` again. At most two fix rounds. If findings remain after the second fix round, or the line is `TIMEOUT`, do not merge. Report the result.
+
+`CLEAN` means the check finished with no findings. `SKIPPED` means the check completed as skipped. A result that says the pull request is too large to review is `FINDINGS`, not `CLEAN` or `SKIPPED`.
 
 Agents Isaac runs may self-merge under that rule. Outside contributors do not merge their own pull requests. Isaac reviews those.
 
