@@ -2345,7 +2345,8 @@
    "summary": "Turn a maximum-margin separator into a quadratic program in the weights.",
    "prereqs": [
     "optimization-problem-classes",
-    "quadratic-function-minimization"
+    "quadratic-function-minimization",
+    "quadratic-program"
    ]
   },
   {
@@ -2926,7 +2927,8 @@
    "summary": "Quantify the decrease of a gradient step whose length is below twice the reciprocal Lipschitz constant.",
    "prereqs": [
     "descent-lemma",
-    "armijo-backtracking"
+    "armijo-backtracking",
+    "gradient-descent"
    ]
   },
   {
@@ -2962,7 +2964,8 @@
    "summary": "Replace the full gradient by a pass through data blocks, and compare the step-size behavior with batch descent.",
    "prereqs": [
     "descent-method-framework",
-    "nonlinear-least-squares"
+    "nonlinear-least-squares",
+    "gradient-descent"
    ]
   },
   {
@@ -3119,7 +3122,8 @@
    "summary": "Write stationarity as a fixed point of a projected gradient step and run the iteration.",
    "prereqs": [
     "projection-onto-convex-set",
-    "sufficient-decrease-lemma"
+    "sufficient-decrease-lemma",
+    "gradient-descent"
    ]
   },
   {
@@ -3146,7 +3150,8 @@
    "summary": "Take Newton steps on a perturbed KKT system and stay near the central path.",
    "prereqs": [
     "affine-scaling-method",
-    "newton-root-finding"
+    "newton-root-finding",
+    "barrier-interior-point"
    ]
   },
   {
@@ -3487,10 +3492,9 @@
   {
    "id": "gradient-descent",
    "name": "Gradient descent",
-   "summary": "Step in the direction opposite the gradient with length 1/L, and see why that step decreases a function with a Lipschitz gradient.",
+   "summary": "Inside a descent iteration, take the direction opposite the gradient and a fixed positive step length, then repeat.",
    "prereqs": [
-    "lipschitz-gradient",
-    "descent-lemma"
+    "descent-method-framework"
    ],
    "status": "coming-soon",
    "sources": [
@@ -3810,6 +3814,30 @@
    "prereqs": [
     "newton-method-optimization",
     "lagrange-multiplier-equality"
+   ],
+   "status": "coming-soon",
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ]
+  },
+  {
+   "id": "barrier-interior-point",
+   "name": "Barrier interior-point method",
+   "summary": "Add a log barrier on the strict inequalities, send its weight to zero, and take Newton steps on the equality-constrained barrier problem.",
+   "prereqs": [
+    "equality-constrained-newton",
+    "kkt-conditions"
    ],
    "status": "coming-soon",
    "sources": [

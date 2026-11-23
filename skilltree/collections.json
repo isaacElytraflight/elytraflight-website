@@ -1033,13 +1033,12 @@
       "kind": "chapter",
       "children": [],
       "skills": [
+        "gradient-descent",
+        "stochastic-gradient-descent",
         "lipschitz-gradient",
         "descent-lemma",
-        "sufficient-decrease-lemma",
         "convergence-rates",
-        "gradient-descent",
         "gradient-method-convergence",
-        "stochastic-gradient-descent",
         "projection-affine-halfspace-kkt",
         "projection-onto-convex-set",
         "gradient-projection-method"
@@ -1094,7 +1093,8 @@
       "skills": [
         "coordinate-descent",
         "newton-method-optimization",
-        "equality-constrained-newton"
+        "equality-constrained-newton",
+        "barrier-interior-point"
       ],
       "color_index": 62
     },

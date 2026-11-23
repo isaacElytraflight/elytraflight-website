@@ -47,15 +47,15 @@ function readJsonDir(dir) {
 
 console.log("\n=== Elytraflight's Skill Tree content integrity ===\n");
 
-test('graph is version 4 with 299 live skills and 16 retired ids', () => {
+test('graph is version 4 with 300 live skills and 16 retired ids', () => {
   assert.strictEqual(graph.version, 4);
-  assert.strictEqual(skills.length, 299);
+  assert.strictEqual(skills.length, 300);
   assert.strictEqual(retiredIds.size, 16);
   assert.strictEqual(retired.margins, 'stability');
-  assert.strictEqual(new Set(skills.map(s => s.id)).size, 299, 'skill ids are unique');
+  assert.strictEqual(new Set(skills.map(s => s.id)).size, 300, 'skill ids are unique');
   const soon = skills.filter(s => s.status === 'coming-soon');
   assert.deepStrictEqual(soon.map(s => s.id).sort(), [
-    'block-matrix-identities', 'conic-duality', 'convex-conjugate', 'convex-reparameterization',
+    'barrier-interior-point', 'block-matrix-identities', 'conic-duality', 'convex-conjugate', 'convex-reparameterization',
     'coordinate-descent', 'equality-constrained-newton', 'fundamental-subspaces', 'gradient-descent',
     'lasso-regression', 'lasso-stationarity', 'least-squares-perturbation', 'low-rank-approximation',
     'maximum-a-posteriori-estimation', 'maximum-likelihood-estimation', 'principal-component-analysis',
@@ -103,7 +103,7 @@ test('playable skills have quiz banks and coming-soon skills do not', () => {
   const banks = readJsonDir(path.join(SRC, 'bank'));
   assert.strictEqual(Object.keys(banks).length, 274);
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 25, 'the optimization-models course adds 25 coming-soon skills and no banks');
+  assert.strictEqual(soon.length, 26, 'the optimization-models course adds 26 coming-soon skills and no banks');
   for (const skill of skills) {
     const bank = banks[skill.id];
     if (skill.status === 'coming-soon') {
@@ -329,7 +329,7 @@ test('no retired id is referenced by the built app payload', () => {
   const built = JSON.parse(fs.readFileSync(path.join(PUB, manifest.skills.file), 'utf8'));
   assert.deepStrictEqual(built.retired, retired);
   const builtIds = built.skills.map(s => s.id);
-  assert.strictEqual(builtIds.length, 299);
+  assert.strictEqual(builtIds.length, 300);
   assert.strictEqual(Object.keys(built.banks).length, 274);
   assert.strictEqual(Object.keys(built.explainers).length, 274);
   for (const id of builtIds) {

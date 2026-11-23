@@ -54,6 +54,8 @@ description: >-
 7. Extend the figure library for the subject.
 8. Isaac reviews the graph before content batches start: ids, names, prerequisites, the core and application split, and the topic-named boxes. Do not start a batch on a graph he has not accepted.
 9. Order batches breadth-first.
+10. Courses are self-contained by content, not by prerequisites. A course box holds only skills its materials teach, but its skills are wired into the whole graph in both directions. Every onboarding includes a reverse-wiring pass: add new skills as prerequisites of existing skills in other courses wherever there is a genuine teaching dependency, and use other courses' skills as prerequisites freely. Expect many cross-course prerequisite edits per new course.
+11. If a course teaches a topic whose existing skill is an out-of-scope expansion, add a lighter in-scope skill for it rather than dropping the topic.
 
 Open course work is one GitHub issue per roadmap id, titled `[SG-xxx] <title>`. The current list, and the rule for keeping the spreadsheet in sync while both exist, is in `docs/roadmap.md`.
 

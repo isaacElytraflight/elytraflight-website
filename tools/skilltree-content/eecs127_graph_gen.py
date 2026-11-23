@@ -2,7 +2,7 @@
 """Add the optimization-models course box and its coming-soon skills.
 
 Idempotent: re-running replaces the new skills and the course boxes, and
-leaves every other skill and box as they are. New skills ship with no banks.
+adds each reverse-wiring prerequisite once. New skills ship with no banks.
 
   python3 tools/skilltree-content/eecs127_graph_gen.py
 """
@@ -129,8 +129,8 @@ NEW = [
     skill(
         "gradient-descent",
         "Gradient descent",
-        "Step in the direction opposite the gradient with length 1/L, and see why that step decreases a function with a Lipschitz gradient.",
-        ["lipschitz-gradient", "descent-lemma"],
+        "Inside a descent iteration, take the direction opposite the gradient and a fixed positive step length, then repeat.",
+        ["descent-method-framework"],
         ("boyd-cvx", "nw-numopt", "eecs127-scope"),
         watch("IHZwWFHWa-w", "Stepping opposite the gradient of a cost", start=415),
     ),
@@ -226,6 +226,23 @@ NEW = [
         ["newton-method-optimization", "lagrange-multiplier-equality"],
         ("boyd-cvx", "nw-numopt", "eecs127-scope"),
     ),
+    skill(
+        "barrier-interior-point",
+        "Barrier interior-point method",
+        "Add a log barrier on the strict inequalities, send its weight to zero, and take Newton steps on the equality-constrained barrier problem.",
+        ["equality-constrained-newton", "kkt-conditions"],
+        ("boyd-cvx", "nw-numopt", "eecs127-scope"),
+    ),
+]
+
+# Existing skills, in other courses, that teach the next step after a new skill.
+# Applied once. Those skills stay in their own boxes.
+REVERSE = [
+    ("sufficient-decrease-lemma", "gradient-descent"),
+    ("incremental-gradient-methods", "gradient-descent"),
+    ("gradient-projection-method", "gradient-descent"),
+    ("svm-quadratic-program", "quadratic-program"),
+    ("primal-dual-interior-point", "barrier-interior-point"),
 ]
 
 CHAPTERS = [
@@ -311,13 +328,12 @@ CHAPTERS = [
         "Gradient methods",
         58,
         [
+            "gradient-descent",
+            "stochastic-gradient-descent",
             "lipschitz-gradient",
             "descent-lemma",
-            "sufficient-decrease-lemma",
             "convergence-rates",
-            "gradient-descent",
             "gradient-method-convergence",
-            "stochastic-gradient-descent",
             "projection-affine-halfspace-kkt",
             "projection-onto-convex-set",
             "gradient-projection-method",
@@ -365,6 +381,7 @@ CHAPTERS = [
             "coordinate-descent",
             "newton-method-optimization",
             "equality-constrained-newton",
+            "barrier-interior-point",
         ],
     ),
     (
@@ -408,6 +425,15 @@ def main():
                 raise SystemExit(row["id"] + " uses retired " + pre)
     kept = [skill for skill in graph["skills"] if skill["id"] not in set(new_ids)]
     graph["skills"] = kept + NEW
+    by_id = {skill["id"]: skill for skill in graph["skills"]}
+    for sid, pre in REVERSE:
+        row = by_id.get(sid)
+        if row is None:
+            raise SystemExit("reverse target missing: " + sid)
+        if pre not in by_id:
+            raise SystemExit(sid + " reverse prereq missing: " + pre)
+        if pre not in row["prereqs"]:
+            row["prereqs"].append(pre)
 
     collections = load(BOXES)
     known = {skill["id"] for skill in graph["skills"]}

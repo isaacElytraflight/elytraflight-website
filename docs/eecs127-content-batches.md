@@ -1,13 +1,13 @@
 # Optimization models content batches
 
-Skill graph for the course box `eecs127`. Isaac reviews this graph before any batch writes questions (SOP section 4, step 8). The 25 new skills stay coming soon: no banks and no explainers in this change. A skill is eligible for a content batch only when every prerequisite is already playable or sits in an earlier batch, or earlier in the same batch's listed order.
+Skill graph for the course box `eecs127`. Isaac reviews this graph before any batch writes questions (SOP section 4, step 8). The 26 new skills stay coming soon: no banks and no explainers in this change. A skill is eligible for a content batch only when every prerequisite is already playable or sits in an earlier batch, or earlier in the same batch's listed order.
 
 ## Course summary
 
 - **Course:** Optimization models in engineering. The selector label is `Optimization Models in Engineering (Berkeley EECS 127)`. The box title is the topic only.
 - **Box:** `eecs127` ("Optimization models in engineering", top-level). Eleven topic sub-boxes. No sub-box is named for a week, a lecture, a chapter, or a text.
 - **Scope:** a public topic list, used only to decide which skills exist. Wording in names and summaries is original. Recorded as `eecs127-scope` in `docs/sources.md`.
-- **Totals:** 25 new skills, all coming soon. 45 existing skills are placed in the box because this course teaches them. 70 skills sit in the box. Three batches, EB1–EB3.
+- **Totals:** 26 new skills, all coming soon. 44 existing skills are placed in the box because this course teaches them. 70 skills sit in the box. Three batches, EB1–EB3.
 
 ## Topic boxes
 
@@ -18,11 +18,11 @@ Skill graph for the course box `eecs127`. Isaac reviews this graph before any ba
 | `eecs127/derivatives` | Derivatives and optimality | `directional-derivative`, `gradient-partial-derivatives`, `jacobian-chain-rule`, `hessian-matrix`, `taylor-approximation-multivariable`, `taylor-exact-mean-value`, `matrix-calculus-gradients`, `first-order-optimality` |
 | `eecs127/estimation` | Least squares and estimation | `least-squares-quadratic`, `least-squares-data-fitting`, `quadratic-function-minimization`, `least-squares-perturbation`, `ridge-regression`, `principal-components-regression`, `maximum-likelihood-estimation`, `maximum-a-posteriori-estimation` |
 | `eecs127/convexity` | Convexity | `convex-sets`, `convex-functions`, `convexity-first-order`, `convexity-second-order`, `strong-convexity`, `optimization-problem-classes`, `convex-optimality-global`, `convex-reparameterization` |
-| `eecs127/gradient-methods` | Gradient methods | `lipschitz-gradient`, `descent-lemma`, `sufficient-decrease-lemma`, `convergence-rates`, `gradient-descent`, `gradient-method-convergence`, `stochastic-gradient-descent`, `projection-affine-halfspace-kkt`, `projection-onto-convex-set`, `gradient-projection-method` |
+| `eecs127/gradient-methods` | Gradient methods | `gradient-descent`, `stochastic-gradient-descent`, `lipschitz-gradient`, `descent-lemma`, `convergence-rates`, `gradient-method-convergence`, `projection-affine-halfspace-kkt`, `projection-onto-convex-set`, `gradient-projection-method` |
 | `eecs127/duality` | Duality | `lagrange-multiplier-equality`, `lagrangian-duality-lower-bounds`, `strong-duality`, `kkt-conditions`, `convex-conjugate`, `conic-duality` |
 | `eecs127/programs` | Convex programs | `lp-standard-form`, `quadratic-program`, `quadratically-constrained-quadratic-program`, `second-order-cone-program`, `semidefinite-program` |
 | `eecs127/sparsity` | Sparse regularization | `lasso-regression`, `lasso-stationarity` |
-| `eecs127/newton-methods` | Coordinate and Newton methods | `coordinate-descent`, `newton-method-optimization`, `equality-constrained-newton` |
+| `eecs127/newton-methods` | Coordinate and Newton methods | `coordinate-descent`, `newton-method-optimization`, `equality-constrained-newton`, `barrier-interior-point` |
 | `eecs127/applications` | Support vectors and linear quadratic regulators | `svm-quadratic-program`, `lqr` |
 
 ## Optional topics
@@ -42,9 +42,9 @@ Folded into a neighbor, because a separate skill would be a second name for the 
 - The geometry of the absolute penalty (the diamond and its corners) lives in `lasso-regression`. The calculation is the later skill `lasso-stationarity`.
 - The program hierarchy is the existing skill `optimization-problem-classes` plus the chain in `eecs127/programs`. `semidefinite-program` states that the earlier classes embed in it by a Schur complement.
 
-Dropped:
+Included as a lighter skill, because the existing skill is a heavier method this course does not teach:
 
-- Interior-point methods. `primal-dual-interior-point` already exists and stays in the nonlinear-optimization box. Its prerequisite chain runs through affine scaling, which this course does not teach. A second interior-point skill would duplicate it.
+- Barrier interior-point methods, as `barrier-interior-point`. `primal-dual-interior-point` stays in the nonlinear-optimization box. Its chain runs through affine scaling. The new skill does not use that chain. It is a prerequisite of the primal-dual skill, because the barrier method is the lighter interior-point idea and the primal-dual method is the follow-up.
 
 ## Reused skills
 
@@ -84,7 +84,6 @@ These already exist. They are placed here only because this course teaches them.
 | `convex-optimality-global` | Convexity |
 | `lipschitz-gradient` | Gradient methods |
 | `descent-lemma` | Gradient methods |
-| `sufficient-decrease-lemma` | Gradient methods |
 | `convergence-rates` | Gradient methods |
 | `gradient-method-convergence` | Gradient methods |
 | `projection-affine-halfspace-kkt` | Gradient methods |
@@ -98,7 +97,7 @@ These already exist. They are placed here only because this course teaches them.
 | `svm-quadratic-program` | Support vectors and linear quadratic regulators |
 | `lqr` | Support vectors and linear quadratic regulators |
 
-Outside prerequisites, not placed in the box, include `gaussian-random-vectors` (the noise model for maximum likelihood), `eigenvalues-diagonalization`, `second-order-optimality`, `rn-important-subsets`, `armijo-backtracking`, `fundamental-theorem-along-segment`, `optimality-over-convex-set`, and the state-feedback chain under `lqr`. Simplex, line search, quasi-Newton, automatic differentiation, and interior-point skills stay out.
+Outside prerequisites, not placed in the box, include `gaussian-random-vectors` (the noise model for maximum likelihood), `eigenvalues-diagonalization`, `second-order-optimality`, `rn-important-subsets`, `descent-method-framework` (the iteration template under gradient descent), `armijo-backtracking`, `sufficient-decrease-lemma` (the decrease bound uses backtracking, which this course does not teach), `fundamental-theorem-along-segment`, `optimality-over-convex-set`, and the state-feedback chain under `lqr`. Simplex, line search, quasi-Newton, automatic differentiation, and `primal-dual-interior-point` stay out.
 
 ## Content rule for all writers
 
@@ -120,16 +119,30 @@ Follow `docs/skill-tree-content-SOP.md` sections 1, 2, 5, 14, and 15. The course
 
 Checked against the whole graph. New ids do not collide with live or retired ids.
 
-- **Reused, not copied:** the 45 skills in the table above. `qr-factorization` is new because `gram-schmidt-orthogonalization` orthogonalizes vectors and does not factor a matrix. `low-rank-approximation` is new because `singular-value-decomposition` stops at the factorization. `lasso-regression` is new because `vector-norms-lp` draws the balls and does not state the penalized problem. `quadratic-program` is new because `optimization-problem-classes` only recognizes the class, `quadratic-function-minimization` is unconstrained, and `svm-quadratic-program` is the separator application.
+- **Reused, not copied:** the 44 skills in the table above. `qr-factorization` is new because `gram-schmidt-orthogonalization` orthogonalizes vectors and does not factor a matrix. `low-rank-approximation` is new because `singular-value-decomposition` stops at the factorization. `lasso-regression` is new because `vector-norms-lp` draws the balls and does not state the penalized problem. `quadratic-program` is new because `optimization-problem-classes` only recognizes the class, `quadratic-function-minimization` is unconstrained, and `svm-quadratic-program` is the separator application.
 - **Distinct, recorded:** `gradient-descent` and `stochastic-gradient-descent` in `docs/dedupe-decisions.json`. The full step is the prerequisite of the random step.
-- **Kept separate, no edge added** except the new skills' own prerequisites:
-  - `stochastic-gradient-descent` versus `incremental-gradient-methods`. One draws a random subset. The other cycles through fixed blocks. The random step does not require the block skill.
-  - `gradient-descent` versus `gradient-method-convergence`. One is the iteration with step \(1/L\). The other is the rate. The rate stays a later skill. Its outside prerequisite `armijo-backtracking` is not pulled into this box.
+- **Kept separate, no edge from the new skill back to the old one:**
+  - `stochastic-gradient-descent` versus `incremental-gradient-methods`. One draws a random subset. The other cycles through fixed blocks. The random step does not require the block skill. The block skill does list `gradient-descent`, because it compares a pass over blocks with the full gradient step.
+  - `gradient-descent` versus `descent-method-framework` and versus `gradient-method-convergence`. The new skill is only the fixed-step choice: the direction opposite the gradient, and one positive length. The framework already separates direction, length, and the stopping test, so it is the prerequisite and it stays outside the box. The convergence skill is the later rate. `sufficient-decrease-lemma` states the decrease and now lists the method as a prerequisite. `armijo-backtracking` is not pulled into this box.
   - `ridge-regression` versus `linear-least-squares` and versus `levenberg-marquardt`. Ridge penalizes the coefficients of a fit. The damping shift on a Gauss-Newton step is a different matrix.
   - `strong-duality` versus `lagrangian-duality-lower-bounds`. The existing skill is the lower bound. The new skill is the zero gap.
   - `equality-constrained-newton` versus `newton-method-optimization` and versus `lagrange-multiplier-equality`. The new skill is the joint linear system. The other two stay prerequisites.
   - `principal-component-analysis` versus `principal-components-regression`. One chooses directions. The other regresses in those coordinates.
   - `lqr` versus `quadratic-function-minimization`. No new edge. The regulator stays the control skill it already is.
+  - `condition-number-gradient-rate` is exact line search on a quadratic. It does not use the fixed-step method or the least-squares condition.
+  - `lp-duality-kkt` derives the linear-program dual from KKT. It does not take the general zero-gap theorem as a prerequisite.
+
+## Reverse wiring
+
+These existing skills stay in their own boxes. Each new prerequisite is a skill this course adds, and the existing skill is the next thing a learner does with it. `heavy-ball-method`, `nesterov-accelerated-gradient`, and `gradient-method-convergence` already reach `gradient-descent` through `sufficient-decrease-lemma`, so they do not get a second edge.
+
+| existing skill | added prerequisite | why |
+|---|---|---|
+| `sufficient-decrease-lemma` | `gradient-descent` | The lemma is the decrease of a gradient step. The step has to come first. |
+| `incremental-gradient-methods` | `gradient-descent` | A pass over data blocks is compared with the full gradient step. |
+| `gradient-projection-method` | `gradient-descent` | The projected iteration is that step, followed by a projection. |
+| `svm-quadratic-program` | `quadratic-program` | The separator is built as a convex quadratic program, not only named as one. |
+| `primal-dual-interior-point` | `barrier-interior-point` | The barrier method is the lighter interior-point idea. The primal-dual method follows it. |
 
 ## Skills
 
@@ -155,14 +168,14 @@ Every prerequisite is already playable, except `principal-components-regression`
 |---|---|---|---|
 | `convex-reparameterization` | Reparameterizing a convex problem | Change of variables, epigraph, moving a constraint into the objective | `optimization-problem-classes`, `convex-functions` |
 | `strong-convexity` | Strong convexity | Quadratic lower model of curvature \(m\); Hessian at least \(m I\) | `convexity-second-order`, `positive-definite-matrices` |
-| `gradient-descent` | Gradient descent | The iteration with step \(1/L\) | `lipschitz-gradient`, `descent-lemma` |
+| `gradient-descent` | Gradient descent | Fixed step opposite the gradient. Smoothness and the rate come later | `descent-method-framework` |
 | `stochastic-gradient-descent` | Stochastic gradient descent | Unbiased random gradient, shrinking step | `gradient-descent` |
 | `strong-duality` | Strong duality | Zero gap, and a relative-interior constraint qualification | `lagrangian-duality-lower-bounds` |
 | `convex-conjugate` | Convex conjugates | Supremum of linear underestimators; dual functions | `convex-functions`, `lagrangian-duality-lower-bounds` |
 | `maximum-a-posteriori-estimation` | Maximum a posteriori estimation | Gaussian prior; the mode is a ridge fit | `maximum-likelihood-estimation`, `ridge-regression` |
 | `lasso-regression` | Lasso regression | Absolute penalty, and sparsity at the corners of its unit ball | `ridge-regression`, `vector-norms-lp` |
 
-### EB3: Cone programs, lasso stationarity, coordinate and Newton steps (8 skills)
+### EB3: Cone programs, lasso stationarity, coordinate and Newton steps (9 skills)
 
 Listed so each skill's new prerequisites appear earlier in this batch or in EB1–EB2.
 
@@ -173,8 +186,9 @@ Listed so each skill's new prerequisites appear earlier in this batch or in EB1�
 | `second-order-cone-program` | Second-order cone programs | A Euclidean norm of an affine map, bounded by an affine function | `quadratically-constrained-quadratic-program`, `vector-norms-lp` |
 | `semidefinite-program` | Semidefinite programs | A positive-semidefinite affine matrix; earlier classes embed by a Schur complement | `second-order-cone-program`, `positive-definite-matrices`, `block-matrix-identities` |
 | `conic-duality` | Conic duality | Dual cone, and the dual of a cone program | `strong-duality`, `second-order-cone-program` |
-| `lasso-stationarity` | Lasso stationarity and soft thresholding | Subdifferential stationarity; soft thresholding for orthonormal columns | `lasso-regression`, `convex-optimality-global` |
+| `lasso-stationarity` | Lasso stationarity and soft thresholding | Subdifferential stationarity. For orthonormal columns the map is soft thresholding at \(\lambda/2\), matching \(\lVert Ax-b\rVert^2 + \lambda \lVert x\rVert_1\) with no leading \(1/2\) | `lasso-regression`, `convex-optimality-global` |
 | `coordinate-descent` | Coordinate descent | One coordinate at a time; one pass on a separable absolute penalty | `gradient-descent`, `lasso-regression` |
 | `equality-constrained-newton` | Newton's method with equality constraints | One linear system in the step and the multiplier | `newton-method-optimization`, `lagrange-multiplier-equality` |
+| `barrier-interior-point` | Barrier interior-point method | Log barrier, weight sent to zero, Newton on the equality-constrained barrier problem | `equality-constrained-newton`, `kkt-conditions` |
 
 Each bank in EB1–EB3 needs at least 25% deep questions. For the usual 12-question bank that is 3, among symbolic, ordering, find-the-error, and multi-select.
