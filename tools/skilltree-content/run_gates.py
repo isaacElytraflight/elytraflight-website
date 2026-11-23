@@ -16,6 +16,10 @@ shingle gate is not part of this pipeline.
 The browser suite is decided from `git diff` against origin/main. It is
 skipped when every changed path is content, and run otherwise. --browser
 and --no-browser override that. Content gates always run.
+
+Before any gate, missing sympy, numpy, scipy, KaTeX, or (when the browser
+suite will run) puppeteer-core is installed by agent_bootstrap.sh. If a
+dependency is still missing, the run exits 2 and no gate starts.
 """
 import json
 import os
@@ -191,11 +195,25 @@ def is_bytecode(path):
     return path.endswith(".pyc") or "/__pycache__/" in path or path.endswith("__pycache__")
 
 
+def is_install_artifact(path):
+    """Files agent_bootstrap.sh writes under the skill-tree tests prefix.
+
+    node_modules and package-lock.json are untracked. They are not a content
+    change, and they must not flip a content-only diff into the browser suite.
+    """
+    path = norm_path(path)
+    if path == "public/skilltree/tests/package-lock.json":
+        return True
+    prefix = "public/skilltree/tests/node_modules"
+    return path == prefix or path.startswith(prefix + "/")
+
+
 def decide_browser(paths, override):
     """Return (run_suite, why).
 
     override is None, "browser", or "no-browser". paths is a list, or None
-    when the diff against origin/main could not be read. Bytecode is ignored.
+    when the diff against origin/main could not be read. Bytecode and
+    bootstrap install artifacts are ignored.
     """
     if override == "browser":
         return True, "--browser override; running the browser suite"
@@ -203,7 +221,10 @@ def decide_browser(paths, override):
         return False, "--no-browser override; skipping the browser suite"
     if paths is None:
         return True, "could not read git diff against origin/main; running the browser suite"
-    paths = [path for path in paths if not is_bytecode(path)]
+    paths = [
+        path for path in paths
+        if not is_bytecode(path) and not is_install_artifact(path)
+    ]
     if not paths:
         return False, "no changed paths against origin/main; skipping the browser suite"
     other = [path for path in paths if not is_content_path(path)]
@@ -213,6 +234,90 @@ def decide_browser(paths, override):
     if len(other) > 12:
         shown += f" (+{len(other) - 12} more)"
     return True, "non-content paths: " + shown
+
+
+# Same locations tools/skilltree-content/katex_check.cjs tries, in that order.
+KATEX_DIRS = (
+    os.path.join(ROOT, "skilltree", "app", "tests", "node_modules", "katex"),
+    "/workspace/skilltree/app/tests/node_modules/katex",
+    "/tmp/katex-home/node_modules/katex",
+)
+PUPPETEER_DIR = os.path.join(
+    ROOT, "public", "skilltree", "tests", "node_modules", "puppeteer-core"
+)
+
+
+def _can_import(module):
+    try:
+        __import__(module)
+    except Exception:
+        return False
+    return True
+
+
+def _fresh_python_missing():
+    """Import-check in a new interpreter.
+
+    pip install --user creates the user site only when it is missing. This
+    process started without that directory on sys.path, so an in-process
+    import still fails after a successful install.
+    """
+    script = (
+        "missing=[]\n"
+        "for name in ('sympy','numpy','scipy'):\n"
+        "    try:\n"
+        "        __import__(name)\n"
+        "    except Exception:\n"
+        "        missing.append(name)\n"
+        "print('\\n'.join(missing))\n"
+    )
+    proc = subprocess.run(
+        [sys.executable, "-c", script],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+    )
+    found = [
+        line.strip()
+        for line in (proc.stdout or "").splitlines()
+        if line.strip() in {"sympy", "numpy", "scipy"}
+    ]
+    if proc.returncode != 0 and not found:
+        return ["sympy", "numpy", "scipy"]
+    return found
+
+
+def missing_deps(run_browser, fresh_python=False):
+    """Names of gate dependencies that are not importable or not on disk."""
+    if fresh_python:
+        missing = _fresh_python_missing()
+    else:
+        missing = [name for name in ("sympy", "numpy", "scipy") if not _can_import(name)]
+    if not any(os.path.isdir(path) for path in KATEX_DIRS):
+        missing.append("katex")
+    if run_browser and not os.path.isdir(PUPPETEER_DIR):
+        missing.append("puppeteer-core")
+    return missing
+
+
+def ensure_deps(run_browser):
+    """Install once via agent_bootstrap.sh. Exit 2 if anything is still missing."""
+    if not missing_deps(run_browser):
+        return
+    subprocess.run(
+        ["bash", "tools/skilltree-content/agent_bootstrap.sh"],
+        cwd=ROOT,
+        check=False,
+    )
+    missing = missing_deps(run_browser, fresh_python=True)
+    if not missing:
+        return
+    print(
+        "MISSING DEPS: "
+        + ", ".join(missing)
+        + ". Run: bash tools/skilltree-content/agent_bootstrap.sh"
+    )
+    sys.exit(2)
 
 
 def parse_args(argv):
@@ -261,6 +366,7 @@ def main(argv=None):
     run_browser, why = decide_browser(changed_paths(), override)
     if not summary_mode:
         print(f"browser suite: {'run' if run_browser else 'skip'} - {why}")
+    ensure_deps(run_browser)
     if dry_run:
         print("dry run: not executing gates")
         return 0
