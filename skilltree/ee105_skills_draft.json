@@ -3225,8 +3225,8 @@
     }
    ],
    "video": {
-    "url": "https://www.youtube.com/watch?v=cmqWm_jeZ0o",
-    "title": "Orthonormal columns by the Gram-Schmidt process"
+    "url": "https://www.youtube.com/watch?v=qmRC8mTPGI8",
+    "title": "QR Factorization"
    }
   },
   {
@@ -3487,7 +3487,12 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Clw24Fajnqg",
+    "title": "3.2 Smooth and Strongly Convex Functions",
+    "start": 1514
+   }
   },
   {
    "id": "gradient-descent",

@@ -158,7 +158,20 @@ Optional per-skill field `video: { url, title?, start? }` on the skill in `skill
 
 - `url` is an `http` or `https` link to `youtube.com/watch?v=` or `youtu.be/` (optional `www.`) with one 11-character video id. `start`, when present, is a non-negative integer of seconds. `title`, when present, is a non-empty string.
 - `tools/skilltree-content/video_gate.py` is a hard gate in `run_gates.py`. It accepts only those URLs.
-- For each new skill, without spending much compute deliberating, pick the YouTube video with the best diagrams or best comments (3Blue1Brown is the gold standard; the first search result is usually fine). Link part of a video with `start` when only a segment covers the skill. If no good video is found, omit the field.
+- Search YouTube directly with `python3 tools/skilltree-content/yt_search.py "<query>"`. Do not use Google. The script prints `id | title | channel | duration` and needs no API key.
+- Run at least three queries before giving up:
+  1. the exact skill name
+  2. the concept in plain words
+  3. the topic plus a trusted channel for that subject
+- A segment of a longer lecture is fine. Set `start` to the second where that skill begins.
+- Keep a short trusted-channel list per subject. Examples:
+  - Linear algebra: 3Blue1Brown, Gilbert Strang, MIT OpenCourseWare, Khan Academy
+  - Optimization: Stanford Online / Boyd, Visually Explained
+  - Control and dynamics: Steve Brunton, Brian Douglas
+  - Circuits, signals, and early calculus: Khan Academy, MIT OpenCourseWare
+- If no result teaches this skill, link a parent-concept video and label it in `title` (for example `Parent concept: convex functions — <video title>`).
+- **Hard rule:** the video must not mainly teach a different skill in the tree. Reject it when its title names another skill. QR factorization does not get a video whose title is about Gram-Schmidt.
+- When the field is omitted, the pull request body lists every query that was tried.
 - Do not backfill existing skills unless that is the task. The card loads its thumbnail from `i.ytimg.com`. Do not download or store the image, and do not add an API key.
 
 ## 15. Pedagogy
