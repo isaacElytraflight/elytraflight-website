@@ -11,7 +11,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "katex": "^0.16.47",
+    "katex": "^0.19.1",
     "puppeteer-core": "^24.43.1"
   }
 }
