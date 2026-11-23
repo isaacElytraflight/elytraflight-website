@@ -10,8 +10,8 @@
 # course-number patterns only when that string is a collections tab_title.
 # The same words in a title, a question, or any other learner-facing field
 # still fail. A professor, textbook, reader, week, or lecture still fails
-# inside a selector label. A different tab_title, including "EECS 127", is
-# not on this list.
+# inside a selector label. A different tab_title, including the bare string
+# "EECS 127", is not on this list.
 #
 # Format: <Topic course title> (<University> <Course number>), or (Generic)
 # when there is no single source course.
@@ -19,6 +19,7 @@
 *	=	Dynamic Systems and Feedback (Berkeley ME 132)
 *	=	Feedback Systems (Generic)
 *	=	Nonlinear Optimization (TU Graz)
+*	=	Optimization Models in Engineering (Berkeley EECS 127)
 #
 # Pattern choices, so they do not need a per-hit exception:
 # - Lecture slides are "the slides", "lecture slides", "slide deck", or "slide N".

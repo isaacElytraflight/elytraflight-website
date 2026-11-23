@@ -25,6 +25,11 @@
       "ids": ["convexity-first-order", "first-order-optimality"],
       "resolution": "distinct",
       "reason": "convexity-first-order is the chord and gradient test for a convex function. first-order-optimality is the stationarity condition for a minimizer. The shared words name the derivative order, not the same skill."
+    },
+    {
+      "ids": ["gradient-descent", "stochastic-gradient-descent"],
+      "resolution": "distinct",
+      "reason": "gradient-descent steps along the full gradient with length 1/L. stochastic-gradient-descent replaces that gradient by an unbiased random draw and shrinks the step. One is the prerequisite of the other, not a second copy."
     }
   ]
 }
