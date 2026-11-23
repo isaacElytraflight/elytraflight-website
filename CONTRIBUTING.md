@@ -106,16 +106,18 @@ Agents follow this in the same run that opened the pull request. Do not end the 
 
 - Read [docs/agent-map.md](docs/agent-map.md) before searching the repo. Search with `bash tools/skilltree-content/find.sh <pattern> [path...]`. Do not run a repo-wide grep. Do not re-read a file you just edited. Do not search the web unless the brief asks.
 - Read gate output from `python3 tools/skilltree-content/run_gates.py --batch <id> --summary`. Add `--docs` when that batch should regenerate the changelog, the brief, the report, and `docs/content-versions.json`.
-- After pushing, run `bash tools/skilltree-content/wait_bugbot.sh <head sha> <pr>` and wait until it prints a line. It polls the `Cursor Bugbot` check every 30 seconds for up to 30 minutes.
+- After pushing, run `bash tools/skilltree-content/wait_bugbot.sh <head sha> <pr>` and wait until it prints a line. Always pass the PR number. It polls the `Cursor Bugbot` check every 30 seconds for up to 30 minutes, and each poll also checks issue comments for `BUGBOT_TOO_LARGE_TO_REVIEW`.
 - Merge only when that line is `CLEAN` or `SKIPPED`, the gates passed, and the pull request is mergeable:
 
 ```bash
 gh pr merge <n> --squash --admin --match-head-commit <sha>
 ```
 
-- On `FINDINGS`, fix them, push, and run `wait_bugbot.sh` again. At most two fix rounds. If findings remain after the second fix round, or the line is `TIMEOUT`, do not merge. Report the result.
+- On `FINDINGS`, fix them, push, and run `wait_bugbot.sh` again. At most two fix rounds. If findings remain after the second fix round, or the line is `TIMEOUT` or `TOO_LARGE` (exit 3), do not merge. Stop and report to the owner.
 
-`CLEAN` means the check finished with no findings. `SKIPPED` means the check completed as skipped. A result that says the pull request is too large to review is `FINDINGS`, not `CLEAN` or `SKIPPED`.
+`CLEAN` means the check finished with no findings. `SKIPPED` means the check completed as skipped. A check-run result that says the pull request is too large to review is `FINDINGS`, not `CLEAN` or `SKIPPED`. `TOO_LARGE` (exit 3) means Bugbot posted that the pull request is too large and created no check-run. Do not merge. Stop and report to the owner.
+
+Mechanical bank edits (small, predictable, scripted changes across existing banks, e.g. normalizing a field value, with no new questions or wording changes) skip Bugbot: merge with `--squash --admin --match-head-commit <sha>` once `run_gates.py --summary` passes and the PR is mergeable, and say "Bugbot skipped: mechanical bank edit" in the PR body. Bugbot still runs for code, tooling and new or reworded content.
 
 Agents Isaac runs may self-merge under that rule. Outside contributors do not merge their own pull requests. Isaac reviews those.
 

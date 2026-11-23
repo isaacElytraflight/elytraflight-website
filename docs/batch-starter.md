@@ -28,7 +28,9 @@ Search with `bash tools/skilltree-content/find.sh <pattern> [path...]`. With no 
 
 Iterate with the slice generator and verifier. On the candidate, run `python3 tools/skilltree-content/run_gates.py --batch <batch-id> --docs --summary` once. See Gates for the `--docs` rewrite and the summary table. A content-only pull request skips Puppeteer; one short smoke check is enough.
 
-After pushing, run `bash tools/skilltree-content/wait_bugbot.sh <head sha> <pr>` in that same run and do not end the run until it returns. `mergeStateStatus` stays `BLOCKED` / `REVIEW_REQUIRED` because the `main` ruleset requires an approving review. Merge only on `CLEAN` or `SKIPPED`, with the gates passing and the pull request mergeable: `gh pr merge <n> --squash --admin --match-head-commit <sha>`. Without `--admin` the merge fails. On `FINDINGS`, fix and wait again, at most two fix rounds. Recurring catches: invalid symbolic sample ranges, non-unique order chains, ambiguous wording, a prompt name that differs from the graded name (`K_p` vs `Kp`), and over-strong claims.
+After pushing, run `bash tools/skilltree-content/wait_bugbot.sh <head sha> <pr>` in that same run and do not end the run until it returns. Always pass the PR number. On `TOO_LARGE` (exit 3) do not merge; stop and report to the owner. `mergeStateStatus` stays `BLOCKED` / `REVIEW_REQUIRED` because the `main` ruleset requires an approving review. Merge only on `CLEAN` or `SKIPPED`, with the gates passing and the pull request mergeable: `gh pr merge <n> --squash --admin --match-head-commit <sha>`. Without `--admin` the merge fails. On `FINDINGS`, fix and wait again, at most two fix rounds. Recurring catches: invalid symbolic sample ranges, non-unique order chains, ambiguous wording, a prompt name that differs from the graded name (`K_p` vs `Kp`), and over-strong claims.
+
+Mechanical bank edits (small, predictable, scripted changes across existing banks, e.g. normalizing a field value, with no new questions or wording changes) skip Bugbot: merge with `--squash --admin --match-head-commit <sha>` once `run_gates.py --summary` passes and the PR is mergeable, and say "Bugbot skipped: mechanical bank edit" in the PR body. Bugbot still runs for code, tooling and new or reworded content.
 
 ## Read in this order
 
@@ -104,13 +106,13 @@ At least 25% of the bank (`deep_quota(n)`) is symbolic, ordering, find-the-error
 
 Use the repository's Cursor Bugbot review. Do not start a paid reviewer. The rule for people is in `CONTRIBUTING.md`.
 
-After the pull request is open, wait in the same run. Do not end the run until this command returns:
+After the pull request is open, wait in the same run. Do not end the run until this command returns. Always pass the PR number:
 
 ```
 bash tools/skilltree-content/wait_bugbot.sh <head sha> <pr>
 ```
 
-It polls `gh api repos/isaacElytraflight/elytraflight-website/commits/<sha>/check-runs` every 30 seconds for up to 30 minutes, and prints one line: `CLEAN`, `FINDINGS`, `SKIPPED`, or `TIMEOUT`. With a pull request number it adds that check's title, the first 500 characters of its summary, and the inline review comments on that sha.
+It polls `gh api repos/isaacElytraflight/elytraflight-website/commits/<sha>/check-runs` every 30 seconds for up to 30 minutes, and each poll also checks issue comments for `BUGBOT_TOO_LARGE_TO_REVIEW`. It prints one line: `CLEAN`, `FINDINGS`, `SKIPPED`, `TIMEOUT`, or `TOO_LARGE`. With a pull request number it adds that check's title, the first 500 characters of its summary, and the inline review comments on that sha.
 
 Merge only on `CLEAN` or `SKIPPED`, and only when the gates passed and the pull request is mergeable. Pass that head sha:
 
@@ -118,9 +120,11 @@ Merge only on `CLEAN` or `SKIPPED`, and only when the gates passed and the pull 
 gh pr merge <n> --squash --admin --match-head-commit <sha>
 ```
 
-The repository deletes the head branch. `CLEAN` means the check finished with no findings. `SKIPPED` means the check completed as skipped. A result that says the pull request is too large to review is `FINDINGS`, not `CLEAN` or `SKIPPED`.
+The repository deletes the head branch. `CLEAN` means the check finished with no findings. `SKIPPED` means the check completed as skipped. A check-run result that says the pull request is too large to review is `FINDINGS`, not `CLEAN` or `SKIPPED`. `TOO_LARGE` (exit 3) means Bugbot posted that the pull request is too large and created no check-run. Do not merge. Stop and report to the owner.
 
-On `FINDINGS`, fix them, push, and run `wait_bugbot.sh` again. At most two fix rounds. A text-only fix does not need another full gate run. If findings are still open after the second fix round, or the line is `TIMEOUT`, do not merge. Stop and report the result.
+On `FINDINGS`, fix them, push, and run `wait_bugbot.sh` again. At most two fix rounds. A text-only fix does not need another full gate run. If findings are still open after the second fix round, or the line is `TIMEOUT` or `TOO_LARGE`, do not merge. Stop and report the result to the owner.
+
+Mechanical bank edits (small, predictable, scripted changes across existing banks, e.g. normalizing a field value, with no new questions or wording changes) skip Bugbot: merge with `--squash --admin --match-head-commit <sha>` once `run_gates.py --summary` passes and the PR is mergeable, and say "Bugbot skipped: mechanical bank edit" in the PR body. Bugbot still runs for code, tooling and new or reworded content.
 
 If the pull request is not mergeable because of conflicts, merge the base branch in, regenerate the generated files, re-run the gates, and wait for Bugbot again. That counts as a fix round.
 
@@ -133,6 +137,6 @@ Outside contributors do not self-merge. Branch protection on `main` uses a rules
 - Do not search the web unless the brief asks.
 - Use the shared helpers. Do not paste a new bank writer or numeric-check loop.
 - Focused tests while working, then one `run_gates.py --batch <id> --docs --summary` at the end. Read that table, not a full gate log.
-- After pushing, run `wait_bugbot.sh <head sha> <pr>` in the same run and do not end the run until it returns.
+- After pushing, run `wait_bugbot.sh <head sha> <pr>` in the same run and do not end the run until it returns. Always pass the PR number. On `TOO_LARGE` (exit 3) do not merge; stop and report to the owner. Mechanical bank edits skip this wait; see Review and merge.
 - Commit no scratch files, terminal logs, or screenshots from the run.
 - One short browser smoke check on every pull request, content or UI: load the tree, open one changed skill, and take 1–2 screenshots. That check is not the full browser suite.
