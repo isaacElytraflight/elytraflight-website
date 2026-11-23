@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Block until the Cursor Bugbot check on <sha> completes.
-# Prints one line: CLEAN, FINDINGS ..., SKIPPED, or TIMEOUT.
-# Exit 0 clean or skipped, 1 findings, 2 timeout or bad usage.
+# Prints one line: CLEAN, FINDINGS ..., SKIPPED, TIMEOUT, or TOO_LARGE <comment>.
+# Exit 0 clean or skipped, 1 findings, 2 timeout or bad usage,
+# 3 too large (issue comment BUGBOT_TOO_LARGE_TO_REVIEW at or after the head commit).
 set -eu
 
 if [[ $# -lt 1 || $# -gt 2 || -z ${1:-} ]]; then
@@ -13,6 +14,9 @@ pr=${2:-}
 if [[ -n $pr && ! $pr =~ ^[0-9]+$ ]]; then
   echo "usage: wait_bugbot.sh <sha> [pr-number]" >&2
   exit 2
+fi
+if [[ -z $pr ]]; then
+  echo "warning: too-large detection needs the pr number" >&2
 fi
 
 repo=isaacElytraflight/elytraflight-website
@@ -153,9 +157,100 @@ PY
   rm -f "$tmp"
 }
 
+# Bugbot posts no check-run when a pull request is too large. The marker
+# arrives as an issue comment. Prints the collapsed body, or nothing.
+too_large_snippet() {
+  local tmp
+  tmp=$(mktemp)
+  if ! gh api --paginate "repos/${repo}/issues/${pr}/comments?per_page=100" >"$tmp" 2>/dev/null; then
+    rm -f "$tmp"
+    return 0
+  fi
+  python3 - "$1" "$tmp" <<'PY' || { rm -f "$tmp"; return 0; }
+import json
+import sys
+from datetime import datetime
+
+since_raw = sys.argv[1].strip()
+raw = open(sys.argv[2], encoding="utf-8").read().strip()
+if not raw or not since_raw:
+    raise SystemExit
+
+def stamp(value):
+    value = (value or "").strip()
+    if not value:
+        return None
+    if value.endswith("Z"):
+        value = value[:-1] + "+00:00"
+    try:
+        return datetime.fromisoformat(value)
+    except ValueError:
+        return None
+
+since = stamp(since_raw)
+if since is None:
+    raise SystemExit
+
+decoder = json.JSONDecoder()
+items = []
+blob = raw.lstrip()
+while blob:
+    blob = blob.lstrip()
+    if not blob:
+        break
+    try:
+        value, end = decoder.raw_decode(blob)
+    except json.JSONDecodeError:
+        raise SystemExit
+    if isinstance(value, list):
+        items.extend(value)
+    elif isinstance(value, dict):
+        items.append(value)
+    else:
+        raise SystemExit
+    blob = blob[end:]
+
+def flat(text, limit=200):
+    return " ".join((text or "").split())[:limit]
+
+for comment in items:
+    if not isinstance(comment, dict):
+        continue
+    body = comment.get("body") or ""
+    if "BUGBOT_TOO_LARGE_TO_REVIEW" not in body:
+        continue
+    created = stamp(comment.get("created_at") or "")
+    if created is None or created < since:
+        continue
+    print(flat(body))
+    raise SystemExit
+PY
+  rm -f "$tmp"
+}
+
+committer_date=
+if [[ -n $pr ]]; then
+  committer_date=$(gh api "repos/${repo}/commits/${sha}" -q .commit.committer.date 2>/dev/null || true)
+fi
+
+# Exit 3 when a too-large comment is already on this head. Returns 1 otherwise.
+emit_too_large() {
+  [[ -n $pr ]] || return 1
+  if [[ -z $committer_date ]]; then
+    committer_date=$(gh api "repos/${repo}/commits/${sha}" -q .commit.committer.date 2>/dev/null || true)
+  fi
+  [[ -n $committer_date ]] || return 1
+  local snippet
+  snippet=$(too_large_snippet "$committer_date" || true)
+  [[ -n $snippet ]] || return 1
+  echo "TOO_LARGE $snippet"
+  exit 3
+}
+
 while true; do
   now=$(date +%s)
   if (( now >= deadline )); then
+    emit_too_large || true
     echo TIMEOUT
     exit 2
   fi
@@ -179,6 +274,7 @@ while true; do
       exit 1
       ;;
   esac
+  emit_too_large || true
   remain=$(( deadline - $(date +%s) ))
   if (( remain <= 0 )); then
     echo TIMEOUT

@@ -44,7 +44,7 @@ The live sidebar is the to-do list (`#todoBook`), the course scope picker, and t
 | `tools/skilltree-content/templates.py` | Figure templates. |
 | `tools/skilltree-content/agent_bootstrap.sh` | Installs sympy, numpy, and KaTeX on a fresh VM. |
 | `tools/skilltree-content/find.sh` | Capped search. Use this instead of a repo-wide grep. |
-| `tools/skilltree-content/wait_bugbot.sh` | Blocks until the `Cursor Bugbot` check on a sha completes. |
+| `tools/skilltree-content/wait_bugbot.sh` | Blocks until the `Cursor Bugbot` check on a sha completes. Always pass the PR number. On `TOO_LARGE` (exit 3) do not merge; stop and report to the owner. |
 | `tools/skilltree-content/video_gate.py` | Video URL gate. |
 | `tools/skilltree-content/reference_gate.py` | No source names in learner-facing text. |
 | `tools/skilltree-content/deep_quota_gate.py` | At least 25% deep-type questions. |
@@ -55,6 +55,10 @@ The live sidebar is the to-do list (`#todoBook`), the course scope picker, and t
 | `skilltree/validator_domain.py` | Domain validator, including the deep-type quota. |
 | `skilltree/figure_bounds.py` | Figure size gate. |
 | `skilltree/verify_harness.py` | Shared numeric and symbolic checker. Batch verifiers are `skilltree/verify_<batch>.py`. |
+
+Always pass the pull request number to `wait_bugbot.sh`. On `TOO_LARGE` (exit 3) do not merge; stop and report to the owner.
+
+Mechanical bank edits (small, predictable, scripted changes across existing banks, e.g. normalizing a field value, with no new questions or wording changes) skip Bugbot: merge with `--squash --admin --match-head-commit <sha>` once `run_gates.py --summary` passes and the PR is mergeable, and say "Bugbot skipped: mechanical bank edit" in the PR body. Bugbot still runs for code, tooling and new or reworded content.
 
 ## Docs
 
