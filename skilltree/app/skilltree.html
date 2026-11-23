@@ -158,6 +158,12 @@ main{flex:1;position:relative;min-height:0}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .hist{font-size:12px;color:var(--ink2);display:grid;gap:3px}
 .hist .p{color:var(--good);font-weight:700}.hist .f{color:var(--bad);font-weight:700}
+.video-card{display:flex;flex-wrap:wrap;align-items:flex-start;gap:10px;width:100%;max-width:100%;min-width:0;box-sizing:border-box;margin-top:10px;padding:8px;border:2px solid var(--line);border-radius:12px;background:#fff;color:inherit;text-decoration:none}
+.video-card:hover{border-color:var(--accent)}
+.video-thumb{width:120px;max-width:100%;min-width:0;flex:0 1 120px;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:8px;background:#e6ebf4;display:block}
+.video-copy{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1 1 150px}
+.video-kicker{font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--mute);line-height:1.35}
+.video-title{font-size:13.5px;font-weight:700;line-height:1.35;overflow-wrap:anywhere}
 #quiz{position:fixed;inset:0;z-index:40;background:linear-gradient(160deg,var(--bg1),var(--bg2));display:none;overflow:auto}
 #quiz.open{display:block}
 .qwrap{max-width:780px;margin:0 auto;padding:22px 20px 60px}
@@ -1076,6 +1082,33 @@ function tierPill(id){const s=byId[id],t=tierOf(id);
   return el('button',{class:'pill',style:colorVars(s.chapter),onclick:()=>selectSkill(id,true),title:TIERS[t]+(isPlayable(id)?'':' · coming soon')},
     el('span',{class:'sw t'+t,style:`--f:${FILL[t]}%;width:14px;height:14px;border-color:${chColor(s.chapter)}`}),short(s.name,40))}
 const need=n=>Math.ceil(n*2/3);
+const YT_ID=/^[A-Za-z0-9_-]{11}$/;
+const YT_WATCH='https://www.youtube.com/watch?v=';
+const YT_THUMB='https://i.ytimg.com/vi/';
+function recommendedVideoCard(video){
+  if(!video||typeof video!=='object'||Array.isArray(video))return null;
+  if(Object.keys(video).some(k=>k!=='url'&&k!=='title'&&k!=='start'))return null;
+  if(typeof video.url!=='string'||!video.url||/\s/.test(video.url))return null;
+  let u;try{u=new URL(video.url)}catch(e){return null}
+  if(u.protocol!=='http:'&&u.protocol!=='https:')return null;
+  if(u.username||u.password||(u.port&&u.port!=='80'&&u.port!=='443'))return null;
+  const host=u.hostname.toLowerCase().replace(/\.$/,'');
+  let id='';
+  if(host==='youtube.com'||host==='www.youtube.com'){
+    if((u.pathname.replace(/\/+$/,'')||'/')!=='/watch')return null;
+    const vs=u.searchParams.getAll('v');if(vs.length!==1)return null;id=vs[0];
+  }else if(host==='youtu.be'||host==='www.youtu.be'){
+    const parts=u.pathname.split('/').filter(Boolean);if(parts.length!==1)return null;id=parts[0];
+  }else return null;
+  if(!YT_ID.test(id))return null;
+  if(video.start!=null&&(typeof video.start!=='number'||!Number.isInteger(video.start)||video.start<0))return null;
+  if(video.title!=null&&(typeof video.title!=='string'||!video.title.trim()))return null;
+  let href=YT_WATCH+id;if(video.start!=null)href+='&t='+video.start;
+  const copy=[el('span',{class:'video-kicker',text:'Recommended 3rd party video'})];
+  if(video.title!=null)copy.push(el('span',{class:'video-title',text:video.title.trim()}));
+  return el('a',{class:'video-card',id:'videoCard',href,target:'_blank',rel:'noopener noreferrer'},
+    el('img',{class:'video-thumb',src:YT_THUMB+id+'/mqdefault.jpg',alt:''}),el('span',{class:'video-copy'},copy));
+}
 function renderPanel(){
   const id=selected;panel.innerHTML='';if(!id)return;
   const s=byId[id],t=tierOf(id),soon=!isPlayable(id),ready=isReady(id);
@@ -1084,12 +1117,13 @@ function renderPanel(){
   kids.push(el('div',{style:colorVars(s.chapter)},el('span',{class:'cpill',text:`Ch ${s.chapter} · ${DATA.chapters[s.chapter]}`})));
   kids.push(el('h2',{text:s.name,id:'panelTitle'}));
   kids.push(el('div',{class:'kv',text:`Reader section ${s.reader_section||'—'} · id: ${s.id}`}));
-  if(soon)kids.push(el('div',{class:'note soon',role:'note'},el('b',{text:'Coming soon. '}),'This skill is in the tree, but its questions haven’t been written yet, so it can’t be practiced in this demo.'));
+  if(soon){kids.push(el('div',{class:'note soon',role:'note'},el('b',{text:'Coming soon. '}),'This skill is in the tree, but its questions haven’t been written yet, so it can’t be practiced in this demo.')); const vcard=recommendedVideoCard(s.video);if(vcard)kids.push(vcard);}
   else{
     kids.push(el('div',{class:'steps',style:colorVars(s.chapter),role:'img','aria-label':'Tier: '+TIERS[t]},
       TIERS.map((n,i)=>el('div',{class:'step'+(i<=t&&i>0?' done':'')+(i===t?' cur':'')},el('div',{class:'dot',text:i>0&&i<=t?'✓':''}),n))));
     kids.push(el('div',{class:'kv',id:'panelTier'},el('b',{text:'Tier: '}),TIERS[t],ready?' · ready to learn':''));
     kids.push(el('div',{class:'kv',id:'panelLast',title:lastOf(id)?fmtDate(lastOf(id)):''},el('b',{text:'Last practiced: '}),lastOf(id)?`${ago(lastOf(id))} (${fmtDate(lastOf(id))})`:'never'));
+    const vcard=recommendedVideoCard(s.video);if(vcard)kids.push(vcard);
     const gaps=prereqGaps(id),soonP=s.prereqs.filter(p=>!isPlayable(p));
     if(t===0&&ready)kids.push(el('div',{class:'note ok',id:'readyNote'},el('b',{text:'Ready to learn: '}),s.prereqs.length&&s.prereqs.some(isPlayable)?'all its prerequisites are at Level 2 or Mastered.':'it has no prerequisites you can practice yet, so you can start right away.'));
     if(gaps.length&&t===0)kids.push(el('div',{class:'note warn',id:'prereqNote'},el('b',{text:'Gentle heads-up: '}),`this skill is recommended once its prerequisites reach Level 2. Still to go: ${gaps.map(p=>`${byId[p].name} (${TIERS[tierOf(p)]})`).join('; ')}. Nothing is locked, so start whenever you like.`));
@@ -1162,12 +1196,17 @@ function checkNumeric(q,txt){
   return Math.abs(x-a)<=tol*Math.abs(a)*(1+1e-9);
 }
 function fmtAns(a){
+  if(typeof a!=='number'||!Number.isFinite(a))return '';
   if(a===0)return '0';
   const ab=Math.abs(a);
   if(ab>=1e6||ab<1e-3){const [m,e]=a.toExponential(3).split('e');return m.replace(/\.?0+$/,'')+'×10^'+Number(e)}
   return String(Number(a.toPrecision(6)));
 }
-const answerLine=it=>it.q.type==='mc'?`Answer: ${'ABCD'[it.ci]}. ${it.opts[it.ci]}`:`Answer: ${fmtAns(it.q.answer)}${it.q.unit&&it.q.unit!=='(unitless)'?' '+it.q.unit:''}`;
+const answerLine=it=>{
+  if(it.q.type==='mc')return `Answer: ${'ABCD'[it.ci]}. ${it.opts[it.ci]}`;
+  if(it.q.type==='numeric')return `Answer: ${fmtAns(it.q.answer)}${it.q.unit&&it.q.unit!=='(unitless)'?' '+it.q.unit:''}`;
+  return 'This single-file demo grades multiple choice and numeric questions.';
+};
 function renderQuiz(){
   const Q=quiz;if(!Q)return;
   const s=byId[Q.id];quizEl.style.cssText=colorVars(s.chapter);quizEl.innerHTML='';
@@ -1193,12 +1232,15 @@ function renderQuiz(){
       box.append(el('button',{class:cls,type:'button',disabled:it.done,'data-i':i,'data-o':it.perm?it.perm[i]:i,onclick:()=>answerMC(i)},el('span',{class:'k',text:'ABCD'[i]}),el('span',{class:'ot',math:o})));
     });
     card.append(box);
-  }else{
+  }else if(q.type==='numeric'){
     const inp=el('input',{type:'text',id:'numIn',autocomplete:'off',spellcheck:'false',placeholder:'Type a number',disabled:it.done,'aria-label':'Your answer'+(q.unit?' in '+mathPlain(q.unit):'')});
     inp.value=it.text;inp.addEventListener('input',()=>it.text=inp.value);
     inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();answerNum()}});
     card.append(el('div',{class:'numrow'},inp,q.unit&&q.unit!=='(unitless)'?el('span',{class:'u',math:q.unit}):null,el('button',{class:'btn primary',id:'checkBtn',disabled:it.done,onclick:answerNum},'Check')));
     if(!it.done){card.append(el('div',{class:'kv',style:'margin-top:8px',text:`Plain numbers or scientific notation (like 2.5e-3) work. Accepted within ±${((q.tolerance!=null?q.tolerance:.02)*100).toFixed(0)}%.`}));setTimeout(()=>inp.focus(),0)}
+  }else{
+    card.append(el('div',{class:'note warn',text:"This single-file demo grades multiple choice and numeric questions. Elytraflight's Skill Tree grades this one."}));
+    if(!it.done)card.append(el('div',{class:'numrow',style:'margin-top:12px'},el('button',{class:'btn',id:'checkBtn',onclick:()=>{const cur=quiz.items[quiz.i];cur.done=true;cur.correct=false;renderQuiz()}},'Skip this question')));
   }
   if(it.done){
     const ok=it.correct;

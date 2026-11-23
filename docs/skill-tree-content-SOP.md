@@ -102,6 +102,7 @@ Open course work is one GitHub issue per roadmap id, titled `[SG-xxx] <title>`. 
 - **Logs.** Do not commit scratch files, terminal logs, or screenshots from the run. Summarize in the report. Leave long command output in the tool log instead of pasting it. Do not poll CI or review; subscribe once and wait.
 - **Hard gates.** One command, `python3 tools/skilltree-content/run_gates.py --batch <id>`, runs:
   - the schema, graph, and domain validators
+  - the video URL gate (`video_gate.py`) for an optional `video` field
   - the reference gate (`reference_gate.py`)
   - the deep-type quota (`deep_quota_gate.py`, at least 25%)
   - the dedupe gate (`dedupe_gate.py`)
@@ -132,7 +133,8 @@ Every batch brief states:
 - the bank and explainer specs, and the core/application split
 - the deep-type quota: at least 25% (`deep_quota(n)`, `ceil(3n/12)`) among symbolic, ordering, find-the-error, and multi-select (`Bank.sym`, `Bank.order`, `Bank.find_error`, `Bank.multi` in `banklib.py`). SG-063 is complete ([#55](https://github.com/isaacElytraflight/elytraflight-website/issues/55) closed). The empty `skills` list in `skilltree/deep_quota_grandfather.json` is not a reason to skip the quota on a new bank
 - the dedupe check against the whole graph, and where a resolved overlap is recorded
-- the gates, including the reference gate, the deep-quota gate, and the dedupe gate
+- the gates, including the reference gate, the video URL gate, the deep-quota gate, and the dedupe gate
+- the pedagogy checks in section 15, and the recommended video in section 14 or an omitted field
 - deliverables (content, generator, verifier, patches) and the generated report (counts, gate outputs, dedupe pointer)
 - "do not publish"
 
@@ -145,3 +147,37 @@ A new bank or a new course ships only when every line below holds. The sections 
 - At least 25% of each new bank is a deep-type question: symbolic, ordering, find-the-error, or multi-select. That is `deep_quota(n)`, `ceil(3n/12)` (section 5).
 - Ids stay. A content edit bumps the version. Retired ids map to a survivor (section 8).
 - A new course starts from a real recent syllabus or course schedule, used for scope only. Isaac has accepted the graph before batches start (section 4).
+- Wording, continuity, ordering questions, and diagrams follow section 15.
+- A recommended video follows section 14, or the field is omitted.
+
+## 14. Recommended video
+
+Optional per-skill field `video: { url, title?, start? }` on the skill in `skilltree/ee105_skills_draft.json`. The generator copies it onto the published skill. No field, no card, no placeholder.
+
+- `url` is an `http` or `https` link to `youtube.com/watch?v=` or `youtu.be/` (optional `www.`) with one 11-character video id. `start`, when present, is a non-negative integer of seconds. `title`, when present, is a non-empty string.
+- `tools/skilltree-content/video_gate.py` is a hard gate in `run_gates.py`. It accepts only those URLs.
+- For each new skill, without spending much compute deliberating, pick the YouTube video with the best diagrams or best comments (3Blue1Brown is the gold standard; the first search result is usually fine). Link part of a video with `start` when only a segment covers the skill. If no good video is found, omit the field.
+- Do not backfill existing skills unless that is the task. The card loads its thumbnail from `i.ytimg.com`. Do not download or store the image, and do not add an API key.
+
+## 15. Pedagogy
+
+Be extra careful to follow good standard pedagogical practice. This section is the source. Briefs point here and stay short.
+
+### Clear wording and continuity
+
+- Clear, unambiguous wording in explainers and question banks (define terms before use, one idea per sentence where possible, no trick phrasing, consistent notation across a course).
+- Design skills so a student feels **direct continuity** between prerequisites and later skills: each explainer explicitly builds on what its prerequisites taught (same notation, a short bridge from the prerequisite idea), and early questions in a bank connect back to the prerequisite before extending it.
+
+### Ordering questions
+
+- For any "put these steps in order" question, check every pair of adjacent steps: if two steps could be swapped and the sequence would still be correct (they are parallel / independent), the question is ambiguous.
+- Fix it by rewording the steps so that each one truly depends on the step before it, merging the parallel steps into one, or dropping one of them. Never accept just one of several valid orders.
+- Content agents note this check in the batch self-review.
+
+### Diagrams only where needed
+
+- Never add a diagram just to have one. Attach a diagram to a question or explainer only when it is necessary for that particular item, or when it genuinely helps the student visualize something important.
+- Every diagram must fit its specific question and be clearly labeled (axes, variables, parts referenced in the text). No generic, unlabeled, or loosely related "decorative" diagrams.
+- When in doubt, leave it out.
+- Content agents note in the batch self-review which items got diagrams and why.
+- Section 6's figure share applies to items that need a figure. It is not a reason to add a decorative one.

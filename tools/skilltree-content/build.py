@@ -22,6 +22,8 @@ import sys
 import shutil
 from pathlib import Path
 
+from video_gate import video_error
+
 REPO = Path(__file__).parent.parent.parent
 SRC = REPO / "skilltree"
 OUT = REPO / "public" / "skilltree"
@@ -222,6 +224,8 @@ def main():
             "boxCount": len(collections_data["boxes"])
         }
     
+    video_errors = []
+
     def public_skill(s):
         # reader_section and sources stay in the authoring file. They are not shipped:
         # the panel must not show a reader section or a textbook further-reading list.
@@ -232,6 +236,12 @@ def main():
             out["summary"] = s["summary"]
         if s.get("status"):
             out["status"] = s["status"]
+        if "video" in s:
+            err = video_error(s.get("video"))
+            if err:
+                video_errors.append(f"{s['id']}: {err}")
+            else:
+                out["video"] = {k: s["video"][k] for k in ("url", "title", "start") if k in s["video"]}
         return out
 
     skills_out = {
@@ -277,6 +287,9 @@ def main():
     print(f"  - {len(explainers_meta)} explainer files: {total_explainer_size:,} bytes total")
     print(f"  - manifest.json")
     print(f"  - retired map: {len(retired)} ids")
+    for msg in video_errors:
+        print(f"Error: {msg}", file=sys.stderr)
+    errors += len(video_errors)
     if errors:
         print(f"Error: {errors} content problem(s)", file=sys.stderr)
         return 1

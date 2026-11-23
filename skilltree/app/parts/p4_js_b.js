@@ -76,6 +76,33 @@ function tierPill(id){const s=byId[id],t=tierOf(id);
   return el('button',{class:'pill',style:colorVars(s.chapter),onclick:()=>selectSkill(id,true),title:TIERS[t]+(isPlayable(id)?'':' · coming soon')},
     el('span',{class:'sw t'+t,style:`--f:${FILL[t]}%;width:14px;height:14px;border-color:${chColor(s.chapter)}`}),short(s.name,40))}
 const need=n=>Math.ceil(n*2/3);
+const YT_ID=/^[A-Za-z0-9_-]{11}$/;
+const YT_WATCH='https://www.youtube.com/watch?v=';
+const YT_THUMB='https://i.ytimg.com/vi/';
+function recommendedVideoCard(video){
+  if(!video||typeof video!=='object'||Array.isArray(video))return null;
+  if(Object.keys(video).some(k=>k!=='url'&&k!=='title'&&k!=='start'))return null;
+  if(typeof video.url!=='string'||!video.url||/\s/.test(video.url))return null;
+  let u;try{u=new URL(video.url)}catch(e){return null}
+  if(u.protocol!=='http:'&&u.protocol!=='https:')return null;
+  if(u.username||u.password||(u.port&&u.port!=='80'&&u.port!=='443'))return null;
+  const host=u.hostname.toLowerCase().replace(/\.$/,'');
+  let id='';
+  if(host==='youtube.com'||host==='www.youtube.com'){
+    if((u.pathname.replace(/\/+$/,'')||'/')!=='/watch')return null;
+    const vs=u.searchParams.getAll('v');if(vs.length!==1)return null;id=vs[0];
+  }else if(host==='youtu.be'||host==='www.youtu.be'){
+    const parts=u.pathname.split('/').filter(Boolean);if(parts.length!==1)return null;id=parts[0];
+  }else return null;
+  if(!YT_ID.test(id))return null;
+  if(video.start!=null&&(typeof video.start!=='number'||!Number.isInteger(video.start)||video.start<0))return null;
+  if(video.title!=null&&(typeof video.title!=='string'||!video.title.trim()))return null;
+  let href=YT_WATCH+id;if(video.start!=null)href+='&t='+video.start;
+  const copy=[el('span',{class:'video-kicker',text:'Recommended 3rd party video'})];
+  if(video.title!=null)copy.push(el('span',{class:'video-title',text:video.title.trim()}));
+  return el('a',{class:'video-card',id:'videoCard',href,target:'_blank',rel:'noopener noreferrer'},
+    el('img',{class:'video-thumb',src:YT_THUMB+id+'/mqdefault.jpg',alt:''}),el('span',{class:'video-copy'},copy));
+}
 function renderPanel(){
   const id=selected;panel.innerHTML='';if(!id)return;
   const s=byId[id],t=tierOf(id),soon=!isPlayable(id),ready=isReady(id);
@@ -84,12 +111,13 @@ function renderPanel(){
   kids.push(el('div',{style:colorVars(s.chapter)},el('span',{class:'cpill',text:`Ch ${s.chapter} · ${DATA.chapters[s.chapter]}`})));
   kids.push(el('h2',{text:s.name,id:'panelTitle'}));
   kids.push(el('div',{class:'kv',text:`Reader section ${s.reader_section||'—'} · id: ${s.id}`}));
-  if(soon)kids.push(el('div',{class:'note soon',role:'note'},el('b',{text:'Coming soon. '}),'This skill is in the tree, but its questions haven’t been written yet, so it can’t be practiced in this demo.'));
+  if(soon){kids.push(el('div',{class:'note soon',role:'note'},el('b',{text:'Coming soon. '}),'This skill is in the tree, but its questions haven’t been written yet, so it can’t be practiced in this demo.')); const vcard=recommendedVideoCard(s.video);if(vcard)kids.push(vcard);}
   else{
     kids.push(el('div',{class:'steps',style:colorVars(s.chapter),role:'img','aria-label':'Tier: '+TIERS[t]},
       TIERS.map((n,i)=>el('div',{class:'step'+(i<=t&&i>0?' done':'')+(i===t?' cur':'')},el('div',{class:'dot',text:i>0&&i<=t?'✓':''}),n))));
     kids.push(el('div',{class:'kv',id:'panelTier'},el('b',{text:'Tier: '}),TIERS[t],ready?' · ready to learn':''));
     kids.push(el('div',{class:'kv',id:'panelLast',title:lastOf(id)?fmtDate(lastOf(id)):''},el('b',{text:'Last practiced: '}),lastOf(id)?`${ago(lastOf(id))} (${fmtDate(lastOf(id))})`:'never'));
+    const vcard=recommendedVideoCard(s.video);if(vcard)kids.push(vcard);
     const gaps=prereqGaps(id),soonP=s.prereqs.filter(p=>!isPlayable(p));
     if(t===0&&ready)kids.push(el('div',{class:'note ok',id:'readyNote'},el('b',{text:'Ready to learn: '}),s.prereqs.length&&s.prereqs.some(isPlayable)?'all its prerequisites are at Level 2 or Mastered.':'it has no prerequisites you can practice yet, so you can start right away.'));
     if(gaps.length&&t===0)kids.push(el('div',{class:'note warn',id:'prereqNote'},el('b',{text:'Gentle heads-up: '}),`this skill is recommended once its prerequisites reach Level 2. Still to go: ${gaps.map(p=>`${byId[p].name} (${TIERS[tierOf(p)]})`).join('; ')}. Nothing is locked, so start whenever you like.`));

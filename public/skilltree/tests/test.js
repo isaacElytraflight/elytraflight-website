@@ -10,8 +10,12 @@ const fs = require('fs');
 const path = require('path');
 const assert = require('assert');
 const zlib = require('zlib');
+const { spawnSync } = require('child_process');
 
 const BASE_URL = process.env.SKILLTREE_URL || 'http://localhost:5000/skilltree/';
+const REPO = path.join(__dirname, '..', '..', '..');
+const VIDEO_GATE = path.join(REPO, 'tools', 'skilltree-content', 'video_gate.py');
+const TINY_PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64');
 const SHOTS_DIR = path.join(__dirname, 'shots');
 
 const BANK_DIR = path.join(__dirname, '..', '..', '..', 'skilltree', 'bank');
@@ -406,8 +410,17 @@ async function newPage(seed, opts = {}) {
   p._profileMode = opts.profileMode || 'missing';
   p._profiles = (opts.profiles || []).map(row => Object.assign({}, row));
   p._profileCalls = [];
+  p._videoPatch = opts.videoPatch || null;
   await p.setRequestInterception(true);
   p.on('request', req => {
+    if (p._videoPatch && /\/skills\.[0-9a-fA-F]+\.json(?:\?.*)?$/.test(req.url())) {
+      patchSkillVideo(req, p);
+      return;
+    }
+    if (req.url().includes('i.ytimg.com')) {
+      req.respond({ status: 200, contentType: 'image/png', body: TINY_PNG });
+      return;
+    }
     if (handleMeasure(req, p)) return;
     if (isProfileRequest(req.url())) {
       respondProfile(req, p);
@@ -552,6 +565,25 @@ const store = p => p.evaluate(k => JSON.parse(localStorage.getItem(k)), KEY);
 const T = (skills) => ({ version: 1, skills });
 const now = Date.now(), DAY = 86400000;
 
+function patchSkillVideo(req, p) {
+  fetch(req.url()).then(async res => {
+    const data = await res.json();
+    for (const skill of data.skills || []) {
+      if (Object.prototype.hasOwnProperty.call(p._videoPatch, skill.id)) skill.video = p._videoPatch[skill.id];
+    }
+    await req.respond({ status: 200, contentType: 'application/json', body: JSON.stringify(data) });
+  }).catch(err => {
+    errs.push('video patch ' + err);
+    try { req.continue(); } catch (e) { }
+  });
+}
+
+function videoGate(sample) {
+  const args = sample === undefined ? [VIDEO_GATE] : [VIDEO_GATE, '--sample', JSON.stringify(sample)];
+  const run = spawnSync('python3', args, { cwd: REPO, encoding: 'utf8' });
+  return { code: run.status, out: ((run.stdout || '') + (run.stderr || '')).trim() };
+}
+
 async function openSkill(p, id) {
   await p.evaluate(id => document.querySelector('#world .tile[data-id="' + id + '"]').click(), id);
   await sleep(350);
@@ -688,7 +720,52 @@ async function test(name, fn) {
   try { fs.mkdirSync('/opt/cursor/artifacts', { recursive: true }); } catch (e) { }
 
   if (!fs.existsSync(SHOTS_DIR)) fs.mkdirSync(SHOTS_DIR, { recursive: true });
-  
+
+  await test('video gate accepts a watch url, a youtu.be url, and an omitted field', async () => {
+    const catalog = videoGate();
+    assert.strictEqual(catalog.code, 0, catalog.out);
+    assert(/video ok: \d+ skills, 0 with a video/.test(catalog.out), catalog.out);
+    const samples = [
+      { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
+      { url: 'https://youtu.be/dQw4w9WgXcQ', title: 'A short segment', start: 90 },
+      { url: 'http://youtube.com/watch?v=abcdefghijk', start: 0 },
+      { url: 'https://www.youtu.be/Abcdefghij_?si=sharetoken' },
+      { url: 'https://www.youtube.com/watch?v=Abc-efghijk&list=PLxxxx' }
+    ];
+    for (const sample of samples) {
+      const got = videoGate(sample);
+      assert.strictEqual(got.code, 0, JSON.stringify(sample) + ' ' + got.out);
+      assert.strictEqual(got.out, 'accept');
+    }
+  });
+
+  await test('video gate rejects a non-YouTube url, a bad id, and a bad start', async () => {
+    const samples = [
+      { url: 'https://vimeo.com/123456789' },
+      { url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
+      { url: 'https://www.youtube.com/shorts/dQw4w9WgXcQ' },
+      { url: 'https://m.youtube.com/watch?v=dQw4w9WgXcQ' },
+      { url: 'https://www.youtube.com/watch?v=short' },
+      { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQX' },
+      { url: 'https://youtu.be/dQw4w9WgXcQ/extra' },
+      { url: 'https://www.youtube.com.evil.com/watch?v=dQw4w9WgXcQ' },
+      { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', start: -1 },
+      { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', start: 1.5 },
+      { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', start: '30' },
+      { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', start: true },
+      { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', title: '' },
+      { url: 'not a url' },
+      {},
+      null,
+      'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+    ];
+    for (const sample of samples) {
+      const got = videoGate(sample);
+      assert.strictEqual(got.code, 1, 'should reject ' + JSON.stringify(sample) + ' ' + got.out);
+      assert(/^reject: /.test(got.out), got.out);
+    }
+  });
+
   browser = await puppeteer.launch({
     executablePath: '/usr/bin/google-chrome',
     headless: 'new',
@@ -2297,7 +2374,7 @@ async function test(name, fn) {
     assert.strictEqual(result.meHasSoon, false);
     assert.strictEqual(result.readyHasSoon, false);
     assert.strictEqual(result.queueHasSoon, false, 'the recommender queue stays on playable skills');
-    assert.deepStrictEqual(result.meExtras.slice().sort(), ['discrete-time', 'gaussian-random-vectors'], 'playable prerequisites of an ME 132 skill that stay outside the course box: ' + result.meExtras.join(','));
+    assert.deepStrictEqual(result.meExtras.slice().sort(), ['discrete-time', 'gaussian-random-vectors', 'optimization-problem-formulation', 'rn-important-subsets'], 'playable prerequisites of an ME 132 skill that stay outside the course box: ' + result.meExtras.join(','));
 
     await openSkill(p, 'optimality-over-convex-set');
     const panel = await p.evaluate(() => ({
@@ -5488,6 +5565,119 @@ async function test(name, fn) {
     assert(/\/skilltree\/$/.test(back.path), back.path);
     assert(back.focus && back.focus.includes('ee105'), back.focus);
     assert.notStrictEqual(back.tree, 'none');
+    await p._ctx.close();
+  });
+
+  await test('a skill without a video field has no recommended-video card', async () => {
+    const p = await newPage();
+    await openSkill(p, 'bode');
+    const panel = await p.evaluate(() => ({
+      card: !!document.getElementById('videoCard'),
+      text: document.getElementById('panel').textContent,
+      explainer: !!document.getElementById('explainerBtn'),
+      start: (document.getElementById('startBtn') || {}).textContent || ''
+    }));
+    assert.strictEqual(panel.card, false);
+    assert(!panel.text.includes('Recommended 3rd party video'));
+    assert.strictEqual(panel.explainer, true);
+    assert(/Start Round 1/.test(panel.start), panel.start);
+    await p._ctx.close();
+  });
+
+  await test('a skill with a video field shows the card between Explainer and Start round', async () => {
+    const p = await newPage(null, {
+      videoPatch: {
+        bode: { url: 'https://youtu.be/dQw4w9WgXcQ?si=abc', title: 'Essence of linear systems', start: 75 },
+        tf: { url: 'https://www.youtube.com/watch?v=abcdefghijk' },
+        'lti-def': { url: 'https://vimeo.com/123456789' }
+      }
+    });
+    await openSkill(p, 'bode');
+    const card = await p.evaluate(() => {
+      const ids = [...document.querySelectorAll('#panel #explainerBtn, #panel #videoCard, #panel #startBtn')].map(el => el.id);
+      const node = document.getElementById('videoCard');
+      const img = node.querySelector('img');
+      return {
+        ids,
+        href: node.getAttribute('href'),
+        target: node.getAttribute('target'),
+        rel: node.getAttribute('rel'),
+        thumb: img.getAttribute('src'),
+        title: (node.querySelector('.video-title') || {}).textContent || '',
+        label: node.querySelector('.video-kicker').textContent
+      };
+    });
+    assert.deepStrictEqual(card.ids, ['explainerBtn', 'videoCard', 'startBtn']);
+    assert.strictEqual(card.href, 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=75');
+    assert.strictEqual(card.target, '_blank');
+    assert.strictEqual(card.rel, 'noopener noreferrer');
+    assert.strictEqual(card.thumb, 'https://i.ytimg.com/vi/dQw4w9WgXcQ/mqdefault.jpg');
+    assert.strictEqual(card.title, 'Essence of linear systems');
+    assert.strictEqual(card.label, 'Recommended 3rd party video');
+
+    async function fits(label) {
+      const box = await p.evaluate(() => {
+        const cardEl = document.getElementById('videoCard');
+        const panel = document.getElementById('panel');
+        const img = cardEl.querySelector('img');
+        const cr = cardEl.getBoundingClientRect();
+        const pr = panel.getBoundingClientRect();
+        const exp = document.getElementById('explainerBtn').getBoundingClientRect();
+        const start = document.getElementById('startBtn').getBoundingClientRect();
+        const ir = img.getBoundingClientRect();
+        return {
+          between: exp.bottom <= cr.top + 1 && cr.bottom <= start.top + 1,
+          inside: cr.width > 40 && cr.left >= pr.left - 1 && cr.right <= pr.right + 1,
+          imgInside: ir.width > 20 && ir.right <= cr.right + 1 && ir.left >= cr.left - 1,
+          noHScroll: cardEl.scrollWidth <= cardEl.clientWidth + 2
+        };
+      });
+      assert.strictEqual(box.between, true, label + ' order ' + JSON.stringify(box));
+      assert.strictEqual(box.inside, true, label + ' panel ' + JSON.stringify(box));
+      assert.strictEqual(box.imgInside, true, label + ' thumb ' + JSON.stringify(box));
+      assert.strictEqual(box.noHScroll, true, label + ' card scroll ' + JSON.stringify(box));
+    }
+    for (const zoom of [1, 1.5, 2]) {
+      await p.setViewport({ width: 1280, height: 800 });
+      await p.evaluate(z => { document.documentElement.style.zoom = String(z); }, zoom);
+      await sleep(80);
+      await fits('css zoom ' + zoom);
+      const shot = await p.$('#panel');
+      await shot.screenshot({ path: `/opt/cursor/artifacts/video-card-zoom-${String(zoom).replace('.', '')}.png` });
+    }
+    await p.evaluate(() => { document.documentElement.style.zoom = '1'; });
+    await p.setViewport({ width: 640, height: 800 });
+    await sleep(80);
+    await fits('200% layout width');
+    await p.setViewport({ width: 1280, height: 800 });
+
+    await openSkill(p, 'tf');
+    const plain = await p.evaluate(() => {
+      const node = document.getElementById('videoCard');
+      return {
+        href: node.getAttribute('href'),
+        title: !!node.querySelector('.video-title'),
+        label: node.querySelector('.video-kicker').textContent
+      };
+    });
+    assert.strictEqual(plain.href, 'https://www.youtube.com/watch?v=abcdefghijk');
+    assert.strictEqual(plain.title, false);
+    assert.strictEqual(plain.label, 'Recommended 3rd party video');
+
+    await openSkill(p, 'lti-def');
+    assert.strictEqual(await p.$('#videoCard'), null, 'a rejected url does not render a card');
+    await openSkill(p, 'rc-lpf');
+    assert.strictEqual(await p.$('#videoCard'), null, 'a skill left without the field has no card');
+
+    await openSkill(p, 'bode');
+    const popupPromise = new Promise(resolve => p.once('popup', resolve));
+    await p.click('#videoCard');
+    const popup = await Promise.race([popupPromise, sleep(4000).then(() => null)]);
+    assert(popup, 'the card opens a new tab');
+    await sleep(200);
+    const opened = popup.url();
+    assert(opened === 'about:blank' || opened.startsWith('https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=75'), opened);
+    await popup.close();
     await p._ctx.close();
   });
 
