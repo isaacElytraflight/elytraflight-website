@@ -48,7 +48,7 @@ npx serve public -l 5000
 
 Open [http://localhost:5000/skilltree/](http://localhost:5000/skilltree/). UI tests expect that URL.
 
-You need Node.js for the site and the skill-tree tests, and Python 3 with `numpy` and `sympy` for content gates. Puppeteer tests need Chrome or Chromium. Do not install a production credential. The anon key already in `public/skilltree/config.js` is the public client key.
+You need Node.js for the site and the skill-tree tests. Run `bash tools/skilltree-content/agent_bootstrap.sh` for the content-gate dependencies. Puppeteer tests need Chrome or Chromium. Do not install a production credential. The anon key already in `public/skilltree/config.js` is the public client key.
 
 `npm run build` typechecks the site, builds it, and writes the profile fallback pages. See [docs/decisions/0001-render-profile-rewrite.md](docs/decisions/0001-render-profile-rewrite.md).
 

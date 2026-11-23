@@ -42,7 +42,7 @@ The live sidebar is the to-do list (`#todoBook`), the course scope picker, and t
 | `tools/skilltree-content/run_gates.py` | One gate run. `--summary` prints the pass/fail table. |
 | `tools/skilltree-content/banklib.py` | `Bank` helpers that write `skilltree/bank/<id>.json`. |
 | `tools/skilltree-content/templates.py` | Figure templates. |
-| `tools/skilltree-content/agent_bootstrap.sh` | Installs sympy, numpy, and KaTeX on a fresh VM. |
+| `tools/skilltree-content/agent_bootstrap.sh` | Installs sympy, numpy, and KaTeX on a fresh VM. On a fresh VM this runs automatically via .cursor/environment.json; run_gates.py also self-bootstraps. Run it manually before any generator or test if needed. |
 | `tools/skilltree-content/find.sh` | Capped search. Use this instead of a repo-wide grep. |
 | `tools/skilltree-content/wait_bugbot.sh` | Blocks until the `Cursor Bugbot` check on a sha completes. Always pass the PR number. On `TOO_LARGE` (exit 3) do not merge; stop and report to the owner. |
 | `tools/skilltree-content/video_gate.py` | Video URL gate. |

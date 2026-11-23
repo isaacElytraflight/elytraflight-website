@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Idempotent content-agent setup. Quiet. Never installs into the repo's node_modules.
+# Idempotent content-agent setup. Quiet. Never runs npm install at the repo root.
 set -euo pipefail
 
 root=$(cd "$(dirname "$0")/../.." && pwd)
@@ -10,11 +10,35 @@ if ! python3 -c 'import sympy, numpy' >/dev/null 2>&1; then
   python3 -c 'import sympy, numpy' >/dev/null 2>&1
 fi
 
+if ! python3 -c 'import scipy' >/dev/null 2>&1; then
+  # Keep an already importable numpy. A bare `pip install scipy` currently
+  # upgrades numpy to 2.5, which removes np.trapz and fails the numeric gate.
+  numpy_pin=$(python3 - <<'PY'
+try:
+    import numpy
+except Exception:
+    raise SystemExit(0)
+print(numpy.__version__)
+PY
+)
+  if [[ -n ${numpy_pin:-} ]]; then
+    PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --user -q --no-warn-script-location "numpy==${numpy_pin}" scipy
+  else
+    PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --user -q --no-warn-script-location scipy
+  fi
+  python3 -c 'import scipy' >/dev/null 2>&1
+fi
+
 if [[ ! -d /tmp/katex-home/node_modules/katex ]]; then
   # Run outside the repo so npm cannot write a root node_modules or package.json.
   (cd /tmp && npm install --prefix /tmp/katex-home katex@0.16.47 --no-audit --no-fund --silent)
 fi
 [[ -d /tmp/katex-home/node_modules/katex ]]
+
+if [[ ! -d public/skilltree/tests/node_modules/puppeteer-core ]]; then
+  npm install --prefix public/skilltree/tests --no-audit --no-fund
+fi
+[[ -d public/skilltree/tests/node_modules/puppeteer-core ]]
 
 if [[ $# -eq 0 ]]; then
   exit 0

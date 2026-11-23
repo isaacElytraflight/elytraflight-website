@@ -16,6 +16,10 @@ shingle gate is not part of this pipeline.
 The browser suite is decided from `git diff` against origin/main. It is
 skipped when every changed path is content, and run otherwise. --browser
 and --no-browser override that. Content gates always run.
+
+Before any gate, missing sympy, numpy, scipy, KaTeX, or (when the browser
+suite will run) puppeteer-core is installed by agent_bootstrap.sh. If a
+dependency is still missing, the run exits 2 and no gate starts.
 """
 import json
 import os
@@ -215,6 +219,55 @@ def decide_browser(paths, override):
     return True, "non-content paths: " + shown
 
 
+# Same locations tools/skilltree-content/katex_check.cjs tries, in that order.
+KATEX_DIRS = (
+    os.path.join(ROOT, "skilltree", "app", "tests", "node_modules", "katex"),
+    "/workspace/skilltree/app/tests/node_modules/katex",
+    "/tmp/katex-home/node_modules/katex",
+)
+PUPPETEER_DIR = os.path.join(
+    ROOT, "public", "skilltree", "tests", "node_modules", "puppeteer-core"
+)
+
+
+def _can_import(module):
+    try:
+        __import__(module)
+    except Exception:
+        return False
+    return True
+
+
+def missing_deps(run_browser):
+    """Names of gate dependencies that are not importable or not on disk."""
+    missing = [name for name in ("sympy", "numpy", "scipy") if not _can_import(name)]
+    if not any(os.path.isdir(path) for path in KATEX_DIRS):
+        missing.append("katex")
+    if run_browser and not os.path.isdir(PUPPETEER_DIR):
+        missing.append("puppeteer-core")
+    return missing
+
+
+def ensure_deps(run_browser):
+    """Install once via agent_bootstrap.sh. Exit 2 if anything is still missing."""
+    if not missing_deps(run_browser):
+        return
+    subprocess.run(
+        ["bash", "tools/skilltree-content/agent_bootstrap.sh"],
+        cwd=ROOT,
+        check=False,
+    )
+    missing = missing_deps(run_browser)
+    if not missing:
+        return
+    print(
+        "MISSING DEPS: "
+        + ", ".join(missing)
+        + ". Run: bash tools/skilltree-content/agent_bootstrap.sh"
+    )
+    sys.exit(2)
+
+
 def parse_args(argv):
     if "--batch" not in argv:
         raise SystemExit(USAGE)
@@ -261,6 +314,7 @@ def main(argv=None):
     run_browser, why = decide_browser(changed_paths(), override)
     if not summary_mode:
         print(f"browser suite: {'run' if run_browser else 'skip'} - {why}")
+    ensure_deps(run_browser)
     if dry_run:
         print("dry run: not executing gates")
         return 0

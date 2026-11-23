@@ -14,7 +14,7 @@ Read `docs/agent-map.md` first. It is the list of exact paths. Do not search the
 
 ## Cloud-agent environment, search, and merge
 
-First step: `bash tools/skilltree-content/agent_bootstrap.sh`. It installs sympy and numpy when `import` fails, and KaTeX 0.16.47 under `/tmp/katex-home` when that copy is missing. It does not install npm packages at the repo root. `--box <box-id>` prints that box's skills and which of them are in the grandfather `skills` list (`none` when there are none).
+First step: `bash tools/skilltree-content/agent_bootstrap.sh`. It installs sympy and numpy when `import` fails, and KaTeX 0.16.47 under `/tmp/katex-home` when that copy is missing. It also installs scipy when that import fails, and puppeteer-core under `public/skilltree/tests` when `node_modules/puppeteer-core` is missing. It does not install npm packages at the repo root. `--box <box-id>` prints that box's skills and which of them are in the grandfather `skills` list (`none` when there are none).
 
 The checkout is `/agent/repos/elytraflight-website`. Start with `git fetch origin main && git merge --ff-only origin/main`.
 
