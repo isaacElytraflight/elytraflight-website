@@ -2,6 +2,8 @@
 
 A short pack for an agent writing one content batch for Elytraflight's Skill Tree. The rules live in `docs/skill-tree-content-SOP.md`. This file is the order of work. The batch plan wins if a prompt disagrees with it.
 
+Read `docs/agent-map.md` first. It is the list of exact paths. Do not search the repo to find a file that the map names.
+
 ## Reminders
 
 - Recommended video: follow SOP section 14. Pick a YouTube video quickly, or omit the field.
@@ -22,24 +24,25 @@ A missing sympy install fails the first generator or verifier on a fresh VM. Do 
 
 Do not commit `__pycache__` or `node_modules`. Before committing: `rm -rf skilltree/__pycache__ tools/skilltree-content/__pycache__`.
 
-Search one file or a narrow glob. An unscoped grep of `tools/`, every `verify_*.py`, or `public/` returns tens of thousands of characters. The published catalog file name is in `public/skilltree/manifest.json`.
+Search with `bash tools/skilltree-content/find.sh <pattern> [path...]`. With no paths it searches only `skilltree/`, `tools/skilltree-content/`, `docs/`, and `public/skilltree/`, and it prints at most 40 lines. Do not run a repo-wide grep. Do not search the web unless the brief asks. The published catalog file name is in `public/skilltree/manifest.json`.
 
-Iterate with the slice generator and verifier. On the candidate, run `python3 tools/skilltree-content/run_gates.py --batch <batch-id> --docs` once. See Gates for the `--docs` rewrite. A content-only pull request skips Puppeteer; one short smoke check is enough.
+Iterate with the slice generator and verifier. On the candidate, run `python3 tools/skilltree-content/run_gates.py --batch <batch-id> --docs --summary` once. See Gates for the `--docs` rewrite and the summary table. A content-only pull request skips Puppeteer; one short smoke check is enough.
 
-Wait for Bugbot in one loop on `gh api repos/isaacElytraflight/elytraflight-website/commits/$SHA/check-runs` until `Cursor Bugbot` completes. `mergeStateStatus` stays `BLOCKED` / `REVIEW_REQUIRED` because the `main` ruleset requires an approving review. When Bugbot is clean on that head and the pull request is mergeable, `gh pr merge <n> --squash --admin --match-head-commit <sha>`. Without `--admin` the merge fails. Recurring catches: invalid symbolic sample ranges, non-unique order chains, ambiguous wording, a prompt name that differs from the graded name (`K_p` vs `Kp`), and over-strong claims.
+After pushing, run `bash tools/skilltree-content/wait_bugbot.sh <head sha> <pr>` in that same run and do not end the run until it returns. `mergeStateStatus` stays `BLOCKED` / `REVIEW_REQUIRED` because the `main` ruleset requires an approving review. Merge only on `CLEAN` or `SKIPPED`, with the gates passing and the pull request mergeable: `gh pr merge <n> --squash --admin --match-head-commit <sha>`. Without `--admin` the merge fails. On `FINDINGS`, fix and wait again, at most two fix rounds. Recurring catches: invalid symbolic sample ranges, non-unique order chains, ambiguous wording, a prompt name that differs from the graded name (`K_p` vs `Kp`), and over-strong claims.
 
 ## Read in this order
 
-Read each file once. Do not re-read a file you have already read.
+Read `docs/agent-map.md` first. Then read each file below once. Do not re-read a file you have already read, and do not re-read a file you just edited. Do not search the web unless the brief asks.
 
-1. The batch plan for this subject: `docs/nlo-content-batches.md` or `docs/me132-content-batches.md`. It is the skill list and the scope.
-2. `docs/skill-tree-content-SOP.md`, including the brief template in section 12.
-3. The newest brief in `docs/briefs/` for the shape of a generated brief. Briefs are generated. Do not edit them by hand.
-4. `docs/notation.md` for every area the skills and their prerequisites touch. Add new symbols in the same change.
-5. `docs/sources.md` for licenses. Sources are authoring metadata. Learner-facing text never names a reader, textbook, notes, slides, professor, university, week, lecture, homework, or a source chapter. A class name appears only in the course selection tab.
-6. `tools/skilltree-content/banklib.py` and `skilltree/verify_harness.py`.
-7. The previous batch's generator and verifier as a pattern only. The verifier must not import the generator.
-8. The coming-soon records for this batch in `skilltree/ee105_skills_draft.json`, and the playable-count assertions in `public/skilltree/tests/test-content.js`.
+1. `docs/agent-map.md`. Paths and rebuild commands.
+2. The batch plan for this subject: `docs/nlo-content-batches.md` or `docs/me132-content-batches.md`. It is the skill list and the scope.
+3. `docs/skill-tree-content-SOP.md`, including the brief template in section 12.
+4. The newest brief in `docs/briefs/` for the shape of a generated brief. Briefs are generated. Do not edit them by hand.
+5. `docs/notation.md` for every area the skills and their prerequisites touch. Add new symbols in the same change.
+6. `docs/sources.md` for licenses. Sources are authoring metadata. Learner-facing text never names a reader, textbook, notes, slides, professor, university, week, lecture, homework, or a source chapter. A class name appears only in the course selection tab.
+7. `tools/skilltree-content/banklib.py` and `skilltree/verify_harness.py`.
+8. The previous batch's generator and verifier as a pattern only. The verifier must not import the generator.
+9. The coming-soon records for this batch in `skilltree/ee105_skills_draft.json`, and the playable-count assertions in `public/skilltree/tests/test-content.js`.
 
 ## Helpers
 
@@ -71,10 +74,12 @@ python3 skilltree/verify_<batch>.py
 On the candidate you intend to push, run once:
 
 ```
-python3 tools/skilltree-content/run_gates.py --batch <id> --docs
+python3 tools/skilltree-content/run_gates.py --batch <id> --docs --summary
 ```
 
-That command runs the build, schema, video URL, reference, graph, domain, deep-quota, dedupe, numeric verifier, figure bounds, strict KaTeX, test-content, test-merge, and test-migrate gates. A content-only diff still runs those gates, including schema validation, the no-source-references gate, the 25% deep-type quota, dedupe, and the reference checks, and skips the full Puppeteer suite. The suite runs when any changed path is not content, including app or UI code (`public/skilltree/*.js`, `*.css`, `*.html`) or the app or build code. `--browser` forces it. `--no-browser` skips it. The command prints the decision. There is no separate CI workflow for content; this runner is the gate. `--docs` regenerates the changelog, the brief, and the report, and rewrites all of `docs/content-versions.json` from every `docs/batches/*.json`. A large diff, including pre-existing `bjt-ss` duplicate rows, is expected and is not a regression. After a text-only review fix, run only the focused check for what changed, not the full gate run again. Run the full command again only if the later edit is not content-only.
+`--summary` is the gate output to read. It runs the same gates, writes the same `docs/gates/<id>.json`, and prints a pass/fail table. When a gate fails, it also prints that first failure's last 30 lines. Omit `--summary` only when you need every gate's one-line detail.
+
+That command runs the build, schema, video URL, reference, graph, domain, deep-quota, dedupe, numeric verifier, figure bounds, strict KaTeX, test-content, test-merge, and test-migrate gates. A content-only diff still runs those gates, including schema validation, the no-source-references gate, the 25% deep-type quota, dedupe, and the reference checks, and skips the full Puppeteer suite. The suite runs when any changed path is not content, including app or UI code (`public/skilltree/*.js`, `*.css`, `*.html`) or the app or build code. `--browser` forces it. `--no-browser` skips it. Without `--summary`, the command prints that decision. With `--summary`, a skipped suite is a `SKIP` row. There is no separate CI workflow for content; this runner is the gate. `--docs` regenerates the changelog, the brief, and the report, and rewrites all of `docs/content-versions.json` from every `docs/batches/*.json`. A large diff, including pre-existing `bjt-ss` duplicate rows, is expected and is not a regression. After a text-only review fix, run only the focused check for what changed, not the full gate run again. Run the full command again only if the later edit is not content-only.
 
 ## Generated files
 
@@ -99,13 +104,23 @@ At least 25% of the bank (`deep_quota(n)`) is symbolic, ordering, find-the-error
 
 Use the repository's Cursor Bugbot review. Do not start a paid reviewer. The rule for people is in `CONTRIBUTING.md`.
 
-After the pull request is open, wait for Bugbot on the latest head with one blocking command: a single shell loop that sleeps and checks until that check completes, with a generous timeout. Do not poll in separate commands.
+After the pull request is open, wait in the same run. Do not end the run until this command returns:
 
-If Bugbot reports findings, fix them, push, and wait again the same way. At most two fix rounds. A text-only fix does not need another full gate run.
+```
+bash tools/skilltree-content/wait_bugbot.sh <head sha> <pr>
+```
 
-Squash-merge into the base branch only when Bugbot is clean on that exact head sha and the pull request is mergeable. Pass that head sha. The repository deletes the head branch. Clean means the check finished with no findings. A result that says the pull request is too large to review is not clean.
+It polls `gh api repos/isaacElytraflight/elytraflight-website/commits/<sha>/check-runs` every 30 seconds for up to 30 minutes, and prints one line: `CLEAN`, `FINDINGS`, `SKIPPED`, or `TIMEOUT`. With a pull request number it adds that check's title, the first 500 characters of its summary, and the inline review comments on that sha.
 
-If Bugbot says the pull request is too large to review, or findings are still open after the second review, do not merge. Stop and report them.
+Merge only on `CLEAN` or `SKIPPED`, and only when the gates passed and the pull request is mergeable. Pass that head sha:
+
+```
+gh pr merge <n> --squash --admin --match-head-commit <sha>
+```
+
+The repository deletes the head branch. `CLEAN` means the check finished with no findings. `SKIPPED` means the check completed as skipped. A result that says the pull request is too large to review is `FINDINGS`, not `CLEAN` or `SKIPPED`.
+
+On `FINDINGS`, fix them, push, and run `wait_bugbot.sh` again. At most two fix rounds. A text-only fix does not need another full gate run. If findings are still open after the second fix round, or the line is `TIMEOUT`, do not merge. Stop and report the result.
 
 If the pull request is not mergeable because of conflicts, merge the base branch in, regenerate the generated files, re-run the gates, and wait for Bugbot again. That counts as a fix round.
 
@@ -113,9 +128,11 @@ Outside contributors do not self-merge. Branch protection on `main` uses a rules
 
 ## Efficiency
 
-- Never grep or glob over `public/skilltree/banks`, `public/skilltree/explainers`, or the whole repo. Target specific source directories and files.
-- Read each file once.
+- Read `docs/agent-map.md` first. Do not re-read a file you just edited.
+- Never grep or glob over `public/skilltree/banks`, `public/skilltree/explainers`, or the whole repo. Use `bash tools/skilltree-content/find.sh`.
+- Do not search the web unless the brief asks.
 - Use the shared helpers. Do not paste a new bank writer or numeric-check loop.
-- Focused tests while working, then one `run_gates.py --batch <id> --docs` at the end.
+- Focused tests while working, then one `run_gates.py --batch <id> --docs --summary` at the end. Read that table, not a full gate log.
+- After pushing, run `wait_bugbot.sh <head sha> <pr>` in the same run and do not end the run until it returns.
 - Commit no scratch files, terminal logs, or screenshots from the run.
 - One short browser smoke check on every pull request, content or UI: load the tree, open one changed skill, and take 1–2 screenshots. That check is not the full browser suite.

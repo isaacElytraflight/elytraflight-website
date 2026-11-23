@@ -3,13 +3,15 @@
 
   python3 tools/skilltree-content/run_gates.py --batch me132-b1
   python3 tools/skilltree-content/run_gates.py --batch me132-b1 --docs
+  python3 tools/skilltree-content/run_gates.py --batch me132-b1 --summary
   python3 tools/skilltree-content/run_gates.py --batch me132-b1 --dry-run
   python3 tools/skilltree-content/run_gates.py --batch me132-b1 --browser
   python3 tools/skilltree-content/run_gates.py --batch me132-b1 --no-browser
 
 Writes docs/gates/<batch>.json. With --docs, regenerates the changelog, brief,
-report, and content-versions file from that summary. The shingle gate is not
-part of this pipeline.
+report, and content-versions file from that summary. With --summary, stdout is
+only a pass/fail table plus the last 30 lines of the first failing gate. The
+shingle gate is not part of this pipeline.
 
 The browser suite is decided from `git diff` against origin/main. It is
 skipped when every changed path is content, and run otherwise. --browser
@@ -24,7 +26,8 @@ import sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 USAGE = (
-    "usage: run_gates.py --batch <id> [--docs] [--browser | --no-browser] [--dry-run]"
+    "usage: run_gates.py --batch <id> [--docs] [--summary] "
+    "[--browser | --no-browser] [--dry-run]"
 )
 
 # Banks, explainers, the skill graph, and the files a content batch commits
@@ -226,15 +229,38 @@ def parse_args(argv):
         override = "no-browser"
     else:
         override = None
-    return argv[batch_at + 1], "--docs" in argv, "--dry-run" in argv, override
+    return argv[batch_at + 1], "--docs" in argv, "--dry-run" in argv, override, "--summary" in argv
+
+
+def print_gate_summary(results, first_fail):
+    """Pass/fail table, then the first failing gate's last 30 lines."""
+    width = max(len(step["name"]) for step in results)
+    for step in results:
+        if step.get("skipped"):
+            state = "SKIP"
+        elif step["ok"]:
+            state = "PASS"
+        else:
+            state = "FAIL"
+        print(f"{step['name']:<{width}}  {state}")
+    ran = [step for step in results if not step.get("skipped")]
+    passed = sum(1 for step in ran if step["ok"])
+    print(f"{passed} passed, {len(ran) - passed} failed")
+    if not first_fail:
+        return
+    name, text = first_fail
+    print(f"--- {name} (last 30 lines) ---")
+    tail = text.splitlines()[-30:] or ["(no output)"]
+    print("\n".join(tail))
 
 
 def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
-    name, write_docs, dry_run, override = parse_args(argv)
+    name, write_docs, dry_run, override, summary_mode = parse_args(argv)
     run_browser, why = decide_browser(changed_paths(), override)
-    print(f"browser suite: {'run' if run_browser else 'skip'} - {why}")
+    if not summary_mode:
+        print(f"browser suite: {'run' if run_browser else 'skip'} - {why}")
     if dry_run:
         print("dry run: not executing gates")
         return 0
@@ -268,19 +294,27 @@ def main(argv=None):
 
     results = []
     failed = 0
+    first_fail = None
     for step, cmd, timeout in steps:
         code, text = run(cmd, timeout)
         ok = code == 0
         failed += 0 if ok else 1
         summary = one_line(text)
         results.append({"name": step, "ok": ok, "summary": summary})
-        print(f"{'PASS' if ok else 'FAIL'} {step:<16} {summary}")
+        if not ok and first_fail is None:
+            first_fail = (step, text)
+        if not summary_mode:
+            print(f"{'PASS' if ok else 'FAIL'} {step:<16} {summary}")
         if not ok and step == "build":
             break
-    print(f"{len(results) - failed} passed, {failed} failed")
+    if not summary_mode:
+        print(f"{len(results) - failed} passed, {failed} failed")
     if not run_browser:
         results.append({"name": "puppeteer", "ok": True, "skipped": True, "summary": why})
-        print(f"SKIP {'puppeteer':<16} {why}")
+        if not summary_mode:
+            print(f"SKIP {'puppeteer':<16} {why}")
+    if summary_mode:
+        print_gate_summary(results, first_fail)
     out = {"batch": name, "ok": failed == 0, "steps": results}
     gate_path = os.path.join(ROOT, "docs", "gates", name + ".json")
     os.makedirs(os.path.dirname(gate_path), exist_ok=True)

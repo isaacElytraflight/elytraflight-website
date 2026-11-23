@@ -1,0 +1,80 @@
+# Skill Tree agent map
+
+Read this file once before opening anything else. Then open only the path you need. Search with `bash tools/skilltree-content/find.sh <pattern> [path...]`. Do not grep the whole repo.
+
+## UI
+
+The live sidebar is the to-do list (`#todoBook`), the course scope picker, and the skill panel (`#panel`). Edit the three served files. No generator writes them.
+
+| Path | What it is |
+| --- | --- |
+| `public/skilltree/index.html` | Served page. Sidebar markup: `#todoBook`, `#panel`. Edit in place. |
+| `public/skilltree/skilltree.js` | Served app script: to-do sidebar, course scope picker, skill panel, quiz. Edit in place. |
+| `public/skilltree/skilltree.css` | Served layout for the sidebar, tree, and panel. Edit in place. |
+| `skilltree/app/template.html` | Offline demo page, including the `#panel` sidebar. Not what the site serves. |
+| `skilltree/app/parts/p3_js_a.js` | Demo script, first half (storage, tree, quiz). The site does not load this file. |
+| `skilltree/app/parts/p4_js_b.js` | Demo script, second half (stats, panel refresh, import). The site does not load this file. |
+| `skilltree/app/parts/p1_css.html` | Demo CSS fragment for the same panel. |
+| `skilltree/app/parts/p2_body.html` | Demo body, including the `#panel` aside. |
+| `skilltree/app/parts/p2b_simcore.html` | Demo learning-plan simulator script. |
+| `skilltree/app/parts/p1k_katex.html` | Demo KaTeX, inlined for offline math. |
+| `skilltree/app/build_app.py` | Rebuilds the demo only. |
+
+`python3 skilltree/app/build_app.py` reads `skilltree/app/template.html` plus `skilltree/bank/*.json` and writes `skilltree/app/skilltree.html`. It does not write `public/skilltree/skilltree.js`.
+
+`python3 skilltree/app/make_katex_part.py` rewrites `skilltree/app/parts/p1k_katex.html`.
+
+## Data
+
+| Path | What it is |
+| --- | --- |
+| `skilltree/ee105_skills_draft.json` | Skill graph: ids, names, prerequisites, optional `video`. |
+| `skilltree/collections.json` | Course and topic boxes (`boxes[].id`, `title`, `skills`). |
+| `skilltree/bank/<id>.json` | Question bank for one skill. This is the bank folder to edit. |
+| `skilltree/explainers/<id>.json` | Explainer for one skill. |
+| `skilltree/deep_quota_grandfather.json` | Grandfather list. The `skills` array stays empty. |
+
+## Generators and gates
+
+| Path | What it is |
+| --- | --- |
+| `tools/skilltree-content/build.py` | Writes the served content files. Run this after bank, explainer, or graph edits. |
+| `tools/skilltree-content/run_gates.py` | One gate run. `--summary` prints the pass/fail table. |
+| `tools/skilltree-content/banklib.py` | `Bank` helpers that write `skilltree/bank/<id>.json`. |
+| `tools/skilltree-content/templates.py` | Figure templates. |
+| `tools/skilltree-content/agent_bootstrap.sh` | Installs sympy, numpy, and KaTeX on a fresh VM. |
+| `tools/skilltree-content/find.sh` | Capped search. Use this instead of a repo-wide grep. |
+| `tools/skilltree-content/wait_bugbot.sh` | Blocks until the `Cursor Bugbot` check on a sha completes. |
+| `tools/skilltree-content/video_gate.py` | Video URL gate. |
+| `tools/skilltree-content/reference_gate.py` | No source names in learner-facing text. |
+| `tools/skilltree-content/deep_quota_gate.py` | At least 25% deep-type questions. |
+| `tools/skilltree-content/dedupe_gate.py` | Cross-skill name and summary overlap. |
+| `tools/skilltree-content/*_gen.py` | One generator per content batch. Run `python3 tools/skilltree-content/<batch>_gen.py`. |
+| `skilltree/validate_bank.py` | Bank schema. |
+| `skilltree/validate_graph.py` | Graph cycles, orphans, box membership. |
+| `skilltree/validator_domain.py` | Domain validator, including the deep-type quota. |
+| `skilltree/figure_bounds.py` | Figure size gate. |
+| `skilltree/verify_harness.py` | Shared numeric and symbolic checker. Batch verifiers are `skilltree/verify_<batch>.py`. |
+
+## Docs
+
+| Path | What it is |
+| --- | --- |
+| `docs/agent-map.md` | This map. Read it first. |
+| `docs/skill-tree-content-SOP.md` | Full content rules. The SOP wins over the starter. |
+| `docs/batch-starter.md` | Order of work for one batch, including the merge step. |
+| `CONTRIBUTING.md` | Contributor setup and the agent merge rule. |
+
+## Rebuild
+
+Served content, after any edit under `skilltree/bank/`, `skilltree/explainers/`, `skilltree/ee105_skills_draft.json`, or `skilltree/collections.json`:
+
+```bash
+python3 tools/skilltree-content/build.py
+```
+
+That writes `public/skilltree/manifest.json`, `public/skilltree/skills.<hash>.json`, `public/skilltree/collections.<hash>.json`, `public/skilltree/banks/<id>.<hash>.json`, and `public/skilltree/explainers/<id>.<hash>.json`. Do not edit those files by hand. Do not grep `public/skilltree/banks/` or `public/skilltree/explainers/`. `.rgignore` hides them, including from `find.sh`.
+
+The served UI (`public/skilltree/skilltree.js`, `index.html`, `skilltree.css`) is not a build product. Edit it directly.
+
+The offline demo is the other rebuild: `python3 skilltree/app/build_app.py` writes `skilltree/app/skilltree.html`.
