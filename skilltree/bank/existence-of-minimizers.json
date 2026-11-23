@@ -28,7 +28,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a filled disk</title><line x1=\"28\" y1=\"112\" x2=\"252\" y2=\"112\"/><polygon points=\"252,112 245.6,114.7 245.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"196\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"246\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><circle cx=\"140\" cy=\"112\" r=\"64\" fill=\"currentColor\" fill-opacity=\"0.12\"/><circle cx=\"140\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/></svg>",
       "figure_alt": "A filled disk centered on the axes.",
       "answer": 4.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -96,7 +96,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a curve bending upward</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">t</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"4.2,120.1 7.2,121.2 10.2,122.1 13.2,123.1 16.2,124 19.3,124.8 22.3,125.7 25.3,126.4 28.3,127.1 31.4,127.8 34.4,128.5 37.4,129.1 40.4,129.6 43.4,130.1 46.5,130.6 49.5,131 52.5,131.4 55.5,131.7 58.6,132 61.6,132.3 64.6,132.5 67.6,132.6 70.6,132.8 73.7,132.8 76.7,132.9 79.7,132.8 82.7,132.8 85.8,132.7 88.8,132.6 91.8,132.4 94.8,132.1 97.8,131.9 100.9,131.6 103.9,131.2 106.9,130.8 109.9,130.3 113,129.9 116,129.3 119,128.7 122,128.1 125,127.5 128.1,126.8 131.1,126 134.1,125.2 137.1,124.4 140.2,123.5 143.2,122.6 146.2,121.6 149.2,120.6 152.2,119.6 155.3,118.5 158.3,117.3 161.3,116.1 164.3,114.9 167.4,113.6 170.4,112.3 173.4,111 176.4,109.6 179.4,108.1 182.5,106.6 185.5,105.1 188.5,103.5 191.5,101.9 194.6,100.3 197.6,98.5 200.6,96.8 203.6,95 206.6,93.2 209.7,91.3 212.7,89.4 215.7,87.4 218.7,85.4 221.8,83.4 224.8,81.3 227.8,79.1 230.8,76.9 233.8,74.7 236.9,72.4 239.9,70.1 242.9,67.8 245.9,65.4 249,62.9 252,60.5 255,57.9 258,55.4 261,52.7 264.1,50.1 267.1,47.4 270.1,44.6 273.1,41.8 276.2,39\" stroke-width=\"2.2\"/></svg>",
       "figure_alt": "A curve of one variable, drawn on labeled axes.",
       "answer": 2.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -149,7 +149,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>axis-aligned ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
       "figure_alt": "An ellipse centered at the origin, longer along the first axis.",
       "answer": 6.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -185,7 +185,7 @@
         "stationary-point-classification"
       ],
       "answer": -3.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },

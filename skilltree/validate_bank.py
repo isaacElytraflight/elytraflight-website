@@ -548,6 +548,7 @@ for sid in BATCH:
             a = q.get("answer")
             if not (isinstance(a, (int, float)) and not isinstance(a, bool) and math.isfinite(a)): err(qid, "numeric answer must be a finite number")
             if not (isinstance(q.get("unit"), str)): err(qid, "numeric needs a 'unit' string")
+            elif q.get("unit").strip() == "1": err(qid, "numeric unit \"1\" is not a unit; use \"(unitless)\"")
             tol = q.get("tolerance")
             if not (isinstance(tol, (int, float)) and not isinstance(tol, bool) and 0 < tol <= 0.25): err(qid, f"bad tolerance {tol}")
             if isinstance(a, (int, float)) and not isinstance(a, bool) and a == 0: err(qid, "answer 0 with relative tolerance is ungradable")

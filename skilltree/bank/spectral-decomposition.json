@@ -82,7 +82,7 @@
         "singular-value-decomposition"
       ],
       "answer": 6.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -235,7 +235,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>symmetric 2 by 2 matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">4   2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   4</text></svg>",
       "figure_alt": "A 2 by 2 matrix with equal diagonal entries and equal off-diagonal entries.",
       "answer": 6.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -248,7 +248,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>symmetric 2 by 2 matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">4   2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   4</text></svg>",
       "figure_alt": "A 2 by 2 matrix with equal diagonal entries and equal off-diagonal entries.",
       "answer": 12.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -261,7 +261,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>symmetric 2 by 2 matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">4   2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   4</text></svg>",
       "figure_alt": "A 2 by 2 matrix with equal diagonal entries and equal off-diagonal entries.",
       "answer": 8.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -274,7 +274,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>arrows on the axes</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e2</text></svg>",
       "figure_alt": "Two arrows point along the coordinate axes.",
       "answer": 20.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -287,7 +287,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>arrows on the axes</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e2</text></svg>",
       "figure_alt": "Two arrows point along the coordinate axes.",
       "answer": 1.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },

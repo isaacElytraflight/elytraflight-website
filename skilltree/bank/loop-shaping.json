@@ -81,7 +81,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 354 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>lead in series with the plant</title><text x=\"24\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">in</text><line x1=\"42\" y1=\"56\" x2=\"78\" y2=\"56\"/><polygon points=\"78,56 71.6,58.7 71.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"78\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"120\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">lead</text><line x1=\"162\" y1=\"56\" x2=\"198\" y2=\"56\"/><polygon points=\"198,56 191.6,58.7 191.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"198\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"240\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"282\" y1=\"56\" x2=\"318\" y2=\"56\"/><polygon points=\"318,56 311.6,58.7 311.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"322\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">out</text></svg>",
       "figure_alt": "A lead block followed by a plant block.",
       "answer": 4.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -174,7 +174,7 @@
         "fund-limits"
       ],
       "answer": 0.2,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },

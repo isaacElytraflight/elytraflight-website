@@ -38,7 +38,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>left-half-plane poles</title><line x1=\"20\" y1=\"90\" x2=\"92\" y2=\"90\"/><line x1=\"142\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"85\" x2=\"133\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"95\" x2=\"133\" y2=\"85\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"85\" x2=\"111\" y2=\"95\" stroke-width=\"1.8\"/><line x1=\"101\" y1=\"95\" x2=\"111\" y2=\"85\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "Two pole marks on the negative real axis.",
       "answer": 20.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -122,7 +122,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>poles on the imaginary axis</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"145\" y1=\"41\" x2=\"155\" y2=\"51\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"51\" x2=\"155\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"129\" x2=\"155\" y2=\"139\" stroke-width=\"1.8\"/><line x1=\"145\" y1=\"139\" x2=\"155\" y2=\"129\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "A conjugate pair on the imaginary axis.",
       "answer": 6.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -135,7 +135,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a damped pair</title><line x1=\"20\" y1=\"90\" x2=\"280\" y2=\"90\"/><polygon points=\"280,90 273.6,92.7 273.6,87.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"160\" x2=\"150\" y2=\"16\"/><polygon points=\"150,16 152.7,22.4 147.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"106\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"158\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"123\" y1=\"41\" x2=\"133\" y2=\"51\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"51\" x2=\"133\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"129\" x2=\"133\" y2=\"139\" stroke-width=\"1.8\"/><line x1=\"123\" y1=\"139\" x2=\"133\" y2=\"129\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "A conjugate pair in the open left half-plane.",
       "answer": 0.447214,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 2
     },
@@ -187,7 +187,7 @@
         "root-locus"
       ],
       "answer": 34.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     }

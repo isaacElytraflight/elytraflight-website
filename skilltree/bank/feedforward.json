@@ -25,7 +25,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 294 142\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>feedback plus feedforward</title><line x1=\"44\" y1=\"46\" x2=\"86\" y2=\"46\"/><polygon points=\"86,46 79.6,48.7 79.6,43.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"86\" y=\"28\" width=\"72\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"122\" y=\"50\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">C</text><line x1=\"44\" y1=\"104\" x2=\"86\" y2=\"104\"/><polygon points=\"86,104 79.6,106.7 79.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"86\" y=\"86\" width=\"72\" height=\"36\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"122\" y=\"108\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"10\" y1=\"75\" x2=\"44\" y2=\"75\"/><polygon points=\"44,75 37.6,77.7 37.6,72.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"44\" y1=\"46\" x2=\"44\" y2=\"104\"/><circle cx=\"44\" cy=\"75\" r=\"2.6\" fill=\"currentColor\"/><line x1=\"158\" y1=\"46\" x2=\"186\" y2=\"46\"/><text x=\"174\" y=\"38\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"158\" y1=\"104\" x2=\"186\" y2=\"104\"/><text x=\"174\" y=\"96\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"186\" y1=\"46\" x2=\"186\" y2=\"104\"/><line x1=\"186\" y1=\"75\" x2=\"210\" y2=\"75\"/><polygon points=\"210,75 203.6,77.7 203.6,72.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"222\" cy=\"75\" r=\"12\"/><text x=\"222\" y=\"79\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">Σ</text><line x1=\"234\" y1=\"75\" x2=\"262\" y2=\"75\"/><polygon points=\"262,75 255.6,77.7 255.6,72.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"268\" y=\"79\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">u</text></svg>",
       "figure_alt": "Two paths add before the plant.",
       "answer": -1.6,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -38,7 +38,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 354 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>reference feedforward</title><text x=\"24\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">in</text><line x1=\"42\" y1=\"56\" x2=\"78\" y2=\"56\"/><polygon points=\"78,56 71.6,58.7 71.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"78\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"120\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"162\" y1=\"56\" x2=\"198\" y2=\"56\"/><polygon points=\"198,56 191.6,58.7 191.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"198\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"240\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"282\" y1=\"56\" x2=\"318\" y2=\"56\"/><polygon points=\"318,56 311.6,58.7 311.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"322\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">out</text></svg>",
       "figure_alt": "A feedforward block in series with the plant.",
       "answer": 0.4,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -51,7 +51,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>unity feedback plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
       "figure_alt": "A feedback loop with a plant block.",
       "answer": -0.4,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -91,7 +91,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 354 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>reference feedforward</title><text x=\"24\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">in</text><line x1=\"42\" y1=\"56\" x2=\"78\" y2=\"56\"/><polygon points=\"78,56 71.6,58.7 71.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"78\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"120\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"162\" y1=\"56\" x2=\"198\" y2=\"56\"/><polygon points=\"198,56 191.6,58.7 191.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"198\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"240\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"282\" y1=\"56\" x2=\"318\" y2=\"56\"/><polygon points=\"318,56 311.6,58.7 311.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"322\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">out</text></svg>",
       "figure_alt": "A feedforward block in series with the plant.",
       "answer": 1.25,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -124,7 +124,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 354 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>prefilter on a closed loop</title><text x=\"24\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">in</text><line x1=\"42\" y1=\"56\" x2=\"78\" y2=\"56\"/><polygon points=\"78,56 71.6,58.7 71.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"78\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"120\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">F</text><line x1=\"162\" y1=\"56\" x2=\"198\" y2=\"56\"/><polygon points=\"198,56 191.6,58.7 191.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"198\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"240\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">T</text><line x1=\"282\" y1=\"56\" x2=\"318\" y2=\"56\"/><polygon points=\"318,56 311.6,58.7 311.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"322\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">out</text></svg>",
       "figure_alt": "A prefilter in series with a closed-loop block.",
       "answer": 1.33333,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -137,7 +137,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 292 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>unity feedback plant</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"256\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"244\" y1=\"78\" x2=\"244\" y2=\"134\"/><line x1=\"244\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"154\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
       "figure_alt": "A feedback loop with a plant block.",
       "answer": 1.16667,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -153,7 +153,7 @@
         "gen-controller"
       ],
       "answer": -0.3,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -189,7 +189,7 @@
         "gen-controller"
       ],
       "answer": 0.12,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     }

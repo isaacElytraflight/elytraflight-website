@@ -23,7 +23,7 @@
       "prompt": "Two blocks sit in parallel. One multiplies by 4 and the other by 7, and their outputs add. The equivalent gain is",
       "explanation": "Parallel blocks see the same input and their outputs add, so the gain is \\(4 + 7 = 11\\). Multiplying would give 28, which is the series rule. Subtracting gives \\(-3\\) or \\(3\\), and neither block is subtracted here.",
       "answer": 11.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -63,7 +63,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>forward 8</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">8</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">0.5</text></svg>",
       "figure_alt": "A forward block and a return path that is subtracted at the input.",
       "answer": 1.6,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 3
     },
@@ -76,7 +76,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 336 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two series gains</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">2.5</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">4</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"304\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
       "figure_alt": "Two labeled blocks in a row, with arrows in and out.",
       "answer": 10.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -109,7 +109,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>positive feedback</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">2</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">0.2</text></svg>",
       "figure_alt": "A forward block and a return path that is added at the input.",
       "answer": 3.33333,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 3
     },
@@ -139,7 +139,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 456 120\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>three series blocks</title><line x1=\"24\" y1=\"56\" x2=\"60\" y2=\"56\"/><polygon points=\"60,56 53.6,58.7 53.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"60\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"102\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">2</text><line x1=\"144\" y1=\"56\" x2=\"180\" y2=\"56\"/><polygon points=\"180,56 173.6,58.7 173.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"180\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"222\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">3</text><line x1=\"264\" y1=\"56\" x2=\"300\" y2=\"56\"/><polygon points=\"300,56 293.6,58.7 293.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"300\" y=\"34\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"342\" y=\"60\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">4</text><line x1=\"384\" y1=\"56\" x2=\"420\" y2=\"56\"/><polygon points=\"420,56 413.6,58.7 413.6,53.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"424\" y=\"60\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
       "figure_alt": "Three labeled blocks in a row, with arrows in and out.",
       "answer": 24.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 2
     },
@@ -155,7 +155,7 @@
         "loop-tf"
       ],
       "answer": 0.473684,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 3
     },
@@ -171,7 +171,7 @@
         "sensitivity"
       ],
       "answer": 0.2,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 4
     },
@@ -187,7 +187,7 @@
         "nyquist"
       ],
       "answer": 12.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 2
     }

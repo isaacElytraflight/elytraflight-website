@@ -62,7 +62,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>gain margin</title><line x1=\"48\" y1=\"104\" x2=\"270\" y2=\"104\"/><polygon points=\"270,104 263.6,106.7 263.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"127.1\" y1=\"180\" x2=\"127.1\" y2=\"28\"/><polygon points=\"127.1,28 129.8,34.4 124.4,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"118\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"133.1\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.7,104 190.9,165.3 127.1,165.3 95.2,104 127.1,42.7 190.9,42.7 254.7,104\" stroke-width=\"2.2\"/><circle cx=\"63.3\" cy=\"104\" r=\"4\"/><text x=\"63.3\" y=\"94\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−1</text></svg>",
       "figure_alt": "A curve in the complex plane with the critical point marked.",
       "answer": 2.0,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -138,7 +138,7 @@
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>reduced margin</title><line x1=\"48\" y1=\"42.7\" x2=\"270\" y2=\"42.7\"/><polygon points=\"270,42.7 263.6,45.4 263.6,40\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"111.2\" y1=\"180\" x2=\"111.2\" y2=\"28\"/><polygon points=\"111.2,28 113.9,34.4 108.4,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"56.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"117.2\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><polyline points=\"254.7,42.7 182.9,165.3 75.3,42.7\" stroke-width=\"2.2\"/><circle cx=\"63.3\" cy=\"42.7\" r=\"4\"/><text x=\"63.3\" y=\"32.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">−1</text></svg>",
       "figure_alt": "A curve in the complex plane with the critical point marked.",
       "answer": 1.33333,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
@@ -174,7 +174,7 @@
         "gen-gain-phase"
       ],
       "answer": 2.5,
-      "unit": "1",
+      "unit": "(unitless)",
       "tolerance": 0.02,
       "version": 1
     },
