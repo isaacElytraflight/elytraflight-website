@@ -545,5 +545,25 @@ test('symbolic grader accepts equivalent expressions and rejects others', () => 
   assert.strictEqual(expr.evaluate(expr.parse('ln(e)', []), {}), 1);
 });
 
+test('video card subtitle follows the endorsed flag', () => {
+  const src = fs.readFileSync(path.join(PUB, 'skilltree.js'), 'utf8');
+  const start = src.indexOf('const YT_ID = /^[A-Za-z0-9_-]{11}$/;');
+  const end = src.indexOf('\nfunction renderPanel()');
+  assert(start !== -1 && end > start, 'video card source');
+  const el = (tag, props, ...kids) => ({ tag, props: props || {}, kids });
+  const recommendedVideoCard = new Function('el', src.slice(start, end) + '\nreturn recommendedVideoCard;')(el);
+  const kicker = video => {
+    const card = recommendedVideoCard(video);
+    assert(card, 'expected a card');
+    const copy = card.kids.find(node => node.props.class === 'video-copy');
+    const span = copy.kids.flat(Infinity).find(node => node.props && node.props.class === 'video-kicker');
+    return span.props.text;
+  };
+  const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+  assert.strictEqual(kicker({ url }), 'Relevant 3rd party video (not endorsed)');
+  assert.strictEqual(kicker({ url, endorsed: false }), 'Relevant 3rd party video (not endorsed)');
+  assert.strictEqual(kicker({ url, endorsed: true }), 'Recommended 3rd party video');
+});
+
 console.log(`\n${passed} passed, ${failed} failed\n`);
 process.exit(failed > 0 ? 1 : 0);

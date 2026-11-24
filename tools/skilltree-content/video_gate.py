@@ -5,11 +5,12 @@
   python3 tools/skilltree-content/video_gate.py --sample '{"url":"https://youtu.be/dQw4w9WgXcQ"}'
 
 A skill may omit `video`. When the key is present the value is
-`{"url", "title"?, "start"?}`.
+`{"url", "title"?, "start"?, "endorsed"?}`.
 
 `url` must be http(s) `youtube.com/watch?v=<id>` or `youtu.be/<id>`
 (optional `www.`) with one 11-character id. `start`, when present, is a
 non-negative integer. `title`, when present, is a non-empty string.
+`endorsed`, when present, is a boolean and defaults to absent.
 """
 import json
 import os
@@ -20,7 +21,7 @@ from urllib.parse import parse_qs, urlparse
 ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 DRAFT = os.path.join(ROOT, "skilltree", "ee105_skills_draft.json")
-FIELDS = ("url", "title", "start")
+FIELDS = ("url", "title", "start", "endorsed")
 
 
 def video_error(video):
@@ -70,6 +71,8 @@ def video_error(video):
         title = video["title"]
         if not isinstance(title, str) or not title.strip():
             return "video.title must be a non-empty string"
+    if "endorsed" in video and not isinstance(video["endorsed"], bool):
+        return "video.endorsed must be a boolean"
     return None
 
 

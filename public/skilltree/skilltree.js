@@ -2156,11 +2156,11 @@ const YT_ID = /^[A-Za-z0-9_-]{11}$/;
 const YT_WATCH = 'https://www.youtube.com/watch?v=';
 const YT_THUMB = 'https://i.ytimg.com/vi/';
 
-/* Optional skill.video: {url, title?, start?}. Returns a sidebar card, or null. */
+/* Optional skill.video: {url, title?, start?, endorsed?}. Returns a sidebar card, or null. */
 function recommendedVideoCard(video) {
   if (!video || typeof video !== 'object' || Array.isArray(video)) return null;
   const keys = Object.keys(video);
-  if (keys.some(k => k !== 'url' && k !== 'title' && k !== 'start')) return null;
+  if (keys.some(k => k !== 'url' && k !== 'title' && k !== 'start' && k !== 'endorsed')) return null;
   if (typeof video.url !== 'string' || !video.url || /\s/.test(video.url)) return null;
   let u;
   try { u = new URL(video.url); } catch (e) { return null; }
@@ -2181,9 +2181,11 @@ function recommendedVideoCard(video) {
   if (!YT_ID.test(id)) return null;
   if (video.start != null && (typeof video.start !== 'number' || !Number.isInteger(video.start) || video.start < 0)) return null;
   if (video.title != null && (typeof video.title !== 'string' || !video.title.trim())) return null;
+  if ('endorsed' in video && typeof video.endorsed !== 'boolean') return null;
   let href = YT_WATCH + id;
   if (video.start != null) href += '&t=' + video.start;
-  const copy = [el('span', { class: 'video-kicker', text: 'Recommended 3rd party video' })];
+  const kicker = video.endorsed === true ? 'Recommended 3rd party video' : 'Relevant 3rd party video (not endorsed)';
+  const copy = [el('span', { class: 'video-kicker', text: kicker })];
   if (video.title != null) copy.push(el('span', { class: 'video-title', text: video.title.trim() }));
   return el('a', {
     class: 'video-card', id: 'videoCard', href: href, target: '_blank', rel: 'noopener noreferrer'
