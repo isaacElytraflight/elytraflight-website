@@ -1,0 +1,200 @@
+{
+  "skill_id": "maximum-likelihood-estimation",
+  "version": 1,
+  "questions": [
+    {
+      "id": "maximum-likelihood-estimation-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A Gaussian random vector is summarized by a mean and a covariance. Independent residuals with equal variance \\(\\sigma^2\\) have covariance \\(\\sigma^2 I\\). For a linear mean \\(Ax\\), the value of \\(x\\) that maximizes the density is",
+      "explanation": "The log density contains \\(-\\lVert b-Ax\\rVert^2/(2\\sigma^2)\\) plus terms that do not depend on \\(x\\). Because the factor \\(1/(2\\sigma^2)\\) is positive, maximizing the density minimizes the squared residual. That minimizer is the least-squares fit from data fitting. Maximizing the squared residual would look for the worst fit. Setting residuals equal to \\(\\sigma\\) confuses the noise scale with the mean. The same \\(x\\) wins for every \\(\\sigma > 0\\).",
+      "options": [
+        "the ordinary least-squares fit",
+        "the fit that maximizes \\(\\lVert Ax-b\\rVert^2\\)",
+        "the fit that sets every residual equal to \\(\\sigma\\)",
+        "a different vector for every positive \\(\\sigma\\)"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "Six independent residuals have sum of squares 18. The maximum-likelihood estimate of their common variance is the sum of squares divided by the number of residuals. What is that estimate?",
+      "explanation": "Divide 18 by 6 to get 3. Dividing by \\(6-1 = 5\\) is a different unbiased correction, not the maximizer of the Gaussian likelihood. The square root \\(\\sqrt{3}\\) is a standard deviation. Twice the sum of squares, 36, is the piece that sits next to \\(1/(2\\sigma^2)\\) before \\(\\sigma^2\\) is estimated.",
+      "answer": 3.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Data fitting minimizes \\(\\lVert Ax-b\\rVert^2\\). Under this Gaussian model, that minimization is maximum likelihood for \\(x\\) only when",
+      "explanation": "Equal diagonal entries let one factor \\(1/\\sigma^2\\) come out of the sum, so the maximizer does not depend on the weights. Unequal variances leave a weighted sum of squares. A prior on \\(x\\) is a later posterior step, not part of the likelihood. A full covariance produces a quadratic form \\(r^T\\Sigma^{-1} r\\), not the plain squared length.",
+      "options": [
+        "the variances are equal. Unequal variances replace it by a weighted sum of squares",
+        "the variances are unequal. Equal variances replace it by a weighted sum of squares",
+        "the noise is Gaussian with a nonzero mean that depends on \\(x\\) through a prior",
+        "the covariance is a full matrix with no special structure, and the loss is still the plain squared length"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order that shows why equal-variance Gaussian noise recovers least squares.",
+      "explanation": "The log likelihood is written in the residual, so the residual comes first. Discarding terms requires the expression those terms sit in. The squared length that remains is what the last step minimizes, so the discard comes before the minimization. Minimizing the squared length before writing the log likelihood skips the sign that says the likelihood wants the residual small.",
+      "steps": [
+        "Subtract the model mean from each observation and stack those differences into the residual.",
+        "Write the log likelihood, including the squared length of that residual divided by twice the variance.",
+        "Discard every term that does not depend on the coefficient vector.",
+        "Minimize the squared length that remains."
+      ],
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The sum of squares is 18 and the variance is 3. The residual term in the log likelihood is \\(-\\) (sum of squares) \\(/\\) \\((2\\sigma^2)\\). What is that term?",
+      "explanation": "The term is \\(-18/(2\\cdot 3) = -18/6 = -3\\). The positive value 3 is the variance, not the log-likelihood term. Dropping the 2 in the denominator gives \\(-18/3 = -6\\). The sum of squares 18 is the numerator before the division.",
+      "answer": -3.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Five independent residuals have sum of squares 20. What is the maximum-likelihood estimate of the common variance?",
+      "explanation": "Divide 20 by 5 to get 4. Dividing by \\(5-1 = 4\\) gives 5, which is not the Gaussian maximizer. Half of 20 is 10, from the \\(1/2\\) in the log likelihood, and that half is not the variance estimate. The square root of 20 is the square root of the sum of squares, not a variance.",
+      "answer": 4.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r3-q1",
+      "round": 3,
+      "type": "symbolic",
+      "prompt": "Let \\(r > 0\\) be the sum of squares of the residuals and let \\(v > 0\\) be the common variance. Write the term in the Gaussian log likelihood that contains \\(r\\), as an expression in r and v.",
+      "explanation": "Each independent Gaussian contributes \\(-\\) (residual)\\(^2/(2v)\\). The sum of those numerators is \\(r\\).\n• \\(r/(2v)\\) drops the minus sign, so it increases when the fit gets worse.\n• \\(-r/v\\) forgets the 2 in the Gaussian normalization of the square.\n• \\(-v/(2r)\\) swaps the variance and the sum of squares.",
+      "answer": "-r/(2*v)",
+      "variables": [
+        {
+          "name": "r",
+          "min": 0.5,
+          "max": 8.0
+        },
+        {
+          "name": "v",
+          "min": 0.2,
+          "max": 3.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "-(r)/(2*v)",
+        "-0.5*r/v",
+        "(-r)/(2*v)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r3-q2",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Select every property the noise must have for ordinary least squares to be the maximum-likelihood estimate of the coefficient vector.",
+      "explanation": "The derivation uses the Gaussian log density, a diagonal covariance so the joint density is a product, and equal diagonal entries so the product is a single squared length. A non-flat Gaussian prior multiplies the likelihood by an extra factor and produces a ridge penalty. That maximizer is a posterior mode, not the likelihood maximizer.",
+      "options": [
+        "Gaussian",
+        "independent across observations",
+        "of equal variance",
+        "equipped with a non-flat Gaussian prior on the coefficients"
+      ],
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "The maximizer over \\(x\\) does not depend on the common variance \\(\\sigma^2\\). The maximizer over \\(\\sigma^2\\), once \\(x\\) is chosen, equals",
+      "explanation": "Differentiate the log likelihood in \\(v = \\sigma^2\\). The derivative of \\(-\\tfrac{m}{2}\\log v - r/(2v)\\) vanishes at \\(v = r/m\\). Dividing by the number of coefficients is a different correction. The sum of squares still has the units of a variance times a count. Half the sum of squares matches \\(r/m\\) only when \\(m = 2\\).",
+      "options": [
+        "the sum of squares divided by the number of observations",
+        "the sum of squares divided by the number of coefficients",
+        "the sum of squares itself",
+        "half the sum of squares, for every sample size"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r4-q1",
+      "round": 4,
+      "type": "error",
+      "prompt": "One step below is false. Select that step, and the reason it fails.",
+      "explanation": "The covariance and the negative residual term are the Gaussian log density. The least-squares fit maximizes the likelihood because the residual term is negative. The false step turns that minus sign into a maximization of the squared length. The last step names the maximizer of the likelihood, which is least squares, and it does not inherit the reversed inequality.",
+      "preview": [
+        "maximum-a-posteriori-estimation"
+      ],
+      "steps": [
+        "Independent equal-variance Gaussian residuals have covariance sigma squared times I.",
+        "The log likelihood contains the term minus the squared residual length, divided by twice the variance.",
+        "The coefficient vector that maximizes the likelihood therefore maximizes the squared residual length.",
+        "That maximizer of the likelihood is the ordinary least-squares fit."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The residual term is negative, so the likelihood rises when the squared residual falls. The maximizer minimizes the squared residual.",
+        "Equal variance makes the maximizer a weighted fit with unequal weights.",
+        "The covariance is sigma times I rather than sigma squared times I, so the first step is the false one."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Four observations leave a least-squares residual whose sum of squares is 10. A later prior would change the fitted coefficients. The variance estimate from the likelihood, using this residual, divides the sum of squares by the number of observations. What is that estimate?",
+      "explanation": "The Gaussian maximizer for the variance is \\(10/4 = 2.5\\). Dividing by \\(4-1 = 3\\) gives \\(10/3\\), a different correction. The sum of squares 10 still counts four observations. Half of 10 is the numerator of the residual term when the variance is 1, and it is not the variance estimate.",
+      "preview": [
+        "maximum-a-posteriori-estimation"
+      ],
+      "answer": 2.5,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Adding a zero-mean Gaussian prior on the coefficients multiplies the likelihood by a factor that depends on \\(x\\). The maximizer of the product is",
+      "explanation": "A spherical Gaussian prior has log density equal to a negative squared length of \\(x\\), up to scaling. Adding that penalty to the least-squares objective is ridge. The prior depends on \\(x\\), so it is not a constant. It does not reverse the residual term. It pulls toward its mean but does not ignore the observations unless the prior precision goes to infinity.",
+      "preview": [
+        "maximum-a-posteriori-estimation"
+      ],
+      "options": [
+        "still ordinary least squares, because a prior is constant",
+        "a ridge fit, because the log prior is a squared penalty",
+        "a fit that maximizes the squared residual",
+        "the mean of the prior, regardless of the observations"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}

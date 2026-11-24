@@ -3,6 +3,474 @@
   "note": "Generated from the bank and explainer files. Learner progress is separate.",
   "items": [
     {
+      "id": "qr-factorization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "qr-factorization-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "qr-factorization-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "qr-factorization-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "qr-factorization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "qr-factorization-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "qr-factorization-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "qr-factorization-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "qr-factorization-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "qr-factorization-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "qr-factorization-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "qr-factorization-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "qr-factorization#explainer",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "fundamental-subspaces#explainer",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "block-matrix-identities#explainer",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "principal-component-analysis#explainer",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation#explainer",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation#explainer",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "ridge-regression#explainer",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "principal-components-regression#explainer",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "maximum-likelihood-estimation#explainer",
+      "version": 1
+    },
+    {
       "id": "lin-algebra-review-r1-q1",
       "version": 2
     },

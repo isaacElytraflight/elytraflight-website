@@ -1,0 +1,29 @@
+{
+  "id": "principal-component-analysis",
+  "title": "Principal component analysis",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>covariance ellipse, longer on the second axis</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"46\" ry=\"86\"/><line x1=\"94\" y1=\"104\" x2=\"186\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"18\" x2=\"140\" y2=\"190\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse centered at the origin and longer along the second axis.",
+      "body_md": "Spectral decomposition writes a real symmetric matrix as \\(U D U^T\\) with orthonormal eigenvectors. Singular value decomposition writes a rectangular matrix as \\(U\\Sigma V^T\\). Principal component analysis applies those two factorizations to a cloud of data.\n\nPut one sample in each row and one feature in each column. Subtract the mean of each column. Call the centered matrix \\(Z\\). The covariance used here is the average of the outer products of the rows,\n\\[\nC = \\tfrac{1}{n} Z^T Z.\n\\]\nThis \\(C\\) is symmetric and positive semidefinite. Its eigenvectors are orthogonal, and its eigenvalues are variances along those directions. The leading principal direction is the eigenvector for the largest eigenvalue. Equivalently, it is the leading right singular vector of \\(Z\\). The right singular vectors live in feature space. The left singular vectors live in sample space and are not the principal directions of the features.\n\nCentering matters. The average outer product of the raw rows includes the mean. Its leading eigenvector is pulled toward that mean. After centering, the eigenvector measures spread about the mean."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "If \\(Z = U\\Sigma V^T\\) is a singular value decomposition, then\n\\[\nZ^T Z = V\\Sigma^T\\Sigma V^T,\n\\]\nso the columns of \\(V\\) are eigenvectors of the covariance, up to the positive factor \\(1/n\\) that scales every eigenvalue and does not change the eigenvectors. The variance along a unit vector \\(u\\) is \\(u^T C u\\). Along a unit eigenvector it equals the matching eigenvalue. The score of a centered row \\(z\\) on a unit principal direction \\(v\\) is the inner product \\(z^T v\\). Those scores are the coordinates a later regression will treat as a new design."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "The rows are \\((1,0)\\), \\((3,0)\\), and \\((2,3)\\). Their mean is \\((2,1)\\). The centered rows are \\((-1,-1)\\), \\((1,-1)\\), and \\((0,2)\\). The outer products sum to \\(\\mathrm{diag}(2,6)\\), and dividing by 3 gives\n\\[\nC = \\mathrm{diag}(2/3,\\ 2).\n\\]\nThe larger eigenvalue is 2, on the second coordinate. The leading principal direction is \\((0,1)\\), and the variance along it is 2. The variance along \\((1,0)\\) is \\(2/3\\), which is real spread but not the leading one.\n\nThe uncentered average outer product is not this \\(C\\). It mixes in the mean \\((2,1)\\). Using it would answer a question about distance from the origin, not about spread. The score of the centered row \\((0,2)\\) on \\((0,1)\\) is 2."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The leading direction belongs to the largest eigenvalue. The smallest eigenvalue is the thinnest direction.\n\nRight singular vectors are the feature directions. Left singular vectors have one entry per sample. Swapping them writes a vector in the wrong space.\n\nDividing by \\(n-1\\) instead of \\(n\\) scales every eigenvalue and does not change the directions. This skill divides by the number of rows. The principal direction is defined up to sign. Scores flip sign with the vector, so a later inner product has to use the same choice."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Low-rank approximation keeps the largest singular pieces and zeros the rest. For centered data those pieces are the leading principal components. Principal components regression fits least squares in the scores on the first few of them."
+    }
+  ]
+}

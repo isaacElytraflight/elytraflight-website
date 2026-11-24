@@ -249,6 +249,18 @@ LEAF_PREVIEW_ALLOWED.update({
         "lqr",
     ],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # EB1 leaves: nothing in the graph lists these as prerequisites.
+    # Thin QR backsolves a least-squares problem. The four subspaces are the
+    # geometry of that same fit. A large least-squares condition number is why
+    # a squared penalty is added. Principal-components regression drops whole
+    # directions; the lasso is the later penalty that can zero coefficients
+    # without discarding a principal direction first.
+    "qr-factorization": ["linear-least-squares"],
+    "fundamental-subspaces": ["linear-least-squares"],
+    "least-squares-perturbation": ["ridge-regression"],
+    "principal-components-regression": ["lasso-regression"],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

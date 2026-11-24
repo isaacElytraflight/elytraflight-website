@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-23T22:12:35.794309Z",
+  "generated": "2026-11-24T18:08:51.082769Z",
   "skills": {
-    "file": "skills.356da06a.json",
-    "hash": "356da06a"
+    "file": "skills.1dc7b1e2.json",
+    "hash": "1dc7b1e2"
   },
   "collections": {
     "file": "collections.af4a0c5f.json",
@@ -250,6 +250,18 @@
       },
       "hash": "803ba8d0",
       "file": "banks/block-diagram.803ba8d0.json"
+    },
+    "block-matrix-identities": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "9b428d2b",
+      "file": "banks/block-matrix-identities.9b428d2b.json"
     },
     "bode-circuits": {
       "version": 3,
@@ -1271,6 +1283,18 @@
       "hash": "1fef7b37",
       "file": "banks/fund-limits.1fef7b37.json"
     },
+    "fundamental-subspaces": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "5fa63c25",
+      "file": "banks/fundamental-subspaces.5fa63c25.json"
+    },
     "fundamental-theorem-along-segment": {
       "version": 1,
       "questionCount": 12,
@@ -1727,6 +1751,18 @@
       "hash": "f8fef339",
       "file": "banks/least-squares-data-fitting.f8fef339.json"
     },
+    "least-squares-perturbation": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "5b004535",
+      "file": "banks/least-squares-perturbation.5b004535.json"
+    },
     "least-squares-quadratic": {
       "version": 2,
       "questionCount": 12,
@@ -1907,6 +1943,18 @@
       "hash": "7baa946b",
       "file": "banks/loop-tf.7baa946b.json"
     },
+    "low-rank-approximation": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "f82ee2c7",
+      "file": "banks/low-rank-approximation.f82ee2c7.json"
+    },
     "lp-duality-kkt": {
       "version": 1,
       "questionCount": 12,
@@ -2026,6 +2074,18 @@
       },
       "hash": "f807986c",
       "file": "banks/matrix-calculus-gradients.f807986c.json"
+    },
+    "maximum-likelihood-estimation": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "6ae1396c",
+      "file": "banks/maximum-likelihood-estimation.6ae1396c.json"
     },
     "miller": {
       "version": 3,
@@ -2603,6 +2663,30 @@
       "hash": "d8fd0126",
       "file": "banks/primal-dual-interior-point.d8fd0126.json"
     },
+    "principal-component-analysis": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "5e842cd5",
+      "file": "banks/principal-component-analysis.5e842cd5.json"
+    },
+    "principal-components-regression": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b7fbfc96",
+      "file": "banks/principal-components-regression.b7fbfc96.json"
+    },
     "projection-affine-halfspace-kkt": {
       "version": 2,
       "questionCount": 12,
@@ -2638,6 +2722,18 @@
       },
       "hash": "3c9ccdd2",
       "file": "banks/q-conjugate-directions.3c9ccdd2.json"
+    },
+    "qr-factorization": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b1861610",
+      "file": "banks/qr-factorization.b1861610.json"
     },
     "quadratic-function-minimization": {
       "version": 2,
@@ -2734,6 +2830,18 @@
       },
       "hash": "af03c72c",
       "file": "banks/rev-bias.af03c72c.json"
+    },
+    "ridge-regression": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "455943a1",
+      "file": "banks/ridge-regression.455943a1.json"
     },
     "rlc": {
       "version": 6,
@@ -3415,6 +3523,12 @@
       "sectionCount": 5,
       "version": 3
     },
+    "block-matrix-identities": {
+      "hash": "4e391721",
+      "file": "explainers/block-matrix-identities.4e391721.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "bode-circuits": {
       "hash": "68c25e12",
       "file": "explainers/bode-circuits.68c25e12.json",
@@ -3886,6 +4000,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "fundamental-subspaces": {
+      "hash": "3c8618f3",
+      "file": "explainers/fundamental-subspaces.3c8618f3.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "fundamental-theorem-along-segment": {
       "hash": "f507f9f4",
       "file": "explainers/fundamental-theorem-along-segment.f507f9f4.json",
@@ -4105,6 +4225,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "least-squares-perturbation": {
+      "hash": "dfbcae80",
+      "file": "explainers/least-squares-perturbation.dfbcae80.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "least-squares-quadratic": {
       "hash": "ff35c7ef",
       "file": "explainers/least-squares-quadratic.ff35c7ef.json",
@@ -4193,6 +4319,12 @@
       "sectionCount": 5,
       "version": 2
     },
+    "low-rank-approximation": {
+      "hash": "8b681a35",
+      "file": "explainers/low-rank-approximation.8b681a35.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "lp-duality-kkt": {
       "hash": "cb83ec48",
       "file": "explainers/lp-duality-kkt.cb83ec48.json",
@@ -4249,6 +4381,12 @@
     "matrix-calculus-gradients": {
       "hash": "7b046901",
       "file": "explainers/matrix-calculus-gradients.7b046901.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "maximum-likelihood-estimation": {
+      "hash": "90398f3e",
+      "file": "explainers/maximum-likelihood-estimation.90398f3e.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -4523,6 +4661,18 @@
       "sectionCount": 5,
       "version": 1
     },
+    "principal-component-analysis": {
+      "hash": "b330dc28",
+      "file": "explainers/principal-component-analysis.b330dc28.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "principal-components-regression": {
+      "hash": "42e71a9a",
+      "file": "explainers/principal-components-regression.42e71a9a.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "projection-affine-halfspace-kkt": {
       "hash": "9b510068",
       "file": "explainers/projection-affine-halfspace-kkt.9b510068.json",
@@ -4538,6 +4688,12 @@
     "q-conjugate-directions": {
       "hash": "b5dbdf4e",
       "file": "explainers/q-conjugate-directions.b5dbdf4e.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "qr-factorization": {
+      "hash": "a96301ea",
+      "file": "explainers/qr-factorization.a96301ea.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -4586,6 +4742,12 @@
       "hash": "1c78766e",
       "file": "explainers/rev-bias.1c78766e.json",
       "sectionCount": 5
+    },
+    "ridge-regression": {
+      "hash": "744bcdc1",
+      "file": "explainers/ridge-regression.744bcdc1.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "rlc": {
       "hash": "e2f295bb",

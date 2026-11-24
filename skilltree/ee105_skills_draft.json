@@ -3209,7 +3209,6 @@
    "prereqs": [
     "gram-schmidt-orthogonalization"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "hefferon-linalg",
@@ -3237,7 +3236,6 @@
     "lin-algebra-review",
     "inner-products"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "hefferon-linalg",
@@ -3253,8 +3251,8 @@
     }
    ],
    "video": {
-    "url": "https://www.youtube.com/watch?v=uQhTuRlWMxw",
-    "title": "Column space and null space of a linear map"
+    "url": "https://www.youtube.com/watch?v=nHlE7EgJFds",
+    "title": "The four fundamental subspaces"
    }
   },
   {
@@ -3264,7 +3262,6 @@
    "prereqs": [
     "lin-algebra-review"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "hefferon-linalg",
@@ -3278,7 +3275,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=_oHHbszze5M",
+    "title": "Block multiplication, the block inverse, and the Schur complement"
+   }
   },
   {
    "id": "principal-component-analysis",
@@ -3288,7 +3289,6 @@
     "spectral-decomposition",
     "singular-value-decomposition"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3315,7 +3315,6 @@
    "prereqs": [
     "singular-value-decomposition"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3331,8 +3330,8 @@
     }
    ],
    "video": {
-    "url": "https://www.youtube.com/watch?v=nbBvuuNVfco",
-    "title": "Singular vectors and a truncated matrix approximation"
+    "url": "https://www.youtube.com/watch?v=12K5aydB9cQ",
+    "title": "Nearest matrix of a given rank"
    }
   },
   {
@@ -3344,7 +3343,6 @@
     "singular-value-decomposition",
     "induced-matrix-norms"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "nw-numopt",
@@ -3358,7 +3356,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=a5oQktSURoE",
+    "title": "Parent concept: the matrix condition number, and how singular values scale errors"
+   }
   },
   {
    "id": "ridge-regression",
@@ -3368,7 +3370,6 @@
     "least-squares-quadratic",
     "positive-definite-matrices"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3397,7 +3398,6 @@
     "low-rank-approximation",
     "least-squares-data-fitting"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3411,7 +3411,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=SWfucxnOF8c",
+    "title": "Least squares in the leading principal-component coordinates"
+   }
   },
   {
    "id": "maximum-likelihood-estimation",
@@ -3421,7 +3425,6 @@
     "least-squares-data-fitting",
     "gaussian-random-vectors"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",

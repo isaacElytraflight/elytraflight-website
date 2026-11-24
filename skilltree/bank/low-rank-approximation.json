@@ -1,0 +1,220 @@
+{
+  "skill_id": "low-rank-approximation",
+  "version": 1,
+  "questions": [
+    {
+      "id": "low-rank-approximation-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "A singular value decomposition writes \\(A\\) as a sum of rank-one matrices, one per positive singular value. The rank-\\(r\\) truncation",
+      "explanation": "The factorization already orders the pieces by singular value. Truncation keeps the first \\(r\\) of those pieces and zeros the rest. Dropping the largest pieces throws away the terms the approximation is built from. Setting every remaining value to 1 changes the scale of the pieces that were kept. Copying the largest value into every slot is not a truncation.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>singular values on a diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   0   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3   0</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0   2</text></svg>",
+      "figure_alt": "A diagonal matrix whose diagonal entries are 6, 3, and 2.",
+      "options": [
+        "replaces every singular value by the largest one",
+        "drops the largest \\(r\\) singular values and keeps the rest",
+        "keeps the \\(r\\) largest singular values and sets the others to zero",
+        "keeps every singular vector and sets every singular value to 1"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The singular values are 6, 3, and 2. What is the spectral-norm error of the rank-1 truncation?",
+      "explanation": "In the spectral norm the error equals the first discarded singular value, which is 3. The largest singular value 6 is the norm of \\(A\\), not of the error. The smallest value 2 is the error of the rank-2 truncation. The sum \\(3+2 = 5\\) adds every discarded value, which is not the spectral norm.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>singular values on a diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   0   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3   0</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0   2</text></svg>",
+      "figure_alt": "A diagonal matrix whose diagonal entries are 6, 3, and 2.",
+      "answer": 3.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In the Frobenius norm, the squared error of a rank-\\(r\\) truncation equals",
+      "explanation": "The Frobenius norm squares every singular value and adds. After truncation, the kept values cancel in the difference, and the discarded values remain. The largest singular value alone is the spectral norm of \\(A\\). A sum without squares is a nuclear-norm accounting. The product of the singular values is a volume factor, not this error.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>singular values on a diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   0   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3   0</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0   2</text></svg>",
+      "figure_alt": "A diagonal matrix whose diagonal entries are 6, 3, and 2.",
+      "options": [
+        "the square of the largest singular value",
+        "the sum of the squares of the discarded singular values",
+        "the sum of the discarded singular values, without squares",
+        "the product of all singular values"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order that builds the rank-r approximation from a singular value decomposition.",
+      "explanation": "The list has to be ordered before 'the first r' means the largest r. The rebuild uses the values that were kept, so it follows the selection. Rebuilding from every singular vector and then deleting entries is not this procedure. Zeroing values before sorting would zero the wrong end of the list.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>singular values on a diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   0   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3   0</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0   2</text></svg>",
+      "figure_alt": "A diagonal matrix whose diagonal entries are 6, 3, and 2.",
+      "steps": [
+        "List the singular values from largest to smallest.",
+        "Keep the first r values in that list and replace every later singular value by zero.",
+        "Rebuild the matrix from the singular vectors that belong to the values you kept."
+      ],
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The singular values are 6, 3, and 2. What is the Frobenius-norm error of the rank-1 truncation?",
+      "explanation": "The discarded singular values are 3 and 2. The Frobenius error is \\(\\sqrt{9+4} = \\sqrt{13}\\). The spectral error is the single value 3. The sum \\(3+2 = 5\\) is not a Frobenius norm. The kept value 6 does not appear in the error.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>singular values on a diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   0   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3   0</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0   2</text></svg>",
+      "figure_alt": "A diagonal matrix whose diagonal entries are 6, 3, and 2.",
+      "answer": 3.60555,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The singular values are 6, 3, and 2. What is the Frobenius-norm error of the rank-2 truncation?",
+      "explanation": "Only the last singular value is discarded. Its square root of a square is the value itself, so the Frobenius error is 2. The spectral error of this same truncation is also 2, because one discarded value is both the largest discarded value and the square root of the sum of squares of the discarded values. The rank-1 Frobenius error \\(\\sqrt{13}\\) still includes the middle singular value. The sum of all three singular values is 11.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>singular values on a diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   0   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3   0</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0   2</text></svg>",
+      "figure_alt": "A diagonal matrix whose diagonal entries are 6, 3, and 2.",
+      "answer": 2.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r3-q1",
+      "round": 3,
+      "type": "symbolic",
+      "prompt": "Let the singular values be \\(u > 0\\) and \\(v > 0\\). The rank-0 truncation is the zero matrix. Write its Frobenius distance to the original matrix as an expression in u and v.",
+      "explanation": "Every singular value is discarded. The Frobenius norm is the square root of the sum of their squares.\n• \\(u+v\\) is the nuclear norm, not the Frobenius norm.\n• \\(\\max(u,v)\\) is the spectral norm.\n• \\(u^2+v^2\\) stops before the square root.",
+      "answer": "sqrt(u**2 + v**2)",
+      "variables": [
+        {
+          "name": "u",
+          "min": 0.3,
+          "max": 4.0
+        },
+        {
+          "name": "v",
+          "min": 0.3,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "sqrt(u*u + v*v)",
+        "(u**2 + v**2)**(1/2)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r3-q2",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which statements are true of the truncation that keeps the \\(r\\) largest singular values?",
+      "explanation": "The truncation theorem gives both the Frobenius claim and the spectral claim, and the spectral error is exactly the next singular value. The Frobenius error is the square root of a sum of squares. That equals the next singular value only when every later singular value is zero.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>singular values on a diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   0   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3   0</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0   2</text></svg>",
+      "figure_alt": "A diagonal matrix whose diagonal entries are 6, 3, and 2.",
+      "options": [
+        "It is a nearest matrix of rank at most \\(r\\) in the Frobenius norm.",
+        "It is a nearest matrix of rank at most \\(r\\) in the spectral norm.",
+        "Its spectral-norm error equals the largest discarded singular value.",
+        "Its Frobenius-norm error equals the largest discarded singular value, for every list of singular values."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        2
+      ],
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "If the singular values are 6, 3, and 2, the rank-1 matrix in the truncation is",
+      "explanation": "Each term in the decomposition is one singular value times one outer product. The leading term uses the largest value, 6, and the first pair of vectors. Scaling every term by 6 does not zero the smaller values. The middle term is part of the error of the rank-1 approximation, not the approximation. The diagonal matrix of singular values is the middle factor of the decomposition, not the reconstructed matrix, unless the singular vectors are the identity.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>singular values on a diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   0   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3   0</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0   2</text></svg>",
+      "figure_alt": "A diagonal matrix whose diagonal entries are 6, 3, and 2.",
+      "options": [
+        "6 times the outer product of the first left singular vector and the first right singular vector",
+        "the sum of all three outer products, each scaled by 6",
+        "3 times the outer product of the second pair of singular vectors",
+        "the diagonal matrix of all three singular values"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r4-q1",
+      "round": 4,
+      "type": "error",
+      "prompt": "One step below is false. Select that step, and the reason it fails. The singular values are 6, 3, and 2.",
+      "explanation": "The ordered list and the decision to keep only 6 are the truncation. The Frobenius error really is \\(\\sqrt{9+4}\\). The spectral error is the first discarded singular value, 3, not that square root. The false step assigns the Frobenius formula to the spectral norm.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>singular values on a diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   0   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3   0</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0   2</text></svg>",
+      "figure_alt": "A diagonal matrix whose diagonal entries are 6, 3, and 2.",
+      "preview": [
+        "principal-components-regression"
+      ],
+      "steps": [
+        "In decreasing order the singular values are 6, 3, and 2.",
+        "The rank-1 truncation keeps 6 and replaces 3 and 2 by 0.",
+        "The spectral-norm error of that truncation equals the square root of 3 squared plus 2 squared.",
+        "The Frobenius-norm error of that truncation equals the square root of 3 squared plus 2 squared."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The spectral-norm error equals the first discarded singular value, which is 3, not the square root of the sum of squares.",
+        "The spectral-norm error equals the largest singular value, which is 6.",
+        "Both norms add the discarded singular values, so the square root is the mistake in the Frobenius step."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "A later regression keeps only the leading principal component of a centered matrix whose singular values are 6, 3, and 2. What fraction of the squared Frobenius energy is kept?",
+      "explanation": "Squared Frobenius energy is the sum of squares of the singular values, \\(36+9+4 = 49\\). The leading piece contributes 36, so the fraction is \\(36/49\\). The fraction \\(45/49\\) also keeps the middle value. The fraction \\(6/11\\) uses the singular values without squaring. The discarded fraction \\(13/49\\) is the energy the rank-1 truncation throws away.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>singular values on a diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   0   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3   0</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0   2</text></svg>",
+      "figure_alt": "A diagonal matrix whose diagonal entries are 6, 3, and 2.",
+      "preview": [
+        "principal-components-regression"
+      ],
+      "answer": 0.734694,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "low-rank-approximation-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "Principal components regression drops the trailing right singular vectors of the centered predictors. That choice is the same as",
+      "explanation": "The coordinates on the leading right singular vectors are the coordinates in the rank-\\(r\\) truncation. Zeroing the largest singular values keeps the noise the truncation is meant to drop. The response is the quantity being fitted, not a singular vector to discard. Left singular vectors describe samples, not the coefficient of a feature direction.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>singular values on a diagonal</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   0   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   3   0</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0   2</text></svg>",
+      "figure_alt": "A diagonal matrix whose diagonal entries are 6, 3, and 2.",
+      "preview": [
+        "principal-components-regression"
+      ],
+      "options": [
+        "replacing the predictor matrix by its rank-\\(r\\) truncation before reading coordinates",
+        "replacing the predictor matrix by a rank-\\(r\\) matrix that zeros the largest singular values",
+        "keeping every singular value and dropping the response",
+        "using the left singular vectors as the regression coefficients"
+      ],
+      "correct_index": 0,
+      "version": 1
+    }
+  ]
+}
