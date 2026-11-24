@@ -1819,6 +1819,18 @@ let quizEl;
 let quiz = null;
 let bankLoading = false;
 
+/* Session-only calculator state. It is not a bank field and it is not saved. */
+const CALC_COLORS = ['#6c5ce7', '#ff7a59', '#1fb26b', '#22b8e6', '#e5484d', '#f5a524'];
+const calcState = {
+  open: false,
+  rows: [''],
+  evalText: '',
+  xText: '',
+  view: null,
+  viewPinned: false,
+  fitKey: null
+};
+
 function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[a[i], a[j]] = [a[j], a[i]] } return a }
 const POSITIONAL = /(all|none|both|neither) of the (above|these|options)|none of these|all of these/i;
 
@@ -1935,14 +1947,17 @@ function answerLine(it) {
 
 function renderQuiz() {
   const Q = quiz; if (!Q) return;
-  const s = byId[Q.id]; quizEl.style.cssText = colorOf(s.id); quizEl.innerHTML = '';
-  const wrap = el('div', { class: 'qwrap' }); quizEl.append(wrap);
+  const s = byId[Q.id]; quizEl.style.cssText = colorOf(s.id);
+  const surface = quizSurface();
+  surface.replaceChildren();
+  const wrap = el('div', { class: 'qwrap' }); surface.append(wrap);
   const label = Q.round === 1 ? 'Round 1 · Practice quiz' : `Round ${Q.round} · Mastery challenge → ${TIERS[Q.round]}`;
   const qtop = el('div', { class: 'qtop' },
-    el('button', { class: 'btn small', onclick: leaveQuiz, id: 'qLeave' }, '← Leave'),
+    el('button', { class: 'btn small', type: 'button', onclick: leaveQuiz, id: 'qLeave' }, '← Leave'),
     el('h2', { text: s.name }),
     el('span', { class: 'rbadge', id: 'rbadge', text: Q.mode === 'review' ? 'Review · no tier change' : label }));
   if (Q.mode === 'challenge') qtop.append(todoAddButton('challenge', Q.id, { id: 'addTodoQuiz', compact: true }));
+  qtop.append(calcToggleButton());
   wrap.append(qtop);
   if (Q.result) { renderResult(wrap); quizEl.scrollTop = 0; return }
   const n = Q.items.length;
@@ -2224,7 +2239,13 @@ function renderResult(wrap) {
   wrap.append(ex);
 }
 
-function closeQuizUI() { quiz = null; quizOpen = false; quizEl.classList.remove('open'); quizEl.innerHTML = ''; document.body.style.overflow = '' }
+function closeQuizUI() {
+  setCalcOpen(false, { restoreFocus: false });
+  quiz = null; quizOpen = false;
+  quizEl.classList.remove('open', 'calc-open');
+  quizEl.innerHTML = '';
+  document.body.style.overflow = '';
+}
 function exitQuiz(id) { closeQuizUI(); selectSkill(id, true) }
 
 function leaveQuiz() {
@@ -2233,6 +2254,540 @@ function leaveQuiz() {
     if (quiz && !quiz.result) sgEmit('quiz_leave', { skill_id: quiz.id, q_index: quiz.i, q_count: quiz.items.length, round: quiz.round, mode: quiz.mode });
     const id = quiz.id; closeQuizUI(); selectSkill(id, false);
   } }] });
+}
+
+/* In-house graphing calculator for every quiz question.
+   Expressions go through SkillExpr (expr.js), the same language as symbolic
+   answers. No Desmos embed, no network call, no API key. SkillExpr and this
+   panel are project code under Apache-2.0 (see NOTICE). */
+function quizSurface() {
+  let body = $('quizBody');
+  if (!body || body.parentNode !== quizEl) {
+    const keep = $('calcPanel');
+    quizEl.innerHTML = '';
+    body = el('div', { id: 'quizBody' });
+    quizEl.append(body);
+    if (keep) quizEl.append(keep);
+  }
+  if (calcState.open) {
+    if (!$('calcPanel')) mountCalcPanel();
+    quizEl.classList.add('calc-open');
+  }
+  return body;
+}
+
+function calcToggleButton() {
+  const open = calcState.open;
+  return el('button', {
+    type: 'button',
+    class: 'btn small',
+    id: 'calcBtn',
+    'aria-expanded': open ? 'true' : 'false',
+    'aria-controls': 'calcPanel',
+    'aria-label': open ? 'Close graphing calculator' : 'Open graphing calculator',
+    onclick: () => {
+      if (!$('calcPanel')) mountCalcPanel();
+      setCalcOpen(!calcState.open, { restoreFocus: true });
+    }
+  }, 'Calculator');
+}
+
+function setCalcOpen(open, opts) {
+  opts = opts || {};
+  calcState.open = !!open;
+  const panel = $('calcPanel');
+  const btn = $('calcBtn');
+  if (btn) {
+    btn.setAttribute('aria-expanded', calcState.open ? 'true' : 'false');
+    btn.setAttribute('aria-label', calcState.open ? 'Close graphing calculator' : 'Open graphing calculator');
+  }
+  if (!quizEl) return;
+  if (!calcState.open) {
+    if (opts.restoreFocus && btn) btn.focus();
+    if (panel) panel.hidden = true;
+    quizEl.classList.remove('calc-open');
+    return;
+  }
+  if (!panel) mountCalcPanel();
+  const shown = $('calcPanel');
+  if (!shown) return;
+  shown.hidden = false;
+  quizEl.classList.add('calc-open');
+  drawCalc();
+  requestAnimationFrame(() => { if (calcState.open) drawCalc(); });
+  if (opts.focus !== false) {
+    const first = shown.querySelector('.calc-fn');
+    if (first) first.focus();
+  }
+}
+
+function mountCalcPanel() {
+  if ($('calcPanel') || !quizEl) return;
+  const evalIn = el('input', {
+    id: 'calcEval',
+    type: 'text',
+    autocomplete: 'off',
+    spellcheck: 'false',
+    placeholder: 'sin(pi/2) or 2+2',
+    'aria-label': 'Expression to evaluate'
+  });
+  evalIn.value = calcState.evalText;
+  evalIn.addEventListener('input', () => { calcState.evalText = evalIn.value; });
+  const xIn = el('input', {
+    id: 'calcX',
+    type: 'text',
+    autocomplete: 'off',
+    spellcheck: 'false',
+    placeholder: 'optional',
+    'aria-label': 'Value of x, if the expression uses x'
+  });
+  xIn.value = calcState.xText;
+  xIn.addEventListener('input', () => { calcState.xText = xIn.value; });
+  const form = el('form', { id: 'calcEvalForm', class: 'calc-eval' },
+    el('label', { for: 'calcEval' }, el('span', { text: 'Evaluate' }), evalIn),
+    el('label', { for: 'calcX', class: 'calc-x' }, el('span', { text: 'x' }), xIn),
+    el('button', { type: 'submit', class: 'btn primary', id: 'calcEvalBtn' }, 'Evaluate'));
+  form.addEventListener('submit', e => { e.preventDefault(); calcEvaluate(); });
+  const canvas = el('canvas', {
+    id: 'calcCanvas',
+    tabindex: '0',
+    role: 'img',
+    'aria-label': 'Empty graph. Enter a function of x. Arrow keys pan. Plus and minus zoom.'
+  });
+  canvas.addEventListener('pointerdown', calcPointerDown);
+  canvas.addEventListener('pointermove', calcPointerMove);
+  canvas.addEventListener('pointerup', calcPointerEnd);
+  canvas.addEventListener('pointercancel', calcPointerEnd);
+  canvas.addEventListener('wheel', calcWheel, { passive: false });
+  canvas.addEventListener('keydown', calcKey);
+  canvas.addEventListener('dblclick', () => resetCalcView());
+  const panel = el('aside', {
+    id: 'calcPanel',
+    class: 'calc-panel',
+    hidden: !calcState.open,
+    'aria-label': 'Graphing calculator'
+  },
+    el('div', { class: 'calc-grab', 'aria-hidden': 'true' }),
+    el('div', { class: 'calc-bar' },
+      el('h2', { id: 'calcTitle', text: 'Calculator' }),
+      el('button', { type: 'button', class: 'calc-close', id: 'calcClose', 'aria-label': 'Close calculator', onclick: () => setCalcOpen(false, { restoreFocus: true }) }, '×')),
+    el('div', { class: 'calc-body' },
+      el('p', { class: 'calc-hint', text: 'Functions of x, several at once. Same expressions as a symbolic answer: + − * / ^, parentheses, sqrt, abs, exp, ln, log, sin, cos, tan, pi, and e. Drag the graph to pan. Scroll to zoom.' }),
+      el('div', { id: 'calcRows' }),
+      el('button', { type: 'button', class: 'btn small', id: 'calcAdd', onclick: calcAddRow }, 'Add function'),
+      el('div', { class: 'calc-graph' },
+        canvas,
+        el('div', { class: 'calc-zoom' },
+          el('button', { type: 'button', class: 'btn small', id: 'calcZoomIn', 'aria-label': 'Zoom in', onclick: () => zoomCalc(1.25) }, '+'),
+          el('button', { type: 'button', class: 'btn small', id: 'calcZoomOut', 'aria-label': 'Zoom out', onclick: () => zoomCalc(1 / 1.25) }, '−'),
+          el('button', { type: 'button', class: 'btn small', id: 'calcReset', 'aria-label': 'Reset graph view', onclick: () => resetCalcView() }, 'Reset'))),
+      form,
+      el('p', { id: 'calcOut', class: 'calc-out', role: 'status', 'aria-live': 'polite' })));
+  quizEl.append(panel);
+  renderCalcRows();
+}
+
+function renderCalcRows() {
+  const host = $('calcRows');
+  if (!host) return;
+  host.replaceChildren();
+  calcState.rows.forEach((src, i) => {
+    const input = el('input', {
+      id: 'calcFn' + i,
+      class: 'calc-fn',
+      type: 'text',
+      autocomplete: 'off',
+      spellcheck: 'false',
+      placeholder: i === 0 ? 'sin(x) or y = x^2' : 'another function of x',
+      'aria-label': 'Function ' + (i + 1) + ' of x',
+      'aria-describedby': 'calcErr' + i
+    });
+    input.value = src;
+    input.addEventListener('input', () => {
+      calcState.rows[i] = input.value;
+      drawCalc();
+    });
+    const many = calcState.rows.length > 1;
+    host.append(el('div', { class: 'calc-row' },
+      el('span', { class: 'calc-swatch', style: 'background:' + CALC_COLORS[i % CALC_COLORS.length], 'aria-hidden': 'true' }),
+      input,
+      el('button', {
+        type: 'button',
+        class: 'btn small calc-remove',
+        'aria-label': many ? 'Remove function ' + (i + 1) : 'Clear function 1',
+        onclick: () => {
+          if (calcState.rows.length > 1) calcState.rows.splice(i, 1);
+          else calcState.rows[0] = '';
+          renderCalcRows();
+          drawCalc();
+          const next = $('calcFn' + Math.min(i, calcState.rows.length - 1));
+          if (next) next.focus();
+        }
+      }, many ? '×' : 'Clear'),
+      el('p', { id: 'calcErr' + i, class: 'calc-err' })));
+  });
+  const add = $('calcAdd');
+  if (add) add.disabled = calcState.rows.length >= CALC_COLORS.length;
+}
+
+function calcAddRow() {
+  if (calcState.rows.length >= CALC_COLORS.length) return;
+  calcState.rows.push('');
+  renderCalcRows();
+  const inp = $('calcFn' + (calcState.rows.length - 1));
+  if (inp) inp.focus();
+}
+
+function calcView() {
+  if (!calcState.view) calcState.view = { x0: -10, x1: 10, y0: -6, y1: 6 };
+  return calcState.view;
+}
+
+function clampView(v) {
+  let xSpan = v.x1 - v.x0;
+  let ySpan = v.y1 - v.y0;
+  if (!Number.isFinite(xSpan) || xSpan <= 0) { v.x0 = -10; v.x1 = 10; xSpan = 20; }
+  if (!Number.isFinite(ySpan) || ySpan <= 0) { v.y0 = -6; v.y1 = 6; ySpan = 12; }
+  const cx = (v.x0 + v.x1) / 2;
+  const cy = (v.y0 + v.y1) / 2;
+  xSpan = Math.min(1e6, Math.max(1e-4, xSpan));
+  ySpan = Math.min(1e6, Math.max(1e-4, ySpan));
+  v.x0 = cx - xSpan / 2;
+  v.x1 = cx + xSpan / 2;
+  v.y0 = cy - ySpan / 2;
+  v.y1 = cy + ySpan / 2;
+}
+
+function calcParse(src) {
+  const text = String(src || '').trim().replace(/^[yY]\s*=\s*/, '');
+  if (!text) return { empty: true, text: '' };
+  if (typeof SkillExpr === 'undefined') return { error: 'Calculator failed to load.', text };
+  try {
+    return { ast: SkillExpr.parse(text, ['x']), text };
+  } catch (err) {
+    return { error: (err && err.message) || 'Could not read that expression.', text };
+  }
+}
+
+function sampleFn(ast, x0, x1, n) {
+  const pts = new Array(n);
+  const denom = Math.max(1, n - 1);
+  for (let i = 0; i < n; i++) {
+    const x = x0 + (x1 - x0) * (i / denom);
+    pts[i] = { x: x, y: SkillExpr.evaluate(ast, { x: x }) };
+  }
+  return pts;
+}
+
+function fitY(v, samples) {
+  const ys = [];
+  for (let r = 0; r < samples.length; r++) {
+    const row = samples[r];
+    if (!row) continue;
+    for (let i = 0; i < row.length; i++) {
+      const y = row[i].y;
+      if (y == null || !Number.isFinite(y) || Math.abs(y) > 1e6) continue;
+      ys.push(y);
+    }
+  }
+  if (ys.length < 8) return;
+  ys.sort((a, b) => a - b);
+  let lo = ys[Math.floor((ys.length - 1) * 0.05)];
+  let hi = ys[Math.ceil((ys.length - 1) * 0.95)];
+  if (!(hi > lo)) { lo -= 1; hi += 1; }
+  const span = hi - lo;
+  const pad = span * 0.12;
+  lo -= pad;
+  hi += pad;
+  if (lo > 0 && lo < span) lo = -pad;
+  if (hi < 0 && -hi < span) hi = pad;
+  v.y0 = lo;
+  v.y1 = hi;
+}
+
+function niceStep(span) {
+  if (!Number.isFinite(span) || span <= 0) return 1;
+  const rough = span / 6;
+  const pow = Math.pow(10, Math.floor(Math.log10(rough)));
+  if (!Number.isFinite(pow) || pow === 0) return 1;
+  const err = rough / pow;
+  const m = err >= 7.5 ? 10 : err >= 3.5 ? 5 : err >= 1.5 ? 2 : 1;
+  return m * pow;
+}
+
+function axisTicks(a, b, step) {
+  const out = [];
+  if (!(step > 0) || !Number.isFinite(a) || !Number.isFinite(b)) return out;
+  let t = Math.ceil((a / step) - 1e-9) * step;
+  for (let n = 0; t <= b + step * 1e-6 && n < 40; t += step, n++) out.push(t);
+  return out;
+}
+
+function tickLabel(n) {
+  if (!Number.isFinite(n)) return '';
+  if (Math.abs(n) < 1e-12) return '0';
+  const a = Math.abs(n);
+  if (a >= 10000 || (a > 0 && a < 0.001)) return n.toExponential(0);
+  return String(Math.round(n * 1e6) / 1e6);
+}
+
+function sizeCanvas(canvas) {
+  const rect = canvas.getBoundingClientRect();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const bw = Math.max(1, Math.round(rect.width * dpr));
+  const bh = Math.max(1, Math.round(rect.height * dpr));
+  if (canvas.width !== bw || canvas.height !== bh) {
+    canvas.width = bw;
+    canvas.height = bh;
+  }
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { ctx: ctx, w: rect.width, h: rect.height };
+}
+
+function drawCalc(retry) {
+  const canvas = $('calcCanvas');
+  if (!canvas || !calcState.open) return;
+  const parsed = calcState.rows.map(calcParse);
+  parsed.forEach((p, i) => {
+    const err = $('calcErr' + i);
+    const input = $('calcFn' + i);
+    if (err) err.textContent = p.error || '';
+    if (input) input.setAttribute('aria-invalid', p.error ? 'true' : 'false');
+  });
+  const sized = sizeCanvas(canvas);
+  if (sized.w < 2 || sized.h < 2) {
+    if (!retry) requestAnimationFrame(() => { if (calcState.open) drawCalc(true); });
+    return;
+  }
+  const v = calcView();
+  const key = calcState.rows.map(s => String(s).trim()).join('\n');
+  if (key !== calcState.fitKey) {
+    calcState.fitKey = key;
+    calcState.viewPinned = false;
+  }
+  const n = Math.max(180, Math.floor(sized.w));
+  const samples = parsed.map(p => p.ast ? sampleFn(p.ast, v.x0, v.x1, n) : null);
+  if (!calcState.viewPinned) fitY(v, samples);
+  clampView(v);
+  paintCalc(sized.ctx, sized.w, sized.h, v, parsed, samples);
+}
+
+function paintCalc(ctx, w, h, v, parsed, samples) {
+  const canvas = $('calcCanvas');
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, w, h);
+  const xSpan = v.x1 - v.x0;
+  const ySpan = v.y1 - v.y0;
+  const X = x => (x - v.x0) / xSpan * w;
+  const Y = y => (v.y1 - y) / ySpan * h;
+  ctx.lineWidth = 1;
+  ctx.font = '11px system-ui, sans-serif';
+  ctx.fillStyle = '#8a93a7';
+  const xTicks = axisTicks(v.x0, v.x1, niceStep(xSpan));
+  const yTicks = axisTicks(v.y0, v.y1, niceStep(ySpan));
+  ctx.strokeStyle = '#e7ebf3';
+  ctx.beginPath();
+  xTicks.forEach(t => { const px = X(t); ctx.moveTo(px, 0); ctx.lineTo(px, h); });
+  yTicks.forEach(t => { const py = Y(t); ctx.moveTo(0, py); ctx.lineTo(w, py); });
+  ctx.stroke();
+  ctx.strokeStyle = '#1d2433';
+  ctx.lineWidth = 1.4;
+  ctx.beginPath();
+  if (v.y0 < 0 && v.y1 > 0) { const py = Y(0); ctx.moveTo(0, py); ctx.lineTo(w, py); }
+  if (v.x0 < 0 && v.x1 > 0) { const px = X(0); ctx.moveTo(px, 0); ctx.lineTo(px, h); }
+  ctx.stroke();
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  xTicks.forEach(t => {
+    if (Math.abs(t) < xSpan * 1e-6) return;
+    const px = X(t);
+    if (px < 16 || px > w - 16) return;
+    ctx.fillText(tickLabel(t), px, Math.min(h - 16, Math.max(2, Y(0) + 3)));
+  });
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'middle';
+  yTicks.forEach(t => {
+    if (Math.abs(t) < ySpan * 1e-6) return;
+    const py = Y(t);
+    if (py < 10 || py > h - 10) return;
+    ctx.fillText(tickLabel(t), Math.min(w - 36, Math.max(4, X(0) + 4)), py);
+  });
+  let curves = 0;
+  const names = [];
+  samples.forEach((row, i) => {
+    if (!row || !parsed[i].ast) return;
+    names.push(parsed[i].text);
+    ctx.beginPath();
+    ctx.strokeStyle = CALC_COLORS[i % CALC_COLORS.length];
+    ctx.lineWidth = 2.4;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    let pen = false;
+    let prev = null;
+    let finite = 0;
+    for (let k = 0; k < row.length; k++) {
+      const p = row[k];
+      if (p.y == null || !Number.isFinite(p.y)) { pen = false; prev = null; continue; }
+      finite++;
+      if (prev && Math.abs(p.y - prev.y) > ySpan * 1.25) pen = false;
+      const px = X(p.x);
+      const py = Y(p.y);
+      if (!pen) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+      pen = true;
+      prev = p;
+    }
+    ctx.stroke();
+    if (finite >= 2) curves++;
+  });
+  if (canvas) {
+    canvas.dataset.curves = String(curves);
+    canvas.setAttribute('aria-label', (names.length ? 'Graph of ' + names.join(' and ') : 'Empty graph') + '. Arrow keys pan. Plus and minus zoom.');
+  }
+}
+
+function panCalc(dx, dy) {
+  const v = calcView();
+  v.x0 += dx; v.x1 += dx; v.y0 += dy; v.y1 += dy;
+  calcState.viewPinned = true;
+  clampView(v);
+  drawCalc();
+}
+
+function panByPixels(dxPx, dyPx) {
+  const canvas = $('calcCanvas');
+  const v = calcView();
+  const w = (canvas && canvas.clientWidth) || 1;
+  const h = (canvas && canvas.clientHeight) || 1;
+  panCalc(-(dxPx / w) * (v.x1 - v.x0), (dyPx / h) * (v.y1 - v.y0));
+}
+
+function zoomCalc(factor, px, py) {
+  if (!Number.isFinite(factor) || factor <= 0) return;
+  const canvas = $('calcCanvas');
+  const v = calcView();
+  const w = (canvas && canvas.clientWidth) || 1;
+  const h = (canvas && canvas.clientHeight) || 1;
+  const fx = px == null ? 0.5 : px / w;
+  const fy = py == null ? 0.5 : py / h;
+  const x = v.x0 + fx * (v.x1 - v.x0);
+  const y = v.y1 - fy * (v.y1 - v.y0);
+  const nx = (v.x1 - v.x0) / factor;
+  const ny = (v.y1 - v.y0) / factor;
+  v.x0 = x - fx * nx;
+  v.x1 = v.x0 + nx;
+  v.y1 = y + fy * ny;
+  v.y0 = v.y1 - ny;
+  calcState.viewPinned = true;
+  clampView(v);
+  drawCalc();
+}
+
+function resetCalcView() {
+  calcState.view = { x0: -10, x1: 10, y0: -6, y1: 6 };
+  calcState.viewPinned = true;
+  calcState.fitKey = calcState.rows.map(s => String(s).trim()).join('\n');
+  drawCalc();
+}
+
+const calcPointers = new Map();
+let calcPinch = null;
+
+function calcPointerDown(e) {
+  if (e.button != null && e.button !== 0) return;
+  const canvas = $('calcCanvas');
+  if (!canvas) return;
+  try { canvas.setPointerCapture(e.pointerId); } catch (err) { }
+  calcPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (calcPointers.size === 2) {
+    const pts = [...calcPointers.values()];
+    calcPinch = { dist: Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1 };
+  }
+}
+
+function calcPointerMove(e) {
+  if (!calcPointers.has(e.pointerId)) return;
+  const prev = calcPointers.get(e.pointerId);
+  calcPointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (calcPointers.size >= 2 && calcPinch) {
+    const pts = [...calcPointers.values()];
+    const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1;
+    const canvas = $('calcCanvas');
+    const rect = canvas.getBoundingClientRect();
+    const mx = (pts[0].x + pts[1].x) / 2 - rect.left;
+    const my = (pts[0].y + pts[1].y) / 2 - rect.top;
+    const factor = dist / calcPinch.dist;
+    calcPinch.dist = dist;
+    if (factor > 0 && Number.isFinite(factor)) zoomCalc(factor, mx, my);
+    return;
+  }
+  panByPixels(e.clientX - prev.x, e.clientY - prev.y);
+}
+
+function calcPointerEnd(e) {
+  calcPointers.delete(e.pointerId);
+  if (calcPointers.size < 2) calcPinch = null;
+}
+
+function calcWheel(e) {
+  e.preventDefault();
+  const canvas = $('calcCanvas');
+  const rect = canvas.getBoundingClientRect();
+  const factor = e.deltaY < 0 ? 1.12 : 1 / 1.12;
+  zoomCalc(factor, e.clientX - rect.left, e.clientY - rect.top);
+}
+
+function calcKey(e) {
+  const v = calcView();
+  const xSpan = v.x1 - v.x0;
+  const ySpan = v.y1 - v.y0;
+  let used = true;
+  if (e.key === 'ArrowLeft') panCalc(xSpan * -0.12, 0);
+  else if (e.key === 'ArrowRight') panCalc(xSpan * 0.12, 0);
+  else if (e.key === 'ArrowUp') panCalc(0, ySpan * 0.12);
+  else if (e.key === 'ArrowDown') panCalc(0, ySpan * -0.12);
+  else if (e.key === '+' || e.key === '=') zoomCalc(1.25);
+  else if (e.key === '-' || e.key === '_') zoomCalc(1 / 1.25);
+  else if (e.key === '0' || e.key === 'Home') resetCalcView();
+  else used = false;
+  if (used) e.preventDefault();
+}
+
+function calcFmt(v) {
+  if (!Number.isFinite(v)) return 'undefined';
+  if (Object.is(v, -0) || v === 0) return '0';
+  const a = Math.abs(v);
+  if (a >= 1e6 || a < 1e-4) {
+    return v.toExponential(6).replace(/\.?0+e/, 'e').replace(/e\+/, 'e');
+  }
+  return String(Number(v.toPrecision(8)));
+}
+
+function calcEvaluate() {
+  const out = $('calcOut');
+  if (!out) return;
+  const src = String(calcState.evalText || '').trim().replace(/^[yY]\s*=\s*/, '');
+  if (!src) { out.textContent = 'Enter an expression.'; return; }
+  if (typeof SkillExpr === 'undefined') { out.textContent = 'Calculator failed to load.'; return; }
+  let x = null;
+  const xRaw = String(calcState.xText || '').trim();
+  if (xRaw) {
+    let xAst;
+    try { xAst = SkillExpr.parse(xRaw, []); }
+    catch (err) { out.textContent = 'x: ' + ((err && err.message) || 'could not read that value'); return; }
+    x = SkillExpr.evaluate(xAst, {});
+    if (x == null) { out.textContent = 'x is not a finite number.'; return; }
+  }
+  let ast;
+  try { ast = SkillExpr.parse(src, ['x']); }
+  catch (err) { out.textContent = (err && err.message) || 'Could not read that expression.'; return; }
+  const names = SkillExpr.freeNames(ast);
+  if (names.has('x') && x == null) { out.textContent = 'This expression uses x. Enter a value for x.'; return; }
+  const val = SkillExpr.evaluate(ast, { x: x == null ? 0 : x });
+  if (val == null) { out.textContent = 'Not a finite number.'; return; }
+  out.textContent = names.has('x') ? calcFmt(val) + ' at x = ' + calcFmt(x) : calcFmt(val);
 }
 
 function confetti() {
@@ -4436,6 +4991,7 @@ function setupKeyboard() {
       if (mb.classList.contains('open')) closeModal();
       else if (openFlag && window.SkillgroveTelemetry && window.SkillgroveTelemetry.dismissFlag) window.SkillgroveTelemetry.dismissFlag(openFlag);
       else if (openFlag) openFlag.hidden = true;
+      else if (calcState.open) setCalcOpen(false, { restoreFocus: true });
       else if (quizOpen) leaveQuiz();
       else if (leaderboardOpen) closeLeaderboard(true);
       else if (panelOpen()) closePanel();
@@ -4519,7 +5075,7 @@ async function init() {
   $('btnHelp').onclick = openHelp;
   $('btnFeedback').onclick = openFeedback;
   mb.addEventListener('mousedown', e => { if (e.target === mb) closeModal() });
-  window.addEventListener('resize', () => { if (panelOpen()) placePanel(); refreshEdgeHi() });
+  window.addEventListener('resize', () => { if (panelOpen()) placePanel(); refreshEdgeHi(); if (calcState.open) drawCalc(); });
   
   window.__skillgrove = {
     version: APP_VERSION, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode, timing: () => timing,
