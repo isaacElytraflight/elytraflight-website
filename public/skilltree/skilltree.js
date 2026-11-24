@@ -2301,6 +2301,7 @@ function setCalcOpen(open, opts) {
     btn.setAttribute('aria-expanded', calcState.open ? 'true' : 'false');
     btn.setAttribute('aria-label', calcState.open ? 'Close graphing calculator' : 'Open graphing calculator');
   }
+  if (!calcState.open) clearCalcPointers();
   if (!quizEl) return;
   if (!calcState.open) {
     if (opts.restoreFocus && btn) btn.focus();
@@ -2358,6 +2359,7 @@ function mountCalcPanel() {
   canvas.addEventListener('pointermove', calcPointerMove);
   canvas.addEventListener('pointerup', calcPointerEnd);
   canvas.addEventListener('pointercancel', calcPointerEnd);
+  canvas.addEventListener('lostpointercapture', calcPointerEnd);
   canvas.addEventListener('wheel', calcWheel, { passive: false });
   canvas.addEventListener('keydown', calcKey);
   canvas.addEventListener('dblclick', () => resetCalcView());
@@ -2523,12 +2525,23 @@ function axisTicks(a, b, step) {
   return out;
 }
 
-function tickLabel(n) {
+function tickLabel(n, step) {
   if (!Number.isFinite(n)) return '';
-  if (Math.abs(n) < 1e-12) return '0';
+  const gap = step > 0 && Number.isFinite(step) ? step : 0;
   const a = Math.abs(n);
-  if (a >= 10000 || (a > 0 && a < 0.001)) return n.toExponential(0);
-  return String(Math.round(n * 1e6) / 1e6);
+  if (a <= 1e-15 || (gap > 0 && a < gap * 1e-6)) return '0';
+  if (a >= 10000 || a < 0.001) {
+    let digits = 0;
+    if (gap > 0) {
+      const exp = Math.floor(Math.log10(Math.max(a, gap)));
+      const stepExp = Math.floor(Math.log10(gap));
+      digits = Math.max(0, Math.min(8, exp - stepExp));
+    }
+    return n.toExponential(digits).replace(/(\.\d*?)0+e/, '$1e').replace(/\.e/, 'e').replace(/e\+/, 'e');
+  }
+  const places = gap > 0 ? Math.max(0, Math.min(8, Math.ceil(-Math.log10(gap * 0.99)))) : 6;
+  const scale = Math.pow(10, places);
+  return String(Math.round(n * scale) / scale);
 }
 
 function sizeCanvas(canvas) {
@@ -2585,8 +2598,10 @@ function paintCalc(ctx, w, h, v, parsed, samples) {
   ctx.lineWidth = 1;
   ctx.font = '11px system-ui, sans-serif';
   ctx.fillStyle = '#8a93a7';
-  const xTicks = axisTicks(v.x0, v.x1, niceStep(xSpan));
-  const yTicks = axisTicks(v.y0, v.y1, niceStep(ySpan));
+  const xStep = niceStep(xSpan);
+  const yStep = niceStep(ySpan);
+  const xTicks = axisTicks(v.x0, v.x1, xStep);
+  const yTicks = axisTicks(v.y0, v.y1, yStep);
   ctx.strokeStyle = '#e7ebf3';
   ctx.beginPath();
   xTicks.forEach(t => { const px = X(t); ctx.moveTo(px, 0); ctx.lineTo(px, h); });
@@ -2600,19 +2615,27 @@ function paintCalc(ctx, w, h, v, parsed, samples) {
   ctx.stroke();
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
+  let prevX = '';
   xTicks.forEach(t => {
     if (Math.abs(t) < xSpan * 1e-6) return;
     const px = X(t);
     if (px < 16 || px > w - 16) return;
-    ctx.fillText(tickLabel(t), px, Math.min(h - 16, Math.max(2, Y(0) + 3)));
+    const label = tickLabel(t, xStep);
+    if (!label || label === prevX) return;
+    prevX = label;
+    ctx.fillText(label, px, Math.min(h - 16, Math.max(2, Y(0) + 3)));
   });
   ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
+  let prevY = '';
   yTicks.forEach(t => {
     if (Math.abs(t) < ySpan * 1e-6) return;
     const py = Y(t);
     if (py < 10 || py > h - 10) return;
-    ctx.fillText(tickLabel(t), Math.min(w - 36, Math.max(4, X(0) + 4)), py);
+    const label = tickLabel(t, yStep);
+    if (!label || label === prevY) return;
+    prevY = label;
+    ctx.fillText(label, Math.min(w - 36, Math.max(4, X(0) + 4)), py);
   });
   let curves = 0;
   const names = [];
@@ -2724,6 +2747,11 @@ function calcPointerMove(e) {
     return;
   }
   panByPixels(e.clientX - prev.x, e.clientY - prev.y);
+}
+
+function clearCalcPointers() {
+  calcPointers.clear();
+  calcPinch = null;
 }
 
 function calcPointerEnd(e) {
