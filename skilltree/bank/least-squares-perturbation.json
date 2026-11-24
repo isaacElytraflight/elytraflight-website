@@ -1,0 +1,197 @@
+{
+  "skill_id": "least-squares-perturbation",
+  "version": 1,
+  "questions": [
+    {
+      "id": "least-squares-perturbation-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The induced 2-norm of a full-column-rank matrix is its largest singular value. The least-squares condition number used here is",
+      "explanation": "Both singular values enter. The condition number is \\(\\sigma_{\\max}/\\sigma_{\\min}\\). Their difference is not dimensionless in a way that matches a relative error, and it is not the ratio. The square of \\(\\sigma_{\\max}\\) is an eigenvalue of \\(A^T A\\), not the condition number of \\(A\\). The squared factor with \\((\\kappa-1)/(\\kappa+1)\\) bounds a gradient iteration on a quadratic, which is a different condition number.",
+      "options": [
+        "the difference of the largest and the smallest singular values",
+        "the ratio of the largest singular value to the smallest",
+        "the square of the largest singular value alone",
+        "the factor \\((( \\kappa-1)/( \\kappa+1))^2\\) from exact line search on a quadratic"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The singular values of \\(A\\) are 10 and 2. What is the least-squares condition number \\(\\sigma_{\\max}/\\sigma_{\\min}\\)?",
+      "explanation": "The ratio is \\(10/2 = 5\\). The difference \\(10-2 = 8\\) is not the condition number. The product \\(10\\cdot 2 = 20\\) is not a ratio. The condition number of \\(A^T A\\) would square the ratio and give 25, which is a later question about the normal matrix.",
+      "answer": 5.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The pseudoinverse of a full-column-rank \\(A\\) has induced 2-norm",
+      "explanation": "The nonzero singular values of the pseudoinverse are the reciprocals of the singular values of \\(A\\). The largest of those reciprocals is \\(1/\\sigma_{\\min}\\). The norm of \\(A\\) itself is \\(\\sigma_{\\max}\\). The condition number is the product of those two norms, not the norm of the pseudoinverse alone.",
+      "options": [
+        "\\(\\sigma_{\\max}\\)",
+        "\\(\\sigma_{\\max}/\\sigma_{\\min}\\)",
+        "\\(1/\\sigma_{\\min}\\)",
+        "\\(\\sigma_{\\min}\\)"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "The residual is zero, \\(A\\) is fixed, and \\(b\\) changes. Put these steps in the order that bounds the relative change in the least-squares solution.",
+      "explanation": "The ratio of singular values is κ, and the next step multiplies that value by \\(\\lVert\\delta b\\rVert\\). The division by \\(\\lVert b\\rVert\\) uses the product just formed. Dividing the singular values in the opposite order produces \\(1/\\kappa\\), and the later steps would then bound the wrong quantity. Dividing by \\(\\lVert b\\rVert\\) before κ exists is not this sequence.",
+      "steps": [
+        "Divide the largest singular value by the smallest singular value. Call the quotient kappa.",
+        "Multiply kappa by the size of the change in b.",
+        "Divide that product by the size of b. The quotient bounds the relative change in x."
+      ],
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The smallest singular value of \\(A\\) is 0.4, and \\(b\\) changes by a vector of length 0.2. The change in the least-squares solution has length at most \\(1/\\sigma_{\\min}\\) times the change in \\(b\\). What is that upper bound?",
+      "explanation": "The pseudoinverse norm is \\(1/0.4 = 2.5\\), and \\(2.5\\cdot 0.2 = 0.5\\). The product \\(0.4\\cdot 0.2 = 0.08\\) multiplies by the singular value instead of dividing by it. The change in \\(b\\) alone, 0.2, is not yet scaled by the pseudoinverse. Twice the change, 0.4, happens to equal \\(\\sigma_{\\min}\\) and is not the bound.",
+      "answer": 0.5,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The condition number is 5, the residual is zero, \\(\\lVert b\\rVert = 4\\), and \\(\\lVert\\delta b\\rVert = 0.2\\). The relative change in \\(x\\) is at most κ times the relative change in \\(b\\). What is that upper bound?",
+      "explanation": "The relative change in \\(b\\) is \\(0.2/4 = 0.05\\), and \\(5\\cdot 0.05 = 0.25\\). The absolute bound \\(5\\cdot 0.2 = 1\\) forgets to divide by \\(\\lVert b\\rVert\\). The condition number alone, 5, is not a relative change in \\(x\\). Dividing the condition number by \\(\\lVert\\delta b\\rVert\\) gives \\(5/0.2 = 25\\), which inverts the role of the perturbation.",
+      "answer": 0.25,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r3-q1",
+      "round": 3,
+      "type": "symbolic",
+      "prompt": "Let smax and smin be the largest and smallest singular values, both positive. Write the least-squares condition number as an expression in smax and smin.",
+      "explanation": "The condition number in this skill is the ratio \\(\\sigma_{\\max}/\\sigma_{\\min}\\).\n• \\(\\mathrm{smax}-\\mathrm{smin}\\) is a difference.\n• \\(\\mathrm{smax}\\cdot\\mathrm{smin}\\) is a product.\n• \\(\\mathrm{smax}^2/\\mathrm{smin}^2\\) is the condition number of \\(A^T A\\), not of \\(A\\).",
+      "answer": "smax/smin",
+      "variables": [
+        {
+          "name": "smax",
+          "min": 2.0,
+          "max": 8.0
+        },
+        {
+          "name": "smin",
+          "min": 0.2,
+          "max": 1.5
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "smax*(1/smin)",
+        "(smax)/(smin)"
+      ],
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r3-q2",
+      "round": 3,
+      "type": "multi",
+      "prompt": "The residual is zero and the columns are independent. The relative change in \\(x\\) is at most κ times the relative size of which perturbations?",
+      "explanation": "With a zero residual, both a change in \\(b\\) and a change in \\(A\\) produce a relative change in \\(x\\) bounded by κ times the relative perturbation. A nonzero residual lets a change in \\(A\\) act through \\((A^T A)^{-1}\\) on a term with \\(r\\), and that term carries \\(1/\\sigma_{\\min}^2\\), a square of the condition number. The squared factor \\(((κ-1)/(κ+1))^2\\) is the exact-line-search factor on a quadratic, not this least-squares ratio.",
+      "options": [
+        "a small change in \\(b\\), with \\(A\\) fixed",
+        "a small change in \\(A\\), with \\(b\\) fixed",
+        "a change in \\(A\\) when the residual is not zero, still with only one factor of κ and no worse power",
+        "the gradient-iteration factor \\(((κ-1)/(κ+1))^2\\), used in place of κ"
+      ],
+      "correct_indices": [
+        0,
+        1
+      ],
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r3-q3",
+      "round": 3,
+      "type": "mc",
+      "prompt": "When the residual is not zero, a small change in \\(A\\) can move \\(x\\) through the term \\((A^T A)^{-1}(\\delta A)^T r\\). The normal matrix \\(A^T A\\) has smallest eigenvalue",
+      "explanation": "The eigenvalues of \\(A^T A\\) are the squares of the singular values of \\(A\\). The smallest one is \\(\\sigma_{\\min}^2\\), so the inverse can be as large as \\(1/\\sigma_{\\min}^2\\). The singular value \\(\\sigma_{\\min}\\) is the square root of that eigenvalue. The condition number and \\(\\sigma_{\\max}\\) are not eigenvalues of the normal matrix.",
+      "options": [
+        "\\(\\sigma_{\\max}\\)",
+        "\\(\\sigma_{\\min}^2\\)",
+        "\\(\\sigma_{\\max}/\\sigma_{\\min}\\)",
+        "\\(\\sigma_{\\min}\\)"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r4-q1",
+      "round": 4,
+      "type": "error",
+      "prompt": "One step below is false. Select that step, and the reason it fails. The singular values are 10 and 2, and the residual of the least-squares fit is zero.",
+      "explanation": "The induced 2-norm is the largest singular value, and the least-squares condition number is the ratio 5. With a zero residual, a relative change in \\(b\\) is multiplied by at most that ratio. The false step identifies the ratio with \\(((κ-1)/(κ+1))^2\\). For κ = 5 that factor is \\((4/6)^2 = 4/9\\), which is not 5. It bounds a different algorithm.",
+      "preview": [
+        "ridge-regression"
+      ],
+      "steps": [
+        "The induced 2-norm of A is 10.",
+        "The least-squares condition number is 10/2 = 5.",
+        "This condition number is the same number as ((5-1)/(5+1))^2, the exact-line-search factor on a quadratic.",
+        "A relative change in b, with A fixed and a zero residual, changes x by a relative amount at most 5 times that relative change."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The singular-value ratio bounds the least-squares map. The squared factor ((kappa-1)/(kappa+1))^2 bounds exact line search on a quadratic.",
+        "The condition number is 10-2, so the division step is the false one.",
+        "A zero residual removes the condition number, so the last step cannot hold."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Ridge regression will add a positive shift to the normal matrix. For singular values 10 and 2, the condition number of \\(A^T A\\) is the square of \\(\\sigma_{\\max}/\\sigma_{\\min}\\). What is that condition number?",
+      "explanation": "The eigenvalues of \\(A^T A\\) are 100 and 4. Their ratio is \\(100/4 = 25\\), which is \\(5^2\\). The condition number of \\(A\\) itself is 5, without the square. The sum of the eigenvalues is 104. The smaller eigenvalue 4 is not a condition number.",
+      "preview": [
+        "ridge-regression"
+      ],
+      "answer": 25.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "least-squares-perturbation-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A large condition number of \\(A^T A\\) is the reason a later ridge penalty shifts that matrix. The shift \\(\\lambda I\\) with \\(\\lambda > 0\\)",
+      "explanation": "The eigenvalues of \\(A^T A+\\lambda I\\) are the eigenvalues of \\(A^T A\\) plus \\(\\lambda\\). The smallest one moves from \\(\\sigma_{\\min}^2\\) to \\(\\sigma_{\\min}^2+\\lambda\\), which is positive. Subtracting \\(\\lambda\\) is the opposite shift. The line-search factor is not this matrix. Setting singular values to 1 would replace \\(A\\), not damp the normal matrix.",
+      "preview": [
+        "ridge-regression"
+      ],
+      "options": [
+        "subtracts \\(\\lambda\\) from every eigenvalue and can make them negative",
+        "adds \\(\\lambda\\) to every eigenvalue of \\(A^T A\\), including the smallest",
+        "replaces the condition number by \\(((κ-1)/(κ+1))^2\\)",
+        "sets every singular value of \\(A\\) equal to 1"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "principal-components-regression",
+  "title": "Principal components regression",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>covariance ellipse, longer on the first axis</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "An axis-aligned ellipse centered at the origin and longer along the first axis.",
+      "body_md": "Principal component analysis produces orthonormal directions of greatest spread. Low-rank approximation keeps the leading singular pieces. Data fitting solves least squares in its coefficients. Principal components regression stacks those three facts.\n\nCenter the predictor columns and take the first \\(r\\) principal directions. Replace each centered row by its scores on those directions. Center the response, and solve ordinary least squares in the score coordinates. A prediction in the original scale adds the mean of the response back.\n\nA score column built from a unit right singular vector has length equal to the matching singular value, so the Gram entry is the square of that singular value. Orthogonal scores make each coefficient an inner product divided by that squared length. The trailing directions are left out. The kept coefficients are unpenalized."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "Let \\(Z\\) be the centered predictor matrix, \\(V_r\\) the leading right singular vectors, and \\(y_c\\) the centered response. The reduced design and the coefficient solve are\n\\[\nW = Z V_r, \\qquad W^T W\\,\\theta = W^T y_c.\n\\]\nWhen column \\(j\\) of \\(W\\) comes from a unit singular vector with singular value \\(s_j\\),\n\\[\n\\lVert w_j\\rVert^2 = s_j^2, \\qquad \\theta_j = \\frac{w_j^T y_c}{s_j^2}.\n\\]\nA new centered row \\(z\\) predicts \\(z^T V_r\\,\\theta\\) in centered response units. Adding the mean of the response returns to the original scale. Dropping a component sets its coefficient to zero by leaving its column out of \\(W\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Suppose the centered scores on one kept component are \\(1\\), \\(-1\\), and \\(0\\), and the centered response is \\(1\\), \\(-1\\), and \\(0\\). The inner product is \\(2\\) and the squared length is \\(2\\), so the coefficient is \\(1\\).\n\nThe centered prediction at a score of \\(1\\) is \\(1\\). Add the mean of the response after that product to return to the original scale. The squared length is 2, so the singular value would be \\(\\sqrt{2}\\) if these scores came from a unit right singular vector. Dividing the inner product by \\(\\sqrt{2}\\) instead of by 2 uses the length where the normal equation wants the squared length."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Keeping the smallest principal components reverses the truncation. Those directions are the ones a low-rank approximation discards.\n\nThe Gram entry is \\(s^2\\), not \\(s\\). Dividing by \\(s\\) is off by a factor \\(s\\).\n\nThe coefficients fit the centered response. Add the mean of the response back before reporting a prediction in the original units. This regression does not shrink the kept coefficients. A squared penalty would. Mixing \\(\\lambda I\\) into \\(W^T W\\) is ridge in the score coordinates, a different problem."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "An absolute penalty, the lasso, can set individual coefficients to zero without first discarding an entire principal direction. Ridge shrinks every direction and deletes none. Principal components regression is the hard version: a direction is in the design or it is absent, and the kept coefficients are ordinary least squares. Maximum likelihood with equal-variance Gaussian noise is exactly that ordinary least squares problem on whatever design you hand it. The design here happens to be a score matrix. The likelihood statement does not change."
+    }
+  ]
+}

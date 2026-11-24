@@ -55,12 +55,11 @@ test('graph is version 4 with 300 live skills and 16 retired ids', () => {
   assert.strictEqual(new Set(skills.map(s => s.id)).size, 300, 'skill ids are unique');
   const soon = skills.filter(s => s.status === 'coming-soon');
   assert.deepStrictEqual(soon.map(s => s.id).sort(), [
-    'barrier-interior-point', 'block-matrix-identities', 'conic-duality', 'convex-conjugate', 'convex-reparameterization',
-    'coordinate-descent', 'equality-constrained-newton', 'fundamental-subspaces', 'gradient-descent',
-    'lasso-regression', 'lasso-stationarity', 'least-squares-perturbation', 'low-rank-approximation',
-    'maximum-a-posteriori-estimation', 'maximum-likelihood-estimation', 'principal-component-analysis',
-    'principal-components-regression', 'qr-factorization', 'quadratic-program',
-    'quadratically-constrained-quadratic-program', 'ridge-regression', 'second-order-cone-program',
+    'barrier-interior-point', 'conic-duality', 'convex-conjugate', 'convex-reparameterization',
+    'coordinate-descent', 'equality-constrained-newton', 'gradient-descent',
+    'lasso-regression', 'lasso-stationarity',
+    'maximum-a-posteriori-estimation', 'quadratic-program',
+    'quadratically-constrained-quadratic-program', 'second-order-cone-program',
     'semidefinite-program', 'stochastic-gradient-descent', 'strong-convexity', 'strong-duality'
   ]);
   const byId = Object.fromEntries(skills.map(s => [s.id, s]));
@@ -101,9 +100,9 @@ test('every retired id points at a live survivor and is not itself live', () => 
 
 test('playable skills have quiz banks and coming-soon skills do not', () => {
   const banks = readJsonDir(path.join(SRC, 'bank'));
-  assert.strictEqual(Object.keys(banks).length, 274);
+  assert.strictEqual(Object.keys(banks).length, 283);
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 26, 'the optimization-models course adds 26 coming-soon skills and no banks');
+  assert.strictEqual(soon.length, 17, '17 optimization-models skills remain coming soon');
   for (const skill of skills) {
     const bank = banks[skill.id];
     if (skill.status === 'coming-soon') {
@@ -123,7 +122,7 @@ test('playable skills have quiz banks and coming-soon skills do not', () => {
 
 test('playable skills have explainers and coming-soon skills do not', () => {
   const explainers = readJsonDir(path.join(SRC, 'explainers'));
-  assert.strictEqual(Object.keys(explainers).length, 274);
+  assert.strictEqual(Object.keys(explainers).length, 283);
   for (const skill of skills) {
     const exp = explainers[skill.id];
     if (skill.status === 'coming-soon') {
@@ -330,8 +329,8 @@ test('no retired id is referenced by the built app payload', () => {
   assert.deepStrictEqual(built.retired, retired);
   const builtIds = built.skills.map(s => s.id);
   assert.strictEqual(builtIds.length, 300);
-  assert.strictEqual(Object.keys(built.banks).length, 274);
-  assert.strictEqual(Object.keys(built.explainers).length, 274);
+  assert.strictEqual(Object.keys(built.banks).length, 283);
+  assert.strictEqual(Object.keys(built.explainers).length, 283);
   for (const id of builtIds) {
     assert(!retiredIds.has(id), 'built graph still contains ' + id);
     const skill = built.skills.find(s => s.id === id);

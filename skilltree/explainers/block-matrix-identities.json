@@ -1,0 +1,29 @@
+{
+  "id": "block-matrix-identities",
+  "title": "Block matrix identities",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>scalar blocks</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">4   2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   11</text></svg>",
+      "figure_alt": "A 2 by 2 array with entries 4, 2, 6, and 11.",
+      "body_md": "Matrix multiplication and inversion, from the linear-algebra review, extend to matrices that have been partitioned into blocks. If the blocks fit, the product uses the same row-column rule one level up. The upper-left block of a product is a sum of products of blocks, not a single product and not an entrywise product.\n\nInversion also reduces to smaller inverses when one diagonal block is invertible. The useful reduction is the Schur complement. In \\(\\begin{bmatrix} A & B \\\\ C & D \\end{bmatrix}\\) with \\(A\\) invertible, eliminate \\(A\\) and what remains of the lower-right block is\n\\[\nS = D - C A^{-1} B.\n\\]\nThe whole block matrix is invertible exactly when \\(S\\) is invertible. The lower-right block of the inverse is \\(S^{-1}\\), and the determinant factors as \\(\\det(A)\\det(S)\\).\n\nThe same complement tests positive definiteness. For a symmetric block matrix with \\(A\\) positive definite, the big matrix is positive definite exactly when \\(S = D - B^T A^{-1} B\\) is positive definite. That is the form a semidefinite constraint uses when it wants a block matrix of this shape to be a positive-semidefinite variable."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "The block product is\n\\[\n\\begin{bmatrix} A & B \\\\ C & D \\end{bmatrix}\n\\begin{bmatrix} E & F \\\\ G & H \\end{bmatrix}\n=\n\\begin{bmatrix} AE+BG & AF+BH \\\\ CE+DG & CF+DH \\end{bmatrix}.\n\\]\nWith \\(A\\) and \\(S = D-CA^{-1}B\\) invertible,\n\\[\n\\begin{bmatrix} A & B \\\\ C & D \\end{bmatrix}^{-1}\n=\n\\begin{bmatrix}\nA^{-1}+A^{-1} B S^{-1} C A^{-1} & -A^{-1} B S^{-1} \\\\\n-S^{-1} C A^{-1} & S^{-1}\n\\end{bmatrix}.\n\\]\nThe determinant identity is \\(\\det\\begin{bmatrix} A & B \\\\ C & D \\end{bmatrix} = \\det(A)\\det(S)\\). Nothing here requires the blocks to be scalars. The inverses that appear are inverses of \\(A\\) and of \\(S\\)."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Take the scalar blocks \\(A = 4\\), \\(B = 2\\), \\(C = 6\\), and \\(D = 11\\). Then\n\\[\nS = 11 - 6\\cdot(1/4)\\cdot 2 = 11 - 3 = 8.\n\\]\nThe lower-right entry of the inverse is \\(1/8\\). The determinant of the 2 by 2 matrix is \\(4\\cdot 8 = 32\\). Direct expansion gives \\(4\\cdot 11 - 2\\cdot 6 = 44-12 = 32\\), the same number.\n\nThe product \\(6\\cdot 2 = 12\\) is not yet the correction, because \\(A\\) has not been inverted. Dividing by 4 produces the 3 that is subtracted from 11. Forgetting the subtraction and reporting 11 leaves the original lower-right block in place. The complement is 8, not 11 and not 3."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "Block multiplication is not entrywise, and it is not commutative. \\(AE+BG\\) uses \\(B\\) with \\(G\\) and \\(A\\) with \\(E\\). Swapping those pairs is a different product.\n\nThe Schur complement of \\(A\\) subtracts from \\(D\\). The complement of \\(D\\), when \\(D\\) is the invertible block instead, subtracts from \\(A\\) and uses \\(D^{-1}\\). Naming the wrong block inverts the wrong factor.\n\nA singular \\(A\\) does not by itself make the whole matrix singular. The test above assumes \\(A\\) is invertible so that \\(S\\) is defined. If \\(A\\) is singular, swap the roles or use a different block factorization. Positive definiteness needs the complement to be positive definite, not merely nonzero. A negative complement of a positive definite \\(A\\) makes the big matrix indefinite."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "Semidefinite programs constrain a symmetric matrix, often built from blocks, to be positive semidefinite. The Schur complement turns one such constraint into a smaller one when a diagonal block is positive definite. The same identity simplifies the inverse of a block Hessian in a Newton step and the covariance of a conditional Gaussian. In each case the arithmetic is the elimination step already written here: invert one block, correct the other, and read the inverse or the definiteness test from the complement."
+    }
+  ]
+}

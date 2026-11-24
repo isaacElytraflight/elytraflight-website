@@ -1,0 +1,31 @@
+{
+  "id": "eecs127-eb1",
+  "label": "EB1: Factorizations, sensitivity, ridge, likelihood",
+  "box": "Optimization models in engineering",
+  "skills": [
+    "qr-factorization",
+    "fundamental-subspaces",
+    "block-matrix-identities",
+    "principal-component-analysis",
+    "low-rank-approximation",
+    "least-squares-perturbation",
+    "ridge-regression",
+    "principal-components-regression",
+    "maximum-likelihood-estimation"
+  ],
+  "areas": {
+    "qr-factorization": ["optimization"],
+    "fundamental-subspaces": ["optimization"],
+    "block-matrix-identities": ["optimization"],
+    "principal-component-analysis": ["optimization"],
+    "low-rank-approximation": ["optimization"],
+    "least-squares-perturbation": ["optimization"],
+    "ridge-regression": ["optimization"],
+    "principal-components-regression": ["optimization"],
+    "maximum-likelihood-estimation": ["optimization"]
+  },
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/eecs127-content-batches.md",
+  "verifier": "skilltree/verify_eecs127_eb1.py"
+}

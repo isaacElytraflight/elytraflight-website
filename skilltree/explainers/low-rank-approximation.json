@@ -1,0 +1,29 @@
+{
+  "id": "low-rank-approximation",
+  "title": "Low-rank approximation",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>three singular values</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">8   0   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   5   0</text><text x=\"98\" y=\"114\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0   1</text></svg>",
+      "figure_alt": "A diagonal matrix whose diagonal entries are 8, 5, and 1.",
+      "body_md": "Singular value decomposition already factors a matrix as a sum of rank-one pieces. If \\(A = U\\Sigma V^T\\), and the diagonal of \\(\\Sigma\\) holds \\(\\sigma_1 \\ge \\sigma_2 \\ge \\cdots \\ge 0\\), then\n\\[\nA = \\sum_i \\sigma_i\\, u_i v_i^T.\n\\]\nLow-rank approximation keeps the first \\(r\\) terms and sets the later singular values to zero. Call the result \\(A_r\\). It has rank at most \\(r\\). Among all matrices of rank at most \\(r\\), it is a nearest matrix to \\(A\\) in the Frobenius norm, and also a nearest matrix in the spectral norm.\n\nThe errors have short formulas. The spectral norm of \\(A-A_r\\) equals the first discarded singular value \\(\\sigma_{r+1}\\). The Frobenius norm equals the square root of the sum of the squares of the discarded singular values. Those two numbers agree when only one singular value is discarded. They disagree as soon as two or more positive singular values are dropped, because the Frobenius norm then adds more than one square.\n\nThis is a statement about the truncation, not a new factorization. The singular vectors stay the ones the decomposition already produced."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "With \\(\\sigma_1 \\ge \\cdots \\ge \\sigma_n \\ge 0\\),\n\\[\n\\lVert A-A_r\\rVert_2 = \\sigma_{r+1}, \\qquad\n\\lVert A-A_r\\rVert_F = \\sqrt{\\sum_{i>r} \\sigma_i^2}.\n\\]\nThe squared Frobenius energy \\(\\sum_i \\sigma_i^2\\) splits into the kept part and the discarded part. The fraction kept by the rank-\\(r\\) truncation is the kept sum of squares divided by the total sum of squares. The zero matrix is the rank-0 truncation, and its Frobenius distance to \\(A\\) is \\(\\lVert A\\rVert_F\\). The spectral norm of \\(A\\) itself is \\(\\sigma_1\\), which is the error of the rank-0 truncation in that norm."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Suppose the singular values are 8, 5, and 1. The rank-1 truncation keeps 8 and discards 5 and 1. The spectral error is 5. The Frobenius error is\n\\[\n\\sqrt{25+1} = \\sqrt{26}.\n\\]\nThe rank-2 truncation discards only 1, so both the spectral error and the Frobenius error equal 1. The squared energy is \\(64+25+1 = 90\\). The rank-1 truncation keeps \\(64/90\\) of it.\n\nReporting \\(\\sqrt{26}\\) as the spectral error assigns the Frobenius formula to the wrong norm. Reporting 8 as the rank-1 error reports the piece that was kept. The nearest rank-1 matrix is the first outer product scaled by 8, not the original matrix with small entries manually rounded off."
+    },
+    {
+      "heading": "Common pitfalls",
+      "body_md": "The spectral error is the next singular value, not the square root of a sum of squares. The Frobenius norm adds the squares of the discarded values and then takes a square root. Adding the discarded values without squares is a different norm.\n\nDropping the largest singular values is the opposite truncation. It is far from \\(A\\) in both norms. This skill claims the Frobenius norm and the spectral norm only. A sign flip on both singular vectors of one term cancels in the outer product, so it does not change the truncation."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "For centered data, the leading right singular vectors are the principal components. Keeping \\(r\\) of them is the rank-\\(r\\) truncation. Principal components regression uses those coordinates as a design and runs least squares. The fraction of squared Frobenius energy that is kept is how much of the predictor cloud that regression still sees."
+    }
+  ]
+}
