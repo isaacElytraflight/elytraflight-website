@@ -724,7 +724,7 @@ async function test(name, fn) {
   await test('video gate accepts a watch url, a youtu.be url, and an omitted field', async () => {
     const catalog = videoGate();
     assert.strictEqual(catalog.code, 0, catalog.out);
-    assert(/video ok: \d+ skills, 12 with a video/.test(catalog.out), catalog.out);
+    assert(/video ok: \d+ skills, 17 with a video/.test(catalog.out), catalog.out);
     const samples = [
       { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
       { url: 'https://youtu.be/dQw4w9WgXcQ', title: 'A short segment', start: 90 },

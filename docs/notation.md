@@ -399,12 +399,15 @@ Added for the nonlinear optimization skills. In this area \(x\) is a decision ve
 | least-squares condition | \(\sigma_{\max}(A)/\sigma_{\min}(A)\) | how a relative change in \(A\) or \(b\) can scale into the least-squares solution. Not the gradient condition factor \((( \kappa - 1)/(\kappa + 1))^2\). Added for `least-squares-perturbation` |
 | penalty weight \(\lambda\) | coefficient of a squared or absolute penalty | not an eigenvalue. Ridge minimizes \(\lVert Ax-b\rVert^2 + \lambda \lVert x\rVert^2\). Added for `ridge-regression` |
 | general squared penalty | \(\lVert \Gamma x\rVert^2\) | ridge is the case \(\Gamma = \sqrt{\lambda}\, I\). This \(\Gamma\) is not a covariance. Added for `ridge-regression` |
+| epigraph form | minimize \(t\) subject to \(f(x)\le t\) | same optimal value as minimizing \(f\). Added for `convex-reparameterization` |
+| indicator \(I_{\mathcal{C}}\) | \(0\) on \(\mathcal{C}\) and \(+\infty\) outside | moves the constraint \(x\in\mathcal{C}\) into the objective. Added for `convex-reparameterization` |
 | \(m\)-strong convexity | \(f(y) \ge f(x) + \nabla f(x)^T(y-x) + \tfrac{m}{2}\lVert y-x\rVert^2\) | equivalent, for a twice differentiable \(f\), to \(H_f(x) \succeq m I\). Added for `strong-convexity` |
 | gradient step | \(x_+ = x - t \nabla f(x)\) with fixed \(t > 0\) | the plain gradient iteration. The decrease bound for \(t < 2/L\) stays on `sufficient-decrease-lemma`. Added for `gradient-descent` |
 | stochastic step | \(x_+ = x - t g\) with \(\mathbb{E}[g \mid x] = \nabla f(x)\) | \(t\) shrinks. This \(g\) is one random draw, not the full gradient. Added for `stochastic-gradient-descent` |
 | strong duality | the dual maximum equals \(p^\star\) | a relative-interior constraint qualification is one condition that forces the gap to zero. Added for `strong-duality` |
 | conjugate \(f^\star\) | \(f^\star(y) = \sup_x\, y^T x - f(x)\) | a dual function is often a conjugate. Added for `convex-conjugate` |
 | posterior mode | maximizer of likelihood times prior | a Gaussian prior on the coefficients produces the ridge penalty. Added for `maximum-a-posteriori-estimation` |
+| MAP weight \(\sigma^2/\tau^2\) | ridge weight when the noise variance is \(\sigma^2\) and the prior variance is \(\tau^2\) | a prior mean \(\mu\) changes the penalty to \(\lambda\lVert x-\mu\rVert^2\). Added for `maximum-a-posteriori-estimation` |
 | lasso | \(\lVert Ax-b\rVert^2 + \lambda \lVert x\rVert_1\) | the unit ball of the absolute penalty is a diamond whose corners are sparse. Added for `lasso-regression` |
 | soft threshold | \(\operatorname{sign}(z)\max(\lvert z\rvert - \lambda/2, 0)\) | stationarity map of \(\lVert Ax-b\rVert^2 + \lambda \lVert x\rVert_1\) when the columns of \(A\) are orthonormal and \(z = A^T b\). The squared residual contributes a factor of 2, so the threshold is \(\lambda/2\). Added for `lasso-stationarity` |
 | QCQP | quadratic objective and quadratic inequality constraints | convex when every Hessian in the objective and the inequalities is positive semidefinite. Added for `quadratically-constrained-quadratic-program` |

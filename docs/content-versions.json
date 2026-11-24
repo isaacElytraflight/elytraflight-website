@@ -471,6 +471,422 @@
       "version": 1
     },
     {
+      "id": "convex-reparameterization-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-reparameterization-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-reparameterization-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-reparameterization-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-reparameterization-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-reparameterization-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-reparameterization-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-reparameterization-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-reparameterization-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-reparameterization-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-reparameterization-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-reparameterization-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-reparameterization#explainer",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "strong-convexity#explainer",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "gradient-descent#explainer",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent#explainer",
+      "version": 1
+    },
+    {
+      "id": "strong-duality-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "strong-duality-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "strong-duality-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "strong-duality-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "strong-duality-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "strong-duality-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "strong-duality-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "strong-duality-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "strong-duality-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "strong-duality-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "strong-duality-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "strong-duality-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "strong-duality#explainer",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "convex-conjugate#explainer",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "maximum-a-posteriori-estimation#explainer",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lasso-regression#explainer",
+      "version": 1
+    },
+    {
       "id": "lin-algebra-review-r1-q1",
       "version": 2
     },

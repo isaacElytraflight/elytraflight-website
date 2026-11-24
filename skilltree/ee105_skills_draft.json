@@ -3452,7 +3452,6 @@
     "optimization-problem-classes",
     "convex-functions"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3466,7 +3465,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=fan8mh0D-4E",
+    "title": "Rewriting an objective as an epigraph constraint"
+   }
   },
   {
    "id": "strong-convexity",
@@ -3476,7 +3479,6 @@
     "convexity-second-order",
     "positive-definite-matrices"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3493,7 +3495,7 @@
    ],
    "video": {
     "url": "https://www.youtube.com/watch?v=Clw24Fajnqg",
-    "title": "3.2 Smooth and Strongly Convex Functions",
+    "title": "A quadratic lower model of curvature m",
     "start": 1514
    }
   },
@@ -3504,7 +3506,6 @@
    "prereqs": [
     "descent-method-framework"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3532,102 +3533,6 @@
    "prereqs": [
     "gradient-descent"
    ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "boyd-cvx",
-     "use": "reference only"
-    },
-    {
-     "ref": "nw-numopt",
-     "use": "reference only"
-    },
-    {
-     "ref": "eecs127-scope",
-     "use": "scope only"
-    }
-   ]
-  },
-  {
-   "id": "strong-duality",
-   "name": "Strong duality",
-   "summary": "Name when the dual maximum equals the primal minimum, including a relative-interior constraint qualification that forces a zero gap.",
-   "prereqs": [
-    "lagrangian-duality-lower-bounds"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "boyd-cvx",
-     "use": "reference only"
-    },
-    {
-     "ref": "nw-numopt",
-     "use": "reference only"
-    },
-    {
-     "ref": "eecs127-scope",
-     "use": "scope only"
-    }
-   ]
-  },
-  {
-   "id": "convex-conjugate",
-   "name": "Convex conjugates",
-   "summary": "Form the conjugate as the supremum of linear underestimators of a function, and use it to evaluate a dual function.",
-   "prereqs": [
-    "convex-functions",
-    "lagrangian-duality-lower-bounds"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "boyd-cvx",
-     "use": "reference only"
-    },
-    {
-     "ref": "nw-numopt",
-     "use": "reference only"
-    },
-    {
-     "ref": "eecs127-scope",
-     "use": "scope only"
-    }
-   ]
-  },
-  {
-   "id": "maximum-a-posteriori-estimation",
-   "name": "Maximum a posteriori estimation",
-   "summary": "Multiply a Gaussian likelihood by a Gaussian prior. The maximizer is a ridge fit, and the prior variance sets the penalty weight.",
-   "prereqs": [
-    "maximum-likelihood-estimation",
-    "ridge-regression"
-   ],
-   "status": "coming-soon",
-   "sources": [
-    {
-     "ref": "boyd-cvx",
-     "use": "reference only"
-    },
-    {
-     "ref": "nw-numopt",
-     "use": "reference only"
-    },
-    {
-     "ref": "eecs127-scope",
-     "use": "scope only"
-    }
-   ]
-  },
-  {
-   "id": "lasso-regression",
-   "name": "Lasso regression",
-   "summary": "Replace the squared penalty by an absolute-value penalty, and read sparsity off the corners of that penalty's unit ball.",
-   "prereqs": [
-    "ridge-regression",
-    "vector-norms-lp"
-   ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3643,8 +3548,115 @@
     }
    ],
    "video": {
-    "url": "https://www.youtube.com/watch?v=Xm2C_gTAl8c",
-    "title": "Why an absolute penalty prefers corners"
+    "url": "https://www.youtube.com/watch?v=UmathvAKj80",
+    "title": "An unbiased random gradient and a shrinking step"
+   }
+  },
+  {
+   "id": "strong-duality",
+   "name": "Strong duality",
+   "summary": "Name when the dual maximum equals the primal minimum, including a relative-interior constraint qualification that forces a zero gap.",
+   "prereqs": [
+    "lagrangian-duality-lower-bounds"
+   ],
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=bPLNyYFLLT4",
+    "title": "When the dual maximum equals the primal minimum"
+   }
+  },
+  {
+   "id": "convex-conjugate",
+   "name": "Convex conjugates",
+   "summary": "Form the conjugate as the supremum of linear underestimators of a function, and use it to evaluate a dual function.",
+   "prereqs": [
+    "convex-functions",
+    "lagrangian-duality-lower-bounds"
+   ],
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=hUUveDyhcEA",
+    "title": "The supremum that defines a convex conjugate"
+   }
+  },
+  {
+   "id": "maximum-a-posteriori-estimation",
+   "name": "Maximum a posteriori estimation",
+   "summary": "Multiply a Gaussian likelihood by a Gaussian prior. The maximizer is a ridge fit, and the prior variance sets the penalty weight.",
+   "prereqs": [
+    "maximum-likelihood-estimation",
+    "ridge-regression"
+   ],
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=wdWHbYdhfG8",
+    "title": "A Gaussian prior whose mode is a squared-penalty fit"
+   }
+  },
+  {
+   "id": "lasso-regression",
+   "name": "Lasso regression",
+   "summary": "Replace the squared penalty by an absolute-value penalty, and read sparsity off the corners of that penalty's unit ball.",
+   "prereqs": [
+    "ridge-regression",
+    "vector-norms-lp"
+   ],
+   "sources": [
+    {
+     "ref": "boyd-cvx",
+     "use": "reference only"
+    },
+    {
+     "ref": "nw-numopt",
+     "use": "reference only"
+    },
+    {
+     "ref": "eecs127-scope",
+     "use": "scope only"
+    }
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=NGf0voTMlcs",
+    "title": "An absolute penalty and the corners of its unit ball"
    }
   },
   {

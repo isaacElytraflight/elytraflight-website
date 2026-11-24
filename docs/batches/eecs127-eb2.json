@@ -1,0 +1,29 @@
+{
+  "id": "eecs127-eb2",
+  "label": "EB2: Convexity, gradient steps, duality, the lasso problem",
+  "box": "Optimization models in engineering",
+  "skills": [
+    "convex-reparameterization",
+    "strong-convexity",
+    "gradient-descent",
+    "stochastic-gradient-descent",
+    "strong-duality",
+    "convex-conjugate",
+    "maximum-a-posteriori-estimation",
+    "lasso-regression"
+  ],
+  "areas": {
+    "convex-reparameterization": ["optimization"],
+    "strong-convexity": ["optimization"],
+    "gradient-descent": ["optimization"],
+    "stochastic-gradient-descent": ["optimization"],
+    "strong-duality": ["optimization"],
+    "convex-conjugate": ["optimization"],
+    "maximum-a-posteriori-estimation": ["optimization"],
+    "lasso-regression": ["optimization"]
+  },
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/eecs127-content-batches.md",
+  "verifier": "skilltree/verify_eecs127_eb2.py"
+}
