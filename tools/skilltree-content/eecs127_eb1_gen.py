@@ -74,6 +74,8 @@ VIDEOS = {
 }
 
 M68 = matrix_fig([["6", "3"], ["8", "6"]], "two columns to factor")
+MTALL = matrix_fig([["6", "3"], ["8", "6"], ["0", "0"]], "tall matrix to factor")
+ATALL = "A 3 by 2 matrix with columns (6, 8, 0) and (3, 6, 0)."
 A68 = "A 2 by 2 matrix with columns (6, 8) and (3, 6)."
 V68 = plane_vectors([(6, 8, "a1"), (3, 6, "a2")], "columns a1 and a2", "x1", "x2")
 AV68 = "Two arrows from the origin, labeled a1 and a2."
@@ -85,7 +87,7 @@ MB = matrix_fig([["5", "2"], ["10", "9"]], "scalar blocks")
 AB = "A 2 by 2 matrix with entries 5, 2, 10, and 9."
 MP = matrix_fig([["1", "2"], ["0", "3"]], "left factor")
 AP = "A 2 by 2 matrix with rows (1, 2) and (0, 3)."
-MC = matrix_fig([["9", "4"], ["0", "0"]], "diagonal covariance")
+MC = matrix_fig([["9", "0"], ["0", "4"]], "diagonal covariance")
 AC = "A diagonal 2 by 2 covariance with entries 9 and 4."
 ELL = ellipse_axes("covariance ellipse, longer on the first axis")
 AELL = "An axis-aligned ellipse centered at the origin and longer along the first axis."
@@ -213,7 +215,7 @@ def bank_qr():
     )
     b.find_error(
         4,
-        r"One step below is false. Select that step, and the reason it fails. The matrix is \(A = \begin{bmatrix} 6 & 3 \\ 8 & 6 \end{bmatrix}\), factored with a positive diagonal.",
+        r"One step below is false. Select that step, and the reason it fails. The matrix is \(A = \begin{bmatrix} 6 & 3 \\ 8 & 6 \\ 0 & 0 \end{bmatrix}\), factored with a positive diagonal.",
         [
             r"The first column has length 10, so the (1,1) entry of R is 10.",
             r"Dividing that column by 10 produces the first column of Q.",
@@ -221,14 +223,14 @@ def bank_qr():
             r"The product of this Q and this R rebuilds A.",
         ],
         2,
-        r"The length 10 and the scaling that produces the first Q column are the opening Gram-Schmidt steps, and \(QR\) rebuilds \(A\) by construction. The false step is the product with the factors in the wrong order. Orthonormal columns give \(Q^T Q = I\). When \(Q\) is 2 by 2 in this example the two products agree, but the claimed reason was the tall shape, and that reason is the projection identity \(QQ^T\), not the column identity. For a tall thin factor, \(QQ^T\) is the projection onto the columns and is not \(I\).",
+        r"The length 10 and the scaling that produces the first Q column are the opening Gram-Schmidt steps, and \(QR\) rebuilds \(A\) by construction. \(Q\) is 3 by 2, so its columns do not span every row direction. Orthonormal columns give \(Q^T Q = I\). The product \(QQ^T\) is the projection onto those columns, not the identity.",
         reasons=[
             "Orthonormal columns mean Q^T Q = I. The product Q Q^T is the identity only when those columns span every row direction.",
             "The diagonal of R has to be negative, so the length step is the one that fails.",
             "R is lower triangular, so Q R cannot rebuild A.",
         ],
         correct_reason=0,
-        fig=M68, alt=A68, preview=["linear-least-squares"],
+        fig=MTALL, alt=ATALL, preview=["linear-least-squares"],
     )
     b.num(
         4,
@@ -376,7 +378,7 @@ def bank_subspaces():
     )
     b.mc(
         4,
-        r"In a least-squares problem with independent columns, the minimizer can be chosen in the row space. A vector in the nullspace may be added without changing \(Ax\). Which description matches that split?",
+        r"The matrix in the figure has dependent columns, so its nullspace is not just the zero vector. A least-squares minimizer can still be chosen in the row space, and adding a nullspace vector does not change \(Ax\). Which description matches that split?",
         [
             r"The domain splits into the column space and the left nullspace.",
             r"The domain splits into the row space and the nullspace, and these two are orthogonal.",
@@ -384,7 +386,7 @@ def bank_subspaces():
             r"The residual lies in the row space, next to the minimizer.",
         ],
         1,
-        r"Row space and nullspace are orthogonal complements in the domain. Adding a nullspace vector does not change \(Ax\), and the normal equations put the minimizer in the row space. The column space and the left nullspace split the codomain, which is where \(b\) and the residual live, not where \(x\) lives. The residual is orthogonal to the columns, so it is not in the row space.",
+        r"Row space and nullspace are orthogonal complements in the domain. Adding a nullspace vector does not change \(Ax\), and the shortest minimizer is the one in the row space. The column space and the left nullspace split the codomain, which is where \(b\) and the residual live, not where \(x\) lives. The residual is orthogonal to the columns, so it is not in the row space.",
         MF, AF, ["linear-least-squares"],
     )
     b.save()

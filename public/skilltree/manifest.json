@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-24T18:08:51.082769Z",
+  "generated": "2026-11-24T18:22:28.094844Z",
   "skills": {
-    "file": "skills.1dc7b1e2.json",
-    "hash": "1dc7b1e2"
+    "file": "skills.6141a566.json",
+    "hash": "6141a566"
   },
   "collections": {
     "file": "collections.af4a0c5f.json",
@@ -1292,8 +1292,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "5fa63c25",
-      "file": "banks/fundamental-subspaces.5fa63c25.json"
+      "hash": "46ae31aa",
+      "file": "banks/fundamental-subspaces.46ae31aa.json"
     },
     "fundamental-theorem-along-segment": {
       "version": 1,
@@ -2672,8 +2672,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "5e842cd5",
-      "file": "banks/principal-component-analysis.5e842cd5.json"
+      "hash": "c34191d1",
+      "file": "banks/principal-component-analysis.c34191d1.json"
     },
     "principal-components-regression": {
       "version": 1,
@@ -2732,8 +2732,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b1861610",
-      "file": "banks/qr-factorization.b1861610.json"
+      "hash": "a9e6c520",
+      "file": "banks/qr-factorization.a9e6c520.json"
     },
     "quadratic-function-minimization": {
       "version": 2,
