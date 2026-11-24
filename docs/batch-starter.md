@@ -134,7 +134,7 @@ Outside contributors do not self-merge. Branch protection on `main` uses a rules
 
 ## Efficiency
 
-- Read `docs/agent-map.md` first, then `docs/validator-cheatsheet.md`. Do not open validator or gate source. Do not re-read a file you just edited.
+- Read `docs/agent-map.md` first, then `docs/validator-cheatsheet.md`. Do not open validator or gate source. Do not re-read a file you just edited. See Working habits below.
 - Never grep or glob over `public/skilltree/banks`, `public/skilltree/explainers`, or the whole repo. Use `bash tools/skilltree-content/find.sh`.
 - Do not search the web unless the brief asks.
 - Use the shared helpers. Do not paste a new bank writer or numeric-check loop.
@@ -142,3 +142,14 @@ Outside contributors do not self-merge. Branch protection on `main` uses a rules
 - After pushing, run `wait_bugbot.sh <head sha> <pr>` in the same run and do not end the run until it returns. Always pass the PR number. On `TOO_LARGE` (exit 3) do not merge; stop and report to the owner. Mechanical bank edits skip this wait; see Review and merge.
 - Commit no scratch files, terminal logs, or screenshots from the run.
 - One short browser smoke check on every pull request, content or UI: load the tree, open one changed skill, and take 1–2 screenshots. That check is not the full browser suite.
+
+## Working habits
+
+These come from measured batch transcripts (EB1 read 43 files before its first write; EB2, with the cheat sheet, read 24 but re-read its own generator 14 times).
+
+- Keep a short scratch note (in your head or a file you don't commit) of each file's structure the first time you read it: function names, line ranges, field names. Work from the note instead of re-reading.
+- Your own generator is the worst offender. Write it in whole-skill blocks from the start, then edit one function or one skill block at a time with targeted replacements. Read back only the region you changed, never the whole file.
+- When a gate fails, read only the failing message and the cheat sheet row for it. Open the gate source only if the cheat sheet doesn't explain the error.
+- After a fix that only touches wording (no ids, numbers, or structure that gates check), re-run only the focused check (for example the bank validator or KaTeX check for that skill), not the full gate suite.
+- Copy the newest batch's generator and verifier as the template (currently `tools/skilltree-content/eecs127_eb1_gen.py` and `skilltree/verify_eecs127_eb1.py`), and don't read older batch generators.
+- Owners: when a transcript review finds a new repeated waste, add a line here so every agent gets it, not just the next brief.
