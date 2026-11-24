@@ -5684,6 +5684,131 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('graphing calculator opens, plots, evaluates, and closes', async () => {
+    const p = await newPage();
+    await openSkill(p, 'cs-intro');
+    await p.click('#startBtn');
+    await p.waitForSelector('#numIn', { timeout: 10000 });
+    const before = await p.$eval('#qPrompt', e => e.dataset.qid + '\n' + e.textContent);
+    await p.type('#numIn', '1.2');
+    const btn = await p.$eval('#calcBtn', e => ({
+      expanded: e.getAttribute('aria-expanded'),
+      label: e.getAttribute('aria-label'),
+      controls: e.getAttribute('aria-controls')
+    }));
+    assert.strictEqual(btn.expanded, 'false');
+    assert.strictEqual(btn.label, 'Open graphing calculator');
+    assert.strictEqual(btn.controls, 'calcPanel');
+
+    await p.click('#calcBtn');
+    await p.waitForSelector('#calcPanel:not([hidden]) #calcFn0');
+    assert.strictEqual(await p.$eval('#calcBtn', e => e.getAttribute('aria-expanded')), 'true');
+    assert.strictEqual(await p.$eval('#calcPanel', e => e.getAttribute('aria-label')), 'Graphing calculator');
+    await p.type('#calcFn0', 'sin(x)');
+    await p.click('#calcAdd');
+    await p.waitForSelector('#calcFn1');
+    await p.type('#calcFn1', 'x/2');
+    await p.waitForFunction(() => document.getElementById('calcCanvas').dataset.curves === '2');
+    const ink = await p.evaluate(() => {
+      const c = document.getElementById('calcCanvas');
+      const data = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+      let purple = 0;
+      let orange = 0;
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
+        if (a < 40) continue;
+        if (b > r + 30 && b > g + 30 && b > 120) purple++;
+        if (r > 200 && g > 70 && g < 200 && b < 160 && r > b + 40) orange++;
+      }
+      const prompt = document.getElementById('qPrompt').getBoundingClientRect();
+      const panel = document.getElementById('calcPanel').getBoundingClientRect();
+      const quiz = document.getElementById('quiz').getBoundingClientRect();
+      const num = document.getElementById('numIn').getBoundingClientRect();
+      return {
+        purple, orange,
+        label: c.getAttribute('aria-label'),
+        promptLeftOfPanel: prompt.width > 40 && prompt.right <= panel.left + 2 && prompt.left >= quiz.left - 2,
+        answerLeftOfPanel: num.width > 20 && num.right <= panel.left + 2,
+        panelInside: panel.left >= quiz.left - 2 && panel.right <= quiz.right + 2 && panel.top >= quiz.top - 2 && panel.bottom <= quiz.bottom + 2
+      };
+    });
+    assert(ink.purple > 20, 'sine curve pixels ' + ink.purple);
+    assert(ink.orange > 20, 'line pixels ' + ink.orange);
+    assert(/sin\(x\)/.test(ink.label) && /x\/2/.test(ink.label), ink.label);
+    assert.strictEqual(ink.promptLeftOfPanel, true, 'question stays beside the panel');
+    assert.strictEqual(ink.answerLeftOfPanel, true, 'answer field stays visible');
+    assert.strictEqual(ink.panelInside, true, 'panel stays in the quiz');
+
+    await p.type('#calcEval', 'sin(pi/2)');
+    await p.click('#calcEvalBtn');
+    assert.strictEqual((await p.$eval('#calcOut', e => e.textContent)).trim(), '1');
+
+    await p.keyboard.press('Escape');
+    await p.waitForSelector('#calcPanel[hidden]');
+    assert(await p.$('#quiz.open'), 'escape closes the calculator and leaves the quiz open');
+    assert.strictEqual(await p.$eval('#numIn', e => e.value), '1.2');
+    assert.strictEqual(await p.$eval('#qPrompt', e => e.dataset.qid + '\n' + e.textContent), before);
+    assert.strictEqual(await p.$('#feedback'), null, 'closing the calculator does not grade the question');
+    assert.strictEqual(await p.$eval('#calcBtn', e => e.getAttribute('aria-expanded')), 'false');
+    assert.strictEqual(await p.$eval('#calcBtn', e => e.getAttribute('aria-label')), 'Open graphing calculator');
+
+    await p.click('#calcBtn');
+    await p.waitForSelector('#calcPanel:not([hidden])');
+    assert.strictEqual(await p.$eval('#calcFn0', e => e.value), 'sin(x)');
+    assert.strictEqual(await p.$eval('#calcFn1', e => e.value), 'x/2');
+
+    await p.setViewport({ width: 390, height: 700 });
+    await sleep(100);
+    const sheet = await p.evaluate(() => {
+      const quiz = document.getElementById('quiz');
+      const panel = document.getElementById('calcPanel').getBoundingClientRect();
+      const leave = document.getElementById('qLeave').getBoundingClientRect();
+      const qr = quiz.getBoundingClientRect();
+      const input = document.getElementById('numIn');
+      const top = panel.top;
+      const ir = input.getBoundingClientRect();
+      if (ir.bottom > top - 8) quiz.scrollTop += ir.bottom - (top - 12);
+      const num = input.getBoundingClientRect();
+      return {
+        fullWidth: panel.width >= qr.width - 4,
+        dockedBottom: Math.abs(panel.bottom - qr.bottom) <= 3,
+        leaveAbove: leave.width > 10 && leave.bottom <= top + 1,
+        answerAbove: num.width > 20 && num.bottom <= top + 2 && num.top >= qr.top - 2
+      };
+    });
+    assert.strictEqual(sheet.fullWidth, true, 'narrow screens use a full-width sheet');
+    assert.strictEqual(sheet.dockedBottom, true, 'narrow screens dock the sheet to the bottom');
+    assert.strictEqual(sheet.leaveAbove, true, 'the question header stays above the sheet');
+    assert.strictEqual(sheet.answerAbove, true, 'the answer field can scroll above the sheet');
+
+    await p.click('#calcClose');
+    await p.waitForSelector('#calcPanel[hidden]');
+    assert.strictEqual(await p.$eval('#numIn', e => e.value), '1.2');
+    assert(await p.$('#quiz.open'), 'the quiz stays open after the sheet closes');
+
+    await p.setViewport({ width: 1280, height: 800 });
+    await p.click('#calcBtn');
+    await p.waitForSelector('#calcPanel:not([hidden])');
+    for (const z of [1, 1.5, 2]) {
+      await p.evaluate(zz => { document.documentElement.style.zoom = String(zz); }, z);
+      await sleep(40);
+      const fit = await p.evaluate(() => {
+        const quiz = document.getElementById('quiz').getBoundingClientRect();
+        const close = document.getElementById('calcClose').getBoundingClientRect();
+        const leave = document.getElementById('qLeave').getBoundingClientRect();
+        return {
+          close: close.width > 10 && close.top >= quiz.top - 2 && close.left >= quiz.left - 2 && close.right <= quiz.right + 2 && close.bottom <= quiz.bottom + 2,
+          leave: leave.width > 10 && leave.top >= quiz.top - 2 && leave.left >= quiz.left - 2 && leave.right <= quiz.right + 2
+        };
+      });
+      assert.strictEqual(fit.close, true, 'close stays on screen at zoom ' + z);
+      assert.strictEqual(fit.leave, true, 'leave stays on screen at zoom ' + z);
+    }
+    await p.evaluate(() => { document.documentElement.style.zoom = ''; });
+    await p.click('#calcClose');
+    await p._ctx.close();
+  });
+
   await browser.close();
 
   console.log('\n=== Test Results ===\n');
