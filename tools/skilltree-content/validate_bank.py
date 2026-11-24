@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Content agents: read docs/validator-cheatsheet.md. Do not read this file to learn the rules.
+# When a rule in this file changes, update that cheat sheet in the same change.
 """Shared question-bank validator for every skill bank in Elytraflight's Skill Tree (merged from validate_bank.py,
 batch2a_validate.py and batch2b_validate.py). Checks schema, ids, round structure, MC option positions,
 round-4 preview targets (DAG descendants + LEAF_PREVIEW_ALLOWED from batch2a and batch2b), letter references,

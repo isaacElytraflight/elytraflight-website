@@ -2,7 +2,7 @@
 
 A short pack for an agent writing one content batch for Elytraflight's Skill Tree. The rules live in `docs/skill-tree-content-SOP.md`. This file is the order of work. The batch plan wins if a prompt disagrees with it.
 
-Read `docs/agent-map.md` first. It is the list of exact paths. Do not search the repo to find a file that the map names.
+Read `docs/agent-map.md` first. It is the list of exact paths. Do not search the repo to find a file that the map names. Then read `docs/validator-cheatsheet.md`. It is the schema, id, quota, preview, figure, reference, KaTeX, video, and `write_batch_docs.py` rules. Do not open validator or gate source.
 
 ## Reminders
 
@@ -37,18 +37,18 @@ Mechanical bank edits (small, predictable, scripted changes across existing bank
 Read `docs/agent-map.md` first. Then read each file below once. Do not re-read a file you have already read, and do not re-read a file you just edited. Do not search the web unless the brief asks.
 
 1. `docs/agent-map.md`. Paths and rebuild commands.
-2. The batch plan for this subject: `docs/nlo-content-batches.md` or `docs/me132-content-batches.md`. It is the skill list and the scope.
-3. `docs/skill-tree-content-SOP.md`, including the brief template in section 12.
-4. The newest brief in `docs/briefs/` for the shape of a generated brief. Briefs are generated. Do not edit them by hand.
-5. `docs/notation.md` for every area the skills and their prerequisites touch. Add new symbols in the same change.
-6. `docs/sources.md` for licenses. Sources are authoring metadata. Learner-facing text never names a reader, textbook, notes, slides, professor, university, week, lecture, homework, or a source chapter. A class name appears only in the course selection tab.
-7. `tools/skilltree-content/banklib.py` and `skilltree/verify_harness.py`.
-8. The previous batch's generator and verifier as a pattern only. The verifier must not import the generator.
+2. `docs/validator-cheatsheet.md`. Every bank, explainer, and gate rule, with the error and the fix. Do not open `skilltree/validate_bank.py`, `tools/skilltree-content/validate_bank.py`, `write_batch_docs.py`, or the dedupe, reference, figure-bounds, video, deep-quota, or KaTeX sources.
+3. The batch plan for this subject: `docs/nlo-content-batches.md` or `docs/me132-content-batches.md`. It is the skill list and the scope.
+4. `docs/skill-tree-content-SOP.md`, including the brief template in section 12.
+5. The newest brief in `docs/briefs/` for the shape of a generated brief. Briefs are generated. Do not edit them by hand.
+6. `docs/notation.md` for every area the skills and their prerequisites touch. Add new symbols in the same change.
+7. `docs/sources.md` for licenses. Sources are authoring metadata. Learner-facing text never names a reader, textbook, notes, slides, professor, university, week, lecture, homework, or a source chapter. A class name appears only in the course selection tab.
+8. Copy `tools/skilltree-content/eecs127_eb1_gen.py` and `skilltree/verify_eecs127_eb1.py` as the generator and verifier. The verifier must not import the generator. Do not copy `nlo_nb2_gen.py`, `skilltree/verify_nlo_nb2.py`, or any `batch2a` / `batch2b` file. `banklib.py` and `verify_harness.py` are the helpers those files already use. Their signatures are in the cheat sheet.
 9. The coming-soon records for this batch in `skilltree/ee105_skills_draft.json`, and the playable-count assertions in `public/skilltree/tests/test-content.js`.
 
 ## Helpers
 
-`Bank` in `tools/skilltree-content/banklib.py` writes `skilltree/bank/<id>.json`.
+`Bank` in `tools/skilltree-content/banklib.py` writes `skilltree/bank/<id>.json`. Field lists and the error each mistake raises are in `docs/validator-cheatsheet.md`.
 
 - `mc`, `num`: four-option multiple choice, and a nonzero numeric answer with a unit and relative tolerance 0.02.
 - `sym(rnd, prompt, answer, variables, explanation, alternates=...)`: symbolic. `variables` is `{name: (min, max)}`. The answer is a plain expression in those names, and it must use every name. `alternates` are equivalent forms. Do not use `e` or `E` as a variable, and do not use a function name (`sqrt`, `abs`, `exp`, `ln`, `log`, `sin`, `cos`, `tan`).
@@ -72,6 +72,8 @@ While fixing, run the batch verifier and any check the edit can break:
 python3 tools/skilltree-content/<batch>_gen.py
 python3 skilltree/verify_<batch>.py
 ```
+
+The rule each gate enforces, and the usual fix, is in `docs/validator-cheatsheet.md`. Do not open the gate sources to interpret a failure.
 
 On the candidate you intend to push, run once:
 
@@ -132,7 +134,7 @@ Outside contributors do not self-merge. Branch protection on `main` uses a rules
 
 ## Efficiency
 
-- Read `docs/agent-map.md` first. Do not re-read a file you just edited.
+- Read `docs/agent-map.md` first, then `docs/validator-cheatsheet.md`. Do not open validator or gate source. Do not re-read a file you just edited.
 - Never grep or glob over `public/skilltree/banks`, `public/skilltree/explainers`, or the whole repo. Use `bash tools/skilltree-content/find.sh`.
 - Do not search the web unless the brief asks.
 - Use the shared helpers. Do not paste a new bank writer or numeric-check loop.
