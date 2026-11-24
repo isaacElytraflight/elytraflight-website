@@ -2,6 +2,8 @@
 
 Read this file once before opening anything else. Then open only the path you need. Search with `bash tools/skilltree-content/find.sh <pattern> [path...]`. Do not grep the whole repo.
 
+A content batch reads `docs/validator-cheatsheet.md` next. That page is the bank, explainer, and gate rules. Do not open `skilltree/validate_bank.py`, `tools/skilltree-content/validate_bank.py`, `run_gates.py`, `write_batch_docs.py`, or a gate module to learn a rule.
+
 ## UI
 
 The live sidebar is the to-do list (`#todoBook`), the course scope picker, and the skill panel (`#panel`). Edit the three served files. No generator writes them.
@@ -49,12 +51,14 @@ The live sidebar is the to-do list (`#todoBook`), the course scope picker, and t
 | `tools/skilltree-content/reference_gate.py` | No source names in learner-facing text. |
 | `tools/skilltree-content/deep_quota_gate.py` | At least 25% deep-type questions. |
 | `tools/skilltree-content/dedupe_gate.py` | Cross-skill name and summary overlap. |
-| `tools/skilltree-content/*_gen.py` | One generator per content batch. Run `python3 tools/skilltree-content/<batch>_gen.py`. |
-| `skilltree/validate_bank.py` | Bank schema. |
+| `tools/skilltree-content/*_gen.py` | One generator per content batch. Run `python3 tools/skilltree-content/<batch>_gen.py`. New batches copy `eecs127_eb1_gen.py`. |
+| `skilltree/validate_bank.py` | Bank schema. Rules are in `docs/validator-cheatsheet.md`. Do not open this file to learn them. |
 | `skilltree/validate_graph.py` | Graph cycles, orphans, box membership. |
 | `skilltree/validator_domain.py` | Domain validator, including the deep-type quota. |
 | `skilltree/figure_bounds.py` | Figure size gate. |
-| `skilltree/verify_harness.py` | Shared numeric and symbolic checker. Batch verifiers are `skilltree/verify_<batch>.py`. |
+| `skilltree/verify_harness.py` | Shared numeric and symbolic checker. Batch verifiers are `skilltree/verify_<batch>.py`. New batches copy `skilltree/verify_eecs127_eb1.py`. |
+
+New batches copy `tools/skilltree-content/eecs127_eb1_gen.py` and `skilltree/verify_eecs127_eb1.py`. Leave `nlo_nb2_gen.py`, `skilltree/verify_nlo_nb2.py`, and the `batch2a` / `batch2b` files as history. The verifier must not import the generator.
 
 Always pass the pull request number to `wait_bugbot.sh`. On `TOO_LARGE` (exit 3) do not merge; stop and report to the owner.
 
@@ -65,6 +69,7 @@ Mechanical bank edits (small, predictable, scripted changes across existing bank
 | Path | What it is |
 | --- | --- |
 | `docs/agent-map.md` | This map. Read it first. |
+| `docs/validator-cheatsheet.md` | Bank, explainer, and gate rules, each with the error and the fix. Read this instead of validator or gate source. |
 | `docs/skill-tree-content-SOP.md` | Full content rules. The SOP wins over the starter. |
 | `docs/batch-starter.md` | Order of work for one batch, including the merge step. |
 | `CONTRIBUTING.md` | Contributor setup and the agent merge rule. |

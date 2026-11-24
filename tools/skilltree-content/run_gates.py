@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Content agents: read docs/validator-cheatsheet.md. Do not read this file or the gates it runs to learn the rules.
+# When a gate or its rules change, update that cheat sheet in the same change.
 """One gate run for a content batch.
 
   python3 tools/skilltree-content/run_gates.py --batch me132-b1
