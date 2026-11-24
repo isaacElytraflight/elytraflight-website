@@ -136,8 +136,8 @@
       "id": "convex-reparameterization-r3-q3",
       "round": 3,
       "type": "multi",
-      "prompt": "Which problems have the same minimizers and the same optimal value as minimizing \\((x-2)^2\\) subject to \\(x\\ge 0\\)?",
-      "explanation": "The epigraph form keeps the inequality \\(x\\ge 0\\) and adds \\(t\\) above the square. The indicator form adds a 0-or-infinity penalty and drops the explicit constraint. Adding a free \\(t\\) to the square changes the objective and leaves \\(t\\) unbounded below. The reversed epigraph inequality asks \\(t\\) to sit under the square, so the optimal \\(t\\) runs off to \\(-\\infty\\).",
+      "prompt": "Which rewrites have the same optimal value as minimizing \\((x-2)^2\\) subject to \\(x\\ge 0\\)?",
+      "explanation": "The original optimal value is \\(0\\), attained at \\(x=2\\). The epigraph form has that same value: its minimizer is the pair \\((x,t)=(2,0)\\), so \\(t\\) equals the value and the decision \\(x\\) matches. The indicator form keeps the minimizer \\(x=2\\) and the value \\(0\\). Adding a free \\(t\\) to the square leaves \\(t\\) unbounded below. The reversed epigraph inequality asks \\(t\\) to sit under the square, so the optimal \\(t\\) runs off to \\(-\\infty\\).",
       "options": [
         "Minimize \\(t\\) subject to \\((x-2)^2\\le t\\) and \\(x\\ge 0\\).",
         "Minimize \\((x-2)^2+I(x)\\), where \\(I\\) is 0 for \\(x\\ge 0\\) and \\(+\\infty\\) otherwise.",

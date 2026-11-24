@@ -8,7 +8,7 @@ Do not publish.
 
 - 8 skills, 96 questions (32 multiple choice, 32 numeric, 32 symbolic, ordering, find-the-error, or multi-select), 8 explainers.
 - 8 question figures.
-- Explainer words: `convex-reparameterization` 464, `strong-convexity` 454, `gradient-descent` 451, `stochastic-gradient-descent` 462, `strong-duality` 483, `convex-conjugate` 393, `maximum-a-posteriori-estimation` 448, `lasso-regression` 475.
+- Explainer words: `convex-reparameterization` 482, `strong-convexity` 454, `gradient-descent` 451, `stochastic-gradient-descent` 462, `strong-duality` 483, `convex-conjugate` 393, `maximum-a-posteriori-estimation` 448, `lasso-regression` 475.
 
 ## Versions
 
@@ -28,7 +28,7 @@ The full list is `docs/content-versions.json`.
 - PASS `dedupe`: OK: dedupe gate, 0 unresolved overlaps (8 skills checked)
 - PASS `numeric`: 0 mismatches
 - PASS `figure-bounds`: figure-bounds: 0 warning(s), 0 on the batch
-- PASS `katex`: KaTeX: rendered 1045 math chunks, 0 errors
+- PASS `katex`: KaTeX: rendered 1049 math chunks, 0 errors
 - PASS `test-content`: 16 passed, 0 failed
 - PASS `test-merge`: 25 passed, 0 failed
 - PASS `test-migrate`: 24 passed, 0 failed

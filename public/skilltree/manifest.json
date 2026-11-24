@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-24T20:38:41.740199Z",
+  "generated": "2026-11-24T20:53:36.480522Z",
   "skills": {
-    "file": "skills.85040169.json",
-    "hash": "85040169"
+    "file": "skills.e44e26c3.json",
+    "hash": "e44e26c3"
   },
   "collections": {
     "file": "collections.af4a0c5f.json",
@@ -572,8 +572,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "2bbb0898",
-      "file": "banks/convex-reparameterization.2bbb0898.json"
+      "hash": "43b5e373",
+      "file": "banks/convex-reparameterization.43b5e373.json"
     },
     "convex-sets": {
       "version": 2,
@@ -2132,8 +2132,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8d991368",
-      "file": "banks/maximum-a-posteriori-estimation.8d991368.json"
+      "hash": "991001bc",
+      "file": "banks/maximum-a-posteriori-estimation.991001bc.json"
     },
     "maximum-likelihood-estimation": {
       "version": 1,
@@ -3296,8 +3296,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "76060c5f",
-      "file": "banks/strong-convexity.76060c5f.json"
+      "hash": "eb586dff",
+      "file": "banks/strong-convexity.eb586dff.json"
     },
     "strong-duality": {
       "version": 1,
@@ -3764,8 +3764,8 @@
       "version": 1
     },
     "convex-reparameterization": {
-      "hash": "e30d3890",
-      "file": "explainers/convex-reparameterization.e30d3890.json",
+      "hash": "5d5f4245",
+      "file": "explainers/convex-reparameterization.5d5f4245.json",
       "sectionCount": 5,
       "version": 1
     },

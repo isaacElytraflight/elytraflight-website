@@ -22,7 +22,7 @@
       "round": 1,
       "type": "numeric",
       "prompt": "Two observations are \\(2\\) and \\(4\\). The noise variance and the prior variance are both \\(1\\), and the prior mean is \\(0\\). The penalty weight is the noise variance divided by the prior variance. What is the posterior mode?",
-      "explanation": "The weight is \\(1/1=1\\). The mode of a zero-mean Gaussian prior is \\((2+4)/(2+1)=2\\). The maximum-likelihood estimate is the average \\(3\\), which drops the penalty. The prior mean \\(0\\) is the other extreme, as the prior variance tends to \\(0\\). The sum \\(6\\) is not divided by \\(2+1\\).",
+      "explanation": "The weight is \\(1/1=1\\). The posterior mode is \\((2+4)/(2+1)=2\\). The maximum-likelihood estimate is the average \\(3\\), which drops the penalty. The mode of the zero-mean Gaussian prior is \\(0\\), the prior mean, and that number ignores the observations. The sum \\(6\\) is not divided by \\(2+1\\).",
       "answer": 2.0,
       "unit": "(unitless)",
       "tolerance": 0.02,

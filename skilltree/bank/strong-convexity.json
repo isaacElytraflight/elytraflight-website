@@ -33,11 +33,11 @@
       "round": 1,
       "type": "mc",
       "prompt": "A twice differentiable function has Hessian eigenvalues 2 and 9 at every point. Which statement is the strong-convexity test?",
-      "explanation": "The Hessian test \\(H_f\\succeq m I\\) holds exactly when every eigenvalue is at least \\(m\\). Both 2 and 9 are at least \\(m\\) when \\(m\\le 2\\). The largest such \\(m\\) is the smaller eigenvalue, 2. The eigenvalue 9 does not work as a modulus, because the other direction has curvature 2. Requiring \\(m\\ge 2\\) selects moduli that are too large.",
+      "explanation": "The Hessian test \\(H_f\\succeq m I\\) holds for a positive modulus exactly when every eigenvalue is at least \\(m\\). Both 2 and 9 are at least \\(m\\) when \\(0<m\\le 2\\). The largest such modulus is the smaller eigenvalue, 2. A nonpositive number is not a strong-convexity modulus. The eigenvalue 9 does not work as a modulus, because the other direction has curvature 2. Requiring \\(m\\ge 2\\) selects moduli that are too large.",
       "options": [
         "The function is \\(m\\)-strongly convex only for \\(m=9\\).",
         "The function is not strongly convex for any positive \\(m\\).",
-        "The function is \\(m\\)-strongly convex for every \\(m\\le 2\\), and 2 is the largest such modulus.",
+        "The function is \\(m\\)-strongly convex for every \\(m\\) with \\(0<m\\le 2\\), and 2 is the largest such modulus.",
         "The function is \\(m\\)-strongly convex for every \\(m\\ge 2\\)."
       ],
       "correct_index": 2,

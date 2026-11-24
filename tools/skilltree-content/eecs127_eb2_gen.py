@@ -201,7 +201,7 @@ def bank_reparam():
     )
     b.multi(
         3,
-        r"Which problems have the same minimizers and the same optimal value as minimizing \((x-2)^2\) subject to \(x\ge 0\)?",
+        r"Which rewrites have the same optimal value as minimizing \((x-2)^2\) subject to \(x\ge 0\)?",
         [
             r"Minimize \(t\) subject to \((x-2)^2\le t\) and \(x\ge 0\).",
             r"Minimize \((x-2)^2+I(x)\), where \(I\) is 0 for \(x\ge 0\) and \(+\infty\) otherwise.",
@@ -209,7 +209,7 @@ def bank_reparam():
             r"Minimize \(t\) subject to \((x-2)^2\ge t\) and \(x\ge 0\).",
         ],
         [0, 1],
-        r"The epigraph form keeps the inequality \(x\ge 0\) and adds \(t\) above the square. The indicator form adds a 0-or-infinity penalty and drops the explicit constraint. Adding a free \(t\) to the square changes the objective and leaves \(t\) unbounded below. The reversed epigraph inequality asks \(t\) to sit under the square, so the optimal \(t\) runs off to \(-\infty\).",
+        r"The original optimal value is \(0\), attained at \(x=2\). The epigraph form has that same value: its minimizer is the pair \((x,t)=(2,0)\), so \(t\) equals the value and the decision \(x\) matches. The indicator form keeps the minimizer \(x=2\) and the value \(0\). Adding a free \(t\) to the square leaves \(t\) unbounded below. The reversed epigraph inequality asks \(t\) to sit under the square, so the optimal \(t\) runs off to \(-\infty\).",
     )
     b.find_error(
         4,
@@ -280,11 +280,11 @@ def bank_strong():
         [
             r"The function is \(m\)-strongly convex only for \(m=9\).",
             r"The function is not strongly convex for any positive \(m\).",
-            r"The function is \(m\)-strongly convex for every \(m\le 2\), and 2 is the largest such modulus.",
+            r"The function is \(m\)-strongly convex for every \(m\) with \(0<m\le 2\), and 2 is the largest such modulus.",
             r"The function is \(m\)-strongly convex for every \(m\ge 2\).",
         ],
         2,
-        r"The Hessian test \(H_f\succeq m I\) holds exactly when every eigenvalue is at least \(m\). Both 2 and 9 are at least \(m\) when \(m\le 2\). The largest such \(m\) is the smaller eigenvalue, 2. The eigenvalue 9 does not work as a modulus, because the other direction has curvature 2. Requiring \(m\ge 2\) selects moduli that are too large.",
+        r"The Hessian test \(H_f\succeq m I\) holds for a positive modulus exactly when every eigenvalue is at least \(m\). Both 2 and 9 are at least \(m\) when \(0<m\le 2\). The largest such modulus is the smaller eigenvalue, 2. A nonpositive number is not a strong-convexity modulus. The eigenvalue 9 does not work as a modulus, because the other direction has curvature 2. Requiring \(m\ge 2\) selects moduli that are too large.",
     )
     b.order(
         2,
@@ -956,7 +956,7 @@ def bank_map():
         1,
         r"Two observations are \(2\) and \(4\). The noise variance and the prior variance are both \(1\), and the prior mean is \(0\). The penalty weight is the noise variance divided by the prior variance. What is the posterior mode?",
         2, "(unitless)",
-        r"The weight is \(1/1=1\). The mode of a zero-mean Gaussian prior is \((2+4)/(2+1)=2\). The maximum-likelihood estimate is the average \(3\), which drops the penalty. The prior mean \(0\) is the other extreme, as the prior variance tends to \(0\). The sum \(6\) is not divided by \(2+1\).",
+        r"The weight is \(1/1=1\). The posterior mode is \((2+4)/(2+1)=2\). The maximum-likelihood estimate is the average \(3\), which drops the penalty. The mode of the zero-mean Gaussian prior is \(0\), the prior mean, and that number ignores the observations. The sum \(6\) is not divided by \(2+1\).",
     )
     b.mc(
         1,
@@ -1215,7 +1215,7 @@ def bank_lasso():
 def expl_reparam():
     sections = [
         {"heading": "The idea", "figure": BOWL, "figure_alt": ABOWL,
-         "body_md": r"""Problem classes already say when an objective and a constraint set make a convex program. Convex functions already pass the chord test. This skill rewrites a problem so that those two facts are easier to see, without changing the decisions or the optimal value.
+         "body_md": r"""Problem classes already say when an objective and a constraint set make a convex program. Convex functions already pass the chord test. This skill rewrites a problem so that those two facts are easier to see. Each rewrite keeps the optimal value. An indicator also keeps the same minimizers. The epigraph form adds a new variable, so its minimizer is a pair.
 
 Three rewrites cover the skill. An affine change of variables \(x=By+d\) keeps convexity: a chord in the new variable maps to a chord in the old one, and the old objective lies under its chords. A nonlinear substitution need not. The absolute value of \(y^2-1\) sits above the chord that joins its zeros.
 
