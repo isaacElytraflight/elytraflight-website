@@ -620,15 +620,389 @@ function regionPoints(ids, nodes, pad) {
   ids.forEach(id => {
     const n = nodes[id];
     if (!n) return;
-    pts.push([n.x - pad, n.y - pad], [n.x + TW + pad, n.y - pad], [n.x - pad, n.y + TH + pad], [n.x + TW + pad, n.y + TH + pad]);
+    const w = n.w || TW, h = n.h || TH;
+    pts.push([n.x - pad, n.y - pad], [n.x + w + pad, n.y - pad], [n.x - pad, n.y + h + pad], [n.x + w + pad, n.y + h + pad]);
   });
   return convexHull(pts);
+}
+
+function vennRoots() {
+  const order = topLevelBoxes().map(b => b.id);
+  const seen = [];
+  selectedBoxes.forEach(id => {
+    const root = scopeRootId(id);
+    if (root && !seen.includes(root)) seen.push(root);
+  });
+  seen.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  return seen;
+}
+
+function rootHasSelectedChapter(root) {
+  for (const id of selectedBoxes) {
+    const box = boxById[id];
+    if (box && box.kind === 'chapter' && scopeRootId(id) === root) return true;
+  }
+  return false;
+}
+
+// Two courses (or textbooks), each with at least one selected chapter.
+// One course, the prerequisite tree, and a two-course highlight with no
+// chapters keep the ordinary grouped layout.
+function vennPairActive() {
+  const roots = vennRoots();
+  return roots.length === 2 && rootHasSelectedChapter(roots[0]) && rootHasSelectedChapter(roots[1]);
+}
+
+function skillInRootSelection(skillId, root) {
+  for (const id of selectedBoxes) {
+    if (scopeRootId(id) === root && skillInBox(skillId, id)) return true;
+  }
+  return false;
+}
+
+function selectedChapter(skillId, root) {
+  const leaves = leafBoxesFor(skillId);
+  for (let i = 0; i < leaves.length; i++) {
+    const box = boxById[leaves[i]];
+    if (box && box.kind === 'chapter' && scopeRootId(leaves[i]) === root) return leaves[i];
+  }
+  return null;
+}
+
+function computeVennGroupedLayout(tree) {
+  const layerOf = tree.layerOf || {};
+  const ROW_STEP = TH + 16, CHAPTER_BREAK = 96, CLUSTER_JOIN = 40;
+  const MARGIN_X = 32, MARGIN_Y = 28, INNER_GAP = 156, SIDE_GUTTER = 16, OUT_GAP = 160;
+  const GHOST_W = 96, GHOST_H = 48, GHOST_GAP = 8, EXCL_COLS = 3;
+  const roots = vennRoots();
+  const rootL = roots[0], rootR = roots[1];
+  const meanOf = boxId => {
+    const ids = ((boxById[boxId] && boxById[boxId].skills) || []).filter(id => byId[id]);
+    if (!ids.length) return 0;
+    return ids.reduce((sum, id) => sum + (layerOf[id] || 0), 0) / ids.length;
+  };
+  const byTree = (a, b) => ((tree.nodes[a] && tree.nodes[a].x) || 0) - ((tree.nodes[b] && tree.nodes[b].x) || 0) || a.localeCompare(b);
+  const pairs = new Map();
+  const excl = {};
+  const miscShared = [];
+  const miscSide = { L: [], R: [] };
+  const outside = [];
+  skills.forEach(s => {
+    const id = s.id;
+    const inL = skillInRootSelection(id, rootL);
+    const inR = skillInRootSelection(id, rootR);
+    if (!inL && !inR) { outside.push(id); return; }
+    const cL = inL ? selectedChapter(id, rootL) : null;
+    const cR = inR ? selectedChapter(id, rootR) : null;
+    if (inL && inR) {
+      if (cL && cR) {
+        const key = cL + '\0' + cR;
+        if (!pairs.has(key)) pairs.set(key, []);
+        pairs.get(key).push(id);
+      } else miscShared.push({ id, L: cL, R: cR });
+      return;
+    }
+    const chapter = inL ? cL : cR;
+    const side = inL ? 'L' : 'R';
+    if (chapter) {
+      if (!excl[chapter]) excl[chapter] = [];
+      excl[chapter].push(id);
+    } else miscSide[side].push(id);
+  });
+  pairs.forEach(ids => ids.sort(byTree));
+  Object.keys(excl).forEach(id => excl[id].sort(byTree));
+
+  let leftIds = (COLLECTIONS.boxes || []).filter(b => b.kind === 'chapter' && selectedBoxes.has(b.id) && scopeRootId(b.id) === rootL).map(b => b.id);
+  let rightIds = (COLLECTIONS.boxes || []).filter(b => b.kind === 'chapter' && selectedBoxes.has(b.id) && scopeRootId(b.id) === rootR).map(b => b.id);
+  const byLayer = (a, b) => meanOf(b) - meanOf(a) || a.localeCompare(b);
+  leftIds.sort(byLayer);
+  rightIds.sort(byLayer);
+  const mateScore = (id, side, other) => {
+    const idx = {};
+    other.forEach((oid, i) => { idx[oid] = i; });
+    const mates = [];
+    pairs.forEach((_, key) => {
+      const parts = key.split('\0');
+      if (side === 'L' && parts[0] === id && idx[parts[1]] != null) mates.push(idx[parts[1]]);
+      if (side === 'R' && parts[1] === id && idx[parts[0]] != null) mates.push(idx[parts[0]]);
+    });
+    if (!mates.length) return null;
+    return mates.reduce((sum, n) => sum + n, 0) / mates.length;
+  };
+  const foldIsolates = (paired, isolates) => {
+    const all = paired.slice();
+    isolates.forEach(id => {
+      const at = all.findIndex(other => meanOf(other) < meanOf(id));
+      if (at < 0) all.push(id); else all.splice(at, 0, id);
+    });
+    return all;
+  };
+  for (let it = 0; it < 6; it++) {
+    const rScore = id => mateScore(id, 'R', leftIds);
+    const rPaired = rightIds.filter(id => rScore(id) != null).sort((a, b) => rScore(a) - rScore(b) || a.localeCompare(b));
+    rightIds = foldIsolates(rPaired, rightIds.filter(id => rScore(id) == null));
+    const lScore = id => mateScore(id, 'L', rightIds);
+    const lPaired = leftIds.filter(id => lScore(id) != null).sort((a, b) => lScore(a) - lScore(b) || a.localeCompare(b));
+    leftIds = foldIsolates(lPaired, leftIds.filter(id => lScore(id) == null));
+  }
+
+  const rows = [];
+  leftIds.forEach(L => {
+    const mates = rightIds.filter(R => pairs.has(L + '\0' + R));
+    mates.forEach(R => {
+      pairs.get(L + '\0' + R).forEach(id => rows.push({ L, R, shared: [id], leftEx: [], rightEx: [] }));
+    });
+  });
+  const ensureRows = (ids, side) => {
+    ids.forEach(ch => {
+      const mine = () => rows.filter(r => r[side] === ch);
+      const need = (excl[ch] || []).length;
+      let have = mine();
+      if (!have.length) {
+        if (!need) return;
+        const n = Math.ceil(need / EXCL_COLS);
+        const block = [];
+        for (let i = 0; i < n; i++) block.push({ L: side === 'L' ? ch : null, R: side === 'R' ? ch : null, shared: [], leftEx: [], rightEx: [] });
+        const at = rows.findIndex(r => r[side] && meanOf(r[side]) < meanOf(ch));
+        if (at < 0) rows.push(...block); else rows.splice(at, 0, ...block);
+        return;
+      }
+      const extra = Math.ceil(need / EXCL_COLS) - have.length;
+      if (extra > 0) {
+        const last = have[have.length - 1];
+        const idx = rows.indexOf(last);
+        const block = [];
+        for (let i = 0; i < extra; i++) block.push({ L: side === 'L' ? ch : null, R: side === 'R' ? ch : null, shared: [], leftEx: [], rightEx: [] });
+        rows.splice(idx + 1, 0, ...block);
+      }
+    });
+  };
+  ensureRows(leftIds, 'L');
+  ensureRows(rightIds, 'R');
+  const scatter = (ids, side, key) => {
+    ids.forEach(ch => {
+      const mine = rows.filter(r => r[side] === ch);
+      (excl[ch] || []).forEach((id, i) => {
+        if (!mine.length) return;
+        mine[Math.min(mine.length - 1, Math.floor(i / EXCL_COLS))][key].push(id);
+      });
+    });
+  };
+  scatter(leftIds, 'L', 'leftEx');
+  scatter(rightIds, 'R', 'rightEx');
+  const miscGroups = new Map();
+  miscShared.forEach(item => {
+    const key = (item.L || '') + '\0' + (item.R || '');
+    if (!miscGroups.has(key)) miscGroups.set(key, []);
+    miscGroups.get(key).push(item.id);
+  });
+  miscGroups.forEach((ids, key) => {
+    const parts = key.split('\0');
+    ids.sort(byTree);
+    ids.forEach(id => rows.push({ L: parts[0] || null, R: parts[1] || null, shared: [id], leftEx: [], rightEx: [] }));
+  });
+  const pushSide = (ids, side) => {
+    ids.sort(byTree);
+    for (let i = 0; i < ids.length; i += EXCL_COLS) {
+      const slice = ids.slice(i, i + EXCL_COLS);
+      rows.push({ L: null, R: null, shared: [], leftEx: side === 'L' ? slice : [], rightEx: side === 'R' ? slice : [] });
+    }
+  };
+  pushSide(miscSide.L, 'L');
+  pushSide(miscSide.R, 'R');
+
+  let maxGhosts = 1, maxShared = 1;
+  rows.forEach(r => {
+    maxGhosts = Math.max(maxGhosts, r.shared.length);
+    maxShared = Math.max(maxShared, r.shared.length);
+  });
+  const exclW = EXCL_COLS * TW + (EXCL_COLS - 1) * GX;
+  const ghostColW = maxGhosts * GHOST_W + Math.max(0, maxGhosts - 1) * GHOST_GAP;
+  const sharedW = maxShared * TW + Math.max(0, maxShared - 1) * GX;
+  const leftGhostRight = MARGIN_X + exclW + SIDE_GUTTER + ghostColW;
+  const sharedLeft = leftGhostRight + INNER_GAP;
+  const rightGhostLeft = sharedLeft + sharedW + INNER_GAP;
+  const rightExX = rightGhostLeft + ghostColW + SIDE_GUTTER;
+  const nodes = {};
+  let rowY = MARGIN_Y, prevL = null, prevR = null, placedRow = false;
+  rows.forEach(r => {
+    if (placedRow && ((r.L && prevL && r.L !== prevL) || (r.R && prevR && r.R !== prevR))) rowY += CHAPTER_BREAK;
+    const y = rowY;
+    const sw = r.shared.length ? r.shared.length * TW + (r.shared.length - 1) * GX : 0;
+    const sx = sharedLeft + (sharedW - sw) / 2;
+    r.shared.forEach((id, k) => { nodes[id] = { x: sx + k * (TW + GX), y }; });
+    const placeGhosts = (boxId, alignRight) => {
+      if (!boxId || !r.shared.length) return;
+      const span = r.shared.length * GHOST_W + (r.shared.length - 1) * GHOST_GAP;
+      let x = alignRight ? leftGhostRight - span : rightGhostLeft;
+      const yGhost = y + (TH - GHOST_H) / 2;
+      r.shared.forEach(id => {
+        nodes['ghost:' + id + ':' + boxId] = { x, y: yGhost, w: GHOST_W, h: GHOST_H };
+        x += GHOST_W + GHOST_GAP;
+      });
+    };
+    placeGhosts(r.L, true);
+    placeGhosts(r.R, false);
+    r.leftEx.forEach((id, k) => { nodes[id] = { x: MARGIN_X + k * (TW + GX), y }; });
+    r.rightEx.forEach((id, k) => { nodes[id] = { x: rightExX + k * (TW + GX), y }; });
+    rowY += ROW_STEP;
+    placedRow = true;
+    if (r.L) prevL = r.L;
+    if (r.R) prevR = r.R;
+  });
+
+  const outX = rightExX + exclW + OUT_GAP;
+  const outByLayer = {};
+  outside.forEach(id => {
+    const layer = layerOf[id] || 0;
+    if (!outByLayer[layer]) outByLayer[layer] = [];
+    outByLayer[layer].push(id);
+  });
+  let outY = MARGIN_Y;
+  Object.keys(outByLayer).map(Number).sort((a, b) => b - a).forEach(layer => {
+    const row = outByLayer[layer].sort(byTree);
+    for (let i = 0; i < row.length; i += 8) {
+      row.slice(i, i + 8).forEach((id, k) => { nodes[id] = { x: outX + k * (TW + GX), y: outY }; });
+      outY += TH + 20;
+    }
+  });
+
+  const shiftNodes = (dx, dy) => {
+    Object.keys(nodes).forEach(id => { nodes[id].x += dx; nodes[id].y += dy; });
+  };
+  const itemOf = (id, w, h) => {
+    const n = nodes[id];
+    return n ? { x: n.x, y: n.y, w: w || n.w || TW, h: h || n.h || TH } : null;
+  };
+  const clusterItems = items => {
+    const sorted = items.filter(Boolean).sort((a, b) => a.y - b.y || a.x - b.x);
+    const groups = [];
+    sorted.forEach(it => {
+      const g = groups[groups.length - 1];
+      if (!g || it.y > g.maxY + CLUSTER_JOIN) groups.push({ items: [it], maxY: it.y + it.h });
+      else { g.items.push(it); g.maxY = Math.max(g.maxY, it.y + it.h); }
+    });
+    return groups;
+  };
+  const hullOf = (items, pad) => {
+    const pts = [];
+    items.forEach(it => {
+      pts.push([it.x - pad, it.y - pad], [it.x + it.w + pad, it.y - pad], [it.x - pad, it.y + it.h + pad], [it.x + it.w + pad, it.y + it.h + pad]);
+    });
+    return convexHull(pts);
+  };
+  const chapterItems = ch => {
+    const items = [];
+    rows.forEach(r => {
+      if (r.L === ch) r.leftEx.forEach(id => items.push(itemOf(id)));
+      if (r.R === ch) r.rightEx.forEach(id => items.push(itemOf(id)));
+      if ((r.L === ch || r.R === ch) && r.shared.length) {
+        r.shared.forEach(id => items.push(itemOf('ghost:' + id + ':' + ch, GHOST_W, GHOST_H)));
+      }
+    });
+    return items.filter(Boolean);
+  };
+  const blobFrom = (box, items) => {
+    const pad = boxPad(box);
+    const groups = clusterItems(items);
+    const parts = groups.map(g => hullOf(g.items, pad)).filter(poly => poly.length >= 3);
+    if (!parts.length) return null;
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    let best = parts[0], bestArea = -1;
+    parts.forEach(poly => {
+      let px0 = Infinity, py0 = Infinity, px1 = -Infinity, py1 = -Infinity;
+      poly.forEach(([x, y]) => {
+        x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y);
+        px0 = Math.min(px0, x); py0 = Math.min(py0, y); px1 = Math.max(px1, x); py1 = Math.max(py1, y);
+      });
+      const area = (px1 - px0) * (py1 - py0);
+      if (area > bestArea) { bestArea = area; best = poly; }
+    });
+    const labelPoly = best;
+    let lx0 = Infinity, ly0 = Infinity, lx1 = -Infinity, ly1 = -Infinity;
+    labelPoly.forEach(([x, y]) => { lx0 = Math.min(lx0, x); ly0 = Math.min(ly0, y); lx1 = Math.max(lx1, x); ly1 = Math.max(ly1, y); });
+    return {
+      x: x0, y: y0, w: x1 - x0, h: y1 - y0, points: best, parts,
+      labelBox: { x: lx0, y: ly0, w: lx1 - lx0, h: ly1 - ly0 },
+      kind: box.kind || 'chapter', boxId: box.id, ch: boxColorIndex(box), pad
+    };
+  };
+  const blobs = {};
+  const addChapter = id => {
+    const box = boxById[id];
+    if (!box) return;
+    const blob = blobFrom(box, chapterItems(id));
+    if (blob) blobs[id] = blob;
+  };
+  leftIds.forEach(addChapter);
+  rightIds.forEach(addChapter);
+  [rootL, rootR].forEach(root => {
+    if (!selectedBoxes.has(root)) return;
+    const box = boxById[root];
+    if (!box) return;
+    const items = [];
+    Object.keys(nodes).forEach(key => {
+      // A chapter of shared skills is drawn from its ghost tiles. Those tiles
+      // sit outside the real nodes, so the parent course has to include them
+      // or the chapter box lands outside the course region.
+      if (key.indexOf('ghost:') === 0) {
+        const chapterId = key.split(':').slice(2).join(':');
+        if (scopeRootId(chapterId) === root) items.push(itemOf(key));
+        return;
+      }
+      if (skillInBox(key, root)) items.push(itemOf(key));
+    });
+    const blob = blobFrom(box, items.filter(Boolean));
+    if (blob) blobs[root] = blob;
+  });
+
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  const grow = (x, y, w, h) => {
+    minX = Math.min(minX, x); minY = Math.min(minY, y);
+    maxX = Math.max(maxX, x + w); maxY = Math.max(maxY, y + h);
+  };
+  Object.keys(nodes).forEach(key => {
+    const n = nodes[key];
+    grow(n.x, n.y, n.w || TW, n.h || TH);
+  });
+  Object.keys(blobs).forEach(id => grow(blobs[id].x, blobs[id].y, blobs[id].w, blobs[id].h));
+  if (!isFinite(minX)) { minX = 0; minY = 0; maxX = 200; maxY = 120; }
+  const dx = MARGIN_X - minX, dy = MARGIN_Y - minY;
+  shiftNodes(dx, dy);
+  Object.keys(blobs).forEach(id => {
+    const b = blobs[id];
+    const move = poly => poly.map(pt => [pt[0] + dx, pt[1] + dy]);
+    b.x += dx; b.y += dy; b.points = move(b.points); b.parts = b.parts.map(move);
+    if (b.labelBox) { b.labelBox.x += dx; b.labelBox.y += dy; }
+  });
+
+  const ghosts = [];
+  const ghostLinks = [];
+  Object.keys(nodes).forEach(key => {
+    if (key.indexOf('ghost:') !== 0) return;
+    const parts = key.split(':');
+    const skillId = parts[1], boxId = parts.slice(2).join(':');
+    const n = nodes[key];
+    ghosts.push({ key, skillId, boxId, x: n.x, y: n.y, w: n.w, h: n.h });
+    ghostLinks.push({ key, skillId });
+  });
+  const selected = (COLLECTIONS && COLLECTIONS.boxes || []).filter(b => selectedBoxes.has(b.id));
+  return {
+    nodes, mids: {}, blobs, ghosts, ghostLinks,
+    places: skills.map(s => ({ key: s.id, skillId: s.id, boxId: null })),
+    edges: allEdges.map(([p, c]) => ({ from: p, to: c, fromKey: p, toKey: c })),
+    w: Math.max(maxX + dx + MARGIN_X, 200),
+    h: Math.max(maxY + dy + MARGIN_Y, 120),
+    useNested: selected.some(b => b.kind === 'chapter') && selected.some(b => b.kind === 'course' || b.kind === 'textbook'),
+    rank: {}
+  };
 }
 
 function computeGroupedLayout() {
   const tree = layout.tree;
   const empty = { nodes: {}, mids: {}, blobs: {}, places: [], edges: [], w: 200, h: 120, useNested: false, rank: {} };
   if (!tree || !skills.length) { layout.grouped = empty; return; }
+  if (vennPairActive()) { layout.grouped = computeVennGroupedLayout(tree); return; }
   const layerOf = tree.layerOf || {};
   const GYR_G = 72, COLGAP = 52, ZONE_GAP = 140, OUT_GAP = 160, MARGIN_X = 32, MARGIN_Y = 28;
   const groups = new Map();
@@ -732,6 +1106,8 @@ const filter = { playable: false, view: 'tree' };
 let selectedBoxes = new Set();
 let scopePanelOpen = false;
 let regionsSvg = null;
+let ghostSvg = null;
+let ghostLinkEls = [];
 let labelLayer = null;
 const edgeEls = [];
 const drag = { on: false, moved: false, sx: 0, sy: 0, vx: 0, vy: 0 };
@@ -780,7 +1156,7 @@ function buildTile(s, st, boxId) {
     el('span', { class: 'extstar', 'aria-hidden': 'true', text: '☆' }),
     el('span', { class: 'light', 'aria-hidden': 'true' }, el('span', { class: 'light-dot' })));
   if (boxId) b.dataset.box = boxId;
-  b.addEventListener('click', () => { if (drag.moved) return; selectSkill(s.id) });
+  b.addEventListener('click', () => { if (drag.moved) return; selectSkill(s.id, b.classList.contains('ghost')); });
   b.addEventListener('mouseenter', () => { hoverId = s.id; applyEdgeHighlight() });
   b.addEventListener('mouseleave', () => { hoverId = null; applyEdgeHighlight() });
   b.addEventListener('focus', () => { hoverId = s.id; applyEdgeHighlight() });
@@ -816,18 +1192,27 @@ function isOutsidePrereq(id) {
 function refreshTile(b) {
   const id = b.dataset.id, s = byId[id], t = tierOf(id), soon = !isPlayable(id), ready = isReady(id);
   const st = b.classList.contains('st');
+  const ghost = b.classList.contains('ghost');
   const boxDimmed = !tileInScope(b);
   const outside = isOutsidePrereq(id);
   const lightMode = b.classList.contains('light-mode');
-  b.className = 'tile' + (st ? ' st' : '') + ' t' + t + (soon ? ' soon' : '') + (ready ? ' ready' : '') + (selected === id ? ' sel' : '') + (boxDimmed ? ' boxdim' : '') + (outside ? ' ext-prereq' : '') + (lightMode ? ' light-mode' : '');
+  b.className = 'tile' + (st ? ' st' : '') + (ghost ? ' ghost' : '') + ' t' + t + (soon ? ' soon' : '') + (ready ? ' ready' : '') + (selected === id ? ' sel' : '') + (boxDimmed ? ' boxdim' : '') + (outside ? ' ext-prereq' : '') + (lightMode ? ' light-mode' : '');
   b.style.setProperty('--fill', FILL[t] + '%');
   b.querySelectorAll('.pips i').forEach((p, i) => p.classList.toggle('on', t > i));
   b.querySelector('.tl').textContent = soon ? '' : TIERS[t];
   const tag = b.querySelector('.tag'); tag.textContent = soon ? 'SOON' : (ready ? 'READY' : ''); tag.style.display = (soon || ready) ? '' : 'none';
   const gaps = (!soon && t === 0 && !ready) ? prereqGaps(id).length : 0;
   const label = labelForTile(s, b);
-  b.title = `${s.name} · ${label}` + (soon ? ' · coming soon' : ready ? ' · ready to learn' : gaps ? ` · recommended once prerequisites reach ${TIERS[READY_TIER]}` : '') + (outside ? ' · prerequisite outside this scope' : '');
-  b.setAttribute('aria-label', `${s.name}. ${label}. ${soon ? 'Coming soon, no questions yet' : TIERS[t] + (ready ? ', ready to learn' : '')}${outside ? '. Prerequisite outside this scope' : ''}`);
+  const state = soon ? 'Coming soon, no questions yet' : TIERS[t] + (ready ? ', ready to learn' : '');
+  if (ghost) {
+    const box = boxById[b.dataset.box];
+    const where = box ? box.title : 'this chapter';
+    b.title = `${s.name} · Reference in ${where}`;
+    b.setAttribute('aria-label', `${s.name}. Reference in ${where}. ${state}.`);
+  } else {
+    b.title = `${s.name} · ${label}` + (soon ? ' · coming soon' : ready ? ' · ready to learn' : gaps ? ` · recommended once prerequisites reach ${TIERS[READY_TIER]}` : '') + (outside ? ' · prerequisite outside this scope' : '');
+    b.setAttribute('aria-label', `${s.name}. ${label}. ${state}${outside ? '. Prerequisite outside this scope' : ''}`);
+  }
   b.setAttribute('aria-pressed', selected === id ? 'true' : 'false');
   if (filter.playable && soon && !st) b.classList.add('dim');
 }
@@ -857,6 +1242,7 @@ function sizeWorld(L) {
   world.style.width = L.w + 'px'; world.style.height = L.h + 'px';
   edgesSvg.setAttribute('width', L.w); edgesSvg.setAttribute('height', L.h);
   if (regionsSvg) { regionsSvg.setAttribute('width', L.w); regionsSvg.setAttribute('height', L.h); }
+  if (ghostSvg) { ghostSvg.setAttribute('width', L.w); ghostSvg.setAttribute('height', L.h); }
 }
 function placeTiles(pos) {
   world.querySelectorAll('.tile').forEach(t => {
@@ -866,10 +1252,53 @@ function placeTiles(pos) {
     t.style.left = p.x + 'px';
     t.style.top = p.y + 'px';
   });
+  syncGhostLinks();
+}
+function syncGhostLinks() {
+  if (!ghostSvg) return;
+  const G = layout.grouped;
+  const links = (layoutMode === 'grouped' && G && G.ghostLinks) || [];
+  const NS = 'http://www.w3.org/2000/svg';
+  if (ghostLinkEls.length !== links.length) {
+    while (ghostSvg.firstChild) ghostSvg.removeChild(ghostSvg.firstChild);
+    ghostLinkEls = links.map(() => {
+      const path = document.createElementNS(NS, 'path');
+      path.setAttribute('class', 'ghost-link');
+      ghostSvg.append(path);
+      return path;
+    });
+  }
+  links.forEach((lnk, i) => {
+    const a = curPos[lnk.key] || (G && G.nodes && G.nodes[lnk.key]);
+    const b = curPos[lnk.skillId] || (G && G.nodes && G.nodes[lnk.skillId]);
+    const path = ghostLinkEls[i];
+    if (!a || !b) { path.setAttribute('d', ''); return; }
+    const gw = (G.nodes[lnk.key] && G.nodes[lnk.key].w) || 96;
+    const gh = (G.nodes[lnk.key] && G.nodes[lnk.key].h) || 48;
+    const x1 = a.x + gw / 2, y1 = a.y + gh / 2, x2 = b.x + TW / 2, y2 = b.y + TH / 2;
+    path.setAttribute('d', `M${x1},${y1} L${x2},${y2}`);
+  });
 }
 
+function syncGhostTiles() {
+  const ghosts = (layoutMode === 'grouped' && layout.grouped && layout.grouped.ghosts) || [];
+  ghosts.forEach(g => {
+    const s = byId[g.skillId];
+    if (!s) return;
+    const tile = buildTile(s, false, g.boxId);
+    tile.classList.add('ghost');
+    if (lightsMode) tile.classList.add('light-mode');
+    tile.dataset.place = g.key;
+    tile.dataset.ghost = '1';
+    const meta = tile.querySelector('.meta');
+    if (meta) meta.prepend(el('span', { class: 'refmark', text: 'Reference' }));
+    world.append(tile);
+    refreshTile(tile);
+  });
+}
 function syncTiles() {
   const want = new Set(skills.map(s => s.id));
+  world.querySelectorAll('.tile.ghost').forEach(t => t.remove());
   world.querySelectorAll('.tile:not(.st)').forEach(t => {
     if (!want.has(t.dataset.id) || t.dataset.place) t.remove();
   });
@@ -878,7 +1307,8 @@ function syncTiles() {
     if (have.has(s.id)) return;
     world.append(buildTile(s, false, null));
   });
-  world.querySelectorAll('.tile:not(.st)').forEach(refreshTile);
+  world.querySelectorAll('.tile:not(.st):not(.ghost)').forEach(refreshTile);
+  syncGhostTiles();
   if (labelLayer) world.append(labelLayer);
 }
 
@@ -915,6 +1345,12 @@ function ensureRegionLayers() {
     regionsSvg.setAttribute('aria-hidden', 'true');
     world.insertBefore(regionsSvg, edgesSvg);
   }
+  if (!ghostSvg) {
+    ghostSvg = document.createElementNS(NS, 'svg');
+    ghostSvg.id = 'ghostLinks';
+    ghostSvg.setAttribute('aria-hidden', 'true');
+    world.insertBefore(ghostSvg, edgesSvg);
+  }
   if (!labelLayer) {
     labelLayer = el('div', { id: 'regionLabels' });
     world.append(labelLayer);
@@ -934,20 +1370,24 @@ function updateBlobsDOM() {
     const rank = k => (k === 'course' || k === 'textbook') ? 0 : 1;
     return rank(G.blobs[a].kind) - rank(G.blobs[b].kind) || (G.blobs[b].w * G.blobs[b].h) - (G.blobs[a].w * G.blobs[a].h);
   });
+  const polyPoints = pts => pts.map(pt => pt[0].toFixed(1) + ',' + pt[1].toFixed(1)).join(' ');
   order.forEach(id => {
     const b = G.blobs[id];
     const box = boxById[id];
-    const poly = document.createElementNS(NS, 'polygon');
-    poly.setAttribute('class', 'blob on ' + (b.kind || 'chapter'));
-    poly.setAttribute('data-box', id);
-    poly.setAttribute('points', b.points.map(pt => pt[0].toFixed(1) + ',' + pt[1].toFixed(1)).join(' '));
-    poly.setAttribute('fill', boxFill(box));
-    poly.setAttribute('stroke', boxStroke(box));
-    poly.setAttribute('stroke-width', (b.kind === 'course' || b.kind === 'textbook') ? '3.5' : '2.25');
-    poly.setAttribute('stroke-linejoin', 'round');
-    regionsSvg.append(poly);
+    const parts = b.parts && b.parts.length ? b.parts : [b.points];
+    parts.forEach(pts => {
+      const poly = document.createElementNS(NS, 'polygon');
+      poly.setAttribute('class', 'blob on ' + (b.kind || 'chapter'));
+      poly.setAttribute('data-box', id);
+      poly.setAttribute('points', polyPoints(pts));
+      poly.setAttribute('fill', boxFill(box));
+      poly.setAttribute('stroke', boxStroke(box));
+      poly.setAttribute('stroke-width', (b.kind === 'course' || b.kind === 'textbook') ? '3.5' : '2.25');
+      poly.setAttribute('stroke-linejoin', 'round');
+      regionsSvg.append(poly);
+    });
   });
-  const tileRects = Object.values(G.nodes).map(n => ({ x: n.x, y: n.y, w: TW, h: TH }));
+  const tileRects = Object.values(G.nodes).map(n => ({ x: n.x, y: n.y, w: n.w || TW, h: n.h || TH }));
   const labels = order.map(id => {
     const box = boxById[id];
     const node = el('div', { class: 'region-label', 'data-box': id, title: box ? box.title : id, text: regionLabelText(box) });
@@ -962,7 +1402,7 @@ function updateBlobsDOM() {
   const fits = r => r.x >= 2 && r.y >= 2 && r.x + r.w < G.w + 240 && !tileRects.some(o => rectsOverlap(r, o, 4)) && !placed.some(o => rectsOverlap(r, o, 4));
   labels.sort((a, b) => (b.bbox.w * b.bbox.h) - (a.bbox.w * a.bbox.h));
   labels.forEach(lab => {
-    const b = lab.bbox;
+    const b = lab.bbox.labelBox || lab.bbox;
     const candidates = [
       { x: b.x + 8, y: b.y + 4 },
       { x: b.x + 8 + lab.w + 10, y: b.y + 4 },
@@ -1002,13 +1442,25 @@ function updateBlobsDOM() {
   if (minX < 0 || minY < 0) {
     const dx = minX < 0 ? -minX + 8 : 0, dy = minY < 0 ? -minY + 8 : 0;
     Object.values(G.nodes).forEach(n => { n.x += dx; n.y += dy; });
-    Object.values(G.blobs).forEach(b => { b.x += dx; b.y += dy; b.points = b.points.map(pt => [pt[0] + dx, pt[1] + dy]); });
+    Object.values(G.blobs).forEach(b => {
+      b.x += dx; b.y += dy;
+      const move = poly => poly.map(pt => [pt[0] + dx, pt[1] + dy]);
+      b.points = move(b.points);
+      if (b.parts) b.parts = b.parts.map(move);
+      if (b.labelBox) { b.labelBox.x += dx; b.labelBox.y += dy; }
+    });
+    if (G.ghosts) G.ghosts.forEach(g => { g.x += dx; g.y += dy; });
     placed.forEach(r => { r.x += dx; r.y += dy; });
     labels.forEach(lab => { lab.node.style.left = (parseFloat(lab.node.style.left) + dx) + 'px'; lab.node.style.top = (parseFloat(lab.node.style.top) + dy) + 'px'; });
     order.forEach(id => {
-      const poly = regionsSvg.querySelector('[data-box="' + CSS.escape(id) + '"]');
       const b = G.blobs[id];
-      if (poly && b) poly.setAttribute('points', b.points.map(pt => pt[0].toFixed(1) + ',' + pt[1].toFixed(1)).join(' '));
+      if (!b) return;
+      const parts = b.parts && b.parts.length ? b.parts : [b.points];
+      const polys = [...regionsSvg.querySelectorAll('[data-box="' + CSS.escape(id) + '"]')];
+      polys.forEach((poly, i) => {
+        const pts = parts[i] || b.points;
+        if (pts) poly.setAttribute('points', pts.map(pt => pt[0].toFixed(1) + ',' + pt[1].toFixed(1)).join(' '));
+      });
     });
     maxX += dx; maxY += dy;
   }
@@ -1046,7 +1498,7 @@ function showLayout(mode, animated) {
   syncEdges();
   const L = layout[mode];
   const tiles = [...world.querySelectorAll('.tile:not(.st)')];
-  const keys = tiles.map(t => t.dataset.id);
+  const keys = tiles.map(t => t.dataset.place || t.dataset.id);
   const from = {};
   keys.forEach(key => { from[key] = curPos[key] || L.nodes[key] || { x: 0, y: 0 }; });
   tv.dataset.mode = mode; world.dataset.layout = mode;
@@ -2946,7 +3398,7 @@ function openHelp() {
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
     el('li', {}, el('b', { text: 'Plan ' }), 'opens from the notebook. Exam dates sit at the top. Calculate and save new plan runs a learning plan for every upcoming exam, spreads each exam\'s sessions over the days before that exam, then interleaves them by date and locks the result. A skill that two exams need is kept once, on the earliest day. The graphs stay on that saved plan until you calculate again. Highlighted courses are visual only: there is no plan until an exam is added and calculated. TODAY shows sessions behind, sessions left today, all caught up, or sessions ahead. Queue up learning session from exam plan adds the earliest saved session you have not finished.'),
     el('li', {}, el('b', { text: 'Courses ' }), 'is select-all-that-apply. The address bar focus parameter is that list (for example ?focus=me132,nlo). A link with focus uses that list, and a visit with no focus parameter restores your last choice. A new profile starts with nothing focused. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. The grid lists only the chapters in that selection. With every course selected, or with nothing selected yet, the grid keeps every chapter, the same way the tree does. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
-    el('li', {}, el('b', { text: 'Group by course ' }), 'is on when you have not chosen a layout. It draws each selected course and chapter as a colored region around its skills. Regions overlap where boxes share skills, and Ungroup returns to one prerequisite tree. A layout you choose is remembered on this device.'),
+    el('li', {}, el('b', { text: 'Group by course ' }), 'is on when you have not chosen a layout. It draws each selected course and chapter as a colored region around its skills. Regions overlap where boxes share skills. With two courses and their chapters selected, a shared skill keeps one node in a band between those chapters, and each chapter shows a faded reference instead of stretching into the band. Ungroup returns to one prerequisite tree. A layout you choose is remembered on this device.'),
     el('li', {}, el('b', { text: 'Flag a question ' }), 'if the answer seems wrong, the wording is unclear, there is a typo, or the figure is off. A comment is optional.'),
     el('li', {}, el('b', { text: 'Usage measurement ' }), 'counts which skills and courses you open and how quizzes go. It uses a random id on this device, not a third-party tracker. Turn it off in Profile. A browser Do Not Track signal turns it off too.'),
     el('li', {}, 'Progress autosaves in this browser after every quiz. Open Profile to Export a backup you can Import later, or on another device.'),
