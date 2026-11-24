@@ -942,7 +942,14 @@ function computeVennGroupedLayout(tree) {
     if (!box) return;
     const items = [];
     Object.keys(nodes).forEach(key => {
-      if (key.indexOf('ghost:') === 0) return;
+      // A chapter of shared skills is drawn from its ghost tiles. Those tiles
+      // sit outside the real nodes, so the parent course has to include them
+      // or the chapter box lands outside the course region.
+      if (key.indexOf('ghost:') === 0) {
+        const chapterId = key.split(':').slice(2).join(':');
+        if (scopeRootId(chapterId) === root) items.push(itemOf(key));
+        return;
+      }
       if (skillInBox(key, root)) items.push(itemOf(key));
     });
     const blob = blobFrom(box, items.filter(Boolean));

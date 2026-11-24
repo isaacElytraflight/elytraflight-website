@@ -5908,9 +5908,16 @@ async function test(name, fn) {
       }));
       const chapters = [...selected].filter(id => boxById[id] && boxById[id].kind === 'chapter');
       const intrusions = [];
+      const outsideParent = [];
       chapters.forEach(id => {
+        const parentPolys = polysOf(rootOf(id));
         polysOf(id).forEach(poly => {
           if (overlaps.some(region => convexHit(poly, region))) intrusions.push(id);
+          const cx = poly.reduce((sum, pt) => sum + pt[0], 0) / poly.length;
+          const cy = poly.reduce((sum, pt) => sum + pt[1], 0) / poly.length;
+          const inset = poly.map(pt => [pt[0] + (cx - pt[0]) * 0.04, pt[1] + (cy - pt[1]) * 0.04]);
+          const insideParent = parentPolys.some(parent => inset.every(pt => pip(parent, pt[0], pt[1])));
+          if (!insideParent) outsideParent.push(id);
         });
       });
       const L = sg.layout().grouped;
@@ -5958,6 +5965,7 @@ async function test(name, fn) {
       return {
         shared: shared.length,
         intrusions: [...new Set(intrusions)],
+        outsideParent: [...new Set(outsideParent)],
         overlapParts: overlaps.length,
         problems: problems.slice(0, 12),
         problemCount: problems.length,
@@ -5985,6 +5993,7 @@ async function test(name, fn) {
     assert(report.shared > 0, 'EE 105 and ME 132 share skills');
     assert(report.overlapParts > 0, 'the two course regions overlap');
     assert.deepStrictEqual(report.intrusions, [], 'sub-chapter box enters the overlap: ' + report.intrusions.join(', '));
+    assert.deepStrictEqual(report.outsideParent, [], 'sub-chapter box leaves its course: ' + report.outsideParent.join(', '));
     assert.strictEqual(report.problemCount, 0, report.problems.join('; '));
     assert.strictEqual(report.stray, 0, 'a skill outside the pair has a ghost');
     assert.strictEqual(report.tiles, NSKILL, 'each skill still has one real node');
@@ -6001,6 +6010,7 @@ async function test(name, fn) {
     await sleep(200);
     report = await facts();
     assert.deepStrictEqual(report.intrusions, [], 'mobile: ' + report.intrusions.join(', '));
+    assert.deepStrictEqual(report.outsideParent, [], 'mobile parent: ' + report.outsideParent.join(', '));
     assert.strictEqual(report.problemCount, 0, 'mobile: ' + report.problems.join('; '));
     const phone = await p.evaluate(() => {
       const ghost = document.querySelector('#world .tile.ghost');
