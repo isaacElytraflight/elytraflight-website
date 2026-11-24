@@ -5948,6 +5948,16 @@ async function test(name, fn) {
           if (!polysOf(g.dataset.box).some(poly => inside(poly, gx, gy))) ghostProblems.push(id + ' ghost outside ' + g.dataset.box);
         });
       });
+      const tileHits = [];
+      shared.forEach(id => {
+        const n = L.nodes[id];
+        Object.keys(L.nodes).forEach(key => {
+          if (key === id) return;
+          const o = L.nodes[key];
+          const ow = o.w || 168, oh = o.h || 72;
+          if (n.x < o.x + ow - 1 && o.x < n.x + 168 - 1 && n.y < o.y + oh - 1 && o.y < n.y + 72 - 1) tileHits.push(id + ' over ' + key);
+        });
+      });
       const shares = {};
       shared.forEach(id => { const k = String(share[id]); shares[k] = (shares[k] || 0) + 1; });
       const link = document.querySelector('#ghostLinks .ghost-link');
@@ -5968,6 +5978,8 @@ async function test(name, fn) {
         prereqCount: prereq.length,
         ghostProblems: ghostProblems.slice(0, 8),
         ghostProblemCount: ghostProblems.length,
+        tileHits: tileHits.slice(0, 8),
+        tileHitCount: tileHits.length,
         ghosts: document.querySelectorAll('#world .tile.ghost').length,
         links: document.querySelectorAll('#ghostLinks .ghost-link').length,
         real: document.querySelectorAll('#world .tile:not(.ghost)').length,
@@ -6003,6 +6015,7 @@ async function test(name, fn) {
     assert.deepStrictEqual(report.overlaps, [], 'course regions overlap: ' + report.overlaps.join(', '));
     assert.strictEqual(report.prereqCount, 0, 'prerequisite order: ' + report.prereq.join(', '));
     assert.strictEqual(report.ghostProblemCount, 0, report.ghostProblems.join('; '));
+    assert.strictEqual(report.tileHitCount, 0, 'a shared skill covers another tile: ' + report.tileHits.join(', '));
     assert.strictEqual(report.real, NSKILL, 'each skill still has one real node');
     assert.strictEqual(report.links, report.ghosts, 'each reference has a dotted link');
     assert(report.ghosts > 0, 'two courses draw reference copies on the course boxes');
@@ -6016,6 +6029,7 @@ async function test(name, fn) {
     assert.strictEqual(report.intrusionCount, 0, 'chapter box enters another course: ' + report.intrusions.join(', '));
     assert.strictEqual(report.prereqCount, 0, 'prerequisite order: ' + report.prereq.join(', '));
     assert.strictEqual(report.ghostProblemCount, 0, report.ghostProblems.join('; '));
+    assert.strictEqual(report.tileHitCount, 0, 'a shared skill covers another tile: ' + report.tileHits.join(', '));
     assert.strictEqual(report.links, report.ghosts);
     assert(report.dash && report.dash !== 'none', 'ghost links are dotted');
     assert(parseFloat(report.width) <= 2, 'ghost links stay thin');
@@ -6100,6 +6114,7 @@ async function test(name, fn) {
     assert.strictEqual(report.intrusionCount, 0, 'chapter box extends into another course: ' + report.intrusions.join(', '));
     assert.strictEqual(report.prereqCount, 0, 'prerequisite order: ' + report.prereq.join(', '));
     assert.strictEqual(report.ghostProblemCount, 0, report.ghostProblems.join('; '));
+    assert.strictEqual(report.tileHitCount, 0, 'a shared skill covers another tile: ' + report.tileHits.join(', '));
     assert.strictEqual(report.real, NSKILL);
     assert.strictEqual(report.links, report.ghosts);
 
@@ -6112,6 +6127,7 @@ async function test(name, fn) {
     assert.strictEqual(report.intrusionCount, 0, report.intrusions.join(', '));
     assert.strictEqual(report.prereqCount, 0, 'prerequisite order: ' + report.prereq.join(', '));
     assert.strictEqual(report.ghostProblemCount, 0, report.ghostProblems.join('; '));
+    assert.strictEqual(report.tileHitCount, 0, 'a skill shared by 3 courses covers another tile: ' + report.tileHits.join(', '));
 
     await p.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
     await sleep(200);

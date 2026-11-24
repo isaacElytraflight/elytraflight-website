@@ -845,10 +845,30 @@ function computeTrunkLayout(tree) {
     const x1 = Math.max(...spans.map(s => s.x + s.w));
     return (x0 + x1) / 2;
   };
+  // A shared skill lifted into the course band cannot sit on the centered
+  // trunk x: that row is already full of course tiles. Prefer a gutter
+  // between the courses that share it, then the side of their span.
+  const gutterStart = (members, rowW) => {
+    const spans = members.map(r => courseGeom[r]).filter(Boolean).sort((a, b) => a.x - b.x);
+    const center = centerOf(members);
+    const candidates = [];
+    for (let i = 0; i < spans.length - 1; i++) {
+      const gapL = spans[i].x + spans[i].w;
+      const gapR = spans[i + 1].x;
+      candidates.push(gapL + Math.max(0, (gapR - gapL - rowW) / 2));
+    }
+    if (spans.length) {
+      candidates.push(spans[0].x - rowW - GX);
+      candidates.push(spans[spans.length - 1].x + spans[spans.length - 1].w + GX);
+    }
+    if (!candidates.length) return center - rowW / 2;
+    candidates.sort((a, b) => Math.abs(a + rowW / 2 - center) - Math.abs(b + rowW / 2 - center));
+    return candidates[0];
+  };
   clusters.forEach(cluster => {
     const ids = cluster.ids.sort(byTree);
     const rowW = ids.length * TW + Math.max(0, ids.length - 1) * GX;
-    const start = centerOf(cluster.members) - rowW / 2;
+    const start = cluster.rank > sharedMax ? gutterStart(cluster.members, rowW) : centerOf(cluster.members) - rowW / 2;
     const y = yOf(cluster.rank);
     ids.forEach((sid, i) => { nodes[sid] = { x: start + i * (TW + GX), y }; });
   });
@@ -884,26 +904,60 @@ function computeTrunkLayout(tree) {
     row.forEach((id, i) => { nodes[id] = { x: outX + i * (TW + GX), y: yOf(+rs) }; });
   });
 
-  const hits = (a, b) => {
-    const aw = a.w || TW, ah = a.h || TH, bw = b.w || TW, bh = b.h || TH;
-    return a.x < b.x + bw + 8 && b.x < a.x + aw + 8 && a.y < b.y + bh + 8 && b.y < a.y + ah + 8;
-  };
-  const others = Object.keys(nodes).filter(key => key.indexOf('ghost:') !== 0 && sharedIds.indexOf(key) < 0);
-  for (let pass = 0; pass < 6; pass++) {
-    let moved = false;
-    const order = sharedIds.filter(id => nodes[id]).sort((a, b) => nodes[a].y - nodes[b].y || nodes[a].x - nodes[b].x);
-    order.forEach((id, i) => {
-      const a = nodes[id];
-      const bump = other => {
-        if (!other || !hits(a, other)) return;
-        const target = other.x + (other.w || TW) + GX;
-        if (target > a.x) { a.x = target; moved = true; }
-      };
-      others.forEach(oid => bump(nodes[oid]));
-      for (let j = 0; j < i; j++) if (order[j] !== id) bump(nodes[order[j]]);
+  // Seat each shared row in the nearest gap that clears other tiles.
+  // Pushing every overlap to the right stacked lifted skills on one x.
+  const rowHits = (a, b) => a.y < b.y + (b.h || TH) + 8 && b.y < a.y + (a.h || TH) + 8;
+  const packShared = clear => {
+    const groups = new Map();
+    sharedIds.forEach(id => {
+      const n = nodes[id];
+      if (!n) return;
+      const key = Math.round(n.y);
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(id);
     });
-    if (!moved) break;
-  }
+    groups.forEach(ids => {
+      const prefer = {};
+      ids.forEach(id => { prefer[id] = nodes[id].x; });
+      ids.sort((a, b) => prefer[a] - prefer[b] || a.localeCompare(b));
+      const placed = [];
+      ids.forEach(id => {
+        const n = nodes[id];
+        const w = n.w || TW;
+        const occ = [];
+        const add = other => {
+          if (!other || other === n || !rowHits(n, other)) return;
+          occ.push([other.x - GX, other.x + (other.w || TW) + GX]);
+        };
+        Object.keys(nodes).forEach(key => { if (ids.indexOf(key) < 0) add(nodes[key]); });
+        placed.forEach(add);
+        occ.sort((a, b) => a[0] - b[0]);
+        const merged = [];
+        occ.forEach(seg => {
+          if (!merged.length || seg[0] > merged[merged.length - 1][1]) merged.push([seg[0], seg[1]]);
+          else merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], seg[1]);
+        });
+        const want = prefer[id];
+        const free = x => merged.every(([l, r]) => x + w <= l || x >= r) && (!clear || clear(x, n));
+        let best = free(want) ? want : null, bestD = best == null ? Infinity : 0;
+        const consider = x => {
+          if (!isFinite(x) || !free(x)) return;
+          const d = Math.abs(x - want);
+          if (d < bestD) { bestD = d; best = x; }
+        };
+        merged.forEach(([l, r]) => { consider(r); consider(l - w); });
+        if (best == null) {
+          for (let step = 1; step <= 48 && best == null; step++) {
+            consider(want + step * (w + GX));
+            consider(want - step * (w + GX));
+          }
+        }
+        n.x = best == null ? want : best;
+        placed.push(n);
+      });
+    });
+  };
+  packShared();
 
   const itemOf = key => {
     const n = nodes[key];
@@ -980,6 +1034,7 @@ function computeTrunkLayout(tree) {
     });
     if (best != null) n.x = best;
   });
+  packShared((x, n) => !insideBlob(x + (n.w || TW) / 2, n.y + (n.h || TH) / 2));
 
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
   const grow = (x, y, w, h) => {
