@@ -637,20 +637,10 @@ function vennRoots() {
   return seen;
 }
 
-function rootHasSelectedChapter(root) {
-  for (const id of selectedBoxes) {
-    const box = boxById[id];
-    if (box && box.kind === 'chapter' && scopeRootId(id) === root) return true;
-  }
-  return false;
-}
-
-// Two courses (or textbooks), each with at least one selected chapter.
-// One course, the prerequisite tree, and a two-course highlight with no
-// chapters keep the ordinary grouped layout.
-function vennPairActive() {
-  const roots = vennRoots();
-  return roots.length === 2 && rootHasSelectedChapter(roots[0]) && rootHasSelectedChapter(roots[1]);
+// Two or more selected courses (or textbooks). One course and the
+// prerequisite tree keep the ordinary grouped layout.
+function trunkActive() {
+  return vennRoots().length >= 2;
 }
 
 function skillInRootSelection(skillId, root) {
@@ -660,229 +650,318 @@ function skillInRootSelection(skillId, root) {
   return false;
 }
 
-function selectedChapter(skillId, root) {
-  const leaves = leafBoxesFor(skillId);
-  for (let i = 0; i < leaves.length; i++) {
-    const box = boxById[leaves[i]];
-    if (box && box.kind === 'chapter' && scopeRootId(leaves[i]) === root) return leaves[i];
-  }
-  return null;
+function selectedHosts(skillId, root) {
+  const leaves = leafBoxesFor(skillId).filter(id => scopeRootId(id) === root);
+  const chapters = leaves.filter(id => boxById[id] && boxById[id].kind === 'chapter');
+  if (chapters.length) return chapters;
+  if (leaves.length) return leaves;
+  if (selectedBoxes.has(root)) return [root];
+  return [];
 }
 
-function computeVennGroupedLayout(tree) {
-  const layerOf = tree.layerOf || {};
-  const ROW_STEP = TH + 16, CHAPTER_BREAK = 96, CLUSTER_JOIN = 40;
-  const MARGIN_X = 32, MARGIN_Y = 28, INNER_GAP = 156, SIDE_GUTTER = 16, OUT_GAP = 160;
-  const GHOST_W = 96, GHOST_H = 48, GHOST_GAP = 8, EXCL_COLS = 3;
+// Shared skills (in 2+ selected courses) sit on a trunk below the course-only
+// skills, clustered by the exact set of courses and centered under them.
+// Skills shared by more courses sit lower. Prerequisite order wins: a skill
+// stays on the nearest row that is strictly above its prerequisites and
+// strictly below its follow-ups. Each sharing box keeps a ghost of the skill.
+function computeTrunkLayout(tree) {
+  const base = tree.layerOf || {};
+  const ROW = TH + 28, GAP = 4, GHOST_W = 96, GHOST_H = 48, GHOST_GAP = 8, GHOST_COLS = 4;
+  const COL_GAP = 120, COURSE_GAP = 220, OUT_GAP = 180, MARGIN_X = 36, MARGIN_Y = 32;
   const roots = vennRoots();
-  const rootL = roots[0], rootR = roots[1];
-  const meanOf = boxId => {
-    const ids = ((boxById[boxId] && boxById[boxId].skills) || []).filter(id => byId[id]);
-    if (!ids.length) return 0;
-    return ids.reduce((sum, id) => sum + (layerOf[id] || 0), 0) / ids.length;
-  };
   const byTree = (a, b) => ((tree.nodes[a] && tree.nodes[a].x) || 0) - ((tree.nodes[b] && tree.nodes[b].x) || 0) || a.localeCompare(b);
-  const pairs = new Map();
-  const excl = {};
-  const miscShared = [];
-  const miscSide = { L: [], R: [] };
+  const membersOf = {};
+  skills.forEach(s => { membersOf[s.id] = roots.filter(r => skillInRootSelection(s.id, r)); });
+  const countOf = id => (membersOf[id] || []).length;
+  const sharedIds = skills.map(s => s.id).filter(id => countOf(id) >= 2);
+  const maxShare = sharedIds.reduce((m, id) => Math.max(m, countOf(id)), 2);
+  const prereqsOf = {};
+  skills.forEach(s => { prereqsOf[s.id] = (s.prereqs || []).filter(p => byId[p]); });
+
+  const rank = {};
+  const color = {};
+  function rankShared(id) {
+    if (rank[id] != null && countOf(id) >= 2) return rank[id];
+    if (color[id] === 1) return maxShare - countOf(id);
+    color[id] = 1;
+    let r = maxShare - countOf(id);
+    prereqsOf[id].forEach(p => { if (countOf(p) >= 2) r = Math.max(r, rankShared(p) + 1); });
+    color[id] = 2;
+    rank[id] = r;
+    return r;
+  }
+  sharedIds.forEach(rankShared);
+  let sharedMax = 0;
+  sharedIds.forEach(id => { sharedMax = Math.max(sharedMax, rank[id] || 0); });
+  skills.forEach(s => {
+    if (countOf(s.id) >= 2) return;
+    rank[s.id] = sharedMax + GAP + (base[s.id] || 0);
+  });
+  const seen = {};
+  function lift(id) {
+    if (seen[id] === 2) return rank[id] || 0;
+    if (seen[id] === 1) return rank[id] || 0;
+    seen[id] = 1;
+    let r = rank[id] || 0;
+    prereqsOf[id].forEach(p => { r = Math.max(r, lift(p) + 1); });
+    rank[id] = r;
+    seen[id] = 2;
+    return r;
+  }
+  skills.forEach(s => lift(s.id));
+
+  const maxRank = Math.max(0, ...skills.map(s => rank[s.id] || 0));
+  const yOf = r => (maxRank - r) * ROW;
+  const exclusiveByHost = {};
+  const ghostsByHost = {};
   const outside = [];
   skills.forEach(s => {
-    const id = s.id;
-    const inL = skillInRootSelection(id, rootL);
-    const inR = skillInRootSelection(id, rootR);
-    if (!inL && !inR) { outside.push(id); return; }
-    const cL = inL ? selectedChapter(id, rootL) : null;
-    const cR = inR ? selectedChapter(id, rootR) : null;
-    if (inL && inR) {
-      if (cL && cR) {
-        const key = cL + '\0' + cR;
-        if (!pairs.has(key)) pairs.set(key, []);
-        pairs.get(key).push(id);
-      } else miscShared.push({ id, L: cL, R: cR });
-      return;
-    }
-    const chapter = inL ? cL : cR;
-    const side = inL ? 'L' : 'R';
-    if (chapter) {
-      if (!excl[chapter]) excl[chapter] = [];
-      excl[chapter].push(id);
-    } else miscSide[side].push(id);
+    const members = membersOf[s.id];
+    if (members.length >= 2) {
+      members.forEach(root => {
+        selectedHosts(s.id, root).forEach(host => {
+          (ghostsByHost[host] || (ghostsByHost[host] = [])).push(s.id);
+        });
+      });
+    } else if (members.length === 1) {
+      const host = selectedHosts(s.id, members[0])[0];
+      if (host) (exclusiveByHost[host] || (exclusiveByHost[host] = [])).push(s.id);
+      else outside.push(s.id);
+    } else outside.push(s.id);
   });
-  pairs.forEach(ids => ids.sort(byTree));
-  Object.keys(excl).forEach(id => excl[id].sort(byTree));
+  Object.keys(exclusiveByHost).forEach(id => exclusiveByHost[id].sort(byTree));
+  Object.keys(ghostsByHost).forEach(id => ghostsByHost[id].sort(byTree));
 
-  let leftIds = (COLLECTIONS.boxes || []).filter(b => b.kind === 'chapter' && selectedBoxes.has(b.id) && scopeRootId(b.id) === rootL).map(b => b.id);
-  let rightIds = (COLLECTIONS.boxes || []).filter(b => b.kind === 'chapter' && selectedBoxes.has(b.id) && scopeRootId(b.id) === rootR).map(b => b.id);
-  const byLayer = (a, b) => meanOf(b) - meanOf(a) || a.localeCompare(b);
-  leftIds.sort(byLayer);
-  rightIds.sort(byLayer);
-  const mateScore = (id, side, other) => {
-    const idx = {};
-    other.forEach((oid, i) => { idx[oid] = i; });
-    const mates = [];
-    pairs.forEach((_, key) => {
-      const parts = key.split('\0');
-      if (side === 'L' && parts[0] === id && idx[parts[1]] != null) mates.push(idx[parts[1]]);
-      if (side === 'R' && parts[1] === id && idx[parts[0]] != null) mates.push(idx[parts[0]]);
-    });
-    if (!mates.length) return null;
-    return mates.reduce((sum, n) => sum + n, 0) / mates.length;
+  const blockIdsFor = root => {
+    const ids = new Set();
+    Object.keys(exclusiveByHost).forEach(id => { if (exclusiveByHost[id].length && scopeRootId(id) === root) ids.add(id); });
+    Object.keys(ghostsByHost).forEach(id => { if (ghostsByHost[id].length && scopeRootId(id) === root) ids.add(id); });
+    const order = [];
+    const walk = box => {
+      if (!box) return;
+      if (ids.has(box.id)) order.push(box.id);
+      (box.children || []).forEach(cid => walk(boxById[cid]));
+    };
+    walk(boxById[root]);
+    ids.forEach(id => { if (order.indexOf(id) < 0) order.push(id); });
+    return order;
   };
-  const foldIsolates = (paired, isolates) => {
-    const all = paired.slice();
-    isolates.forEach(id => {
-      const at = all.findIndex(other => meanOf(other) < meanOf(id));
-      if (at < 0) all.push(id); else all.splice(at, 0, id);
+
+  const blocksByRoot = {};
+  roots.forEach(root => {
+    const blocks = [];
+    blockIdsFor(root).forEach(id => {
+      const excl = exclusiveByHost[id] || [];
+      const ghosts = ghostsByHost[id] || [];
+      if (!excl.length && !ghosts.length) return;
+      const byRank = {};
+      excl.forEach(sid => { const r = rank[sid] || 0; (byRank[r] || (byRank[r] = [])).push(sid); });
+      const ranks = Object.keys(byRank).map(Number);
+      const maxExcl = ranks.reduce((m, r) => Math.max(m, byRank[r].length), 0);
+      const exclW = maxExcl ? maxExcl * TW + (maxExcl - 1) * GX : 0;
+      const ghostCols = Math.min(GHOST_COLS, Math.max(ghosts.length, 1));
+      const ghostRows = ghosts.length ? Math.ceil(ghosts.length / GHOST_COLS) : 0;
+      const shown = Math.min(ghosts.length, GHOST_COLS);
+      const ghostW = shown ? shown * GHOST_W + (shown - 1) * GHOST_GAP : 0;
+      let y0 = Infinity, y1 = -Infinity;
+      ranks.forEach(r => { const y = yOf(r); y0 = Math.min(y0, y); y1 = Math.max(y1, y + TH); });
+      let ghostTop = null;
+      if (ghosts.length) {
+        ghostTop = ranks.length ? y1 + 12 : yOf(sharedMax + GAP) + TH + 12;
+        const ghostBottom = ghostTop + ghostRows * GHOST_H + Math.max(0, ghostRows - 1) * 8;
+        y0 = Math.min(y0, ghostTop);
+        y1 = Math.max(y1, ghostBottom);
+      }
+      blocks.push({ id, excl, ghosts, byRank, ranks, w: Math.max(exclW, ghostW), y0, y1, ghostTop, ghostRows, ghostCols });
     });
-    return all;
+    blocks.sort((a, b) => a.y0 - b.y0 || a.id.localeCompare(b.id));
+    const cols = [];
+    blocks.forEach(block => {
+      let col = null;
+      for (let i = 0; i < cols.length; i++) {
+        const overlap = cols[i].spans.some(s => block.y0 < s.y1 + COL_GAP && s.y0 < block.y1 + COL_GAP);
+        if (!overlap) { col = cols[i]; break; }
+      }
+      if (!col) { col = { spans: [], blocks: [], w: 0 }; cols.push(col); }
+      col.spans.push({ y0: block.y0, y1: block.y1 });
+      col.blocks.push(block);
+      col.w = Math.max(col.w, block.w);
+      block.col = col;
+    });
+    let x = 0;
+    cols.forEach(col => {
+      col.x = x;
+      col.blocks.forEach(block => { block.x = col.x + (col.w - block.w) / 2; });
+      x += col.w + COL_GAP;
+    });
+    blocksByRoot[root] = { blocks, width: cols.length ? x - COL_GAP : 0 };
+  });
+
+  const courseGeom = {};
+  let cursor = 0;
+  roots.forEach(root => {
+    const width = blocksByRoot[root].width;
+    if (width <= 0) return;
+    courseGeom[root] = { x: cursor, w: width };
+    cursor += width + COURSE_GAP;
+  });
+
+  const nodes = {};
+  const placeExcl = (block, origin) => {
+    block.ranks.forEach(r => {
+      const row = block.byRank[r];
+      const rowW = row.length * TW + (row.length - 1) * GX;
+      const start = origin + block.x + (block.w - rowW) / 2;
+      row.forEach((sid, i) => { nodes[sid] = { x: start + i * (TW + GX), y: yOf(r) }; });
+    });
+    if (!block.ghosts.length) return;
+    const cols = GHOST_COLS;
+    for (let i = 0; i < block.ghosts.length; i += cols) {
+      const slice = block.ghosts.slice(i, i + cols);
+      const rowW = slice.length * GHOST_W + (slice.length - 1) * GHOST_GAP;
+      const start = origin + block.x + (block.w - rowW) / 2;
+      const y = block.ghostTop + (i / cols) * (GHOST_H + 8);
+      slice.forEach((sid, k) => {
+        nodes['ghost:' + sid + ':' + block.id] = { x: start + k * (GHOST_W + GHOST_GAP), y, w: GHOST_W, h: GHOST_H };
+      });
+    }
   };
-  for (let it = 0; it < 6; it++) {
-    const rScore = id => mateScore(id, 'R', leftIds);
-    const rPaired = rightIds.filter(id => rScore(id) != null).sort((a, b) => rScore(a) - rScore(b) || a.localeCompare(b));
-    rightIds = foldIsolates(rPaired, rightIds.filter(id => rScore(id) == null));
-    const lScore = id => mateScore(id, 'L', rightIds);
-    const lPaired = leftIds.filter(id => lScore(id) != null).sort((a, b) => lScore(a) - lScore(b) || a.localeCompare(b));
-    leftIds = foldIsolates(lPaired, leftIds.filter(id => lScore(id) == null));
+  roots.forEach(root => {
+    const origin = courseGeom[root] ? courseGeom[root].x : cursor;
+    blocksByRoot[root].blocks.forEach(block => placeExcl(block, origin));
+  });
+
+  const clusters = new Map();
+  sharedIds.forEach(sid => {
+    const sig = membersOf[sid].slice().sort().join('|');
+    const key = (rank[sid] || 0) + '\0' + sig;
+    if (!clusters.has(key)) clusters.set(key, { rank: rank[sid] || 0, members: membersOf[sid], ids: [] });
+    clusters.get(key).ids.push(sid);
+  });
+  const centerOf = members => {
+    const spans = members.map(r => courseGeom[r]).filter(Boolean);
+    if (!spans.length) return cursor + TW;
+    const x0 = Math.min(...spans.map(s => s.x));
+    const x1 = Math.max(...spans.map(s => s.x + s.w));
+    return (x0 + x1) / 2;
+  };
+  // A shared skill lifted into the course band cannot sit on the centered
+  // trunk x: that row is already full of course tiles. Prefer a gutter
+  // between the courses that share it, then the side of their span.
+  const gutterStart = (members, rowW) => {
+    const spans = members.map(r => courseGeom[r]).filter(Boolean).sort((a, b) => a.x - b.x);
+    const center = centerOf(members);
+    const candidates = [];
+    for (let i = 0; i < spans.length - 1; i++) {
+      const gapL = spans[i].x + spans[i].w;
+      const gapR = spans[i + 1].x;
+      candidates.push(gapL + Math.max(0, (gapR - gapL - rowW) / 2));
+    }
+    if (spans.length) {
+      candidates.push(spans[0].x - rowW - GX);
+      candidates.push(spans[spans.length - 1].x + spans[spans.length - 1].w + GX);
+    }
+    if (!candidates.length) return center - rowW / 2;
+    candidates.sort((a, b) => Math.abs(a + rowW / 2 - center) - Math.abs(b + rowW / 2 - center));
+    return candidates[0];
+  };
+  clusters.forEach(cluster => {
+    const ids = cluster.ids.sort(byTree);
+    const rowW = ids.length * TW + Math.max(0, ids.length - 1) * GX;
+    const start = cluster.rank > sharedMax ? gutterStart(cluster.members, rowW) : centerOf(cluster.members) - rowW / 2;
+    const y = yOf(cluster.rank);
+    ids.forEach((sid, i) => { nodes[sid] = { x: start + i * (TW + GX), y }; });
+  });
+
+  const trunkBand = sharedIds.filter(id => (rank[id] || 0) <= sharedMax && nodes[id]);
+  const contentBottomOf = () => {
+    let bottom = -Infinity;
+    Object.keys(nodes).forEach(key => {
+      if (trunkBand.indexOf(key) >= 0) return;
+      const n = nodes[key];
+      bottom = Math.max(bottom, n.y + (n.h || TH) + 76 + 24);
+    });
+    return bottom;
+  };
+  if (trunkBand.length) {
+    let delta = contentBottomOf() - Math.min(...trunkBand.map(id => nodes[id].y));
+    trunkBand.forEach(id => {
+      prereqsOf[id].forEach(p => {
+        if (!nodes[p] || trunkBand.indexOf(p) >= 0) return;
+        delta = Math.min(delta, nodes[p].y - (nodes[id].y + TH + 16));
+      });
+    });
+    if (delta > 0) trunkBand.forEach(id => { nodes[id].y += delta; });
   }
 
-  const rows = [];
-  leftIds.forEach(L => {
-    const mates = rightIds.filter(R => pairs.has(L + '\0' + R));
-    mates.forEach(R => {
-      pairs.get(L + '\0' + R).forEach(id => rows.push({ L, R, shared: [id], leftEx: [], rightEx: [] }));
-    });
+  let right = cursor;
+  Object.keys(nodes).forEach(key => { const n = nodes[key]; right = Math.max(right, n.x + (n.w || TW)); });
+  const outX = right + OUT_GAP;
+  const outByRank = {};
+  outside.forEach(id => { const r = rank[id] || 0; (outByRank[r] || (outByRank[r] = [])).push(id); });
+  Object.keys(outByRank).forEach(rs => {
+    const row = outByRank[rs].sort(byTree);
+    row.forEach((id, i) => { nodes[id] = { x: outX + i * (TW + GX), y: yOf(+rs) }; });
   });
-  const ensureRows = (ids, side) => {
-    ids.forEach(ch => {
-      const mine = () => rows.filter(r => r[side] === ch);
-      const need = (excl[ch] || []).length;
-      let have = mine();
-      if (!have.length) {
-        if (!need) return;
-        const n = Math.ceil(need / EXCL_COLS);
-        const block = [];
-        for (let i = 0; i < n; i++) block.push({ L: side === 'L' ? ch : null, R: side === 'R' ? ch : null, shared: [], leftEx: [], rightEx: [] });
-        const at = rows.findIndex(r => r[side] && meanOf(r[side]) < meanOf(ch));
-        if (at < 0) rows.push(...block); else rows.splice(at, 0, ...block);
-        return;
-      }
-      const extra = Math.ceil(need / EXCL_COLS) - have.length;
-      if (extra > 0) {
-        const last = have[have.length - 1];
-        const idx = rows.indexOf(last);
-        const block = [];
-        for (let i = 0; i < extra; i++) block.push({ L: side === 'L' ? ch : null, R: side === 'R' ? ch : null, shared: [], leftEx: [], rightEx: [] });
-        rows.splice(idx + 1, 0, ...block);
-      }
+
+  // Seat each shared row in the nearest gap that clears other tiles.
+  // Pushing every overlap to the right stacked lifted skills on one x.
+  const rowHits = (a, b) => a.y < b.y + (b.h || TH) + 8 && b.y < a.y + (a.h || TH) + 8;
+  const packShared = clear => {
+    const groups = new Map();
+    sharedIds.forEach(id => {
+      const n = nodes[id];
+      if (!n) return;
+      const key = Math.round(n.y);
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(id);
     });
-  };
-  ensureRows(leftIds, 'L');
-  ensureRows(rightIds, 'R');
-  const scatter = (ids, side, key) => {
-    ids.forEach(ch => {
-      const mine = rows.filter(r => r[side] === ch);
-      (excl[ch] || []).forEach((id, i) => {
-        if (!mine.length) return;
-        mine[Math.min(mine.length - 1, Math.floor(i / EXCL_COLS))][key].push(id);
+    groups.forEach(ids => {
+      const prefer = {};
+      ids.forEach(id => { prefer[id] = nodes[id].x; });
+      ids.sort((a, b) => prefer[a] - prefer[b] || a.localeCompare(b));
+      const placed = [];
+      ids.forEach(id => {
+        const n = nodes[id];
+        const w = n.w || TW;
+        const occ = [];
+        const add = other => {
+          if (!other || other === n || !rowHits(n, other)) return;
+          occ.push([other.x - GX, other.x + (other.w || TW) + GX]);
+        };
+        Object.keys(nodes).forEach(key => { if (ids.indexOf(key) < 0) add(nodes[key]); });
+        placed.forEach(add);
+        occ.sort((a, b) => a[0] - b[0]);
+        const merged = [];
+        occ.forEach(seg => {
+          if (!merged.length || seg[0] > merged[merged.length - 1][1]) merged.push([seg[0], seg[1]]);
+          else merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], seg[1]);
+        });
+        const want = prefer[id];
+        const free = x => merged.every(([l, r]) => x + w <= l || x >= r) && (!clear || clear(x, n));
+        let best = free(want) ? want : null, bestD = best == null ? Infinity : 0;
+        const consider = x => {
+          if (!isFinite(x) || !free(x)) return;
+          const d = Math.abs(x - want);
+          if (d < bestD) { bestD = d; best = x; }
+        };
+        merged.forEach(([l, r]) => { consider(r); consider(l - w); });
+        if (best == null) {
+          for (let step = 1; step <= 48 && best == null; step++) {
+            consider(want + step * (w + GX));
+            consider(want - step * (w + GX));
+          }
+        }
+        n.x = best == null ? want : best;
+        placed.push(n);
       });
     });
   };
-  scatter(leftIds, 'L', 'leftEx');
-  scatter(rightIds, 'R', 'rightEx');
-  const miscGroups = new Map();
-  miscShared.forEach(item => {
-    const key = (item.L || '') + '\0' + (item.R || '');
-    if (!miscGroups.has(key)) miscGroups.set(key, []);
-    miscGroups.get(key).push(item.id);
-  });
-  miscGroups.forEach((ids, key) => {
-    const parts = key.split('\0');
-    ids.sort(byTree);
-    ids.forEach(id => rows.push({ L: parts[0] || null, R: parts[1] || null, shared: [id], leftEx: [], rightEx: [] }));
-  });
-  const pushSide = (ids, side) => {
-    ids.sort(byTree);
-    for (let i = 0; i < ids.length; i += EXCL_COLS) {
-      const slice = ids.slice(i, i + EXCL_COLS);
-      rows.push({ L: null, R: null, shared: [], leftEx: side === 'L' ? slice : [], rightEx: side === 'R' ? slice : [] });
-    }
-  };
-  pushSide(miscSide.L, 'L');
-  pushSide(miscSide.R, 'R');
+  packShared();
 
-  let maxGhosts = 1, maxShared = 1;
-  rows.forEach(r => {
-    maxGhosts = Math.max(maxGhosts, r.shared.length);
-    maxShared = Math.max(maxShared, r.shared.length);
-  });
-  const exclW = EXCL_COLS * TW + (EXCL_COLS - 1) * GX;
-  const ghostColW = maxGhosts * GHOST_W + Math.max(0, maxGhosts - 1) * GHOST_GAP;
-  const sharedW = maxShared * TW + Math.max(0, maxShared - 1) * GX;
-  const leftGhostRight = MARGIN_X + exclW + SIDE_GUTTER + ghostColW;
-  const sharedLeft = leftGhostRight + INNER_GAP;
-  const rightGhostLeft = sharedLeft + sharedW + INNER_GAP;
-  const rightExX = rightGhostLeft + ghostColW + SIDE_GUTTER;
-  const nodes = {};
-  let rowY = MARGIN_Y, prevL = null, prevR = null, placedRow = false;
-  rows.forEach(r => {
-    if (placedRow && ((r.L && prevL && r.L !== prevL) || (r.R && prevR && r.R !== prevR))) rowY += CHAPTER_BREAK;
-    const y = rowY;
-    const sw = r.shared.length ? r.shared.length * TW + (r.shared.length - 1) * GX : 0;
-    const sx = sharedLeft + (sharedW - sw) / 2;
-    r.shared.forEach((id, k) => { nodes[id] = { x: sx + k * (TW + GX), y }; });
-    const placeGhosts = (boxId, alignRight) => {
-      if (!boxId || !r.shared.length) return;
-      const span = r.shared.length * GHOST_W + (r.shared.length - 1) * GHOST_GAP;
-      let x = alignRight ? leftGhostRight - span : rightGhostLeft;
-      const yGhost = y + (TH - GHOST_H) / 2;
-      r.shared.forEach(id => {
-        nodes['ghost:' + id + ':' + boxId] = { x, y: yGhost, w: GHOST_W, h: GHOST_H };
-        x += GHOST_W + GHOST_GAP;
-      });
-    };
-    placeGhosts(r.L, true);
-    placeGhosts(r.R, false);
-    r.leftEx.forEach((id, k) => { nodes[id] = { x: MARGIN_X + k * (TW + GX), y }; });
-    r.rightEx.forEach((id, k) => { nodes[id] = { x: rightExX + k * (TW + GX), y }; });
-    rowY += ROW_STEP;
-    placedRow = true;
-    if (r.L) prevL = r.L;
-    if (r.R) prevR = r.R;
-  });
-
-  const outX = rightExX + exclW + OUT_GAP;
-  const outByLayer = {};
-  outside.forEach(id => {
-    const layer = layerOf[id] || 0;
-    if (!outByLayer[layer]) outByLayer[layer] = [];
-    outByLayer[layer].push(id);
-  });
-  let outY = MARGIN_Y;
-  Object.keys(outByLayer).map(Number).sort((a, b) => b - a).forEach(layer => {
-    const row = outByLayer[layer].sort(byTree);
-    for (let i = 0; i < row.length; i += 8) {
-      row.slice(i, i + 8).forEach((id, k) => { nodes[id] = { x: outX + k * (TW + GX), y: outY }; });
-      outY += TH + 20;
-    }
-  });
-
-  const shiftNodes = (dx, dy) => {
-    Object.keys(nodes).forEach(id => { nodes[id].x += dx; nodes[id].y += dy; });
-  };
-  const itemOf = (id, w, h) => {
-    const n = nodes[id];
-    return n ? { x: n.x, y: n.y, w: w || n.w || TW, h: h || n.h || TH } : null;
-  };
-  const clusterItems = items => {
-    const sorted = items.filter(Boolean).sort((a, b) => a.y - b.y || a.x - b.x);
-    const groups = [];
-    sorted.forEach(it => {
-      const g = groups[groups.length - 1];
-      if (!g || it.y > g.maxY + CLUSTER_JOIN) groups.push({ items: [it], maxY: it.y + it.h });
-      else { g.items.push(it); g.maxY = Math.max(g.maxY, it.y + it.h); }
-    });
-    return groups;
+  const itemOf = key => {
+    const n = nodes[key];
+    return n ? { x: n.x, y: n.y, w: n.w || TW, h: n.h || TH } : null;
   };
   const hullOf = (items, pad) => {
     const pts = [];
@@ -891,84 +970,82 @@ function computeVennGroupedLayout(tree) {
     });
     return convexHull(pts);
   };
-  const chapterItems = ch => {
-    const items = [];
-    rows.forEach(r => {
-      if (r.L === ch) r.leftEx.forEach(id => items.push(itemOf(id)));
-      if (r.R === ch) r.rightEx.forEach(id => items.push(itemOf(id)));
-      if ((r.L === ch || r.R === ch) && r.shared.length) {
-        r.shared.forEach(id => items.push(itemOf('ghost:' + id + ':' + ch, GHOST_W, GHOST_H)));
-      }
-    });
-    return items.filter(Boolean);
-  };
   const blobFrom = (box, items) => {
+    const clean = items.filter(Boolean);
+    if (!clean.length) return null;
     const pad = boxPad(box);
-    const groups = clusterItems(items);
-    const parts = groups.map(g => hullOf(g.items, pad)).filter(poly => poly.length >= 3);
-    if (!parts.length) return null;
+    const poly = hullOf(clean, pad);
+    if (poly.length < 3) return null;
     let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
-    let best = parts[0], bestArea = -1;
-    parts.forEach(poly => {
-      let px0 = Infinity, py0 = Infinity, px1 = -Infinity, py1 = -Infinity;
-      poly.forEach(([x, y]) => {
-        x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y);
-        px0 = Math.min(px0, x); py0 = Math.min(py0, y); px1 = Math.max(px1, x); py1 = Math.max(py1, y);
-      });
-      const area = (px1 - px0) * (py1 - py0);
-      if (area > bestArea) { bestArea = area; best = poly; }
-    });
-    const labelPoly = best;
-    let lx0 = Infinity, ly0 = Infinity, lx1 = -Infinity, ly1 = -Infinity;
-    labelPoly.forEach(([x, y]) => { lx0 = Math.min(lx0, x); ly0 = Math.min(ly0, y); lx1 = Math.max(lx1, x); ly1 = Math.max(ly1, y); });
+    poly.forEach(([x, y]) => { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); });
     return {
-      x: x0, y: y0, w: x1 - x0, h: y1 - y0, points: best, parts,
-      labelBox: { x: lx0, y: ly0, w: lx1 - lx0, h: ly1 - ly0 },
+      x: x0, y: y0, w: x1 - x0, h: y1 - y0, points: poly, parts: [poly],
+      labelBox: { x: x0, y: y0, w: x1 - x0, h: y1 - y0 },
       kind: box.kind || 'chapter', boxId: box.id, ch: boxColorIndex(box), pad
     };
   };
+  const hostRoot = id => scopeRootId(id);
   const blobs = {};
-  const addChapter = id => {
-    const box = boxById[id];
-    if (!box) return;
-    const blob = blobFrom(box, chapterItems(id));
-    if (blob) blobs[id] = blob;
-  };
-  leftIds.forEach(addChapter);
-  rightIds.forEach(addChapter);
-  [rootL, rootR].forEach(root => {
-    if (!selectedBoxes.has(root)) return;
-    const box = boxById[root];
-    if (!box) return;
+  (COLLECTIONS && COLLECTIONS.boxes || []).filter(b => selectedBoxes.has(b.id)).forEach(box => {
     const items = [];
-    Object.keys(nodes).forEach(key => {
-      // A chapter of shared skills is drawn from its ghost tiles. Those tiles
-      // sit outside the real nodes, so the parent course has to include them
-      // or the chapter box lands outside the course region.
-      if (key.indexOf('ghost:') === 0) {
-        const chapterId = key.split(':').slice(2).join(':');
-        if (scopeRootId(chapterId) === root) items.push(itemOf(key));
-        return;
-      }
-      if (skillInBox(key, root)) items.push(itemOf(key));
-    });
-    const blob = blobFrom(box, items.filter(Boolean));
-    if (blob) blobs[root] = blob;
+    if (box.kind === 'chapter') {
+      (exclusiveByHost[box.id] || []).forEach(sid => items.push(itemOf(sid)));
+      (ghostsByHost[box.id] || []).forEach(sid => items.push(itemOf('ghost:' + sid + ':' + box.id)));
+    } else {
+      Object.keys(exclusiveByHost).forEach(host => {
+        if (hostRoot(host) !== box.id) return;
+        exclusiveByHost[host].forEach(sid => items.push(itemOf(sid)));
+      });
+      Object.keys(ghostsByHost).forEach(host => {
+        if (hostRoot(host) !== box.id) return;
+        ghostsByHost[host].forEach(sid => items.push(itemOf('ghost:' + sid + ':' + host)));
+      });
+    }
+    const blob = blobFrom(box, items);
+    if (blob) blobs[box.id] = blob;
   });
+
+  const insidePoly = (poly, x, y) => {
+    let c = false;
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      const xi = poly[i][0], yi = poly[i][1], xj = poly[j][0], yj = poly[j][1];
+      if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / ((yj - yi) || 1e-9) + xi)) c = !c;
+    }
+    return c;
+  };
+  const insideBlob = (x, y) => Object.keys(blobs).some(id => insidePoly(blobs[id].points, x, y));
+  sharedIds.forEach(sid => {
+    const n = nodes[sid];
+    if (!n) return;
+    const cx = n.x + TW / 2, cy = n.y + TH / 2;
+    if (!insideBlob(cx, cy)) return;
+    const spans = membersOf[sid].map(r => courseGeom[r]).filter(Boolean).sort((a, b) => a.x - b.x);
+    const candidates = [];
+    for (let i = 0; i < spans.length - 1; i++) candidates.push((spans[i].x + spans[i].w + spans[i + 1].x) / 2);
+    if (spans.length) {
+      candidates.push(spans[0].x - COURSE_GAP / 2);
+      candidates.push(spans[spans.length - 1].x + spans[spans.length - 1].w + COURSE_GAP / 2);
+    }
+    let best = null, bestD = Infinity;
+    candidates.forEach(mx => {
+      if (insideBlob(mx, cy)) return;
+      const d = Math.abs(mx - cx);
+      if (d < bestD) { bestD = d; best = mx - TW / 2; }
+    });
+    if (best != null) n.x = best;
+  });
+  packShared((x, n) => !insideBlob(x + (n.w || TW) / 2, n.y + (n.h || TH) / 2));
 
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
   const grow = (x, y, w, h) => {
     minX = Math.min(minX, x); minY = Math.min(minY, y);
     maxX = Math.max(maxX, x + w); maxY = Math.max(maxY, y + h);
   };
-  Object.keys(nodes).forEach(key => {
-    const n = nodes[key];
-    grow(n.x, n.y, n.w || TW, n.h || TH);
-  });
+  Object.keys(nodes).forEach(key => { const n = nodes[key]; grow(n.x, n.y, n.w || TW, n.h || TH); });
   Object.keys(blobs).forEach(id => grow(blobs[id].x, blobs[id].y, blobs[id].w, blobs[id].h));
   if (!isFinite(minX)) { minX = 0; minY = 0; maxX = 200; maxY = 120; }
   const dx = MARGIN_X - minX, dy = MARGIN_Y - minY;
-  shiftNodes(dx, dy);
+  Object.keys(nodes).forEach(key => { nodes[key].x += dx; nodes[key].y += dy; });
   Object.keys(blobs).forEach(id => {
     const b = blobs[id];
     const move = poly => poly.map(pt => [pt[0] + dx, pt[1] + dy]);
@@ -988,21 +1065,22 @@ function computeVennGroupedLayout(tree) {
   });
   const selected = (COLLECTIONS && COLLECTIONS.boxes || []).filter(b => selectedBoxes.has(b.id));
   return {
-    nodes, mids: {}, blobs, ghosts, ghostLinks,
+    nodes, mids: {}, blobs, ghosts, ghostLinks, trunkIds: sharedIds.slice(),
     places: skills.map(s => ({ key: s.id, skillId: s.id, boxId: null })),
     edges: allEdges.map(([p, c]) => ({ from: p, to: c, fromKey: p, toKey: c })),
     w: Math.max(maxX + dx + MARGIN_X, 200),
     h: Math.max(maxY + dy + MARGIN_Y, 120),
     useNested: selected.some(b => b.kind === 'chapter') && selected.some(b => b.kind === 'course' || b.kind === 'textbook'),
-    rank: {}
+    rank
   };
 }
+
 
 function computeGroupedLayout() {
   const tree = layout.tree;
   const empty = { nodes: {}, mids: {}, blobs: {}, places: [], edges: [], w: 200, h: 120, useNested: false, rank: {} };
   if (!tree || !skills.length) { layout.grouped = empty; return; }
-  if (vennPairActive()) { layout.grouped = computeVennGroupedLayout(tree); return; }
+  if (trunkActive()) { layout.grouped = computeTrunkLayout(tree); return; }
   const layerOf = tree.layerOf || {};
   const GYR_G = 72, COLGAP = 52, ZONE_GAP = 140, OUT_GAP = 160, MARGIN_X = 32, MARGIN_Y = 28;
   const groups = new Map();
@@ -1782,14 +1860,30 @@ function bboxOf(ids) {
 
 const HOME_BOTTOM = 84;
 
+function groupedFrameBox() {
+  const L = curL();
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  const grow = (x, y, w, h) => {
+    x0 = Math.min(x0, x); y0 = Math.min(y0, y);
+    x1 = Math.max(x1, x + w); y1 = Math.max(y1, y + h);
+  };
+  Object.keys((L && L.blobs) || {}).forEach(id => {
+    const b = L.blobs[id];
+    if (b) grow(b.x, b.y, b.w, b.h);
+  });
+  ((L && L.trunkIds) || []).forEach(id => {
+    const n = L.nodes && L.nodes[id];
+    if (n) grow(n.x, n.y, n.w || TW, n.h || TH);
+  });
+  if (!isFinite(x0)) return null;
+  return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+}
+
 function goHome(anim) {
   let box; const L = curL();
   if (layoutMode === 'grouped') {
-    const blobKeys = Object.keys(L.blobs);
-    const bs = blobKeys.map(k => L.blobs[k]).filter(Boolean);
-    if (bs.length === 0) { goFit(); return; }
-    const x0 = Math.min(...bs.map(b => b.x)), y0 = Math.min(...bs.map(b => b.y)), x1 = Math.max(...bs.map(b => b.x + b.w)), y1 = Math.max(...bs.map(b => b.y + b.h));
-    box = { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+    box = groupedFrameBox();
+    if (!box) { goFit(); return; }
   } else {
     const ids = playable.map(s => s.id);
     box = bboxOf(ids.length ? ids : skills.map(s => s.id));
@@ -1826,11 +1920,9 @@ function focusScope() {
   if (selectionIsAll() || selectedBoxes.size === 0) { layoutMode === 'grouped' ? goHome(true) : goFit(); return }
   const L = curL();
   if (layoutMode === 'grouped' && L.blobs) {
-    const bs = selectedInOrder().map(id => L.blobs[id]).filter(Boolean);
-    if (bs.length) {
-      const x0 = Math.min(...bs.map(b => b.x)), y0 = Math.min(...bs.map(b => b.y));
-      const x1 = Math.max(...bs.map(b => b.x + b.w)), y1 = Math.max(...bs.map(b => b.y + b.h));
-      animateView(() => { fitBox(x0, y0, x1 - x0, y1 - y0, 1); applyView() });
+    const box = groupedFrameBox();
+    if (box) {
+      animateView(() => { fitBox(box.x, box.y, box.w, box.h, 1); applyView() });
       return;
     }
   }
@@ -3400,7 +3492,7 @@ function openHelp() {
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
     el('li', {}, el('b', { text: 'Plan ' }), 'opens from the notebook. Exam dates sit at the top. Calculate and save new plan runs a learning plan for every upcoming exam, spreads each exam\'s sessions over the days before that exam, then interleaves them by date and locks the result. A skill that two exams need is kept once, on the earliest day. The graphs stay on that saved plan until you calculate again. Highlighted courses are visual only: there is no plan until an exam is added and calculated. TODAY shows sessions behind, sessions left today, all caught up, or sessions ahead. Queue up learning session from exam plan adds the earliest saved session you have not finished.'),
     el('li', {}, el('b', { text: 'Courses ' }), 'is select-all-that-apply. The address bar focus parameter is that list (for example ?focus=me132,nlo). A link with focus uses that list, and a visit with no focus parameter restores your last choice. A new profile starts with nothing focused. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. The grid lists only the chapters in that selection. With every course selected, or with nothing selected yet, the grid keeps every chapter, the same way the tree does. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
-    el('li', {}, el('b', { text: 'Group by course ' }), 'is on when you have not chosen a layout. It draws each selected course and chapter as a colored region around its skills. Regions overlap where boxes share skills. With two courses and their chapters selected, a shared skill keeps one node in a band between those chapters, and each chapter shows a faded reference instead of stretching into the band. Ungroup returns to one prerequisite tree. A layout you choose is remembered on this device.'),
+    el('li', {}, el('b', { text: 'Group by course ' }), 'is on when you have not chosen a layout. It draws each selected course and chapter as a colored region around its skills. A skill shared by two or more selected courses sits on the trunk below those courses, centered under the courses that share it, and each of those boxes shows a faded reference linked to that node. One course keeps its skills in place. Ungroup returns to one prerequisite tree. A layout you choose is remembered on this device.'),
     el('li', {}, el('b', { text: 'Flag a question ' }), 'if the answer seems wrong, the wording is unclear, there is a typo, or the figure is off. A comment is optional.'),
     el('li', {}, el('b', { text: 'Usage measurement ' }), 'counts which skills and courses you open and how quizzes go. It uses a random id on this device, not a third-party tracker. Turn it off in Profile. A browser Do Not Track signal turns it off too.'),
     el('li', {}, 'Progress autosaves in this browser after every quiz. Open Profile to Export a backup you can Import later, or on another device.'),
