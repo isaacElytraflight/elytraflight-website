@@ -24,7 +24,7 @@ def demo_skill(s):
         return out
     err = video_error(s.get("video"))
     assert not err, f"{s.get('id')}: {err}"
-    out["video"] = {k: s["video"][k] for k in ("url", "title", "start") if k in s["video"]}
+    out["video"] = {k: s["video"][k] for k in ("url", "title", "start", "endorsed") if k in s["video"]}
     return out
 
 

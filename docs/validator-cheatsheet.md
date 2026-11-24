@@ -74,7 +74,7 @@ Learner-facing text names no source. `FAILED reference gate: N hit(s)` then `<ki
 
 ## Video
 
-`video` on a skill is optional. When present it is `{url, title?, start?}`. `url` is `http(s)://youtube.com/watch?v=<11>` or `youtu.be/<11>` (optional `www.`). `start` is an integer ≥ 0. `title` is a non-empty string. `ERROR <id>: video.url must be a youtube.com/watch or youtu.be link` / `video id must be 11 characters` / `video.start must be a non-negative integer` / `video.title must be a non-empty string` / `video has unknown fields` — fix that field or omit `video`.
+`video` on a skill is optional. When present it is `{url, title?, start?, endorsed?}`. `url` is `http(s)://youtube.com/watch?v=<11>` or `youtu.be/<11>` (optional `www.`). `start` is an integer ≥ 0. `title` is a non-empty string. `endorsed` is an optional boolean, absent by default. `ERROR <id>: video.url must be a youtube.com/watch or youtu.be link` / `video id must be 11 characters` / `video.start must be a non-negative integer` / `video.title must be a non-empty string` / `video.endorsed must be a boolean` / `video has unknown fields` — fix that field or omit `video`. Agents never set `endorsed=true` themselves; only Isaac does.
 
 ## Explainer, graph, and the other gates
 

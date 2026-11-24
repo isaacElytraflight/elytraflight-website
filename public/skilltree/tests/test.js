@@ -5582,6 +5582,7 @@ async function test(name, fn) {
     }));
     assert.strictEqual(panel.card, false);
     assert(!panel.text.includes('Recommended 3rd party video'));
+    assert(!panel.text.includes('Relevant 3rd party video'));
     assert.strictEqual(panel.explainer, true);
     assert(/Start Round 1/.test(panel.start), panel.start);
     await p._ctx.close();
@@ -5616,7 +5617,7 @@ async function test(name, fn) {
     assert.strictEqual(card.rel, 'noopener noreferrer');
     assert.strictEqual(card.thumb, 'https://i.ytimg.com/vi/dQw4w9WgXcQ/mqdefault.jpg');
     assert.strictEqual(card.title, 'Essence of linear systems');
-    assert.strictEqual(card.label, 'Recommended 3rd party video');
+    assert.strictEqual(card.label, 'Relevant 3rd party video (not endorsed)');
 
     async function fits(label) {
       const box = await p.evaluate(() => {
@@ -5665,7 +5666,7 @@ async function test(name, fn) {
     });
     assert.strictEqual(plain.href, 'https://www.youtube.com/watch?v=abcdefghijk');
     assert.strictEqual(plain.title, false);
-    assert.strictEqual(plain.label, 'Recommended 3rd party video');
+    assert.strictEqual(plain.label, 'Relevant 3rd party video (not endorsed)');
 
     await openSkill(p, 'lti-def');
     assert.strictEqual(await p.$('#videoCard'), null, 'a rejected url does not render a card');

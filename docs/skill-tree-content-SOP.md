@@ -154,9 +154,10 @@ A new bank or a new course ships only when every line below holds. The sections 
 
 ## 14. Recommended video
 
-Optional per-skill field `video: { url, title?, start? }` on the skill in `skilltree/ee105_skills_draft.json`. The generator copies it onto the published skill. No field, no card, no placeholder.
+Optional per-skill field `video: { url, title?, start?, endorsed? }` on the skill in `skilltree/ee105_skills_draft.json`. The generator copies it onto the published skill. No field, no card, no placeholder.
 
-- `url` is an `http` or `https` link to `youtube.com/watch?v=` or `youtu.be/` (optional `www.`) with one 11-character video id. `start`, when present, is a non-negative integer of seconds. `title`, when present, is a non-empty string.
+- `url` is an `http` or `https` link to `youtube.com/watch?v=` or `youtu.be/` (optional `www.`) with one 11-character video id. `start`, when present, is a non-negative integer of seconds. `title`, when present, is a non-empty string. `endorsed`, when present, is a boolean and defaults to absent.
+- Agents never set `endorsed=true` themselves; only Isaac does.
 - `tools/skilltree-content/video_gate.py` is a hard gate in `run_gates.py`. It accepts only those URLs.
 - Search YouTube directly with `python3 tools/skilltree-content/yt_search.py "<query>"`. Do not use Google. The script prints `id | title | channel | duration` and needs no API key.
 - Run at least three queries before giving up:

@@ -241,7 +241,7 @@ def main():
             if err:
                 video_errors.append(f"{s['id']}: {err}")
             else:
-                out["video"] = {k: s["video"][k] for k in ("url", "title", "start") if k in s["video"]}
+                out["video"] = {k: s["video"][k] for k in ("url", "title", "start", "endorsed") if k in s["video"]}
         return out
 
     skills_out = {
