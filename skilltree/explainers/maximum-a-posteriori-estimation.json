@@ -1,0 +1,29 @@
+{
+  "id": "maximum-a-posteriori-estimation",
+  "title": "Maximum a posteriori estimation",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>level set of a round Gaussian prior</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"64\" ry=\"64\"/><line x1=\"76\" y1=\"104\" x2=\"204\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"40\" x2=\"140\" y2=\"168\" stroke-dasharray=\"4 3\"/></svg>",
+      "figure_alt": "A circle centered at the origin, with axes labeled x1 and x2.",
+      "body_md": "Maximum likelihood, for independent Gaussian noise of equal variance, is least squares: the maximizer of the likelihood is the minimizer of the squared residual. Ridge adds a squared penalty on the coefficient and solves the shifted normal equations. Maximum a posteriori estimation is the sentence that connects them.\n\nMultiply the Gaussian likelihood by a Gaussian prior, and maximize the product. The maximizer is the posterior mode. With prior mean \\(\\mu\\) and prior variance \\(\\tau^2\\), and with noise variance \\(\\sigma^2\\), the negative log of the product is a residual sum of squares plus a squared distance to \\(\\mu\\). The weight on that distance is \\(\\sigma^2/\\tau^2\\).\n\nWhen \\(\\mu=0\\), the problem is ridge with that weight. A larger prior variance weakens the penalty and moves the mode toward the maximum-likelihood estimate. For this linear Gaussian model the posterior is Gaussian, so the mode and the mean are the same point."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "With \\(n\\) observations that sum to \\(s\\), weight \\(\\lambda=\\sigma^2/\\tau^2\\), and prior mean \\(\\mu\\),\n\\[\nx=\\frac{s+\\lambda\\mu}{n+\\lambda}.\n\\]\nThe zero-mean case is \\(x=s/(n+\\lambda)\\). The maximum-likelihood estimate is the same formula with \\(\\lambda=0\\). The objective being minimized is \\(\\sum_i(y_i-x)^2+\\lambda(x-\\mu)^2\\). Both variances have to be positive for the weight to be defined and finite."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "The observations are \\(10\\) and \\(14\\). The noise variance is \\(1\\) and the prior variance is \\(2\\), so the weight is \\(1/2\\). The prior mean is \\(0\\). The sum of the observations is \\(24\\), and\n\\[\nx=\\frac{24}{2+1/2}=\\frac{24}{2.5}.\n\\]\nThat quotient equals 9.6. The maximum-likelihood estimate is the average \\(12\\), which is what the formula gives when the weight is \\(0\\). The prior pulls \\(12\\) toward \\(0\\), and it does not pull all the way to \\(0\\), because two observations still carry weight \\(2\\) against the penalty weight \\(1/2\\)."
+    },
+    {
+      "heading": "Pitfalls",
+      "body_md": "The weight is noise variance over prior variance, not the reciprocal. A tight prior (small \\(\\tau^2\\)) is a heavy penalty.\n\nThe prior mean enters as \\(\\lambda\\mu\\) in the numerator. Using the zero-mean formula when \\(\\mu\\) is not zero drops that shift and pulls the mode toward the origin too far.\n\nMaximum likelihood is not the posterior mode at a finite prior variance. It is the limit as the prior variance tends to infinity.\n\nFor a Gaussian posterior the mode and the mean coincide. That coincidence is special to this prior. It is not a reason to ignore the penalty."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "An absolute penalty is what appears when the prior's negative log is an absolute value rather than a square. The mode is then a lasso fit, and the geometry of that penalty can set coordinates exactly to zero. The likelihood term does not change: independent Gaussian noise of equal variance is still a squared residual. Only the prior changes. The corner geometry of the absolute penalty is the next objective, not a second derivation of this Gaussian case."
+    }
+  ]
+}

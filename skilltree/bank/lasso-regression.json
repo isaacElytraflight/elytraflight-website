@@ -1,0 +1,209 @@
+{
+  "skill_id": "lasso-regression",
+  "version": 1,
+  "questions": [
+    {
+      "id": "lasso-regression-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Ridge penalizes \\(\\lambda\\lVert x\\rVert^2\\). The lasso replaces that penalty by",
+      "explanation": "The lasso objective in this skill is \\(\\lVert Ax-b\\rVert^2+\\lambda\\lVert x\\rVert_1\\). The Euclidean norm without the square is a different penalty. A penalty that vanishes on nonzero vectors would not charge large coefficients. Dropping coordinates before fitting is a different restriction; the absolute penalty can produce zeros as an outcome.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>unit balls of the 1-norm, 2-norm, and infinity-norm</title><line x1=\"28\" y1=\"112\" x2=\"256\" y2=\"112\"/><polygon points=\"256,112 249.6,114.7 249.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"200\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"24\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"72\" y=\"44\" width=\"136\" height=\"136\" stroke-dasharray=\"4 3\"/><circle cx=\"140\" cy=\"112\" r=\"68\"/><polygon points=\"208,112 140,44 72,112 140,180\"/><text x=\"158\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">inf</text><text x=\"162\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"156\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "Three shapes centered at the origin: a diamond labeled 1, a disk labeled 2, and a square labeled inf.",
+      "options": [
+        "\\(\\lambda\\lVert x\\rVert_1\\), the penalty weight times the sum of absolute coordinates",
+        "\\(\\lambda\\lVert x\\rVert_2\\), with the same squared objective as ridge",
+        "a penalty that is zero at every nonzero vector",
+        "the squared penalty on a subset of coordinates chosen in advance"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The penalty weight is \\(3\\), and the coefficient vector is \\((2,-1,0)\\). What is the value of the absolute penalty \\(\\lambda\\lVert x\\rVert_1\\), not including a residual?",
+      "explanation": "The sum of absolute coordinates is \\(2+1+0=3\\). Times the weight \\(3\\) this is \\(9\\). The squared Euclidean penalty would be \\(3(4+1+0)=15\\), which is the ridge penalty on the same vector. The count of nonzeros is \\(2\\), not the penalty. Forgetting the weight reports \\(3\\).",
+      "answer": 9.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "In the plane, the unit ball of the absolute-value norm is a diamond. Where do its corners sit?",
+      "explanation": "The diamond \\(\\lvert x_1\\rvert+\\lvert x_2\\rvert\\le 1\\) meets the axes at \\((\\pm 1,0)\\) and \\((0,\\pm 1)\\), and those are the corners. Each of those points has a zero coordinate. The points \\((\\pm 1/2,\\pm 1/2)\\) are midpoints of the edges. The Euclidean ball is the disk, a different norm. The origin is the center, not a corner.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>unit balls of the 1-norm, 2-norm, and infinity-norm</title><line x1=\"28\" y1=\"112\" x2=\"256\" y2=\"112\"/><polygon points=\"256,112 249.6,114.7 249.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"200\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"24\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"72\" y=\"44\" width=\"136\" height=\"136\" stroke-dasharray=\"4 3\"/><circle cx=\"140\" cy=\"112\" r=\"68\"/><polygon points=\"208,112 140,44 72,112 140,180\"/><text x=\"158\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">inf</text><text x=\"162\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"156\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "Three shapes centered at the origin: a diamond labeled 1, a disk labeled 2, and a square labeled inf.",
+      "options": [
+        "At the four points where both coordinates have absolute value \\(1/2\\).",
+        "On a circle of radius \\(1\\).",
+        "On the coordinate axes, at \\((\\pm 1,0)\\) and \\((0,\\pm 1)\\).",
+        "Only at the origin."
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order that scores two candidate coefficient vectors for \\(\\lVert Ax-b\\rVert^2+\\lambda\\lVert x\\rVert_1\\). Each step uses the vector or the number from the step before it. The comparison is only a comparison; it does not claim either candidate is the minimizer.",
+      "explanation": "The squared length needs the residual. The penalty is added to that squared length. The comparison needs the first total before the second candidate can be judged against it. Swapping an adjacent pair squares, adds, or compares a number that has not been computed.",
+      "steps": [
+        "Compute the residual at the first candidate.",
+        "Square the Euclidean length of that residual.",
+        "Add the penalty weight times the sum of absolute coordinates of the same candidate.",
+        "Repeat those three operations at the second candidate, and keep the candidate whose total is smaller."
+      ],
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Let \\(A\\) be the identity, \\(b=(3,1/2)\\), and \\(\\lambda=2\\). The objective is \\(\\lVert Ax-b\\rVert^2+\\lambda\\lVert x\\rVert_1\\). What is the objective at \\(x=(3,0)\\)?",
+      "explanation": "The residual is \\((0,-1/2)\\), and its squared length is \\(1/4\\). The absolute penalty is \\(2\\cdot 3=6\\). The total is \\(6.25\\). The residual square \\(0.25\\) alone drops the penalty. The penalty \\(6\\) alone drops the residual. The point \\((3,1/2)\\) has residual \\(0\\) and penalty \\(2\\cdot 3.5=7\\), a different candidate.",
+      "answer": 6.25,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Use the same identity design, the same \\(b=(3,1/2)\\), and the same weight \\(\\lambda=2\\). What is the objective at \\(x=(3,1/2)\\)?",
+      "explanation": "The residual is zero, so the objective equals the absolute penalty \\(2\\bigl(3+1/2\\bigr)=7\\). The sparse candidate \\((3,0)\\) scores \\(6.25\\), which is smaller, but this question asks for the value at \\((3,1/2)\\). Reporting \\(0\\) keeps only the residual. Reporting \\(3.5\\) is the sum of absolute coordinates before the weight.",
+      "answer": 7.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r3-q1",
+      "round": 3,
+      "type": "symbolic",
+      "prompt": "Let the penalty weight be \\(\\lambda\\), written \\(\\mathrm{lam}\\) in the answer box, and let \\(u>0\\) and \\(v>0\\). The coefficient vector is \\((u,-v)\\). Write the absolute penalty \\(\\mathrm{lam}\\,\\lVert x\\rVert_1\\), not the residual, as an expression in \\(\\mathrm{lam}\\), \\(u\\), and \\(v\\).",
+      "explanation": "Both coordinates are nonzero and the second is negative, so the sum of absolute values is \\(u+v\\). The weight multiplies that sum.\n• \\(u+v\\) drops the weight.\n• \\(\\mathrm{lam}(u-v)\\) subtracts the coordinates instead of adding their absolute values.\n• \\(\\mathrm{lam}(u^2+v^2)\\) is a squared penalty.",
+      "answer": "lam*(u+v)",
+      "variables": [
+        {
+          "name": "lam",
+          "min": 0.5,
+          "max": 3.0
+        },
+        {
+          "name": "u",
+          "min": 0.5,
+          "max": 4.0
+        },
+        {
+          "name": "v",
+          "min": 0.5,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "lam*u+lam*v",
+        "(u+v)*lam"
+      ],
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A residual contour expands about the ordinary least-squares point until it first touches a diamond of the absolute penalty. A touch at a corner means",
+      "explanation": "The corners of the diamond lie on the coordinate axes, so at least one coordinate is zero. A touch in the middle of an edge can have all coordinates nonzero. The diamond is the absolute penalty, not the disk of the squared penalty. The residual is zero only when the unconstrained least-squares point is already feasible for that penalty level, which a first touch at a corner does not require.",
+      "options": [
+        "every coordinate of the coefficient vector is nonzero",
+        "the coefficient vector at that corner has a zero coordinate",
+        "the absolute penalty was actually a squared penalty",
+        "the residual must be the zero vector"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which points are corners of the unit ball \\(\\lvert x_1\\rvert+\\lvert x_2\\rvert\\le 1\\)?",
+      "explanation": "The corners are the axis intercepts \\((\\pm 1,0)\\) and \\((0,\\pm 1)\\). The point \\((1/2,1/2)\\) lies in the middle of an edge: the absolute norm equals \\(1\\), but both coordinates are nonzero and the set is flat there. The point \\((1,1)\\) has absolute norm \\(2\\), so it lies outside the unit ball.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>unit balls of the 1-norm, 2-norm, and infinity-norm</title><line x1=\"28\" y1=\"112\" x2=\"256\" y2=\"112\"/><polygon points=\"256,112 249.6,114.7 249.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"200\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"24\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"72\" y=\"44\" width=\"136\" height=\"136\" stroke-dasharray=\"4 3\"/><circle cx=\"140\" cy=\"112\" r=\"68\"/><polygon points=\"208,112 140,44 72,112 140,180\"/><text x=\"158\" y=\"58\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">inf</text><text x=\"162\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">2</text><text x=\"156\" y=\"100\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
+      "figure_alt": "Three shapes centered at the origin: a diamond labeled 1, a disk labeled 2, and a square labeled inf.",
+      "options": [
+        "\\((1,0)\\)",
+        "\\((0,-1)\\)",
+        "\\((1/2,1/2)\\)",
+        "\\((1,1)\\)"
+      ],
+      "correct_indices": [
+        0,
+        1
+      ],
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r4-q1",
+      "round": 4,
+      "type": "error",
+      "prompt": "One step below is false. Select that step, and the reason it fails. The objective is \\(\\lVert x-b\\rVert^2+\\lVert x\\rVert_1\\) with \\(b=(4,1)\\), so the weight is \\(1\\) and \\(A\\) is the identity.",
+      "explanation": "Both candidates score \\(5\\), so they tie. A tie does not change the shape of the absolute-penalty ball. The vector \\((4,0)\\) still has a zero coordinate, and the diamond still has corners on the axes.",
+      "preview": [
+        "lasso-stationarity"
+      ],
+      "steps": [
+        "At (4,0) the squared residual is 1 and the absolute penalty is 4, so the objective is 5.",
+        "At (4,1) the squared residual is 0 and the absolute penalty is 5, so the objective is 5.",
+        "The two candidates have the same objective value.",
+        "The tie means the diamond has no corners, so (4,0) is not a sparse vector."
+      ],
+      "flaw_index": 3,
+      "reasons": [
+        "Equal objective values do not remove the corners of the diamond. The vector (4, 0) still has a zero coordinate.",
+        "The objective at (4, 0) is 4, not 5.",
+        "The squared residual at (4, 1) is 1, not 0."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Let \\(A=\\begin{bmatrix} 1 & 1 \\\\ 1 & 0 \\end{bmatrix}\\), \\(b=(3,1)\\), and \\(\\lambda=2\\). The objective is \\(\\lVert Ax-b\\rVert^2+\\lambda\\lVert x\\rVert_1\\). What is the objective at the sparse point \\(x=(1,0)\\)?",
+      "explanation": "\\(Ax=(1,1)\\), so the residual is \\((2,0)\\) and the squared length is \\(4\\). The absolute penalty is \\(2\\cdot 1=2\\). The total is \\(6\\). The dense point \\(x=(1,2)\\) has residual \\(0\\) and penalty \\(2\\cdot 3=6\\), also a total of \\(6\\), but this question asks for the sparse point. Reporting \\(4\\) drops the penalty. Reporting \\(2\\) drops the residual.",
+      "preview": [
+        "lasso-stationarity"
+      ],
+      "answer": 6.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lasso-regression-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "This skill writes the penalized problem and reads sparsity off the corners of the absolute-penalty ball. Which task belongs to a later skill?",
+      "explanation": "The objective, the corners, and the comparison with the squared penalty are this skill. The stationarity condition for the absolute penalty, and the thresholding map it becomes when the columns are orthonormal, are the later calculation. This skill stops at the problem and the geometry.",
+      "preview": [
+        "lasso-stationarity"
+      ],
+      "options": [
+        "Naming the objective \\(\\lVert Ax-b\\rVert^2+\\lambda\\lVert x\\rVert_1\\).",
+        "Recognizing that a corner of the diamond has a zero coordinate.",
+        "Comparing the absolute penalty with the squared penalty of ridge.",
+        "Writing the subdifferential stationarity condition and reducing it, for orthonormal columns, to a thresholding map."
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

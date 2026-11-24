@@ -1,0 +1,200 @@
+{
+  "skill_id": "stochastic-gradient-descent",
+  "version": 1,
+  "questions": [
+    {
+      "id": "stochastic-gradient-descent-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Gradient descent subtracts a full gradient. A stochastic step replaces that gradient by a random vector \\(g\\). The draw is unbiased when",
+      "explanation": "Unbiased means the average of the random vector, at a fixed point, is the full gradient. Individual draws may point elsewhere. Requiring every draw to match the gradient removes the randomness. The Hessian product is a Newton ingredient. An orthogonal draw would have the wrong expectation unless the gradient is zero.",
+      "options": [
+        "the conditional expectation of \\(g\\) given the current point equals the full gradient",
+        "every draw equals the full gradient",
+        "the draw equals the Hessian times the gradient",
+        "the draw is unbiased only when it is orthogonal to the full gradient"
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "At \\(x=0\\), the loss \\((x-2)^2\\) has derivative \\(-4\\) and the loss \\((x-8)^2\\) has derivative \\(-16\\). One of the two losses is drawn with equal probability, and the objective is their average. What is the expected value of the random derivative?",
+      "explanation": "The expected draw is the average of the two derivatives, \\((-4-16)/2=-10\\). That matches the derivative of the average objective, \\(2x-10\\), at \\(x=0\\). The sum \\(-20\\) forgets to divide by two. Either single draw, \\(-4\\) or \\(-16\\), is a possible outcome, not the expectation.",
+      "answer": -10.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The step length in this method, compared with the fixed length of gradient descent,",
+      "explanation": "A shrinking positive length multiplies later noisy draws by a smaller number. A growing length would amplify the noise. The length is not frozen at 1. An exact line search on the full objective would spend a full gradient, which is the cost this method avoids.",
+      "options": [
+        "grows at every iteration, so later noise is amplified",
+        "stays exactly equal to 1",
+        "shrinks from one iteration to the next, and stays positive",
+        "is recomputed by an exact line search on the full objective"
+      ],
+      "correct_index": 2,
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order of one stochastic iteration that uses the current length, then shrinks it. The subtraction uses the length from before the shrink.",
+      "explanation": "The gradient needs the term that was drawn. The subtraction needs that gradient and the length that is still current. Halving before the subtraction would feed the new length into this iteration, so the shrink comes after the subtraction. Swapping an adjacent pair evaluates, subtracts, or shrinks an object that is not ready.",
+      "steps": [
+        "Draw one data term.",
+        "Evaluate that term's gradient at the current point.",
+        "Subtract the current step length times that gradient from the current point.",
+        "After that subtraction, replace the step length by half its value."
+      ],
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "Start at \\(x=0\\) with step length \\(0.5\\). Draw the loss \\((x-2)^2\\), whose derivative at \\(0\\) is \\(-4\\). What is the point after this one stochastic step?",
+      "explanation": "The update subtracts \\(0.5\\cdot(-4)\\) from \\(0\\), which lands at \\(2\\). The other loss has derivative \\(-16\\) at \\(0\\), and a step along that draw would land at \\(8\\). The expected derivative \\(-10\\) would land at \\(5\\), which is the full gradient step, not this draw. The derivative \\(-4\\) is not the next point.",
+      "answer": 2.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "A stochastic step has just landed at \\(x=2\\), and the step length is now \\(0.25\\). Draw the loss \\((x-8)^2\\). Its derivative at \\(2\\) is \\(2(2-8)\\). What is the point after this step?",
+      "explanation": "The derivative is \\(-12\\). Subtract \\(0.25\\cdot(-12)\\) from \\(2\\) to land at \\(5\\). Keeping the old length \\(0.5\\) would subtract \\(0.5\\cdot(-12)\\) and land at \\(8\\). The derivative \\(-12\\) is not the next point. A full gradient at \\(2\\) is \\(2\\cdot 2-10=-6\\), and a step of length \\(0.25\\) along \\(-6\\) would land at \\(3.5\\), a different update.",
+      "answer": 5.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r3-q1",
+      "round": 3,
+      "type": "symbolic",
+      "prompt": "Two equally likely draws have values \\(p\\) and \\(q\\). Write the expected draw as an expression in \\(p\\) and \\(q\\).",
+      "explanation": "Equal probability means the expectation is the arithmetic mean. Both draws appear, and the factor one half is required.\n• \\(p+q\\) is the sum, twice the mean.\n• \\(pq\\) is a product, not an average.\n• \\(p-q\\) cancels the two draws instead of averaging them.",
+      "answer": "(p+q)/2",
+      "variables": [
+        {
+          "name": "p",
+          "min": -4.0,
+          "max": 4.0
+        },
+        {
+          "name": "q",
+          "min": -4.0,
+          "max": 4.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "0.5*(p+q)",
+        "(1/2)*(p+q)",
+        "p/2+q/2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "A single draw differs from the full gradient, and the step taken along that draw increases the full objective. What does that event say?",
+      "explanation": "Unbiasedness is a statement about the conditional expectation. One draw may point uphill for the full objective, especially when the length is not tiny. That event does not by itself show bias. It also does not show that the full gradient was miscomputed, and it does not force the length to be zero.",
+      "options": [
+        "The draw was biased, because a descent method cannot increase the objective.",
+        "The draw can still be unbiased. Unbiasedness constrains the average of the draws, not each one, and one unlucky step can increase the full objective.",
+        "The full gradient was computed incorrectly, because every random draw decreases the objective.",
+        "The step length must have been zero."
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "Which statements describe the random gradient and the step length in this method?",
+      "explanation": "The expectation matches the full gradient, while a single draw need not. The length used here shrinks and stays positive. Requiring every draw to equal the full gradient describes ordinary gradient descent, not this method.",
+      "options": [
+        "The conditional expectation of the random gradient equals the full gradient.",
+        "A single draw can differ from the full gradient.",
+        "Every draw equals the full gradient.",
+        "The step length shrinks from one iteration to the next and stays positive."
+      ],
+      "correct_indices": [
+        0,
+        1,
+        3
+      ],
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r4-q1",
+      "round": 4,
+      "type": "error",
+      "prompt": "One step below is false. Select that step, and the reason it fails. At \\(x=0\\) the two equally likely derivatives are \\(-4\\) and \\(-16\\), and the full gradient is their average.",
+      "explanation": "The two derivatives and their average \\(-10\\) are the unbiased pair, and the step along \\(-4\\) really does land at \\(2\\). The expectation does not force every draw to equal \\(-10\\). The draws \\(-4\\) and \\(-16\\) are the counterexamples sitting in the first step.",
+      "preview": [
+        "incremental-gradient-methods"
+      ],
+      "steps": [
+        "Each draw is one of those two derivatives.",
+        "The expected draw is -10, which equals the full gradient.",
+        "A step of length 0.5 along the derivative -4 moves from 0 to 2.",
+        "Because the expected gradient is -10, every draw equals -10."
+      ],
+      "flaw_index": 3,
+      "reasons": [
+        "Unbiased means the average of the draws equals the full gradient. A single draw can be -4 or -16.",
+        "The step along -4 does not land at 2.",
+        "The expected gradient is the sum of the two draws, not the average."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "From \\(x=0\\) with length \\(0.5\\), the draw \\(-4\\) lands at \\(2\\) and the draw \\(-16\\) lands at \\(8\\). The two draws are equally likely. What is the average of the two possible next points?",
+      "explanation": "The average of the landings is \\((2+8)/2=5\\). The full gradient is \\(-10\\), and the full step \\(0-0.5\\cdot(-10)\\) also lands at \\(5\\). That match is the unbiasedness of a step whose length is not random. The landing \\(2\\) is only one of the two outcomes. The sum \\(10\\) forgets to divide by two.",
+      "preview": [
+        "incremental-gradient-methods"
+      ],
+      "answer": 5.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "stochastic-gradient-descent-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "A pass that always updates on block 1, then on block 2, using the updated point for the next block, is a different method. How does the random step here differ?",
+      "explanation": "The fixed cyclic pass is the incremental method. This method draws a term so that the conditional expectation equals the full gradient, and it shrinks the length. It does not commit to one order of blocks, and it does not evaluate the full gradient on every iteration.",
+      "preview": [
+        "incremental-gradient-methods"
+      ],
+      "options": [
+        "It cycles through a fixed list and never draws at random.",
+        "It uses the full gradient on every iteration.",
+        "It requires the blocks to be visited in one fixed order.",
+        "It draws a term at random, with an expectation equal to the full gradient, instead of walking a fixed list in order."
+      ],
+      "correct_index": 3,
+      "version": 1
+    }
+  ]
+}

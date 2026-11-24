@@ -1,0 +1,29 @@
+{
+  "id": "stochastic-gradient-descent",
+  "title": "Stochastic gradient descent",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a convex bowl</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,39 49,43.1 52,47.2 55.1,51.1 58.1,55 61.1,58.7 64.1,62.4 67.2,65.9 70.2,69.4 73.2,72.8 76.2,76.1 79.2,79.3 82.3,82.4 85.3,85.4 88.3,88.3 91.3,91.2 94.4,93.9 97.4,96.5 100.4,99.1 103.4,101.5 106.4,103.9 109.5,106.2 112.5,108.3 115.5,110.4 118.5,112.4 121.6,114.3 124.6,116.1 127.6,117.8 130.6,119.5 133.6,121 136.7,122.4 139.7,123.8 142.7,125 145.7,126.2 148.8,127.3 151.8,128.2 154.8,129.1 157.8,129.9 160.8,130.6 163.9,131.2 166.9,131.7 169.9,132.1 172.9,132.4 176,132.7 179,132.8 182,132.9 185,132.8 188,132.7 191.1,132.4 194.1,132.1 197.1,131.7 200.1,131.2 203.2,130.6 206.2,129.9 209.2,129.1 212.2,128.2 215.2,127.3 218.3,126.2 221.3,125 224.3,123.8 227.3,122.4 230.4,121 233.4,119.5 236.4,117.8 239.4,116.1 242.4,114.3 245.5,112.4 248.5,110.4 251.5,108.3 254.5,106.2 257.6,103.9 260.6,101.5 263.6,99.1 266.6,96.5 269.6,93.9 272.7,91.2 275.7,88.3 278.7,85.4 281.7,82.4 284.8,79.3 287.8,76.1 290.8,72.8 293.8,69.4 296.8,65.9 299.9,62.4 302.9,58.7 305.9,55 308.9,51.1 312,47.2 315,43.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that opens upward. The horizontal axis is labeled x and the vertical axis is labeled f.",
+      "body_md": "Gradient descent subtracts the full gradient and reuses one positive length. Stochastic gradient descent keeps the subtraction and changes both ingredients. The vector it subtracts is a random draw whose conditional expectation, given the current point, equals the full gradient. The length shrinks from one iteration to the next and stays positive.\n\nUnbiased does not mean that every draw equals the full gradient. One draw can point a different way, and a step along that draw can increase the full objective. The guarantee is about the average of the draws. When the length is not itself random, the average of the possible next points equals the point a full gradient step would have reached.\n\nThe shrink is part of the method as defined here. A fixed length leaves the noise at full strength forever. This skill does not prove a rate for the shrinking schedule. It only requires that later steps use a smaller positive length."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "If \\(g\\) is the random vector,\n\\[\n\\mathbb{E}[g\\mid x]=\\nabla f(x), \\qquad x_+=x-t g, \\qquad t>0,\n\\]\nand the next iteration uses a smaller positive length. For two equally likely derivatives \\(p\\) and \\(q\\), the expected draw is \\((p+q)/2\\). That average is what must equal the full gradient. A pass that always visits a fixed list of blocks, in one order, is a different method: it does not draw."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "At \\(x=7\\), the loss \\((x-5)^2\\) has derivative \\(4\\) and the loss \\((x-11)^2\\) has derivative \\(-8\\). The average of those two draws is \\(-2\\), which is the derivative of the averaged objective at \\(7\\).\n\nTake the length \\(0.1\\). The first draw lands at \\(7-0.1\\cdot 4=6.6\\). The second draw lands at \\(7-0.1\\cdot(-8)=7.8\\). The average landing 7.2 equals the full gradient step \\(7-0.1\\cdot(-2)\\). Neither landing equals \\(7.2\\) by itself. After the step, the length used on the next draw is smaller than \\(0.1\\)."
+    },
+    {
+      "heading": "Pitfalls",
+      "body_md": "An increase in the full objective on one draw is not evidence of bias. Bias would mean the average of the draws, at a fixed point, differs from the full gradient.\n\nDo not replace the average by the sum. Two equally likely numbers are averaged, not added. Do not replace the average by one of the draws and call that draw the expectation.\n\nThe cyclic pass over a fixed list uses the updated point for the next block and never flips a coin. Calling that pass a random gradient confuses the two methods. This method also does not keep the length fixed. The fixed length belongs to the full-gradient iteration."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The neighbor is the incremental pass: the same subtraction, but the terms arrive in a fixed order rather than as an unbiased draw. Rates for the random method need a schedule whose lengths shrink in a controlled way, and those rates are not part of this skill. The full-gradient decrease bound does not apply unchanged, because that bound uses the true gradient at every step."
+    }
+  ]
+}

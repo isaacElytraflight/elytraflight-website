@@ -263,6 +263,19 @@ LEAF_PREVIEW_ALLOWED.update({
     "least-squares-perturbation": ["ridge-regression"],
     "principal-components-regression": ["lasso-regression"],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # EB2 leaves: nothing in the graph lists these as prerequisites.
+    # A rewritten convex problem is often recognized as a quadratic program.
+    # Rates of gradient methods use the strong-convexity modulus. A cyclic
+    # pass over blocks is the neighbor of a random gradient draw. A conjugate
+    # is how a dual value is computed once the gap is zero. An absolute prior
+    # is the later penalty after the Gaussian prior.
+    "convex-reparameterization": ["quadratic-program"],
+    "strong-convexity": ["gradient-method-convergence"],
+    "stochastic-gradient-descent": ["incremental-gradient-methods"],
+    "convex-conjugate": ["strong-duality"],
+    "maximum-a-posteriori-estimation": ["lasso-regression"],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

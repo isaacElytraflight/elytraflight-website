@@ -13,6 +13,16 @@ Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## EB2: Convexity, gradient steps, duality, the lasso problem — eecs127-eb2
+
+Box: Optimization models in engineering.
+
+Skills: `convex-reparameterization`, `strong-convexity`, `gradient-descent`, `stochastic-gradient-descent`, `strong-duality`, `convex-conjugate`, `maximum-a-posteriori-estimation`, `lasso-regression`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## B1 — me132-b1
 
 Box: ME 132 (me132) and Feedback Systems (am08).

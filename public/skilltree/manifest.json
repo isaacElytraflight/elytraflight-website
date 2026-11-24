@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-24T18:22:28.094844Z",
+  "generated": "2026-11-24T20:38:41.740199Z",
   "skills": {
-    "file": "skills.6141a566.json",
-    "hash": "6141a566"
+    "file": "skills.85040169.json",
+    "hash": "85040169"
   },
   "collections": {
     "file": "collections.af4a0c5f.json",
@@ -527,6 +527,18 @@
       "hash": "8c34f985",
       "file": "banks/convergence-rates.8c34f985.json"
     },
+    "convex-conjugate": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "6bfaa010",
+      "file": "banks/convex-conjugate.6bfaa010.json"
+    },
     "convex-functions": {
       "version": 1,
       "questionCount": 12,
@@ -550,6 +562,18 @@
       },
       "hash": "0bdca5de",
       "file": "banks/convex-optimality-global.0bdca5de.json"
+    },
+    "convex-reparameterization": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "2bbb0898",
+      "file": "banks/convex-reparameterization.2bbb0898.json"
     },
     "convex-sets": {
       "version": 2,
@@ -1391,6 +1415,18 @@
       "hash": "6e5d9161",
       "file": "banks/gm.6e5d9161.json"
     },
+    "gradient-descent": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b5a885bf",
+      "file": "banks/gradient-descent.b5a885bf.json"
+    },
     "gradient-method-convergence": {
       "version": 1,
       "questionCount": 12,
@@ -1739,6 +1775,18 @@
       "hash": "76af06cf",
       "file": "banks/largest-inscribed-ellipsoid.76af06cf.json"
     },
+    "lasso-regression": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "c1c97bfc",
+      "file": "banks/lasso-regression.c1c97bfc.json"
+    },
     "least-squares-data-fitting": {
       "version": 1,
       "questionCount": 12,
@@ -2074,6 +2122,18 @@
       },
       "hash": "f807986c",
       "file": "banks/matrix-calculus-gradients.f807986c.json"
+    },
+    "maximum-a-posteriori-estimation": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "8d991368",
+      "file": "banks/maximum-a-posteriori-estimation.8d991368.json"
     },
     "maximum-likelihood-estimation": {
       "version": 1,
@@ -3215,6 +3275,42 @@
       "hash": "d59adfef",
       "file": "banks/step-specs.d59adfef.json"
     },
+    "stochastic-gradient-descent": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "605a3e9f",
+      "file": "banks/stochastic-gradient-descent.605a3e9f.json"
+    },
+    "strong-convexity": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "76060c5f",
+      "file": "banks/strong-convexity.76060c5f.json"
+    },
+    "strong-duality": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "39fffb96",
+      "file": "banks/strong-duality.39fffb96.json"
+    },
     "sufficient-decrease-lemma": {
       "version": 1,
       "questionCount": 12,
@@ -3649,6 +3745,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "convex-conjugate": {
+      "hash": "465e6b79",
+      "file": "explainers/convex-conjugate.465e6b79.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "convex-functions": {
       "hash": "c478af95",
       "file": "explainers/convex-functions.c478af95.json",
@@ -3658,6 +3760,12 @@
     "convex-optimality-global": {
       "hash": "056091bf",
       "file": "explainers/convex-optimality-global.056091bf.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "convex-reparameterization": {
+      "hash": "e30d3890",
+      "file": "explainers/convex-reparameterization.e30d3890.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -4052,6 +4160,12 @@
       "file": "explainers/gm.85315815.json",
       "sectionCount": 5
     },
+    "gradient-descent": {
+      "hash": "5661e830",
+      "file": "explainers/gradient-descent.5661e830.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "gradient-method-convergence": {
       "hash": "5f192db3",
       "file": "explainers/gradient-method-convergence.5f192db3.json",
@@ -4219,6 +4333,12 @@
       "sectionCount": 5,
       "version": 2
     },
+    "lasso-regression": {
+      "hash": "e235ed92",
+      "file": "explainers/lasso-regression.e235ed92.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "least-squares-data-fitting": {
       "hash": "fb67e175",
       "file": "explainers/least-squares-data-fitting.fb67e175.json",
@@ -4381,6 +4501,12 @@
     "matrix-calculus-gradients": {
       "hash": "7b046901",
       "file": "explainers/matrix-calculus-gradients.7b046901.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "maximum-a-posteriori-estimation": {
+      "hash": "3367ceb0",
+      "file": "explainers/maximum-a-posteriori-estimation.3367ceb0.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -4926,6 +5052,24 @@
     "step-specs": {
       "hash": "d25f0590",
       "file": "explainers/step-specs.d25f0590.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "stochastic-gradient-descent": {
+      "hash": "21cbb9df",
+      "file": "explainers/stochastic-gradient-descent.21cbb9df.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "strong-convexity": {
+      "hash": "348f88c2",
+      "file": "explainers/strong-convexity.348f88c2.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "strong-duality": {
+      "hash": "d62ebd8f",
+      "file": "explainers/strong-duality.d62ebd8f.json",
       "sectionCount": 5,
       "version": 1
     },
