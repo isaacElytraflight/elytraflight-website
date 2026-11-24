@@ -2553,10 +2553,31 @@ async function test(name, fn) {
       };
       const outside = [];
       const selected = sg.collections.selected();
+      const boxes = sg.collections.data().boxes;
+      const parent = {};
+      boxes.forEach(b => (b.children || []).forEach(cid => { parent[cid] = b.id; }));
+      const rootOf = id => { let cur = id; const seen = {}; while (parent[cur] && !seen[cur]) { seen[cur] = 1; cur = parent[cur]; } return cur; };
+      const shareOf = sid => {
+        const roots = new Set();
+        selected.forEach(bid => { if (sg.collections.skillInBox(sid, bid)) roots.add(rootOf(bid)); });
+        return roots.size;
+      };
+      const under = (host, id) => host === id || !!(parent[host] && under(parent[host], id));
       selected.forEach(id => {
         const blob = L.blobs[id];
         if (!blob) { outside.push(id + ' has no region'); return; }
         sg.collections.getBoxDescendantSkills(id).forEach(sid => {
+          if (shareOf(sid) >= 2) {
+            const ghosts = [...document.querySelectorAll('#world .tile.ghost[data-id="' + sid + '"]')];
+            const hit = ghosts.some(g => {
+              if (!under(g.dataset.box, id)) return false;
+              const x = parseFloat(g.style.left) + g.offsetWidth / 2;
+              const y = parseFloat(g.style.top) + g.offsetHeight / 2;
+              return inside(blob.points, x, y);
+            });
+            if (!hit) outside.push(sid + ' reference outside ' + id);
+            return;
+          }
           const n = L.nodes[sid];
           if (!n) { outside.push(sid + ' missing from ' + id); return; }
           const corners = [[n.x + 2, n.y + 2], [n.x + 166, n.y + 2], [n.x + 2, n.y + 70], [n.x + 166, n.y + 70]];
@@ -2655,12 +2676,17 @@ async function test(name, fn) {
       const sharedInside = both.filter(id => {
         const n = L.nodes[id];
         const x = n.x + 84, y = n.y + 36;
-        return inside(ee.points, x, y) && inside(me.points, x, y);
+        return inside(ee.points, x, y) || inside(me.points, x, y);
       });
-      return { both: both.length, sharedInside: sharedInside.length, dimmed: document.querySelectorAll('#world .tile.boxdim').length };
+      const ghostsIn = both.filter(id => {
+        const ghosts = [...document.querySelectorAll('#world .tile.ghost[data-id="' + id + '"]')];
+        return ghosts.some(g => g.dataset.box === 'ee105-ucb') && ghosts.some(g => g.dataset.box === 'me132');
+      });
+      return { both: both.length, sharedInside: sharedInside.length, ghostsIn: ghostsIn.length, dimmed: document.querySelectorAll('#world .tile.boxdim').length };
     });
     assert(overlap.both > 0, 'EE 105 and ME 132 share skills');
-    assert.strictEqual(overlap.sharedInside, overlap.both, 'shared skills sit in both regions');
+    assert.strictEqual(overlap.sharedInside, 0, 'shared skills leave both course regions for the trunk');
+    assert.strictEqual(overlap.ghostsIn, overlap.both, 'each course keeps a reference to every shared skill');
     assert(overlap.dimmed > 0, 'skills outside both courses are dimmed');
     await frame();
     await p.screenshot({ path: path.join(SHOTS_DIR, '23_ee_me_overlap.png') });
@@ -2675,7 +2701,7 @@ async function test(name, fn) {
       regions: [...document.querySelectorAll('#regions .blob')].map(b => b.dataset.box).sort(),
       scope: window.__skillgrove.collections.scope(),
       dimmed: document.querySelectorAll('#world .tile.boxdim').length,
-      tiles: document.querySelectorAll('#world .tile').length
+      tiles: document.querySelectorAll('#world .tile:not(.ghost)').length
     }));
     assert.deepStrictEqual(drawn.regions, ['ee105-ucb', 'me132']);
     assert.deepStrictEqual(drawn.scope, ['ee105-ucb', 'me132']);
@@ -5809,66 +5835,23 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
-  await test('venn ghosts keep sub-chapter boxes out of the overlap', async () => {
-    const eeCh = COLLECTIONS.boxes.filter(b => b.kind === 'chapter' && b.id.indexOf('ee105-') === 0).map(b => b.id);
-    const meCh = COLLECTIONS.boxes.filter(b => b.kind === 'chapter' && b.id.indexOf('me132/') === 0).map(b => b.id);
-    const p = await newPage(T({ 'lti-def': { tier: 4, lastPracticed: now, history: [] } }));
-    await showGrouped(p);
-
-    await pickBoxes(p, ['ee105-ucb']);
-    const single = await p.evaluate(() => ({
-      ghosts: document.querySelectorAll('#world .tile.ghost').length,
-      links: document.querySelectorAll('#ghostLinks .ghost-link').length,
-      tiles: document.querySelectorAll('#world .tile').length
-    }));
-    assert.strictEqual(single.ghosts, 0, 'a single course draws no reference copies');
-    assert.strictEqual(single.links, 0);
-    assert.strictEqual(single.tiles, NSKILL);
-
-    await pickBoxes(p, ['ee105-ucb', 'me132']);
-    const coursesOnly = await p.evaluate(() => document.querySelectorAll('#world .tile.ghost').length);
-    assert.strictEqual(coursesOnly, 0, 'two courses without chapters keep the ordinary overlap');
-
-    await pickBoxes(p, ['ee105-ucb', 'me132'].concat(eeCh, meCh));
-    await sleep(300);
-
-    const facts = () => p.evaluate(() => {
+  async function trunkFacts(p) {
+    return p.evaluate(() => {
       const sg = window.__skillgrove;
+      const L = sg.layout().grouped;
       const boxes = sg.collections.data().boxes;
+      const boxById = sg.collections.boxById();
       const parent = {};
       boxes.forEach(b => (b.children || []).forEach(id => { parent[id] = b.id; }));
-      const rootOf = id => { let cur = id; while (parent[cur]) cur = parent[cur]; return cur; };
-      const boxById = sg.collections.boxById();
-      const selected = new Set(sg.collections.selected());
-      const ee = new Set(sg.collections.getBoxDescendantSkills('ee105-ucb'));
-      const me = new Set(sg.collections.getBoxDescendantSkills('me132'));
-      const shared = [...ee].filter(id => me.has(id));
-      const polysOf = id => [...document.querySelectorAll('#regions polygon[data-box="' + CSS.escape(id) + '"]')].map(node =>
-        node.getAttribute('points').trim().split(/\s+/).map(s => s.split(',').map(Number)));
-      const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
-      const insideHalf = (pt, a, b) => cross(a, b, pt) >= -0.05;
-      const segHit = (p0, q, a, b) => {
-        const rx = q[0] - p0[0], ry = q[1] - p0[1], sx = b[0] - a[0], sy = b[1] - a[1];
-        const den = rx * sy - ry * sx;
-        const t = Math.abs(den) < 1e-9 ? 0 : ((a[0] - p0[0]) * sy - (a[1] - p0[1]) * sx) / den;
-        return [p0[0] + t * rx, p0[1] + t * ry];
-      };
-      const clip = (subject, clipPoly) => {
-        let out = subject.map(pt => pt.slice());
-        for (let i = 0; i < clipPoly.length && out.length; i++) {
-          const a = clipPoly[i], b = clipPoly[(i + 1) % clipPoly.length];
-          const input = out;
-          out = [];
-          for (let j = 0; j < input.length; j++) {
-            const p0 = input[j], q = input[(j + 1) % input.length];
-            const pin = insideHalf(p0, a, b), qin = insideHalf(q, a, b);
-            if (qin) {
-              if (!pin) out.push(segHit(p0, q, a, b));
-              out.push(q.slice());
-            } else if (pin) out.push(segHit(p0, q, a, b));
-          }
+      const rootOf = id => { let cur = id; const seen = {}; while (parent[cur] && !seen[cur]) { seen[cur] = 1; cur = parent[cur]; } return cur; };
+      const selected = sg.collections.selected();
+      const inside = (poly, x, y) => {
+        let c = false;
+        for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+          const xi = poly[i][0], yi = poly[i][1], xj = poly[j][0], yj = poly[j][1];
+          if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / ((yj - yi) || 1e-9) + xi)) c = !c;
         }
-        return out;
+        return c;
       };
       const project = (poly, ax, ay) => {
         let min = Infinity, max = -Infinity;
@@ -5890,135 +5873,171 @@ async function test(name, fn) {
           return pa[1] >= pb[0] - 0.05 && pb[1] >= pa[0] - 0.05;
         });
       };
-      const pip = (poly, x, y) => {
-        let c = false;
-        for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
-          const xi = poly[i][0], yi = poly[i][1], xj = poly[j][0], yj = poly[j][1];
-          if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / ((yj - yi) || 1e-9) + xi)) c = !c;
-        }
-        return c;
+      const polysOf = id => {
+        const blob = L.blobs[id];
+        return blob && blob.points ? [blob.points] : [];
       };
-      const insideAny = (polys, x, y) => polys.some(poly => pip(poly, x, y));
-      const eePolys = polysOf('ee105-ucb');
-      const mePolys = polysOf('me132');
-      const overlaps = [];
-      eePolys.forEach(a => mePolys.forEach(b => {
-        const both = clip(a, b);
-        if (both.length >= 3) overlaps.push(both);
-      }));
-      const chapters = [...selected].filter(id => boxById[id] && boxById[id].kind === 'chapter');
-      const intrusions = [];
-      const outsideParent = [];
-      chapters.forEach(id => {
-        const parentPolys = polysOf(rootOf(id));
-        polysOf(id).forEach(poly => {
-          if (overlaps.some(region => convexHit(poly, region))) intrusions.push(id);
-          const cx = poly.reduce((sum, pt) => sum + pt[0], 0) / poly.length;
-          const cy = poly.reduce((sum, pt) => sum + pt[1], 0) / poly.length;
-          const inset = poly.map(pt => [pt[0] + (cx - pt[0]) * 0.04, pt[1] + (cy - pt[1]) * 0.04]);
-          const insideParent = parentPolys.some(parent => inset.every(pt => pip(parent, pt[0], pt[1])));
-          if (!insideParent) outsideParent.push(id);
+      const share = {};
+      const skillIds = Object.keys(L.nodes).filter(k => k.indexOf('ghost:') !== 0);
+      skillIds.forEach(sid => {
+        const roots = new Set();
+        selected.forEach(id => { if (sg.collections.skillInBox(sid, id)) roots.add(rootOf(id)); });
+        share[sid] = roots.size;
+      });
+      const shared = skillIds.filter(id => share[id] >= 2);
+      const courses = selected.filter(id => boxById[id] && (boxById[id].kind === 'course' || boxById[id].kind === 'textbook'));
+      const chapters = selected.filter(id => boxById[id] && boxById[id].kind === 'chapter');
+      const insideRegion = [];
+      const sameRow = [];
+      shared.forEach(id => {
+        const n = L.nodes[id];
+        if (!n) { insideRegion.push(id + ' missing'); return; }
+        const cx = n.x + 84, cy = n.y + 36;
+        selected.forEach(bid => {
+          if (polysOf(bid).some(poly => inside(poly, cx, cy))) insideRegion.push(id + ' inside ' + bid);
+        });
+        skillIds.forEach(other => {
+          if (share[other] !== 1) return;
+          const o = L.nodes[other];
+          if (!o || Math.abs(o.y - n.y) > 2) return;
+          const root = [...shareRoots(other)][0];
+          if (root && polysOf(root).some(poly => inside(poly, cx, cy))) sameRow.push(id + ' row ' + root);
         });
       });
-      const L = sg.layout().grouped;
-      const problems = [];
-      const ghostFor = {};
+      function shareRoots(sid) {
+        const roots = new Set();
+        selected.forEach(id => { if (sg.collections.skillInBox(sid, id)) roots.add(rootOf(id)); });
+        return roots;
+      }
+      const overlaps = [];
+      for (let i = 0; i < courses.length; i++) for (let j = i + 1; j < courses.length; j++) {
+        const a = polysOf(courses[i])[0], b = polysOf(courses[j])[0];
+        if (a && b && convexHit(a, b)) overlaps.push(courses[i] + ' ∩ ' + courses[j]);
+      }
+      const intrusions = [];
+      chapters.forEach(id => {
+        const poly = polysOf(id)[0];
+        courses.forEach(cid => {
+          if (cid === rootOf(id)) return;
+          const other = polysOf(cid)[0];
+          if (poly && other && convexHit(poly, other)) intrusions.push(id + ' into ' + cid);
+        });
+      });
+      const prereq = [];
+      (L.edges || []).forEach(e => {
+        const a = L.nodes[e.from], b = L.nodes[e.to];
+        if (!a || !b) return;
+        if (a.y <= b.y + 4) prereq.push(e.from + '->' + e.to);
+      });
+      const ghostProblems = [];
       shared.forEach(id => {
-        const chaptersOf = (sg.collections.skillToBoxes()[id] || []).filter(bid => {
-          const box = boxById[bid];
-          return box && box.kind === 'chapter' && selected.has(bid) && (rootOf(bid) === 'ee105-ucb' || rootOf(bid) === 'me132');
-        });
-        const real = [...document.querySelectorAll('#world .tile[data-id="' + id + '"]:not(.ghost)')];
+        const hosts = [];
+        chapters.forEach(bid => { if (sg.collections.skillInBox(id, bid)) hosts.push(bid); });
+        if (!hosts.length) {
+          courses.forEach(bid => { if (sg.collections.skillInBox(id, bid)) hosts.push(bid); });
+        }
         const ghosts = [...document.querySelectorAll('#world .tile.ghost[data-id="' + id + '"]')];
-        if (real.length !== 1) problems.push(id + ' real ' + real.length);
-        if (ghosts.length !== chaptersOf.length) problems.push(id + ' ghosts ' + ghosts.length + ' want ' + chaptersOf.length);
-        chaptersOf.forEach(bid => {
-          if (!ghosts.some(g => g.dataset.box === bid)) problems.push(id + ' missing ghost ' + bid);
-        });
-        const node = L.nodes[id];
-        if (!node) { problems.push(id + ' has no node'); return; }
-        const cx = node.x + 84, cy = node.y + 36;
-        if (!insideAny(eePolys, cx, cy) || !insideAny(mePolys, cx, cy)) problems.push(id + ' real node is outside a course region');
-        chaptersOf.forEach(bid => {
-          if (insideAny(polysOf(bid), cx, cy)) problems.push(id + ' real node sits inside ' + bid);
-        });
+        if (ghosts.length !== hosts.length) ghostProblems.push(id + ' ghosts ' + ghosts.length + '/' + hosts.length);
+        hosts.forEach(bid => { if (!ghosts.some(g => g.dataset.box === bid)) ghostProblems.push(id + ' missing ' + bid); });
         ghosts.forEach(g => {
           const label = g.getAttribute('aria-label') || '';
-          if (!/Reference/.test(label)) problems.push(id + ' ghost label');
-          if (g.tagName !== 'BUTTON') problems.push(id + ' ghost is not a button');
-          if ((g.textContent || '').indexOf('Reference') < 0) problems.push(id + ' ghost text');
+          if (!/Reference/.test(label)) ghostProblems.push(id + ' label');
+          if (g.tagName !== 'BUTTON') ghostProblems.push(id + ' not button');
           const gx = parseFloat(g.style.left) + g.offsetWidth / 2;
           const gy = parseFloat(g.style.top) + g.offsetHeight / 2;
-          if (!insideAny(polysOf(g.dataset.box), gx, gy)) problems.push(id + ' ghost outside ' + g.dataset.box);
-          if (Math.abs(gy - cy) > 2) problems.push(id + ' ghost y ' + gy + ' vs ' + cy);
-          const dist = Math.hypot(gx - cx, gy - cy);
-          if (dist > 420) problems.push(id + ' link ' + Math.round(dist));
-          ghostFor[id] = ghostFor[id] || [];
-          ghostFor[id].push(g.dataset.box);
+          if (!polysOf(g.dataset.box).some(poly => inside(poly, gx, gy))) ghostProblems.push(id + ' ghost outside ' + g.dataset.box);
         });
       });
-      const stray = [...document.querySelectorAll('#world .tile.ghost')].filter(g => !ee.has(g.dataset.id) || !me.has(g.dataset.id));
+      const shares = {};
+      shared.forEach(id => { const k = String(share[id]); shares[k] = (shares[k] || 0) + 1; });
+      const link = document.querySelector('#ghostLinks .ghost-link');
+      const style = link ? getComputedStyle(link) : null;
       const mastered = document.querySelector('#world .tile.ghost[data-id="lti-def"]');
       const realMaster = document.querySelector('#world .tile[data-id="lti-def"]:not(.ghost)');
-      const linkCount = document.querySelectorAll('#ghostLinks .ghost-link').length;
-      const dash = linkCount ? getComputedStyle(document.querySelector('#ghostLinks .ghost-link')).strokeDasharray : '';
       return {
         shared: shared.length,
-        intrusions: [...new Set(intrusions)],
-        outsideParent: [...new Set(outsideParent)],
-        overlapParts: overlaps.length,
-        problems: problems.slice(0, 12),
-        problemCount: problems.length,
-        stray: stray.length,
-        tiles: document.querySelectorAll('#world .tile:not(.ghost)').length,
-        ghostCount: document.querySelectorAll('#world .tile.ghost').length,
-        linkCount,
-        dash,
-        mastered: mastered ? {
-          tier: mastered.className,
-          fill: mastered.style.getPropertyValue('--fill'),
-          pips: mastered.querySelectorAll('.pips i.on').length,
-          opacity: getComputedStyle(mastered).opacity,
-          label: mastered.getAttribute('aria-label')
-        } : null,
-        realMaster: realMaster ? {
-          tier: realMaster.className,
-          fill: realMaster.style.getPropertyValue('--fill'),
-          pips: realMaster.querySelectorAll('.pips i.on').length
-        } : null
+        shares,
+        insideRegion: insideRegion.slice(0, 8),
+        insideCount: insideRegion.length,
+        sameRow: sameRow.slice(0, 6),
+        sameRowCount: sameRow.length,
+        overlaps,
+        intrusions: intrusions.slice(0, 8),
+        intrusionCount: intrusions.length,
+        prereq: prereq.slice(0, 6),
+        prereqCount: prereq.length,
+        ghostProblems: ghostProblems.slice(0, 8),
+        ghostProblemCount: ghostProblems.length,
+        ghosts: document.querySelectorAll('#world .tile.ghost').length,
+        links: document.querySelectorAll('#ghostLinks .ghost-link').length,
+        real: document.querySelectorAll('#world .tile:not(.ghost)').length,
+        dash: style ? style.strokeDasharray : '',
+        width: style ? style.strokeWidth : '',
+        mastered: mastered ? { tier: mastered.className, fill: mastered.style.getPropertyValue('--fill'), pips: mastered.querySelectorAll('.pips i.on').length, opacity: getComputedStyle(mastered).opacity } : null,
+        realMaster: realMaster ? { tier: realMaster.className, fill: realMaster.style.getPropertyValue('--fill'), pips: realMaster.querySelectorAll('.pips i.on').length } : null
       };
     });
+  }
 
-    let report = await facts();
+  await test('shared trunk for two courses replaces the banded overlap', async () => {
+    const eeCh = COLLECTIONS.boxes.filter(b => b.kind === 'chapter' && b.id.indexOf('ee105-') === 0).map(b => b.id);
+    const meCh = COLLECTIONS.boxes.filter(b => b.kind === 'chapter' && b.id.indexOf('me132/') === 0).map(b => b.id);
+    const p = await newPage(T({ 'lti-def': { tier: 4, lastPracticed: now, history: [] } }));
+    await showGrouped(p);
+
+    await pickBoxes(p, ['ee105-ucb'].concat(eeCh));
+    const single = await p.evaluate(() => ({
+      ghosts: document.querySelectorAll('#world .tile.ghost').length,
+      links: document.querySelectorAll('#ghostLinks .ghost-link').length,
+      tiles: document.querySelectorAll('#world .tile').length
+    }));
+    assert.strictEqual(single.ghosts, 0, 'a single course draws no reference copies');
+    assert.strictEqual(single.links, 0);
+    assert.strictEqual(single.tiles, NSKILL);
+
+    await pickBoxes(p, ['ee105-ucb', 'me132']);
+    let report = await trunkFacts(p);
     assert(report.shared > 0, 'EE 105 and ME 132 share skills');
-    assert(report.overlapParts > 0, 'the two course regions overlap');
-    assert.deepStrictEqual(report.intrusions, [], 'sub-chapter box enters the overlap: ' + report.intrusions.join(', '));
-    assert.deepStrictEqual(report.outsideParent, [], 'sub-chapter box leaves its course: ' + report.outsideParent.join(', '));
-    assert.strictEqual(report.problemCount, 0, report.problems.join('; '));
-    assert.strictEqual(report.stray, 0, 'a skill outside the pair has a ghost');
-    assert.strictEqual(report.tiles, NSKILL, 'each skill still has one real node');
-    assert.strictEqual(report.linkCount, report.ghostCount, 'each reference has a dotted link');
+    assert.strictEqual(report.insideCount, 0, 'shared skill sits in a course region: ' + report.insideRegion.join(', '));
+    assert.strictEqual(report.sameRowCount, 0, 'shared skill shares a row inside one course: ' + report.sameRow.join(', '));
+    assert.deepStrictEqual(report.overlaps, [], 'course regions overlap: ' + report.overlaps.join(', '));
+    assert.strictEqual(report.prereqCount, 0, 'prerequisite order: ' + report.prereq.join(', '));
+    assert.strictEqual(report.ghostProblemCount, 0, report.ghostProblems.join('; '));
+    assert.strictEqual(report.real, NSKILL, 'each skill still has one real node');
+    assert.strictEqual(report.links, report.ghosts, 'each reference has a dotted link');
+    assert(report.ghosts > 0, 'two courses draw reference copies on the course boxes');
+
+    await pickBoxes(p, ['ee105-ucb', 'me132'].concat(eeCh, meCh));
+    await sleep(300);
+    report = await trunkFacts(p);
+    assert.strictEqual(report.insideCount, 0, 'shared skill sits in a region: ' + report.insideRegion.join(', '));
+    assert.strictEqual(report.sameRowCount, 0, report.sameRow.join(', '));
+    assert.deepStrictEqual(report.overlaps, [], report.overlaps.join(', '));
+    assert.strictEqual(report.intrusionCount, 0, 'chapter box enters another course: ' + report.intrusions.join(', '));
+    assert.strictEqual(report.prereqCount, 0, 'prerequisite order: ' + report.prereq.join(', '));
+    assert.strictEqual(report.ghostProblemCount, 0, report.ghostProblems.join('; '));
+    assert.strictEqual(report.links, report.ghosts);
     assert(report.dash && report.dash !== 'none', 'ghost links are dotted');
+    assert(parseFloat(report.width) <= 2, 'ghost links stay thin');
     assert(report.mastered && report.realMaster, 'mastered shared skill has a real node and a ghost');
     assert(/t4/.test(report.mastered.tier) && /t4/.test(report.realMaster.tier), 'mastery tier is mirrored');
     assert.strictEqual(report.mastered.fill, report.realMaster.fill);
     assert.strictEqual(report.mastered.pips, report.realMaster.pips);
     assert(parseFloat(report.mastered.opacity) < 0.75, 'ghosts are faded');
-    assert(/Reference/.test(report.mastered.label));
 
     await p.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
     await sleep(200);
-    report = await facts();
-    assert.deepStrictEqual(report.intrusions, [], 'mobile: ' + report.intrusions.join(', '));
-    assert.deepStrictEqual(report.outsideParent, [], 'mobile parent: ' + report.outsideParent.join(', '));
-    assert.strictEqual(report.problemCount, 0, 'mobile: ' + report.problems.join('; '));
+    report = await trunkFacts(p);
+    assert.strictEqual(report.insideCount, 0, 'mobile: ' + report.insideRegion.join(', '));
+    assert.strictEqual(report.intrusionCount, 0, 'mobile: ' + report.intrusions.join(', '));
+    assert.strictEqual(report.prereqCount, 0, 'mobile prerequisite order: ' + report.prereq.join(', '));
     const phone = await p.evaluate(() => {
       const ghost = document.querySelector('#world .tile.ghost');
       const page = document.documentElement.scrollWidth <= window.innerWidth + 2;
       const box = ghost ? ghost.getBoundingClientRect() : { width: 0, height: 0 };
       return { page, w: box.width, h: box.height, ghosts: document.querySelectorAll('#world .tile.ghost').length };
     });
-    assert.strictEqual(phone.page, true, 'the venn view does not widen the page');
+    assert.strictEqual(phone.page, true, 'the trunk view does not widen the page');
     assert(phone.ghosts > 0 && phone.w > 0 && phone.h > 0, 'ghosts still paint at a phone width');
 
     await p.setViewport({ width: 1280, height: 800 });
@@ -6029,12 +6048,7 @@ async function test(name, fn) {
       const focused = document.activeElement === ghost;
       ghost.click();
       const real = document.querySelector('#world .tile[data-id="lti-def"]:not(.ghost)');
-      return {
-        focused,
-        label: ghost.getAttribute('aria-label'),
-        selected: real.classList.contains('sel'),
-        pressed: real.getAttribute('aria-pressed')
-      };
+      return { focused, label: ghost.getAttribute('aria-label'), selected: real.classList.contains('sel'), pressed: real.getAttribute('aria-pressed') };
     });
     assert.strictEqual(activated.focused, true, 'a ghost is a keyboard control');
     assert(/Reference/.test(activated.label));
@@ -6047,11 +6061,7 @@ async function test(name, fn) {
       const right = panel.width > 20 ? Math.min(tv.right, panel.left) : tv.right;
       const real = document.querySelector('#world .tile[data-id="lti-def"]:not(.ghost)').getBoundingClientRect();
       const cx = real.left + real.width / 2, cy = real.top + real.height / 2;
-      return {
-        dx: Math.abs(cx - (tv.left + right) / 2),
-        dy: Math.abs(cy - (tv.top + tv.bottom) / 2),
-        w: real.width
-      };
+      return { dx: Math.abs(cx - (tv.left + right) / 2), dy: Math.abs(cy - (tv.top + tv.bottom) / 2), w: real.width };
     });
     assert(framed.w > 20, 'the real node is on screen');
     assert(framed.dx < 80 && framed.dy < 80, 'activating a ghost frames the real node ' + JSON.stringify(framed));
@@ -6070,6 +6080,50 @@ async function test(name, fn) {
     assert.strictEqual(tree.tiles, NSKILL);
     await p._ctx.close();
   });
+
+  await test('shared trunk for three courses keeps regions apart', async () => {
+    const chapters = prefix => COLLECTIONS.boxes.filter(b => b.kind === 'chapter' && b.id.indexOf(prefix) === 0).map(b => b.id);
+    const eeCh = chapters('ee105-');
+    const meCh = chapters('me132/');
+    const optCh = chapters('eecs127/');
+    const amCh = chapters('am08/');
+    const p = await newPage();
+    await showGrouped(p);
+
+    await pickBoxes(p, ['ee105-ucb', 'me132', 'eecs127'].concat(eeCh, meCh, optCh));
+    await sleep(300);
+    let report = await trunkFacts(p);
+    assert(report.shared > 0, 'the three courses share skills');
+    assert.strictEqual(report.insideCount, 0, 'shared skill sits on a row inside a single course: ' + report.insideRegion.join(', '));
+    assert.strictEqual(report.sameRowCount, 0, report.sameRow.join(', '));
+    assert.deepStrictEqual(report.overlaps, [], 'skills shared across courses overlap regions: ' + report.overlaps.join(', '));
+    assert.strictEqual(report.intrusionCount, 0, 'chapter box extends into another course: ' + report.intrusions.join(', '));
+    assert.strictEqual(report.prereqCount, 0, 'prerequisite order: ' + report.prereq.join(', '));
+    assert.strictEqual(report.ghostProblemCount, 0, report.ghostProblems.join('; '));
+    assert.strictEqual(report.real, NSKILL);
+    assert.strictEqual(report.links, report.ghosts);
+
+    await pickBoxes(p, ['ee105-ucb', 'me132', 'am08'].concat(eeCh, meCh, amCh));
+    await sleep(300);
+    report = await trunkFacts(p);
+    assert(report.shares['3'] > 0, 'three courses share some skills');
+    assert.strictEqual(report.insideCount, 0, 'a skill shared by 3 courses sits in one region: ' + report.insideRegion.join(', '));
+    assert.deepStrictEqual(report.overlaps, [], report.overlaps.join(', '));
+    assert.strictEqual(report.intrusionCount, 0, report.intrusions.join(', '));
+    assert.strictEqual(report.prereqCount, 0, 'prerequisite order: ' + report.prereq.join(', '));
+    assert.strictEqual(report.ghostProblemCount, 0, report.ghostProblems.join('; '));
+
+    await p.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
+    await sleep(200);
+    const phone = await p.evaluate(() => ({
+      page: document.documentElement.scrollWidth <= window.innerWidth + 2,
+      ghosts: document.querySelectorAll('#world .tile.ghost').length
+    }));
+    assert.strictEqual(phone.page, true, 'three courses do not widen a phone page');
+    assert(phone.ghosts > 0, 'ghosts still paint at a phone width');
+    await p._ctx.close();
+  });
+
 
   await browser.close();
 

@@ -18,6 +18,7 @@ Outputs to public/skilltree/:
 import json
 import hashlib
 import os
+import re
 import sys
 import shutil
 from pathlib import Path
@@ -32,6 +33,24 @@ EXPLAINERS_OUT = OUT / "explainers"
 
 def sha256_short(data: bytes, length: int = 8) -> str:
     return hashlib.sha256(data).hexdigest()[:length]
+
+def stamp_ui_assets() -> int:
+    """Cache-bust the served tree script and stylesheet. Browsers keep
+    unhashed copies of skilltree.js and skilltree.css after a deploy."""
+    index_path = OUT / "index.html"
+    text = index_path.read_text(encoding="utf-8")
+    for name in ("skilltree.css", "skilltree.js"):
+        digest = sha256_short((OUT / name).read_bytes())
+        text, n = re.subn(
+            rf'((?:href|src)="{re.escape(name)})(?:\?v=[0-9a-fA-F]+)?(")',
+            rf"\1?v={digest}\2",
+            text,
+        )
+        if n != 1:
+            print(f"Error: expected to stamp {name} once, found {n}", file=sys.stderr)
+            return 1
+    index_path.write_text(text, encoding="utf-8")
+    return 0
 
 QUESTION_TYPES = ("mc", "numeric", "symbolic", "order", "error", "multi")
 
@@ -290,6 +309,7 @@ def main():
     for msg in video_errors:
         print(f"Error: {msg}", file=sys.stderr)
     errors += len(video_errors)
+    errors += stamp_ui_assets()
     if errors:
         print(f"Error: {errors} content problem(s)", file=sys.stderr)
         return 1
