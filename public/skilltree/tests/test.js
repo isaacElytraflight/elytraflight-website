@@ -584,8 +584,19 @@ function videoGate(sample) {
   return { code: run.status, out: ((run.stdout || '') + (run.stderr || '')).trim() };
 }
 
+async function showAll(p) {
+  await p.evaluate(() => document.getElementById('scopeAll').click());
+  await sleep(200);
+}
+
 async function openSkill(p, id) {
-  await p.evaluate(id => document.querySelector('#world .tile[data-id="' + id + '"]').click(), id);
+  const found = await p.evaluate(id => !!document.querySelector('#world .tile[data-id="' + id + '"]'), id);
+  if (!found) await showAll(p);
+  await p.evaluate(id => {
+    const tile = document.querySelector('#world .tile[data-id="' + id + '"]');
+    if (!tile) throw new Error('no tile for ' + id);
+    tile.click();
+  }, id);
   await sleep(350);
 }
 
@@ -772,7 +783,7 @@ async function test(name, fn) {
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
 
-  await test(`initial render: ${NSKILL} skills x2 views, ${NSOON} coming soon, ${ROOTS.length} ready`, async () => {
+  await test(`initial render: hidden tree until a course is picked, grid lists ${GRID} slots`, async () => {
     const p = await newPage();
     const r = await p.evaluate(() => ({
       tree: document.querySelectorAll('#world .tile').length,
@@ -786,11 +797,11 @@ async function test(name, fn) {
       paths: document.querySelectorAll('#edges path').length,
       title: document.querySelector('h1').textContent
     }));
-    assert.deepStrictEqual([r.tree, r.grid, r.soon, r.blobs, r.paths], [NSKILL, GRID, NSOON, 0, EDGES]);
+    assert.deepStrictEqual([r.tree, r.grid, r.soon, r.blobs, r.paths], [0, GRID, 0, 0, 0]);
     assert.strictEqual(r.courseBlobs, 0, 'a new profile focuses nothing, so no course regions are drawn');
     assert.strictEqual(r.textbookBlobs, 0, 'a new profile focuses nothing, so no textbook regions are drawn');
     assert.strictEqual(r.chapterBlobs, 0, 'a new profile focuses nothing, so no chapter regions are drawn');
-    assert.deepStrictEqual(r.ready, ROOTS);
+    assert.deepStrictEqual(r.ready, []);
     assert.strictEqual(r.title, "Elytraflight's Skill Tree");
     await p.screenshot({ path: path.join(SHOTS_DIR, '01_tree_home.png') });
     await p._ctx.close();
@@ -798,6 +809,8 @@ async function test(name, fn) {
 
   await test('coming-soon skills cannot start; skills with banks can', async () => {
     const p = await newPage();
+    await showAll(p);
+    await showTree(p);
     const soon = await p.$$eval('#world .tile.soon', els => els.map(e => e.dataset.id));
     assert.strictEqual(soon.length, NSOON);
     const legend = await p.$eval('#stats', e => e.textContent);
@@ -1120,7 +1133,7 @@ async function test(name, fn) {
     assert(loadingGone, 'loading overlay should be removed after data loads');
     
     const tiles = await p.evaluate(() => document.querySelectorAll('#world .tile').length);
-    assert.strictEqual(tiles, NSKILL, 'should render every skill tile');
+    assert.strictEqual(tiles, 0, 'a new profile draws no skill tiles until a course is picked');
     
     const title = await p.$eval('h1', e => e.textContent);
     assert.strictEqual(title, "Elytraflight's Skill Tree");
@@ -1261,7 +1274,8 @@ async function test(name, fn) {
       'cx-exp': { tier: 2, lastPracticed: now - DAY, history: [] },
       'rc-lpf': { tier: 1, lastPracticed: now - DAY, history: [] }
     }));
-    
+    await showAll(p);
+
     const threshold = await p.evaluate(() => window.__skillgrove.lights.threshold);
     assert(typeof threshold === 'number', 'threshold should be a number');
     
@@ -1280,7 +1294,9 @@ async function test(name, fn) {
     assert(worldHasClass, 'world should have lights-view class');
     
     const lightModeCount = await p.$$eval('#world .tile.light-mode', els => els.length);
-    assert.strictEqual(lightModeCount, NSKILL, 'all tiles should have light-mode class');
+    const tileCount = await p.$$eval('#world .tile', els => els.length);
+    assert(tileCount > 0, 'selecting every box draws the tree');
+    assert.strictEqual(lightModeCount, tileCount, 'all tiles should have light-mode class');
     
     const lightDot = await p.$('.tile.t4 .light-dot');
     assert(lightDot, 'mastered tile should have light-dot element');
@@ -1301,6 +1317,7 @@ async function test(name, fn) {
     await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
     await p.reload({ waitUntil: 'networkidle0' });
     await sleep(400);
+    await showAll(p);
 
     const target = await p.evaluate(() => {
       window.__skillgrove.lights.setScale(0.25);
@@ -1481,6 +1498,8 @@ async function test(name, fn) {
 
   await test('zoomed-in hover lifts the card without repainting the tree layer', async () => {
     const p = await newPage();
+    await showAll(p);
+    await showTree(p);
     await p.evaluate(() => {
       document.getElementById('todoBook').style.visibility = 'hidden';
       document.querySelector('.hint').style.visibility = 'hidden';
@@ -1585,6 +1604,7 @@ async function test(name, fn) {
   await test('edge highlight stays on the moving cards during a view animation', async () => {
     const p = await newPage();
     await showTree(p);
+    await showAll(p);
     await p.evaluate(() => {
       const world = document.getElementById('world');
       const tv = document.getElementById('treeView');
@@ -1749,6 +1769,8 @@ async function test(name, fn) {
 
   await test('lights mode shows every prerequisite as a static thin stroke', async () => {
     const p = await newPage();
+    await showAll(p);
+    await showTree(p);
     await sleep(200);
 
     const lights = await p.evaluate(() => {
@@ -1910,35 +1932,44 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
-  await test('nested grouped view: course box contains chapter boxes', async () => {
+  await test('grouped view keeps every box separate', async () => {
     const p = await newPage();
     await p.evaluate(() => document.getElementById('scopeAll').click());
     await showGrouped(p);
-    
+
     const layout = await p.evaluate(() => {
-      const sg = window.__skillgrove;
-      const grouped = sg.layout().grouped;
-      const courseBlob = grouped.blobs['ee105-ucb'];
-      const ch1Blob = grouped.blobs['ee105-ch1'];
-      const ch2Blob = grouped.blobs['ee105-ch2'];
+      const grouped = window.__skillgrove.layout().grouped;
+      const blobs = Object.values(grouped.blobs);
       return {
         hasNested: grouped.useNested,
-        courseBlob: courseBlob ? { x: courseBlob.x, y: courseBlob.y, w: courseBlob.w, h: courseBlob.h, kind: courseBlob.kind } : null,
-        ch1Blob: ch1Blob ? { x: ch1Blob.x, y: ch1Blob.y, w: ch1Blob.w, h: ch1Blob.h } : null,
-        ch2Blob: ch2Blob ? { x: ch2Blob.x, y: ch2Blob.y, w: ch2Blob.w, h: ch2Blob.h } : null,
+        courseBlob: grouped.blobs['ee105-ucb'] || null,
+        ch1Blob: !!grouped.blobs['ee105-ch1'],
+        ch2Blob: !!grouped.blobs['ee105-ch2'],
         domCourseBlob: !!document.querySelector('.blob.course[data-box="ee105-ucb"]'),
-        domChapterBlobs: document.querySelectorAll('.blob.chapter').length
+        domChapterBlobs: document.querySelectorAll('.blob.chapter').length,
+        courseBlobs: blobs.filter(b => b.kind === 'course' || b.kind === 'textbook').length
       };
     });
-    
-    assert(layout.hasNested, 'should use nested layout');
-    assert(layout.courseBlob, 'course blob should exist');
-    assert.strictEqual(layout.courseBlob.kind, 'course', 'course blob should have kind=course');
+
+    assert.strictEqual(layout.hasNested, false, 'boxes are not nested');
+    assert.strictEqual(layout.courseBlob, null, 'selecting every chapter draws the chapters, not a wrapping course');
     assert(layout.ch1Blob, 'chapter 1 blob should exist');
     assert(layout.ch2Blob, 'chapter 2 blob should exist');
-    assert(layout.domCourseBlob, 'DOM should have course blob element');
+    assert.strictEqual(layout.domCourseBlob, false, 'DOM should not wrap chapters in a course blob');
     assert.strictEqual(layout.domChapterBlobs, NCHAPTER, 'DOM should have a chapter blob for every chapter');
-    
+    assert.strictEqual(layout.courseBlobs, 0);
+
+    await pickBoxes(p, ['ee105-ucb']);
+    const courseOnly = await p.evaluate(() => {
+      const blobs = Object.values(window.__skillgrove.layout().grouped.blobs);
+      return {
+        course: blobs.filter(b => b.kind === 'course').map(b => b.boxId),
+        chapters: blobs.filter(b => b.kind === 'chapter').length
+      };
+    });
+    assert.deepStrictEqual(courseOnly.course, ['ee105-ucb']);
+    assert.strictEqual(courseOnly.chapters, 0, 'a course selection is one box, not its chapters');
+
     await p.screenshot({ path: path.join(SHOTS_DIR, '14_nested_grouped.png') });
     await p._ctx.close();
   });
@@ -2011,9 +2042,9 @@ async function test(name, fn) {
     assert(filterResult.filterActive, 'tree filter should follow the scope');
     assert.deepStrictEqual(filterResult.planScope, ['ee105-ch2'], 'plan scope should follow the same selection');
     assert.deepStrictEqual(JSON.parse(filterResult.stored), { v: 2, boxes: ['ee105-ch2'] });
-    assert(filterResult.dimmedTiles > 0, 'skills outside the chapter should be dimmed');
-    assert.strictEqual(filterResult.visibleTiles, filterResult.ch2SkillCount, 'undimmed tiles should match the chapter');
-    assert.strictEqual(filterResult.tileCount, NSKILL, 'out-of-scope skills stay on the tree');
+    assert.strictEqual(filterResult.dimmedTiles, 0, 'skills outside the chapter are hidden, not dimmed');
+    assert.strictEqual(filterResult.visibleTiles, filterResult.ch2SkillCount, 'drawn tiles match the chapter');
+    assert.strictEqual(filterResult.tileCount, filterResult.ch2SkillCount, 'out-of-scope skills are not laid out');
     assert.deepStrictEqual(filterResult.drawn, ['ee105-ch2']);
 
     await p.click('#todoPlan');
@@ -2028,11 +2059,15 @@ async function test(name, fn) {
     const kept = await p.evaluate(() => ({
       checked: [...document.querySelectorAll('#scopePicker input:checked')].map(i => i.value),
       dimmed: document.querySelectorAll('#world .tile.boxdim').length,
-      scope: window.__skillgrove.collections.scope()
+      scope: window.__skillgrove.collections.scope(),
+      bode: !!document.querySelector('#world .tile[data-id="bode"]'),
+      lti: !!document.querySelector('#world .tile[data-id="lti-def"]')
     }));
     assert.deepStrictEqual(kept.checked, ['ee105-ch2'], 'scope should survive reload');
     assert.deepStrictEqual(kept.scope, ['ee105-ch2']);
-    assert(kept.dimmed > 0, 'tree should still be filtered after reload');
+    assert.strictEqual(kept.dimmed, 0, 'a reloaded chapter focus still hides the other skills');
+    assert.strictEqual(kept.bode, true, 'a chapter skill stays on the tree');
+    assert.strictEqual(kept.lti, false, 'a skill outside the chapter is not laid out');
 
     await pickBoxes(p, ['ee105-ucb']);
     const course = await p.evaluate(() => ({
@@ -2043,8 +2078,8 @@ async function test(name, fn) {
       drawn: [...document.querySelectorAll('#regions .blob')].map(b => b.dataset.box)
     }));
     assert.deepStrictEqual(course.scope, ['ee105-ucb']);
-    assert.strictEqual(course.bright, course.members, 'every EE 105 skill stays undimmed');
-    assert(course.dimmed > 0, 'skills outside EE 105 stay visible but dimmed');
+    assert.strictEqual(course.bright, course.members, 'every EE 105 skill is drawn');
+    assert.strictEqual(course.dimmed, 0, 'skills outside EE 105 are hidden');
     assert.deepStrictEqual(course.drawn, ['ee105-ucb']);
 
     await p.click('#scopeAll');
@@ -2058,7 +2093,7 @@ async function test(name, fn) {
     assert.strictEqual(cleared.dimmed, 0, 'All should show every skill');
     assert.deepStrictEqual(cleared.stored, { v: 2, all: true });
     assert.strictEqual(cleared.scope, null);
-    assert.strictEqual(cleared.blobs, NBOX);
+    assert.strictEqual(cleared.blobs, NCHAPTER, 'All draws each chapter on its own');
     await p.screenshot({ path: path.join(SHOTS_DIR, '16_scope_selector.png') });
     await p._ctx.close();
   });
@@ -2100,6 +2135,7 @@ async function test(name, fn) {
       'phasors': { tier: 4, lastPracticed: now - 2 * DAY, history: [] }
     }));
     
+    await showAll(p);
     await showGrouped(p);
     
     await p.evaluate(() => window.__skillgrove.lights.setScale(0.25));
@@ -2400,21 +2436,91 @@ async function test(name, fn) {
       bode: { tier: 4, lastPracticed: now - DAY, history: [] }
     }));
     await showGrouped(p);
+    await pickBoxes(p, ['ee105-ucb', 'me132']);
     const shared = await p.evaluate(() => {
       const tiles = [...document.querySelectorAll('#world .tile[data-id="bode"]')];
       const stored = JSON.parse(localStorage.getItem('skilltree.progress.v1')).skills;
       const boxes = window.__skillgrove.collections.skillToBoxes()['bode'].slice().sort();
       return {
         tiles: tiles.length,
+        places: tiles.map(t => t.dataset.place).sort(),
         tiers: tiles.map(t => t.classList.contains('t4')),
         records: Object.keys(stored).filter(id => id === 'bode').length,
-        boxes
+        tier: stored.bode && stored.bode.tier,
+        boxes,
+        fill: tiles.map(t => t.style.getPropertyValue('--fill')),
+        pips: tiles.map(t => t.querySelectorAll('.pips i.on').length)
       };
     });
-    assert.strictEqual(shared.tiles, 1, 'a shared skill is one tile');
+    assert.deepStrictEqual(shared.places, ['bode@ee105-ucb', 'bode@me132']);
     assert.deepStrictEqual(shared.boxes, ['am08/ch8', 'ee105-ch2', 'me132/m3']);
-    assert(shared.tiers.every(Boolean), 'the single bode tile shows the mastered tier');
+    assert(shared.tiers.every(Boolean), 'every bode clone shows the mastered tier');
     assert.strictEqual(shared.records, 1);
+    assert.strictEqual(shared.tier, 4);
+    assert.strictEqual(shared.fill[0], shared.fill[1]);
+    assert.strictEqual(shared.pips[0], shared.pips[1]);
+
+    const opened = await p.evaluate(() => {
+      const tiles = [...document.querySelectorAll('#world .tile[data-id="bode"]')];
+      const name = tiles[0].querySelector('.name').textContent;
+      const snap = () => ({
+        title: document.getElementById('panelTitle').textContent,
+        pressed: tiles.map(t => t.getAttribute('aria-pressed')),
+        sel: tiles.map(t => t.classList.contains('sel'))
+      });
+      tiles[0].click();
+      const afterFirst = snap();
+      tiles[1].click();
+      return { name, afterFirst, afterSecond: snap() };
+    });
+    assert.strictEqual(opened.afterFirst.title, opened.name);
+    assert.deepStrictEqual(opened.afterFirst.pressed, ['true', 'true']);
+    assert.deepStrictEqual(opened.afterFirst.sel, [true, true]);
+    assert.strictEqual(opened.afterSecond.title, opened.name);
+    assert.deepStrictEqual(opened.afterSecond.pressed, ['true', 'true']);
+    assert.deepStrictEqual(opened.afterSecond.sel, [true, true]);
+
+    await p.keyboard.press('Escape');
+    await sleep(200);
+    const jump = await p.evaluate(() => {
+      const tag = document.querySelector('.clone-tag[data-place="bode@ee105-ucb"]');
+      tag.click();
+      const menu = document.querySelector('.clone-menu');
+      const items = [...menu.querySelectorAll('.clone-jump')].map(b => b.textContent);
+      menu.querySelector('.clone-jump').click();
+      const hot = document.querySelector('#world .tile.clone-hot');
+      return {
+        text: tag.textContent,
+        count: document.querySelectorAll('.clone-tag[data-id="bode"]').length,
+        insideTile: !!tag.closest('.tile'),
+        items,
+        hot: hot && hot.dataset.place,
+        menuGone: !document.querySelector('.clone-menu')
+      };
+    });
+    assert.strictEqual(jump.text, '×2');
+    assert.strictEqual(jump.count, 2);
+    assert.strictEqual(jump.insideTile, false, 'the clone tag is not nested inside the tile button');
+    assert.deepStrictEqual(jump.items, ['Dynamic systems and feedback']);
+    assert.strictEqual(jump.hot, 'bode@me132');
+    assert.strictEqual(jump.menuGone, true);
+    await sleep(700);
+    const framed = await p.evaluate(() => {
+      const tv = document.getElementById('treeView').getBoundingClientRect();
+      const hot = document.querySelector('#world .tile.clone-hot').getBoundingClientRect();
+      const cx = hot.left + hot.width / 2, cy = hot.top + hot.height / 2;
+      return { dx: Math.abs(cx - (tv.left + tv.right) / 2), dy: Math.abs(cy - (tv.top + tv.bottom) / 2), w: hot.width };
+    });
+    assert(framed.w > 20, 'the other clone is on screen');
+    assert(framed.dx < 80 && framed.dy < 80, 'the clone tag pans to the other copy ' + JSON.stringify(framed));
+
+    await p.evaluate(() => document.querySelector('.clone-tag[data-place="bode@me132"]').click());
+    assert.strictEqual(await p.evaluate(() => document.querySelectorAll('.clone-menu').length), 1);
+    await p.keyboard.press('Escape');
+    assert.strictEqual(await p.evaluate(() => document.querySelectorAll('.clone-menu').length), 0, 'Escape closes the clone list');
+    await p.evaluate(() => document.querySelector('.clone-tag[data-place="bode@me132"]').click());
+    await p.evaluate(() => document.body.click());
+    assert.strictEqual(await p.evaluate(() => document.querySelectorAll('.clone-menu').length), 0, 'a click outside closes the clone list');
     await p._ctx.close();
   });
 
@@ -2464,8 +2570,8 @@ async function test(name, fn) {
       }, scope);
       assert.deepStrictEqual(view.scope, [scope]);
       assert.strictEqual(view.bright, view.memberCount, scope + ' members stay undimmed');
-      assert.strictEqual(view.tiles, NSKILL, scope + ' still draws every skill once');
-      assert.strictEqual(view.dimmed, NSKILL - view.memberCount);
+      assert.strictEqual(view.tiles, view.memberCount, scope + ' draws only its skills');
+      assert.strictEqual(view.dimmed, 0, scope + ' hides skills outside the box');
       if (scope === 'me132') {
         assert.strictEqual(view.title, 'Dynamic systems and feedback');
         assert.strictEqual(view.course, 1);
@@ -2485,19 +2591,23 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
-  await test('each skill renders exactly one tile', async () => {
+  await test('each skill renders once in the full tree and clones when grouped', async () => {
     const p = await newPage();
+    assert.strictEqual(await p.evaluate(() => document.querySelectorAll('#world .tile').length), 0);
+    assert.strictEqual(await p.evaluate(() => document.getElementById('world').dataset.layout), 'grouped');
+    await showAll(p);
+    await showTree(p);
     const tree = await p.evaluate(() => {
       const ids = [...document.querySelectorAll('#world .tile')].map(t => t.dataset.id);
       const counts = {};
       ids.forEach(id => { counts[id] = (counts[id] || 0) + 1; });
-      const dupes = Object.keys(counts).filter(id => counts[id] !== 1);
+      const soon = document.querySelector('#world .tile[data-id="optimality-over-convex-set"]');
       return {
         tiles: ids.length,
-        dupes,
+        dupes: Object.keys(counts).filter(id => counts[id] !== 1),
         toggles: document.querySelectorAll('#world .toggle, #regions .toggle').length,
-        soon: document.querySelector('#world .tile[data-id="optimality-over-convex-set"] .tag').textContent,
-        soonClass: document.querySelector('#world .tile[data-id="optimality-over-convex-set"]').classList.contains('soon')
+        soon: soon.querySelector('.tag').textContent,
+        soonClass: soon.classList.contains('soon')
       };
     });
     assert.strictEqual(tree.tiles, NSKILL);
@@ -2505,27 +2615,22 @@ async function test(name, fn) {
     assert.strictEqual(tree.toggles, 0, 'collapse arrows are gone');
     assert.strictEqual(tree.soon, '');
     assert.strictEqual(tree.soonClass, false);
-    assert.strictEqual(await p.evaluate(() => document.getElementById('world').dataset.layout), 'grouped');
+    await pickBoxes(p, ['ee105-ucb', 'me132']);
+    await showGrouped(p);
+    const grouped = await p.evaluate(() => ({
+      bode: document.querySelectorAll('#world .tile[data-id="bode"]').length,
+      mode: document.querySelector('#world').dataset.layout
+    }));
+    assert.strictEqual(grouped.mode, 'grouped');
+    assert.strictEqual(grouped.bode, 2, 'a skill in two selected courses is cloned');
     await p.click('#btnGroup');
-    await sleep(700);
-    const grouped = await p.evaluate(() => {
-      const ids = [...document.querySelectorAll('#world .tile')].map(t => t.dataset.id);
-      const counts = {};
-      ids.forEach(id => { counts[id] = (counts[id] || 0) + 1; });
-      return {
-        tiles: ids.length,
-        dupes: Object.keys(counts).filter(id => counts[id] !== 1),
-        bode: document.querySelectorAll('#world .tile[data-id="bode"]').length
-      };
-    });
-    assert.strictEqual(grouped.tiles, NSKILL);
-    assert.deepStrictEqual(grouped.dupes, []);
-    assert.strictEqual(grouped.bode, 1);
-    assert.strictEqual(await p.evaluate(() => document.querySelector('#world').dataset.layout), 'tree', 'Ungroup restores the prerequisite tree');
-    await p.click('#btnGroup');
-    await sleep(400);
-    const back = await p.evaluate(() => document.querySelector('#world').dataset.layout);
-    assert.strictEqual(back, 'grouped');
+    await sleep(500);
+    const back = await p.evaluate(() => ({
+      mode: document.querySelector('#world').dataset.layout,
+      bode: document.querySelectorAll('#world .tile[data-id="bode"]').length
+    }));
+    assert.strictEqual(back.mode, 'tree', 'Ungroup restores the prerequisite tree');
+    assert.strictEqual(back.bode, 1, 'the prerequisite tree draws one tile per skill');
     await p._ctx.close();
   });
 
@@ -2551,39 +2656,39 @@ async function test(name, fn) {
         }
         return c;
       };
-      const outside = [];
-      const selected = sg.collections.selected();
-      const boxes = sg.collections.data().boxes;
-      const parent = {};
-      boxes.forEach(b => (b.children || []).forEach(cid => { parent[cid] = b.id; }));
-      const rootOf = id => { let cur = id; const seen = {}; while (parent[cur] && !seen[cur]) { seen[cur] = 1; cur = parent[cur]; } return cur; };
-      const shareOf = sid => {
-        const roots = new Set();
-        selected.forEach(bid => { if (sg.collections.skillInBox(sid, bid)) roots.add(rootOf(bid)); });
-        return roots.size;
+      const project = (poly, ax, ay) => {
+        let min = Infinity, max = -Infinity;
+        poly.forEach(pt => { const d = pt[0] * ax + pt[1] * ay; if (d < min) min = d; if (d > max) max = d; });
+        return [min, max];
       };
-      const under = (host, id) => host === id || !!(parent[host] && under(parent[host], id));
-      selected.forEach(id => {
-        const blob = L.blobs[id];
-        if (!blob) { outside.push(id + ' has no region'); return; }
-        sg.collections.getBoxDescendantSkills(id).forEach(sid => {
-          if (shareOf(sid) >= 2) {
-            const ghosts = [...document.querySelectorAll('#world .tile.ghost[data-id="' + sid + '"]')];
-            const hit = ghosts.some(g => {
-              if (!under(g.dataset.box, id)) return false;
-              const x = parseFloat(g.style.left) + g.offsetWidth / 2;
-              const y = parseFloat(g.style.top) + g.offsetHeight / 2;
-              return inside(blob.points, x, y);
-            });
-            if (!hit) outside.push(sid + ' reference outside ' + id);
-            return;
+      const convexHit = (a, b) => {
+        if (!a || a.length < 3 || !b || b.length < 3) return false;
+        const axes = [];
+        [a, b].forEach(poly => {
+          for (let i = 0; i < poly.length; i++) {
+            const p0 = poly[i], q = poly[(i + 1) % poly.length];
+            const len = Math.hypot(q[0] - p0[0], q[1] - p0[1]) || 1;
+            axes.push([(p0[1] - q[1]) / len, (q[0] - p0[0]) / len]);
           }
-          const n = L.nodes[sid];
-          if (!n) { outside.push(sid + ' missing from ' + id); return; }
-          const corners = [[n.x + 2, n.y + 2], [n.x + 166, n.y + 2], [n.x + 2, n.y + 70], [n.x + 166, n.y + 70]];
-          if (!corners.every(([x, y]) => inside(blob.points, x, y))) outside.push(sid + ' outside ' + id);
         });
+        return axes.every(([ax, ay]) => {
+          const pa = project(a, ax, ay), pb = project(b, ax, ay);
+          return pa[1] >= pb[0] - 0.05 && pb[1] >= pa[0] - 0.05;
+        });
+      };
+      const outside = [];
+      (L.places || []).forEach(place => {
+        const blob = L.blobs[place.boxId];
+        const n = L.nodes[place.key];
+        if (!blob || !n) { outside.push(place.key + ' missing'); return; }
+        const corners = [[n.x + 4, n.y + 4], [n.x + 164, n.y + 4], [n.x + 4, n.y + 68], [n.x + 164, n.y + 68]];
+        if (!corners.every(([x, y]) => inside(blob.points, x, y))) outside.push(place.key);
       });
+      const ids = Object.keys(L.blobs);
+      const overlaps = [];
+      for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) {
+        if (convexHit(L.blobs[ids[i]].points, L.blobs[ids[j]].points)) overlaps.push(ids[i] + ' ∩ ' + ids[j]);
+      }
       const hit = (a, b) => {
         const w = Math.min(a.right, b.right) - Math.max(a.left, b.left);
         const h = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
@@ -2598,30 +2703,21 @@ async function test(name, fn) {
         }
         if (tiles.some(t => hit(labels[i].r, t))) labelHits.push(labels[i].id + ' overlaps a tile');
       }
-      const nesting = [];
-      selected.forEach(id => {
-        const box = sg.collections.boxById()[id];
-        const parentId = (box && (sg.collections.data().boxes.find(b => (b.children || []).includes(id)) || {}).id) || null;
-        if (!parentId || !selected.includes(parentId)) return;
-        const parent = L.blobs[parentId], child = L.blobs[id];
-        if (!parent || !child) { nesting.push(id + ' missing parent region'); return; }
-        const cx = child.points.reduce((s, pt) => s + pt[0], 0) / child.points.length;
-        const cy = child.points.reduce((s, pt) => s + pt[1], 0) / child.points.length;
-        const tucked = child.points.every(([x, y]) => {
-          const dx = cx - x, dy = cy - y, len = Math.hypot(dx, dy) || 1;
-          return inside(parent.points, x + dx / len * 3, y + dy / len * 3);
-        });
-        if (!tucked) nesting.push(id + ' escapes ' + parentId);
-      });
+      const blobs = Object.values(L.blobs);
       return {
         outside: outside.slice(0, 8),
         outsideCount: outside.length,
+        overlaps: overlaps.slice(0, 8),
+        overlapCount: overlaps.length,
         labelHits: labelHits.slice(0, 8),
         labelHitCount: labelHits.length,
-        nesting: nesting.slice(0, 8),
-        nestingCount: nesting.length,
-        regions: selected.filter(id => L.blobs[id]).length,
-        selected: selected.length
+        regions: ids.length,
+        chapters: blobs.filter(b => b.kind === 'chapter').length,
+        courses: blobs.filter(b => b.kind === 'course' || b.kind === 'textbook').length,
+        ghosts: document.querySelectorAll('.tile.ghost').length,
+        nested: L.useNested,
+        selected: sg.collections.selected().length,
+        fakeBox: Object.prototype.hasOwnProperty.call(sg.collections.boxById(), 'unboxed')
       };
     });
 
@@ -2646,10 +2742,15 @@ async function test(name, fn) {
 
     let geo = await geometry();
     assert.strictEqual(geo.selected, NBOX, 'All selects every box');
-    assert.strictEqual(geo.regions, NBOX);
+    assert.strictEqual(geo.regions, NCHAPTER, 'each chapter is its own box');
+    assert.strictEqual(geo.chapters, NCHAPTER);
+    assert.strictEqual(geo.courses, 0, 'courses are not wrapped around their chapters');
+    assert.strictEqual(geo.nested, false);
+    assert.strictEqual(geo.ghosts, 0);
+    assert.strictEqual(geo.fakeBox, false, 'the other-skills region is not a selectable box');
     assert.strictEqual(geo.outsideCount, 0, 'member outside its region: ' + geo.outside.join(', '));
+    assert.strictEqual(geo.overlapCount, 0, 'regions overlap: ' + geo.overlaps.join(', '));
     assert.strictEqual(geo.labelHitCount, 0, 'label collision: ' + geo.labelHits.join(', '));
-    assert.strictEqual(geo.nestingCount, 0, 'chapter escaped its course: ' + geo.nesting.join(', '));
     await frame();
     await p.screenshot({ path: path.join(SHOTS_DIR, '24_everything_selected.png') });
 
@@ -2658,13 +2759,39 @@ async function test(name, fn) {
     geo = await geometry();
     assert.deepStrictEqual(await p.evaluate(() => window.__skillgrove.collections.selected()), ['ee105-ucb', 'me132']);
     assert.strictEqual(geo.regions, 2);
+    assert.strictEqual(geo.courses, 2);
+    assert.strictEqual(geo.chapters, 0);
     assert.strictEqual(geo.outsideCount, 0, 'member outside its region: ' + geo.outside.join(', '));
+    assert.strictEqual(geo.overlapCount, 0, 'course regions overlap: ' + geo.overlaps.join(', '));
     assert.strictEqual(geo.labelHitCount, 0, 'label collision: ' + geo.labelHits.join(', '));
+    assert.strictEqual(geo.ghosts, 0);
     const overlap = await p.evaluate(() => {
       const sg = window.__skillgrove;
       const both = sg.collections.getBoxDescendantSkills('ee105-ucb').filter(id => sg.collections.skillInBox(id, 'me132'));
       const L = sg.layout().grouped;
-      const ee = L.blobs['ee105-ucb'], me = L.blobs['me132'];
+      const hosted = id => L.places.filter(p => p.skillId === id).map(p => p.boxId).sort().join();
+      return {
+        both: both.length,
+        missing: both.filter(id => hosted(id) !== 'ee105-ucb,me132').slice(0, 4),
+        dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+        outsider: !!document.querySelector('#world .tile[data-id="optimality-over-convex-set"]')
+      };
+    });
+    assert(overlap.both > 0, 'EE 105 and ME 132 share skills');
+    assert.deepStrictEqual(overlap.missing, [], 'each shared skill is cloned into both courses');
+    assert.strictEqual(overlap.dimmed, 0, 'skills outside both courses are hidden');
+    assert.strictEqual(overlap.outsider, false);
+    await frame();
+    await p.screenshot({ path: path.join(SHOTS_DIR, '23_ee_me_overlap.png') });
+
+    const other = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const map = sg.collections.skillToBoxes();
+      map.bode = [];
+      sg.collections.setSelected(null);
+      const L = sg.layout().grouped;
+      const places = (L.places || []).filter(pl => pl.skillId === 'bode');
+      const blob = places[0] && L.blobs[places[0].boxId];
       const inside = (poly, x, y) => {
         let c = false;
         for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
@@ -2673,23 +2800,44 @@ async function test(name, fn) {
         }
         return c;
       };
-      const sharedInside = both.filter(id => {
-        const n = L.nodes[id];
-        const x = n.x + 84, y = n.y + 36;
-        return inside(ee.points, x, y) || inside(me.points, x, y);
-      });
-      const ghostsIn = both.filter(id => {
-        const ghosts = [...document.querySelectorAll('#world .tile.ghost[data-id="' + id + '"]')];
-        return ghosts.some(g => g.dataset.box === 'ee105-ucb') && ghosts.some(g => g.dataset.box === 'me132');
-      });
-      return { both: both.length, sharedInside: sharedInside.length, ghostsIn: ghostsIn.length, dimmed: document.querySelectorAll('#world .tile.boxdim').length };
+      const n = places[0] && L.nodes[places[0].key];
+      const corners = n ? [[n.x + 4, n.y + 4], [n.x + 164, n.y + 4], [n.x + 4, n.y + 68], [n.x + 164, n.y + 68]] : [];
+      const label = document.querySelector('.region-label[data-box="unboxed"]');
+      const outline = !!document.querySelector('#regions .blob[data-box="unboxed"]');
+      const before = Object.prototype.hasOwnProperty.call(sg.collections.boxById(), 'unboxed');
+      const course = sg.collections.boxById()['ee105-ucb'];
+      sg.collections.setSelected(['unboxed']);
+      const afterPick = {
+        selected: sg.collections.selected(),
+        scope: sg.collections.scope(),
+        fake: Object.prototype.hasOwnProperty.call(sg.collections.boxById(), 'unboxed')
+      };
+      sg.collections.setSelected([]);
+      return {
+        boxIds: places.map(pl => pl.boxId),
+        title: blob && blob.title,
+        kind: blob && blob.kind,
+        inside: !!(blob && corners.length && corners.every(([x, y]) => inside(blob.points, x, y))),
+        label: label && label.textContent,
+        outline,
+        before,
+        course: course && course.title,
+        afterPick,
+        afterClear: Object.prototype.hasOwnProperty.call(sg.collections.boxById(), 'unboxed')
+      };
     });
-    assert(overlap.both > 0, 'EE 105 and ME 132 share skills');
-    assert.strictEqual(overlap.sharedInside, 0, 'shared skills leave both course regions for the trunk');
-    assert.strictEqual(overlap.ghostsIn, overlap.both, 'each course keeps a reference to every shared skill');
-    assert(overlap.dimmed > 0, 'skills outside both courses are dimmed');
-    await frame();
-    await p.screenshot({ path: path.join(SHOTS_DIR, '23_ee_me_overlap.png') });
+    assert.deepStrictEqual(other.boxIds, ['unboxed']);
+    assert.strictEqual(other.title, 'Other skills');
+    assert.strictEqual(other.kind, 'chapter');
+    assert.strictEqual(other.inside, true, 'the loose skill sits inside the Other skills outline');
+    assert.strictEqual(other.label, 'Other skills');
+    assert.strictEqual(other.outline, true);
+    assert.strictEqual(other.before, false, 'Other skills is not written into boxById');
+    assert(other.course && other.course.length > 0, 'a real course box is left alone');
+    assert.deepStrictEqual(other.afterPick.selected, []);
+    assert.deepStrictEqual(other.afterPick.scope, []);
+    assert.strictEqual(other.afterPick.fake, false, 'setScope cannot select the Other skills region');
+    assert.strictEqual(other.afterClear, false, 'an empty selection does not leave a fake box behind');
     await p._ctx.close();
   });
 
@@ -2697,16 +2845,27 @@ async function test(name, fn) {
     const p = await newPage();
     await showGrouped(p);
     await pickBoxes(p, ['ee105-ucb', 'me132']);
-    const drawn = await p.evaluate(() => ({
-      regions: [...document.querySelectorAll('#regions .blob')].map(b => b.dataset.box).sort(),
-      scope: window.__skillgrove.collections.scope(),
-      dimmed: document.querySelectorAll('#world .tile.boxdim').length,
-      tiles: document.querySelectorAll('#world .tile:not(.ghost)').length
-    }));
+    const drawn = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const ids = new Set([...sg.collections.getBoxDescendantSkills('ee105-ucb'), ...sg.collections.getBoxDescendantSkills('me132')]);
+      const tiles = [...document.querySelectorAll('#world .tile:not(.ghost)')];
+      const tileIds = new Set(tiles.map(t => t.dataset.id));
+      return {
+        regions: [...document.querySelectorAll('#regions .blob')].map(b => b.dataset.box).sort(),
+        scope: sg.collections.scope(),
+        dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+        tiles: tiles.length,
+        unique: tileIds.size,
+        union: ids.size,
+        extra: [...tileIds].filter(id => !ids.has(id)).slice(0, 4)
+      };
+    });
     assert.deepStrictEqual(drawn.regions, ['ee105-ucb', 'me132']);
     assert.deepStrictEqual(drawn.scope, ['ee105-ucb', 'me132']);
-    assert.strictEqual(drawn.tiles, NSKILL);
-    assert(drawn.dimmed > 0);
+    assert.strictEqual(drawn.dimmed, 0, 'skills outside the two courses are hidden');
+    assert.strictEqual(drawn.unique, drawn.union, 'every selected skill is drawn');
+    assert.deepStrictEqual(drawn.extra, []);
+    assert(drawn.tiles > drawn.unique, 'skills in both courses are cloned');
 
     const union = await p.evaluate(() => {
       const sg = window.__skillgrove;
@@ -2748,9 +2907,9 @@ async function test(name, fn) {
       tiles: document.querySelectorAll('#world .tile').length
     }));
     assert.strictEqual(none.regions, 0);
-    assert.strictEqual(none.dimmed, NSKILL);
+    assert.strictEqual(none.dimmed, 0);
     assert.deepStrictEqual(none.scope, []);
-    assert.strictEqual(none.tiles, NSKILL);
+    assert.strictEqual(none.tiles, 0, 'clearing the selection hides every tree skill');
     await p.click('#todoPlan');
     await sleep(300);
     const empty = await p.$eval('#planEmpty', e => e.textContent);
@@ -2768,12 +2927,16 @@ async function test(name, fn) {
       scope: window.__skillgrove.collections.scope(),
       drawn: [...document.querySelectorAll('#regions .blob')].map(b => b.dataset.box),
       dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+      bode: !!document.querySelector('#world .tile[data-id="bode"]'),
+      lti: !!document.querySelector('#world .tile[data-id="lti-def"]'),
       stored: localStorage.getItem('skilltree.planscope.v1')
     }));
     assert.deepStrictEqual(migrated.checked, ['ee105-ch2'], 'an old single-scope value selects that box');
     assert.deepStrictEqual(migrated.scope, ['ee105-ch2']);
     assert.deepStrictEqual(migrated.drawn, ['ee105-ch2']);
-    assert(migrated.dimmed > 0);
+    assert.strictEqual(migrated.dimmed, 0, 'a saved chapter focus hides the other skills');
+    assert.strictEqual(migrated.bode, true);
+    assert.strictEqual(migrated.lti, false);
     assert.deepStrictEqual(JSON.parse(migrated.stored), { v: 2, boxes: ['ee105-ch2'] }, 'an old single-scope value migrates into last focus');
     assert.strictEqual(await p.evaluate(() => new URLSearchParams(location.search).get('focus')), 'ee105-ch2');
 
@@ -3385,8 +3548,8 @@ async function test(name, fn) {
     });
     assert.strictEqual(empty.focus, null, 'a new profile does not invent a focus parameter');
     assert.deepStrictEqual(empty.scope, []);
-    assert.strictEqual(empty.dimmed, empty.tiles);
-    assert.strictEqual(empty.tiles, NSKILL);
+    assert.strictEqual(empty.tiles, 0, 'a new profile draws no tree skills');
+    assert.strictEqual(empty.dimmed, 0);
     assert(empty.open, 'the course checklist opens when nothing is focused');
     assert(/pick the courses/i.test(empty.prompt), empty.prompt);
     assert.strictEqual(empty.button, 'Pick courses');
@@ -3437,12 +3600,14 @@ async function test(name, fn) {
       focus: new URLSearchParams(location.search).get('focus'),
       scope: window.__skillgrove.collections.scope(),
       stored: JSON.parse(localStorage.getItem('skilltree.progress.v1')).scope,
-      dimmed: document.querySelectorAll('#world .tile.boxdim').length
+      dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+      tiles: document.querySelectorAll('#world .tile').length
     }));
     assert.strictEqual(blank.focus, '');
     assert.deepStrictEqual(blank.scope, []);
     assert.deepStrictEqual(blank.stored, { v: 2, boxes: [] });
-    assert.strictEqual(blank.dimmed, NSKILL, 'an explicit empty focus does not fall back to everything');
+    assert.strictEqual(blank.tiles, 0, 'an explicit empty focus does not fall back to everything');
+    assert.strictEqual(blank.dimmed, 0);
 
     await p.goto(BASE_URL + '?focus=nlo,ee105-ch2,me132/m1', { waitUntil: 'networkidle0' });
     await sleep(400);
@@ -4103,6 +4268,7 @@ async function test(name, fn) {
       }
     };
     const p = await newPage(null, { profileMode: 'ready' });
+    await showAll(p);
     await p.evaluateOnNewDocument(() => {
       if (window.name === 'auth-held') return;
       window.name = 'auth-held';
@@ -5409,7 +5575,8 @@ async function test(name, fn) {
     assert.strictEqual(none.gridOn, true);
     assert.strictEqual(none.visibleTiles, none.totalTiles, 'no focus still lists every grid chapter');
     assert.strictEqual(none.gridVisibleDimmed, none.totalTiles, 'no focus dims every grid tile');
-    assert.strictEqual(none.treeDimmed, none.treeTiles, 'no focus dims every tree tile');
+    assert.strictEqual(none.treeTiles, 0, 'no focus hides every tree skill');
+    assert.strictEqual(none.treeDimmed, 0, 'hidden skills are not left on the tree dimmed');
     await p._ctx.close();
   });
 
@@ -5836,16 +6003,11 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
-  async function trunkFacts(p) {
-    return p.evaluate(() => {
-      const sg = window.__skillgrove;
-      const L = sg.layout().grouped;
-      const boxes = sg.collections.data().boxes;
-      const boxById = sg.collections.boxById();
-      const parent = {};
-      boxes.forEach(b => (b.children || []).forEach(id => { parent[id] = b.id; }));
-      const rootOf = id => { let cur = id; const seen = {}; while (parent[cur] && !seen[cur]) { seen[cur] = 1; cur = parent[cur]; } return cur; };
-      const selected = sg.collections.selected();
+  await test('each clone draws edges to the copy in its own box', async () => {
+    const p = await newPage();
+    await pickBoxes(p, ['ee105-ucb', 'me132']);
+    const report = await p.evaluate(() => {
+      const L = window.__skillgrove.layout().grouped;
       const inside = (poly, x, y) => {
         let c = false;
         for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
@@ -5860,7 +6022,6 @@ async function test(name, fn) {
         return [min, max];
       };
       const convexHit = (a, b) => {
-        if (!a || a.length < 3 || !b || b.length < 3) return false;
         const axes = [];
         [a, b].forEach(poly => {
           for (let i = 0; i < poly.length; i++) {
@@ -5874,273 +6035,347 @@ async function test(name, fn) {
           return pa[1] >= pb[0] - 0.05 && pb[1] >= pa[0] - 0.05;
         });
       };
-      const polysOf = id => {
-        const blob = L.blobs[id];
-        return blob && blob.points ? [blob.points] : [];
-      };
-      const share = {};
-      const skillIds = Object.keys(L.nodes).filter(k => k.indexOf('ghost:') !== 0);
-      skillIds.forEach(sid => {
-        const roots = new Set();
-        selected.forEach(id => { if (sg.collections.skillInBox(sid, id)) roots.add(rootOf(id)); });
-        share[sid] = roots.size;
-      });
-      const shared = skillIds.filter(id => share[id] >= 2);
-      const courses = selected.filter(id => boxById[id] && (boxById[id].kind === 'course' || boxById[id].kind === 'textbook'));
-      const chapters = selected.filter(id => boxById[id] && boxById[id].kind === 'chapter');
-      const insideRegion = [];
-      const sameRow = [];
-      shared.forEach(id => {
-        const n = L.nodes[id];
-        if (!n) { insideRegion.push(id + ' missing'); return; }
-        const cx = n.x + 84, cy = n.y + 36;
-        selected.forEach(bid => {
-          if (polysOf(bid).some(poly => inside(poly, cx, cy))) insideRegion.push(id + ' inside ' + bid);
-        });
-        skillIds.forEach(other => {
-          if (share[other] !== 1) return;
-          const o = L.nodes[other];
-          if (!o || Math.abs(o.y - n.y) > 2) return;
-          const root = [...shareRoots(other)][0];
-          if (root && polysOf(root).some(poly => inside(poly, cx, cy))) sameRow.push(id + ' row ' + root);
+      const placesOf = id => L.places.filter(p => p.skillId === id).map(p => p.boxId).sort();
+      const edge = (a, b) => L.edges.some(e => e.fromKey === a && e.toKey === b);
+      const outside = [];
+      ['bode', 'lti-def', 'pole-zero'].forEach(id => {
+        L.places.filter(p => p.skillId === id).forEach(p => {
+          const n = L.nodes[p.key];
+          const blob = L.blobs[p.boxId];
+          if (!n || !blob || !inside(blob.points, n.x + 84, n.y + 36)) outside.push(p.key);
         });
       });
-      function shareRoots(sid) {
-        const roots = new Set();
-        selected.forEach(id => { if (sg.collections.skillInBox(sid, id)) roots.add(rootOf(id)); });
-        return roots;
-      }
-      const overlaps = [];
-      for (let i = 0; i < courses.length; i++) for (let j = i + 1; j < courses.length; j++) {
-        const a = polysOf(courses[i])[0], b = polysOf(courses[j])[0];
-        if (a && b && convexHit(a, b)) overlaps.push(courses[i] + ' ∩ ' + courses[j]);
-      }
-      const intrusions = [];
-      chapters.forEach(id => {
-        const poly = polysOf(id)[0];
-        courses.forEach(cid => {
-          if (cid === rootOf(id)) return;
-          const other = polysOf(cid)[0];
-          if (poly && other && convexHit(poly, other)) intrusions.push(id + ' into ' + cid);
-        });
+      const order = [];
+      L.edges.forEach(e => {
+        const at = e.fromKey.indexOf('@');
+        const fromBox = e.fromKey.slice(at + 1);
+        const toBox = e.toKey.slice(e.toKey.indexOf('@') + 1);
+        if (fromBox !== toBox) return;
+        const a = L.nodes[e.fromKey], b = L.nodes[e.toKey];
+        if (!a || !b || a.y <= b.y + 4) order.push(e.fromKey + '->' + e.toKey);
       });
-      const prereq = [];
-      (L.edges || []).forEach(e => {
-        const a = L.nodes[e.from], b = L.nodes[e.to];
-        if (!a || !b) return;
-        if (a.y <= b.y + 4) prereq.push(e.from + '->' + e.to);
-      });
-      const ghostProblems = [];
-      shared.forEach(id => {
-        const hosts = [];
-        chapters.forEach(bid => { if (sg.collections.skillInBox(id, bid)) hosts.push(bid); });
-        if (!hosts.length) {
-          courses.forEach(bid => { if (sg.collections.skillInBox(id, bid)) hosts.push(bid); });
+      const hits = [];
+      const keys = Object.keys(L.nodes);
+      keys.forEach((k, i) => {
+        const n = L.nodes[k];
+        for (let j = i + 1; j < keys.length; j++) {
+          const o = L.nodes[keys[j]];
+          if (n.x < o.x + 167 && o.x < n.x + 167 && n.y < o.y + 71 && o.y < n.y + 71) hits.push(k + ' over ' + keys[j]);
         }
-        const ghosts = [...document.querySelectorAll('#world .tile.ghost[data-id="' + id + '"]')];
-        if (ghosts.length !== hosts.length) ghostProblems.push(id + ' ghosts ' + ghosts.length + '/' + hosts.length);
-        hosts.forEach(bid => { if (!ghosts.some(g => g.dataset.box === bid)) ghostProblems.push(id + ' missing ' + bid); });
-        ghosts.forEach(g => {
-          const label = g.getAttribute('aria-label') || '';
-          if (!/Reference/.test(label)) ghostProblems.push(id + ' label');
-          if (g.tagName !== 'BUTTON') ghostProblems.push(id + ' not button');
-          const gx = parseFloat(g.style.left) + g.offsetWidth / 2;
-          const gy = parseFloat(g.style.top) + g.offsetHeight / 2;
-          if (!polysOf(g.dataset.box).some(poly => inside(poly, gx, gy))) ghostProblems.push(id + ' ghost outside ' + g.dataset.box);
-        });
       });
-      const tileHits = [];
-      shared.forEach(id => {
-        const n = L.nodes[id];
-        Object.keys(L.nodes).forEach(key => {
-          if (key === id) return;
-          const o = L.nodes[key];
-          const ow = o.w || 168, oh = o.h || 72;
-          if (n.x < o.x + ow - 1 && o.x < n.x + 168 - 1 && n.y < o.y + oh - 1 && o.y < n.y + 72 - 1) tileHits.push(id + ' over ' + key);
-        });
-      });
-      const shares = {};
-      shared.forEach(id => { const k = String(share[id]); shares[k] = (shares[k] || 0) + 1; });
-      const link = document.querySelector('#ghostLinks .ghost-link');
-      const style = link ? getComputedStyle(link) : null;
-      const mastered = document.querySelector('#world .tile.ghost[data-id="lti-def"]');
-      const realMaster = document.querySelector('#world .tile[data-id="lti-def"]:not(.ghost)');
       return {
-        shared: shared.length,
-        shares,
-        insideRegion: insideRegion.slice(0, 8),
-        insideCount: insideRegion.length,
-        sameRow: sameRow.slice(0, 6),
-        sameRowCount: sameRow.length,
-        overlaps,
-        intrusions: intrusions.slice(0, 8),
-        intrusionCount: intrusions.length,
-        prereq: prereq.slice(0, 6),
-        prereqCount: prereq.length,
-        ghostProblems: ghostProblems.slice(0, 8),
-        ghostProblemCount: ghostProblems.length,
-        tileHits: tileHits.slice(0, 8),
-        tileHitCount: tileHits.length,
-        ghosts: document.querySelectorAll('#world .tile.ghost').length,
-        links: document.querySelectorAll('#ghostLinks .ghost-link').length,
-        real: document.querySelectorAll('#world .tile:not(.ghost)').length,
-        dash: style ? style.strokeDasharray : '',
-        width: style ? style.strokeWidth : '',
-        mastered: mastered ? { tier: mastered.className, fill: mastered.style.getPropertyValue('--fill'), pips: mastered.querySelectorAll('.pips i.on').length, opacity: getComputedStyle(mastered).opacity } : null,
-        realMaster: realMaster ? { tier: realMaster.className, fill: realMaster.style.getPropertyValue('--fill'), pips: realMaster.querySelectorAll('.pips i.on').length } : null
+        bode: placesOf('bode'),
+        lti: placesOf('lti-def'),
+        outside,
+        overlap: convexHit(L.blobs['ee105-ucb'].points, L.blobs['me132'].points),
+        ghosts: document.querySelectorAll('.tile.ghost, #ghostLinks').length,
+        sameEe: edge('pole-zero@ee105-ucb', 'bode@ee105-ucb'),
+        sameMe: edge('pole-zero@me132', 'bode@me132'),
+        crossA: edge('pole-zero@ee105-ucb', 'bode@me132'),
+        crossB: edge('pole-zero@me132', 'bode@ee105-ucb'),
+        followSame: edge('bode@ee105-ucb', 'bode-circuits@ee105-ucb'),
+        followNear: edge('bode@me132', 'bode-circuits@ee105-ucb'),
+        order: order.slice(0, 6),
+        orderCount: order.length,
+        hits: hits.slice(0, 6),
+        hitCount: hits.length,
+        blobs: Object.keys(L.blobs).sort()
       };
     });
-  }
+    assert.deepStrictEqual(report.blobs, ['ee105-ucb', 'me132']);
+    assert.deepStrictEqual(report.bode, ['ee105-ucb', 'me132']);
+    assert.deepStrictEqual(report.lti, ['ee105-ucb', 'me132']);
+    assert.deepStrictEqual(report.outside, [], 'clone outside its course: ' + report.outside.join(', '));
+    assert.strictEqual(report.overlap, false, 'course boxes overlap');
+    assert.strictEqual(report.ghosts, 0, 'ghosts and dotted ghost links are gone');
+    assert.strictEqual(report.sameEe, true, 'EE bode uses the EE pole-zero clone');
+    assert.strictEqual(report.sameMe, true, 'ME bode uses the ME pole-zero clone');
+    assert.strictEqual(report.crossA, false);
+    assert.strictEqual(report.crossB, false);
+    assert.strictEqual(report.followSame, true, 'bode-circuits links to bode in its own box');
+    assert.strictEqual(report.followNear, true, 'the ME bode clone links to the nearest bode-circuits');
+    assert.strictEqual(report.orderCount, 0, 'prerequisite below its follow-up: ' + report.order.join(', '));
+    assert.strictEqual(report.hitCount, 0, 'tiles overlap: ' + report.hits.join(', '));
+    await p._ctx.close();
+  });
 
-  await test('shared trunk for two courses replaces the banded overlap', async () => {
-    const eeCh = COLLECTIONS.boxes.filter(b => b.kind === 'chapter' && b.id.indexOf('ee105-') === 0).map(b => b.id);
-    const meCh = COLLECTIONS.boxes.filter(b => b.kind === 'chapter' && b.id.indexOf('me132/') === 0).map(b => b.id);
-    const p = await newPage(T({ 'lti-def': { tier: 4, lastPracticed: now, history: [] } }));
-    await showGrouped(p);
+  await test('unselected skills are omitted in both layouts', async () => {
+    const p = await newPage();
+    await pickBoxes(p, ['ee105-ch2']);
+    const grouped = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const want = sg.collections.getBoxDescendantSkills('ee105-ch2').slice().sort();
+      const idsOf = L => [...new Set(L.places.map(p => p.skillId))].sort();
+      const tree = sg.layout().tree;
+      const group = sg.layout().grouped;
+      return {
+        want,
+        ids: idsOf(group),
+        treeIds: idsOf(tree),
+        tiles: [...document.querySelectorAll('#world .tile')].map(t => t.dataset.id).sort(),
+        dimmed: document.querySelectorAll('#world .tile.boxdim').length,
+        ghosts: document.querySelectorAll('.tile.ghost').length,
+        lti: !!document.querySelector('#world .tile[data-id="lti-def"]'),
+        treeNodes: Object.keys(tree.nodes).length,
+        groupedNodes: Object.keys(group.nodes).length
+      };
+    });
+    assert.deepStrictEqual(grouped.ids, grouped.want);
+    assert.deepStrictEqual(grouped.treeIds, grouped.want);
+    assert.deepStrictEqual(grouped.tiles, grouped.want);
+    assert.strictEqual(grouped.dimmed, 0);
+    assert.strictEqual(grouped.ghosts, 0);
+    assert.strictEqual(grouped.lti, false, 'a skill outside the chapter is not laid out');
+    assert.strictEqual(grouped.groupedNodes, grouped.want.length);
+    assert.strictEqual(grouped.treeNodes, grouped.want.length);
 
-    await pickBoxes(p, ['ee105-ucb'].concat(eeCh));
-    const single = await p.evaluate(() => ({
-      ghosts: document.querySelectorAll('#world .tile.ghost').length,
-      links: document.querySelectorAll('#ghostLinks .ghost-link').length,
+    await p.click('#btnGroup');
+    await sleep(500);
+    const treeMode = await p.evaluate(() => ({
+      mode: document.getElementById('world').dataset.layout,
+      tiles: [...document.querySelectorAll('#world .tile')].map(t => t.dataset.id).sort(),
+      want: window.__skillgrove.collections.getBoxDescendantSkills('ee105-ch2').slice().sort()
+    }));
+    assert.strictEqual(treeMode.mode, 'tree');
+    assert.deepStrictEqual(treeMode.tiles, treeMode.want, 'grouping off is the same skills in one tree');
+
+    await p.evaluate(() => document.getElementById('scopeNone').click());
+    await sleep(150);
+    const none = await p.evaluate(() => ({
+      tree: Object.keys(window.__skillgrove.layout().tree.nodes).length,
+      grouped: Object.keys(window.__skillgrove.layout().grouped.nodes).length,
       tiles: document.querySelectorAll('#world .tile').length
     }));
-    assert.strictEqual(single.ghosts, 0, 'a single course draws no reference copies');
-    assert.strictEqual(single.links, 0);
-    assert.strictEqual(single.tiles, NSKILL);
+    assert.strictEqual(none.tree, 0);
+    assert.strictEqual(none.grouped, 0);
+    assert.strictEqual(none.tiles, 0);
 
-    await pickBoxes(p, ['ee105-ucb', 'me132']);
-    let report = await trunkFacts(p);
-    assert(report.shared > 0, 'EE 105 and ME 132 share skills');
-    assert.strictEqual(report.insideCount, 0, 'shared skill sits in a course region: ' + report.insideRegion.join(', '));
-    assert.strictEqual(report.sameRowCount, 0, 'shared skill shares a row inside one course: ' + report.sameRow.join(', '));
-    assert.deepStrictEqual(report.overlaps, [], 'course regions overlap: ' + report.overlaps.join(', '));
-    assert.strictEqual(report.prereqCount, 0, 'prerequisite order: ' + report.prereq.join(', '));
-    assert.strictEqual(report.ghostProblemCount, 0, report.ghostProblems.join('; '));
-    assert.strictEqual(report.tileHitCount, 0, 'a shared skill covers another tile: ' + report.tileHits.join(', '));
-    assert.strictEqual(report.real, NSKILL, 'each skill still has one real node');
-    assert.strictEqual(report.links, report.ghosts, 'each reference has a dotted link');
-    assert(report.ghosts > 0, 'two courses draw reference copies on the course boxes');
+    await showAll(p);
+    const all = await p.evaluate((n, edges) => {
+      const tree = window.__skillgrove.layout().tree;
+      const groupedIds = new Set(window.__skillgrove.layout().grouped.places.map(p => p.skillId));
+      return {
+        places: tree.places.length,
+        edgeCount: tree.edges.length,
+        stubs: tree.stubs.length,
+        paths: document.querySelectorAll('#edges path').length,
+        mode: document.getElementById('world').dataset.layout,
+        groupedSkills: groupedIds.size
+      };
+    }, NSKILL, EDGES);
+    assert.strictEqual(all.mode, 'tree');
+    assert.strictEqual(all.places, NSKILL, 'select all restores every skill');
+    assert.strictEqual(all.groupedSkills, NSKILL, 'grouped select-all still places every skill');
+    assert.strictEqual(all.edgeCount, EDGES);
+    assert.strictEqual(all.stubs, 0, 'nothing is hidden when every skill is selected');
+    assert.strictEqual(all.paths, EDGES);
+    await p._ctx.close();
+  });
 
-    await pickBoxes(p, ['ee105-ucb', 'me132'].concat(eeCh, meCh));
-    await sleep(300);
-    report = await trunkFacts(p);
-    assert.strictEqual(report.insideCount, 0, 'shared skill sits in a region: ' + report.insideRegion.join(', '));
-    assert.strictEqual(report.sameRowCount, 0, report.sameRow.join(', '));
+  await test('a hidden prerequisite is a small needs stub', async () => {
+    const p = await newPage();
+    await pickBoxes(p, ['ee105-ch2']);
+    const ch2 = await p.evaluate(() => {
+      const stub = document.querySelector('.need-stub[data-id="phasors"]');
+      const tile = document.querySelector('#world .tile[data-id="phasors"]');
+      const L = window.__skillgrove.layout();
+      const hidden = (layout, id) => (layout.stubs.find(s => s.skillId === id) || {}).hidden;
+      return {
+        text: stub && stub.textContent,
+        title: stub && stub.title,
+        isTile: !!(stub && stub.classList.contains('tile')),
+        near: !!(stub && tile) && Math.abs(parseFloat(stub.style.top) - (parseFloat(tile.style.top) + tile.offsetHeight)) < 20,
+        grouped: hidden(L.grouped, 'phasors'),
+        tree: hidden(L.tree, 'phasors')
+      };
+    });
+    assert.strictEqual(ch2.text, 'needs Sinusoidal steady state\u2026');
+    assert(ch2.title.includes('Sinusoidal steady state using complex exponentials'), ch2.title);
+    assert.strictEqual(ch2.isTile, false, 'a stub is not a skill tile');
+    assert.strictEqual(ch2.near, true, 'the stub sits against its skill');
+    assert.deepStrictEqual(ch2.grouped, ['sinusoid-resp']);
+    assert.deepStrictEqual(ch2.tree, ['sinusoid-resp']);
+
+    await pickBoxes(p, ['ee105-ch17']);
+    const ch17 = await p.evaluate(() => {
+      const stub = document.querySelector('.need-stub[data-id="stability"]');
+      const L = window.__skillgrove.layout();
+      const hidden = layout => ((layout.stubs.find(s => s.skillId === 'stability') || {}).hidden || []).slice().sort();
+      return { text: stub && stub.textContent, title: stub && stub.title, grouped: hidden(L.grouped), tree: hidden(L.tree) };
+    });
+    assert.strictEqual(ch17.text, 'needs 2 more');
+    assert(ch17.title.includes('Poles and zeros of a transfer function'), ch17.title);
+    assert(ch17.title.includes('Bode plots: magnitude and phase'), ch17.title);
+    assert.deepStrictEqual(ch17.grouped, ['bode', 'pole-zero']);
+    assert.deepStrictEqual(ch17.tree, ['bode', 'pole-zero']);
+
+    await p.click('#btnGroup');
+    await sleep(400);
+    const treeDom = await p.evaluate(() => {
+      const stub = document.querySelector('.need-stub[data-id="stability"]');
+      return { mode: document.getElementById('world').dataset.layout, text: stub && stub.textContent, tile: !!(stub && stub.classList.contains('tile')) };
+    });
+    assert.strictEqual(treeDom.mode, 'tree');
+    assert.strictEqual(treeDom.text, 'needs 2 more');
+    assert.strictEqual(treeDom.tile, false);
+    await p._ctx.close();
+  });
+
+  await test('three selected courses stay in separate boxes', async () => {
+    const p = await newPage();
+    await pickBoxes(p, ['ee105-ucb', 'me132', 'eecs127']);
+    const report = await p.evaluate(() => {
+      const L = window.__skillgrove.layout().grouped;
+      const project = (poly, ax, ay) => {
+        let min = Infinity, max = -Infinity;
+        poly.forEach(pt => { const d = pt[0] * ax + pt[1] * ay; if (d < min) min = d; if (d > max) max = d; });
+        return [min, max];
+      };
+      const convexHit = (a, b) => {
+        const axes = [];
+        [a, b].forEach(poly => {
+          for (let i = 0; i < poly.length; i++) {
+            const p0 = poly[i], q = poly[(i + 1) % poly.length];
+            const len = Math.hypot(q[0] - p0[0], q[1] - p0[1]) || 1;
+            axes.push([(p0[1] - q[1]) / len, (q[0] - p0[0]) / len]);
+          }
+        });
+        return axes.every(([ax, ay]) => {
+          const pa = project(a, ax, ay), pb = project(b, ax, ay);
+          return pa[1] >= pb[0] - 0.05 && pb[1] >= pa[0] - 0.05;
+        });
+      };
+      const ids = Object.keys(L.blobs);
+      const overlaps = [];
+      for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) {
+        if (convexHit(L.blobs[ids[i]].points, L.blobs[ids[j]].points)) overlaps.push(ids[i] + ' ∩ ' + ids[j]);
+      }
+      return {
+        blobs: ids.sort(),
+        kinds: ids.map(id => L.blobs[id].kind).sort(),
+        overlaps,
+        ghosts: document.querySelectorAll('.tile.ghost').length,
+        bode: L.places.filter(p => p.skillId === 'bode').map(p => p.boxId).sort(),
+        nested: L.useNested
+      };
+    });
+    assert.deepStrictEqual(report.blobs, ['ee105-ucb', 'eecs127', 'me132']);
+    assert.deepStrictEqual(report.kinds, ['course', 'course', 'course']);
     assert.deepStrictEqual(report.overlaps, [], report.overlaps.join(', '));
-    assert.strictEqual(report.intrusionCount, 0, 'chapter box enters another course: ' + report.intrusions.join(', '));
-    assert.strictEqual(report.prereqCount, 0, 'prerequisite order: ' + report.prereq.join(', '));
-    assert.strictEqual(report.ghostProblemCount, 0, report.ghostProblems.join('; '));
-    assert.strictEqual(report.tileHitCount, 0, 'a shared skill covers another tile: ' + report.tileHits.join(', '));
-    assert.strictEqual(report.links, report.ghosts);
-    assert(report.dash && report.dash !== 'none', 'ghost links are dotted');
-    assert(parseFloat(report.width) <= 2, 'ghost links stay thin');
-    assert(report.mastered && report.realMaster, 'mastered shared skill has a real node and a ghost');
-    assert(/t4/.test(report.mastered.tier) && /t4/.test(report.realMaster.tier), 'mastery tier is mirrored');
-    assert.strictEqual(report.mastered.fill, report.realMaster.fill);
-    assert.strictEqual(report.mastered.pips, report.realMaster.pips);
-    assert(parseFloat(report.mastered.opacity) < 0.75, 'ghosts are faded');
-
+    assert.strictEqual(report.ghosts, 0);
+    assert.deepStrictEqual(report.bode, ['ee105-ucb', 'me132']);
+    assert.strictEqual(report.nested, false);
     await p.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
     await sleep(200);
-    report = await trunkFacts(p);
-    assert.strictEqual(report.insideCount, 0, 'mobile: ' + report.insideRegion.join(', '));
-    assert.strictEqual(report.intrusionCount, 0, 'mobile: ' + report.intrusions.join(', '));
-    assert.strictEqual(report.prereqCount, 0, 'mobile prerequisite order: ' + report.prereq.join(', '));
-    const phone = await p.evaluate(() => {
-      const ghost = document.querySelector('#world .tile.ghost');
-      const page = document.documentElement.scrollWidth <= window.innerWidth + 2;
-      const box = ghost ? ghost.getBoundingClientRect() : { width: 0, height: 0 };
-      return { page, w: box.width, h: box.height, ghosts: document.querySelectorAll('#world .tile.ghost').length };
-    });
-    assert.strictEqual(phone.page, true, 'the trunk view does not widen the page');
-    assert(phone.ghosts > 0 && phone.w > 0 && phone.h > 0, 'ghosts still paint at a phone width');
+    const phone = await p.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 2);
+    assert.strictEqual(phone, true, 'three courses do not widen a phone page');
+    await p._ctx.close();
+  });
 
-    await p.setViewport({ width: 1280, height: 800 });
-    await sleep(100);
-    const activated = await p.evaluate(() => {
-      const ghost = document.querySelector('#world .tile.ghost[data-id="lti-def"]');
-      ghost.focus();
-      const focused = document.activeElement === ghost;
-      ghost.click();
-      const real = document.querySelector('#world .tile[data-id="lti-def"]:not(.ghost)');
-      return { focused, label: ghost.getAttribute('aria-label'), selected: real.classList.contains('sel'), pressed: real.getAttribute('aria-pressed') };
-    });
-    assert.strictEqual(activated.focused, true, 'a ghost is a keyboard control');
-    assert(/Reference/.test(activated.label));
-    assert.strictEqual(activated.selected, true, 'activating a ghost highlights the real node');
-    assert.strictEqual(activated.pressed, 'true');
-    await sleep(700);
-    const framed = await p.evaluate(() => {
+  await test('grouping keeps the open skill in view without a clone outline', async () => {
+    const p = await newPage();
+    await showAll(p);
+    await showTree(p);
+    await openSkill(p, 'bode');
+    await p.click('#btnGroup');
+    await sleep(1200);
+    const after = await p.evaluate(() => {
       const tv = document.getElementById('treeView').getBoundingClientRect();
       const panel = document.getElementById('panel').getBoundingClientRect();
       const right = panel.width > 20 ? Math.min(tv.right, panel.left) : tv.right;
-      const real = document.querySelector('#world .tile[data-id="lti-def"]:not(.ghost)').getBoundingClientRect();
-      const cx = real.left + real.width / 2, cy = real.top + real.height / 2;
-      return { dx: Math.abs(cx - (tv.left + right) / 2), dy: Math.abs(cy - (tv.top + tv.bottom) / 2), w: real.width };
+      const cx0 = (tv.left + right) / 2, cy0 = (tv.top + tv.bottom) / 2;
+      const tiles = [...document.querySelectorAll('#world .tile[data-id="bode"]')];
+      let best = Infinity;
+      tiles.forEach(t => {
+        const r = t.getBoundingClientRect();
+        best = Math.min(best, Math.hypot(r.left + r.width / 2 - cx0, r.top + r.height / 2 - cy0));
+      });
+      return {
+        mode: document.getElementById('world').dataset.layout,
+        hot: document.querySelectorAll('#world .tile.clone-hot').length,
+        best,
+        tiles: tiles.length
+      };
     });
-    assert(framed.w > 20, 'the real node is on screen');
-    assert(framed.dx < 80 && framed.dy < 80, 'activating a ghost frames the real node ' + JSON.stringify(framed));
-
-    await p.evaluate(() => document.getElementById('btnGroup').click());
-    await sleep(900);
-    const tree = await p.evaluate(() => ({
-      ghosts: document.querySelectorAll('#world .tile.ghost').length,
-      links: document.querySelectorAll('#ghostLinks .ghost-link').length,
-      tiles: document.querySelectorAll('#world .tile').length,
-      mode: document.getElementById('world').dataset.layout
-    }));
-    assert.strictEqual(tree.mode, 'tree');
-    assert.strictEqual(tree.ghosts, 0, 'the prerequisite tree draws no ghosts');
-    assert.strictEqual(tree.links, 0);
-    assert.strictEqual(tree.tiles, NSKILL);
+    assert.strictEqual(after.mode, 'grouped');
+    assert(after.tiles > 1, 'select all clones bode into each chapter that contains it');
+    assert.strictEqual(after.hot, 0, 'focusing a skill does not leave the clone outline');
+    assert(after.best < 100, 'the open skill is centered after grouping, distance ' + after.best);
     await p._ctx.close();
   });
 
-  await test('shared trunk for three courses keeps regions apart', async () => {
-    const chapters = prefix => COLLECTIONS.boxes.filter(b => b.kind === 'chapter' && b.id.indexOf(prefix) === 0).map(b => b.id);
-    const eeCh = chapters('ee105-');
-    const meCh = chapters('me132/');
-    const optCh = chapters('eecs127/');
-    const amCh = chapters('am08/');
+  await test('group toggle animates tiles from the old skill position and keeps focus', async () => {
     const p = await newPage();
-    await showGrouped(p);
-
-    await pickBoxes(p, ['ee105-ucb', 'me132', 'eecs127'].concat(eeCh, meCh, optCh));
-    await sleep(300);
-    let report = await trunkFacts(p);
-    assert(report.shared > 0, 'the three courses share skills');
-    assert.strictEqual(report.insideCount, 0, 'shared skill sits on a row inside a single course: ' + report.insideRegion.join(', '));
-    assert.strictEqual(report.sameRowCount, 0, report.sameRow.join(', '));
-    assert.deepStrictEqual(report.overlaps, [], 'skills shared across courses overlap regions: ' + report.overlaps.join(', '));
-    assert.strictEqual(report.intrusionCount, 0, 'chapter box extends into another course: ' + report.intrusions.join(', '));
-    assert.strictEqual(report.prereqCount, 0, 'prerequisite order: ' + report.prereq.join(', '));
-    assert.strictEqual(report.ghostProblemCount, 0, report.ghostProblems.join('; '));
-    assert.strictEqual(report.tileHitCount, 0, 'a shared skill covers another tile: ' + report.tileHits.join(', '));
-    assert.strictEqual(report.real, NSKILL);
-    assert.strictEqual(report.links, report.ghosts);
-
-    await pickBoxes(p, ['ee105-ucb', 'me132', 'am08'].concat(eeCh, meCh, amCh));
-    await sleep(300);
-    report = await trunkFacts(p);
-    assert(report.shares['3'] > 0, 'three courses share some skills');
-    assert.strictEqual(report.insideCount, 0, 'a skill shared by 3 courses sits in one region: ' + report.insideRegion.join(', '));
-    assert.deepStrictEqual(report.overlaps, [], report.overlaps.join(', '));
-    assert.strictEqual(report.intrusionCount, 0, report.intrusions.join(', '));
-    assert.strictEqual(report.prereqCount, 0, 'prerequisite order: ' + report.prereq.join(', '));
-    assert.strictEqual(report.ghostProblemCount, 0, report.ghostProblems.join('; '));
-    assert.strictEqual(report.tileHitCount, 0, 'a skill shared by 3 courses covers another tile: ' + report.tileHits.join(', '));
-
-    await p.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
-    await sleep(200);
-    const phone = await p.evaluate(() => ({
-      page: document.documentElement.scrollWidth <= window.innerWidth + 2,
-      ghosts: document.querySelectorAll('#world .tile.ghost').length
+    await p.setViewport({ width: 1440, height: 900 });
+    await showAll(p);
+    await showTree(p);
+    await p.evaluate(() => {
+      const panel = document.getElementById('scopePanel');
+      if (panel && !panel.hidden) document.getElementById('scopeToggle').click();
+    });
+    const bring = await p.evaluate(() => {
+      const tile = document.querySelector('#world .tile[data-id="bode"]');
+      const box = tile.getBoundingClientRect();
+      const tv = document.getElementById('treeView').getBoundingClientRect();
+      return {
+        x: box.left + box.width / 2,
+        y: box.top + box.height / 2,
+        vx: tv.left + tv.width / 2,
+        vy: tv.top + tv.height / 2
+      };
+    });
+    await p.mouse.move(bring.vx, bring.vy);
+    await p.mouse.down();
+    await p.mouse.move(bring.vx + (bring.vx - bring.x), bring.vy + (bring.vy - bring.y), { steps: 8 });
+    await p.mouse.up();
+    for (let i = 0; i < 5; i++) await p.click('#zIn');
+    await sleep(50);
+    const spot = await p.evaluate(() => {
+      const tile = document.querySelector('#world .tile[data-id="bode"]');
+      const r = tile.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    });
+    await p.mouse.move(spot.x, spot.y);
+    const mid = await p.evaluate(() => new Promise(resolve => {
+      const tile = document.querySelector('#world .tile[data-id="bode"]');
+      tile.focus();
+      tile.dataset.mark = 'kept';
+      const start = { x: parseFloat(tile.style.left), y: parseFloat(tile.style.top), hover: tile.matches(':hover') };
+      window.__skillgrove.toggleGroup();
+      const keptNow = document.querySelector('#world .tile[data-mark="kept"]');
+      const hover = !!(keptNow && keptNow.matches(':hover'));
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        const kept = document.querySelector('#world .tile[data-mark="kept"]');
+        const L = window.__skillgrove.layout().grouped;
+        const tiles = [...document.querySelectorAll('#world .tile[data-id="bode"]')].map(t => {
+          const n = L.nodes[t.dataset.place];
+          return { place: t.dataset.place, x: parseFloat(t.style.left), y: parseFloat(t.style.top), dx: n.x, dy: n.y };
+        });
+        resolve({
+          start,
+          hover,
+          kept: !!kept,
+          focus: !!(kept && document.activeElement === kept),
+          morphing: document.getElementById('world').classList.contains('morphing'),
+          tiles
+        });
+      }));
     }));
-    assert.strictEqual(phone.page, true, 'three courses do not widen a phone page');
-    assert(phone.ghosts > 0, 'ghosts still paint at a phone width');
+    assert.strictEqual(mid.start.hover, true, 'the pointer is over the tree tile');
+    assert.strictEqual(mid.kept, true, 'the tree tile is reused instead of rebuilt');
+    assert.strictEqual(mid.focus, true, 'focus stays on the reused tile');
+    assert.strictEqual(mid.hover, true, 'hover stays on the reused tile');
+    assert.strictEqual(mid.morphing, true, 'the group toggle is still morphing');
+    assert(mid.tiles.length > 1, 'grouped bode has a clone');
+    mid.tiles.forEach(t => {
+      const fromStart = Math.hypot(t.x - mid.start.x, t.y - mid.start.y);
+      const fromDest = Math.hypot(t.x - t.dx, t.y - t.dy);
+      const travel = Math.hypot(mid.start.x - t.dx, mid.start.y - t.dy);
+      assert(travel > 40, t.place + ' destination is ' + travel + 'px from the tree tile');
+      assert(fromStart + 8 < fromDest, t.place + ' jumped to its destination');
+    });
     await p._ctx.close();
   });
-
 
   await browser.close();
 

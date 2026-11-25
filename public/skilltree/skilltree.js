@@ -526,18 +526,48 @@ function chapterLabel(skillId) {
   return chs.map(b => b.title).join(' · ');
 }
 
+function visibleSkillIds() {
+  if (!skills.length) return [];
+  if (selectionIsAll()) return skills.map(s => s.id);
+  if (!selectedBoxes.size) return [];
+  return skills.map(s => s.id).filter(id => skillInSelection(id));
+}
+
+function placeKey(skillId, boxId) {
+  return boxId ? skillId + '@' + boxId : skillId;
+}
+
+function skillIdOf(key) {
+  const at = String(key).indexOf('@');
+  return at < 0 ? key : key.slice(0, at);
+}
+
+function hiddenPrereqsOf(skillId, visible) {
+  const s = byId[skillId];
+  if (!s) return [];
+  return (s.prereqs || []).filter(id => byId[id] && !visible.has(id));
+}
+
 function computeTreeLayout() {
-  const ids = skills.map(s => s.id);
+  const ids = visibleSkillIds();
   const idset = new Set(ids);
   const edges = allEdges.filter(([p, c]) => idset.has(p) && idset.has(c));
   const r = ids.length ? layeredLayout(ids, edges) : { pos: {}, mids: {}, w: 200, h: 120, nl: 0, crossings: 0, layerOf: {} };
   const nodes = {}, mids = {};
   for (const id in r.pos) nodes[id] = { x: r.pos[id].x + WPAD, y: (r.h - r.pos[id].y - TH) + WPAD };
   for (const k in r.mids) mids[k] = r.mids[k].map(pt => [pt[0] + WPAD, (r.h - pt[1]) + WPAD]);
+  const places = ids.filter(id => nodes[id]).map(id => ({ key: id, skillId: id, boxId: null }));
+  const stubs = [];
+  places.forEach(p => {
+    const hidden = hiddenPrereqsOf(p.skillId, idset);
+    if (hidden.length) stubs.push({ key: p.key, skillId: p.skillId, boxId: null, hidden });
+  });
   layout.tree = {
-    nodes, mids, blobs: {}, w: Math.max((r.w || 0) + WPAD * 2, 200), h: Math.max((r.h || 0) + WPAD * 2, 120),
+    nodes, mids, blobs: {}, places, stubs,
+    w: Math.max((r.w || 0) + WPAD * 2, 200), h: Math.max((r.h || 0) + WPAD * 2, 120),
     layers: r.nl, crossings: r.crossings, layerOf: r.layerOf || {},
-    edges: edges.map(([p, c]) => ({ from: p, to: c, fromKey: p, toKey: c }))
+    edges: edges.map(([p, c]) => ({ from: p, to: c, fromKey: p, toKey: c })),
+    useNested: false
   };
 }
 
@@ -554,6 +584,17 @@ function convexHull(points) {
   for (let i = uniq.length - 1; i >= 0; i--) { const p = uniq[i]; while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop(); upper.push(p); }
   lower.pop(); upper.pop();
   return lower.concat(upper);
+}
+
+function regionPoints(ids, nodes, pad) {
+  const pts = [];
+  ids.forEach(id => {
+    const n = nodes[id];
+    if (!n) return;
+    const w = n.w || TW, h = n.h || TH;
+    pts.push([n.x - pad, n.y - pad], [n.x + w + pad, n.y - pad], [n.x - pad, n.y + h + pad], [n.x + w + pad, n.y + h + pad]);
+  });
+  return convexHull(pts);
 }
 
 function boxPad(box) {
@@ -586,592 +627,186 @@ function leafBoxesFor(skillId) {
   return ids.filter(id => !ids.some(other => isStrictDescendant(other, id)));
 }
 
-function computeAnchors() {
-  const anchor = {};
-  const layers = (layout.tree && layout.tree.layerOf) || {};
-  const meanLayer = box => {
-    const ids = getBoxDescendantSkills(box.id);
-    if (!ids.length) return 0;
-    return ids.reduce((a, id) => a + (layers[id] || 0), 0) / ids.length;
-  };
-  topLevelBoxes().forEach((b, i) => {
-    const center = i * 1000;
-    anchor[b.id] = center;
-    const kids = (b.children || []).map(id => boxById[id]).filter(Boolean);
-    kids.sort((a, c) => meanLayer(a) - meanLayer(c) || a.id.localeCompare(c.id));
-    kids.forEach((ch, k) => {
-      const t = kids.length === 1 ? 0.5 : k / (kids.length - 1);
-      anchor[ch.id] = center + (t - 0.5) * 480;
-    });
-  });
-  return anchor;
-}
-
-function sigZone(sig) {
-  if (!sig) return 99;
-  const order = topLevelBoxes().map(b => b.id);
-  const idxs = [...new Set(sig.split('|').map(scopeRootId))].map(id => order.indexOf(id)).filter(i => i >= 0).sort((a, b) => a - b);
-  if (!idxs.length) return 98;
-  return idxs.length === 1 ? idxs[0] * 2 : idxs[0] * 2 + 1;
-}
-
-function regionPoints(ids, nodes, pad) {
-  const pts = [];
+function layoutBox(ids) {
+  const idset = new Set(ids);
+  const edges = allEdges.filter(([p, c]) => idset.has(p) && idset.has(c));
+  const r = ids.length ? layeredLayout(ids, edges) : { pos: {}, mids: {}, w: TW, h: TH };
+  const nodes = {}, mids = {};
   ids.forEach(id => {
-    const n = nodes[id];
-    if (!n) return;
-    const w = n.w || TW, h = n.h || TH;
-    pts.push([n.x - pad, n.y - pad], [n.x + w + pad, n.y - pad], [n.x - pad, n.y + h + pad], [n.x + w + pad, n.y + h + pad]);
+    const pos = r.pos[id];
+    if (!pos) return;
+    nodes[id] = { x: pos.x, y: r.h - pos.y - TH };
   });
-  return convexHull(pts);
+  Object.keys(r.mids || {}).forEach(k => {
+    mids[k] = r.mids[k].map(pt => [pt[0], r.h - pt[1]]);
+  });
+  return { nodes, mids, w: Math.max(r.w || TW, 1), h: Math.max(r.h || TH, 1) };
 }
 
-function vennRoots() {
-  const order = topLevelBoxes().map(b => b.id);
-  const seen = [];
-  selectedBoxes.forEach(id => {
-    const root = scopeRootId(id);
-    if (root && !seen.includes(root)) seen.push(root);
-  });
-  seen.sort((a, b) => order.indexOf(a) - order.indexOf(b));
-  return seen;
-}
-
-// Two or more selected courses (or textbooks). One course and the
-// prerequisite tree keep the ordinary grouped layout.
-function trunkActive() {
-  return vennRoots().length >= 2;
-}
-
-function skillInRootSelection(skillId, root) {
-  for (const id of selectedBoxes) {
-    if (scopeRootId(id) === root && skillInBox(skillId, id)) return true;
-  }
-  return false;
-}
-
-function selectedHosts(skillId, root) {
-  const leaves = leafBoxesFor(skillId).filter(id => scopeRootId(id) === root);
-  const chapters = leaves.filter(id => boxById[id] && boxById[id].kind === 'chapter');
-  if (chapters.length) return chapters;
-  if (leaves.length) return leaves;
-  if (selectedBoxes.has(root)) return [root];
-  return [];
-}
-
-// Shared skills (in 2+ selected courses) sit on a trunk below the course-only
-// skills, clustered by the exact set of courses and centered under them.
-// Skills shared by more courses sit lower. Prerequisite order wins: a skill
-// stays on the nearest row that is strictly above its prerequisites and
-// strictly below its follow-ups. Each sharing box keeps a ghost of the skill.
-function computeTrunkLayout(tree) {
-  const base = tree.layerOf || {};
-  const ROW = TH + 28, GAP = 4, GHOST_W = 96, GHOST_H = 48, GHOST_GAP = 8, GHOST_COLS = 4;
-  const COL_GAP = 120, COURSE_GAP = 220, OUT_GAP = 180, MARGIN_X = 36, MARGIN_Y = 32;
-  const roots = vennRoots();
-  const byTree = (a, b) => ((tree.nodes[a] && tree.nodes[a].x) || 0) - ((tree.nodes[b] && tree.nodes[b].x) || 0) || a.localeCompare(b);
-  const membersOf = {};
-  skills.forEach(s => { membersOf[s.id] = roots.filter(r => skillInRootSelection(s.id, r)); });
-  const countOf = id => (membersOf[id] || []).length;
-  const sharedIds = skills.map(s => s.id).filter(id => countOf(id) >= 2);
-  const maxShare = sharedIds.reduce((m, id) => Math.max(m, countOf(id)), 2);
-  const prereqsOf = {};
-  skills.forEach(s => { prereqsOf[s.id] = (s.prereqs || []).filter(p => byId[p]); });
-
-  const rank = {};
-  const color = {};
-  function rankShared(id) {
-    if (rank[id] != null && countOf(id) >= 2) return rank[id];
-    if (color[id] === 1) return maxShare - countOf(id);
-    color[id] = 1;
-    let r = maxShare - countOf(id);
-    prereqsOf[id].forEach(p => { if (countOf(p) >= 2) r = Math.max(r, rankShared(p) + 1); });
-    color[id] = 2;
-    rank[id] = r;
-    return r;
-  }
-  sharedIds.forEach(rankShared);
-  let sharedMax = 0;
-  sharedIds.forEach(id => { sharedMax = Math.max(sharedMax, rank[id] || 0); });
-  skills.forEach(s => {
-    if (countOf(s.id) >= 2) return;
-    rank[s.id] = sharedMax + GAP + (base[s.id] || 0);
-  });
-  const seen = {};
-  function lift(id) {
-    if (seen[id] === 2) return rank[id] || 0;
-    if (seen[id] === 1) return rank[id] || 0;
-    seen[id] = 1;
-    let r = rank[id] || 0;
-    prereqsOf[id].forEach(p => { r = Math.max(r, lift(p) + 1); });
-    rank[id] = r;
-    seen[id] = 2;
-    return r;
-  }
-  skills.forEach(s => lift(s.id));
-
-  const maxRank = Math.max(0, ...skills.map(s => rank[s.id] || 0));
-  const yOf = r => (maxRank - r) * ROW;
-  const exclusiveByHost = {};
-  const ghostsByHost = {};
-  const outside = [];
-  skills.forEach(s => {
-    const members = membersOf[s.id];
-    if (members.length >= 2) {
-      members.forEach(root => {
-        selectedHosts(s.id, root).forEach(host => {
-          (ghostsByHost[host] || (ghostsByHost[host] = [])).push(s.id);
-        });
-      });
-    } else if (members.length === 1) {
-      const host = selectedHosts(s.id, members[0])[0];
-      if (host) (exclusiveByHost[host] || (exclusiveByHost[host] = [])).push(s.id);
-      else outside.push(s.id);
-    } else outside.push(s.id);
-  });
-  Object.keys(exclusiveByHost).forEach(id => exclusiveByHost[id].sort(byTree));
-  Object.keys(ghostsByHost).forEach(id => ghostsByHost[id].sort(byTree));
-
-  const blockIdsFor = root => {
-    const ids = new Set();
-    Object.keys(exclusiveByHost).forEach(id => { if (exclusiveByHost[id].length && scopeRootId(id) === root) ids.add(id); });
-    Object.keys(ghostsByHost).forEach(id => { if (ghostsByHost[id].length && scopeRootId(id) === root) ids.add(id); });
-    const order = [];
-    const walk = box => {
-      if (!box) return;
-      if (ids.has(box.id)) order.push(box.id);
-      (box.children || []).forEach(cid => walk(boxById[cid]));
-    };
-    walk(boxById[root]);
-    ids.forEach(id => { if (order.indexOf(id) < 0) order.push(id); });
-    return order;
-  };
-
-  const blocksByRoot = {};
-  roots.forEach(root => {
-    const blocks = [];
-    blockIdsFor(root).forEach(id => {
-      const excl = exclusiveByHost[id] || [];
-      const ghosts = ghostsByHost[id] || [];
-      if (!excl.length && !ghosts.length) return;
-      const byRank = {};
-      excl.forEach(sid => { const r = rank[sid] || 0; (byRank[r] || (byRank[r] = [])).push(sid); });
-      const ranks = Object.keys(byRank).map(Number);
-      const maxExcl = ranks.reduce((m, r) => Math.max(m, byRank[r].length), 0);
-      const exclW = maxExcl ? maxExcl * TW + (maxExcl - 1) * GX : 0;
-      const ghostCols = Math.min(GHOST_COLS, Math.max(ghosts.length, 1));
-      const ghostRows = ghosts.length ? Math.ceil(ghosts.length / GHOST_COLS) : 0;
-      const shown = Math.min(ghosts.length, GHOST_COLS);
-      const ghostW = shown ? shown * GHOST_W + (shown - 1) * GHOST_GAP : 0;
-      let y0 = Infinity, y1 = -Infinity;
-      ranks.forEach(r => { const y = yOf(r); y0 = Math.min(y0, y); y1 = Math.max(y1, y + TH); });
-      let ghostTop = null;
-      if (ghosts.length) {
-        ghostTop = ranks.length ? y1 + 12 : yOf(sharedMax + GAP) + TH + 12;
-        const ghostBottom = ghostTop + ghostRows * GHOST_H + Math.max(0, ghostRows - 1) * 8;
-        y0 = Math.min(y0, ghostTop);
-        y1 = Math.max(y1, ghostBottom);
-      }
-      blocks.push({ id, excl, ghosts, byRank, ranks, w: Math.max(exclW, ghostW), y0, y1, ghostTop, ghostRows, ghostCols });
-    });
-    blocks.sort((a, b) => a.y0 - b.y0 || a.id.localeCompare(b.id));
-    const cols = [];
-    blocks.forEach(block => {
-      let col = null;
-      for (let i = 0; i < cols.length; i++) {
-        const overlap = cols[i].spans.some(s => block.y0 < s.y1 + COL_GAP && s.y0 < block.y1 + COL_GAP);
-        if (!overlap) { col = cols[i]; break; }
-      }
-      if (!col) { col = { spans: [], blocks: [], w: 0 }; cols.push(col); }
-      col.spans.push({ y0: block.y0, y1: block.y1 });
-      col.blocks.push(block);
-      col.w = Math.max(col.w, block.w);
-      block.col = col;
-    });
-    let x = 0;
-    cols.forEach(col => {
-      col.x = x;
-      col.blocks.forEach(block => { block.x = col.x + (col.w - block.w) / 2; });
-      x += col.w + COL_GAP;
-    });
-    blocksByRoot[root] = { blocks, width: cols.length ? x - COL_GAP : 0 };
-  });
-
-  const courseGeom = {};
-  let cursor = 0;
-  roots.forEach(root => {
-    const width = blocksByRoot[root].width;
-    if (width <= 0) return;
-    courseGeom[root] = { x: cursor, w: width };
-    cursor += width + COURSE_GAP;
-  });
-
-  const nodes = {};
-  const placeExcl = (block, origin) => {
-    block.ranks.forEach(r => {
-      const row = block.byRank[r];
-      const rowW = row.length * TW + (row.length - 1) * GX;
-      const start = origin + block.x + (block.w - rowW) / 2;
-      row.forEach((sid, i) => { nodes[sid] = { x: start + i * (TW + GX), y: yOf(r) }; });
-    });
-    if (!block.ghosts.length) return;
-    const cols = GHOST_COLS;
-    for (let i = 0; i < block.ghosts.length; i += cols) {
-      const slice = block.ghosts.slice(i, i + cols);
-      const rowW = slice.length * GHOST_W + (slice.length - 1) * GHOST_GAP;
-      const start = origin + block.x + (block.w - rowW) / 2;
-      const y = block.ghostTop + (i / cols) * (GHOST_H + 8);
-      slice.forEach((sid, k) => {
-        nodes['ghost:' + sid + ':' + block.id] = { x: start + k * (GHOST_W + GHOST_GAP), y, w: GHOST_W, h: GHOST_H };
-      });
-    }
-  };
-  roots.forEach(root => {
-    const origin = courseGeom[root] ? courseGeom[root].x : cursor;
-    blocksByRoot[root].blocks.forEach(block => placeExcl(block, origin));
-  });
-
-  const clusters = new Map();
-  sharedIds.forEach(sid => {
-    const sig = membersOf[sid].slice().sort().join('|');
-    const key = (rank[sid] || 0) + '\0' + sig;
-    if (!clusters.has(key)) clusters.set(key, { rank: rank[sid] || 0, members: membersOf[sid], ids: [] });
-    clusters.get(key).ids.push(sid);
-  });
-  const centerOf = members => {
-    const spans = members.map(r => courseGeom[r]).filter(Boolean);
-    if (!spans.length) return cursor + TW;
-    const x0 = Math.min(...spans.map(s => s.x));
-    const x1 = Math.max(...spans.map(s => s.x + s.w));
-    return (x0 + x1) / 2;
-  };
-  // A shared skill lifted into the course band cannot sit on the centered
-  // trunk x: that row is already full of course tiles. Prefer a gutter
-  // between the courses that share it, then the side of their span.
-  const gutterStart = (members, rowW) => {
-    const spans = members.map(r => courseGeom[r]).filter(Boolean).sort((a, b) => a.x - b.x);
-    const center = centerOf(members);
-    const candidates = [];
-    for (let i = 0; i < spans.length - 1; i++) {
-      const gapL = spans[i].x + spans[i].w;
-      const gapR = spans[i + 1].x;
-      candidates.push(gapL + Math.max(0, (gapR - gapL - rowW) / 2));
-    }
-    if (spans.length) {
-      candidates.push(spans[0].x - rowW - GX);
-      candidates.push(spans[spans.length - 1].x + spans[spans.length - 1].w + GX);
-    }
-    if (!candidates.length) return center - rowW / 2;
-    candidates.sort((a, b) => Math.abs(a + rowW / 2 - center) - Math.abs(b + rowW / 2 - center));
-    return candidates[0];
-  };
-  clusters.forEach(cluster => {
-    const ids = cluster.ids.sort(byTree);
-    const rowW = ids.length * TW + Math.max(0, ids.length - 1) * GX;
-    const start = cluster.rank > sharedMax ? gutterStart(cluster.members, rowW) : centerOf(cluster.members) - rowW / 2;
-    const y = yOf(cluster.rank);
-    ids.forEach((sid, i) => { nodes[sid] = { x: start + i * (TW + GX), y }; });
-  });
-
-  const trunkBand = sharedIds.filter(id => (rank[id] || 0) <= sharedMax && nodes[id]);
-  const contentBottomOf = () => {
-    let bottom = -Infinity;
-    Object.keys(nodes).forEach(key => {
-      if (trunkBand.indexOf(key) >= 0) return;
-      const n = nodes[key];
-      bottom = Math.max(bottom, n.y + (n.h || TH) + 76 + 24);
-    });
-    return bottom;
-  };
-  if (trunkBand.length) {
-    let delta = contentBottomOf() - Math.min(...trunkBand.map(id => nodes[id].y));
-    trunkBand.forEach(id => {
-      prereqsOf[id].forEach(p => {
-        if (!nodes[p] || trunkBand.indexOf(p) >= 0) return;
-        delta = Math.min(delta, nodes[p].y - (nodes[id].y + TH + 16));
-      });
-    });
-    if (delta > 0) trunkBand.forEach(id => { nodes[id].y += delta; });
-  }
-
-  let right = cursor;
-  Object.keys(nodes).forEach(key => { const n = nodes[key]; right = Math.max(right, n.x + (n.w || TW)); });
-  const outX = right + OUT_GAP;
-  const outByRank = {};
-  outside.forEach(id => { const r = rank[id] || 0; (outByRank[r] || (outByRank[r] = [])).push(id); });
-  Object.keys(outByRank).forEach(rs => {
-    const row = outByRank[rs].sort(byTree);
-    row.forEach((id, i) => { nodes[id] = { x: outX + i * (TW + GX), y: yOf(+rs) }; });
-  });
-
-  // Seat each shared row in the nearest gap that clears other tiles.
-  // Pushing every overlap to the right stacked lifted skills on one x.
-  const rowHits = (a, b) => a.y < b.y + (b.h || TH) + 8 && b.y < a.y + (a.h || TH) + 8;
-  const packShared = clear => {
-    const groups = new Map();
-    sharedIds.forEach(id => {
-      const n = nodes[id];
-      if (!n) return;
-      const key = Math.round(n.y);
-      if (!groups.has(key)) groups.set(key, []);
-      groups.get(key).push(id);
-    });
-    groups.forEach(ids => {
-      const prefer = {};
-      ids.forEach(id => { prefer[id] = nodes[id].x; });
-      ids.sort((a, b) => prefer[a] - prefer[b] || a.localeCompare(b));
-      const placed = [];
-      ids.forEach(id => {
-        const n = nodes[id];
-        const w = n.w || TW;
-        const occ = [];
-        const add = other => {
-          if (!other || other === n || !rowHits(n, other)) return;
-          occ.push([other.x - GX, other.x + (other.w || TW) + GX]);
-        };
-        Object.keys(nodes).forEach(key => { if (ids.indexOf(key) < 0) add(nodes[key]); });
-        placed.forEach(add);
-        occ.sort((a, b) => a[0] - b[0]);
-        const merged = [];
-        occ.forEach(seg => {
-          if (!merged.length || seg[0] > merged[merged.length - 1][1]) merged.push([seg[0], seg[1]]);
-          else merged[merged.length - 1][1] = Math.max(merged[merged.length - 1][1], seg[1]);
-        });
-        const want = prefer[id];
-        const free = x => merged.every(([l, r]) => x + w <= l || x >= r) && (!clear || clear(x, n));
-        let best = free(want) ? want : null, bestD = best == null ? Infinity : 0;
-        const consider = x => {
-          if (!isFinite(x) || !free(x)) return;
-          const d = Math.abs(x - want);
-          if (d < bestD) { bestD = d; best = x; }
-        };
-        merged.forEach(([l, r]) => { consider(r); consider(l - w); });
-        if (best == null) {
-          for (let step = 1; step <= 48 && best == null; step++) {
-            consider(want + step * (w + GX));
-            consider(want - step * (w + GX));
-          }
-        }
-        n.x = best == null ? want : best;
-        placed.push(n);
-      });
-    });
-  };
-  packShared();
-
-  const itemOf = key => {
-    const n = nodes[key];
-    return n ? { x: n.x, y: n.y, w: n.w || TW, h: n.h || TH } : null;
-  };
-  const hullOf = (items, pad) => {
-    const pts = [];
-    items.forEach(it => {
-      pts.push([it.x - pad, it.y - pad], [it.x + it.w + pad, it.y - pad], [it.x - pad, it.y + it.h + pad], [it.x + it.w + pad, it.y + it.h + pad]);
-    });
-    return convexHull(pts);
-  };
-  const blobFrom = (box, items) => {
-    const clean = items.filter(Boolean);
-    if (!clean.length) return null;
-    const pad = boxPad(box);
-    const poly = hullOf(clean, pad);
-    if (poly.length < 3) return null;
-    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
-    poly.forEach(([x, y]) => { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); });
-    return {
-      x: x0, y: y0, w: x1 - x0, h: y1 - y0, points: poly, parts: [poly],
-      labelBox: { x: x0, y: y0, w: x1 - x0, h: y1 - y0 },
-      kind: box.kind || 'chapter', boxId: box.id, ch: boxColorIndex(box), pad
-    };
-  };
-  const hostRoot = id => scopeRootId(id);
-  const blobs = {};
-  (COLLECTIONS && COLLECTIONS.boxes || []).filter(b => selectedBoxes.has(b.id)).forEach(box => {
-    const items = [];
-    if (box.kind === 'chapter') {
-      (exclusiveByHost[box.id] || []).forEach(sid => items.push(itemOf(sid)));
-      (ghostsByHost[box.id] || []).forEach(sid => items.push(itemOf('ghost:' + sid + ':' + box.id)));
-    } else {
-      Object.keys(exclusiveByHost).forEach(host => {
-        if (hostRoot(host) !== box.id) return;
-        exclusiveByHost[host].forEach(sid => items.push(itemOf(sid)));
-      });
-      Object.keys(ghostsByHost).forEach(host => {
-        if (hostRoot(host) !== box.id) return;
-        ghostsByHost[host].forEach(sid => items.push(itemOf('ghost:' + sid + ':' + host)));
-      });
-    }
-    const blob = blobFrom(box, items);
-    if (blob) blobs[box.id] = blob;
-  });
-
-  const insidePoly = (poly, x, y) => {
-    let c = false;
-    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
-      const xi = poly[i][0], yi = poly[i][1], xj = poly[j][0], yj = poly[j][1];
-      if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / ((yj - yi) || 1e-9) + xi)) c = !c;
-    }
-    return c;
-  };
-  const insideBlob = (x, y) => Object.keys(blobs).some(id => insidePoly(blobs[id].points, x, y));
-  sharedIds.forEach(sid => {
-    const n = nodes[sid];
-    if (!n) return;
-    const cx = n.x + TW / 2, cy = n.y + TH / 2;
-    if (!insideBlob(cx, cy)) return;
-    const spans = membersOf[sid].map(r => courseGeom[r]).filter(Boolean).sort((a, b) => a.x - b.x);
-    const candidates = [];
-    for (let i = 0; i < spans.length - 1; i++) candidates.push((spans[i].x + spans[i].w + spans[i + 1].x) / 2);
-    if (spans.length) {
-      candidates.push(spans[0].x - COURSE_GAP / 2);
-      candidates.push(spans[spans.length - 1].x + spans[spans.length - 1].w + COURSE_GAP / 2);
-    }
-    let best = null, bestD = Infinity;
-    candidates.forEach(mx => {
-      if (insideBlob(mx, cy)) return;
-      const d = Math.abs(mx - cx);
-      if (d < bestD) { bestD = d; best = mx - TW / 2; }
-    });
-    if (best != null) n.x = best;
-  });
-  packShared((x, n) => !insideBlob(x + (n.w || TW) / 2, n.y + (n.h || TH) / 2));
-
-  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-  const grow = (x, y, w, h) => {
-    minX = Math.min(minX, x); minY = Math.min(minY, y);
-    maxX = Math.max(maxX, x + w); maxY = Math.max(maxY, y + h);
-  };
-  Object.keys(nodes).forEach(key => { const n = nodes[key]; grow(n.x, n.y, n.w || TW, n.h || TH); });
-  Object.keys(blobs).forEach(id => grow(blobs[id].x, blobs[id].y, blobs[id].w, blobs[id].h));
-  if (!isFinite(minX)) { minX = 0; minY = 0; maxX = 200; maxY = 120; }
-  const dx = MARGIN_X - minX, dy = MARGIN_Y - minY;
-  Object.keys(nodes).forEach(key => { nodes[key].x += dx; nodes[key].y += dy; });
-  Object.keys(blobs).forEach(id => {
-    const b = blobs[id];
-    const move = poly => poly.map(pt => [pt[0] + dx, pt[1] + dy]);
-    b.x += dx; b.y += dy; b.points = move(b.points); b.parts = b.parts.map(move);
-    if (b.labelBox) { b.labelBox.x += dx; b.labelBox.y += dy; }
-  });
-
-  const ghosts = [];
-  const ghostLinks = [];
-  Object.keys(nodes).forEach(key => {
-    if (key.indexOf('ghost:') !== 0) return;
-    const parts = key.split(':');
-    const skillId = parts[1], boxId = parts.slice(2).join(':');
-    const n = nodes[key];
-    ghosts.push({ key, skillId, boxId, x: n.x, y: n.y, w: n.w, h: n.h });
-    ghostLinks.push({ key, skillId });
-  });
-  const selected = (COLLECTIONS && COLLECTIONS.boxes || []).filter(b => selectedBoxes.has(b.id));
-  return {
-    nodes, mids: {}, blobs, ghosts, ghostLinks, trunkIds: sharedIds.slice(),
-    places: skills.map(s => ({ key: s.id, skillId: s.id, boxId: null })),
-    edges: allEdges.map(([p, c]) => ({ from: p, to: c, fromKey: p, toKey: c })),
-    w: Math.max(maxX + dx + MARGIN_X, 200),
-    h: Math.max(maxY + dy + MARGIN_Y, 120),
-    useNested: selected.some(b => b.kind === 'chapter') && selected.some(b => b.kind === 'course' || b.kind === 'textbook'),
-    rank
-  };
-}
-
-
+// Each selected course or chapter is its own box. A skill in several of those
+// boxes is cloned into each one. Boxes do not share rows.
 function computeGroupedLayout() {
-  const tree = layout.tree;
-  const empty = { nodes: {}, mids: {}, blobs: {}, places: [], edges: [], w: 200, h: 120, useNested: false, rank: {} };
-  if (!tree || !skills.length) { layout.grouped = empty; return; }
-  if (trunkActive()) { layout.grouped = computeTrunkLayout(tree); return; }
-  const layerOf = tree.layerOf || {};
-  const GYR_G = 72, COLGAP = 52, ZONE_GAP = 140, OUT_GAP = 160, MARGIN_X = 32, MARGIN_Y = 28;
-  const groups = new Map();
-  skills.forEach(s => {
-    const sig = leafBoxesFor(s.id).slice().sort().join('|');
-    if (!groups.has(sig)) groups.set(sig, []);
-    groups.get(sig).push(s.id);
+  const empty = { nodes: {}, mids: {}, blobs: {}, places: [], edges: [], stubs: [], w: 200, h: 120, useNested: false };
+  const ids = visibleSkillIds();
+  const visible = new Set(ids);
+  if (!ids.length || !COLLECTIONS || !COLLECTIONS.boxes) { layout.grouped = empty; return; }
+  const order = COLLECTIONS.boxes.map(b => b.id);
+  const byHost = new Map();
+  ids.forEach(sid => {
+    leafBoxesFor(sid).forEach(boxId => {
+      if (!byHost.has(boxId)) byHost.set(boxId, []);
+      const list = byHost.get(boxId);
+      if (list.indexOf(sid) < 0) list.push(sid);
+    });
   });
-  const anchors = computeAnchors();
-  const sigAnchor = sig => {
-    if (!sig) return 1e9;
-    const ids = sig.split('|');
-    return ids.reduce((a, id) => a + (anchors[id] || 0), 0) / ids.length;
+  const hosts = [...byHost.keys()].sort((a, b) => order.indexOf(a) - order.indexOf(b) || a.localeCompare(b));
+  const hosted = new Set();
+  byHost.forEach(list => list.forEach(id => hosted.add(id)));
+  const loose = ids.filter(id => !hosted.has(id));
+  // Local only. A real collection id would be selectable by setScope, and the
+  // empty-selection return above must not leave anything in boxById either.
+  const OTHER = 'unboxed';
+  const otherBox = { id: OTHER, title: 'Other skills', kind: 'chapter' };
+  if (loose.length) {
+    byHost.set(OTHER, loose);
+    hosts.push(OTHER);
+  }
+  if (!hosts.length) { layout.grouped = empty; return; }
+  const local = {};
+  hosts.forEach(boxId => { local[boxId] = layoutBox(byHost.get(boxId)); });
+
+  const GAP_X = 200, GAP_Y = 180, MAX_ROW = 3400, MARGIN = 40;
+  const origin = {};
+  let x = MARGIN, y = MARGIN, rowH = 0;
+  hosts.forEach(boxId => {
+    const lay = local[boxId];
+    const pad = boxPad(boxId === OTHER ? otherBox : boxById[boxId]);
+    const bw = lay.w + pad * 2, bh = lay.h + pad * 2;
+    if (x > MARGIN && x + bw > MARGIN + MAX_ROW) { x = MARGIN; y += rowH + GAP_Y; rowH = 0; }
+    origin[boxId] = { x: x + pad, y: y + pad };
+    x += bw + GAP_X;
+    rowH = Math.max(rowH, bh);
+  });
+
+  const nodes = {}, places = [], placesBySkill = {};
+  hosts.forEach(boxId => {
+    const o = origin[boxId], lay = local[boxId];
+    byHost.get(boxId).forEach(sid => {
+      const n = lay.nodes[sid];
+      if (!n) return;
+      const key = placeKey(sid, boxId);
+      nodes[key] = { x: o.x + n.x, y: o.y + n.y };
+      const place = { key, skillId: sid, boxId };
+      places.push(place);
+      (placesBySkill[sid] || (placesBySkill[sid] = [])).push(place);
+    });
+  });
+
+  const follows = {};
+  ids.forEach(sid => {
+    if (!placesBySkill[sid]) return;
+    (byId[sid].prereqs || []).forEach(pre => {
+      if (!visible.has(pre)) return;
+      (follows[pre] || (follows[pre] = [])).push(sid);
+    });
+  });
+  const nearest = (skillId, boxId, fromKey) => {
+    const list = placesBySkill[skillId] || [];
+    if (!list.length) return null;
+    const same = list.find(p => p.boxId === boxId);
+    if (same) return same;
+    const a = nodes[fromKey];
+    if (!a) return list[0];
+    const ax = a.x + TW / 2, ay = a.y + TH / 2;
+    let best = null, bestD = Infinity;
+    list.forEach(p => {
+      const b = nodes[p.key];
+      const d = (b.x + TW / 2 - ax) ** 2 + (b.y + TH / 2 - ay) ** 2;
+      if (d < bestD - 1e-6 || (Math.abs(d - bestD) <= 1e-6 && (!best || p.key < best.key))) { bestD = d; best = p; }
+    });
+    return best;
   };
-  const zones = new Map();
-  groups.forEach((_, sig) => {
-    const z = sigZone(sig);
-    if (!zones.has(z)) zones.set(z, []);
-    zones.get(z).push(sig);
-  });
-  const placed = {};
-  let cursor = 0;
-  [...zones.keys()].sort((a, b) => a - b).forEach((z, zi) => {
-    if (zi) cursor += (z >= 99 ? OUT_GAP : ZONE_GAP);
-    const sigs = zones.get(z).slice().sort((a, b) => {
-      const amin = Math.min(...groups.get(a).map(id => layerOf[id] || 0));
-      const bmin = Math.min(...groups.get(b).map(id => layerOf[id] || 0));
-      return amin - bmin || sigAnchor(a) - sigAnchor(b) || a.localeCompare(b);
+  const edges = [];
+  const seen = new Set();
+  const addEdge = (fromId, toId, fromKey, toKey) => {
+    const mark = fromKey + '>' + toKey;
+    if (seen.has(mark) || !nodes[fromKey] || !nodes[toKey]) return;
+    seen.add(mark);
+    edges.push({ from: fromId, to: toId, fromKey, toKey });
+  };
+  places.forEach(p => {
+    (byId[p.skillId].prereqs || []).forEach(pre => {
+      if (!visible.has(pre)) return;
+      const src = nearest(pre, p.boxId, p.key);
+      if (src) addEdge(pre, p.skillId, src.key, p.key);
     });
-    const columns = [];
-    sigs.forEach(sig => {
-      const counts = {};
-      groups.get(sig).forEach(id => { const l = layerOf[id] || 0; counts[l] = (counts[l] || 0) + 1; });
-      const layers = Object.keys(counts).map(Number);
-      const need = Math.max(...Object.values(counts));
-      let col = columns.find(c => layers.every(l => !c.occ.has(l)));
-      if (!col) { col = { occ: new Set(), w: 0, sigs: [] }; columns.push(col); }
-      layers.forEach(l => col.occ.add(l));
-      col.w = Math.max(col.w, need);
-      col.sigs.push({ sig, counts });
-    });
-    columns.forEach(col => {
-      const width = col.w * TW + Math.max(0, col.w - 1) * GX;
-      col.sigs.forEach(item => { placed[item.sig] = { x: cursor, w: width, counts: item.counts }; });
-      cursor += width + COLGAP;
-    });
-    if (columns.length) cursor -= COLGAP;
-  });
-  const maxL = Math.max(0, ...skills.map(s => layerOf[s.id] || 0));
-  const nodes = {};
-  groups.forEach((ids, sig) => {
-    const slot = placed[sig];
-    if (!slot) return;
-    const byLayer = {};
-    ids.forEach(id => { const l = layerOf[id] || 0; (byLayer[l] || (byLayer[l] = [])).push(id); });
-    Object.keys(byLayer).forEach(ls => {
-      const row = byLayer[ls].sort((a, b) => ((tree.nodes[a] && tree.nodes[a].x) || 0) - ((tree.nodes[b] && tree.nodes[b].x) || 0) || a.localeCompare(b));
-      const rowW = row.length * TW + Math.max(0, row.length - 1) * GX;
-      const start = slot.x + (slot.w - rowW) / 2;
-      const y = (maxL - (+ls)) * (TH + GYR_G);
-      row.forEach((id, i) => { nodes[id] = { x: start + i * (TW + GX), y }; });
+    (follows[p.skillId] || []).forEach(fid => {
+      const dst = nearest(fid, p.boxId, p.key);
+      if (dst) addEdge(p.skillId, fid, p.key, dst.key);
     });
   });
+
+  const mids = {};
+  edges.forEach(e => {
+    const fromBox = e.fromKey.slice(e.fromKey.indexOf('@') + 1);
+    const toBox = e.toKey.slice(e.toKey.indexOf('@') + 1);
+    if (fromBox !== toBox) return;
+    const mid = local[fromBox] && local[fromBox].mids[e.from + '>' + e.to];
+    if (!mid) return;
+    const o = origin[fromBox];
+    mids[e.fromKey + '>' + e.toKey] = mid.map(pt => [pt[0] + o.x, pt[1] + o.y]);
+  });
+
   const blobs = {};
-  (COLLECTIONS && COLLECTIONS.boxes || []).filter(b => selectedBoxes.has(b.id)).forEach(box => {
-    const members = getBoxDescendantSkills(box.id).filter(id => nodes[id]);
-    if (!members.length) return;
+  hosts.forEach(boxId => {
+    const box = boxId === OTHER ? otherBox : boxById[boxId];
+    const members = byHost.get(boxId).map(sid => placeKey(sid, boxId)).filter(k => nodes[k]);
+    if (!members.length || !box) return;
     const points = regionPoints(members, nodes, boxPad(box));
     if (points.length < 3) return;
     let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
-    points.forEach(([x, y]) => { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); });
-    blobs[box.id] = { x: x0, y: y0, w: x1 - x0, h: y1 - y0, points, kind: box.kind || 'chapter', boxId: box.id, ch: boxColorIndex(box), pad: boxPad(box) };
+    points.forEach(([px, py]) => { x0 = Math.min(x0, px); y0 = Math.min(y0, py); x1 = Math.max(x1, px); y1 = Math.max(y1, py); });
+    blobs[boxId] = {
+      x: x0, y: y0, w: x1 - x0, h: y1 - y0, points, parts: [points],
+      labelBox: { x: x0, y: y0, w: x1 - x0, h: y1 - y0 },
+      kind: box.kind || 'chapter', title: box.title || boxId, boxId, ch: boxColorIndex(box), pad: boxPad(box)
+    };
   });
+
+  const stubs = [];
+  places.forEach(p => {
+    const hidden = hiddenPrereqsOf(p.skillId, visible);
+    if (hidden.length) stubs.push({ key: p.key, skillId: p.skillId, boxId: p.boxId, hidden });
+  });
+
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-  Object.values(nodes).forEach(n => { minX = Math.min(minX, n.x); minY = Math.min(minY, n.y); maxX = Math.max(maxX, n.x + TW); maxY = Math.max(maxY, n.y + TH); });
-  Object.values(blobs).forEach(b => { minX = Math.min(minX, b.x); minY = Math.min(minY, b.y); maxX = Math.max(maxX, b.x + b.w); maxY = Math.max(maxY, b.y + b.h); });
+  const grow = (px, py, w, h) => {
+    minX = Math.min(minX, px); minY = Math.min(minY, py);
+    maxX = Math.max(maxX, px + w); maxY = Math.max(maxY, py + h);
+  };
+  Object.keys(nodes).forEach(k => { const n = nodes[k]; grow(n.x, n.y, TW, TH); });
+  Object.keys(blobs).forEach(id => { const b = blobs[id]; grow(b.x, b.y, b.w, b.h); });
   if (!isFinite(minX)) { minX = 0; minY = 0; maxX = 200; maxY = 120; }
-  const dx = MARGIN_X - minX, dy = MARGIN_Y - minY;
-  Object.values(nodes).forEach(n => { n.x += dx; n.y += dy; });
-  Object.values(blobs).forEach(b => { b.x += dx; b.y += dy; b.points = b.points.map(pt => [pt[0] + dx, pt[1] + dy]); });
-  const selected = (COLLECTIONS && COLLECTIONS.boxes || []).filter(b => selectedBoxes.has(b.id));
+  const dx = MARGIN - minX, dy = MARGIN - minY;
+  if (dx || dy) {
+    Object.keys(nodes).forEach(k => { nodes[k].x += dx; nodes[k].y += dy; });
+    Object.keys(blobs).forEach(id => {
+      const b = blobs[id];
+      const move = poly => poly.map(pt => [pt[0] + dx, pt[1] + dy]);
+      b.x += dx; b.y += dy; b.points = move(b.points);
+      if (b.parts) b.parts = b.parts.map(move);
+      if (b.labelBox) { b.labelBox.x += dx; b.labelBox.y += dy; }
+    });
+    Object.keys(mids).forEach(k => { mids[k] = mids[k].map(pt => [pt[0] + dx, pt[1] + dy]); });
+  }
   layout.grouped = {
-    nodes, mids: {}, blobs,
-    places: skills.map(s => ({ key: s.id, skillId: s.id, boxId: null })),
-    edges: allEdges.map(([p, c]) => ({ from: p, to: c, fromKey: p, toKey: c })),
-    w: Math.max(maxX + dx + MARGIN_X, 200),
-    h: Math.max(maxY + dy + MARGIN_Y, 120),
-    useNested: selected.some(b => b.kind === 'chapter') && selected.some(b => b.kind === 'course' || b.kind === 'textbook'),
-    rank: {}
+    nodes, mids, blobs, places, edges, stubs,
+    w: Math.max(maxX + dx + MARGIN, 200),
+    h: Math.max(maxY + dy + MARGIN, 120),
+    useNested: false
   };
 }
+
 
 function computeLayouts() { computeTreeLayout(); computeGroupedLayout() }
 
@@ -1184,9 +819,9 @@ const filter = { playable: false, view: 'tree' };
 let selectedBoxes = new Set();
 let scopePanelOpen = false;
 let regionsSvg = null;
-let ghostSvg = null;
-let ghostLinkEls = [];
 let labelLayer = null;
+let cloneLayer = null;
+let stubLayer = null;
 const edgeEls = [];
 const drag = { on: false, moved: false, sx: 0, sy: 0, vx: 0, vy: 0 };
 const curL = () => layout[layoutMode];
@@ -1234,7 +869,7 @@ function buildTile(s, st, boxId) {
     el('span', { class: 'extstar', 'aria-hidden': 'true', text: '☆' }),
     el('span', { class: 'light', 'aria-hidden': 'true' }, el('span', { class: 'light-dot' })));
   if (boxId) b.dataset.box = boxId;
-  b.addEventListener('click', () => { if (drag.moved) return; selectSkill(s.id, b.classList.contains('ghost')); });
+  b.addEventListener('click', () => { if (drag.moved) return; selectSkill(s.id); });
   b.addEventListener('mouseenter', () => { hoverId = s.id; applyEdgeHighlight() });
   b.addEventListener('mouseleave', () => { hoverId = null; applyEdgeHighlight() });
   b.addEventListener('focus', () => { hoverId = s.id; applyEdgeHighlight() });
@@ -1262,19 +897,13 @@ function scopeForPlan() {
   if (selectionIsAll()) return null;
   return selectedInOrder();
 }
-function isOutsidePrereq(id) {
-  if (skillInSelection(id) || selectionIsAll() || selectedBoxes.size === 0) return false;
-  return skills.some(s => skillInSelection(s.id) && s.prereqs.includes(id));
-}
-
 function refreshTile(b) {
   const id = b.dataset.id, s = byId[id], t = tierOf(id), soon = !isPlayable(id), ready = isReady(id);
   const st = b.classList.contains('st');
-  const ghost = b.classList.contains('ghost');
+  const hot = b.classList.contains('clone-hot');
   const boxDimmed = !tileInScope(b);
-  const outside = isOutsidePrereq(id);
   const lightMode = b.classList.contains('light-mode');
-  b.className = 'tile' + (st ? ' st' : '') + (ghost ? ' ghost' : '') + ' t' + t + (soon ? ' soon' : '') + (ready ? ' ready' : '') + (selected === id ? ' sel' : '') + (boxDimmed ? ' boxdim' : '') + (outside ? ' ext-prereq' : '') + (lightMode ? ' light-mode' : '');
+  b.className = 'tile' + (st ? ' st' : '') + ' t' + t + (soon ? ' soon' : '') + (ready ? ' ready' : '') + (selected === id ? ' sel' : '') + (boxDimmed ? ' boxdim' : '') + (lightMode ? ' light-mode' : '') + (hot ? ' clone-hot' : '');
   b.style.setProperty('--fill', FILL[t] + '%');
   b.querySelectorAll('.pips i').forEach((p, i) => p.classList.toggle('on', t > i));
   b.querySelector('.tl').textContent = soon ? '' : TIERS[t];
@@ -1282,15 +911,8 @@ function refreshTile(b) {
   const gaps = (!soon && t === 0 && !ready) ? prereqGaps(id).length : 0;
   const label = labelForTile(s, b);
   const state = soon ? 'Coming soon, no questions yet' : TIERS[t] + (ready ? ', ready to learn' : '');
-  if (ghost) {
-    const box = boxById[b.dataset.box];
-    const where = box ? box.title : 'this chapter';
-    b.title = `${s.name} · Reference in ${where}`;
-    b.setAttribute('aria-label', `${s.name}. Reference in ${where}. ${state}.`);
-  } else {
-    b.title = `${s.name} · ${label}` + (soon ? ' · coming soon' : ready ? ' · ready to learn' : gaps ? ` · recommended once prerequisites reach ${TIERS[READY_TIER]}` : '') + (outside ? ' · prerequisite outside this scope' : '');
-    b.setAttribute('aria-label', `${s.name}. ${label}. ${state}${outside ? '. Prerequisite outside this scope' : ''}`);
-  }
+  b.title = `${s.name} · ${label}` + (soon ? ' · coming soon' : ready ? ' · ready to learn' : gaps ? ` · recommended once prerequisites reach ${TIERS[READY_TIER]}` : '');
+  b.setAttribute('aria-label', `${s.name}. ${label}. ${state}`);
   b.setAttribute('aria-pressed', selected === id ? 'true' : 'false');
   if (filter.playable && soon && !st) b.classList.add('dim');
 }
@@ -1320,7 +942,6 @@ function sizeWorld(L) {
   world.style.width = L.w + 'px'; world.style.height = L.h + 'px';
   edgesSvg.setAttribute('width', L.w); edgesSvg.setAttribute('height', L.h);
   if (regionsSvg) { regionsSvg.setAttribute('width', L.w); regionsSvg.setAttribute('height', L.h); }
-  if (ghostSvg) { ghostSvg.setAttribute('width', L.w); ghostSvg.setAttribute('height', L.h); }
 }
 function placeTiles(pos) {
   world.querySelectorAll('.tile').forEach(t => {
@@ -1330,64 +951,252 @@ function placeTiles(pos) {
     t.style.left = p.x + 'px';
     t.style.top = p.y + 'px';
   });
-  syncGhostLinks();
+  placeCloneChrome(pos);
 }
-function syncGhostLinks() {
-  if (!ghostSvg) return;
-  const G = layout.grouped;
-  const links = (layoutMode === 'grouped' && G && G.ghostLinks) || [];
-  const NS = 'http://www.w3.org/2000/svg';
-  if (ghostLinkEls.length !== links.length) {
-    while (ghostSvg.firstChild) ghostSvg.removeChild(ghostSvg.firstChild);
-    ghostLinkEls = links.map(() => {
-      const path = document.createElementNS(NS, 'path');
-      path.setAttribute('class', 'ghost-link');
-      ghostSvg.append(path);
-      return path;
-    });
-  }
-  links.forEach((lnk, i) => {
-    const a = curPos[lnk.key] || (G && G.nodes && G.nodes[lnk.key]);
-    const b = curPos[lnk.skillId] || (G && G.nodes && G.nodes[lnk.skillId]);
-    const path = ghostLinkEls[i];
-    if (!a || !b) { path.setAttribute('d', ''); return; }
-    const gw = (G.nodes[lnk.key] && G.nodes[lnk.key].w) || 96;
-    const gh = (G.nodes[lnk.key] && G.nodes[lnk.key].h) || 48;
-    const x1 = a.x + gw / 2, y1 = a.y + gh / 2, x2 = b.x + TW / 2, y2 = b.y + TH / 2;
-    path.setAttribute('d', `M${x1},${y1} L${x2},${y2}`);
+function placeCloneChrome(pos) {
+  world.querySelectorAll('.clone-tag, .need-stub').forEach(node => {
+    const p = pos[node.dataset.place];
+    if (!p) return;
+    if (node.classList.contains('clone-tag')) {
+      node.style.left = (p.x + TW - 28) + 'px';
+      node.style.top = (p.y - 8) + 'px';
+    } else {
+      node.style.left = p.x + 'px';
+      node.style.top = (p.y + TH + 4) + 'px';
+    }
   });
 }
 
-function syncGhostTiles() {
-  const ghosts = (layoutMode === 'grouped' && layout.grouped && layout.grouped.ghosts) || [];
-  ghosts.forEach(g => {
-    const s = byId[g.skillId];
-    if (!s) return;
-    const tile = buildTile(s, false, g.boxId);
-    tile.classList.add('ghost');
-    if (lightsMode) tile.classList.add('light-mode');
-    tile.dataset.place = g.key;
-    tile.dataset.ghost = '1';
-    const meta = tile.querySelector('.meta');
-    if (meta) meta.prepend(el('span', { class: 'refmark', text: 'Reference' }));
-    world.append(tile);
-    refreshTile(tile);
+function stubLabel(hidden) {
+  if (hidden.length === 1) {
+    const name = (byId[hidden[0]] && byId[hidden[0]].name) || hidden[0];
+    if (name.length <= 24) return 'needs ' + name;
+    const cut = name.slice(0, 24);
+    const sp = cut.lastIndexOf(' ');
+    return 'needs ' + (sp > 10 ? cut.slice(0, sp) : cut.trim()) + '…';
+  }
+  return 'needs ' + hidden.length + ' more';
+}
+
+function closeCloneMenu() {
+  if (!cloneLayer) return;
+  const menu = cloneLayer.querySelector('.clone-menu');
+  if (menu) menu.remove();
+}
+
+function openCloneMenu(skillId, fromKey) {
+  if (!cloneLayer) return;
+  const open = cloneLayer.querySelector('.clone-menu');
+  if (open && open.dataset.from === fromKey) { open.remove(); return; }
+  closeCloneMenu();
+  const L = curL();
+  const others = ((L && L.places) || []).filter(p => p.skillId === skillId && p.key !== fromKey);
+  if (!others.length) return;
+  const menu = el('div', { class: 'clone-menu', role: 'menu', 'data-from': fromKey });
+  others.forEach(p => {
+    const box = boxById[p.boxId];
+    const label = (box && box.title) || p.boxId || 'Copy';
+    const item = el('button', { type: 'button', class: 'clone-jump', role: 'menuitem', text: label });
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeCloneMenu();
+      focusPlace(p.key);
+    });
+    menu.append(item);
+  });
+  const n = (L.nodes && L.nodes[fromKey]) || curPos[fromKey];
+  if (n) {
+    menu.style.left = (n.x + TW - 8) + 'px';
+    menu.style.top = (n.y + 16) + 'px';
+  }
+  cloneLayer.append(menu);
+}
+
+function syncCloneTags() {
+  if (!cloneLayer) {
+    cloneLayer = el('div', { id: 'cloneTags' });
+    world.append(cloneLayer);
+  }
+  closeCloneMenu();
+  cloneLayer.querySelectorAll('.clone-tag').forEach(n => n.remove());
+  const L = curL();
+  const places = (L && L.places) || [];
+  const bySkill = {};
+  places.forEach(p => { (bySkill[p.skillId] || (bySkill[p.skillId] = [])).push(p); });
+  Object.keys(bySkill).forEach(sid => {
+    const list = bySkill[sid];
+    if (list.length < 2) return;
+    const s = byId[sid];
+    list.forEach(p => {
+      const n = L.nodes[p.key];
+      if (!n) return;
+      const btn = el('button', {
+        type: 'button', class: 'clone-tag', 'data-place': p.key, 'data-id': sid,
+        title: list.length + ' copies of this skill',
+        'aria-label': (s ? s.name : sid) + ', ' + list.length + ' copies. Show the other copies.',
+        text: '×' + list.length
+      });
+      btn.style.left = (n.x + TW - 28) + 'px';
+      btn.style.top = (n.y - 8) + 'px';
+      btn.addEventListener('pointerdown', e => e.stopPropagation());
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        openCloneMenu(sid, p.key);
+      });
+      cloneLayer.append(btn);
+    });
   });
 }
+
+function syncStubs() {
+  if (!stubLayer) {
+    stubLayer = el('div', { id: 'needStubs' });
+    world.append(stubLayer);
+  }
+  stubLayer.innerHTML = '';
+  const stubs = (curL() && curL().stubs) || [];
+  stubs.forEach(st => {
+    const names = st.hidden.map(id => (byId[id] && byId[id].name) || id).join(', ');
+    const n = curL().nodes[st.key];
+    const node = el('div', {
+      class: 'need-stub', 'data-place': st.key, 'data-id': st.skillId,
+      text: stubLabel(st.hidden), title: 'Needs ' + names
+    });
+    if (n) {
+      node.style.left = n.x + 'px';
+      node.style.top = (n.y + TH + 4) + 'px';
+    }
+    stubLayer.append(node);
+  });
+}
+
+function tilePos(tile) {
+  const key = tile.dataset.place || tile.dataset.id;
+  const p = curPos[key];
+  if (p) return { x: p.x, y: p.y };
+  const x = parseFloat(tile.style.left), y = parseFloat(tile.style.top);
+  return { x: isFinite(x) ? x : 0, y: isFinite(y) ? y : 0 };
+}
+
+function applyTileColor(tile, skillId, boxId) {
+  const box = boxId && boxById[boxId];
+  const ci = (box && box.color_index != null) ? box.color_index : getSkillColorIndex(skillId);
+  colorVars(ci).split(';').forEach(part => {
+    const i = part.indexOf(':');
+    if (i > 0) tile.style.setProperty(part.slice(0, i).trim(), part.slice(i + 1).trim());
+  });
+}
+
+function retargetTile(tile, place, starts) {
+  const oldKey = tile.dataset.place || tile.dataset.id;
+  const pos = tilePos(tile);
+  starts[place.key] = { x: pos.x, y: pos.y };
+  tile.dataset.place = place.key;
+  if (place.boxId) tile.dataset.box = place.boxId;
+  else delete tile.dataset.box;
+  if (oldKey !== place.key) applyTileColor(tile, place.skillId, place.boxId);
+}
+
+// Reuse one DOM tile per skill so a group toggle animates from the old
+// position and keeps the focused or hovered node. Extra clones are new tiles
+// that start at the nearest old position of that skill.
 function syncTiles() {
-  const want = new Set(skills.map(s => s.id));
-  world.querySelectorAll('.tile.ghost').forEach(t => t.remove());
-  world.querySelectorAll('.tile:not(.st)').forEach(t => {
-    if (!want.has(t.dataset.id) || t.dataset.place) t.remove();
+  const places = (curL() && curL().places) || [];
+  const L = curL();
+  const existing = [...world.querySelectorAll('.tile:not(.st)')];
+  const active = document.activeElement;
+  const hovered = existing.filter(t => t.matches(':hover'));
+  const bySkill = {};
+  existing.forEach(t => { (bySkill[t.dataset.id] || (bySkill[t.dataset.id] = [])).push(t); });
+  const groups = {};
+  places.forEach(p => { (groups[p.skillId] || (groups[p.skillId] = [])).push(p); });
+  const starts = {};
+  const claimed = new Set();
+  const placed = new Set();
+  const destOf = key => (L && L.nodes && L.nodes[key]) || { x: 0, y: 0 };
+  const claim = (tile, place) => {
+    claimed.add(tile);
+    placed.add(place.key);
+    retargetTile(tile, place, starts);
+  };
+  Object.keys(groups).forEach(sid => {
+    const need = groups[sid];
+    const tiles = bySkill[sid] || [];
+    const nearestPlace = tile => {
+      const pos = tilePos(tile);
+      let best = null, bestD = Infinity;
+      need.forEach(p => {
+        if (placed.has(p.key)) return;
+        const dest = destOf(p.key);
+        const d = (pos.x - dest.x) ** 2 + (pos.y - dest.y) ** 2;
+        if (!best || d < bestD - 1e-6 || (Math.abs(d - bestD) <= 1e-6 && p.key < best.key)) { best = p; bestD = d; }
+      });
+      return best;
+    };
+    tiles.filter(t => t === active || hovered.indexOf(t) >= 0).forEach(t => {
+      if (claimed.has(t)) return;
+      const place = nearestPlace(t);
+      if (place) claim(t, place);
+    });
+    need.forEach(p => {
+      if (placed.has(p.key)) return;
+      const tile = tiles.find(t => !claimed.has(t) && (t.dataset.place || t.dataset.id) === p.key);
+      if (tile) claim(tile, p);
+    });
+    let guard = tiles.length + 1;
+    while (guard-- > 0) {
+      const left = need.filter(p => !placed.has(p.key));
+      const free = tiles.filter(t => !claimed.has(t));
+      if (!left.length || !free.length) break;
+      let bestT = null, bestP = null, bestD = Infinity, bestK = '';
+      free.forEach(t => {
+        const pos = tilePos(t);
+        const oldKey = t.dataset.place || t.dataset.id;
+        left.forEach(p => {
+          const dest = destOf(p.key);
+          const d = (pos.x - dest.x) ** 2 + (pos.y - dest.y) ** 2;
+          if (d < bestD - 1e-6 || (Math.abs(d - bestD) <= 1e-6 && (oldKey < bestK || (oldKey === bestK && (!bestP || p.key < bestP.key))))) {
+            bestD = d; bestT = t; bestP = p; bestK = oldKey;
+          }
+        });
+      });
+      if (!bestT || !bestP) break;
+      claim(bestT, bestP);
+    }
   });
-  const have = new Set([...world.querySelectorAll('.tile:not(.st)')].map(t => t.dataset.id));
-  skills.forEach(s => {
-    if (have.has(s.id)) return;
-    world.append(buildTile(s, false, null));
+  existing.forEach(t => { if (!claimed.has(t)) t.remove(); });
+  places.forEach(p => {
+    if (placed.has(p.key)) return;
+    const s = byId[p.skillId];
+    if (!s) return;
+    const tile = buildTile(s, false, p.boxId);
+    tile.dataset.place = p.key;
+    if (lightsMode) tile.classList.add('light-mode');
+    world.append(tile);
+    const dest = destOf(p.key);
+    let best = null, bestD = Infinity;
+    Object.keys(starts).forEach(k => {
+      if (skillIdOf(k) !== p.skillId) return;
+      const pos = starts[k];
+      const d = (pos.x - dest.x) ** 2 + (pos.y - dest.y) ** 2;
+      if (!best || d < bestD) { best = pos; bestD = d; }
+    });
+    if (best) starts[p.key] = { x: best.x, y: best.y };
   });
-  world.querySelectorAll('.tile:not(.st):not(.ghost)').forEach(refreshTile);
-  syncGhostTiles();
+  if (active && active.classList && active.classList.contains('tile') && !active.isConnected) {
+    const hit = nodeFor(active.dataset.id);
+    const tile = hit && [...world.querySelectorAll('#world .tile')].find(t => (t.dataset.place || t.dataset.id) === hit.key);
+    if (tile) tile.focus({ preventScroll: true });
+  }
+  world.querySelectorAll('.tile:not(.st)').forEach(refreshTile);
+  syncStubs();
+  syncCloneTags();
   if (labelLayer) world.append(labelLayer);
+  if (stubLayer) world.append(stubLayer);
+  if (cloneLayer) world.append(cloneLayer);
+  return starts;
 }
 
 function syncEdges() {
@@ -1423,16 +1232,17 @@ function ensureRegionLayers() {
     regionsSvg.setAttribute('aria-hidden', 'true');
     world.insertBefore(regionsSvg, edgesSvg);
   }
-  if (!ghostSvg) {
-    ghostSvg = document.createElementNS(NS, 'svg');
-    ghostSvg.id = 'ghostLinks';
-    ghostSvg.setAttribute('aria-hidden', 'true');
-    world.insertBefore(ghostSvg, edgesSvg);
-  }
   if (!labelLayer) {
     labelLayer = el('div', { id: 'regionLabels' });
     world.append(labelLayer);
   }
+}
+
+function regionBox(id) {
+  if (boxById[id]) return boxById[id];
+  const b = layout.grouped && layout.grouped.blobs && layout.grouped.blobs[id];
+  if (b && b.title) return { id: id, title: b.title, kind: b.kind || 'chapter' };
+  return null;
 }
 
 function updateBlobsDOM() {
@@ -1451,7 +1261,7 @@ function updateBlobsDOM() {
   const polyPoints = pts => pts.map(pt => pt[0].toFixed(1) + ',' + pt[1].toFixed(1)).join(' ');
   order.forEach(id => {
     const b = G.blobs[id];
-    const box = boxById[id];
+    const box = regionBox(id);
     const parts = b.parts && b.parts.length ? b.parts : [b.points];
     parts.forEach(pts => {
       const poly = document.createElementNS(NS, 'polygon');
@@ -1466,8 +1276,19 @@ function updateBlobsDOM() {
     });
   });
   const tileRects = Object.values(G.nodes).map(n => ({ x: n.x, y: n.y, w: n.w || TW, h: n.h || TH }));
+  const cloneCount = {};
+  (G.places || []).forEach(p => { cloneCount[p.skillId] = (cloneCount[p.skillId] || 0) + 1; });
+  (G.places || []).forEach(p => {
+    if ((cloneCount[p.skillId] || 0) < 2) return;
+    const n = G.nodes[p.key];
+    if (n) tileRects.push({ x: n.x + TW - 30, y: n.y - 10, w: 34, h: 18 });
+  });
+  (G.stubs || []).forEach(st => {
+    const n = G.nodes[st.key];
+    if (n) tileRects.push({ x: n.x, y: n.y + TH + 2, w: 132, h: 16 });
+  });
   const labels = order.map(id => {
-    const box = boxById[id];
+    const box = regionBox(id);
     const node = el('div', { class: 'region-label', 'data-box': id, title: box ? box.title : id, text: regionLabelText(box) });
     node.style.position = 'absolute';
     node.style.whiteSpace = 'nowrap';
@@ -1527,7 +1348,7 @@ function updateBlobsDOM() {
       if (b.parts) b.parts = b.parts.map(move);
       if (b.labelBox) { b.labelBox.x += dx; b.labelBox.y += dy; }
     });
-    if (G.ghosts) G.ghosts.forEach(g => { g.x += dx; g.y += dy; });
+    if (G.mids) Object.keys(G.mids).forEach(k => { G.mids[k] = G.mids[k].map(pt => [pt[0] + dx, pt[1] + dy]); });
     placed.forEach(r => { r.x += dx; r.y += dy; });
     labels.forEach(lab => { lab.node.style.left = (parseFloat(lab.node.style.left) + dx) + 'px'; lab.node.style.top = (parseFloat(lab.node.style.top) + dy) + 'px'; });
     order.forEach(id => {
@@ -1572,18 +1393,18 @@ const MORPH_MS = 600;
 function showLayout(mode, animated) {
   cancelAnimationFrame(morphRaf);
   layoutMode = mode;
-  syncTiles();
+  const starts = syncTiles() || {};
   syncEdges();
   const L = layout[mode];
   const tiles = [...world.querySelectorAll('.tile:not(.st)')];
   const keys = tiles.map(t => t.dataset.place || t.dataset.id);
   const from = {};
-  keys.forEach(key => { from[key] = curPos[key] || L.nodes[key] || { x: 0, y: 0 }; });
+  keys.forEach(key => { from[key] = starts[key] || L.nodes[key] || { x: 0, y: 0 }; });
   tv.dataset.mode = mode; world.dataset.layout = mode;
   sizeWorld(L);
   const btn = $('btnGroup'); btn.setAttribute('aria-pressed', String(mode === 'grouped'));
   btn.querySelector('.t').textContent = mode === 'grouped' ? 'Ungroup' : 'Group by course';
-  btn.title = mode === 'grouped' ? 'Back to one homogeneous prerequisite tree' : 'Draw each course and chapter as a region around its skills';
+  btn.title = mode === 'grouped' ? 'Back to one prerequisite tree of the selected skills' : 'Draw each selected course and chapter as its own box';
   const drawEdges = (useRouted) => {
     edgeEls.forEach(e => {
       const fromKey = e.fromKey || e.from, toKey = e.toKey || e.to;
@@ -1628,7 +1449,7 @@ function toggleGroup() {
   const mode = layoutMode === 'tree' ? 'grouped' : 'tree';
   try { localStorage.setItem(LAYKEY, mode) } catch (e) { }
   showLayout(mode, true);
-  if (selected && curL().nodes[selected]) focusTile(selected); else goFit();
+  if (selected && nodeFor(selected)) focusTile(selected); else goFit();
 }
 
 function highlightId() { return lightsMode ? null : (hoverId || selected) }
@@ -1854,8 +1675,17 @@ function fitBox(x, y, w, h, maxS, minS) {
 
 function bboxOf(ids) {
   const P = curL().nodes; const ps = ids.map(i => P[i]).filter(Boolean);
-  const x0 = Math.min(...ps.map(p => p.x)), y0 = Math.min(...ps.map(p => p.y)), x1 = Math.max(...ps.map(p => p.x + TW)), y1 = Math.max(...ps.map(p => p.y + TH));
+  if (!ps.length) return null;
+  const x0 = Math.min(...ps.map(p => p.x)), y0 = Math.min(...ps.map(p => p.y)), x1 = Math.max(...ps.map(p => p.x + (p.w || TW))), y1 = Math.max(...ps.map(p => p.y + (p.h || TH)));
   return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+}
+
+function nodeFor(id) {
+  const L = curL();
+  if (!L || !L.nodes) return null;
+  if (L.nodes[id]) return { key: id, n: L.nodes[id] };
+  const place = (L.places || []).find(p => p.skillId === id && L.nodes[p.key]);
+  return place ? { key: place.key, n: L.nodes[place.key] } : null;
 }
 
 const HOME_BOTTOM = 84;
@@ -1871,8 +1701,8 @@ function groupedFrameBox() {
     const b = L.blobs[id];
     if (b) grow(b.x, b.y, b.w, b.h);
   });
-  ((L && L.trunkIds) || []).forEach(id => {
-    const n = L.nodes && L.nodes[id];
+  Object.keys((L && L.nodes) || {}).forEach(id => {
+    const n = L.nodes[id];
     if (n) grow(n.x, n.y, n.w || TW, n.h || TH);
   });
   if (!isFinite(x0)) return null;
@@ -1885,10 +1715,11 @@ function goHome(anim) {
     box = groupedFrameBox();
     if (!box) { goFit(); return; }
   } else {
-    const ids = playable.map(s => s.id);
-    box = bboxOf(ids.length ? ids : skills.map(s => s.id));
-    const bottom = L.h - WPAD; if (bottom > box.y + box.h) { box.h = bottom - box.y }
+    const ids = (L.places || []).map(p => p.key);
+    box = bboxOf(ids.length ? ids : []);
+    if (box) { const bottom = L.h - WPAD; if (bottom > box.y + box.h) box.h = bottom - box.y; }
   }
+  if (!box) { goFit(); return; }
   const f = () => {
     const vw = tv.clientWidth - (panelOpen() ? 372 : 0), vh = tv.clientHeight;
     view.s = Math.max(layoutMode === 'tree' ? .55 : MINS, Math.min(1, (vw - 60) / box.w, (vh - 30 - HOME_BOTTOM) / box.h));
@@ -1907,12 +1738,26 @@ function zoomAt(f, cx, cy) {
   view.x = cx - (cx - view.x) * k; view.y = cy - (cy - view.y) * k; view.s = ns; applyView();
 }
 
-function focusTile(id) {
-  const n = curL().nodes[id]; if (!n) return;
+function panToKey(key) {
+  const n = curL().nodes[key]; if (!n) return;
   animateView(() => {
     const vw = tv.clientWidth - (panelOpen() ? 372 : 0), vh = tv.clientHeight;
     view.s = Math.min(1.2, Math.max(view.s, .85)); view.x = vw / 2 - (n.x + TW / 2) * view.s; view.y = vh / 2 - (n.y + TH / 2) * view.s; applyView();
   });
+}
+
+function focusTile(id) {
+  const hit = nodeFor(id); if (!hit) return;
+  world.querySelectorAll('.tile.clone-hot').forEach(t => t.classList.remove('clone-hot'));
+  panToKey(hit.key);
+}
+
+function focusPlace(key) {
+  if (!curL().nodes[key]) return;
+  world.querySelectorAll('.tile.clone-hot').forEach(t => t.classList.remove('clone-hot'));
+  const tile = [...world.querySelectorAll('.tile')].find(t => (t.dataset.place || t.dataset.id) === key);
+  if (tile) tile.classList.add('clone-hot');
+  panToKey(key);
 }
 
 function focusScope() {
@@ -1926,7 +1771,7 @@ function focusScope() {
       return;
     }
   }
-  const ids = skills.map(s => s.id).filter(id => skillInSelection(id) && L.nodes[id]);
+  const ids = (L.places || []).map(p => p.key).filter(k => L.nodes[k]);
   if (!ids.length) { goFit(); return }
   const box = bboxOf(ids);
   animateView(() => { fitBox(box.x, box.y, box.w, box.h, 1.1); applyView() });
@@ -1938,7 +1783,7 @@ function setupPanZoom() {
   tv.addEventListener('mousedown', e => { if (e.button === 0 && !e.target.closest('.zoomctl,#chLegend,.toggle')) e.preventDefault() });
   tv.addEventListener('selectstart', e => e.preventDefault());
   tv.addEventListener('dragstart', e => e.preventDefault());
-  tv.addEventListener('pointerdown', e => { if (e.button !== 0 || e.target.closest('.toggle')) return; drag.on = true; drag.moved = false; drag.sx = e.clientX; drag.sy = e.clientY; drag.vx = view.x; drag.vy = view.y });
+  tv.addEventListener('pointerdown', e => { if (e.button !== 0 || e.target.closest('.toggle,.clone-tag,.clone-menu')) return; drag.on = true; drag.moved = false; drag.sx = e.clientX; drag.sy = e.clientY; drag.vx = view.x; drag.vy = view.y });
   window.addEventListener('pointermove', e => {
     if (!drag.on) return; const dx = e.clientX - drag.sx, dy = e.clientY - drag.sy;
     if (!drag.moved && Math.hypot(dx, dy) > 5) { drag.moved = true; tv.classList.add('drag'); world.classList.remove('anim'); clearSelection() }
@@ -2098,6 +1943,7 @@ function buildControls() {
   if (!buildControls.bound) {
     document.addEventListener('click', e => {
       if (scopePanelOpen && !(e.target.closest && e.target.closest('#scopePicker'))) { scopePanelOpen = false; syncScopePicker(); }
+      if (!(e.target.closest && e.target.closest('.clone-tag,.clone-menu'))) closeCloneMenu();
     });
     buildControls.bound = true;
   }
@@ -2151,7 +1997,7 @@ function setScope(ids, opts) {
   }
   savePlanScope();
   writeFocusUrl();
-  computeGroupedLayout();
+  computeLayouts();
   updateBlobsDOM();
   legendBuild();
   if (world) showLayout(layoutMode, false);
@@ -3491,8 +3337,8 @@ function openHelp() {
     el('li', {}, 'Prerequisites are guidance, not locks. A new skill glows "ready" once all its prerequisites are at Level 2 or Mastered (prerequisites that are still coming soon are ignored). Lines show what leads to what; click a tile to highlight them.'),
     el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
     el('li', {}, el('b', { text: 'Plan ' }), 'opens from the notebook. Exam dates sit at the top. Calculate and save new plan runs a learning plan for every upcoming exam, spreads each exam\'s sessions over the days before that exam, then interleaves them by date and locks the result. A skill that two exams need is kept once, on the earliest day. The graphs stay on that saved plan until you calculate again. Highlighted courses are visual only: there is no plan until an exam is added and calculated. TODAY shows sessions behind, sessions left today, all caught up, or sessions ahead. Queue up learning session from exam plan adds the earliest saved session you have not finished.'),
-    el('li', {}, el('b', { text: 'Courses ' }), 'is select-all-that-apply. The address bar focus parameter is that list (for example ?focus=me132,nlo). A link with focus uses that list, and a visit with no focus parameter restores your last choice. A new profile starts with nothing focused. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection stay on the tree, dimmed. The grid lists only the chapters in that selection. With every course selected, or with nothing selected yet, the grid keeps every chapter, the same way the tree does. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
-    el('li', {}, el('b', { text: 'Group by course ' }), 'is on when you have not chosen a layout. It draws each selected course and chapter as a colored region around its skills. A skill shared by two or more selected courses sits on the trunk below those courses, centered under the courses that share it, and each of those boxes shows a faded reference linked to that node. One course keeps its skills in place. Ungroup returns to one prerequisite tree. A layout you choose is remembered on this device.'),
+    el('li', {}, el('b', { text: 'Courses ' }), 'is select-all-that-apply. The address bar focus parameter is that list (for example ?focus=me132,nlo). A link with focus uses that list, and a visit with no focus parameter restores your last choice. A new profile starts with nothing focused. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection are hidden. Select all to see the whole tree. A hidden prerequisite shows as a small "needs" label on the skill that requires it. The grid lists only the chapters in that selection. With every course selected, or with nothing selected yet, the grid keeps every chapter. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
+    el('li', {}, el('b', { text: 'Group by course ' }), 'is on when you have not chosen a layout. Each selected course and chapter is its own box and lays out its own skills, with prerequisites below the skills that follow them. A skill in several selected boxes is drawn once in each box. Those copies share mastery, and a small ×N tag lists the other copies. Ungroup returns to one prerequisite tree of the selected skills. A layout you choose is remembered on this device.'),
     el('li', {}, el('b', { text: 'Flag a question ' }), 'if the answer seems wrong, the wording is unclear, there is a typo, or the figure is off. A comment is optional.'),
     el('li', {}, el('b', { text: 'Usage measurement ' }), 'counts which skills and courses you open and how quizzes go. It uses a random id on this device, not a third-party tracker. Turn it off in Profile. A browser Do Not Track signal turns it off too.'),
     el('li', {}, 'Progress autosaves in this browser after every quiz. Open Profile to Export a backup you can Import later, or on another device.'),
@@ -3658,7 +3504,7 @@ function reloadProgress() {
   }
   renderTodo();
   if (!world) return;
-  computeGroupedLayout();
+  computeLayouts();
   updateBlobsDOM();
   legendBuild();
   showLayout(layoutMode, false);
@@ -4126,7 +3972,7 @@ function afterImport(msg) {
     try { localStorage.setItem(PLAN_SCOPE_KEY, JSON.stringify(scopePayloadFromSelection())); } catch (e) { }
     writeFocusUrl();
   }
-  if (world) { computeGroupedLayout(); updateBlobsDOM(); legendBuild(); showLayout(layoutMode, false); }
+  if (world) { computeLayouts(); updateBlobsDOM(); legendBuild(); showLayout(layoutMode, false); }
   refreshAll();
   syncFocusPrompt();
   // The import button's click is still bubbling. Opening the checklist in this
@@ -5561,6 +5407,7 @@ function openFeedback() {
 function setupKeyboard() {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
+      if (cloneLayer && cloneLayer.querySelector('.clone-menu')) { closeCloneMenu(); return; }
       const openFlag = document.querySelector('.qflag-form:not([hidden])');
       if (mb.classList.contains('open')) closeModal();
       else if (openFlag && window.SkillgroveTelemetry && window.SkillgroveTelemetry.dismissFlag) window.SkillgroveTelemetry.dismissFlag(openFlag);
