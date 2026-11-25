@@ -1,0 +1,29 @@
+{
+  "id": "quadratic-program",
+  "title": "Convex quadratic programs",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a convex quadratic bowl</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">x</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">f</text><polyline points=\"46,39 49,43.1 52,47.2 55.1,51.1 58.1,55 61.1,58.7 64.1,62.4 67.2,65.9 70.2,69.4 73.2,72.8 76.2,76.1 79.2,79.3 82.3,82.4 85.3,85.4 88.3,88.3 91.3,91.2 94.4,93.9 97.4,96.5 100.4,99.1 103.4,101.5 106.4,103.9 109.5,106.2 112.5,108.3 115.5,110.4 118.5,112.4 121.6,114.3 124.6,116.1 127.6,117.8 130.6,119.5 133.6,121 136.7,122.4 139.7,123.8 142.7,125 145.7,126.2 148.8,127.3 151.8,128.2 154.8,129.1 157.8,129.9 160.8,130.6 163.9,131.2 166.9,131.7 169.9,132.1 172.9,132.4 176,132.7 179,132.8 182,132.9 185,132.8 188,132.7 191.1,132.4 194.1,132.1 197.1,131.7 200.1,131.2 203.2,130.6 206.2,129.9 209.2,129.1 212.2,128.2 215.2,127.3 218.3,126.2 221.3,125 224.3,123.8 227.3,122.4 230.4,121 233.4,119.5 236.4,117.8 239.4,116.1 242.4,114.3 245.5,112.4 248.5,110.4 251.5,108.3 254.5,106.2 257.6,103.9 260.6,101.5 263.6,99.1 266.6,96.5 269.6,93.9 272.7,91.2 275.7,88.3 278.7,85.4 281.7,82.4 284.8,79.3 287.8,76.1 290.8,72.8 293.8,69.4 296.8,65.9 299.9,62.4 302.9,58.7 305.9,55 308.9,51.1 312,47.2 315,43.1 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve that opens upward. The horizontal axis is labeled x and the vertical axis is labeled f.",
+      "body_md": "An unconstrained quadratic is minimized by one linear system, the gradient set to zero. A quadratic program keeps that objective and cuts the space with affine constraints. Each equality is a flat, and each inequality is a half-space. The bowl does not change. Only the feasible set changes.\n\nWrite the objective as \\(\\tfrac12 x^T H x+q^T x+r\\) with \\(H\\) symmetric. The gradient is \\(Hx+q\\). The program is convex when \\(H\\) is positive semidefinite, because that is the second-order test for the objective, and an affine set is convex. A positive definite \\(H\\) makes the objective strictly convex, so a minimizer is unique when one exists. A zero eigenvalue still leaves the program convex. The minimizer need not be unique in that case.\n\nA curved constraint, such as a disk, is not allowed in this form. That constraint is the next program."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "\\[\n\\min_x\\ \\tfrac12 x^T H x+q^T x+r\n\\quad\\text{subject to}\\quad\nAx=b,\\quad Gx\\le h,\n\\]\nwith \\(H\\) symmetric. Convexity is \\(H\\succeq 0\\). On a single equality \\(x+y=s\\), substitute \\(y=s-x\\) and minimize the resulting function of one variable. The substitution is legal because the equality is affine. The same idea, eliminating affine equalities, is what an unconstrained quadratic solver does after the constraints have been removed."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Minimize \\((x-9)^2+(y-2)^2\\) subject to \\(x+y=5\\). Substitute \\(y=5-x\\). The objective becomes \\((x-9)^2+(3-x)^2\\). The derivative is \\(4x-24\\), which vanishes at \\(x=6\\), so \\(y=-1\\). The point lies on the line because \\(6+(-1)=5\\). The value is\n\\[\n(6-9)^2+(-1-2)^2=9+9=18.\n\\]\nThe optimal value equals 18. The unconstrained point \\((9,2)\\) scores 0 and misses the line, because \\(9+2\\neq 5\\). The nearest point on the line is the one the derivative found, not the intercept."
+    },
+    {
+      "heading": "Pitfalls",
+      "body_md": "A negative eigenvalue makes the objective nonconvex even when every constraint is affine. Invertibility of \\(H\\) does not replace the eigenvalue test.\n\nThe number you get by ignoring the constraints is the unconstrained minimizer. It is feasible only when it happens to satisfy them. Otherwise it is not a candidate.\n\nA quadratic inequality is a different program. Do not call a disk constraint a quadratic program. A linear objective is the special case \\(H=0\\), which is positive semidefinite, so it is a convex quadratic program whose square term is absent. The zero matrix is allowed. It is not a negative curvature."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The next constraint shape is a convex quadratic inequality, a disk or a slab cut by a squared affine function. After that, a Euclidean norm bounded by an affine function is the cone form of the same idea, and a positive-semidefinite matrix constraint is the widest of the four.\n\nA maximum-margin linear separator is already a convex quadratic program: the objective is \\(\\tfrac12\\lVert w\\rVert^2\\), and each labeled point contributes an affine inequality. The separator is an application of this form, not a new class."
+    }
+  ]
+}

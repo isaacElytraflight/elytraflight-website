@@ -1,0 +1,29 @@
+{
+  "id": "conic-duality",
+  "title": "Conic duality",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 260 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>the nonnegative orthant</title><line x1=\"48\" y1=\"168\" x2=\"236\" y2=\"168\"/><polygon points=\"236,168 229.6,170.7 229.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"180\" x2=\"48\" y2=\"24\"/><polygon points=\"48,24 50.7,30.4 45.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"230\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><rect x=\"48\" y=\"48\" width=\"150\" height=\"120\" fill=\"currentColor\" fill-opacity=\"0.10\"/></svg>",
+      "figure_alt": "The closed first quadrant, shaded, with axes labeled x1 and x2.",
+      "body_md": "Weak duality says a dual feasible value is a lower bound on the primal optimal value. Strong duality says the bound is tight when a relative-interior constraint qualification holds. A cone program makes the dual explicit. The primal cone is replaced by its dual cone, the set of vectors that make a nonnegative inner product with every primal-cone vector.\n\nThe standard pair used here is\n\\[\n\\min\\ c^T x\\quad\\text{subject to}\\quad Ax=b,\\ x\\in K,\n\\]\nand\n\\[\n\\max\\ b^T y\\quad\\text{subject to}\\quad A^T y+s=c,\\ s\\in K^\\star.\n\\]\nFor a feasible pair the gap \\(c^T x-b^T y\\) equals \\(s^T x\\), which is nonnegative precisely because \\(s\\) is in the dual cone and \\(x\\) is in \\(K\\).\n\nThe nonnegative orthant, the second-order cone, and the positive-semidefinite cone are self-dual. Their dual constraints have the same shape as the primal cone constraints. The cone that contains only the origin is not self-dual: its dual is the whole space."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "\\[\nK^\\star=\\{s:s^T z\\ge 0\\text{ for every }z\\in K\\}.\n\\]\nOn the nonnegative orthant, \\(s\\) is dual feasible exactly when \\(s\\ge 0\\). If the primal is \\(\\min c^T x\\) subject to \\(1^T x=\\beta\\) and \\(x\\ge 0\\), with \\(\\beta>0\\) and every coefficient of \\(c\\) positive, the optimum puts \\(\\beta\\) on a cheapest coordinate. The dual multiplier cannot exceed the cheapest coefficient, and the dual objective \\(\\beta z\\) meets the primal value there."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Minimize \\(5x+2y\\) subject to \\(x+2y=6\\) and \\(x\\ge 0\\), \\(y\\ge 0\\). Substitute \\(x=6-2y\\). The cost becomes \\(5(6-2y)+2y=30-8y\\), which decreases as \\(y\\) grows. The largest feasible \\(y\\) is 3, where \\(x=0\\). The cost is \\(30-24=6\\).\n\nThe dual maximizes \\(6z\\) subject to \\(z\\le 5\\) and \\(2z\\le 2\\), so \\(z\\le 1\\). The best multiplier is \\(z=1\\), and the dual objective is 6. The matching dual value is 6. The gap is zero. The more expensive variable \\(x\\) is the one the optimum sets to zero."
+    },
+    {
+      "heading": "Pitfalls",
+      "body_md": "The dual-cone inequality is \\(\\ge 0\\), not \\(\\le 0\\). The opposite sign describes the dual of the negated cone.\n\nA negative coordinate keeps a vector out of the dual orthant, no matter how large the other coordinates are. One negative inner product with a standard basis vector is enough.\n\nA dual value larger than a primal value means the pair is not both feasible. Weak duality forbids that arrangement. Equal values are allowed: they are a zero gap, not a contradiction.\n\nSelf-duality is special. Do not assume an arbitrary cone equals its dual."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "An interior method keeps a dual-cone multiplier and drives the gap \\(s^T x\\) down. The heavier form of that method takes Newton steps on a perturbed multiplier system and stays near a path of strictly positive products. The cone certificate itself is the object built here. The algorithm that drives it is the later method, and it already has the log barrier as its lighter predecessor."
+    }
+  ]
+}

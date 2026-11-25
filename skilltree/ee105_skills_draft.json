@@ -3667,7 +3667,6 @@
     "optimization-problem-classes",
     "quadratic-function-minimization"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3681,7 +3680,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=kM52hSvBY4k",
+    "title": "A quadratic objective with affine constraints"
+   }
   },
   {
    "id": "quadratically-constrained-quadratic-program",
@@ -3690,7 +3693,6 @@
    "prereqs": [
     "quadratic-program"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3704,7 +3706,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=SP2-7AG2wfk",
+    "title": "Quadratic inequalities that stay convex"
+   }
   },
   {
    "id": "second-order-cone-program",
@@ -3714,7 +3720,6 @@
     "quadratically-constrained-quadratic-program",
     "vector-norms-lp"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3728,7 +3733,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=LxR9ZPLDYNE",
+    "title": "A Euclidean norm bounded by an affine function"
+   }
   },
   {
    "id": "semidefinite-program",
@@ -3739,7 +3748,6 @@
     "positive-definite-matrices",
     "block-matrix-identities"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3753,7 +3761,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Paqi8_qrTTk",
+    "title": "An affine matrix constrained to be positive semidefinite"
+   }
   },
   {
    "id": "conic-duality",
@@ -3763,7 +3775,6 @@
     "strong-duality",
     "second-order-cone-program"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3777,7 +3788,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=NGCAKGZ7pf4",
+    "title": "The dual of a cone program"
+   }
   },
   {
    "id": "lasso-stationarity",
@@ -3787,7 +3802,6 @@
     "lasso-regression",
     "convex-optimality-global"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3801,7 +3815,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=UyVbIvf-6OA",
+    "title": "Stationarity of an absolute penalty, and the soft-threshold map"
+   }
   },
   {
    "id": "coordinate-descent",
@@ -3811,7 +3829,6 @@
     "gradient-descent",
     "lasso-regression"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3825,7 +3842,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=TiiF3VG_ViU",
+    "title": "Minimizing one coordinate while the others stay fixed"
+   }
   },
   {
    "id": "equality-constrained-newton",
@@ -3835,7 +3856,6 @@
     "newton-method-optimization",
     "lagrange-multiplier-equality"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3849,7 +3869,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=2lPT8j4D1x0",
+    "title": "One Newton step that keeps an equality feasible"
+   }
   },
   {
    "id": "barrier-interior-point",
@@ -3859,7 +3883,6 @@
     "equality-constrained-newton",
     "kkt-conditions"
    ],
-   "status": "coming-soon",
    "sources": [
     {
      "ref": "boyd-cvx",
@@ -3873,7 +3896,11 @@
      "ref": "eecs127-scope",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=mJGgFwcvcqI",
+    "title": "A log barrier whose weight is sent toward zero"
+   }
   }
  ],
  "retired": {
