@@ -134,7 +134,9 @@ parts = []
 for comment in items:
     if not isinstance(comment, dict):
         continue
-    commit = (comment.get("commit_id") or "").lower()
+    # GitHub moves commit_id to the newest head when a comment still applies,
+    # so older findings would look current. original_commit_id is where it was posted.
+    commit = (comment.get("original_commit_id") or comment.get("commit_id") or "").lower()
     if not commit:
         continue
     same = commit == sha or (
