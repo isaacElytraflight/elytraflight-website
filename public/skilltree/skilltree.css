@@ -90,13 +90,19 @@ main{flex:1;position:relative;min-height:0}
 #world.anim{transition:transform .45s cubic-bezier(.3,.9,.3,1)}
 #edges{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
 #regions{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
-#ghostLinks{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
-#ghostLinks .ghost-link{fill:none;stroke:#5c6b82;stroke-width:1.25;stroke-dasharray:2 3;opacity:.8}
 #regions .blob{position:static;opacity:1;visibility:visible;border:none;background:none;border-radius:0;transition:none}
 #world:not([data-layout=grouped]) #regions,
-#world:not([data-layout=grouped]) #ghostLinks,
 #world:not([data-layout=grouped]) #regionLabels{opacity:0;visibility:hidden}
-#world:not([data-layout=grouped]) .tile.ghost{display:none!important}
+#cloneTags{position:absolute;left:0;top:0;z-index:8;pointer-events:none}
+.clone-tag{position:absolute;pointer-events:auto;z-index:8;border:0;border-radius:99px;padding:1px 5px;font:800 10px/1.3 system-ui,sans-serif;background:#1d2433;color:#fff;cursor:pointer;box-shadow:0 1px 0 rgba(0,0,0,.2)}
+.clone-tag:hover,.clone-tag:focus-visible{background:#2f7bff}
+.clone-menu{position:absolute;z-index:9;pointer-events:auto;min-width:140px;max-width:220px;background:#fff;border:1.5px solid #1d2433;border-radius:10px;padding:4px;box-shadow:0 8px 18px rgba(40,50,90,.18)}
+.clone-jump{display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:7px;padding:4px 6px;font:650 11px/1.25 system-ui,sans-serif;color:#1d2433;cursor:pointer}
+.clone-jump:hover,.clone-jump:focus-visible{background:#e7f0ff}
+#needStubs{position:absolute;left:0;top:0;z-index:5;pointer-events:none}
+.need-stub{position:absolute;max-width:148px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 10px/1.3 system-ui,sans-serif;color:#6b7289;background:rgba(255,255,255,.9);border:1px solid #d5dbe6;border-radius:99px;padding:0 6px}
+.tile.clone-hot{outline:3px solid #2f7bff;outline-offset:3px}
+#world.lights-view .clone-tag,#world.lights-view .clone-menu,#world.lights-view .need-stub{display:none}
 #regionLabels{position:absolute;left:0;top:0;z-index:7;pointer-events:none}
 .region-label{position:absolute;z-index:7;pointer-events:none;font:800 11px/1.15 system-ui,sans-serif;padding:1px 5px;border:1.5px solid;border-radius:8px;background:rgba(255,255,255,.94);white-space:nowrap}
 #edges path{fill:none;stroke:#9aa3b8;stroke-width:1.6;opacity:.38;transition:opacity .2s}
@@ -172,13 +178,6 @@ main{flex:1;position:relative;min-height:0}
 .soon .pips i{opacity:.5}
 .tile.sel{outline:3.5px solid #2f7bff;outline-offset:2px;z-index:6}
 .tile.dim{opacity:.22}
-.tile.ghost{width:96px;height:48px;padding:3px 6px;border-radius:10px;border-style:dashed;opacity:.52;background:rgba(255,255,255,.78)}
-.tile.ghost .nm{font-size:9px;-webkit-line-clamp:2}
-.tile.ghost .meta{gap:3px;font-size:8px}
-.tile.ghost .pips i{width:5px;height:5px}
-.tile.ghost .tl,.tile.ghost .tag{display:none}
-.tile.ghost .refmark{font-size:8px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:#3d4a63}
-.tile.ghost:focus-visible{outline:3px solid #2f7bff;outline-offset:2px}
 .tile.collapsed-hide{display:none!important}
 .tile.pop{animation:pop .7s ease}
 @keyframes pop{0%{transform:scale(1)}30%{transform:scale(1.18) rotate(-2deg)}60%{transform:scale(.97)}100%{transform:scale(1)}}
