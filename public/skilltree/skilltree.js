@@ -661,6 +661,9 @@ function computeGroupedLayout() {
   if (loose.length) {
     byHost.set('unboxed', loose);
     hosts.push('unboxed');
+    boxById.unboxed = { id: 'unboxed', title: 'Other skills', kind: 'chapter', skills: loose.slice() };
+  } else if (boxById.unboxed) {
+    delete boxById.unboxed;
   }
   if (!hosts.length) { layout.grouped = empty; return; }
   const local = {};
