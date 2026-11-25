@@ -655,6 +655,13 @@ function computeGroupedLayout() {
     });
   });
   const hosts = [...byHost.keys()].sort((a, b) => order.indexOf(a) - order.indexOf(b) || a.localeCompare(b));
+  const hosted = new Set();
+  byHost.forEach(list => list.forEach(id => hosted.add(id)));
+  const loose = ids.filter(id => !hosted.has(id));
+  if (loose.length) {
+    byHost.set('unboxed', loose);
+    hosts.push('unboxed');
+  }
   if (!hosts.length) { layout.grouped = empty; return; }
   const local = {};
   hosts.forEach(boxId => { local[boxId] = layoutBox(byHost.get(boxId)); });
@@ -1324,7 +1331,7 @@ function toggleGroup() {
   const mode = layoutMode === 'tree' ? 'grouped' : 'tree';
   try { localStorage.setItem(LAYKEY, mode) } catch (e) { }
   showLayout(mode, true);
-  if (selected && curL().nodes[selected]) focusTile(selected); else goFit();
+  if (selected && nodeFor(selected)) focusTile(selected); else goFit();
 }
 
 function highlightId() { return lightsMode ? null : (hoverId || selected) }
@@ -1613,20 +1620,26 @@ function zoomAt(f, cx, cy) {
   view.x = cx - (cx - view.x) * k; view.y = cy - (cy - view.y) * k; view.s = ns; applyView();
 }
 
-function focusTile(id) {
-  const hit = nodeFor(id); if (!hit) return;
-  focusPlace(hit.key);
-}
-
-function focusPlace(key) {
+function panToKey(key) {
   const n = curL().nodes[key]; if (!n) return;
-  world.querySelectorAll('.tile.clone-hot').forEach(t => t.classList.remove('clone-hot'));
-  const tile = [...world.querySelectorAll('.tile')].find(t => (t.dataset.place || t.dataset.id) === key);
-  if (tile) tile.classList.add('clone-hot');
   animateView(() => {
     const vw = tv.clientWidth - (panelOpen() ? 372 : 0), vh = tv.clientHeight;
     view.s = Math.min(1.2, Math.max(view.s, .85)); view.x = vw / 2 - (n.x + TW / 2) * view.s; view.y = vh / 2 - (n.y + TH / 2) * view.s; applyView();
   });
+}
+
+function focusTile(id) {
+  const hit = nodeFor(id); if (!hit) return;
+  world.querySelectorAll('.tile.clone-hot').forEach(t => t.classList.remove('clone-hot'));
+  panToKey(hit.key);
+}
+
+function focusPlace(key) {
+  if (!curL().nodes[key]) return;
+  world.querySelectorAll('.tile.clone-hot').forEach(t => t.classList.remove('clone-hot'));
+  const tile = [...world.querySelectorAll('.tile')].find(t => (t.dataset.place || t.dataset.id) === key);
+  if (tile) tile.classList.add('clone-hot');
+  panToKey(key);
 }
 
 function focusScope() {

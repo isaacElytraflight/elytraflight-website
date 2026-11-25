@@ -6096,16 +6096,19 @@ async function test(name, fn) {
     await showAll(p);
     const all = await p.evaluate((n, edges) => {
       const tree = window.__skillgrove.layout().tree;
+      const groupedIds = new Set(window.__skillgrove.layout().grouped.places.map(p => p.skillId));
       return {
         places: tree.places.length,
         edgeCount: tree.edges.length,
         stubs: tree.stubs.length,
         paths: document.querySelectorAll('#edges path').length,
-        mode: document.getElementById('world').dataset.layout
+        mode: document.getElementById('world').dataset.layout,
+        groupedSkills: groupedIds.size
       };
     }, NSKILL, EDGES);
     assert.strictEqual(all.mode, 'tree');
     assert.strictEqual(all.places, NSKILL, 'select all restores every skill');
+    assert.strictEqual(all.groupedSkills, NSKILL, 'grouped select-all still places every skill');
     assert.strictEqual(all.edgeCount, EDGES);
     assert.strictEqual(all.stubs, 0, 'nothing is hidden when every skill is selected');
     assert.strictEqual(all.paths, EDGES);
@@ -6209,6 +6212,38 @@ async function test(name, fn) {
     await sleep(200);
     const phone = await p.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 2);
     assert.strictEqual(phone, true, 'three courses do not widen a phone page');
+    await p._ctx.close();
+  });
+
+  await test('grouping keeps the open skill in view without a clone outline', async () => {
+    const p = await newPage();
+    await showAll(p);
+    await showTree(p);
+    await openSkill(p, 'bode');
+    await p.click('#btnGroup');
+    await sleep(1200);
+    const after = await p.evaluate(() => {
+      const tv = document.getElementById('treeView').getBoundingClientRect();
+      const panel = document.getElementById('panel').getBoundingClientRect();
+      const right = panel.width > 20 ? Math.min(tv.right, panel.left) : tv.right;
+      const cx0 = (tv.left + right) / 2, cy0 = (tv.top + tv.bottom) / 2;
+      const tiles = [...document.querySelectorAll('#world .tile[data-id="bode"]')];
+      let best = Infinity;
+      tiles.forEach(t => {
+        const r = t.getBoundingClientRect();
+        best = Math.min(best, Math.hypot(r.left + r.width / 2 - cx0, r.top + r.height / 2 - cy0));
+      });
+      return {
+        mode: document.getElementById('world').dataset.layout,
+        hot: document.querySelectorAll('#world .tile.clone-hot').length,
+        best,
+        tiles: tiles.length
+      };
+    });
+    assert.strictEqual(after.mode, 'grouped');
+    assert(after.tiles > 1, 'select all clones bode into each chapter that contains it');
+    assert.strictEqual(after.hot, 0, 'focusing a skill does not leave the clone outline');
+    assert(after.best < 100, 'the open skill is centered after grouping, distance ' + after.best);
     await p._ctx.close();
   });
 
