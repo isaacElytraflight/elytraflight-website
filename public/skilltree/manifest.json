@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-24T20:53:36.480522Z",
+  "generated": "2026-11-25T17:46:55.937259Z",
   "skills": {
-    "file": "skills.e44e26c3.json",
-    "hash": "e44e26c3"
+    "file": "skills.803493ac.json",
+    "hash": "803493ac"
   },
   "collections": {
     "file": "collections.af4a0c5f.json",
@@ -130,6 +130,18 @@
       },
       "hash": "bfd65ccc",
       "file": "banks/backprop-neural-network.bfd65ccc.json"
+    },
+    "barrier-interior-point": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "e9deb89c",
+      "file": "banks/barrier-interior-point.e9deb89c.json"
     },
     "basic-feasible-solutions": {
       "version": 1,
@@ -479,6 +491,18 @@
       "hash": "b81be89e",
       "file": "banks/condition-number-gradient-rate.b81be89e.json"
     },
+    "conic-duality": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "6b2ff2d8",
+      "file": "banks/conic-duality.6b2ff2d8.json"
+    },
     "conjugate-gradient-method": {
       "version": 1,
       "questionCount": 12,
@@ -610,6 +634,18 @@
       },
       "hash": "1017d774",
       "file": "banks/convexity-second-order.1017d774.json"
+    },
+    "coordinate-descent": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "ffc1dbcd",
+      "file": "banks/coordinate-descent.ffc1dbcd.json"
     },
     "cruise-control": {
       "version": 2,
@@ -1006,6 +1042,18 @@
       },
       "hash": "5219092f",
       "file": "banks/electrostatics.5219092f.json"
+    },
+    "equality-constrained-newton": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "bd9c60c1",
+      "file": "banks/equality-constrained-newton.bd9c60c1.json"
     },
     "equilibria": {
       "version": 2,
@@ -1786,6 +1834,18 @@
       },
       "hash": "c1c97bfc",
       "file": "banks/lasso-regression.c1c97bfc.json"
+    },
+    "lasso-stationarity": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "f1c4a827",
+      "file": "banks/lasso-stationarity.f1c4a827.json"
     },
     "least-squares-data-fitting": {
       "version": 1,
@@ -2807,6 +2867,30 @@
       "hash": "9760c2bc",
       "file": "banks/quadratic-function-minimization.9760c2bc.json"
     },
+    "quadratic-program": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d2d2ee2b",
+      "file": "banks/quadratic-program.d2d2ee2b.json"
+    },
+    "quadratically-constrained-quadratic-program": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "2a48c395",
+      "file": "banks/quadratically-constrained-quadratic-program.2a48c395.json"
+    },
     "quasi-newton-secant": {
       "version": 1,
       "questionCount": 12,
@@ -2987,6 +3071,18 @@
       "hash": "f018ac09",
       "file": "banks/scaled-gradient-projection.f018ac09.json"
     },
+    "second-order-cone-program": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "696c0fa4",
+      "file": "banks/second-order-cone-program.696c0fa4.json"
+    },
     "second-order-optimality": {
       "version": 2,
       "questionCount": 12,
@@ -3010,6 +3106,18 @@
       },
       "hash": "87913412",
       "file": "banks/second-order-sys.87913412.json"
+    },
+    "semidefinite-program": {
+      "version": 1,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "fbd9fd06",
+      "file": "banks/semidefinite-program.fbd9fd06.json"
     },
     "sensitivity": {
       "version": 2,
@@ -3564,6 +3672,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "barrier-interior-point": {
+      "hash": "9cb182ef",
+      "file": "explainers/barrier-interior-point.9cb182ef.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "basic-feasible-solutions": {
       "hash": "a5de2e82",
       "file": "explainers/basic-feasible-solutions.a5de2e82.json",
@@ -3723,6 +3837,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "conic-duality": {
+      "hash": "79620d36",
+      "file": "explainers/conic-duality.79620d36.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "conjugate-gradient-method": {
       "hash": "72c7de47",
       "file": "explainers/conjugate-gradient-method.72c7de47.json",
@@ -3784,6 +3904,12 @@
     "convexity-second-order": {
       "hash": "802fadd5",
       "file": "explainers/convexity-second-order.802fadd5.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "coordinate-descent": {
+      "hash": "49851d64",
+      "file": "explainers/coordinate-descent.49851d64.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -3965,6 +4091,12 @@
       "hash": "7cb26824",
       "file": "explainers/electrostatics.7cb26824.json",
       "sectionCount": 5
+    },
+    "equality-constrained-newton": {
+      "hash": "6b3e77ba",
+      "file": "explainers/equality-constrained-newton.6b3e77ba.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "equilibria": {
       "hash": "b7644146",
@@ -4336,6 +4468,12 @@
     "lasso-regression": {
       "hash": "e235ed92",
       "file": "explainers/lasso-regression.e235ed92.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "lasso-stationarity": {
+      "hash": "7399eca0",
+      "file": "explainers/lasso-stationarity.7399eca0.json",
       "sectionCount": 5,
       "version": 1
     },
@@ -4829,6 +4967,18 @@
       "sectionCount": 5,
       "version": 1
     },
+    "quadratic-program": {
+      "hash": "6a4577e5",
+      "file": "explainers/quadratic-program.6a4577e5.json",
+      "sectionCount": 5,
+      "version": 1
+    },
+    "quadratically-constrained-quadratic-program": {
+      "hash": "b58b1d49",
+      "file": "explainers/quadratically-constrained-quadratic-program.b58b1d49.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "quasi-newton-secant": {
       "hash": "b85d24ef",
       "file": "explainers/quasi-newton-secant.b85d24ef.json",
@@ -4916,6 +5066,12 @@
       "sectionCount": 5,
       "version": 1
     },
+    "second-order-cone-program": {
+      "hash": "756c35cd",
+      "file": "explainers/second-order-cone-program.756c35cd.json",
+      "sectionCount": 5,
+      "version": 1
+    },
     "second-order-optimality": {
       "hash": "72a9d8a8",
       "file": "explainers/second-order-optimality.72a9d8a8.json",
@@ -4927,6 +5083,12 @@
       "file": "explainers/second-order-sys.bfc75d01.json",
       "sectionCount": 5,
       "version": 3
+    },
+    "semidefinite-program": {
+      "hash": "fd24e09e",
+      "file": "explainers/semidefinite-program.fd24e09e.json",
+      "sectionCount": 5,
+      "version": 1
     },
     "sensitivity": {
       "hash": "de41bc6e",

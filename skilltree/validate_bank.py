@@ -276,6 +276,18 @@ LEAF_PREVIEW_ALLOWED.update({
     "convex-conjugate": ["strong-duality"],
     "maximum-a-posteriori-estimation": ["lasso-regression"],
 })
+LEAF_PREVIEW_ALLOWED.update({
+    # EB3 leaves: nothing in the graph lists these as prerequisites.
+    # An inscribed ellipsoid keeps a positive definite shape; it is not a
+    # general spectrahedron. A primal-dual method tracks a cone certificate
+    # while a gap is driven down. An exact coordinate step on a separable
+    # absolute penalty is the soft-threshold map, and that map is the
+    # certificate the coordinate pass enforces.
+    "semidefinite-program": ["largest-inscribed-ellipsoid"],
+    "conic-duality": ["primal-dual-interior-point"],
+    "lasso-stationarity": ["coordinate-descent"],
+    "coordinate-descent": ["lasso-stationarity"],
+})
 LEAF_PREVIEW_ALLOWED = {k: set(v) for k, v in LEAF_PREVIEW_ALLOWED.items()}
 def err(sid, msg): errors.append(f"[{sid}] {msg}")
 def warn(sid, msg): warns.append(f"[{sid}] {msg}")

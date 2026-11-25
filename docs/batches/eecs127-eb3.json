@@ -1,0 +1,31 @@
+{
+  "id": "eecs127-eb3",
+  "label": "EB3: Cone programs, lasso stationarity, coordinate and Newton steps",
+  "box": "Optimization models in engineering",
+  "skills": [
+    "quadratic-program",
+    "quadratically-constrained-quadratic-program",
+    "second-order-cone-program",
+    "semidefinite-program",
+    "conic-duality",
+    "lasso-stationarity",
+    "coordinate-descent",
+    "equality-constrained-newton",
+    "barrier-interior-point"
+  ],
+  "areas": {
+    "quadratic-program": ["optimization"],
+    "quadratically-constrained-quadratic-program": ["optimization"],
+    "second-order-cone-program": ["optimization"],
+    "semidefinite-program": ["optimization"],
+    "conic-duality": ["optimization"],
+    "lasso-stationarity": ["optimization"],
+    "coordinate-descent": ["optimization"],
+    "equality-constrained-newton": ["optimization"],
+    "barrier-interior-point": ["optimization"]
+  },
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/eecs127-content-batches.md",
+  "verifier": "skilltree/verify_eecs127_eb3.py"
+}

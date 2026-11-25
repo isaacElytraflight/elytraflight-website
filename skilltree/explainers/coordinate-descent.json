@@ -1,0 +1,29 @@
+{
+  "id": "coordinate-descent",
+  "title": "Coordinate descent",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a soft-threshold map</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">z</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">x</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.9 64.1,132.9 67.2,132.9 70.2,132.9 73.2,132.9 76.2,132.9 79.2,132.9 82.3,132.9 85.3,132.9 88.3,132.9 91.3,132.9 94.4,132.9 97.4,132.9 100.4,132.9 103.4,132.9 106.4,132.9 109.5,132.9 112.5,132.9 115.5,132.9 118.5,132.9 121.6,132.9 124.6,132.9 127.6,132.9 130.6,132.9 133.6,132.9 136.7,132.9 139.7,131.3 142.7,129.7 145.7,128.2 148.8,126.6 151.8,125 154.8,123.5 157.8,121.9 160.8,120.3 163.9,118.8 166.9,117.2 169.9,115.7 172.9,114.1 176,112.5 179,111 182,109.4 185,107.8 188,106.3 191.1,104.7 194.1,103.1 197.1,101.6 200.1,100 203.2,98.5 206.2,96.9 209.2,95.3 212.2,93.8 215.2,92.2 218.3,90.6 221.3,89.1 224.3,87.5 227.3,85.9 230.4,84.4 233.4,82.8 236.4,81.2 239.4,79.7 242.4,78.1 245.5,76.6 248.5,75 251.5,73.4 254.5,71.9 257.6,70.3 260.6,68.7 263.6,67.2 266.6,65.6 269.6,64 272.7,62.5 275.7,60.9 278.7,59.3 281.7,57.8 284.8,56.2 287.8,54.7 290.8,53.1 293.8,51.5 296.8,50 299.9,48.4 302.9,46.8 305.9,45.3 308.9,43.7 312,42.1 315,40.6 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve on axes labeled z and x. It stays on the horizontal axis beside the origin, then rises in a straight slope.",
+      "body_md": "A gradient step looks at every partial derivative and moves every coordinate at once, by one fixed length. Coordinate descent picks one coordinate, freezes the others, and minimizes the resulting scalar function exactly. Then it moves to another coordinate.\n\nIf the objective is a sum of functions of single coordinates, those scalar problems do not interact. One pass, in any order, reaches the minimizer, and a second pass does not move. An absolute penalty that adds \\(\\lambda\\lvert x_i\\rvert\\) separately for each \\(i\\) is this kind of objective. Each update is the soft-threshold map at level \\(\\lambda/2\\) when the smooth piece is a plain square \\((t-c)^2\\).\n\nA coupled objective is different. The frozen values appear inside the scalar function, so the minimizer of one coordinate depends on the others. One pass can leave a partial derivative nonzero. Further passes keep going. That is still coordinate descent. It is just not finished."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "For \\(a>0\\) and \\(c>\\lambda/(2a)\\), the scalar\n\\[\na(t-c)^2+\\lambda\\lvert t\\rvert\n\\]\nis minimized at \\(t=c-\\lambda/(2a)\\). The curvature \\(a\\) sits in the denominator because the derivative of the square contributes \\(2a\\).\n\nOn a coupled smooth example, freeze, differentiate the scalar function, and solve. The partial derivative of the full objective, evaluated after the pass, is the test that the pass finished. A nonzero partial derivative means another update of that coordinate will move."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Minimize \\((x-11)^2+(y+6)^2+4(\\lvert x\\rvert+\\lvert y\\rvert)\\). The weight is 4, so the threshold is 2. The center 11 is larger than 2, so the \\(x\\) update returns \\(11-2=9\\). The center \\(-6\\) satisfies \\(-6<-2\\), so the \\(y\\) update returns \\(-6+2=-4\\). The first coordinate lands on 9.\n\nThe two squares do not share variables, and the penalty is a sum of absolute coordinates. Either order produces \\((9,\\ -4)\\), and a second pass sees the same scalar problems. A gradient step of some fixed length from the same start would move both coordinates by multiples of the partial derivatives, and those landings are not automatically the soft-threshold values."
+    },
+    {
+      "heading": "Pitfalls",
+      "body_md": "Do not list \"update \\(x\\)\" and \"update \\(y\\)\" as a unique order when the objective separates. Both orders are correct. The ordered object is the work inside one coordinate: freeze, form the scalar function, minimize it, then write the new coordinate.\n\nA coupled square can look finished because one partial derivative vanished. Check the other ones. In \\((x+y)^2+(x-4)^2\\), one pass from the origin that updates \\(x\\) and then \\(y\\) lands at \\((2,-2)\\), where the partial derivative in \\(x\\) is \\(-4\\).\n\nExact minimization is not a fixed-length gradient step. They agree only when the length equals one over the scalar second derivative."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "The scalar absolute-penalty minimizer is the soft-threshold map from the stationarity condition. Coordinate descent is that map applied with the other coordinates held fixed, including when a residual still depends on them. The stationarity skill derives the map for orthonormal columns. This skill applies the scalar map one coordinate at a time when the problem does not separate in closed form.\n\nA pass over blocks of data, with every coordinate still free, is a different method. It compares a block gradient with the full gradient. It does not freeze coordinates of the decision."
+    }
+  ]
+}
