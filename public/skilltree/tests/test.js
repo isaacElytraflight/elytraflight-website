@@ -2716,7 +2716,8 @@ async function test(name, fn) {
         courses: blobs.filter(b => b.kind === 'course' || b.kind === 'textbook').length,
         ghosts: document.querySelectorAll('.tile.ghost').length,
         nested: L.useNested,
-        selected: sg.collections.selected().length
+        selected: sg.collections.selected().length,
+        fakeBox: Object.prototype.hasOwnProperty.call(sg.collections.boxById(), 'unboxed')
       };
     });
 
@@ -2746,6 +2747,7 @@ async function test(name, fn) {
     assert.strictEqual(geo.courses, 0, 'courses are not wrapped around their chapters');
     assert.strictEqual(geo.nested, false);
     assert.strictEqual(geo.ghosts, 0);
+    assert.strictEqual(geo.fakeBox, false, 'the other-skills region is not a selectable box');
     assert.strictEqual(geo.outsideCount, 0, 'member outside its region: ' + geo.outside.join(', '));
     assert.strictEqual(geo.overlapCount, 0, 'regions overlap: ' + geo.overlaps.join(', '));
     assert.strictEqual(geo.labelHitCount, 0, 'label collision: ' + geo.labelHits.join(', '));
@@ -2781,6 +2783,61 @@ async function test(name, fn) {
     assert.strictEqual(overlap.outsider, false);
     await frame();
     await p.screenshot({ path: path.join(SHOTS_DIR, '23_ee_me_overlap.png') });
+
+    const other = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const map = sg.collections.skillToBoxes();
+      map.bode = [];
+      sg.collections.setSelected(null);
+      const L = sg.layout().grouped;
+      const places = (L.places || []).filter(pl => pl.skillId === 'bode');
+      const blob = places[0] && L.blobs[places[0].boxId];
+      const inside = (poly, x, y) => {
+        let c = false;
+        for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+          const xi = poly[i][0], yi = poly[i][1], xj = poly[j][0], yj = poly[j][1];
+          if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / ((yj - yi) || 1e-9) + xi)) c = !c;
+        }
+        return c;
+      };
+      const n = places[0] && L.nodes[places[0].key];
+      const corners = n ? [[n.x + 4, n.y + 4], [n.x + 164, n.y + 4], [n.x + 4, n.y + 68], [n.x + 164, n.y + 68]] : [];
+      const label = document.querySelector('.region-label[data-box="unboxed"]');
+      const outline = !!document.querySelector('#regions .blob[data-box="unboxed"]');
+      const before = Object.prototype.hasOwnProperty.call(sg.collections.boxById(), 'unboxed');
+      const course = sg.collections.boxById()['ee105-ucb'];
+      sg.collections.setSelected(['unboxed']);
+      const afterPick = {
+        selected: sg.collections.selected(),
+        scope: sg.collections.scope(),
+        fake: Object.prototype.hasOwnProperty.call(sg.collections.boxById(), 'unboxed')
+      };
+      sg.collections.setSelected([]);
+      return {
+        boxIds: places.map(pl => pl.boxId),
+        title: blob && blob.title,
+        kind: blob && blob.kind,
+        inside: !!(blob && corners.length && corners.every(([x, y]) => inside(blob.points, x, y))),
+        label: label && label.textContent,
+        outline,
+        before,
+        course: course && course.title,
+        afterPick,
+        afterClear: Object.prototype.hasOwnProperty.call(sg.collections.boxById(), 'unboxed')
+      };
+    });
+    assert.deepStrictEqual(other.boxIds, ['unboxed']);
+    assert.strictEqual(other.title, 'Other skills');
+    assert.strictEqual(other.kind, 'chapter');
+    assert.strictEqual(other.inside, true, 'the loose skill sits inside the Other skills outline');
+    assert.strictEqual(other.label, 'Other skills');
+    assert.strictEqual(other.outline, true);
+    assert.strictEqual(other.before, false, 'Other skills is not written into boxById');
+    assert(other.course && other.course.length > 0, 'a real course box is left alone');
+    assert.deepStrictEqual(other.afterPick.selected, []);
+    assert.deepStrictEqual(other.afterPick.scope, []);
+    assert.strictEqual(other.afterPick.fake, false, 'setScope cannot select the Other skills region');
+    assert.strictEqual(other.afterClear, false, 'an empty selection does not leave a fake box behind');
     await p._ctx.close();
   });
 
@@ -6244,6 +6301,79 @@ async function test(name, fn) {
     assert(after.tiles > 1, 'select all clones bode into each chapter that contains it');
     assert.strictEqual(after.hot, 0, 'focusing a skill does not leave the clone outline');
     assert(after.best < 100, 'the open skill is centered after grouping, distance ' + after.best);
+    await p._ctx.close();
+  });
+
+  await test('group toggle animates tiles from the old skill position and keeps focus', async () => {
+    const p = await newPage();
+    await p.setViewport({ width: 1440, height: 900 });
+    await showAll(p);
+    await showTree(p);
+    await p.evaluate(() => {
+      const panel = document.getElementById('scopePanel');
+      if (panel && !panel.hidden) document.getElementById('scopeToggle').click();
+    });
+    const bring = await p.evaluate(() => {
+      const tile = document.querySelector('#world .tile[data-id="bode"]');
+      const box = tile.getBoundingClientRect();
+      const tv = document.getElementById('treeView').getBoundingClientRect();
+      return {
+        x: box.left + box.width / 2,
+        y: box.top + box.height / 2,
+        vx: tv.left + tv.width / 2,
+        vy: tv.top + tv.height / 2
+      };
+    });
+    await p.mouse.move(bring.vx, bring.vy);
+    await p.mouse.down();
+    await p.mouse.move(bring.vx + (bring.vx - bring.x), bring.vy + (bring.vy - bring.y), { steps: 8 });
+    await p.mouse.up();
+    for (let i = 0; i < 5; i++) await p.click('#zIn');
+    await sleep(50);
+    const spot = await p.evaluate(() => {
+      const tile = document.querySelector('#world .tile[data-id="bode"]');
+      const r = tile.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    });
+    await p.mouse.move(spot.x, spot.y);
+    const mid = await p.evaluate(() => new Promise(resolve => {
+      const tile = document.querySelector('#world .tile[data-id="bode"]');
+      tile.focus();
+      tile.dataset.mark = 'kept';
+      const start = { x: parseFloat(tile.style.left), y: parseFloat(tile.style.top), hover: tile.matches(':hover') };
+      window.__skillgrove.toggleGroup();
+      const keptNow = document.querySelector('#world .tile[data-mark="kept"]');
+      const hover = !!(keptNow && keptNow.matches(':hover'));
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        const kept = document.querySelector('#world .tile[data-mark="kept"]');
+        const L = window.__skillgrove.layout().grouped;
+        const tiles = [...document.querySelectorAll('#world .tile[data-id="bode"]')].map(t => {
+          const n = L.nodes[t.dataset.place];
+          return { place: t.dataset.place, x: parseFloat(t.style.left), y: parseFloat(t.style.top), dx: n.x, dy: n.y };
+        });
+        resolve({
+          start,
+          hover,
+          kept: !!kept,
+          focus: !!(kept && document.activeElement === kept),
+          morphing: document.getElementById('world').classList.contains('morphing'),
+          tiles
+        });
+      }));
+    }));
+    assert.strictEqual(mid.start.hover, true, 'the pointer is over the tree tile');
+    assert.strictEqual(mid.kept, true, 'the tree tile is reused instead of rebuilt');
+    assert.strictEqual(mid.focus, true, 'focus stays on the reused tile');
+    assert.strictEqual(mid.hover, true, 'hover stays on the reused tile');
+    assert.strictEqual(mid.morphing, true, 'the group toggle is still morphing');
+    assert(mid.tiles.length > 1, 'grouped bode has a clone');
+    mid.tiles.forEach(t => {
+      const fromStart = Math.hypot(t.x - mid.start.x, t.y - mid.start.y);
+      const fromDest = Math.hypot(t.x - t.dx, t.y - t.dy);
+      const travel = Math.hypot(mid.start.x - t.dx, mid.start.y - t.dy);
+      assert(travel > 40, t.place + ' destination is ' + travel + 'px from the tree tile');
+      assert(fromStart + 8 < fromDest, t.place + ' jumped to its destination');
+    });
     await p._ctx.close();
   });
 

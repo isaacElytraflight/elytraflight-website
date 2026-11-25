@@ -537,6 +537,11 @@ function placeKey(skillId, boxId) {
   return boxId ? skillId + '@' + boxId : skillId;
 }
 
+function skillIdOf(key) {
+  const at = String(key).indexOf('@');
+  return at < 0 ? key : key.slice(0, at);
+}
+
 function hiddenPrereqsOf(skillId, visible) {
   const s = byId[skillId];
   if (!s) return [];
@@ -658,12 +663,13 @@ function computeGroupedLayout() {
   const hosted = new Set();
   byHost.forEach(list => list.forEach(id => hosted.add(id)));
   const loose = ids.filter(id => !hosted.has(id));
+  // Local only. A real collection id would be selectable by setScope, and the
+  // empty-selection return above must not leave anything in boxById either.
+  const OTHER = 'unboxed';
+  const otherBox = { id: OTHER, title: 'Other skills', kind: 'chapter' };
   if (loose.length) {
-    byHost.set('unboxed', loose);
-    hosts.push('unboxed');
-    boxById.unboxed = { id: 'unboxed', title: 'Other skills', kind: 'chapter', skills: loose.slice() };
-  } else if (boxById.unboxed) {
-    delete boxById.unboxed;
+    byHost.set(OTHER, loose);
+    hosts.push(OTHER);
   }
   if (!hosts.length) { layout.grouped = empty; return; }
   const local = {};
@@ -674,7 +680,7 @@ function computeGroupedLayout() {
   let x = MARGIN, y = MARGIN, rowH = 0;
   hosts.forEach(boxId => {
     const lay = local[boxId];
-    const pad = boxPad(boxById[boxId]);
+    const pad = boxPad(boxId === OTHER ? otherBox : boxById[boxId]);
     const bw = lay.w + pad * 2, bh = lay.h + pad * 2;
     if (x > MARGIN && x + bw > MARGIN + MAX_ROW) { x = MARGIN; y += rowH + GAP_Y; rowH = 0; }
     origin[boxId] = { x: x + pad, y: y + pad };
@@ -753,7 +759,7 @@ function computeGroupedLayout() {
 
   const blobs = {};
   hosts.forEach(boxId => {
-    const box = boxById[boxId];
+    const box = boxId === OTHER ? otherBox : boxById[boxId];
     const members = byHost.get(boxId).map(sid => placeKey(sid, boxId)).filter(k => nodes[k]);
     if (!members.length || !box) return;
     const points = regionPoints(members, nodes, boxPad(box));
@@ -763,7 +769,7 @@ function computeGroupedLayout() {
     blobs[boxId] = {
       x: x0, y: y0, w: x1 - x0, h: y1 - y0, points, parts: [points],
       labelBox: { x: x0, y: y0, w: x1 - x0, h: y1 - y0 },
-      kind: box.kind || 'chapter', boxId, ch: boxColorIndex(box), pad: boxPad(box)
+      kind: box.kind || 'chapter', title: box.title || boxId, boxId, ch: boxColorIndex(box), pad: boxPad(box)
     };
   });
 
@@ -1066,29 +1072,131 @@ function syncStubs() {
   });
 }
 
+function tilePos(tile) {
+  const key = tile.dataset.place || tile.dataset.id;
+  const p = curPos[key];
+  if (p) return { x: p.x, y: p.y };
+  const x = parseFloat(tile.style.left), y = parseFloat(tile.style.top);
+  return { x: isFinite(x) ? x : 0, y: isFinite(y) ? y : 0 };
+}
+
+function applyTileColor(tile, skillId, boxId) {
+  const box = boxId && boxById[boxId];
+  const ci = (box && box.color_index != null) ? box.color_index : getSkillColorIndex(skillId);
+  colorVars(ci).split(';').forEach(part => {
+    const i = part.indexOf(':');
+    if (i > 0) tile.style.setProperty(part.slice(0, i).trim(), part.slice(i + 1).trim());
+  });
+}
+
+function retargetTile(tile, place, starts) {
+  const oldKey = tile.dataset.place || tile.dataset.id;
+  const pos = tilePos(tile);
+  starts[place.key] = { x: pos.x, y: pos.y };
+  tile.dataset.place = place.key;
+  if (place.boxId) tile.dataset.box = place.boxId;
+  else delete tile.dataset.box;
+  if (oldKey !== place.key) applyTileColor(tile, place.skillId, place.boxId);
+}
+
+// Reuse one DOM tile per skill so a group toggle animates from the old
+// position and keeps the focused or hovered node. Extra clones are new tiles
+// that start at the nearest old position of that skill.
 function syncTiles() {
   const places = (curL() && curL().places) || [];
-  const want = new Set(places.map(p => p.key));
-  world.querySelectorAll('.tile:not(.st)').forEach(t => {
-    const key = t.dataset.place || t.dataset.id;
-    if (!want.has(key)) t.remove();
+  const L = curL();
+  const existing = [...world.querySelectorAll('.tile:not(.st)')];
+  const active = document.activeElement;
+  const hovered = existing.filter(t => t.matches(':hover'));
+  const bySkill = {};
+  existing.forEach(t => { (bySkill[t.dataset.id] || (bySkill[t.dataset.id] = [])).push(t); });
+  const groups = {};
+  places.forEach(p => { (groups[p.skillId] || (groups[p.skillId] = [])).push(p); });
+  const starts = {};
+  const claimed = new Set();
+  const placed = new Set();
+  const destOf = key => (L && L.nodes && L.nodes[key]) || { x: 0, y: 0 };
+  const claim = (tile, place) => {
+    claimed.add(tile);
+    placed.add(place.key);
+    retargetTile(tile, place, starts);
+  };
+  Object.keys(groups).forEach(sid => {
+    const need = groups[sid];
+    const tiles = bySkill[sid] || [];
+    const nearestPlace = tile => {
+      const pos = tilePos(tile);
+      let best = null, bestD = Infinity;
+      need.forEach(p => {
+        if (placed.has(p.key)) return;
+        const dest = destOf(p.key);
+        const d = (pos.x - dest.x) ** 2 + (pos.y - dest.y) ** 2;
+        if (!best || d < bestD - 1e-6 || (Math.abs(d - bestD) <= 1e-6 && p.key < best.key)) { best = p; bestD = d; }
+      });
+      return best;
+    };
+    tiles.filter(t => t === active || hovered.indexOf(t) >= 0).forEach(t => {
+      if (claimed.has(t)) return;
+      const place = nearestPlace(t);
+      if (place) claim(t, place);
+    });
+    need.forEach(p => {
+      if (placed.has(p.key)) return;
+      const tile = tiles.find(t => !claimed.has(t) && (t.dataset.place || t.dataset.id) === p.key);
+      if (tile) claim(tile, p);
+    });
+    let guard = tiles.length + 1;
+    while (guard-- > 0) {
+      const left = need.filter(p => !placed.has(p.key));
+      const free = tiles.filter(t => !claimed.has(t));
+      if (!left.length || !free.length) break;
+      let bestT = null, bestP = null, bestD = Infinity, bestK = '';
+      free.forEach(t => {
+        const pos = tilePos(t);
+        const oldKey = t.dataset.place || t.dataset.id;
+        left.forEach(p => {
+          const dest = destOf(p.key);
+          const d = (pos.x - dest.x) ** 2 + (pos.y - dest.y) ** 2;
+          if (d < bestD - 1e-6 || (Math.abs(d - bestD) <= 1e-6 && (oldKey < bestK || (oldKey === bestK && (!bestP || p.key < bestP.key))))) {
+            bestD = d; bestT = t; bestP = p; bestK = oldKey;
+          }
+        });
+      });
+      if (!bestT || !bestP) break;
+      claim(bestT, bestP);
+    }
   });
-  const have = new Set([...world.querySelectorAll('.tile:not(.st)')].map(t => t.dataset.place || t.dataset.id));
+  existing.forEach(t => { if (!claimed.has(t)) t.remove(); });
   places.forEach(p => {
-    if (have.has(p.key)) return;
+    if (placed.has(p.key)) return;
     const s = byId[p.skillId];
     if (!s) return;
     const tile = buildTile(s, false, p.boxId);
     tile.dataset.place = p.key;
     if (lightsMode) tile.classList.add('light-mode');
     world.append(tile);
+    const dest = destOf(p.key);
+    let best = null, bestD = Infinity;
+    Object.keys(starts).forEach(k => {
+      if (skillIdOf(k) !== p.skillId) return;
+      const pos = starts[k];
+      const d = (pos.x - dest.x) ** 2 + (pos.y - dest.y) ** 2;
+      if (!best || d < bestD) { best = pos; bestD = d; }
+    });
+    if (best) starts[p.key] = { x: best.x, y: best.y };
   });
+  if (active && active.classList && active.classList.contains('tile') && !active.isConnected) {
+    const hit = nodeFor(active.dataset.id);
+    const tile = hit && [...world.querySelectorAll('#world .tile')].find(t => (t.dataset.place || t.dataset.id) === hit.key);
+    if (tile) tile.focus({ preventScroll: true });
+  }
   world.querySelectorAll('.tile:not(.st)').forEach(refreshTile);
   syncStubs();
   syncCloneTags();
   if (labelLayer) world.append(labelLayer);
   if (stubLayer) world.append(stubLayer);
   if (cloneLayer) world.append(cloneLayer);
+  return starts;
 }
 
 function syncEdges() {
@@ -1130,6 +1238,13 @@ function ensureRegionLayers() {
   }
 }
 
+function regionBox(id) {
+  if (boxById[id]) return boxById[id];
+  const b = layout.grouped && layout.grouped.blobs && layout.grouped.blobs[id];
+  if (b && b.title) return { id: id, title: b.title, kind: b.kind || 'chapter' };
+  return null;
+}
+
 function updateBlobsDOM() {
   ensureRegionLayers();
   while (regionsSvg.firstChild) regionsSvg.removeChild(regionsSvg.firstChild);
@@ -1146,7 +1261,7 @@ function updateBlobsDOM() {
   const polyPoints = pts => pts.map(pt => pt[0].toFixed(1) + ',' + pt[1].toFixed(1)).join(' ');
   order.forEach(id => {
     const b = G.blobs[id];
-    const box = boxById[id];
+    const box = regionBox(id);
     const parts = b.parts && b.parts.length ? b.parts : [b.points];
     parts.forEach(pts => {
       const poly = document.createElementNS(NS, 'polygon');
@@ -1173,7 +1288,7 @@ function updateBlobsDOM() {
     if (n) tileRects.push({ x: n.x, y: n.y + TH + 2, w: 132, h: 16 });
   });
   const labels = order.map(id => {
-    const box = boxById[id];
+    const box = regionBox(id);
     const node = el('div', { class: 'region-label', 'data-box': id, title: box ? box.title : id, text: regionLabelText(box) });
     node.style.position = 'absolute';
     node.style.whiteSpace = 'nowrap';
@@ -1278,13 +1393,13 @@ const MORPH_MS = 600;
 function showLayout(mode, animated) {
   cancelAnimationFrame(morphRaf);
   layoutMode = mode;
-  syncTiles();
+  const starts = syncTiles() || {};
   syncEdges();
   const L = layout[mode];
   const tiles = [...world.querySelectorAll('.tile:not(.st)')];
   const keys = tiles.map(t => t.dataset.place || t.dataset.id);
   const from = {};
-  keys.forEach(key => { from[key] = curPos[key] || L.nodes[key] || { x: 0, y: 0 }; });
+  keys.forEach(key => { from[key] = starts[key] || L.nodes[key] || { x: 0, y: 0 }; });
   tv.dataset.mode = mode; world.dataset.layout = mode;
   sizeWorld(L);
   const btn = $('btnGroup'); btn.setAttribute('aria-pressed', String(mode === 'grouped'));
