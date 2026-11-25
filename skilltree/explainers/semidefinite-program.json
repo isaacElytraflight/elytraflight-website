@@ -1,0 +1,29 @@
+{
+  "id": "semidefinite-program",
+  "title": "Semidefinite programs",
+  "version": 1,
+  "sections": [
+    {
+      "heading": "The idea",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a symmetric 2 by 2 matrix</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">6   2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   3</text></svg>",
+      "figure_alt": "A 2 by 2 matrix with 6 and 3 on the diagonal and 2 in each off-diagonal entry.",
+      "body_md": "A semidefinite program asks a symmetric matrix that depends affinely on the decision to be positive semidefinite. The feasible set is a spectrahedron. Linear inequalities, convex quadratic inequalities, and second-order-cone inequalities all embed in this form. The embedding of a quadratic inequality uses a block complement.\n\nFor a 2 by 2 symmetric matrix the test is concrete. Both diagonal entries must be nonnegative, and their product must be at least the square of the off-diagonal entry. Equivalently, both eigenvalues are nonnegative. A negative determinant means the eigenvalues have opposite signs, so the matrix is not positive semidefinite even if the diagonal looks fine.\n\nThe matrix in the constraint is symmetric. A quadratic form does not see the skew part of a nonsymmetric matrix, and the program is stated with symmetric coefficients."
+    },
+    {
+      "heading": "Key equations",
+      "body_md": "\\[\n\\begin{bmatrix} a & b \\\\ b & c \\end{bmatrix}\\succeq 0\n\\quad\\Longleftrightarrow\\quad\na\\ge 0,\\quad c\\ge 0,\\quad ac\\ge b^2.\n\\]\nThe block complement of \\(t\\ge x^2\\) is the matrix with \\(t\\) and \\(1\\) on the diagonal and \\(x\\) off the diagonal. Its complement relative to the entry 1 is \\(t-x^2\\). With that entry positive, the matrix is positive semidefinite exactly when the complement is nonnegative.\n\nThe zero matrix is positive semidefinite, because every quadratic form on it is 0. It is not positive definite."
+    },
+    {
+      "heading": "Worked example",
+      "body_md": "Find the smallest \\(t\\) such that \\(\\begin{bmatrix} t & 5 \\\\ 5 & 4 \\end{bmatrix}\\) is positive semidefinite. The entry 4 is positive. The product test says \\(4t\\ge 25\\), so \\(t\\ge 25/4\\). That bound is already positive, so the diagonal requirement \\(t\\ge 0\\) does not raise it. The smallest \\(t\\) is \\(25/4\\).\n\nAt that value the determinant gap is 0, so the matrix is singular and still positive semidefinite. One eigenvalue is 0 and the other is positive. A smaller trial value makes the determinant negative and produces a negative eigenvalue."
+    },
+    {
+      "heading": "Pitfalls",
+      "body_md": "Nonnegative diagonal entries are not enough. The matrix with 1 on the diagonal and 2 off the diagonal has determinant \\(-3\\) and is not positive semidefinite.\n\nDo not drop the complement. For \\(\\begin{bmatrix} t & 2 \\\\ 2 & 1 \\end{bmatrix}\\) the condition \\(t\\ge 0\\) leaves \\(t=0\\) looking legal, but the complement is \\(t-4\\), so the real bound is \\(t\\ge 4\\).\n\nThe off-diagonal sign does not matter, because the test squares that entry. A negative off-diagonal entry is the same constraint as its positive twin."
+    },
+    {
+      "heading": "Where this leads",
+      "body_md": "A positive definite shape matrix appears again when an ellipsoid is fitted inside half-spaces. That problem maximizes a volume and keeps a norm constraint for each half-space. It is a different skill. The shared piece is the definite matrix, not a second copy of the general spectrahedron.\n\nThe dual of a semidefinite constraint uses the dual of the positive-semidefinite cone. That cone is self-dual, which is a fact of conic duality rather than a new matrix test."
+    }
+  ]
+}

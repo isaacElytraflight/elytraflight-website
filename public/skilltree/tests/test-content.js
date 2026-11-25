@@ -54,12 +54,7 @@ test('graph is version 4 with 300 live skills and 16 retired ids', () => {
   assert.strictEqual(retired.margins, 'stability');
   assert.strictEqual(new Set(skills.map(s => s.id)).size, 300, 'skill ids are unique');
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.deepStrictEqual(soon.map(s => s.id).sort(), [
-    'barrier-interior-point', 'conic-duality', 'coordinate-descent',
-    'equality-constrained-newton', 'lasso-stationarity', 'quadratic-program',
-    'quadratically-constrained-quadratic-program', 'second-order-cone-program',
-    'semidefinite-program'
-  ]);
+  assert.deepStrictEqual(soon.map(s => s.id).sort(), []);
   const byId = Object.fromEntries(skills.map(s => [s.id, s]));
   assert.strictEqual(byId['lin-algebra-review'].name, 'Linear algebra review');
   assert.strictEqual(byId['lin-algebra-review'].id, 'lin-algebra-review');
@@ -98,9 +93,9 @@ test('every retired id points at a live survivor and is not itself live', () => 
 
 test('playable skills have quiz banks and coming-soon skills do not', () => {
   const banks = readJsonDir(path.join(SRC, 'bank'));
-  assert.strictEqual(Object.keys(banks).length, 291);
+  assert.strictEqual(Object.keys(banks).length, 300);
   const soon = skills.filter(s => s.status === 'coming-soon');
-  assert.strictEqual(soon.length, 9, '9 optimization-models skills remain coming soon');
+  assert.strictEqual(soon.length, 0, 'no skills remain coming soon');
   for (const skill of skills) {
     const bank = banks[skill.id];
     if (skill.status === 'coming-soon') {
@@ -120,7 +115,7 @@ test('playable skills have quiz banks and coming-soon skills do not', () => {
 
 test('playable skills have explainers and coming-soon skills do not', () => {
   const explainers = readJsonDir(path.join(SRC, 'explainers'));
-  assert.strictEqual(Object.keys(explainers).length, 291);
+  assert.strictEqual(Object.keys(explainers).length, 300);
   for (const skill of skills) {
     const exp = explainers[skill.id];
     if (skill.status === 'coming-soon') {
@@ -327,8 +322,8 @@ test('no retired id is referenced by the built app payload', () => {
   assert.deepStrictEqual(built.retired, retired);
   const builtIds = built.skills.map(s => s.id);
   assert.strictEqual(builtIds.length, 300);
-  assert.strictEqual(Object.keys(built.banks).length, 291);
-  assert.strictEqual(Object.keys(built.explainers).length, 291);
+  assert.strictEqual(Object.keys(built.banks).length, 300);
+  assert.strictEqual(Object.keys(built.explainers).length, 300);
   for (const id of builtIds) {
     assert(!retiredIds.has(id), 'built graph still contains ' + id);
     const skill = built.skills.find(s => s.id === id);

@@ -1,0 +1,81 @@
+{
+  "batch": "eecs127-eb3",
+  "ok": true,
+  "steps": [
+    {
+      "name": "build",
+      "ok": true,
+      "summary": "content files written"
+    },
+    {
+      "name": "schema",
+      "ok": true,
+      "summary": "OK: all checks passed (341 warning(s))"
+    },
+    {
+      "name": "video",
+      "ok": true,
+      "summary": "video ok: 300 skills, 26 with a video"
+    },
+    {
+      "name": "reference",
+      "ok": true,
+      "summary": "OK: reference gate, 0 hits"
+    },
+    {
+      "name": "graph",
+      "ok": true,
+      "summary": "graph ok: 300 skills, acyclic, every skill in a top-level box"
+    },
+    {
+      "name": "domain",
+      "ok": true,
+      "summary": "0 unwaived warnings"
+    },
+    {
+      "name": "deep-quota",
+      "ok": true,
+      "summary": "OK: deep-quota gate, 0 banks under 25% (0 legacy banks pending SG-063)"
+    },
+    {
+      "name": "dedupe",
+      "ok": true,
+      "summary": "OK: dedupe gate, 0 unresolved overlaps (9 skills checked)"
+    },
+    {
+      "name": "numeric",
+      "ok": true,
+      "summary": "0 mismatches"
+    },
+    {
+      "name": "figure-bounds",
+      "ok": true,
+      "summary": "figure-bounds: 0 warning(s), 0 on the batch"
+    },
+    {
+      "name": "katex",
+      "ok": true,
+      "summary": "KaTeX: rendered 1173 math chunks, 0 errors"
+    },
+    {
+      "name": "test-content",
+      "ok": true,
+      "summary": "17 passed, 0 failed"
+    },
+    {
+      "name": "test-merge",
+      "ok": true,
+      "summary": "25 passed, 0 failed"
+    },
+    {
+      "name": "test-migrate",
+      "ok": true,
+      "summary": "24 passed, 0 failed"
+    },
+    {
+      "name": "puppeteer",
+      "ok": true,
+      "summary": "96 passed, 0 failed"
+    }
+  ]
+}

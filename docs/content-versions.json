@@ -887,6 +887,474 @@
       "version": 1
     },
     {
+      "id": "quadratic-program-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratic-program-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratic-program-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratic-program-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratic-program-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratic-program-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratic-program-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratic-program-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratic-program-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratic-program-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratic-program-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratic-program-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratic-program#explainer",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "quadratically-constrained-quadratic-program#explainer",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "second-order-cone-program#explainer",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "semidefinite-program#explainer",
+      "version": 1
+    },
+    {
+      "id": "conic-duality-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "conic-duality-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "conic-duality-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "conic-duality-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "conic-duality-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "conic-duality-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "conic-duality-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "conic-duality-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "conic-duality-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "conic-duality-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "conic-duality-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "conic-duality-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "conic-duality#explainer",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity#explainer",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "coordinate-descent#explainer",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "equality-constrained-newton#explainer",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point-r1-q1",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point-r1-q2",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point-r1-q3",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point-r2-q1",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point-r2-q2",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point-r2-q3",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point-r3-q1",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point-r3-q2",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point-r3-q3",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point-r4-q1",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point-r4-q2",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point-r4-q3",
+      "version": 1
+    },
+    {
+      "id": "barrier-interior-point#explainer",
+      "version": 1
+    },
+    {
       "id": "lin-algebra-review-r1-q1",
       "version": 2
     },

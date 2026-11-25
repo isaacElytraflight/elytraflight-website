@@ -23,6 +23,16 @@ Every item is version 1.
 
 The shingle gate and the manual spot audit are deferred. They are not part of this batch.
 
+## EB3: Cone programs, lasso stationarity, coordinate and Newton steps — eecs127-eb3
+
+Box: Optimization models in engineering.
+
+Skills: `quadratic-program`, `quadratically-constrained-quadratic-program`, `second-order-cone-program`, `semidefinite-program`, `conic-duality`, `lasso-stationarity`, `coordinate-descent`, `equality-constrained-newton`, `barrier-interior-point`.
+
+Every item is version 1.
+
+The shingle gate and the manual spot audit are deferred. They are not part of this batch.
+
 ## B1 — me132-b1
 
 Box: ME 132 (me132) and Feedback Systems (am08).

@@ -1,0 +1,202 @@
+{
+  "skill_id": "lasso-stationarity",
+  "version": 1,
+  "questions": [
+    {
+      "id": "lasso-stationarity-r1-q1",
+      "round": 1,
+      "type": "mc",
+      "prompt": "The lasso objective uses \\(\\lambda\\lVert x\\rVert_1\\) with no leading one half on the squared residual. The absolute value \\(\\lvert t\\rvert\\) is not differentiable at 0. Its subdifferential there is",
+      "explanation": "Every slope between the left derivative \\(-1\\) and the right derivative \\(1\\) is a subgradient at the corner. The subdifferential is the whole interval. It contains 0, but it is not only 0. It is not empty, and it is not only the two endpoints.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a soft-threshold map</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">z</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">x</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.9 64.1,132.9 67.2,132.9 70.2,132.9 73.2,132.9 76.2,132.9 79.2,132.9 82.3,132.9 85.3,132.9 88.3,132.9 91.3,132.9 94.4,132.9 97.4,132.9 100.4,132.9 103.4,132.9 106.4,132.9 109.5,132.9 112.5,132.9 115.5,132.9 118.5,132.9 121.6,132.9 124.6,132.9 127.6,132.9 130.6,132.9 133.6,132.9 136.7,132.9 139.7,131.3 142.7,129.7 145.7,128.2 148.8,126.6 151.8,125 154.8,123.5 157.8,121.9 160.8,120.3 163.9,118.8 166.9,117.2 169.9,115.7 172.9,114.1 176,112.5 179,111 182,109.4 185,107.8 188,106.3 191.1,104.7 194.1,103.1 197.1,101.6 200.1,100 203.2,98.5 206.2,96.9 209.2,95.3 212.2,93.8 215.2,92.2 218.3,90.6 221.3,89.1 224.3,87.5 227.3,85.9 230.4,84.4 233.4,82.8 236.4,81.2 239.4,79.7 242.4,78.1 245.5,76.6 248.5,75 251.5,73.4 254.5,71.9 257.6,70.3 260.6,68.7 263.6,67.2 266.6,65.6 269.6,64 272.7,62.5 275.7,60.9 278.7,59.3 281.7,57.8 284.8,56.2 287.8,54.7 290.8,53.1 293.8,51.5 296.8,50 299.9,48.4 302.9,46.8 305.9,45.3 308.9,43.7 312,42.1 315,40.6 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve on axes labeled z and x. It stays on the horizontal axis beside the origin, then rises in a straight slope.",
+      "options": [
+        "the single number 0",
+        "the interval \\([-1,\\ 1]\\)",
+        "empty, because a corner has no slope",
+        "the two-point set \\(\\{-1,\\ 1\\}\\), excluding the slopes in between"
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r1-q2",
+      "round": 1,
+      "type": "numeric",
+      "prompt": "The penalty weight is \\(\\lambda=2\\), so the soft-threshold level is \\(\\lambda/2=1\\). The input coordinate is \\(z=4\\). What is the soft-thresholded coordinate?",
+      "explanation": "Because \\(4>1\\), the positive branch applies: \\(4-1=3\\). Subtracting the full weight 2 would give 2, which is the formula for an objective that carries a leading one half. The input 4 is not the output. A result of 0 would require \\(\\lvert z\\rvert\\le 1\\).",
+      "answer": 3.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r1-q3",
+      "round": 1,
+      "type": "mc",
+      "prompt": "Why is the threshold \\(\\lambda/2\\) rather than \\(\\lambda\\), for \\(\\lVert Ax-b\\rVert^2+\\lambda\\lVert x\\rVert_1\\) with orthonormal columns?",
+      "explanation": "The gradient of \\(\\lVert Ax-b\\rVert^2\\) carries a 2. With \\(A^T A=I\\) the stationarity condition is \\(2(x-z)+\\lambda s=0\\), so a positive coordinate solves as \\(x=z-\\lambda/2\\). The absolute penalty is not squared. Orthonormal columns make \\(A^T A=I\\), not a statement about \\(\\lambda\\). The subdifferential of \\(\\lvert t\\rvert\\) for \\(t>0\\) is 1, not \\(1/2\\).",
+      "options": [
+        "The square on the residual contributes a factor 2 in the gradient, and that factor divides \\(\\lambda\\).",
+        "The absolute penalty is squared, so the weight is halved.",
+        "Orthonormal columns force every singular value to equal \\(\\lambda\\).",
+        "The subdifferential of \\(\\lvert t\\rvert\\) at a positive \\(t\\) is \\(1/2\\)."
+      ],
+      "correct_index": 0,
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r2-q1",
+      "round": 2,
+      "type": "order",
+      "prompt": "Put these steps in the order that derives the positive branch of the soft-threshold map. The objective in this coordinate is \\((x-z)^2+\\lambda\\lvert x\\rvert\\), with \\(\\lambda>0\\). Each step uses the equation the previous step wrote.",
+      "explanation": "Stationarity has to be written before the sign assumption specializes \\(s\\). The assumption \\(s=1\\) has to be in the equation before it is solved for \\(x\\). The solved value has to exist before it is tested for consistency with the sign assumption. Swapping an adjacent pair uses a sign or a formula that has not been derived.",
+      "steps": [
+        "Write stationarity as 2(x-z)+lambda s = 0, with s in the subdifferential of |x|.",
+        "Assume the solution is positive, which forces s=1.",
+        "Solve the stationarity equation to get x = z - lambda/2.",
+        "Keep that value only when it is positive, that is, only when z > lambda/2."
+      ],
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r2-q2",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The penalty weight is \\(\\lambda=2\\), so the threshold is 1. The input coordinate is \\(z=-4\\). What is the soft-thresholded coordinate?",
+      "explanation": "Because \\(-4<-1\\), the negative branch applies: \\(-4+1=-3\\). The positive branch \\(z-\\lambda/2\\) would give \\(-5\\), which is more negative and does not match the subdifferential \\(-1\\). The input \\(-4\\) is not the output. A result of 0 would require the input to lie in \\([-1,1]\\).",
+      "answer": -3.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r2-q3",
+      "round": 2,
+      "type": "numeric",
+      "prompt": "The columns are orthonormal, \\(\\lambda=2\\), and \\(z=A^T b=(5,\\ 0.25)\\). What is the first soft-thresholded coordinate?",
+      "explanation": "The threshold is \\(\\lambda/2=1\\). The first input 5 is larger than 1, so it becomes \\(5-1=4\\). The second input 0.25 lies inside \\([-1,1]\\), so that coordinate becomes 0. Reporting 5 leaves the first coordinate unshrunk. Reporting 0.25 returns an input instead of the first output. Subtracting \\(\\lambda\\) rather than \\(\\lambda/2\\) would turn 5 into 3.",
+      "answer": 4.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r3-q1",
+      "round": 3,
+      "type": "symbolic",
+      "prompt": "Let \\(z>\\lambda/2>0\\). For the positive branch of \\(\\lVert x-z\\rVert^2+\\lambda\\lvert x\\rvert\\) in one coordinate, write the minimizer in \\(z\\) and \\(\\lambda\\). Use the name lam for \\(\\lambda\\).",
+      "explanation": "Stationarity at a positive coordinate is \\(2(x-z)+\\mathrm{lam}=0\\), because the subdifferential equals 1 and the square contributes the 2. Solve for \\(x\\). The declared ranges keep \\(z>\\mathrm{lam}/2\\), so this positive branch is the minimizer.\n• \\(z-\\mathrm{lam}\\) subtracts the full weight.\n• \\(z+\\mathrm{lam}/2\\) moves away from zero.\n• \\(\\mathrm{lam}/2\\) drops the data term \\(z\\).",
+      "answer": "z-lam/2",
+      "variables": [
+        {
+          "name": "z",
+          "min": 2.0,
+          "max": 5.0
+        },
+        {
+          "name": "lam",
+          "min": 0.2,
+          "max": 1.0
+        }
+      ],
+      "tolerance": 0.001,
+      "alternates": [
+        "z-(lam/2)",
+        "(2*z-lam)/2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r3-q2",
+      "round": 3,
+      "type": "mc",
+      "prompt": "The columns of \\(A\\) are not orthonormal. Which claim stays true?",
+      "explanation": "Differentiating the squared residual always produces the factor 2 and the map \\(A^T(Ax-b)\\). The subdifferential of the absolute penalty does not depend on \\(A\\). Orthonormality is what replaces \\(A^T A x\\) by \\(x\\) and lets each coordinate separate into a soft threshold of \\(A^T b\\). Without it, that closed form is gone, and the corner of the absolute value is still not differentiable.",
+      "options": [
+        "The minimizer is still the soft-threshold of \\(A^T b\\) at level \\(\\lambda/2\\).",
+        "Stationarity is still \\(0\\in 2A^T(Ax-b)+\\lambda\\,\\partial\\lVert x\\rVert_1\\), but it does not reduce to that componentwise map.",
+        "The absolute value becomes differentiable at 0 when the columns fail to be orthonormal.",
+        "The objective drops the factor 2 in the residual gradient."
+      ],
+      "correct_index": 1,
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r3-q3",
+      "round": 3,
+      "type": "multi",
+      "prompt": "The penalty weight is \\(\\lambda=4\\), so the threshold is 2. Which inputs are sent to a nonzero soft-threshold value?",
+      "explanation": "An input is unchanged in sign and reduced by 2 when its absolute value is strictly larger than 2. The input 5 becomes 3. The input \\(-2.5\\) becomes \\(-0.5\\). The input 2 meets the threshold and becomes 0. The input 1 lies inside the interval and becomes 0. Equality with the threshold is the boundary of the zero set, not a nonzero output.",
+      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 340 176\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a soft-threshold map</title><line x1=\"46\" y1=\"146\" x2=\"318\" y2=\"146\"/><polygon points=\"318,146 311.6,148.7 311.6,143.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"46\" y1=\"146\" x2=\"46\" y2=\"24\"/><polygon points=\"46,24 48.7,30.4 43.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"318\" y=\"162\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"none\">z</text><text x=\"50\" y=\"20\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">x</text><polyline points=\"46,132.9 49,132.9 52,132.9 55.1,132.9 58.1,132.9 61.1,132.9 64.1,132.9 67.2,132.9 70.2,132.9 73.2,132.9 76.2,132.9 79.2,132.9 82.3,132.9 85.3,132.9 88.3,132.9 91.3,132.9 94.4,132.9 97.4,132.9 100.4,132.9 103.4,132.9 106.4,132.9 109.5,132.9 112.5,132.9 115.5,132.9 118.5,132.9 121.6,132.9 124.6,132.9 127.6,132.9 130.6,132.9 133.6,132.9 136.7,132.9 139.7,131.3 142.7,129.7 145.7,128.2 148.8,126.6 151.8,125 154.8,123.5 157.8,121.9 160.8,120.3 163.9,118.8 166.9,117.2 169.9,115.7 172.9,114.1 176,112.5 179,111 182,109.4 185,107.8 188,106.3 191.1,104.7 194.1,103.1 197.1,101.6 200.1,100 203.2,98.5 206.2,96.9 209.2,95.3 212.2,93.8 215.2,92.2 218.3,90.6 221.3,89.1 224.3,87.5 227.3,85.9 230.4,84.4 233.4,82.8 236.4,81.2 239.4,79.7 242.4,78.1 245.5,76.6 248.5,75 251.5,73.4 254.5,71.9 257.6,70.3 260.6,68.7 263.6,67.2 266.6,65.6 269.6,64 272.7,62.5 275.7,60.9 278.7,59.3 281.7,57.8 284.8,56.2 287.8,54.7 290.8,53.1 293.8,51.5 296.8,50 299.9,48.4 302.9,46.8 305.9,45.3 308.9,43.7 312,42.1 315,40.6 318,39\" stroke-width=\"2.2\"/></svg>",
+      "figure_alt": "A curve on axes labeled z and x. It stays on the horizontal axis beside the origin, then rises in a straight slope.",
+      "options": [
+        "\\(z=5\\)",
+        "\\(z=-2.5\\)",
+        "\\(z=2\\)",
+        "\\(z=1\\)"
+      ],
+      "correct_indices": [
+        0,
+        1
+      ],
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r4-q1",
+      "round": 4,
+      "type": "error",
+      "prompt": "One step below is false. Select that step, and the reason it fails. One coordinate minimizes \\((x-z)^2+\\lambda\\lvert x\\rvert\\) with \\(z=5\\) and \\(\\lambda=2\\).",
+      "explanation": "The stationarity equation and the positive branch \\(x=z-\\lambda/2\\) are right. Here \\(\\lambda/2=1\\), so \\(x=5-1=4\\), which is positive and consistent. Subtracting the full weight 2 is the formula for a different scaling of the square. The false step uses that other formula. The last step states the consistent value.",
+      "preview": [
+        "coordinate-descent"
+      ],
+      "steps": [
+        "Stationarity says \\(2(x-z)+\\lambda s=0\\) with \\(s\\) in the subdifferential of \\(\\lvert x\\rvert\\).",
+        "If \\(x>0\\), then \\(s=1\\), so \\(x=z-\\lambda/2\\).",
+        "With these numbers the positive formula gives \\(x=5-2=3\\).",
+        "The consistent positive value is \\(x=4\\), and it is positive, so the assumption \\(x>0\\) holds."
+      ],
+      "flaw_index": 2,
+      "reasons": [
+        "The threshold is lambda/2, so the positive value is 5-1, not 5-2.",
+        "The subdifferential at a positive coordinate is 0.",
+        "The factor 2 in the stationarity equation should be dropped."
+      ],
+      "correct_reason": 0,
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r4-q2",
+      "round": 4,
+      "type": "numeric",
+      "prompt": "Let \\(A=\\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}\\), so the columns are orthonormal, and let \\(b=(6,\\ 1)\\) and \\(\\lambda=4\\). What is the second coordinate of the soft-thresholded minimizer?",
+      "explanation": "Because \\(A^T=A\\), the vector \\(z=A^T b\\) equals \\((1,\\ 6)\\). The threshold is \\(\\lambda/2=2\\). The first input 1 lies inside \\([-2,2]\\), so that coordinate is 0. The second input 6 becomes \\(6-2=4\\). Reporting 6 leaves the second coordinate unshrunk. Reporting 1 returns an input. Subtracting \\(\\lambda=4\\) from 6 would give 2, which is the wrong threshold.",
+      "preview": [
+        "coordinate-descent"
+      ],
+      "answer": 4.0,
+      "unit": "(unitless)",
+      "tolerance": 0.02,
+      "version": 1
+    },
+    {
+      "id": "lasso-stationarity-r4-q3",
+      "round": 4,
+      "type": "mc",
+      "prompt": "When the columns are not orthonormal, the same absolute penalty still separates across coordinates once the other coordinates are frozen. The exact minimization in one frozen-coordinate problem is a soft threshold of a partial residual. The skill that carries out those one-coordinate minimizations is",
+      "explanation": "Freezing every coordinate but one leaves a scalar absolute-penalty problem, and its minimizer is a soft threshold. Doing that once per coordinate is a pass of coordinate descent. A gradient step moves every coordinate by a fixed multiple of a slope and does not solve the scalar problem exactly. A Newton step on equalities and a semidefinite embedding are different constructions.",
+      "preview": [
+        "coordinate-descent"
+      ],
+      "options": [
+        "a full gradient step on every coordinate at once",
+        "coordinate descent",
+        "an equality-constrained Newton step",
+        "a semidefinite embedding of the penalty"
+      ],
+      "correct_index": 1,
+      "version": 1
+    }
+  ]
+}
