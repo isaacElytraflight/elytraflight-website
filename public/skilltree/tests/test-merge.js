@@ -373,6 +373,38 @@ test('merge keeps the newer saved plan and does not drop a plan source', () => {
   assert.strictEqual(kept.added, 0);
 });
 
+test('structured row layers practice the shallowest ready skills first', () => {
+  const graph = {
+    ids: ['low', 'high', 'child'],
+    prereqs: { low: [], high: [], child: ['low'] },
+    maxTier: { low: 1, high: 1, child: 1 }
+  };
+  const open = Sim.simulate(graph, {}, { practiceMin: 1, challengeMin: 1 });
+  assert.deepStrictEqual(open.rows[0].practiced.slice().sort(), ['high', 'low']);
+  const structured = Sim.simulate(graph, {}, {
+    practiceMin: 1, challengeMin: 1,
+    rowLayers: { low: 0, high: 4, child: 1 }
+  });
+  assert.deepStrictEqual(structured.rows[0].practiced, ['low']);
+  const rowOf = id => structured.rows.find(r => r.practiced.indexOf(id) >= 0);
+  const lowRow = rowOf('low'), childRow = rowOf('child'), highRow = rowOf('high');
+  assert(lowRow && childRow && highRow);
+  assert(lowRow.n < childRow.n, 'the child waits until its prerequisite has been practiced');
+  assert(childRow.n < highRow.n, 'a deeper ready skill waits for ready skills on shallower rows');
+  const waited = Sim.simulate({
+    ids: ['root', 'filler', 'child'],
+    prereqs: { root: [], filler: [], child: ['root'] },
+    maxTier: { root: 1, filler: 1, child: 1 }
+  }, {}, { practiceMin: 1, challengeMin: 1, rowLayers: { root: 0, filler: 1, child: 5 } });
+  assert.deepStrictEqual(waited.critical.chain, ['root', 'child']);
+  const openChain = Sim.simulate({
+    ids: ['a', 'b'],
+    prereqs: { a: [], b: ['a'] },
+    maxTier: { a: 1, b: 1 }
+  }, {}, { practiceMin: 1, challengeMin: 1 });
+  assert.deepStrictEqual(openChain.critical.chain, ['a', 'b']);
+});
+
 test('mergeTiming: limits to 50 entries per category', () => {
   const makeSamples = (start, count) => Array.from({ length: count }, (_, i) => ({ t: start + i, d: 10 }));
   const local = { practice: makeSamples(0, 30), challenge: makeSamples(0, 30) };

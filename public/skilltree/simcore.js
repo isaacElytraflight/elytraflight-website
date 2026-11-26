@@ -23,12 +23,28 @@ function simulate(graph,start,opts){
   var practicedAt={},reachedAt={};
   ids.forEach(function(id){reachedAt[id]={};for(var t=0;t<=tier[id];t++)reachedAt[id][t]=0});
   var startCounts=counts(),rows=[],cum=0,guard=1000;
+  var layers=opts.rowLayers;
   function finished(){return ids.every(function(id){return tier[id]>=top[id]})}
   var out={ok:true,stuck:false,scope:ids.length,startCounts:startCounts,practiceMin:tp,challengeMin:tc};
   while(!finished()){
     if(rows.length>=guard){out.ok=false;out.stuck=true;break}
     var snap={};ids.forEach(function(id){snap[id]=tier[id]});
     var ready=ids.filter(function(id){return snap[id]===0&&top[id]>=1&&pre[id].every(function(p){return snap[p]>=need(p)})});
+    // Structured passes rowLayers and takes only the shallowest ready row.
+    // Adventurous leaves the map off, so every ready skill stays in this session.
+    if(layers&&ready.length){
+      var minL=Infinity;
+      ready.forEach(function(id){
+        var L=layers[id];
+        if(typeof L!=='number'||!isFinite(L))L=0;
+        if(L<minL)minL=L;
+      });
+      ready=ready.filter(function(id){
+        var L=layers[id];
+        if(typeof L!=='number'||!isFinite(L))L=0;
+        return L===minL;
+      });
+    }
     var chal=ids.filter(function(id){return snap[id]>=1&&snap[id]<top[id]});
     if(!ready.length&&!chal.length){out.ok=false;out.stuck=true;break}
     var n=rows.length+1;
@@ -50,7 +66,12 @@ function simulate(graph,start,opts){
       var ps=practicedAt[id],best=[id];
       if(ps&&ps>1){
         pre[id].forEach(function(p){
-          if(reachedAt[p][need(p)]===ps-1){var c=trace(p).concat([id]);if(c.length>best.length)best=c}
+          var prior=reachedAt[p][need(p)];
+          // Adventurous advances every ready skill on the next session, so the
+          // predecessor is exactly one session earlier. Structured can leave a
+          // ready skill waiting, so any earlier session still counts.
+          var onPath=layers?prior>0&&prior<ps:prior===ps-1;
+          if(onPath){var c=trace(p).concat([id]);if(c.length>best.length)best=c}
         });
       }
       return memo[id]=best;

@@ -1050,6 +1050,144 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('structured rows are the default and both modes keep prerequisite order', async () => {
+    const p = await newPage();
+    assert.strictEqual(await p.$eval('#rowStructured', e => e.getAttribute('aria-pressed')), 'true');
+    assert.strictEqual(await p.$eval('#rowAdventurous', e => e.getAttribute('aria-pressed')), 'false');
+    assert.strictEqual(await p.evaluate(() => {
+      const ui = JSON.parse(localStorage.getItem('skilltree.ui.v1') || '{}');
+      return ui.rows || '';
+    }), '', 'a new profile stays on the default without an explicit row choice');
+
+    await showAll(p);
+    const measure = () => p.evaluate(() => {
+      const sg = window.__skillgrove;
+      const tree = sg.layout().tree;
+      const grouped = sg.layout().grouped;
+      const layer = tree.layerOf || {};
+      const badLayer = [];
+      const badY = [];
+      (tree.edges || []).forEach(e => {
+        const a = layer[e.from], b = layer[e.to];
+        if (typeof a !== 'number' || typeof b !== 'number' || !(a < b)) badLayer.push(e.from + '->' + e.to);
+        const na = tree.nodes[e.from], nb = tree.nodes[e.to];
+        if (na && nb && !(na.y > nb.y)) badY.push(e.from + '->' + e.to);
+      });
+      const groupedBad = [];
+      (grouped.edges || []).forEach(e => {
+        const a = grouped.nodes[e.fromKey], b = grouped.nodes[e.toKey];
+        if (a && b && !(a.y > b.y)) groupedBad.push(e.fromKey + '->' + e.toKey);
+      });
+      let shift = null, rowMismatch = 0, places = 0;
+      (grouped.places || []).forEach(pl => {
+        const gy = grouped.nodes[pl.key] && grouped.nodes[pl.key].y;
+        const ty = tree.nodes[pl.skillId] && tree.nodes[pl.skillId].y;
+        if (gy == null || ty == null) { rowMismatch++; return; }
+        places++;
+        if (shift == null) shift = gy - ty;
+        else if (Math.abs(gy - ty - shift) > 0.01) rowMismatch++;
+      });
+      return {
+        badLayer, badY, groupedBad, rowMismatch, places,
+        mode: sg.rows(),
+        layers: tree.layers,
+        layer,
+        edges: (tree.edges || []).map(e => [e.from, e.to]),
+        fhs: layer['finite-horizon-sequence'],
+        traj: layer['trajectory-optimization']
+      };
+    });
+
+    const structured = await measure();
+    assert.strictEqual(structured.mode, 'structured');
+    assert.strictEqual(structured.badLayer.length, 0, 'structured prerequisite row is not above its follow-up: ' + structured.badLayer.slice(0, 4).join(','));
+    assert.strictEqual(structured.badY.length, 0, 'structured prerequisite is not below its follow-up: ' + structured.badY.slice(0, 4).join(','));
+    assert.strictEqual(structured.groupedBad.length, 0, 'grouped structured edge runs downward: ' + structured.groupedBad.slice(0, 4).join(','));
+    assert.strictEqual(structured.rowMismatch, 0, 'grouped structured rows left the ungrouped rows');
+    assert(structured.places > 0, 'grouped view has skills to compare');
+    assert.strictEqual(structured.fhs + 1, structured.traj, 'finite-horizon-sequence sits on the row just under trajectory-optimization');
+
+    await p.evaluate(() => window.__skillgrove.setRows('adventurous'));
+    const adventurous = await measure();
+    assert.strictEqual(adventurous.mode, 'adventurous');
+    assert.strictEqual(adventurous.badLayer.length, 0, 'adventurous prerequisite row is not above its follow-up: ' + adventurous.badLayer.slice(0, 4).join(','));
+    assert.strictEqual(adventurous.badY.length, 0, 'adventurous prerequisite is not below its follow-up: ' + adventurous.badY.slice(0, 4).join(','));
+    assert.strictEqual(adventurous.groupedBad.length, 0, 'grouped adventurous edge runs downward: ' + adventurous.groupedBad.slice(0, 4).join(','));
+    assert.strictEqual(adventurous.rowMismatch, 0, 'grouped adventurous rows left the ungrouped rows');
+    assert.strictEqual(adventurous.layers, structured.layers, 'both modes keep the same number of rows');
+
+    const kids = {};
+    structured.edges.forEach(([parent, child]) => { (kids[parent] || (kids[parent] = [])).push(child); });
+    const dropped = [];
+    const leavesMoved = [];
+    const notTight = [];
+    Object.keys(structured.layer).forEach(id => {
+      const before = adventurous.layer[id];
+      const now = structured.layer[id];
+      if (typeof before !== 'number' || now < before) dropped.push(id);
+      const ch = kids[id] || [];
+      if (!ch.length) {
+        if (now !== before) leavesMoved.push(id);
+        return;
+      }
+      const expect = Math.max(before, Math.min(...ch.map(c => structured.layer[c])) - 1);
+      if (now !== expect) notTight.push(id + ' ' + now + '!=' + expect);
+    });
+    assert.strictEqual(dropped.length, 0, 'structured moved a skill below its longest path: ' + dropped.slice(0, 4).join(','));
+    assert.strictEqual(leavesMoved.length, 0, 'a skill with no follow-ups left its longest-path row: ' + leavesMoved.slice(0, 4).join(','));
+    assert.strictEqual(notTight.length, 0, 'a skill with follow-ups is not just under the nearest one: ' + notTight.slice(0, 4).join(','));
+    assert(structured.layer.electrostatics > adventurous.layer.electrostatics, 'electrostatics closes the gap under its follow-ups');
+
+    const plans = await p.evaluate(() => {
+      const sg = window.__skillgrove;
+      sg.setRows('structured');
+      const layers = sg.planLayers(null);
+      const structuredPlan = sg.plan(true, null);
+      const first = structuredPlan.rows[0].practiced;
+      const min = Math.min.apply(null, first.map(id => layers[id]));
+      const off = first.filter(id => layers[id] !== min);
+      const earlier = [];
+      structuredPlan.rows.forEach(row => row.practiced.forEach(id => { if (layers[id] < min) earlier.push(id); }));
+      const order = sg.readyOrder();
+      const tree = sg.layout().tree.layerOf;
+      let inversions = 0;
+      const known = order.filter(id => typeof tree[id] === 'number');
+      for (let i = 1; i < known.length; i++) if (tree[known[i - 1]] > tree[known[i]]) inversions++;
+      sg.setRows('adventurous');
+      const advPlan = sg.plan(true, null);
+      sg.setRows('structured');
+      return {
+        off, earlier, inversions,
+        electroStr: first.includes('electrostatics'),
+        electroAdv: advPlan.rows[0].practiced.includes('electrostatics'),
+        electroReady: order.includes('electrostatics'),
+        first: order[0],
+        firstLayer: tree[order[0]],
+        electroLayer: tree.electrostatics
+      };
+    });
+    assert.strictEqual(plans.off.length, 0, 'structured session 1 mixed ready rows: ' + plans.off.join(','));
+    assert.strictEqual(plans.earlier.length, 0, 'a deeper ready skill was planned before a shallower one');
+    assert.strictEqual(plans.inversions, 0, 'ready suggestions are not in structured row order');
+    assert.strictEqual(plans.electroStr, false, 'electrostatics is ready immediately but waits behind shallower rows');
+    assert.strictEqual(plans.electroAdv, true, 'adventurous practices every ready skill in the first session');
+    assert(plans.electroReady, 'electrostatics is ready on a fresh profile');
+    assert(plans.electroLayer > plans.firstLayer, 'the first suggestion is a shallower ready skill');
+
+    await p.click('#rowAdventurous');
+    await p.click('#vGrid');
+    const saved = await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.ui.v1')));
+    assert.strictEqual(saved.rows, 'adventurous');
+    assert.strictEqual(saved.view, 'grid');
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(400);
+    assert.strictEqual(await p.$eval('#rowAdventurous', e => e.getAttribute('aria-pressed')), 'true', 'the row choice survives a reload');
+    assert.strictEqual(await p.$eval('#vGrid', e => e.getAttribute('aria-pressed')), 'true', 'the view choice survives beside the row choice');
+    await p.click('#vTree');
+    assert.strictEqual(await p.evaluate(() => JSON.parse(localStorage.getItem('skilltree.ui.v1')).rows), 'adventurous', 'changing the view keeps the row choice');
+    await p._ctx.close();
+  });
+
   await test('learning plan modal with charts', async () => {
     const p = await newPage(T({
       'cx-exp': { tier: 1, lastPracticed: now - 1 * DAY, history: [] },
