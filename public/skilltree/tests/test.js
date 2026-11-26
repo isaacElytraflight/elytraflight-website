@@ -735,7 +735,7 @@ async function test(name, fn) {
   await test('video gate accepts a watch url, a youtu.be url, and an omitted field', async () => {
     const catalog = videoGate();
     assert.strictEqual(catalog.code, 0, catalog.out);
-    assert(/video ok: \d+ skills, 26 with a video/.test(catalog.out), catalog.out);
+    assert(/video ok: \d+ skills, \d+ with a video/.test(catalog.out), catalog.out);
     const samples = [
       { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
       { url: 'https://youtu.be/dQw4w9WgXcQ', title: 'A short segment', start: 90 },
@@ -5982,7 +5982,8 @@ async function test(name, fn) {
   });
 
   await test('a skill without a video field has no recommended-video card', async () => {
-    const p = await newPage();
+    // Real data now gives almost every skill a video, so strip bode's for this check.
+    const p = await newPage(null, { videoPatch: { bode: undefined } });
     await openSkill(p, 'bode');
     const panel = await p.evaluate(() => ({
       card: !!document.getElementById('videoCard'),
@@ -6003,7 +6004,9 @@ async function test(name, fn) {
       videoPatch: {
         bode: { url: 'https://youtu.be/dQw4w9WgXcQ?si=abc', title: 'Essence of linear systems', start: 75 },
         tf: { url: 'https://www.youtube.com/watch?v=abcdefghijk' },
-        'lti-def': { url: 'https://vimeo.com/123456789' }
+        'lti-def': { url: 'https://vimeo.com/123456789' },
+        // Real data now gives rc-lpf a video, so strip it for the no-field check.
+        'rc-lpf': undefined
       }
     });
     await openSkill(p, 'bode');
