@@ -35,7 +35,11 @@
      "section": "5.1",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=5JCuqlExTvo",
+    "title": "Linearity, time invariance, and superposition"
+   }
   },
   {
    "id": "rc-lpf",
@@ -66,7 +70,11 @@
      "section": "8.1",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=LE2uwd9V5vw",
+    "title": "Euler's formula and polar form"
+   }
   },
   {
    "id": "sinusoid-resp",
@@ -83,7 +91,11 @@
      "section": "8.1",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=GMq4VFKCbk8",
+    "title": "Steady state by substituting a complex exponential"
+   }
   },
   {
    "id": "impulse-conv",
@@ -99,7 +111,11 @@
      "section": "5.3",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=acAw5WGtzuk",
+    "title": "Convolution as a superposition of impulse responses"
+   }
   },
   {
    "id": "step-resp",
@@ -116,7 +132,11 @@
      "section": "5.3",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=USH75nuHV6w",
+    "title": "Rise, overshoot, and settling on a step response"
+   }
   },
   {
    "id": "freq-char",
@@ -133,7 +153,11 @@
      "section": "8.1",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=noycLIZbK_k",
+    "title": "A linear system seen in the frequency domain"
+   }
   },
   {
    "id": "tf",
@@ -150,7 +174,11 @@
      "section": "8.2",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=RJleGwXorUk",
+    "title": "The zero-state ratio of output to input"
+   }
   },
   {
    "id": "phasors",
@@ -185,7 +213,11 @@
      "section": "8.2",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Em5TuH4TVr4",
+    "title": "Poles and zeros, and what they do in time and in frequency"
+   }
   },
   {
    "id": "rlc",
@@ -212,7 +244,11 @@
      "section": "8.4",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=_eh1conN6YM",
+    "title": "Sketching Bode magnitude and phase"
+   }
   },
   {
    "id": "ac-power",
@@ -988,7 +1024,11 @@
      "use": "reference only"
     }
    ],
-   "summary": "Forward block, feedback block, summing junction, error signal, and the sign of the feedback."
+   "summary": "Forward block, feedback block, summing junction, error signal, and the sign of the feedback.",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=AsO5IPzc1VM",
+    "title": "The forward block, the feedback block, and the summing junction"
+   }
   },
   {
    "id": "loop-gain",
@@ -1006,7 +1046,11 @@
      "use": "reference only"
     }
    ],
-   "summary": "The loop gain is the product around the loop. The closed-loop map is the forward gain over one plus that product, and a large loop gain makes the closed loop follow the feedback path."
+   "summary": "The loop gain is the product around the loop. The closed-loop map is the forward gain over one plus that product, and a large loop gain makes the closed loop follow the feedback path.",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=GBv5iiKA6gw",
+    "title": "The product around the loop, and gain over one plus that product"
+   }
   },
   {
    "id": "opamp-models",
@@ -1054,7 +1098,11 @@
      "use": "reference only"
     }
    ],
-   "summary": "S = 1/(1+L) is the fraction by which the closed loop misses the ideal feedback ratio, and that fraction grows as |L| falls."
+   "summary": "S = 1/(1+L) is the fraction by which the closed loop misses the ideal feedback ratio, and that fraction grows as |L| falls.",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=BAWdZvF1O40",
+    "title": "The fraction 1/(1+L) by which the loop misses the ideal ratio"
+   }
   },
   {
    "id": "fb-impedance",
@@ -1083,7 +1131,11 @@
      "use": "reference only"
     }
    ],
-   "summary": "Phase margin and gain margin from where the loop gain crosses magnitude 1 and phase -180 degrees, including that a single-pole loop cannot reach -180 degrees."
+   "summary": "Phase margin and gain margin from where the loop gain crosses magnitude 1 and phase -180 degrees, including that a single-pole loop cannot reach -180 degrees.",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=ThoA4amCAX4",
+    "title": "Gain margin and phase margin from the two loop-gain crossings"
+   }
   },
   {
    "id": "offset",
@@ -1148,7 +1200,11 @@
    "summary": "Contrast open-loop and closed-loop control and name the plant, sensor, actuator, controller, reference and disturbance.",
    "prereqs": [
     "fb-intro"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=3UXDCzeJx3U",
+    "title": "What changes when the loop is closed"
+   }
   },
   {
    "id": "block-diagram",
@@ -1157,7 +1213,11 @@
    "prereqs": [
     "tf",
     "fb-concepts"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=s1KDaGwf6sQ",
+    "title": "Series, parallel, and feedback blocks reduced to one block"
+   }
   },
   {
    "id": "onoff-pid-intro",
@@ -1166,7 +1226,11 @@
    "prereqs": [
     "fb-concepts",
     "fb-errors"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=1pKJ-KcHZ8g",
+    "title": "On-off control set beside proportional and PID action"
+   }
   },
   {
    "id": "ode-model",
@@ -1174,7 +1238,11 @@
    "summary": "Write ODE models of mechanical, electrical and fluid elements from physical laws.",
    "prereqs": [
     "lti-def"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=4hYnYhY3sWI",
+    "title": "From element laws to a differential equation"
+   }
   },
   {
    "id": "state-space-model",
@@ -1182,7 +1250,11 @@
    "summary": "Put an n-th order ODE or coupled ODEs into x'=Ax+Bu, y=Cx+Du form.",
    "prereqs": [
     "ode-model"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=hpeKrMG-WP0",
+    "title": "Dynamics written as x' = Ax + Bu and y = Cx + Du"
+   }
   },
   {
    "id": "cruise-control",
@@ -1202,7 +1274,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=vxTJMGqjGdg",
+    "title": "A vehicle speed loop with drag, grade, and PI control"
+   }
   },
   {
    "id": "laplace",
@@ -1210,7 +1286,11 @@
    "summary": "Transform signals and ODEs, use derivative/integral rules and the final value theorem.",
    "prereqs": [
     "cx-exp"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=j0wJBEZdwLs",
+    "title": "The transform that turns a differential equation into algebra"
+   }
   },
   {
    "id": "model-method",
@@ -1218,7 +1298,11 @@
    "summary": "Choose states, nondimensionalize, and pick model fidelity for a control purpose.",
    "prereqs": [
     "ode-model"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=VrVhaulePjE",
+    "title": "Units and scaling chosen before the equations are used"
+   }
   },
   {
    "id": "first-order-sys",
@@ -1227,7 +1311,11 @@
    "prereqs": [
     "step-resp"
    ],
-   "owns": "one real pole, time constant, DC gain, exponential step and free response"
+   "owns": "one real pole, time constant, DC gain, exponential step and free response",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=WK_HclVaXwk",
+    "title": "One real pole, a time constant, and an exponential step"
+   }
   },
   {
    "id": "second-order-sys",
@@ -1247,7 +1335,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=pzRTyxf31fw",
+    "title": "Natural frequency, damping ratio, and the three damping cases"
+   }
   },
   {
    "id": "step-specs",
@@ -1266,7 +1358,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=486BK9aYnMY",
+    "title": "Rise time, overshoot, settling time, and steady-state error"
+   }
   },
   {
    "id": "pid",
@@ -1286,7 +1382,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=UR0hOmjaHp0",
+    "title": "How proportional, integral, and derivative terms move the response"
+   }
   },
   {
    "id": "windup",
@@ -1305,7 +1405,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=NVLXCwc8HzM",
+    "title": "Actuator saturation, integrator windup, and anti-windup"
+   }
   },
   {
    "id": "pid-tuning",
@@ -1324,7 +1428,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=sFOEsA0Irjs",
+    "title": "Choosing PID gains from a plant test"
+   }
   },
   {
    "id": "pid-impl",
@@ -1363,7 +1471,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=O85OWBJ2ayo",
+    "title": "The matrix exponential that advances the state"
+   }
   },
   {
    "id": "eig-modes",
@@ -1383,7 +1495,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Zwb5eiYcL8w",
+    "title": "A free response built as exponentials along eigenvectors"
+   }
   },
   {
    "id": "ss-to-tf",
@@ -1403,7 +1519,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=CwB8FzXWvgY",
+    "title": "G(s) = C(sI - A)^{-1}B + D"
+   }
   },
   {
    "id": "realization",
@@ -1422,7 +1542,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=5TNpxBrULzA",
+    "title": "Controllable and observable canonical forms of one transfer function"
+   }
   },
   {
    "id": "lti-stability",
@@ -1442,7 +1566,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=WBCZBOB3LCA",
+    "title": "The Routh-Hurwitz test for poles in the left half-plane"
+   }
   },
   {
    "id": "freq-resp-lti",
@@ -1462,13 +1590,21 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=xOO3aWsQdlg",
+    "title": "The steady-state sinusoid read from G(jw)"
+   }
   },
   {
    "id": "lin-algebra-review",
    "name": "Linear algebra review",
    "summary": "Rank, the null space, the determinant, and the product of a matrix with a vector.",
-   "prereqs": []
+   "prereqs": [],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=uQhTuRlWMxw",
+    "title": "Column space, null space, and when a matrix is invertible"
+   }
   },
   {
    "id": "eigenvalues-diagonalization",
@@ -1486,7 +1622,11 @@
      "ref": "wikibooks-linalg",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=PFDu9oVAE-g",
+    "title": "Eigenvectors, and a basis in which the matrix is diagonal"
+   }
   },
   {
    "id": "discrete-time",
@@ -1525,7 +1665,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=b_8v8scghh8",
+    "title": "The closed-loop maps from reference, disturbance, and noise"
+   }
   },
   {
    "id": "root-locus",
@@ -1545,7 +1689,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=CRvVDoQJjYI",
+    "title": "How the closed-loop poles move as gain increases"
+   }
   },
   {
    "id": "nyquist",
@@ -1565,7 +1713,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=sof3meN96MA",
+    "title": "Stability from encirclements of the point -1"
+   }
   },
   {
    "id": "time-delay",
@@ -1584,7 +1736,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=wouhREkqZa0",
+    "title": "The phase a pure delay adds inside a feedback loop"
+   }
   },
   {
    "id": "min-phase",
@@ -1632,7 +1788,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=hTu36q5yx20",
+    "title": "Disturbance, sensor noise, and tracking through S and T"
+   }
   },
   {
    "id": "uncertainty",
@@ -1651,7 +1811,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Oq4qbp-vKt0",
+    "title": "A plant parameter the model does not know exactly"
+   }
   },
   {
    "id": "robust-stability",
@@ -1671,7 +1835,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=lcg6e7ewq6w",
+    "title": "The small-gain test for an uncertain loop"
+   }
   },
   {
    "id": "robust-perf",
@@ -1789,7 +1957,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=u5Sv7YKAkt4",
+    "title": "The controllability matrix and which states can be reached"
+   }
   },
   {
    "id": "state-feedback",
@@ -1809,7 +1981,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=FXSpHy8LvmY",
+    "title": "A gain K that places the eigenvalues of A - BK"
+   }
   },
   {
    "id": "integral-action",
@@ -1828,7 +2004,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=1chgJkESJGA",
+    "title": "An added integrator state that removes steady-state error"
+   }
   },
   {
    "id": "lqr",
@@ -1867,7 +2047,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=iRZmJBcg1ZA",
+    "title": "The observability matrix and when the output reveals the state"
+   }
   },
   {
    "id": "observer",
@@ -1886,7 +2070,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=MZJMi-6_4UU",
+    "title": "An observer gain that drives the estimation error to zero"
+   }
   },
   {
    "id": "separation",
@@ -1906,7 +2094,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=vwn5FTUkitw",
+    "title": "Controller eigenvalues and observer eigenvalues chosen apart"
+   }
   },
   {
    "id": "gaussian-random-vectors",
@@ -1935,7 +2127,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=IFeCIbljreY",
+    "title": "Predict the state, then update it with the measurement"
+   }
   },
   {
    "id": "kalman-optimal-observer",
@@ -1944,7 +2140,11 @@
    "prereqs": [
     "kalman",
     "observer"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=7QM4CHSAad4",
+    "title": "The gain that minimizes the variance of the state error"
+   }
   },
   {
    "id": "gen-controller",
@@ -1983,7 +2183,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=vBwyD4JJlSs",
+    "title": "Equilibria and phase portraits of a planar nonlinear system"
+   }
   },
   {
    "id": "local-linear-approximation",
@@ -2004,7 +2208,11 @@
      "ref": "nw-numopt",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=AorDyDOZNMA",
+    "title": "A tangent approximation that is trustworthy only nearby"
+   }
   },
   {
    "id": "linearization",
@@ -2025,7 +2233,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=1YMTkELi3tE",
+    "title": "Jacobians at an equilibrium and the eigenvalues of that linear model"
+   }
   },
   {
    "id": "lyapunov",
@@ -2085,7 +2297,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=UwuPH4lpOwI",
+    "title": "A feedback transformation that cancels the nonlinear terms"
+   }
   },
   {
    "id": "gain-scheduling",
@@ -2105,7 +2321,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=YiUjAV1bhKs",
+    "title": "Linear controllers at several operating points, blended as the state moves"
+   }
   },
   {
    "id": "sys-id",
@@ -2126,7 +2346,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Z1QS6FsxrJI",
+    "title": "A model read from measured input and output"
+   }
   },
   {
    "id": "finite-horizon-sequence",
@@ -2153,7 +2377,11 @@
      "ref": "me132-f26",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Dkt6OiK_GqY",
+    "title": "A sequence of inputs, a cost at each step, and dynamics that constrain it"
+   }
   },
   {
    "id": "mpc",
@@ -2174,7 +2402,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=YwodGM2eoy4",
+    "title": "A short look-ahead, and only the first input is applied"
+   }
   },
   {
    "id": "adaptive",
@@ -2194,7 +2426,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=LRufKwmhLdE",
+    "title": "A controller retuned online from a parameter estimate"
+   }
   },
   {
    "id": "app-examples",
@@ -2295,7 +2531,11 @@
      "section": "2.1-2.2",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=C54Wb2EmknU",
+    "title": "Mass, damping, and stiffness read as natural frequency and damping ratio"
+   }
   },
   {
    "id": "loop-margin-design",
@@ -2311,7 +2551,11 @@
      "section": "2.1, 9.3",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=EfCJrVk1qp0",
+    "title": "How phase margin shows up in the transient response"
+   }
   },
   {
    "id": "optimization-problem-formulation",
@@ -2794,7 +3038,11 @@
    "summary": "Minimize the squared length of a residual A x - b by the normal equations when the columns are independent.",
    "prereqs": [
     "lin-algebra-review"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=WABC6wmuLOk",
+    "title": "The normal equations for a residual Ax - b"
+   }
   },
   {
    "id": "least-squares-quadratic",
