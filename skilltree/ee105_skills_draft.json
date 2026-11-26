@@ -2106,7 +2106,11 @@
    "summary": "Mean and covariance of a Gaussian vector, and the covariance of a linear image.",
    "prereqs": [
     "lin-algebra-review"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=UVvuwv-ne1I",
+    "title": "The mean and covariance of a Gaussian vector"
+   }
   },
   {
    "id": "kalman",
@@ -2563,7 +2567,11 @@
    "summary": "Name the decision variable, the objective, and the feasible set, and tell a minimizer from the optimal value.",
    "prereqs": [
     "rn-important-subsets"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=PAwypf9bOAM",
+    "title": "A decision variable, an objective, and a feasible set"
+   }
   },
   {
    "id": "graphical-2d-optimization",
@@ -2572,7 +2580,11 @@
    "prereqs": [
     "optimization-problem-formulation",
     "level-sets-contours"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=v1t5RpGcO1U",
+    "title": "Objective contours laid over a planar feasible set"
+   }
   },
   {
    "id": "optimization-problem-classes",
@@ -2581,7 +2593,11 @@
    "prereqs": [
     "optimization-problem-formulation",
     "convex-functions"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=8BiHfVrdClU",
+    "title": "How a linear program, a quadratic program, and a nonlinear program differ"
+   }
   },
   {
    "id": "svm-quadratic-program",
@@ -2591,13 +2607,21 @@
     "optimization-problem-classes",
     "quadratic-function-minimization",
     "quadratic-program"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=bxGceB5Eq1c",
+    "title": "A maximum-margin separator written as a quadratic program"
+   }
   },
   {
    "id": "rn-important-subsets",
    "name": "Key subsets of R^n",
    "summary": "Describe orthants, simplices, lines, segments, hyperplanes, and half-spaces as subsets of R^n.",
-   "prereqs": []
+   "prereqs": [],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Cv9agJKJBVE",
+    "title": "Hyperplanes and half-spaces in R^n"
+   }
   },
   {
    "id": "spectral-decomposition",
@@ -2605,7 +2629,11 @@
    "summary": "Diagonalize a real symmetric matrix with orthonormal eigenvectors and rebuild it from its eigenpairs.",
    "prereqs": [
     "eigenvalues-diagonalization"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=ZTNniGvY5IQ",
+    "title": "A symmetric matrix rebuilt from orthonormal eigenvectors"
+   }
   },
   {
    "id": "positive-definite-matrices",
@@ -2613,7 +2641,11 @@
    "summary": "Test positive semidefinite and definite matrices by eigenvalues, and read quadratic-form level sets as ellipses.",
    "prereqs": [
     "eigenvalues-diagonalization"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=lpnY5QVjU5w",
+    "title": "Eigenvalues that certify a positive definite quadratic form"
+   }
   },
   {
    "id": "singular-value-decomposition",
@@ -2621,7 +2653,11 @@
    "summary": "Factor a matrix as a rotation, an axis stretch, and a rotation, and read the rank from the singular values.",
    "prereqs": [
     "spectral-decomposition"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=nbBvuuNVfco",
+    "title": "A matrix factored as a rotation, a stretch, and a rotation"
+   }
   },
   {
    "id": "rayleigh-quotient",
@@ -2629,7 +2665,11 @@
    "summary": "Bound the Rayleigh quotient by the extreme eigenvalues, and use trace and determinant as their sum and product.",
    "prereqs": [
     "spectral-decomposition"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=8194KQlOqZw",
+    "title": "The Rayleigh quotient, bounded by the extreme eigenvalues"
+   }
   },
   {
    "id": "inner-products",
@@ -2637,7 +2677,11 @@
    "summary": "Use the inner-product axioms, the dot product, the Frobenius pairing, and orthogonality.",
    "prereqs": [
     "lin-algebra-review"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=RWLhjq2rfcw",
+    "title": "The inner-product axioms, the dot product, and orthogonality"
+   }
   },
   {
    "id": "vector-norms-lp",
@@ -2645,7 +2689,11 @@
    "summary": "Check the norm axioms and compare the 1-norm, 2-norm, and infinity-norm, including their unit balls.",
    "prereqs": [
     "rn-important-subsets"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=It2g7sDxdqI",
+    "title": "The 1-norm, the 2-norm, and the shape of their unit balls"
+   }
   },
   {
    "id": "cauchy-schwarz-inequality",
@@ -2654,7 +2702,11 @@
    "prereqs": [
     "inner-products",
     "vector-norms-lp"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=r2PogGDl8_U",
+    "title": "The bound on an inner product, and the case of equality"
+   }
   },
   {
    "id": "induced-matrix-norms",
@@ -2663,7 +2715,11 @@
    "prereqs": [
     "vector-norms-lp",
     "singular-value-decomposition"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=y0AjJeeWoNM",
+    "title": "The operator norm, including the matrix 1-norm and infinity-norm"
+   }
   },
   {
    "id": "frobenius-schatten-norms",
@@ -2672,7 +2728,11 @@
    "prereqs": [
     "vector-norms-lp",
     "singular-value-decomposition"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Gt56YxMBlVA",
+    "title": "The Frobenius norm from the entries or the singular values"
+   }
   },
   {
    "id": "open-closed-sets",
@@ -2680,7 +2740,11 @@
    "summary": "Tell open and closed sets apart using balls, interior points, boundary, and closure.",
    "prereqs": [
     "vector-norms-lp"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=eyBX0gkFGsU",
+    "title": "Open sets, closed sets, interior points, and the boundary"
+   }
   },
   {
    "id": "compact-sets",
@@ -2688,7 +2752,11 @@
    "summary": "Use compactness in R^n as closed and bounded, and recognize standard sets that fail it.",
    "prereqs": [
     "open-closed-sets"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=cvM2mFW5hdo",
+    "title": "In R^n, the compact sets are the closed and bounded ones"
+   }
   },
   {
    "id": "level-sets-contours",
@@ -2696,7 +2764,11 @@
    "summary": "Sketch sublevel sets and level curves of a simple function of several variables.",
    "prereqs": [
     "rn-important-subsets"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=uaHiAxFESc4",
+    "title": "Level curves of a function of several variables"
+   }
   },
   {
    "id": "convex-sets",
@@ -2705,7 +2777,11 @@
    "prereqs": [
     "rn-important-subsets",
     "vector-norms-lp"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=eUhnyZ--kGY",
+    "title": "A set that contains the segment between any two of its points"
+   }
   },
   {
    "id": "directional-derivative",
@@ -2713,7 +2789,11 @@
    "summary": "Compute a directional derivative from its one-sided limit along a line.",
    "prereqs": [
     "rn-important-subsets"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=N_ZRcLheNv0",
+    "title": "The derivative of a function along one chosen direction"
+   }
   },
   {
    "id": "gradient-partial-derivatives",
@@ -2721,7 +2801,11 @@
    "summary": "Build the gradient from partial derivatives and use it as the direction of steepest increase.",
    "prereqs": [
     "directional-derivative"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=TEB2z7ZlRAw",
+    "title": "The gradient built from partial derivatives, pointing uphill"
+   }
   },
   {
    "id": "differentiability-multivariable",
@@ -2729,7 +2813,11 @@
    "summary": "Use the linear-approximation definition of differentiability and separate it from the existence of partial derivatives.",
    "prereqs": [
     "gradient-partial-derivatives"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=9n0cRmmxkJw",
+    "title": "Differentiability as the existence of a linear approximation"
+   }
   },
   {
    "id": "hessian-matrix",
@@ -2737,7 +2825,11 @@
    "summary": "Assemble second partial derivatives into the Hessian and use symmetry of mixed partials.",
    "prereqs": [
     "gradient-partial-derivatives"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=LbBcuZukCAw",
+    "title": "Second partial derivatives assembled into the Hessian"
+   }
   },
   {
    "id": "jacobian-chain-rule",
@@ -2745,7 +2837,11 @@
    "summary": "Multiply Jacobians to differentiate a composition, including the gradient of a scalar composition.",
    "prereqs": [
     "gradient-partial-derivatives"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=VI6aa2fR9V0",
+    "title": "A composition differentiated by multiplying Jacobians"
+   }
   },
   {
    "id": "matrix-calculus-gradients",
@@ -2754,7 +2850,11 @@
    "prereqs": [
     "hessian-matrix",
     "jacobian-chain-rule"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Kv34eWghe14",
+    "title": "The gradient of a linear form and of a quadratic form"
+   }
   },
   {
    "id": "fundamental-theorem-along-segment",
@@ -2762,7 +2862,11 @@
    "summary": "Write a function increment and a gradient increment as integrals along the segment between two points.",
    "prereqs": [
     "hessian-matrix"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=we88mTXj6Yc",
+    "title": "A change in the function as an integral of the gradient along the segment"
+   }
   },
   {
    "id": "taylor-approximation-multivariable",
@@ -2771,7 +2875,11 @@
    "prereqs": [
     "local-linear-approximation",
     "hessian-matrix"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=TSlV54g_Pa4",
+    "title": "A multivariable Taylor approximation with the Hessian term"
+   }
   },
   {
    "id": "taylor-exact-mean-value",
@@ -2780,7 +2888,11 @@
    "prereqs": [
     "taylor-approximation-multivariable",
     "fundamental-theorem-along-segment"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=fZ53uSxVoJ8",
+    "title": "The Taylor remainder evaluated at an intermediate point"
+   }
   },
   {
    "id": "convex-functions",
@@ -2788,7 +2900,11 @@
    "summary": "Use the chord definition of convexity, including strict convexity, for norms and affine maps.",
    "prereqs": [
     "convex-sets"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=l5OUNaVdxqs",
+    "title": "A function whose chords lie above the graph"
+   }
   },
   {
    "id": "convexity-first-order",
@@ -2797,7 +2913,11 @@
    "prereqs": [
     "convex-functions",
     "gradient-partial-derivatives"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=2wd1aihdU_0",
+    "title": "The tangent inequality that underestimates a convex function"
+   }
   },
   {
    "id": "convexity-second-order",
@@ -2808,7 +2928,11 @@
     "positive-definite-matrices",
     "matrix-calculus-gradients",
     "taylor-exact-mean-value"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=v8tSb9HUCyI",
+    "title": "Convexity read off a positive semidefinite Hessian"
+   }
   },
   {
    "id": "finite-difference-derivatives",
@@ -2817,7 +2941,11 @@
    "prereqs": [
     "gradient-partial-derivatives",
     "taylor-approximation-multivariable"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=YotrBNLFen0",
+    "title": "Forward and central differences, and the truncation they leave"
+   }
   },
   {
    "id": "computational-graphs",
@@ -2825,7 +2953,11 @@
    "summary": "Break a formula into elementary steps and compare symbolic, numeric, and automatic differentiation.",
    "prereqs": [
     "jacobian-chain-rule"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=oY6-i2Ybin4",
+    "title": "A formula broken into elementary steps on a graph"
+   }
   },
   {
    "id": "ad-forward-mode",
@@ -2834,7 +2966,11 @@
    "prereqs": [
     "computational-graphs",
     "directional-derivative"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=QwFLA5TrviI",
+    "title": "A directional derivative pushed forward through the graph"
+   }
   },
   {
    "id": "ad-reverse-mode",
@@ -2842,7 +2978,11 @@
    "summary": "Sweep adjoints backward to get a full gradient at a cost close to one function evaluation.",
    "prereqs": [
     "computational-graphs"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Cl-OvMNmlco",
+    "title": "Adjoints swept backward to obtain the full gradient"
+   }
   },
   {
    "id": "hessian-vector-products-ad",
@@ -2852,7 +2992,11 @@
     "ad-forward-mode",
     "ad-reverse-mode",
     "hessian-matrix"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=wG_nF1awSSY",
+    "title": "Parent concept: forward and reverse mode — the two passes behind a Hessian-vector product"
+   }
   },
   {
    "id": "backprop-neural-network",
@@ -2860,7 +3004,11 @@
    "summary": "Apply reverse-mode differentiation to the weights of a two-layer classifier loss.",
    "prereqs": [
     "ad-reverse-mode"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Ilg3gGewQ5U",
+    "title": "Reverse mode applied to the weights of a small network"
+   }
   },
   {
    "id": "local-global-minima",
@@ -2869,7 +3017,11 @@
    "prereqs": [
     "optimization-problem-formulation",
     "open-closed-sets"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=SRv_KRnmW5Y",
+    "title": "A local minimizer, a global minimizer, and an infimum"
+   }
   },
   {
    "id": "existence-of-minimizers",
@@ -2879,7 +3031,11 @@
     "local-global-minima",
     "compact-sets",
     "level-sets-contours"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=LOXsZxiBvV4",
+    "title": "When a continuous objective on a closed set attains its minimum"
+   }
   },
   {
    "id": "first-order-optimality",
@@ -2888,7 +3044,11 @@
    "prereqs": [
     "local-global-minima",
     "gradient-partial-derivatives"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=JqlFTygOxd0",
+    "title": "The gradient vanishes at an interior local minimizer"
+   }
   },
   {
    "id": "second-order-optimality",
@@ -2898,7 +3058,11 @@
     "first-order-optimality",
     "positive-definite-matrices",
     "taylor-exact-mean-value"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=TXq9o5jUwpc",
+    "title": "A positive semidefinite Hessian is necessary and a positive definite one is sufficient"
+   }
   },
   {
    "id": "stationary-point-classification",
@@ -2907,7 +3071,11 @@
    "prereqs": [
     "second-order-optimality",
     "existence-of-minimizers"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=_Ffcr98c7EE",
+    "title": "Stationary points sorted into minima, maxima, and saddles"
+   }
   },
   {
    "id": "convex-optimality-global",
@@ -2916,7 +3084,11 @@
    "prereqs": [
     "first-order-optimality",
     "convexity-first-order"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=D-Qy9QfJgQg",
+    "title": "A stationary point of a convex function is a global minimizer"
+   }
   },
   {
    "id": "quadratic-function-minimization",
@@ -2926,7 +3098,11 @@
     "matrix-calculus-gradients",
     "second-order-optimality",
     "convex-optimality-global"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=IVGSr43UD2E",
+    "title": "A quadratic minimized by one linear solve"
+   }
   },
   {
    "id": "lp-standard-form",
@@ -2934,7 +3110,11 @@
    "summary": "Rewrite a linear program with slack variables, split free variables, and clear absolute values.",
    "prereqs": [
     "optimization-problem-classes"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=4hp0mJgzmgc",
+    "title": "Slack variables and the standard form of a linear program"
+   }
   },
   {
    "id": "lp-graphical-solution",
@@ -2943,7 +3123,11 @@
    "prereqs": [
     "lp-standard-form",
     "graphical-2d-optimization"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=YwFrj7kXso4",
+    "title": "A planar linear program read off the picture of its feasible set"
+   }
   },
   {
    "id": "polyhedra-extreme-points",
@@ -2952,7 +3136,11 @@
    "prereqs": [
     "convex-sets",
     "lp-standard-form"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=BqyK9cDqdL0",
+    "title": "The vertices of a polyhedron"
+   }
   },
   {
    "id": "basic-feasible-solutions",
@@ -2961,7 +3149,11 @@
    "prereqs": [
     "polyhedra-extreme-points",
     "lin-algebra-review"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=IKOvUQvFFQU",
+    "title": "A basis, the basic variables, and a feasibility check"
+   }
   },
   {
    "id": "simplex-feasible-directions",
@@ -2969,7 +3161,11 @@
    "summary": "Build a feasible edge step from reduced costs and the largest step that stays nonnegative.",
    "prereqs": [
     "basic-feasible-solutions"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=UJEnS4brKyI",
+    "title": "Reduced costs that mark a descent edge of the feasible set"
+   }
   },
   {
    "id": "simplex-method-iteration",
@@ -2977,7 +3173,11 @@
    "summary": "Run one simplex iteration, including the tests for optimality and an unbounded ray.",
    "prereqs": [
     "simplex-feasible-directions"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=lgD9lNB9Ums",
+    "title": "One simplex pivot, with the tests for optimality and an unbounded ray"
+   }
   },
   {
    "id": "simplex-phase-one",
@@ -2985,7 +3185,11 @@
    "summary": "Build the auxiliary problem that either returns a basic feasible solution or proves infeasibility.",
    "prereqs": [
     "simplex-method-iteration"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=_wnqe5_CLU0",
+    "title": "An auxiliary problem that finds a first basic feasible solution"
+   }
   },
   {
    "id": "lagrangian-duality-lower-bounds",
@@ -2994,7 +3198,11 @@
    "prereqs": [
     "first-order-optimality",
     "quadratic-function-minimization"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=EZi2M3F15GA",
+    "title": "The Lagrangian dual, and weak duality as a lower bound"
+   }
   },
   {
    "id": "lagrange-multiplier-equality",
@@ -3004,7 +3212,11 @@
     "first-order-optimality",
     "jacobian-chain-rule",
     "lin-algebra-review"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=yuqB-d5MjZA",
+    "title": "Stationarity of the Lagrangian when the constraints are equalities"
+   }
   },
   {
    "id": "kkt-conditions",
@@ -3013,7 +3225,11 @@
    "prereqs": [
     "lagrange-multiplier-equality",
     "lagrangian-duality-lower-bounds"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=H0_L3V8qKiY",
+    "title": "Nonnegative multipliers and complementary slackness"
+   }
   },
   {
    "id": "lp-duality-kkt",
@@ -3022,7 +3238,11 @@
    "prereqs": [
     "kkt-conditions",
     "lp-standard-form"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=yU8updOR87c",
+    "title": "The dual linear program that pairs with a primal"
+   }
   },
   {
    "id": "projection-affine-halfspace-kkt",
@@ -3030,7 +3250,11 @@
    "summary": "Project a point onto an affine set or a half-space with a short KKT calculation.",
    "prereqs": [
     "kkt-conditions"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=uWbZlJURkfA",
+    "title": "The projection of a point onto an affine set"
+   }
   },
   {
    "id": "linear-least-squares",
@@ -3062,7 +3286,11 @@
      "ref": "boyd-cvx",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=PjeOmOz9jSY",
+    "title": "The normal equations from a gradient, and the pseudoinverse minimizer"
+   }
   },
   {
    "id": "least-squares-data-fitting",
@@ -3070,7 +3298,11 @@
    "summary": "Fit a model that is linear in its parameters, and count how many points the fit needs.",
    "prereqs": [
     "linear-least-squares"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=PaFPbb66DxQ",
+    "title": "A model linear in its parameters, fit to measured points"
+   }
   },
   {
    "id": "nonlinear-least-squares",
@@ -3079,7 +3311,11 @@
    "prereqs": [
     "linear-least-squares",
     "jacobian-chain-rule"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=8evmj2L-iCY",
+    "title": "A nonlinear fit as a sum of squared residuals"
+   }
   },
   {
    "id": "circle-fitting-least-squares",
@@ -3088,7 +3324,11 @@
    "prereqs": [
     "nonlinear-least-squares",
     "least-squares-data-fitting"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=4J30jzc3DD8",
+    "title": "A circle fit rewritten so the unknown coefficients enter linearly"
+   }
   },
   {
    "id": "descent-directions",
@@ -3098,7 +3338,11 @@
     "gradient-partial-derivatives",
     "positive-definite-matrices",
     "taylor-approximation-multivariable"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=5oGwV--eDNM",
+    "title": "A direction whose directional derivative is negative"
+   }
   },
   {
    "id": "descent-method-framework",
@@ -3106,7 +3350,11 @@
    "summary": "Separate the choice of direction, the step length, and the stopping test in a descent iteration.",
    "prereqs": [
     "descent-directions"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=-9IfBn-7Duk",
+    "title": "A direction, a step length, and a stopping test"
+   }
   },
   {
    "id": "convergence-rates",
@@ -3114,7 +3362,11 @@
    "summary": "Classify linear, superlinear, sublinear, and quadratic convergence from a sequence of errors.",
    "prereqs": [
     "vector-norms-lp"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=dHQVQG8NqR8",
+    "title": "Linear, superlinear, and quadratic rates read from a sequence of errors"
+   }
   },
   {
    "id": "exact-line-search-quadratic",
@@ -3123,7 +3375,11 @@
    "prereqs": [
     "descent-method-framework",
     "quadratic-function-minimization"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=K3xhNHLz8dQ",
+    "title": "The exact step length along a line on a quadratic"
+   }
   },
   {
    "id": "armijo-backtracking",
@@ -3132,7 +3388,11 @@
    "prereqs": [
     "descent-method-framework",
     "taylor-approximation-multivariable"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=eIZn3hi6LpE",
+    "title": "The sufficient-decrease test that backtracking is built to pass"
+   }
   },
   {
    "id": "gradient-zigzag",
@@ -3140,7 +3400,11 @@
    "summary": "See why exact line search makes successive steepest-descent steps orthogonal, and why a large condition number zigzags.",
    "prereqs": [
     "exact-line-search-quadratic"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=RtBeTtqSAO0",
+    "title": "Why successive steepest-descent steps turn and zigzag"
+   }
   },
   {
    "id": "condition-number-gradient-rate",
@@ -3150,7 +3414,11 @@
     "exact-line-search-quadratic",
     "convergence-rates",
     "rayleigh-quotient"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=3fvT31x6e00",
+    "title": "A linear rate limited by the condition number of the Hessian"
+   }
   },
   {
    "id": "lipschitz-gradient",
@@ -3159,7 +3427,11 @@
    "prereqs": [
     "induced-matrix-norms",
     "fundamental-theorem-along-segment"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=p-8FK2ldGZo",
+    "title": "A gradient whose change is at most a constant times the step"
+   }
   },
   {
    "id": "descent-lemma",
@@ -3167,7 +3439,11 @@
    "summary": "Use the quadratic upper bound on a function with a Lipschitz gradient.",
    "prereqs": [
     "lipschitz-gradient"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=hZkxHazaKGA",
+    "title": "A quadratic upper bound for a function with a Lipschitz gradient"
+   }
   },
   {
    "id": "sufficient-decrease-lemma",
@@ -3186,7 +3462,11 @@
    "prereqs": [
     "sufficient-decrease-lemma",
     "convergence-rates"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=lF1ZufXEegE",
+    "title": "Gradient norms driven to zero, and the sublinear rate"
+   }
   },
   {
    "id": "gauss-newton-method",
@@ -3196,7 +3476,11 @@
     "nonlinear-least-squares",
     "descent-method-framework",
     "taylor-approximation-multivariable"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=C6DCtQjKkdY",
+    "title": "Residuals linearized, then a linear least-squares step"
+   }
   },
   {
    "id": "levenberg-marquardt",
@@ -3204,7 +3488,11 @@
    "summary": "Damp a Gauss-Newton step so that it bends toward steepest descent when the linear model is poor.",
    "prereqs": [
     "gauss-newton-method"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=2ToL9zUR8ZI",
+    "title": "A damped Gauss-Newton step that bends toward steepest descent"
+   }
   },
   {
    "id": "incremental-gradient-methods",
@@ -3214,7 +3502,11 @@
     "descent-method-framework",
     "nonlinear-least-squares",
     "gradient-descent"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=8Woeh1j_kXY",
+    "title": "A pass through blocks of data in place of the full gradient"
+   }
   },
   {
    "id": "kalman-recursive-least-squares",
@@ -3225,7 +3517,11 @@
     "incremental-gradient-methods",
     "linear-least-squares",
     "gauss-newton-method"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Q1H2kckjdQ0",
+    "title": "The Kalman update derived as recursive least squares"
+   }
   },
   {
    "id": "extended-kalman-filter",
@@ -3233,7 +3529,11 @@
    "summary": "Relinearize a nonlinear measurement model on each new block.",
    "prereqs": [
     "kalman-recursive-least-squares"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=9X3jGGnbcvU",
+    "title": "A nonlinear measurement relinearized on each new update"
+   }
   },
   {
    "id": "newton-root-finding",
@@ -3241,7 +3541,11 @@
    "summary": "Solve a nonlinear equation by repeatedly linearizing it, and see the role of the start point.",
    "prereqs": [
     "jacobian-chain-rule"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=-5e2cULI3H8",
+    "title": "A nonlinear equation replaced by its tangent, then repeated"
+   }
   },
   {
    "id": "newton-method-optimization",
@@ -3251,7 +3555,11 @@
     "newton-root-finding",
     "descent-method-framework",
     "taylor-approximation-multivariable"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=W7S94pq5Xuo",
+    "title": "A step to the minimizer of the local quadratic model"
+   }
   },
   {
    "id": "newton-local-quadratic-convergence",
@@ -3261,7 +3569,11 @@
     "newton-method-optimization",
     "convergence-rates",
     "lipschitz-gradient"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=wCJF_OMBWKY",
+    "title": "The local quadratic rate of Newton's method"
+   }
   },
   {
    "id": "newton-globalization",
@@ -3271,7 +3583,11 @@
     "newton-method-optimization",
     "armijo-backtracking",
     "positive-definite-matrices"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=aEdQMuPSnxM",
+    "title": "A line search that turns a Newton step into a descent step"
+   }
   },
   {
    "id": "wolfe-conditions",
@@ -3279,7 +3595,11 @@
    "summary": "Pair sufficient decrease with a curvature condition so that the step satisfies a positive secant curvature.",
    "prereqs": [
     "armijo-backtracking"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=HdEE2sgak9Q",
+    "title": "Sufficient decrease paired with a curvature condition"
+   }
   },
   {
    "id": "quasi-newton-secant",
@@ -3288,7 +3608,11 @@
    "prereqs": [
     "newton-method-optimization",
     "fundamental-theorem-along-segment"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=UvGQRAA8Yms",
+    "title": "A Hessian approximation that matches the latest gradient change"
+   }
   },
   {
    "id": "bfgs-update",
@@ -3297,7 +3621,11 @@
    "prereqs": [
     "quasi-newton-secant",
     "wolfe-conditions"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=ltaoIe2dzo0",
+    "title": "The BFGS update, kept positive definite when curvature is positive"
+   }
   },
   {
    "id": "gram-schmidt-orthogonalization",
@@ -3306,7 +3634,11 @@
    "prereqs": [
     "inner-products",
     "positive-definite-matrices"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=rHonltF77zI",
+    "title": "Independent vectors orthogonalized one after another"
+   }
   },
   {
    "id": "q-conjugate-directions",
@@ -3315,7 +3647,11 @@
    "prereqs": [
     "gram-schmidt-orthogonalization",
     "exact-line-search-quadratic"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=lo3lGeyNXp4",
+    "title": "Directions conjugate in the Hessian inner product"
+   }
   },
   {
    "id": "conjugate-gradient-method",
@@ -3324,7 +3660,11 @@
    "prereqs": [
     "q-conjugate-directions",
     "condition-number-gradient-rate"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=KmPgR3Ns0aI",
+    "title": "Conjugate directions generated from successive gradients"
+   }
   },
   {
    "id": "heavy-ball-method",
@@ -3334,7 +3674,11 @@
     "gradient-method-convergence",
     "condition-number-gradient-rate",
     "finite-difference-derivatives"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=iudXf5n_3ro",
+    "title": "A momentum term added to a gradient step"
+   }
   },
   {
    "id": "nesterov-accelerated-gradient",
@@ -3343,7 +3687,11 @@
    "prereqs": [
     "heavy-ball-method",
     "descent-lemma"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=8JyYO-DxcCo",
+    "title": "A gradient step taken after an extrapolation"
+   }
   },
   {
    "id": "optimality-over-convex-set",
@@ -3353,7 +3701,11 @@
     "convex-sets",
     "first-order-optimality",
     "convex-optimality-global"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=qVZUXsJKAjg",
+    "title": "The inequality that characterizes a minimizer on a convex set"
+   }
   },
   {
    "id": "projection-onto-convex-set",
@@ -3362,7 +3714,11 @@
    "prereqs": [
     "optimality-over-convex-set",
     "projection-affine-halfspace-kkt"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=hm9VGaHSaEE",
+    "title": "The nearest point in a closed convex set"
+   }
   },
   {
    "id": "gradient-projection-method",
@@ -3372,7 +3728,11 @@
     "projection-onto-convex-set",
     "sufficient-decrease-lemma",
     "gradient-descent"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=2mNkeTWWN6k",
+    "title": "A gradient step projected back onto the feasible set"
+   }
   },
   {
    "id": "scaled-gradient-projection",
@@ -3381,7 +3741,11 @@
    "prereqs": [
     "gradient-projection-method",
     "newton-method-optimization"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=l1kPPoDjneQ",
+    "title": "A Newton step projected in a scaled inner product"
+   }
   },
   {
    "id": "affine-scaling-method",
@@ -3390,7 +3754,11 @@
    "prereqs": [
     "scaled-gradient-projection",
     "lp-duality-kkt"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=InvorZJQq70",
+    "title": "Scaled steps that stay inside a linear program"
+   }
   },
   {
    "id": "primal-dual-interior-point",
@@ -3400,7 +3768,11 @@
     "affine-scaling-method",
     "newton-root-finding",
     "barrier-interior-point"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=zE5b8uajNmM",
+    "title": "Newton steps on a perturbed KKT system, kept near the central path"
+   }
   },
   {
    "id": "frank-wolfe-conditional-gradient",
@@ -3410,7 +3782,11 @@
     "optimality-over-convex-set",
     "polyhedra-extreme-points",
     "descent-lemma"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=tIywqa-OgoI",
+    "title": "A linear model minimized over the set, then a step toward that point"
+   }
   },
   {
    "id": "power-method-eigenvector",
@@ -3419,7 +3795,11 @@
    "prereqs": [
     "frank-wolfe-conditional-gradient",
     "rayleigh-quotient"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=_PDyi5BVY-E",
+    "title": "Power iteration for the leading eigenvector"
+   }
   },
   {
    "id": "calculus-of-variations",
@@ -3428,7 +3808,11 @@
    "prereqs": [
     "first-order-optimality",
     "gradient-partial-derivatives"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=zYOAUG8PxyM",
+    "title": "A curve scored by a cost, and the Euler-Lagrange stationarity test"
+   }
   },
   {
    "id": "largest-inscribed-ellipsoid",
@@ -3438,7 +3822,11 @@
     "convex-sets",
     "positive-definite-matrices",
     "optimization-problem-formulation"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=tf1njVYd5Fc",
+    "title": "The largest ellipsoid that fits inside a polyhedron"
+   }
   },
   {
    "id": "trajectory-optimization",
@@ -3448,7 +3836,11 @@
     "finite-horizon-sequence",
     "optimization-problem-formulation",
     "optimization-problem-classes"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=wlkRYMVUZTs",
+    "title": "An open-loop path scored as one optimization problem"
+   }
   },
   {
    "id": "qr-factorization",
