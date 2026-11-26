@@ -1823,7 +1823,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=7dUVdrs1e18",
+    "title": "A low-pass filter on the derivative term"
+   }
   },
   {
    "id": "ss-solution",
@@ -2017,7 +2021,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=yetLPW9sQaI",
+    "title": "Sampling through a zero-order hold"
+   }
   },
   {
    "id": "loop-tf",
@@ -2121,7 +2129,11 @@
    "prereqs": [
     "bode",
     "stability"
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=jGEkmDRsq_M",
+    "title": "A right-half-plane zero and the extra phase lag it brings"
+   }
   },
   {
    "id": "gen-gain-phase",
@@ -2140,7 +2152,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=dyDZSHU1zYY",
+    "title": "The describing function of a nonlinearity"
+   }
   },
   {
    "id": "sensitivity",
@@ -2230,7 +2246,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=5x5hz81cgLs",
+    "title": "A test for performance that still holds when the plant is uncertain"
+   }
   },
   {
    "id": "feedforward",
@@ -2249,7 +2269,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=FW_ay7K4jPE",
+    "title": "A feedforward path beside the feedback loop"
+   }
   },
   {
    "id": "perf-specs-freq",
@@ -2269,7 +2293,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=6CdA40ixBkA",
+    "title": "Closed-loop bandwidth read from the speed of the response"
+   }
   },
   {
    "id": "loop-shaping",
@@ -2289,7 +2317,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=xLhvil5sDcU",
+    "title": "Lead and lag compensators that shape the loop gain"
+   }
   },
   {
    "id": "fund-limits",
@@ -2309,7 +2341,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=rwOUuSKnm7g",
+    "title": "Bode's integral constraint on the sensitivity"
+   }
   },
   {
    "id": "reachability",
@@ -2399,7 +2435,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=E_RDCFOlJx4",
+    "title": "A state-feedback gain chosen from a quadratic cost"
+   }
   },
   {
    "id": "observability",
@@ -2540,7 +2580,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Yhst4ryoqZY",
+    "title": "A controller built from state feedback and an observer"
+   }
   },
   {
    "id": "equilibria",
@@ -2634,7 +2678,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=W8YpgG0KuOo",
+    "title": "A Lyapunov function that decreases along trajectories"
+   }
   },
   {
    "id": "limit-cycles",
@@ -2653,7 +2701,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=20O6v1X92P4",
+    "title": "A Hopf bifurcation and the limit cycle it creates"
+   }
   },
   {
    "id": "fb-linearization",
@@ -2826,7 +2878,11 @@
      "ref": "ME 132 Fall 2026 syllabus/notes",
      "use": "scope only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=xMyL2sW29uU",
+    "title": "Feedback that holds an atomic force microscope on a surface"
+   }
   },
   {
    "id": "lti-circuits",
