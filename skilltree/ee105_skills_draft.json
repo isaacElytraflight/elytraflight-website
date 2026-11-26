@@ -56,7 +56,11 @@
      "section": "notes",
      "use": "reference only"
     }
-   ]
+   ],
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Vtiu94Tt8Mo",
+    "title": "The RC time constant and the cutoff it sets"
+   }
   },
   {
    "id": "cx-exp",
@@ -187,7 +191,11 @@
    "prereqs": [
     "sinusoid-resp"
    ],
-   "owns": "phasors and R/L/C impedance"
+   "owns": "phasors and R/L/C impedance",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=cy_KI_FiS7I",
+    "title": "Phasors, and the impedance of a resistor, an inductor, and a capacitor"
+   }
   },
   {
    "id": "direct-h",
@@ -197,7 +205,11 @@
     "phasors",
     "tf"
    ],
-   "owns": "writing H(jw) of a circuit from impedances"
+   "owns": "writing H(jw) of a circuit from impedances",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=XSpXB87obOE",
+    "title": "A circuit transfer function read from the impedances"
+   }
   },
   {
    "id": "pole-zero",
@@ -228,7 +240,11 @@
     "second-order-sys",
     "direct-h"
    ],
-   "owns": "series resonance, quality factor, damping ratio from Q"
+   "owns": "series resonance, quality factor, damping ratio from Q",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=AUirtqrm-o0",
+    "title": "Series resonance and the quality factor"
+   }
   },
   {
    "id": "bode",
@@ -257,14 +273,22 @@
    "prereqs": [
     "phasors"
    ],
-   "owns": "RMS and average power"
+   "owns": "RMS and average power",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=ERIToctYUcQ",
+    "title": "RMS voltage and current, and the average power they give"
+   }
   },
   {
    "id": "drude",
    "name": "Conduction in metals, mobility, microscopic Ohm's law",
    "chapter": 3,
    "prereqs": [],
-   "owns": "mobility and microscopic Ohm law"
+   "owns": "mobility and microscopic Ohm law",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=8VbSXXeuo-o",
+    "title": "Electron drift in a metal, and the conductivity it produces"
+   }
   },
   {
    "id": "si-props",
@@ -273,7 +297,11 @@
    "prereqs": [
     "drude"
    ],
-   "owns": "bond model, electrons and holes"
+   "owns": "bond model, electrons and holes",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=AqwQRrw0T_A",
+    "title": "Electrons and holes in silicon"
+   }
   },
   {
    "id": "intrinsic",
@@ -282,7 +310,11 @@
    "prereqs": [
     "si-props"
    ],
-   "owns": "n_i and mass action"
+   "owns": "n_i and mass action",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=yu8xvHHTij0",
+    "title": "The mass-action law for electrons and holes"
+   }
   },
   {
    "id": "doping",
@@ -291,7 +323,11 @@
    "prereqs": [
     "intrinsic"
    ],
-   "owns": "donor/acceptor carrier concentrations"
+   "owns": "donor/acceptor carrier concentrations",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=lBy_Mj1d0AA",
+    "title": "Donors, acceptors, and the carrier concentrations they set"
+   }
   },
   {
    "id": "drift",
@@ -301,7 +337,11 @@
     "drude",
     "doping"
    ],
-   "owns": "drift current"
+   "owns": "drift current",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=LZ6hcaieFMU",
+    "title": "Drift current set by the carrier mobility"
+   }
   },
   {
    "id": "diffusion",
@@ -310,7 +350,11 @@
    "prereqs": [
     "doping"
    ],
-   "owns": "diffusion current and Einstein relation"
+   "owns": "diffusion current and Einstein relation",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=t2sRYkVDZaQ",
+    "title": "Diffusion current, and the Einstein link to mobility"
+   }
   },
   {
    "id": "total-current",
@@ -320,14 +364,22 @@
     "drift",
     "diffusion"
    ],
-   "owns": "drift+diffusion total current, equilibrium balance"
+   "owns": "drift+diffusion total current, equilibrium balance",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=rzxCRJcFaIw",
+    "title": "The total current as drift plus diffusion"
+   }
   },
   {
    "id": "ic-fab",
    "name": "IC fabrication basics: oxide, implantation",
    "chapter": 4,
    "prereqs": [],
-   "owns": "oxidation, implantation, lithography basics"
+   "owns": "oxidation, implantation, lithography basics",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=ZaBewZ3NmIg",
+    "title": "Oxide growth and ion implantation"
+   }
   },
   {
    "id": "sheet-res",
@@ -337,14 +389,22 @@
     "drude",
     "ic-fab"
    ],
-   "owns": "sheet resistance and IC resistor sizing"
+   "owns": "sheet resistance and IC resistor sizing",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=bbV0Pd0jd_U",
+    "title": "Sheet resistance, and the resistor it makes on a chip"
+   }
   },
   {
    "id": "electrostatics",
    "name": "1D electrostatics, fields and potential",
    "chapter": 4,
    "prereqs": [],
-   "owns": "1D Gauss/Poisson: rho, E, phi"
+   "owns": "1D Gauss/Poisson: rho, E, phi",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=sqcjRNlEOhs",
+    "title": "The electric field as the slope of the potential"
+   }
   },
   {
    "id": "mim-cap",
@@ -353,7 +413,11 @@
    "prereqs": [
     "electrostatics"
    ],
-   "owns": "parallel-plate/MIM capacitance"
+   "owns": "parallel-plate/MIM capacitance",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=qj79xUN0l1M",
+    "title": "A metal-insulator-metal capacitor on a chip"
+   }
   },
   {
    "id": "nl-cap",
@@ -363,7 +427,11 @@
     "local-linear-approximation",
     "mim-cap"
    ],
-   "owns": "small-signal capacitance of non-linear Q(V)"
+   "owns": "small-signal capacitance of non-linear Q(V)",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=D3avrGqAYgY",
+    "title": "Small-signal capacitance as the slope of charge versus voltage"
+   }
   },
   {
    "id": "carrier-pot",
@@ -372,7 +440,11 @@
    "prereqs": [
     "doping"
    ],
-   "owns": "Boltzmann relation between potential and carrier density"
+   "owns": "Boltzmann relation between potential and carrier density",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=wAhgWk_84lg",
+    "title": "Carrier concentration set by the Fermi level"
+   }
   },
   {
    "id": "pn-overview",
@@ -382,7 +454,11 @@
     "carrier-pot",
     "total-current"
    ],
-   "owns": "qualitative PN junction in equilibrium"
+   "owns": "qualitative PN junction in equilibrium",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=_1OJCbm2Je0",
+    "title": "A pn junction in equilibrium"
+   }
   },
   {
    "id": "depl-approx",
@@ -392,7 +468,11 @@
     "pn-overview",
     "electrostatics"
    ],
-   "owns": "depletion width and field under the depletion approximation"
+   "owns": "depletion width and field under the depletion approximation",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=d3VIDO0S7xk",
+    "title": "The depletion width of a pn junction"
+   }
   },
   {
    "id": "contact-pot",
@@ -401,7 +481,11 @@
    "prereqs": [
     "pn-overview"
    ],
-   "owns": "built-in potential"
+   "owns": "built-in potential",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=fNoW52GPOMw",
+    "title": "The built-in voltage of a pn junction"
+   }
   },
   {
    "id": "rev-bias",
@@ -411,7 +495,11 @@
     "depl-approx",
     "contact-pot"
    ],
-   "owns": "depletion width/charge versus reverse bias"
+   "owns": "depletion width/charge versus reverse bias",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=QJnzpNgIu08",
+    "title": "Reverse bias, and the wider depletion region it makes"
+   }
   },
   {
    "id": "junction-cap",
@@ -421,7 +509,11 @@
     "rev-bias",
     "nl-cap"
    ],
-   "owns": "depletion capacitance and varactors"
+   "owns": "depletion capacitance and varactors",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=OnVNOGL1nOc",
+    "title": "A varactor, whose depletion capacitance is set by reverse bias"
+   }
   },
   {
    "id": "diode-qual",
@@ -430,7 +522,11 @@
    "prereqs": [
     "pn-overview"
    ],
-   "owns": "qualitative diode I-V by region"
+   "owns": "qualitative diode I-V by region",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=USrY0JspDEg",
+    "title": "Forward bias and reverse bias on a diode"
+   }
   },
   {
    "id": "excess-carriers",
@@ -439,7 +535,11 @@
    "prereqs": [
     "doping"
    ],
-   "owns": "excess carriers, lifetime, R-G"
+   "owns": "excess carriers, lifetime, R-G",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=d-ufmtgAHb4",
+    "title": "Excess carriers, and the recombination that removes them"
+   }
   },
   {
    "id": "continuity",
@@ -449,7 +549,11 @@
     "excess-carriers",
     "total-current"
    ],
-   "owns": "continuity equation"
+   "owns": "continuity equation",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=cXnk-kE1Vy4",
+    "title": "The continuity equation for excess carriers"
+   }
   },
   {
    "id": "minority-profile",
@@ -459,7 +563,11 @@
     "continuity",
     "diode-qual"
    ],
-   "owns": "minority-carrier profiles (long/short regions)"
+   "owns": "minority-carrier profiles (long/short regions)",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=gn_8orQugsk",
+    "title": "The minority-carrier profile across a junction"
+   }
   },
   {
    "id": "diode-iv",
@@ -468,7 +576,11 @@
    "prereqs": [
     "minority-profile"
    ],
-   "owns": "ideal diode equation and I_S"
+   "owns": "ideal diode equation and I_S",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=E7DZX5mPlQk",
+    "title": "Where the ideal diode equation comes from"
+   }
   },
   {
    "id": "diode-ss",
@@ -480,7 +592,11 @@
     "junction-cap",
     "nl-cap"
    ],
-   "owns": "diode r_d and diffusion capacitance"
+   "owns": "diode r_d and diffusion capacitance",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=ETAsR1s-HKs",
+    "title": "The small-signal resistance of a forward-biased diode"
+   }
   },
   {
    "id": "solar-cell",
@@ -489,7 +605,11 @@
    "prereqs": [
     "diode-iv"
    ],
-   "owns": "solar cell I_sc, V_oc, fill factor"
+   "owns": "solar cell I_sc, V_oc, fill factor",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=9IGAEKzdJ_k",
+    "title": "Short-circuit current and open-circuit voltage of a solar cell"
+   }
   },
   {
    "id": "led",
@@ -498,7 +618,11 @@
    "prereqs": [
     "diode-iv"
    ],
-   "owns": "LED wavelength/efficiency"
+   "owns": "LED wavelength/efficiency",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=O8M2z2hIbag",
+    "title": "Light from a forward-biased junction"
+   }
   },
   {
    "id": "mos-struct",
@@ -508,7 +632,11 @@
     "electrostatics",
     "contact-pot"
    ],
-   "owns": "MOS capacitor structure and flat-band/contact potential"
+   "owns": "MOS capacitor structure and flat-band/contact potential",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=_bJxnjmU1P0",
+    "title": "The layers of a MOS capacitor"
+   }
   },
   {
    "id": "mos-regions",
@@ -518,7 +646,11 @@
     "mos-struct",
     "depl-approx"
    ],
-   "owns": "accumulation/depletion/inversion"
+   "owns": "accumulation/depletion/inversion",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=oSm8z_7T8bk",
+    "title": "Accumulation, depletion, and inversion"
+   }
   },
   {
    "id": "vt",
@@ -527,7 +659,11 @@
    "prereqs": [
     "mos-regions"
    ],
-   "owns": "threshold voltage derivation"
+   "owns": "threshold voltage derivation",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=FRRZV5eHhUk",
+    "title": "Where the threshold voltage comes from"
+   }
   },
   {
    "id": "mos-fields",
@@ -536,7 +672,11 @@
    "prereqs": [
     "mos-regions"
    ],
-   "owns": "fields and potential in oxide and substrate"
+   "owns": "fields and potential in oxide and substrate",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=cwHY30hjXgs",
+    "title": "Potential through the oxide and the silicon"
+   }
   },
   {
    "id": "mos-cv",
@@ -546,7 +686,11 @@
     "mos-regions",
     "vt"
    ],
-   "owns": "MOS Q-V and C-V curves"
+   "owns": "MOS Q-V and C-V curves",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=wQQHnh1E6Ks",
+    "title": "The capacitance-voltage curve of a MOS capacitor"
+   }
   },
   {
    "id": "mosfet-struct",
@@ -555,7 +699,11 @@
    "prereqs": [
     "mos-struct"
    ],
-   "owns": "MOSFET layout, cross section, symbols"
+   "owns": "MOSFET layout, cross section, symbols",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=oSrUsM0hoPs",
+    "title": "The cross section of an NMOS and a PMOS"
+   }
   },
   {
    "id": "nmos-regions",
@@ -565,7 +713,11 @@
     "vt",
     "mosfet-struct"
    ],
-   "owns": "the region test (cut-off/triode/saturation) for any MOSFET bias"
+   "owns": "the region test (cut-off/triode/saturation) for any MOSFET bias",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=4fOLtgrGR5E",
+    "title": "Cutoff, triode, and saturation"
+   }
   },
   {
    "id": "triode",
@@ -574,7 +726,11 @@
    "prereqs": [
     "nmos-regions"
    ],
-   "owns": "triode current and R_on"
+   "owns": "triode current and R_on",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=ahuPTlV9y3Q",
+    "title": "The triode region, where the channel is a resistor"
+   }
   },
   {
    "id": "square-law",
@@ -583,7 +739,11 @@
    "prereqs": [
     "triode"
    ],
-   "owns": "saturation current: pinch-off physics and the square law"
+   "owns": "saturation current: pinch-off physics and the square law",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=on_9Rig7B1c",
+    "title": "Saturation current set by the square of the overdrive"
+   }
   },
   {
    "id": "pmos",
@@ -593,7 +753,11 @@
     "square-law",
     "ss-model"
    ],
-   "owns": "PMOS sign conventions in large- and small-signal analysis"
+   "owns": "PMOS sign conventions in large- and small-signal analysis",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=7VPyj-PN1pY",
+    "title": "A PMOS transistor and the sign of its voltages"
+   }
   },
   {
    "id": "cs-intro",
@@ -603,7 +767,11 @@
     "square-law",
     "tf"
    ],
-   "owns": "CS DC transfer curve, load line and bias-point choice for swing"
+   "owns": "CS DC transfer curve, load line and bias-point choice for swing",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=aeiHtgBbMW4",
+    "title": "A common-source stage and how its operating point is chosen"
+   }
   },
   {
    "id": "gm",
@@ -612,7 +780,11 @@
    "prereqs": [
     "cs-intro"
    ],
-   "owns": "MOS g_m formulas and their trade-offs"
+   "owns": "MOS g_m formulas and their trade-offs",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=vQnAQsDDHfs",
+    "title": "Transconductance as drain-current change per gate volt"
+   }
   },
   {
    "id": "ro",
@@ -622,7 +794,11 @@
     "square-law",
     "gm"
    ],
-   "owns": "CLM physics, lambda, r_o = 1/(lambda I_D), intrinsic gain"
+   "owns": "CLM physics, lambda, r_o = 1/(lambda I_D), intrinsic gain",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=qFbdsLm5mvI",
+    "title": "Channel-length modulation and the output resistance it leaves"
+   }
   },
   {
    "id": "ss-model",
@@ -633,7 +809,11 @@
     "gm",
     "ro"
    ],
-   "owns": "building/using the MOS small-signal model (procedure, validity)"
+   "owns": "building/using the MOS small-signal model (procedure, validity)",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=y3QUmd6_AG0",
+    "title": "The small-signal model of a MOSFET"
+   }
   },
   {
    "id": "mos-caps",
@@ -643,7 +823,11 @@
     "ss-model",
     "junction-cap"
    ],
-   "owns": "C_gs, C_gd, C_db, C_sb values by region"
+   "owns": "C_gs, C_gd, C_db, C_sb values by region",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=H43eLf5VOP0",
+    "title": "The gate capacitances Cgs and Cgd"
+   }
   },
   {
    "id": "body-effect",
@@ -653,7 +837,11 @@
     "vt",
     "ss-model"
    ],
-   "owns": "V_T shift with V_SB and g_mb"
+   "owns": "V_T shift with V_SB and g_mb",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=MCJoHos5ufI",
+    "title": "Source-body voltage and the threshold shift it causes"
+   }
   },
   {
    "id": "bjt-struct",
@@ -662,7 +850,11 @@
    "prereqs": [
     "pn-overview"
    ],
-   "owns": "BJT structure, layout, symbol"
+   "owns": "BJT structure, layout, symbol",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=j0rEXZYLksM",
+    "title": "The layers of an NPN transistor"
+   }
   },
   {
    "id": "bjt-iv",
@@ -672,7 +864,11 @@
     "bjt-struct",
     "diode-iv"
    ],
-   "owns": "observed BJT I-V and regions"
+   "owns": "observed BJT I-V and regions",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=KynKHr2cXgk",
+    "title": "The common-emitter output curves"
+   }
   },
   {
    "id": "bjt-action",
@@ -682,7 +878,11 @@
     "bjt-iv",
     "minority-profile"
    ],
-   "owns": "carrier flow in forward-active, alpha/beta and their physical ratio"
+   "owns": "carrier flow in forward-active, alpha/beta and their physical ratio",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=1jKHzbUhNRA",
+    "title": "Collector current as beta times the base current"
+   }
   },
   {
    "id": "ebers-moll",
@@ -691,7 +891,11 @@
    "prereqs": [
     "bjt-action"
    ],
-   "owns": "Ebers-Moll equations in all regions"
+   "owns": "Ebers-Moll equations in all regions",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=ujDaUymXBg0",
+    "title": "The Ebers-Moll model of the two junctions"
+   }
   },
   {
    "id": "early",
@@ -700,7 +904,11 @@
    "prereqs": [
     "ebers-moll"
    ],
-   "owns": "base-width modulation and V_A"
+   "owns": "base-width modulation and V_A",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=BOk501WULQs",
+    "title": "The Early effect on the output curves"
+   }
   },
   {
    "id": "bjt-ss",
@@ -711,7 +919,11 @@
     "early",
     "ss-model"
    ],
-   "owns": "BJT hybrid-pi model: g_m, r_pi, r_o"
+   "owns": "BJT hybrid-pi model: g_m, r_pi, r_o",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=yUEss0Dl6ww",
+    "title": "The hybrid-pi small-signal model"
+   }
   },
   {
    "id": "two-port",
@@ -720,7 +932,11 @@
    "prereqs": [
     "ss-model"
    ],
-   "owns": "two-port models, R_in/R_out, loading by source, load and next stage"
+   "owns": "two-port models, R_in/R_out, loading by source, load and next stage",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=ru2ItcD6unI",
+    "title": "An amplifier drawn as a two-port"
+   }
   },
   {
    "id": "bias-coupling",
@@ -729,7 +945,11 @@
    "prereqs": [
     "cs-intro"
    ],
-   "owns": "isolating DC bias points: DC vs AC coupling choices"
+   "owns": "isolating DC bias points: DC vs AC coupling choices",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=fgB4HrilEuc",
+    "title": "A coupling capacitor that passes the signal and blocks the bias"
+   }
   },
   {
    "id": "cs-analysis",
@@ -739,7 +959,11 @@
     "two-port",
     "ss-model"
    ],
-   "owns": "CS gain, R_in, R_out"
+   "owns": "CS gain, R_in, R_out",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=T-0X1N9N5V8",
+    "title": "Voltage gain and port resistances of a common-source stage"
+   }
   },
   {
    "id": "cg",
@@ -749,7 +973,11 @@
     "two-port",
     "ss-model"
    ],
-   "owns": "CG gain, R_in, R_out"
+   "owns": "CG gain, R_in, R_out",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=2zr5ykXpyXY",
+    "title": "Gain and port resistances of a common-gate stage"
+   }
   },
   {
    "id": "cd",
@@ -760,7 +988,11 @@
     "ss-model",
     "body-effect"
    ],
-   "owns": "source-follower gain (incl. g_mb and bias-source r_o), R_out"
+   "owns": "source-follower gain (incl. g_mb and bias-source r_o), R_out",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=jzkhIbq1C9o",
+    "title": "The gain of a source follower"
+   }
   },
   {
    "id": "amp-choice",
@@ -771,7 +1003,11 @@
     "cg",
     "cd"
    ],
-   "owns": "choosing CS/CG/CD for a spec"
+   "owns": "choosing CS/CG/CD for a spec",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Gc4FQvHH7jE",
+    "title": "Common-source, common-gate, and source-follower stages compared"
+   }
   },
   {
    "id": "high-load",
@@ -780,7 +1016,11 @@
    "prereqs": [
     "cs-analysis"
    ],
-   "owns": "CS with current-source load: gain vs headroom"
+   "owns": "CS with current-source load: gain vs headroom",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=GJ31gPYt9Mk",
+    "title": "Voltage headroom in an analog bias stack"
+   }
   },
   {
    "id": "diode-conn",
@@ -790,7 +1030,11 @@
     "ss-model",
     "square-law"
    ],
-   "owns": "diode-connected device: 1/g_m impedance and bias"
+   "owns": "diode-connected device: 1/g_m impedance and bias",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=iNJO1jbs3Q0",
+    "title": "A MOSFET with its gate tied to its drain"
+   }
   },
   {
    "id": "mirror",
@@ -799,7 +1043,11 @@
    "prereqs": [
     "diode-conn"
    ],
-   "owns": "current mirroring by W/L ratio and mirror output resistance"
+   "owns": "current mirroring by W/L ratio and mirror output resistance",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Jmu02dErhdg",
+    "title": "A current mirror and the ratio of its transistors"
+   }
   },
   {
    "id": "degeneration",
@@ -808,7 +1056,11 @@
    "prereqs": [
     "ss-model"
    ],
-   "owns": "source degeneration: G_m and R_out"
+   "owns": "source degeneration: G_m and R_out",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=1ZF7EJzkY7A",
+    "title": "A source resistor that raises a mirror's output resistance"
+   }
   },
   {
    "id": "cascode-src",
@@ -818,7 +1070,11 @@
     "degeneration",
     "mirror"
    ],
-   "owns": "cascode current source: R_out ~ g_m r_o^2 and headroom"
+   "owns": "cascode current source: R_out ~ g_m r_o^2 and headroom",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=f022ChNKsfk",
+    "title": "A cascode current source, and the headroom it spends"
+   }
   },
   {
    "id": "ref-gen",
@@ -827,7 +1083,11 @@
    "prereqs": [
     "mirror"
    ],
-   "owns": "constant-g_m (supply-independent) reference"
+   "owns": "constant-g_m (supply-independent) reference",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=anHcPBXKUlw",
+    "title": "A bias current set by a resistor and a matched pair"
+   }
   },
   {
    "id": "freq-basics",
@@ -837,7 +1097,11 @@
     "bode",
     "cs-analysis"
    ],
-   "owns": "low-frequency corners from coupling/bypass capacitors and high-frequency limits overview"
+   "owns": "low-frequency corners from coupling/bypass capacitors and high-frequency limits overview",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=4iHESmPv4RQ",
+    "title": "Coupling capacitors and the low-frequency end of the response"
+   }
   },
   {
    "id": "cs-brute",
@@ -847,7 +1111,11 @@
     "freq-basics",
     "mos-caps"
    ],
-   "owns": "exact two-pole CS transfer function by nodal analysis"
+   "owns": "exact two-pole CS transfer function by nodal analysis",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=wReD0OgK9MQ",
+    "title": "The frequency response of a common-source stage"
+   }
   },
   {
    "id": "miller",
@@ -856,7 +1124,11 @@
    "prereqs": [
     "cs-brute"
    ],
-   "owns": "Miller theorem, Miller multiplication and the CS input pole"
+   "owns": "Miller theorem, Miller multiplication and the CS input pole",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=iGN5DV7nPHU",
+    "title": "Miller multiplication of a capacitor between input and output"
+   }
   },
   {
    "id": "cd-freq",
@@ -866,7 +1138,11 @@
     "miller",
     "cd"
    ],
-   "owns": "source-follower frequency response"
+   "owns": "source-follower frequency response",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=NrggmAPtVvY",
+    "title": "The frequency response of a source follower"
+   }
   },
   {
    "id": "cg-freq",
@@ -876,7 +1152,11 @@
     "freq-basics",
     "cg"
    ],
-   "owns": "CG bandwidth (no Miller)"
+   "owns": "CG bandwidth (no Miller)",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=3kaRmtdRWHU",
+    "title": "The frequency response of a common-gate stage"
+   }
   },
   {
    "id": "ft",
@@ -886,7 +1166,11 @@
     "mos-caps",
     "gm"
    ],
-   "owns": "unity-current-gain frequency f_T"
+   "owns": "unity-current-gain frequency f_T",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=PRzytyqwK5U",
+    "title": "The transition frequency where current gain falls to one"
+   }
   },
   {
    "id": "octc",
@@ -896,7 +1180,11 @@
     "pole-zero",
     "miller"
    ],
-   "owns": "open-circuit time-constant bandwidth estimate"
+   "owns": "open-circuit time-constant bandwidth estimate",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=re2PPNVvoMA",
+    "title": "Bandwidth estimated from open-circuit time constants"
+   }
   },
   {
    "id": "cs-cascade",
@@ -906,7 +1194,11 @@
     "two-port",
     "cs-analysis"
    ],
-   "owns": "two-stage CS cascade gain"
+   "owns": "two-stage CS cascade gain",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=mihJaoiQnSs",
+    "title": "Two common-source stages, and the gain of the cascade"
+   }
   },
   {
    "id": "cs-cascade-freq",
@@ -916,7 +1208,11 @@
     "cs-cascade",
     "miller"
    ],
-   "owns": "cascade bandwidth and bandwidth extension"
+   "owns": "cascade bandwidth and bandwidth extension",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=Y7R22Sk_drM",
+    "title": "The bandwidth of cascaded stages"
+   }
   },
   {
    "id": "cs-cap-load",
@@ -925,7 +1221,11 @@
    "prereqs": [
     "miller"
    ],
-   "owns": "CS with dominant output pole from large C_L"
+   "owns": "CS with dominant output pole from large C_L",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=aG_n4BK_2fI",
+    "title": "A capacitor on the output of a common-source stage"
+   }
   },
   {
    "id": "cascode-amp",
@@ -936,7 +1236,11 @@
     "cg",
     "miller"
    ],
-   "owns": "cascode amplifier gain and bandwidth"
+   "owns": "cascode amplifier gain and bandwidth",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=iiUS-3kinqU",
+    "title": "The gain of a cascode amplifier"
+   }
   },
   {
    "id": "cascode-bias",
@@ -945,7 +1249,11 @@
    "prereqs": [
     "cascode-amp"
    ],
-   "owns": "cascode bias voltages and swing budget"
+   "owns": "cascode bias voltages and swing budget",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=SZW0qLmUPeY",
+    "title": "Biasing a cascode so every transistor stays in saturation"
+   }
   },
   {
    "id": "big-circuit",
@@ -955,7 +1263,11 @@
     "cascode-amp",
     "cs-cascade"
    ],
-   "owns": "simplifying large circuits into known stages"
+   "owns": "simplifying large circuits into known stages",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=KX4iTz75f4k",
+    "title": "A multistage amplifier split into stages"
+   }
   },
   {
    "id": "diff-intro",
@@ -964,7 +1276,11 @@
    "prereqs": [
     "degeneration"
    ],
-   "owns": "source-coupled pair: motivation and structure"
+   "owns": "source-coupled pair: motivation and structure",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=IYR-FxjAym0",
+    "title": "A source-coupled differential pair"
+   }
   },
   {
    "id": "diff-dc",
@@ -973,7 +1289,11 @@
    "prereqs": [
     "diff-intro"
    ],
-   "owns": "differential pair large-signal transfer and bias"
+   "owns": "differential pair large-signal transfer and bias",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=gc7Yct-8HdM",
+    "title": "The large-signal curve of a differential pair"
+   }
   },
   {
    "id": "half-circuit",
@@ -986,7 +1306,11 @@
     "ss-model",
     "lti-def"
    ],
-   "owns": "DM/CM decomposition and half-circuit gains"
+   "owns": "DM/CM decomposition and half-circuit gains",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=eYk1-kAZjm0",
+    "title": "Differential and common-mode half circuits"
+   }
   },
   {
    "id": "cmrr",
@@ -996,7 +1320,11 @@
     "half-circuit",
     "mirror"
    ],
-   "owns": "CM gain with finite tail resistance and CMRR"
+   "owns": "CM gain with finite tail resistance and CMRR",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=D-PT--waimI",
+    "title": "Common-mode gain and the rejection ratio"
+   }
   },
   {
    "id": "mirror-load",
@@ -1007,7 +1335,11 @@
     "mirror",
     "half-circuit"
    ],
-   "owns": "diff pair with mirror load: single-ended gain"
+   "owns": "diff pair with mirror load: single-ended gain",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=9zXUwTX3hNg",
+    "title": "A differential pair with a current-mirror load"
+   }
   },
   {
    "id": "fb-intro",
@@ -1060,7 +1392,11 @@
     "ss-model",
     "fb-intro"
    ],
-   "owns": "op-amp/OTA models"
+   "owns": "op-amp/OTA models",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=FhkzdStQoX8",
+    "title": "An operational transconductance amplifier"
+   }
   },
   {
    "id": "gbw",
@@ -1071,7 +1407,11 @@
     "bode",
     "opamp-models"
    ],
-   "owns": "gain-bandwidth trade-off"
+   "owns": "gain-bandwidth trade-off",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=a2g5efnbXLk",
+    "title": "The gain-bandwidth product"
+   }
   },
   {
    "id": "inverting",
@@ -1081,7 +1421,11 @@
     "loop-gain",
     "opamp-models"
    ],
-   "owns": "inverting amplifier"
+   "owns": "inverting amplifier",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=x2xxOKOTwM4",
+    "title": "The inverting amplifier and its closed-loop gain"
+   }
   },
   {
    "id": "fb-errors",
@@ -1112,7 +1456,11 @@
     "fb-intro",
     "two-port"
    ],
-   "owns": "feedback effect on impedances"
+   "owns": "feedback effect on impedances",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=k_nq81p3a3E",
+    "title": "How negative feedback changes input and output resistance"
+   }
   },
   {
    "id": "stability",
@@ -1145,7 +1493,11 @@
     "opamp-models",
     "cmrr"
    ],
-   "owns": "op-amp input offset (incl. pair mismatch)"
+   "owns": "op-amp input offset (incl. pair mismatch)",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=hUu3SqRSYyA",
+    "title": "Input offset voltage"
+   }
   },
   {
    "id": "bias-current",
@@ -1154,7 +1506,11 @@
    "prereqs": [
     "offset"
    ],
-   "owns": "input bias/offset currents"
+   "owns": "input bias/offset currents",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=c3X7_ohCTSw",
+    "title": "Input bias current and input offset current"
+   }
   },
   {
    "id": "opamp-fr",
@@ -1163,7 +1519,11 @@
    "prereqs": [
     "gbw"
    ],
-   "owns": "open/closed-loop op-amp frequency response"
+   "owns": "open/closed-loop op-amp frequency response",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=W67fa4n0RUU",
+    "title": "Open-loop gain versus frequency, and the closed-loop bandwidth"
+   }
   },
   {
    "id": "slew",
@@ -1172,7 +1532,11 @@
    "prereqs": [
     "opamp-fr"
    ],
-   "owns": "slew rate and full-power bandwidth"
+   "owns": "slew rate and full-power bandwidth",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=2DFIr6t1hbc",
+    "title": "Slew rate and the large-signal speed it limits"
+   }
   },
   {
    "id": "noise-dist",
@@ -1181,7 +1545,11 @@
    "prereqs": [
     "opamp-models"
    ],
-   "owns": "noise and distortion"
+   "owns": "noise and distortion",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=ZUcFQEUNSmM",
+    "title": "Noise sources in an op-amp"
+   }
   },
   {
    "id": "datasheet",
@@ -1192,7 +1560,11 @@
     "slew",
     "noise-dist"
    ],
-   "owns": "reading op-amp datasheets"
+   "owns": "reading op-amp datasheets",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=zX5O46rlqUs",
+    "title": "Reading the specifications on an op-amp datasheet"
+   }
   },
   {
    "id": "fb-concepts",
@@ -2465,7 +2837,11 @@
     "rc-lpf"
    ],
    "summary": "Superposition, convolution, and the resistance a capacitor sees in a linear circuit.",
-   "chapter": 1
+   "chapter": 1,
+   "video": {
+    "url": "https://www.youtube.com/watch?v=7lUOEpthkpU",
+    "title": "The resistance a capacitor sees, and the time constant it sets"
+   }
   },
   {
    "id": "freq-resp-circuits",
@@ -2477,7 +2853,11 @@
     "phasors"
    ],
    "summary": "Sinusoidal steady state of RC/RL filters, impedance magnitudes, voltage gain and transimpedance.",
-   "chapter": 1
+   "chapter": 1,
+   "video": {
+    "url": "https://www.youtube.com/watch?v=F1QSGPU7sWM",
+    "title": "How an RC filter's gain changes with frequency"
+   }
   },
   {
    "id": "bode-circuits",
@@ -2487,7 +2867,11 @@
     "direct-h"
    ],
    "summary": "Locate poles and zeros from circuit time constants and sketch Bode plots of filters and amplifiers.",
-   "chapter": 2
+   "chapter": 2,
+   "video": {
+    "url": "https://www.youtube.com/watch?v=KJi_QxbfUvA",
+    "title": "A Bode sketch of an RC circuit"
+   }
   },
   {
    "id": "fb-amp",
@@ -2498,7 +2882,11 @@
    ],
    "summary": "The feedback factor from a resistor divider, and the ideal closed-loop gain 1/f of an op-amp amplifier.",
    "chapter": 17,
-   "owns": "feedback factor from a resistor divider and ideal gain 1/f"
+   "owns": "feedback factor from a resistor divider and ideal gain 1/f",
+   "video": {
+    "url": "https://www.youtube.com/watch?v=hS7bP0rr5vA",
+    "title": "The closed-loop gain of a non-inverting amplifier"
+   }
   },
   {
    "id": "fb-amp-errors",
@@ -2508,7 +2896,11 @@
     "fb-amp"
    ],
    "summary": "Static and dynamic gain errors of op-amp amplifiers from finite and frequency-dependent open-loop gain.",
-   "chapter": 17
+   "chapter": 17,
+   "video": {
+    "url": "https://www.youtube.com/watch?v=F3YnVpkat3c",
+    "title": "The gain error left by a finite open-loop gain"
+   }
   },
   {
    "id": "amp-compensation",
@@ -2519,7 +2911,11 @@
     "fb-amp"
    ],
    "summary": "Phase margin of op-amp loops: second poles, capacitive loads, dominant-pole and Miller compensation.",
-   "chapter": 17
+   "chapter": 17,
+   "video": {
+    "url": "https://www.youtube.com/watch?v=NALjMcYTiWk",
+    "title": "Dominant-pole compensation"
+   }
   },
   {
    "id": "lti-mech",
