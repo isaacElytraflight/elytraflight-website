@@ -338,6 +338,7 @@ function queue() {
 /* ====================== layout engines ====================== */
 const TW = 168, TH = 72, GX = 18, GYR = 46, PAD = 26, HDR = 48, DW = 14, DGAP = 12, BGAP = 46, RGAP = 76, ROWMAX = 3200, WPAD = 40, BMIN = 470;
 const LAYKEY = 'skilltree.layout.v1';
+const LANE_GAP_X = 48, LANE_GAP_Y = 20, NEST_PAD = 36;
 
 function pav(targets, seps, weights) {
   const n = targets.length, off = [0]; for (let i = 1; i < n; i++) off[i] = off[i - 1] + seps[i - 1];
@@ -571,32 +572,6 @@ function computeTreeLayout() {
   };
 }
 
-function convexHull(points) {
-  const uniq = [];
-  points.map(p => [Math.round(p[0] * 10) / 10, Math.round(p[1] * 10) / 10])
-    .sort((a, b) => a[0] - b[0] || a[1] - b[1])
-    .forEach(p => { const l = uniq[uniq.length - 1]; if (!l || l[0] !== p[0] || l[1] !== p[1]) uniq.push(p); });
-  if (uniq.length <= 2) return uniq;
-  const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
-  const lower = [];
-  uniq.forEach(p => { while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop(); lower.push(p); });
-  const upper = [];
-  for (let i = uniq.length - 1; i >= 0; i--) { const p = uniq[i]; while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop(); upper.push(p); }
-  lower.pop(); upper.pop();
-  return lower.concat(upper);
-}
-
-function regionPoints(ids, nodes, pad) {
-  const pts = [];
-  ids.forEach(id => {
-    const n = nodes[id];
-    if (!n) return;
-    const w = n.w || TW, h = n.h || TH;
-    pts.push([n.x - pad, n.y - pad], [n.x + w + pad, n.y - pad], [n.x - pad, n.y + h + pad], [n.x + w + pad, n.y + h + pad]);
-  });
-  return convexHull(pts);
-}
-
 function boxPad(box) {
   if (box && (box.kind === 'course' || box.kind === 'textbook')) return 76;
   return 44;
@@ -617,7 +592,25 @@ function boxHue(box) { return Math.round((boxColorIndex(box) * 137.508) % 360); 
 function boxStroke(box) { return 'hsl(' + boxHue(box) + ' 70% 36%)'; }
 function boxFill(box) { return 'hsla(' + boxHue(box) + ' 85% 52% / 0.28)'; }
 
-function leafBoxesFor(skillId) {
+function isCourseLike(box) {
+  return !!box && (box.kind === 'course' || box.kind === 'textbook');
+}
+
+function selectedCourseAncestor(boxId) {
+  let cur = parentOfBox[boxId];
+  const seen = new Set();
+  while (cur && !seen.has(cur)) {
+    seen.add(cur);
+    const box = boxById[cur];
+    if (selectedBoxes.has(cur) && isCourseLike(box)) return cur;
+    cur = parentOfBox[cur];
+  }
+  return null;
+}
+
+// The tile sits in the innermost selected band. A selected course that also
+// has selected chapters is the container around those chapters, not a second tile.
+function hostBandsFor(skillId) {
   if (!COLLECTIONS || !COLLECTIONS.boxes) return [];
   const ids = [];
   for (const box of COLLECTIONS.boxes) {
@@ -627,39 +620,155 @@ function leafBoxesFor(skillId) {
   return ids.filter(id => !ids.some(other => isStrictDescendant(other, id)));
 }
 
-function layoutBox(ids) {
+// Keep the ungrouped tree's row, and order each row to cut crossings.
+function orderBandRows(ids) {
+  const layerOf = (layout.tree && layout.tree.layerOf) || {};
+  const treeNodes = (layout.tree && layout.tree.nodes) || {};
+  const layer = id => layerOf[id] != null ? layerOf[id] : 0;
+  const yOf = id => treeNodes[id] ? treeNodes[id].y : 0;
+  const treeX = id => treeNodes[id] ? treeNodes[id].x : 0;
+  if (!ids.length) return { nodes: {}, w: TW, minLayer: 0, maxLayer: 0, y0: 0, y1: TH };
   const idset = new Set(ids);
-  const edges = allEdges.filter(([p, c]) => idset.has(p) && idset.has(c));
-  const r = ids.length ? layeredLayout(ids, edges) : { pos: {}, mids: {}, w: TW, h: TH };
-  const nodes = {}, mids = {};
+  const rows = new Map();
   ids.forEach(id => {
-    const pos = r.pos[id];
-    if (!pos) return;
-    nodes[id] = { x: pos.x, y: r.h - pos.y - TH };
+    const L = layer(id);
+    if (!rows.has(L)) rows.set(L, []);
+    rows.get(L).push(id);
   });
-  Object.keys(r.mids || {}).forEach(k => {
-    mids[k] = r.mids[k].map(pt => [pt[0], r.h - pt[1]]);
+  const layers = [...rows.keys()].sort((a, b) => a - b);
+  layers.forEach(L => rows.get(L).sort((a, b) => treeX(a) - treeX(b) || (a < b ? -1 : a > b ? 1 : 0)));
+  const pos = {};
+  const reindex = () => layers.forEach(L => rows.get(L).forEach((id, i) => { pos[id] = i; }));
+  reindex();
+  const preds = {}, succs = {};
+  ids.forEach(id => { preds[id] = []; succs[id] = []; });
+  allEdges.forEach(([p, c]) => {
+    if (idset.has(p) && idset.has(c)) { preds[c].push(p); succs[p].push(c); }
   });
-  return { nodes, mids, w: Math.max(r.w || TW, 1), h: Math.max(r.h || TH, 1) };
+  const meanOf = list => {
+    let n = 0, s = 0;
+    list.forEach(id => { if (pos[id] != null) { s += pos[id]; n++; } });
+    return n ? s / n : null;
+  };
+  const sortRow = (L, nb) => {
+    const arr = rows.get(L);
+    const keyed = arr.map((id, i) => {
+      const m = meanOf(nb[id]);
+      return { id, k: m == null ? pos[id] : m, i };
+    });
+    keyed.sort((a, b) => a.k - b.k || a.i - b.i);
+    rows.set(L, keyed.map(e => e.id));
+    reindex();
+  };
+  for (let it = 0; it < 8; it++) {
+    const seq = it % 2 === 0 ? layers : [...layers].reverse();
+    const nb = it % 2 === 0 ? preds : succs;
+    seq.forEach(L => sortRow(L, nb));
+  }
+  const crosses = (a, b) => {
+    let c = 0;
+    [preds, succs].forEach(nb => {
+      nb[a].forEach(pa => nb[b].forEach(pb => { if (pos[pa] > pos[pb]) c++; }));
+    });
+    return c;
+  };
+  for (let pass = 0; pass < 4; pass++) {
+    layers.forEach(L => {
+      const arr = rows.get(L);
+      let moved = true, guard = 0;
+      while (moved && guard++ < arr.length + 2) {
+        moved = false;
+        for (let i = 0; i < arr.length - 1; i++) {
+          if (crosses(arr[i], arr[i + 1]) > crosses(arr[i + 1], arr[i])) {
+            const tmp = arr[i]; arr[i] = arr[i + 1]; arr[i + 1] = tmp;
+            pos[arr[i]] = i; pos[arr[i + 1]] = i + 1;
+            moved = true;
+          }
+        }
+      }
+    });
+  }
+  const nodes = {};
+  let width = 0, minY = Infinity, maxY = -Infinity;
+  layers.forEach(L => {
+    let x = 0;
+    rows.get(L).forEach((id, i) => {
+      if (i) x += GX;
+      const y = yOf(id);
+      nodes[id] = { x, y };
+      if (y < minY) minY = y;
+      if (y + TH > maxY) maxY = y + TH;
+      x += TW;
+    });
+    if (x > width) width = x;
+  });
+  return { nodes, w: Math.max(width, TW), minLayer: layers[0], maxLayer: layers[layers.length - 1], y0: minY, y1: maxY };
 }
 
-// Each selected course or chapter is its own box. A skill in several of those
-// boxes is cloned into each one. Boxes do not share rows.
+// Sibling bands share a lane when their inclusive row spans are disjoint and
+// the padded borders keep a gap. First-fit on the top edge minimizes width.
+function spansClear(a, b) {
+  const rowsDisjoint = a.maxLayer < b.minLayer || b.maxLayer < a.minLayer;
+  const verticalGap = a.y1 + LANE_GAP_Y <= b.y0 || b.y1 + LANE_GAP_Y <= a.y0;
+  return rowsDisjoint && verticalGap;
+}
+
+function packLanes(items) {
+  const sorted = items.slice().sort((a, b) => a.y0 - b.y0 || a.y1 - b.y1 || a.seq - b.seq || String(a.key).localeCompare(String(b.key)));
+  const lanes = [];
+  sorted.forEach(item => {
+    let lane = null;
+    for (let i = 0; i < lanes.length; i++) {
+      if (lanes[i].every(other => spansClear(other, item))) { lane = lanes[i]; break; }
+    }
+    if (!lane) { lane = []; lanes.push(lane); }
+    lane.push(item);
+    item.lane = lanes.indexOf(lane);
+  });
+  const laneW = lanes.map(lane => Math.max(...lane.map(it => it.w)));
+  const laneX = [];
+  laneW.forEach((w, i) => { laneX[i] = i ? laneX[i - 1] + laneW[i - 1] + LANE_GAP_X : 0; });
+  items.forEach(it => { it.x = laneX[it.lane] || 0; });
+}
+
+function bandItem(key, leaf, pad, box, seq) {
+  return {
+    key, leaf, box, pad, seq,
+    y0: leaf.y0 - pad, y1: leaf.y1 + pad, w: leaf.w + pad * 2,
+    minLayer: leaf.minLayer, maxLayer: leaf.maxLayer
+  };
+}
+
+function makeRegion(box, x, y, w, h, pad) {
+  const points = [[x, y], [x + w, y], [x + w, y + h], [x, y + h]];
+  return {
+    x, y, w, h, points, parts: [points.slice()],
+    labelBox: { x, y, w, h },
+    kind: box.kind || 'chapter', title: box.title || box.id, boxId: box.id,
+    ch: boxColorIndex(box), pad
+  };
+}
+
+// Courses sit side by side on the ungrouped rows. Selected chapters are
+// sub-bands inside their course. A course with no selected chapter is one band.
 function computeGroupedLayout() {
   const empty = { nodes: {}, mids: {}, blobs: {}, places: [], edges: [], stubs: [], w: 200, h: 120, useNested: false };
   const ids = visibleSkillIds();
   const visible = new Set(ids);
   if (!ids.length || !COLLECTIONS || !COLLECTIONS.boxes) { layout.grouped = empty; return; }
   const order = COLLECTIONS.boxes.map(b => b.id);
+  const seqOf = id => {
+    const i = order.indexOf(id);
+    return i < 0 ? order.length + 1 : i;
+  };
   const byHost = new Map();
   ids.forEach(sid => {
-    leafBoxesFor(sid).forEach(boxId => {
+    hostBandsFor(sid).forEach(boxId => {
       if (!byHost.has(boxId)) byHost.set(boxId, []);
       const list = byHost.get(boxId);
       if (list.indexOf(sid) < 0) list.push(sid);
     });
   });
-  const hosts = [...byHost.keys()].sort((a, b) => order.indexOf(a) - order.indexOf(b) || a.localeCompare(b));
   const hosted = new Set();
   byHost.forEach(list => list.forEach(id => hosted.add(id)));
   const loose = ids.filter(id => !hosted.has(id));
@@ -667,39 +776,87 @@ function computeGroupedLayout() {
   // empty-selection return above must not leave anything in boxById either.
   const OTHER = 'unboxed';
   const otherBox = { id: OTHER, title: 'Other skills', kind: 'chapter' };
-  if (loose.length) {
-    byHost.set(OTHER, loose);
-    hosts.push(OTHER);
-  }
-  if (!hosts.length) { layout.grouped = empty; return; }
-  const local = {};
-  hosts.forEach(boxId => { local[boxId] = layoutBox(byHost.get(boxId)); });
+  if (loose.length) byHost.set(OTHER, loose);
+  if (!byHost.size) { layout.grouped = empty; return; }
 
-  const GAP_X = 200, GAP_Y = 180, MAX_ROW = 3400, MARGIN = 40;
-  const origin = {};
-  let x = MARGIN, y = MARGIN, rowH = 0;
-  hosts.forEach(boxId => {
-    const lay = local[boxId];
-    const pad = boxPad(boxId === OTHER ? otherBox : boxById[boxId]);
-    const bw = lay.w + pad * 2, bh = lay.h + pad * 2;
-    if (x > MARGIN && x + bw > MARGIN + MAX_ROW) { x = MARGIN; y += rowH + GAP_Y; rowH = 0; }
-    origin[boxId] = { x: x + pad, y: y + pad };
-    x += bw + GAP_X;
-    rowH = Math.max(rowH, bh);
+  const chaptersOf = new Map();
+  const topLeaves = [];
+  [...byHost.keys()].sort((a, b) => seqOf(a) - seqOf(b) || a.localeCompare(b)).forEach(boxId => {
+    if (boxId === OTHER) { topLeaves.push(boxId); return; }
+    const box = boxById[boxId];
+    const courseId = !isCourseLike(box) ? selectedCourseAncestor(boxId) : null;
+    if (courseId) {
+      if (!chaptersOf.has(courseId)) chaptersOf.set(courseId, []);
+      chaptersOf.get(courseId).push(boxId);
+      return;
+    }
+    topLeaves.push(boxId);
+  });
+  const directOf = new Map();
+  const leafKeep = [];
+  topLeaves.forEach(boxId => {
+    if (chaptersOf.has(boxId)) directOf.set(boxId, byHost.get(boxId));
+    else leafKeep.push(boxId);
   });
 
-  const nodes = {}, places = [], placesBySkill = {};
-  hosts.forEach(boxId => {
-    const o = origin[boxId], lay = local[boxId];
-    byHost.get(boxId).forEach(sid => {
-      const n = lay.nodes[sid];
-      if (!n) return;
-      const key = placeKey(sid, boxId);
-      nodes[key] = { x: o.x + n.x, y: o.y + n.y };
-      const place = { key, skillId: sid, boxId };
+  const topItems = [];
+  leafKeep.forEach(boxId => {
+    const box = boxId === OTHER ? otherBox : boxById[boxId];
+    const leaf = orderBandRows(byHost.get(boxId));
+    topItems.push(bandItem(boxId, leaf, boxPad(box), box, seqOf(boxId)));
+  });
+  chaptersOf.forEach((chapterIds, courseId) => {
+    const inner = [];
+    chapterIds.forEach(chId => {
+      const box = boxById[chId];
+      inner.push(bandItem(chId, orderBandRows(byHost.get(chId)), boxPad(box), box, seqOf(chId)));
+    });
+    if (directOf.has(courseId)) {
+      const pad = boxPad({ kind: 'chapter' });
+      const item = bandItem(courseId + '\0skills', orderBandRows(directOf.get(courseId)), pad, null, seqOf(courseId));
+      item.directCourse = courseId;
+      inner.push(item);
+    }
+    packLanes(inner);
+    let minY = Infinity, maxY = -Infinity, maxX = 0, minLayer = Infinity, maxLayer = -Infinity;
+    inner.forEach(it => {
+      if (it.y0 < minY) minY = it.y0;
+      if (it.y1 > maxY) maxY = it.y1;
+      if (it.x + it.w > maxX) maxX = it.x + it.w;
+      if (it.minLayer < minLayer) minLayer = it.minLayer;
+      if (it.maxLayer > maxLayer) maxLayer = it.maxLayer;
+    });
+    topItems.push({
+      key: courseId, kind: 'container', box: boxById[courseId], inner,
+      y0: minY - NEST_PAD, y1: maxY + NEST_PAD, w: maxX + NEST_PAD * 2,
+      minLayer, maxLayer, seq: seqOf(courseId), outer: NEST_PAD
+    });
+  });
+  packLanes(topItems);
+
+  const nodes = {}, places = [], placesBySkill = {}, blobs = {};
+  const placeLeaf = (item, blobLeft) => {
+    if (item.box) {
+      blobs[item.key] = makeRegion(item.box, blobLeft, item.y0, item.w, item.y1 - item.y0, item.pad);
+    }
+    const hostId = item.directCourse || item.box.id;
+    const contentX = blobLeft + item.pad;
+    Object.keys(item.leaf.nodes).forEach(sid => {
+      const n = item.leaf.nodes[sid];
+      const key = placeKey(sid, hostId);
+      nodes[key] = { x: contentX + n.x, y: n.y };
+      const place = { key, skillId: sid, boxId: hostId };
       places.push(place);
       (placesBySkill[sid] || (placesBySkill[sid] = [])).push(place);
     });
+  };
+  topItems.forEach(item => {
+    if (item.kind === 'container') {
+      blobs[item.key] = makeRegion(item.box, item.x, item.y0, item.w, item.y1 - item.y0, item.outer);
+      item.inner.forEach(ch => placeLeaf(ch, item.x + item.outer + ch.x));
+      return;
+    }
+    placeLeaf(item, item.x);
   });
 
   const follows = {};
@@ -747,31 +904,7 @@ function computeGroupedLayout() {
   });
 
   const mids = {};
-  edges.forEach(e => {
-    const fromBox = e.fromKey.slice(e.fromKey.indexOf('@') + 1);
-    const toBox = e.toKey.slice(e.toKey.indexOf('@') + 1);
-    if (fromBox !== toBox) return;
-    const mid = local[fromBox] && local[fromBox].mids[e.from + '>' + e.to];
-    if (!mid) return;
-    const o = origin[fromBox];
-    mids[e.fromKey + '>' + e.toKey] = mid.map(pt => [pt[0] + o.x, pt[1] + o.y]);
-  });
-
-  const blobs = {};
-  hosts.forEach(boxId => {
-    const box = boxId === OTHER ? otherBox : boxById[boxId];
-    const members = byHost.get(boxId).map(sid => placeKey(sid, boxId)).filter(k => nodes[k]);
-    if (!members.length || !box) return;
-    const points = regionPoints(members, nodes, boxPad(box));
-    if (points.length < 3) return;
-    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
-    points.forEach(([px, py]) => { x0 = Math.min(x0, px); y0 = Math.min(y0, py); x1 = Math.max(x1, px); y1 = Math.max(y1, py); });
-    blobs[boxId] = {
-      x: x0, y: y0, w: x1 - x0, h: y1 - y0, points, parts: [points],
-      labelBox: { x: x0, y: y0, w: x1 - x0, h: y1 - y0 },
-      kind: box.kind || 'chapter', title: box.title || boxId, boxId, ch: boxColorIndex(box), pad: boxPad(box)
-    };
-  });
+  const MARGIN = 40;
 
   const stubs = [];
   places.forEach(p => {
@@ -803,7 +936,7 @@ function computeGroupedLayout() {
     nodes, mids, blobs, places, edges, stubs,
     w: Math.max(maxX + dx + MARGIN, 200),
     h: Math.max(maxY + dy + MARGIN, 120),
-    useNested: false
+    useNested: chaptersOf.size > 0
   };
 }
 
@@ -1404,7 +1537,7 @@ function showLayout(mode, animated) {
   sizeWorld(L);
   const btn = $('btnGroup'); btn.setAttribute('aria-pressed', String(mode === 'grouped'));
   btn.querySelector('.t').textContent = mode === 'grouped' ? 'Ungroup' : 'Group by course';
-  btn.title = mode === 'grouped' ? 'Back to one prerequisite tree of the selected skills' : 'Draw each selected course and chapter as its own box';
+  btn.title = mode === 'grouped' ? 'Back to one prerequisite tree of the selected skills' : 'Draw courses side by side, with chapters nested inside';
   const drawEdges = (useRouted) => {
     edgeEls.forEach(e => {
       const fromKey = e.fromKey || e.from, toKey = e.toKey || e.to;
