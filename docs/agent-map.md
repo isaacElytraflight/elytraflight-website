@@ -22,6 +22,8 @@ The live sidebar is the to-do list (`#todoBook`), the course scope picker, and t
 | `skilltree/app/parts/p1k_katex.html` | Demo KaTeX, inlined for offline math. |
 | `skilltree/app/build_app.py` | Rebuilds the demo only. |
 
+**Cache bust.** `index.html` loads `skilltree.js?v=<hash>` and `simcore.js?v=<hash>`. Any PR that changes one of those scripts must set its `?v=` to the first 8 hex characters of the file's sha256 (`sha256sum public/skilltree/skilltree.js | cut -c1-8`). Any PR that touches `index.html` must also run `node public/skilltree/tests/test-profile-fallbacks.mjs` (under a second).
+
 `python3 skilltree/app/build_app.py` reads `skilltree/app/template.html` plus `skilltree/bank/*.json` and writes `skilltree/app/skilltree.html`. It does not write `public/skilltree/skilltree.js`.
 
 `python3 skilltree/app/make_katex_part.py` rewrites `skilltree/app/parts/p1k_katex.html`.
