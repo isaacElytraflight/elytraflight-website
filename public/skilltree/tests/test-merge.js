@@ -391,6 +391,18 @@ test('structured row layers practice the shallowest ready skills first', () => {
   assert(lowRow && childRow && highRow);
   assert(lowRow.n < childRow.n, 'the child waits until its prerequisite has been practiced');
   assert(childRow.n < highRow.n, 'a deeper ready skill waits for ready skills on shallower rows');
+  const waited = Sim.simulate({
+    ids: ['root', 'filler', 'child'],
+    prereqs: { root: [], filler: [], child: ['root'] },
+    maxTier: { root: 1, filler: 1, child: 1 }
+  }, {}, { practiceMin: 1, challengeMin: 1, rowLayers: { root: 0, filler: 1, child: 5 } });
+  assert.deepStrictEqual(waited.critical.chain, ['root', 'child']);
+  const openChain = Sim.simulate({
+    ids: ['a', 'b'],
+    prereqs: { a: [], b: ['a'] },
+    maxTier: { a: 1, b: 1 }
+  }, {}, { practiceMin: 1, challengeMin: 1 });
+  assert.deepStrictEqual(openChain.critical.chain, ['a', 'b']);
 });
 
 test('mergeTiming: limits to 50 entries per category', () => {
