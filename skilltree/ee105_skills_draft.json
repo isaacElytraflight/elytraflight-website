@@ -134,8 +134,8 @@
     }
    ],
    "video": {
-    "url": "https://www.youtube.com/watch?v=SWt2PYiGgKQ",
-    "title": "The step as the running integral of an impulse"
+    "url": "https://www.youtube.com/watch?v=USH75nuHV6w",
+    "title": "Rise, overshoot, and settling on a step response"
    }
   },
   {
@@ -2428,8 +2428,8 @@
     }
    ],
    "video": {
-    "url": "https://www.youtube.com/watch?v=GBBXZXmb8UE",
-    "title": "Controller parameters updated online against a reference model"
+    "url": "https://www.youtube.com/watch?v=LRufKwmhLdE",
+    "title": "A controller retuned online from a parameter estimate"
    }
   },
   {
