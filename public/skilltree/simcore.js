@@ -29,6 +29,22 @@ function simulate(graph,start,opts){
     if(rows.length>=guard){out.ok=false;out.stuck=true;break}
     var snap={};ids.forEach(function(id){snap[id]=tier[id]});
     var ready=ids.filter(function(id){return snap[id]===0&&top[id]>=1&&pre[id].every(function(p){return snap[p]>=need(p)})});
+    // Structured passes rowLayers and takes only the shallowest ready row.
+    // Adventurous leaves the map off, so every ready skill stays in this session.
+    var layers=opts.rowLayers;
+    if(layers&&ready.length){
+      var minL=Infinity;
+      ready.forEach(function(id){
+        var L=layers[id];
+        if(typeof L!=='number'||!isFinite(L))L=0;
+        if(L<minL)minL=L;
+      });
+      ready=ready.filter(function(id){
+        var L=layers[id];
+        if(typeof L!=='number'||!isFinite(L))L=0;
+        return L===minL;
+      });
+    }
     var chal=ids.filter(function(id){return snap[id]>=1&&snap[id]<top[id]});
     if(!ready.length&&!chal.length){out.ok=false;out.stuck=true;break}
     var n=rows.length+1;

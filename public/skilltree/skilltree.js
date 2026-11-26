@@ -330,6 +330,40 @@ function colorOf(id) { return colorVars(getSkillColorIndex(id)); }
 const READY_TIER = 3;
 const prereqGaps = id => byId[id].prereqs.filter(p => isPlayable(p) && tierOf(p) < READY_TIER);
 function isReady(id) { return isPlayable(id) && tierOf(id) === 0 && prereqGaps(id).length === 0 }
+function examDueSkillIds() {
+  const plan = savedPlanNow();
+  if (!plan || !Array.isArray(plan.sessions)) return [];
+  const today = Sim.localISODate(new Date());
+  const upcoming = (plan.exams || []).filter(e => e && typeof e.date === 'string' && e.date >= today);
+  if (!upcoming.length) return [];
+  upcoming.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+  const nearest = upcoming[0].id;
+  const ids = [];
+  plan.sessions.forEach(s => {
+    if (!s || s.date !== today || s.examId !== nearest || sessionComplete(s)) return;
+    (s.items || []).forEach(it => {
+      if (it && it.type === 'skill' && it.id && ids.indexOf(it.id) < 0) ids.push(it.id);
+    });
+  });
+  return ids;
+}
+function readySkillsOrdered() {
+  const ready = skills.filter(s => isReady(s.id));
+  let ordered = ready;
+  if (rowMode === 'structured') {
+    const ids = skills.map(s => s.id);
+    const edges = [];
+    skills.forEach(s => (s.prereqs || []).forEach(p => { if (byId[p]) edges.push([p, s.id]); }));
+    const layers = assignRowLayers(ids, edges, 'structured');
+    ordered = ready.slice().sort((a, b) => (layers[a.id] || 0) - (layers[b.id] || 0) || skills.indexOf(a) - skills.indexOf(b));
+  }
+  const due = examDueSkillIds();
+  if (!due.length) return ordered;
+  const dueSet = new Set(due);
+  const front = [];
+  due.forEach(id => { if (byId[id] && isReady(id)) front.push(byId[id]); });
+  return front.concat(ordered.filter(s => !dueSet.has(s.id)));
+}
 function queue() {
   return skills.filter(s => { const t = tierOf(s.id); return t >= 1 && t <= 3 && hasRound(s.id, t + 1) })
     .sort((a, b) => (lastOf(a.id) || 0) - (lastOf(b.id) || 0) || skills.indexOf(a) - skills.indexOf(b));
@@ -353,12 +387,41 @@ function pav(targets, seps, weights) {
   return out;
 }
 
-function layeredLayout(ids, edges) {
-  const par = {}; ids.forEach(i => par[i] = []); edges.forEach(([p, c]) => par[c].push(p));
+// Adventurous is the longest path: a skill sits just above its deepest prerequisite.
+// Structured, the default, then pulls a skill with follow-ups up to the row just
+// under its nearest follow-up. Leaves stay on the longest path, so the row count
+// does not change and a skill never lands level with something it leads to.
+function assignRowLayers(ids, edges, mode) {
+  const par = {}, kids = {};
+  ids.forEach(i => { par[i] = []; kids[i] = []; });
+  edges.forEach(([p, c]) => {
+    if (!par[c] || !kids[p]) return;
+    par[c].push(p);
+    kids[p].push(c);
+  });
   const layerOf = {};
   const L = id => layerOf[id] != null ? layerOf[id] : (layerOf[id] = par[id].length ? 1 + Math.max(...par[id].map(L)) : 0);
   ids.forEach(L);
-  const nl = Math.max(0, ...ids.map(i => layerOf[i])) + 1;
+  if (mode !== 'structured') return layerOf;
+  const floor = {};
+  ids.forEach(id => { floor[id] = layerOf[id]; });
+  const maxL = ids.length ? Math.max(...ids.map(id => floor[id])) : 0;
+  const buckets = Array.from({ length: maxL + 1 }, () => []);
+  ids.forEach(id => buckets[floor[id]].push(id));
+  for (let l = maxL; l >= 0; l--) {
+    buckets[l].forEach(id => {
+      const ch = kids[id];
+      if (!ch.length) return;
+      const next = Math.min(...ch.map(c => layerOf[c])) - 1;
+      if (next > layerOf[id]) layerOf[id] = next;
+    });
+  }
+  return layerOf;
+}
+
+function layeredLayout(ids, edges) {
+  const layerOf = assignRowLayers(ids, edges, rowMode);
+  const nl = Math.max(0, ...ids.map(i => layerOf[i] || 0)) + 1;
   const nodes = [], nid = {};
   const link = (a, b) => { nodes[a].down.push(b); nodes[b].up.push(a) };
   ids.forEach(id => { nid[id] = nodes.length; nodes.push({ id, real: true, layer: layerOf[id], up: [], down: [], w: TW, wt: 1 }) });
@@ -948,6 +1011,7 @@ let world, tv, edgesSvg, edgeHiSvg, edgeHiG, edgeHiMask, panel;
 const panelOpen = () => panel && panel.classList.contains('open');
 let view = { x: 20, y: 20, s: 1 }, selected = null, hoverId = null, quizOpen = false;
 let layoutMode = 'tree', curPos = {}, morphRaf = 0;
+let rowMode = 'structured';
 const filter = { playable: false, view: 'tree' };
 let selectedBoxes = new Set();
 let scopePanelOpen = false;
@@ -1585,6 +1649,22 @@ function toggleGroup() {
   if (selected && nodeFor(selected)) focusTile(selected); else goFit();
 }
 
+function syncRowButtons() {
+  const s = $('rowStructured'), a = $('rowAdventurous');
+  if (s) s.setAttribute('aria-pressed', String(rowMode === 'structured'));
+  if (a) a.setAttribute('aria-pressed', String(rowMode === 'adventurous'));
+}
+function setRowMode(mode, animated) {
+  mode = mode === 'adventurous' ? 'adventurous' : 'structured';
+  const changed = mode !== rowMode;
+  rowMode = mode;
+  writeUi({ rows: mode });
+  syncRowButtons();
+  if (!changed) return;
+  buildTree();
+  showLayout(layoutMode, !!animated);
+}
+
 function highlightId() { return lightsMode ? null : (hoverId || selected) }
 
 let edgeHiFollow = 0;
@@ -1811,6 +1891,20 @@ function bboxOf(ids) {
   if (!ps.length) return null;
   const x0 = Math.min(...ps.map(p => p.x)), y0 = Math.min(...ps.map(p => p.y)), x1 = Math.max(...ps.map(p => p.x + (p.w || TW))), y1 = Math.max(...ps.map(p => p.y + (p.h || TH)));
   return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+}
+
+function frameOn(ids) {
+  const keys = [];
+  (ids || []).forEach(id => {
+    const n = nodeFor(id);
+    if (n) keys.push(n.key);
+  });
+  const box = bboxOf(keys);
+  if (!box) return false;
+  world.classList.remove('anim');
+  fitBox(box.x - 48, box.y - 48, box.w + 96, box.h + 96, 1.35);
+  applyView();
+  return true;
 }
 
 function nodeFor(id) {
@@ -2070,6 +2164,9 @@ function buildControls() {
     el('div', { class: 'seg', role: 'group', 'aria-label': 'View' },
       el('button', { id: 'vTree', 'aria-pressed': String(filter.view === 'tree'), onclick: () => setView('tree') }, 'Tree'),
       el('button', { id: 'vGrid', 'aria-pressed': String(filter.view === 'grid'), onclick: () => setView('grid') }, 'Grid')),
+    el('div', { class: 'seg', role: 'group', 'aria-label': 'Row placement' },
+      el('button', { id: 'rowStructured', 'aria-pressed': String(rowMode === 'structured'), title: 'Keep each skill on the row just under its nearest follow-up', onclick: () => setRowMode('structured', true) }, 'Structured'),
+      el('button', { id: 'rowAdventurous', 'aria-pressed': String(rowMode === 'adventurous'), title: 'Place each skill just above its deepest prerequisite', onclick: () => setRowMode('adventurous', true) }, 'Adventurous')),
     el('span', { class: 'scope-label', id: 'scopeLabel', text: 'Courses' }),
     el('div', { class: 'scope-multi', id: 'scopePicker' }, toggle, panel),
     el('label', { class: 'chk' }, chk, 'Playable only'));
@@ -2181,10 +2278,19 @@ function renderStats() {
   st.append(el('span', { class: 'chip', 'data-stat': 'soon', title: 'No round-1 questions yet' }, el('span', { class: 'sw soon' }), 'Coming soon ', el('b', { text: nSoon })));
 }
 
+function readUi() {
+  try {
+    const u = JSON.parse(localStorage.getItem(UIKEY) || 'null');
+    return u && typeof u === 'object' ? u : {};
+  } catch (e) { return {}; }
+}
+function writeUi(patch) {
+  try { localStorage.setItem(UIKEY, JSON.stringify(Object.assign({}, readUi(), patch))); } catch (e) { }
+}
 function setView(v) {
   filter.view = v; $('treeView').hidden = v !== 'tree'; $('gridView').hidden = v !== 'grid'; $('btnGroup').hidden = v !== 'tree';
   $('vTree').setAttribute('aria-pressed', String(v === 'tree')); $('vGrid').setAttribute('aria-pressed', String(v === 'grid'));
-  try { localStorage.setItem(UIKEY, JSON.stringify({ view: v })) } catch (e) { }
+  writeUi({ view: v });
   applyGridFilter();
 }
 
@@ -2742,7 +2848,7 @@ function renderResult(wrap) {
   btns.append(el('button', { class: 'btn', id: 'resBack', onclick: () => exitQuiz(Q.id) }, 'Back to the tree'));
   if (Q.mode === 'review' || (Q.mode === 'challenge' && !R.passed) || (Q.mode === 'practice' && R.correct < need(R.n))) btns.append(el('button', { class: 'btn', id: 'resRetry', onclick: () => doStartQuiz(Q.id, Q.round, Q.mode) }, 'Try this round again'));
   const qn = queue().filter(x => x.id !== Q.id)[0];
-  const rd = skills.filter(x => isReady(x.id))[0];
+  const rd = readySkillsOrdered()[0];
   if (qn) btns.append(el('button', { class: 'btn hot', id: 'resNextQ', onclick: () => doStartQuiz(qn.id, tierOf(qn.id) + 1, 'challenge') }, `Next in queue: ${short(qn.name, 30)}`));
   if (rd && up) btns.append(el('button', { class: 'btn primary', id: 'resLearn', onclick: () => exitQuiz(rd.id) }, `Learn something new: ${short(rd.name, 26)}`));
   const t = tierOf(Q.id);
@@ -3468,7 +3574,8 @@ function openHelp() {
     el('li', {}, 'The mastery queue lists unmastered skills, least recently practiced first. Learn broadly first; come back for mastery.'),
     el('li', {}, el('b', { text: 'To-do list ' }), 'is the only list of what to do next. Add a skill yourself, or queue the next saved exam-plan session. A line from that plan is marked Plan. Each line shows the step that skill is on — 0 → P, P → 1, 1 → 2, or 2 → 👑 — and drops off once you finish that step. Lines stay until you remove them, including when you change which courses are highlighted. It is saved with your progress.'),
     el('li', {}, 'Prerequisites are guidance, not locks. A new skill glows "ready" once all its prerequisites are at Level 2 or Mastered (prerequisites that are still coming soon are ignored). Lines show what leads to what; click a tile to highlight them.'),
-    el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'foundations (skills with no prerequisites) sit at the bottom and each skill that builds on them sits above.'),
+    el('li', {}, el('b', { text: 'The tree grows upward: ' }), 'a skill sits above the prerequisites it builds on.'),
+    el('li', {}, el('b', { text: 'Structured ' }), 'is the default. A skill with follow-ups sits on the row just under the nearest one. Adventurous places each skill just above its deepest prerequisite. The choice is remembered on this device with the other view settings. Calculate and save new plan uses it: Structured offers the shallowest ready skills first, and skills due today for the nearest exam still come first.'),
     el('li', {}, el('b', { text: 'Plan ' }), 'opens from the notebook. Exam dates sit at the top. Calculate and save new plan runs a learning plan for every upcoming exam, spreads each exam\'s sessions over the days before that exam, then interleaves them by date and locks the result. A skill that two exams need is kept once, on the earliest day. The graphs stay on that saved plan until you calculate again. Highlighted courses are visual only: there is no plan until an exam is added and calculated. TODAY shows sessions behind, sessions left today, all caught up, or sessions ahead. Queue up learning session from exam plan adds the earliest saved session you have not finished.'),
     el('li', {}, el('b', { text: 'Courses ' }), 'is select-all-that-apply. The address bar focus parameter is that list (for example ?focus=me132,nlo). A link with focus uses that list, and a visit with no focus parameter restores your last choice. A new profile starts with nothing focused. The learning plan covers the union of the skills in the selected boxes. Skills outside that selection are hidden. Select all to see the whole tree. A hidden prerequisite shows as a small "needs" label on the skill that requires it. The grid lists only the chapters in that selection. With every course selected, or with nothing selected yet, the grid keeps every chapter. A skill can sit in several boxes, and progress is one record per skill. Prerequisites from outside the selection stay in the plan and are marked with a star.'),
     el('li', {}, el('b', { text: 'Group by course ' }), 'is on when you have not chosen a layout. Each selected course and chapter is its own box and lays out its own skills, with prerequisites below the skills that follow them. A skill in several selected boxes is drawn once in each box. Those copies share mastery, and a small ×N tag lists the other copies. Ungroup returns to one prerequisite tree of the selected skills. A layout you choose is remembered on this device.'),
@@ -3685,12 +3792,22 @@ function planEstimates() {
   return out;
 }
 
+function planEdges(graph) {
+  const edges = [];
+  graph.ids.forEach(id => (graph.prereqs[id] || []).forEach(p => edges.push([p, id])));
+  return edges;
+}
+function simulateOpts(graph) {
+  const est = planEstimates();
+  const opts = { practiceMin: est.practice.used, challengeMin: est.challenge.used };
+  if (rowMode === 'structured') opts.rowLayers = assignRowLayers(graph.ids, planEdges(graph), 'structured');
+  return opts;
+}
 function runPlan(scratch, scope) {
   const use = scope === undefined ? scopeForPlan() : scope;
   const g = planGraph(use), start = {};
   if (!scratch) g.ids.forEach(id => start[id] = tierOf(id));
-  const est = planEstimates();
-  const result = Sim.simulate(g, start, { practiceMin: est.practice.used, challengeMin: est.challenge.used });
+  const result = Sim.simulate(g, start, simulateOpts(g));
   result.extras = g.extras || [];
   result.scopeBoxId = use;
   return result;
@@ -4448,8 +4565,7 @@ function examPlan(exam) {
   const g = graphForSkillIds(ids);
   const start = {};
   g.ids.forEach(id => { start[id] = tierOf(id); });
-  const est = planEstimates();
-  const result = Sim.simulate(g, start, { practiceMin: est.practice.used, challengeMin: est.challenge.used });
+  const result = Sim.simulate(g, start, simulateOpts(g));
   result.extras = g.extras || [];
   result.missing = false;
   return result;
@@ -5591,12 +5707,13 @@ async function init() {
   if (profileStandalone()) cleanProfileUrl();
   else bootFocus();
   $('playableNote').textContent = `${playable.length} of ${skills.length} skills ready`;
+  const savedUi = readUi();
+  if (savedUi.view === 'grid') filter.view = 'grid';
+  if (savedUi.rows === 'adventurous') rowMode = 'adventurous';
   buildTree(); buildGrid(); legendBuild(); buildControls();
   if (selectedBoxes.size === 0) scopePanelOpen = true;
   syncScopePicker();
   syncFocusPrompt();
-  
-  try { const u = JSON.parse(localStorage.getItem(UIKEY) || 'null'); if (u && u.view === 'grid') filter.view = 'grid' } catch (e) { }
   let startMode = 'grouped';
   try {
     const savedLayout = localStorage.getItem(LAYKEY);
@@ -5632,7 +5749,16 @@ async function init() {
   window.addEventListener('resize', () => { if (panelOpen()) placePanel(); refreshEdgeHi(); if (calcState.open) drawCalc(); });
   
   window.__skillgrove = {
-    version: APP_VERSION, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode, timing: () => timing,
+    version: APP_VERSION, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode,
+    rows: () => rowMode,
+    setRows: mode => { setRowMode(mode, false); return rowMode; },
+    readyOrder: () => readySkillsOrdered().map(s => s.id),
+    planLayers: scope => {
+      const g = planGraph(scope === undefined ? null : scope);
+      return assignRowLayers(g.ids, planEdges(g), rowMode);
+    },
+    frame: ids => frameOn(ids),
+    timing: () => timing,
     plan: (scratch, scope) => runPlan(!!scratch, scope), planState: () => planState,
     ready: () => skills.filter(s => isReady(s.id)).map(s => s.id), playableIds: () => playable.map(s => s.id),
     retired: () => (DATA && DATA.retired) || {},
