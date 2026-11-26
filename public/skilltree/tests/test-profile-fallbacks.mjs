@@ -108,8 +108,8 @@ test('build copies the shell onto the two directory indexes with root-absolute a
   const shell = fs.readFileSync(path.join(root, 'skilltree', 'index.html'), 'utf8')
   const expected = profileFallbackHtml(shell)
   assert.notStrictEqual(expected, shell)
-  assert.match(expected, /src="\/skilltree\/skilltree\.js"/)
-  assert.match(expected, /href="\/skilltree\/skilltree\.css"/)
+  assert.match(expected, /src="\/skilltree\/skilltree\.js(\?v=[0-9a-f]+)?"/)
+  assert.match(expected, /href="\/skilltree\/skilltree\.css(\?v=[0-9a-f]+)?"/)
   assert.match(expected, /src="\/skilltree\/telemetry\.js"/)
   assert.match(shell, /src="telemetry\.js"/)
   for (const tag of expected.match(/<(?:link|script|img|a)\b[^>]*>/gi) || []) {
@@ -123,7 +123,7 @@ test('build copies the shell onto the two directory indexes with root-absolute a
     assert.ok(fs.existsSync(file), rel)
     assert.strictEqual(fs.readFileSync(file, 'utf8'), expected, rel)
   }
-  assert.match(shell, /src="skilltree\.js"/, 'the /skilltree/ shell keeps relative URLs')
+  assert.match(shell, /src="skilltree\.js(\?v=[0-9a-f]+)?"/, 'the /skilltree/ shell keeps relative URLs')
   fs.rmSync(root, { recursive: true, force: true })
 })
 
@@ -189,7 +189,7 @@ await testAsync('a static host serves both profile directory URLs and 404s /prof
       const body = await res.text()
       assert.strictEqual(body, shell, urlPath)
       assert.match(body, /id="profilePage"/)
-      assert.match(body, /src="\/skilltree\/skilltree\.js"/)
+      assert.match(body, /src="\/skilltree\/skilltree\.js(\?v=[0-9a-f]+)?"/)
     }
 
     const nestedJs = await fetch(origin + '/skilltree/profile/skilltree.js')
