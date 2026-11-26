@@ -1932,43 +1932,118 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
-  await test('grouped view keeps every box separate', async () => {
+  await test('grouped view nests chapters in their course', async () => {
     const p = await newPage();
     await p.evaluate(() => document.getElementById('scopeAll').click());
     await showGrouped(p);
 
     const layout = await p.evaluate(() => {
-      const grouped = window.__skillgrove.layout().grouped;
+      const sg = window.__skillgrove;
+      const grouped = sg.layout().grouped;
+      const tree = sg.layout().tree;
       const blobs = Object.values(grouped.blobs);
+      const parent = {};
+      (sg.collections.data().boxes || []).forEach(b => (b.children || []).forEach(id => { parent[id] = b.id; }));
+      const inside = (poly, x, y) => {
+        let c = false;
+        for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+          const xi = poly[i][0], yi = poly[i][1], xj = poly[j][0], yj = poly[j][1];
+          if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / ((yj - yi) || 1e-9) + xi)) c = !c;
+        }
+        return c;
+      };
+      const uncontained = [];
+      Object.keys(grouped.blobs).forEach(id => {
+        const outer = parent[id] && grouped.blobs[parent[id]];
+        if (!outer) return;
+        const pts = grouped.blobs[id].points || [];
+        if (!pts.every(([x, y]) => inside(outer.points, x, y))) uncontained.push(id);
+      });
+      const badY = [];
+      (grouped.edges || []).forEach(e => {
+        const a = grouped.nodes[e.fromKey], b = grouped.nodes[e.toKey];
+        if (a && b && a.y <= b.y) badY.push(e.fromKey + '->' + e.toKey);
+      });
+      let shift = null, rowMismatch = 0;
+      (grouped.places || []).forEach(pl => {
+        const gy = grouped.nodes[pl.key] && grouped.nodes[pl.key].y;
+        const ty = tree.nodes[pl.skillId] && tree.nodes[pl.skillId].y;
+        if (gy == null || ty == null) { rowMismatch++; return; }
+        if (shift == null) shift = gy - ty;
+        else if (Math.abs(gy - ty - shift) > 0.01) rowMismatch++;
+      });
+      const project = (poly, ax, ay) => {
+        let min = Infinity, max = -Infinity;
+        poly.forEach(pt => { const d = pt[0] * ax + pt[1] * ay; if (d < min) min = d; if (d > max) max = d; });
+        return [min, max];
+      };
+      const convexHit = (a, b) => {
+        if (!a || a.length < 3 || !b || b.length < 3) return false;
+        const axes = [];
+        [a, b].forEach(poly => {
+          for (let i = 0; i < poly.length; i++) {
+            const p0 = poly[i], q = poly[(i + 1) % poly.length];
+            const len = Math.hypot(q[0] - p0[0], q[1] - p0[1]) || 1;
+            axes.push([(p0[1] - q[1]) / len, (q[0] - p0[0]) / len]);
+          }
+        });
+        return axes.every(([ax, ay]) => {
+          const pa = project(a, ax, ay), pb = project(b, ax, ay);
+          return pa[1] >= pb[0] - 0.05 && pb[1] >= pa[0] - 0.05;
+        });
+      };
+      const overlaps = [];
+      const ids = Object.keys(grouped.blobs);
+      for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) {
+        const A = grouped.blobs[ids[i]].points, B = grouped.blobs[ids[j]].points;
+        if (!convexHit(A, B)) continue;
+        const AInB = A.every(([x, y]) => inside(B, x, y));
+        const BInA = B.every(([x, y]) => inside(A, x, y));
+        if (!AInB && !BInA) overlaps.push(ids[i] + ' ∩ ' + ids[j]);
+      }
       return {
         hasNested: grouped.useNested,
-        courseBlob: grouped.blobs['ee105-ucb'] || null,
+        courseBlob: !!grouped.blobs['ee105-ucb'],
         ch1Blob: !!grouped.blobs['ee105-ch1'],
         ch2Blob: !!grouped.blobs['ee105-ch2'],
         domCourseBlob: !!document.querySelector('.blob.course[data-box="ee105-ucb"]'),
         domChapterBlobs: document.querySelectorAll('.blob.chapter').length,
-        courseBlobs: blobs.filter(b => b.kind === 'course' || b.kind === 'textbook').length
+        courseBlobs: blobs.filter(b => b.kind === 'course' || b.kind === 'textbook').length,
+        uncontained: uncontained.slice(0, 6),
+        uncontainedCount: uncontained.length,
+        overlaps: overlaps.slice(0, 6),
+        overlapCount: overlaps.length,
+        badY: badY.slice(0, 4),
+        badYCount: badY.length,
+        rowMismatch
       };
     });
 
-    assert.strictEqual(layout.hasNested, false, 'boxes are not nested');
-    assert.strictEqual(layout.courseBlob, null, 'selecting every chapter draws the chapters, not a wrapping course');
+    assert.strictEqual(layout.hasNested, true, 'chapters nest inside their course');
+    assert.strictEqual(layout.courseBlob, true, 'the course box wraps its chapters');
     assert(layout.ch1Blob, 'chapter 1 blob should exist');
     assert(layout.ch2Blob, 'chapter 2 blob should exist');
-    assert.strictEqual(layout.domCourseBlob, false, 'DOM should not wrap chapters in a course blob');
+    assert.strictEqual(layout.domCourseBlob, true, 'DOM draws the course around its chapters');
     assert.strictEqual(layout.domChapterBlobs, NCHAPTER, 'DOM should have a chapter blob for every chapter');
-    assert.strictEqual(layout.courseBlobs, 0);
+    assert.strictEqual(layout.courseBlobs, NCOURSE + NTEXTBOOK);
+    assert.strictEqual(layout.uncontainedCount, 0, 'chapter outside its course: ' + layout.uncontained.join(', '));
+    assert.strictEqual(layout.overlapCount, 0, 'boxes overlap: ' + layout.overlaps.join(', '));
+    assert.strictEqual(layout.badYCount, 0, 'prerequisite above its follow-up: ' + layout.badY.join(', '));
+    assert.strictEqual(layout.rowMismatch, 0, 'a grouped skill left its ungrouped row');
 
     await pickBoxes(p, ['ee105-ucb']);
     const courseOnly = await p.evaluate(() => {
-      const blobs = Object.values(window.__skillgrove.layout().grouped.blobs);
+      const L = window.__skillgrove.layout().grouped;
+      const blobs = Object.values(L.blobs);
       return {
         course: blobs.filter(b => b.kind === 'course').map(b => b.boxId),
-        chapters: blobs.filter(b => b.kind === 'chapter').length
+        chapters: blobs.filter(b => b.kind === 'chapter').length,
+        nested: L.useNested
       };
     });
     assert.deepStrictEqual(courseOnly.course, ['ee105-ucb']);
-    assert.strictEqual(courseOnly.chapters, 0, 'a course selection is one box, not its chapters');
+    assert.strictEqual(courseOnly.chapters, 0, 'a course selection is one band, not its chapters');
+    assert.strictEqual(courseOnly.nested, false);
 
     await p.screenshot({ path: path.join(SHOTS_DIR, '14_nested_grouped.png') });
     await p._ctx.close();
@@ -2093,7 +2168,7 @@ async function test(name, fn) {
     assert.strictEqual(cleared.dimmed, 0, 'All should show every skill');
     assert.deepStrictEqual(cleared.stored, { v: 2, all: true });
     assert.strictEqual(cleared.scope, null);
-    assert.strictEqual(cleared.blobs, NCHAPTER, 'All draws each chapter on its own');
+    assert.strictEqual(cleared.blobs, NBOX, 'All draws every course around its chapters');
     await p.screenshot({ path: path.join(SHOTS_DIR, '16_scope_selector.png') });
     await p._ctx.close();
   });
@@ -2687,7 +2762,11 @@ async function test(name, fn) {
       const ids = Object.keys(L.blobs);
       const overlaps = [];
       for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) {
-        if (convexHit(L.blobs[ids[i]].points, L.blobs[ids[j]].points)) overlaps.push(ids[i] + ' ∩ ' + ids[j]);
+        const A = L.blobs[ids[i]].points, B = L.blobs[ids[j]].points;
+        if (!convexHit(A, B)) continue;
+        const AInB = A.every(([x, y]) => inside(B, x, y));
+        const BInA = B.every(([x, y]) => inside(A, x, y));
+        if (!AInB && !BInA) overlaps.push(ids[i] + ' ∩ ' + ids[j]);
       }
       const hit = (a, b) => {
         const w = Math.min(a.right, b.right) - Math.max(a.left, b.left);
@@ -2742,10 +2821,10 @@ async function test(name, fn) {
 
     let geo = await geometry();
     assert.strictEqual(geo.selected, NBOX, 'All selects every box');
-    assert.strictEqual(geo.regions, NCHAPTER, 'each chapter is its own box');
+    assert.strictEqual(geo.regions, NBOX, 'each course wraps its chapters');
     assert.strictEqual(geo.chapters, NCHAPTER);
-    assert.strictEqual(geo.courses, 0, 'courses are not wrapped around their chapters');
-    assert.strictEqual(geo.nested, false);
+    assert.strictEqual(geo.courses, NCOURSE + NTEXTBOOK, 'every course and textbook wraps its chapters');
+    assert.strictEqual(geo.nested, true);
     assert.strictEqual(geo.ghosts, 0);
     assert.strictEqual(geo.fakeBox, false, 'the other-skills region is not a selectable box');
     assert.strictEqual(geo.outsideCount, 0, 'member outside its region: ' + geo.outside.join(', '));
