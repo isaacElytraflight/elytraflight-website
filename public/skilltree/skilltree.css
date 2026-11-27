@@ -187,6 +187,10 @@ main{flex:1;position:relative;min-height:0}
 .tile.ready::after{content:"";position:absolute;inset:-6px;border-radius:18px;border:2px solid var(--cs);pointer-events:none;opacity:.8;transform:scale(.96);animation:ready-ring 2.2s ease-in-out infinite}
 @keyframes ready-ring{0%,100%{opacity:.8;transform:scale(.96)}50%{opacity:0;transform:scale(1.08)}}
 .tile.light-mode.ready::after{content:none;animation:none}
+/* `*` does not match ::after, so the global reduced-motion rule never reaches this ring. */
+@media (prefers-reduced-motion:reduce){
+  .tile.ready::after{animation:none;opacity:.8;transform:none}
+}
 .soon{border-style:dashed;border-color:#ccd1dd;background:repeating-linear-gradient(135deg,#f7f8fb 0 8px,#eceff5 8px 16px);color:#7c869b}
 .soon .tag{background:#dfe3ec;color:#667089}
 .soon .pips i{opacity:.5}

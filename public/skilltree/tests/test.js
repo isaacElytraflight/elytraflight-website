@@ -4666,10 +4666,19 @@ async function test(name, fn) {
     await p.reload({ waitUntil: 'networkidle0', timeout: 30000 });
     await p.waitForSelector('#btnSignIn.ready');
     const reduced = await p.evaluate(() => {
+      window.__skillgrove.lights.setScale(1);
+      document.getElementById('treeView').classList.remove('interacting');
       const css = getComputedStyle(document.getElementById('btnSignIn'));
-      return { animation: css.animationName, shadow: css.boxShadow, borderStyle: css.borderStyle };
+      const tile = document.querySelector('#world .tile.ready');
+      return {
+        animation: css.animationName,
+        shadow: css.boxShadow,
+        borderStyle: css.borderStyle,
+        tileRing: tile ? getComputedStyle(tile, '::after').animationName : ''
+      };
     });
     assert.strictEqual(reduced.animation, 'none', reduced.animation);
+    assert.strictEqual(reduced.tileRing, 'none', reduced.tileRing);
     assert.strictEqual(reduced.borderStyle, 'dashed');
     assert(/3px/.test(reduced.shadow), reduced.shadow);
     await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'no-preference' }]);
