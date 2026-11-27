@@ -1631,6 +1631,9 @@ function showLayout(mode, animated) {
     applyBoxFilter();
     refreshEdgeHi();
     syncCanvasPicture();
+    // Positions just changed. A card that was culled can now sit in the
+    // viewport; drop the class in this turn so it is not invisible for a frame.
+    revealCulled();
     scheduleTreeCull();
   };
   if (!animated || reducedMotion()) { finish(); return }
