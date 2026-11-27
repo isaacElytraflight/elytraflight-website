@@ -11,7 +11,7 @@ The live sidebar is the to-do list (`#todoBook`), the course scope picker, and t
 | Path | What it is |
 | --- | --- |
 | `public/skilltree/index.html` | Served page. Sidebar markup: `#todoBook`, `#panel`. Edit in place. |
-| `public/skilltree/skilltree.js` | Served app script: to-do sidebar, course scope picker, skill panel, quiz. Edit in place. |
+| `public/skilltree/skilltree.js` | Served app script: to-do sidebar, course scope picker, skill panel, quiz. Zoomed-out lights mode is painted by `#treeCanvas` (culled dots, edges, and course shapes); the DOM cards stay for hits and accessibility. Edit in place. |
 | `public/skilltree/skilltree.css` | Served layout for the sidebar, tree, and panel. Edit in place. |
 | `skilltree/app/template.html` | Offline demo page, including the `#panel` sidebar. Not what the site serves. |
 | `skilltree/app/parts/p3_js_a.js` | Demo script, first half (storage, tree, quiz). The site does not load this file. |

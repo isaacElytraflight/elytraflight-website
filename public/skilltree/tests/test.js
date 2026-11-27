@@ -1527,13 +1527,13 @@ async function test(name, fn) {
     assert(clamped.w < 6, 'inverse zoom is clamped, width ' + clamped.w);
     assert(chroma(far.dot) > chroma(far.fill) + 40, 'dot ' + far.dot + ' should stand off the muted fill ' + far.fill);
     assert(far.shadow.includes('px'), far.shadow);
-    assert.strictEqual(far.name, 'shimmer');
-    assert.strictEqual(far.duration, '3s');
-    assert.strictEqual(far.iterations, 'infinite');
-    assert(far.delay >= 1 && far.delay <= 5, 'stagger delay ' + far.delay);
-    assert.deepStrictEqual(far.props.sort(), ['opacity']);
-    assert.deepStrictEqual(far.halo.sort(), ['opacity', 'transform']);
-    assert.strictEqual(far.lower, false, 'only mastered dots twinkle');
+    assert.strictEqual(far.name, 'none', 'the canvas paints the twinkle, so the DOM dot does not animate');
+    assert.deepStrictEqual(far.props, []);
+    assert.deepStrictEqual(far.halo, []);
+    const twinkle = await p.evaluate(() => window.__skillgrove.canvas.twinkle());
+    assert.strictEqual(twinkle.on, true, 'mastered dots twinkle on the canvas');
+    assert.strictEqual(twinkle.lower, false, 'only mastered dots twinkle');
+    assert.strictEqual(far.lower, false, 'lower tiers do not run the DOM shimmer');
     for (let i = 0; i < 3; i++) assert.notStrictEqual(far.tiers[i], far.tiers[i + 1], 'tier ' + i + ' matches ' + (i + 1) + ' ' + far.tiers.join(' | '));
 
     await p.evaluate(() => window.__skillgrove.lights.setScale(1));
@@ -1557,6 +1557,14 @@ async function test(name, fn) {
     assert(mid.scale < 0.85, 'the fit zoom should have started, scale ' + mid.scale + ' inline ' + mid.inline + ' computed ' + mid.computed);
     assert(mid.w < 36, 'dots ballooned to ' + mid.w + 'px during the zoom (inv ' + mid.inv + ', scale ' + mid.scale + ')');
     await sleep(550);
+    await p.waitForFunction(() => {
+      const world = document.getElementById('world');
+      if (world.classList.contains('anim') || world.classList.contains('preanim')) return false;
+      const m = /scale\(([-\d.]+)\)/.exec(world.style.transform || '');
+      const want = m ? parseFloat(m[1]) : 1;
+      const parts = (getComputedStyle(world).transform || '').replace(/^matrix\(|\)$/g, '').split(',').map(s => parseFloat(s));
+      return Math.abs((parts[0] || 1) - want) < 0.02;
+    }, { timeout: 3000 });
     const settled = await p.evaluate(() => {
       const world = document.getElementById('world');
       const dot = document.querySelector('#world .tile.t4 .light-dot');
@@ -1572,6 +1580,23 @@ async function test(name, fn) {
     assert.strictEqual(settled.anim, false);
     assert(settled.lights, 'the fitted tree is in lights mode');
     assert(Math.abs(settled.w - settled.expect) < 2, 'after the zoom the dot settles to ' + settled.expect + ' screen px, got ' + settled.w);
+    assert.strictEqual(await p.evaluate(() => document.getElementById('treeView').classList.contains('canvas-on')), true, 'the settled fit is drawn on the canvas');
+
+    await p.evaluate(() => window.__skillgrove.lights.setScale(0.22));
+    await sleep(80);
+    await p.evaluate(() => document.getElementById('zFit').click());
+    await p.waitForFunction(() => {
+      const world = document.getElementById('world');
+      if (!world.classList.contains('anim')) return false;
+      const parts = (getComputedStyle(world).transform || '').replace(/^matrix\(|\)$/g, '').split(',').map(s => parseFloat(s));
+      return (parts[0] || 1) < 0.2;
+    }, { timeout: 2000 });
+    const stayed = await p.evaluate(() => ({
+      anim: document.getElementById('world').classList.contains('anim'),
+      canvas: document.getElementById('treeView').classList.contains('canvas-on')
+    }));
+    assert(stayed.anim, 'a fit that stays in lights mode still animates');
+    assert(stayed.canvas, 'fit while zoomed out keeps the canvas up');
 
     await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
     await p.reload({ waitUntil: 'networkidle0' });
@@ -1583,6 +1608,7 @@ async function test(name, fn) {
     assert(/0px 0px \d/.test(reduced.shadow), 'reduced motion keeps a static glow: ' + reduced.shadow);
     assert(Math.abs(reduced.w - reduced.expect) < 1.5, 'reduced motion dot follows the zoom factor, got ' + reduced.w);
     assert.deepStrictEqual(reduced.halo, []);
+    assert.strictEqual(await p.evaluate(() => window.__skillgrove.canvas.twinkle().on), false, 'reduced motion does not twinkle the canvas');
 
     await p._ctx.close();
   });
@@ -6744,6 +6770,23 @@ async function test(name, fn) {
       assert(travel > 40, t.place + ' destination is ' + travel + 'px from the tree tile');
       assert(fromStart + 8 < fromDest, t.place + ' jumped to its destination');
     });
+    await p._ctx.close();
+  });
+
+  await test('canvas lights view culls a pan at 2x and 10x skill count', async () => {
+    const p = await newPage();
+    await showAll(p);
+    await p.evaluate(() => window.__skillgrove.lights.setScale(0.1));
+    await sleep(250);
+    const live = await p.evaluate(() => window.__skillgrove.canvas.stats());
+    assert(live.dots > 0, 'the live zoomed-out tree drew dots, got ' + live.dots);
+    assert(live.regions > 0, 'course rectangles were drawn');
+    const twice = await p.evaluate(() => window.__skillgrove.canvas.bench(858));
+    const ten = await p.evaluate(() => window.__skillgrove.canvas.bench(4290));
+    assert(twice.midDots > 0, '2x sweep drew nothing mid-pan');
+    assert(ten.midDots > 0, '10x sweep drew nothing mid-pan');
+    assert(twice.median < 20, '2x median frame ' + twice.median.toFixed(2) + 'ms p95 ' + twice.p95.toFixed(2) + ' max ' + twice.max.toFixed(2));
+    console.log('canvas bench 2x median ' + twice.median.toFixed(2) + 'ms; 10x median ' + ten.median.toFixed(2) + 'ms p95 ' + ten.p95.toFixed(2) + ' max ' + ten.max.toFixed(2));
     await p._ctx.close();
   });
 

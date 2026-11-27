@@ -1620,9 +1620,11 @@ function showLayout(mode, animated) {
     edgesSvg.classList.remove('morph'); world.classList.remove('morphing'); world.dataset.morphing = '0';
     applyBoxFilter();
     refreshEdgeHi();
+    syncCanvasPicture();
   };
   if (!animated || reducedMotion()) { finish(); return }
   world.classList.add('morphing'); world.dataset.morphing = '1'; edgesSvg.classList.add('morph');
+  syncCanvasPicture();
   const t0 = performance.now();
   const step = now => {
     const k = Math.min(1, (now - t0) / MORPH_MS), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
@@ -1936,6 +1938,7 @@ function markInteracting(ms) {
     const wait = markInteracting.until - Date.now();
     if (wait > 0) { markInteracting.t = setTimeout(end, wait); return; }
     tv.classList.remove('interacting');
+    scheduleTreeCanvas();
   };
   markInteracting.t = setTimeout(end, Math.max(0, markInteracting.until - Date.now()));
 }
@@ -1951,6 +1954,360 @@ function scheduleInteract() {
   });
 }
 
+let treeCanvas = null;
+let treeCanvasStats = { dots: 0, edges: 0, regions: 0, twinkle: false };
+const TREE_CELL = 240;
+
+function ensureTreeCanvas() {
+  if (treeCanvas || !tv) return treeCanvas;
+  treeCanvas = document.createElement('canvas');
+  treeCanvas.id = 'treeCanvas';
+  treeCanvas.setAttribute('aria-hidden', 'true');
+  tv.insertBefore(treeCanvas, world);
+  return treeCanvas;
+}
+
+function treeItems(L) {
+  const cell = TREE_CELL;
+  const cols = Object.create(null);
+  const places = (L && L.places) || [];
+  for (let i = 0; i < places.length; i++) {
+    const p = places[i];
+    const n = L.nodes[p.key];
+    if (!n) continue;
+    const item = {
+      id: p.skillId,
+      x: n.x + (n.w || TW) / 2,
+      y: n.y + (n.h || TH) / 2,
+      tier: tierOf(p.skillId),
+      dim: !skillInSelection(p.skillId)
+    };
+    const k = Math.floor(item.x / cell) + ',' + Math.floor(item.y / cell);
+    (cols[k] || (cols[k] = [])).push(item);
+  }
+  return { cell, cols };
+}
+
+function queryTreeCells(index, x0, y0, x1, y1) {
+  const cell = index.cell;
+  const out = [];
+  const c0 = Math.floor(x0 / cell), c1 = Math.floor(x1 / cell);
+  const r0 = Math.floor(y0 / cell), r1 = Math.floor(y1 / cell);
+  for (let cy = r0; cy <= r1; cy++) {
+    for (let cx = c0; cx <= c1; cx++) {
+      const bucket = index.cols[cx + ',' + cy];
+      if (!bucket) continue;
+      for (let i = 0; i < bucket.length; i++) {
+        const it = bucket[i];
+        if (it.x >= x0 && it.x <= x1 && it.y >= y0 && it.y <= y1) out.push(it);
+      }
+    }
+  }
+  return out;
+}
+
+function canvasDotColor(id, tier) {
+  if (tier <= 0) return '#9ca3af';
+  const base = chColor(getSkillColorIndex(id));
+  if (tier >= 4) return base;
+  const c = hex2rgb(base);
+  const mix = tier === 1 ? 0.42 : tier === 2 ? 0.72 : 1;
+  const g = [156, 163, 175];
+  return 'rgb(' + Math.round(c[0] * mix + g[0] * (1 - mix)) + ',' + Math.round(c[1] * mix + g[1] * (1 - mix)) + ',' + Math.round(c[2] * mix + g[2] * (1 - mix)) + ')';
+}
+
+function canvasMotionOn() {
+  if (tv && tv.classList.contains('interacting')) return false;
+  return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function paintCanvas(scene) {
+  const canvas = ensureTreeCanvas();
+  if (!canvas || !tv) return { dots: 0, edges: 0, regions: 0 };
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const w = tv.clientWidth, h = tv.clientHeight;
+  if (w < 2 || h < 2) return treeCanvasStats;
+  const pw = Math.max(1, Math.round(w * dpr)), ph = Math.max(1, Math.round(h * dpr));
+  if (canvas.width !== pw || canvas.height !== ph) {
+    canvas.width = pw;
+    canvas.height = ph;
+  }
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  canvas.style.display = scene.show ? 'block' : 'none';
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+  if (!scene.show) return { dots: 0, edges: 0, regions: 0 };
+  const s = scene.s, tx = scene.tx, ty = scene.ty;
+  const margin = 96 / Math.max(s, 0.02);
+  const x0 = (0 - tx) / s - margin, y0 = (0 - ty) / s - margin;
+  const x1 = (w - tx) / s + margin, y1 = (h - ty) / s + margin;
+  let regions = 0;
+  const blobs = scene.blobs || [];
+  ctx.lineJoin = 'round';
+  for (let i = 0; i < blobs.length; i++) {
+    const b = blobs[i];
+    const bw = (b.x2 != null) ? b.x2 : (b.x + b.w);
+    const bh = (b.y2 != null) ? b.y2 : (b.y + b.h);
+    if (b.x > x1 || bw < x0 || b.y > y1 || bh < y0) continue;
+    const parts = b.parts && b.parts.length ? b.parts : [b.points];
+    ctx.beginPath();
+    for (let p = 0; p < parts.length; p++) {
+      const pts = parts[p];
+      if (!pts || !pts.length) continue;
+      ctx.moveTo(pts[0][0] * s + tx, pts[0][1] * s + ty);
+      for (let k = 1; k < pts.length; k++) ctx.lineTo(pts[k][0] * s + tx, pts[k][1] * s + ty);
+      ctx.closePath();
+    }
+    ctx.fillStyle = b.fill || 'rgba(108,92,231,.18)';
+    ctx.strokeStyle = b.stroke || 'rgba(70,60,160,.7)';
+    ctx.lineWidth = (b.kind === 'course' || b.kind === 'textbook' ? 3.5 : 2.25) * s;
+    ctx.fill();
+    ctx.stroke();
+    regions++;
+  }
+  let edges = 0;
+  const edgeList = scene.edges || [];
+  ctx.lineWidth = 1.15;
+  ctx.lineCap = 'round';
+  for (let i = 0; i < edgeList.length; i++) {
+    const e = edgeList[i];
+    if (Math.max(e.x0, e.x1) < x0 || Math.min(e.x0, e.x1) > x1 || Math.max(e.y0, e.y1) < y0 || Math.min(e.y0, e.y1) > y1) continue;
+    ctx.beginPath();
+    ctx.moveTo(e.x0 * s + tx, e.y0 * s + ty);
+    ctx.lineTo(e.x1 * s + tx, e.y1 * s + ty);
+    ctx.strokeStyle = e.color || 'rgba(80,90,120,.35)';
+    ctx.stroke();
+    edges++;
+  }
+  const radius = 7 * lightDotFactor(s);
+  const dots = scene.index ? queryTreeCells(scene.index, x0, y0, x1, y1) : [];
+  const grouped = Object.create(null);
+  const pulse = scene.twinkle ? (Math.sin(performance.now() / 480) + 1) / 2 : 0;
+  for (let i = 0; i < dots.length; i++) {
+    const d = dots[i];
+    const sx = d.x * s + tx, sy = d.y * s + ty;
+    if (sx < -radius || sy < -radius || sx > w + radius || sy > h + radius) continue;
+    let color = d.color || canvasDotColor(d.id, d.tier);
+    if (d.dim) color = '#c5cad3';
+    const key = (d.tier >= 4 && scene.twinkle ? 't' : '') + color;
+    (grouped[key] || (grouped[key] = [])).push(sx, sy, d.tier >= 4 && scene.twinkle ? 0.78 + pulse * 0.22 : 1);
+  }
+  const keys = Object.keys(grouped);
+  let drawn = 0;
+  for (let k = 0; k < keys.length; k++) {
+    const arr = grouped[keys[k]];
+    const tw = keys[k].charAt(0) === 't';
+    ctx.globalAlpha = tw ? arr[2] : 1;
+    ctx.fillStyle = tw ? keys[k].slice(1) : keys[k];
+    ctx.beginPath();
+    for (let i = 0; i < arr.length; i += 3) {
+      ctx.moveTo(arr[i] + radius, arr[i + 1]);
+      ctx.arc(arr[i], arr[i + 1], radius, 0, 6.283185307179586);
+      drawn++;
+    }
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.lineWidth = Math.max(1, radius * 0.22);
+    ctx.strokeStyle = 'rgba(20,24,36,.75)';
+    ctx.stroke();
+  }
+  treeCanvasStats = { dots: drawn, edges, regions, twinkle: !!scene.twinkle && drawn > 0 };
+  return treeCanvasStats;
+}
+
+function canvasScene(twinkle) {
+  const L = curL();
+  const blobs = [];
+  const edges = [];
+  if (L && L.blobs) {
+    const ids = Object.keys(L.blobs);
+    for (let i = 0; i < ids.length; i++) {
+      const b = L.blobs[ids[i]];
+      const box = regionBox(ids[i]);
+      blobs.push({
+        x: b.x, y: b.y, w: b.w, h: b.h, kind: b.kind,
+        parts: b.parts && b.parts.length ? b.parts : [b.points],
+        fill: boxFill(box), stroke: boxStroke(box)
+      });
+    }
+  }
+  const list = L ? (L.edges || []) : [];
+  for (let i = 0; i < list.length; i++) {
+    const e = list[i];
+    const A = L.nodes[e.fromKey || e.from], B = L.nodes[e.toKey || e.to];
+    if (!A || !B) continue;
+    edges.push({
+      x0: A.x + (A.w || TW) / 2, y0: A.y + (A.h || TH) / 2,
+      x1: B.x + (B.w || TW) / 2, y1: B.y + (B.h || TH) / 2,
+      color: rgba(chColor(getSkillColorIndex(e.to)), 0.35)
+    });
+  }
+  return {
+    show: true, s: view.s, tx: view.x, ty: view.y, twinkle,
+    index: L ? treeItems(L) : { cell: TREE_CELL, cols: {} },
+    edges, blobs
+  };
+}
+
+function worldCameraMoving() {
+  return !!(world && (world.classList.contains('anim') || world.classList.contains('preanim')));
+}
+
+function canvasPicture() {
+  if (!lightsMode || !world || !tv || tv.hidden) return false;
+  // Layout morphs move each card, which this canvas does not sample.
+  // A Fit/Home camera move stays on the canvas: dropping canvas-on in the
+  // same turn as the world transform restyles every tile and stalls it.
+  if (world.classList.contains('morphing')) return false;
+  return true;
+}
+
+function readWorldCamera() {
+  if (worldCameraMoving()) {
+    const raw = getComputedStyle(world).transform;
+    if (raw && raw !== 'none') {
+      const m = new DOMMatrix(raw);
+      if (m.a > 0) return { s: m.a, tx: m.e, ty: m.f };
+    }
+  }
+  return { s: view.s, tx: view.x, ty: view.y };
+}
+
+function syncCanvasPicture() {
+  if (!tv) return;
+  const on = canvasPicture();
+  const was = tv.classList.contains('canvas-on');
+  if (on) {
+    paintCanvas(canvasScene(canvasMotionOn()));
+    if (!was) tv.classList.add('canvas-on');
+    if (canvasMotionOn() && !worldCameraMoving() && !scheduleTreeCanvas.loop) {
+      scheduleTreeCanvas.loop = true;
+      const loop = () => {
+        if (!canvasPicture() || !canvasMotionOn() || worldCameraMoving()) {
+          scheduleTreeCanvas.loop = false;
+          return;
+        }
+        paintCanvas(canvasScene(true));
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+  } else if (was) {
+    tv.classList.add('canvas-handoff');
+    tv.classList.remove('canvas-on');
+    if (treeCanvas) treeCanvas.style.display = 'none';
+    requestAnimationFrame(() => { if (tv) tv.classList.remove('canvas-handoff'); });
+  }
+}
+
+function followCanvasCamera() {
+  if (followCanvasCamera.on) return;
+  followCanvasCamera.on = true;
+  const step = () => {
+    if (!tv || !tv.classList.contains('canvas-on') || !canvasPicture() || !worldCameraMoving()) {
+      followCanvasCamera.on = false;
+      if (canvasPicture()) scheduleTreeCanvas();
+      return;
+    }
+    const cam = readWorldCamera();
+    const scene = canvasScene(false);
+    scene.s = cam.s;
+    scene.tx = cam.tx;
+    scene.ty = cam.ty;
+    paintCanvas(scene);
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+function presentCanvas() {
+  if (!tv) return;
+  const on = canvasPicture();
+  const was = tv.classList.contains('canvas-on');
+  if (worldCameraMoving() && was && on) {
+    followCanvasCamera();
+    return;
+  }
+  if (on !== was) syncCanvasPicture();
+  else scheduleTreeCanvas();
+}
+
+function scheduleTreeCanvas() {
+  if (scheduleTreeCanvas.queued) return;
+  scheduleTreeCanvas.queued = true;
+  requestAnimationFrame(() => {
+    scheduleTreeCanvas.queued = false;
+    if (worldCameraMoving() && tv && tv.classList.contains('canvas-on') && canvasPicture()) {
+      followCanvasCamera();
+      return;
+    }
+    syncCanvasPicture();
+  });
+}
+
+function benchCanvas(count) {
+  return new Promise(resolve => {
+    ensureTreeCanvas();
+    const colsN = Math.ceil(Math.sqrt(count));
+    const gap = 560;
+    const index = { cell: TREE_CELL, cols: Object.create(null) };
+    const items = [];
+    for (let i = 0; i < count; i++) {
+      const item = {
+        id: 'bench-' + i,
+        x: (i % colsN) * gap + 24,
+        y: Math.floor(i / colsN) * gap + 24,
+        tier: i % 5,
+        dim: false,
+        color: i % 5 === 4 ? '#6c5ce7' : '#9ca3af'
+      };
+      items.push(item);
+      const k = Math.floor(item.x / TREE_CELL) + ',' + Math.floor(item.y / TREE_CELL);
+      (index.cols[k] || (index.cols[k] = [])).push(item);
+    }
+    const edges = [];
+    for (let i = colsN; i < count; i++) {
+      edges.push({ x0: items[i - colsN].x, y0: items[i - colsN].y, x1: items[i].x, y1: items[i].y, color: 'rgba(108,92,231,.35)' });
+    }
+    const worldW = colsN * gap, worldH = Math.ceil(count / colsN) * gap;
+    const blobs = [{ x: 0, y: 0, w: worldW, h: worldH, kind: 'course', parts: [[[0, 0], [worldW, 0], [worldW, worldH], [0, worldH]]], fill: 'rgba(108,92,231,.18)', stroke: 'rgba(70,60,160,.7)' }];
+    const frames = [];
+    let step = 0;
+    const steps = 24;
+    let midDots = 0;
+    let prev = performance.now();
+    const tick = now => {
+      const dt = now - prev;
+      prev = now;
+      if (step) frames.push(dt);
+      const span = Math.max(worldW * 0.1 - (tv ? tv.clientWidth : 800), 200);
+      const pan = (step / steps) * span;
+      const stats = paintCanvas({
+        show: true, s: 0.1, tx: 60 - pan, ty: 36, twinkle: false,
+        index, edges, blobs
+      });
+      if (step === Math.floor(steps / 2)) midDots = stats.dots;
+      step++;
+      if (step <= steps) requestAnimationFrame(tick);
+      else {
+        frames.sort((a, b) => a - b);
+        const median = frames.length ? frames[Math.floor(frames.length / 2)] : 0;
+        scheduleTreeCanvas();
+        resolve({
+          count,
+          median,
+          p95: frames.length ? frames[Math.min(frames.length - 1, Math.floor(frames.length * 0.95))] : 0,
+          max: frames.length ? frames[frames.length - 1] : 0,
+          midDots
+        });
+      }
+    };
+    requestAnimationFrame(tick);
+  });
+}
+
 function commitLightsMode(on) {
   if (lightsMode === on) return;
   lightsMode = on;
@@ -1960,11 +2317,14 @@ function commitLightsMode(on) {
 }
 
 function releaseLightsHold() {
-  if (!lightsHold) return;
+  const held = lightsHold;
   lightsHold = false;
-  const on = view.s < LIGHTS_THRESHOLD;
-  if (on) applyLightInv(view.s);
-  commitLightsMode(on);
+  if (held) {
+    const on = view.s < LIGHTS_THRESHOLD;
+    if (on) applyLightInv(view.s);
+    commitLightsMode(on);
+  }
+  presentCanvas();
 }
 
 function applyView() {
@@ -1986,6 +2346,7 @@ function applyView() {
   if (deferLights) refreshEdgeHi();
   else if (shouldLights !== lightsMode) commitLightsMode(shouldLights);
   else refreshEdgeHi();
+  presentCanvas();
 }
 function animateView(fn) {
   // Flatten per-card layers before the transform changes. Doing both in one
@@ -2151,6 +2512,7 @@ function setupPanZoom() {
     else if (e.shiftKey && !e.deltaX) { view.x -= e.deltaY; applyView() }
     else { view.x -= e.deltaX; view.y -= e.deltaY; applyView() }
   }, { passive: false });
+  window.addEventListener('resize', scheduleTreeCanvas);
   $('zIn').onclick = () => zoomAt(1.2, tv.clientWidth / 2, tv.clientHeight / 2);
   $('zOut').onclick = () => zoomAt(1 / 1.2, tv.clientWidth / 2, tv.clientHeight / 2);
   $('zFit').onclick = goFit; $('zHome').onclick = () => goHome(true);
@@ -2382,6 +2744,7 @@ function refreshAll() {
   applyBoxFilter(); applyGridFilter(); applyEdgeHighlight();
   syncScopePicker();
   renderTodo();
+  scheduleTreeCanvas();
 }
 
 function renderStats() {
@@ -2420,6 +2783,7 @@ function setView(v) {
   $('vTree').setAttribute('aria-pressed', String(v === 'tree')); $('vGrid').setAttribute('aria-pressed', String(v === 'grid'));
   writeUi({ view: v });
   applyGridFilter();
+  scheduleTreeCanvas();
 }
 
 function short(s, n) { return s.length > n ? s.slice(0, n - 1) + '…' : s }
@@ -5893,6 +6257,11 @@ async function init() {
     qa: { bankMeta: () => bankMeta, bankCache: () => bankCache, fetchBank, prepareQ, renderQuiz, setQuiz: q => { quiz = q }, closeQuizUI, openQuiz: () => quizEl.classList.add('open'), figureNode, katexErrors: () => window.__katexErrors },
     explainers: { meta: () => explainerMeta, cache: () => explainerCache, fetch: fetchExplainer, has: hasExplainer, open: openExplainer },
     lights: { mode: () => lightsMode, threshold: LIGHTS_THRESHOLD, minZoom: MINS, dotFactor: lightDotFactor, setScale: s => { view.s = s; applyView(); } },
+    canvas: {
+      stats: () => treeCanvasStats,
+      twinkle: () => ({ on: !!(lightsMode && canvasMotionOn()), lower: false }),
+      bench: benchCanvas
+    },
     collections: { 
       data: () => COLLECTIONS, boxById: () => boxById, skillToBoxes: () => skillToBoxes, getSkillBox, getSkillColorIndex,
       selected: () => selectedInOrder(), setSelected: (ids, opts) => setScope(ids, opts),
