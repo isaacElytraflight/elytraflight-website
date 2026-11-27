@@ -1,12 +1,10 @@
 {
   "id": "lp-duality-kkt",
   "title": "LP duality from KKT",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
-      "figure_alt": "A small array with two short rows of labels.",
       "body_md": "Standard form minimizes a linear cost \\(c^T x\\) subject to linear equalities \\(Ax = b\\) and the inequalities \\(x \\ge 0\\). The KKT system of that program is small enough to solve in closed form for the inequality multipliers. Give the equalities a free multiplier \\(y\\). Give each nonnegative variable a nonnegative slack multiplier. Stationarity says the cost, minus \\(A^T y\\), equals that nonnegative slack.\n\nThe slack formula \\(s = c - A^T y\\) is a constraint on \\(y\\) alone once \\(s \\ge 0\\) is imposed: \\(A^T y \\le c\\). Substitute the same formula back into the Lagrangian. Every term that contains \\(x\\) cancels, and what remains is \\(b^T y\\). The dual problem maximizes that linear function over the multipliers that satisfy the inequality just obtained. Nothing quadratic survives, because every function in the primal was linear.\n\nWeak duality is the general fact that a dual-feasible value cannot exceed a primal-feasible cost. Here it says \\(b^T y \\le c^T x\\) for every feasible pair. The difference equals a sum of complementary products, so it is nonnegative, and it is zero precisely when complementary slackness holds. A pair with equal objectives and both sides feasible is optimal on both sides."
     },
     {

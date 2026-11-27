@@ -1,6 +1,6 @@
 {
   "skill_id": "ad-reverse-mode",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "ad-reverse-mode-r1-q1",
@@ -71,12 +71,10 @@
       "type": "numeric",
       "prompt": "Let \\(f(x, y) = (xy + 3)^2 + x\\). At \\((2, 4)\\), what is the reverse-mode adjoint of the input \\(y\\)?",
       "explanation": "The sum \\(s = 11\\) has adjoint \\(2\\cdot 11\\cdot 1 = 22\\). The product \\(xy\\) sends \\(22\\cdot x = 44\\) to \\(y\\). There is no other edge into \\(y\\), so the adjoint is \\(44\\), matching \\(\\partial f/\\partial y\\). The adjoint of \\(x\\) is \\(89\\), because \\(x\\) also appears in the final addition. Reporting \\(22\\) stops one node too early.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
-      "figure_alt": "One arrow leaves the origin in the plane.",
       "answer": 44.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "ad-reverse-mode-r2-q3",
@@ -117,12 +115,10 @@
       "type": "numeric",
       "prompt": "Let \\(f(x, y) = (xy + 3)^2 + x\\). At \\((1, 2)\\), what is the reverse-mode adjoint of the input \\(y\\)?",
       "explanation": "The sum \\(s = xy + 3\\) equals \\(5\\), so its adjoint is \\(2\\cdot 5 = 10\\). The product sends \\(10\\cdot x = 10\\) to \\(y\\). The same number is \\(\\partial f/\\partial y = 2sx = 10\\). The adjoint of \\(x\\) at this point is \\(2\\cdot 5\\cdot 2 + 1 = 21\\). Reporting \\(5\\) is the primal sum.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>one arrow from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"42.3\"/><polygon points=\"235.9,42.3 232.1,48.2 229.1,43.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
-      "figure_alt": "One arrow leaves the origin in the plane.",
       "answer": 10.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "ad-reverse-mode-r3-q2",
@@ -186,8 +182,6 @@
       "type": "mc",
       "prompt": "Reverse mode is the cheaper route to a full gradient when",
       "explanation": "One reverse sweep returns every partial derivative of one scalar. Many inputs and one output is the case where that beats \\(n\\) forward sweeps. Many outputs with one input favor forward mode, which differentiates every output in one tangent. A single directional derivative is one forward seed. A single multiplication is too small for the choice to matter.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"125.4\"/><polygon points=\"235.9,125.4 230.2,129.3 229.1,124\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"117.4\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g</text><line x1=\"60.1\" y1=\"161.7\" x2=\"98.3\" y2=\"42.3\"/><polygon points=\"98.3,42.3 98.9,49.3 93.7,47.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"106.3\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">d</text></svg>",
-      "figure_alt": "Two arrows leave the origin.",
       "preview": [
         "backprop-neural-network"
       ],
@@ -198,7 +192,7 @@
         "one scalar depends on many inputs"
       ],
       "correct_index": 3,
-      "version": 1
+      "version": 2
     },
     {
       "id": "ad-reverse-mode-r4-q3",

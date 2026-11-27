@@ -1,6 +1,6 @@
 {
   "skill_id": "calculus-of-variations",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "calculus-of-variations-r1-q1",
@@ -25,12 +25,10 @@
       "type": "numeric",
       "prompt": "The integrand is \\(L = (y^{\\prime})^2 + 3 y\\). At a point where the slope \\(y^{\\prime}\\) equals \\(4\\), what is the partial derivative of \\(L\\) with respect to \\(y^{\\prime}\\)?",
       "explanation": "Differentiating \\((y^{\\prime})^2\\) with respect to the slope brings down a factor \\(2\\), and the term \\(3 y\\) does not depend on the slope, so the partial derivative is \\(2 y^{\\prime}\\). At slope \\(4\\) that is \\(8\\). Reporting \\(4\\) repeats the slope. Reporting \\(16\\) is the square of the slope. Reporting \\(3\\) is the coefficient of the height. The factor \\(2\\) is required.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
-      "figure_alt": "A solid segment joins two marked points on a dashed line.",
       "answer": 8.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "calculus-of-variations-r1-q3",
@@ -71,8 +69,6 @@
       "type": "multi",
       "prompt": "The Euler-Lagrange equation reduces to 'the partial derivative of \\(L\\) with respect to the slope is constant' precisely when \\(L\\) does not depend on the height. Which integrands have that reduction?",
       "explanation": "The height partial is zero exactly when the height does not appear, and then the total derivative of the slope partial vanishes, so the slope partial itself is constant along a stationary curve.\n• \\((y^{\\prime})^2 + 4\\) and \\(\\sqrt{1 + (y^{\\prime})^2}\\) contain the slope and no height.\n• \\(x\\, (y^{\\prime})^2\\) contains the coordinate and the slope, but not the height. The slope partial \\(2 x y^{\\prime}\\) is what stays constant. The slope itself need not be constant.\n• \\((y^{\\prime})^2 + y^2\\) and \\(y\\, (y^{\\prime})^2\\) both contain the height, so the height partial is not identically zero.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested contours</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
-      "figure_alt": "Three nested ellipses around the origin.",
       "options": [
         "\\((y^{\\prime})^2 + 4\\)",
         "\\(\\sqrt{1 + (y^{\\prime})^2}\\)",
@@ -85,7 +81,7 @@
         1,
         4
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "calculus-of-variations-r2-q3",
@@ -121,8 +117,6 @@
       "type": "error",
       "prompt": "A note tests the straight line \\(y = x\\) for the integrand \\((y^{\\prime})^2 / 2 + 2 y\\). Exactly one step is a false claim.",
       "explanation": "The integrand is the one stated. Differentiating \\(\\tfrac12 (y^{\\prime})^2\\) with respect to the slope produces the slope, and the height term does not contribute. A line of slope \\(1\\) has a constant slope partial, so its coordinate derivative is \\(0\\). The height partial is \\(2\\). Zero and \\(2\\) are not equal, so the Euler-Lagrange equation fails and the line is not stationary. A stationary curve for this integrand has second derivative \\(2\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
-      "figure_alt": "A solid segment joins two marked points on a dashed line.",
       "steps": [
         "The integrand is \\((y^{\\prime})^2 / 2 + 2 y\\).",
         "The partial derivative of the integrand with respect to the slope is the slope itself.",
@@ -136,7 +130,7 @@
         "The line \\(y = x\\) has a slope other than \\(1\\)."
       ],
       "correct_reason": 0,
-      "version": 1
+      "version": 2
     },
     {
       "id": "calculus-of-variations-r3-q2",
@@ -157,8 +151,6 @@
       "type": "mc",
       "prompt": "A bead on the brachistochrone drops steeply at first. The reason a longer wire can beat the straight line is that",
       "explanation": "Travel time is the integral of distance divided by speed, and the speed grows like the square root of the height already lost. Spending length on an early drop raises the speed for every later piece. Both the straight line and the cycloid join the same endpoints, so both are admissible. Gravity is what produces the speed. The least-length curve is the straight line, a different functional.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
-      "figure_alt": "A solid segment joins two marked points on a dashed line.",
       "options": [
         "gravity does no work, so travel time depends only on length",
         "the cycloid is the curve of least length as well as least time",
@@ -166,7 +158,7 @@
         "the straight line is not an admissible curve between the two endpoints"
       ],
       "correct_index": 2,
-      "version": 1
+      "version": 2
     },
     {
       "id": "calculus-of-variations-r4-q1",
@@ -194,15 +186,13 @@
       "type": "numeric",
       "prompt": "The integrand is \\(L = (y^{\\prime})^2 + 5 y\\), and the candidate is \\(y = x^2\\). At \\(x = 1\\), what is the derivative along the curve of the slope partial, minus the height partial?",
       "explanation": "The slope partial is \\(2 y^{\\prime}\\). Along \\(y = x^2\\) the slope is \\(2x\\), so the slope partial is \\(4x\\), and its derivative is \\(4\\). The height partial is \\(5\\). The difference is \\(4 - 5 = -1\\), which is not zero, so this parabola is not stationary for this integrand. Reporting \\(4\\) stops at the derivative of the slope partial. Reporting \\(5\\) is the height partial alone. Reporting \\(1\\) flips the sign of the difference.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested contours</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
-      "figure_alt": "Three nested ellipses around the origin.",
       "preview": [
         "mpc"
       ],
       "answer": -1.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "calculus-of-variations-r4-q3",
@@ -210,8 +200,6 @@
       "type": "mc",
       "prompt": "If the integrand does not depend on the height, a stationary curve satisfies",
       "explanation": "No height in the integrand means the height partial is zero, so the derivative along the curve of the slope partial is zero, and the slope partial is constant. The slope itself is constant only for special integrands, such as a pure square of the slope. The integrand can still change with the coordinate. Comparing the two partials without differentiating the slope partial skips the total derivative in the Euler-Lagrange equation.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
-      "figure_alt": "A solid segment joins two marked points on a dashed line.",
       "preview": [
         "lqr"
       ],
@@ -222,7 +210,7 @@
         "the height partial equals the slope, with no derivative along the curve"
       ],
       "correct_index": 0,
-      "version": 1
+      "version": 2
     }
   ]
 }

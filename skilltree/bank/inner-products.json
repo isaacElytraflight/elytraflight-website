@@ -1,6 +1,6 @@
 {
   "skill_id": "inner-products",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "round": 1,
@@ -22,12 +22,10 @@
       "type": "numeric",
       "prompt": "What is the dot product \\((1,2,3)\\cdot(2,0,-1)\\)?",
       "explanation": "\\(1\\cdot 2 + 2\\cdot 0 + 3\\cdot(-1) = 2-3 = -1\\). Dropping the last term leaves 2. Adding the absolute values gives 6, which is not the dot product.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from one origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"131.8\"/><polygon points=\"235.9,131.8 230,135.6 229.1,130.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"123.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"95.2\" y2=\"42.3\"/><polygon points=\"95.2,42.3 96,49.3 90.8,47.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"103.2\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Two arrows leave the origin with a gap between them.",
       "answer": -1.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "round": 1,
@@ -104,12 +102,10 @@
       "type": "numeric",
       "prompt": "What is \\((3,4)\\cdot(4,3)\\)?",
       "explanation": "\\(3\\cdot 4 + 4\\cdot 3 = 24\\). Each vector has length 5, so the product of the lengths is 25, which is the Cauchy-Schwarz bound rather than the inner product. The difference of the coordinates would not produce 24.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from one origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"131.8\"/><polygon points=\"235.9,131.8 230,135.6 229.1,130.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"123.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"95.2\" y2=\"42.3\"/><polygon points=\"95.2,42.3 96,49.3 90.8,47.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"103.2\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Two arrows leave the origin with a gap between them.",
       "answer": 24.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "inner-products-r3-q1",
@@ -134,12 +130,10 @@
       "type": "numeric",
       "prompt": "The 2-norm is the square root of the dot product of a vector with itself. What is \\(\\lVert(3,4)\\rVert_2\\)?",
       "explanation": "\\(\\langle x,x \\rangle = 9+16 = 25\\), so the length is 5. The 1-norm is \\(3+4 = 7\\). Reporting 25 skips the square root.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from one origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"131.8\"/><polygon points=\"235.9,131.8 230,135.6 229.1,130.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"123.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"95.2\" y2=\"42.3\"/><polygon points=\"95.2,42.3 96,49.3 90.8,47.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"103.2\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Two arrows leave the origin with a gap between them.",
       "answer": 5.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "inner-products-r3-q3",
@@ -160,15 +154,13 @@
       "type": "numeric",
       "prompt": "Cauchy-Schwarz says \\(\\lvert(3,4)\\cdot(4,3)\\rvert\\) cannot exceed the product of the lengths. What is that product of lengths?",
       "explanation": "Each vector has length \\(\\sqrt{9+16} = 5\\), so the product is 25. The inner product itself is 24, strictly below the bound, because the vectors are not parallel.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from one origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"131.8\"/><polygon points=\"235.9,131.8 230,135.6 229.1,130.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"123.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"95.2\" y2=\"42.3\"/><polygon points=\"95.2,42.3 96,49.3 90.8,47.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"103.2\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Two arrows leave the origin with a gap between them.",
       "preview": [
         "cauchy-schwarz-inequality"
       ],
       "answer": 25.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "inner-products-r4-q2",
@@ -176,8 +168,6 @@
       "type": "mc",
       "prompt": "Gram-Schmidt removes from a new vector the part parallel to the vectors already kept. That parallel part is a multiple of",
       "explanation": "The coefficient of \\(u\\) in \\(v\\) is the inner product \\(\\langle v, u \\rangle\\) divided by \\(\\langle u, u \\rangle\\). Subtracting that multiple leaves a vector orthogonal to \\(u\\). The determinant is an area, not the coefficient. Adding \\(u\\) and \\(v\\) does not cancel the parallel part.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from one origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"131.8\"/><polygon points=\"235.9,131.8 230,135.6 229.1,130.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"123.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"95.2\" y2=\"42.3\"/><polygon points=\"95.2,42.3 96,49.3 90.8,47.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"103.2\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Two arrows leave the origin with a gap between them.",
       "preview": [
         "gram-schmidt-orthogonalization"
       ],
@@ -188,7 +178,7 @@
         "a vector orthogonal to every later vector, chosen in advance"
       ],
       "correct_index": 1,
-      "version": 1
+      "version": 2
     },
     {
       "id": "inner-products-r4-q3",

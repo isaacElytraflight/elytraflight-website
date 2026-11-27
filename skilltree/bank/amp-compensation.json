@@ -1,6 +1,6 @@
 {
   "skill_id": "amp-compensation",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "amp-compensation-r1-q1",
@@ -133,10 +133,10 @@
       "steps": [
         "Choose the unity-gain frequency the follower is allowed to reach.",
         "Place one pole well below that frequency so the gain falls at 20 dB/decade through it.",
-        "Keep every other pole above that frequency.",
-        "Read the phase margin at the frequency where the loop gain crosses magnitude 1."
+        "Keep every other pole above the dominant pole just placed, so those poles sit above the unity-gain frequency and are not in the decade where the gain falls through crossover.",
+        "Read the phase margin at the frequency where the loop gain crosses magnitude 1, after those poles are placed."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "amp-compensation-r2-q4",

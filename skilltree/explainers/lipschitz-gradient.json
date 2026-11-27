@@ -1,12 +1,10 @@
 {
   "id": "lipschitz-gradient",
   "title": "Lipschitz-continuous gradients",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
-      "figure_alt": "A solid segment joins two marked points on a dashed line.",
       "body_md": "A gradient is Lipschitz continuous with constant \\(L\\) when it cannot change faster than \\(L\\) times the distance between the points. The inequality bounds the norm of the difference of gradients by \\(L\\) times the norm of the difference of the points. Any larger number is also a valid constant. A smaller number than the best one is not.\n\nFor a twice differentiable objective the Hessian is the derivative of the gradient. On a convex domain, if the induced 2-norm of the Hessian is at most \\(L\\) everywhere, the fundamental theorem along the segment turns that matrix bound into the Lipschitz inequality for the gradient. For a symmetric Hessian the induced 2-norm is the largest absolute eigenvalue. A constant Hessian therefore contributes its spectral radius, and every larger number works as well.\n\nLeast squares fits the same pattern. The objective \\(\\tfrac12 \\lVert A x - b\\rVert^2\\) has Hessian \\(A^T A\\). The eigenvalues of that Gram matrix are the squares of the singular values of \\(A\\), so a sharp Lipschitz constant is the square of the largest singular value, which is \\(\\lVert A\\rVert_2^2\\). The vector \\(b\\) moves the residual and does not appear in the Hessian."
     },
     {

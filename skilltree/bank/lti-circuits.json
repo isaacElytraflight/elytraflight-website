@@ -1,6 +1,6 @@
 {
   "skill_id": "lti-circuits",
-  "version": 4,
+  "version": 5,
   "questions": [
     {
       "id": "lti-circuits-r1-q3",
@@ -23,11 +23,11 @@
       "explanation": "A time-invariant circuit does not care that the clock read 0 at some earlier moment. The transient starts when the input changes. Using \\(t\\) rather than \\(t-t_0\\) in the exponent pretends the step happened at 0, so the output would already have risen by \\(t_0\\). The final value is still the input, because the capacitor current dies out.",
       "steps": [
         "Before \\(t_0\\) the input is still 0, so the output stays 0.",
-        "After \\(t_0\\) the final value is \\(V_s\\).",
-        "Measure the exponent from the switching instant, so the elapsed time is \\(t-t_0\\).",
-        "For \\(t>t_0\\), write \\(v_o(t) = V_s\\left(1-e^{-(t-t_0)/\\tau}\\right)\\)."
+        "After \\(t_0\\) the final value is \\(V_s\\). The output starts from the 0 left by the previous step.",
+        "Measure the exponent from the switching instant that ended that rest, so the elapsed time is \\(t - t_0\\).",
+        "For \\(t > t_0\\), write \\(v_o(t) = V_s\\left(1 - e^{-(t - t_0)/\\tau}\\right)\\), using the final value and the elapsed time from the previous steps."
       ],
-      "version": 1,
+      "version": 2,
       "id": "lti-circuits-r2-q4"
     },
     {

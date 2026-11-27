@@ -1,6 +1,6 @@
 {
   "skill_id": "gen-controller",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "gen-controller-r1-q1",
@@ -101,17 +101,16 @@
       "round": 2,
       "type": "order",
       "prompt": "Put these steps in the order you would build the combined command.",
-      "explanation": "The two gains are independent designs. The feedforward number is fixed afterwards from the steady map, using the \\(K\\) you already have. The command is then assembled, and the observer must be driven by that same command. Driving the observer with a different input leaves a false error.",
+      "explanation": "The state-feedback gain and the observer gain are independent, so they are chosen in one step rather than in an order. The feedforward number is then fixed from the steady map using that state-feedback gain. The command is assembled from the feedforward term and the estimate, and the observer must be driven by that same command. Driving the observer with a different input leaves a false error.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>observer using the applied command</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">u</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">model</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">xhat</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">L</text></svg>",
       "figure_alt": "A model block with a gain L returned and subtracted.",
       "steps": [
-        "Design the state-feedback gain for the regulation poles.",
-        "Design the observer gain for the estimation poles.",
-        "Choose the feedforward gain so a constant reference matches in steady state.",
-        "Apply the command as the feedforward term minus the gain times the estimate.",
+        "Design the state-feedback gain for the regulation poles and the observer gain for the estimation poles.",
+        "Choose the feedforward gain so a constant reference matches in steady state when the state-feedback gain just designed is the one in the loop.",
+        "Apply the command as that feedforward term minus the state-feedback gain times the estimate.",
         "Feed that same command into the observer, along with the measured output."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "gen-controller-r3-q1",

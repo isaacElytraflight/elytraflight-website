@@ -36,7 +36,7 @@ ORDERS = {
     "bjt-action-r1-q4": 4,
     "ebers-moll-r2-q4": 4,
     "early-r1-q4": 4,
-    "bjt-ss-r3-q4": 4,
+    "bjt-ss-r3-q4": 3,
 }
 
 RETIRED = {
@@ -54,7 +54,7 @@ VERSIONS = {
     "bjt-action": 4,
     "ebers-moll": 3,
     "early": 3,
-    "bjt-ss": 3,
+    "bjt-ss": 4,
 }
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))

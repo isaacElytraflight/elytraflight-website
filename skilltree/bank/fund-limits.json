@@ -1,6 +1,6 @@
 {
   "skill_id": "fund-limits",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "fund-limits-r1-q1",
@@ -85,17 +85,16 @@
       "round": 2,
       "type": "order",
       "prompt": "Put these steps in the order you would use them while choosing a crossover.",
-      "explanation": "You cannot place a crossover until you know which bounds point up and which point down. The pole is a floor and the zero is a ceiling, so both are checked before the area argument. The integral is the bill for whatever dip you still want. The last step is the case where the floor is above the ceiling and no frequency satisfies both.",
+      "explanation": "You cannot place a crossover until the right-half-plane poles and zeros are marked. The pole bound is a floor. The zero bound is then a ceiling on that floor, and only the gap between them is still open. The sensitivity integral and the empty-gap stop are two readings of that one gap, so they are not separate orders.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a right-half-plane pole and a right-half-plane zero</title><line x1=\"20\" y1=\"92\" x2=\"82.2\" y2=\"92\"/><line x1=\"110.2\" y1=\"92\" x2=\"232\" y2=\"92\"/><line x1=\"260\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"160\" x2=\"40\" y2=\"16\"/><polygon points=\"40,16 42.7,22.4 37.3,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"48\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"91.2\" y1=\"87\" x2=\"101.2\" y2=\"97\" stroke-width=\"1.8\"/><line x1=\"91.2\" y1=\"97\" x2=\"101.2\" y2=\"87\" stroke-width=\"1.8\"/><circle cx=\"246\" cy=\"92\" r=\"5\"/></svg>",
       "figure_alt": "A cross and an open circle, both on the positive real axis, the circle farther out.",
       "steps": [
         "Mark the right-half-plane poles, the right-half-plane zeros, and any time delay.",
-        "Keep the intended crossover above the right-half-plane poles, so the loop gain is large enough to stabilize them.",
-        "Keep the intended crossover below the right-half-plane zeros, with room before their phase is spent.",
-        "Check the sensitivity integral: a deep dip in one band needs a peak in another.",
-        "If the lowest right-half-plane zero sits below the highest right-half-plane pole, stop: the two bounds leave no crossover."
+        "Keep the intended crossover above the right-half-plane poles just marked, so the loop gain is large enough to stabilize them.",
+        "Using that lower bound, also keep the intended crossover below the right-half-plane zeros, leaving only the gap between the two bounds.",
+        "Read that gap once: if the lowest right-half-plane zero sits below the highest right-half-plane pole, the gap is empty and no crossover remains; otherwise check the sensitivity integral inside the gap, because a deep dip in one band needs a peak in another."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "fund-limits-r3-q1",

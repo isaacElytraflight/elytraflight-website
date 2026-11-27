@@ -1,12 +1,10 @@
 {
   "id": "lp-graphical-solution",
   "title": "Graphical LP solution and solution types",
-  "version": 2,
+  "version": 3,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a segment in the first quadrant</title><line x1=\"40\" y1=\"168\" x2=\"250\" y2=\"168\"/><polygon points=\"250,168 243.6,170.7 243.6,165.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"48\" y1=\"184\" x2=\"48\" y2=\"22\"/><polygon points=\"48,22 50.7,28.4 45.3,28.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"244\" y=\"184\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"56\" y=\"18\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"188\" y1=\"168\" x2=\"48\" y2=\"48\" stroke-width=\"2.4\"/><circle cx=\"188\" cy=\"168\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"48\" cy=\"48\" r=\"2.6\" fill=\"currentColor\"/></svg>",
-      "figure_alt": "A segment joining two marked points on the axes.",
       "body_md": "A linear program in two variables can be settled with a sketch. Each constraint is a half-plane. The feasible set is their intersection: a polygon, a ray, a line, an empty set, or some unbounded convex piece of the plane. The objective \\(c^T x\\) has level lines that are parallel, and the gradient \\(c\\) points toward larger values.\n\nSlide a level line across the feasible set in the direction that decreases the objective, and stop at the last contact. One contact point is a unique minimizer. Contact along a whole edge means every point of that edge is optimal, and they share one optimal value. If the line can travel forever while still touching the set, the objective is unbounded below. If the intersection was empty to begin with, there is no contact and the program is infeasible.\n\nAn unbounded feasible set is not the same fact as an unbounded objective. A cost that points back toward the set can still attain a minimum on an unbounded region. The picture separates those two outcomes, and it also separates a unique vertex optimum from an edge of optima."
     },
     {

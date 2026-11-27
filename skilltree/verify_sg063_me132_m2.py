@@ -38,7 +38,7 @@ ORDERS = {
     "step-specs-r1-q4": 4,
     "pid-r1-q4": 4,
     "windup-r1-q4": 4,
-    "pid-tuning-r1-q4": 4,
+    "pid-tuning-r1-q4": 3,
 }
 
 MULTIS = {
@@ -58,7 +58,7 @@ VERSIONS = {
     "step-specs": 2,
     "pid": 2,
     "windup": 2,
-    "pid-tuning": 2,
+    "pid-tuning": 3,
 }
 
 HELD = {

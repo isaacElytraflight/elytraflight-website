@@ -1,12 +1,10 @@
 {
   "id": "primal-dual-interior-point",
   "title": "Primal-dual interior-point methods",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">p   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   q</text></svg>",
-      "figure_alt": "A two-by-two array with labels on the diagonal.",
       "body_md": "A primal-dual interior-point step solves a smoothed version of the KKT system, then lets the smoothing shrink. For a standard-form linear program the unsmoothed system asks for primal feasibility, dual feasibility, nonnegative \\(x\\) and \\(s\\), and complementary products \\(x_i s_i = 0\\). The smoothed system keeps the two feasibility equations and replaces the products by \\(x_i s_i = \\mu\\) with a positive target, while \\(x\\) and \\(s\\) stay positive.\n\nAs the target varies, the solutions form the central path. On the path the duality gap \\(x^T s\\) equals \\(n \\mu\\). Driving the target to zero drives the gap to zero. The quantity under control is the gap, not the distance to a vertex.\n\nThe products make the map nonlinear. One iteration linearizes it by Newton at a positive point, for a chosen target, then shortens the step so the updated \\(x\\) and \\(s\\) stay positive.\n\nA short-step path follower reduces the duality gap to a fraction \\(\\varepsilon\\) of its initial value in a number of Newton steps on the order of \\(\\sqrt{n}\\) times a logarithm of \\(1/\\varepsilon\\). That count is about the gap. Affine scaling drops the target to zero. A positive target is what pulls the point back toward the central path."
     },
     {

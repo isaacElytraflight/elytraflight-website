@@ -1,12 +1,10 @@
 {
   "id": "convex-sets",
   "title": "Convex sets",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>segment lying on a dashed line</title><line x1=\"28\" y1=\"150\" x2=\"256\" y2=\"150\"/><polygon points=\"256,150 249.6,152.7 249.6,147.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"40\" y1=\"164\" x2=\"40\" y2=\"20\"/><polygon points=\"40,20 42.7,26.4 37.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"166\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"48\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"36\" y1=\"132\" x2=\"244\" y2=\"36\" stroke-dasharray=\"4 3\"/><line x1=\"70\" y1=\"112\" x2=\"190\" y2=\"52\" stroke-width=\"2.4\"/><circle cx=\"70\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/><circle cx=\"190\" cy=\"52\" r=\"2.6\" fill=\"currentColor\"/></svg>",
-      "figure_alt": "A solid segment lies on a longer dashed line.",
       "body_md": "A set is convex when it contains the segment between any two of its points. If \\(x\\) and \\(y\\) are in the set and \\(t\\) is between 0 and 1, the combination \\((1-t)x + ty\\) has to be in the set. The endpoints themselves are the cases \\(t = 0\\) and \\(t = 1\\). Nothing in the definition requires the origin, a bound, or an open interior.\n\nThe sets that pass are the ones optimization uses constantly. Every ball of every norm is convex, open or closed. Every half-space is convex, open or closed. Every affine set is convex: subspaces, lines, and hyperplanes. An intersection of any family of convex sets is convex, so a set cut out by several linear inequalities is convex. A union is not safe. Two disks with a gap between them are each convex, and their union is not, because a bridge across the gap leaves both disks.\n\nA finite convex combination stays in a convex set as well. Weights that are nonnegative and sum to 1, on any number of points of the set, produce another point of the set. The two-point definition is the one to check; the finite version follows from it."
     },
     {

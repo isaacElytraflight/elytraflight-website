@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated": "2026-11-26T18:59:22.840986Z",
+  "generated": "2026-11-27T19:28:40.822113Z",
   "skills": {
-    "file": "skills.1b31ca65.json",
-    "hash": "1b31ca65"
+    "file": "skills.433f55c0.json",
+    "hash": "433f55c0"
   },
   "collections": {
     "file": "collections.af4a0c5f.json",
@@ -24,7 +24,7 @@
       "file": "banks/ac-power.1237d4f0.json"
     },
     "ad-forward-mode": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -32,11 +32,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "5d7c7014",
-      "file": "banks/ad-forward-mode.5d7c7014.json"
+      "hash": "dc806094",
+      "file": "banks/ad-forward-mode.dc806094.json"
     },
     "ad-reverse-mode": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -44,11 +44,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "7a03e558",
-      "file": "banks/ad-reverse-mode.7a03e558.json"
+      "hash": "7f9213ab",
+      "file": "banks/ad-reverse-mode.7f9213ab.json"
     },
     "adaptive": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -56,11 +56,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8d52d4eb",
-      "file": "banks/adaptive.8d52d4eb.json"
+      "hash": "06db4303",
+      "file": "banks/adaptive.06db4303.json"
     },
     "affine-scaling-method": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -68,11 +68,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f3c9a849",
-      "file": "banks/affine-scaling-method.f3c9a849.json"
+      "hash": "4da8c48c",
+      "file": "banks/affine-scaling-method.4da8c48c.json"
     },
     "amp-choice": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -80,11 +80,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "36bbf011",
-      "file": "banks/amp-choice.36bbf011.json"
+      "hash": "46f83548",
+      "file": "banks/amp-choice.46f83548.json"
     },
     "amp-compensation": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -92,8 +92,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "83143947",
-      "file": "banks/amp-compensation.83143947.json"
+      "hash": "409d4876",
+      "file": "banks/amp-compensation.409d4876.json"
     },
     "app-examples": {
       "version": 2,
@@ -108,7 +108,7 @@
       "file": "banks/app-examples.828c0a04.json"
     },
     "armijo-backtracking": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -116,8 +116,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "5904a1ed",
-      "file": "banks/armijo-backtracking.5904a1ed.json"
+      "hash": "adc3a7a8",
+      "file": "banks/armijo-backtracking.adc3a7a8.json"
     },
     "backprop-neural-network": {
       "version": 1,
@@ -144,7 +144,7 @@
       "file": "banks/barrier-interior-point.e9deb89c.json"
     },
     "basic-feasible-solutions": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -152,11 +152,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "90c36aab",
-      "file": "banks/basic-feasible-solutions.90c36aab.json"
+      "hash": "6185e9d3",
+      "file": "banks/basic-feasible-solutions.6185e9d3.json"
     },
     "bfgs-update": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -164,8 +164,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e20be42a",
-      "file": "banks/bfgs-update.e20be42a.json"
+      "hash": "89d6c24c",
+      "file": "banks/bfgs-update.89d6c24c.json"
     },
     "bias-coupling": {
       "version": 3,
@@ -228,7 +228,7 @@
       "file": "banks/bjt-iv.1b48f3f3.json"
     },
     "bjt-ss": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -236,8 +236,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "bac845e6",
-      "file": "banks/bjt-ss.bac845e6.json"
+      "hash": "972858e7",
+      "file": "banks/bjt-ss.972858e7.json"
     },
     "bjt-struct": {
       "version": 3,
@@ -312,7 +312,7 @@
       "file": "banks/body-effect.5c42f5a5.json"
     },
     "calculus-of-variations": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -320,8 +320,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "26806efb",
-      "file": "banks/calculus-of-variations.26806efb.json"
+      "hash": "7d1c462a",
+      "file": "banks/calculus-of-variations.7d1c462a.json"
     },
     "carrier-pot": {
       "version": 3,
@@ -372,7 +372,7 @@
       "file": "banks/cascode-src.61c9147c.json"
     },
     "cauchy-schwarz-inequality": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -380,8 +380,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "5084bc23",
-      "file": "banks/cauchy-schwarz-inequality.5084bc23.json"
+      "hash": "5424e99c",
+      "file": "banks/cauchy-schwarz-inequality.5424e99c.json"
     },
     "cd-freq": {
       "version": 3,
@@ -432,7 +432,7 @@
       "file": "banks/cg.16fd7bdd.json"
     },
     "circle-fitting-least-squares": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -440,11 +440,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "bfaf261b",
-      "file": "banks/circle-fitting-least-squares.bfaf261b.json"
+      "hash": "e4e4aab9",
+      "file": "banks/circle-fitting-least-squares.e4e4aab9.json"
     },
     "cmrr": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -452,11 +452,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f22190d0",
-      "file": "banks/cmrr.f22190d0.json"
+      "hash": "ed15ca82",
+      "file": "banks/cmrr.ed15ca82.json"
     },
     "compact-sets": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -464,8 +464,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "0b7350e0",
-      "file": "banks/compact-sets.0b7350e0.json"
+      "hash": "4a4855a7",
+      "file": "banks/compact-sets.4a4855a7.json"
     },
     "computational-graphs": {
       "version": 1,
@@ -480,7 +480,7 @@
       "file": "banks/computational-graphs.2b556b3e.json"
     },
     "condition-number-gradient-rate": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -488,8 +488,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b81be89e",
-      "file": "banks/condition-number-gradient-rate.b81be89e.json"
+      "hash": "5ce31a11",
+      "file": "banks/condition-number-gradient-rate.5ce31a11.json"
     },
     "conic-duality": {
       "version": 1,
@@ -504,7 +504,7 @@
       "file": "banks/conic-duality.6b2ff2d8.json"
     },
     "conjugate-gradient-method": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -512,8 +512,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "af1b0a0a",
-      "file": "banks/conjugate-gradient-method.af1b0a0a.json"
+      "hash": "c87426e0",
+      "file": "banks/conjugate-gradient-method.c87426e0.json"
     },
     "contact-pot": {
       "version": 3,
@@ -540,7 +540,7 @@
       "file": "banks/continuity.f9960d72.json"
     },
     "convergence-rates": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -548,8 +548,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8c34f985",
-      "file": "banks/convergence-rates.8c34f985.json"
+      "hash": "d33ad46b",
+      "file": "banks/convergence-rates.d33ad46b.json"
     },
     "convex-conjugate": {
       "version": 1,
@@ -564,18 +564,6 @@
       "file": "banks/convex-conjugate.6bfaa010.json"
     },
     "convex-functions": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "da58387b",
-      "file": "banks/convex-functions.da58387b.json"
-    },
-    "convex-optimality-global": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -584,8 +572,20 @@
         "3": 3,
         "4": 3
       },
-      "hash": "0bdca5de",
-      "file": "banks/convex-optimality-global.0bdca5de.json"
+      "hash": "0505eb57",
+      "file": "banks/convex-functions.0505eb57.json"
+    },
+    "convex-optimality-global": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "fd3672e7",
+      "file": "banks/convex-optimality-global.fd3672e7.json"
     },
     "convex-reparameterization": {
       "version": 1,
@@ -600,6 +600,18 @@
       "file": "banks/convex-reparameterization.43b5e373.json"
     },
     "convex-sets": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "8a85febf",
+      "file": "banks/convex-sets.8a85febf.json"
+    },
+    "convexity-first-order": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -608,23 +620,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "caa1aa8b",
-      "file": "banks/convex-sets.caa1aa8b.json"
-    },
-    "convexity-first-order": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "5c40e6e0",
-      "file": "banks/convexity-first-order.5c40e6e0.json"
+      "hash": "13e085d4",
+      "file": "banks/convexity-first-order.13e085d4.json"
     },
     "convexity-second-order": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -632,8 +632,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "1017d774",
-      "file": "banks/convexity-second-order.1017d774.json"
+      "hash": "bb05b8e8",
+      "file": "banks/convexity-second-order.bb05b8e8.json"
     },
     "coordinate-descent": {
       "version": 1,
@@ -780,7 +780,7 @@
       "file": "banks/depl-approx.9d722ab4.json"
     },
     "descent-directions": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -788,11 +788,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "9d2de6fc",
-      "file": "banks/descent-directions.9d2de6fc.json"
+      "hash": "42f66e57",
+      "file": "banks/descent-directions.42f66e57.json"
     },
     "descent-lemma": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -800,11 +800,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "dcd27a1e",
-      "file": "banks/descent-lemma.dcd27a1e.json"
+      "hash": "d1f3afce",
+      "file": "banks/descent-lemma.d1f3afce.json"
     },
     "descent-method-framework": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -812,8 +812,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "5a57235d",
-      "file": "banks/descent-method-framework.5a57235d.json"
+      "hash": "cdf06e4d",
+      "file": "banks/descent-method-framework.cdf06e4d.json"
     },
     "diff-dc": {
       "version": 3,
@@ -840,7 +840,7 @@
       "file": "banks/diff-intro.9ad48b2c.json"
     },
     "differentiability-multivariable": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -848,8 +848,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "75c9c109",
-      "file": "banks/differentiability-multivariable.75c9c109.json"
+      "hash": "c5ba02b8",
+      "file": "banks/differentiability-multivariable.c5ba02b8.json"
     },
     "diffusion": {
       "version": 4,
@@ -924,7 +924,7 @@
       "file": "banks/direct-h.70e22890.json"
     },
     "directional-derivative": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -932,8 +932,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "cfd91e61",
-      "file": "banks/directional-derivative.cfd91e61.json"
+      "hash": "a0406a32",
+      "file": "banks/directional-derivative.a0406a32.json"
     },
     "discrete-time": {
       "version": 2,
@@ -1008,7 +1008,7 @@
       "file": "banks/ebers-moll.cc990f11.json"
     },
     "eig-modes": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1016,8 +1016,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "6fe3cd36",
-      "file": "banks/eig-modes.6fe3cd36.json"
+      "hash": "4e4a2294",
+      "file": "banks/eig-modes.4e4a2294.json"
     },
     "eigenvalues-diagonalization": {
       "version": 1,
@@ -1068,7 +1068,7 @@
       "file": "banks/equilibria.c9f8dac5.json"
     },
     "exact-line-search-quadratic": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1076,8 +1076,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e99a7020",
-      "file": "banks/exact-line-search-quadratic.e99a7020.json"
+      "hash": "e4a80435",
+      "file": "banks/exact-line-search-quadratic.e4a80435.json"
     },
     "excess-carriers": {
       "version": 3,
@@ -1092,7 +1092,7 @@
       "file": "banks/excess-carriers.67a89d06.json"
     },
     "existence-of-minimizers": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1100,11 +1100,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "7d5672a2",
-      "file": "banks/existence-of-minimizers.7d5672a2.json"
+      "hash": "351c0446",
+      "file": "banks/existence-of-minimizers.351c0446.json"
     },
     "extended-kalman-filter": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1112,8 +1112,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b40e1a43",
-      "file": "banks/extended-kalman-filter.b40e1a43.json"
+      "hash": "d3209080",
+      "file": "banks/extended-kalman-filter.d3209080.json"
     },
     "fb-amp-errors": {
       "version": 2,
@@ -1212,42 +1212,6 @@
       "file": "banks/feedforward.4901f4dc.json"
     },
     "finite-difference-derivatives": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "c6e6f117",
-      "file": "banks/finite-difference-derivatives.c6e6f117.json"
-    },
-    "finite-horizon-sequence": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "15c30d53",
-      "file": "banks/finite-horizon-sequence.15c30d53.json"
-    },
-    "first-order-optimality": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "b93918a9",
-      "file": "banks/first-order-optimality.b93918a9.json"
-    },
-    "first-order-sys": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -1256,11 +1220,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "dab715d7",
-      "file": "banks/first-order-sys.dab715d7.json"
+      "hash": "7a5cd28d",
+      "file": "banks/finite-difference-derivatives.7a5cd28d.json"
     },
-    "frank-wolfe-conditional-gradient": {
-      "version": 1,
+    "finite-horizon-sequence": {
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1268,10 +1232,22 @@
         "3": 3,
         "4": 3
       },
-      "hash": "eff952ea",
-      "file": "banks/frank-wolfe-conditional-gradient.eff952ea.json"
+      "hash": "3488e4b9",
+      "file": "banks/finite-horizon-sequence.3488e4b9.json"
     },
-    "freq-basics": {
+    "first-order-optimality": {
+      "version": 2,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "0f175cfd",
+      "file": "banks/first-order-optimality.0f175cfd.json"
+    },
+    "first-order-sys": {
       "version": 3,
       "questionCount": 12,
       "rounds": {
@@ -1280,8 +1256,32 @@
         "3": 3,
         "4": 3
       },
-      "hash": "6b59b416",
-      "file": "banks/freq-basics.6b59b416.json"
+      "hash": "1ff584ab",
+      "file": "banks/first-order-sys.1ff584ab.json"
+    },
+    "frank-wolfe-conditional-gradient": {
+      "version": 2,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b0e0c41d",
+      "file": "banks/frank-wolfe-conditional-gradient.b0e0c41d.json"
+    },
+    "freq-basics": {
+      "version": 4,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "c1bd48e6",
+      "file": "banks/freq-basics.c1bd48e6.json"
     },
     "freq-char": {
       "version": 4,
@@ -1320,7 +1320,7 @@
       "file": "banks/freq-resp-lti.b801e4ad.json"
     },
     "frobenius-schatten-norms": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1328,8 +1328,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "4ae64639",
-      "file": "banks/frobenius-schatten-norms.4ae64639.json"
+      "hash": "5f26a8da",
+      "file": "banks/frobenius-schatten-norms.5f26a8da.json"
     },
     "ft": {
       "version": 3,
@@ -1344,7 +1344,7 @@
       "file": "banks/ft.2cf8f802.json"
     },
     "fund-limits": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1352,8 +1352,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "1fef7b37",
-      "file": "banks/fund-limits.1fef7b37.json"
+      "hash": "7541cca2",
+      "file": "banks/fund-limits.7541cca2.json"
     },
     "fundamental-subspaces": {
       "version": 1,
@@ -1368,7 +1368,7 @@
       "file": "banks/fundamental-subspaces.46ae31aa.json"
     },
     "fundamental-theorem-along-segment": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1376,11 +1376,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "4159ef7b",
-      "file": "banks/fundamental-theorem-along-segment.4159ef7b.json"
+      "hash": "b66ee527",
+      "file": "banks/fundamental-theorem-along-segment.b66ee527.json"
     },
     "gain-scheduling": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1388,11 +1388,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "72b2bba8",
-      "file": "banks/gain-scheduling.72b2bba8.json"
+      "hash": "83742696",
+      "file": "banks/gain-scheduling.83742696.json"
     },
     "gauss-newton-method": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1400,11 +1400,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "dddac431",
-      "file": "banks/gauss-newton-method.dddac431.json"
+      "hash": "9d8393ea",
+      "file": "banks/gauss-newton-method.9d8393ea.json"
     },
     "gaussian-random-vectors": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1412,8 +1412,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "4c28170b",
-      "file": "banks/gaussian-random-vectors.4c28170b.json"
+      "hash": "e1966b23",
+      "file": "banks/gaussian-random-vectors.e1966b23.json"
     },
     "gbw": {
       "version": 5,
@@ -1428,7 +1428,7 @@
       "file": "banks/gbw.9c9c8105.json"
     },
     "gen-controller": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1436,8 +1436,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "2bc5fe65",
-      "file": "banks/gen-controller.2bc5fe65.json"
+      "hash": "59790027",
+      "file": "banks/gen-controller.59790027.json"
     },
     "gen-gain-phase": {
       "version": 2,
@@ -1476,7 +1476,7 @@
       "file": "banks/gradient-descent.b5a885bf.json"
     },
     "gradient-method-convergence": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1484,11 +1484,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "21690043",
-      "file": "banks/gradient-method-convergence.21690043.json"
+      "hash": "bdc21f6a",
+      "file": "banks/gradient-method-convergence.bdc21f6a.json"
     },
     "gradient-partial-derivatives": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1496,11 +1496,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3060264e",
-      "file": "banks/gradient-partial-derivatives.3060264e.json"
+      "hash": "bdd67847",
+      "file": "banks/gradient-partial-derivatives.bdd67847.json"
     },
     "gradient-projection-method": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1508,11 +1508,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "18f17135",
-      "file": "banks/gradient-projection-method.18f17135.json"
+      "hash": "80733b6a",
+      "file": "banks/gradient-projection-method.80733b6a.json"
     },
     "gradient-zigzag": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1520,11 +1520,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "802406dc",
-      "file": "banks/gradient-zigzag.802406dc.json"
+      "hash": "cff79889",
+      "file": "banks/gradient-zigzag.cff79889.json"
     },
     "gram-schmidt-orthogonalization": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1532,11 +1532,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "bb7a1a44",
-      "file": "banks/gram-schmidt-orthogonalization.bb7a1a44.json"
+      "hash": "7c7bf088",
+      "file": "banks/gram-schmidt-orthogonalization.7c7bf088.json"
     },
     "graphical-2d-optimization": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1544,8 +1544,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "9438cbdf",
-      "file": "banks/graphical-2d-optimization.9438cbdf.json"
+      "hash": "818a3a52",
+      "file": "banks/graphical-2d-optimization.818a3a52.json"
     },
     "half-circuit": {
       "version": 3,
@@ -1560,7 +1560,7 @@
       "file": "banks/half-circuit.c823c306.json"
     },
     "heavy-ball-method": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1568,11 +1568,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "808b0c42",
-      "file": "banks/heavy-ball-method.808b0c42.json"
+      "hash": "dfbb2853",
+      "file": "banks/heavy-ball-method.dfbb2853.json"
     },
     "hessian-matrix": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1580,11 +1580,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "31a69afa",
-      "file": "banks/hessian-matrix.31a69afa.json"
+      "hash": "89f1772d",
+      "file": "banks/hessian-matrix.89f1772d.json"
     },
     "hessian-vector-products-ad": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1592,8 +1592,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "70c6bbac",
-      "file": "banks/hessian-vector-products-ad.70c6bbac.json"
+      "hash": "f6b291f8",
+      "file": "banks/hessian-vector-products-ad.f6b291f8.json"
     },
     "high-load": {
       "version": 3,
@@ -1632,7 +1632,7 @@
       "file": "banks/impulse-conv.6dbde057.json"
     },
     "incremental-gradient-methods": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1640,8 +1640,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8b03d928",
-      "file": "banks/incremental-gradient-methods.8b03d928.json"
+      "hash": "9d9072e0",
+      "file": "banks/incremental-gradient-methods.9d9072e0.json"
     },
     "induced-matrix-norms": {
       "version": 1,
@@ -1656,7 +1656,7 @@
       "file": "banks/induced-matrix-norms.848a45ef.json"
     },
     "inner-products": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1664,8 +1664,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "bc3e53fc",
-      "file": "banks/inner-products.bc3e53fc.json"
+      "hash": "bf9af8f6",
+      "file": "banks/inner-products.bf9af8f6.json"
     },
     "integral-action": {
       "version": 1,
@@ -1704,7 +1704,7 @@
       "file": "banks/inverting.30b0720e.json"
     },
     "jacobian-chain-rule": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1712,8 +1712,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "6db38ef4",
-      "file": "banks/jacobian-chain-rule.6db38ef4.json"
+      "hash": "4c32a591",
+      "file": "banks/jacobian-chain-rule.4c32a591.json"
     },
     "junction-cap": {
       "version": 3,
@@ -1740,7 +1740,7 @@
       "file": "banks/kalman-optimal-observer.19df4335.json"
     },
     "kalman-recursive-least-squares": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1748,11 +1748,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "11dbcf33",
-      "file": "banks/kalman-recursive-least-squares.11dbcf33.json"
+      "hash": "3bbfb81b",
+      "file": "banks/kalman-recursive-least-squares.3bbfb81b.json"
     },
     "kalman": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1760,11 +1760,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "0ae1622c",
-      "file": "banks/kalman.0ae1622c.json"
+      "hash": "6f90dd20",
+      "file": "banks/kalman.6f90dd20.json"
     },
     "kkt-conditions": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1772,11 +1772,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "01ab8c34",
-      "file": "banks/kkt-conditions.01ab8c34.json"
+      "hash": "ec337c6d",
+      "file": "banks/kkt-conditions.ec337c6d.json"
     },
     "lagrange-multiplier-equality": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1784,11 +1784,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "9d69743e",
-      "file": "banks/lagrange-multiplier-equality.9d69743e.json"
+      "hash": "e314a66d",
+      "file": "banks/lagrange-multiplier-equality.e314a66d.json"
     },
     "lagrangian-duality-lower-bounds": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1796,8 +1796,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "fe4cd736",
-      "file": "banks/lagrangian-duality-lower-bounds.fe4cd736.json"
+      "hash": "917245a7",
+      "file": "banks/lagrangian-duality-lower-bounds.917245a7.json"
     },
     "laplace": {
       "version": 3,
@@ -1812,7 +1812,7 @@
       "file": "banks/laplace.e4764d8a.json"
     },
     "largest-inscribed-ellipsoid": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1820,8 +1820,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "76af06cf",
-      "file": "banks/largest-inscribed-ellipsoid.76af06cf.json"
+      "hash": "492f7633",
+      "file": "banks/largest-inscribed-ellipsoid.492f7633.json"
     },
     "lasso-regression": {
       "version": 1,
@@ -1848,7 +1848,7 @@
       "file": "banks/lasso-stationarity.f1c4a827.json"
     },
     "least-squares-data-fitting": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1856,8 +1856,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f8fef339",
-      "file": "banks/least-squares-data-fitting.f8fef339.json"
+      "hash": "aa4bfdd1",
+      "file": "banks/least-squares-data-fitting.aa4bfdd1.json"
     },
     "least-squares-perturbation": {
       "version": 1,
@@ -1896,6 +1896,18 @@
       "file": "banks/led.2298b9bb.json"
     },
     "level-sets-contours": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "25cf6963",
+      "file": "banks/level-sets-contours.25cf6963.json"
+    },
+    "levenberg-marquardt": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -1904,20 +1916,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e54b1d62",
-      "file": "banks/level-sets-contours.e54b1d62.json"
-    },
-    "levenberg-marquardt": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "ed2775d2",
-      "file": "banks/levenberg-marquardt.ed2775d2.json"
+      "hash": "c61ae1b4",
+      "file": "banks/levenberg-marquardt.c61ae1b4.json"
     },
     "limit-cycles": {
       "version": 2,
@@ -1944,7 +1944,7 @@
       "file": "banks/lin-algebra-review.bcc60ef8.json"
     },
     "linear-least-squares": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1952,11 +1952,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "c31098f8",
-      "file": "banks/linear-least-squares.c31098f8.json"
+      "hash": "17f615c3",
+      "file": "banks/linear-least-squares.17f615c3.json"
     },
     "linearization": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -1964,34 +1964,10 @@
         "3": 3,
         "4": 3
       },
-      "hash": "b44a5726",
-      "file": "banks/linearization.b44a5726.json"
+      "hash": "1b45bed5",
+      "file": "banks/linearization.1b45bed5.json"
     },
     "lipschitz-gradient": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "2fe3c19f",
-      "file": "banks/lipschitz-gradient.2fe3c19f.json"
-    },
-    "local-global-minima": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "5e78fa90",
-      "file": "banks/local-global-minima.5e78fa90.json"
-    },
-    "local-linear-approximation": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -2000,8 +1976,32 @@
         "3": 3,
         "4": 3
       },
-      "hash": "5c66d6ed",
-      "file": "banks/local-linear-approximation.5c66d6ed.json"
+      "hash": "a68575cc",
+      "file": "banks/lipschitz-gradient.a68575cc.json"
+    },
+    "local-global-minima": {
+      "version": 2,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "dce85c12",
+      "file": "banks/local-global-minima.dce85c12.json"
+    },
+    "local-linear-approximation": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "b3f01683",
+      "file": "banks/local-linear-approximation.b3f01683.json"
     },
     "loop-gain": {
       "version": 5,
@@ -2028,7 +2028,7 @@
       "file": "banks/loop-margin-design.108825a7.json"
     },
     "loop-shaping": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2036,8 +2036,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "7f6f6444",
-      "file": "banks/loop-shaping.7f6f6444.json"
+      "hash": "2eabe5c4",
+      "file": "banks/loop-shaping.2eabe5c4.json"
     },
     "loop-tf": {
       "version": 2,
@@ -2064,78 +2064,6 @@
       "file": "banks/low-rank-approximation.f82ee2c7.json"
     },
     "lp-duality-kkt": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "dcc5f9d6",
-      "file": "banks/lp-duality-kkt.dcc5f9d6.json"
-    },
-    "lp-graphical-solution": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "f6c29d9a",
-      "file": "banks/lp-graphical-solution.f6c29d9a.json"
-    },
-    "lp-standard-form": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "2b58eeb0",
-      "file": "banks/lp-standard-form.2b58eeb0.json"
-    },
-    "lqr": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "dcb87075",
-      "file": "banks/lqr.dcb87075.json"
-    },
-    "lti-circuits": {
-      "version": 4,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "4": 3,
-        "3": 3
-      },
-      "hash": "35785e0b",
-      "file": "banks/lti-circuits.35785e0b.json"
-    },
-    "lti-def": {
-      "version": 4,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "00ad5099",
-      "file": "banks/lti-def.00ad5099.json"
-    },
-    "lti-mech": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -2144,8 +2072,80 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8dcabe2f",
-      "file": "banks/lti-mech.8dcabe2f.json"
+      "hash": "a591e7e0",
+      "file": "banks/lp-duality-kkt.a591e7e0.json"
+    },
+    "lp-graphical-solution": {
+      "version": 2,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7b5d7574",
+      "file": "banks/lp-graphical-solution.7b5d7574.json"
+    },
+    "lp-standard-form": {
+      "version": 2,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "823c2777",
+      "file": "banks/lp-standard-form.823c2777.json"
+    },
+    "lqr": {
+      "version": 2,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "fd66d2b7",
+      "file": "banks/lqr.fd66d2b7.json"
+    },
+    "lti-circuits": {
+      "version": 5,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "4": 3,
+        "3": 3
+      },
+      "hash": "68a1eb4c",
+      "file": "banks/lti-circuits.68a1eb4c.json"
+    },
+    "lti-def": {
+      "version": 5,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "c5f184ee",
+      "file": "banks/lti-def.c5f184ee.json"
+    },
+    "lti-mech": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "d1786000",
+      "file": "banks/lti-mech.d1786000.json"
     },
     "lti-stability": {
       "version": 2,
@@ -2172,7 +2172,7 @@
       "file": "banks/lyapunov.5387ee54.json"
     },
     "matrix-calculus-gradients": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2180,8 +2180,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f807986c",
-      "file": "banks/matrix-calculus-gradients.f807986c.json"
+      "hash": "999e4799",
+      "file": "banks/matrix-calculus-gradients.999e4799.json"
     },
     "maximum-a-posteriori-estimation": {
       "version": 1,
@@ -2376,7 +2376,7 @@
       "file": "banks/mpc.94fa0b62.json"
     },
     "nesterov-accelerated-gradient": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2384,11 +2384,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "2a6c3c6a",
-      "file": "banks/nesterov-accelerated-gradient.2a6c3c6a.json"
+      "hash": "f4f90bbb",
+      "file": "banks/nesterov-accelerated-gradient.f4f90bbb.json"
     },
     "newton-globalization": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2396,11 +2396,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "13610df6",
-      "file": "banks/newton-globalization.13610df6.json"
+      "hash": "327489e0",
+      "file": "banks/newton-globalization.327489e0.json"
     },
     "newton-local-quadratic-convergence": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2408,11 +2408,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "1e88ef6d",
-      "file": "banks/newton-local-quadratic-convergence.1e88ef6d.json"
+      "hash": "678ca690",
+      "file": "banks/newton-local-quadratic-convergence.678ca690.json"
     },
     "newton-method-optimization": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2420,11 +2420,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "67cc879b",
-      "file": "banks/newton-method-optimization.67cc879b.json"
+      "hash": "d0bf8944",
+      "file": "banks/newton-method-optimization.d0bf8944.json"
     },
     "newton-root-finding": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2432,8 +2432,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e36ea02c",
-      "file": "banks/newton-root-finding.e36ea02c.json"
+      "hash": "488fbb8e",
+      "file": "banks/newton-root-finding.488fbb8e.json"
     },
     "nl-cap": {
       "version": 3,
@@ -2460,7 +2460,7 @@
       "file": "banks/nmos-regions.76006db6.json"
     },
     "noise-dist": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2468,11 +2468,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "77934bf5",
-      "file": "banks/noise-dist.77934bf5.json"
+      "hash": "a7e554bb",
+      "file": "banks/noise-dist.a7e554bb.json"
     },
     "nonlinear-least-squares": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2480,8 +2480,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f22a806c",
-      "file": "banks/nonlinear-least-squares.f22a806c.json"
+      "hash": "e36b5915",
+      "file": "banks/nonlinear-least-squares.e36b5915.json"
     },
     "nyquist": {
       "version": 2,
@@ -2592,6 +2592,18 @@
       "file": "banks/opamp-models.ca2429cd.json"
     },
     "open-closed-sets": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "30b79f91",
+      "file": "banks/open-closed-sets.30b79f91.json"
+    },
+    "optimality-over-convex-set": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -2600,23 +2612,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e2c80fe6",
-      "file": "banks/open-closed-sets.e2c80fe6.json"
-    },
-    "optimality-over-convex-set": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "36a12cd5",
-      "file": "banks/optimality-over-convex-set.36a12cd5.json"
+      "hash": "2f41858a",
+      "file": "banks/optimality-over-convex-set.2f41858a.json"
     },
     "optimization-problem-classes": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2624,11 +2624,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8724794d",
-      "file": "banks/optimization-problem-classes.8724794d.json"
+      "hash": "6db49ce6",
+      "file": "banks/optimization-problem-classes.6db49ce6.json"
     },
     "optimization-problem-formulation": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2636,8 +2636,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "e4f97e15",
-      "file": "banks/optimization-problem-formulation.e4f97e15.json"
+      "hash": "f9439d16",
+      "file": "banks/optimization-problem-formulation.f9439d16.json"
     },
     "perf-specs-freq": {
       "version": 2,
@@ -2676,7 +2676,7 @@
       "file": "banks/pid-impl.b22e8575.json"
     },
     "pid-tuning": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2684,8 +2684,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "61fc12d3",
-      "file": "banks/pid-tuning.61fc12d3.json"
+      "hash": "c8fa8126",
+      "file": "banks/pid-tuning.c8fa8126.json"
     },
     "pid": {
       "version": 2,
@@ -2736,7 +2736,7 @@
       "file": "banks/pole-zero.d1e3f109.json"
     },
     "polyhedra-extreme-points": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2744,10 +2744,22 @@
         "3": 3,
         "4": 3
       },
-      "hash": "bf0efe0b",
-      "file": "banks/polyhedra-extreme-points.bf0efe0b.json"
+      "hash": "57ee96ab",
+      "file": "banks/polyhedra-extreme-points.57ee96ab.json"
     },
     "positive-definite-matrices": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "c9171316",
+      "file": "banks/positive-definite-matrices.c9171316.json"
+    },
+    "power-method-eigenvector": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -2756,23 +2768,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8de4af0a",
-      "file": "banks/positive-definite-matrices.8de4af0a.json"
-    },
-    "power-method-eigenvector": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "a98872e0",
-      "file": "banks/power-method-eigenvector.a98872e0.json"
+      "hash": "e5af4ac2",
+      "file": "banks/power-method-eigenvector.e5af4ac2.json"
     },
     "primal-dual-interior-point": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2780,8 +2780,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "d8fd0126",
-      "file": "banks/primal-dual-interior-point.d8fd0126.json"
+      "hash": "6298e523",
+      "file": "banks/primal-dual-interior-point.6298e523.json"
     },
     "principal-component-analysis": {
       "version": 1,
@@ -2808,6 +2808,18 @@
       "file": "banks/principal-components-regression.b7fbfc96.json"
     },
     "projection-affine-halfspace-kkt": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "a0b6e449",
+      "file": "banks/projection-affine-halfspace-kkt.a0b6e449.json"
+    },
+    "projection-onto-convex-set": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -2816,23 +2828,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "caa31da6",
-      "file": "banks/projection-affine-halfspace-kkt.caa31da6.json"
-    },
-    "projection-onto-convex-set": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "c693b787",
-      "file": "banks/projection-onto-convex-set.c693b787.json"
+      "hash": "714d29a0",
+      "file": "banks/projection-onto-convex-set.714d29a0.json"
     },
     "q-conjugate-directions": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2840,8 +2840,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3c9ccdd2",
-      "file": "banks/q-conjugate-directions.3c9ccdd2.json"
+      "hash": "3d1deb7e",
+      "file": "banks/q-conjugate-directions.3d1deb7e.json"
     },
     "qr-factorization": {
       "version": 1,
@@ -2856,7 +2856,7 @@
       "file": "banks/qr-factorization.a9e6c520.json"
     },
     "quadratic-function-minimization": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2864,8 +2864,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "9760c2bc",
-      "file": "banks/quadratic-function-minimization.9760c2bc.json"
+      "hash": "d3046e30",
+      "file": "banks/quadratic-function-minimization.d3046e30.json"
     },
     "quadratic-program": {
       "version": 1,
@@ -2892,18 +2892,6 @@
       "file": "banks/quadratically-constrained-quadratic-program.2a48c395.json"
     },
     "quasi-newton-secant": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "e993952c",
-      "file": "banks/quasi-newton-secant.e993952c.json"
-    },
-    "rayleigh-quotient": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -2912,8 +2900,20 @@
         "3": 3,
         "4": 3
       },
-      "hash": "4d888b3e",
-      "file": "banks/rayleigh-quotient.4d888b3e.json"
+      "hash": "57dcdc12",
+      "file": "banks/quasi-newton-secant.57dcdc12.json"
+    },
+    "rayleigh-quotient": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "9bcc1e6a",
+      "file": "banks/rayleigh-quotient.9bcc1e6a.json"
     },
     "rc-lpf": {
       "version": 6,
@@ -2928,7 +2928,7 @@
       "file": "banks/rc-lpf.433ac200.json"
     },
     "reachability": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -2936,8 +2936,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "8e9d9d67",
-      "file": "banks/reachability.8e9d9d67.json"
+      "hash": "9c997363",
+      "file": "banks/reachability.9c997363.json"
     },
     "realization": {
       "version": 2,
@@ -3000,7 +3000,7 @@
       "file": "banks/rlc.764de06a.json"
     },
     "rn-important-subsets": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3008,8 +3008,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "38d9f17e",
-      "file": "banks/rn-important-subsets.38d9f17e.json"
+      "hash": "bb825792",
+      "file": "banks/rn-important-subsets.bb825792.json"
     },
     "ro": {
       "version": 3,
@@ -3024,7 +3024,7 @@
       "file": "banks/ro.e56d3a6d.json"
     },
     "robust-perf": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3032,8 +3032,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "07bd6088",
-      "file": "banks/robust-perf.07bd6088.json"
+      "hash": "3af11c85",
+      "file": "banks/robust-perf.3af11c85.json"
     },
     "robust-stability": {
       "version": 1,
@@ -3048,7 +3048,7 @@
       "file": "banks/robust-stability.2a670952.json"
     },
     "root-locus": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3056,11 +3056,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3c378add",
-      "file": "banks/root-locus.3c378add.json"
+      "hash": "baad27fe",
+      "file": "banks/root-locus.baad27fe.json"
     },
     "scaled-gradient-projection": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3068,8 +3068,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "f018ac09",
-      "file": "banks/scaled-gradient-projection.f018ac09.json"
+      "hash": "74649cc8",
+      "file": "banks/scaled-gradient-projection.74649cc8.json"
     },
     "second-order-cone-program": {
       "version": 1,
@@ -3084,7 +3084,7 @@
       "file": "banks/second-order-cone-program.696c0fa4.json"
     },
     "second-order-optimality": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3092,11 +3092,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "29712119",
-      "file": "banks/second-order-optimality.29712119.json"
+      "hash": "1e03149c",
+      "file": "banks/second-order-optimality.1e03149c.json"
     },
     "second-order-sys": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3104,8 +3104,8 @@
         "4": 3,
         "2": 3
       },
-      "hash": "87913412",
-      "file": "banks/second-order-sys.87913412.json"
+      "hash": "cd3bc551",
+      "file": "banks/second-order-sys.cd3bc551.json"
     },
     "semidefinite-program": {
       "version": 1,
@@ -3120,6 +3120,18 @@
       "file": "banks/semidefinite-program.fbd9fd06.json"
     },
     "sensitivity": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "1e5b580c",
+      "file": "banks/sensitivity.1e5b580c.json"
+    },
+    "separation": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -3128,20 +3140,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "a8fe5f38",
-      "file": "banks/sensitivity.a8fe5f38.json"
-    },
-    "separation": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "1b6cb270",
-      "file": "banks/separation.1b6cb270.json"
+      "hash": "02ad67fe",
+      "file": "banks/separation.02ad67fe.json"
     },
     "sheet-res": {
       "version": 3,
@@ -3168,7 +3168,7 @@
       "file": "banks/si-props.22a7ecfe.json"
     },
     "simplex-feasible-directions": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3176,11 +3176,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "90e7b282",
-      "file": "banks/simplex-feasible-directions.90e7b282.json"
+      "hash": "b1440d01",
+      "file": "banks/simplex-feasible-directions.b1440d01.json"
     },
     "simplex-method-iteration": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3188,11 +3188,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "c45ea14e",
-      "file": "banks/simplex-method-iteration.c45ea14e.json"
+      "hash": "8587d242",
+      "file": "banks/simplex-method-iteration.8587d242.json"
     },
     "simplex-phase-one": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3200,22 +3200,10 @@
         "3": 3,
         "4": 3
       },
-      "hash": "d9ded3bf",
-      "file": "banks/simplex-phase-one.d9ded3bf.json"
+      "hash": "bb7413c0",
+      "file": "banks/simplex-phase-one.bb7413c0.json"
     },
     "singular-value-decomposition": {
-      "version": 3,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "465dbb83",
-      "file": "banks/singular-value-decomposition.465dbb83.json"
-    },
-    "sinusoid-resp": {
       "version": 4,
       "questionCount": 12,
       "rounds": {
@@ -3224,8 +3212,20 @@
         "3": 3,
         "4": 3
       },
-      "hash": "2a5f8fc7",
-      "file": "banks/sinusoid-resp.2a5f8fc7.json"
+      "hash": "f07473d1",
+      "file": "banks/singular-value-decomposition.f07473d1.json"
+    },
+    "sinusoid-resp": {
+      "version": 5,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "7678e442",
+      "file": "banks/sinusoid-resp.7678e442.json"
     },
     "slew": {
       "version": 3,
@@ -3252,7 +3252,7 @@
       "file": "banks/solar-cell.6aab1422.json"
     },
     "spectral-decomposition": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3260,8 +3260,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "cb373843",
-      "file": "banks/spectral-decomposition.cb373843.json"
+      "hash": "8fd53126",
+      "file": "banks/spectral-decomposition.8fd53126.json"
     },
     "square-law": {
       "version": 4,
@@ -3312,7 +3312,7 @@
       "file": "banks/ss-to-tf.7ebb110c.json"
     },
     "stability": {
-      "version": 4,
+      "version": 5,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3320,8 +3320,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "745d9df6",
-      "file": "banks/stability.745d9df6.json"
+      "hash": "893f03d4",
+      "file": "banks/stability.893f03d4.json"
     },
     "state-feedback": {
       "version": 1,
@@ -3348,7 +3348,7 @@
       "file": "banks/state-space-model.6427a323.json"
     },
     "stationary-point-classification": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3356,8 +3356,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "c80cc5e1",
-      "file": "banks/stationary-point-classification.c80cc5e1.json"
+      "hash": "9ca2f2d9",
+      "file": "banks/stationary-point-classification.9ca2f2d9.json"
     },
     "step-resp": {
       "version": 4,
@@ -3420,7 +3420,7 @@
       "file": "banks/strong-duality.39fffb96.json"
     },
     "sufficient-decrease-lemma": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3428,11 +3428,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "6c336e0c",
-      "file": "banks/sufficient-decrease-lemma.6c336e0c.json"
+      "hash": "9e8e2f26",
+      "file": "banks/sufficient-decrease-lemma.9e8e2f26.json"
     },
     "svm-quadratic-program": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3440,11 +3440,11 @@
         "3": 3,
         "4": 3
       },
-      "hash": "3022a5e1",
-      "file": "banks/svm-quadratic-program.3022a5e1.json"
+      "hash": "0d9db427",
+      "file": "banks/svm-quadratic-program.0d9db427.json"
     },
     "sys-id": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3452,10 +3452,22 @@
         "3": 3,
         "4": 3
       },
-      "hash": "760a4f93",
-      "file": "banks/sys-id.760a4f93.json"
+      "hash": "1ed59245",
+      "file": "banks/sys-id.1ed59245.json"
     },
     "taylor-approximation-multivariable": {
+      "version": 3,
+      "questionCount": 12,
+      "rounds": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "hash": "176d4637",
+      "file": "banks/taylor-approximation-multivariable.176d4637.json"
+    },
+    "taylor-exact-mean-value": {
       "version": 2,
       "questionCount": 12,
       "rounds": {
@@ -3464,20 +3476,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "64d4766a",
-      "file": "banks/taylor-approximation-multivariable.64d4766a.json"
-    },
-    "taylor-exact-mean-value": {
-      "version": 1,
-      "questionCount": 12,
-      "rounds": {
-        "1": 3,
-        "2": 3,
-        "3": 3,
-        "4": 3
-      },
-      "hash": "5aae2ceb",
-      "file": "banks/taylor-exact-mean-value.5aae2ceb.json"
+      "hash": "b9fef5f7",
+      "file": "banks/taylor-exact-mean-value.b9fef5f7.json"
     },
     "tf": {
       "version": 5,
@@ -3516,7 +3516,7 @@
       "file": "banks/total-current.b066318a.json"
     },
     "trajectory-optimization": {
-      "version": 2,
+      "version": 3,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3524,8 +3524,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "2febb355",
-      "file": "banks/trajectory-optimization.2febb355.json"
+      "hash": "c5eac893",
+      "file": "banks/trajectory-optimization.c5eac893.json"
     },
     "triode": {
       "version": 3,
@@ -3564,7 +3564,7 @@
       "file": "banks/uncertainty.629fdff9.json"
     },
     "vector-norms-lp": {
-      "version": 3,
+      "version": 4,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3572,8 +3572,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "d4829f1e",
-      "file": "banks/vector-norms-lp.d4829f1e.json"
+      "hash": "f927a0a8",
+      "file": "banks/vector-norms-lp.f927a0a8.json"
     },
     "vt": {
       "version": 2,
@@ -3600,7 +3600,7 @@
       "file": "banks/windup.2d6b3aa3.json"
     },
     "wolfe-conditions": {
-      "version": 1,
+      "version": 2,
       "questionCount": 12,
       "rounds": {
         "1": 3,
@@ -3608,8 +3608,8 @@
         "3": 3,
         "4": 3
       },
-      "hash": "89563cfe",
-      "file": "banks/wolfe-conditions.89563cfe.json"
+      "hash": "f7708cba",
+      "file": "banks/wolfe-conditions.f7708cba.json"
     }
   },
   "explainers": {
@@ -3620,10 +3620,10 @@
       "version": 2
     },
     "ad-forward-mode": {
-      "hash": "4c8519c8",
-      "file": "explainers/ad-forward-mode.4c8519c8.json",
+      "hash": "e35aef12",
+      "file": "explainers/ad-forward-mode.e35aef12.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "ad-reverse-mode": {
       "hash": "e75a3858",
@@ -3638,10 +3638,10 @@
       "version": 1
     },
     "affine-scaling-method": {
-      "hash": "5b8c6d3b",
-      "file": "explainers/affine-scaling-method.5b8c6d3b.json",
+      "hash": "2790b6c1",
+      "file": "explainers/affine-scaling-method.2790b6c1.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "amp-choice": {
       "hash": "0a449253",
@@ -3661,10 +3661,10 @@
       "version": 1
     },
     "armijo-backtracking": {
-      "hash": "2d6a6f5d",
-      "file": "explainers/armijo-backtracking.2d6a6f5d.json",
+      "hash": "f1130493",
+      "file": "explainers/armijo-backtracking.f1130493.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "backprop-neural-network": {
       "hash": "48e1f54a",
@@ -3679,16 +3679,16 @@
       "version": 1
     },
     "basic-feasible-solutions": {
-      "hash": "a5de2e82",
-      "file": "explainers/basic-feasible-solutions.a5de2e82.json",
+      "hash": "0763bf89",
+      "file": "explainers/basic-feasible-solutions.0763bf89.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "bfgs-update": {
-      "hash": "7a2a853d",
-      "file": "explainers/bfgs-update.7a2a853d.json",
+      "hash": "0b1d923c",
+      "file": "explainers/bfgs-update.0b1d923c.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "bias-coupling": {
       "hash": "a42fccbf",
@@ -3783,10 +3783,10 @@
       "version": 2
     },
     "cauchy-schwarz-inequality": {
-      "hash": "04177e0f",
-      "file": "explainers/cauchy-schwarz-inequality.04177e0f.json",
+      "hash": "25ddfe84",
+      "file": "explainers/cauchy-schwarz-inequality.25ddfe84.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "cd-freq": {
       "hash": "4d2c4acb",
@@ -3809,10 +3809,10 @@
       "sectionCount": 5
     },
     "circle-fitting-least-squares": {
-      "hash": "962f660a",
-      "file": "explainers/circle-fitting-least-squares.962f660a.json",
+      "hash": "d69cad1a",
+      "file": "explainers/circle-fitting-least-squares.d69cad1a.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "cmrr": {
       "hash": "a7ada259",
@@ -3820,10 +3820,10 @@
       "sectionCount": 5
     },
     "compact-sets": {
-      "hash": "bc0b1eb0",
-      "file": "explainers/compact-sets.bc0b1eb0.json",
+      "hash": "5b015d15",
+      "file": "explainers/compact-sets.5b015d15.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "computational-graphs": {
       "hash": "b1e264e5",
@@ -3832,10 +3832,10 @@
       "version": 1
     },
     "condition-number-gradient-rate": {
-      "hash": "a85cf1bd",
-      "file": "explainers/condition-number-gradient-rate.a85cf1bd.json",
+      "hash": "8bd05f77",
+      "file": "explainers/condition-number-gradient-rate.8bd05f77.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "conic-duality": {
       "hash": "79620d36",
@@ -3844,10 +3844,10 @@
       "version": 1
     },
     "conjugate-gradient-method": {
-      "hash": "72c7de47",
-      "file": "explainers/conjugate-gradient-method.72c7de47.json",
+      "hash": "bf7a4b9d",
+      "file": "explainers/conjugate-gradient-method.bf7a4b9d.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "contact-pot": {
       "hash": "dd644a6e",
@@ -3860,10 +3860,10 @@
       "sectionCount": 5
     },
     "convergence-rates": {
-      "hash": "21161681",
-      "file": "explainers/convergence-rates.21161681.json",
+      "hash": "cb7035d4",
+      "file": "explainers/convergence-rates.cb7035d4.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "convex-conjugate": {
       "hash": "465e6b79",
@@ -3872,16 +3872,16 @@
       "version": 1
     },
     "convex-functions": {
-      "hash": "c478af95",
-      "file": "explainers/convex-functions.c478af95.json",
+      "hash": "0c5327f6",
+      "file": "explainers/convex-functions.0c5327f6.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "convex-optimality-global": {
-      "hash": "056091bf",
-      "file": "explainers/convex-optimality-global.056091bf.json",
+      "hash": "194633f8",
+      "file": "explainers/convex-optimality-global.194633f8.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "convex-reparameterization": {
       "hash": "5d5f4245",
@@ -3890,16 +3890,16 @@
       "version": 1
     },
     "convex-sets": {
-      "hash": "883f0433",
-      "file": "explainers/convex-sets.883f0433.json",
+      "hash": "bc878df4",
+      "file": "explainers/convex-sets.bc878df4.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "convexity-first-order": {
-      "hash": "c88d2172",
-      "file": "explainers/convexity-first-order.c88d2172.json",
+      "hash": "bad8064e",
+      "file": "explainers/convexity-first-order.bad8064e.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "convexity-second-order": {
       "hash": "802fadd5",
@@ -3973,22 +3973,22 @@
       "sectionCount": 5
     },
     "descent-directions": {
-      "hash": "b07c1c0b",
-      "file": "explainers/descent-directions.b07c1c0b.json",
+      "hash": "f268a358",
+      "file": "explainers/descent-directions.f268a358.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "descent-lemma": {
-      "hash": "b0602907",
-      "file": "explainers/descent-lemma.b0602907.json",
+      "hash": "14582380",
+      "file": "explainers/descent-lemma.14582380.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "descent-method-framework": {
-      "hash": "8002a2ea",
-      "file": "explainers/descent-method-framework.8002a2ea.json",
+      "hash": "ceb1fc5e",
+      "file": "explainers/descent-method-framework.ceb1fc5e.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "diff-dc": {
       "hash": "584335fe",
@@ -4001,10 +4001,10 @@
       "sectionCount": 5
     },
     "differentiability-multivariable": {
-      "hash": "a8142dc9",
-      "file": "explainers/differentiability-multivariable.a8142dc9.json",
+      "hash": "95c61011",
+      "file": "explainers/differentiability-multivariable.95c61011.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "diffusion": {
       "hash": "5c7c0cac",
@@ -4038,10 +4038,10 @@
       "sectionCount": 5
     },
     "directional-derivative": {
-      "hash": "3d337f4e",
-      "file": "explainers/directional-derivative.3d337f4e.json",
+      "hash": "61ca00a3",
+      "file": "explainers/directional-derivative.61ca00a3.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "discrete-time": {
       "hash": "8c80d752",
@@ -4105,10 +4105,10 @@
       "version": 1
     },
     "exact-line-search-quadratic": {
-      "hash": "214a9ce6",
-      "file": "explainers/exact-line-search-quadratic.214a9ce6.json",
+      "hash": "f3f42270",
+      "file": "explainers/exact-line-search-quadratic.f3f42270.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "excess-carriers": {
       "hash": "0b2bad25",
@@ -4122,10 +4122,10 @@
       "version": 2
     },
     "extended-kalman-filter": {
-      "hash": "af467b6b",
-      "file": "explainers/extended-kalman-filter.af467b6b.json",
+      "hash": "10d3dfb0",
+      "file": "explainers/extended-kalman-filter.10d3dfb0.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "fb-amp-errors": {
       "hash": "9955c4aa",
@@ -4173,10 +4173,10 @@
       "version": 1
     },
     "finite-difference-derivatives": {
-      "hash": "336323f6",
-      "file": "explainers/finite-difference-derivatives.336323f6.json",
+      "hash": "0b650283",
+      "file": "explainers/finite-difference-derivatives.0b650283.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "finite-horizon-sequence": {
       "hash": "ae569269",
@@ -4185,10 +4185,10 @@
       "version": 2
     },
     "first-order-optimality": {
-      "hash": "1d376058",
-      "file": "explainers/first-order-optimality.1d376058.json",
+      "hash": "50622f6e",
+      "file": "explainers/first-order-optimality.50622f6e.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "first-order-sys": {
       "hash": "4989fba9",
@@ -4197,10 +4197,10 @@
       "version": 2
     },
     "frank-wolfe-conditional-gradient": {
-      "hash": "fd053220",
-      "file": "explainers/frank-wolfe-conditional-gradient.fd053220.json",
+      "hash": "cb45e599",
+      "file": "explainers/frank-wolfe-conditional-gradient.cb45e599.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "freq-basics": {
       "hash": "991e6953",
@@ -4247,10 +4247,10 @@
       "version": 1
     },
     "fundamental-theorem-along-segment": {
-      "hash": "f507f9f4",
-      "file": "explainers/fundamental-theorem-along-segment.f507f9f4.json",
+      "hash": "3a11b67b",
+      "file": "explainers/fundamental-theorem-along-segment.3a11b67b.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "gain-scheduling": {
       "hash": "a6e354e8",
@@ -4259,10 +4259,10 @@
       "version": 1
     },
     "gauss-newton-method": {
-      "hash": "cc9f6138",
-      "file": "explainers/gauss-newton-method.cc9f6138.json",
+      "hash": "caff0e9c",
+      "file": "explainers/gauss-newton-method.caff0e9c.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "gaussian-random-vectors": {
       "hash": "dabef68b",
@@ -4299,40 +4299,40 @@
       "version": 1
     },
     "gradient-method-convergence": {
-      "hash": "5f192db3",
-      "file": "explainers/gradient-method-convergence.5f192db3.json",
+      "hash": "05cd4903",
+      "file": "explainers/gradient-method-convergence.05cd4903.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "gradient-partial-derivatives": {
-      "hash": "6d744cb2",
-      "file": "explainers/gradient-partial-derivatives.6d744cb2.json",
+      "hash": "9ae08a1a",
+      "file": "explainers/gradient-partial-derivatives.9ae08a1a.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "gradient-projection-method": {
-      "hash": "865195a2",
-      "file": "explainers/gradient-projection-method.865195a2.json",
+      "hash": "3be62c71",
+      "file": "explainers/gradient-projection-method.3be62c71.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "gradient-zigzag": {
-      "hash": "8f23d0cc",
-      "file": "explainers/gradient-zigzag.8f23d0cc.json",
+      "hash": "cd0a1bf3",
+      "file": "explainers/gradient-zigzag.cd0a1bf3.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "gram-schmidt-orthogonalization": {
-      "hash": "192ed748",
-      "file": "explainers/gram-schmidt-orthogonalization.192ed748.json",
+      "hash": "06e463b4",
+      "file": "explainers/gram-schmidt-orthogonalization.06e463b4.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "graphical-2d-optimization": {
-      "hash": "2a82b781",
-      "file": "explainers/graphical-2d-optimization.2a82b781.json",
+      "hash": "af0fed12",
+      "file": "explainers/graphical-2d-optimization.af0fed12.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "half-circuit": {
       "hash": "8239d389",
@@ -4373,10 +4373,10 @@
       "sectionCount": 5
     },
     "incremental-gradient-methods": {
-      "hash": "9630e77b",
-      "file": "explainers/incremental-gradient-methods.9630e77b.json",
+      "hash": "bfc155eb",
+      "file": "explainers/incremental-gradient-methods.bfc155eb.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "induced-matrix-norms": {
       "hash": "f9c2d010",
@@ -4385,10 +4385,10 @@
       "version": 1
     },
     "inner-products": {
-      "hash": "c65190f0",
-      "file": "explainers/inner-products.c65190f0.json",
+      "hash": "7c2869a4",
+      "file": "explainers/inner-products.7c2869a4.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "integral-action": {
       "hash": "a4fe347c",
@@ -4424,10 +4424,10 @@
       "version": 1
     },
     "kalman-recursive-least-squares": {
-      "hash": "5d9cc46c",
-      "file": "explainers/kalman-recursive-least-squares.5d9cc46c.json",
+      "hash": "4ef7619d",
+      "file": "explainers/kalman-recursive-least-squares.4ef7619d.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "kalman": {
       "hash": "362f1fbd",
@@ -4436,22 +4436,22 @@
       "version": 1
     },
     "kkt-conditions": {
-      "hash": "8359dfe5",
-      "file": "explainers/kkt-conditions.8359dfe5.json",
+      "hash": "269bdab6",
+      "file": "explainers/kkt-conditions.269bdab6.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "lagrange-multiplier-equality": {
-      "hash": "d477d06e",
-      "file": "explainers/lagrange-multiplier-equality.d477d06e.json",
+      "hash": "c670d7c8",
+      "file": "explainers/lagrange-multiplier-equality.c670d7c8.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "lagrangian-duality-lower-bounds": {
-      "hash": "4d038597",
-      "file": "explainers/lagrangian-duality-lower-bounds.4d038597.json",
+      "hash": "85dc3c1f",
+      "file": "explainers/lagrangian-duality-lower-bounds.85dc3c1f.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "laplace": {
       "hash": "6756fc0b",
@@ -4478,10 +4478,10 @@
       "version": 1
     },
     "least-squares-data-fitting": {
-      "hash": "fb67e175",
-      "file": "explainers/least-squares-data-fitting.fb67e175.json",
+      "hash": "5452e745",
+      "file": "explainers/least-squares-data-fitting.5452e745.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "least-squares-perturbation": {
       "hash": "dfbcae80",
@@ -4501,16 +4501,16 @@
       "sectionCount": 5
     },
     "level-sets-contours": {
-      "hash": "64b33101",
-      "file": "explainers/level-sets-contours.64b33101.json",
+      "hash": "c184643c",
+      "file": "explainers/level-sets-contours.c184643c.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "levenberg-marquardt": {
-      "hash": "66a1bd37",
-      "file": "explainers/levenberg-marquardt.66a1bd37.json",
+      "hash": "85fc1905",
+      "file": "explainers/levenberg-marquardt.85fc1905.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "limit-cycles": {
       "hash": "783be767",
@@ -4525,10 +4525,10 @@
       "version": 3
     },
     "linear-least-squares": {
-      "hash": "7550b25f",
-      "file": "explainers/linear-least-squares.7550b25f.json",
+      "hash": "0b3ec790",
+      "file": "explainers/linear-least-squares.0b3ec790.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "linearization": {
       "hash": "cba9e0a8",
@@ -4537,16 +4537,16 @@
       "version": 3
     },
     "lipschitz-gradient": {
-      "hash": "a8f9a407",
-      "file": "explainers/lipschitz-gradient.a8f9a407.json",
-      "sectionCount": 5,
-      "version": 1
-    },
-    "local-global-minima": {
-      "hash": "95757c84",
-      "file": "explainers/local-global-minima.95757c84.json",
+      "hash": "1664fe14",
+      "file": "explainers/lipschitz-gradient.1664fe14.json",
       "sectionCount": 5,
       "version": 2
+    },
+    "local-global-minima": {
+      "hash": "607f6349",
+      "file": "explainers/local-global-minima.607f6349.json",
+      "sectionCount": 5,
+      "version": 3
     },
     "local-linear-approximation": {
       "hash": "6d0430b1",
@@ -4584,22 +4584,22 @@
       "version": 1
     },
     "lp-duality-kkt": {
-      "hash": "cb83ec48",
-      "file": "explainers/lp-duality-kkt.cb83ec48.json",
-      "sectionCount": 5,
-      "version": 1
-    },
-    "lp-graphical-solution": {
-      "hash": "31b53eb4",
-      "file": "explainers/lp-graphical-solution.31b53eb4.json",
+      "hash": "4a35683a",
+      "file": "explainers/lp-duality-kkt.4a35683a.json",
       "sectionCount": 5,
       "version": 2
     },
-    "lp-standard-form": {
-      "hash": "743a3faf",
-      "file": "explainers/lp-standard-form.743a3faf.json",
+    "lp-graphical-solution": {
+      "hash": "dfdc8b6a",
+      "file": "explainers/lp-graphical-solution.dfdc8b6a.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 3
+    },
+    "lp-standard-form": {
+      "hash": "1db76740",
+      "file": "explainers/lp-standard-form.1db76740.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "lqr": {
       "hash": "2ef96f37",
@@ -4730,34 +4730,34 @@
       "version": 2
     },
     "nesterov-accelerated-gradient": {
-      "hash": "c3c63cdc",
-      "file": "explainers/nesterov-accelerated-gradient.c3c63cdc.json",
+      "hash": "a2d1900e",
+      "file": "explainers/nesterov-accelerated-gradient.a2d1900e.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "newton-globalization": {
-      "hash": "6eb73b2d",
-      "file": "explainers/newton-globalization.6eb73b2d.json",
+      "hash": "d4f59621",
+      "file": "explainers/newton-globalization.d4f59621.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "newton-local-quadratic-convergence": {
-      "hash": "46537920",
-      "file": "explainers/newton-local-quadratic-convergence.46537920.json",
+      "hash": "d3447336",
+      "file": "explainers/newton-local-quadratic-convergence.d3447336.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "newton-method-optimization": {
-      "hash": "8a6cc91d",
-      "file": "explainers/newton-method-optimization.8a6cc91d.json",
+      "hash": "44388363",
+      "file": "explainers/newton-method-optimization.44388363.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "newton-root-finding": {
-      "hash": "4a7a79c0",
-      "file": "explainers/newton-root-finding.4a7a79c0.json",
+      "hash": "12aaa8f8",
+      "file": "explainers/newton-root-finding.12aaa8f8.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "nl-cap": {
       "hash": "c300ad8e",
@@ -4776,10 +4776,10 @@
       "sectionCount": 5
     },
     "nonlinear-least-squares": {
-      "hash": "43f2fde6",
-      "file": "explainers/nonlinear-least-squares.43f2fde6.json",
+      "hash": "7d35f90b",
+      "file": "explainers/nonlinear-least-squares.7d35f90b.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "nyquist": {
       "hash": "79c90f67",
@@ -4832,28 +4832,28 @@
       "sectionCount": 5
     },
     "open-closed-sets": {
-      "hash": "e774ba4b",
-      "file": "explainers/open-closed-sets.e774ba4b.json",
+      "hash": "14ac07a2",
+      "file": "explainers/open-closed-sets.14ac07a2.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "optimality-over-convex-set": {
-      "hash": "2badfdbd",
-      "file": "explainers/optimality-over-convex-set.2badfdbd.json",
-      "sectionCount": 5,
-      "version": 1
-    },
-    "optimization-problem-classes": {
-      "hash": "d1e537b2",
-      "file": "explainers/optimization-problem-classes.d1e537b2.json",
-      "sectionCount": 5,
-      "version": 1
-    },
-    "optimization-problem-formulation": {
-      "hash": "a9db0844",
-      "file": "explainers/optimization-problem-formulation.a9db0844.json",
+      "hash": "40555025",
+      "file": "explainers/optimality-over-convex-set.40555025.json",
       "sectionCount": 5,
       "version": 2
+    },
+    "optimization-problem-classes": {
+      "hash": "42ab56f0",
+      "file": "explainers/optimization-problem-classes.42ab56f0.json",
+      "sectionCount": 5,
+      "version": 2
+    },
+    "optimization-problem-formulation": {
+      "hash": "9a6e163a",
+      "file": "explainers/optimization-problem-formulation.9a6e163a.json",
+      "sectionCount": 5,
+      "version": 3
     },
     "perf-specs-freq": {
       "hash": "dcab8e68",
@@ -4902,28 +4902,28 @@
       "version": 2
     },
     "polyhedra-extreme-points": {
-      "hash": "ac670b68",
-      "file": "explainers/polyhedra-extreme-points.ac670b68.json",
-      "sectionCount": 5,
-      "version": 1
-    },
-    "positive-definite-matrices": {
-      "hash": "e0b7c249",
-      "file": "explainers/positive-definite-matrices.e0b7c249.json",
+      "hash": "d242b4ba",
+      "file": "explainers/polyhedra-extreme-points.d242b4ba.json",
       "sectionCount": 5,
       "version": 2
     },
-    "power-method-eigenvector": {
-      "hash": "71e66244",
-      "file": "explainers/power-method-eigenvector.71e66244.json",
+    "positive-definite-matrices": {
+      "hash": "1e9c5447",
+      "file": "explainers/positive-definite-matrices.1e9c5447.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 3
+    },
+    "power-method-eigenvector": {
+      "hash": "52ff0861",
+      "file": "explainers/power-method-eigenvector.52ff0861.json",
+      "sectionCount": 5,
+      "version": 2
     },
     "primal-dual-interior-point": {
-      "hash": "6d5e8146",
-      "file": "explainers/primal-dual-interior-point.6d5e8146.json",
+      "hash": "dc6bf80a",
+      "file": "explainers/primal-dual-interior-point.dc6bf80a.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "principal-component-analysis": {
       "hash": "b330dc28",
@@ -4938,22 +4938,22 @@
       "version": 1
     },
     "projection-affine-halfspace-kkt": {
-      "hash": "9b510068",
-      "file": "explainers/projection-affine-halfspace-kkt.9b510068.json",
+      "hash": "04c0f124",
+      "file": "explainers/projection-affine-halfspace-kkt.04c0f124.json",
+      "sectionCount": 5,
+      "version": 3
+    },
+    "projection-onto-convex-set": {
+      "hash": "6f7a3d11",
+      "file": "explainers/projection-onto-convex-set.6f7a3d11.json",
       "sectionCount": 5,
       "version": 2
     },
-    "projection-onto-convex-set": {
-      "hash": "9d0a4cf5",
-      "file": "explainers/projection-onto-convex-set.9d0a4cf5.json",
-      "sectionCount": 5,
-      "version": 1
-    },
     "q-conjugate-directions": {
-      "hash": "b5dbdf4e",
-      "file": "explainers/q-conjugate-directions.b5dbdf4e.json",
+      "hash": "79eefbcd",
+      "file": "explainers/q-conjugate-directions.79eefbcd.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "qr-factorization": {
       "hash": "a96301ea",
@@ -4962,10 +4962,10 @@
       "version": 1
     },
     "quadratic-function-minimization": {
-      "hash": "1e887a40",
-      "file": "explainers/quadratic-function-minimization.1e887a40.json",
+      "hash": "eca098a3",
+      "file": "explainers/quadratic-function-minimization.eca098a3.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "quadratic-program": {
       "hash": "6a4577e5",
@@ -4980,16 +4980,16 @@
       "version": 1
     },
     "quasi-newton-secant": {
-      "hash": "b85d24ef",
-      "file": "explainers/quasi-newton-secant.b85d24ef.json",
+      "hash": "ff127dc5",
+      "file": "explainers/quasi-newton-secant.ff127dc5.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "rayleigh-quotient": {
-      "hash": "05f6cb07",
-      "file": "explainers/rayleigh-quotient.05f6cb07.json",
+      "hash": "bb98c903",
+      "file": "explainers/rayleigh-quotient.bb98c903.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "rc-lpf": {
       "hash": "1774e805",
@@ -5061,10 +5061,10 @@
       "version": 1
     },
     "scaled-gradient-projection": {
-      "hash": "5a4d84e5",
-      "file": "explainers/scaled-gradient-projection.5a4d84e5.json",
+      "hash": "f232e787",
+      "file": "explainers/scaled-gradient-projection.f232e787.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "second-order-cone-program": {
       "hash": "756c35cd",
@@ -5073,10 +5073,10 @@
       "version": 1
     },
     "second-order-optimality": {
-      "hash": "72a9d8a8",
-      "file": "explainers/second-order-optimality.72a9d8a8.json",
+      "hash": "f8c7b499",
+      "file": "explainers/second-order-optimality.f8c7b499.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "second-order-sys": {
       "hash": "bfc75d01",
@@ -5114,28 +5114,28 @@
       "sectionCount": 5
     },
     "simplex-feasible-directions": {
-      "hash": "ad6d8b41",
-      "file": "explainers/simplex-feasible-directions.ad6d8b41.json",
+      "hash": "a18a7d0e",
+      "file": "explainers/simplex-feasible-directions.a18a7d0e.json",
+      "sectionCount": 5,
+      "version": 3
+    },
+    "simplex-method-iteration": {
+      "hash": "9c278056",
+      "file": "explainers/simplex-method-iteration.9c278056.json",
       "sectionCount": 5,
       "version": 2
     },
-    "simplex-method-iteration": {
-      "hash": "b3d92474",
-      "file": "explainers/simplex-method-iteration.b3d92474.json",
-      "sectionCount": 5,
-      "version": 1
-    },
     "simplex-phase-one": {
-      "hash": "b67e05df",
-      "file": "explainers/simplex-phase-one.b67e05df.json",
+      "hash": "1b9f1d5a",
+      "file": "explainers/simplex-phase-one.1b9f1d5a.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "singular-value-decomposition": {
-      "hash": "355bc863",
-      "file": "explainers/singular-value-decomposition.355bc863.json",
+      "hash": "4c4ec551",
+      "file": "explainers/singular-value-decomposition.4c4ec551.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "sinusoid-resp": {
       "hash": "4f74accf",
@@ -5200,10 +5200,10 @@
       "version": 1
     },
     "stationary-point-classification": {
-      "hash": "3e2ee4bc",
-      "file": "explainers/stationary-point-classification.3e2ee4bc.json",
+      "hash": "6ce1060f",
+      "file": "explainers/stationary-point-classification.6ce1060f.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "step-resp": {
       "hash": "b7c68e31",
@@ -5236,16 +5236,16 @@
       "version": 1
     },
     "sufficient-decrease-lemma": {
-      "hash": "8656eeb6",
-      "file": "explainers/sufficient-decrease-lemma.8656eeb6.json",
+      "hash": "fc3f889a",
+      "file": "explainers/sufficient-decrease-lemma.fc3f889a.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "svm-quadratic-program": {
-      "hash": "421f0e6c",
-      "file": "explainers/svm-quadratic-program.421f0e6c.json",
+      "hash": "7bebc0b0",
+      "file": "explainers/svm-quadratic-program.7bebc0b0.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "sys-id": {
       "hash": "36e3d63e",
@@ -5254,16 +5254,16 @@
       "version": 2
     },
     "taylor-approximation-multivariable": {
-      "hash": "53934dde",
-      "file": "explainers/taylor-approximation-multivariable.53934dde.json",
+      "hash": "7f9e7dc4",
+      "file": "explainers/taylor-approximation-multivariable.7f9e7dc4.json",
       "sectionCount": 5,
-      "version": 2
+      "version": 3
     },
     "taylor-exact-mean-value": {
-      "hash": "4025ce6e",
-      "file": "explainers/taylor-exact-mean-value.4025ce6e.json",
+      "hash": "3dba25bc",
+      "file": "explainers/taylor-exact-mean-value.3dba25bc.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     },
     "tf": {
       "hash": "e86d962f",
@@ -5322,10 +5322,10 @@
       "version": 1
     },
     "wolfe-conditions": {
-      "hash": "919be9e5",
-      "file": "explainers/wolfe-conditions.919be9e5.json",
+      "hash": "0e758586",
+      "file": "explainers/wolfe-conditions.0e758586.json",
       "sectionCount": 5,
-      "version": 1
+      "version": 2
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "skill_id": "bjt-ss",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "id": "bjt-ss-r1-q1",
@@ -118,11 +118,10 @@
       "explanation": "\\(g_m\\) is linear in \\(I_C\\), and both \\(r_\\pi\\) and \\(r_o\\) scale as \\(1/I_C\\). They do not all double, and \\(g_m\\) does not rise by \\(\\sqrt{2}\\). That square-root law is a MOSFET of fixed size. \\(V_{th}\\) here is \\(kT/q\\), not a MOS threshold. The intrinsic gain does not depend on the bias current.",
       "steps": [
         "\\(g_m = I_C/V_{th}\\), so doubling the bias current doubles \\(g_m\\).",
-        "\\(r_\\pi = \\beta/g_m\\), and \\(\\beta\\) is fixed, so that larger \\(g_m\\) cuts \\(r_\\pi\\) in half.",
-        "\\(r_o = V_A/I_C\\), so the same doubled current that raised \\(g_m\\) also cuts \\(r_o\\) in half.",
-        "The product \\(g_m r_o\\) stays at \\(V_A/V_{th}\\), because the factor of two in \\(g_m\\) cancels the factor of one half in \\(r_o\\)."
+        "That larger \\(g_m\\) cuts \\(r_\\pi = \\beta/g_m\\) in half because \\(\\beta\\) is fixed, and the same doubled current cuts \\(r_o = V_A/I_C\\) in half.",
+        "The product \\(g_m r_o\\) stays at \\(V_A/V_{th}\\), because the factor of two in \\(g_m\\) cancels the factor of one half in \\(r_o\\). The halved \\(r_\\pi\\) does not enter that product."
       ],
-      "version": 1,
+      "version": 2,
       "id": "bjt-ss-r3-q4"
     },
     {

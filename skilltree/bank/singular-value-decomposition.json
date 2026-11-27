@@ -1,6 +1,6 @@
 {
   "skill_id": "singular-value-decomposition",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "round": 1,
@@ -62,12 +62,10 @@
       "type": "numeric",
       "prompt": "How many nonzero singular values does \\(C = \\begin{bmatrix} 1 & 1 \\\\ 0 & 0 \\end{bmatrix}\\) have?",
       "explanation": "\\(C^T C = \\begin{bmatrix} 1 & 1 \\\\ 1 & 1 \\end{bmatrix}\\) has eigenvalues 2 and 0, so one singular value is positive. That count is the rank. Counting both columns would give 2, which ignores the dependence between them.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
-      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
       "answer": 1.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "singular-value-decomposition-r2-q2",
@@ -75,8 +73,6 @@
       "type": "mc",
       "prompt": "The geometry of \\(A = U \\Sigma V^T\\) is",
       "explanation": "\\(V^T\\) changes to the right singular basis, \\(\\Sigma\\) stretches those axes, and \\(U\\) rotates into the output coordinates. There is no translation. Omitting the stretch would preserve every length.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>arrows on the axes</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e2</text></svg>",
-      "figure_alt": "Two arrows point along the coordinate axes.",
       "options": [
         "a translation, then a stretch",
         "a stretch along the original axes only",
@@ -84,7 +80,7 @@
         "a single rotation, with no stretch"
       ],
       "correct_index": 2,
-      "version": 1
+      "version": 2
     },
     {
       "id": "singular-value-decomposition-r2-q3",
@@ -92,12 +88,10 @@
       "type": "numeric",
       "prompt": "What is the largest singular value of \\(C = \\begin{bmatrix} 1 & 1 \\\\ 0 & 0 \\end{bmatrix}\\)?",
       "explanation": "The nonzero eigenvalue of \\(C^T C\\) is 2, so the singular value is \\(\\sqrt{2}\\). The Frobenius norm \\(\\sqrt{2}\\) happens to agree here because the other singular value is 0. Reporting the eigenvalue 2 skips the square root.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
-      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
       "answer": 1.41421,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "round": 3,
@@ -187,8 +181,6 @@
       "type": "mc",
       "prompt": "If a coefficient matrix in a least-squares problem has a zero singular value, then",
       "explanation": "A zero singular value means a nontrivial null vector, so the columns are dependent. Adding that null vector does not change \\(Ax\\), and the least-squares minimizer is a whole affine space. Independent columns are exactly the case of a positive smallest singular value.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   1</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
-      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
       "preview": [
         "least-squares-quadratic"
       ],
@@ -199,7 +191,7 @@
         "the matrix is square and invertible"
       ],
       "correct_index": 2,
-      "version": 2
+      "version": 3
     }
   ],
   "retired_questions": [

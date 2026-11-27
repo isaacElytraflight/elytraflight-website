@@ -1,0 +1,521 @@
+{
+  "id": "audit-136",
+  "label": "Audit 136 ordering and decorative figures",
+  "box": "Nonlinear Optimization (nlo-tugraz)",
+  "skills": [
+    "ad-forward-mode",
+    "ad-reverse-mode",
+    "adaptive",
+    "affine-scaling-method",
+    "amp-choice",
+    "amp-compensation",
+    "armijo-backtracking",
+    "basic-feasible-solutions",
+    "bfgs-update",
+    "bjt-ss",
+    "calculus-of-variations",
+    "cauchy-schwarz-inequality",
+    "circle-fitting-least-squares",
+    "cmrr",
+    "compact-sets",
+    "condition-number-gradient-rate",
+    "conjugate-gradient-method",
+    "convergence-rates",
+    "convex-functions",
+    "convex-optimality-global",
+    "convex-sets",
+    "convexity-first-order",
+    "convexity-second-order",
+    "descent-directions",
+    "descent-lemma",
+    "descent-method-framework",
+    "differentiability-multivariable",
+    "directional-derivative",
+    "eig-modes",
+    "exact-line-search-quadratic",
+    "existence-of-minimizers",
+    "extended-kalman-filter",
+    "finite-difference-derivatives",
+    "finite-horizon-sequence",
+    "first-order-optimality",
+    "first-order-sys",
+    "frank-wolfe-conditional-gradient",
+    "freq-basics",
+    "frobenius-schatten-norms",
+    "fund-limits",
+    "fundamental-theorem-along-segment",
+    "gain-scheduling",
+    "gauss-newton-method",
+    "gaussian-random-vectors",
+    "gen-controller",
+    "gradient-method-convergence",
+    "gradient-partial-derivatives",
+    "gradient-projection-method",
+    "gradient-zigzag",
+    "gram-schmidt-orthogonalization",
+    "graphical-2d-optimization",
+    "heavy-ball-method",
+    "hessian-matrix",
+    "hessian-vector-products-ad",
+    "incremental-gradient-methods",
+    "inner-products",
+    "jacobian-chain-rule",
+    "kalman",
+    "kalman-recursive-least-squares",
+    "kkt-conditions",
+    "lagrange-multiplier-equality",
+    "lagrangian-duality-lower-bounds",
+    "largest-inscribed-ellipsoid",
+    "least-squares-data-fitting",
+    "level-sets-contours",
+    "levenberg-marquardt",
+    "linear-least-squares",
+    "linearization",
+    "lipschitz-gradient",
+    "local-global-minima",
+    "local-linear-approximation",
+    "loop-shaping",
+    "lp-duality-kkt",
+    "lp-graphical-solution",
+    "lp-standard-form",
+    "lqr",
+    "lti-circuits",
+    "lti-def",
+    "lti-mech",
+    "matrix-calculus-gradients",
+    "nesterov-accelerated-gradient",
+    "newton-globalization",
+    "newton-local-quadratic-convergence",
+    "newton-method-optimization",
+    "newton-root-finding",
+    "noise-dist",
+    "nonlinear-least-squares",
+    "open-closed-sets",
+    "optimality-over-convex-set",
+    "optimization-problem-classes",
+    "optimization-problem-formulation",
+    "pid-tuning",
+    "polyhedra-extreme-points",
+    "positive-definite-matrices",
+    "power-method-eigenvector",
+    "primal-dual-interior-point",
+    "projection-affine-halfspace-kkt",
+    "projection-onto-convex-set",
+    "q-conjugate-directions",
+    "quadratic-function-minimization",
+    "quasi-newton-secant",
+    "rayleigh-quotient",
+    "reachability",
+    "rn-important-subsets",
+    "robust-perf",
+    "root-locus",
+    "scaled-gradient-projection",
+    "second-order-optimality",
+    "second-order-sys",
+    "sensitivity",
+    "separation",
+    "simplex-feasible-directions",
+    "simplex-method-iteration",
+    "simplex-phase-one",
+    "singular-value-decomposition",
+    "sinusoid-resp",
+    "spectral-decomposition",
+    "stability",
+    "stationary-point-classification",
+    "sufficient-decrease-lemma",
+    "svm-quadratic-program",
+    "sys-id",
+    "taylor-approximation-multivariable",
+    "taylor-exact-mean-value",
+    "trajectory-optimization",
+    "vector-norms-lp",
+    "wolfe-conditions"
+  ],
+  "areas": {
+    "ad-forward-mode": [
+      "optimization"
+    ],
+    "ad-reverse-mode": [
+      "optimization"
+    ],
+    "adaptive": [
+      "optimization"
+    ],
+    "affine-scaling-method": [
+      "optimization"
+    ],
+    "amp-choice": [
+      "optimization"
+    ],
+    "amp-compensation": [
+      "optimization"
+    ],
+    "armijo-backtracking": [
+      "optimization"
+    ],
+    "basic-feasible-solutions": [
+      "optimization"
+    ],
+    "bfgs-update": [
+      "optimization"
+    ],
+    "bjt-ss": [
+      "optimization"
+    ],
+    "calculus-of-variations": [
+      "optimization"
+    ],
+    "cauchy-schwarz-inequality": [
+      "optimization"
+    ],
+    "circle-fitting-least-squares": [
+      "optimization"
+    ],
+    "cmrr": [
+      "optimization"
+    ],
+    "compact-sets": [
+      "optimization"
+    ],
+    "condition-number-gradient-rate": [
+      "optimization"
+    ],
+    "conjugate-gradient-method": [
+      "optimization"
+    ],
+    "convergence-rates": [
+      "optimization"
+    ],
+    "convex-functions": [
+      "optimization"
+    ],
+    "convex-optimality-global": [
+      "optimization"
+    ],
+    "convex-sets": [
+      "optimization"
+    ],
+    "convexity-first-order": [
+      "optimization"
+    ],
+    "convexity-second-order": [
+      "optimization"
+    ],
+    "descent-directions": [
+      "optimization"
+    ],
+    "descent-lemma": [
+      "optimization"
+    ],
+    "descent-method-framework": [
+      "optimization"
+    ],
+    "differentiability-multivariable": [
+      "optimization"
+    ],
+    "directional-derivative": [
+      "optimization"
+    ],
+    "eig-modes": [
+      "optimization"
+    ],
+    "exact-line-search-quadratic": [
+      "optimization"
+    ],
+    "existence-of-minimizers": [
+      "optimization"
+    ],
+    "extended-kalman-filter": [
+      "optimization"
+    ],
+    "finite-difference-derivatives": [
+      "optimization"
+    ],
+    "finite-horizon-sequence": [
+      "optimization"
+    ],
+    "first-order-optimality": [
+      "optimization"
+    ],
+    "first-order-sys": [
+      "optimization"
+    ],
+    "frank-wolfe-conditional-gradient": [
+      "optimization"
+    ],
+    "freq-basics": [
+      "optimization"
+    ],
+    "frobenius-schatten-norms": [
+      "optimization"
+    ],
+    "fund-limits": [
+      "optimization"
+    ],
+    "fundamental-theorem-along-segment": [
+      "optimization"
+    ],
+    "gain-scheduling": [
+      "optimization"
+    ],
+    "gauss-newton-method": [
+      "optimization"
+    ],
+    "gaussian-random-vectors": [
+      "optimization"
+    ],
+    "gen-controller": [
+      "optimization"
+    ],
+    "gradient-method-convergence": [
+      "optimization"
+    ],
+    "gradient-partial-derivatives": [
+      "optimization"
+    ],
+    "gradient-projection-method": [
+      "optimization"
+    ],
+    "gradient-zigzag": [
+      "optimization"
+    ],
+    "gram-schmidt-orthogonalization": [
+      "optimization"
+    ],
+    "graphical-2d-optimization": [
+      "optimization"
+    ],
+    "heavy-ball-method": [
+      "optimization"
+    ],
+    "hessian-matrix": [
+      "optimization"
+    ],
+    "hessian-vector-products-ad": [
+      "optimization"
+    ],
+    "incremental-gradient-methods": [
+      "optimization"
+    ],
+    "inner-products": [
+      "optimization"
+    ],
+    "jacobian-chain-rule": [
+      "optimization"
+    ],
+    "kalman": [
+      "optimization"
+    ],
+    "kalman-recursive-least-squares": [
+      "optimization"
+    ],
+    "kkt-conditions": [
+      "optimization"
+    ],
+    "lagrange-multiplier-equality": [
+      "optimization"
+    ],
+    "lagrangian-duality-lower-bounds": [
+      "optimization"
+    ],
+    "largest-inscribed-ellipsoid": [
+      "optimization"
+    ],
+    "least-squares-data-fitting": [
+      "optimization"
+    ],
+    "level-sets-contours": [
+      "optimization"
+    ],
+    "levenberg-marquardt": [
+      "optimization"
+    ],
+    "linear-least-squares": [
+      "optimization"
+    ],
+    "linearization": [
+      "optimization"
+    ],
+    "lipschitz-gradient": [
+      "optimization"
+    ],
+    "local-global-minima": [
+      "optimization"
+    ],
+    "local-linear-approximation": [
+      "optimization"
+    ],
+    "loop-shaping": [
+      "optimization"
+    ],
+    "lp-duality-kkt": [
+      "optimization"
+    ],
+    "lp-graphical-solution": [
+      "optimization"
+    ],
+    "lp-standard-form": [
+      "optimization"
+    ],
+    "lqr": [
+      "optimization"
+    ],
+    "lti-circuits": [
+      "optimization"
+    ],
+    "lti-def": [
+      "optimization"
+    ],
+    "lti-mech": [
+      "optimization"
+    ],
+    "matrix-calculus-gradients": [
+      "optimization"
+    ],
+    "nesterov-accelerated-gradient": [
+      "optimization"
+    ],
+    "newton-globalization": [
+      "optimization"
+    ],
+    "newton-local-quadratic-convergence": [
+      "optimization"
+    ],
+    "newton-method-optimization": [
+      "optimization"
+    ],
+    "newton-root-finding": [
+      "optimization"
+    ],
+    "noise-dist": [
+      "optimization"
+    ],
+    "nonlinear-least-squares": [
+      "optimization"
+    ],
+    "open-closed-sets": [
+      "optimization"
+    ],
+    "optimality-over-convex-set": [
+      "optimization"
+    ],
+    "optimization-problem-classes": [
+      "optimization"
+    ],
+    "optimization-problem-formulation": [
+      "optimization"
+    ],
+    "pid-tuning": [
+      "optimization"
+    ],
+    "polyhedra-extreme-points": [
+      "optimization"
+    ],
+    "positive-definite-matrices": [
+      "optimization"
+    ],
+    "power-method-eigenvector": [
+      "optimization"
+    ],
+    "primal-dual-interior-point": [
+      "optimization"
+    ],
+    "projection-affine-halfspace-kkt": [
+      "optimization"
+    ],
+    "projection-onto-convex-set": [
+      "optimization"
+    ],
+    "q-conjugate-directions": [
+      "optimization"
+    ],
+    "quadratic-function-minimization": [
+      "optimization"
+    ],
+    "quasi-newton-secant": [
+      "optimization"
+    ],
+    "rayleigh-quotient": [
+      "optimization"
+    ],
+    "reachability": [
+      "optimization"
+    ],
+    "rn-important-subsets": [
+      "optimization"
+    ],
+    "robust-perf": [
+      "optimization"
+    ],
+    "root-locus": [
+      "optimization"
+    ],
+    "scaled-gradient-projection": [
+      "optimization"
+    ],
+    "second-order-optimality": [
+      "optimization"
+    ],
+    "second-order-sys": [
+      "optimization"
+    ],
+    "sensitivity": [
+      "optimization"
+    ],
+    "separation": [
+      "optimization"
+    ],
+    "simplex-feasible-directions": [
+      "optimization"
+    ],
+    "simplex-method-iteration": [
+      "optimization"
+    ],
+    "simplex-phase-one": [
+      "optimization"
+    ],
+    "singular-value-decomposition": [
+      "optimization"
+    ],
+    "sinusoid-resp": [
+      "optimization"
+    ],
+    "spectral-decomposition": [
+      "optimization"
+    ],
+    "stability": [
+      "optimization"
+    ],
+    "stationary-point-classification": [
+      "optimization"
+    ],
+    "sufficient-decrease-lemma": [
+      "optimization"
+    ],
+    "svm-quadratic-program": [
+      "optimization"
+    ],
+    "sys-id": [
+      "optimization"
+    ],
+    "taylor-approximation-multivariable": [
+      "optimization"
+    ],
+    "taylor-exact-mean-value": [
+      "optimization"
+    ],
+    "trajectory-optimization": [
+      "optimization"
+    ],
+    "vector-norms-lp": [
+      "optimization"
+    ],
+    "wolfe-conditions": [
+      "optimization"
+    ]
+  },
+  "sources": "docs/sources.md",
+  "notation": "docs/notation.md",
+  "plan": "docs/skill-tree-content-SOP.md",
+  "verifier": "skilltree/verify_audit_136.py"
+}

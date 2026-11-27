@@ -1,6 +1,6 @@
 {
   "skill_id": "eig-modes",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "id": "eig-modes-r1-q1",
@@ -146,16 +146,15 @@
       "round": 2,
       "type": "order",
       "prompt": "Put these steps in the order you would use to read a complex mode \\(\\sigma + j\\omega\\) with \\(\\sigma < 0\\).",
-      "explanation": "The real part is the decay. Its absolute value is the rate, and the time constant is the reciprocal of that rate. The imaginary part is the oscillation, in radians per second. A real matrix that has one complex eigenvalue also has the conjugate, so the pair is one oscillatory mode, not two unrelated real modes.",
+      "explanation": "The real part and the imaginary part are read together, because neither reading uses the other. The time constant is the reciprocal of the decay rate only. A real matrix that has this complex eigenvalue also has the conjugate, so the pair is one oscillatory mode.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 180\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>A complex conjugate pair</title><line x1=\"20\" y1=\"92\" x2=\"280\" y2=\"92\"/><polygon points=\"280,92 273.6,94.7 273.6,89.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"187.8\" y1=\"160\" x2=\"187.8\" y2=\"16\"/><polygon points=\"187.8,16 190.5,22.4 185.1,22.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"274\" y=\"108\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Re</text><text x=\"195.8\" y=\"14\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">Im</text><line x1=\"93.2\" y1=\"31\" x2=\"103.2\" y2=\"41\" stroke-width=\"1.8\"/><line x1=\"93.2\" y1=\"41\" x2=\"103.2\" y2=\"31\" stroke-width=\"1.8\"/><line x1=\"93.2\" y1=\"143\" x2=\"103.2\" y2=\"153\" stroke-width=\"1.8\"/><line x1=\"93.2\" y1=\"153\" x2=\"103.2\" y2=\"143\" stroke-width=\"1.8\"/></svg>",
       "figure_alt": "Two poles symmetric across the real axis.",
       "steps": [
-        "Read the decay rate from the absolute value of the real part.",
-        "Take the time constant as the reciprocal of that decay rate.",
-        "Read the oscillation rate from the imaginary part.",
-        "Keep the conjugate partner, because a real matrix produces both."
+        "Read the decay rate from the absolute value of the real part, and read the oscillation rate from the imaginary part of the same eigenvalue.",
+        "Take the time constant as the reciprocal of the decay rate just read. Do not invert the oscillation rate.",
+        "Keep the conjugate partner of the mode whose time constant was just computed, because a real matrix produces both members of the pair."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "eig-modes-r3-q4",

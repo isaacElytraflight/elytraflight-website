@@ -1,19 +1,19 @@
 {
   "skill_id": "lti-def",
-  "version": 4,
+  "version": 5,
   "questions": [
     {
       "round": 1,
       "type": "order",
       "prompt": "Put these checks in the order used to test whether a system is linear.",
-      "explanation": "Superposition is a prediction: the response to a sum has to equal the sum of the responses. The separate runs come first, or there is nothing to add. The comparison is last, because it is the test rather than a setup step. Adding the outputs before the inputs have been applied skips the prediction the definition asks for.",
+      "explanation": "The separate runs come first, or there is no pair of outputs to add. The prediction is the weighted sum of those outputs, and the combined drive has to use the same weights, so the drive comes after that prediction. The comparison is last.",
       "steps": [
         "Drive the system with two inputs separately and record each output.",
-        "Drive it with one weighted sum of those same two inputs.",
-        "Form that same weighted sum from the two recorded outputs.",
-        "Compare the prediction with the output the weighted sum actually produced."
+        "Form the weighted sum of those recorded outputs. That sum is the prediction for one particular set of weights.",
+        "Drive the system with the weighted sum of the inputs that uses those same weights.",
+        "Compare the prediction just formed with the output this drive produced."
       ],
-      "version": 1,
+      "version": 2,
       "id": "lti-def-r1-q4"
     },
     {

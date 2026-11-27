@@ -1,6 +1,6 @@
 {
   "skill_id": "gaussian-random-vectors",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "gaussian-random-vectors-r1-q1",
@@ -91,16 +91,15 @@
       "round": 2,
       "type": "order",
       "prompt": "Put these steps in the order you would use them to get the covariance of \\(A x + d\\) for a fixed matrix \\(A\\) and a fixed vector \\(d\\).",
-      "explanation": "A shift changes the mean and not \\(P\\), so it leaves first. \\(P\\) is the object the linear map acts on. The image covariance is \\(A P A^T\\), and only then do the diagonal entries become the new variances. Multiplying by \\(A\\) before you have \\(P\\) has nothing to transform.",
+      "explanation": "The covariance \\(P\\) is formed from the centered vector, and the constant shift \\(d\\) is dropped in that same step because a shift does not change \\(P\\). The image covariance is \\(A P A^T\\). Only then do the diagonal entries become the variances of \\(Ax + d\\).",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal covariance</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">3   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   5</text></svg>",
       "figure_alt": "A 2 by 2 matrix with 3 and 5 on the diagonal and zeros off it.",
       "steps": [
-        "Drop the added vector d. A constant shift does not change the covariance.",
-        "Center x by its mean and form the covariance P.",
-        "Multiply on the left by A and on the right by A transpose.",
-        "Read the diagonal of that product as the variances of the components."
+        "Center \\(x\\) by its mean and form the covariance \\(P\\). Drop the added vector \\(d\\) in this same step, because a constant shift does not change that covariance.",
+        "Multiply that covariance on the left by \\(A\\) and on the right by \\(A\\) transpose.",
+        "Read the diagonal of that product as the variances of the components of \\(Ax + d\\)."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "gaussian-random-vectors-r3-q1",

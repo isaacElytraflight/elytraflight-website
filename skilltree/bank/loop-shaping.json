@@ -1,6 +1,6 @@
 {
   "skill_id": "loop-shaping",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "loop-shaping-r1-q1",
@@ -97,10 +97,10 @@
         "Read the uncompensated crossover and phase margin.",
         "Choose a lead ratio and center its phase bump on the intended crossover.",
         "Set the gain so the loop crosses over inside that bump.",
-        "Add lag or PI below crossover only if the low-frequency gain is still short.",
+        "After the gain has placed the crossover inside that bump, add lag or PI below that crossover only if the low-frequency gain is still short.",
         "Read the margins again at the crossover you actually got."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "loop-shaping-r3-q1",

@@ -1,6 +1,6 @@
 {
   "skill_id": "finite-horizon-sequence",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "finite-horizon-sequence-r1-q1",
@@ -37,16 +37,16 @@
       "round": 1,
       "type": "order",
       "prompt": "Put these steps in the order that writes a finite-horizon sequence problem.",
-      "explanation": "The horizon length comes first, because it fixes how long the list is. The list is the decision. The objective adds a term on that list. The dynamics then restrict which lists are feasible. Treating the dynamics as the cost, or choosing the list before the horizon length is known, writes a different problem.",
+      "explanation": "The horizon length comes first, because it fixes how long the list is. The list of that length is the decision. The stage costs and the dynamics are both written on that same list, in one step, because either statement can be written first and each only needs the list. A feasible plan is a sequence that meets the dynamics and is scored by those stage costs.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>Three inputs in a row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">u0   u1   u2</text></svg>",
       "figure_alt": "A short row of decision values.",
       "steps": [
         "Choose the number of steps in the horizon.",
-        "Name the sequence of inputs or states as the decision.",
-        "Add a stage cost at each step to make the objective.",
-        "Write the dynamics as a constraint at each step."
+        "Name the sequence of inputs or states, of that length, as the decision.",
+        "Add a stage cost at each step of that sequence to make the objective, and write the dynamics as a constraint on the same sequence.",
+        "A feasible plan is then a sequence that meets every dynamics constraint just written, and the objective scores that sequence by its stage costs."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "finite-horizon-sequence-r2-q1",

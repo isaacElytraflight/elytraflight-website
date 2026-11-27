@@ -1,12 +1,10 @@
 {
   "id": "open-closed-sets",
   "title": "Open and closed sets in R^n",
-  "version": 2,
+  "version": 3,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 220\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>disk centered at the origin</title><line x1=\"28\" y1=\"112\" x2=\"252\" y2=\"112\"/><polygon points=\"252,112 245.6,114.7 245.6,109.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"196\" x2=\"140\" y2=\"28\"/><polygon points=\"140,28 142.7,34.4 137.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"246\" y=\"128\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"32\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><circle cx=\"140\" cy=\"112\" r=\"64\" fill=\"currentColor\" fill-opacity=\"0.12\"/><circle cx=\"140\" cy=\"112\" r=\"2.6\" fill=\"currentColor\"/></svg>",
-      "figure_alt": "A filled disk centered at the origin.",
       "body_md": "Open and closed describe how a set sits relative to its edge. Fix a norm on \\(\\mathbb{R}^n\\). The open ball of radius \\(r > 0\\) about \\(x\\) is every point whose distance to \\(x\\) is strictly less than \\(r\\). The closed ball uses \\(\\le\\) and therefore includes the sphere.\n\nA point of a set is an interior point when some open ball about it lies entirely in the set. The set is open when every one of its points is interior. A limit point is a point that every ball meets the set in some other point. The set is closed when it contains all of its limit points. Equivalently, its complement is open, and equivalently it contains its boundary.\n\nThe boundary is the set of points where every ball meets both the set and the complement. The closure is the set with its boundary added. The empty set and the whole space are both open and closed. Plenty of sets are neither: a half-open interval contains one endpoint and misses the other."
     },
     {

@@ -1,12 +1,10 @@
 {
   "id": "basic-feasible-solutions",
   "title": "Constructing basic feasible solutions",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a two-column array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   n</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">1   0</text></svg>",
-      "figure_alt": "A small array with two short rows of labels.",
       "body_md": "Standard form describes the feasible set by \\(Ax = b\\) and \\(x \\ge 0\\). Assume \\(A\\) has full row rank, with \\(m\\) rows and \\(n\\) columns, and \\(n \\ge m\\). A basis is a choice of \\(m\\) independent columns, written \\(B\\). The remaining columns are nonbasic.\n\nSet the nonbasic variables to zero and solve the square system \\(B x_B = b\\). The solution \\(x_B = B^{-1} b\\), with zeros elsewhere, is a basic solution. It is a basic feasible solution when \\(x_B \\ge 0\\). A negative entry means the columns were independent and the point is still outside the polyhedron. A zero entry among the basic variables is allowed. The point is feasible, and the basis is called degenerate.\n\nIf the feasible set is nonempty, it has at least one basic feasible solution. If in addition the linear objective is bounded below, the minimum is attained, and it is attained at a basic feasible solution. Searching the whole polyhedron can therefore be replaced by searching these points. There are finitely many bases, hence finitely many candidates, though listing all of them is not the practical algorithm."
     },
     {

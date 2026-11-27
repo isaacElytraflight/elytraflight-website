@@ -1,6 +1,6 @@
 {
   "skill_id": "lqr",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "lqr-r1-q1",
@@ -95,12 +95,12 @@
       "figure_alt": "A plant block with a gain K returned and subtracted.",
       "steps": [
         "Choose the state weight and the control weight.",
-        "Solve the algebraic Riccati equation for the cost matrix.",
-        "Set the gain to the inverse of the control weight times B transpose times that matrix.",
-        "Check that A minus B K is stable.",
-        "Read a larger control weight as a reason to use less command, not more."
+        "Solve the algebraic Riccati equation for the cost matrix, using those weights.",
+        "Set the gain to the inverse of the control weight times \\(B\\) transpose times that matrix.",
+        "Check that \\(A - BK\\) is stable for the gain just set.",
+        "Because that gain has the control weight in the inverse, read a larger control weight as a reason to use less command, not more."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "lqr-r3-q1",
