@@ -148,11 +148,19 @@ main{flex:1;position:relative;min-height:0}
 .blob .ct{font-size:12px;font-weight:700;color:var(--ink2);white-space:nowrap;flex:none;padding-top:5px}
 .tile{position:absolute;width:168px;height:72px;border-radius:14px;border:2.5px solid var(--c);background:#fff;overflow:hidden;text-align:left;padding:7px 9px 6px;
   display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 2px 0 rgba(0,0,0,.07);transition:transform .15s, box-shadow .15s, opacity .3s;color:var(--ink)}
-/* Each card is its own layer, so the hover lift repaints the card and not #world.
-   Do not set z-index here: a stacking change invalidates the scaled world layer
-   and Chrome re-rasters it (the clip grows as 1/scale and the tree flashes). */
-#world .tile{will-change:transform}
+/* Do not set z-index on tiles: a stacking change invalidates the scaled
+   world layer and Chrome re-rasters it (the clip grows as 1/scale). */
 .tile:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 8px 18px rgba(40,50,90,.2)}
+/* Zoomed-in cards are already their own layer, so the hover lift (transform
+   and box-shadow) paints the card instead of the scaled world. Promoting
+   that layer only on :hover is too late: the first hover frame still
+   invalidates #world. Lights-mode dots stay unpromoted — hundreds of those
+   layers dropped course blocks while the world was panning. */
+#world .tile:not(.light-mode){will-change:transform}
+/* Drop those layers a frame before a view transition. Leaving hundreds of
+   composited cards inside the scaled world keeps the transform transition
+   pending, so a fit or home zoom does not move. */
+#world.preanim .tile,#world.anim .tile{will-change:auto}
 .tile .fill{position:absolute;left:0;right:0;bottom:0;height:var(--fill,0%);background:var(--cs);transition:height .9s cubic-bezier(.3,1.4,.5,1)}
 .tile>*:not(.fill){position:relative;z-index:1}
 .tile .nm{font-size:11.3px;line-height:1.2;font-weight:650;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -173,6 +181,12 @@ main{flex:1;position:relative;min-height:0}
 .ready{border-style:dashed;border-color:var(--c);animation:glow 2.2s ease-in-out infinite}
 .ready .tag{background:var(--c);color:var(--tc)}
 @keyframes glow{0%,100%{box-shadow:0 0 0 0 var(--cs)}50%{box-shadow:0 0 0 7px transparent}}
+/* The card pulse is a compositor opacity/scale, not a box-shadow repaint.
+   Ready cards have no fill, so the ring may extend past the rounded corner. */
+.tile.ready{animation:none;overflow:visible}
+.tile.ready::after{content:"";position:absolute;inset:-6px;border-radius:18px;border:2px solid var(--cs);pointer-events:none;opacity:.8;transform:scale(.96);animation:ready-ring 2.2s ease-in-out infinite}
+@keyframes ready-ring{0%,100%{opacity:.8;transform:scale(.96)}50%{opacity:0;transform:scale(1.08)}}
+.tile.light-mode.ready::after{content:none;animation:none}
 .soon{border-style:dashed;border-color:#ccd1dd;background:repeating-linear-gradient(135deg,#f7f8fb 0 8px,#eceff5 8px 16px);color:#7c869b}
 .soon .tag{background:#dfe3ec;color:#667089}
 .soon .pips i{opacity:.5}
@@ -384,12 +398,14 @@ header #btnProfile.ready{--c:var(--accent);--cs:rgba(108,92,231,.5)}
 .exp-body li{margin:4px 0}
 
 /* Lights mode (zoomed-out view).
-   #treeView --light-inv is 1/zoom, clamped, and applied when the zoom settles.
-   Dot size and the ring are layout pixels times that factor, so a 14px dot
-   stays 14 screen px. A transform scale here would re-raster the cards on
-   every zoom step (the paint clip grows as 1/scale). The mastered fill was
-   the same color as the dot; it is a muted tint, and a ring separates them.
-   Twinkle animates only opacity and filter. */
+   #treeView --light-inv is clamp(zoom / (2 * min zoom), 0.5, 1) / zoom,
+   capped, and applied when the zoom settles. A 14px dot stays 14 screen px
+   from twice the minimum zoom up to this threshold. Below that the variable
+   is constant (5), so the world transform shrinks the dot smoothly: about
+   7 screen px at min zoom, with no per-frame style recalc. A transform scale
+   on the dot itself would re-raster the cards (the paint clip grows as
+   1/scale). The mastered fill was the same color as the dot; it is a muted
+   tint, and a ring separates them. Twinkle is opacity plus a halo scale. */
 .tile.light-mode{background:transparent!important;border:none!important;box-shadow:none!important;overflow:visible}
 /* Card hover lifts with a transform. That promotes a layer inside the scaled #world and re-rasters the whole tree, which flashes white. Dots do not lift. */
 .tile.light-mode:hover{transform:none;z-index:auto}
@@ -407,11 +423,19 @@ header #btnProfile.ready{--c:var(--accent);--cs:rgba(108,92,231,.5)}
 .tile.t2.light-mode .light-dot{box-shadow:0 0 0 calc(1.5px * var(--light-inv,1)) rgba(20,24,36,.8),0 0 calc(3px * var(--light-inv,1)) calc(1px * var(--light-inv,1)) var(--light-glow)}
 .tile.t3 .light-dot{background:var(--c);--light-glow:color-mix(in srgb,var(--c) 65%,transparent)}
 .tile.t3.light-mode .light-dot{box-shadow:0 0 0 calc(1.5px * var(--light-inv,1)) #fff,0 0 0 calc(3px * var(--light-inv,1)) rgba(20,24,36,.72),0 0 calc(4px * var(--light-inv,1)) calc(1px * var(--light-inv,1)) var(--light-glow)}
-.tile.t4.light-mode .light-dot{background:var(--c);--light-glow:var(--c);box-shadow:0 0 0 calc(1.5px * var(--light-inv,1)) #fff,0 0 0 calc(3px * var(--light-inv,1)) rgba(20,24,36,.78),0 0 calc(6px * var(--light-inv,1)) calc(2px * var(--light-inv,1)) var(--light-glow);animation:shimmer 3s ease-in-out infinite;animation-delay:var(--shimmer-delay,0s)}
-@keyframes shimmer{0%,100%{opacity:.86;filter:brightness(1)}50%{opacity:1;filter:brightness(1.85)}}
+.tile.t4.light-mode .light-dot{position:relative;background:var(--c);--light-glow:var(--c);box-shadow:0 0 0 calc(1.5px * var(--light-inv,1)) #fff,0 0 0 calc(3px * var(--light-inv,1)) rgba(20,24,36,.78),0 0 calc(6px * var(--light-inv,1)) calc(2px * var(--light-inv,1)) var(--light-glow);animation:shimmer 3s ease-in-out infinite;animation-delay:var(--shimmer-delay,0s)}
+.tile.t4.light-mode .light-dot::after{content:"";position:absolute;inset:-28%;border-radius:50%;background:var(--light-glow,var(--c));pointer-events:none;opacity:.35;transform:scale(.9);animation:shimmer-halo 3s ease-in-out infinite;animation-delay:var(--shimmer-delay,0s)}
+@keyframes shimmer{0%,100%{opacity:.78}50%{opacity:1}}
+@keyframes shimmer-halo{0%,100%{opacity:.18;transform:scale(.86)}50%{opacity:.55;transform:scale(1.05)}}
 @media (prefers-reduced-motion:reduce){
   .tile.t4.light-mode .light-dot{animation:none;opacity:1;filter:none;box-shadow:0 0 0 calc(1.5px * var(--light-inv,1)) #fff,0 0 0 calc(3px * var(--light-inv,1)) rgba(20,24,36,.78),0 0 calc(8px * var(--light-inv,1)) calc(3px * var(--light-inv,1)) var(--light-glow)}
+  .tile.t4.light-mode .light-dot::after{animation:none;opacity:0;transform:none}
 }
+/* Panning and zooming drop the infinite pulses so they do not keep a layer
+   or a paint per ready card and mastered dot while the world is moving. */
+#treeView.interacting .tile.ready::after,
+#treeView.interacting .tile.t4.light-mode .light-dot,
+#treeView.interacting .tile.t4.light-mode .light-dot::after{animation:none !important}
 #world.lights-view .tile{transition:background .2s,border-color .2s}
 /* Static structure lines. Opacity stays the zoomed-in value so the opacity transition never runs.
    stroke-opacity .42 times that .38 is about .16. The width is in layout pixels: #world is one

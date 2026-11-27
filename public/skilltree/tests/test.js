@@ -1477,12 +1477,21 @@ async function test(name, fn) {
         });
         const box = dot.getBoundingClientRect();
         const plain = document.querySelector('#world .tile.t0 .light-dot').getBoundingClientRect();
+        const halo = [...document.getAnimations()].find(a => a.animationName === 'shimmer-halo');
+        const haloProps = halo
+          ? [...new Set(halo.effect.getKeyframes().flatMap(frame => Object.keys(frame)))]
+            .filter(key => key !== 'offset' && key !== 'easing' && key !== 'composite' && key !== 'computedOffset')
+          : [];
+        const factor = window.__skillgrove.lights.dotFactor(scale);
         resolve({
           lights: window.__skillgrove.lights.mode(),
           inv: getComputedStyle(document.getElementById('treeView')).getPropertyValue('--light-inv').trim(),
+          factor,
+          expect: 14 * factor,
           w: box.width,
           h: box.height,
           plain: plain.width,
+          halo: haloProps,
           dot: cs.backgroundColor,
           fill: getComputedStyle(tile.querySelector('.fill')).backgroundColor,
           tile: getComputedStyle(tile).backgroundColor,
@@ -1499,18 +1508,21 @@ async function test(name, fn) {
     }), scale);
 
     const far = await measure(0.12);
+    const twice = await measure(0.2);
     const near = await measure(0.36);
     const clamped = await measure(0.02);
     const channels = (color) => color.match(/[\d.]+/g).map(Number).slice(0, 3);
     const chroma = (color) => { const c = channels(color); return Math.max(...c) - Math.min(...c); };
 
-    assert(far.lights && near.lights, 'both scales are lights mode');
-    assert.strictEqual(far.inv, '8.333', far.inv);
+    assert(far.lights && near.lights && twice.lights, 'these scales are lights mode');
+    assert.strictEqual(far.inv, '5.000', far.inv);
+    assert.strictEqual(twice.inv, '5.000', twice.inv);
     assert.strictEqual(near.inv, '2.778', near.inv);
-    assert(Math.abs(far.w - 14) < 1.5 && Math.abs(far.h - 14) < 1.5, 'full zoom-out dot is 14 screen px, got ' + far.w);
+    assert(Math.abs(far.w - far.expect) < 1.5 && Math.abs(far.h - far.expect) < 1.5, 'zoom 0.12 dot follows the factor, got ' + far.w + ' want ' + far.expect);
+    assert(Math.abs(twice.w - 14) < 1.5, 'twice min zoom keeps the 14px dot, got ' + twice.w);
     assert(Math.abs(near.w - 14) < 1.5, 'near-threshold dot is 14 screen px, got ' + near.w);
-    assert(Math.abs(far.w - near.w) < 1.5, 'screen size should not follow the world scale');
-    assert(Math.abs(far.plain - 14) < 1.5, 'unpracticed dots use the same screen size');
+    assert(far.w < twice.w - 3, 'the dot shrinks as zoom drops below twice the minimum');
+    assert(Math.abs(far.plain - far.w) < 1.5, 'unpracticed dots use the same screen size');
     assert.strictEqual(clamped.inv, '12.000', clamped.inv);
     assert(clamped.w < 6, 'inverse zoom is clamped, width ' + clamped.w);
     assert(chroma(far.dot) > chroma(far.fill) + 40, 'dot ' + far.dot + ' should stand off the muted fill ' + far.fill);
@@ -1519,7 +1531,8 @@ async function test(name, fn) {
     assert.strictEqual(far.duration, '3s');
     assert.strictEqual(far.iterations, 'infinite');
     assert(far.delay >= 1 && far.delay <= 5, 'stagger delay ' + far.delay);
-    assert.deepStrictEqual(far.props.sort(), ['filter', 'opacity']);
+    assert.deepStrictEqual(far.props.sort(), ['opacity']);
+    assert.deepStrictEqual(far.halo.sort(), ['opacity', 'transform']);
     assert.strictEqual(far.lower, false, 'only mastered dots twinkle');
     for (let i = 0; i < 3; i++) assert.notStrictEqual(far.tiers[i], far.tiers[i + 1], 'tier ' + i + ' matches ' + (i + 1) + ' ' + far.tiers.join(' | '));
 
@@ -1545,16 +1558,20 @@ async function test(name, fn) {
     assert(mid.w < 36, 'dots ballooned to ' + mid.w + 'px during the zoom (inv ' + mid.inv + ', scale ' + mid.scale + ')');
     await sleep(550);
     const settled = await p.evaluate(() => {
+      const world = document.getElementById('world');
       const dot = document.querySelector('#world .tile.t4 .light-dot');
+      const m = /scale\(([-\d.]+)\)/.exec(world.style.transform || '');
+      const scale = m ? parseFloat(m[1]) : 1;
       return {
-        anim: document.getElementById('world').classList.contains('anim'),
+        anim: world.classList.contains('anim'),
         w: dot.getBoundingClientRect().width,
-        lights: window.__skillgrove.lights.mode()
+        lights: window.__skillgrove.lights.mode(),
+        expect: 14 * window.__skillgrove.lights.dotFactor(scale)
       };
     });
     assert.strictEqual(settled.anim, false);
     assert(settled.lights, 'the fitted tree is in lights mode');
-    assert(Math.abs(settled.w - 14) < 2, 'after the zoom the dot settles to 14 screen px, got ' + settled.w);
+    assert(Math.abs(settled.w - settled.expect) < 2, 'after the zoom the dot settles to ' + settled.expect + ' screen px, got ' + settled.w);
 
     await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
     await p.reload({ waitUntil: 'networkidle0' });
@@ -1564,7 +1581,8 @@ async function test(name, fn) {
     assert.strictEqual(reduced.name, 'none');
     assert.strictEqual(reduced.props.length, 0);
     assert(/0px 0px \d/.test(reduced.shadow), 'reduced motion keeps a static glow: ' + reduced.shadow);
-    assert(Math.abs(reduced.w - 14) < 1.5, 'reduced motion dot stays screen-sized');
+    assert(Math.abs(reduced.w - reduced.expect) < 1.5, 'reduced motion dot follows the zoom factor, got ' + reduced.w);
+    assert.deepStrictEqual(reduced.halo, []);
 
     await p._ctx.close();
   });
@@ -4623,6 +4641,8 @@ async function test(name, fn) {
     await p.evaluate(() => window.__releaseSession());
     await p.waitForSelector('#btnSignIn.ready');
     const signedOut = await p.evaluate(() => {
+      window.__skillgrove.lights.setScale(1);
+      document.getElementById('treeView').classList.remove('interacting');
       const btn = document.getElementById('btnSignIn');
       const tile = document.querySelector('#world .tile.ready');
       const btnCss = getComputedStyle(btn);
@@ -4631,13 +4651,15 @@ async function test(name, fn) {
         profileReady: document.getElementById('btnProfile').classList.contains('ready'),
         animation: btnCss.animationName,
         tileAnimation: tile ? getComputedStyle(tile).animationName : '',
+        tileRing: tile ? getComputedStyle(tile, '::after').animationName : '',
         borderStyle: btnCss.borderStyle
       };
     });
     assert.strictEqual(signedOut.label, 'Sign in');
     assert.strictEqual(signedOut.profileReady, false);
     assert.strictEqual(signedOut.animation, 'glow');
-    assert.strictEqual(signedOut.animation, signedOut.tileAnimation);
+    assert.strictEqual(signedOut.tileAnimation, 'none');
+    assert.strictEqual(signedOut.tileRing, 'ready-ring');
     assert.strictEqual(signedOut.borderStyle, 'dashed');
 
     await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
