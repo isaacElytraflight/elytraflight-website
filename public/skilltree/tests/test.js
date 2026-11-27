@@ -1495,7 +1495,7 @@ async function test(name, fn) {
           tiers,
           lower: document.querySelector('#world .tile.t3 .light-dot').getAnimations().some(a => a.animationName === 'shimmer')
         });
-      }, 250);
+      }, 450);
     }), scale);
 
     const far = await measure(0.12);
@@ -1522,6 +1522,39 @@ async function test(name, fn) {
     assert.deepStrictEqual(far.props.sort(), ['filter', 'opacity']);
     assert.strictEqual(far.lower, false, 'only mastered dots twinkle');
     for (let i = 0; i < 3; i++) assert.notStrictEqual(far.tiers[i], far.tiers[i + 1], 'tier ' + i + ' matches ' + (i + 1) + ' ' + far.tiers.join(' | '));
+
+    await p.evaluate(() => window.__skillgrove.lights.setScale(1));
+    await sleep(80);
+    await p.evaluate(() => document.getElementById('zFit').click());
+    await sleep(200);
+    const mid = await p.evaluate(() => {
+      const world = document.getElementById('world');
+      const parts = (getComputedStyle(world).transform || '').replace(/^matrix\(|\)$/g, '').split(',').map(s => parseFloat(s));
+      const dot = document.querySelector('#world .tile.t4 .light-dot');
+      return {
+        anim: world.classList.contains('anim'),
+        scale: parts.length >= 1 ? parts[0] : 1,
+        inline: world.style.transform,
+        computed: getComputedStyle(world).transform,
+        w: dot.getBoundingClientRect().width,
+        inv: getComputedStyle(document.getElementById('treeView')).getPropertyValue('--light-inv').trim()
+      };
+    });
+    assert(mid.anim, 'fit should animate into lights mode');
+    assert(mid.scale < 0.85, 'the fit zoom should have started, scale ' + mid.scale + ' inline ' + mid.inline + ' computed ' + mid.computed);
+    assert(mid.w < 36, 'dots ballooned to ' + mid.w + 'px during the zoom (inv ' + mid.inv + ', scale ' + mid.scale + ')');
+    await sleep(550);
+    const settled = await p.evaluate(() => {
+      const dot = document.querySelector('#world .tile.t4 .light-dot');
+      return {
+        anim: document.getElementById('world').classList.contains('anim'),
+        w: dot.getBoundingClientRect().width,
+        lights: window.__skillgrove.lights.mode()
+      };
+    });
+    assert.strictEqual(settled.anim, false);
+    assert(settled.lights, 'the fitted tree is in lights mode');
+    assert(Math.abs(settled.w - 14) < 2, 'after the zoom the dot settles to 14 screen px, got ' + settled.w);
 
     await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
     await p.reload({ waitUntil: 'networkidle0' });

@@ -1892,18 +1892,31 @@ function syncLightInv(immediate) {
   syncLightInv.hold = now;
   clearTimeout(syncLightInv.t);
   const wait = (immediate || quiet) ? 0 : 90;
-  syncLightInv.t = setTimeout(() => {
+  const step = () => {
     syncLightInv.t = null;
     if (view.s >= LIGHTS_THRESHOLD) return;
+    // Fit and Home set the destination scale while the transform is still
+    // easing. Sizing for that destination makes the dots balloon, then shrink.
+    if (world.classList.contains('anim')) {
+      syncLightInv.t = setTimeout(step, 80);
+      return;
+    }
     applyLightInv(view.s);
-  }, wait);
+  };
+  syncLightInv.t = setTimeout(step, wait);
 }
 
 function applyView() {
   world.style.transform = `translate(${view.x}px,${view.y}px) scale(${view.s})`;
   const shouldLights = view.s < LIGHTS_THRESHOLD;
   if (shouldLights) syncLightInv(shouldLights !== lightsMode);
-  else if (syncLightInv.t) { clearTimeout(syncLightInv.t); syncLightInv.t = null; }
+  else {
+    if (syncLightInv.t) { clearTimeout(syncLightInv.t); syncLightInv.t = null; }
+    if (tv && syncLightInv.cur !== '1.000') {
+      syncLightInv.cur = '1.000';
+      tv.style.setProperty('--light-inv', '1.000');
+    }
+  }
   if (shouldLights !== lightsMode) {
     lightsMode = shouldLights;
     world.classList.toggle('lights-view', lightsMode);
