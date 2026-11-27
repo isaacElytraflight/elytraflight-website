@@ -1864,15 +1864,28 @@ function applyEdgeHighlight() {
   followEdgeHi();
 }
 
+const MINS = .1;
 const LIGHTS_THRESHOLD = 0.38;
-/* 1/zoom for screen-sized dots. 12 is above 1/MINS so normal zoom is unclamped,
+/* Layout px per screen px. 12 is above 1/MINS so normal zoom is unclamped,
    and a scale below the minimum cannot inflate the dot without bound. */
 const LIGHT_INV_MAX = 12;
 let lightsMode = false;
+/* Fit/Home start a transform transition and would also restyle every tile
+   into lights mode in that same frame. Chrome then leaves the transition
+   pending (currentTime stays 0), so the zoom never moves. Hold the class
+   change until the transition ends. */
+let lightsHold = false;
+
+/* On-screen radius relative to the old constant 14px dot.
+   Half at min zoom, full size at twice min zoom and above. */
+function lightDotFactor(scale) {
+  const s = scale > 0 && Number.isFinite(scale) ? scale : 1;
+  return Math.min(1, Math.max(0.5, s / (2 * MINS)));
+}
 
 function lightInvZoom(scale) {
   const s = scale > 0 && Number.isFinite(scale) ? scale : 1;
-  return Math.min(LIGHT_INV_MAX, Math.max(1, 1 / s)).toFixed(3);
+  return Math.min(LIGHT_INV_MAX, Math.max(1, lightDotFactor(s) / s)).toFixed(3);
 }
 
 function applyLightInv(scale) {
@@ -1891,7 +1904,11 @@ function syncLightInv(immediate) {
   const quiet = !syncLightInv.hold || now - syncLightInv.hold > 120;
   syncLightInv.hold = now;
   clearTimeout(syncLightInv.t);
-  const wait = (immediate || quiet) ? 0 : 90;
+  const target = lightInvZoom(view.s);
+  /* Below twice min zoom the inverse is constant, so one write lets the
+     world transform shrink the dots for the rest of the gesture. */
+  const enterPlateau = target === (1 / (2 * MINS)).toFixed(3) && syncLightInv.cur !== target;
+  const wait = (immediate || quiet || enterPlateau) ? 0 : 90;
   const step = () => {
     syncLightInv.t = null;
     if (view.s >= LIGHTS_THRESHOLD) return;
@@ -1906,10 +1923,59 @@ function syncLightInv(immediate) {
   syncLightInv.t = setTimeout(step, wait);
 }
 
+function markInteracting(ms) {
+  if (!tv) return;
+  const hold = ms == null ? 180 : ms;
+  if (!tv.classList.contains('interacting')) tv.classList.add('interacting');
+  const until = Date.now() + hold;
+  if (!markInteracting.until || until > markInteracting.until) markInteracting.until = until;
+  clearTimeout(markInteracting.t);
+  const end = () => {
+    if (!tv) return;
+    if (drag.on) { markInteracting.until = Date.now() + 180; markInteracting.t = setTimeout(end, 180); return; }
+    const wait = markInteracting.until - Date.now();
+    if (wait > 0) { markInteracting.t = setTimeout(end, wait); return; }
+    tv.classList.remove('interacting');
+  };
+  markInteracting.t = setTimeout(end, Math.max(0, markInteracting.until - Date.now()));
+}
+
+function scheduleInteract() {
+  if (scheduleInteract.queued) return;
+  scheduleInteract.queued = true;
+  requestAnimationFrame(() => {
+    scheduleInteract.queued = false;
+    // After the transform is committed, so the class change does not share a
+    // style pass with the world transition and stall its first frame.
+    markInteracting(world && world.classList.contains('anim') ? 560 : 180);
+  });
+}
+
+function commitLightsMode(on) {
+  if (lightsMode === on) return;
+  lightsMode = on;
+  world.classList.toggle('lights-view', lightsMode);
+  world.querySelectorAll('.tile').forEach(t => t.classList.toggle('light-mode', lightsMode));
+  applyEdgeHighlight();
+}
+
+function releaseLightsHold() {
+  if (!lightsHold) return;
+  lightsHold = false;
+  const on = view.s < LIGHTS_THRESHOLD;
+  if (on) applyLightInv(view.s);
+  commitLightsMode(on);
+}
+
 function applyView() {
+  scheduleInteract();
   world.style.transform = `translate(${view.x}px,${view.y}px) scale(${view.s})`;
   const shouldLights = view.s < LIGHTS_THRESHOLD;
-  if (shouldLights) syncLightInv(shouldLights !== lightsMode);
+  const animating = world.classList.contains('anim');
+  const deferLights = shouldLights && !lightsMode && animating;
+  if (deferLights) lightsHold = true;
+  else if (!animating) lightsHold = false;
+  if (shouldLights) syncLightInv(shouldLights !== lightsMode && !deferLights);
   else {
     if (syncLightInv.t) { clearTimeout(syncLightInv.t); syncLightInv.t = null; }
     if (tv && syncLightInv.cur !== '1.000') {
@@ -1917,15 +1983,30 @@ function applyView() {
       tv.style.setProperty('--light-inv', '1.000');
     }
   }
-  if (shouldLights !== lightsMode) {
-    lightsMode = shouldLights;
-    world.classList.toggle('lights-view', lightsMode);
-    world.querySelectorAll('.tile').forEach(t => t.classList.toggle('light-mode', lightsMode));
-    applyEdgeHighlight();
-  } else refreshEdgeHi();
+  if (deferLights) refreshEdgeHi();
+  else if (shouldLights !== lightsMode) commitLightsMode(shouldLights);
+  else refreshEdgeHi();
 }
-function animateView(fn) { world.classList.add('anim'); fn(); clearTimeout(animateView.t); animateView.t = setTimeout(() => world.classList.remove('anim'), 500) }
-const MINS = .1;
+function animateView(fn) {
+  // Flatten per-card layers before the transform changes. Doing both in one
+  // frame leaves the transition pending and the zoom appears stuck.
+  animateView.fn = fn;
+  if (animateView.queued) return;
+  animateView.queued = true;
+  world.classList.add('preanim');
+  requestAnimationFrame(() => {
+    animateView.queued = false;
+    const run = animateView.fn;
+    world.classList.remove('preanim');
+    world.classList.add('anim');
+    run();
+    clearTimeout(animateView.t);
+    animateView.t = setTimeout(() => {
+      world.classList.remove('anim');
+      releaseLightsHold();
+    }, 500);
+  });
+}
 
 function fitBox(x, y, w, h, maxS, minS) {
   const vw = tv.clientWidth - (panelOpen() ? 372 : 0), vh = tv.clientHeight, m = 30;
@@ -5811,7 +5892,7 @@ async function init() {
     retired: () => (DATA && DATA.retired) || {},
     qa: { bankMeta: () => bankMeta, bankCache: () => bankCache, fetchBank, prepareQ, renderQuiz, setQuiz: q => { quiz = q }, closeQuizUI, openQuiz: () => quizEl.classList.add('open'), figureNode, katexErrors: () => window.__katexErrors },
     explainers: { meta: () => explainerMeta, cache: () => explainerCache, fetch: fetchExplainer, has: hasExplainer, open: openExplainer },
-    lights: { mode: () => lightsMode, threshold: LIGHTS_THRESHOLD, setScale: s => { view.s = s; applyView(); } },
+    lights: { mode: () => lightsMode, threshold: LIGHTS_THRESHOLD, minZoom: MINS, dotFactor: lightDotFactor, setScale: s => { view.s = s; applyView(); } },
     collections: { 
       data: () => COLLECTIONS, boxById: () => boxById, skillToBoxes: () => skillToBoxes, getSkillBox, getSkillColorIndex,
       selected: () => selectedInOrder(), setSelected: (ids, opts) => setScope(ids, opts),
