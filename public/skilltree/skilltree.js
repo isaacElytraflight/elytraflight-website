@@ -1865,11 +1865,45 @@ function applyEdgeHighlight() {
 }
 
 const LIGHTS_THRESHOLD = 0.38;
+/* 1/zoom for screen-sized dots. 12 is above 1/MINS so normal zoom is unclamped,
+   and a scale below the minimum cannot inflate the dot without bound. */
+const LIGHT_INV_MAX = 12;
 let lightsMode = false;
+
+function lightInvZoom(scale) {
+  const s = scale > 0 && Number.isFinite(scale) ? scale : 1;
+  return Math.min(LIGHT_INV_MAX, Math.max(1, 1 / s)).toFixed(3);
+}
+
+function applyLightInv(scale) {
+  const inv = lightInvZoom(scale);
+  if (syncLightInv.cur === inv || !tv) return;
+  syncLightInv.cur = inv;
+  tv.style.setProperty('--light-inv', inv);
+}
+
+/* Wheel zoom calls applyView every frame. Writing --light-inv in that same
+   turn re-rasters the scaled world (the paint clip grows as 1/scale). A quiet
+   change waits until the next task. A burst waits until the zoom settles. */
+function syncLightInv(immediate) {
+  if (!tv) return;
+  const now = Date.now();
+  const quiet = !syncLightInv.hold || now - syncLightInv.hold > 120;
+  syncLightInv.hold = now;
+  clearTimeout(syncLightInv.t);
+  const wait = (immediate || quiet) ? 0 : 90;
+  syncLightInv.t = setTimeout(() => {
+    syncLightInv.t = null;
+    if (view.s >= LIGHTS_THRESHOLD) return;
+    applyLightInv(view.s);
+  }, wait);
+}
 
 function applyView() {
   world.style.transform = `translate(${view.x}px,${view.y}px) scale(${view.s})`;
   const shouldLights = view.s < LIGHTS_THRESHOLD;
+  if (shouldLights) syncLightInv(shouldLights !== lightsMode);
+  else if (syncLightInv.t) { clearTimeout(syncLightInv.t); syncLightInv.t = null; }
   if (shouldLights !== lightsMode) {
     lightsMode = shouldLights;
     world.classList.toggle('lights-view', lightsMode);

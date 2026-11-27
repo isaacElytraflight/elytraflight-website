@@ -1450,6 +1450,92 @@ async function test(name, fn) {
     await p._ctx.close();
   });
 
+  await test('lights mode dots stay screen-sized, twinkle, and contrast with the tile', async () => {
+    const p = await newPage(T({
+      'bode': { tier: 4, lastPracticed: now - DAY, history: [] },
+      'phasors': { tier: 3, lastPracticed: now - DAY, history: [] },
+      'lti-def': { tier: 2, lastPracticed: now - DAY, history: [] },
+      'cx-exp': { tier: 1, lastPracticed: now - DAY, history: [] },
+      'rc-lpf': { tier: 0, lastPracticed: now - DAY, history: [] }
+    }));
+    await showAll(p);
+
+    const measure = (scale) => p.evaluate(scale => new Promise(resolve => {
+      window.__skillgrove.lights.setScale(scale);
+      setTimeout(() => {
+        const dot = document.querySelector('#world .tile.t4 .light-dot');
+        const tile = dot.closest('.tile');
+        const cs = getComputedStyle(dot);
+        const anim = [...dot.getAnimations()].find(a => a.animationName === 'shimmer');
+        const props = anim
+          ? [...new Set(anim.effect.getKeyframes().flatMap(frame => Object.keys(frame)))]
+            .filter(key => key !== 'offset' && key !== 'easing' && key !== 'composite' && key !== 'computedOffset')
+          : [];
+        const tiers = [0, 1, 2, 3, 4].map(tier => {
+          const el = document.querySelector('#world .tile.t' + tier + ' .light-dot');
+          return el ? getComputedStyle(el).backgroundColor : '';
+        });
+        const box = dot.getBoundingClientRect();
+        const plain = document.querySelector('#world .tile.t0 .light-dot').getBoundingClientRect();
+        resolve({
+          lights: window.__skillgrove.lights.mode(),
+          inv: getComputedStyle(document.getElementById('treeView')).getPropertyValue('--light-inv').trim(),
+          w: box.width,
+          h: box.height,
+          plain: plain.width,
+          dot: cs.backgroundColor,
+          fill: getComputedStyle(tile.querySelector('.fill')).backgroundColor,
+          tile: getComputedStyle(tile).backgroundColor,
+          shadow: cs.boxShadow,
+          name: cs.animationName,
+          duration: cs.animationDuration,
+          iterations: cs.animationIterationCount,
+          delay: parseFloat(cs.animationDelay),
+          props,
+          tiers,
+          lower: document.querySelector('#world .tile.t3 .light-dot').getAnimations().some(a => a.animationName === 'shimmer')
+        });
+      }, 250);
+    }), scale);
+
+    const far = await measure(0.12);
+    const near = await measure(0.36);
+    const clamped = await measure(0.02);
+    const channels = (color) => color.match(/[\d.]+/g).map(Number).slice(0, 3);
+    const chroma = (color) => { const c = channels(color); return Math.max(...c) - Math.min(...c); };
+
+    assert(far.lights && near.lights, 'both scales are lights mode');
+    assert.strictEqual(far.inv, '8.333', far.inv);
+    assert.strictEqual(near.inv, '2.778', near.inv);
+    assert(Math.abs(far.w - 14) < 1.5 && Math.abs(far.h - 14) < 1.5, 'full zoom-out dot is 14 screen px, got ' + far.w);
+    assert(Math.abs(near.w - 14) < 1.5, 'near-threshold dot is 14 screen px, got ' + near.w);
+    assert(Math.abs(far.w - near.w) < 1.5, 'screen size should not follow the world scale');
+    assert(Math.abs(far.plain - 14) < 1.5, 'unpracticed dots use the same screen size');
+    assert.strictEqual(clamped.inv, '12.000', clamped.inv);
+    assert(clamped.w < 6, 'inverse zoom is clamped, width ' + clamped.w);
+    assert(chroma(far.dot) > chroma(far.fill) + 40, 'dot ' + far.dot + ' should stand off the muted fill ' + far.fill);
+    assert(far.shadow.includes('px'), far.shadow);
+    assert.strictEqual(far.name, 'shimmer');
+    assert.strictEqual(far.duration, '3s');
+    assert.strictEqual(far.iterations, 'infinite');
+    assert(far.delay >= 1 && far.delay <= 5, 'stagger delay ' + far.delay);
+    assert.deepStrictEqual(far.props.sort(), ['filter', 'opacity']);
+    assert.strictEqual(far.lower, false, 'only mastered dots twinkle');
+    for (let i = 0; i < 3; i++) assert.notStrictEqual(far.tiers[i], far.tiers[i + 1], 'tier ' + i + ' matches ' + (i + 1) + ' ' + far.tiers.join(' | '));
+
+    await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
+    await p.reload({ waitUntil: 'networkidle0' });
+    await sleep(300);
+    await showAll(p);
+    const reduced = await measure(0.12);
+    assert.strictEqual(reduced.name, 'none');
+    assert.strictEqual(reduced.props.length, 0);
+    assert(/0px 0px \d/.test(reduced.shadow), 'reduced motion keeps a static glow: ' + reduced.shadow);
+    assert(Math.abs(reduced.w - 14) < 1.5, 'reduced motion dot stays screen-sized');
+
+    await p._ctx.close();
+  });
+
   await test('lights mode hover does not repaint the tree or change its pixels', async () => {
     const p = await newPage();
     await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
