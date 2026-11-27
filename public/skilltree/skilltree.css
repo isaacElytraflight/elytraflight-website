@@ -106,6 +106,9 @@ main{flex:1;position:relative;min-height:0}
 #regionLabels{position:absolute;left:0;top:0;z-index:7;pointer-events:none}
 .region-label{position:absolute;z-index:7;pointer-events:none;font:800 11px/1.15 system-ui,sans-serif;padding:1px 5px;border:1.5px solid;border-radius:8px;background:rgba(255,255,255,.94);white-space:nowrap}
 #edges path{fill:none;stroke:#9aa3b8;stroke-width:1.6;opacity:.38;transition:opacity .2s}
+/* Off-screen strokes are not painted. The path box stays, so highlight
+   geometry and the mask still line up when the cull brings one back. */
+#edges path.offscreen,#edges circle.offscreen{visibility:hidden}
 #edges circle{fill:#9aa3b8;opacity:.45}
 /* .active is not applied on hover anymore: it repaints the scaled world layer. */
 #edges.active path{opacity:.07}
@@ -151,16 +154,36 @@ main{flex:1;position:relative;min-height:0}
 /* Do not set z-index on tiles: a stacking change invalidates the scaled
    world layer and Chrome re-rasters it (the clip grows as 1/scale). */
 .tile:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 8px 18px rgba(40,50,90,.2)}
-/* Zoomed-in cards are already their own layer, so the hover lift (transform
-   and box-shadow) paints the card instead of the scaled world. Promoting
-   that layer only on :hover is too late: the first hover frame still
-   invalidates #world. Lights-mode dots stay unpromoted — hundreds of those
-   layers dropped course blocks while the world was panning. */
-#world .tile:not(.light-mode){will-change:transform}
-/* Drop those layers a frame before a view transition. Leaving hundreds of
-   composited cards inside the scaled world keeps the transform transition
-   pending, so a fit or home zoom does not move. */
-#world.preanim .tile,#world.anim .tile{will-change:auto}
+/* A layer on every tile, including ones outside the viewport, is what made
+   zoomed-in pans expensive. Off-screen cards are not layers. A card inside
+   the cull margin is promoted so its hover lift paints the card instead of
+   the scaled world (promoting on :hover alone is one frame too late and
+   re-rasters #world). The focused card is promoted even if the cull class
+   is still on. Lights-mode dots stay unpromoted. The pre-animation rule
+   drops the layers so a fit or home zoom is not left pending. */
+#world .tile:not(.light-mode):not(.offscreen),
+#world .tile:not(.light-mode):is(:hover,:focus,:focus-visible){will-change:transform}
+#world.preanim .tile:not(.light-mode),#world.anim .tile:not(.light-mode),
+#world.preanim .tile:is(:hover,:focus,:focus-visible),
+#world.anim .tile:is(:hover,:focus,:focus-visible){will-change:auto}
+/* Zoomed-in cull. content-visibility skips the card's contents; clearing the
+   chrome skips the box itself. Geometry, tab order, hit testing, and the
+   aria-label stay. A hovered or focused card is never skipped, so a keyboard
+   focus still draws the card even if the class is a frame behind. */
+#world .tile.offscreen:not(:hover):not(:focus):not(:focus-visible){
+  content-visibility:hidden;
+  background:transparent!important;border-color:transparent!important;box-shadow:none!important;
+  /* box-shadow is on the tile's transition list. Animating it for every card
+     that leaves the viewport keeps shadows in flight and shifts pixels on
+     the cards that stay. */
+  transition:none}
+#treeView.bench-on #world .tile:not(.bench-card),
+#treeView.bench-on #regions,
+#treeView.bench-on #regionLabels,
+#treeView.bench-on .clone-tag,
+#treeView.bench-on .need-stub,
+#treeView.bench-on #edges path:not(.bench-edge),
+#treeView.bench-on #edges circle{visibility:hidden!important}
 .tile .fill{position:absolute;left:0;right:0;bottom:0;height:var(--fill,0%);background:var(--cs);transition:height .9s cubic-bezier(.3,1.4,.5,1)}
 .tile>*:not(.fill){position:relative;z-index:1}
 .tile .nm{font-size:11.3px;line-height:1.2;font-weight:650;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
