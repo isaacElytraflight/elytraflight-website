@@ -82,7 +82,7 @@ label.chk{display:inline-flex;gap:5px;align-items:center;font-size:12.5px;font-w
 .pill{border:2px solid var(--c,#6c5ce7);background:#fff;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:650;display:inline-flex;gap:5px;align-items:center}
 .pill:hover{background:var(--cs,#eee)}
 main{flex:1;position:relative;min-height:0}
-#treeView{position:absolute;inset:0;overflow:hidden;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+#treeView{position:absolute;inset:0;overflow:hidden;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;--light-inv:1}
 #treeView *,.tile,.cpill,.gsec .hd{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 #panel,#quiz,.modal{-webkit-user-select:text;user-select:text}
 #treeView.drag{cursor:grabbing}
@@ -383,22 +383,35 @@ header #btnProfile.ready{--c:var(--accent);--cs:rgba(108,92,231,.5)}
 .exp-body ul,.exp-body ol{margin:8px 0;padding-left:24px}
 .exp-body li{margin:4px 0}
 
-/* Lights mode (zoomed-out view) */
+/* Lights mode (zoomed-out view).
+   #treeView --light-inv is 1/zoom, clamped, and applied when the zoom settles.
+   Dot size and the ring are layout pixels times that factor, so a 14px dot
+   stays 14 screen px. A transform scale here would re-raster the cards on
+   every zoom step (the paint clip grows as 1/scale). The mastered fill was
+   the same color as the dot; it is a muted tint, and a ring separates them.
+   Twinkle animates only opacity and filter. */
 .tile.light-mode{background:transparent!important;border:none!important;box-shadow:none!important;overflow:visible}
 /* Card hover lifts with a transform. That promotes a layer inside the scaled #world and re-rasters the whole tree, which flashes white. Dots do not lift. */
 .tile.light-mode:hover{transform:none;z-index:auto}
 .tile.light-mode .name,.tile.light-mode .sub{opacity:0;transition:opacity .2s}
-.tile .light{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;pointer-events:none}
-.tile.light-mode .light{opacity:1}
-.light-dot{width:18px;height:18px;border-radius:50%;background:var(--light-color,#9ca3af);box-shadow:0 0 0 0 var(--light-glow,transparent);transition:background .3s,box-shadow .3s}
+.tile.light-mode .fill{background:color-mix(in srgb,var(--c) 18%,#d5dbe6)}
+.tile > .light{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;pointer-events:none}
+.tile.light-mode > .light{opacity:1}
+.light-dot{width:14px;height:14px;border-radius:50%;background:var(--light-color,#9ca3af);box-shadow:0 0 0 1.5px rgba(20,24,36,.8);transition:background .3s}
+.tile.light-mode .light-dot{width:calc(14px * var(--light-inv,1));height:calc(14px * var(--light-inv,1));box-shadow:0 0 0 calc(1.5px * var(--light-inv,1)) rgba(20,24,36,.8)}
 .tile.t0 .light-dot{background:#9ca3af;--light-glow:transparent}
-.tile.t1 .light-dot{background:color-mix(in srgb,var(--c) 40%,#9ca3af);--light-glow:color-mix(in srgb,var(--c) 20%,transparent)}
-.tile.t2 .light-dot{background:color-mix(in srgb,var(--c) 70%,#9ca3af);--light-glow:color-mix(in srgb,var(--c) 40%,transparent)}
-.tile.t3 .light-dot{background:var(--c);--light-glow:color-mix(in srgb,var(--c) 60%,transparent);box-shadow:0 0 8px 2px var(--light-glow)}
-.tile.t4 .light-dot{background:var(--c);--light-glow:var(--c);box-shadow:0 0 12px 4px var(--light-glow);animation:shimmer 3s ease-in-out infinite}
-.tile.t4 .light-dot{animation-delay:var(--shimmer-delay,0s)}
-@keyframes shimmer{0%,100%{box-shadow:0 0 12px 4px var(--light-glow);transform:scale(1)}50%{box-shadow:0 0 20px 8px var(--light-glow);transform:scale(1.15)}}
-@media (prefers-reduced-motion:reduce){.tile.t4 .light-dot{animation:none;box-shadow:0 0 16px 6px var(--light-glow)}}
+.tile.t0.light-mode .light-dot{box-shadow:0 0 0 calc(1.5px * var(--light-inv,1)) rgba(20,24,36,.55)}
+.tile.t1 .light-dot{background:color-mix(in srgb,var(--c) 42%,#9ca3af);--light-glow:color-mix(in srgb,var(--c) 28%,transparent)}
+.tile.t1.light-mode .light-dot{box-shadow:0 0 0 calc(1.5px * var(--light-inv,1)) rgba(20,24,36,.7)}
+.tile.t2 .light-dot{background:color-mix(in srgb,var(--c) 72%,#8d95a6);--light-glow:color-mix(in srgb,var(--c) 45%,transparent)}
+.tile.t2.light-mode .light-dot{box-shadow:0 0 0 calc(1.5px * var(--light-inv,1)) rgba(20,24,36,.8),0 0 calc(3px * var(--light-inv,1)) calc(1px * var(--light-inv,1)) var(--light-glow)}
+.tile.t3 .light-dot{background:var(--c);--light-glow:color-mix(in srgb,var(--c) 65%,transparent)}
+.tile.t3.light-mode .light-dot{box-shadow:0 0 0 calc(1.5px * var(--light-inv,1)) #fff,0 0 0 calc(3px * var(--light-inv,1)) rgba(20,24,36,.72),0 0 calc(4px * var(--light-inv,1)) calc(1px * var(--light-inv,1)) var(--light-glow)}
+.tile.t4.light-mode .light-dot{background:var(--c);--light-glow:var(--c);box-shadow:0 0 0 calc(1.5px * var(--light-inv,1)) #fff,0 0 0 calc(3px * var(--light-inv,1)) rgba(20,24,36,.78),0 0 calc(6px * var(--light-inv,1)) calc(2px * var(--light-inv,1)) var(--light-glow);animation:shimmer 3s ease-in-out infinite;animation-delay:var(--shimmer-delay,0s)}
+@keyframes shimmer{0%,100%{opacity:.86;filter:brightness(1)}50%{opacity:1;filter:brightness(1.85)}}
+@media (prefers-reduced-motion:reduce){
+  .tile.t4.light-mode .light-dot{animation:none;opacity:1;filter:none;box-shadow:0 0 0 calc(1.5px * var(--light-inv,1)) #fff,0 0 0 calc(3px * var(--light-inv,1)) rgba(20,24,36,.78),0 0 calc(8px * var(--light-inv,1)) calc(3px * var(--light-inv,1)) var(--light-glow)}
+}
 #world.lights-view .tile{transition:background .2s,border-color .2s}
 /* Static structure lines. Opacity stays the zoomed-in value so the opacity transition never runs.
    stroke-opacity .42 times that .38 is about .16. The width is in layout pixels: #world is one
