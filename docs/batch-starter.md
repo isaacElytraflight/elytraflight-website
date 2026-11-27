@@ -153,3 +153,16 @@ These come from measured batch transcripts (EB1 read 43 files before its first w
 - After a fix that only touches wording (no ids, numbers, or structure that gates check), re-run only the focused check (for example the bank validator or KaTeX check for that skill), not the full gate suite.
 - Copy the newest batch's generator and verifier as the template (currently `tools/skilltree-content/eecs127_eb1_gen.py` and `skilltree/verify_eecs127_eb1.py`), and don't read older batch generators.
 - Owners: when a transcript review finds a new repeated waste, add a line here so every agent gets it, not just the next brief.
+
+## Video backfill
+
+For data-only PRs that add `video` to existing skills (SOP §14). These run only the schema and video checks below: no full gates, no Bugbot.
+
+- Skills still missing a video (source of truth is `skilltree/ee105_skills_draft.json`, a dict with a `skills` list):
+  `python3 -c "import json;[print(s['id'],'|',s.get('name','')) for s in json.load(open('skilltree/ee105_skills_draft.json'))['skills'] if 'video' not in s]"`
+- Search: `python3 tools/skilltree-content/yt_search.py "<query>" --n 8` prints `id | title | channel | duration`. Run at least 3 queries per skill (exact skill name, plain-words concept, topic plus a trusted channel) and list the queries in the PR for any skill left without a video.
+- Embed check, required for every new link (must print 200):
+  `curl -s -o /dev/null -w '%{http_code}\n' "https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=<id>&format=json"`
+- Field shape is in docs/validator-cheatsheet.md. Never set `endorsed`; only Isaac does.
+- After editing the draft: `python3 tools/skilltree-content/build.py`, then `python3 tools/skilltree-content/video_gate.py`.
+- Tests that count videos: `public/skilltree/tests/test.js` checks the "N with a video" text with a regex, and some scenarios strip a specific skill's video through `videoPatch` (for example `bode`, `rc-lpf`). If you add a video to a skill a test uses as its "no video" example, switch that test's `videoPatch` to `undefined` for the skill instead of removing your video. `test-content.js` hard-codes the live skill count (300), not the video count.
