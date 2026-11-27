@@ -1,6 +1,6 @@
 {
   "skill_id": "sensitivity",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "sensitivity-r1-q4",
@@ -111,16 +111,15 @@
       "round": 3,
       "type": "order",
       "prompt": "Order the steps that separate an output disturbance from sensor noise.",
-      "explanation": "The entry point picks the map. An output disturbance uses \\(S\\). Sensor noise uses \\(T\\). Multiplying before choosing the map swaps the two readings. The loop gain is not itself either map.",
+      "explanation": "The entry point picks one map: \\(S\\) for an output disturbance, \\(T\\) for sensor noise. Those two cases are one step. Multiplying uses the map just chosen. The loop gain is not itself either map.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 352 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>disturbance at the output</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"132\" y2=\"78\"/><polygon points=\"132,78 125.6,80.7 125.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"104\" y=\"66\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">e</text><rect x=\"132\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"174\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">G</text><line x1=\"216\" y1=\"78\" x2=\"252\" y2=\"78\"/><polygon points=\"252,78 245.6,80.7 245.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"264\" cy=\"78\" r=\"12\"/><text x=\"242\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"278\" y=\"50\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><line x1=\"264\" y1=\"28\" x2=\"264\" y2=\"66\"/><polygon points=\"264,66 261.3,59.6 266.7,59.6\" fill=\"currentColor\" stroke=\"none\"/><text x=\"280\" y=\"34\" text-anchor=\"start\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">d</text><line x1=\"276\" y1=\"78\" x2=\"312\" y2=\"78\"/><polygon points=\"312,78 305.6,80.7 305.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"316\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"304\" y1=\"78\" x2=\"304\" y2=\"134\"/><line x1=\"304\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"184\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">1</text></svg>",
       "figure_alt": "A feedback loop with a disturbance added at the output.",
       "steps": [
         "Identify where the unwanted signal enters.",
-        "Use \\(S\\) if it enters at the output as a disturbance.",
-        "Use \\(T\\) if it enters as sensor noise.",
-        "Multiply the signal by that map."
+        "From that entry point, choose one map: \\(S\\) if the signal enters at the output as a disturbance, and \\(T\\) if it enters as sensor noise.",
+        "Multiply the signal by the map just chosen."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "sensitivity-r3-q5",

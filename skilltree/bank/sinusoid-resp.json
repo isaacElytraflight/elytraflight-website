@@ -1,6 +1,6 @@
 {
   "skill_id": "sinusoid-resp",
-  "version": 4,
+  "version": 5,
   "questions": [
     {
       "id": "sinusoid-resp-r1-q1",
@@ -83,11 +83,11 @@
       "explanation": "The exponential is an eigenfunction, so it is substituted before derivatives become algebra. Each derivative brings one factor \\(j\\omega\\), and a second derivative brings \\(-\\omega^2\\). The ratio is \\(H(j\\omega)\\). Magnitude and angle are applied to the real drive only after that ratio exists. The procedure never solves for a new frequency: a linear constant-coefficient equation does not create one.",
       "steps": [
         "Replace the input by the complex exponential \\(e^{j\\omega t}\\).",
-        "Replace every derivative by one factor of \\(j\\omega\\).",
-        "Cancel the common exponential and solve for the ratio of output amplitude to input amplitude.",
+        "Because every derivative of that exponential brings one factor of \\(j\\omega\\), replace every derivative by one factor of \\(j\\omega\\).",
+        "Cancel the common exponential that the previous step differentiated, and solve for the ratio of output amplitude to input amplitude.",
         "Read the steady sinusoid from the magnitude and angle of that ratio."
       ],
-      "version": 1,
+      "version": 2,
       "id": "sinusoid-resp-r2-q4"
     },
     {

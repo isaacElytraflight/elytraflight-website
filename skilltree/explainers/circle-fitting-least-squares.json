@@ -1,12 +1,10 @@
 {
   "id": "circle-fitting-least-squares",
   "title": "Circle fitting by least squares",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a dented quadrilateral</title><line x1=\"24\" y1=\"172\" x2=\"260\" y2=\"172\"/><polygon points=\"260,172 253.6,174.7 253.6,169.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"36\" y1=\"184\" x2=\"36\" y2=\"20\"/><polygon points=\"36,20 38.7,26.4 33.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"254\" y=\"188\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"44\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"50,150 230,150 210,40 140,130\" stroke-width=\"2.0\" fill=\"currentColor\" fill-opacity=\"0.15\"/></svg>",
-      "figure_alt": "A four-sided region with one corner pushed in.",
       "body_md": "A circle in the plane is determined by a center and a radius. Asking those three numbers to match a list of points, in the geometric sense, produces a residual equal to the distance from each point to the center, minus the radius. The center appears inside a square root, or inside a square, and the problem is nonlinear least squares.\n\nAlgebra offers a different residual that vanishes on exactly the same circles. Expand \\((x - a)^2 + (y - b)^2 - r^2 = 0\\). The result is \\(x^2 + y^2\\) plus a term in \\(x\\), a term in \\(y\\), and a constant. Rename the coefficient of \\(x\\) as \\(c\\), the coefficient of \\(y\\) as \\(d\\), and the constant as \\(e\\). The equation becomes \\(x^2 + y^2 + c x + d y + e = 0\\). The new unknowns \\((c, d, e)\\) appear linearly. The squares of the coordinates are data, and they move to the right-hand side of a linear least-squares problem.\n\nThe two objectives agree about which circles pass through the points. They disagree about the cost of a near miss. The algebraic fit is still the right tool when a linear problem is what is wanted, and the geometric fit remains available when the residual must be a length."
     },
     {

@@ -54,7 +54,7 @@ VERSIONS = {
     "cs-analysis": 3,
     "cg": 3,
     "cd": 3,
-    "amp-choice": 2,
+    "amp-choice": 3,
 }
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))

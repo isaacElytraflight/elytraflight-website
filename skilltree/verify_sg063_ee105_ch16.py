@@ -54,7 +54,7 @@ VERSIONS = {
     "diff-intro": 4,
     "diff-dc": 3,
     "half-circuit": 3,
-    "cmrr": 3,
+    "cmrr": 4,
     "mirror-load": 3,
 }
 

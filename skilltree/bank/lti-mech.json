@@ -1,6 +1,6 @@
 {
   "skill_id": "lti-mech",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "lti-mech-r1-q2",
@@ -110,11 +110,11 @@
       "figure_alt": "A mass tied to a wall by a spring and a damper.",
       "steps": [
         "Draw the applied force, and draw the spring and damper opposing the motion.",
-        "Write \\(m\\ddot y + b\\dot y + ky = u\\).",
-        "Read \\(\\omega_n\\) as \\(\\sqrt{k/m}\\).",
-        "Read \\(\\zeta\\) as \\(b/(2\\sqrt{km})\\)."
+        "Write \\(m\\ddot y + b\\dot y + ky = u\\) from those forces.",
+        "Read \\(\\omega_n\\) as \\(\\sqrt{k/m}\\) from the coefficients of the equation just written.",
+        "Read \\(\\zeta\\) as \\(b/(2 m \\omega_n)\\), using the natural frequency just obtained. That quotient equals \\(b/(2\\sqrt{km})\\)."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "lti-mech-r1-q5",

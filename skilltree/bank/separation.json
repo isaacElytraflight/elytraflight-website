@@ -1,6 +1,6 @@
 {
   "skill_id": "separation",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "separation-r1-q1",
@@ -96,17 +96,16 @@
       "round": 2,
       "type": "order",
       "prompt": "Put these design steps in the order you would use them for output feedback through an estimate.",
-      "explanation": "Each gain is designed for its own matrix, and neither design needs the other number. The law then uses the estimate, and the observer has to see the command that the plant sees, or the error equation picks up a leftover input. The eigenvalue check is last: it confirms the triangular split rather than creating it.",
+      "explanation": "The state-feedback gain and the observer gain are designed for different matrices, and neither number is an input to the other, so they are placed in one step. The control law then replaces the state by the estimate. The observer has to see the command that was just applied, or the error equation picks up a leftover input. The eigenvalue check is last.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a block-triangular closed loop</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">A-BK   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">*   A-LC</text></svg>",
       "figure_alt": "A 2 by 2 block matrix with A minus B K and A minus L C on the diagonal.",
       "steps": [
-        "Place the state-feedback gain from the regulator poles.",
-        "Place the observer gain from the error poles.",
-        "Replace the state in the control law by the estimate.",
-        "Drive the observer with the applied command and with the measured output.",
-        "Check that the joint eigenvalues are the union of the two sets you placed."
+        "Place the state-feedback gain from the regulator poles and the observer gain from the error poles.",
+        "Replace the state in the control law by the estimate, which uses the observer gain just placed together with the state-feedback gain.",
+        "Drive the observer with the command just applied and with the measured output.",
+        "Check that the joint eigenvalues are the union of the regulator poles and the error poles that set the two gains."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "separation-r3-q1",

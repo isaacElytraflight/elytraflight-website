@@ -1,6 +1,6 @@
 {
   "skill_id": "second-order-sys",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "second-order-sys-r1-q1",
@@ -101,11 +101,10 @@
       "figure_alt": "A conjugate pair of pole marks in the left half-plane.",
       "steps": [
         "Read \\(\\omega_n\\) as the square root of \\(c\\).",
-        "Read \\(2\\zeta\\omega_n\\) from the coefficient \\(b\\).",
-        "Divide \\(b\\) by \\(2\\omega_n\\) to get \\(\\zeta\\).",
-        "Decide underdamped, critical, or overdamped by comparing \\(\\zeta\\) with 1."
+        "Divide \\(b\\) by twice the natural frequency just read. The quotient is \\(\\zeta\\), and the coefficient \\(b\\) equals \\(2\\zeta\\omega_n\\).",
+        "Decide underdamped, critical, or overdamped by comparing that \\(\\zeta\\) with 1."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "second-order-sys-r2-q5",

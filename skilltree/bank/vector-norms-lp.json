@@ -1,6 +1,6 @@
 {
   "skill_id": "vector-norms-lp",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "round": 1,
@@ -22,12 +22,10 @@
       "type": "numeric",
       "prompt": "What is the 1-norm of \\((3,-4)\\)?",
       "explanation": "\\(\\lvert 3 \\rvert + \\lvert -4 \\rvert = 7\\). The 2-norm is 5, and the infinity-norm is 4. Subtracting the coordinates gives \\(-1\\), which is not a norm.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>arrows on the axes</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e2</text></svg>",
-      "figure_alt": "Two arrows point along the coordinate axes.",
       "answer": 7.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "round": 1,
@@ -55,12 +53,10 @@
       "type": "numeric",
       "prompt": "What is the 2-norm of \\((3,-4)\\)?",
       "explanation": "\\(\\sqrt{3^2 + (-4)^2} = \\sqrt{25} = 5\\). The 1-norm is 7, and the infinity-norm is 4. Reporting 25 skips the square root.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>arrows on the axes</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e2</text></svg>",
-      "figure_alt": "Two arrows point along the coordinate axes.",
       "answer": 5.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "round": 2,
@@ -94,12 +90,10 @@
       "type": "numeric",
       "prompt": "What is the infinity-norm of \\((3,-4)\\)?",
       "explanation": "The larger absolute coordinate is 4. The 1-norm is 7 and the 2-norm is 5. Averaging the absolute coordinates gives 3.5, which is none of the three norms.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>arrows on the axes</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e2</text></svg>",
-      "figure_alt": "Two arrows point along the coordinate axes.",
       "answer": 4.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "vector-norms-lp-r3-q1",
@@ -124,12 +118,10 @@
       "type": "numeric",
       "prompt": "What is the 1-norm of \\((1,1,1)\\)?",
       "explanation": "Three absolute values of 1 sum to 3. The 2-norm is \\(\\sqrt{3}\\), and the infinity-norm is 1. The comparison \\(\\lVert x \\rVert_1 \\le \\sqrt{n}\\,\\lVert x \\rVert_2\\) holds with equality here, since both sides equal 3.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>arrows on the axes</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e2</text></svg>",
-      "figure_alt": "Two arrows point along the coordinate axes.",
       "answer": 3.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "vector-norms-lp-r3-q3",
@@ -137,12 +129,10 @@
       "type": "numeric",
       "prompt": "What is the 2-norm of \\((1,-1,0)\\)?",
       "explanation": "\\(\\sqrt{1+1+0} = \\sqrt{2}\\). The 1-norm is 2, and the infinity-norm is 1. Squaring the 2-norm gives 2, which is the 1-norm of this particular vector, not the 2-norm.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>arrows on the axes</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"161.7\"/><polygon points=\"235.9,161.7 229.5,164.4 229.5,159\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"153.7\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e1</text><line x1=\"60.1\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 62.8,48.8 57.3,48.8\" fill=\"currentColor\" stroke=\"none\"/><text x=\"68.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">e2</text></svg>",
-      "figure_alt": "Two arrows point along the coordinate axes.",
       "answer": 1.41421,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "vector-norms-lp-r4-q1",
@@ -150,8 +140,6 @@
       "type": "mc",
       "prompt": "Cauchy-Schwarz bounds an inner product by the product of 2-norms. One consequence used to prove the triangle inequality is",
       "explanation": "The inequality \\(\\langle x, y \\rangle \\le \\lVert x \\rVert_2 \\lVert y \\rVert_2\\) turns \\(\\lVert x+y \\rVert_2^2 = \\lVert x \\rVert_2^2 + \\lVert y \\rVert_2^2 + 2\\langle x,y \\rangle\\) into a perfect square. The 1-norm and the infinity-norm are not equal in general. The 1-norm does not come from an inner product, and it still satisfies the triangle inequality.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from one origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"60.1\" y1=\"176\" x2=\"60.1\" y2=\"28\"/><polygon points=\"60.1,28 62.8,34.4 57.3,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"66.1\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"60.1\" y1=\"161.7\" x2=\"235.9\" y2=\"131.8\"/><polygon points=\"235.9,131.8 230,135.6 229.1,130.2\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"123.8\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x</text><line x1=\"60.1\" y1=\"161.7\" x2=\"95.2\" y2=\"42.3\"/><polygon points=\"95.2,42.3 96,49.3 90.8,47.7\" fill=\"currentColor\" stroke=\"none\"/><text x=\"103.2\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">y</text></svg>",
-      "figure_alt": "Two arrows leave the origin with a gap between them.",
       "preview": [
         "cauchy-schwarz-inequality"
       ],
@@ -162,7 +150,7 @@
         "the infinity-norm fails the triangle inequality"
       ],
       "correct_index": 0,
-      "version": 1
+      "version": 2
     },
     {
       "id": "vector-norms-lp-r4-q2",

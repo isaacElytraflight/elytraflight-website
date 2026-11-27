@@ -1,12 +1,10 @@
 {
   "id": "polyhedra-extreme-points",
   "title": "Polyhedra and extreme points",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 200\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a dented quadrilateral</title><line x1=\"24\" y1=\"172\" x2=\"260\" y2=\"172\"/><polygon points=\"260,172 253.6,174.7 253.6,169.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"36\" y1=\"184\" x2=\"36\" y2=\"20\"/><polygon points=\"36,20 38.7,26.4 33.3,26.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"254\" y=\"188\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"44\" y=\"16\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><polygon points=\"50,150 230,150 210,40 140,130\" stroke-width=\"2.0\" fill=\"currentColor\" fill-opacity=\"0.15\"/></svg>",
-      "figure_alt": "A four-sided region with one corner pushed in.",
       "body_md": "A polyhedron is the set of points that satisfy a finite list of linear inequalities. It may also be written with linear equalities. Each inequality is a half-space, and a half-space contains the segment between any two of its points. An intersection of convex sets is convex, so every polyhedron is convex. The union of two polyhedra need not be.\n\nAn extreme point is a point of the set that cannot be written as a strict convex combination of two other points of the set. In the plane, the extreme points of a polygon are the corners. A point in the middle of an edge is the midpoint of a short segment that stays inside the set, so it is not extreme. A vertex, in the sense used here, is a point where enough inequalities are tight, with independent normals, that the point is the unique solution of those equalities, and the remaining inequalities hold.\n\nFor a polyhedron written as \\(Ax = b\\), \\(x \\ge 0\\), with independent rows, these three descriptions name the same points: extreme points, vertices, and basic feasible solutions. A basic feasible solution picks an invertible set of columns, sets the other variables to zero, and keeps \\(B^{-1} b \\ge 0\\)."
     },
     {

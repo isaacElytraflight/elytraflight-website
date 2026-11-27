@@ -1,12 +1,10 @@
 {
   "id": "bfgs-update",
   "title": "BFGS update",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a diagonal array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   0</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   b</text></svg>",
-      "figure_alt": "A two-by-two array with labels on the diagonal.",
       "body_md": "BFGS stores an approximation of the inverse Hessian and updates it after every accepted step. The search direction is that approximation times the negative gradient. A line search along the direction produces a displacement \\(s\\) and a gradient change \\(y\\). The update is built from the current approximation, from \\(s\\), from \\(y\\), and from the reciprocal of the curvature product \\(y^T s\\).\n\nThe formula is a rank-two correction. It is arranged so that the new approximation sends \\(y\\) to \\(s\\). That is the secant equation for an inverse: if a Hessian approximation would send \\(s\\) to \\(y\\), the inverse approximation sends \\(y\\) back to \\(s\\). In one variable there is only one such number, the step divided by the gradient change, and the old approximation cancels.\n\nPositive definiteness carries forward when two things are true. The old approximation is positive definite, and the curvature product is positive. Then the new approximation is positive definite, the next direction is a descent direction, and the formula is defined. A zero product makes the reciprocal undefined. A negative product can put a negative eigenvalue into the update. The Wolfe curvature test is what makes the product positive before the update is formed. Locally, once the approximation is faithful enough, successive error ratios tend to zero. That is superlinear convergence. It is faster than a linear rate and weaker than the squared-error bound of Newton."
     },
     {

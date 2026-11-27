@@ -1,6 +1,6 @@
 {
   "skill_id": "frobenius-schatten-norms",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "frobenius-schatten-norms-r1-q1",
@@ -55,8 +55,6 @@
       "type": "symbolic",
       "prompt": "Write the Frobenius norm of \\(\\begin{bmatrix} a & b \\\\ 0 & 0 \\end{bmatrix}\\) as an expression in the names a and b.",
       "explanation": "The only nonzero entries are \\(a\\) and \\(b\\). The sum of squares is \\(a^2 + b^2\\), and the Frobenius norm is the square root of that sum. The same expression is the Euclidean length of the first row.\n• \\(a^2 + b^2\\) stops before the square root, so it is the square of the norm.\n• \\(\\lvert a \\rvert + \\lvert b \\rvert\\) is a sum of absolute values, the 1-norm of the first row, not the Frobenius norm.\n• \\(ab\\) multiplies the entries. The zero row does not cancel that mistake.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   b</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
-      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
       "answer": "sqrt(a^2 + b^2)",
       "variables": [
         {
@@ -76,7 +74,7 @@
         "(a^2 + b^2)^(1/2)",
         "sqrt((a^2) + (b^2))"
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "frobenius-schatten-norms-r2-q2",

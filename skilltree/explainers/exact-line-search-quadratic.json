@@ -1,12 +1,10 @@
 {
   "id": "exact-line-search-quadratic",
   "title": "Exact line search on quadratics",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a long ellipse</title><line x1=\"28\" y1=\"104\" x2=\"256\" y2=\"104\"/><polygon points=\"256,104 249.6,106.7 249.6,101.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"140\" y1=\"186\" x2=\"140\" y2=\"24\"/><polygon points=\"140,24 142.7,30.4 137.3,30.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"250\" y=\"120\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"148\" y=\"20\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"140\" cy=\"104\" rx=\"86\" ry=\"46\"/><line x1=\"54\" y1=\"104\" x2=\"226\" y2=\"104\" stroke-dasharray=\"4 3\"/><line x1=\"140\" y1=\"58\" x2=\"140\" y2=\"150\" stroke-dasharray=\"4 3\"/></svg>",
-      "figure_alt": "An axis-aligned ellipse, longer along the first axis.",
       "body_md": "Restrict a quadratic to a line and the objective becomes a parabola in one variable. Write \\(f(x) = \\tfrac12 x^T A x + b^T x\\) with \\(A\\) symmetric, and set \\(\\varphi(t) = f(x + t d)\\). Differentiating under the quadratic gives \\(\\varphi'(t) = \\nabla f(x)^T d + t\\, d^T A d\\). The gradient that appears here is \\(A x + b\\), and the curvature along \\(d\\) is the same matrix \\(A\\) that is the Hessian.\n\nIf \\(A\\) is positive definite and \\(d\\) is not zero, the curvature \\(d^T A d\\) is positive, so the parabola opens upward and the critical point is a minimum. Set the derivative to zero and solve for the step. The result is the negative directional derivative divided by the curvature. For a descent direction the directional derivative is negative, so the step that comes out is positive. The formula does not ask the direction to be steepest. Any fixed \\(d\\) has its own exact step.\n\nWhen the direction is the negative gradient, the numerator becomes the squared gradient norm and the denominator becomes \\(\\nabla f^T A \\nabla f\\). After the step is taken, the derivative of the restriction is zero. That is the same statement as the new gradient being orthogonal to \\(d\\)."
     },
     {

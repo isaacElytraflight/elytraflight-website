@@ -1,12 +1,10 @@
 {
   "id": "extended-kalman-filter",
   "title": "Extended Kalman filter",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 230\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>nested contours</title><line x1=\"28\" y1=\"118\" x2=\"272\" y2=\"118\"/><polygon points=\"272,118 265.6,120.7 265.6,115.3\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"150\" y1=\"204\" x2=\"150\" y2=\"26\"/><polygon points=\"150,26 152.7,32.4 147.3,32.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"266\" y=\"134\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"158\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><ellipse cx=\"150\" cy=\"118\" rx=\"40\" ry=\"24\"/><ellipse cx=\"150\" cy=\"118\" rx=\"72\" ry=\"44\"/><ellipse cx=\"150\" cy=\"118\" rx=\"104\" ry=\"62\"/></svg>",
-      "figure_alt": "Three nested ellipses around the origin.",
       "body_md": "An extended measurement update is the linear update with the measurement rebuilt at the current estimate. The sensor is a nonlinear map. The first-order model of that map is the map's value plus its Jacobian times the displacement from the estimate. The innovation is the reading minus the map's value, not minus the Jacobian times the estimate. The gain is the linear gain with the Jacobian standing where the measurement row would stand. The variance update uses that same Jacobian.\n\nThe Jacobian has to be new whenever the estimate moves. A square-law sensor has derivative twice the position, so a correction that changes the position changes the derivative. Using yesterday's Jacobian on today's estimate is a frozen linear model.\n\nThe step is exact for the tangent model and the quadratic prior, and only approximate for the curved sensor. If the tangent is a poor picture of the map, the correction can land far from a point that zeros the nonlinear stationarity condition. A position estimate with a square-law reading is the concrete case: each new reading is linearized at the latest position, and the next reading starts over."
     },
     {

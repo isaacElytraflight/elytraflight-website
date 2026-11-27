@@ -1,6 +1,6 @@
 {
   "skill_id": "robust-perf",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "robust-perf-r1-q1",
@@ -101,17 +101,16 @@
       "round": 2,
       "type": "order",
       "prompt": "Put these checks in the order you would run them for multiplicative uncertainty.",
-      "explanation": "An unstable nominal loop makes the later peaks meaningless, so stability is first. Nominal performance and robust stability are the two separate bills. The sum is a stricter bill than either one, so it comes after you know which of the pieces already failed. Raising the gain everywhere is the last resort, and it is often the wrong one, because it shrinks \\(S\\) and grows \\(T\\).",
+      "explanation": "An unstable nominal loop makes the later peaks meaningless, so stability is first. Nominal performance and robust stability are two separate bills, so they are checked in one step. The sum is stricter than either bill, so it comes after both are in hand. Raising the gain everywhere is the last resort, and it is often the wrong one, because it shrinks \\(S\\) and grows \\(T\\).",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 272 164\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>loop under a multiplicative weight</title><text x=\"6\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">r</text><line x1=\"28\" y1=\"78\" x2=\"52\" y2=\"78\"/><polygon points=\"52,78 45.6,80.7 45.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"64\" cy=\"78\" r=\"12\"/><text x=\"46\" y=\"62\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">+</text><text x=\"42\" y=\"108\" text-anchor=\"middle\" font-size=\"13\" fill=\"currentColor\" stroke=\"none\">−</text><line x1=\"76\" y1=\"78\" x2=\"112\" y2=\"78\"/><polygon points=\"112,78 105.6,80.7 105.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"112\" y=\"56\" width=\"84\" height=\"44\" rx=\"4\" fill=\"currentColor\" fill-opacity=\"0.10\"/><text x=\"154\" y=\"82\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\">P</text><line x1=\"196\" y1=\"78\" x2=\"232\" y2=\"78\"/><polygon points=\"232,78 225.6,80.7 225.6,75.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"236\" y=\"82\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"none\">y</text><line x1=\"224\" y1=\"78\" x2=\"224\" y2=\"134\"/><line x1=\"224\" y1=\"134\" x2=\"64\" y2=\"134\"/><line x1=\"64\" y1=\"134\" x2=\"64\" y2=\"90\"/><polygon points=\"64,90 66.7,96.4 61.3,96.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"144\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">C</text></svg>",
       "figure_alt": "A plant block with a controller returned and subtracted.",
       "steps": [
         "Confirm the nominal loop is stable.",
-        "Check nominal performance, the peak of |W_s S| below 1.",
-        "Check robust stability, the peak of |W_m T| below 1.",
-        "Check robust performance: the peak, over frequency, of the sum |W_s S| + |W_m T| is below 1.",
-        "If the sum fails, loosen the performance weight or shrink the uncertainty before raising the loop gain at every frequency."
+        "On that stable loop, check the two separate bills: nominal performance, the peak of \\(|W_s S|\\) below 1, and robust stability, the peak of \\(|W_m T|\\) below 1.",
+        "Check robust performance only after both of those bills: the peak, over frequency, of the sum \\(|W_s S| + |W_m T|\\) is below 1.",
+        "If that sum fails, loosen the performance weight or shrink the uncertainty before raising the loop gain at every frequency."
       ],
-      "version": 2
+      "version": 3
     },
     {
       "id": "robust-perf-r3-q1",

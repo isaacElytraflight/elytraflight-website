@@ -1,6 +1,6 @@
 {
   "skill_id": "noise-dist",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "round": 1,
@@ -9,11 +9,10 @@
       "explanation": "Squaring \\(\\cos\\omega t\\) produces DC and \\(2\\omega\\), not the fundamental and not the third harmonic. A cubic term is what produces \\(3\\omega\\). A random noise waveform does not create these discrete lines: a harmonic is deterministic distortion. Dropping the constant term misses the even-order DC shift. An odd-symmetric curve has no square-law term, so it produces neither this DC nor this second harmonic.",
       "steps": [
         "The square of \\(\\cos\\omega t\\) is \\(\\frac{1}{2}+\\frac{1}{2}\\cos 2\\omega t\\).",
-        "The constant term is a DC shift, present even though the input cosine had no DC.",
-        "The double-frequency term is a second harmonic at \\(2\\omega\\).",
-        "The original frequency \\(\\omega\\) is absent from the square. It appears only when a linear term sits beside the square-law term."
+        "That identity's constant term is a DC shift, present even though the input cosine had no DC, and its double-frequency term is a second harmonic at \\(2\\omega\\).",
+        "The original frequency \\(\\omega\\) is absent from the square just expanded. It appears only when a linear term sits beside the square-law term."
       ],
-      "version": 1,
+      "version": 2,
       "id": "noise-dist-r1-q5"
     },
     {

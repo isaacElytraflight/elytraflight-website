@@ -1,12 +1,10 @@
 {
   "id": "gradient-partial-derivatives",
   "title": "Partial derivatives and the gradient",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 280 210\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>two arrows from the origin</title><line x1=\"46\" y1=\"161.7\" x2=\"250\" y2=\"161.7\"/><polygon points=\"250,161.7 243.6,164.4 243.6,159\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"101.4\" y1=\"176\" x2=\"101.4\" y2=\"28\"/><polygon points=\"101.4,28 104.2,34.4 98.7,34.4\" fill=\"currentColor\" stroke=\"none\"/><text x=\"248\" y=\"175.7\" text-anchor=\"end\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x1</text><text x=\"107.4\" y=\"30\" text-anchor=\"start\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">x2</text><line x1=\"101.4\" y1=\"161.7\" x2=\"235.9\" y2=\"125\"/><polygon points=\"235.9,125 230.4,129.3 229,124\" fill=\"currentColor\" stroke=\"none\"/><text x=\"243.9\" y=\"117\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">g</text><line x1=\"101.4\" y1=\"161.7\" x2=\"60.1\" y2=\"42.3\"/><polygon points=\"60.1,42.3 64.8,47.5 59.6,49.3\" fill=\"currentColor\" stroke=\"none\"/><text x=\"52.1\" y=\"34.3\" text-anchor=\"middle\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">t</text></svg>",
-      "figure_alt": "Two arrows leave the origin.",
       "body_md": "A partial derivative holds every coordinate fixed except one, and it differentiates in the remaining coordinate. Do that once for each coordinate and stack the results. The column you get is the gradient.\n\nThe gradient is the direction in which the first-order increase is largest. On a unit vector the inner product of the gradient with that vector is at most the length of the gradient, and the bound is attained when the unit vector points along the gradient. The opposite unit vector is the direction of steepest decrease, with slope equal to the negative of that length.\n\nWhere the function is differentiable, the directional derivative in an arbitrary direction is the inner product of the gradient with that direction. A direction orthogonal to the gradient has directional derivative zero. In the plane, those directions are tangent to the level curve through the point."
     },
     {

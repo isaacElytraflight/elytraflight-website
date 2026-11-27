@@ -1,6 +1,6 @@
 {
   "skill_id": "first-order-sys",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "first-order-sys-r1-q2",
@@ -113,11 +113,11 @@
       "figure_alt": "A smooth curve that rises toward a horizontal line and does not overshoot.",
       "steps": [
         "Scale the equation so the coefficient of \\(y\\) is 1.",
-        "Read \\(\\tau\\) as the coefficient of \\(\\dot y\\), and \\(K\\) as the coefficient of \\(u\\).",
-        "Place the single pole at \\(-1/\\tau\\).",
-        "From rest, a constant input \\(u\\) settles at \\(Ku\\) along \\(Ku(1-e^{-t/\\tau})\\)."
+        "Read \\(\\tau\\) as the coefficient of \\(\\dot y\\) in that scaled equation, and \\(K\\) as the coefficient of \\(u\\).",
+        "Place the single pole at \\(-1/\\tau\\), using the time constant just read.",
+        "From rest, a constant input \\(u\\) settles at \\(Ku\\) along \\(Ku(1-e^{pt})\\), where \\(p\\) is the pole just placed."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "first-order-sys-r2-q4",

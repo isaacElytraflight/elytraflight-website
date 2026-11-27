@@ -33,7 +33,7 @@ ERRORS = {
 }
 
 ORDERS = {
-    "freq-basics-r1-q4": 4,
+    "freq-basics-r1-q4": 3,
     "cs-brute-r1-q4": 4,
     "miller-r1-q5": 4,
     "cd-freq-r1-q4": 4,
@@ -53,7 +53,7 @@ RETIRED = {
 }
 
 VERSIONS = {
-    "freq-basics": 3,
+    "freq-basics": 4,
     "cs-brute": 3,
     "miller": 3,
     "cd-freq": 3,

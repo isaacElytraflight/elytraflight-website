@@ -1,6 +1,6 @@
 {
   "skill_id": "sys-id",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "sys-id-r1-q1",
@@ -87,11 +87,11 @@
       "figure_alt": "A step in the input and an output that rises toward a constant.",
       "steps": [
         "Hold a step long enough that the output stops moving, and read the DC gain from the two settled changes.",
-        "Read a time constant from the rising record, or from the frequency where the magnitude has fallen by 3 dB.",
-        "Predict the record with that model and look at the residual.",
-        "Check the same model on a record you did not use to pick the numbers."
+        "Read a time constant from the rising record of that same step, or from the frequency where the magnitude has fallen by 3 dB from the DC gain just read.",
+        "Predict the record with the model whose gain and time constant were just read, and look at the residual.",
+        "Check that same model on a record you did not use to pick those two numbers."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "sys-id-r3-q2",

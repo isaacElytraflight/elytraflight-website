@@ -1,12 +1,10 @@
 {
   "id": "gauss-newton-method",
   "title": "Gauss-Newton method",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a column of two labels</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">p</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">q</text></svg>",
-      "figure_alt": "A column of two labels.",
       "body_md": "Gauss-Newton minimizes a sum of squared residuals by refusing to solve the nonlinear problem directly. At the current point it replaces the residual vector by its linear model, the value plus the Jacobian times a step, and it chooses the step that makes that model as small as possible in the least-squares sense. The model is a linear least-squares problem, so the step comes from the normal equations. The point then moves by that step, the residual and the Jacobian are rebuilt, and the same linear fit is repeated.\n\nThe gradient of \\(\\tfrac12\\lVert r\\rVert^2\\) is \\(J_r^T r\\). Whenever the Jacobian has full column rank and this gradient is not zero, the Gauss-Newton step is a descent direction. Its directional derivative equals the negative of a squared norm built from the gradient and the inverse of \\(J_r^T J_r\\). A short move along the step therefore decreases the sum of squares. Full column rank can fail. The Gram matrix is always positive semidefinite, but it may be singular, and then the normal equations do not determine one step.\n\nNewton's method on the same sum of squares uses a richer Hessian. Besides \\(J_r^T J_r\\), the true Hessian adds each residual component times the second derivative of that component. Gauss-Newton keeps only the Gram matrix. The dropped term is zero when every component is affine, and it is also zero when the residual itself is zero. A curved residual that is still large makes the two steps differ."
     },
     {

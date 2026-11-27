@@ -1,6 +1,6 @@
 {
   "skill_id": "linearization",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "linearization-r1-q2",
@@ -137,16 +137,15 @@
       "round": 1,
       "type": "order",
       "prompt": "Put these steps in the order that builds the local matrices at an equilibrium.",
-      "explanation": "The resting condition comes first. A derivative at a point that is not an equilibrium is a different expansion. The state derivative is the matrix \\(A\\) and the input derivative is the matrix \\(B\\). Both are numbers only after they are evaluated at the resting pair. Swapping the two derivatives assigns the input slope to the state matrix.",
+      "explanation": "The resting condition comes first. Both derivatives are then formed together: the state derivative is the matrix \\(A\\) and the input derivative is the matrix \\(B\\), and neither derivative uses the other. Both are numbers only after they are evaluated at the resting pair. A derivative at a point that is not an equilibrium is a different expansion.",
       "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>State and input partials</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">A   B</text></svg>",
       "figure_alt": "Two blocks, one for the state partial and one for the input partial.",
       "steps": [
-        "Confirm the chosen state and input make the rate zero.",
-        "Differentiate the rate with respect to the state.",
-        "Differentiate the rate with respect to the input.",
-        "Evaluate both derivatives at that equilibrium."
+        "Confirm the chosen state and input make the rate zero, and call that pair the equilibrium.",
+        "Differentiate the rate with respect to the state and with respect to the input, so both matrices are the ones that will be evaluated at that equilibrium.",
+        "Evaluate both derivatives at the equilibrium just confirmed."
       ],
-      "version": 1
+      "version": 2
     },
     {
       "id": "linearization-r2-q4",

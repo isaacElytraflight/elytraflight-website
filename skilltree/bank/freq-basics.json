@@ -1,6 +1,6 @@
 {
   "skill_id": "freq-basics",
-  "version": 3,
+  "version": 4,
   "questions": [
     {
       "round": 1,
@@ -8,12 +8,11 @@
       "prompt": "Order how the two families of capacitors set the midband of a discrete amplifier. Each step after the first uses the result of the step before it.",
       "explanation": "Large external capacitors set the low edge and small parasitic ones set the high edge. The flat midband sits between those two models. Device capacitances do not set the low corner, and the supply does not set either edge. \\(r_o\\) is a resistance, not a coupling capacitor. Shorting the device capacitances as well is the high-frequency limit, not the midband. Adding separated low-frequency corners, or taking their geometric mean, is not how the low edge is chosen.",
       "steps": [
-        "Coupling and bypass capacitors are large, so they are open at DC and nearly shorts once the signal is well above their corners.",
-        "Device and load capacitances are small, so they stay open through the midband and shunt nodes only at high frequency.",
+        "Coupling and bypass capacitors are large, so they are open at DC and nearly shorts once the signal is well above their corners, while device and load capacitances are small, so they stay open through the midband and shunt nodes only at high frequency.",
         "The midband model therefore treats every coupling and bypass capacitor as a short and every device or load capacitance as an open.",
-        "When several low-frequency corners are far apart, the highest of them is the first one met coming down from that midband, and that corner is the low edge."
+        "When several low-frequency corners of those large capacitors are far apart, the highest of them is the first one met coming down from that midband, and that corner is the low edge."
       ],
-      "version": 1,
+      "version": 2,
       "id": "freq-basics-r1-q4"
     },
     {

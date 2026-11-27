@@ -1,6 +1,6 @@
 {
   "skill_id": "amp-choice",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "round": 1,
@@ -10,10 +10,10 @@
       "steps": [
         "The source resistance is high, so the stage's input resistance has to be high or the input divider throws the signal away.",
         "A gate input has that high resistance, while a common-gate input near \\(1/g_m\\) would load this sensor.",
-        "The required gain is about 20, and a source follower has a gain below 1, so a follower cannot be the whole amplifier.",
-        "A common-source stage keeps the high input resistance and supplies the voltage gain."
+        "Among stages with that high input resistance, a source follower has a gain below 1, so it cannot supply the required gain of about 20.",
+        "A common-source stage is the remaining gate-input stage, and it supplies that voltage gain."
       ],
-      "version": 1,
+      "version": 2,
       "id": "amp-choice-r1-q4"
     },
     {

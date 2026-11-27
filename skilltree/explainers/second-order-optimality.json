@@ -1,12 +1,10 @@
 {
   "id": "second-order-optimality",
   "title": "Second-order optimality conditions",
-  "version": 1,
+  "version": 2,
   "sections": [
     {
       "heading": "The idea",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a symmetric array</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">a   b</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">b   c</text></svg>",
-      "figure_alt": "A 2 by 2 array with matching off-diagonal labels.",
       "body_md": "Stationarity is not a verdict. The second-order test reads the curvature at a stationary point and, in the definite cases, finishes the classification. The necessary condition says that an interior local minimizer has a positive semidefinite Hessian. A negative eigenvalue would be a direction of decrease, which an interior local minimizer cannot have. The matching necessary condition for a local maximizer is a negative semidefinite Hessian.\n\nThe sufficient condition is stricter. If the gradient vanishes and the Hessian is positive definite, the second-order Taylor model is a strict bowl, and the point is a strict local minimizer. Negative definite curvature gives a strict local maximizer. An indefinite Hessian, with both a positive and a negative eigenvalue, gives a saddle: the function rises in one direction and falls in another.\n\nA zero eigenvalue makes the sufficient test silent. The point might be a minimizer, like the origin of \\(t^4\\) or of \\(x^2\\), or it might not, like the origin of \\(t^3\\). Silence is not a saddle. The necessary condition still allows the zero eigenvalue. Positive semidefiniteness is necessary and not sufficient."
     },
     {

@@ -1,6 +1,6 @@
 {
   "skill_id": "pid-tuning",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "round": 1,
@@ -10,10 +10,9 @@
       "steps": [
         "Close the loop with proportional control only, and raise that gain until the output oscillates at constant amplitude.",
         "From that oscillation, read \\(K_u\\) as the gain just reached, and read \\(T_u\\) as one full period of it. A half-cycle of the same oscillation is not \\(T_u\\).",
-        "Set \\(K_p\\) to \\(0.6\\) times the \\(K_u\\) read in the previous step. This \\(K_p\\) does not use the period.",
-        "Using the \\(T_u\\) read in the second step, and leaving the \\(K_p\\) written in the previous step unchanged, set \\(\\tau_i = T_u/2\\) and \\(\\tau_d = T_u/8\\)."
+        "Set \\(K_p\\) to \\(0.6\\) times the \\(K_u\\) just read, and set \\(\\tau_i = T_u/2\\) and \\(\\tau_d = T_u/8\\) from the period just read. The proportional gain uses only \\(K_u\\), and the two times use only \\(T_u\\)."
       ],
-      "version": 1,
+      "version": 2,
       "id": "pid-tuning-r1-q4"
     },
     {

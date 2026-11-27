@@ -54,7 +54,7 @@ ORDERS = {
     "bias-current-r2-q4": 4,
     "opamp-fr-r1-q4": 4,
     "slew-r1-q4": 4,
-    "noise-dist-r1-q5": 4,
+    "noise-dist-r1-q5": 3,
     "datasheet-r3-q4": 4,
 }
 
@@ -72,7 +72,7 @@ VERSIONS = {
     "bias-current": 3,
     "opamp-fr": 3,
     "slew": 3,
-    "noise-dist": 3,
+    "noise-dist": 4,
     "datasheet": 3,
 }
 

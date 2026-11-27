@@ -1,6 +1,6 @@
 {
   "skill_id": "reachability",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "reachability-r1-q1",
@@ -38,12 +38,10 @@
       "type": "numeric",
       "prompt": "For \\(A = \\mathrm{diag}(-1, -3)\\) and \\(B = \\begin{bmatrix} 2 \\\\ 0 \\end{bmatrix}\\), the rank of \\(\\begin{bmatrix} B & AB \\end{bmatrix}\\) is",
       "explanation": "\\(AB = \\begin{bmatrix} -2 \\\\ 0 \\end{bmatrix}\\), a multiple of \\(B\\). The second row is zero, so the rank is 1. The second mode is never driven. Rank 2 would need a nonzero entry in that mode. Rank 0 would need \\(B = 0\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a controllability matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   -2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
-      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
       "answer": 1.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "reachability-r2-q1",
@@ -79,12 +77,10 @@
       "type": "numeric",
       "prompt": "\\(A = \\mathrm{diag}(-2,-3,-4)\\) and \\(B\\) is the column \\((1, 0, 1)\\). How many states are unreachable?",
       "explanation": "The columns are \\((1,0,1)\\), \\((-2,0,-4)\\), and \\((4,0,16)\\). The middle entry is always 0, and the first and third columns are independent, so the rank is 2. One state is unreachable. Reporting 3 treats the zero column-entry as a total loss. Reporting 0 treats a nonzero \\(B\\) as a full test.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a controllability matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   -2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
-      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
       "answer": 1.0,
       "unit": "(unitless)",
       "tolerance": 0.02,
-      "version": 1
+      "version": 2
     },
     {
       "id": "reachability-r2-q3",
@@ -108,8 +104,6 @@
       "type": "error",
       "prompt": "A note treats \\(\\begin{bmatrix} 1 & 2 \\\\ 2 & 4 \\end{bmatrix}\\) as a controllability matrix. One step is wrong.",
       "explanation": "A repeated column does not add a direction. The rank is 1, not 2, so one state cannot be steered. The dependence is real, the rank count in the second step is right, and the last step is why the shortage matters for pole placement.",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a controllability matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   -2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
-      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
       "steps": [
         "The second column is twice the first, so the columns are dependent.",
         "Dependent columns mean the rank is 1 for this two-column matrix.",
@@ -123,7 +117,7 @@
         "Reachability does not care about rank once B is nonzero."
       ],
       "correct_reason": 0,
-      "version": 1
+      "version": 2
     },
     {
       "id": "reachability-r3-q2",
@@ -184,8 +178,6 @@
       "type": "mc",
       "prompt": "An unreachable mode, under any state feedback \\(u = -Kx\\),",
       "explanation": "State feedback changes \\(A\\) only in the directions \\(B\\) can see. An unreachable eigenvalue is not among them, so it stays put. The desired polynomial cannot include a move you have no actuator for. The mode does not become observable, because observability is about \\(C\\), and \\(K\\) does not delete the row of \\(A\\).",
-      "figure": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 130\" role=\"img\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-family=\"sans-serif\" font-size=\"12\"><title>a controllability matrix with a zero row</title><text x=\"28\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">[</text><text x=\"168\" y=\"78\" text-anchor=\"middle\" font-size=\"28\" fill=\"currentColor\" stroke=\"none\">]</text><text x=\"98\" y=\"58\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">2   -2</text><text x=\"98\" y=\"86\" text-anchor=\"middle\" font-size=\"16\" fill=\"currentColor\" stroke=\"none\">0   0</text></svg>",
-      "figure_alt": "A 2 by 2 matrix whose second row is zero.",
       "preview": [
         "state-feedback"
       ],
@@ -196,7 +188,7 @@
         "is removed from \\(A\\) by the gain"
       ],
       "correct_index": 2,
-      "version": 1
+      "version": 2
     },
     {
       "id": "reachability-r4-q3",
