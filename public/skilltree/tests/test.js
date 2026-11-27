@@ -6787,6 +6787,22 @@ async function test(name, fn) {
     assert(ten.midDots > 0, '10x sweep drew nothing mid-pan');
     assert(twice.median < 20, '2x median frame ' + twice.median.toFixed(2) + 'ms p95 ' + twice.p95.toFixed(2) + ' max ' + twice.max.toFixed(2));
     console.log('canvas bench 2x median ' + twice.median.toFixed(2) + 'ms; 10x median ' + ten.median.toFixed(2) + 'ms p95 ' + ten.p95.toFixed(2) + ' max ' + ten.max.toFixed(2));
+    const base = await p.evaluate(() => document.querySelectorAll('#world .tile').length);
+    const z2 = await p.evaluate(n => window.__skillgrove.canvas.benchZoomed(n * 2), base);
+    const z10 = await p.evaluate(n => window.__skillgrove.canvas.benchZoomed(n * 10), base);
+    const zoomLine = (label, row) => label + ' median ' + row.median.toFixed(2) + 'ms p95 ' + row.p95.toFixed(2) + ' max ' + row.max.toFixed(2) + ' painted ' + row.painted + ' in view ' + row.viewCards + ' of ' + row.count;
+    assert.strictEqual(z2.missing, 0, '2x pan hid a card that was inside the viewport');
+    assert.strictEqual(z10.missing, 0, '10x pan hid a card that was inside the viewport');
+    assert(z2.painted > 0 && z2.painted < z2.count, '2x should paint a subset, got ' + z2.painted + ' of ' + z2.count);
+    assert(z10.painted > 0 && z10.painted < z10.count, '10x should paint a subset, got ' + z10.painted + ' of ' + z10.count);
+    assert(z2.viewCards > 0 && z2.painted >= z2.viewCards, '2x viewport cards were not all painted');
+    assert(z10.viewCards > 0 && z10.painted >= z10.viewCards, '10x viewport cards were not all painted');
+    assert.strictEqual(z2.focus, true, 'focusing an off-screen card failed at 2x');
+    assert.strictEqual(z10.focus, true, 'focusing an off-screen card failed at 10x');
+    assert(z2.median < 20, zoomLine('zoomed 2x', z2));
+    assert(z10.median < 20, zoomLine('zoomed 10x', z10));
+    assert(z10.p95 < 34, zoomLine('zoomed 10x', z10));
+    console.log('zoomed bench base ' + base + '; ' + zoomLine('2x', z2) + '; ' + zoomLine('10x', z10));
     await p._ctx.close();
   });
 

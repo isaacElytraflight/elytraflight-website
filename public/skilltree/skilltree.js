@@ -1069,7 +1069,13 @@ function buildTile(s, st, boxId) {
   b.addEventListener('click', () => { if (drag.moved) return; selectSkill(s.id); });
   b.addEventListener('mouseenter', () => { hoverId = s.id; applyEdgeHighlight() });
   b.addEventListener('mouseleave', () => { hoverId = null; applyEdgeHighlight() });
-  b.addEventListener('focus', () => { hoverId = s.id; applyEdgeHighlight() });
+  b.addEventListener('focus', () => {
+    hoverId = s.id;
+    // The cull class would skip the card's paint. Drop it in this turn so a
+    // keyboard focus, including one that lands off screen, still draws.
+    if (b.classList.contains('offscreen')) b.classList.remove('offscreen');
+    applyEdgeHighlight();
+  });
   b.addEventListener('blur', () => { hoverId = null; applyEdgeHighlight() });
   return b;
 }
@@ -1100,7 +1106,9 @@ function refreshTile(b) {
   const hot = b.classList.contains('clone-hot');
   const boxDimmed = !tileInScope(b);
   const lightMode = b.classList.contains('light-mode');
-  b.className = 'tile' + (st ? ' st' : '') + ' t' + t + (soon ? ' soon' : '') + (ready ? ' ready' : '') + (selected === id ? ' sel' : '') + (boxDimmed ? ' boxdim' : '') + (lightMode ? ' light-mode' : '') + (hot ? ' clone-hot' : '');
+  const offscreen = b.classList.contains('offscreen');
+  const benchCard = b.classList.contains('bench-card');
+  b.className = 'tile' + (st ? ' st' : '') + ' t' + t + (soon ? ' soon' : '') + (ready ? ' ready' : '') + (selected === id ? ' sel' : '') + (boxDimmed ? ' boxdim' : '') + (lightMode ? ' light-mode' : '') + (hot ? ' clone-hot' : '') + (offscreen ? ' offscreen' : '') + (benchCard ? ' bench-card' : '');
   b.style.setProperty('--fill', FILL[t] + '%');
   b.querySelectorAll('.pips i').forEach((p, i) => p.classList.toggle('on', t > i));
   b.querySelector('.tl').textContent = soon ? '' : TIERS[t];
@@ -1162,6 +1170,7 @@ function placeCloneChrome(pos) {
       node.style.top = (p.y + TH + 4) + 'px';
     }
   });
+  invalidateTileCull();
 }
 
 function stubLabel(hidden) {
@@ -1393,6 +1402,7 @@ function syncTiles() {
   if (labelLayer) world.append(labelLayer);
   if (stubLayer) world.append(stubLayer);
   if (cloneLayer) world.append(cloneLayer);
+  invalidateTileCull();
   return starts;
 }
 
@@ -1621,8 +1631,12 @@ function showLayout(mode, animated) {
     applyBoxFilter();
     refreshEdgeHi();
     syncCanvasPicture();
+    scheduleTreeCull();
   };
   if (!animated || reducedMotion()) { finish(); return }
+  // Cards move on their own during a morph. A cull built from the old grid
+  // would hide one that is sliding through the viewport.
+  revealCulled();
   world.classList.add('morphing'); world.dataset.morphing = '1'; edgesSvg.classList.add('morph');
   syncCanvasPicture();
   const t0 = performance.now();
@@ -2308,12 +2322,324 @@ function benchCanvas(count) {
   });
 }
 
+let tileCullIndex = null;
+const edgeBoxCache = new WeakMap();
+
+function invalidateTileCull() { tileCullIndex = null; }
+
+const snapTiles = new Set();
+
+function revealCulled() {
+  if (world) world.querySelectorAll('.tile.offscreen').forEach(snapShowTile);
+  if (edgesSvg) edgesSvg.querySelectorAll('.offscreen').forEach(el => el.classList.remove('offscreen'));
+  flushSnapped();
+}
+
+/* box-shadow is on the tile transition list. Removing .offscreen and the
+   forced shadow in one style change animates every card that comes back,
+   which keeps shadows moving across the cards that never left. Hold the
+   transition off for one layout, then restore it in the same turn. */
+function snapShowTile(el) {
+  el.style.transition = 'none';
+  el.classList.remove('offscreen');
+  snapTiles.add(el);
+}
+
+function flushSnapped() {
+  if (!snapTiles.size) return;
+  if (world) void world.offsetWidth;
+  snapTiles.forEach(el => { if (el.style.transition === 'none') el.style.transition = ''; });
+  snapTiles.clear();
+}
+
+function ensureTileCullIndex() {
+  if (tileCullIndex) return tileCullIndex;
+  const cols = Object.create(null);
+  const list = [];
+  const tiles = world.querySelectorAll('.tile:not(.st):not(.bench-card)');
+  for (let i = 0; i < tiles.length; i++) {
+    const tile = tiles[i];
+    const key = tile.dataset.place || tile.dataset.id;
+    const p = key && curPos[key];
+    const styledL = parseFloat(tile.style.left), styledT = parseFloat(tile.style.top);
+    const left = isFinite(styledL) ? styledL : (p ? p.x : 0);
+    const top = isFinite(styledT) ? styledT : (p ? p.y : 0);
+    const w = TW, h = TH;
+    const x = left + w / 2;
+    const y = top + h / 2;
+    const item = { el: tile, x, y, l: x - w / 2, t: y - h / 2, w, h };
+    list.push(item);
+    const k = Math.floor(x / TREE_CELL) + ',' + Math.floor(y / TREE_CELL);
+    (cols[k] || (cols[k] = [])).push(item);
+  }
+  tileCullIndex = { cell: TREE_CELL, cols, list };
+  return tileCullIndex;
+}
+
+function parseCamera(raw) {
+  if (!raw || raw === 'none') return null;
+  try {
+    const m = new DOMMatrix(raw);
+    if (m.a > 0 && isFinite(m.e) && isFinite(m.f)) return { s: m.a, tx: m.e, ty: m.f };
+  } catch (e) { }
+  const legacy = /translate\(([-\d.]+)px,\s*([-\d.]+)px\)\s*scale\(([-\d.]+)\)/.exec(raw);
+  if (legacy) return { s: parseFloat(legacy[3]), tx: parseFloat(legacy[1]), ty: parseFloat(legacy[2]) };
+  return null;
+}
+
+function cameraNow() {
+  if (world && (worldCameraMoving() || viewAnimating())) {
+    const moving = parseCamera(getComputedStyle(world).transform);
+    if (moving) return moving;
+  }
+  if (world) {
+    const inline = parseCamera(world.style.transform);
+    if (inline) return inline;
+  }
+  return { s: view.s, tx: view.x, ty: view.y };
+}
+
+function pathBounds(el) {
+  const d = el.getAttribute('d');
+  if (!d) {
+    const cx = parseFloat(el.getAttribute('cx')), cy = parseFloat(el.getAttribute('cy'));
+    if (!isFinite(cx) || !isFinite(cy)) return null;
+    const r = parseFloat(el.getAttribute('r')) || 0;
+    return { x0: cx - r, y0: cy - r, x1: cx + r, y1: cy + r };
+  }
+  const prev = edgeBoxCache.get(el);
+  if (prev && prev.d === d) return prev.box;
+  const nums = d.match(/-?\d*\.?\d+(?:e[-+]?\d+)?/gi);
+  let box = null;
+  if (nums && nums.length >= 2) {
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (let i = 0; i + 1 < nums.length; i += 2) {
+      const x = parseFloat(nums[i]), y = parseFloat(nums[i + 1]);
+      if (x < x0) x0 = x;
+      if (y < y0) y0 = y;
+      if (x > x1) x1 = x;
+      if (y > y1) y1 = y;
+    }
+    box = { x0, y0, x1, y1 };
+  }
+  edgeBoxCache.set(el, { d, box });
+  return box;
+}
+
+function setOffscreen(el, off) {
+  if (el.classList.contains('offscreen') === off) return;
+  if (!off && el.classList.contains('tile')) snapShowTile(el);
+  else el.classList.toggle('offscreen', off);
+}
+
+/* Zoomed-in cards and strokes outside the viewport (plus a margin) skip
+   paint. The grid is the same 240px index the lights canvas uses. The work
+   runs in one rAF per pan or zoom, not on the pointer event itself. */
+function cullZoomed(cam, scope) {
+  if (!world || !tv) return { painted: 0, edges: 0 };
+  const active = !lightsMode && !world.classList.contains('morphing') && !(tv.classList.contains('canvas-on') && canvasPicture());
+  if (!active && !(scope && scope.force)) {
+    revealCulled();
+    return { painted: world.querySelectorAll('.tile:not(.st)').length, edges: edgeEls.length, revealed: true };
+  }
+  const s = cam.s > 0 && isFinite(cam.s) ? cam.s : 1;
+  const w = tv.clientWidth, h = tv.clientHeight;
+  const margin = Math.max(TW, TH, (w * 0.5) / s, (h * 0.5) / s);
+  const x0 = (0 - cam.tx) / s - margin, y0 = (0 - cam.ty) / s - margin;
+  const x1 = (w - cam.tx) / s + margin, y1 = (h - cam.ty) / s + margin;
+  const index = scope && scope.index ? scope.index : ensureTileCullIndex();
+  const hits = queryTreeCells(index, x0, y0, x1, y1);
+  const show = new Set();
+  for (let i = 0; i < hits.length; i++) show.add(hits[i].el);
+  const focused = document.activeElement;
+  if (focused && focused.classList && focused.classList.contains('tile') && world.contains(focused)) show.add(focused);
+  const hovered = world.querySelectorAll('.tile:hover');
+  for (let i = 0; i < hovered.length; i++) show.add(hovered[i]);
+  let painted = 0;
+  for (let i = 0; i < index.list.length; i++) {
+    const el = index.list[i].el;
+    const on = show.has(el);
+    if (on) painted++;
+    setOffscreen(el, !on);
+  }
+  const edgeNodes = scope && scope.edges ? scope.edges : (edgesSvg ? edgesSvg.querySelectorAll('path:not(.bench-edge), circle') : []);
+  let edges = 0;
+  for (let i = 0; i < edgeNodes.length; i++) {
+    const el = edgeNodes[i];
+    const box = pathBounds(el);
+    const on = !box || (box.x1 >= x0 && box.x0 <= x1 && box.y1 >= y0 && box.y0 <= y1);
+    if (on) edges++;
+    setOffscreen(el, !on);
+  }
+  flushSnapped();
+  return { painted, edges, margin };
+}
+
+function scheduleTreeCull() {
+  if (scheduleTreeCull.suspend || scheduleTreeCull.queued) return;
+  scheduleTreeCull.queued = true;
+  requestAnimationFrame(() => {
+    scheduleTreeCull.queued = false;
+    if (scheduleTreeCull.suspend || !world || world.classList.contains('morphing')) return;
+    // Fit and home move the camera with a CSS transition. Toggling the cull
+    // class on that same frame, or on every frame of the ease, restyles the
+    // tree and stalls the transition. Cards stay painted for the ease (they
+    // were revealed on the pre-animation frame) and one cull runs once the
+    // camera has settled.
+    if (worldCameraMoving() || viewAnimating()) { scheduleTreeCull(); return; }
+    cullZoomed(cameraNow());
+  });
+}
+
+function watchWorldCamera() {
+  if (watchWorldCamera.on || !world) return;
+  watchWorldCamera.on = true;
+  new MutationObserver(() => scheduleTreeCull()).observe(world, { attributes: true, attributeFilter: ['style', 'class'] });
+}
+
+function benchFrameStats(index, cam) {
+  const vw = tv.clientWidth, vh = tv.clientHeight;
+  let painted = 0, viewCards = 0, missing = 0;
+  for (let i = 0; i < index.list.length; i++) {
+    const it = index.list[i];
+    const sx0 = it.l * cam.s + cam.tx, sy0 = it.t * cam.s + cam.ty;
+    const sx1 = (it.l + it.w) * cam.s + cam.tx, sy1 = (it.t + it.h) * cam.s + cam.ty;
+    const inView = sx1 > 0 && sx0 < vw && sy1 > 0 && sy0 < vh;
+    const hidden = it.el.classList.contains('offscreen');
+    if (!hidden) painted++;
+    if (inView) {
+      viewCards++;
+      if (hidden) missing++;
+    }
+  }
+  return { painted, viewCards, missing };
+}
+
+function benchZoomed(count) {
+  return new Promise(resolve => {
+    scheduleTreeCull.suspend = true;
+    const lightsWas = lightsMode;
+    const canvasWas = tv.classList.contains('canvas-on');
+    if (lightsMode) {
+      lightsMode = false;
+      world.classList.remove('lights-view');
+      world.querySelectorAll('.tile.light-mode').forEach(t => t.classList.remove('light-mode'));
+    }
+    tv.classList.remove('canvas-on');
+    tv.classList.add('bench-on');
+    const colsN = Math.ceil(Math.sqrt(count));
+    const gap = 200;
+    const host = document.createElement('div');
+    host.id = 'benchCards';
+    const cols = Object.create(null);
+    const list = [];
+    for (let i = 0; i < count; i++) {
+      const left = (i % colsN) * gap, top = Math.floor(i / colsN) * gap;
+      const tile = document.createElement('button');
+      tile.className = 'tile bench-card';
+      tile.type = 'button';
+      tile.setAttribute('aria-label', 'Bench skill ' + i);
+      tile.style.left = left + 'px';
+      tile.style.top = top + 'px';
+      tile.textContent = 'B' + i;
+      host.append(tile);
+      const item = { el: tile, x: left + TW / 2, y: top + TH / 2, l: left, t: top, w: TW, h: TH };
+      list.push(item);
+      const k = Math.floor(item.x / TREE_CELL) + ',' + Math.floor(item.y / TREE_CELL);
+      (cols[k] || (cols[k] = [])).push(item);
+    }
+    world.append(host);
+    const index = { cell: TREE_CELL, cols, list };
+    const NS = 'http://www.w3.org/2000/svg';
+    const made = [];
+    for (let i = colsN; i < count; i++) {
+      const path = document.createElementNS(NS, 'path');
+      path.classList.add('bench-edge');
+      const from = list[i - colsN], to = list[i];
+      path.setAttribute('d', 'M' + from.x + ',' + from.y + ' L' + to.x + ',' + to.y);
+      edgesSvg.append(path);
+      made.push(path);
+    }
+    const steps = 24;
+    const stepPx = 48;
+    const frames = [];
+    let step = 0;
+    let warm = 4;
+    let missing = 0;
+    let mid = { painted: 0, viewCards: 0, edges: 0 };
+    const saved = world.style.transform;
+    let prev = performance.now();
+    const place = n => {
+      const cam = { s: 1, tx: 40 - n * stepPx, ty: 30 };
+      world.style.transform = 'translate(' + cam.tx + 'px,30px) scale(1)';
+      const culled = cullZoomed(cam, { force: true, index, edges: made });
+      const stats = benchFrameStats(index, cam);
+      return { cam, culled, stats };
+    };
+    const finish = () => {
+      const far = list.find(it => it.el.classList.contains('offscreen'));
+      let focus = !far;
+      if (far) {
+        far.el.focus({ preventScroll: true });
+        focus = document.activeElement === far.el && !!far.el.getAttribute('aria-label');
+      }
+      host.remove();
+      made.forEach(path => path.remove());
+      tv.classList.remove('bench-on');
+      world.style.transform = saved;
+      if (lightsWas) {
+        lightsMode = true;
+        world.classList.add('lights-view');
+        world.querySelectorAll('.tile:not(.bench-card)').forEach(t => t.classList.add('light-mode'));
+      }
+      if (canvasWas) tv.classList.add('canvas-on');
+      scheduleTreeCull.suspend = false;
+      invalidateTileCull();
+      scheduleTreeCull();
+      frames.sort((a, b) => a - b);
+      resolve({
+        count,
+        median: frames.length ? frames[Math.floor(frames.length / 2)] : 0,
+        p95: frames.length ? frames[Math.min(frames.length - 1, Math.floor(frames.length * 0.95))] : 0,
+        max: frames.length ? frames[frames.length - 1] : 0,
+        painted: mid.painted,
+        viewCards: mid.viewCards,
+        edges: mid.edges,
+        missing,
+        focus
+      });
+    };
+    const tick = now => {
+      const dt = now - prev;
+      prev = now;
+      if (warm > 0) {
+        warm--;
+        place(0);
+        requestAnimationFrame(tick);
+        return;
+      }
+      if (step) frames.push(dt);
+      const moved = place(step);
+      if (moved.stats.missing > missing) missing = moved.stats.missing;
+      if (step === Math.floor(steps / 2)) mid = { painted: moved.stats.painted, viewCards: moved.stats.viewCards, edges: moved.culled.edges };
+      step++;
+      if (step <= steps) requestAnimationFrame(tick);
+      else finish();
+    };
+    requestAnimationFrame(tick);
+  });
+}
+
 function commitLightsMode(on) {
   if (lightsMode === on) return;
   lightsMode = on;
   world.classList.toggle('lights-view', lightsMode);
   world.querySelectorAll('.tile').forEach(t => t.classList.toggle('light-mode', lightsMode));
   applyEdgeHighlight();
+  // Zoomed-out hit targets are the DOM cards (the canvas is pointer-events
+  // none). A cull class would skip their paint and is not used there.
+  if (on) revealCulled();
+  else scheduleTreeCull();
 }
 
 function releaseLightsHold() {
@@ -2347,6 +2673,7 @@ function applyView() {
   else if (shouldLights !== lightsMode) commitLightsMode(shouldLights);
   else refreshEdgeHi();
   presentCanvas();
+  scheduleTreeCull();
 }
 function animateView(fn) {
   // Flatten per-card layers before the transform changes. Doing both in one
@@ -2355,6 +2682,8 @@ function animateView(fn) {
   if (animateView.queued) return;
   animateView.queued = true;
   world.classList.add('preanim');
+  // One frame before the transform, so the ease is not left pending.
+  revealCulled();
   requestAnimationFrame(() => {
     animateView.queued = false;
     const run = animateView.fn;
@@ -2512,7 +2841,7 @@ function setupPanZoom() {
     else if (e.shiftKey && !e.deltaX) { view.x -= e.deltaY; applyView() }
     else { view.x -= e.deltaX; view.y -= e.deltaY; applyView() }
   }, { passive: false });
-  window.addEventListener('resize', scheduleTreeCanvas);
+  window.addEventListener('resize', () => { scheduleTreeCanvas(); scheduleTreeCull(); });
   $('zIn').onclick = () => zoomAt(1.2, tv.clientWidth / 2, tv.clientHeight / 2);
   $('zOut').onclick = () => zoomAt(1 / 1.2, tv.clientWidth / 2, tv.clientHeight / 2);
   $('zFit').onclick = goFit; $('zHome').onclick = () => goHome(true);
@@ -2745,6 +3074,7 @@ function refreshAll() {
   syncScopePicker();
   renderTodo();
   scheduleTreeCanvas();
+  scheduleTreeCull();
 }
 
 function renderStats() {
@@ -2784,6 +3114,7 @@ function setView(v) {
   writeUi({ view: v });
   applyGridFilter();
   scheduleTreeCanvas();
+  scheduleTreeCull();
 }
 
 function short(s, n) { return s.length > n ? s.slice(0, n - 1) + '…' : s }
@@ -6238,7 +6569,8 @@ async function init() {
   $('btnHelp').onclick = openHelp;
   $('btnFeedback').onclick = openFeedback;
   mb.addEventListener('mousedown', e => { if (e.target === mb) closeModal() });
-  window.addEventListener('resize', () => { if (panelOpen()) placePanel(); refreshEdgeHi(); if (calcState.open) drawCalc(); });
+  window.addEventListener('resize', () => { if (panelOpen()) placePanel(); refreshEdgeHi(); scheduleTreeCull(); if (calcState.open) drawCalc(); });
+  watchWorldCamera();
   
   window.__skillgrove = {
     version: APP_VERSION, storageOK: () => storageOK, layout: () => layout, mode: () => layoutMode,
@@ -6260,7 +6592,8 @@ async function init() {
     canvas: {
       stats: () => treeCanvasStats,
       twinkle: () => ({ on: !!(lightsMode && canvasMotionOn()), lower: false }),
-      bench: benchCanvas
+      bench: benchCanvas,
+      benchZoomed: benchZoomed
     },
     collections: { 
       data: () => COLLECTIONS, boxById: () => boxById, skillToBoxes: () => skillToBoxes, getSkillBox, getSkillColorIndex,
