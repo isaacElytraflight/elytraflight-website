@@ -1580,6 +1580,23 @@ async function test(name, fn) {
     assert.strictEqual(settled.anim, false);
     assert(settled.lights, 'the fitted tree is in lights mode');
     assert(Math.abs(settled.w - settled.expect) < 2, 'after the zoom the dot settles to ' + settled.expect + ' screen px, got ' + settled.w);
+    assert.strictEqual(await p.evaluate(() => document.getElementById('treeView').classList.contains('canvas-on')), true, 'the settled fit is drawn on the canvas');
+
+    await p.evaluate(() => window.__skillgrove.lights.setScale(0.22));
+    await sleep(80);
+    await p.evaluate(() => document.getElementById('zFit').click());
+    await p.waitForFunction(() => {
+      const world = document.getElementById('world');
+      if (!world.classList.contains('anim')) return false;
+      const parts = (getComputedStyle(world).transform || '').replace(/^matrix\(|\)$/g, '').split(',').map(s => parseFloat(s));
+      return (parts[0] || 1) < 0.2;
+    }, { timeout: 2000 });
+    const stayed = await p.evaluate(() => ({
+      anim: document.getElementById('world').classList.contains('anim'),
+      canvas: document.getElementById('treeView').classList.contains('canvas-on')
+    }));
+    assert(stayed.anim, 'a fit that stays in lights mode still animates');
+    assert(stayed.canvas, 'fit while zoomed out keeps the canvas up');
 
     await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
     await p.reload({ waitUntil: 'networkidle0' });

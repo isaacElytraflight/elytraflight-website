@@ -2151,10 +2151,28 @@ function canvasScene(twinkle) {
   };
 }
 
+function worldCameraMoving() {
+  return !!(world && (world.classList.contains('anim') || world.classList.contains('preanim')));
+}
+
 function canvasPicture() {
   if (!lightsMode || !world || !tv || tv.hidden) return false;
-  if (world.classList.contains('anim') || world.classList.contains('preanim') || world.classList.contains('morphing')) return false;
+  // Layout morphs move each card, which this canvas does not sample.
+  // A Fit/Home camera move stays on the canvas: dropping canvas-on in the
+  // same turn as the world transform restyles every tile and stalls it.
+  if (world.classList.contains('morphing')) return false;
   return true;
+}
+
+function readWorldCamera() {
+  if (worldCameraMoving()) {
+    const raw = getComputedStyle(world).transform;
+    if (raw && raw !== 'none') {
+      const m = new DOMMatrix(raw);
+      if (m.a > 0) return { s: m.a, tx: m.e, ty: m.f };
+    }
+  }
+  return { s: view.s, tx: view.x, ty: view.y };
 }
 
 function syncCanvasPicture() {
@@ -2164,10 +2182,13 @@ function syncCanvasPicture() {
   if (on) {
     paintCanvas(canvasScene(canvasMotionOn()));
     if (!was) tv.classList.add('canvas-on');
-    if (canvasMotionOn() && !scheduleTreeCanvas.loop) {
+    if (canvasMotionOn() && !worldCameraMoving() && !scheduleTreeCanvas.loop) {
       scheduleTreeCanvas.loop = true;
       const loop = () => {
-        if (!canvasPicture() || !canvasMotionOn()) { scheduleTreeCanvas.loop = false; return; }
+        if (!canvasPicture() || !canvasMotionOn() || worldCameraMoving()) {
+          scheduleTreeCanvas.loop = false;
+          return;
+        }
         paintCanvas(canvasScene(true));
         requestAnimationFrame(loop);
       };
@@ -2181,10 +2202,35 @@ function syncCanvasPicture() {
   }
 }
 
+function followCanvasCamera() {
+  if (followCanvasCamera.on) return;
+  followCanvasCamera.on = true;
+  const step = () => {
+    if (!tv || !tv.classList.contains('canvas-on') || !canvasPicture() || !worldCameraMoving()) {
+      followCanvasCamera.on = false;
+      if (canvasPicture()) scheduleTreeCanvas();
+      return;
+    }
+    const cam = readWorldCamera();
+    const scene = canvasScene(false);
+    scene.s = cam.s;
+    scene.tx = cam.tx;
+    scene.ty = cam.ty;
+    paintCanvas(scene);
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
 function presentCanvas() {
   if (!tv) return;
   const on = canvasPicture();
-  if (on !== tv.classList.contains('canvas-on')) syncCanvasPicture();
+  const was = tv.classList.contains('canvas-on');
+  if (worldCameraMoving() && was && on) {
+    followCanvasCamera();
+    return;
+  }
+  if (on !== was) syncCanvasPicture();
   else scheduleTreeCanvas();
 }
 
@@ -2193,6 +2239,10 @@ function scheduleTreeCanvas() {
   scheduleTreeCanvas.queued = true;
   requestAnimationFrame(() => {
     scheduleTreeCanvas.queued = false;
+    if (worldCameraMoving() && tv && tv.classList.contains('canvas-on') && canvasPicture()) {
+      followCanvasCamera();
+      return;
+    }
     syncCanvasPicture();
   });
 }
@@ -2267,11 +2317,13 @@ function commitLightsMode(on) {
 }
 
 function releaseLightsHold() {
-  if (!lightsHold) return;
+  const held = lightsHold;
   lightsHold = false;
-  const on = view.s < LIGHTS_THRESHOLD;
-  if (on) applyLightInv(view.s);
-  commitLightsMode(on);
+  if (held) {
+    const on = view.s < LIGHTS_THRESHOLD;
+    if (on) applyLightInv(view.s);
+    commitLightsMode(on);
+  }
   presentCanvas();
 }
 
