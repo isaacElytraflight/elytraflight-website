@@ -453,6 +453,12 @@ header #btnProfile.ready{--c:var(--accent);--cs:rgba(108,92,231,.5)}
 #treeView.canvas-on .tile.ready::after,
 #treeView.canvas-on .tile.t4.light-mode .light-dot,
 #treeView.canvas-on .tile.t4.light-mode .light-dot::after{animation:none !important}
+#treeView.canvas-handoff #world .tile,
+#treeView.canvas-handoff #world #edges,
+#treeView.canvas-handoff #world #regions,
+#treeView.canvas-handoff #world #regionLabels,
+#treeView.canvas-handoff #world .clone-tag,
+#treeView.canvas-handoff #world .need-stub{transition:none !important}
 #world.lights-view .tile{transition:background .2s,border-color .2s}
 /* Static structure lines. Opacity stays the zoomed-in value so the opacity transition never runs.
    stroke-opacity .42 times that .38 is about .16. The width is in layout pixels: #world is one

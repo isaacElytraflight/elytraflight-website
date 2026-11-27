@@ -1620,10 +1620,11 @@ function showLayout(mode, animated) {
     edgesSvg.classList.remove('morph'); world.classList.remove('morphing'); world.dataset.morphing = '0';
     applyBoxFilter();
     refreshEdgeHi();
-    scheduleTreeCanvas();
+    syncCanvasPicture();
   };
   if (!animated || reducedMotion()) { finish(); return }
   world.classList.add('morphing'); world.dataset.morphing = '1'; edgesSvg.classList.add('morph');
+  syncCanvasPicture();
   const t0 = performance.now();
   const step = now => {
     const k = Math.min(1, (now - t0) / MORPH_MS), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
@@ -2025,6 +2026,7 @@ function paintCanvas(scene) {
   if (!canvas || !tv) return { dots: 0, edges: 0, regions: 0 };
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const w = tv.clientWidth, h = tv.clientHeight;
+  if (w < 2 || h < 2) return treeCanvasStats;
   const pw = Math.max(1, Math.round(w * dpr)), ph = Math.max(1, Math.round(h * dpr));
   if (canvas.width !== pw || canvas.height !== ph) {
     canvas.width = pw;
@@ -2149,15 +2151,41 @@ function canvasScene(twinkle) {
   };
 }
 
-function drawTreeCanvas() {
-  if (!lightsMode) {
+function canvasPicture() {
+  if (!lightsMode || !world || !tv || tv.hidden) return false;
+  if (world.classList.contains('anim') || world.classList.contains('preanim') || world.classList.contains('morphing')) return false;
+  return true;
+}
+
+function syncCanvasPicture() {
+  if (!tv) return;
+  const on = canvasPicture();
+  const was = tv.classList.contains('canvas-on');
+  if (on) {
+    paintCanvas(canvasScene(canvasMotionOn()));
+    if (!was) tv.classList.add('canvas-on');
+    if (canvasMotionOn() && !scheduleTreeCanvas.loop) {
+      scheduleTreeCanvas.loop = true;
+      const loop = () => {
+        if (!canvasPicture() || !canvasMotionOn()) { scheduleTreeCanvas.loop = false; return; }
+        paintCanvas(canvasScene(true));
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    }
+  } else if (was) {
+    tv.classList.add('canvas-handoff');
+    tv.classList.remove('canvas-on');
     if (treeCanvas) treeCanvas.style.display = 'none';
-    if (tv) tv.classList.remove('canvas-on');
-    treeCanvasStats = { dots: 0, edges: 0, regions: 0, twinkle: false };
-    return;
+    requestAnimationFrame(() => { if (tv) tv.classList.remove('canvas-handoff'); });
   }
-  if (tv) tv.classList.add('canvas-on');
-  paintCanvas(canvasScene(canvasMotionOn()));
+}
+
+function presentCanvas() {
+  if (!tv) return;
+  const on = canvasPicture();
+  if (on !== tv.classList.contains('canvas-on')) syncCanvasPicture();
+  else scheduleTreeCanvas();
 }
 
 function scheduleTreeCanvas() {
@@ -2165,16 +2193,7 @@ function scheduleTreeCanvas() {
   scheduleTreeCanvas.queued = true;
   requestAnimationFrame(() => {
     scheduleTreeCanvas.queued = false;
-    drawTreeCanvas();
-    if (lightsMode && canvasMotionOn() && !scheduleTreeCanvas.loop) {
-      scheduleTreeCanvas.loop = true;
-      const loop = () => {
-        if (!lightsMode || !canvasMotionOn()) { scheduleTreeCanvas.loop = false; return; }
-        drawTreeCanvas();
-        requestAnimationFrame(loop);
-      };
-      requestAnimationFrame(loop);
-    }
+    syncCanvasPicture();
   });
 }
 
@@ -2253,8 +2272,7 @@ function releaseLightsHold() {
   const on = view.s < LIGHTS_THRESHOLD;
   if (on) applyLightInv(view.s);
   commitLightsMode(on);
-  if (tv) tv.classList.toggle('canvas-on', lightsMode);
-  scheduleTreeCanvas();
+  presentCanvas();
 }
 
 function applyView() {
@@ -2276,8 +2294,7 @@ function applyView() {
   if (deferLights) refreshEdgeHi();
   else if (shouldLights !== lightsMode) commitLightsMode(shouldLights);
   else refreshEdgeHi();
-  if (tv) tv.classList.toggle('canvas-on', lightsMode);
-  scheduleTreeCanvas();
+  presentCanvas();
 }
 function animateView(fn) {
   // Flatten per-card layers before the transform changes. Doing both in one
@@ -2443,6 +2460,7 @@ function setupPanZoom() {
     else if (e.shiftKey && !e.deltaX) { view.x -= e.deltaY; applyView() }
     else { view.x -= e.deltaX; view.y -= e.deltaY; applyView() }
   }, { passive: false });
+  window.addEventListener('resize', scheduleTreeCanvas);
   $('zIn').onclick = () => zoomAt(1.2, tv.clientWidth / 2, tv.clientHeight / 2);
   $('zOut').onclick = () => zoomAt(1 / 1.2, tv.clientWidth / 2, tv.clientHeight / 2);
   $('zFit').onclick = goFit; $('zHome').onclick = () => goHome(true);
@@ -2674,6 +2692,7 @@ function refreshAll() {
   applyBoxFilter(); applyGridFilter(); applyEdgeHighlight();
   syncScopePicker();
   renderTodo();
+  scheduleTreeCanvas();
 }
 
 function renderStats() {
@@ -2712,6 +2731,7 @@ function setView(v) {
   $('vTree').setAttribute('aria-pressed', String(v === 'tree')); $('vGrid').setAttribute('aria-pressed', String(v === 'grid'));
   writeUi({ view: v });
   applyGridFilter();
+  scheduleTreeCanvas();
 }
 
 function short(s, n) { return s.length > n ? s.slice(0, n - 1) + '…' : s }
